@@ -1,10 +1,13 @@
-Package: birdRad
+Package: bioRad
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Analysis and visualisation of weather radar data
 Version: 0.1
 Date: 2016-05-24
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: Adriaan Dokter
+Maintainer: Adriaan Dokter <a.m.dokter@uva.nl>
 Description: More about what it does (maybe more than one line)
-License: What license is it under?
+License: GNU General Public license
 LazyData: TRUE
+Imports:
+    h5
+RoxygenNote: 5.0.1
