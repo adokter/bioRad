@@ -7,6 +7,6 @@
 checkDocker()
 }
 \description{
-Checks that \href{https://www.docker.com/}{Docker} is running correctly
+Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
 }
 

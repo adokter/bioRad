@@ -16,7 +16,7 @@ TRUE when \code{filename} is a vertical profile, otherwise FALSE
 Checker whether a file is a vertical profile that can be read with package \pkg{bioRad}
 }
 \examples{
-VPFileQ("this/is/not/a/valid/VP/file.h5")   #> FALSE
+VPFileQ("/not/a/valid/VP/file.h5")   #> FALSE
 
 }
 

@@ -16,7 +16,7 @@ or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software
 
 \item{volume.out}{filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
-\item{radar}{string containing a unique radar identifier}
+\item{verbose}{when TRUE, pipe Docker stdout to R terminal}
 }
 \description{
 Calculates a vertical profile of birds (VPB) from a polar volume
@@ -27,7 +27,13 @@ Requires a running \href{https://www.docker.com/}{Docker} daemon
 \examples{
 # locate example volume file:
 volume <- system.file("extdata", "volume.h5", package="bioRad")
-# load the file:
-vol2bird(volume)
+# copy to a home directory with read/write permissions:
+file.copy(volume,"~/volume.h5")
+# load the profile:
+profile=vol2bird("~/volume.h5")
+# plot the profile
+plot(profile)
+# clean up:
+file.remove("~/volume.h5")
 }
 
