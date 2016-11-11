@@ -10,7 +10,7 @@
 \item{...}{objects of class \code{VP}}
 }
 \value{
-an object of class \code{VPList}, see \link[bioRad]{readVPList} for details
+an object of class \code{VPList}, see \link[bioRad]{readVP.list} for details
 }
 \description{
 concatenate \code{VP} objects into a \code{VPList} object

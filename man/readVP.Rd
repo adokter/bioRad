@@ -12,10 +12,29 @@ readVP(filename)
 \value{
 an object of class \code{VP}, which is a list containing
 \describe{
- \item{\code{radar}}{the radar identifier}
- \item{\code{datetime}}{the nominal time of the profile}
- \item{\code{profile}}{the profile data}
- \item{\code{attributes}}{the profile attributes}
+ \item{\strong{\code{radar}}}{the radar identifier}
+ \item{\strong{\code{datetime}}}{the nominal time of the profile [UTC]}
+ \item{\strong{\code{data}}}{the profile data, a list containing:
+   \describe{
+       \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
+       \item{\code{u}}{speed component west to east [m/s]}
+       \item{\code{v}}{speed component north to south [m/s]}
+       \item{\code{w}}{vertical speed (unreliable!) [m/s]}
+       \item{\code{ff}}{horizontal speed [m/s]}
+       \item{\code{dd}}{direction [degrees, clockwise from north]}
+       \item{\code{sd_vvp}}{VVP radial velocity standard deviation direction [m/s]}
+       \item{\code{gap}}{Angular data gap detected [T/F]}
+       \item{\code{dbz}}{Bird reflectivity factor [dBZ]}
+       \item{\code{eta}}{Bird reflectivity [cm^2/km^3]}
+       \item{\code{dens}}{Bird density [birds/km^3]}
+       \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) [dBZ]}
+       \item{\code{n}}{number of points VVP bird velocity analysis}
+       \item{\code{n_dbz}}{number of points bird density estimate}
+       \item{\code{n_all}}{number of points VVP velocity Stdev analysis}
+       \item{\code{n_all_dbz}}{number of points total reflectivity estimate}
+   }
+ }
+ \item{\strong{\code{attributes}}}{list with the profile's \code{\\what}, \code{\\where} and \code{\\how} attributes}
 }
 }
 \description{

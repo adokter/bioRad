@@ -2,14 +2,13 @@
 % Please edit documentation in R/bioRad.R
 \name{plot.VP}
 \alias{plot.VP}
-\title{Plot an interval histogram and fit of droprate object}
+\title{Plot a vertical profile}
 \usage{
-\method{plot}{VP}(vp, xlab = "density [#/km^3]", ylab = "height [km]",
-  main = "Vertical profile", type = "l", line.col = "red", line.lwd = 1,
-  ...)
+\method{plot}{VP}(x, xlab = "density [#/km^3]", ylab = "height [km]",
+  main = "Vertical profile", line.col = "red", line.lwd = 1, ...)
 }
 \arguments{
-\item{vp}{a VP class object}
+\item{x}{a VP class object}
 
 \item{xlab}{a title for the x axis}
 
@@ -24,7 +23,7 @@
 \item{...}{Additional arguments to be passed to the low level \link[graphics]{plot} plotting function}
 }
 \description{
-Plot an interval histogram and fit of droprate object
+Plot a vertical profile
 }
 \examples{
 data(VP)

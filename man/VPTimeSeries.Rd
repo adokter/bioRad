@@ -7,20 +7,20 @@
 VPTimeSeries(x, radar = NA)
 }
 \arguments{
-\item{x}{An object of class \code{VPList}, usually a result of a call to \link[bioRad]{readVPList}}
+\item{x}{An object of class \code{VPList}, usually a result of a call to \link[bioRad]{readVP.list}}
 
 \item{radar}{string containing the radar identifier to generate time series for. Only required when \code{VPList} object contains multiple radars}
 }
 \value{
 an object of class \code{VP}, which is a list containing
 \describe{
- \item{\code{VPList}}{vertical profiles, a list of \code{VP} objects, see \link[bioRad]{readVP} for a description}
  \item{\code{radar}}{string containing the radar identifier}
  \item{\code{dates}}{the \code{N} nominal times of the profiles}
  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
- \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity measured}
+ \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
+                    For a description of available quantities, see the \code{data} element of the \code{VP} class in \link[bioRad]{readVP}}
  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
  \item{\code{regular}}{logical indicating whether the time series is regular or not}
 }
