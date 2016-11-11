@@ -17,6 +17,20 @@
 
 library(h5)
 
+#' Checks that Docker is running
+#'
+#' Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
+#' @param verbose logical (not NA) which indicates whether print test results to screen
+#' @export
+checkDocker = function(verbose=T){
+  result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
+  system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
+  if(!verbose) return(result)
+}
+
+docker=(checkDocker(verbose=F)==0)
+if(!docker) warning("Docker not running, disabling vol2bird")
+
 readOdimProfileData = function(file,group){
   whatgroup = file[sprintf("%s/what",group)]
   nodata=h5attr(whatgroup,"nodata")
@@ -369,18 +383,6 @@ vol2bird =  function(volume.in, profile.out="", volume.out="",verbose=F){
   else file.rename(profile.tmp,profile.out)
   output
 }
-
-#' Checks that Docker is running
-#'
-#' Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
-#' @param verbose logical (not NA) which indicates whether print test results to screen
-#' @export
-checkDocker = function(verbose=T){
-  result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,intern=!verbose)
-  system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
-  if(!verbose) return(result)
-}
-
 
 #' Read vertical profiles from vol2bird stdout
 #'
