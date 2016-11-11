@@ -7,7 +7,7 @@
 \method{print}{VP}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
-\item{x}{An object of class \code{VP}, usually a result of a call to \link[bioRad]{readVP}}
+\item{x}{An object of class \code{VP}, like the result of a call to \link[bioRad]{readVP}}
 }
 \description{
 print method for class \code{VP}

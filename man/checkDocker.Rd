@@ -4,7 +4,10 @@
 \alias{checkDocker}
 \title{Checks that Docker is running}
 \usage{
-checkDocker()
+checkDocker(verbose = T)
+}
+\arguments{
+\item{verbose}{logical (not NA) which indicates whether print test results to screen}
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
