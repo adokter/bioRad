@@ -12,11 +12,11 @@ vol2bird(volume.in, profile.out = "", volume.out = "", verbose = F)
 format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library})}
 
-\item{profile.out}{filename for the vertical profile to be generated in ODIM HDF5 format (optional)}
+\item{profile.out}{character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)}
 
-\item{volume.out}{filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
+\item{volume.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
-\item{verbose}{when TRUE, pipe Docker stdout to R terminal}
+\item{verbose}{logical. When TRUE, pipe Docker stdout to R terminal}
 }
 \description{
 Calculates a vertical profile of birds (VPB) from a polar volume

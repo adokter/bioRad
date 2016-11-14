@@ -12,7 +12,7 @@ readVP.table(file, radar)
 \item{radar}{string containing a radar identifier}
 }
 \value{
-an object of class \code{VPTimeSeries}, see \link[bioRad]{VPTimeSeries} for details
+an object inhereting from class "\code{VPTimeSeries}", see \link[bioRad]{VPTimeSeries} for details
 }
 \description{
 Read vertical profiles from vol2bird stdout
@@ -20,6 +20,8 @@ Read vertical profiles from vol2bird stdout
 \examples{
 # locate example file:
 VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
-readVP.table(VPtable,radar="KBGM")
+# load time series:
+ts=readVP.table(VPtable,radar="KBGM")
+ts
 }
 

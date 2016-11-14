@@ -12,7 +12,7 @@ VPTimeSeries(x, radar = NA)
 \item{radar}{string containing the radar identifier to generate time series for. Only required when \code{VPList} object contains multiple radars}
 }
 \value{
-an object of class \code{VP}, which is a list containing
+an object of class \code{VPTimeSeries}, which is a list containing
 \describe{
  \item{\code{radar}}{string containing the radar identifier}
  \item{\code{dates}}{the \code{N} nominal times of the profiles}
