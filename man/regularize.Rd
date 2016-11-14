@@ -2,7 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{regularize}
 \alias{regularize}
-\title{make a time series regular}
+\title{Regularize a time series}
 \usage{
 regularize(ts, interval = "auto", units = "mins", fill = F)
 }
@@ -17,6 +17,14 @@ regularize(ts, interval = "auto", units = "mins", fill = F)
 an object of class \code{VPTimeSeries} with regular time steps
 }
 \description{
-make a time series regular
+Projects objects of class \code{VPTimeSeries} on a regular time grid
+}
+\examples{
+# locate example file:
+VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+# load time series:
+ts=readVP.table(VPtable,radar="KBGM")
+# regularize the time series on a 5 minute interval grid
+tsRegular=regularize(ts, interval=5)
 }
 

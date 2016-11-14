@@ -40,10 +40,19 @@ number of targets crossing a 1 km line perpendicular to the migratory movement p
 \examples{
 # MTR for a vertical profile:
 MTR(VP)
+
+plot(ts$dates,MTR(ts),type='l')
 # MTRs for a list of vertical profiles
 MTR(c(VP,VP))
-# MTRs for a time series:
-ts=VPTimeSeries(c(VP,VP))
+# locate example file:
+VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+# load time series:
+ts=readVP.table(VPtable,radar="KBGM")
+# print migration traffic rates:
 MTR(ts)
+# plot migration traffic rates for the full air column:
+plot(ts$dates,MTR(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+#' plot migration traffic rates for altitudes > 1 km above sea level
+plot(ts$dates,MTR(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
 }
 

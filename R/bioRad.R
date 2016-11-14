@@ -35,8 +35,8 @@ checkDocker = function(verbose=T){
 setLoadActions(function(ns)
   cat("Loading package", sQuote(getNamespaceName(ns)), "...\n"),
   function(ns) if((checkDocker(verbose=F)!=0)){
-    cat("Warning: no running Docker daemon found!\n")
-    cat("Warning:",getNamespaceName(ns),"functionality requiring Docker has been disabled!\n\n")
+    cat("Warning: no running Docker daemon found\n")
+    cat("Warning:",getNamespaceName(ns),"functionality requiring Docker has been disabled\n\n")
     cat("To enable Docker functionality, start Docker and run 'checkDocker()' in R")
     unlockBinding("docker", environment(checkDocker))
     assign("docker", F, envir = ns)
@@ -336,7 +336,7 @@ VPTimeSeries=function(x,radar=NA){
   VPsFlat=lapply(profile.quantities, function(quantity) sapply(lapply(VPs,'[[',"data"),'[[',quantity))
   names(VPsFlat)=profile.quantities
   if(length(unique(difftimes))==1) regular = T else regular = F
-
+  VPsFlat$HGHT<-NULL
   output=list(radar=radar,dates=dates,heights=VPs[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=VPsFlat,attributes=VPs[[1]]$attributes,regular=regular)
   class(output)="VPTimeSeries"
   output
@@ -440,24 +440,56 @@ readVP.table=function(file,radar){
   # flatten the profiles
   profile.quantities=names(data[[1]])
   VPsFlat=lapply(profile.quantities, function(quantity) sapply(data,'[[',quantity))
+  names(VPsFlat)=profile.quantities
+  VPsFlat$HGHT<-NULL
   # prepare output
-  output=list(radar=radar,dates=dates,heights=data[[1]]$"HGHT",daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=VPsFlat,attributes=NA,regular=regular)
+  heights=data[[1]]$"HGHT"
+  interval=unique(heights[-1]-heights[-length(heights)])
+  attributes=list(where=data.frame(interval=interval,levels=length(heights)))
+  output=list(radar=radar,dates=dates,heights=heights,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=VPsFlat,attributes=attributes,regular=regular)
   class(output)="VPTimeSeries"
   output
 }
 
-#' make a time series regular
+#' Regularize a time series
 #'
+#' Projects objects of class \code{VPTimeSeries} on a regular time grid
 #' @param ts an object inhereting from class \code{VPTimeSeries}, see \link[bioRad]{VPTimeSeries} for details
 #' @param units optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.
 #' @param fill logical. Whether to fill empty timesteps with the values of the closest neighbouring profile
 #' @export
 #' @return an object of class \code{VPTimeSeries} with regular time steps
+#' @examples
+#' # locate example file:
+#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+#' # load time series:
+#' ts=readVP.table(VPtable,radar="KBGM")
+#' # regularize the time series on a 5 minute interval grid
+#' tsRegular=regularize(ts, interval=5)
 regularize=function(ts,interval="auto",units="mins",fill=F){
-  stopifnot(inherits(x, "VPTimeSeries"))
+  stopifnot(inherits(ts, "VPTimeSeries"))
   if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) stop("invalid 'units' argument. Should be one of c('secs', 'mins', 'hours','days', 'weeks')")
-  if (!(interval=="auto" || is.numeric(interval)) || length(units)>1) stop("invalid 'interval' argument. Should be a numeric value or 'auto'")
+  if (!is.numeric(interval) || length(units)>1) stop("invalid or missing 'interval' argument. Should be a numeric value")
   if (!is.logical(fill) || length(fill)>1) stop("fill argument should be a logical value")
+  dt=as.difftime(interval,units=units)
+  grid=seq(from=ts$daterange[1],to=ts$daterange[2],by=dt)
+  index=sapply(grid,function(x) which.min(abs(ts$dates - x)))
+  quantity.names=names(ts$data)
+  ts$data=lapply(1:length(ts$data),function(x) ts$data[[x]][,index])
+  if(!fill){
+    index2=which(abs(ts$dates[index] - grid)>as.double(dt,units="secs"))
+    ts$data=lapply(1:length(ts$data),function(x) {
+        tmp=ts$data[[x]]
+        tmp[,index2]<-NA
+        tmp
+      }
+    )
+  }
+  names(ts$data)=quantity.names
+  ts$dates=grid
+  ts$timesteps=rep(as.double(dt,units="secs"),length(grid)-1)
+  ts$regular=T
+  return(ts)
 }
 
 #' Calculate migration traffic rate (MTR)
@@ -476,10 +508,11 @@ MTR <- function (x, ...) UseMethod("MTR", x)
 #' @examples
 #' # MTR for a vertical profile:
 #' MTR(VP)
+#'
+#' plot(ts$dates,MTR(ts),type='l')
 MTR.VP = function(x,alt.min=0,alt.max=Inf){
   stopifnot(inherits(x,"VP"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  rcs=x$attributes$how$rcs_bird
   interval=x$attributes$where$interval
   index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
   mtr=sum(x$data$dens[index] * x$data$ff[index] * interval/1000,na.rm=T)
@@ -501,9 +534,16 @@ MTR.VPList = function(x,alt.min=0,alt.max=Inf){
 #' @describeIn MTR MTR of a list of vertical profiles
 #' @export
 #' @examples
-#' # MTRs for a time series:
-#' ts=VPTimeSeries(c(VP,VP))
+#' # locate example file:
+#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+#' # load time series:
+#' ts=readVP.table(VPtable,radar="KBGM")
+#' # print migration traffic rates:
 #' MTR(ts)
+#' # plot migration traffic rates for the full air column:
+#' plot(ts$dates,MTR(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+#' #' plot migration traffic rates for altitudes > 1 km above sea level
+#' plot(ts$dates,MTR(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
 MTR.VPTimeSeries = function(x,alt.min=0,alt.max=Inf){
   stopifnot(inherits(x,"VPTimeSeries"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
@@ -592,5 +632,3 @@ dim.VPTimeSeries <- function(x) {
   data.dim=dim(x$data[[1]])
   c(data.dim,length(x$data))
 }
-
-
