@@ -325,7 +325,7 @@ VPTimeSeries=function(x,radar=NA){
   index=which(radars==radar)
   VPs=x$VPList[index]
   dates=.POSIXct(do.call("c",lapply(VPs,'[[',"datetime")),tz="UTC")
-  difftimes=difftime(dates[-1],dates[-length(dates)],units="mins")
+  difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
   profile.quantities=names(VPs[[1]]$data)
 
   where.attributes=sapply(lapply(VPs,'[[',"attributes"),'[[',"where")
@@ -431,7 +431,7 @@ readVP.table=function(file,radar){
   dates=.POSIXct(sapply(1:length(data),function(x) data[[x]]$datetime[1]),tz="UTC")
   data=lapply(data, function(x) { x["datetime"] <- NULL; x })
   # check whether the time series is regular
-  difftimes=difftime(dates[-1],dates[-length(dates)],units="mins")
+  difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
   if(length(unique(difftimes))==1) regular = T else regular = F
   # verify that profiles can be flattened
   if(length(unique(lapply(1:length(data), function(x) dim(data[[x]]))))>1){
@@ -605,7 +605,7 @@ is.VPList <- function(x) inherits(x, "VPList")
 #' @keywords internal
 `[[.VPList` <- function(x,i) {
   stopifnot(inherits(x,"VPList"))
-  x$VPList[[i]]
+  x$VPList[i]
 }
 
 #' Class VPTimeSeries
@@ -632,3 +632,19 @@ dim.VPTimeSeries <- function(x) {
   data.dim=dim(x$data[[1]])
   c(data.dim,length(x$data))
 }
+
+#' @rdname summary.VPList
+#' @export
+#' @keywords internal
+`[.VPTimeSeries` <- function(x,i) {
+  stopifnot(inherits(x,"VPTimeSeries"))
+  x$dates=x$dates[i]
+  x$daterange=.POSIXct(c(min(x$dates),max(x$dates)),tz="UTC")
+  x$timesteps=difftime(x$dates[-1],x$dates[-length(x$dates)],units="secs")
+  if(length(unique(x$timesteps))==1) x$regular = T else x$regular = F
+  quantity.names=names(x$data)
+  x$data=lapply(names(x$data),function(quantity) getElement(x$data,quantity)[,i])
+  names(x$data)=quantity.names
+  return(x)
+}
+

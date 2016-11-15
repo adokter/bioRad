@@ -2,6 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{summary.VPList}
 \alias{[.VPList}
+\alias{[.VPTimeSeries}
 \alias{[[.VPList}
 \alias{is.VPList}
 \alias{summary.VPList}
@@ -14,6 +15,8 @@ is.VPList(x)
 \method{[}{VPList}(x, i)
 
 \method{[[}{VPList}(x, i)
+
+\method{[}{VPTimeSeries}(x, i)
 }
 \arguments{
 \item{x}{object}
