@@ -2,12 +2,11 @@ Package: bioRad
 Type: Package
 Title: Analysis and visualisation of weather radar data
 Version: 0.1
-Date: 2016-05-24
-Author: Adriaan Dokter
-Maintainer: Adriaan Dokter <a.m.dokter@uva.nl>
+Date: 2016-11-15
+Authors@R: person("Adriaan M.", "Dokter", email = "a.m.dokter@uva.nl",
+           role = c("aut", "cre"))
 Description: More about what it does (maybe more than one line)
 License: GNU General Public license
 LazyData: TRUE
-Imports:
-    h5
+Imports: h5, fields
 RoxygenNote: 5.0.1
