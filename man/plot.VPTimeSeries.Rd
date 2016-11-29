@@ -41,8 +41,13 @@ Profile can be visualised in three related quantities, as specified by argument 
 }
 }
 \examples{
-data(VP)
-plot(VP)
-plot(VP,line.col='blue')
+# locate example file:
+VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+# load and regularize time series of vertical profiles:
+ts=regularize(readVP.table(VPtable,radar="KBGM", wavelength='S'))
+# plot density of individuals for the first 500 time steps, in the altitude layer 0-3000 m.
+plot(ts[1:500], ylim=c(0,3000))
+# plot total reflectivity factor (rain,birds,insects together):
+plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
 }
 

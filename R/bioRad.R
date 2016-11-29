@@ -132,9 +132,9 @@ readVP = function(filename){
   attribNames.how=list.attributes(howgroup)
   attribNames.what=list.attributes(whatgroup)
   attribNames.where=list.attributes(wheregroup)
-  attribs.how=as.data.frame(lapply(attribNames.how,function(x) h5attr(howgroup,x)),stringsAsFactors=F)
-  attribs.what=as.data.frame(lapply(attribNames.what,function(x) h5attr(whatgroup,x)),stringsAsFactors=F)
-  attribs.where=as.data.frame(lapply(attribNames.where,function(x) h5attr(wheregroup,x)),stringsAsFactors=F)
+  attribs.how=lapply(attribNames.how,function(x) h5attr(howgroup,x))
+  attribs.what=lapply(attribNames.what,function(x) h5attr(whatgroup,x))
+  attribs.where=lapply(attribNames.where,function(x) h5attr(wheregroup,x))
   names(attribs.how)=attribNames.how
   names(attribs.what)=attribNames.what
   names(attribs.where)=attribNames.where
@@ -270,7 +270,7 @@ c.VP = function(...){
   VPs=list(...)
   VPtest=sapply(VPs,function(x) is(x,"VP"))
   if(FALSE %in% VPtest) {
-    warning("non-VP objects found, returning an unconcatenated list...")
+    warning("non-VP objects found, returning a standard list...")
     return(VPs)
   }
   # extract radar identifiers
@@ -279,8 +279,20 @@ c.VP = function(...){
   # extract date-times
   dates=.POSIXct(do.call("c",lapply(VPs,'[[',"datetime")),tz="UTC")
   output=list(VPList=VPs,radar=radars,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),dates=dates)
+  output=VPs
   class(output)="VPList"
   output
+}
+
+#' @rdname summary.VPList
+#' @export
+#' @keywords internal
+`[.VPList` <- function(x,i) {
+  stopifnot(inherits(x,"VPList"))
+  if(length(i)==1) return(x[[i]])
+  output=unclass(x)[i]
+  class(output)="VPList"
+  return(output)
 }
 
 #' print method for class \code{VPList}
@@ -290,10 +302,15 @@ c.VP = function(...){
 #' @export
 print.VPList=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   stopifnot(inherits(x, "VPList"))
+  # extract radar identifiers
+  radar=unique(sapply(x,'[[',"radar"))
+  # extract date-times
+  dates=.POSIXct(do.call("c",lapply(x,'[[',"datetime")),tz="UTC")
+  daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
   cat("                   List of vertical profiles (class VPList)\n\n")
-  cat("          radars: ",x$radar,"\n")
-  cat("      # profiles: ",length(x$VPList),"\n")
-  cat("time range (UTC): ",as.character(x$daterange[1]),"-",as.character(x$daterange[2]),"\n")
+  cat("          radars: ",radar,"\n")
+  cat("      # profiles: ",length(x),"\n")
+  cat("time range (UTC): ",as.character(daterange[1]),"-",as.character(daterange[2]),"\n")
 }
 
 #' Convert \code{VPList} to a single radar time series
@@ -318,12 +335,17 @@ print.VPList=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #'
 VPTimeSeries=function(x,radar=NA){
   stopifnot(inherits(x, "VPList"))
-  if(length(x$radar)>1 && is.na(radar)) stop("vertical profile list of multiple radars, select one with 'radar' argument")
-  if(!is.na(radar) && !(radar %in% x$radar)) stop(paste("no profiles found for radar",radar))
-  if(is.na(radar)) radar=x$radar
-  radars=sapply(x$VPList,'[[',"radar")
+  # extract radar identifiers
+  radars=sapply(x,'[[',"radar")
+  uniqueRadars=unique(radars)
+  # extract date-times
+  dates=.POSIXct(do.call("c",lapply(x,'[[',"datetime")),tz="UTC")
+  daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
+  if(length(uniqueRadars)>1 & is.na(radar)) stop("vertical profile list of multiple radars, select one with 'radar' argument")
+  if(!is.na(radar) & !(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
+  if(is.na(radar) & length(uniqueRadars==1)) radar=uniqueRadars
   index=which(radars==radar)
-  VPs=x$VPList[index]
+  VPs=x[index]
   # sort by datetime
   VPs=VPs[order(sapply(VPs,'[[',"datetime"))]
   dates=.POSIXct(do.call("c",lapply(VPs,'[[',"datetime")),tz="UTC")
@@ -462,8 +484,10 @@ readVP.table=function(file,radar,wavelength='C'){
 #'
 #' Projects objects of class \code{VPTimeSeries} on a regular time grid
 #' @param ts an object inhereting from class \code{VPTimeSeries}, see \link[bioRad]{VPTimeSeries} for details
+#' @param interval time interval grid to project on. When '\code{auto}' the median interval in the time series is used
 #' @param units optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.
 #' @param fill logical. Whether to fill empty timesteps with the values of the closest neighbouring profile
+#' @param verbose logical. When \code{TRUE} prints text to console
 #' @export
 #' @return an object of class \code{VPTimeSeries} with regular time steps
 #' @examples
@@ -473,12 +497,17 @@ readVP.table=function(file,radar,wavelength='C'){
 #' ts=readVP.table(VPtable,radar="KBGM", wavelength='S')
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular=regularize(ts, interval=5)
-regularize=function(ts,interval="auto",units="mins",fill=F){
+regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
   stopifnot(inherits(ts, "VPTimeSeries"))
   if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) stop("invalid 'units' argument. Should be one of c('secs', 'mins', 'hours','days', 'weeks')")
-  if (!is.numeric(interval) || length(units)>1) stop("invalid or missing 'interval' argument. Should be a numeric value")
+  if (interval!="auto" && !is.numeric(interval)) stop("invalid or missing 'interval' argument. Should be a numeric value")
+  if (length(units)>1) stop("invalid or missing 'units' argument.")
   if (!is.logical(fill) || length(fill)>1) stop("fill argument should be a logical value")
-  dt=as.difftime(interval,units=units)
+  if(interval=="auto"){
+    dt=as.difftime(median(ts$timesteps),units="secs")
+    if(verbose) cat(paste("projecting on",dt,"seconds interval grid...\n"))
+  }
+  else dt=as.difftime(interval,units=units)
   grid=seq(from=ts$daterange[1],to=ts$daterange[2],by=dt)
   index=sapply(grid,function(x) which.min(abs(ts$dates - x)))
   quantity.names=names(ts$data)
@@ -504,20 +533,34 @@ regularize=function(ts,interval="auto",units="mins",fill=F){
 #' Calculate migration traffic rate (MTR) for an altitude layer, defined as the
 #' number of targets crossing a 1 km line perpendicular to the migratory movement per hour
 #' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
-#' @export
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
-#' @return an atomic vector with MTRs in individuals/km/h
-MTR <- function (x, ...) UseMethod("MTR", x)
-
-#' @describeIn MTR MTR of a vertical profile
 #' @export
+#' @return an atomic vector with MTRs in individuals/km/h
 #' @examples
-#' # MTR for a vertical profile:
-#' MTR(VP)
+#' ### MTR for a single vertical profile ###
+#' mtr(VP)
 #'
-#' plot(ts$dates,MTR(ts),type='l')
-MTR.VP = function(x,alt.min=0,alt.max=Inf){
+#' ### MTRs for a list of vertical profiles ###
+#' mtr(c(VP,VP))
+#'
+#' ### MTRs for a time series of vertical profiles ###
+#' # locate example file:
+#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+#' # load time series:
+#' ts=readVP.table(VPtable,radar="KBGM", wavelength='S')
+#' # print migration traffic rates:
+#' mtr(ts)
+#' # plot migration traffic rates for the full air column:
+#' plot(ts$dates,mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+#' #' plot migration traffic rates for altitudes > 1 km above sea level
+#' plot(ts$dates,mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+mtr <- function (x, ...) UseMethod("mtr", x)
+
+#' @describeIn mtr MTR of a vertical profile
+#' @method mtr VP
+#' @export
+mtr.VP = function(x,alt.min=0,alt.max=Inf){
   stopifnot(inherits(x,"VP"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   interval=x$attributes$where$interval
@@ -526,32 +569,20 @@ MTR.VP = function(x,alt.min=0,alt.max=Inf){
   return(mtr)
 }
 
-#' @describeIn MTR MTR of a list of vertical profiles
+#' @describeIn mtr MTR of a list of vertical profiles
+#' @method mtr VPList
 #' @export
-#' @examples
-#' # MTRs for a list of vertical profiles
-#' MTR(c(VP,VP))
-MTR.VPList = function(x,alt.min=0,alt.max=Inf){
+mtr.VPList = function(x,alt.min=0,alt.max=Inf){
   stopifnot(inherits(x,"VPList"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   mtr=sapply(x$VPList,MTR.VP,alt.min=alt.min,alt.max=alt.max)
   return(mtr)
 }
 
-#' @describeIn MTR MTR of a list of vertical profiles
+#' @describeIn mtr MTR of a time series of vertical profiles
+#' @method mtr VPTimeSeries
 #' @export
-#' @examples
-#' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
-#' # load time series:
-#' ts=readVP.table(VPtable,radar="KBGM", wavelength='S')
-#' # print migration traffic rates:
-#' MTR(ts)
-#' # plot migration traffic rates for the full air column:
-#' plot(ts$dates,MTR(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-#' #' plot migration traffic rates for altitudes > 1 km above sea level
-#' plot(ts$dates,MTR(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-MTR.VPTimeSeries = function(x,alt.min=0,alt.max=Inf){
+mtr.VPTimeSeries = function(x,alt.min=0,alt.max=Inf){
   stopifnot(inherits(x,"VPTimeSeries"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   interval=x$attributes$where$interval
@@ -599,28 +630,6 @@ summary.VPList=function(x) print.VPList(x)
 #' @return for \code{is.VPList}: \code{TRUE} if its argument is of class "\code{VPList}"
 is.VPList <- function(x) inherits(x, "VPList")
 
-#' @rdname summary.VPList
-#' @export
-#' @keywords internal
-`[.VPList` <- function(x,i) {
-  stopifnot(inherits(x,"VPList"))
-  x$VPList=x$VPList[i]
-  if(length(i)==1) return(x$VPList[[i]])
-  # extract radar identifiers
-  x$radar=unique(sapply(x$VPList,'[[',"radar"))
-  # extract date-times
-  x$dates=x$dates[i]
-  x$daterange=.POSIXct(c(min(x$dates),max(x$dates)),tz="UTC")
-  return(x)
-}
-
-#' @rdname summary.VPList
-#' @export
-#' @keywords internal
-`[[.VPList` <- function(x,i) {
-  stopifnot(inherits(x,"VPList"))
-  x$VPList[[i]]
-}
 
 #' Class VPTimeSeries
 #'
@@ -662,3 +671,74 @@ dim.VPTimeSeries <- function(x) {
   return(x)
 }
 
+#' extract radar cross section
+#' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
+#' @export
+#' @return a radar cross section in cm^2
+#' @examples
+#' # extract RCS for a single vertical profile:
+#' rcs(VP)
+rcs <- function (x, ...) UseMethod("rcs", x)
+
+#' @describeIn rcs radar cross section of a vertical profile
+#' @method rcs VP
+#' @export
+rcs.VP <- function (x){
+  stopifnot(inherits(x,"VP"))
+  x$attributes$how$rcs_bird
+}
+
+#' @describeIn rcs radar cross section of a vertical profile
+#' @method rcs VPList
+#' @export
+rcs.VPList <- function (x){
+  stopifnot(inherits(x,"VPList"))
+  output=sapply(x,`rcs.VP`)
+  output
+}
+
+#' @describeIn rcs radar cross section of a vertical profile
+#' @method rcs VPTimeSeries
+#' @export
+rcs.VPTimeSeries <- function (x){
+  stopifnot(inherits(x,"VPTimeSeries"))
+  x$attributes$how$rcs_bird
+}
+
+#' change radar cross section
+#' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
+#' @export
+#' @examples
+#' # change RCS for a single vertical profile:
+#' rcs(VP)<-20
+`rcs<-` <- function (x, ...) UseMethod("rcs<-", x)
+
+#' @describeIn rcs<- change radar cross section of a vertical profile
+#' @method rcs<- VP
+#' @export
+`rcs<-.VP` <- function(x,value){
+  stopifnot(inherits(x,"VP"))
+  x$attributes$how$rcs_bird=value
+  x$data$dens=x$data$eta/value
+  x
+}
+
+#' @describeIn rcs<- change radar cross section of list of vertical profiles
+#' @method rcs<- VPList
+#' @export
+`rcs<-.VPList` <- function(x,value){
+  stopifnot(inherits(x,"VPList"))
+  output=lapply(x,`rcs<-.VP`,value=value)
+  class(output)="VPList"
+  output
+}
+
+#' @descsribeIn rcs<- change radar cross section of a time series
+#' @method rcs<- VPTimeSeries
+#' @export
+`rcs<-.VPTimeSeries` <- function(x,value){
+  stopifnot(inherits(x,"VPTimeSeries"))
+  x$attributes$how$rcs_bird=value
+  x$data$dens=x$data$eta/value
+  x
+}

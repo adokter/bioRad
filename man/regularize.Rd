@@ -4,14 +4,18 @@
 \alias{regularize}
 \title{Regularize a time series}
 \usage{
-regularize(ts, interval = "auto", units = "mins", fill = F)
+regularize(ts, interval = "auto", units = "mins", fill = F, verbose = T)
 }
 \arguments{
 \item{ts}{an object inhereting from class \code{VPTimeSeries}, see \link[bioRad]{VPTimeSeries} for details}
 
+\item{interval}{time interval grid to project on. When '\code{auto}' the median interval in the time series is used}
+
 \item{units}{optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.}
 
 \item{fill}{logical. Whether to fill empty timesteps with the values of the closest neighbouring profile}
+
+\item{verbose}{logical. When \code{TRUE} prints text to console}
 }
 \value{
 an object of class \code{VPTimeSeries} with regular time steps
@@ -23,7 +27,7 @@ Projects objects of class \code{VPTimeSeries} on a regular time grid
 # locate example file:
 VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
 # load time series:
-ts=readVP.table(VPtable,radar="KBGM")
+ts=readVP.table(VPtable,radar="KBGM", wavelength='S')
 # regularize the time series on a 5 minute interval grid
 tsRegular=regularize(ts, interval=5)
 }
