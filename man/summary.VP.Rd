@@ -26,5 +26,4 @@ Class for vertical profiles
 \details{
 details to be written
 }
-\keyword{internal}
 

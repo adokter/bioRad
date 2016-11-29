@@ -5,7 +5,7 @@
 \alias{rcs.VP}
 \alias{rcs.VPList}
 \alias{rcs.VPTimeSeries}
-\title{extract radar cross section}
+\title{Radar cross section}
 \usage{
 rcs(x, ...)
 
@@ -22,7 +22,7 @@ rcs(x, ...)
 a radar cross section in cm^2
 }
 \description{
-extract radar cross section
+Gives the currently assumedradar cross section in cm^2.
 }
 \section{Methods (by class)}{
 \itemize{

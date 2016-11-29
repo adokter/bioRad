@@ -2,7 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs<-}
 \alias{rcs<-}
-\title{change radar cross section}
+\title{Set radar cross section}
 \usage{
 rcs(x, ...) <- value
 }
@@ -10,7 +10,7 @@ rcs(x, ...) <- value
 \item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
 }
 \description{
-change radar cross section
+Sets the assumed radar cross section in cm^2. This method also updates the migration densities in \code{x$data$dens}
 }
 \examples{
 # change RCS for a single vertical profile:

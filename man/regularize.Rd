@@ -13,7 +13,7 @@ regularize(ts, interval = "auto", units = "mins", fill = F, verbose = T)
 
 \item{units}{optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.}
 
-\item{fill}{logical. Whether to fill empty timesteps with the values of the closest neighbouring profile}
+\item{fill}{logical. Whether to fill missing timesteps with the values of the closest neighbouring profile}
 
 \item{verbose}{logical. When \code{TRUE} prints text to console}
 }

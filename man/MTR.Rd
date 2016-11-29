@@ -5,7 +5,7 @@
 \alias{mtr.VP}
 \alias{mtr.VPList}
 \alias{mtr.VPTimeSeries}
-\title{Calculate migration traffic rate (MTR)}
+\title{Migration traffic rate}
 \usage{
 mtr(x, ...)
 
@@ -26,7 +26,7 @@ mtr(x, ...)
 an atomic vector with MTRs in individuals/km/h
 }
 \description{
-Calculate migration traffic rate (MTR) for an altitude layer, defined as the
+Migration traffic rate (MTR) for an altitude layer, defined as the
 number of targets crossing a 1 km line perpendicular to the migratory movement per hour
 }
 \section{Methods (by class)}{

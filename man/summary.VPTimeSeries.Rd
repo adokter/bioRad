@@ -26,5 +26,4 @@ Class for single-site time series of vertical profiles
 \details{
 details to be written
 }
-\keyword{internal}
 

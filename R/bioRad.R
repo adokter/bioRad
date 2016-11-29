@@ -109,7 +109,7 @@ quantityName = function(file,group){
 #' readVP(prof)
 #'
 readVP = function(filename){
-  if(!VPFileQ(filename)) return(NULL)
+  if(!is.VPFile(filename)) return(NULL)
   file = h5file(filename,mode="r")
   #check input argument
   if(!inherits(file,"H5File")) stop("'file' should be a HDF5 file")
@@ -163,9 +163,9 @@ readVP = function(filename){
 #' @export
 #' @return TRUE when \code{filename} is a vertical profile, otherwise FALSE
 #' @examples
-#' VPFileQ("/not/a/valid/VP/file.h5")   #> FALSE
+#' is.VPFile("/not/a/valid/VP/file.h5")   #> FALSE
 #'
-VPFileQ = function(filename){
+is.VPFile = function(filename){
   if(!is.h5file(filename)){
     warning(paste(filename,"is not a HDF5 file"))
     return(FALSE)
@@ -486,7 +486,7 @@ readVP.table=function(file,radar,wavelength='C'){
 #' @param ts an object inhereting from class \code{VPTimeSeries}, see \link[bioRad]{VPTimeSeries} for details
 #' @param interval time interval grid to project on. When '\code{auto}' the median interval in the time series is used
 #' @param units optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill logical. Whether to fill empty timesteps with the values of the closest neighbouring profile
+#' @param fill logical. Whether to fill missing timesteps with the values of the closest neighbouring profile
 #' @param verbose logical. When \code{TRUE} prints text to console
 #' @export
 #' @return an object of class \code{VPTimeSeries} with regular time steps
@@ -528,9 +528,9 @@ regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
   return(ts)
 }
 
-#' Calculate migration traffic rate (MTR)
+#' Migration traffic rate
 #'
-#' Calculate migration traffic rate (MTR) for an altitude layer, defined as the
+#' Migration traffic rate (MTR) for an altitude layer, defined as the
 #' number of targets crossing a 1 km line perpendicular to the migratory movement per hour
 #' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
 #' @param alt.min minimum altitude in m
@@ -602,13 +602,11 @@ summary.VP=function(x) print.VP(x)
 
 #' @rdname summary.VP
 #' @export
-#' @keywords internal
 #' @return for \code{is.VP}: \code{TRUE} if its argument is of class "\code{VP}"
 is.VP <- function(x) inherits(x, "VP")
 
 #' @rdname summary.VP
 #' @export
-#' @keywords internal
 #' @return for \code{dim.VP}: dimensions of the profile data
 dim.VP <- function(x) {
   stopifnot(inherits(x,"VP"))
@@ -626,7 +624,6 @@ summary.VPList=function(x) print.VPList(x)
 
 #' @rdname summary.VPList
 #' @export
-#' @keywords internal
 #' @return for \code{is.VPList}: \code{TRUE} if its argument is of class "\code{VPList}"
 is.VPList <- function(x) inherits(x, "VPList")
 
@@ -640,15 +637,14 @@ is.VPList <- function(x) inherits(x, "VPList")
 #' details to be written
 summary.VPTimeSeries=function(x) print.VPTimeSeries(x)
 
+
 #' @rdname summary.VPTimeSeries
 #' @export
-#' @keywords internal
 #' @return for \code{is.VPTimeSeries}: \code{TRUE} if its argument is of class "\code{VPTimeSeries}"
 is.VPTimeSeries <- function(x) inherits(x, "VPTimeSeries")
 
 #' @rdname summary.VPTimeSeries
 #' @export
-#' @keywords internal
 #' @return for \code{dim.VPTimeSeries}: dimensions of the time series
 dim.VPTimeSeries <- function(x) {
   stopifnot(inherits(x,"VPTimeSeries"))
@@ -661,6 +657,7 @@ dim.VPTimeSeries <- function(x) {
 #' @keywords internal
 `[.VPTimeSeries` <- function(x,i) {
   stopifnot(inherits(x,"VPTimeSeries"))
+  if(length(i)<2) stop("Time series should consist more than one profile")
   x$dates=x$dates[i]
   x$daterange=.POSIXct(c(min(x$dates),max(x$dates)),tz="UTC")
   x$timesteps=difftime(x$dates[-1],x$dates[-length(x$dates)],units="secs")
@@ -671,7 +668,9 @@ dim.VPTimeSeries <- function(x) {
   return(x)
 }
 
-#' extract radar cross section
+#' Radar cross section
+#'
+#' Gives the currently assumedradar cross section in cm^2.
 #' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
 #' @export
 #' @return a radar cross section in cm^2
@@ -705,7 +704,9 @@ rcs.VPTimeSeries <- function (x){
   x$attributes$how$rcs_bird
 }
 
-#' change radar cross section
+#' Set radar cross section
+#'
+#' Sets the assumed radar cross section in cm^2. This method also updates the migration densities in \code{x$data$dens}
 #' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
 #' @export
 #' @examples
@@ -741,4 +742,22 @@ rcs.VPTimeSeries <- function (x){
   x$attributes$how$rcs_bird=value
   x$data$dens=x$data$eta/value
   x
+}
+
+#' Migration traffic
+#'
+#' Total migration traffic, which is calculated by time-integration
+#' of migration traffic rates. Migration traffic gives the number of individuals
+#' that have passed per km perpendicular to the migratory direction at the
+#' position of the radar for the full period of the time series
+#' within the specified altitude band.
+#' @inheritParams mtr
+#' @export
+#' @return a numeric value equal to migration traffic in number of individuals / km
+mt <- function(x,alt.min=0, alt.max=Inf){
+  stopifnot(inherits(x,"VPTimeSeries"))
+  dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
+  # convert to hours
+  dt=dt/3600
+  sum(dt*mtr(x,alt.min,alt.max))
 }
