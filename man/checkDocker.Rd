@@ -7,7 +7,7 @@
 checkDocker(verbose = T)
 }
 \arguments{
-\item{verbose}{logical (not NA) which indicates whether print test results to screen}
+\item{verbose}{logical which indicates whether to print test results to R console}
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system

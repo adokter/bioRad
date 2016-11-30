@@ -2,9 +2,18 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs<-}
 \alias{rcs<-}
+\alias{rcs<-.VP}
+\alias{rcs<-.VPList}
+\alias{rcs<-.VPTimeSeries}
 \title{Set radar cross section}
 \usage{
 rcs(x, ...) <- value
+
+\method{rcs}{VP}(x) <- value
+
+\method{rcs}{VPList}(x) <- value
+
+\method{rcs}{VPTimeSeries}(x) <- value
 }
 \arguments{
 \item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}

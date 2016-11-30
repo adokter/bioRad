@@ -5,7 +5,8 @@
 \title{Plot a time series of vertical profiles}
 \usage{
 \method{plot}{VPTimeSeries}(x, xlab = "time [UTC]", ylab = "height [m]",
-  quantity = "dens", log = T, zlim, legend.ticks, main, ...)
+  quantity = "dens", log = T, barbs = T, barbs.h = 10, barbs.t = 20,
+  barbs.dens = 5, zlim, legend.ticks, main, ...)
 }
 \arguments{
 \item{x}{a VP class object inheriting from class \code{VPTimeSeries}}
@@ -17,6 +18,14 @@
 \item{quantity}{character string with the quantity to plot, one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.}
 
 \item{log}{logical. Whether to display \code{quantity} data on a logarithmic scale}
+
+\item{barbs}{logical. Whether to plot overlay speed barbs}
+
+\item{barbs.h}{integer. Number of barbs to plot in altitudinal dimension}
+
+\item{barbs.t}{integer. Number of barbs to plot in temporal dimension}
+
+\item{barbs.dens}{numeric. Lower threshold in aerial density of individuals for plotting speed barbs}
 
 \item{zlim}{numerical atomic vector of length 2, specifying the range of \code{quantity} values to plot}
 
@@ -39,6 +48,8 @@ Profile can be visualised in three related quantities, as specified by argument 
  Bioscatter by birds tends to occur at much higher reflectivity factors at S-band than at C-band}
  \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the reflectivity factor of all scatterers (biological and meteorological scattering cambined)}
 }
+
+In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s
 }
 \examples{
 # locate example file:
