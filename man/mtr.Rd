@@ -23,7 +23,11 @@ mtr(x, ...)
 \item{alt.max}{maximum altitude in m}
 }
 \value{
-an atomic vector with MTRs in individuals/km/h
+class \code{VP}: the migration traffic rate (MTR) individuals/km/h
+
+class \code{VPList}: a numeric atomic vector with migration traffic rates in individuals/km/h
+
+class \code{VPTimeSeries}: a data frame with dates and migration traffic rates in individuals/km/h
 }
 \description{
 Migration traffic rate (MTR) for an altitude layer, defined as the
@@ -52,8 +56,8 @@ ts=readVP.table(VPtable,radar="KBGM", wavelength='S')
 # print migration traffic rates:
 mtr(ts)
 # plot migration traffic rates for the full air column:
-plot(ts$dates,mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+plot(mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
 #' plot migration traffic rates for altitudes > 1 km above sea level
-plot(ts$dates,mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+plot(mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
 }
 
