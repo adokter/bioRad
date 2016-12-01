@@ -29,7 +29,7 @@ Requires a running \href{https://www.docker.com/}{Docker} daemon
 volume <- system.file("extdata", "volume.h5", package="bioRad")
 # copy to a home directory with read/write permissions:
 file.copy(volume,"~/volume.h5")
-# load the profile:
+# calculate the profile:
 profile=vol2bird("~/volume.h5")
 # plot the profile
 plot(profile)
