@@ -186,12 +186,9 @@ read.pvol = function(filename){
   if(!is.PVOLfile(filename)) return(NULL)
   file = h5file(filename,mode="r")
 
-  #extract quantities
-  dataset1=file["dataset1"]
-  groups=list.groups(dataset1,recursive=F)
-  quantities=sapply(groups,function(x) quantityName(file,x))
-  profile=as.data.frame(lapply(groups,function(x) readOdimProfileData(file,x)))
-  names(profile)=quantities
+  #extract scan groups
+  scans=list.groups(file,recursive=F)
+  scans=scans[grep("dataset",scans)]
 
   #extract attributes
   howgroup=file["how"]
@@ -212,15 +209,40 @@ read.pvol = function(filename){
   sources=strsplit(attribs.what$source,",")[[1]]
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
 
-  #prepare output
-  output=list(radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
-  class(output) = "VP"
-  h5close(dataset1)
+  #close file
   h5close(howgroup)
   h5close(wheregroup)
   h5close(whatgroup)
   h5close(file)
+
+  #read scan groups
+  scan=read.scan(filename,scans[1])
+
+  #prepare output
+  output=list(radar=radar,datetime=datetime,scans=list(scan),attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
+  class(output) = "PVOL"
   output
+}
+
+read.scan=function(filename,group){
+  file = h5file(filename,mode="r")
+  dataset=file[group]
+  groupsBasename=list.groups(dataset,recursive=F,full.names=F)
+  groups=list.groups(dataset,recursive=F,full.names=T)
+  groups=groups[grep("data",groupsBasename)]
+
+  quantityNames=sapply(groups,function(x) quantityName(file,x))
+  quantities=lapply(groups,function(x) read.quantity(file,x))
+  names(quantities)=quantityNames
+  h5close(dataset)
+  h5close(file)
+  return(quantities)
+}
+
+read.quantity=function(filename,group){
+  file = h5file(filename,mode="r")
+  quantity=file[group]
+  h5close(quantity)
 }
 
 
