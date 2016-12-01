@@ -391,7 +391,7 @@ print.VPTimeSeries=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library})
 #' @param profile.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)
 #' @param volume.out character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)
-#' @param verbose logical. When TRUE, pipe Docker stdout to R terminal
+#' @param verbose logical. When TRUE, pipe Docker stdout to R console
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon
 #' @export
 #' @examples
@@ -399,7 +399,7 @@ print.VPTimeSeries=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' volume <- system.file("extdata", "volume.h5", package="bioRad")
 #' # copy to a home directory with read/write permissions:
 #' file.copy(volume,"~/volume.h5")
-#' # load the profile:
+#' # calculate the profile:
 #' profile=vol2bird("~/volume.h5")
 #' # plot the profile
 #' plot(profile)
@@ -751,6 +751,7 @@ rcs.VPTimeSeries <- function (x){
 #' that have passed per km perpendicular to the migratory direction at the
 #' position of the radar for the full period of the time series
 #' within the specified altitude band.
+#' @param x an object inhereting from class '\code{VPTimeSeries}'
 #' @inheritParams mtr
 #' @export
 #' @return a numeric value equal to migration traffic in number of individuals / km

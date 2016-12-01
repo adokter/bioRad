@@ -16,7 +16,7 @@ or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software
 
 \item{volume.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
-\item{verbose}{logical. When TRUE, pipe Docker stdout to R terminal}
+\item{verbose}{logical. When TRUE, pipe Docker stdout to R console}
 }
 \description{
 Calculates a vertical profile of birds (VPB) from a polar volume

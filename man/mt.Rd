@@ -7,7 +7,7 @@
 mt(x, alt.min = 0, alt.max = Inf)
 }
 \arguments{
-\item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
+\item{x}{an object inhereting from class '\code{VPTimeSeries}'}
 
 \item{alt.min}{minimum altitude in m}
 
