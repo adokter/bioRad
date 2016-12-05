@@ -885,10 +885,18 @@ EARTHRADIUS=6371*4/3
 #'
 #' Calculates the height of a radar beam as a function of elevation and range, assuming the beam
 #' is emitted at surface level.
-#' @param range numeric. Range in km
+#' @param range numeric. Range (distance from the radar antenna) in km
 #' @param elev numeric. Elevation in degrees
 #' @return numeric value. Beam height in km
 #' @export
 #' @details To account for refraction of the beam towards the earth's surface, an effective earth's radius of 4/3 * (true radius) is assumed.
 beamheight=function(range,elev) sqrt(range^2+(EARTHRADIUS)^2+2*range*(EARTHRADIUS)*sin(elev*pi/180))-EARTHRADIUS
 
+#' Radar beam width
+#'
+#' Calculates the width of a radar beam as a function of range and beam angle
+#' @param range numeric. Range (distance from the radar antenna) in km
+#' @param angle numeric. Beam angle in degrees
+#' @return numeric value. Beam width in m
+#' @export
+beamwidth=function(range,angle=1) range*1000*sin(angle*pi/180)

@@ -7,7 +7,7 @@
 beamheight(range, elev)
 }
 \arguments{
-\item{range}{numeric. Range in km}
+\item{range}{numeric. Range (distance from the radar antenna) in km}
 
 \item{elev}{numeric. Elevation in degrees}
 }
