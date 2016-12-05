@@ -4,7 +4,7 @@
 \alias{dim.VPTimeSeries}
 \alias{is.VPTimeSeries}
 \alias{summary.VPTimeSeries}
-\title{Class VPTimeSeries}
+\title{Class VPTimeSeries: time series of vertical profiles}
 \usage{
 \method{summary}{VPTimeSeries}(x)
 

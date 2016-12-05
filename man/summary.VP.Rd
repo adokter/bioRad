@@ -4,7 +4,7 @@
 \alias{dim.VP}
 \alias{is.VP}
 \alias{summary.VP}
-\title{Class VP}
+\title{Class VP: vertical profile}
 \usage{
 \method{summary}{VP}(x)
 

@@ -5,7 +5,7 @@
 \alias{[.VPTimeSeries}
 \alias{is.VPList}
 \alias{summary.VPList}
-\title{Class VPList}
+\title{Class VPList: list of vertical profiles}
 \usage{
 \method{[}{VPList}(x, i)
 

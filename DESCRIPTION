@@ -8,5 +8,5 @@ Authors@R: person("Adriaan M.", "Dokter", email = "a.m.dokter@uva.nl",
 Description: More about what it does (maybe more than one line)
 License: GNU General Public license
 LazyData: TRUE
-Imports: h5, fields
+Imports: rhdf5, fields
 RoxygenNote: 5.0.1
