@@ -4,25 +4,86 @@
 \alias{vol2bird}
 \title{Calculate a vertical profile of birds (VPB)}
 \usage{
-vol2bird(volume.in, profile.out = "", volume.out = "", verbose = F)
+vol2bird(vol.in, vp.out = "", vol.out = "", verbose = F,
+  mount = dirname(vol.in), sd_vvp = 2, rcs = 11, dualpol = F,
+  rhohv = 0.9, elev.min = 0, elev.max = 90, azim.min = 0,
+  azim.max = 360, range.min = 5000, range.max = 25000, nlayer = 20L,
+  hlayer = 200, nyquist.min = 4, nyquist.dealias = 20, dealias = T)
 }
 \arguments{
-\item{volume.in}{A radar file containing a radar polar volume, either in
+\item{vol.in}{A radar file containing a radar polar volume, either in
 \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library})}
 
-\item{profile.out}{character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)}
+\item{vp.out}{character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)}
 
-\item{volume.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
+\item{vol.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console}
+
+\item{mount}{character string with the mount point (a director path) for the Docker container}
+
+\item{sd_vvp}{numeric. lower threshold in radial velocity standard deviation for an altitude layer containing birds in m/s}
+
+\item{rcs}{numeric. Radar cross section per bird in cm^2.}
+
+\item{dualpol}{logical. Whether to use dual-pol mode, in which meteorological echoes are filtered using the correlation coeficient \code{rhohv}}
+
+\item{rhohv}{numeric. Lower threshold in correlation coefficient used to filter meteorological scattering}
+
+\item{elev.min}{numeric. Minimum scan elevation in degrees}
+
+\item{elev.max}{numeric. Maximum scan elevation in degrees}
+
+\item{azim.min}{numeric. Minimum azimuth in degrees clockwise from north}
+
+\item{azim.max}{numeric. Maximum azimuth in degrees clockwise from north}
+
+\item{range.min}{numeric. Minimum range in km}
+
+\item{range.max}{numeric. Maximum range in km}
+
+\item{nlayer}{numeric. Number of altitude layers in the profile}
+
+\item{hlayer}{numeric. Width of altitude layers in metre}
+
+\item{nyquist.min}{numeric. Minimum Nyquist velocity of scans in m/s}
+
+\item{nyquist.dealias}{numeric. Dealias scans with a Nyquist velocity below this value will be dealiased, scans with a Nyquist velocity above this value will be used as is. NOT IMPLEMENTED YET!}
+
+\item{dealias}{logical. Whether to dealias scans}
 }
 \description{
 Calculates a vertical profile of birds (VPB) from a polar volume
 }
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon
+
+\code{azim.min} and \code{azim.max} only affects reflectivity-derived estimates in the profile (DBZH,eta,dens),
+not radial-velocity derived estimates (u,v,w,ff,dd,sd_vvp), which are estimated on all azimuths at all times
+
+The algorithm has been tested and developed for altitude layers with \code{hlayer} = 200 m.
+Smaller widths are not recommended as they may cause instabilities of the volume velocity profiling (VVP)
+and dealiasing routines, and effectively lead to pseudo-replicated altitude data, since altitudinal patterns
+smaller than the beam width cannot be resolved.
+
+The default radar cross section (11 cm^2) corresponds to the average value found by Dokter et al.
+in a calibration campaign of a full migration autumn season in western Europe at C-band.
+
+Using default values of \code{range.min} and \code{range.max} is recommended.
+Ranges closer than 5 km tend to be contaminated by too much ground clutter, while range gates beyond
+25 km become too wide to resolve the default altitude layer width of 200 metre (see \link[bioRad]{beamwidth})
+
+For dealiasing, the torus mapping method by Haase et al. is used
+
+At S-band (radar wavelength ~ 10 cm), only \code{dualpol=T} mode is recommended.
+
+On repeated calls of vol2bird, the Docker container mount can be reused
+from one call to the next if the calls share the same \code{mount} argument.
+Re-mounting a Docker container takes time, therefore it is advised to
+choose a mountpoint that is a parent directory of all volume files to be processed,
+such that \code{vol2bird} calls are as fast as possible.
 }
 \examples{
 # locate example volume file:
@@ -35,5 +96,8 @@ profile=vol2bird("~/volume.h5")
 plot(profile)
 # clean up:
 file.remove("~/volume.h5")
+}
+\references{
+Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar velocities using a torus mapping. Journal of Atmospheric and Oceanic Technology, 21(10), pp.1566-1573.
 }
 

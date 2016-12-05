@@ -22,7 +22,7 @@ rcs(x, ...)
 a radar cross section in cm^2
 }
 \description{
-Gives the currently assumedradar cross section in cm^2.
+Gives the currently assumed radar cross section in cm^2.
 }
 \section{Methods (by class)}{
 \itemize{

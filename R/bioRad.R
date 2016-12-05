@@ -6,7 +6,7 @@
 #' }
 #'
 #'
-#' @import h5
+#' @import rhdf5
 #' @import fields
 
 "_PACKAGE"
@@ -27,6 +27,8 @@
 "VPTS"
 
 docker=F
+mounted=F
+mount="~/"
 
 #' Checks that Docker is running
 #'
@@ -37,9 +39,34 @@ checkDocker = function(verbose=T){
   system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
   result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
   unlockBinding("docker", environment(checkDocker))
+  unlockBinding("mounted", environment(checkDocker))
   environment(checkDocker)$docker=(result==0)
+  environment(checkDocker)$mounted=F
   lockBinding("docker", environment(checkDocker))
+  lockBinding("mounted", environment(checkDocker))
   if(!verbose) return(result)
+}
+
+startContainer = function(mount="~/"){
+  parent.env=environment(startContainer)
+  # if docker not running, cannot start container
+  if(!parent.env$docker) return(1)
+  # if container already running at this mount point, nothing to be done:
+  if(parent.env$mounted & parent.env$mount==mount) return(0)
+  # remove any existing vol2bird containers
+  system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
+  # fire up the container:
+  result=system(paste("docker run -v ",normalizePath(mount),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
+  if(result!=0) warning(paste("failed to mount",mount,"... Go to 'Docker -> preferences -> File Sharing' and add this directory (or its root directory) as a bind mounted directory"))
+  else{
+    unlockBinding("mounted",parent.env)
+    unlockBinding("mount",parent.env)
+    parent.env$mounted=(result==0)
+    parent.env$mount=mount
+    lockBinding("mounted", parent.env)
+    lockBinding("mount", parent.env)
+  }
+  return(result)
 }
 
 setLoadActions(function(ns)
@@ -57,25 +84,20 @@ setLoadActions(function(ns)
 )
 
 readOdimProfileData = function(file,group){
-  whatgroup = file[sprintf("%s/what",group)]
-  nodata=h5attr(whatgroup,"nodata")
-  undetect=h5attr(whatgroup,"undetect")
-  gain=h5attr(whatgroup,"gain")
-  offset=h5attr(whatgroup,"offset")
-  dset=file[sprintf("%s/data",group)]
-  data=readDataSet(dset)
+  whatgroup=h5readAttributes(file,sprintf("%s/what",group))
+  nodata=whatgroup$nodata
+  undetect=whatgroup$undetect
+  gain=whatgroup$gain
+  offset=whatgroup$offset
+  data=h5read(file,sprintf("%s/data",group))[1,]
   data=replace(data,data==nodata,NA)
   data=replace(data,data==undetect,NaN)
-  h5close(dset)
-  h5close(whatgroup)
   offset+gain*data
 }
 
 quantityName = function(file,group){
-  whatgroup=file[paste(group,"/what",sep="")]
-  quantity=h5attr(whatgroup,"quantity")
-  h5close(whatgroup)
-  quantity
+  whatgroup=h5readAttributes(file,paste(group,"/what",sep=""))
+  whatgroup$quantity
 }
 
 #' Read a vertical profile (VP) from file
@@ -94,16 +116,16 @@ quantityName = function(file,group){
 #'        \item{\code{w}}{vertical speed (unreliable!) [m/s]}
 #'        \item{\code{ff}}{horizontal speed [m/s]}
 #'        \item{\code{dd}}{direction [degrees, clockwise from north]}
-#'        \item{\code{sd_vvp}}{VVP radial velocity standard deviation direction [m/s]}
+#'        \item{\code{sd_vvp}}{VVP radial velocity standard deviation [m/s]}
 #'        \item{\code{gap}}{Angular data gap detected [T/F]}
 #'        \item{\code{dbz}}{Bird reflectivity factor [dBZ]}
 #'        \item{\code{eta}}{Bird reflectivity [cm^2/km^3]}
 #'        \item{\code{dens}}{Bird density [birds/km^3]}
 #'        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) [dBZ]}
-#'        \item{\code{n}}{number of points VVP bird velocity analysis}
-#'        \item{\code{n_dbz}}{number of points bird density estimate}
-#'        \item{\code{n_all}}{number of points VVP velocity Stdev analysis}
-#'        \item{\code{n_all_dbz}}{number of points total reflectivity estimate}
+#'        \item{\code{n}}{number of points VVP bird velocity analysis (u,v,w,ff,dd)}
+#'        \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
+#'        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
+#'        \item{\code{n_all_dbz}}{number of points total reflectivity estimate (DBZH)}
 #'    }
 #'  }
 #'  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what}, \code{\\where} and \code{\\how} attributes}
@@ -118,34 +140,22 @@ quantityName = function(file,group){
 #'
 readVP = function(filename){
   if(!is.VPfile(filename)) return(NULL)
-  file = h5file(filename,mode="r")
   #check input argument
-  if(!inherits(file,"H5File")) stop("'file' should be a HDF5 file")
-  if(!existsGroup(file,"dataset1")){
-    h5close(file)
+  groups=h5ls(filename,recursive=F)$name
+  if(!("dataset1" %in% groups)){
     stop("HDF5 file does not contain a /dataset1 group")
   }
-
   #extract quantities
-  dataset1=file["dataset1"]
-  groups=list.groups(dataset1,recursive=F)
-  quantities=sapply(groups,function(x) quantityName(file,x))
-  profile=as.data.frame(lapply(groups,function(x) readOdimProfileData(file,x)))
+  groups=h5ls(filename)
+  groups=groups[which(groups$name=="data"),]$group
+  quantities=sapply(groups,function(x) quantityName(filename,x))
+  profile=as.data.frame(lapply(groups,function(x) readOdimProfileData(filename,x)))
   names(profile)=quantities
 
   #extract attributes
-  howgroup=file["how"]
-  whatgroup=file["what"]
-  wheregroup=file["where"]
-  attribNames.how=list.attributes(howgroup)
-  attribNames.what=list.attributes(whatgroup)
-  attribNames.where=list.attributes(wheregroup)
-  attribs.how=lapply(attribNames.how,function(x) h5attr(howgroup,x))
-  attribs.what=lapply(attribNames.what,function(x) h5attr(whatgroup,x))
-  attribs.where=lapply(attribNames.where,function(x) h5attr(wheregroup,x))
-  names(attribs.how)=attribNames.how
-  names(attribs.what)=attribNames.what
-  names(attribs.where)=attribNames.where
+  attribs.how=h5readAttributes(filename,"how")
+  attribs.what=h5readAttributes(filename,"what")
+  attribs.where=h5readAttributes(filename,"where")
 
   #convert some useful metadata
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
@@ -155,17 +165,14 @@ readVP = function(filename){
   #prepare output
   output=list(radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
   class(output) = "VP"
-  h5close(dataset1)
-  h5close(howgroup)
-  h5close(wheregroup)
-  h5close(whatgroup)
-  h5close(file)
   output
 }
 
 #' Read a polar volume (PVOL) from file
 #'
 #' @param filename A string containing the path to a vertical profile generated by \link[bioRad]{vol2bird}
+#' @param sort logical. When \code{TRUE} sort scans ascending by elevation
+#' @param params atomic vector of character strings, containing the names of scan parameters to read
 #' @export
 #' @return an object of class \code{PVOL}, which is a list containing polar scans, i.e. objects of class \code{SCAN}
 #' \describe{
@@ -182,69 +189,63 @@ readVP = function(filename){
 #' # load the file:
 #' read.pvol(prof)
 #'
-read.pvol = function(filename){
+read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort=T){
   if(!is.PVOLfile(filename)) return(NULL)
-  file = h5file(filename,mode="r")
 
   #extract scan groups
-  scans=list.groups(file,recursive=F)
+  scans=h5ls(pvol,recursive=F)$name
   scans=scans[grep("dataset",scans)]
 
   #extract attributes
-  howgroup=file["how"]
-  whatgroup=file["what"]
-  wheregroup=file["where"]
-  attribNames.how=list.attributes(howgroup)
-  attribNames.what=list.attributes(whatgroup)
-  attribNames.where=list.attributes(wheregroup)
-  attribs.how=lapply(attribNames.how,function(x) h5attr(howgroup,x))
-  attribs.what=lapply(attribNames.what,function(x) h5attr(whatgroup,x))
-  attribs.where=lapply(attribNames.where,function(x) h5attr(wheregroup,x))
-  names(attribs.how)=attribNames.how
-  names(attribs.what)=attribNames.what
-  names(attribs.where)=attribNames.where
+  attribs.how=h5readAttributes(filename,"how")
+  attribs.what=h5readAttributes(filename,"what")
+  attribs.where=h5readAttributes(filename,"where")
 
   #convert some useful metadata
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
   sources=strsplit(attribs.what$source,",")[[1]]
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
 
-  #close file
-  h5close(howgroup)
-  h5close(wheregroup)
-  h5close(whatgroup)
-  h5close(file)
-
   #read scan groups
-  scan=read.scan(filename,scans[1])
+  data=lapply(scans,function(x) read.scan(filename,x))
+  #order by elevation
+  if(sort) data=data[order(sapply(data,elev))]
 
   #prepare output
-  output=list(radar=radar,datetime=datetime,scans=list(scan),attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
+  output=list(radar=radar,datetime=datetime,scans=data,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
   class(output) = "PVOL"
+  elev(output)
   output
 }
 
-read.scan=function(filename,group){
-  file = h5file(filename,mode="r")
-  dataset=file[group]
-  groupsBasename=list.groups(dataset,recursive=F,full.names=F)
-  groups=list.groups(dataset,recursive=F,full.names=T)
-  groups=groups[grep("data",groupsBasename)]
+read.scan=function(filename,scan){
+  groups=h5ls(filename)
+  groups=groups[groups$group==paste("/",scan,sep=""),]$name
+  groups=groups[grep("data",groups)]
 
-  quantityNames=sapply(groups,function(x) quantityName(file,x))
-  quantities=lapply(groups,function(x) read.quantity(file,x))
+  quantities=lapply(groups,function(x) read.quantity(filename,paste(scan,"/",x,sep="")))
+  quantityNames=sapply(quantities,'[[',"quantityName")
+  quantities=lapply(quantities,'[[',"quantity")
   names(quantities)=quantityNames
-  h5close(dataset)
-  h5close(file)
-  return(quantities)
+
+  attribs.how=h5readAttributes(filename,paste(scan,"/how",sep=""))
+  attribs.what=h5readAttributes(filename,paste(scan,"/what",sep=""))
+  attribs.where=h5readAttributes(filename,paste(scan,"/where",sep=""))
+
+  output=list(params=quantities,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
+  class(output)="SCAN"
+  output
 }
 
-read.quantity=function(filename,group){
-  file = h5file(filename,mode="r")
-  quantity=file[group]
-  h5close(quantity)
+read.quantity=function(filename,quantity){
+  data=h5read(filename,quantity)$data
+  attr=h5readAttributes(filename,paste(quantity,"/what",sep=""))
+  data=replace(data,data==attr$nodata,NA)
+  data=replace(data,data==attr$undetect,NaN)
+  data=attr$offset+attr$gain*data
+  class(data)=c("PARAM",class(data))
+  list(quantityName=attr$quantity,quantity=data)
 }
-
 
 #' Check whether file is a vertical profile
 #'
@@ -295,45 +296,40 @@ h5ODIMobject = function(filename){
     warning(paste(filename,"is not a ODIM HDF5 file"))
     return(NA)
   }
-  file = h5file(filename,mode="r")
-  object=h5attr(file["what"],"object")
-  h5close(file)
+  object=h5readAttributes(filename,"what")$object
   return(object)
 }
 
 is.ODIMfile = function(filename){
-  if(!is.h5file(filename)){
+  if(!H5Fis_hdf5(filename)){
     warning(paste(filename,"is not a HDF5 file"))
     return(FALSE)
   }
-  file = h5file(filename,mode="r")
   output = T
-  if(!existsGroup(file,"dataset1")){
+  groups=h5ls(filename,recursive=F)$name
+  if(!("dataset1" %in% groups)){
     output = F
     warning(paste("HDF5 file",filename,"does not contain a /dataset1 group"))
   }
-  if(!existsGroup(file,"what")){
+  if(!("what" %in% groups)){
     output = F
     warning(paste("HDF5 file",filename,"does not contain a /what group"))
   }
   else{
-    if("object" %in% list.attributes(file["what"])){
-      object=h5attr(file["what"],"object")
-    }
-    else{
+    object=h5readAttributes(filename,"what")$object
+    if(is.null(object)){
       warning("'object' attribute not found in /what group")
       output=F
     }
   }
-  if(!existsGroup(file,"how")){
+  if(!("how" %in% groups)){
     output = F
     warning(paste("HDF5 file",filename,"does not contain a /how group"))
   }
-  if(!existsGroup(file,"where")){
+  if(!("where" %in% groups)){
     output = F
     warning(paste("HDF5 file",filename,"does not contain a /where group"))
   }
-  h5close(file)
   return(output)
 }
 
@@ -352,6 +348,46 @@ print.VP=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("generated by: ",paste(x$attributes$how$task,x$attributes$how$task_version),"\n")
 }
 
+#' print method for class \code{PVOL}
+#'
+#' @param x An object of class \code{PVOL}, a polar volume
+#' @keywords internal
+#' @export
+print.PVOL=function(x,digits = max(3L, getOption("digits") - 3L), ...){
+  stopifnot(inherits(x, "PVOL"))
+  cat("               Polar volume (class PVOL)\n\n")
+  cat("     # scans: ",length(x$scans),"\n")
+  cat("       radar: ",x$radar,"\n")
+  cat("      source: ",x$attributes$what$source,"\n")
+  cat("nominal time: ",as.character(x$datetime),"\n\n")
+}
+
+#' print method for class \code{SCAN}
+#'
+#' @param x An object of class \code{SCAN}, a polar scan
+#' @keywords internal
+#' @export
+print.SCAN=function(x,digits = max(3L, getOption("digits") - 3L), ...){
+  stopifnot(inherits(x, "SCAN"))
+  cat("                  Polar scan (class SCAN)\n\n")
+  cat("     parameters: ",names(x$params),"\n")
+  cat("      elevation: ",x$attributes$where$elangle,"\n")
+  cat("           dims: ",x$attributes$where$nbins," bins x ",x$attributes$where$nrays," rays\n")
+}
+
+#' print method for class \code{PARAM}
+#'
+#' @param x An object of class \code{PARAM}, a polar scan parameter
+#' @keywords internal
+#' @export
+print.PARAM=function(x,digits = max(3L, getOption("digits") - 3L), ...){
+  stopifnot(inherits(x, "PARAM"))
+  cat("               Polar scan parameter (class PARAM)\n\n")
+  cat("  range bins: ",dim(x)[1],"\n")
+  cat("        rays: ",dim(x)[2],"\n")
+}
+
+
 #' Plot a vertical profile
 #'
 #' @param x a VP class object
@@ -367,8 +403,11 @@ print.VP=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' plot(VP)
 #' plot(VP,line.col='blue')
 plot.VP=function(x, xlab="density [#/km^3]",ylab="height [km]",main="Vertical profile",line.col='red',line.lwd=1,...){
-  plot(x$data$dens,x$data$HGHT/1000,xlab=xlab,ylab=ylab,main=main,...)
-  points(x$data$dens,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
+  stopifnot(inherits(x,"VP"))
+  pdat=x$data$dens
+  pdat[is.na(pdat)]=0
+  plot(pdat,x$data$HGHT/1000,xlab=xlab,ylab=ylab,main=main,...)
+  points(pdat,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
 }
 
 #' Read a list of vertical profiles from multiple files
@@ -511,15 +550,57 @@ print.VPTimeSeries=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #'
 #' Calculates a vertical profile of birds (VPB) from a polar volume
 #'
-#' @param volume.in A radar file containing a radar polar volume, either in
+#' @param vol.in A radar file containing a radar polar volume, either in
 #' \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library})
-#' @param profile.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)
-#' @param volume.out character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)
+#' @param vp.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)
+#' @param vol.out character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)
 #' @param verbose logical. When TRUE, pipe Docker stdout to R console
+#' @param mount character string with the mount point (a director path) for the Docker container
+#' @param sd_vvp numeric. lower threshold in radial velocity standard deviation for an altitude layer containing birds in m/s
+#' @param rcs numeric. Radar cross section per bird in cm^2.
+#' @param dualpol logical. Whether to use dual-pol mode, in which meteorological echoes are filtered using the correlation coeficient \code{rhohv}
+#' @param rhohv numeric. Lower threshold in correlation coefficient used to filter meteorological scattering
+#' @param elev.min numeric. Minimum scan elevation in degrees
+#' @param elev.max numeric. Maximum scan elevation in degrees
+#' @param azim.min numeric. Minimum azimuth in degrees clockwise from north
+#' @param azim.max numeric. Maximum azimuth in degrees clockwise from north
+#' @param range.min numeric. Minimum range in km
+#' @param range.max numeric. Maximum range in km
+#' @param nlayer numeric. Number of altitude layers in the profile
+#' @param hlayer numeric. Width of altitude layers in metre
+#' @param nyquist.min numeric. Minimum Nyquist velocity of scans in m/s
+#' @param dealias logical. Whether to dealias scans
+#' @param nyquist.dealias numeric. Dealias scans with a Nyquist velocity below this value will be dealiased, scans with a Nyquist velocity above this value will be used as is. NOT IMPLEMENTED YET!
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon
+#'
+#' \code{azim.min} and \code{azim.max} only affects reflectivity-derived estimates in the profile (DBZH,eta,dens),
+#' not radial-velocity derived estimates (u,v,w,ff,dd,sd_vvp), which are estimated on all azimuths at all times
+#'
+#' The algorithm has been tested and developed for altitude layers with \code{hlayer} = 200 m.
+#' Smaller widths are not recommended as they may cause instabilities of the volume velocity profiling (VVP)
+#' and dealiasing routines, and effectively lead to pseudo-replicated altitude data, since altitudinal patterns
+#' smaller than the beam width cannot be resolved.
+#'
+#' The default radar cross section (11 cm^2) corresponds to the average value found by Dokter et al.
+#' in a calibration campaign of a full migration autumn season in western Europe at C-band.
+#'
+#' Using default values of \code{range.min} and \code{range.max} is recommended.
+#' Ranges closer than 5 km tend to be contaminated by too much ground clutter, while range gates beyond
+#' 25 km become too wide to resolve the default altitude layer width of 200 metre (see \link[bioRad]{beamwidth})
+#'
+#' For dealiasing, the torus mapping method by Haase et al. is used
+#'
+#' At S-band (radar wavelength ~ 10 cm), only \code{dualpol=T} mode is recommended.
+#'
+#' On repeated calls of vol2bird, the Docker container mount can be reused
+#' from one call to the next if the calls share the same \code{mount} argument.
+#' Re-mounting a Docker container takes time, therefore it is advised to
+#' choose a mountpoint that is a parent directory of all volume files to be processed,
+#' such that \code{vol2bird} calls are as fast as possible.
 #' @export
+#' @references Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar velocities using a torus mapping. Journal of Atmospheric and Oceanic Technology, 21(10), pp.1566-1573.
 #' @examples
 #' # locate example volume file:
 #' volume <- system.file("extdata", "volume.h5", package="bioRad")
@@ -531,22 +612,76 @@ print.VPTimeSeries=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' plot(profile)
 #' # clean up:
 #' file.remove("~/volume.h5")
-vol2bird =  function(volume.in, profile.out="", volume.out="",verbose=F){
+vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.in),sd_vvp=2,rcs=11,dualpol=F,rhohv=0.9,elev.min=0,elev.max=90,azim.min=0,azim.max=360,range.min=5000,range.max=25000,nlayer=20L,hlayer=200,nyquist.min=4,nyquist.dealias=20,dealias=T){
+  # check input arguments
+  if(!is.numeric(sd_vvp) || sd_vvp<=0) stop("invalid 'sd_vvp' argument, radial velocity standard deviation threshold should be a positive numeric value")
+  if(!is.numeric(rcs) || rcs<=0) stop("invalid 'rcs' argument, radar cross section should be a positive numeric value")
+  if(!is.logical(dualpol)) stop("invalid 'dualpol' argument, should be logical")
+  if(!is.numeric(rhohv) || rhohv<=0 || rhohv>1) stop("invalid 'rhohv' argument, correlation coefficient treshold should be a numeric value between 0 and 1")
+  if(!is.numeric(elev.min) || elev.min< -90 || elev.min>90) stop("invalid 'elev.min' argument, elevation should be between -90 and 90 degrees")
+  if(!is.numeric(elev.max) || elev.max< -90 || elev.max>90) stop("invalid 'elev.max' argument, elevation should be between -90 and 90 degrees")
+  if(elev.max<elev.min) stop("'elev.max' cannot be larger than 'elev.min'")
+  if(!is.numeric(azim.min) || azim.min<0 || azim.min>360) stop("invalid 'azim.min' argument, azimuth should be between 0 and 360 degrees")
+  if(!is.numeric(azim.max) || azim.max<0 || azim.max>360) stop("invalid 'azim.max' argument, azimuth should be between 0 and 360 degrees")
+  if(!is.numeric(range.min) || range.min<0) stop("invalid 'range.min' argument, range should be a positive numeric value")
+  if(!is.numeric(range.max) || range.max<0) stop("invalid 'range.max' argument, range should be a positive numeric value")
+  if(range.max<range.min) stop("'rang.max' cannot be larger than 'rang.min'")
+  if(!is.integer(nlayer) & nlayer<=0) stop("'nlayer' should be a positive integer")
+  if(!is.numeric(hlayer) || hlayer<0) stop("invalid 'hlayer' argument, should be a positive numeric value")
+  if(!is.numeric(nyquist.min) || nyquist.min<0) stop("invalid 'nyquist.min' argument, should be a positive numeric value")
+  if(!is.numeric(nyquist.dealias) || nyquist.dealias<0) stop("invalid 'nyquist.dealias' argument, should be a positive numeric value")
+  if(!is.logical(dealias)) stop("invalid 'dealias' argument, should be logical")
+  if(file.access(mount,0)==-1) stop("invalid 'mount' argument. Directory not found")
+  if(file.access(mount,2)==-1) stop(paste("invalid 'mount' argument. No write permission in directory",mount))
   if(!docker) stop("Requires a running Docker daemon.\nTo enable vol2bird, start your local Docker daemon, and run 'checkDocker()' in R")
-  if(!file.exists(volume.in)) stop("No such file or directory")
+  if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
-  if(profile.out!="" && !file.exists(dirname(profile.out))) stop(paste("output directory",dirname(profile.out),"not found"))
-  filedir=dirname(normalizePath(volume.in))
+  if(vp.out!="" && !file.exists(dirname(vp.out))) stop(paste("output directory",dirname(vp.out),"not found"))
+  filedir=dirname(normalizePath(vol.in))
+  if(!grepl(normalizePath(mount),filedir)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
   profile.tmp=tempfile(tmpdir=filedir)
   if(file.access(filedir,mode=2)<0) stop(paste("vol2bird requires write permission in",filedir))
-  system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
-  result=system(paste("docker run -v ",filedir,":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
-  if(result!=0) stop(paste("failed to mount",filedir,"... Go to 'Docker -> preferences -> File Sharing' and add this directory (or its root directory) as a bind mounted directory"))
-  system(paste("docker exec vol2bird bash -c 'cd data && vol2bird ",basename(volume.in),basename(profile.tmp),volume.out,"'"),ignore.stdout=!verbose)
-  system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
+  if(startContainer(normalizePath(mount))!=0) stop(paste("failed to start vol2bird Docker container"))
+
+  # put options file in place, to be read by vol2bird container
+  opt.values=c(as.character(c(sd_vvp,rcs,rhohv,elev.min,elev.max,azim.min,azim.max,range.min,
+                 range.max,nlayer,hlayer,nyquist.min)),
+                 if(dualpol) "TRUE" else "FALSE",if(dealias) "TRUE" else "FALSE")
+  opt.names=c("STDEV_BIRD","SIGMA_BIRD","RHOHVMIN","ELEVMIN","ELEVMAX",
+                  "AZIMMIN","AZIMMAX","RANGEMIN","RANGEMAX","NLAYER","HLAYER",
+                  "MIN_NYQUIST_VELOCITY","DEALIAS_VRAD","DUALPOL")
+  opt=data.frame("option"=opt.names,"is"=rep("=",length(opt.values)),"value"=opt.values)
+  optfile=paste(normalizePath(mount),"/options.conf",sep="")
+  if(file.exists(optfile)){
+    warning(paste("options.conf file found in directory ",mount,". Renamed to options.conf.save to prevent overwrite...", sep=""))
+    file.rename(optfile,paste(optfile,".saved",sep=""))
+  }
+  write.table(opt,file=optfile,col.names=F,row.names=F,quote=F)
+
+  # prepare docker input filenames relative to mountpoint
+  prefixstart=if(mount=="/") 1 else 2
+  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount)))
+  if(nchar(prefix)>0) prefix=paste(prefix,"/",sep="")
+  vol.in.docker=paste(prefix,basename(vol.in),sep="")
+  profile.tmp.docker=paste(prefix,basename(profile.tmp),sep="")
+  if(vol.out!="") vol.out.docker=paste(prefix,basename(vol.out),sep="")
+  else vol.out.docker=""
+
+  # run vol2bird container
+  result = system(paste("docker exec vol2bird bash -c 'cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"'"),ignore.stdout=!verbose)
+  if(result!=0){
+    file.remove(optfile)
+    stop("failed to run vol2bird Docker container")
+  }
+
+  # read output into a VP object
   output=readVP(profile.tmp)
-  if(profile.out=="") file.remove(profile.tmp)
-  else file.rename(profile.tmp,profile.out)
+
+  # clean up
+  if(vp.out=="") file.remove(profile.tmp)
+  else file.rename(profile.tmp,vp.out)
+  file.remove(optfile)
+
   output
 }
 
@@ -607,6 +742,7 @@ readVP.table=function(file,radar,wavelength='C'){
   # prepare output
   heights=data[[1]]$"HGHT"
   interval=unique(heights[-1]-heights[-length(heights)])
+
   attributes=list(where=data.frame(interval=interval,levels=length(heights)),how=data.frame(wavelength=wavelength))
   output=list(radar=radar,dates=dates,heights=heights,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=VPsFlat,attributes=attributes,regular=regular)
   class(output)="VPTimeSeries"
@@ -807,7 +943,7 @@ dim.VPTimeSeries <- function(x) {
 
 #' Radar cross section
 #'
-#' Gives the currently assumedradar cross section in cm^2.
+#' Gives the currently assumed radar cross section in cm^2.
 #' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
 #' @export
 #' @return a radar cross section in cm^2
@@ -859,6 +995,14 @@ rcs.VPTimeSeries <- function (x){
   stopifnot(inherits(x,"VP"))
   x$attributes$how$rcs_bird=value
   x$data$dens=x$data$eta/value
+  if(is.numeric(x$attributes$how$sd_vvp_thresh)){
+    x$data$dens[x$data$sd_vvp<x$attributes$how$sd_vvp_thresh]=0
+  }
+  else{
+    warning("threshold for sd_vvp not set, defaulting to 2 m/s")
+    x$attributes$how$sd_vvp_thresh=2
+    x$data$dens[x$data$sd_vvp<2]=0
+  }
   x
 }
 
@@ -879,8 +1023,113 @@ rcs.VPTimeSeries <- function (x){
   stopifnot(inherits(x,"VPTimeSeries"))
   x$attributes$how$rcs_bird=value
   x$data$dens=x$data$eta/value
+  if(is.numeric(x$attributes$how$sd_vvp_thresh)){
+    x$data$dens[x$data$sd_vvp<x$attributes$how$sd_vvp_thresh]=0
+  }
+  else{
+    warning("threshold for sd_vvp not set, defaulting to 2 m/s")
+    x$attributes$how$sd_vvp_thresh=2
+    x$data$dens[x$data$sd_vvp<2]=0
+  }
   x
 }
+
+#' VVP-retrieved radial velocity standard deviation
+#'
+#' Gives the current threshold in VVP-retrieved radial velocity standard deviation in m/s.
+#' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
+#' @export
+#' @return threshold for \code{sd_vvp} in m/s.
+#' @examples
+#' # extract threshold for a single vertical profile:
+#' sd_vvp(VP)
+sd_vvp <- function (x, ...) UseMethod("sd_vvp", x)
+
+#' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard deviation of a vertical profile
+#' @method rcs VP
+#' @export
+sd_vvp.VP <- function (x){
+  stopifnot(inherits(x,"VP"))
+  x$attributes$how$sd_vvp_thresh
+}
+
+#' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard deviation of a list of vertical profiles
+#' @method sd_vvp VPList
+#' @export
+sd_vvp.VPList <- function (x){
+  stopifnot(inherits(x,"VPList"))
+  output=sapply(x,`sd_vvp.VP`)
+  output
+}
+
+#' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard deviation of a time series of vertical profiles
+#' @method sd_vvp VPTimeSeries
+#' @export
+sd_vvp.VPTimeSeries <- function (x){
+  stopifnot(inherits(x,"VPTimeSeries"))
+  x$attributes$how$sd_vvp_thresh
+}
+
+#' Set threshold for VVP-retrieved radial velocity standard deviation
+#'
+#' Sets the threshold in \code{sd_vvp}. Altitude layers with \code{sd_vvp} below this threshold are
+#' assumed to have an aerial density of zero individuals. This method updates the migration densities in \code{x$data$dens}
+#' @param x a \code{VP}, \code{VPList} or \code{VPTimeSeries} object
+#' @export
+#' @examples
+#' # change threshold for a single vertical profile:
+#' sd_vvp(VP)<-2
+`sd_vvp<-` <- function (x, ...) UseMethod("sd_vvp<-", x)
+
+#' @rdname sd_vvp-set
+#' @method sd_vvp<- VP
+
+#' @export
+`sd_vvp<-.VP` <- function(x,value){
+  stopifnot(inherits(x,"VP"))
+  x$attributes$how$sd_vvp_thresh=value
+  if(is.numeric(x$attributes$how$rcs_bird)){
+    x$data$dens=x$data$eta/x$attributes$how$rcs_bird
+    x$data$dens[x$data$sd_vvp<value]=0
+  }
+  else{
+    warning("radar cross section not set, defaulting to 11 cm^2 ...")
+    x$data$dens=x$data$eta/11
+    x$attributes$how$rcs_bird=11
+    x$data$dens[x$data$sd_vvp<value]=0
+  }
+  x
+}
+
+#' @rdname sd_vvp-set
+#' @method sd_vvp<- VPList
+#' @export
+`sd_vvp<-.VPList` <- function(x,value){
+  stopifnot(inherits(x,"VPList"))
+  output=lapply(x,`sd_vvp<-.VP`,value=value)
+  class(output)="VPList"
+  output
+}
+
+#' @rdname sd_vvp-set
+#' @method sd_vvp<- VPTimeSeries
+#' @export
+`sd_vvp<-.VPTimeSeries` <- function(x,value){
+  stopifnot(inherits(x,"VPTimeSeries"))
+  x$attributes$how$sd_vvp_thresh=value
+  if(is.numeric(x$attributes$how$rcs_bird)){
+    x$data$dens=x$data$eta/x$attributes$how$rcs_bird
+    x$data$dens[x$data$sd_vvp<value]=0
+  }
+  else{
+    warning("radar cross section not set, defaulting to 11 cm^2 ...")
+    x$data$dens=x$data$eta/11
+    x$attributes$how$rcs_bird=11
+    x$data$dens[x$data$sd_vvp<value]=0
+  }
+  x
+}
+
 
 #' Migration traffic
 #'
@@ -897,7 +1146,7 @@ mt <- function(x,alt.min=0, alt.max=Inf){
   stopifnot(inherits(x,"VPTimeSeries"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
-  dt=dt/3600
+  dt=as.numeric(dt)/3600
   sum(dt*mtr(x,alt.min,alt.max)$mtr)
 }
 
@@ -909,6 +1158,7 @@ mt <- function(x,alt.min=0, alt.max=Inf){
 #' that have passed per km perpendicular to the migratory direction at the
 #' position of the radar as a function time from the start of time series
 #' within the specified altitude band.
+#' @param x an object inhereting from class '\code{VPTimeSeries}'
 #' @inheritParams mtr
 #' @export
 #' @return a numeric value equal to migration traffic in number of individuals / km
@@ -923,7 +1173,7 @@ cmt <- function(x,alt.min=0, alt.max=Inf){
   stopifnot(inherits(x,"VPTimeSeries"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
-  dt=dt/3600
+  dt=as.numeric(dt)/3600
   mtrs=mtr(x,alt.min,alt.max)
   data.frame(dates=mtrs$dates,cmt=cumsum(dt*mtrs$mtr))
 }
@@ -1002,3 +1252,30 @@ suntime = function(lon, lat, date, elev=-0.268, rise = TRUE)
   output=as.POSIXct(as.POSIXlt(dateOnly,tz='UTC'))+3600*hour
   return(output)
 }
+
+#' Elevation
+#'
+#' Gives the elevation of a scan, or the elevations within a polar volume
+#' @param x a \code{PVOL} or \code{SCAN} object
+#' @export
+#' @return elevation in degrees
+#' @examples
+#' # to be written
+elev <- function (x, ...) UseMethod("elev", x)
+
+#' @describeIn elev elevation of a scan
+#' @method elev SCAN
+#' @export
+elev.SCAN = function(x){
+  stopifnot(inherits(x,"SCAN"))
+  x$attributes$where$elangle
+}
+
+#' @describeIn elev elevation of a polar volume
+#' @method elev PVOL
+#' @export
+elev.PVOL = function(x){
+  stopifnot(inherits(x,"PVOL"))
+  sapply(x$scans,elev.SCAN)
+}
+
