@@ -19,15 +19,15 @@
 
 \item{log}{logical. Whether to display \code{quantity} data on a logarithmic scale}
 
-\item{barbs}{logical. Whether to plot overlay speed barbs}
+\item{barbs}{logical. Whether to overlay speed barbs}
 
 \item{barbs.h}{integer. Number of barbs to plot in altitudinal dimension}
 
 \item{barbs.t}{integer. Number of barbs to plot in temporal dimension}
 
-\item{barbs.dens}{numeric. Lower threshold in aerial density of individuals for plotting speed barbs}
+\item{barbs.dens}{numeric. Lower threshold in aerial density of individuals for plotting speed barbs in individuals/km^3}
 
-\item{zlim}{numerical atomic vector of length 2, specifying the range of \code{quantity} values to plot}
+\item{zlim}{optional numerical atomic vector of length 2, specifying the range of \code{quantity} values to plot}
 
 \item{legend.ticks}{numeric atomic vector specifying the ticks on the color bar}
 

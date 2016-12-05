@@ -20,11 +20,11 @@ is.na2=function(x) is.na(x) & !is.nan(x)
 #' @param ylab a title for the y-axis
 #' @param quantity character string with the quantity to plot, one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
 #' @param log logical. Whether to display \code{quantity} data on a logarithmic scale
-#' @param barbs logical. Whether to plot overlay speed barbs
+#' @param barbs logical. Whether to overlay speed barbs
 #' @param barbs.h integer. Number of barbs to plot in altitudinal dimension
 #' @param barbs.t integer. Number of barbs to plot in temporal dimension
-#' @param barbs.dens numeric. Lower threshold in aerial density of individuals for plotting speed barbs
-#' @param zlim numerical atomic vector of length 2, specifying the range of \code{quantity} values to plot
+#' @param barbs.dens numeric. Lower threshold in aerial density of individuals for plotting speed barbs in individuals/km^3
+#' @param zlim optional numerical atomic vector of length 2, specifying the range of \code{quantity} values to plot
 #' @param legend.ticks numeric atomic vector specifying the ticks on the color bar
 #' @param main a title for the plot
 #' @param ... Additional arguments to be passed to the low level \link[graphics]{image} plotting function
@@ -148,22 +148,10 @@ plot.VPTimeSeries = function(x, xlab="time [UTC]",ylab="height [m]",quantity="de
 
   # overlay speed barbs
   if(barbs){
-    if("xlim" %in% names(args)){
-      stepsize.t=(max(args$xlim)-min(args$xlim))/barbs.t
-      t.barbs=seq(min(args$xlim)+stepsize.t/2, max(args$xlim)-stepsize.t/2,length.out=barbs.t)
-    }
-    else{
-      stepsize.t=(max(x$dates)-min(x$dates))/barbs.t
-      t.barbs=seq(x$dates[1]+stepsize.t/2, tail(x$dates,1)-stepsize.t/2,length.out=barbs.t)
-    }
-    if("ylim" %in% names(args)){
-      stepsize.h=(max(args$ylim)-min(args$ylim))/barbs.h
-      h.barbs=seq(x$heights[1]+stepsize.h/2, tail(x$heights,1)-stepsize.h/2,length.out=barbs.h)
-    }
-    else{
-      stepsize.h=(max(x$heights)-min(x$heights))/barbs.h
-      h.barbs=seq(x$heights[1]+stepsize.h/2, tail(x$heights,1)-stepsize.h/2,length.out=barbs.h)
-    }
+    if("xlim" %in% names(args)) t.barbs=seq(min(args$xlim), max(args$xlim),length.out=barbs.t)
+    else t.barbs=seq(x$dates[1], tail(x$dates,1),length.out=barbs.t)
+    if("ylim" %in% names(args)) h.barbs=seq(min(args$ylim), max(args$ylim),length.out=barbs.h)
+    else h.barbs=seq(x$heights[1], tail(x$heights,1),length.out=barbs.h)
     barbdata=expand.grid(date=t.barbs,height=h.barbs)
     barbdata$indext=sapply(barbdata$date,function(y) which.min(abs(x$dates - y)))
     barbdata$indexh=sapply(barbdata$height,function(y) which.min(abs(x$heights - y)))

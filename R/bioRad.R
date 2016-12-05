@@ -877,3 +877,18 @@ suntime = function(lon, lat, date, elev=-0.268, rise = TRUE)
   output=as.POSIXct(as.POSIXlt(dateOnly,tz='UTC'))+3600*hour
   return(output)
 }
+
+# effective earth's radius
+EARTHRADIUS=6371*4/3
+
+#' Radar beam height
+#'
+#' Calculates the height of a radar beam as a function of elevation and range, assuming the beam
+#' is emitted at surface level.
+#' @param range numeric. Range in km
+#' @param elev numeric. Elevation in degrees
+#' @return numeric value. Beam height in km
+#' @export
+#' @details To account for refraction of the beam towards the earth's surface, an effective earth's radius of 4/3 * (true radius) is assumed.
+beamheight=function(range,elev) sqrt(range^2+(EARTHRADIUS)^2+2*range*(EARTHRADIUS)*sin(elev*pi/180))-EARTHRADIUS
+
