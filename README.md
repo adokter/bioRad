@@ -10,9 +10,11 @@ install_github("adokter/bioRad")
 ```
 
 ### Docker
-The functionality of [vol2bird](https://github.com/adokter/vol2bird) has been made available in bioRad through Docker. Without Docker, the package disables volbird automatically. All the other tools will still work.
+The functionality of [vol2bird](https://github.com/adokter/vol2bird) is available in bioRad through Docker.
 
 Go to the [Docker](https://www.docker.com/) webpage for instructions on how to install Docker on your local system. On 8 Dec 2016 Docker is available for Windows 10 Professional or Enterprise 64-bit, MacOS Yosemite 10.10.3 or above, or any linux/unix distribution.
+
+Without a Docker installation, the bioRad package disables volbird automatically. All the other tools will still work.
 
 ### rhdf5
 bioRad requires the rhdf5 library to read [hdf5](https://support.hdfgroup.org/HDF5/) files. This library is available through bioconductor (not CRAN). To install:
