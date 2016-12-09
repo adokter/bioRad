@@ -902,7 +902,7 @@ rcs.vp <- function (x){
   x$attributes$how$rcs_bird
 }
 
-#' @describeIn rcs radar cross section of a vertical profile
+#' @describeIn rcs radar cross sections for a list of vertical profiles
 #' @export
 rcs.vplist <- function (x){
   stopifnot(inherits(x,"vplist"))
@@ -910,7 +910,7 @@ rcs.vplist <- function (x){
   output
 }
 
-#' @describeIn rcs radar cross section of a vertical profile
+#' @describeIn rcs radar cross section of a time series of vertical profile
 #' @export
 rcs.vpts <- function (x){
   stopifnot(inherits(x,"vpts"))
@@ -1076,6 +1076,14 @@ sd_vvp.vpts <- function (x){
 #' @inheritParams mtr
 #' @export
 #' @return a numeric value equal to migration traffic in number of individuals / km
+#' @examples
+#' # get example time series object
+#' data(VPTS)
+#' VPTS
+#' # total migration traffic in full altitude band
+#' mt(VPTS)
+#' # total migration traffic in 0-1000 meter band
+#' mt(VPTS,alt.min=0,alt.max=1000)
 mt <- function(x,alt.min=0, alt.max=Inf){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2

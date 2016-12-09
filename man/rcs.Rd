@@ -28,9 +28,9 @@ Gives the currently assumed radar cross section in cm^2.
 \itemize{
 \item \code{vp}: radar cross section of a vertical profile
 
-\item \code{vplist}: radar cross section of a vertical profile
+\item \code{vplist}: radar cross sections for a list of vertical profiles
 
-\item \code{vpts}: radar cross section of a vertical profile
+\item \code{vpts}: radar cross section of a time series of vertical profile
 }}
 \examples{
 # extract RCS for a single vertical profile:

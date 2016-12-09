@@ -288,7 +288,7 @@ elangle.scan = function(x){
   x$attributes$where$elangle
 }
 
-#' @describeIn elangle elevation of a polar volume
+#' @describeIn elangle elevation of all scans in a polar volume
 #' @export
 elangle.pvol = function(x){
   stopifnot(inherits(x,"pvol"))
@@ -446,9 +446,9 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
 #' # map the reflectivity quantity of the ppi onto the basemap:
 #' map(ppi,map=basemap,param="DBZH")
 #' # download a different type of basemap, e.g. satellite imagery:
-#' # see get_map in ggmap library for full documentation of options
+#' # see get_map() in ggmap library for full documentation of options
 #' basemap=basemap(ppi,maptype="satellite")
-#' # map the radial velocities onto the sattelite imagery:
+#' # map the radial velocities onto the satellite imagery:
 #' map(ppi,map=basemap,param="VRADH")
 basemap=function(x,verbose=TRUE,zoom,...){
   stopifnot(inherits(x,"ppi"))

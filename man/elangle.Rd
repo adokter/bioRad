@@ -25,7 +25,7 @@ Gives the elevation of a scan, or the elevations within a polar volume
 \itemize{
 \item \code{scan}: elevation of a scan
 
-\item \code{pvol}: elevation of a polar volume
+\item \code{pvol}: elevation of all scans in a polar volume
 }}
 \examples{
 # load a polar volume

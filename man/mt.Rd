@@ -23,4 +23,13 @@ that have passed per km perpendicular to the migratory direction at the
 position of the radar for the full period of the time series
 within the specified altitude band.
 }
+\examples{
+# get example time series object
+data(VPTS)
+VPTS
+# total migration traffic in full altitude band
+mt(VPTS)
+# total migration traffic in 0-1000 meter band
+mt(VPTS,alt.min=0,alt.max=1000)
+}
 
