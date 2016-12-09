@@ -2,21 +2,23 @@
 % Please edit documentation in R/bioRad.R
 \name{sd_vvp<-}
 \alias{sd_vvp<-}
-\alias{sd_vvp<-.VP}
-\alias{sd_vvp<-.VPList}
-\alias{sd_vvp<-.VPTimeSeries}
+\alias{sd_vvp<-.vp}
+\alias{sd_vvp<-.vplist}
+\alias{sd_vvp<-.vpts}
 \title{Set threshold for VVP-retrieved radial velocity standard deviation}
 \usage{
-sd_vvp(x, ...) <- value
+sd_vvp(x) <- value
 
-\method{sd_vvp}{VP}(x) <- value
+\method{sd_vvp}{vp}(x) <- value
 
-\method{sd_vvp}{VPList}(x) <- value
+\method{sd_vvp}{vplist}(x) <- value
 
-\method{sd_vvp}{VPTimeSeries}(x) <- value
+\method{sd_vvp}{vpts}(x) <- value
 }
 \arguments{
-\item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
+\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+
+\item{value}{the value to assign}
 }
 \description{
 Sets the threshold in \code{sd_vvp}. Altitude layers with \code{sd_vvp} below this threshold are

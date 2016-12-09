@@ -14,8 +14,8 @@ is.na2=function(x) is.na(x) & !is.nan(x)
 
 #' Plot a time series of vertical profiles
 #'
-#' Plot a time series of vertical profiles  of class \code{VPTimeSeries}.
-#' @param x a VP class object inheriting from class \code{VPTimeSeries}
+#' Plot a time series of vertical profiles  of class \code{vpts}.
+#' @param x a vp class object inheriting from class \code{vpts}
 #' @param xlab a title for the x-axis
 #' @param ylab a title for the y-axis
 #' @param quantity character string with the quantity to plot, one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
@@ -29,6 +29,7 @@ is.na2=function(x) is.na(x) & !is.nan(x)
 #' @param main a title for the plot
 #' @param ... Additional arguments to be passed to the low level \link[graphics]{image} plotting function
 #' @export
+#' @method plot vpts
 #' @details
 #' Profile can be visualised in three related quantities, as specified by argument \code{quantity}:
 #' \describe{
@@ -46,13 +47,13 @@ is.na2=function(x) is.na(x) & !is.nan(x)
 #' # locate example file:
 #' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
 #' # load and regularize time series of vertical profiles:
-#' ts=regularize(readVP.table(VPtable,radar="KBGM", wavelength='S'))
+#' ts=regularize(readvp.table(VPtable,radar="KBGM", wavelength='S'))
 #' # plot density of individuals for the first 500 time steps, in the altitude layer 0-3000 m.
 #' plot(ts[1:500], ylim=c(0,3000))
 #' # plot total reflectivity factor (rain,birds,insects together):
 #' plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
-plot.VPTimeSeries = function(x, xlab="time [UTC]",ylab="height [m]",quantity="dens",log=T, barbs=T, barbs.h=10, barbs.t=20, barbs.dens=5, zlim, legend.ticks, main, ...){
-  stopifnot(inherits(x,"VPTimeSeries"))
+plot.vpts = function(x, xlab="time [UTC]",ylab="height [m]",quantity="dens",log=T, barbs=T, barbs.h=10, barbs.t=20, barbs.dens=5, zlim, legend.ticks, main, ...){
+  stopifnot(inherits(x,"vpts"))
   args <- list(...)
   if(!x$regular) warning("Irregular time-series: x-axis is not a linear time scale. Use 'regularize' to make time series regular.")
 

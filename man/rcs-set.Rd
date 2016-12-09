@@ -2,21 +2,23 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs<-}
 \alias{rcs<-}
-\alias{rcs<-.VP}
-\alias{rcs<-.VPList}
-\alias{rcs<-.VPTimeSeries}
+\alias{rcs<-.vp}
+\alias{rcs<-.vplist}
+\alias{rcs<-.vpts}
 \title{Set radar cross section}
 \usage{
-rcs(x, ...) <- value
+rcs(x) <- value
 
-\method{rcs}{VP}(x) <- value
+\method{rcs}{vp}(x) <- value
 
-\method{rcs}{VPList}(x) <- value
+\method{rcs}{vplist}(x) <- value
 
-\method{rcs}{VPTimeSeries}(x) <- value
+\method{rcs}{vpts}(x) <- value
 }
 \arguments{
-\item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
+\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+
+\item{value}{the cross section value to assign}
 }
 \description{
 Sets the assumed radar cross section in cm^2. This method also updates the migration densities in \code{x$data$dens}

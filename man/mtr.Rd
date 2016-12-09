@@ -2,32 +2,32 @@
 % Please edit documentation in R/bioRad.R
 \name{mtr}
 \alias{mtr}
-\alias{mtr.VP}
-\alias{mtr.VPList}
-\alias{mtr.VPTimeSeries}
+\alias{mtr.vp}
+\alias{mtr.vplist}
+\alias{mtr.vpts}
 \title{Migration traffic rate}
 \usage{
-mtr(x, ...)
+mtr(x, alt.min, alt.max)
 
-\method{mtr}{VP}(x, alt.min = 0, alt.max = Inf)
+\method{mtr}{vp}(x, alt.min = 0, alt.max = Inf)
 
-\method{mtr}{VPList}(x, alt.min = 0, alt.max = Inf)
+\method{mtr}{vplist}(x, alt.min = 0, alt.max = Inf)
 
-\method{mtr}{VPTimeSeries}(x, alt.min = 0, alt.max = Inf)
+\method{mtr}{vpts}(x, alt.min = 0, alt.max = Inf)
 }
 \arguments{
-\item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
+\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
 
 \item{alt.min}{minimum altitude in m}
 
 \item{alt.max}{maximum altitude in m}
 }
 \value{
-class \code{VP}: the migration traffic rate (MTR) individuals/km/h
+class \code{vp}: the migration traffic rate (MTR) individuals/km/h
 
-class \code{VPList}: a numeric atomic vector with migration traffic rates in individuals/km/h
+class \code{vplist}: a numeric atomic vector with migration traffic rates in individuals/km/h
 
-class \code{VPTimeSeries}: a data frame with dates and migration traffic rates in individuals/km/h
+class \code{vpts}: a data frame with dates and migration traffic rates in individuals/km/h
 }
 \description{
 Migration traffic rate (MTR) for an altitude layer, defined as the
@@ -35,11 +35,11 @@ number of targets crossing a 1 km line perpendicular to the migratory movement p
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{VP}: MTR of a vertical profile
+\item \code{vp}: MTR of a vertical profile
 
-\item \code{VPList}: MTR of a list of vertical profiles
+\item \code{vplist}: MTR of a list of vertical profiles
 
-\item \code{VPTimeSeries}: MTR of a time series of vertical profiles
+\item \code{vpts}: MTR of a time series of vertical profiles
 }}
 \examples{
 ### MTR for a single vertical profile ###
@@ -52,7 +52,7 @@ mtr(c(VP,VP))
 # locate example file:
 VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
 # load time series:
-ts=readVP.table(VPtable,radar="KBGM", wavelength='S')
+ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
 # print migration traffic rates:
 mtr(ts)
 # plot migration traffic rates for the full air column:

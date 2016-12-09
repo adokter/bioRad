@@ -10,7 +10,7 @@ h5ODIMobject(filename)
 \item{filename}{A string containing a filename}
 }
 \value{
-character string "\code{PVOL}" for polar volume, "\code{VP}" for vertical profile, otherwise \code{NA}
+character string "\code{pvol}" for polar volume, "\code{vp}" for vertical profile, otherwise \code{NA}
 }
 \description{
 Checks which data class is contained in ODIM HDF5 file
@@ -18,7 +18,7 @@ Checks which data class is contained in ODIM HDF5 file
 \examples{
 # locate a polar volume file
 pvol <- system.file("extdata", "volume.h5", package="bioRad")
-h5ODIMobject(pvol)   #> "PVOL"
+h5ODIMobject(pvol)   #> "pvol"
 
 }
 

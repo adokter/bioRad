@@ -2,21 +2,21 @@
 % Please edit documentation in R/bioRad.R
 \name{sd_vvp}
 \alias{sd_vvp}
-\alias{sd_vvp.VP}
-\alias{sd_vvp.VPList}
-\alias{sd_vvp.VPTimeSeries}
-\title{VVP-retrieved radial velocity standard deviation}
+\alias{sd_vvp.vp}
+\alias{sd_vvp.vplist}
+\alias{sd_vvp.vpts}
+\title{threshold VVP-retrieved radial velocity standard deviation}
 \usage{
-sd_vvp(x, ...)
+sd_vvp(x)
 
-\method{rcs}{VP}(x)
+\method{sd_vvp}{vp}(x)
 
-\method{sd_vvp}{VPList}(x)
+\method{sd_vvp}{vplist}(x)
 
-\method{sd_vvp}{VPTimeSeries}(x)
+\method{sd_vvp}{vpts}(x)
 }
 \arguments{
-\item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
+\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
 }
 \value{
 threshold for \code{sd_vvp} in m/s.
@@ -26,11 +26,11 @@ Gives the current threshold in VVP-retrieved radial velocity standard deviation 
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{VP}: threshold in VVP-retrieved radial velocity standard deviation of a vertical profile
+\item \code{vp}: threshold in VVP-retrieved radial velocity standard deviation of a vertical profile
 
-\item \code{VPList}: threshold in VVP-retrieved radial velocity standard deviation of a list of vertical profiles
+\item \code{vplist}: threshold in VVP-retrieved radial velocity standard deviation of a list of vertical profiles
 
-\item \code{VPTimeSeries}: threshold in VVP-retrieved radial velocity standard deviation of a time series of vertical profiles
+\item \code{vpts}: threshold in VVP-retrieved radial velocity standard deviation of a time series of vertical profiles
 }}
 \examples{
 # extract threshold for a single vertical profile:

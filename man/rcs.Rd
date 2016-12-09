@@ -2,21 +2,21 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs}
 \alias{rcs}
-\alias{rcs.VP}
-\alias{rcs.VPList}
-\alias{rcs.VPTimeSeries}
+\alias{rcs.vp}
+\alias{rcs.vplist}
+\alias{rcs.vpts}
 \title{Radar cross section}
 \usage{
-rcs(x, ...)
+rcs(x)
 
-\method{rcs}{VP}(x)
+\method{rcs}{vp}(x)
 
-\method{rcs}{VPList}(x)
+\method{rcs}{vplist}(x)
 
-\method{rcs}{VPTimeSeries}(x)
+\method{rcs}{vpts}(x)
 }
 \arguments{
-\item{x}{a \code{VP}, \code{VPList} or \code{VPTimeSeries} object}
+\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
 }
 \value{
 a radar cross section in cm^2
@@ -26,11 +26,11 @@ Gives the currently assumed radar cross section in cm^2.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{VP}: radar cross section of a vertical profile
+\item \code{vp}: radar cross section of a vertical profile
 
-\item \code{VPList}: radar cross section of a vertical profile
+\item \code{vplist}: radar cross section of a vertical profile
 
-\item \code{VPTimeSeries}: radar cross section of a vertical profile
+\item \code{vpts}: radar cross section of a vertical profile
 }}
 \examples{
 # extract RCS for a single vertical profile:

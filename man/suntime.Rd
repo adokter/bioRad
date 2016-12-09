@@ -2,7 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{suntime}
 \alias{suntime}
-\title{calculate sunrise and sunset}
+\title{Calculate sunrise and sunset}
 \usage{
 suntime(lon, lat, date, elev = -0.268, rise = TRUE)
 }
@@ -21,7 +21,7 @@ suntime(lon, lat, date, elev = -0.268, rise = TRUE)
 the moment of sunrise or sunset in UTC time
 }
 \description{
-calculate sunrise and sunset
+Calculate sunrise and sunset
 }
 \details{
 The angular diameter of the sun is about 0.536 degrees, therefore the moment
@@ -37,7 +37,7 @@ be off by a few minutes
 # sunrise in the Netherlands
 suntime(5,53,"2016-01-01")
 # sunset in the Netherlands
-suntime(5,53,"2016-01-01",rise=F)
+suntime(5,53,"2016-01-01",rise=FALSE)
 # civil twilight in Ithaca, NY, today
 suntime(-76.5,42.4,Sys.time(),elev=-6)
 }
