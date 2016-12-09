@@ -4,30 +4,119 @@
 \alias{vol2bird}
 \title{Calculate a vertical profile of birds (VPB)}
 \usage{
-vol2bird(volume.in, profile.out = "", volume.out = "", verbose = F)
+vol2bird(vol.in, vp.out = "", vol.out = "", verbose = F,
+  mount = dirname(vol.in), sd_vvp = 2, rcs = 11, dualpol = F,
+  rhohv = 0.9, elev.min = 0, elev.max = 90, azim.min = 0,
+  azim.max = 360, range.min = 5000, range.max = 25000, nlayer = 20L,
+  hlayer = 200, dealias = T, nyquist.min = if (dealias) 5 else 25)
 }
 \arguments{
-\item{volume.in}{A radar file containing a radar polar volume, either in
+\item{vol.in}{A radar file containing a radar polar volume, either in
 \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
-or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library})}
+or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.}
 
-\item{profile.out}{filename for the vertical profile to be generated in ODIM HDF5 format (optional)}
+\item{vp.out}{character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)}
 
-\item{volume.out}{filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
+\item{vol.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
-\item{radar}{string containing a unique radar identifier}
+\item{verbose}{logical. When TRUE, pipe Docker stdout to R console}
+
+\item{mount}{character string with the mount point (a directory path) for the Docker container}
+
+\item{sd_vvp}{numeric. lower threshold in radial velocity standard deviation (\code{sd_vvp}) in m/s.}
+
+\item{rcs}{numeric. Radar cross section per bird in cm^2.}
+
+\item{dualpol}{logical. When \code{TRUE} use dual-pol mode, in which meteorological echoes are filtered using the correlation coeficient \code{rhohv}.
+When \code{FALSE} use single polarizaiton mode based only on reflectivity and radial velocity quantities.}
+
+\item{rhohv}{numeric. Lower threshold in correlation coefficient used to filter meteorological scattering}
+
+\item{elev.min}{numeric. Minimum scan elevation in degrees}
+
+\item{elev.max}{numeric. Maximum scan elevation in degrees}
+
+\item{azim.min}{numeric. Minimum azimuth in degrees clockwise from north}
+
+\item{azim.max}{numeric. Maximum azimuth in degrees clockwise from north}
+
+\item{range.min}{numeric. Minimum range in km}
+
+\item{range.max}{numeric. Maximum range in km.}
+
+\item{nlayer}{numeric. Number of altitude layers in the profile}
+
+\item{hlayer}{numeric. Width of altitude layers in metre}
+
+\item{dealias}{logical. Whether to dealias radial velocities; this should typically be done
+when the scans in the polar volume have low Nyquist velocities (below 25 m/s)}
+
+\item{nyquist.min}{numeric. Minimum Nyquist velocity of scans in m/s for scans to be included in the analysis}
+}
+\value{
+A vertical profile object of class \link[=summary.vp]{vp}.
+When defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
 }
 \description{
 Calculates a vertical profile of birds (VPB) from a polar volume
 }
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon
+
+Common arguments set by users are \code{vol.in}, \code{vp.out}, \code{dualpol}, \code{dealias} and \code{mount}
+
+Arguments that sometimes require non-default values are: \code{rcs}, \code{sd_vvp}, \code{range.max}
+
+Other arguments are typically left at their defaults.
+
+\code{azim.min} and \code{azim.max} only affects reflectivity-derived estimates in the profile (DBZH,eta,dens),
+not radial-velocity derived estimates (u,v,w,ff,dd,sd_vvp), which are estimated on all azimuths at all times.
+\code{azim.min},\code{azim.max} may be set to exclude an angular sector with high ground clutter
+
+\code{range.max} may be extended up to 40,000 m for volumes with low elevations only, in order to extend coverage to higher altitudes.
+
+For altitude layers with a VVP-retrieved radial velocity standard deviation value
+below the threshold \code{sd_vvp}, the bird density \code{dens} is set to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold might be
+dependent on radar processing settings. Results from validation campaigns so far indicate that 2 m/s is
+the best choice for this parameter for most weather radars.
+The algorithm has been tested and developed for altitude layers with \code{hlayer} = 200 m.
+Smaller widths are not recommended as they may cause instabilities of the volume velocity profiling (VVP)
+and dealiasing routines, and effectively lead to pseudo-replicated altitude data, since altitudinal patterns
+smaller than the beam width cannot be resolved.
+
+The default radar cross section (11 cm^2) corresponds to the average value found by Dokter et al.
+in a calibration campaign of a full migration autumn season in western Europe at C-band.
+It's value may depend on radar wavelength. rcs will scale approximately \eqn{M^{2/3}} with \code{M} the bird's mass.
+
+Using default values of \code{range.min} and \code{range.max} is recommended.
+Ranges closer than 5 km tend to be contaminated by ground clutter, while range gates beyond
+25 km become too wide to resolve the default altitude layer width of 200 metre (see \link[bioRad]{beamwidth})
+
+For dealiasing, the torus mapping method by Haase et al. is used
+
+At S-band (radar wavelength ~ 10 cm), currently only \code{dualpol=T} mode is recommended.
+
+On repeated calls of \code{vol2bird}, the Docker container mount can be recycled
+from one call to the next if subsequent calls share the same \code{mount} argument.
+Re-mounting a Docker container takes time, therefore it is advised to
+choose a mountpoint that is a parent directory of all volume files to be processed,
+such that \code{vol2bird} calls are as fast as possible.
 }
 \examples{
 # locate example volume file:
 volume <- system.file("extdata", "volume.h5", package="bioRad")
-# load the file:
-vol2bird(volume)
+# copy to a home directory with read/write permissions:
+file.copy(volume,"~/volume.h5")
+# calculate the profile:
+\dontrun{profile=vol2bird("~/volume.h5")}
+# clean up:
+file.remove("~/volume.h5")
+}
+\references{
+\itemize{
+  \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar velocities using a torus mapping. Journal of Atmospheric and Oceanic Technology, 21(10), pp.1566-1573.
+  \item Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
+}
 }
 
