@@ -1,5 +1,5 @@
 # bioRad
-R package for extracting and visualising bird signals from weather radar data
+R package for extracting and visualising biological signals from weather radar data
 
 # installation
 To install the bioRad package in R use the devtools package:
