@@ -6,6 +6,8 @@
 #' @param lat latitude in decimal degrees of the radar position. If not specified, value stored in file is used. If specified, value stored in file is overwritten.
 #' @param lon longitude in decimal degrees of the radar position. If not specified, value stored in file is used. If specified, value stored in file is overwritten.
 #' @param height height of the centre of the antenna in meters above sea level. If not specified, value stored in file is used. If specified, value stored in file is overwritten.
+#' @param verbose logical. Whether to print messages to console
+#' @param mount character string with the mount point (a directory path) for the Docker container
 #' @export
 #' @return an object of class \link[=summary.pvol]{pvol}, which is a list containing polar scans, i.e. objects of class \code{scan}
 #' @details
@@ -35,12 +37,27 @@
 #' scan=vol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
-read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort=T,lat,lon,height){
-  if(!is.pvolfile(filename)) stop("not a polar volume in ODIM HDF5 format")
+read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort=T,lat,lon,height,verbose=T,mount=dirname(filename)){
   if(!is.logical(sort)) stop("'sort' should be logical")
   if(!missing(lat)) if(!is.numeric(lat) || lat< -90 || lat>90) stop("'lat' should be numeric between -90 and 90 degrees")
   if(!missing(lon)) if(!is.numeric(lon) || lat< -360 || lat>360) stop("'lon' should be numeric between -360 and 360 degrees")
   if(!missing(height)) if(!is.numeric(height) || height<0) stop("'height' should be a positive number of meters above sea level")
+
+  # check file type. If not ODIM hdf5, try to convert from RSL
+  cleanup=F
+  if(H5Fis_hdf5(filename)){
+    if(!is.pvolfile(filename)) stop("failed to read hdf5 file")
+  }
+  else{
+    if(verbose) cat("Not a hdf5 file, trying to convert using Docker ...\n")
+    if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'checkDocker()' in R\n")
+    filename = rsl2odim_tempfile(filename,verbose=verbose,mount=mount)
+    if(!is.pvolfile(filename)){
+      file.remove(filename)
+      stop("converted file contains errors")
+    }
+    cleanup=T
+  }
 
   #extract scan groups
   scans=h5ls(filename,recursive=F)$name
@@ -55,16 +72,22 @@ read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort
   vol.lon=attribs.where$lon
   vol.height=attribs.where$height
   if(is.null(vol.lat)){
-    if(missing(lat)) stop("latitude not found in file, provide 'lat' argument")
-    else vol.lat=lat
+    if(missing(lat)){
+      if(cleanup) file.remove(filename)
+      stop("latitude not found in file, provide 'lat' argument")
+    } else vol.lat=lat
   }
   if(is.null(vol.lon)){
-    if(missing(lon)) stop("longitude not found in file, provide 'lon' argument")
-    else vol.lon=lon
+    if(missing(lon)){
+      if(cleanup) file.remove(filename)
+      stop("longitude not found in file, provide 'lon' argument")
+    } else vol.lon=lon
   }
   if(is.null(vol.height)){
-    if(missing(height)) stop("antenna height not found in file, provide 'height' argument")
-    else vol.height=height
+    if(missing(height)){
+      if(cleanup) file.remove(filename)
+      stop("antenna height not found in file, provide 'height' argument")
+    } else vol.height=height
   }
   geo=list(lat=vol.lat,lon=vol.lon,height=vol.height)
 
@@ -81,6 +104,9 @@ read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort
   #prepare output
   output=list(radar=radar,datetime=datetime,scans=data,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where),geo=geo)
   class(output) = "pvol"
+
+  if(cleanup) file.remove(filename)
+
   output
 }
 
@@ -413,6 +439,7 @@ get_colorscale=function(param,zlim){
 plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   stopifnot(inherits(x,"ppi"))
   if(missing(param)) param=names(x$data)[1]
+  else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
   colorscale=get_colorscale(param,zlim)
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
@@ -469,8 +496,7 @@ basemap=function(x,verbose=TRUE,zoom,...){
      if(missing(zoom)){
        if(verbose) cat("map too small, downloading zoom =",use_zoom-1,"...\n")
        map=get_map(location=c(lon=x$geo$lon,lat=x$geo$lat),zoom=use_zoom-1,...)
-     }
-     else warning("map is smaller than ppi bounding box")
+     } else warning("map is smaller than ppi bounding box")
   }
   attributes(map)$geo=x$geo
   attributes(map)$ppi=T
@@ -518,6 +544,7 @@ map <- function (x, ...) UseMethod("map", x)
 map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size=3,radar.color="red",...){
   stopifnot(inherits(x,"ppi"))
   if(missing(param)) param=names(x$data)[1]
+  else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
   if(!attributes(map)$ppi) stop("not a ppi map, use basemap() to download a map")
   if(attributes(map)$geo$lat!=x$geo$lat || attributes(map)$geo$lon!=x$geo$lon) stop("not a basemap for this radar location")
   # extract the scan parameter
