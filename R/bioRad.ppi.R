@@ -6,6 +6,8 @@
 #' @param lat latitude in decimal degrees of the radar position. If not specified, value stored in file is used. If specified, value stored in file is overwritten.
 #' @param lon longitude in decimal degrees of the radar position. If not specified, value stored in file is used. If specified, value stored in file is overwritten.
 #' @param height height of the centre of the antenna in meters above sea level. If not specified, value stored in file is used. If specified, value stored in file is overwritten.
+#' @param elangle.min Minimum scan elevation to read in degrees
+#' @param elangle.max Maximum scan elevation to read in degrees
 #' @param verbose logical. Whether to print messages to console
 #' @param mount character string with the mount point (a directory path) for the Docker container
 #' @export
@@ -37,7 +39,7 @@
 #' scan=vol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
-read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort=T,lat,lon,height,verbose=T,mount=dirname(filename)){
+read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort=T,lat,lon,height,elangle.min=0,elangle.max=90,verbose=T,mount=dirname(filename)){
   if(!is.logical(sort)) stop("'sort' should be logical")
   if(!missing(lat)) if(!is.numeric(lat) || lat< -90 || lat>90) stop("'lat' should be numeric between -90 and 90 degrees")
   if(!missing(lon)) if(!is.numeric(lon) || lat< -360 || lat>360) stop("'lon' should be numeric between -360 and 360 degrees")
@@ -62,6 +64,10 @@ read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort
   #extract scan groups
   scans=h5ls(filename,recursive=F)$name
   scans=scans[grep("dataset",scans)]
+
+  #extract elevations, and make selection based on elevation
+  elevs=sapply(scans,function(x) h5readAttributes(filename,paste(x,"/where",sep=""))$elangle)
+  scans=scans[elevs>=elangle.min & elevs<=elangle.max]
 
   #extract attributes
   attribs.how=h5readAttributes(filename,"how")
