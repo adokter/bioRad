@@ -49,7 +49,7 @@ read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort
     if(!is.pvolfile(filename)) stop("failed to read hdf5 file")
   }
   else{
-    if(verbose) cat("Not a hdf5 file, trying to convert using Docker ...\n")
+    if(verbose) cat("Converting using Docker ...\n")
     if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'checkDocker()' in R\n")
     filename = rsl2odim_tempfile(filename,verbose=verbose,mount=mount)
     if(!is.pvolfile(filename)){
@@ -327,6 +327,8 @@ elangle.pvol = function(x){
 #' @param x an object of class 'param' or 'scan'
 #' @param cellsize cartesian grid size in m
 #' @param range.max maximum range in m
+#' @param latlim the range of latitudes to include
+#' @param lonlim the range of longitudes to include
 #' @param project whether to vertically project onto earth's surface
 #' @param ... arguments passed to methods
 #' @export
@@ -346,50 +348,90 @@ elangle.pvol = function(x){
 #' ppi=ppi(param)
 #' # print summary info for this ppi:
 #' ppi
-ppi <- function (x,cellsize=500,range.max=50000,project=F) UseMethod("ppi", x)
+ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
 
 #' @describeIn ppi ppi for a single scan parameter
 #' @export
-ppi.param=function(x,cellsize=500,range.max=50000,project=F){
+ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"param"))
-  data=samplePolar(x,cellsize,range.max,project)
+  data=samplePolar(x,cellsize,range.max,project,latlim,lonlim)
   # copy the parameter's attributes
-  data=list(data=data, geo=attributes(x)$geo)
+  geo=attributes(x)$geo
+  geo$bbox=attributes(data)$bboxlatlon
+  data=list(data=data, geo=geo)
   class(data)="ppi"
   data
 }
 
 #' @describeIn ppi multiple ppi's for all scan parameters in a scan
 #' @export
-ppi.scan=function(x,cellsize=500,range.max=50000,project=F){
+ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"scan"))
-  data=samplePolar(x$params[[1]],cellsize,range.max,project)
+  data=samplePolar(x$params[[1]],cellsize,range.max,project,latlim,lonlim)
   if(length(x$params)>1){
-    alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project)@data)
+    alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project,latlim,lonlim))
   }
-  data@data=do.call(cbind,alldata)
+  data=do.call(cbind,alldata)
   # copy the parameter's geo list to attributes
-  data=list(data=data, geo=x$geo)
+  geo=x$geo
+  geo$bbox=attributes(alldata[[1]])$bboxlatlon
+  data=list(data=data, geo=geo)
   class(data)="ppi"
   data
 }
 
-samplePolar=function(param,cellsize,range.max,project){
+samplePolar=function(param,cellsize,range.max,project,latlim,lonlim){
+  proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
+  bboxlatlon=proj2wgs(c(-range.max,range.max),c(-range.max,range.max),proj4string)@bbox
+  if(!missing(latlim) & !is.null(latlim)) bboxlatlon["lat",]=latlim
+  if(!missing(lonlim) & !is.null(lonlim)) bboxlatlon["lon",]=lonlim
+  if(missing(latlim) & missing(lonlim)){
+    cellcentre.offset=-c(range.max,range.max)
+    cells.dim=ceiling(rep(2*range.max/cellsize,2))
+  }
+  else{
+    bbox=wgs2proj(bboxlatlon["lon",],bboxlatlon["lat",],proj4string)
+    cellcentre.offset=c(min(bbox@coords[,"x"]),min(bbox@coords[,"y"]))
+    cells.dim=c(ceiling((max(bbox@coords[,"x"])-min(bbox@coords[,"x"]))/cellsize),ceiling((max(bbox@coords[,"y"])-min(bbox@coords[,"y"]))/cellsize))
+  }
   # define cartesian grid
-  gridTopo=GridTopology(-c(range.max,range.max),c(cellsize,cellsize),round(rep(2*range.max/cellsize,2)))
+  gridTopo=GridTopology(cellcentre.offset,c(cellsize,cellsize),cells.dim)
   # if projecting, account for elevation angle - not accounting for earths curvature
   if(project) elev=attributes(param)$geo$elangle else elev=0
   # get scan parameter indices, and extract data
   index=polar2index(cartesian2polar(coordinates(gridTopo),elev),attributes(param)$geo$rscale,attributes(param)$geo$ascale)
   data=data.frame(mapply(function(x,y) safeSubset(param,x,y),x=index$row,y=index$col))
   colnames(data)=attributes(param)$param
-  proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
-  SpatialGridDataFrame(grid=SpatialGrid(grid=gridTopo,proj4string=proj4string),data=data)
+  output=SpatialGridDataFrame(grid=SpatialGrid(grid=gridTopo,proj4string=proj4string),data=data)
+  attributes(output)$bboxlatlon=bboxlatlon
+  output
+}
+
+# wgs2proj is a wrapper for spTransform
+# proj4string should be an object of class 'CRS', as defined in package sp.
+# returns an object of class SpatialPoints
+wgs2proj<-function(lon,lat,proj4string){
+  xy <- data.frame(x = lon, y = lat)
+  coordinates(xy) <- c("x", "y")
+  proj4string(xy) <- CRS("+proj=longlat +datum=WGS84")
+  res <- spTransform(xy, proj4string)
+  return(res)
+}
+
+# proj2wgs is a wrapper for spTransform
+# proj4string should be an object of class 'CRS', as defined in package sp.
+# returns an object of class SpatialPoints
+proj2wgs<-function(x,y,proj4string){
+  xy <- data.frame(lon=x, lat=y)
+  coordinates(xy) <- c("lon", "lat")
+  proj4string(xy) <- proj4string
+  res <- spTransform(xy, CRS("+proj=longlat +datum=WGS84"))
+  return(res)
 }
 
 cartesian2polar=function(coords,elev=0){
   range = sqrt(coords[,1]^2 + coords[,2]^2)/cos(elev)
-  azim = (1.5*pi-atan2(coords[,2],coords[,1])) %% (2*pi)
+  azim = (0.5*pi-atan2(coords[,2],coords[,1])) %% (2*pi)
   data.frame(range=range,azim=azim*180/pi)
 }
 
@@ -402,7 +444,7 @@ safeSubset=function(data,indexx,indexy){
 
 polar2index=function(coords.polar,rangebin=1, azimbin=1){
   row=floor(1 + coords.polar$range/rangebin)
-  col=rev(floor(1 + coords.polar$azim/azimbin))
+  col=floor(1 + coords.polar$azim/azimbin)
   data.frame(row=row,col=col)
 }
 
@@ -482,25 +524,26 @@ basemap=function(x,verbose=TRUE,zoom,...){
   wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   if(!missing(zoom)) if(!is.numeric(zoom)) stop("zoom should be a numeric integer")
   # check size of ppi and determine zoom
-  bbox=data.frame(t(x$data@bbox))
-  bbox=SpatialPoints(bbox,proj4string=CRS(proj4string(x$data)))
-  bboxlatlon=spTransform(bbox,wgs84)@bbox
-  dimnames(bboxlatlon)[[1]]=c("lon","lat")
-  if(missing(zoom)) use_zoom=calc_zoom(bboxlatlon[1,],bboxlatlon[2,])
+  if(missing(zoom)) use_zoom=calc_zoom(x$geo$bbox["lon",],x$geo$bbox["lat",])
   else use_zoom=zoom
   if(verbose) cat("downloading zoom =",use_zoom,"...\n")
-  map=get_map(location=c(lon=x$geo$lon,lat=x$geo$lat),zoom=use_zoom,...)
+  map=get_map(location=c(lon=mean(x$geo$bbox["lon",]),lat=mean(x$geo$bbox["lat",])),zoom=use_zoom,...)
   bboxmap=attributes(map)$bb
-  if((bboxlatlon["lon","max"]-bboxlatlon["lon","min"] > bboxmap$ur.lon - bboxmap$ll.lon) ||
-     (bboxlatlon["lat","max"]-bboxlatlon["lat","min"] > bboxmap$ur.lat - bboxmap$ll.lat)){
+  if((x$geo$bbox["lon","max"]-x$geo$bbox["lon","min"] > bboxmap$ur.lon - bboxmap$ll.lon) ||
+     (x$geo$bbox["lat","max"]-x$geo$bbox["lat","min"] > bboxmap$ur.lat - bboxmap$ll.lat)){
      if(missing(zoom)){
        if(verbose) cat("map too small, downloading zoom =",use_zoom-1,"...\n")
-       map=get_map(location=c(lon=x$geo$lon,lat=x$geo$lat),zoom=use_zoom-1,...)
+       map=get_map(location=c(lon=mean(x$geo$bbox["lon",]),lat=mean(x$geo$bbox["lat",])),zoom=use_zoom-1,...)
+       bboxmap=attributes(map)$bb
+       if((x$geo$bbox["lon","max"]-x$geo$bbox["lon","min"] > bboxmap$ur.lon - bboxmap$ll.lon) ||
+          (x$geo$bbox["lat","max"]-x$geo$bbox["lat","min"] > bboxmap$ur.lat - bboxmap$ll.lat)){
+         if(verbose) cat("map still too small, downloading zoom =",use_zoom-2,"...\n")
+         map=get_map(location=c(lon=mean(x$geo$bbox["lon",]),lat=mean(x$geo$bbox["lat",])),zoom=use_zoom-2,...)
+       }
      } else warning("map is smaller than ppi bounding box")
   }
   attributes(map)$geo=x$geo
   attributes(map)$ppi=T
-  attributes(map)$bbox.ppi=bboxlatlon
   map
 }
 
@@ -559,10 +602,10 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   # colorscale
   colorscale=get_colorscale(param,zlim)
   # bounding box
-  bboxlatlon=attributes(map)$bbox.ppi
+  bboxlatlon=attributes(map)$geo$bbox
   if(missing(xlim)) xlim=bboxlatlon[1,]
   if(missing(ylim)) ylim=bboxlatlon[2,]
-  if(missing(ratio)) ratio=1/cos(x$geo$lat*pi/180)
+  if(missing(ratio)) ratio=1/cos(mean(x$geo$bbox["lat",])*pi/180)
   bbox = coord_fixed(xlim=xlim,ylim=ylim,ratio=ratio)
   # plot the data on the map
   nbins=x$data@grid@cells.dim[1]

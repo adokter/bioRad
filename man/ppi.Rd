@@ -6,11 +6,14 @@
 \alias{ppi.scan}
 \title{Make a plan position indicator (ppi)}
 \usage{
-ppi(x, cellsize = 500, range.max = 50000, project = F)
+ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
+  lonlim = NULL)
 
-\method{ppi}{param}(x, cellsize = 500, range.max = 50000, project = F)
+\method{ppi}{param}(x, cellsize = 500, range.max = 50000, project = F,
+  latlim = NULL, lonlim = NULL)
 
-\method{ppi}{scan}(x, cellsize = 500, range.max = 50000, project = F)
+\method{ppi}{scan}(x, cellsize = 500, range.max = 50000, project = F,
+  latlim = NULL, lonlim = NULL)
 }
 \arguments{
 \item{x}{an object of class 'param' or 'scan'}
@@ -20,6 +23,10 @@ ppi(x, cellsize = 500, range.max = 50000, project = F)
 \item{range.max}{maximum range in m}
 
 \item{project}{whether to vertically project onto earth's surface}
+
+\item{latlim}{the range of latitudes to include}
+
+\item{lonlim}{the range of longitudes to include}
 
 \item{...}{arguments passed to methods}
 }
