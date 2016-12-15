@@ -374,13 +374,13 @@ ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=N
 ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"scan"))
   data=samplePolar(x$params[[1]],cellsize,range.max,project,latlim,lonlim)
-  if(length(x$params)>1){
-    alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project,latlim,lonlim))
-  }
-  data=do.call(cbind,alldata)
   # copy the parameter's geo list to attributes
   geo=x$geo
-  geo$bbox=attributes(alldata[[1]])$bboxlatlon
+  geo$bbox=attributes(data)$bboxlatlon
+  if(length(x$params)>1){
+    alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project,latlim,lonlim))
+    data=do.call(cbind,alldata)
+  }
   data=list(data=data, geo=geo)
   class(data)="ppi"
   data
@@ -594,6 +594,7 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   stopifnot(inherits(x,"ppi"))
   if(missing(param)) param=names(x$data)[1]
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
+  if(!(param %in% names(x$data))) stop(paste("no scan parameter '",param,"' in this ppi",sep=""))
   if(!attributes(map)$ppi) stop("not a ppi map, use basemap() to download a map")
   if(attributes(map)$geo$lat!=x$geo$lat || attributes(map)$geo$lon!=x$geo$lon) stop("not a basemap for this radar location")
   # extract the scan parameter
@@ -603,6 +604,11 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   data=suppressWarnings(spTransform(data,wgs84))
   data=as.data.frame(data)
   names(data)=c("z","s1","s2")
+  # bring z-values within plotting range
+  index=which(data$z<zlim[1])
+  if(length(index)>0) data[index,]$z=zlim[1]
+  index=which(data$z>zlim[2])
+  if(length(index)>0) data[index,]$z=zlim[2]
   # symbol for the radar position
   radarpoint=geom_point(aes(x = lon, y = lat),colour=radar.color,size=radar.size,data=data.frame(lon=x$geo$lon,lat=x$geo$lat))
   # colorscale
