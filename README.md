@@ -34,8 +34,8 @@ Please reinstall the package that provides this extension.
 ```
 This issue is fixed when installing the latest versions from Github (8 Dec 2016)
 ```
-install_github("dkahle/ggmap")
 install_github("hadley/ggplot2")
+install_github("dkahle/ggmap")
 ```
 
 ### rgdal

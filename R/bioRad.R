@@ -12,6 +12,7 @@
 #' @import graphics
 #' @import ggplot2
 #' @import ggmap
+#' @import rgdal
 #' @import sp
 #' @import utils
 #' @importFrom raster rasterToPoints
@@ -1238,19 +1239,31 @@ suntime = function(lon, lat, date, elev=-0.268, rise = TRUE)
   return(output)
 }
 
-# effective earth's radius
-EARTHRADIUS=6371*4/3
-
 #' Radar beam height
 #'
 #' Calculates the height of a radar beam as a function of elevation and range, assuming the beam
 #' is emitted at surface level.
 #' @param range numeric. Range (distance from the radar antenna) in km
 #' @param elev numeric. Elevation in degrees
+#' @param k standard refraction coefficient
+#' @param re Earth equatorial radius in km
+#' @param rp Earth polar radius in km
+#' @param lat geodetic latitude in degrees
 #' @return numeric value. Beam height in km
 #' @export
 #' @details To account for refraction of the beam towards the earth's surface, an effective earth's radius of 4/3 * (true radius) is assumed.
-beamheight=function(range,elev) sqrt(range^2+(EARTHRADIUS)^2+2*range*(EARTHRADIUS)*sin(elev*pi/180))-EARTHRADIUS
+#'
+#' The earth's radius is approximated as a point on a spheroid surface, with \code{re}
+#' the longer equatorial radius, and \code{rp} the shorter polar radius.
+#' Typically uncertainties in refraction coefficient are relatively large, making oblateness of the
+#' earth and the dependence of earth radius with latitude only a small correction.
+#' Using default values assumes an average earth's radius of 6371 km.
+beamheight=function(range,elev,k=4/3,lat=35,re=6378,rp=6357) sqrt(range^2+(k*earthradius(re,rp,lat))^2+2*range*(k*earthradius(re,rp,lat))*sin(elev*pi/180))-k*earthradius(re,rp,lat)
+
+earthradius=function(a,b,latdeg){
+  lat=latdeg*pi/180
+  sqrt(((a^2*cos(lat))^2+(b^2*sin(lat))^2)/((a*cos(lat))^2+(b*sin(lat))^2))
+}
 
 #' Radar beam width
 #'
