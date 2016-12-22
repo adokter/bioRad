@@ -27,11 +27,17 @@ Go to the [Docker](https://www.docker.com/) webpage for instructions on how to i
 Without a Docker installation, the bioRad package disables volbird automatically. All the other tools will still work.
 
 ### ggplot2 and ggmap
-bioRad requires the ggplot2 and ggmap packages to be installed in R. While these are both available throught CRAN, on MacOS I found that I needed to install the latest versions from Github (8 Dec 2016)
+bioRad requires the ggplot2 and ggmap packages to be installed in R. While these are both available throught CRAN, on MacOS I found that I ran into this error when using bioRad's function `map`:
+```
+Error: GeomRasterAnn was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
+```
+This issue is fixed when installing the latest versions from Github (8 Dec 2016)
 ```
 install_github("dkahle/ggmap")
 install_github("hadley/ggplot2")
 ```
+
 ### rgdal
 bioRad requires an installation of rgdal, which can be fetched from CRAN. When you want to compile rgdal using a non-default installation directory of the proj.4 library that rgdal depends on, install from source using the following command (example here with `/opt/local/lib/proj47` as the proj4 path):
 ```
