@@ -33,7 +33,7 @@ install_github("dkahle/ggmap")
 install_github("hadley/ggplot2")
 ```
 ### rgdal
-bioRad requires an installation of rgdal, which should be obtained automatically from CRAN. To specify non-default location of the proj.4 library that rgdal uses on Mac or Linux, install from source using the following command (example here with `/opt/local/lib/proj47` as the proj4 path):
+bioRad requires an installation of rgdal, which can be fetched from CRAN. When you want to compile rgdal using a non-default installation directory of the proj.4 library that rgdal depends on, install from source using the following command (example here with `/opt/local/lib/proj47` as the proj4 path):
 ```
 install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/lib/proj47/include', '--with-proj-lib=/opt/local/lib/proj47/lib'),type="source")
 ```
