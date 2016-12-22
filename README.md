@@ -16,7 +16,7 @@ To install the bioRad package in R use the devtools package:
 ```
 install.packages("devtools")
 library(devtools)
-install_github("adokter/bioRad",dependencies=TRUE)
+install_github("adokter/bioRad")
 ```
 
 ### Docker
