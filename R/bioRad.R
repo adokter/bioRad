@@ -85,7 +85,7 @@ startContainer = function(mount="~/"){
   # remove any existing vol2bird containers
   system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
   # fire up the container:
-  result=system(paste("docker run -v ",normalizePath(mount),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
+  result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
   if(result!=0) warning(paste("failed to mount",mount,"... Go to 'Docker -> preferences -> File Sharing' and add this directory (or its root directory) as a bind mounted directory"))
   else{
     unlockBinding("mounted",parent.env)
@@ -560,11 +560,11 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
   if(vp.out!="" && !file.exists(dirname(vp.out))) stop(paste("output directory",dirname(vp.out),"not found"))
-  filedir=dirname(normalizePath(vol.in))
-  if(!grepl(normalizePath(mount),filedir)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
+  filedir=dirname(normalizePath(vol.in,winslash="/"))
+  if(!grepl(normalizePath(mount,winslash="/"),filedir,fixed=T)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
   profile.tmp=tempfile(tmpdir=filedir)
   if(file.access(filedir,mode=2)<0) stop(paste("vol2bird requires write permission in",filedir))
-  if(startContainer(normalizePath(mount))!=0) stop(paste("failed to start vol2bird Docker container"))
+  if(startContainer(normalizePath(mount,winslash="/"))!=0) stop(paste("failed to start vol2bird Docker container"))
 
   # put options file in place, to be read by vol2bird container
   opt.values=c(as.character(c(sd_vvp,rcs,rhohv,elev.min,elev.max,azim.min,azim.max,range.min,
@@ -574,7 +574,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
                   "AZIMMIN","AZIMMAX","RANGEMIN","RANGEMAX","NLAYER","HLAYER",
                   "MIN_NYQUIST_VELOCITY","DEALIAS_VRAD","DUALPOL")
   opt=data.frame("option"=opt.names,"is"=rep("=",length(opt.values)),"value"=opt.values)
-  optfile=paste(normalizePath(mount),"/options.conf",sep="")
+  optfile=paste(normalizePath(mount,winslash="/"),"/options.conf",sep="")
   if(file.exists(optfile)){
     warning(paste("options.conf file found in directory ",mount,". Renamed to options.conf.save to prevent overwrite...", sep=""))
     file.rename(optfile,paste(optfile,".saved",sep=""))
@@ -583,7 +583,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
 
   # prepare docker input filenames relative to mountpoint
   prefixstart=if(mount=="/") 1 else 2
-  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount)))
+  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount,winslash="/")))
   if(nchar(prefix)>0) prefix=paste(prefix,"/",sep="")
   vol.in.docker=paste(prefix,basename(vol.in),sep="")
   profile.tmp.docker=paste(prefix,basename(profile.tmp),sep="")
@@ -628,15 +628,15 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'checkDocker()' in R\n")
   if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
-  filedir=dirname(normalizePath(vol.in))
-  if(!grepl(normalizePath(mount),filedir)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
+  filedir=dirname(normalizePath(vol.in,winslash="/"))
+  if(!grepl(normalizePath(mount,winslash="/"),filedir,fixed=T)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
   vol.tmp=tempfile(tmpdir=filedir)
   if(file.access(filedir,mode=2)<0) stop(paste("vol2bird requires write permission in",filedir))
-  if(startContainer(normalizePath(mount))!=0) stop(paste("failed to start vol2bird Docker container"))
+  if(startContainer(normalizePath(mount,winslash="/"))!=0) stop(paste("failed to start vol2bird Docker container"))
 
   # prepare docker input filenames relative to mountpoint
   prefixstart=if(mount=="/") 1 else 2
-  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount)))
+  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount,winslash="/")))
   if(nchar(prefix)>0) prefix=paste(prefix,"/",sep="")
   vol.in.docker=paste(prefix,basename(vol.in),sep="")
   vol.tmp.docker=paste(prefix,basename(vol.tmp),sep="")
