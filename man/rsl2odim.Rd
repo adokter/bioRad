@@ -11,7 +11,7 @@ rsl2odim(vol.in, vol.out, verbose = F, mount = dirname(vol.in))
 
 \item{vol.out}{filename for the polar volume in ODIM hdf5 format to be generated}
 
-\item{verbose}{logical. When TRUE, pipe Docker stdout to R console}
+\item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On Windows always TRUE}
 
 \item{mount}{character string with the mount point (a directory path) for the Docker container}
 }

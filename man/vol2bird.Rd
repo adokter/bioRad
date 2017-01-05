@@ -20,7 +20,7 @@ or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software
 
 \item{vol.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
-\item{verbose}{logical. When TRUE, pipe Docker stdout to R console}
+\item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On Windows always TRUE}
 
 \item{mount}{character string with the mount point (a directory path) for the Docker container}
 
