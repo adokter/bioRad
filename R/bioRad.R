@@ -61,7 +61,7 @@ mount="~/"
 #' Checks that Docker is running
 #'
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
-#' @param verbose logical which indicates whether to print test results to R console
+#' @param verbose logical which indicates whether to print test results to R console. On Windows always TRUE.
 #' @export
 checkDocker = function(verbose=T){
   if(.Platform$OS.type=="unix"){
@@ -70,7 +70,7 @@ checkDocker = function(verbose=T){
   }
   else{
     system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T,show.output.on.console=FALSE)
-    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,show.output.on.console = verbose)
+    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,show.output.on.console = TRUE)
   }
   parent.env=environment(checkDocker)
   unlockBinding("docker", parent.env)
@@ -468,7 +468,7 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
 #' @param vp.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)
 #' @param vol.out character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)
-#' @param verbose logical. When TRUE, pipe Docker stdout to R console
+#' @param verbose logical. When TRUE, pipe Docker stdout to R console. On Windows always TRUE
 #' @param mount character string with the mount point (a directory path) for the Docker container
 #' @param sd_vvp numeric. lower threshold in radial velocity standard deviation (\code{sd_vvp}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
@@ -600,7 +600,10 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
 
   # run vol2bird container
   if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\""),ignore.stdout=!verbose)
-  else result = system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\""),ignore.stdout=!verbose,show.output.on.console=verbose)
+  else{
+    winstring=paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\"")
+    result = system(winstring)
+  }
   if(result!=0){
     file.remove(optfile)
     stop("failed to run vol2bird Docker container")
@@ -652,7 +655,7 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
 
   # run vol2bird container
   if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
-  else result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose,show.output.on.console = verbose)
+  else result = system(paste("docker exec vol2bird bash -c \"cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"\""),ignore.stdout=!verbose,show.output.on.console = TRUE)
   if(result!=0){
     stop("failed to run rsl2odim in Docker container")
   }
