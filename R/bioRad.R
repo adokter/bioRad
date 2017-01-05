@@ -64,8 +64,14 @@ mount="~/"
 #' @param verbose logical which indicates whether to print test results to R console
 #' @export
 checkDocker = function(verbose=T){
-  system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
-  result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
+  if(.Platform$OS.type=="unix"){
+    system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
+    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
+  }
+  else{
+    system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T,show.output.on.console=FALSE)
+    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,show.output.on.console = verbose)
+  }
   parent.env=environment(checkDocker)
   unlockBinding("docker", parent.env)
   unlockBinding("mounted", parent.env)
@@ -83,9 +89,11 @@ startContainer = function(mount="~/"){
   # if container already running at this mount point, nothing to be done:
   if(parent.env$mounted & parent.env$mount==mount) return(0)
   # remove any existing vol2bird containers
-  system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
+  if(.Platform$OS.type=="unix") system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
+  else system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T,show.output.on.console = FALSE)
   # fire up the container:
-  result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
+  if(.Platform$OS.type=="unix") result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
+  else result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T,show.output.on.console=FALSE)
   if(result!=0) warning(paste("failed to mount",mount,"... Go to 'Docker -> preferences -> File Sharing' and add this directory (or its root directory) as a bind mounted directory"))
   else{
     unlockBinding("mounted",parent.env)
@@ -591,7 +599,8 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   else vol.out.docker=""
 
   # run vol2bird container
-  result = system(paste("docker exec vol2bird bash -c 'cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"'"),ignore.stdout=!verbose)
+  if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\""),ignore.stdout=!verbose)
+  else result = system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\""),ignore.stdout=!verbose,show.output.on.console=verbose)
   if(result!=0){
     file.remove(optfile)
     stop("failed to run vol2bird Docker container")
@@ -642,7 +651,8 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   vol.tmp.docker=paste(prefix,basename(vol.tmp),sep="")
 
   # run vol2bird container
-  result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
+  if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
+  else result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose,show.output.on.console = verbose)
   if(result!=0){
     stop("failed to run rsl2odim in Docker container")
   }
