@@ -199,7 +199,7 @@ startContainer = function(mount="~/"){
 }
 
 setLoadActions(function(ns)
-  cat("Loading package", sQuote(getNamespaceName(ns)), "...\n"),
+  cat("Loading package", sQuote(getNamespaceName(ns)),"version",as.character(packageVersion(getNamespaceName(ns))),"...\n"),
   function(ns) if((checkDocker(verbose=F)!=0)){
     cat("Warning: no running Docker daemon found\n")
     cat("Warning:",getNamespaceName(ns),"functionality requiring Docker has been disabled\n\n")
@@ -1243,11 +1243,11 @@ mt <- function(x,alt.min=0, alt.max=Inf){
 
 #' Cumulative migration traffic
 #'
-#' Cumulative migration traffic is calculated as the cumulative sum of
+#' Cumulative migration traffic is calculated as the cumulative sum
 #' of the migration traffic within each time step of a time series.
 #' Cumulative migration traffic gives the number of individuals
 #' that have passed per km perpendicular to the migratory direction at the
-#' position of the radar as a function time from the start of time series
+#' position of the radar as a function oftime from the start of time series
 #' within the specified altitude band.
 #' @param x an object inhereting from class '\code{vpts}'
 #' @inheritParams mtr

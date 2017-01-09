@@ -41,7 +41,7 @@ A polar scan object of class 'scan' is a list containing:
      \item{\code{rscale}}{range bin size [m]}
      \item{\code{ascale}}{azimuth bin size [deg]}
     }
-    The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of it's parent polar volume of class 'pvol'.
+    The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of its parent polar volume of class 'pvol'.
   }
 }
 }
