@@ -34,7 +34,7 @@ install.packages("devtools")
 ```
 
 ### 4. bioRad 
-You are now ready to install the bioRad package. In R, first load the devtools package, then install using 'install_github':
+You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
 ```
 library(devtools)
 install_github("adokter/bioRad")
