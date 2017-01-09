@@ -264,7 +264,7 @@ is.pvol <- function(x) inherits(x, "pvol")
 #'      \item{\code{rscale}}{range bin size [m]}
 #'      \item{\code{ascale}}{azimuth bin size [deg]}
 #'     }
-#'     The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of it's parent polar volume of class 'pvol'.
+#'     The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of its parent polar volume of class 'pvol'.
 #'   }
 #' }
 #' @examples
@@ -696,7 +696,7 @@ print.ppi=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #'      \item{\code{rscale}}{range bin size [m]}
 #'      \item{\code{ascale}}{azimuth bin size [deg]}
 #'     }
-#'     The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of it's parent scan or scan parameter.
+#'     The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of its parent scan or scan parameter.
 #'   }
 #' }
 summary.ppi=function(object, ...) print.ppi(object)

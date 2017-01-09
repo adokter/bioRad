@@ -51,9 +51,16 @@ This issue is fixed when installing the latest versions from Github (8 Dec 2016)
 install_github("hadley/ggplot2")
 install_github("dkahle/ggmap")
 ```
-
+After installation, restart R.
 ### install note 2: rgdal on Mac OSX / linux:
-bioRad requires an installation of rgdal, which can be fetched from CRAN. When you want to compile rgdal using a non-default installation directory of the proj.4 library that rgdal depends on, install from source using the following command (example here with `/opt/local/lib/proj47` as the proj4 path, which is the directory where the Macports package managing system installs proj4):
+bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.
+
+You can use the Macports package managing system to install these dependencies, e.g.
 ```
-install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/lib/proj47/include', '--with-proj-lib=/opt/local/lib/proj47/lib'),type="source")
+sudo port install proj
+sudo port install gdal +expat
+```
+When compiling rgdal you need to specify the installation directory of the proj.4 and gdal libraries that rgdal depends on. Install from source using the following command (example here with `/opt/local/` as the proj4 path, which is the directory where the Macports package managing system installs proj4 and gdal):
+```
+install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/include', '--with-proj-lib=/opt/local/lib', '--with-gdal-config=/opt/local/bin/gdal-config'),type="source")
 ```
