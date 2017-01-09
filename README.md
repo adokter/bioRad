@@ -53,7 +53,7 @@ install_github("dkahle/ggmap")
 ```
 
 ### install note 2: rgdal on Mac OSX / linux:
-bioRad requires an installation of rgdal, which can be fetched from CRAN. When you want to compile rgdal using a non-default installation directory of the proj.4 library that rgdal depends on, install from source using the following command (example here with `/opt/local/lib/proj47` as the proj4 path):
+bioRad requires an installation of rgdal, which can be fetched from CRAN. When you want to compile rgdal using a non-default installation directory of the proj.4 library that rgdal depends on, install from source using the following command (example here with `/opt/local/lib/proj47` as the proj4 path, which is the directory where the Macports package managing system installs proj4):
 ```
 install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/lib/proj47/include', '--with-proj-lib=/opt/local/lib/proj47/lib'),type="source")
 ```
