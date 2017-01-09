@@ -55,7 +55,7 @@ After installation, restart R.
 ### install note 2: rgdal on Mac OSX / linux:
 bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.
 
-You can use the Macports package managing system to install these dependencies, e.g.
+You can use the package managing systems, like Macports on Mac, to install these dependencies, e.g.
 ```
 sudo port install proj
 sudo port install gdal +expat
