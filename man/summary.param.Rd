@@ -31,6 +31,17 @@ Scan parameters are simple matrices, with the follwowing specific attributes:
    \item{\code{elangle}}{radar beam elevation [degrees]}
    \item{\code{param}}{string with the name of the polar scan parameter}
 }
+Scan parameters are named according to the OPERA data information model (ODIM), see
+Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+Commonly available parameters are:
+\describe{
+ \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+ \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards
+  the radar are negative, while radial velocities away from the radar are positive}
+ \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
+ \item{"\code{PHIDP}"}{Differential phase [degrees]}
+ \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+}
 }
 \examples{
 is.param("this is not a polar scan parameter but a string")  #> FALSE

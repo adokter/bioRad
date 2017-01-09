@@ -49,9 +49,9 @@ Commonly available parameters are:
 }
 }
 \examples{
-# locate example profile file:
+# locate example volume file:
 pvol <- system.file("extdata", "volume.h5", package="bioRad")
-# print the local path of the profile file:
+# print the local path of the volume file:
 pvol
 # load the file:
 vol=read.pvol(pvol)

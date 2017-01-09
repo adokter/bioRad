@@ -19,13 +19,13 @@ elangle(x)
 elevation in degrees
 }
 \description{
-Gives the elevation of a scan, or the elevations within a polar volume
+Gives the elevation angle of a scan, or the elevation angles within a polar volume
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{scan}: elevation of a scan
+\item \code{scan}: elevation angle of a scan
 
-\item \code{pvol}: elevation of all scans in a polar volume
+\item \code{pvol}: elevation angles of all scans in a polar volume
 }}
 \examples{
 # load a polar volume
@@ -35,7 +35,7 @@ vol=read.pvol(pvol)
 elangle(vol)
 # extract the first scan:
 scan=vol$scans[[1]]
-# elevation of the scan:
+# elevation angle of the scan:
 elangle(scan)
 }
 

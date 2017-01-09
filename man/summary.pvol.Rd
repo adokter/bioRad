@@ -39,6 +39,18 @@ A polar scan object of class 'pvol' is a list containing:
 }
 }
 \examples{
+# locate example volume file:
+pvol <- system.file("extdata", "volume.h5", package="bioRad")
+# print the local path of the volume file:
+pvol
+# load the file:
+vol=read.pvol(pvol)
+# print summary info for the loaded polar volume:
+vol
+# print summary info for the scans in the polar volume:
+vol$scans
+# copy the first scan to a new object 'scan'
+scan=vol$scans[[1]]
 is.pvol("this is not a polar volume but a string")  #> FALSE
 }
 

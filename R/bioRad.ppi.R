@@ -25,9 +25,9 @@
 #'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
 #' }
 #' @examples
-#' # locate example profile file:
+#' # locate example volume file:
 #' pvol <- system.file("extdata", "volume.h5", package="bioRad")
-#' # print the local path of the profile file:
+#' # print the local path of the volume file:
 #' pvol
 #' # load the file:
 #' vol=read.pvol(pvol)
@@ -222,6 +222,19 @@ print.param=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #'   }
 #'  }
 #' }
+#' @examples
+#' # locate example volume file:
+#' pvol <- system.file("extdata", "volume.h5", package="bioRad")
+#' # print the local path of the volume file:
+#' pvol
+#' # load the file:
+#' vol=read.pvol(pvol)
+#' # print summary info for the loaded polar volume:
+#' vol
+#' # print summary info for the scans in the polar volume:
+#' vol$scans
+#' # copy the first scan to a new object 'scan'
+#' scan=vol$scans[[1]]
 summary.pvol = function(object, ...) print.pvol(object)
 
 #' @rdname summary.pvol
@@ -254,6 +267,13 @@ is.pvol <- function(x) inherits(x, "pvol")
 #'     The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of it's parent polar volume of class 'pvol'.
 #'   }
 #' }
+#' @examples
+#' # load example scan object
+#' data(SCAN)
+#' # print the scan parameters contained in the scan:
+#' SCAN$params
+#' # extract the first scan parameter:
+#' param=SCAN$params[1]
 summary.scan=function(object, ...) print.scan(object)
 
 #' @rdname summary.scan
@@ -286,6 +306,17 @@ dim.scan <- function(x) {
 #'    \item{\code{elangle}}{radar beam elevation [degrees]}
 #'    \item{\code{param}}{string with the name of the polar scan parameter}
 #' }
+#' Scan parameters are named according to the OPERA data information model (ODIM), see
+#' Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' Commonly available parameters are:
+#' \describe{
+#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards
+#'   the radar are negative, while radial velocities away from the radar are positive}
+#'  \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
+#'  \item{"\code{PHIDP}"}{Differential phase [degrees]}
+#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+#' }
 summary.param=function(object, ...) print.param(object)
 
 #' @rdname summary.param
@@ -297,7 +328,7 @@ is.param <- function(x) inherits(x, "param")
 
 #' Elevation angle of scan(s)
 #'
-#' Gives the elevation of a scan, or the elevations within a polar volume
+#' Gives the elevation angle of a scan, or the elevation angles within a polar volume
 #' @param x a \code{pvol} or \code{scan} object
 #' @export
 #' @return elevation in degrees
@@ -309,18 +340,18 @@ is.param <- function(x) inherits(x, "param")
 #' elangle(vol)
 #' # extract the first scan:
 #' scan=vol$scans[[1]]
-#' # elevation of the scan:
+#' # elevation angle of the scan:
 #' elangle(scan)
 elangle <- function (x) UseMethod("elangle", x)
 
-#' @describeIn elangle elevation of a scan
+#' @describeIn elangle elevation angle of a scan
 #' @export
 elangle.scan = function(x){
   stopifnot(inherits(x,"scan"))
   x$attributes$where$elangle
 }
 
-#' @describeIn elangle elevation of all scans in a polar volume
+#' @describeIn elangle elevation angles of all scans in a polar volume
 #' @export
 elangle.pvol = function(x){
   stopifnot(inherits(x,"pvol"))

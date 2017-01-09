@@ -46,6 +46,12 @@ A polar scan object of class 'scan' is a list containing:
 }
 }
 \examples{
+# load example scan object
+data(SCAN)
+# print the scan parameters contained in the scan:
+SCAN$params
+# extract the first scan parameter:
+param=SCAN$params[1]
 is.scan("this is not a polar scan but a string")  #> FALSE
 }
 
