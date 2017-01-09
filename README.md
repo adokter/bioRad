@@ -60,7 +60,7 @@ You can use the Macports package managing system to install these dependencies, 
 sudo port install proj
 sudo port install gdal +expat
 ```
-When compiling rgdal you need to specify the installation directory of the proj.4 and gdal libraries that rgdal depends on. Install from source using the following command (example here with `/opt/local/` as the proj4 path, which is the directory where the Macports package managing system installs proj4 and gdal):
+When compiling rgdal you need to specify the installation directory of the PROJ.4 and GDAL libraries that rgdal depends on. Install from source using the following command (example here with `/opt/local/` as the leading path, which is the directory where the Macports package managing system installs PROJ.4 and GDAL):
 ```
 install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/include', '--with-proj-lib=/opt/local/lib', '--with-gdal-config=/opt/local/bin/gdal-config'),type="source")
 ```
