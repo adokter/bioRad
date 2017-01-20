@@ -15,6 +15,8 @@ url_existencs <- function(url) {
   return(z)
 }
 
+#' Download a set of vp bird profiles
+#'
 #' Download a set of vp bird profiles stored witin the monthly avilable
 #' zip folders and unzip them at a user defined location.
 #' Check http://enram.github.io/data-repository/ for an overview.

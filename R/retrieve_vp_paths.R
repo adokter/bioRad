@@ -18,6 +18,8 @@ match_filenames <- function(filelist, regexlist) {
 }
 
 
+#' Collect a list of vp file names
+#'
 #' Collect a list of vp file names within a directory that comply to the given
 #' country, radar and date range combination
 #'
