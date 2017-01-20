@@ -7,7 +7,7 @@
 #' possible
 #'
 #' @export
-#' @ImportFrom RCurl getBinaryURL
+#' @importFrom RCurl getBinaryURL
 url_existencs <- function(url) {
   z <- ""
   tryCatch(z <- getBinaryURL(url, failonerror = TRUE) ,
@@ -28,7 +28,7 @@ url_existencs <- function(url) {
 #' folders and unzip into the default folder structure
 #'
 #' @export
-#' @ImportFrom lubridate as_date
+#' @importFrom lubridate as_date
 #' @importFrom curl curl_download
 #' @examples
 #' my_path <- system.file("extdata", package="bioRad")
