@@ -109,6 +109,8 @@
 #' @import utils
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
+#' @ImportFrom lubridate as_date
+#' @importFrom curl curl_download
 #'
 "_PACKAGE"
 #> [1] "_PACKAGE"
