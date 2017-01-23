@@ -537,6 +537,7 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' file.remove("~/volume.h5")
 vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.in),sd_vvp=2,rcs=11,dualpol=F,rhohv=0.9,elev.min=0,elev.max=90,azim.min=0,azim.max=360,range.min=5000,range.max=25000,nlayer=20L,hlayer=200,dealias=T,nyquist.min=if(dealias) 5 else 25){
   # check input arguments
+  if(!file.exists(vol.in)) stop("No such file or directory")
   if(!is.numeric(sd_vvp) || sd_vvp<=0) stop("invalid 'sd_vvp' argument, radial velocity standard deviation threshold should be a positive numeric value")
   if(!is.numeric(rcs) || rcs<=0) stop("invalid 'rcs' argument, radar cross section should be a positive numeric value")
   if(!is.logical(dualpol)) stop("invalid 'dualpol' argument, should be logical")
@@ -556,7 +557,6 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   if(file.access(mount,0)==-1) stop("invalid 'mount' argument. Directory not found")
   if(file.access(mount,2)==-1) stop(paste("invalid 'mount' argument. No write permission in directory",mount))
   if(!docker) stop("Requires a running Docker daemon.\nTo enable vol2bird, start your local Docker daemon, and run 'checkDocker()' in R\n")
-  if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
   if(vp.out!="" && !file.exists(dirname(vp.out))) stop(paste("output directory",dirname(vp.out),"not found"))
   filedir=dirname(normalizePath(vol.in))
