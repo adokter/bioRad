@@ -109,6 +109,7 @@
 #' @import utils
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
+#' @importFrom curl curl_download
 #'
 "_PACKAGE"
 #> [1] "_PACKAGE"
