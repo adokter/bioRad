@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_vp.R
 \name{download_vp}
 \alias{download_vp}
-\title{Download a set of vp bird profiles}
+\title{Download a set of vp bird profiles from ENRAM repository}
 \usage{
 download_vp(start_date, end_date, country, radar, localpath = ".")
 }
@@ -20,12 +20,14 @@ radars selected are in accordance to the country selection}
 folders and unzip into the default folder structure}
 }
 \description{
-Download a set of vp bird profiles stored witin the monthly avilable
-zip folders and unzip them at a user defined location.
-Check http://enram.github.io/data-repository/ for an overview.
+Download a set of vp bird profiles from the ENRAM repository.
+These are stored within monthly available
+zip folders. This function downloads and unzips them at a user defined location.
+Check \href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/} for an overview
+of available data.
 }
 \examples{
-my_path <- system.file("extdata", package="bioRad")
-download_vp("2016-10-01", "2016-11-30", c("be"), c("jab", "wid"), localpath = my_path)
+my_path <- "~/my/directory/"
+\dontrun{download_vp("2016-10-01", "2016-11-30", c("be"), c("jab", "wid"), localpath = my_path)}
 }
 
