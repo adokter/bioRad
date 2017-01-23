@@ -40,7 +40,7 @@ A PPI of class 'ppi' is a list containing:
      \item{\code{rscale}}{range bin size [m]}
      \item{\code{ascale}}{azimuth bin size [deg]}
     }
-    The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of it's parent scan or scan parameter.
+    The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of its parent scan or scan parameter.
   }
 }
 }

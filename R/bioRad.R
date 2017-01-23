@@ -1,5 +1,97 @@
 #' Analyze and visualize biological signals in weather radar data
 #'
+#' \pkg{bioRad}
+#' @details
+#' \subsection{BioRad's class objects}{
+#' \pkg{bioRad} uses the following class objects for storing radar data:
+#'   \itemize{
+#'     \item{\link[=summary.pvol]{pvol}}{, a polar volume: consists typically of a set of polar scans, collected at different elevation angles, that together sample the full aerial volume surrounding the radar}
+#'     \item{\link[=summary.scan]{scan}}{, a polar scan: a 360 degree radar scan at a fixed elevation in polar coordinates. One scan typically contains multiple scan parameters.}
+#'     \item{\link[=summary.param]{param}}{, a polar scan parameter: one of the observable quantities recorded within a polar scan, such as reflectivity (DBZH) or radial velocity (VRADH).}
+#'     \item{\link[=summary.ppi]{ppi}}{, a Cartesian plan position indicator: a projection on a Cartesian grid of a polar scan or a polar scan parameter}
+#'     \item{\link[=summary.vp]{vp}}{, a vertical profile: typically biological data extracted from a polar volume by \link{vol2bird}.}
+#'     \item{\link[=summary.vplist]{vplist}}{, a list of \link[=summary.vp]{vp} objects.}
+#'     \item{\link[=summary.vpts]{vpts}}{, a vertical profile time series: a time-oredered list of \link[=summary.vp]{vp} objects for a single radar.}
+#'   }
+#' }
+#' The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link[base]{Extract} methods are available for each of these classes.
+#'
+#' Plot methods are available for ppi, vp and vpts objects
+#' \subsection{Reading radar data}{
+#' \pkg{bioRad} can read radar files in
+#' \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+#' format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
+#' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, such as NEXRAD data.
+#' \pkg{bioRad}'s class objects are organised very similar to the OPERA data information model.
+#'
+#' Raw (level-II) weather radar data is read with the function \link{read.pvol}, which returns a \link[=summary.pvol]{pvol} polar volume object.
+#'
+#' Use the function \link{rsl2odim} to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
+#' }
+#' \subsection{Mapping and projecting radar scans}{
+#' Funtion \link{ppi} can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
+#'
+#' Function \link{map} can be used together with \link{basemap} to overlay radar data with all kinds of publicly available map and satellite data.
+#' }
+#' \subsection{Processing weather radar data into vertical profiles of birds}{
+#' \pkg{bioRad} contains an implementation of the \link{vol2bird} algorithm, which
+#' processes polar volume data into a vertical profiles of birds (VPB).
+#' \link{vol2bird} requires a locally running \href{https://www.docker.com/}{Docker} daemon.
+#'
+#' \link{vol2bird} outputs a vertical profile object (\link[=summary.vp]{vp}) in R,
+#' and can store the vertical profile object in an ODIM-complient hdf5 format on disk.
+#' Stored hdf5 profiles can be read from disk with \link{readvp} (for a single file) or with
+#' \link{readvp.list} (for a list of files)
+#'
+#' For users running their own installation of vol2bird outside R and Docker, the function \link{readvp.table}
+#' is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
+#' }
+#' \subsection{Organizing, analyzing and plotting vertical profile data}{
+#' Vertical profiles (\link[=summary.vp]{vp} objects) can be combined with \link[bioRad]{c.vp} into lists of vertical profiles (\link[=summary.vplist]{vplist} objects).
+#'
+#' Vertical profile lists (\link[=summary.vplist]{vplist} objects) can be converted into vertical profile time series (\link[=summary.vpts]{vpts} objects) using function \link{vpts}.
+#'
+#' \link{regularize} can be used to project a \link[=summary.vpts]{vpts} object on a regular time grid.
+#' This is typically done before plotting a vertical profile time series.
+#'
+#' \link{plot.vp} can be used to make a plot of a single vertical profile.
+#'
+#' \link{plot.vpts} can be used to visually summarize vertical profile time series,
+#' both in terms of density and speed, which can be visualized simultaneously (with colors and speed barbs).
+#' }
+#' \subsection{Conversions into numbers of migrating individuals}{
+#' To convert radar reflectivity into densities of individuals, a specific radar
+#' cross section per individual needs to be assumed, which is set with \link{rcs}.
+#' By default, a radar cross section of 11 cm^2 is used, which is the average value found
+#' by Dokter et al. during a full autumn migration season in Europe at C-band.
+#'
+#' \link{mtr} combines reflectivity and speed into migration traffic rates within user-defined altitude bands
+#'
+#' \link{mt} calculates migration traffic: it integrates migration traffic rates over time and altitude, to find the total number
+#' of individuals passing a radar station in a certain time period
+#'
+#' \link{cmt} calculates cumulative migration traffic.
+#' }
+#' \subsection{Other useful functionality}{
+#'  \itemize{
+#'  \item \link{suntime} calculates runrise and sunset times
+#'  \item \link{checkDocker} checks whether your local Docker daemon is running correctly
+#'  \item \link{elangle} gives the elevation angle(s) of a polar volume or polar scan object
+#'  \item \link{beamheight} gives the radar beam height, for a certain elevation and range.
+#'  \item \link{beamwidth} gives the radar beam width, for a certain range.
+#'  }
+#' }
+#' \subsection{Example datasets}{
+#' \itemize{
+#' \item \link{SCAN}: example object of class \link[=summary.scan]{scan}.
+#' \item \link{VP}: example object of class \link[=summary.vp]{vp} as generated by \link{vol2bird}.
+#' \item \link{VPTS}: example object of class \link[=summary.vpts]{vpts}.
+#' \item \code{profile.h5}: example hdf5 file containing a vertical profile generated by \link{vol2bird}. Locate this file in your local installation with \code{system.file("extdata", "profile.h5", package="bioRad")}. Read it with \link{readvp}.
+#' \item \code{volume.h5}: example hdf5 file containing a polar volume. Locate this file in your local installation with \code{system.file("extdata", "volume.h5", package="bioRad")}. Read it with \link{read.pvol}.
+#' \item \code{VPTable.txt}: example standard output of \link{vol2bird} piped to a text file. Locate this file in your local installation with \code{system.file("extdata", "VPtable.txt", package="bioRad")}. Read it with \link{readvp.table}.
+#' }
+#' }
+#'
 #' @references
 #' \itemize{
 #'  \item Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
@@ -12,6 +104,7 @@
 #' @import graphics
 #' @import ggplot2
 #' @import ggmap
+#' @import rgdal
 #' @import sp
 #' @import utils
 #' @importFrom raster rasterToPoints
@@ -32,7 +125,7 @@ mounted=F
 mount="~/"
 
 #VP=readvp("~/git/bioRad/inst/extdata/profile.h5")
-# save(VP,file="~/git/bioRad/data/VP.RData")
+#save(VP,file="~/git/bioRad/data/VP.RData")
 #' Example object of class \code{\link[=summary.vp]{vp}} as generated by \code{\link{vol2bird}} or \code{\link{readvp}}
 #' @rdname vp-dataset
 "VP"
@@ -60,11 +153,17 @@ mount="~/"
 #' Checks that Docker is running
 #'
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
-#' @param verbose logical which indicates whether to print test results to R console
+#' @param verbose logical which indicates whether to print test results to R console. On Windows always TRUE.
 #' @export
 checkDocker = function(verbose=T){
-  system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
-  result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
+  if(.Platform$OS.type=="unix"){
+    system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
+    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
+  }
+  else{
+    system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T,show.output.on.console=FALSE)
+    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,show.output.on.console = TRUE)
+  }
   parent.env=environment(checkDocker)
   unlockBinding("docker", parent.env)
   unlockBinding("mounted", parent.env)
@@ -82,9 +181,11 @@ startContainer = function(mount="~/"){
   # if container already running at this mount point, nothing to be done:
   if(parent.env$mounted & parent.env$mount==mount) return(0)
   # remove any existing vol2bird containers
-  system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
+  if(.Platform$OS.type=="unix") system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
+  else system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T,show.output.on.console = FALSE)
   # fire up the container:
-  result=system(paste("docker run -v ",normalizePath(mount),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
+  if(.Platform$OS.type=="unix") result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
+  else result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T,show.output.on.console=FALSE)
   if(result!=0) warning(paste("failed to mount",mount,"... Go to 'Docker -> preferences -> File Sharing' and add this directory (or its root directory) as a bind mounted directory"))
   else{
     unlockBinding("mounted",parent.env)
@@ -98,7 +199,7 @@ startContainer = function(mount="~/"){
 }
 
 setLoadActions(function(ns)
-  cat("Loading package", sQuote(getNamespaceName(ns)), "...\n"),
+  cat("Loading package", sQuote(getNamespaceName(ns)),"version",as.character(packageVersion(getNamespaceName(ns))),"...\n"),
   function(ns) if((checkDocker(verbose=F)!=0)){
     cat("Warning: no running Docker daemon found\n")
     cat("Warning:",getNamespaceName(ns),"functionality requiring Docker has been disabled\n\n")
@@ -459,7 +560,7 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
 #' @param vp.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)
 #' @param vol.out character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)
-#' @param verbose logical. When TRUE, pipe Docker stdout to R console
+#' @param verbose logical. When TRUE, pipe Docker stdout to R console. On Windows always TRUE
 #' @param mount character string with the mount point (a directory path) for the Docker container
 #' @param sd_vvp numeric. lower threshold in radial velocity standard deviation (\code{sd_vvp}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
@@ -559,11 +660,11 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   if(!docker) stop("Requires a running Docker daemon.\nTo enable vol2bird, start your local Docker daemon, and run 'checkDocker()' in R\n")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
   if(vp.out!="" && !file.exists(dirname(vp.out))) stop(paste("output directory",dirname(vp.out),"not found"))
-  filedir=dirname(normalizePath(vol.in))
-  if(!grepl(normalizePath(mount),filedir)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
+  filedir=dirname(normalizePath(vol.in,winslash="/"))
+  if(!grepl(normalizePath(mount,winslash="/"),filedir,fixed=T)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
   profile.tmp=tempfile(tmpdir=filedir)
   if(file.access(filedir,mode=2)<0) stop(paste("vol2bird requires write permission in",filedir))
-  if(startContainer(normalizePath(mount))!=0) stop(paste("failed to start vol2bird Docker container"))
+  if(startContainer(normalizePath(mount,winslash="/"))!=0) stop(paste("failed to start vol2bird Docker container"))
 
   # put options file in place, to be read by vol2bird container
   opt.values=c(as.character(c(sd_vvp,rcs,rhohv,elev.min,elev.max,azim.min,azim.max,range.min,
@@ -573,7 +674,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
                   "AZIMMIN","AZIMMAX","RANGEMIN","RANGEMAX","NLAYER","HLAYER",
                   "MIN_NYQUIST_VELOCITY","DEALIAS_VRAD","DUALPOL")
   opt=data.frame("option"=opt.names,"is"=rep("=",length(opt.values)),"value"=opt.values)
-  optfile=paste(normalizePath(mount),"/options.conf",sep="")
+  optfile=paste(normalizePath(mount,winslash="/"),"/options.conf",sep="")
   if(file.exists(optfile)){
     warning(paste("options.conf file found in directory ",mount,". Renamed to options.conf.save to prevent overwrite...", sep=""))
     file.rename(optfile,paste(optfile,".saved",sep=""))
@@ -582,7 +683,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
 
   # prepare docker input filenames relative to mountpoint
   prefixstart=if(mount=="/") 1 else 2
-  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount)))
+  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount,winslash="/")))
   if(nchar(prefix)>0) prefix=paste(prefix,"/",sep="")
   vol.in.docker=paste(prefix,basename(vol.in),sep="")
   profile.tmp.docker=paste(prefix,basename(profile.tmp),sep="")
@@ -590,7 +691,11 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   else vol.out.docker=""
 
   # run vol2bird container
-  result = system(paste("docker exec vol2bird bash -c 'cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"'"),ignore.stdout=!verbose)
+  if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\""),ignore.stdout=!verbose)
+  else{
+    winstring=paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\"")
+    result = system(winstring)
+  }
   if(result!=0){
     file.remove(optfile)
     stop("failed to run vol2bird Docker container")
@@ -627,21 +732,22 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'checkDocker()' in R\n")
   if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
-  filedir=dirname(normalizePath(vol.in))
-  if(!grepl(normalizePath(mount),filedir)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
+  filedir=dirname(normalizePath(vol.in,winslash="/"))
+  if(!grepl(normalizePath(mount,winslash="/"),filedir,fixed=T)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
   vol.tmp=tempfile(tmpdir=filedir)
   if(file.access(filedir,mode=2)<0) stop(paste("vol2bird requires write permission in",filedir))
-  if(startContainer(normalizePath(mount))!=0) stop(paste("failed to start vol2bird Docker container"))
+  if(startContainer(normalizePath(mount,winslash="/"))!=0) stop(paste("failed to start vol2bird Docker container"))
 
   # prepare docker input filenames relative to mountpoint
   prefixstart=if(mount=="/") 1 else 2
-  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount)))
+  prefix=substring(filedir,prefixstart+nchar(normalizePath(mount,winslash="/")))
   if(nchar(prefix)>0) prefix=paste(prefix,"/",sep="")
   vol.in.docker=paste(prefix,basename(vol.in),sep="")
   vol.tmp.docker=paste(prefix,basename(vol.tmp),sep="")
 
   # run vol2bird container
-  result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
+  if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
+  else result = system(paste("docker exec vol2bird bash -c \"cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"\""),ignore.stdout=!verbose,show.output.on.console = TRUE)
   if(result!=0){
     stop("failed to run rsl2odim in Docker container")
   }
@@ -1137,11 +1243,11 @@ mt <- function(x,alt.min=0, alt.max=Inf){
 
 #' Cumulative migration traffic
 #'
-#' Cumulative migration traffic is calculated as the cumulative sum of
+#' Cumulative migration traffic is calculated as the cumulative sum
 #' of the migration traffic within each time step of a time series.
 #' Cumulative migration traffic gives the number of individuals
 #' that have passed per km perpendicular to the migratory direction at the
-#' position of the radar as a function time from the start of time series
+#' position of the radar as a function oftime from the start of time series
 #' within the specified altitude band.
 #' @param x an object inhereting from class '\code{vpts}'
 #' @inheritParams mtr
@@ -1238,19 +1344,31 @@ suntime = function(lon, lat, date, elev=-0.268, rise = TRUE)
   return(output)
 }
 
-# effective earth's radius
-EARTHRADIUS=6371*4/3
-
 #' Radar beam height
 #'
 #' Calculates the height of a radar beam as a function of elevation and range, assuming the beam
 #' is emitted at surface level.
 #' @param range numeric. Range (distance from the radar antenna) in km
 #' @param elev numeric. Elevation in degrees
+#' @param k standard refraction coefficient
+#' @param re Earth equatorial radius in km
+#' @param rp Earth polar radius in km
+#' @param lat geodetic latitude in degrees
 #' @return numeric value. Beam height in km
 #' @export
 #' @details To account for refraction of the beam towards the earth's surface, an effective earth's radius of 4/3 * (true radius) is assumed.
-beamheight=function(range,elev) sqrt(range^2+(EARTHRADIUS)^2+2*range*(EARTHRADIUS)*sin(elev*pi/180))-EARTHRADIUS
+#'
+#' The earth's radius is approximated as a point on a spheroid surface, with \code{re}
+#' the longer equatorial radius, and \code{rp} the shorter polar radius.
+#' Typically uncertainties in refraction coefficient are relatively large, making oblateness of the
+#' earth and the dependence of earth radius with latitude only a small correction.
+#' Using default values assumes an average earth's radius of 6371 km.
+beamheight=function(range,elev,k=4/3,lat=35,re=6378,rp=6357) sqrt(range^2+(k*earthradius(re,rp,lat))^2+2*range*(k*earthradius(re,rp,lat))*sin(elev*pi/180))-k*earthradius(re,rp,lat)
+
+earthradius=function(a,b,latdeg){
+  lat=latdeg*pi/180
+  sqrt(((a^2*cos(lat))^2+(b^2*sin(lat))^2)/((a*cos(lat))^2+(b*sin(lat))^2))
+}
 
 #' Radar beam width
 #'

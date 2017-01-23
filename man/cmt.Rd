@@ -17,11 +17,11 @@ cmt(x, alt.min = 0, alt.max = Inf)
 a numeric value equal to migration traffic in number of individuals / km
 }
 \description{
-Cumulative migration traffic is calculated as the cumulative sum of
+Cumulative migration traffic is calculated as the cumulative sum
 of the migration traffic within each time step of a time series.
 Cumulative migration traffic gives the number of individuals
 that have passed per km perpendicular to the migratory direction at the
-position of the radar as a function time from the start of time series
+position of the radar as a function oftime from the start of time series
 within the specified altitude band.
 }
 \examples{
