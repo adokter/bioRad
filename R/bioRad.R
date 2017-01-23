@@ -266,6 +266,15 @@ readvp = function(filename){
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
   sources=strsplit(attribs.what$source,",")[[1]]
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
+  if(length(radar)==0){
+    radar=gsub("NOD:","",sources[which(grepl("NOD:",sources))])
+    if(length(radar)==0){
+      radar=gsub("WMO:","",sources[which(grepl("WMO:",sources))])
+      if(length(radar)==0){
+        radar="unknown"
+      }
+    }
+  }
 
   #prepare output
   output=list(radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
