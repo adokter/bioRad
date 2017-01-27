@@ -1354,6 +1354,31 @@ suntime = function(lon, lat, date, elev=-0.268, rise = TRUE)
   return(output)
 }
 
+#' Tests whether it is night
+#' @inheritParams suntime
+#' @export
+#' @return TRUE when night, FALSE when day
+#' @details The angular diameter of the sun is about 0.536 degrees, therefore the moment
+#' of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
+#'
+#' night evaluates to true when the sun has a lower elevation than parameter elev, otherwise to false
+#'
+#' Approximate astronomical formula are used, therefore the day/night transition may
+#' be off by a few minutes
+#' @examples
+#' # it's day in the Netherlands at UTC noon on January first:
+#' night(5,53,"2016-01-01 12:00")
+night=function(lon,lat,date,elev=-0.268){
+  trise=suntime(lon,lat,date,elev,rise=T)
+  tset=suntime(lon,lat,date,elev,rise=F)
+  output=rep(NA,length(date))
+  itsday=(date>trise & date<tset)
+  output[trise<tset]=itsday[trise<tset]
+  itsday=(date<tset | date>trise)
+  output[trise>=tset]=itsday[trise>=tset]
+  !output
+}
+
 #' Radar beam height
 #'
 #' Calculates the height of a radar beam as a function of elevation and range, assuming the beam
