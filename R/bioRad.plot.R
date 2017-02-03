@@ -9,8 +9,44 @@ plot.colors = rgb(c(200, approx(r.points, r.values, seq(1, 256, length.out = 255
 # true when NA but not when NaN
 is.na2=function(x) is.na(x) & !is.nan(x)
 
-#plot.dBZbird = 1 + round(254 * (t(dBZbird[, 1 : (length(times) - 1)] / 10 + log10(dBZ.factor)) - contour.range[1]) / (contour.range[2] - contour.range[1]))
-#plot.dBZbird[plot.dBZbird < 1] = 0
+
+#' Plot a vertical profile
+#'
+#' @param x a vp class object
+#' @param quantity character string with the quantity to plot, one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
+#' @param xlab a title for the x axis
+#' @param ylab a title for the y axis
+#' @param line.col Color of the plotted curve
+#' @param line.lwd Line width of the plotted curve
+#' @param ... Additional arguments to be passed to the low level \link[graphics]{plot} plotting function
+#' @export
+#' @method plot vp
+#' @examples
+#' data(VP)
+#' plot(VP)
+#' plot(VP,line.col='blue')
+plot.vp=function(x, quantity="dens", xlab=expression("volume density [#/km"^3*"]"),ylab="height [km]",line.col='red',line.lwd=1,...){
+  stopifnot(inherits(x,"vp"))
+  stopifnot(quantity %in% c("dens","eta","dbz","DBZH"))
+
+  # set up the plot labels
+  if(missing(xlab)){
+    if(quantity=="dens") xlab=expression("volume density [#/km"^3*"]")
+    if(quantity=="eta") xlab=expression("reflectivity "*eta*" [cm"^2*"/km"^3*"]")
+    if(quantity=="dbz") xlab=expression("reflectivity factor [dBZ"[e] * "]")
+    if(quantity=="DBZH") xlab=expression("total reflectivity factor [dBZ"[e] * "]")
+  }
+
+  # extract the data from the time series object
+  if(quantity=="dens") pdat=x$data$dens
+  if(quantity=="eta") pdat=x$data$eta
+  if(quantity=="dbz") pdat=x$data$dbz
+  if(quantity=="DBZH") pdat=x$data$DBZH
+
+  plot(pdat,x$data$HGHT/1000,xlab=xlab,ylab=ylab,...)
+  points(pdat,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
+}
+
 
 #' Plot a time series of vertical profiles
 #'
@@ -54,6 +90,7 @@ is.na2=function(x) is.na(x) & !is.nan(x)
 #' plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
 plot.vpts = function(x, xlab="time [UTC]",ylab="height [m]",quantity="dens",log=T, barbs=T, barbs.h=10, barbs.t=20, barbs.dens=5, zlim, legend.ticks, main, ...){
   stopifnot(inherits(x,"vpts"))
+  stopifnot(quantity %in% c("dens","eta","dbz","DBZH"))
   args <- list(...)
   if(!x$regular) warning("Irregular time-series: x-axis is not a linear time scale. Use 'regularize' to make time series regular.")
 
