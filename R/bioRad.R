@@ -1013,7 +1013,16 @@ dim.vpts <- function(x) {
 #' @export
 `[.vpts` <- function(x,i) {
   stopifnot(inherits(x,"vpts"))
-  if(length(i)<2) stop("Time series should consist more than one profile")
+  if(length(i)<1) stop("Time series should consist more than one profile")
+  if(length(i)==1){
+    if(i>0) return(vpts2vp(x,i))
+    else{
+      if(dim(x)[2]==2){
+        if(i==-1) return(vpts2vp(x,2))
+        if(i==-2) return(vpts2vp(x,1))
+      }
+    }
+  }
   x$dates=x$dates[i]
   x$daterange=.POSIXct(c(min(x$dates),max(x$dates)),tz="UTC")
   x$timesteps=difftime(x$dates[-1],x$dates[-length(x$dates)],units="secs")
@@ -1022,6 +1031,21 @@ dim.vpts <- function(x) {
   x$data=lapply(names(x$data),function(quantity) getElement(x$data,quantity)[,i])
   names(x$data)=quantity.names
   return(x)
+}
+
+vpts2vp <- function(x,i) {
+  stopifnot(inherits(x,"vpts"))
+  nvp=dim(x)[2]
+  if(i<1 | i>nvp) return(NA)
+  vpout=list()
+  vpout$radar=x$radar
+  vpout$datetime=x$dates[i]
+  vpout$data=lapply(names(x$data),function(y) x$data[y][[1]][,i])
+  names(vpout$data)=names(x$data)
+  vpout$attributes=x$attributes
+  vpout$data$HGHT=x$heights
+  class(vpout)="vp"
+  vpout
 }
 
 #' Radar cross section
