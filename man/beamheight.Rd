@@ -15,8 +15,6 @@ beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 
 \item{lat}{geodetic latitude in degrees}
 
-\item{re}{Earth equatorial radius in km}
-
 \item{rp}{Earth polar radius in km}
 }
 \value{

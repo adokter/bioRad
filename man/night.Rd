@@ -2,7 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{night}
 \alias{night}
-\title{Tests whether it is night}
+\title{Calculate whether it is night at a geographic location and time}
 \usage{
 night(lon, lat, date, elev = -0.268)
 }
@@ -19,13 +19,13 @@ night(lon, lat, date, elev = -0.268)
 TRUE when night, FALSE when day
 }
 \description{
-Tests whether it is night
+Calculate whether it is night at a geographic location and time
 }
 \details{
 The angular diameter of the sun is about 0.536 degrees, therefore the moment
 of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
 
-night evaluates to true when the sun has a lower elevation than parameter elev, otherwise to false
+day evaluates to true when the sun has a higher elevation than parameter elev, otherwise to false
 
 Approximate astronomical formula are used, therefore the day/night transition may
 be off by a few minutes
@@ -33,5 +33,6 @@ be off by a few minutes
 \examples{
 # it's day in the Netherlands at UTC noon on January first:
 night(5,53,"2016-01-01 12:00")
+
 }
 
