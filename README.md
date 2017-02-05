@@ -10,14 +10,18 @@ The [vol2bird](https://github.com/adokter/vol2bird) algorithm, and a tool to con
 
 # installation
 To install `bioRad` complete these four steps:
-### 1.a Install Docker
+### 1. Docker (optional)
+You only need to install Docker if:
+1) you want to run the [vol2bird](https://github.com/adokter/vol2bird) algorithm.
+2) you need the tools to convert NEXRAD data into ODIM format
+#### 1.a Install Docker
 The functionality of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of birds from weather radar data, is available in bioRad through Docker.
 
 Go to the [Docker](https://www.docker.com/) webpage for instructions on how to install Docker on your local system. On 8 Dec 2016 Docker is available for Windows 10 Professional or Enterprise 64-bit, MacOS Yosemite 10.10.3 or above, or any linux/unix distribution.
 
 Without a Docker installation, the bioRad package disables volbird automatically. All the other tools will still work.
 
-### 1.b Setup Docker
+#### 1.b Setup Docker
 Docker needs local drives to be available for Docker containers. To enable:
 * right click the Docker (whale) icon on your task or menu bar
 * select settings -> shared drives
