@@ -12,6 +12,7 @@
 #'     \item{\link[=summary.vp]{vp}}{, a vertical profile: typically biological data extracted from a polar volume by \link{vol2bird}.}
 #'     \item{\link[=summary.vplist]{vplist}}{, a list of \link[=summary.vp]{vp} objects.}
 #'     \item{\link[=summary.vpts]{vpts}}{, a vertical profile time series: a time-oredered list of \link[=summary.vp]{vp} objects for a single radar.}
+#'     \item{\link[=vintegrate]{vivp}}{, vertically integrated vertical profiles.}
 #'   }
 #' }
 #' The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link[base]{Extract} methods are available for each of these classes.
@@ -144,6 +145,8 @@ mount="~/"
 # load time series:
 # VPTS=readvp.table(VPtable,radar="KBGM", wavelength='S')
 # rcs(VPTS)<-11
+# VPTS$attributes$where$lat=42.2
+# VPTS$attributes$where$lon=-75.98
 # save(VPTS,file="~/git/bioRad/data/VPTS.RData",compress="xz")
 #' Example object of class \code{vpts}
 #'
@@ -494,7 +497,7 @@ print.vplist=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' @examples
 #' \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
 #'
-vpts=function(x,radar=NA){
+vpts = function(x,radar=NA){
   stopifnot(inherits(x, "vplist"))
   # extract radar identifiers
   radars=sapply(x,'[[',"radar")
@@ -525,6 +528,105 @@ vpts=function(x,radar=NA){
   output=list(radar=radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
   class(output)="vpts"
   output
+}
+
+#' Vertically integrate profiles
+#'
+#' Performs a vertical integration of density, reflectivity and migration traffic rate.
+#' @param x a \code{vp}, \code{vplist} or \code{vpts} object
+#' @param alt.min minimum altitude in m
+#' @param alt.max maximum altitude in m
+#' @export
+#' @return an object of class \code{vivp}, a data frame with vertically integrated profile quantities
+#' @details
+#' The function generates a specially classed data frame with the following quantities
+#' \describe{
+#'    \item{\code{datetime}}{POSIXct date of each profile in UTC}
+#'    \item{\code{vid}}{Vertically Integrated Density in individuals/km^2. \code{vid} is a surface density,
+#'          whereas \code{dens} in \code{vp} objects is a volume density.}
+#'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
+#'    \item{\code{mtr}}{Migration Traffic Rate in indivuals/km/h}
+#'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
+#' }
+#' Vertically integrated density and reflectivity are related according to \eqn{vid=vir / rcs}, with \link[bioRad]{rcs}
+#' the individual's radar cross section.
+#'
+#' See \link[bioRad]{mtr} for further information on the definition of migration traffic rate.
+#' @examples
+#' ### MTR for a single vertical profile ###
+#' vintegrate(VP)
+#'
+#' ### MTRs for a list of vertical profiles ###
+#' vintegrate(c(VP,VP))
+#'
+#' ### MTRs for a time series of vertical profiles ###
+#' # load example data:
+#' data(VPTS)
+#' VPTS
+#' # print migration traffic rates:
+#' vivp=vintegrate(VPTS)
+#' # plot migration traffic rates for the full air column:
+#' plot(VPTS)
+#' #' plot migration traffic rates for altitudes > 1 km above sea level
+#' plot(vintegrate(VPTS,alt.min=1000))
+vintegrate <- function (x, alt.min, alt.max) UseMethod("vintegrate", x)
+
+#' @describeIn vintegrate Vertically integrate a vertical profile
+#' @export
+vintegrate.vp = function(x,alt.min=0,alt.max=Inf){
+  stopifnot(inherits(x,"vp"))
+  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  interval=x$attributes$where$interval
+  index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
+  mtr=sum(x$data$dens[index] * x$data$ff[index] * interval/1000,na.rm=T)
+  rtr=sum(x$data$eta[index] * x$data$ff[index] * interval/1000,na.rm=T)
+  vid=sum(x$data$dens[index],na.rm=T)*interval/1000
+  vir=sum(x$data$eta[index],na.rm=T)*interval/1000
+  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
+  class(output)=c("vivp","data.frame")
+  rownames(output)=NULL
+  attributes(output)$alt.min=alt.min
+  attributes(output)$alt.max=alt.max
+  attributes(output)$rcs=rcs(x)
+  attributes(output)$lat=x$attributes$where$lat
+  attributes(output)$lon=x$attributes$where$lon
+  return(output)
+}
+
+#' @describeIn vintegrate Vertically integrate a list of vertical profiles
+#' @export
+vintegrate.vplist = function(x,alt.min=0,alt.max=Inf){
+  stopifnot(inherits(x,"vplist"))
+  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  output=do.call(rbind,lapply(x,vintegrate.vp))
+  class(output)=c("vivp","data.frame")
+  attributes(output)$alt.min=alt.min
+  attributes(output)$alt.max=alt.max
+  attributes(output)$rcs=rcs(x)
+  #TODO set lat/lon attributes
+  return(output)
+}
+
+#' @describeIn vintegrate Vertically integrate a time series of vertical profiles
+#' @export
+vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf){
+  stopifnot(inherits(x, "vpts"))
+  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  interval=x$attributes$where$interval
+  index=which(x$heights>alt.min & x$heights<alt.max)
+  mtr=colSums(x$data$ff[index,]*x$data$dens[index,],na.rm=T)*interval/1000
+  rtr=colSums(x$data$ff[index,]*x$data$eta[index,],na.rm=T)*interval/1000
+  vid=colSums(x$data$dens[index,],na.rm=T)*interval/1000
+  vir=colSums(x$data$eta[index,],na.rm=T)*interval/1000
+  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
+  class(output)=c("vivp","data.frame")
+  rownames(output)=NULL
+  attributes(output)$alt.min=alt.min
+  attributes(output)$alt.max=alt.max
+  attributes(output)$rcs=rcs(x)
+  attributes(output)$lat=x$attributes$where$lat
+  attributes(output)$lon=x$attributes$where$lon
+  return(output)
 }
 
 #' print method for class \code{vpts}
@@ -868,60 +970,22 @@ regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
 #' @export
+#' @return an atomic vector of migration traffic rates in individuals/km/hour
+#' @details This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
+#' migration traffic rate data.
 #' @examples
 #' ### MTR for a single vertical profile ###
 #' mtr(VP)
-#'
-#' ### MTRs for a list of vertical profiles ###
-#' mtr(c(VP,VP))
-#'
 #' ### MTRs for a time series of vertical profiles ###
-#' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
-#' # load time series:
-#' ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+#' # load example time series
+#' data(VPTS)
 #' # print migration traffic rates:
-#' mtr(ts)
-#' # plot migration traffic rates for the full air column:
-#' plot(mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-#' #' plot migration traffic rates for altitudes > 1 km above sea level
-#' plot(mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-mtr <- function (x, alt.min, alt.max) UseMethod("mtr", x)
-
-#' @describeIn mtr MTR of a vertical profile
-#' @return class \code{vp}: the migration traffic rate (MTR) individuals/km/h
-#' @export
-mtr.vp = function(x,alt.min=0,alt.max=Inf){
-  stopifnot(inherits(x,"vp"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  interval=x$attributes$where$interval
-  index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
-  mtr=sum(x$data$dens[index] * x$data$ff[index] * interval/1000,na.rm=T)
-  return(mtr)
-}
-
-#' @describeIn mtr MTR of a list of vertical profiles
-#' @return class \code{vplist}: a numeric atomic vector with migration traffic rates in individuals/km/h
-#' @export
-mtr.vplist = function(x,alt.min=0,alt.max=Inf){
-  stopifnot(inherits(x,"vplist"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  mtr=sapply(x,mtr.vp,alt.min=alt.min,alt.max=alt.max)
-  return(mtr)
-}
-
-#' @describeIn mtr MTR of a time series of vertical profiles
-#' @return class \code{vpts}: a data frame with dates and migration traffic rates in individuals/km/h
-#' @export
-mtr.vpts = function(x,alt.min=0,alt.max=Inf){
-  stopifnot(inherits(x,"vpts"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  interval=x$attributes$where$interval
-  index=which(x$heights>alt.min & x$heights<alt.max)
-  mtr=colSums(x$data$ff[index,]*x$data$dens[index,],na.rm=T)*interval/1000
-  output=data.frame(dates=x$dates,mtr=mtr)
-  rownames(output)=NULL
-  return(output)
+#' mtr(VPTS)
+#' # to plot migration traffic rate data, use vintegrate:
+#' plot(vintegrate(VPTS),quantity="mtr")
+mtr <- function (x, alt.min=0, alt.max=Inf) {
+  stopifnot(inherits(x,"vp") | inherits(x,"vpts") | inherits(x,"vplist"))
+  return(vintegrate(x,alt.min=alt.min,alt.max=alt.max)$mtr)
 }
 
 #' Class 'vp': vertical profile
@@ -937,7 +1001,7 @@ mtr.vpts = function(x,alt.min=0,alt.max=Inf){
 #' An object of class \code{vp} is a list containing
 #' \describe{
 #'  \item{\strong{\code{radar}}}{the radar identifier}
-#'  \item{\strong{\code{datetime}}}{the nominal time of the profile [UTC]}
+#'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
 #'  \item{\strong{\code{data}}}{the profile data, a list containing:
 #'    \describe{
 #'        \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
@@ -953,9 +1017,9 @@ mtr.vpts = function(x,alt.min=0,alt.max=Inf){
 #'        \item{\code{dens}}{Bird density [birds/km^3]}
 #'        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) [dBZ]}
 #'        \item{\code{n}}{number of points VVP bird velocity analysis (u,v,w,ff,dd)}
-#'        \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
 #'        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-#'        \item{\code{n_all_dbz}}{number of points total reflectivity estimate (DBZH)}
+#'        \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
+#'        \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
 #'    }
 #'  }
 #'  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what}, \code{\\where} and \code{\\how} attributes}
@@ -1081,6 +1145,13 @@ rcs.vpts <- function (x){
   x$attributes$how$rcs_bird
 }
 
+#' @describeIn rcs radar cross section of a time series of vertically integrated vertical profile(s)
+#' @export
+rcs.vivp <- function (x){
+  stopifnot(inherits(x,"vivp"))
+  attributes(x)$rcs
+}
+
 #' Set radar cross section
 #'
 #' Sets the assumed radar cross section in cm^2. This method also updates the migration densities in \code{x$data$dens}
@@ -1133,6 +1204,16 @@ rcs.vpts <- function (x){
     x$attributes$how$sd_vvp_thresh=2
     x$data$dens[x$data$sd_vvp<2]=0
   }
+  x
+}
+
+#' @rdname rcs-set
+#' @export
+`rcs<-.vivp` <- function(x,value){
+  stopifnot(inherits(x,"vivp"))
+  attributes(x)$rcs=value
+  x$mtr=x$rtr/value
+  x$vid=x$vir/value
   x
 }
 
@@ -1253,7 +1334,7 @@ mt <- function(x,alt.min=0, alt.max=Inf){
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
   dt=as.numeric(dt)/3600
-  sum(dt*mtr(x,alt.min,alt.max)$mtr)
+  sum(dt*mtr(x,alt.min,alt.max))
 }
 
 #' Cumulative migration traffic
@@ -1274,14 +1355,14 @@ mt <- function(x,alt.min=0, alt.max=Inf){
 #' # print cumulative migration traffic to console:
 #' cmt(VPTS)
 #' # plot cumulative migration traffic:
-#' plot(cmt(VPTS),type='l',xlab="time [UTC]",ylab="CMT [birds/km]")
+#' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
 cmt <- function(x,alt.min=0, alt.max=Inf){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
   dt=as.numeric(dt)/3600
-  mtrs=mtr(x,alt.min,alt.max)
-  data.frame(dates=mtrs$dates,cmt=cumsum(dt*mtrs$mtr))
+  vintegrated=vintegrate(x,alt.min,alt.max)
+  data.frame(dates=vintegrated$datetime,cmt=cumsum(dt*vintegrated$mtr))
 }
 
 # function obtained via Hidde Leijnse, source unknown
@@ -1296,8 +1377,8 @@ cmt <- function(x,alt.min=0, alt.max=Inf){
 #' @details The angular diameter of the sun is about 0.536 degrees, therefore the moment
 #' of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
 #'
-#' Note that for a given date and location, sunrise time can be after sunset time when
-#' the moments of sunset and sunrise are not on the same day within the UTC time zone.
+#' Note that for a given date and location, sunrise time can be after sunset time, depending
+#' on the time difference between the local time and the UTC time zone.
 #'
 #' Approximate astronomical formula are used, therefore the moment of sunrise / sunset may
 #' be off by a few minutes
@@ -1388,8 +1469,9 @@ night=function(lon,lat,date,elev=-0.268){
 
 #' Test a bioRad object for night time
 #'
-#' Test a bioRad object for night time. Dispatches to the logical inverse of \link[bioRad]{day}.
+#' Test a bioRad object for day time. Dispatches to the logical inverse of \link[bioRad]{night}.
 #' @inheritParams night
+#' @param x An object of class \code{vp},\code{vplist} or \code{vpts}.
 #' @export
 #' @return TRUE when night, FALSE when day, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
 #' @examples
@@ -1407,7 +1489,7 @@ day.vp <- function(x,elev=-0.268) {
 #' @export
 day.vplist <- function(x,elev=-0.268) {
   stopifnot(inherits(x,"vplist"))
-  !sapply(x,night.vp,elev=elev)
+  sapply(x,day.vp,elev=elev)
 }
 
 #' @rdname day

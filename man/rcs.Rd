@@ -2,6 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs}
 \alias{rcs}
+\alias{rcs.vivp}
 \alias{rcs.vp}
 \alias{rcs.vplist}
 \alias{rcs.vpts}
@@ -14,6 +15,8 @@ rcs(x)
 \method{rcs}{vplist}(x)
 
 \method{rcs}{vpts}(x)
+
+\method{rcs}{vivp}(x)
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
@@ -31,6 +34,8 @@ Gives the currently assumed radar cross section in cm^2.
 \item \code{vplist}: radar cross sections for a list of vertical profiles
 
 \item \code{vpts}: radar cross section of a time series of vertical profile
+
+\item \code{vivp}: radar cross section of a time series of vertically integrated vertical profile(s)
 }}
 \examples{
 # extract RCS for a single vertical profile:

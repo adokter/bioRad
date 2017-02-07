@@ -11,7 +11,10 @@
 \arguments{
 \item{x}{a vp class object}
 
-\item{quantity}{character string with the quantity to plot, one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.}
+\item{quantity}{character string with the quantity to plot.
+See \link[=summary.vp]{vp} for list of available quantities.
+Aerial density related: '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
+Ground speed related: '\code{ff}','\code{dd}', for ground speed and direction, respectively.}
 
 \item{xlab}{a title for the x axis}
 

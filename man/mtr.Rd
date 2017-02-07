@@ -2,18 +2,9 @@
 % Please edit documentation in R/bioRad.R
 \name{mtr}
 \alias{mtr}
-\alias{mtr.vp}
-\alias{mtr.vplist}
-\alias{mtr.vpts}
 \title{Migration traffic rate}
 \usage{
-mtr(x, alt.min, alt.max)
-
-\method{mtr}{vp}(x, alt.min = 0, alt.max = Inf)
-
-\method{mtr}{vplist}(x, alt.min = 0, alt.max = Inf)
-
-\method{mtr}{vpts}(x, alt.min = 0, alt.max = Inf)
+mtr(x, alt.min = 0, alt.max = Inf)
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
@@ -23,41 +14,25 @@ mtr(x, alt.min, alt.max)
 \item{alt.max}{maximum altitude in m}
 }
 \value{
-class \code{vp}: the migration traffic rate (MTR) individuals/km/h
-
-class \code{vplist}: a numeric atomic vector with migration traffic rates in individuals/km/h
-
-class \code{vpts}: a data frame with dates and migration traffic rates in individuals/km/h
+an atomic vector of migration traffic rates in individuals/km/hour
 }
 \description{
 Migration traffic rate (MTR) for an altitude layer, defined as the
 number of targets crossing a 1 km line perpendicular to the migratory movement per hour
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{vp}: MTR of a vertical profile
-
-\item \code{vplist}: MTR of a list of vertical profiles
-
-\item \code{vpts}: MTR of a time series of vertical profiles
-}}
+\details{
+This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
+migration traffic rate data.
+}
 \examples{
 ### MTR for a single vertical profile ###
 mtr(VP)
-
-### MTRs for a list of vertical profiles ###
-mtr(c(VP,VP))
-
 ### MTRs for a time series of vertical profiles ###
-# locate example file:
-VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
-# load time series:
-ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+# load example time series
+data(VPTS)
 # print migration traffic rates:
-mtr(ts)
-# plot migration traffic rates for the full air column:
-plot(mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-#' plot migration traffic rates for altitudes > 1 km above sea level
-plot(mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+mtr(VPTS)
+# to plot migration traffic rate data, use vintegrate:
+plot(vintegrate(VPTS),quantity="mtr")
 }
 

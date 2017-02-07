@@ -19,13 +19,15 @@ day(x, elev = -0.268)
 \method{day}{pvol}(x, elev = -0.268)
 }
 \arguments{
+\item{x}{An object of class \code{vp},\code{vplist} or \code{vpts}.}
+
 \item{elev}{sun elevation in degrees}
 }
 \value{
 TRUE when night, FALSE when day, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
 }
 \description{
-Test a bioRad object for night time. Dispatches to the logical inverse of \link[bioRad]{day}.
+Test a bioRad object for day time. Dispatches to the logical inverse of \link[bioRad]{night}.
 }
 \examples{
 day(VP)
