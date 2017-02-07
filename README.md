@@ -1,19 +1,42 @@
 # bioRad
 bioRad is an R package for extracting and visualising biological signals from weather radar data.
 
-* contains an implementation of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of bird migration from weather radar data. 
 * analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=debilt)).
 * overlays radar scans with geographic maps and satellite imagery of various online sources (e.g Google Maps and Stamen Maps), using  [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html).
+* contains an implementation of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of bird migration from weather radar data. 
 * Reads radar files in [ODIM](http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format, or formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as [NEXRAD](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) data.
 
 The [vol2bird](https://github.com/adokter/vol2bird) algorithm, and a tool to convert NEXRAD data into ODIM format, require a working installation of [Docker](https://www.docker.com/).
 
 # installation
 To install `bioRad` complete these four steps:
-### 1. Docker (optional)
+
+### 1. rhdf5
+bioRad requires the rhdf5 library to read [hdf5](https://support.hdfgroup.org/HDF5/) files. This library is available through bioconductor (not CRAN). To install, run in R:
+``` 
+source("http://bioconductor.org/biocLite.R")
+biocLite("rhdf5")
+```
+
+### 2. ggplot2, ggmap, fields, devtools
+Install these packages manually in R before installing bioRad:
+```
+install.packages("ggplot2")
+install.packages("ggmap")
+install.packages("fields")
+install.packages("devtools")
+```
+
+### 3. bioRad 
+You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
+```
+library(devtools)
+install_github("adokter/bioRad")
+```
+### 4. Docker (optional)
 You only need to install Docker if:
 * you want to run the [vol2bird](https://github.com/adokter/vol2bird) algorithm.
-* you need the tools to convert NEXRAD data into ODIM format
+* you want to analyze NEXRAD data. The tools to convert NEXRAD data into ODIM format require Docker.
 
 #### 1.a Install Docker
 The functionality of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of birds from weather radar data, is available in bioRad through Docker.
@@ -29,28 +52,6 @@ Docker needs local drives to be available for Docker containers. To enable:
 * select the drives where you will be processing radar files
 * click apply
 
-### 2. rhdf5
-bioRad requires the rhdf5 library to read [hdf5](https://support.hdfgroup.org/HDF5/) files. This library is available through bioconductor (not CRAN). To install, run in R:
-``` 
-source("http://bioconductor.org/biocLite.R")
-biocLite("rhdf5")
-```
-
-### 3. ggplot2, ggmap, fields, devtools
-Install these packages manually in R before installing bioRad:
-```
-install.packages("ggplot2")
-install.packages("ggmap")
-install.packages("fields")
-install.packages("devtools")
-```
-
-### 4. bioRad 
-You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
-```
-library(devtools)
-install_github("adokter/bioRad")
-```
 
 ### install note 1: ggplot2 and ggmap on Mac OSX
 bioRad requires the ggplot2 and ggmap packages to be installed in R. While these are both available through CRAN, on MacOS I found that I ran into this error when using bioRad's function `map`:
