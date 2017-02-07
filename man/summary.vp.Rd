@@ -31,7 +31,7 @@ Class for vertical profiles
 An object of class \code{vp} is a list containing
 \describe{
  \item{\strong{\code{radar}}}{the radar identifier}
- \item{\strong{\code{datetime}}}{the nominal time of the profile [UTC]}
+ \item{\strong{\code{datetime}}}{the nominal time of the profile}
  \item{\strong{\code{data}}}{the profile data, a list containing:
    \describe{
        \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
@@ -47,9 +47,9 @@ An object of class \code{vp} is a list containing
        \item{\code{dens}}{Bird density [birds/km^3]}
        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) [dBZ]}
        \item{\code{n}}{number of points VVP bird velocity analysis (u,v,w,ff,dd)}
-       \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-       \item{\code{n_all_dbz}}{number of points total reflectivity estimate (DBZH)}
+       \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
+       \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
    }
  }
  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what}, \code{\\where} and \code{\\how} attributes}

@@ -138,11 +138,8 @@ retrieve_vp_paths <- function(path, start_date, end_date,
   filelist <- dir(path, recursive = TRUE)
 
   datestring_to_check <- format(dates_to_check, "%Y%m%d")
-  countryradar <- apply(expand.grid(country, radar), 1, paste,
-                        collapse = "")
-  countryradardate <- apply(expand.grid(countryradar, "_vp_",
-                                        datestring_to_check), 1,
-                            paste, collapse = "")
+  countryradar <- apply(expand.grid(country, radar), 1, paste,collapse = "")
+  countryradardate <- apply(expand.grid(countryradar, "_vp_", datestring_to_check), 1, paste, collapse = "")
   match_filenames(filelist, paste(countryradardate, collapse = "|"))
 
 }

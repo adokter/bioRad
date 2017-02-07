@@ -2,6 +2,7 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs<-}
 \alias{rcs<-}
+\alias{rcs<-.vivp}
 \alias{rcs<-.vp}
 \alias{rcs<-.vplist}
 \alias{rcs<-.vpts}
@@ -14,6 +15,8 @@ rcs(x) <- value
 \method{rcs}{vplist}(x) <- value
 
 \method{rcs}{vpts}(x) <- value
+
+\method{rcs}{vivp}(x) <- value
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}

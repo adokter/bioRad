@@ -27,8 +27,8 @@ Calculate sunrise and sunset
 The angular diameter of the sun is about 0.536 degrees, therefore the moment
 of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
 
-Note that for a given date and location, sunrise time can be after sunset time when
-the moments of sunset and sunrise are not on the same day within the UTC time zone.
+Note that for a given date and location, sunrise time can be after sunset time, depending
+on the time difference between the local time and the UTC time zone.
 
 Approximate astronomical formula are used, therefore the moment of sunrise / sunset may
 be off by a few minutes
