@@ -39,7 +39,7 @@
 #' scan=vol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
-read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP"),sort=T,lat,lon,height,elangle.min=0,elangle.max=90,verbose=T,mount=dirname(filename)){
+read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP","CELL"),sort=T,lat,lon,height,elangle.min=0,elangle.max=90,verbose=T,mount=dirname(filename)){
   if(!is.logical(sort)) stop("'sort' should be logical")
   if(!missing(lat)) if(!is.numeric(lat) || lat< -90 || lat>90) stop("'lat' should be numeric between -90 and 90 degrees")
   if(!missing(lon)) if(!is.numeric(lon) || lat< -360 || lat>360) stop("'lon' should be numeric between -360 and 360 degrees")
@@ -491,6 +491,14 @@ get_colorscale=function(param,zlim){
   return(colorscale)
 }
 
+get_zlim=function(param){
+  if(param %in% c("DBZH","DBZV","DBZ")) return(c(-20,30))
+  if(param %in% c("VRADH","VRADV","VRAD")) return(c(-20,20))
+  if(param == "RHOHV") return(c(0,1))
+  if(param == "ZDR") return(c(-5,8))
+  if(param == "PHIDP") return(c(-200,200))
+}
+
 #' Plot a plan position indicator (PPI)
 #'
 #' Plots a plan position indicator (PPI) generated with \link{ppi} using \link[ggplot2]{ggplot}
@@ -517,8 +525,12 @@ get_colorscale=function(param,zlim){
 #' plot(ppi,param="DBZH",zlim=c(-30,50))
 plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   stopifnot(inherits(x,"ppi"))
-  if(missing(param)) param=names(x$data)[1]
+  if(missing(param)){
+    if("DBZH" %in% names(x$data)) param="DBZH"
+    else param=names(x$data)[1]
+  }
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
+  if(missing(zlim)) zlim=get_zlim(param)
   colorscale=get_colorscale(param,zlim)
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
@@ -623,8 +635,12 @@ map <- function (x, ...) UseMethod("map", x)
 #' @export
 map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size=3,radar.color="red",...){
   stopifnot(inherits(x,"ppi"))
-  if(missing(param)) param=names(x$data)[1]
+  if(missing(param)){
+    if("DBZH" %in% names(x$data)) param="DBZH"
+    else param=names(x$data)[1]
+  }
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
+  if(missing(zlim)) zlim=get_zlim(param)
   if(!(param %in% names(x$data))) stop(paste("no scan parameter '",param,"' in this ppi",sep=""))
   if(!attributes(map)$ppi) stop("not a ppi map, use basemap() to download a map")
   if(attributes(map)$geo$lat!=x$geo$lat || attributes(map)$geo$lon!=x$geo$lon) stop("not a basemap for this radar location")
@@ -653,16 +669,6 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   # plot the data on the map
   nbins=x$data@grid@cells.dim[1]
   ggmap(map) + bbox + stat_summary_2d(aes(x=s1, y=s2, z=z),size=.5,bins=nbins,alpha=alpha,data=data) + colorscale + radarpoint
-}
-
-plot.oldppi=function(x,param,zlim=c(-20,30),...){
-  # extract parameter of interest:
-  data=do.call(function(y) x$data[y],list(param))
-  elev=0
-  # plot image
-  par(pty="s")
-  image(data,col=plot.colors,main=paste(param,round(elev,1),"deg"),zlim=zlim,ylab="south-north",xlab="west-east",axes=T)
-  image.plot(data,zlim=zlim,legend.only=T)
 }
 
 #' print method for ppi
