@@ -200,19 +200,15 @@ plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, bar
       ticks=legendticks=seq(0,5000,500)
       zlim=c(0,5000)
     }
-    if(quantity=="dbz"){
+    if(quantity=="dbz" || quantity=="DBZH"){
       if(x$attributes$how$wavelength>10){
         ticks=legendticks=seq(-5,30,5)
         zlim=c(-5,30)
       }
       else{
         ticks=legendticks=seq(-20,10,5)
-        zlim=c(-20,5)
+        zlim=c(-20,10)
       }
-    }
-    if(quantity=="DBZH"){
-      ticks=legendticks=seq(-10,50,10)
-      zlim=c(-10,30)
     }
   }
   else{
