@@ -28,7 +28,14 @@ for \code{dim.vp}: dimensions of the profile data
 Class for vertical profiles
 }
 \details{
-An object of class \code{vp} is a list containing
+An object of class \code{vp} contains a vertical profile. A vertical profile contains a collection of quantities,
+ with each quantity having values at different altitude layers above the earth's surface,
+ typically equally spaced altitudinal layers.
+
+Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+Information stored under \code{attributes} (see below) can be accessed directly.
+
+A \code{vp} object is a list containing
 \describe{
  \item{\strong{\code{radar}}}{the radar identifier}
  \item{\strong{\code{datetime}}}{the nominal time of the profile}

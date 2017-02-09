@@ -455,8 +455,9 @@ c.vp = function(...){
 #' @param ... additional arguments affecting the summary produced.
 #' @export
 #' @method summary vplist
-#' @details
-#' details to be written
+#' @details An object of class \code{vplist} is a list containing only \link[=summary.vp]{vp} objects.
+#' By contrast, \link[=summary.vpts]{vpts} objects contain time-ordered profiles of a single radar
+#' station. \code{vplist} objects can contain profiles of multiple radars.
 summary.vplist=function(object, ...) print.vplist(object)
 
 #' @rdname summary.vplist
@@ -493,18 +494,7 @@ print.vplist=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' @param x An object of class \code{vplist}, usually a result of a call to \link[bioRad]{readvp.list}
 #' @param radar string containing the radar identifier to generate time series for. Only required when \code{vplist} object contains multiple radars
 #' @export
-#' @return an object of class \code{vpts}, which is a list containing
-#' \describe{
-#'  \item{\code{radar}}{string containing the radar identifier}
-#'  \item{\code{dates}}{the \code{N} nominal times of the profiles}
-#'  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
-#'  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
-#'  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
-#'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
-#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
-#'  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
-#'  \item{\code{regular}}{logical indicating whether the time series is regular or not}
-#' }
+#' @return an object of class \link[=summary.vpts]{vpts}
 #' @rdname vpts
 #' @examples
 #' \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
@@ -557,11 +547,12 @@ vpts = function(x,radar=NA){
 #'    \item{\code{vid}}{Vertically Integrated Density in individuals/km^2. \code{vid} is a surface density,
 #'          whereas \code{dens} in \code{vp} objects is a volume density.}
 #'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
-#'    \item{\code{mtr}}{Migration Traffic Rate in indivuals/km/h}
+#'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
 #' }
-#' Vertically integrated density and reflectivity are related according to \eqn{vid=vir / rcs}, with \link[bioRad]{rcs}
-#' the individual's radar cross section.
+#' Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
+#' the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
+#' traffic rate are related according to \eqn{mtr=rtr/rcs(x)}
 #'
 #' See \link[bioRad]{mtr} for further information on the definition of migration traffic rate.
 #' @examples
@@ -590,10 +581,10 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf){
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   interval=x$attributes$where$interval
   index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
-  mtr=sum(x$data$dens[index] * x$data$ff[index] * interval/1000,na.rm=T)
-  rtr=sum(x$data$eta[index] * x$data$ff[index] * interval/1000,na.rm=T)
-  vid=sum(x$data$dens[index],na.rm=T)*interval/1000
-  vir=sum(x$data$eta[index],na.rm=T)*interval/1000
+  mtr=sum(fetch(x,"dens")[index] * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  rtr=sum(fetch(x,"eta")[index] * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
+  vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
   output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
@@ -626,10 +617,10 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf){
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   interval=x$attributes$where$interval
   index=which(x$heights>alt.min & x$heights<alt.max)
-  mtr=colSums(x$data$ff[index,]*x$data$dens[index,],na.rm=T)*interval/1000
-  rtr=colSums(x$data$ff[index,]*x$data$eta[index,],na.rm=T)*interval/1000
-  vid=colSums(x$data$dens[index,],na.rm=T)*interval/1000
-  vir=colSums(x$data$eta[index,],na.rm=T)*interval/1000
+  mtr=colSums(fetch(x,"ff")[index,]*fetch(x,"dens")[index,],na.rm=T)*interval/1000
+  rtr=colSums(fetch(x,"ff")[index,]*fetch(x,"eta")[index,],na.rm=T)*interval/1000
+  vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
+  vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
   output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
@@ -1010,7 +1001,14 @@ mtr <- function (x, alt.min=0, alt.max=Inf) {
 #' @rdname summary.vp
 #' @method summary vp
 #' @details
-#' An object of class \code{vp} is a list containing
+#' An object of class \code{vp} contains a vertical profile. A vertical profile contains a collection of quantities,
+#'  with each quantity having values at different altitude layers above the earth's surface,
+#'  typically equally spaced altitudinal layers.
+#'
+#' Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+#' Information stored under \code{attributes} (see below) can be accessed directly.
+#'
+#' A \code{vp} object is a list containing
 #' \describe{
 #'  \item{\strong{\code{radar}}}{the radar identifier}
 #'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
@@ -1065,10 +1063,34 @@ is.vplist <- function(x) inherits(x, "vplist")
 #' @param ... additional arguments affecting the summary produced.
 #' @export
 #' @method summary vpts
-#' @details
-#' details to be written
+#' @details An object of class \code{vpts} contains time-ordered profiles of a single radar
+#' station.
+#'
+#' The time series can be regular or irregular, indicated by the \code{regular} field
+#'
+#' In a regular \code{vpts} object the profiles are equally spaced in time.
+#' In an irregular \code{vpts} object the time steps between profiles are of unequal length.
+#'
+#' Irregular time series can be projected onto a regular time grid using the \link[bioRad]{regularize} function.
+#'
+#' By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
+#'
+#' Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+#' Information stored under \code{attributes} (see below) can be accessed directly.
+#'
+#' An object of class \code{vpts} is a list containing
+#' \describe{
+#'  \item{\code{radar}}{string containing the radar identifier}
+#'  \item{\code{dates}}{the \code{N} nominal times of the profiles}
+#'  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
+#'  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
+#'  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
+#'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
+#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
+#'  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
+#'  \item{\code{regular}}{logical indicating whether the time series is regular or not}
+#' }
 summary.vpts=function(object, ...) print.vpts(object)
-
 
 #' @rdname summary.vpts
 #' @export
@@ -1116,7 +1138,7 @@ vpts2vp <- function(x,i) {
   vpout=list()
   vpout$radar=x$radar
   vpout$datetime=x$dates[i]
-  vpout$data=lapply(names(x$data),function(y) x$data[y][[1]][,i])
+  vpout$data=as.data.frame(lapply(names(x$data),function(y) x$data[y][[1]][,i]))
   names(vpout$data)=names(x$data)
   vpout$attributes=x$attributes
   vpout$data$HGHT=x$heights
@@ -1553,5 +1575,87 @@ earthradius=function(a,b,latdeg){
 #' @export
 beamwidth=function(range,angle=1) range*1000*sin(angle*pi/180)
 
+#' Convert reflectivity factor to reflectivity
+#' @param dbz reflectivity factor in dBZ
+#' @param wavelength radar wavelength in cm
+#' @param Km refractive index of water
+#' @return reflectivity in cm^2/km^3
+#' @export
+dbz2eta=function(dbz, wavelength, Km=0.93) (1000*pi^5/wavelength^4)*(Km^2)*(10^(dbz/10))
 
+#' Convert reflectivity to reflectivity factor
+#' @param eta reflectivity in cm^2/km^3
+#' @param wavelength radar wavelength in cm
+#' @param Km refractive index of water
+#' @return reflectivity factor in dBZ
+#' @export
+eta2dbz=function(eta, wavelength, Km=0.93) 10*log10(eta*wavelength^4/(1000*(Km^2)*pi^5))
+
+#' fetch a profile quantity
+#' @param x a vp,vplist or vpts object
+#' @param quantity a profile quantity, one of
+#' \code{"HGHT"},\code{"u"},\code{"v"},\code{"w"},\code{"ff"},
+#' \code{"dd"},\code{"sd_vvp"},\code{"gap"},\code{"dbz"},\code{"eta"},
+#' \code{"dens"},\code{"DBZH"},\code{"n"},\code{"n_all"},\code{"n_dbz"},\code{"n_dbz_all"}.
+#' @details This function grabs any of the data quantities stored in \link[=summary.vp]{vp},
+#' \link[=summary.vplist]{vplist} or \link[=summary.vpts]{vpts} objects.
+#'
+#' See the documentation of the vertical profile \link[=summary.vp]{vp} class
+#' for a description of each of these quantities.
+#' @export
+fetch=function(x, quantity) UseMethod("fetch", x)
+
+#' @rdname fetch
+#' @export
+#' @return class \code{vp}: a named vector for the requested quantity
+fetch.vp=function(x, quantity="dens"){
+  stopifnot(inherits(x,"vp"))
+  output=x$data[quantity][,1]
+  names(output)=x$data$HGHT
+  if(quantity == "eta"){
+    output[x$data$sd_vvp<sd_vvp(x)]=0
+    return(output)
+  }
+  if(quantity == "dbz"){
+    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+    return(output)
+  }
+  if(quantity %in% c("ff","u","v","w","dd")){
+    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+    return(output)
+  }
+  return(output)
+}
+
+#' @rdname fetch
+#' @export
+#' @return class \code{vplist}: a list of a named vectors for the requested quantity
+fetch.vplist <- function(x,quantity="dens") {
+  stopifnot(inherits(x,"vplist"))
+  lapply(x,fetch.vp)
+}
+
+#' @rdname fetch
+#' @export
+#' @return class \code{vpts}: a (height x time) matrix of the requested quantity
+fetch.vpts=function(x, quantity="dens"){
+  ## this function should checkout both the gap and sd_vvp flags
+  stopifnot(inherits(x,"vpts"))
+  output=x$data[quantity][[1]]
+  rownames(output)=x$heights
+  colnames(output)=as.character(x$dates)
+  if(quantity == "eta"){
+    output[x$data$sd_vvp<sd_vvp(x)]=0
+    return(output)
+  }
+  if(quantity == "dbz"){
+    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+    return(output)
+  }
+  if(quantity %in% c("ff","u","v","w","dd")){
+    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+    return(output)
+  }
+  return(output)
+}
 

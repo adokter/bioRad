@@ -50,7 +50,7 @@ plot.vp=function(x, quantity="dens", xlab=expression("volume density [#/km"^3*"]
   }
 
   # extract the data from the time series object
-  pdat=x$data[quantity][,1]
+  pdat=fetch(x,quantity)
   plot(pdat,x$data$HGHT/1000,xlab=xlab,ylab=ylab,...)
   points(pdat,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
 }
@@ -225,21 +225,21 @@ plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, bar
   }
 
   # extract the data from the time series object
-  if(quantity=="dens") plotdata=t(x$data$dens)
-  if(quantity=="eta") plotdata=t(x$data$eta)
+  if(quantity=="dens") plotdata=t(fetch(x,quantity))
+  if(quantity=="eta") plotdata=t(fetch(x,quantity))
   if(quantity=="dbz"){
     if(log){
       if(!missing(log)) warning("reflectivity factor 'dbz' is already logarithmic, ignoring 'log' argument...")
       log=F
     }
-    plotdata=t(x$data$dbz)
+    plotdata=t(fetch(x,quantity))
   }
   if(quantity=="DBZH"){
     if(log){
       if(!missing(log)) warning("total reflectivity factor 'DBZH' is already logarithmic, ignoring 'log' argument...")
       log=F
     }
-    plotdata=t(x$data$DBZH)
+    plotdata=t(fetch(x,quantity))
   }
 
   # do log-transformations:
