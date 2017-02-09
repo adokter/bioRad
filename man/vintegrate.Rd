@@ -35,11 +35,12 @@ The function generates a specially classed data frame with the following quantit
    \item{\code{vid}}{Vertically Integrated Density in individuals/km^2. \code{vid} is a surface density,
          whereas \code{dens} in \code{vp} objects is a volume density.}
    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
-   \item{\code{mtr}}{Migration Traffic Rate in indivuals/km/h}
+   \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
 }
-Vertically integrated density and reflectivity are related according to \eqn{vid=vir / rcs}, with \link[bioRad]{rcs}
-the individual's radar cross section.
+Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
+the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
+traffic rate are related according to \eqn{mtr=rtr/rcs(x)}
 
 See \link[bioRad]{mtr} for further information on the definition of migration traffic rate.
 }

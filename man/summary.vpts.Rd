@@ -33,6 +33,32 @@ for \code{dim.vpts}: dimensions of the time series
 Class for single-site time series of vertical profiles
 }
 \details{
-details to be written
+An object of class \code{vpts} contains time-ordered profiles of a single radar
+station.
+
+The time series can be regular or irregular, indicated by the \code{regular} field
+
+In a regular \code{vpts} object the profiles are equally spaced in time.
+In an irregular \code{vpts} object the time steps between profiles are of unequal length.
+
+Irregular time series can be projected onto a regular time grid using the \link[bioRad]{regularize} function.
+
+By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
+
+Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+Information stored under \code{attributes} (see below) can be accessed directly.
+
+An object of class \code{vpts} is a list containing
+\describe{
+ \item{\code{radar}}{string containing the radar identifier}
+ \item{\code{dates}}{the \code{N} nominal times of the profiles}
+ \item{\code{heights}}{the \code{M} heights of the layers in the profile}
+ \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
+ \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
+ \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
+                    For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
+ \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
+ \item{\code{regular}}{logical indicating whether the time series is regular or not}
+}
 }
 

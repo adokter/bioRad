@@ -28,6 +28,8 @@ for \code{is.vplist}: \code{TRUE} if its argument is of class "\code{vplist}"
 Class for list of vertical profiles
 }
 \details{
-details to be written
+An object of class \code{vplist} is a list containing only \link[=summary.vp]{vp} objects.
+By contrast, \link[=summary.vpts]{vpts} objects contain time-ordered profiles of a single radar
+station. \code{vplist} objects can contain profiles of multiple radars.
 }
 
