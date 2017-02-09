@@ -27,6 +27,11 @@ install.packages("fields")
 install.packages("RCurl")
 install.packages("devtools")
 ```
+If you are using Mac OSX, install `ggplot2` and `ggmap` as follows (see install note 1 below)
+```
+install_github("hadley/ggplot2")
+install_github("dkahle/ggmap")
+```
 
 ### 3. bioRad 
 You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
