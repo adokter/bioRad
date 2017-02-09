@@ -39,6 +39,16 @@ You are now ready to install the bioRad package. In R, first load the devtools p
 library(devtools)
 install_github("adokter/bioRad")
 ```
+If your installation completed correctly, you can load bioRad with `library(bioRad)`, which should give you the following:
+```
+> library(bioRad)
+Loading package ‘bioRad’ version 0.2.1 ...
+Warning: no running Docker daemon found
+Warning: bioRad functionality requiring Docker has been disabled
+
+To enable Docker functionality, start Docker and run 'checkDocker()' in R
+```
+
 ### 4. Docker (optional)
 You only need to install Docker if:
 * you want to run the [vol2bird](https://github.com/adokter/vol2bird) algorithm.
