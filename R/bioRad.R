@@ -987,7 +987,7 @@ regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
 #' # to plot migration traffic rate data, use vintegrate:
 #' plot(vintegrate(VPTS),quantity="mtr")
 mtr <- function (x, alt.min=0, alt.max=Inf) {
-  stopifnot(inherits(x,"vp") | inherits(x,"vpts") | inherits(x,"vplist"))
+  stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
   return(vintegrate(x,alt.min=alt.min,alt.max=alt.max)$mtr)
 }
 
@@ -1134,7 +1134,7 @@ dim.vpts <- function(x) {
 vpts2vp <- function(x,i) {
   stopifnot(inherits(x,"vpts"))
   nvp=dim(x)[2]
-  if(i<1 | i>nvp) return(NA)
+  if(i<1 || i>nvp) return(NA)
   vpout=list()
   vpout$radar=x$radar
   vpout$datetime=x$dates[i]
@@ -1496,7 +1496,7 @@ night=function(lon,lat,date,elev=-0.268){
   output=rep(NA,length(date))
   itsday=(date>trise & date<tset)
   output[trise<tset]=itsday[trise<tset]
-  itsday=(date<tset | date>trise)
+  itsday=(date<tset || date>trise)
   output[trise>=tset]=itsday[trise>=tset]
   !output
 }

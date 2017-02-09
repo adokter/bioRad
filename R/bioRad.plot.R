@@ -110,7 +110,7 @@ plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [
   plot(x$datetime,x[quantity][[1]],type='l',xlab="time",ylab=ylab,ylim=ylim,main=main,...)
 
   if(nightshade){
-    if(!is.numeric(lat) | !is.numeric(lon)) stop("No latitude/longitude found in attribute data, please provide lat and lon arguments")
+    if(!is.numeric(lat) || !is.numeric(lon)) stop("No latitude/longitude found in attribute data, please provide lat and lon arguments")
 
     # calculate sunrise and sunset
     days=as.POSIXct(seq(as.Date(min(x$datetime)-24*3600),as.Date(max(x$datetime)+24*3600),by="days"),tz="UTC")
@@ -310,7 +310,7 @@ plot_wind_barbs = function(cx, cy, direction = 0, speed = NA, fill = rep(0, leng
   for (i in 1 : ns) {
     x = cx[i]
     y = cy[i]
-    if (is.na(x) | is.na(y)) next
+    if (is.na(x) || is.na(y)) next
     spd = speed[i]
 
     if (circle) {
