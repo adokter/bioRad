@@ -18,13 +18,14 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("rhdf5")
 ```
 
-### 2. ggplot2, ggmap, fields, RCurl, devtools
+### 2. ggplot2, ggmap, fields, RCurl, stringi, devtools
 Install these packages manually in R before installing bioRad:
 ```
 install.packages("ggplot2")
 install.packages("ggmap")
 install.packages("fields")
 install.packages("RCurl")
+install.packages("stringi")
 install.packages("devtools")
 ```
 If you are using Mac OSX, install `ggplot2` and `ggmap` as follows (see install note 1 below)
