@@ -1,7 +1,7 @@
 Package: bioRad
 Type: Package
 Title: Analysis and visualisation of weather radar data
-Version: 0.2.2
+Version: 0.2.3
 Date: 2017-02-15
 Authors@R: person("Adriaan M.", "Dokter", email = "a.m.dokter@uva.nl",
            role = c("aut", "cre"))
