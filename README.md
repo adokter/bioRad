@@ -30,7 +30,7 @@ install.packages("devtools")
 ```
 If you are using Mac OSX, install `ggplot2` and `ggmap` as follows (see install note 1 below)
 ```
-install_github("hadley/ggplot2")
+install_github("hadley/ggplot2@v2.2.0")
 install_github("dkahle/ggmap")
 ```
 
