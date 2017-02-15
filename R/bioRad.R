@@ -1496,7 +1496,7 @@ night=function(lon,lat,date,elev=-0.268){
   output=rep(NA,length(date))
   itsday=(date>trise & date<tset)
   output[trise<tset]=itsday[trise<tset]
-  itsday=(date<tset || date>trise)
+  itsday=(date<tset | date>trise)
   output[trise>=tset]=itsday[trise>=tset]
   !output
 }
