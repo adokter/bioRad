@@ -80,9 +80,9 @@ bioRad requires the ggplot2 and ggmap packages to be installed in R. While these
 Error: GeomRasterAnn was built with an incompatible version of ggproto.
 Please reinstall the package that provides this extension.
 ```
-This issue is fixed when installing the latest versions from Github (8 Dec 2016)
+This issue is fixed when installing the latest versions from Github (8 Dec 2016). We require an install of ggplot2 version 2.2.0, the more recent version 2.2.1 is not (yet) compatible with ggmap.
 ```
-install_github("hadley/ggplot2")
+install_github("hadley/ggplot2@2.2.0")
 install_github("dkahle/ggmap")
 ```
 After installation, restart R.
