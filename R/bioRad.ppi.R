@@ -117,9 +117,9 @@ read.pvol = function(filename,param=c("DBZH","VRADH","RHOHV","ZDR","PHIDP","CELL
 }
 
 read.scan=function(filename,scan,param,geo){
-  groups=h5ls(filename)
-  groups=groups[groups$group==paste("/",scan,sep=""),]$name
-  groups=groups[grep("data",groups)]
+  h5struct=h5ls(filename)
+  h5struct=h5struct[h5struct$group==paste("/",scan,sep=""),]$name
+  groups=h5struct[grep("data",h5struct)]
 
   # select which scan parameters to read
   if(length(param)==1 && param=="all") allParam=T else allParam=F
@@ -130,9 +130,11 @@ read.scan=function(filename,scan,param,geo){
   }
 
   # read attributes
-  attribs.how=h5readAttributes(filename,paste(scan,"/how",sep=""))
-  attribs.what=h5readAttributes(filename,paste(scan,"/what",sep=""))
-  attribs.where=h5readAttributes(filename,paste(scan,"/where",sep=""))
+
+  attribs.how=attribs.what=attribs.where=NULL
+  if("how" %in% h5struct) attribs.how=h5readAttributes(filename,paste(scan,"/how",sep=""))
+  if("what" %in% h5struct) attribs.what=h5readAttributes(filename,paste(scan,"/what",sep=""))
+  if("where" %in% h5struct) attribs.where=h5readAttributes(filename,paste(scan,"/where",sep=""))
 
   # add attributes to geo list
   geo$elangle=attribs.where$elangle
