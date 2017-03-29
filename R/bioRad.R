@@ -171,6 +171,7 @@ mount="~/"
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
 #' @param verbose logical which indicates whether to print test results to R console. On Windows always TRUE.
 #' @export
+#' @return 0 upon success, otherwise an error code.
 checkDocker = function(verbose=T){
   if(.Platform$OS.type=="unix"){
     system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
@@ -197,8 +198,19 @@ checkDocker = function(verbose=T){
 #' This command pulls the latest \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image from \href{https://hub.docker.com}{Docker hub}.
 #' Run this command to ensure all Docker functionality (e.g. the \link[bioRad]{vol2bird} function) runs at the latest available version.
 #' @export
+#' @return the POSIXct creation date of the installed Docker image
 updateDocker = function(){
-  system("docker pull adokter/vol2bird:latest")
+  creationDate=NULL
+  if(.Platform$OS.type=="unix"){
+    result=system("docker pull adokter/vol2bird:latest")
+    if(result==0) creationDate=system("docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",intern=T)
+  }
+  else{
+    result=suppressWarnings(system("docker pull adokter/vol2bird:latest"))
+    if(result==0) creationDate=suppressWarnings(system("docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",intern=T))
+  }
+  if(!is.null(creationDate)) creationDate=as.POSIXct(creationDate,format="%Y-%m-%dT%T")
+  return(creationDate)
 }
 
 startContainer = function(mount="~/"){

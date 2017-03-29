@@ -6,6 +6,9 @@
 \usage{
 updateDocker()
 }
+\value{
+the POSIXct creation date of the installed Docker image
+}
 \description{
 Pulls and installs the latest Docker image used by bioRad from Docker hub
 }
