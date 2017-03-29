@@ -190,6 +190,17 @@ checkDocker = function(verbose=T){
   if(!verbose) return(result)
 }
 
+#' Update Docker image for vol2bird
+#'
+#' Pulls and installs the latest Docker image used by bioRad from Docker hub
+#' @details
+#' This command pulls the latest \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image from \href{https://hub.docker.com}{Docker hub}.
+#' Run this command to ensure all Docker functionality (e.g. the \link[bioRad]{vol2bird} function) runs at the latest available version.
+#' @export
+updateDocker = function(){
+  system("docker pull adokter/vol2bird:latest")
+}
+
 startContainer = function(mount="~/"){
   parent.env=environment(startContainer)
   # if docker not running, cannot start container
