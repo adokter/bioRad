@@ -155,9 +155,9 @@ read.scan=function(filename,scan,param,geo){
 read.quantity=function(filename,quantity,geo){
   data=h5read(filename,quantity)$data
   attr=h5readAttributes(filename,paste(quantity,"/what",sep=""))
-  data=replace(data,data==attr$nodata,NA)
-  data=replace(data,data==attr$undetect,NaN)
-  data=attr$offset+attr$gain*data
+  data=replace(data,data==as.numeric(attr$nodata),NA)
+  data=replace(data,data==as.numeric(attr$undetect),NaN)
+  data=as.numeric(attr$offset)+as.numeric(attr$gain)*data
   class(data)=c("param",class(data))
   attributes(data)$geo=geo
   attributes(data)$param=attr$quantity
