@@ -12,7 +12,7 @@ library(ggmap, quietly = TRUE)
 
 This document gives an introduction how to access and load weather radar bird profiles into the R package [bioRad](https://github.com/adokter/bioRad#biorad). This process is done in two steps:
 
-1. Downloading the data manually.
+1. Downloading the data.
 2. Loading the data into bioRad.
 
 ## 1. Downloading bird profile data
@@ -35,7 +35,9 @@ The name of the file consist of three parts:
 * vp: abbrevation of vertical profile.
 * Time and date: YYYYMMDDHHMMSS.
 
-There are two ways to download the profiles:
+### Manually downloading bird profile data
+
+There are two ways to manually download the profiles:
 
 * One by one.
 * Each radar has per month a zip file with all the data of that month. This zip file is placed on the same level as the month folder (so in the year folder).
@@ -48,6 +50,14 @@ When unpacking the zipfiles after download, the data will be structured in the s
                    └── filename: dkrom_vp_20170114231500.h5
 ```
 
+### BioRad bird profile download function
+
+The `download_vp` function provided with the BioRad function supports the download of a set of zip files, defined by a start date, end date, country and radar. As en example, downloading the available data of Octobre and November 2016 for two Belgian radars to the current working directory:
+
+```{r downloadvp}
+download_vp("2016-10-01", "2016-11-30", c("be"), 
+            c("jab", "wid"), localpath = ".")
+```
 
 ## 2. Loading bird profile data into bioRad
 Once the data is downloaded in your folder, you have two ways to load the data into bioRad. 
