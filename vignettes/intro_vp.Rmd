@@ -70,7 +70,8 @@ Below is some example code:
 # read single bird profile
 vp <- read.vp("PATH/TO/FILE.h5")
 # read several single bird profiles
-vp.list <- read.vplist("PATH/TO/FILE1.h5", "PATH/TO/FILE2.h5", "PATH/TO/FILE3.h5")
+vp.list <- read.vplist("PATH/TO/FILE1.h5", "PATH/TO/FILE2.h5", 
+                       "PATH/TO/FILE3.h5")
 ```
 
 An additional function `retrieve_vp_paths` will allow you to browse through the data folders and select many paths to bird profiles based on country, radar, and a specified time frame, which then can be passed to the `read.vplist` function. 
@@ -83,32 +84,34 @@ Below are examples of which combinations of arguments you can use to select spec
 If no arguments are speficied, the paths of _all vp files in de folders_ will be added to the list:
 ```{r eval=FALSE}
 # read paths of all vp files in the folders
-list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR")
+list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR")
 ```
 
 ### Location
 Only specifying the country selects the paths of the vp files of _all radars of that country_:
-```{r eval=F}
+```{r eval=FALSE}
 # read paths of all vp files of all radars in Belgium
-list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", country="be")
+list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", country = "be")
 ```
 
 Specifying the radar selects _all vp files of that radar_:
 ```{r eval=FALSE}
 # read paths of all vp files of the radar 'Jabbeke'
-list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", radar="jab")
+list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", radar = "jab")
 ```
 
 You can also specify _several radars within a country_:
 ```{r eval=FALSE}
 # read paths of all vp files of the French radars Momuy, Nancy and Bordeau
-list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", radar=c("mom","nan","bor"))
+list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
+                                radar = c("mom", "nan", "bor"))
 ```
 
 You CANNOT specify _all radars via the country_ argument and then add radars _of another country_ by the radar argument:
 ```{r eval=FALSE}
 # read paths of all vp files af all Belgian radars and the French radars Momuy, Nancy and Bordeau
-list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", country="be", radar=c("mom","nan","bor"))
+list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
+                                country = "be", radar = c("mom", "nan", "bor"))
 ## WRONG!! ##
 ```
 
@@ -117,21 +120,30 @@ list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", country="be", radar=c("
 You can specify a time frame using the start_date and end_date arguments, which takes integer values in the following format: "YYYY-MM-DD". See the example below:
 ```{r eval=FALSE}
 # read paths of all vp files of all Swiss radars from Nov/2016 till Jan/2017
-list.paths <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", country="cz", start_date="2016-11-01", end_date="2017-01-31")
+list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
+                                country = "cz", 
+                                start_date = "2016-11-01", 
+                                end_date = "2017-01-31")
 ```
 
 *Special case*: if you want the paths to profiles for a _certain month across all years_, you will have to call the `retrieve_data_range` fuction several times across the years and put the outcomes together:
 ```{r eval=FALSE}
 # read paths of all vp files of all Swiss radars for Nov/16
-list.paths16 <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", country="cz", start_date="2016-11-01", end_date="2016-11-31")
+list.paths16 <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
+                                  country = "cz", 
+                                  start_date = "2016-11-01", 
+                                  end_date = "2016-11-31")
 # read paths of all vp files of all Swiss radars for Nov/17
-list.paths17 <- retrieve_vp_paths(path="PATH/TO/DATA-DIR", country="cz", start_date="2017-11-01", end_date="2017-11-31")
+list.paths17 <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
+                                  country = "cz", 
+                                  start_date = "2017-11-01", 
+                                  end_date = "2017-11-31")
 # put paths together 
 list.path <- c(list.paths16, list.paths17)
 ```
 
 Once the list with paths is created, it can be added to the `read.vplist` function to create a list of VP's:
-```{r eval=F}
+```{r eval=FALSE}
 #make list of bird profiles with list of their paths
 vp.list2 <- read.vplist(list.paths)
 ```
@@ -146,7 +158,7 @@ BioRad also allows to plot the bird profiles, see example code below:
 # load in an example bird profile
 data(VP)
 # plot bird profile
-plot(VP,line.col='blue')
+plot(VP, line.col = 'blue')
 ```
 
 ### VPB plots
@@ -155,26 +167,26 @@ The package provides a function to plot vertical profiles of birds (VPB) too. Th
 # make time series from all vertical profiles in a list
 vpts.be <- vpts(vp.list2)
 # make time series from all vertical profiles of the 'Jabbeke' radar
-vpts.jab <- vpts(vp.list2, radar="jab")
+vpts.jab <- vpts(vp.list2, radar = "jab")
 ```
 
 Note that, to be able to plot the time series, these need to be regular. The function `regularize` regularizes the times series on a grid, with option to specify the time interval:
 ```{r eval=FALSE}
 # regularize the time series on a 5 minute interval grid
-vpts.jab.reg <- regularize(vpts.jab, interval=15)
+vpts.jab.reg <- regularize(vpts.jab, interval = 15)
 ```
 
 Below is example code of how to make a VPB plot:
 ```{r}
 # locate example file
-VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
 # load and regularize time series of vertical profiles
-ts <- regularize(readvp.table(VPtable,radar="KBGM", wavelength='S'))
+ts <- regularize(readvp.table(VPtable, radar = "KBGM", wavelength = 'S'))
 
 # plot density of individuals for the first 500 time steps, in the altitude layer 0-3000 m.
-plot(ts[1:500], ylim=c(0,3000))
+plot(ts[1:500], ylim = c(0,3000))
 # plot total reflectivity factor (rain,birds,insects together):
-plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
+plot(ts[1:500], ylim = c(0,3000), quantity = "DBZH")
 ```
 
 More functionallity of the package bioRad, such as adjusting the radar cross section and calculating migration traffic rates, can be find in its documentation.
