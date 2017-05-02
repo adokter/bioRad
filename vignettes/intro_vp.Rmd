@@ -72,13 +72,13 @@ Below is some example code:
 
 ```{r eval=FALSE}
 # read single bird profile
-vp <- read.vp("PATH/TO/FILE.h5")
+vp <- readvp("PATH/TO/FILE.h5")
 # read several single bird profiles
-vp.list <- read.vplist("PATH/TO/FILE1.h5", "PATH/TO/FILE2.h5", 
+vp.list <- readvp.list("PATH/TO/FILE1.h5", "PATH/TO/FILE2.h5", 
                        "PATH/TO/FILE3.h5")
 ```
 
-An additional function `retrieve_vp_paths` will allow you to browse through the data directories and select many paths to bird profiles based on country, radar, and a specified time frame, which then can be passed to the `read.vplist` function. 
+An additional function `retrieve_vp_paths` will allow you to browse through the data directories and select many paths to bird profiles based on country, radar, and a specified time frame, which then can be passed to the `readvp.list` function. 
 
 The abbrevations of country and radar are the same as used in the ODIM code, see explanation under _Section 1. Downloading bird profile data_.
 
@@ -155,11 +155,11 @@ list.paths17 <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR",
 list.path <- c(list.paths16, list.paths17)
 ```
 
-Once the list with paths is created, it can be added to the `read.vplist` function to create a list of VP's:
+Once the list with paths is created, it can be added to the `readvp.list` function to create a list of VP's:
 
 ```{r eval=FALSE}
 #make list of bird profiles with list of their paths
-vp.list2 <- read.vplist(list.paths)
+vp.list2 <- readvp.list(list.paths)
 ```
 
 ## 3. Introduction to plotting in bioRad
