@@ -155,11 +155,18 @@ list.paths17 <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR",
 list.path <- c(list.paths16, list.paths17)
 ```
 
+### Append paths with relative path to data directory
+
+The paths in the `list.path` will only start from your data directory. If you want relative paths (e.g. from your script), you can do so by appending the paths with the path to your data repository:
+
+```{r eval=FALSE}
+list.full_paths <- paste0("PATH/TO/DATA-DIR", list.paths)
+```
 Once the list with paths is created, it can be added to the `readvp.list` function to create a list of VP's:
 
 ```{r eval=FALSE}
 #make list of bird profiles with list of their paths
-vp.list2 <- readvp.list(list.paths)
+vp.list2 <- readvp.list(list.full_paths)
 ```
 
 ## 3. Introduction to plotting in bioRad
