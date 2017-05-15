@@ -18,6 +18,7 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("rhdf5")
 ```
 
+
 ### 2. bioRad 
 You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
 ```
@@ -25,6 +26,7 @@ library(devtools)
 install_github("adokter/bioRad")
 ```
 If your installation completed correctly, you can load bioRad with `library(bioRad)`, which should give you the following:
+
 ```
 > library(bioRad)
 Loading package ‘bioRad’ version 0.2.1 ...
@@ -33,6 +35,7 @@ Warning: bioRad functionality requiring Docker has been disabled
 
 To enable Docker functionality, start Docker and run 'checkDocker()' in R
 ```
+
 On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:
 ```
 install_github(“adokter/bioRad”,args="--no-multiarch")
