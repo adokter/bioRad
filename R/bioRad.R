@@ -596,17 +596,20 @@ vpts = function(x,radar=NA){
 #' plot(VPTS)
 #' #' plot migration traffic rates for altitudes > 1 km above sea level
 #' plot(vintegrate(VPTS,alt.min=1000))
-vintegrate <- function (x, alt.min, alt.max) UseMethod("vintegrate", x)
+vintegrate <- function (x, alt.min, alt.max, alpha=NA) UseMethod("vintegrate", x)
 
 #' @describeIn vintegrate Vertically integrate a vertical profile
 #' @export
-vintegrate.vp = function(x,alt.min=0,alt.max=Inf){
+vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
   stopifnot(inherits(x,"vp"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.na(alpha) || is.numeric(alpha))
   interval=x$attributes$where$interval
   index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
-  mtr=sum(fetch(x,"dens")[index] * fetch(x,"ff")[index] * interval/1000,na.rm=T)
-  rtr=sum(fetch(x,"eta")[index] * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  if(is.na(alpha)) cosfactor=rep(1,length(index))
+  else cosfactor = cos((fetch(x,"dd")[index]-alpha)*pi/180)
+  mtr=sum(fetch(x,"dens")[index] * cosfactor * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * interval/1000,na.rm=T)
   vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
   vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
   output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
@@ -614,6 +617,7 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf){
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
   attributes(output)$alt.max=alt.max
+  attributes(output)$alpha=alpha
   attributes(output)$rcs=rcs(x)
   attributes(output)$lat=x$attributes$where$lat
   attributes(output)$lon=x$attributes$where$lon
@@ -622,13 +626,14 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf){
 
 #' @describeIn vintegrate Vertically integrate a list of vertical profiles
 #' @export
-vintegrate.vplist = function(x,alt.min=0,alt.max=Inf){
+vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA){
   stopifnot(inherits(x,"vplist"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  output=do.call(rbind,lapply(x,vintegrate.vp))
+  output=do.call(rbind,lapply(x,vintegrate.vp,alt.min=alt.min,alt.max=alt.max,alpha=alpha))
   class(output)=c("vivp","data.frame")
   attributes(output)$alt.min=alt.min
   attributes(output)$alt.max=alt.max
+  attributes(output)$alpha=alpha
   attributes(output)$rcs=rcs(x)
   #TODO set lat/lon attributes
   return(output)
@@ -636,13 +641,16 @@ vintegrate.vplist = function(x,alt.min=0,alt.max=Inf){
 
 #' @describeIn vintegrate Vertically integrate a time series of vertical profiles
 #' @export
-vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf){
+vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.na(alpha) || is.numeric(alpha))
   interval=x$attributes$where$interval
   index=which(x$heights>alt.min & x$heights<alt.max)
-  mtr=colSums(fetch(x,"ff")[index,]*fetch(x,"dens")[index,],na.rm=T)*interval/1000
-  rtr=colSums(fetch(x,"ff")[index,]*fetch(x,"eta")[index,],na.rm=T)*interval/1000
+  if(is.na(alpha)) cosfactor=1+0*fetch(x,"dd")[index,]
+  else cosfactor = cos((fetch(x,"dd")[index,]-alpha)*pi/180)
+  mtr=colSums(cosfactor*fetch(x,"ff")[index,]*fetch(x,"dens")[index,],na.rm=T)*interval/1000
+  rtr=colSums(cosfactor*fetch(x,"ff")[index,]*fetch(x,"eta")[index,],na.rm=T)*interval/1000
   vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
   vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
   output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
@@ -650,6 +658,7 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf){
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
   attributes(output)$alt.max=alt.max
+  attributes(output)$alpha=alpha
   attributes(output)$rcs=rcs(x)
   attributes(output)$lat=x$attributes$where$lat
   attributes(output)$lon=x$attributes$where$lon

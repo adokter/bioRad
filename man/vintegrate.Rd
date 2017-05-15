@@ -7,13 +7,13 @@
 \alias{vintegrate.vpts}
 \title{Vertically integrate profiles}
 \usage{
-vintegrate(x, alt.min, alt.max)
+vintegrate(x, alt.min, alt.max, alpha = NA)
 
-\method{vintegrate}{vp}(x, alt.min = 0, alt.max = Inf)
+\method{vintegrate}{vp}(x, alt.min = 0, alt.max = Inf, alpha = NA)
 
-\method{vintegrate}{vplist}(x, alt.min = 0, alt.max = Inf)
+\method{vintegrate}{vplist}(x, alt.min = 0, alt.max = Inf, alpha = NA)
 
-\method{vintegrate}{vpts}(x, alt.min = 0, alt.max = Inf)
+\method{vintegrate}{vpts}(x, alt.min = 0, alt.max = Inf, alpha = NA)
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
