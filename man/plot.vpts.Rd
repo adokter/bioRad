@@ -61,4 +61,3 @@ plot(ts[1:500], ylim=c(0,3000))
 # plot total reflectivity factor (rain,birds,insects together):
 plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
 }
-

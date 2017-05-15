@@ -15,4 +15,3 @@ checkDocker(verbose = T)
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
 }
-

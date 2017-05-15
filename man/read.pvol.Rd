@@ -64,4 +64,3 @@ scan=vol$scans[[1]]
 # print summary info for the new object:
 scan
 }
-

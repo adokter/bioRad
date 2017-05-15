@@ -17,4 +17,3 @@ possible
 Check is a specific URL is existing and providing a return message
 }
 \keyword{internal}
-

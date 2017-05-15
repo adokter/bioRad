@@ -30,4 +30,3 @@ of available data.
 my_path <- "~/my/directory/"
 \dontrun{download_vp("2016-10-01", "2016-11-30", c("be"), c("jab", "wid"), localpath = my_path)}
 }
-

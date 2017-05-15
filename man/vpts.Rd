@@ -21,4 +21,3 @@ Convert \code{vplist} to a single radar time series \code{vpts}
 \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
 
 }
-

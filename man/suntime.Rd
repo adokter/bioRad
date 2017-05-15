@@ -41,4 +41,3 @@ suntime(5,53,"2016-01-01",rise=FALSE)
 # civil twilight in Ithaca, NY, today
 suntime(-76.5,42.4,Sys.time(),elev=-6)
 }
-

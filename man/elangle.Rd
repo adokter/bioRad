@@ -2,8 +2,8 @@
 % Please edit documentation in R/bioRad.ppi.R
 \name{elangle}
 \alias{elangle}
-\alias{elangle.pvol}
 \alias{elangle.scan}
+\alias{elangle.pvol}
 \title{Elevation angle of scan(s)}
 \usage{
 elangle(x)
@@ -27,6 +27,7 @@ Gives the elevation angle of a scan, or the elevation angles within a polar volu
 
 \item \code{pvol}: elevation angles of all scans in a polar volume
 }}
+
 \examples{
 # load a polar volume
 pvol <- system.file("extdata", "volume.h5", package="bioRad")
@@ -38,4 +39,3 @@ scan=vol$scans[[1]]
 # elevation angle of the scan:
 elangle(scan)
 }
-

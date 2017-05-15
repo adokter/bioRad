@@ -9,5 +9,7 @@ Description: Extracts and visualizes biological signals from weather radar data.
 License: GPL-3
 LazyData: TRUE
 Imports: stats, rhdf5, fields, methods, graphics, ggplot2, ggmap, sp, utils, raster, rgdal, lubridate, curl, RCurl
+Suggests: knitr
+VignetteBuilder: knitr
 Depends: R (>= 2.10)
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

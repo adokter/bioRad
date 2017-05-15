@@ -28,4 +28,3 @@ assumed to have an aerial density of zero individuals. This method updates the m
 # change threshold for a single vertical profile:
 sd_vvp(VP)<-2
 }
-

@@ -2,10 +2,10 @@
 % Please edit documentation in R/bioRad.R
 \name{day}
 \alias{day}
-\alias{day.pvol}
 \alias{day.vp}
 \alias{day.vplist}
 \alias{day.vpts}
+\alias{day.pvol}
 \title{Test a bioRad object for night time}
 \usage{
 day(x, elev = -0.268)
@@ -32,4 +32,3 @@ Test a bioRad object for day time. Dispatches to the logical inverse of \link[bi
 \examples{
 day(VP)
 }
-

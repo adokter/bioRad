@@ -16,4 +16,3 @@ Pulls and installs the latest Docker image used by bioRad from Docker hub
 This command pulls the latest \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image from \href{https://hub.docker.com}{Docker hub}.
 Run this command to ensure all Docker functionality (e.g. the \link[bioRad]{vol2bird} function) runs at the latest available version.
 }
-

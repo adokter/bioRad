@@ -2,10 +2,10 @@
 % Please edit documentation in R/bioRad.R
 \name{rcs<-}
 \alias{rcs<-}
-\alias{rcs<-.vivp}
 \alias{rcs<-.vp}
 \alias{rcs<-.vplist}
 \alias{rcs<-.vpts}
+\alias{rcs<-.vivp}
 \title{Set radar cross section}
 \usage{
 rcs(x) <- value
@@ -30,4 +30,3 @@ Sets the assumed radar cross section in cm^2. This method also updates the migra
 # change RCS for a single vertical profile:
 rcs(VP)<-20
 }
-

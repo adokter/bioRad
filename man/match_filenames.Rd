@@ -23,4 +23,3 @@ wraps a grep to make it working on vectors by combining the vector of
 regex options as possible options
 }
 \keyword{internal}
-

@@ -40,4 +40,3 @@ This function grabs any of the data quantities stored in \link[=summary.vp]{vp},
 See the documentation of the vertical profile \link[=summary.vp]{vp} class
 for a description of each of these quantities.
 }
-

@@ -12,4 +12,3 @@ SCAN
 Example object of class \code{\link[=summary.scan]{scan}}
 }
 \keyword{datasets}
-

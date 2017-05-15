@@ -32,4 +32,3 @@ mt(VPTS)
 # total migration traffic in 0-1000 meter band
 mt(VPTS,alt.min=0,alt.max=1000)
 }
-

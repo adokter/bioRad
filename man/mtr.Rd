@@ -35,4 +35,3 @@ mtr(VPTS)
 # to plot migration traffic rate data, use vintegrate:
 plot(vintegrate(VPTS),quantity="mtr")
 }
-

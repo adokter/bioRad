@@ -52,4 +52,3 @@ plot(vi.vpts)
 # plot the vertically integrated densities, without night shading:
 plot(vi.vpts,quantity="vid",nightshade=FALSE)
 }
-

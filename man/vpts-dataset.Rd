@@ -12,4 +12,3 @@ VPTS
 Example object of class \code{vpts}, a time series of vertical profiles
 }
 \keyword{datasets}
-

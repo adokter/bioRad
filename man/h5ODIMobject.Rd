@@ -21,4 +21,3 @@ pvol <- system.file("extdata", "volume.h5", package="bioRad")
 h5ODIMobject(pvol)   #> "pvol"
 
 }
-

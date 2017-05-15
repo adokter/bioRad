@@ -32,4 +32,3 @@ cmt(VPTS)
 # plot cumulative migration traffic:
 plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
 }
-

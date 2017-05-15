@@ -12,4 +12,3 @@ mounted
 flag indicating whether vol2bird docker container is mounted
 }
 \keyword{internal}
-

@@ -19,4 +19,3 @@ Read a list of vertical profiles from multiple files
 \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
 
 }
-

@@ -52,6 +52,7 @@ See \link[bioRad]{mtr} for further information on the definition of migration tr
 
 \item \code{vpts}: Vertically integrate a time series of vertical profiles
 }}
+
 \examples{
 ### MTR for a single vertical profile ###
 vintegrate(VP)
@@ -70,4 +71,3 @@ plot(VPTS)
 #' plot migration traffic rates for altitudes > 1 km above sea level
 plot(vintegrate(VPTS,alt.min=1000))
 }
-

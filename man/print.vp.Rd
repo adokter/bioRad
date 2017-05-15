@@ -13,4 +13,3 @@
 print method for class \code{vp}
 }
 \keyword{internal}
-

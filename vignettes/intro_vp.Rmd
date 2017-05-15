@@ -1,8 +1,12 @@
 ---
-title: "Guidelines to load bird profiles into bioRad"
+title: "Guidelines to load bird profiles into bioRad from ENRAM repository"
 author: 'Liesbeth Verlinden, Peter Desmet, Stijn Van Hoey'
 date: "January 2017"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Load bird profiles from ENRAM repository}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r include=FALSE}

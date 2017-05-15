@@ -12,4 +12,3 @@ docker
 flag indicating whether docker is running
 }
 \keyword{internal}
-

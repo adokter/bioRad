@@ -20,4 +20,3 @@ profile <- system.file("extdata", "profile.h5", package="bioRad")
 is.vpfile(profile)   #> TRUE
 
 }
-
