@@ -4,7 +4,7 @@
 \alias{cmt}
 \title{Cumulative migration traffic}
 \usage{
-cmt(x, alt.min = 0, alt.max = Inf)
+cmt(x, alt.min = 0, alt.max = Inf, alpha = NA)
 }
 \arguments{
 \item{x}{an object inhereting from class '\code{vpts}'}
@@ -12,6 +12,8 @@ cmt(x, alt.min = 0, alt.max = Inf)
 \item{alt.min}{minimum altitude in m}
 
 \item{alt.max}{maximum altitude in m}
+
+\item{alpha}{(optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}}
 }
 \value{
 a numeric value equal to migration traffic in number of individuals / km

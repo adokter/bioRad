@@ -21,6 +21,8 @@ vintegrate(x, alt.min, alt.max)
 \item{alt.min}{minimum altitude in m}
 
 \item{alt.max}{maximum altitude in m}
+
+\item{alpha}{migratory direction in clockwise degrees from north}
 }
 \value{
 an object of class \code{vivp}, a data frame with vertically integrated profile quantities

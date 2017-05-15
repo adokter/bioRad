@@ -561,6 +561,7 @@ vpts = function(x,radar=NA){
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
+#' @param alpha migratory direction in clockwise degrees from north
 #' @export
 #' @return an object of class \code{vivp}, a data frame with vertically integrated profile quantities
 #' @details
@@ -995,10 +996,38 @@ regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
+#' @param alpha (optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}
 #' @export
 #' @return an atomic vector of migration traffic rates in individuals/km/hour
-#' @details This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
+#' @details
+#' Migration traffic rate (MTR) for an altitude layer is a flux measure, defined as the
+#' number of targets crossing a unit of transect per hour.
+#'
+#' The transect direction is set by the angle \code{alpha}. When \code{alpha=NA},
+#' the transect runs perpendicular to the measured migratory direction. \code{mtr} then equals the
+#' number of crossing targets per km transect per hour, for a transect kept perpendicular to the
+#' measured migratory movement at all times and altitudes. In this case \code{mtr} is always a positive quantity,
+#' defined as:
+#' \deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
+#' with the sum running over all altitude layers between \code{alt.min} and \code{alt.max}, \eqn{dens_i} the bird density,
+#' \eqn{ff_i} the ground speed at altitude layer i, and \eqn{\Delta h} the altitude layer width.
+#'
+#' If \code{alpha} is given a numeric value, the transect is taken perpendicular to
+#' the direction \code{alpha}, and the number of crossing targets per hour per
+#' km transect is calculated as:
+#'
+#' \deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}
+#' with \eqn{dd_i} the migratory direction at altitude i.
+#'
+#' Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+#' In this definition \code{mtr} is a traditional flux into a direction of interest.
+#' Targets moving into the direction \code{alpha} contribute positively to \code{mtr}, while targets moving in the
+#' opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
+#' depending on the definition of alpha.
+#'
+#' This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
 #' migration traffic rate data.
+#'
 #' @examples
 #' ### MTR for a single vertical profile ###
 #' mtr(VP)
@@ -1009,9 +1038,9 @@ regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
 #' mtr(VPTS)
 #' # to plot migration traffic rate data, use vintegrate:
 #' plot(vintegrate(VPTS),quantity="mtr")
-mtr <- function (x, alt.min=0, alt.max=Inf) {
+mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
   stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
-  return(vintegrate(x,alt.min=alt.min,alt.max=alt.max)$mtr)
+  return(vintegrate(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)$mtr)
 }
 
 #' Class 'vp': vertical profile
@@ -1386,12 +1415,12 @@ sd_vvp.vpts <- function (x){
 #' mt(VPTS)
 #' # total migration traffic in 0-1000 meter band
 #' mt(VPTS,alt.min=0,alt.max=1000)
-mt <- function(x,alt.min=0, alt.max=Inf){
+mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
   dt=as.numeric(dt)/3600
-  sum(dt*mtr(x,alt.min,alt.max))
+  sum(dt*mtr(x,alt.min,alt.max,alpha))
 }
 
 #' Cumulative migration traffic
@@ -1413,12 +1442,12 @@ mt <- function(x,alt.min=0, alt.max=Inf){
 #' cmt(VPTS)
 #' # plot cumulative migration traffic:
 #' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
-cmt <- function(x,alt.min=0, alt.max=Inf){
+cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
   dt=as.numeric(dt)/3600
-  vintegrated=vintegrate(x,alt.min,alt.max)
+  vintegrated=vintegrate(x,alt.min,alt.max,alpha)
   data.frame(dates=vintegrated$datetime,cmt=cumsum(dt*vintegrated$mtr))
 }
 
