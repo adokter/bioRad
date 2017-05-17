@@ -1693,7 +1693,7 @@ fetch.vp=function(x, quantity="dens"){
 #' @return class \code{vplist}: a list of a named vectors for the requested quantity
 fetch.vplist <- function(x,quantity="dens") {
   stopifnot(inherits(x,"vplist"))
-  lapply(x,fetch.vp)
+  lapply(x,fetch.vp,quantity=quantity)
 }
 
 #' @rdname fetch
