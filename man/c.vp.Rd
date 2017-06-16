@@ -16,4 +16,3 @@ an object of class \code{vplist}, see \link[bioRad]{readvp.list} for details
 concatenate \code{vp} objects into a \code{vplist} object
 }
 \keyword{internal}
-

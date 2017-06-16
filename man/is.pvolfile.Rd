@@ -20,4 +20,3 @@ volume <- system.file("extdata", "volume.h5", package="bioRad")
 is.pvolfile(volume)   #> TRUE
 
 }
-

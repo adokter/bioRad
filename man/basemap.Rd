@@ -36,4 +36,3 @@ basemap=basemap(ppi,maptype="satellite")
 # map the radial velocities onto the satellite imagery:
 map(ppi,map=basemap,param="VRADH")
 }
-

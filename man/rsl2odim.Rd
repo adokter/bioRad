@@ -21,4 +21,3 @@ rsl2odim(vol.in, vol.out, verbose = F, mount = dirname(vol.in))
 \description{
 convert RSL polar volume to ODIM hdf5 format
 }
-

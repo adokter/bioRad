@@ -4,8 +4,8 @@
 \alias{read.pvol}
 \title{Read a polar volume (pvol) from file}
 \usage{
-read.pvol(filename, param = c("DBZH", "VRADH", "RHOHV", "ZDR", "PHIDP"),
-  sort = T, lat, lon, height, elangle.min = 0, elangle.max = 90,
+read.pvol(filename, param = c("DBZH", "VRADH", "RHOHV", "ZDR", "PHIDP",
+  "CELL"), sort = T, lat, lon, height, elangle.min = 0, elangle.max = 90,
   verbose = T, mount = dirname(filename))
 }
 \arguments{
@@ -64,4 +64,3 @@ scan=vol$scans[[1]]
 # print summary info for the new object:
 scan
 }
-

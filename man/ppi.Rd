@@ -45,6 +45,7 @@ The returned PPI is in Azimuthal Equidistant Projection.
 
 \item \code{scan}: multiple ppi's for all scan parameters in a scan
 }}
+
 \examples{
 # load a polar scan example object
 data(SCAN)
@@ -60,4 +61,3 @@ ppi=ppi(param)
 # print summary info for this ppi:
 ppi
 }
-

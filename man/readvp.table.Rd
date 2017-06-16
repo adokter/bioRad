@@ -26,4 +26,3 @@ VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
 ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
 ts
 }
-

@@ -35,4 +35,3 @@ Typically uncertainties in refraction coefficient are relatively large, making o
 earth and the dependence of earth radius with latitude only a small correction.
 Using default values assumes an average earth's radius of 6371 km.
 }
-

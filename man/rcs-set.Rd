@@ -5,6 +5,7 @@
 \alias{rcs<-.vp}
 \alias{rcs<-.vplist}
 \alias{rcs<-.vpts}
+\alias{rcs<-.vivp}
 \title{Set radar cross section}
 \usage{
 rcs(x) <- value
@@ -14,6 +15,8 @@ rcs(x) <- value
 \method{rcs}{vplist}(x) <- value
 
 \method{rcs}{vpts}(x) <- value
+
+\method{rcs}{vivp}(x) <- value
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
@@ -27,4 +30,3 @@ Sets the assumed radar cross section in cm^2. This method also updates the migra
 # change RCS for a single vertical profile:
 rcs(VP)<-20
 }
-

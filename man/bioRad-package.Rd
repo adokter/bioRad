@@ -19,6 +19,7 @@
     \item{\link[=summary.vp]{vp}}{, a vertical profile: typically biological data extracted from a polar volume by \link{vol2bird}.}
     \item{\link[=summary.vplist]{vplist}}{, a list of \link[=summary.vp]{vp} objects.}
     \item{\link[=summary.vpts]{vpts}}{, a vertical profile time series: a time-oredered list of \link[=summary.vp]{vp} objects for a single radar.}
+    \item{\link[=vintegrate]{vivp}}{, vertically integrated vertical profiles.}
   }
 }
 The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link[base]{Extract} methods are available for each of these classes.
@@ -79,6 +80,18 @@ of individuals passing a radar station in a certain time period
 
 \link{cmt} calculates cumulative migration traffic.
 }
+
+\subsection{Conventions}{
+  \itemize{
+    \item \code{NA} Maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)
+    \item \code{NaN} Maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
+    \item \code{0} Maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
+  }
+  It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent
+  to zero. When dealing with close range data only (within 35 km), it is typically safe
+  to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
+}
+
 \subsection{Other useful functionality}{
  \itemize{
  \item \link{suntime} calculates runrise and sunset times
@@ -104,4 +117,7 @@ of individuals passing a radar station in a certain time period
  \item Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
 }
 }
+\author{
+\strong{Maintainer}: Adriaan M. Dokter \email{a.m.dokter@uva.nl}
 
+}

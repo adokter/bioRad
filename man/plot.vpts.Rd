@@ -4,7 +4,7 @@
 \alias{plot.vpts}
 \title{Plot a time series of vertical profiles}
 \usage{
-\method{plot}{vpts}(x, xlab = "time [UTC]", ylab = "height [m]",
+\method{plot}{vpts}(x, xlab = "time", ylab = "height [m]",
   quantity = "dens", log = T, barbs = T, barbs.h = 10, barbs.t = 20,
   barbs.dens = 5, zlim, legend.ticks, main, ...)
 }
@@ -61,4 +61,3 @@ plot(ts[1:500], ylim=c(0,3000))
 # plot total reflectivity factor (rain,birds,insects together):
 plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
 }
-

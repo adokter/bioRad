@@ -2,18 +2,9 @@
 % Please edit documentation in R/bioRad.R
 \name{mtr}
 \alias{mtr}
-\alias{mtr.vp}
-\alias{mtr.vplist}
-\alias{mtr.vpts}
 \title{Migration traffic rate}
 \usage{
-mtr(x, alt.min, alt.max)
-
-\method{mtr}{vp}(x, alt.min = 0, alt.max = Inf)
-
-\method{mtr}{vplist}(x, alt.min = 0, alt.max = Inf)
-
-\method{mtr}{vpts}(x, alt.min = 0, alt.max = Inf)
+mtr(x, alt.min = 0, alt.max = Inf, alpha = NA)
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
@@ -21,43 +12,53 @@ mtr(x, alt.min, alt.max)
 \item{alt.min}{minimum altitude in m}
 
 \item{alt.max}{maximum altitude in m}
+
+\item{alpha}{(optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}}
 }
 \value{
-class \code{vp}: the migration traffic rate (MTR) individuals/km/h
-
-class \code{vplist}: a numeric atomic vector with migration traffic rates in individuals/km/h
-
-class \code{vpts}: a data frame with dates and migration traffic rates in individuals/km/h
+an atomic vector of migration traffic rates in individuals/km/hour
 }
 \description{
 Migration traffic rate (MTR) for an altitude layer, defined as the
 number of targets crossing a 1 km line perpendicular to the migratory movement per hour
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{vp}: MTR of a vertical profile
+\details{
+Migration traffic rate (MTR) for an altitude layer is a flux measure, defined as the
+number of targets crossing a unit of transect per hour.
 
-\item \code{vplist}: MTR of a list of vertical profiles
+The transect direction is set by the angle \code{alpha}. When \code{alpha=NA},
+the transect runs perpendicular to the measured migratory direction. \code{mtr} then equals the
+number of crossing targets per km transect per hour, for a transect kept perpendicular to the
+measured migratory movement at all times and altitudes. In this case \code{mtr} is always a positive quantity,
+defined as:
+\deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
+with the sum running over all altitude layers between \code{alt.min} and \code{alt.max}, \eqn{dens_i} the bird density,
+\eqn{ff_i} the ground speed at altitude layer i, and \eqn{\Delta h} the altitude layer width.
 
-\item \code{vpts}: MTR of a time series of vertical profiles
-}}
+If \code{alpha} is given a numeric value, the transect is taken perpendicular to
+the direction \code{alpha}, and the number of crossing targets per hour per
+km transect is calculated as:
+
+\deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}
+with \eqn{dd_i} the migratory direction at altitude i.
+
+Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+In this definition \code{mtr} is a traditional flux into a direction of interest.
+Targets moving into the direction \code{alpha} contribute positively to \code{mtr}, while targets moving in the
+opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
+depending on the definition of alpha.
+
+This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
+migration traffic rate data.
+}
 \examples{
 ### MTR for a single vertical profile ###
 mtr(VP)
-
-### MTRs for a list of vertical profiles ###
-mtr(c(VP,VP))
-
 ### MTRs for a time series of vertical profiles ###
-# locate example file:
-VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
-# load time series:
-ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+# load example time series
+data(VPTS)
 # print migration traffic rates:
-mtr(ts)
-# plot migration traffic rates for the full air column:
-plot(mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-#' plot migration traffic rates for altitudes > 1 km above sea level
-plot(mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
+mtr(VPTS)
+# to plot migration traffic rate data, use vintegrate:
+plot(vintegrate(VPTS),quantity="mtr")
 }
-

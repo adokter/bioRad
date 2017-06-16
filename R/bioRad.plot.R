@@ -9,8 +9,132 @@ plot.colors = rgb(c(200, approx(r.points, r.values, seq(1, 256, length.out = 255
 # true when NA but not when NaN
 is.na2=function(x) is.na(x) & !is.nan(x)
 
-#plot.dBZbird = 1 + round(254 * (t(dBZbird[, 1 : (length(times) - 1)] / 10 + log10(dBZ.factor)) - contour.range[1]) / (contour.range[2] - contour.range[1]))
-#plot.dBZbird[plot.dBZbird < 1] = 0
+#' Plot a vertical profile
+#'
+#' @param x a vp class object
+#' @param quantity character string with the quantity to plot.
+#' See \link[=summary.vp]{vp} for list of available quantities.
+#' Aerial density related: '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
+#' Ground speed related: '\code{ff}','\code{dd}', for ground speed and direction, respectively.
+#' @param xlab a title for the x axis
+#' @param ylab a title for the y axis
+#' @param line.col Color of the plotted curve
+#' @param line.lwd Line width of the plotted curve
+#' @param ... Additional arguments to be passed to the low level \link[graphics]{plot} plotting function
+#' @export
+#' @method plot vp
+#' @examples
+#' data(VP)
+#' plot(VP)
+#' plot(VP,line.col='blue')
+plot.vp=function(x, quantity="dens", xlab=expression("volume density [#/km"^3*"]"),ylab="height [km]",line.col='red',line.lwd=1,...){
+  stopifnot(inherits(x,"vp"))
+  if(!(quantity %in% names(x$data))) stop(paste("unknown quantity '",quantity,"'",sep=""))
+  # set up the plot labels
+  if(missing(xlab)){
+    if(quantity=="u") xlab="W->E ground speed component U [m/s]"
+    if(quantity=="v") xlab="N->S ground speed component V [m/s]"
+    if(quantity=="w") xlab="vertical speed W [m/s]"
+    if(quantity=="ff") xlab="ground speed [m/s]"
+    if(quantity=="dd") xlab="ground speed direction [deg]"
+    if(quantity=="dbz") xlab=expression("reflectivity factor [dBZ"[e] * "]")
+    if(quantity=="dens") xlab=expression("volume density [#/km"^3*"]")
+    if(quantity=="eta") xlab=expression("reflectivity "*eta*" [cm"^2*"/km"^3*"]")
+    if(quantity=="DBZH") xlab=expression("total reflectivity factor [dBZ"[e] * "]")
+    if(quantity=="sd_vvp") xlab="VVP-retrieved radial velocity standard deviation [m/s]"
+    if(quantity=="gap") xlab="Angular data gap detected [logical]"
+    if(quantity=="n") xlab="# range gates in VVP velocity analysis"
+    if(quantity=="n_all") xlab="# range gates in sd_vvp estimate"
+    if(quantity=="n_dbz") xlab="# range gates in density estimates"
+    if(quantity=="n_dbz_all") xlab="# range gates in DBZH estimate"
+  }
+
+  # extract the data from the time series object
+  pdat=fetch(x,quantity)
+  plot(pdat,x$data$HGHT/1000,xlab=xlab,ylab=ylab,...)
+  points(pdat,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
+}
+
+#' Plot vertically integrated profiles
+#'
+#' Plot an object of class \code{vivp}.
+#' @param x a class object inheriting from class \code{vivp}, typically a call to \link[bioRad]{vintegrate}.
+#' @param quantity character string with the quantity to plot, one of '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density, reflectivity, reflectivity factor and migration traffic rate, respectively.
+#' @param ylim y-axis plot range, numeric atomic vector of length 2
+#' @param xlab a title for the x-axis
+#' @param ylab a title for the y-axis
+#' @param main a title for the plot
+#' @param nightshade logical. whether to plot night time shading
+#' @param elev numeric. sun elevation to use for day/night transition, see \link[bioRad]{suntime}
+#' @param lat (optional) latitude in decimal degrees. Overrides the lat attribute of \code{x}
+#' @param lon (optional) longitude in decimal degrees. Overrides the lon attribute of \code{x}
+#' @param ... Additional arguments to be passed to the low level \link[graphics]{plot} plotting function
+#' @export
+#' @method plot vivp
+#' @details
+#' Profile can be visualised in three related quantities, as specified by argument \code{quantity}:
+#' \describe{
+#'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface density of individuals. This quantity is dependent on the assumed radar cross section per individual (RCS)}
+#'  \item{"\code{vir}"}{Vertically Integrated Reflectivity. This quantity is independent of the value of individual's radar cross section}
+#'  \item{"\code{mtr}"}{Migration Traffic Rate. This quantity is dependent on the assumed radar cross section (RCS)}
+#'  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent on the assumed radar cross section (RCS)}
+#' }
+#' @examples
+#' # vertically integrate a vpts object:
+#' vi.vpts=vintegrate(VPTS)
+#' # plot the migration traffic rates
+#' plot(vi.vpts)
+#' # plot the vertically integrated densities, without night shading:
+#' plot(vi.vpts,quantity="vid",nightshade=FALSE)
+plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [#/km/h]", main="MTR", nightshade=TRUE, elev=-0.268, lat=NULL,lon=NULL,ylim=NULL,...){
+  stopifnot(inherits(x,"vivp"))
+  stopifnot(quantity %in% c("mtr","vid","vir","rtr"))
+
+  # set up the plot labels
+  if(missing(ylab)){
+    if(quantity=="mtr") ylab="migration traffic rate [#/km/h]"
+    if(quantity=="rtr") ylab=expression("reflectivity traffic rate [cm"^2*"/km/h]")
+    if(quantity=="vid") ylab=expression("vertically integrated density [#/km"^2*"]")
+    if(quantity=="vir") ylab=expression("vertically integrated reflectivity [cm"^2*"/km/h]")
+  }
+  if(missing(main)){
+    if(quantity=="mtr") main="MTR"
+    if(quantity=="rtr") main="RTR"
+    if(quantity=="vid") main="VID"
+    if(quantity=="vir") main="VIR"
+  }
+  if(missing(lat)) lat=attributes(x)$lat
+  if(missing(lon)) lon=attributes(x)$lon
+
+  # plot the data
+  plot(x$datetime,x[quantity][[1]],type='l',xlab="time",ylab=ylab,ylim=ylim,main=main,...)
+
+  if(nightshade){
+    if(!is.numeric(lat) || !is.numeric(lon)) stop("No latitude/longitude found in attribute data, please provide lat and lon arguments")
+
+    # calculate sunrise and sunset
+    days=as.POSIXct(seq(as.Date(min(x$datetime)-24*3600),as.Date(max(x$datetime)+24*3600),by="days"),tz="UTC")
+    tset=suntime(lon,lat,days,rise=F)
+    trise=suntime(lon,lat,days,rise=T)
+    if(trise[1]<tset[1]){
+      trise=trise[-1]
+      tset=tset[-length(tset)]
+    }
+
+    # determine the plot range of the night time shading
+    if(missing(ylim)) pol.range=c(0,2*max(x[quantity][[1]])) else pol.range=ylim
+    ypolygon=c(pol.range[1],pol.range[1],pol.range[2],pol.range[2])
+
+    # plot night time shading for each night.
+    for(i in 1:length(days)){
+      polygon(c(tset[i],trise[i],trise[i],tset[i]),ypolygon,lty = 0, col = "#CCCCCC")
+    }
+
+    # plot the data again on top of the shading
+    points(x$datetime,x[quantity][[1]],type='l',xlab="time",ylab=ylab,ylim=ylim,main=main,...)
+  }
+}
+
 
 #' Plot a time series of vertical profiles
 #'
@@ -52,8 +176,9 @@ is.na2=function(x) is.na(x) & !is.nan(x)
 #' plot(ts[1:500], ylim=c(0,3000))
 #' # plot total reflectivity factor (rain,birds,insects together):
 #' plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
-plot.vpts = function(x, xlab="time [UTC]",ylab="height [m]",quantity="dens",log=T, barbs=T, barbs.h=10, barbs.t=20, barbs.dens=5, zlim, legend.ticks, main, ...){
+plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, barbs=T, barbs.h=10, barbs.t=20, barbs.dens=5, zlim, legend.ticks, main, ...){
   stopifnot(inherits(x,"vpts"))
+  stopifnot(quantity %in% c("dens","eta","dbz","DBZH"))
   args <- list(...)
   if(!x$regular) warning("Irregular time-series: x-axis is not a linear time scale. Use 'regularize' to make time series regular.")
 
@@ -75,19 +200,15 @@ plot.vpts = function(x, xlab="time [UTC]",ylab="height [m]",quantity="dens",log=
       ticks=legendticks=seq(0,5000,500)
       zlim=c(0,5000)
     }
-    if(quantity=="dbz"){
+    if(quantity=="dbz" || quantity=="DBZH"){
       if(x$attributes$how$wavelength>10){
         ticks=legendticks=seq(-5,30,5)
         zlim=c(-5,30)
       }
       else{
         ticks=legendticks=seq(-20,10,5)
-        zlim=c(-20,5)
+        zlim=c(-20,10)
       }
-    }
-    if(quantity=="DBZH"){
-      ticks=legendticks=seq(-10,50,10)
-      zlim=c(-10,30)
     }
   }
   else{
@@ -104,21 +225,21 @@ plot.vpts = function(x, xlab="time [UTC]",ylab="height [m]",quantity="dens",log=
   }
 
   # extract the data from the time series object
-  if(quantity=="dens") plotdata=t(x$data$dens)
-  if(quantity=="eta") plotdata=t(x$data$eta)
+  if(quantity=="dens") plotdata=t(fetch(x,quantity))
+  if(quantity=="eta") plotdata=t(fetch(x,quantity))
   if(quantity=="dbz"){
     if(log){
       if(!missing(log)) warning("reflectivity factor 'dbz' is already logarithmic, ignoring 'log' argument...")
       log=F
     }
-    plotdata=t(x$data$dbz)
+    plotdata=t(fetch(x,quantity))
   }
   if(quantity=="DBZH"){
     if(log){
       if(!missing(log)) warning("total reflectivity factor 'DBZH' is already logarithmic, ignoring 'log' argument...")
       log=F
     }
-    plotdata=t(x$data$DBZH)
+    plotdata=t(fetch(x,quantity))
   }
 
   # do log-transformations:
@@ -189,7 +310,7 @@ plot_wind_barbs = function(cx, cy, direction = 0, speed = NA, fill = rep(0, leng
   for (i in 1 : ns) {
     x = cx[i]
     y = cy[i]
-    if (is.na(x) | is.na(y)) next
+    if (is.na(x) || is.na(y)) next
     spd = speed[i]
 
     if (circle) {

@@ -32,8 +32,8 @@ Gives the current threshold in VVP-retrieved radial velocity standard deviation 
 
 \item \code{vpts}: threshold in VVP-retrieved radial velocity standard deviation of a time series of vertical profiles
 }}
+
 \examples{
 # extract threshold for a single vertical profile:
 sd_vvp(VP)
 }
-

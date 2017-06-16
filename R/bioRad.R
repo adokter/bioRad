@@ -12,6 +12,7 @@
 #'     \item{\link[=summary.vp]{vp}}{, a vertical profile: typically biological data extracted from a polar volume by \link{vol2bird}.}
 #'     \item{\link[=summary.vplist]{vplist}}{, a list of \link[=summary.vp]{vp} objects.}
 #'     \item{\link[=summary.vpts]{vpts}}{, a vertical profile time series: a time-oredered list of \link[=summary.vp]{vp} objects for a single radar.}
+#'     \item{\link[=vintegrate]{vivp}}{, vertically integrated vertical profiles.}
 #'   }
 #' }
 #' The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link[base]{Extract} methods are available for each of these classes.
@@ -72,6 +73,18 @@
 #'
 #' \link{cmt} calculates cumulative migration traffic.
 #' }
+#'
+#' \subsection{Conventions}{
+#'   \itemize{
+#'     \item \code{NA} Maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)
+#'     \item \code{NaN} Maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
+#'     \item \code{0} Maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
+#'   }
+#'   It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent
+#'   to zero. When dealing with close range data only (within 35 km), it is typically safe
+#'   to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
+#' }
+#'
 #' \subsection{Other useful functionality}{
 #'  \itemize{
 #'  \item \link{suntime} calculates runrise and sunset times
@@ -109,6 +122,7 @@
 #' @import utils
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
+#' @importFrom curl curl_download
 #'
 "_PACKAGE"
 #> [1] "_PACKAGE"
@@ -143,6 +157,8 @@ mount="~/"
 # load time series:
 # VPTS=readvp.table(VPtable,radar="KBGM", wavelength='S')
 # rcs(VPTS)<-11
+# VPTS$attributes$where$lat=42.2
+# VPTS$attributes$where$lon=-75.98
 # save(VPTS,file="~/git/bioRad/data/VPTS.RData",compress="xz")
 #' Example object of class \code{vpts}
 #'
@@ -155,14 +171,15 @@ mount="~/"
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
 #' @param verbose logical which indicates whether to print test results to R console. On Windows always TRUE.
 #' @export
+#' @return 0 upon success, otherwise an error code.
 checkDocker = function(verbose=T){
   if(.Platform$OS.type=="unix"){
     system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T)
     result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose)
   }
   else{
-    system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T,show.output.on.console=FALSE)
-    result=system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,show.output.on.console = TRUE)
+    suppressWarnings(system("docker rm -f hello-world",ignore.stderr=T,ignore.stdout=T,show.output.on.console=FALSE))
+    result=suppressWarnings(system("docker run --name hello-world hello-world",ignore.stderr=!verbose,ignore.stdout=!verbose,show.output.on.console = TRUE))
   }
   parent.env=environment(checkDocker)
   unlockBinding("docker", parent.env)
@@ -174,6 +191,28 @@ checkDocker = function(verbose=T){
   if(!verbose) return(result)
 }
 
+#' Update Docker image for vol2bird
+#'
+#' Pulls and installs the latest Docker image used by bioRad from Docker hub
+#' @details
+#' This command pulls the latest \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image from \href{https://hub.docker.com}{Docker hub}.
+#' Run this command to ensure all Docker functionality (e.g. the \link[bioRad]{vol2bird} function) runs at the latest available version.
+#' @export
+#' @return the POSIXct creation date of the installed Docker image
+updateDocker = function(){
+  creationDate=NULL
+  if(.Platform$OS.type=="unix"){
+    result=system("docker pull adokter/vol2bird:latest")
+    if(result==0) creationDate=system("docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",intern=T)
+  }
+  else{
+    result=suppressWarnings(system("docker pull adokter/vol2bird:latest"))
+    if(result==0) creationDate=suppressWarnings(system("docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",intern=T))
+  }
+  if(!is.null(creationDate)) creationDate=as.POSIXct(creationDate,format="%Y-%m-%dT%T")
+  return(creationDate)
+}
+
 startContainer = function(mount="~/"){
   parent.env=environment(startContainer)
   # if docker not running, cannot start container
@@ -182,10 +221,10 @@ startContainer = function(mount="~/"){
   if(parent.env$mounted & parent.env$mount==mount) return(0)
   # remove any existing vol2bird containers
   if(.Platform$OS.type=="unix") system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T)
-  else system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T,show.output.on.console = FALSE)
+  else suppressWarnings(system("docker rm -f vol2bird", ignore.stderr=T,ignore.stdout=T,show.output.on.console = FALSE))
   # fire up the container:
   if(.Platform$OS.type=="unix") result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T)
-  else result=system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T,show.output.on.console=FALSE)
+  else result=suppressWarnings(system(paste("docker run -v ",normalizePath(mount,winslash="/"),":/data -d --name vol2bird adokter/vol2bird sleep infinity",sep=""),ignore.stdout=T,show.output.on.console=FALSE))
   if(result!=0) warning(paste("failed to mount",mount,"... Go to 'Docker -> preferences -> File Sharing' and add this directory (or its root directory) as a bind mounted directory"))
   else{
     unlockBinding("mounted",parent.env)
@@ -243,7 +282,10 @@ quantityName = function(file,group){
 #' readvp(prof)
 #'
 readvp = function(filename){
-  if(!is.vpfile(filename)) return(NULL)
+  if(!is.vpfile(filename)){
+    warning(paste(filename,"is not a vertical profile"))
+    return(NULL)
+  }
   #check input argument
   groups=h5ls(filename,recursive=F)$name
   if(!("dataset1" %in% groups)){
@@ -264,11 +306,20 @@ readvp = function(filename){
   #convert some useful metadata
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
   sources=strsplit(attribs.what$source,",")[[1]]
-  radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
   filename=basename(filename)
+  radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
+  if(length(radar)==0){
+    radar=gsub("NOD:","",sources[which(grepl("NOD:",sources))])
+    if(length(radar)==0){
+      radar=gsub("WMO:","",sources[which(grepl("WMO:",sources))])
+      if(length(radar)==0){
+        radar="unknown"
+      }
+    }
+  }
 
   #prepare output
-  output=list(radar=radar,datetime=datetime,filename=filename,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
+  output=list(filename=filename,radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
   class(output) = "vp"
   output
 }
@@ -380,28 +431,6 @@ print.vp=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("generated by: ",paste(x$attributes$how$task,x$attributes$how$task_version),"\n")
 }
 
-#' Plot a vertical profile
-#'
-#' @param x a vp class object
-#' @param xlab a title for the x axis
-#' @param ylab a title for the y axis
-#' @param line.col Color of the plotted curve
-#' @param line.lwd Line width of the plotted curve
-#' @param main an overall title for the plot
-#' @param ... Additional arguments to be passed to the low level \link[graphics]{plot} plotting function
-#' @export
-#' @method plot vp
-#' @examples
-#' data(VP)
-#' plot(VP)
-#' plot(VP,line.col='blue')
-plot.vp=function(x, xlab="density [#/km^3]",ylab="height [km]",main="Vertical profile",line.col='red',line.lwd=1,...){
-  stopifnot(inherits(x,"vp"))
-  pdat=x$data$dens
-  pdat[is.na(pdat)]=0
-  plot(pdat,x$data$HGHT/1000,xlab=xlab,ylab=ylab,main=main,...)
-  points(pdat,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
-}
 
 #' Read a list of vertical profiles from multiple files
 #'
@@ -450,8 +479,9 @@ c.vp = function(...){
 #' @param ... additional arguments affecting the summary produced.
 #' @export
 #' @method summary vplist
-#' @details
-#' details to be written
+#' @details An object of class \code{vplist} is a list containing only \link[=summary.vp]{vp} objects.
+#' By contrast, \link[=summary.vpts]{vpts} objects contain time-ordered profiles of a single radar
+#' station. \code{vplist} objects can contain profiles of multiple radars.
 summary.vplist=function(object, ...) print.vplist(object)
 
 #' @rdname summary.vplist
@@ -488,23 +518,12 @@ print.vplist=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' @param x An object of class \code{vplist}, usually a result of a call to \link[bioRad]{readvp.list}
 #' @param radar string containing the radar identifier to generate time series for. Only required when \code{vplist} object contains multiple radars
 #' @export
-#' @return an object of class \code{vpts}, which is a list containing
-#' \describe{
-#'  \item{\code{radar}}{string containing the radar identifier}
-#'  \item{\code{dates}}{the \code{N} nominal times of the profiles}
-#'  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
-#'  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
-#'  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
-#'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
-#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
-#'  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
-#'  \item{\code{regular}}{logical indicating whether the time series is regular or not}
-#' }
+#' @return an object of class \link[=summary.vpts]{vpts}
 #' @rdname vpts
 #' @examples
 #' \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
 #'
-vpts=function(x,radar=NA){
+vpts = function(x,radar=NA){
   stopifnot(inherits(x, "vplist"))
   # extract radar identifiers
   radars=sapply(x,'[[',"radar")
@@ -535,6 +554,116 @@ vpts=function(x,radar=NA){
   output=list(radar=radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
   class(output)="vpts"
   output
+}
+
+#' Vertically integrate profiles
+#'
+#' Performs a vertical integration of density, reflectivity and migration traffic rate.
+#' @param x a \code{vp}, \code{vplist} or \code{vpts} object
+#' @param alt.min minimum altitude in m
+#' @param alt.max maximum altitude in m
+#' @param alpha migratory direction in clockwise degrees from north
+#' @export
+#' @return an object of class \code{vivp}, a data frame with vertically integrated profile quantities
+#' @details
+#' The function generates a specially classed data frame with the following quantities
+#' \describe{
+#'    \item{\code{datetime}}{POSIXct date of each profile in UTC}
+#'    \item{\code{vid}}{Vertically Integrated Density in individuals/km^2. \code{vid} is a surface density,
+#'          whereas \code{dens} in \code{vp} objects is a volume density.}
+#'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
+#'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
+#'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
+#' }
+#' Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
+#' the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
+#' traffic rate are related according to \eqn{mtr=rtr/rcs(x)}
+#'
+#' See \link[bioRad]{mtr} for further information on the definition of migration traffic rate.
+#' @examples
+#' ### MTR for a single vertical profile ###
+#' vintegrate(VP)
+#'
+#' ### MTRs for a list of vertical profiles ###
+#' vintegrate(c(VP,VP))
+#'
+#' ### MTRs for a time series of vertical profiles ###
+#' # load example data:
+#' data(VPTS)
+#' VPTS
+#' # print migration traffic rates:
+#' vivp=vintegrate(VPTS)
+#' # plot migration traffic rates for the full air column:
+#' plot(VPTS)
+#' #' plot migration traffic rates for altitudes > 1 km above sea level
+#' plot(vintegrate(VPTS,alt.min=1000))
+vintegrate <- function (x, alt.min, alt.max, alpha=NA) UseMethod("vintegrate", x)
+
+#' @describeIn vintegrate Vertically integrate a vertical profile
+#' @export
+vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
+  stopifnot(inherits(x,"vp"))
+  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.na(alpha) || is.numeric(alpha))
+  interval=x$attributes$where$interval
+  index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
+  if(is.na(alpha)) cosfactor=rep(1,length(index))
+  else cosfactor = cos((fetch(x,"dd")[index]-alpha)*pi/180)
+  mtr=sum(fetch(x,"dens")[index] * cosfactor * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
+  vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
+  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
+  class(output)=c("vivp","data.frame")
+  rownames(output)=NULL
+  attributes(output)$alt.min=alt.min
+  attributes(output)$alt.max=alt.max
+  attributes(output)$alpha=alpha
+  attributes(output)$rcs=rcs(x)
+  attributes(output)$lat=x$attributes$where$lat
+  attributes(output)$lon=x$attributes$where$lon
+  return(output)
+}
+
+#' @describeIn vintegrate Vertically integrate a list of vertical profiles
+#' @export
+vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA){
+  stopifnot(inherits(x,"vplist"))
+  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  output=do.call(rbind,lapply(x,vintegrate.vp,alt.min=alt.min,alt.max=alt.max,alpha=alpha))
+  class(output)=c("vivp","data.frame")
+  attributes(output)$alt.min=alt.min
+  attributes(output)$alt.max=alt.max
+  attributes(output)$alpha=alpha
+  attributes(output)$rcs=rcs(x)
+  #TODO set lat/lon attributes
+  return(output)
+}
+
+#' @describeIn vintegrate Vertically integrate a time series of vertical profiles
+#' @export
+vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
+  stopifnot(inherits(x, "vpts"))
+  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.na(alpha) || is.numeric(alpha))
+  interval=x$attributes$where$interval
+  index=which(x$heights>alt.min & x$heights<alt.max)
+  if(is.na(alpha)) cosfactor=1+0*fetch(x,"dd")[index,]
+  else cosfactor = cos((fetch(x,"dd")[index,]-alpha)*pi/180)
+  mtr=colSums(cosfactor*fetch(x,"ff")[index,]*fetch(x,"dens")[index,],na.rm=T)*interval/1000
+  rtr=colSums(cosfactor*fetch(x,"ff")[index,]*fetch(x,"eta")[index,],na.rm=T)*interval/1000
+  vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
+  vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
+  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
+  class(output)=c("vivp","data.frame")
+  rownames(output)=NULL
+  attributes(output)$alt.min=alt.min
+  attributes(output)$alt.max=alt.max
+  attributes(output)$alpha=alpha
+  attributes(output)$rcs=rcs(x)
+  attributes(output)$lat=x$attributes$where$lat
+  attributes(output)$lon=x$attributes$where$lon
+  return(output)
 }
 
 #' print method for class \code{vpts}
@@ -639,6 +768,7 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' file.remove("~/volume.h5")
 vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.in),sd_vvp=2,rcs=11,dualpol=F,rhohv=0.9,elev.min=0,elev.max=90,azim.min=0,azim.max=360,range.min=5000,range.max=25000,nlayer=20L,hlayer=200,dealias=T,nyquist.min=if(dealias) 5 else 25){
   # check input arguments
+  if(!file.exists(vol.in)) stop("No such file or directory")
   if(!is.numeric(sd_vvp) || sd_vvp<=0) stop("invalid 'sd_vvp' argument, radial velocity standard deviation threshold should be a positive numeric value")
   if(!is.numeric(rcs) || rcs<=0) stop("invalid 'rcs' argument, radar cross section should be a positive numeric value")
   if(!is.logical(dualpol)) stop("invalid 'dualpol' argument, should be logical")
@@ -658,7 +788,6 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   if(file.access(mount,0)==-1) stop("invalid 'mount' argument. Directory not found")
   if(file.access(mount,2)==-1) stop(paste("invalid 'mount' argument. No write permission in directory",mount))
   if(!docker) stop("Requires a running Docker daemon.\nTo enable vol2bird, start your local Docker daemon, and run 'checkDocker()' in R\n")
-  if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
   if(vp.out!="" && !file.exists(dirname(vp.out))) stop(paste("output directory",dirname(vp.out),"not found"))
   filedir=dirname(normalizePath(vol.in,winslash="/"))
@@ -695,7 +824,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\""),ignore.stdout=!verbose)
   else{
     winstring=paste("docker exec vol2bird bash -c \"cd data && vol2bird ",vol.in.docker,profile.tmp.docker,vol.out.docker,"\"")
-    result = system(winstring)
+    result = suppressWarnings(system(winstring))
   }
   if(result!=0){
     file.remove(optfile)
@@ -748,7 +877,7 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
 
   # run vol2bird container
   if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
-  else result = system(paste("docker exec vol2bird bash -c \"cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"\""),ignore.stdout=!verbose,show.output.on.console = TRUE)
+  else result = suppressWarnings(system(paste("docker exec vol2bird bash -c \"cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"\""),ignore.stdout=!verbose,show.output.on.console = TRUE))
   if(result!=0){
     stop("failed to run rsl2odim in Docker container")
   }
@@ -877,61 +1006,51 @@ regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
+#' @param alpha (optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}
 #' @export
+#' @return an atomic vector of migration traffic rates in individuals/km/hour
+#' @details
+#' Migration traffic rate (MTR) for an altitude layer is a flux measure, defined as the
+#' number of targets crossing a unit of transect per hour.
+#'
+#' The transect direction is set by the angle \code{alpha}. When \code{alpha=NA},
+#' the transect runs perpendicular to the measured migratory direction. \code{mtr} then equals the
+#' number of crossing targets per km transect per hour, for a transect kept perpendicular to the
+#' measured migratory movement at all times and altitudes. In this case \code{mtr} is always a positive quantity,
+#' defined as:
+#' \deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
+#' with the sum running over all altitude layers between \code{alt.min} and \code{alt.max}, \eqn{dens_i} the bird density,
+#' \eqn{ff_i} the ground speed at altitude layer i, and \eqn{\Delta h} the altitude layer width.
+#'
+#' If \code{alpha} is given a numeric value, the transect is taken perpendicular to
+#' the direction \code{alpha}, and the number of crossing targets per hour per
+#' km transect is calculated as:
+#'
+#' \deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}
+#' with \eqn{dd_i} the migratory direction at altitude i.
+#'
+#' Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+#' In this definition \code{mtr} is a traditional flux into a direction of interest.
+#' Targets moving into the direction \code{alpha} contribute positively to \code{mtr}, while targets moving in the
+#' opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
+#' depending on the definition of alpha.
+#'
+#' This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
+#' migration traffic rate data.
+#'
 #' @examples
 #' ### MTR for a single vertical profile ###
 #' mtr(VP)
-#'
-#' ### MTRs for a list of vertical profiles ###
-#' mtr(c(VP,VP))
-#'
 #' ### MTRs for a time series of vertical profiles ###
-#' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
-#' # load time series:
-#' ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+#' # load example time series
+#' data(VPTS)
 #' # print migration traffic rates:
-#' mtr(ts)
-#' # plot migration traffic rates for the full air column:
-#' plot(mtr(ts),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-#' #' plot migration traffic rates for altitudes > 1 km above sea level
-#' plot(mtr(ts,alt.min=1000),type='l',xlab="time [UTC]",ylab="MTR [birds/km/h]")
-mtr <- function (x, alt.min, alt.max) UseMethod("mtr", x)
-
-#' @describeIn mtr MTR of a vertical profile
-#' @return class \code{vp}: the migration traffic rate (MTR) individuals/km/h
-#' @export
-mtr.vp = function(x,alt.min=0,alt.max=Inf){
-  stopifnot(inherits(x,"vp"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  interval=x$attributes$where$interval
-  index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
-  mtr=sum(x$data$dens[index] * x$data$ff[index] * interval/1000,na.rm=T)
-  return(mtr)
-}
-
-#' @describeIn mtr MTR of a list of vertical profiles
-#' @return class \code{vplist}: a numeric atomic vector with migration traffic rates in individuals/km/h
-#' @export
-mtr.vplist = function(x,alt.min=0,alt.max=Inf){
-  stopifnot(inherits(x,"vplist"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  mtr=sapply(x,mtr.vp,alt.min=alt.min,alt.max=alt.max)
-  return(mtr)
-}
-
-#' @describeIn mtr MTR of a time series of vertical profiles
-#' @return class \code{vpts}: a data frame with dates and migration traffic rates in individuals/km/h
-#' @export
-mtr.vpts = function(x,alt.min=0,alt.max=Inf){
-  stopifnot(inherits(x,"vpts"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  interval=x$attributes$where$interval
-  index=which(x$heights>alt.min & x$heights<alt.max)
-  mtr=colSums(x$data$ff[index,]*x$data$dens[index,],na.rm=T)*interval/1000
-  output=data.frame(dates=x$dates,mtr=mtr)
-  rownames(output)=NULL
-  return(output)
+#' mtr(VPTS)
+#' # to plot migration traffic rate data, use vintegrate:
+#' plot(vintegrate(VPTS),quantity="mtr")
+mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
+  stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
+  return(vintegrate(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)$mtr)
 }
 
 #' Class 'vp': vertical profile
@@ -944,10 +1063,17 @@ mtr.vpts = function(x,alt.min=0,alt.max=Inf){
 #' @rdname summary.vp
 #' @method summary vp
 #' @details
-#' An object of class \code{vp} is a list containing
+#' An object of class \code{vp} contains a vertical profile. A vertical profile contains a collection of quantities,
+#'  with each quantity having values at different altitude layers above the earth's surface,
+#'  typically equally spaced altitudinal layers.
+#'
+#' Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+#' Information stored under \code{attributes} (see below) can be accessed directly.
+#'
+#' A \code{vp} object is a list containing
 #' \describe{
 #'  \item{\strong{\code{radar}}}{the radar identifier}
-#'  \item{\strong{\code{datetime}}}{the nominal time of the profile [UTC]}
+#'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
 #'  \item{\strong{\code{data}}}{the profile data, a list containing:
 #'    \describe{
 #'        \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
@@ -963,9 +1089,9 @@ mtr.vpts = function(x,alt.min=0,alt.max=Inf){
 #'        \item{\code{dens}}{Bird density [birds/km^3]}
 #'        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) [dBZ]}
 #'        \item{\code{n}}{number of points VVP bird velocity analysis (u,v,w,ff,dd)}
-#'        \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
 #'        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-#'        \item{\code{n_all_dbz}}{number of points total reflectivity estimate (DBZH)}
+#'        \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
+#'        \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
 #'    }
 #'  }
 #'  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what}, \code{\\where} and \code{\\how} attributes}
@@ -999,10 +1125,34 @@ is.vplist <- function(x) inherits(x, "vplist")
 #' @param ... additional arguments affecting the summary produced.
 #' @export
 #' @method summary vpts
-#' @details
-#' details to be written
+#' @details An object of class \code{vpts} contains time-ordered profiles of a single radar
+#' station.
+#'
+#' The time series can be regular or irregular, indicated by the \code{regular} field
+#'
+#' In a regular \code{vpts} object the profiles are equally spaced in time.
+#' In an irregular \code{vpts} object the time steps between profiles are of unequal length.
+#'
+#' Irregular time series can be projected onto a regular time grid using the \link[bioRad]{regularize} function.
+#'
+#' By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
+#'
+#' Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+#' Information stored under \code{attributes} (see below) can be accessed directly.
+#'
+#' An object of class \code{vpts} is a list containing
+#' \describe{
+#'  \item{\code{radar}}{string containing the radar identifier}
+#'  \item{\code{dates}}{the \code{N} nominal times of the profiles}
+#'  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
+#'  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
+#'  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
+#'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
+#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
+#'  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
+#'  \item{\code{regular}}{logical indicating whether the time series is regular or not}
+#' }
 summary.vpts=function(object, ...) print.vpts(object)
-
 
 #' @rdname summary.vpts
 #' @export
@@ -1023,7 +1173,16 @@ dim.vpts <- function(x) {
 #' @export
 `[.vpts` <- function(x,i) {
   stopifnot(inherits(x,"vpts"))
-  if(length(i)<2) stop("Time series should consist more than one profile")
+  if(length(i)<1) stop("Time series should consist more than one profile")
+  if(length(i)==1){
+    if(i>0) return(vpts2vp(x,i))
+    else{
+      if(dim(x)[2]==2){
+        if(i==-1) return(vpts2vp(x,2))
+        if(i==-2) return(vpts2vp(x,1))
+      }
+    }
+  }
   x$dates=x$dates[i]
   x$daterange=.POSIXct(c(min(x$dates),max(x$dates)),tz="UTC")
   x$timesteps=difftime(x$dates[-1],x$dates[-length(x$dates)],units="secs")
@@ -1032,6 +1191,21 @@ dim.vpts <- function(x) {
   x$data=lapply(names(x$data),function(quantity) getElement(x$data,quantity)[,i])
   names(x$data)=quantity.names
   return(x)
+}
+
+vpts2vp <- function(x,i) {
+  stopifnot(inherits(x,"vpts"))
+  nvp=dim(x)[2]
+  if(i<1 || i>nvp) return(NA)
+  vpout=list()
+  vpout$radar=x$radar
+  vpout$datetime=x$dates[i]
+  vpout$data=as.data.frame(lapply(names(x$data),function(y) x$data[y][[1]][,i]))
+  names(vpout$data)=names(x$data)
+  vpout$attributes=x$attributes
+  vpout$data$HGHT=x$heights
+  class(vpout)="vp"
+  vpout
 }
 
 #' Radar cross section
@@ -1065,6 +1239,13 @@ rcs.vplist <- function (x){
 rcs.vpts <- function (x){
   stopifnot(inherits(x,"vpts"))
   x$attributes$how$rcs_bird
+}
+
+#' @describeIn rcs radar cross section of a time series of vertically integrated vertical profile(s)
+#' @export
+rcs.vivp <- function (x){
+  stopifnot(inherits(x,"vivp"))
+  attributes(x)$rcs
 }
 
 #' Set radar cross section
@@ -1119,6 +1300,16 @@ rcs.vpts <- function (x){
     x$attributes$how$sd_vvp_thresh=2
     x$data$dens[x$data$sd_vvp<2]=0
   }
+  x
+}
+
+#' @rdname rcs-set
+#' @export
+`rcs<-.vivp` <- function(x,value){
+  stopifnot(inherits(x,"vivp"))
+  attributes(x)$rcs=value
+  x$mtr=x$rtr/value
+  x$vid=x$vir/value
   x
 }
 
@@ -1234,12 +1425,12 @@ sd_vvp.vpts <- function (x){
 #' mt(VPTS)
 #' # total migration traffic in 0-1000 meter band
 #' mt(VPTS,alt.min=0,alt.max=1000)
-mt <- function(x,alt.min=0, alt.max=Inf){
+mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
   dt=as.numeric(dt)/3600
-  sum(dt*mtr(x,alt.min,alt.max)$mtr)
+  sum(dt*mtr(x,alt.min,alt.max,alpha))
 }
 
 #' Cumulative migration traffic
@@ -1260,14 +1451,14 @@ mt <- function(x,alt.min=0, alt.max=Inf){
 #' # print cumulative migration traffic to console:
 #' cmt(VPTS)
 #' # plot cumulative migration traffic:
-#' plot(cmt(VPTS),type='l',xlab="time [UTC]",ylab="CMT [birds/km]")
-cmt <- function(x,alt.min=0, alt.max=Inf){
+#' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
+cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
   # convert to hours
   dt=as.numeric(dt)/3600
-  mtrs=mtr(x,alt.min,alt.max)
-  data.frame(dates=mtrs$dates,cmt=cumsum(dt*mtrs$mtr))
+  vintegrated=vintegrate(x,alt.min,alt.max,alpha)
+  data.frame(dates=vintegrated$datetime,cmt=cumsum(dt*vintegrated$mtr))
 }
 
 # function obtained via Hidde Leijnse, source unknown
@@ -1282,8 +1473,8 @@ cmt <- function(x,alt.min=0, alt.max=Inf){
 #' @details The angular diameter of the sun is about 0.536 degrees, therefore the moment
 #' of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
 #'
-#' Note that for a given date and location, sunrise time can be after sunset time when
-#' the moments of sunset and sunrise are not on the same day within the UTC time zone.
+#' Note that for a given date and location, sunrise time can be after sunset time, depending
+#' on the time difference between the local time and the UTC time zone.
 #'
 #' Approximate astronomical formula are used, therefore the moment of sunrise / sunset may
 #' be off by a few minutes
@@ -1345,6 +1536,72 @@ suntime = function(lon, lat, date, elev=-0.268, rise = TRUE)
   return(output)
 }
 
+#' Calculate whether it is night at a geographic location and time
+#' @inheritParams suntime
+#' @export
+#' @return TRUE when night, FALSE when day
+#' @details The angular diameter of the sun is about 0.536 degrees, therefore the moment
+#' of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
+#'
+#' day evaluates to true when the sun has a higher elevation than parameter elev, otherwise to false
+#'
+#' Approximate astronomical formula are used, therefore the day/night transition may
+#' be off by a few minutes
+#' @examples
+#' # it's day in the Netherlands at UTC noon on January first:
+#' night(5,53,"2016-01-01 12:00")
+#'
+#' @export
+night=function(lon,lat,date,elev=-0.268){
+  trise=suntime(lon,lat,date,elev,rise=T)
+  tset=suntime(lon,lat,date,elev,rise=F)
+  output=rep(NA,length(date))
+  itsday=(date>trise & date<tset)
+  output[trise<tset]=itsday[trise<tset]
+  itsday=(date<tset | date>trise)
+  output[trise>=tset]=itsday[trise>=tset]
+  !output
+}
+
+#' Test a bioRad object for night time
+#'
+#' Test a bioRad object for day time. Dispatches to the logical inverse of \link[bioRad]{night}.
+#' @inheritParams night
+#' @param x An object of class \code{vp},\code{vplist} or \code{vpts}.
+#' @export
+#' @return TRUE when night, FALSE when day, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
+#' @examples
+#' day(VP)
+day <- function (x, elev=-0.268) UseMethod("day", x)
+
+#' @rdname day
+#' @export
+day.vp <- function(x,elev=-0.268) {
+  stopifnot(inherits(x,"vp"))
+  !night(x$attributes$where$lon,x$attributes$where$lat,x$datetime,elev=elev)
+}
+
+#' @rdname day
+#' @export
+day.vplist <- function(x,elev=-0.268) {
+  stopifnot(inherits(x,"vplist"))
+  sapply(x,day.vp,elev=elev)
+}
+
+#' @rdname day
+#' @export
+day.vpts <- function(x,elev=-0.268) {
+  stopifnot(inherits(x,"vpts"))
+  !night(x$attributes$where$lon,x$attributes$where$lat,x$dates,elev=elev)
+}
+
+#' @rdname day
+#' @export
+day.pvol <- function(x,elev=-0.268) {
+  stopifnot(inherits(x,"pvol"))
+  !night(x$geo$lon,x$geo$lat,x$datetime,elev=elev)
+}
+
 #' Radar beam height
 #'
 #' Calculates the height of a radar beam as a function of elevation and range, assuming the beam
@@ -1380,5 +1637,87 @@ earthradius=function(a,b,latdeg){
 #' @export
 beamwidth=function(range,angle=1) range*1000*sin(angle*pi/180)
 
+#' Convert reflectivity factor to reflectivity
+#' @param dbz reflectivity factor in dBZ
+#' @param wavelength radar wavelength in cm
+#' @param Km refractive index of water
+#' @return reflectivity in cm^2/km^3
+#' @export
+dbz2eta=function(dbz, wavelength, Km=0.93) (1000*pi^5/wavelength^4)*(Km^2)*(10^(dbz/10))
 
+#' Convert reflectivity to reflectivity factor
+#' @param eta reflectivity in cm^2/km^3
+#' @param wavelength radar wavelength in cm
+#' @param Km refractive index of water
+#' @return reflectivity factor in dBZ
+#' @export
+eta2dbz=function(eta, wavelength, Km=0.93) 10*log10(eta*wavelength^4/(1000*(Km^2)*pi^5))
+
+#' fetch a profile quantity
+#' @param x a vp,vplist or vpts object
+#' @param quantity a profile quantity, one of
+#' \code{"HGHT"},\code{"u"},\code{"v"},\code{"w"},\code{"ff"},
+#' \code{"dd"},\code{"sd_vvp"},\code{"gap"},\code{"dbz"},\code{"eta"},
+#' \code{"dens"},\code{"DBZH"},\code{"n"},\code{"n_all"},\code{"n_dbz"},\code{"n_dbz_all"}.
+#' @details This function grabs any of the data quantities stored in \link[=summary.vp]{vp},
+#' \link[=summary.vplist]{vplist} or \link[=summary.vpts]{vpts} objects.
+#'
+#' See the documentation of the vertical profile \link[=summary.vp]{vp} class
+#' for a description of each of these quantities.
+#' @export
+fetch=function(x, quantity) UseMethod("fetch", x)
+
+#' @rdname fetch
+#' @export
+#' @return class \code{vp}: a named vector for the requested quantity
+fetch.vp=function(x, quantity="dens"){
+  stopifnot(inherits(x,"vp"))
+  output=x$data[quantity][,1]
+  names(output)=x$data$HGHT
+  if(quantity == "eta"){
+    output[x$data$sd_vvp<sd_vvp(x)]=0
+    return(output)
+  }
+  if(quantity == "dbz"){
+    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+    return(output)
+  }
+  if(quantity %in% c("ff","u","v","w","dd")){
+    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+    return(output)
+  }
+  return(output)
+}
+
+#' @rdname fetch
+#' @export
+#' @return class \code{vplist}: a list of a named vectors for the requested quantity
+fetch.vplist <- function(x,quantity="dens") {
+  stopifnot(inherits(x,"vplist"))
+  lapply(x,fetch.vp,quantity=quantity)
+}
+
+#' @rdname fetch
+#' @export
+#' @return class \code{vpts}: a (height x time) matrix of the requested quantity
+fetch.vpts=function(x, quantity="dens"){
+  ## this function should checkout both the gap and sd_vvp flags
+  stopifnot(inherits(x,"vpts"))
+  output=x$data[quantity][[1]]
+  rownames(output)=x$heights
+  colnames(output)=as.character(x$dates)
+  if(quantity == "eta"){
+    output[x$data$sd_vvp<sd_vvp(x)]=0
+    return(output)
+  }
+  if(quantity == "dbz"){
+    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+    return(output)
+  }
+  if(quantity %in% c("ff","u","v","w","dd")){
+    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+    return(output)
+  }
+  return(output)
+}
 

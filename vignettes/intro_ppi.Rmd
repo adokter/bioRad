@@ -2,7 +2,11 @@
 title: "Guidelines to create PPI plots from polar volume files in bioRad"
 author: 'Liesbeth Verlinden, Peter Desmet, Stijn Van Hoey'
 date: "January 2017"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating PPI plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 ```{r include=FALSE}
 library(bioRad, quietly = TRUE)

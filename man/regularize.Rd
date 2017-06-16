@@ -31,4 +31,3 @@ ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
 # regularize the time series on a 5 minute interval grid
 tsRegular=regularize(ts, interval=5)
 }
-

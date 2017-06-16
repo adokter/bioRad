@@ -43,6 +43,7 @@ Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base layer 
 \itemize{
 \item \code{ppi}: plot a 'ppi' object on a map
 }}
+
 \examples{
 # load an example scan:
 data(SCAN)
@@ -61,4 +62,3 @@ map(ppi,map=basemap,radar.size=5,radar.color="green")
 # crop the map:
 map(ppi,map=basemap,xlim=c(12.4,13.2),ylim=c(56,56.5))
 }
-

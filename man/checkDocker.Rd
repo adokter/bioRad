@@ -9,7 +9,9 @@ checkDocker(verbose = T)
 \arguments{
 \item{verbose}{logical which indicates whether to print test results to R console. On Windows always TRUE.}
 }
+\value{
+0 upon success, otherwise an error code.
+}
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running correctly on the local system
 }
-

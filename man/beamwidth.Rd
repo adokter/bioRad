@@ -17,4 +17,3 @@ numeric value. Beam width in m
 \description{
 Calculates the width of a radar beam as a function of range and beam angle
 }
-
