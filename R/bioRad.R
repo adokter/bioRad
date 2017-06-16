@@ -306,7 +306,6 @@ readvp = function(filename){
   #convert some useful metadata
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
   sources=strsplit(attribs.what$source,",")[[1]]
-  filename=basename(filename)
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
   if(length(radar)==0){
     radar=gsub("NOD:","",sources[which(grepl("NOD:",sources))])
