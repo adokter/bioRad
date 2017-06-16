@@ -265,9 +265,10 @@ readvp = function(filename){
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
   sources=strsplit(attribs.what$source,",")[[1]]
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
+  filename=basename(filename)
 
   #prepare output
-  output=list(radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
+  output=list(radar=radar,datetime=datetime,filename=filename,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
   class(output) = "vp"
   output
 }
