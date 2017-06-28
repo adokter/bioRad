@@ -608,8 +608,9 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
   index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
   if(is.na(alpha)) cosfactor=rep(1,length(index))
   else cosfactor = cos((fetch(x,"dd")[index]-alpha)*pi/180)
-  mtr=sum(fetch(x,"dens")[index] * cosfactor * fetch(x,"ff")[index] * interval/1000,na.rm=T)
-  rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * interval/1000,na.rm=T)
+  # multiply speeds by 3.6 to convert m/s to km/h
+  mtr=sum(fetch(x,"dens")[index] * cosfactor * fetch(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
+  rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
   vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
   vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
   output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
@@ -649,8 +650,9 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   index=which(x$heights>alt.min & x$heights<alt.max)
   if(is.na(alpha)) cosfactor=1+0*fetch(x,"dd")[index,]
   else cosfactor = cos((fetch(x,"dd")[index,]-alpha)*pi/180)
-  mtr=colSums(cosfactor*fetch(x,"ff")[index,]*fetch(x,"dens")[index,],na.rm=T)*interval/1000
-  rtr=colSums(cosfactor*fetch(x,"ff")[index,]*fetch(x,"eta")[index,],na.rm=T)*interval/1000
+  # multiply speeds by 3.6 to convert m/s to km/h
+  mtr=colSums(cosfactor*fetch(x,"ff")[index,]*3.6*fetch(x,"dens")[index,],na.rm=T)*interval/1000
+  rtr=colSums(cosfactor*fetch(x,"ff")[index,]*3.6*fetch(x,"eta")[index,],na.rm=T)*interval/1000
   vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
   vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
   output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
