@@ -691,12 +691,13 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
 #' @param vp.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)
 #' @param vol.out character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)
+#' @param autoconf logical. When TRUE, default optimal configuration settings are selected automatically, and other user settings are ignored.
 #' @param verbose logical. When TRUE, pipe Docker stdout to R console. On Windows always TRUE
 #' @param mount character string with the mount point (a directory path) for the Docker container
 #' @param sd_vvp numeric. lower threshold in radial velocity standard deviation (\code{sd_vvp}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
 #' @param dualpol logical. When \code{TRUE} use dual-pol mode, in which meteorological echoes are filtered using the correlation coeficient \code{rhohv}.
-#' When \code{FALSE} use single polarizaiton mode based only on reflectivity and radial velocity quantities.
+#' When \code{FALSE} use single polarization mode based only on reflectivity and radial velocity quantities.
 #' @param rhohv numeric. Lower threshold in correlation coefficient used to filter meteorological scattering
 #' @param elev.min numeric. Minimum scan elevation in degrees
 #' @param elev.max numeric. Maximum scan elevation in degrees
@@ -711,9 +712,14 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #'  when the scans in the polar volume have low Nyquist velocities (below 25 m/s)
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon
 #'
-#' Common arguments set by users are \code{vol.in}, \code{vp.out}, \code{dualpol}, \code{dealias} and \code{mount}
+#' Common arguments set by users are \code{vol.in}, \code{vp.out}, \code{autoconf} and \code{mount}.
 #'
-#' Arguments that sometimes require non-default values are: \code{rcs}, \code{sd_vvp}, \code{range.max}
+#' Turn on \code{autoconf} to automatically select the optimal parameters for a given radar file. The default for C-band data
+#' is to apply rain-filtering in single polarization mode, as well as dual polarization mode when available.
+#' The default for S-band data is to apply
+#' precipitation filtering in dual-polarization mode.
+#'
+#' Arguments that sometimes require non-default values are: \code{rcs}, \code{sd_vvp}, \code{range.max}, \code{dualpol}, \code{dealias}.
 #'
 #' Other arguments are typically left at their defaults.
 #'
@@ -767,7 +773,7 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' \dontrun{profile=vol2bird("~/volume.h5")}
 #' # clean up:
 #' file.remove("~/volume.h5")
-vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.in),sd_vvp=2,rcs=11,dualpol=F,rhohv=0.9,elev.min=0,elev.max=90,azim.min=0,azim.max=360,range.min=5000,range.max=25000,nlayer=20L,hlayer=200,dealias=T,nyquist.min=if(dealias) 5 else 25){
+vol2bird =  function(vol.in, vp.out="", vol.out="",autoconf=F, verbose=F,mount=dirname(vol.in),sd_vvp=2,rcs=11,dualpol=F,rhohv=0.95,elev.min=0,elev.max=90,azim.min=0,azim.max=360,range.min=5000,range.max=25000,nlayer=20L,hlayer=200,dealias=T,nyquist.min=if(dealias) 5 else 25){
   # check input arguments
   if(!file.exists(vol.in)) stop("No such file or directory")
   if(!is.numeric(sd_vvp) || sd_vvp<=0) stop("invalid 'sd_vvp' argument, radial velocity standard deviation threshold should be a positive numeric value")
@@ -789,6 +795,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   if(file.access(mount,0)==-1) stop("invalid 'mount' argument. Directory not found")
   if(file.access(mount,2)==-1) stop(paste("invalid 'mount' argument. No write permission in directory",mount))
   if(!docker) stop("Requires a running Docker daemon.\nTo enable vol2bird, start your local Docker daemon, and run 'checkDocker()' in R\n")
+  if(!length(autoconf)==1 || !is.logical(autoconf)) stop("autoconf argument should be one of TRUE or FALSE")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
   if(vp.out!="" && !file.exists(dirname(vp.out))) stop(paste("output directory",dirname(vp.out),"not found"))
   filedir=dirname(normalizePath(vol.in,winslash="/"))
@@ -810,7 +817,11 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
     warning(paste("options.conf file found in directory ",mount,". Renamed to options.conf.save to prevent overwrite...", sep=""))
     file.rename(optfile,paste(optfile,".saved",sep=""))
   }
-  write.table(opt,file=optfile,col.names=F,row.names=F,quote=F)
+
+  # only use user configuration when autoconfiguration is off.
+  if(!autoconf){
+    write.table(opt,file=optfile,col.names=F,row.names=F,quote=F)
+  }
 
   # prepare docker input filenames relative to mountpoint
   prefixstart=if(mount=="/") 1 else 2
@@ -828,7 +839,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
     result = suppressWarnings(system(winstring))
   }
   if(result!=0){
-    file.remove(optfile)
+    if(file.exists(optfile)) file.remove(optfile)
     stop("failed to run vol2bird Docker container")
   }
 
@@ -838,7 +849,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",verbose=F,mount=dirname(vol.i
   # clean up
   if(vp.out=="") file.remove(profile.tmp)
   else file.rename(profile.tmp,vp.out)
-  file.remove(optfile)
+  if(file.exists(optfile)) file.remove(optfile)
 
   output
 }
