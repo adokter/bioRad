@@ -4,9 +4,9 @@
 \alias{vol2bird}
 \title{Calculate a vertical profile of birds (VPB)}
 \usage{
-vol2bird(vol.in, vp.out = "", vol.out = "", verbose = F,
+vol2bird(vol.in, vp.out = "", vol.out = "", autoconf = F, verbose = F,
   mount = dirname(vol.in), sd_vvp = 2, rcs = 11, dualpol = F,
-  rhohv = 0.9, elev.min = 0, elev.max = 90, azim.min = 0,
+  rhohv = 0.95, elev.min = 0, elev.max = 90, azim.min = 0,
   azim.max = 360, range.min = 5000, range.max = 25000, nlayer = 20L,
   hlayer = 200, dealias = T, nyquist.min = if (dealias) 5 else 25)
 }
@@ -20,6 +20,8 @@ or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software
 
 \item{vol.out}{character string. Filename for the polar volume to be generated in ODIM HDF5 format (optional, e.g. for converting RSL formats to ODIM)}
 
+\item{autoconf}{logical. When TRUE, default optimal configuration settings are selected automatically, and other user settings are ignored.}
+
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On Windows always TRUE}
 
 \item{mount}{character string with the mount point (a directory path) for the Docker container}
@@ -29,7 +31,7 @@ or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
 \item{dualpol}{logical. When \code{TRUE} use dual-pol mode, in which meteorological echoes are filtered using the correlation coeficient \code{rhohv}.
-When \code{FALSE} use single polarizaiton mode based only on reflectivity and radial velocity quantities.}
+When \code{FALSE} use single polarization mode based only on reflectivity and radial velocity quantities.}
 
 \item{rhohv}{numeric. Lower threshold in correlation coefficient used to filter meteorological scattering}
 
@@ -64,9 +66,14 @@ Calculates a vertical profile of birds (VPB) from a polar volume
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon
 
-Common arguments set by users are \code{vol.in}, \code{vp.out}, \code{dualpol}, \code{dealias} and \code{mount}
+Common arguments set by users are \code{vol.in}, \code{vp.out}, \code{autoconf} and \code{mount}.
 
-Arguments that sometimes require non-default values are: \code{rcs}, \code{sd_vvp}, \code{range.max}
+Turn on \code{autoconf} to automatically select the optimal parameters for a given radar file. The default for C-band data
+is to apply rain-filtering in single polarization mode, as well as dual polarization mode when available.
+The default for S-band data is to apply
+precipitation filtering in dual-polarization mode.
+
+Arguments that sometimes require non-default values are: \code{rcs}, \code{sd_vvp}, \code{range.max}, \code{dualpol}, \code{dealias}.
 
 Other arguments are typically left at their defaults.
 
