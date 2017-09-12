@@ -605,7 +605,7 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
   interval=x$attributes$where$interval
-  index=which(x$data$HGHT>alt.min & x$data$HGHT<alt.max)
+  index=which(x$data$HGHT>=alt.min & x$data$HGHT<alt.max)
   if(is.na(alpha)) cosfactor=rep(1,length(index))
   else cosfactor = cos((fetch(x,"dd")[index]-alpha)*pi/180)
   # multiply speeds by 3.6 to convert m/s to km/h
@@ -647,7 +647,7 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
   interval=x$attributes$where$interval
-  index=which(x$heights>alt.min & x$heights<alt.max)
+  index=which(x$heights>=alt.min & x$heights<alt.max)
   if(is.na(alpha)) cosfactor=1+0*fetch(x,"dd")[index,]
   else cosfactor = cos((fetch(x,"dd")[index,]-alpha)*pi/180)
   # multiply speeds by 3.6 to convert m/s to km/h

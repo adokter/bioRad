@@ -1,8 +1,8 @@
 Package: bioRad
 Type: Package
 Title: Analysis and visualisation of weather radar data
-Version: 0.2.6
-Date: 2017-07-21
+Version: 0.2.7
+Date: 2017-08-19
 Authors@R: person("Adriaan M.", "Dokter", email = "a.m.dokter@uva.nl",
            role = c("aut", "cre"))
 Description: Extracts and visualizes biological signals from weather radar data.
