@@ -302,6 +302,8 @@ readvp = function(filename){
   attribs.how=h5readAttributes(filename,"how")
   attribs.what=h5readAttributes(filename,"what")
   attribs.where=h5readAttributes(filename,"where")
+  #add vp_filename attribute
+  attribs.what$vp_filename=filename
 
   #convert some useful metadata
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
@@ -316,7 +318,7 @@ readvp = function(filename){
       }
     }
   }
-
+  
   #prepare output
   output=list(radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
   class(output) = "vp"
