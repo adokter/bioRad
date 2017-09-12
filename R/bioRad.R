@@ -320,7 +320,7 @@ readvp = function(filename){
   }
   
   #prepare output
-  output=list(radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
+  output=list(filename=filename,radar=radar,datetime=datetime,data=profile,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where))
   class(output) = "vp"
   output
 }
