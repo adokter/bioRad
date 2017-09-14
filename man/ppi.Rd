@@ -2,12 +2,15 @@
 % Please edit documentation in R/bioRad.ppi.R
 \name{ppi}
 \alias{ppi}
+\alias{[.ppi}
 \alias{ppi.param}
 \alias{ppi.scan}
 \title{Make a plan position indicator (ppi)}
 \usage{
 ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
   lonlim = NULL)
+
+\method{[}{ppi}(x, i)
 
 \method{ppi}{param}(x, cellsize = 500, range.max = 50000, project = F,
   latlim = NULL, lonlim = NULL)
@@ -27,6 +30,8 @@ ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
 \item{latlim}{the range of latitudes to include}
 
 \item{lonlim}{the range of longitudes to include}
+
+\item{i}{indices specifying elements to extract}
 
 \item{...}{arguments passed to methods}
 }

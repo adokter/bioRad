@@ -389,6 +389,16 @@ elangle.pvol = function(x){
 #' ppi
 ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
 
+#' @rdname ppi
+#' @param i indices specifying elements to extract
+#' @export
+`[.ppi` <- function(x,i) {
+  stopifnot(inherits(x,"ppi"))
+  myppi=list(data=x$data[i],geo=x$geo)
+  class(myppi)="ppi"
+  return(myppi)
+}
+
 #' @describeIn ppi ppi for a single scan parameter
 #' @export
 ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
@@ -397,6 +407,7 @@ ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=N
   # copy the parameter's attributes
   geo=attributes(x)$geo
   geo$bbox=attributes(data)$bboxlatlon
+  geo$merged=FALSE
   data=list(data=data, geo=geo)
   class(data)="ppi"
   data
@@ -410,6 +421,7 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
   # copy the parameter's geo list to attributes
   geo=x$geo
   geo$bbox=attributes(data)$bboxlatlon
+  geo$merged=FALSE
   if(length(x$params)>1){
     alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project,latlim,lonlim))
     data=do.call(cbind,alldata)
@@ -417,6 +429,44 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
   data=list(data=data, geo=geo)
   class(data)="ppi"
   data
+}
+
+#' Merge multiple plan position indicators (ppi objects)
+#'
+#' Merge multiple plan position indicators (ppi objects). Can be used to make a composite of ppi's from multiple radars
+#' @param ... objects of class 'ppi'
+#' @param param scan parameter to merge
+#' @param cells.dim integer; vector with number of cells in each spatial dimension
+#' @export
+#' @return an object of class '\link[=summary.ppi]{ppi}'.
+#' @details The returned PPI is in WGS84 projection (longitude, latitude)
+#' @examples
+#' # load a polar scan example object
+#' data(SCAN)
+#' # to be written ...
+mergeppi=function(...,param="DBZH",cells.dim=c(100,100)){
+  ppis=list(...)
+  ppis=lapply(ppis,`[.ppi`,i=param)
+  if (FALSE %in% sapply(ppis,is.ppi)) stop("'mergeppi' expects objects of class ppi only")
+  lons=sapply(ppis,function(x) x$geo$bbox["lon",])
+  lats=sapply(ppis,function(x) x$geo$bbox["lat",])
+  elangles=sapply(ppis,function(x) x$geo$elangle)
+  bbox=matrix(c(min(lons),min(lats),max(lons),max(lats)),nrow=2,ncol=2,dimnames=dimnames(ppis[[1]]$geo$bbox))
+  # define cartesian grid
+  wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  gridTopo=GridTopology(bbox[,"min"],(bbox[,"max"]-bbox[,"min"])/cells.dim,cells.dim)
+  grid=SpatialGrid(grid=gridTopo,proj4string = wgs84)
+  # initialize all values of the grid to NA
+  spGrid <- SpatialGridDataFrame(grid=grid,data=data.frame(z=rep(1, cells.dim[1]*cells.dim[2])))
+  names(spGrid@data)[1] <- names(ppis[[1]]$data)[1]
+  # merge
+  projs=suppressWarnings(sapply(ppis,function(x) over(spTransform(spGrid,CRS(proj4string(x$data))),x$data)))
+  spGrid@data[,1]=do.call(function(...) pmax(...,na.rm=TRUE),projs)
+
+  ppi.out=list(data=spGrid,geo=list(lat=mean(bbox["lat",]),lon=mean(bbox["lon",]),elangle=elangles,bbox=bbox,merged=TRUE))
+  ppi.out$merged=TRUE
+  class(ppi.out)="ppi"
+  ppi.out
 }
 
 samplePolar=function(param,cellsize,range.max,project,latlim,lonlim){
