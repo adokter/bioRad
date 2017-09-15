@@ -451,11 +451,11 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
   data
 }
 
-#' Merge multiple plan position indicators (ppi objects)
+#' Make a composite of multiple plan position indicators (ppi objects)
 #'
 #' Merge multiple plan position indicators (ppi objects). Can be used to make a composite of ppi's from multiple radars
 #' @param x a list of objects of class 'ppi'
-#' @param param scan parameter to merge
+#' @param param scan parameter to composite
 #' @param cells.dim integer; vector with number of cells in each spatial dimension
 #' @export
 #' @return an object of class '\link[=summary.ppi]{ppi}'.
@@ -464,9 +464,9 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
 #' # load a polar scan example object
 #' data(SCAN)
 #' # to be written ...
-mergeppi=function(x,param="DBZH",cells.dim=c(100,100)){
+composite=function(x,param="DBZH",cells.dim=c(100,100)){
   ppis=lapply(x,`[.ppi`,i=param)
-  if (FALSE %in% sapply(ppis,is.ppi)) stop("'mergeppi' expects objects of class ppi only")
+  if (FALSE %in% sapply(ppis,is.ppi)) stop("'composite' expects objects of class ppi only")
   lons=sapply(ppis,function(x) x$geo$bbox["lon",])
   lats=sapply(ppis,function(x) x$geo$bbox["lat",])
   lons.radar=sapply(ppis,function(x) x$geo$lon)
