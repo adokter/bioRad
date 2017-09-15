@@ -407,7 +407,7 @@ getscan = function(x,angle){
 #' ppi=ppi(param)
 #' # print summary info for this ppi:
 #' ppi
-ppi <- function (x,cellsize=500,range.max=50000,project=T,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
+ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
 
 #' @rdname ppi
 #' @param i indices specifying elements to extract
