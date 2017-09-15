@@ -7,7 +7,7 @@
 \alias{ppi.scan}
 \title{Make a plan position indicator (ppi)}
 \usage{
-ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
+ppi(x, cellsize = 500, range.max = 50000, project = T, latlim = NULL,
   lonlim = NULL)
 
 \method{[}{ppi}(x, i)

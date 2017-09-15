@@ -360,6 +360,26 @@ elangle.pvol = function(x){
   sapply(x$scans,elangle.scan)
 }
 
+#' Extract a scan from a polar volume
+#'
+#' Extract a scan from a polar volume
+#' @param x an object of class 'pvol'
+#' @param angle elevation angle
+#' @export
+#' @return an object of class '\link[=summary.scan]{scan}'.
+#' @details The function returns the scan with elevation angle closest to \code{angle}
+#' @examples
+#' # locate example volume file:
+#' pvol <- system.file("extdata", "volume.h5", package="bioRad")
+#' # load the file:
+#' vol=read.pvol(pvol)
+#' # extract the scan at 3 degree elevation:
+#' myscan = getscan(vol,3)
+getscan = function(x,angle){
+  stopifnot(inherits(x,"pvol"))
+  x$scans[[which.min(abs(elangle(x)-angle))]]
+}
+
 #' Make a plan position indicator (ppi)
 #'
 #' Make a plan position indicator (ppi)
@@ -387,7 +407,7 @@ elangle.pvol = function(x){
 #' ppi=ppi(param)
 #' # print summary info for this ppi:
 #' ppi
-ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
+ppi <- function (x,cellsize=500,range.max=50000,project=T,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
 
 #' @rdname ppi
 #' @param i indices specifying elements to extract
@@ -434,7 +454,7 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
 #' Merge multiple plan position indicators (ppi objects)
 #'
 #' Merge multiple plan position indicators (ppi objects). Can be used to make a composite of ppi's from multiple radars
-#' @param ... objects of class 'ppi'
+#' @param x a list of objects of class 'ppi'
 #' @param param scan parameter to merge
 #' @param cells.dim integer; vector with number of cells in each spatial dimension
 #' @export
@@ -444,12 +464,13 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
 #' # load a polar scan example object
 #' data(SCAN)
 #' # to be written ...
-mergeppi=function(...,param="DBZH",cells.dim=c(100,100)){
-  ppis=list(...)
-  ppis=lapply(ppis,`[.ppi`,i=param)
+mergeppi=function(x,param="DBZH",cells.dim=c(100,100)){
+  ppis=lapply(x,`[.ppi`,i=param)
   if (FALSE %in% sapply(ppis,is.ppi)) stop("'mergeppi' expects objects of class ppi only")
   lons=sapply(ppis,function(x) x$geo$bbox["lon",])
   lats=sapply(ppis,function(x) x$geo$bbox["lat",])
+  lons.radar=sapply(ppis,function(x) x$geo$lon)
+  lats.radar=sapply(ppis,function(x) x$geo$lat)
   elangles=sapply(ppis,function(x) x$geo$elangle)
   bbox=matrix(c(min(lons),min(lats),max(lons),max(lats)),nrow=2,ncol=2,dimnames=dimnames(ppis[[1]]$geo$bbox))
   # define cartesian grid
@@ -463,8 +484,8 @@ mergeppi=function(...,param="DBZH",cells.dim=c(100,100)){
   projs=suppressWarnings(sapply(ppis,function(x) over(spTransform(spGrid,CRS(proj4string(x$data))),x$data)))
   spGrid@data[,1]=do.call(function(...) pmax(...,na.rm=TRUE),projs)
 
-  ppi.out=list(data=spGrid,geo=list(lat=mean(bbox["lat",]),lon=mean(bbox["lon",]),elangle=elangles,bbox=bbox,merged=TRUE))
-  ppi.out$merged=TRUE
+  ppi.out=list(data=spGrid,geo=list(lat=lats.radar,lon=lons.radar,elangle=elangles,bbox=bbox,merged=TRUE))
+  ppi.out$geo$merged=TRUE
   class(ppi.out)="ppi"
   ppi.out
 }
@@ -699,7 +720,8 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
   wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
-  epsg3857=CRS("+init=epsg:3857") # this is the google mercator projection, for later reference
+  #epsg3857=CRS("+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  #epsg3857=CRS("+init=epsg:3857") # this is the google mercator projection, for later reference
   data=suppressWarnings(spTransform(data,wgs84))
   data=as.data.frame(data)
   names(data)=c("z","s1","s2")
