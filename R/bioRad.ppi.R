@@ -754,7 +754,7 @@ print.ppi=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   stopifnot(inherits(x, "ppi"))
   cat("               Plan position indicator (class ppi)\n\n")
   cat("  quantities: ",names(x$data),"\n")
-  cat("        dims: ",x$data@grid@cells.dim[1],"x",x$data@grid@cells.dim[2],"cells of",x$data@grid@cellsize[1],"m\n\n")
+  cat("        dims: ",x$data@grid@cells.dim[1],"x",x$data@grid@cells.dim[2],"pixels\n\n")
 }
 
 #' Class 'ppi': plan position indicator
