@@ -8,7 +8,7 @@
 map(x, ...)
 
 \method{map}{ppi}(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
-  ratio, radar.size = 3, radar.color = "red", ...)
+  ratio, radar.size = 3, radar.color = "red", n.color = 1000, ...)
 }
 \arguments{
 \item{x}{an object of class 'ppi'}
@@ -32,6 +32,8 @@ map(x, ...)
 \item{radar.size}{size of the symbol indicating the radar position}
 
 \item{radar.color}{colour of the symbol indicating the radar position}
+
+\item{n.color}{the number of colors (>=1) to be in the palette}
 }
 \value{
 a ggmap object (a classed raster object with a bounding box attribute)

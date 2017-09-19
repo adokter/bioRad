@@ -4,7 +4,7 @@
 \alias{basemap}
 \title{Grab a basemap for a ppi}
 \usage{
-basemap(x, verbose = TRUE, zoom, ...)
+basemap(x, verbose = TRUE, zoom, alpha = 1, ...)
 }
 \arguments{
 \item{x}{an object of class 'ppi'}
@@ -13,6 +13,8 @@ basemap(x, verbose = TRUE, zoom, ...)
 
 \item{zoom}{zoom level (optional), see \link[ggmap]{get_map}. An integer from 3 (continent) to 21 (building).
 By default the zoom level matching the ppi extent is selected automatically.}
+
+\item{alpha}{transparancy of the basemap (0-1)}
 
 \item{...}{arguments to pass to \link[ggmap]{get_map} function}
 }

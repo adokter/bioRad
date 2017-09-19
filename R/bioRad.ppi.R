@@ -464,7 +464,7 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
 #' # load a polar scan example object
 #' data(SCAN)
 #' # to be written ...
-composite=function(x,param="DBZH",cells.dim=c(100,100)){
+composite <- function(x,param="DBZH",cells.dim=c(100,100)){
   ppis=lapply(x,`[.ppi`,i=param)
   if (FALSE %in% sapply(ppis,is.ppi)) stop("'composite' expects objects of class ppi only")
   lons=sapply(ppis,function(x) x$geo$bbox["lon",])
@@ -473,8 +473,8 @@ composite=function(x,param="DBZH",cells.dim=c(100,100)){
   lats.radar=sapply(ppis,function(x) x$geo$lat)
   elangles=sapply(ppis,function(x) x$geo$elangle)
   bbox=matrix(c(min(lons),min(lats),max(lons),max(lats)),nrow=2,ncol=2,dimnames=dimnames(ppis[[1]]$geo$bbox))
-  # define cartesian grid
-  wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  # define latlon grid
+  wgs84=CRS("+proj=longlat +datum=WGS84")
   gridTopo=GridTopology(bbox[,"min"],(bbox[,"max"]-bbox[,"min"])/cells.dim,cells.dim)
   grid=SpatialGrid(grid=gridTopo,proj4string = wgs84)
   # initialize all values of the grid to NA
@@ -485,13 +485,13 @@ composite=function(x,param="DBZH",cells.dim=c(100,100)){
   spGrid@data[,1]=do.call(function(...) pmax(...,na.rm=TRUE),projs)
 
   ppi.out=list(data=spGrid,geo=list(lat=lats.radar,lon=lons.radar,elangle=elangles,bbox=bbox,merged=TRUE))
-  ppi.out$geo$merged=TRUE
   class(ppi.out)="ppi"
   ppi.out
 }
 
 samplePolar=function(param,cellsize,range.max,project,latlim,lonlim){
-  proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
+  #proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
+  proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +units=m",sep=""))
   bboxlatlon=proj2wgs(c(-range.max,range.max),c(-range.max,range.max),proj4string)@bbox
   if(!missing(latlim) & !is.null(latlim)) bboxlatlon["lat",]=latlim
   if(!missing(lonlim) & !is.null(lonlim)) bboxlatlon["lon",]=lonlim
@@ -507,7 +507,7 @@ samplePolar=function(param,cellsize,range.max,project,latlim,lonlim){
   # define cartesian grid
   gridTopo=GridTopology(cellcentre.offset,c(cellsize,cellsize),cells.dim)
   # if projecting, account for elevation angle - not accounting for earths curvature
-  if(project) elev=attributes(param)$geo$elangle else elev=0
+  if(project) elev=attributes(param)$geo$elangle*pi/180 else elev=0
   # get scan parameter indices, and extract data
   index=polar2index(cartesian2polar(coordinates(gridTopo),elev),attributes(param)$geo$rscale,attributes(param)$geo$ascale)
   data=data.frame(mapply(function(x,y) safeSubset(param,x,y),x=index$row,y=index$col))
@@ -622,6 +622,7 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
 #' @param x an object of class 'ppi'
 #' @param zoom zoom level (optional), see \link[ggmap]{get_map}. An integer from 3 (continent) to 21 (building).
 #' By default the zoom level matching the ppi extent is selected automatically.
+#' @param alpha transparancy of the basemap (0-1)
 #' @param verbose logical. whether to print information to console
 #' @param ... arguments to pass to \link[ggmap]{get_map} function
 #' @export
@@ -641,9 +642,8 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
 #' basemap=basemap(ppi,maptype="satellite")
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi,map=basemap,param="VRADH")
-basemap=function(x,verbose=TRUE,zoom,...){
+basemap=function(x,verbose=TRUE,zoom,alpha=1,...){
   stopifnot(inherits(x,"ppi"))
-  wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   if(!missing(zoom)) if(!is.numeric(zoom)) stop("zoom should be a numeric integer")
   # check size of ppi and determine zoom
   if(missing(zoom)) use_zoom=calc_zoom(x$geo$bbox["lon",],x$geo$bbox["lat",])
@@ -666,7 +666,8 @@ basemap=function(x,verbose=TRUE,zoom,...){
   }
   attributes(map)$geo=x$geo
   attributes(map)$ppi=T
-  map
+  # add transparency
+  add.alpha(map, alpha=alpha)
 }
 
 #' Map a plan position indicator (ppi)
@@ -678,6 +679,7 @@ basemap=function(x,verbose=TRUE,zoom,...){
 #' @param alpha transparency of the data, value between 0 and 1
 #' @param radar.size size of the symbol indicating the radar position
 #' @param radar.color colour of the symbol indicating the radar position
+#' @param n.color the number of colors (>=1) to be in the palette
 #' @param xlim range of x values to plot
 #' @param ylim range of y values to plot
 #' @param zlim the range of values to plot
@@ -704,9 +706,31 @@ basemap=function(x,verbose=TRUE,zoom,...){
 #' map(ppi,map=basemap,xlim=c(12.4,13.2),ylim=c(56,56.5))
 map <- function (x, ...) UseMethod("map", x)
 
+# helper function to add transparency
+# class dispatching needs improvement
+add.alpha <- function(col, alpha=1){
+  if(missing(col)) stop("Please provide a vector or matrix of colours.")
+  mycol=col2rgb(col)/255
+  mycol=rgb(mycol[1,],mycol[2,],mycol[3,],alpha=alpha)
+  if(inherits(col,"ggmap")){
+    mycol=matrix(mycol,nrow=dim(col)[1],ncol=dim(col)[2])
+    attributes(mycol)=attributes(col)
+    class(mycol)=class(col)
+    return(mycol)
+  }
+  else if(inherits(col,"raster")){
+    col@data@values=mycol
+    return(col)
+  }
+  else{
+    return(mycol)
+    #apply(sapply(col, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha=alpha))
+  }
+}
+
 #' @describeIn map plot a 'ppi' object on a map
 #' @export
-map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size=3,radar.color="red",...){
+map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size=3,radar.color="red",n.color=1000,...){
   stopifnot(inherits(x,"ppi"))
   if(missing(param)){
     if("DBZH" %in% names(x$data)) param="DBZH"
@@ -719,17 +743,36 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   if(attributes(map)$geo$lat!=x$geo$lat || attributes(map)$geo$lon!=x$geo$lon) stop("not a basemap for this radar location")
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
-  wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  #wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  wgs84=CRS("+proj=longlat +datum=WGS84")
   #epsg3857=CRS("+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  #epsg3857=CRS("+init=epsg:3857") # this is the google mercator projection, for later reference
-  data=suppressWarnings(spTransform(data,wgs84))
-  data=as.data.frame(data)
-  names(data)=c("z","s1","s2")
+  epsg3857=CRS("+init=epsg:3857") # this is the google mercator projection, for later reference
+  #data=suppressWarnings(spTransform(data,wgs84))
+  e=extent(data)
+  mybbox=suppressWarnings(spTransform(SpatialPoints(t(data@bbox),proj4string=data@proj4string),CRS("+init=epsg:3857")))
+  r <- raster(extent(mybbox), ncol=data@grid@cells.dim[1]*.9, nrow=data@grid@cells.dim[2]*.9,crs=CRS(proj4string(mybbox)))
+  # convert to google earth mercator projection
+  data=suppressWarnings(as.data.frame(spTransform(data,CRS("+init=epsg:3857"))))
   # bring z-values within plotting range
   index=which(data$z<zlim[1])
   if(length(index)>0) data[index,]$z=zlim[1]
   index=which(data$z>zlim[2])
   if(length(index)>0) data[index,]$z=zlim[2]
+  # rasterize
+  r<-rasterize(data[,2:3], r, data[,1])
+  # assign colors
+
+  if(param %in% c("VRADH","VRADV","VRAD")) cols=add.alpha(colorRampPalette(colors=c("blue","red","white"),alpha=TRUE)(n.color),alpha=alpha)
+  else cols=add.alpha(colorRampPalette(colors=c("lightblue","darkblue","green","yellow","red","magenta"),alpha=TRUE)(n.color),alpha=alpha)
+
+  colf=function(value,lim){
+    output=rep(0,length(value))
+    output=round((value-lim[1])/(lim[2]-lim[1])*n.color)
+    output[output>n.color]=n.color
+    output[output<1]=1
+    return(cols[output])
+  }
+  r@data@values=colf(r@data@values,zlim)
   # symbol for the radar position
   radarpoint=geom_point(aes(x = lon, y = lat),colour=radar.color,size=radar.size,data=data.frame(lon=x$geo$lon,lat=x$geo$lat))
   # colorscale
@@ -738,11 +781,14 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   bboxlatlon=attributes(map)$geo$bbox
   if(missing(xlim)) xlim=bboxlatlon[1,]
   if(missing(ylim)) ylim=bboxlatlon[2,]
-  if(missing(ratio)) ratio=1/cos(mean(x$geo$bbox["lat",])*pi/180)
-  bbox = coord_fixed(xlim=xlim,ylim=ylim,ratio=ratio)
+  #if(missing(ratio)) ratio=1/cos(mean(x$geo$bbox["lat",])*pi/180)
+  #bbox = coord_fixed(xlim=xlim,ylim=ylim,ratio=ratio)
   # plot the data on the map
-  nbins=x$data@grid@cells.dim[1]
-  ggmap(map) + bbox + stat_summary_2d(aes(x=s1, y=s2, z=z),size=.5,bins=nbins,alpha=alpha,data=data) + colorscale + radarpoint
+  # old reference code:
+    #nbins=x$data@grid@cells.dim[1]
+    #ggmap(map) + stat_summary_2d(aes(x=s1, y=s2, z=z),size=.5,bins=nbins,alpha=alpha,data=data) + colorscale + radarpoint + bbox
+    #ggmap(map) + geom_raster(aes(x=s1,y=s2,fill=z),alpha=alpha,data=data) + colorscale + radarpoint + bbox
+  ggmap(bm)+inset_raster(raster::as.matrix(r),e@xmin,e@xmax,e@ymin,e@ymax) + scale_x_continuous(limits = xlim, expand = c(0, 0)) + scale_y_continuous(limits = ylim, expand = c(0, 0)) + colorscale + radarpoint
 }
 
 #' print method for ppi
