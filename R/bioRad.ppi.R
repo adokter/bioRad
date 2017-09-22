@@ -559,10 +559,17 @@ polar2index=function(coords.polar,rangebin=1, azimbin=1){
 }
 
 get_colorscale=function(param,zlim){
+  if(param %in% c("VRADH","VRADV","VRAD")) colorscale=scale_colour_gradient2(low="blue", high="red", mid="white",name=param,midpoint=0,limits=zlim)
+  else colorscale=scale_colour_gradientn(colours=c("lightblue","darkblue","green","yellow","red","magenta"),name=param,limits=zlim)
+  return(colorscale)
+}
+
+get_colorscale_fill=function(param,zlim){
   if(param %in% c("VRADH","VRADV","VRAD")) colorscale=scale_fill_gradient2(low="blue", high="red", mid="white",name=param,midpoint=0,limits=zlim)
   else colorscale=scale_fill_gradientn(colours=c("lightblue","darkblue","green","yellow","red","magenta"),name=param,limits=zlim)
   return(colorscale)
 }
+
 
 get_zlim=function(param){
   if(param %in% c("DBZH","DBZV","DBZ")) return(c(-20,30))
@@ -604,7 +611,7 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   }
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
   if(missing(zlim)) zlim=get_zlim(param)
-  colorscale=get_colorscale(param,zlim)
+  colorscale=get_colorscale_fill(param,zlim)
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
   # convert to points
@@ -743,14 +750,12 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   if(attributes(map)$geo$lat!=x$geo$lat || attributes(map)$geo$lon!=x$geo$lon) stop("not a basemap for this radar location")
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
-  #wgs84=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
   wgs84=CRS("+proj=longlat +datum=WGS84")
-  #epsg3857=CRS("+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-  epsg3857=CRS("+init=epsg:3857") # this is the google mercator projection, for later reference
-  #data=suppressWarnings(spTransform(data,wgs84))
-  e=extent(data)
+  epsg3857=CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox=suppressWarnings(spTransform(SpatialPoints(t(data@bbox),proj4string=data@proj4string),CRS("+init=epsg:3857")))
-  r <- raster(extent(mybbox), ncol=data@grid@cells.dim[1]*.9, nrow=data@grid@cells.dim[2]*.9,crs=CRS(proj4string(mybbox)))
+  mybbox.wgs=suppressWarnings(spTransform(SpatialPoints(t(data@bbox),proj4string=data@proj4string),wgs84))
+  e=raster::extent(mybbox.wgs)
+  r <- raster(raster::extent(mybbox), ncol=data@grid@cells.dim[1]*.9, nrow=data@grid@cells.dim[2]*.9,crs=CRS(proj4string(mybbox)))
   # convert to google earth mercator projection
   data=suppressWarnings(as.data.frame(spTransform(data,CRS("+init=epsg:3857"))))
   # bring z-values within plotting range
@@ -759,36 +764,36 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   index=which(data$z>zlim[2])
   if(length(index)>0) data[index,]$z=zlim[2]
   # rasterize
-  r<-rasterize(data[,2:3], r, data[,1])
+  r<-raster::rasterize(data[,2:3], r, data[,1])
   # assign colors
-
-  if(param %in% c("VRADH","VRADV","VRAD")) cols=add.alpha(colorRampPalette(colors=c("blue","red","white"),alpha=TRUE)(n.color),alpha=alpha)
+  if(param %in% c("VRADH","VRADV","VRAD")) cols=add.alpha(colorRampPalette(colors=c("blue","white","red"),alpha=TRUE)(n.color),alpha=alpha)
   else cols=add.alpha(colorRampPalette(colors=c("lightblue","darkblue","green","yellow","red","magenta"),alpha=TRUE)(n.color),alpha=alpha)
 
-  colf=function(value,lim){
+  col.func=function(value,lim){
     output=rep(0,length(value))
     output=round((value-lim[1])/(lim[2]-lim[1])*n.color)
     output[output>n.color]=n.color
     output[output<1]=1
     return(cols[output])
   }
-  r@data@values=colf(r@data@values,zlim)
-  # symbol for the radar position
+  r@data@values=col.func(r@data@values,zlim)
+  # these declarations prevent generation of NOTE "no visible binding for global variable" during package Check
+  lon=lat=y=z=NA
+  # symbols for the radar position
+  # dummy is a hack to be able to include the ggplot2 color scale, radarpoint is the actual plotting of radar positions.
+  dummy=geom_point(aes(x = lon, y = lat, colour=z),size=0,data=data.frame(lon=x$geo$lon,lat=x$geo$lat,z=0))
   radarpoint=geom_point(aes(x = lon, y = lat),colour=radar.color,size=radar.size,data=data.frame(lon=x$geo$lon,lat=x$geo$lat))
   # colorscale
   colorscale=get_colorscale(param,zlim)
   # bounding box
   bboxlatlon=attributes(map)$geo$bbox
+  # remove dimnames, otherwise ggmap will give a warning message below:
+  dimnames(bboxlatlon)=NULL
   if(missing(xlim)) xlim=bboxlatlon[1,]
   if(missing(ylim)) ylim=bboxlatlon[2,]
-  #if(missing(ratio)) ratio=1/cos(mean(x$geo$bbox["lat",])*pi/180)
-  #bbox = coord_fixed(xlim=xlim,ylim=ylim,ratio=ratio)
   # plot the data on the map
-  # old reference code:
-    #nbins=x$data@grid@cells.dim[1]
-    #ggmap(map) + stat_summary_2d(aes(x=s1, y=s2, z=z),size=.5,bins=nbins,alpha=alpha,data=data) + colorscale + radarpoint + bbox
-    #ggmap(map) + geom_raster(aes(x=s1,y=s2,fill=z),alpha=alpha,data=data) + colorscale + radarpoint + bbox
-  ggmap(bm)+inset_raster(raster::as.matrix(r),e@xmin,e@xmax,e@ymin,e@ymax) + scale_x_continuous(limits = xlim, expand = c(0, 0)) + scale_y_continuous(limits = ylim, expand = c(0, 0)) + colorscale + radarpoint
+  mymap = suppressMessages(ggmap(map)+inset_raster(raster::as.matrix(r),e@xmin,e@xmax,e@ymin,e@ymax) + dummy + colorscale + radarpoint + scale_x_continuous(limits = xlim, expand = c(0, 0)) + scale_y_continuous(limits = ylim, expand = c(0, 0)))
+  suppressWarnings(mymap)
 }
 
 #' print method for ppi

@@ -123,6 +123,7 @@
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom curl curl_download
+#' @importFrom grDevices col2rgb colorRampPalette rgb
 #'
 "_PACKAGE"
 #> [1] "_PACKAGE"
