@@ -70,9 +70,12 @@ read.pvol = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","PHIDP
   scans=scans[elevs>=elangle.min & elevs<=elangle.max]
 
   #extract attributes
-  attribs.how=h5readAttributes(filename,"how")
-  attribs.what=h5readAttributes(filename,"what")
-  attribs.where=h5readAttributes(filename,"where")
+  h5struct=h5ls(pvol)
+  h5struct=h5struct[h5struct$group=="/",]$name
+  attribs.how=attribs.what=attribs.where=NULL
+  if("how" %in% h5struct) attribs.how=h5readAttributes(filename,"how")
+  if("what" %in% h5struct) attribs.what=h5readAttributes(filename,"what")
+  if("where" %in% h5struct) attribs.where=h5readAttributes(filename,"where")
 
   vol.lat=attribs.where$lat
   vol.lon=attribs.where$lon
@@ -844,4 +847,3 @@ dim.ppi <- function(x) {
   stopifnot(inherits(x,"ppi"))
   c(dim(x$data)[2],x$data@grid@cells.dim)
 }
-
