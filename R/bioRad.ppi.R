@@ -70,7 +70,7 @@ read.pvol = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","PHIDP
   scans=scans[elevs>=elangle.min & elevs<=elangle.max]
 
   #extract attributes
-  h5struct=h5ls(pvol)
+  h5struct=h5ls(filename)
   h5struct=h5struct[h5struct$group=="/",]$name
   attribs.how=attribs.what=attribs.where=NULL
   if("how" %in% h5struct) attribs.how=h5readAttributes(filename,"how")

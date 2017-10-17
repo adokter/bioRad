@@ -560,7 +560,8 @@ vpts = function(x,radar=NA){
 
 #' Vertically integrate profiles
 #'
-#' Performs a vertical integration of density, reflectivity and migration traffic rate.
+#' Performs a vertical integration of density, reflectivity and migration traffic rate,
+#' and a vertical averaging of ground speed and direction weighted by density.
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
@@ -576,6 +577,10 @@ vpts = function(x,radar=NA){
 #'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
 #'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
+#'    \item{\code{ff}}{Horizontal ground speed in m/s}
+#'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
+#'    \item{\code{u}}{Ground speed componenet west to east in m/s}
+#'    \item{\code{v}}{Ground speed componenet north to south in m/s}
 #' }
 #' Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
 #' the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
@@ -616,7 +621,11 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
   rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
   vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
   vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
-  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
+  u=sum(fetch(x,"u")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
+  v=sum(fetch(x,"v")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
+  ff=sqrt(u^2+v^2)
+  dd=(pi/2-atan2(v,u))*180/pi
+  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
@@ -658,7 +667,11 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   rtr=colSums(cosfactor*fetch(x,"ff")[index,]*3.6*fetch(x,"eta")[index,],na.rm=T)*interval/1000
   vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
   vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
-  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr)
+  u=colSums(fetch(x,"u")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
+  v=colSums(fetch(x,"v")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
+  ff=sqrt(u^2+v^2)
+  dd=(pi/2-atan2(v,u))*180/pi
+  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
@@ -916,6 +929,7 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
 #' ts
 readvp.table=function(file,radar,wavelength='C'){
   if(!file.exists(file)) stop(paste("file",file,"doesn't exist"))
+  if(file.size(file)==0) stop(paste("file",file,"is empty"))
   if(missing(radar)) stop("'radar' argument missing. Required to specify a radar identifier")
   if(missing(wavelength)) warning(paste("No 'wavelength' argument provided, assuming radar operates at ",wavelength,"-band",sep=""))
   if(wavelength=='C') wavelength=5.3

@@ -28,7 +28,8 @@ vintegrate(x, alt.min, alt.max, alpha = NA)
 an object of class \code{vivp}, a data frame with vertically integrated profile quantities
 }
 \description{
-Performs a vertical integration of density, reflectivity and migration traffic rate.
+Performs a vertical integration of density, reflectivity and migration traffic rate,
+and a vertical averaging of ground speed and direction weighted by density.
 }
 \details{
 The function generates a specially classed data frame with the following quantities
@@ -39,6 +40,10 @@ The function generates a specially classed data frame with the following quantit
    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
+   \item{\code{ff}}{Horizontal ground speed in m/s}
+   \item{\code{dd}}{Horizontal ground speed direction in degrees}
+   \item{\code{u}}{Ground speed componenet west to east in m/s}
+   \item{\code{v}}{Ground speed componenet north to south in m/s}
 }
 Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
 the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
