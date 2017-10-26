@@ -54,7 +54,7 @@ Commonly available parameters are:
 }
 The scan parameters
 are named according to the OPERA data information model (ODIM), see
-Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 }
 \section{Methods (by class)}{
 \itemize{

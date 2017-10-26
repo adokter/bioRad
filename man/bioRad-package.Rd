@@ -27,7 +27,7 @@ The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link
 Plot methods are available for ppi, vp and vpts objects
 \subsection{Reading radar data}{
 \pkg{bioRad} can read radar files in
-\href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, such as NEXRAD data.
 \pkg{bioRad}'s class objects are organised very similar to the OPERA data information model.

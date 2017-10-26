@@ -12,7 +12,7 @@ vol2bird(vol.in, vp.out = "", vol.out = "", autoconf = F, verbose = F,
 }
 \arguments{
 \item{vol.in}{A radar file containing a radar polar volume, either in
-\href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.}
 

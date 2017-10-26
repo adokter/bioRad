@@ -30,7 +30,15 @@ Class 'ppi': plan position indicator
 \details{
 A PPI of class 'ppi' is a list containing:
 \describe{
- \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame} containing the georeferenced data}
+ \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame} containing the georeferenced data. Commonly available parameters are:
+    \describe{
+     \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+     \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards the radar are negative, while radial velocities away from the radar are positive}
+     \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
+     \item{"\code{PHIDP}"}{Differential phase [degrees]}
+     \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+       }
+ }
  \item{\code{geo}}{geographic data, a list with:
     \describe{
      \item{\code{lat}}{latitude of the radar [decimal degrees]}

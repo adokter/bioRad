@@ -20,7 +20,7 @@
 #' Plot methods are available for ppi, vp and vpts objects
 #' \subsection{Reading radar data}{
 #' \pkg{bioRad} can read radar files in
-#' \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, such as NEXRAD data.
 #' \pkg{bioRad}'s class objects are organised very similar to the OPERA data information model.
@@ -48,7 +48,7 @@
 #' is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
 #' }
 #' \subsection{Organizing, analyzing and plotting vertical profile data}{
-#' Vertical profiles (\link[=summary.vp]{vp} objects) can be combined with \link[bioRad]{c.vp} into lists of vertical profiles (\link[=summary.vplist]{vplist} objects).
+#' Vertical profiles (\link[=summary.vp]{vp} objects) can be combined with \link[bioRad]{bind.vp} into lists of vertical profiles (\link[=summary.vplist]{vplist} objects).
 #'
 #' Vertical profile lists (\link[=summary.vplist]{vplist} objects) can be converted into vertical profile time series (\link[=summary.vpts]{vpts} objects) using function \link{vpts}.
 #'
@@ -446,16 +446,15 @@ readvp.list=function(files){
   vps=lapply(files,readvp)
   # remove nulls
   vps <- vps[!sapply(vps, is.null)]
-  do.call(c.vp,vps)
+  do.call(bind.vp,vps)
 }
 
 
-#' concatenate \code{vp} objects into a \code{vplist} object
+#' bind \code{vp} objects into a \code{vplist} object
 #' @param ... objects of class \code{vp}
 #' @export
-#' @keywords internal
 #' @return an object of class \code{vplist}, see \link[bioRad]{readvp.list} for details
-c.vp = function(...){
+bind.vp = function(...){
   vps=list(...)
   vptest=sapply(vps,function(x) is(x,"vp"))
   if(FALSE %in% vptest) {
@@ -472,6 +471,38 @@ c.vp = function(...){
   class(output)="vplist"
   output
 }
+
+#' bind time series of vertical profiles (\code{vpts} objects)
+#' @param ... objects of class \code{vpts}
+#' @attributes.from which vpts object to copy attributes form (default: first)
+#' @export
+#' @return an object of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
+bind.vpts = function(...,attributes.from=1){
+  vptss=list(...)
+  vptstest=sapply(vptss,function(x) is(x,"vpts"))
+  if(FALSE %in% vptstest) {
+    warning("non-vpts objects found, returning a standard list...")
+    return(vptss)
+  }
+  # extract radar identifiers
+  radars=unique(sapply(vptss,'[[',"radar"))
+  if(length(radars)>1) stop("Vertical profiles are not from a single radar")
+  if(length(unique(lapply(vptss,'[[',"heights")))>1) stop("Vertical profiles have non-aligning altitude layers")
+  if(length(unique(lapply(vptss,function(x) names(x$"data"))))>1) stop("Vertical profiles have different quantities")
+  # extract date-times
+  dates=.POSIXct(do.call("c",lapply(vptss,'[[',"dates")),tz="UTC")
+  quantities=names(vptss[[1]]$data)
+  ordering=order(dates)
+  dates=dates[ordering]
+  data=lapply(quantities, function(quantity) do.call(cbind,lapply(vptss,function(x) x$"data"[[quantity]]))[,ordering])
+  names(data)=quantities
+  difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
+  if(length(unique(difftimes))==1) regular = T else regular = F
+  output=list(radar=radars,dates=dates,heights=vptss[[1]]$heights,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=data,attributes=vptss[attributes.from]$attributes,regular=regular)
+  class(output)="vpts"
+  output
+}
+
 
 #' Class 'vplist': list of vertical profiles
 #'
@@ -702,7 +733,7 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #'
 #' Calculates a vertical profile of birds (VPB) from a polar volume
 #' @param vol.in A radar file containing a radar polar volume, either in
-#' \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in \href{https://support.hdfgroup.org/HDF5/}{HDF5} format,
 #' or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
 #' @param vp.out character string. Filename for the vertical profile to be generated in ODIM HDF5 format (optional)

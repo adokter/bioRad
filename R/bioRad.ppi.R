@@ -14,7 +14,7 @@
 #' @return an object of class \link[=summary.pvol]{pvol}, which is a list containing polar scans, i.e. objects of class \code{scan}
 #' @details
 #' Scan parameters are named according to the OPERA data information model (ODIM), see
-#' Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 #' Commonly available parameters are:
 #' \describe{
 #'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
@@ -312,7 +312,7 @@ dim.scan <- function(x) {
 #'    \item{\code{param}}{string with the name of the polar scan parameter}
 #' }
 #' Scan parameters are named according to the OPERA data information model (ODIM), see
-#' Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 #' Commonly available parameters are:
 #' \describe{
 #'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
@@ -619,7 +619,7 @@ get_zlim=function(param){
 #'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
 #' }
 #' The scan parameters are named according to the OPERA data information model (ODIM), see
-#' Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   stopifnot(inherits(x,"ppi"))
   if(missing(param)){
@@ -724,7 +724,7 @@ basemap=function(x,verbose=TRUE,zoom,alpha=1,...){
 #' }
 #' The scan parameters
 #' are named according to the OPERA data information model (ODIM), see
-#' Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 #' @examples
 #' # load an example scan:
 #' data(SCAN)
@@ -848,7 +848,15 @@ print.ppi=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' @details
 #' A PPI of class 'ppi' is a list containing:
 #' \describe{
-#'  \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame} containing the georeferenced data}
+#'  \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame} containing the georeferenced data. Commonly available parameters are:
+#'     \describe{
+#'      \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+#'      \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards the radar are negative, while radial velocities away from the radar are positive}
+#'      \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
+#'      \item{"\code{PHIDP}"}{Differential phase [degrees]}
+#'      \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+#'        }
+#'  }
 #'  \item{\code{geo}}{geographic data, a list with:
 #'     \describe{
 #'      \item{\code{lat}}{latitude of the radar [decimal degrees]}
