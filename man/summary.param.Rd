@@ -23,7 +23,7 @@ for \code{is.scan}: \code{TRUE} if its argument is of class "\code{param}"
 Class 'param': polar scan parameter
 }
 \details{
-Scan parameters are simple matrices, with the follwowing specific attributes:
+Scan parameters are simple matrices, with the following specific attributes:
 \describe{
    \item{\code{lat}}{latitude of the radar [decimal degrees]}
    \item{\code{lon}}{longitude of the radar [decimal degrees]}

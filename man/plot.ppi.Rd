@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{an object of class 'ppi'}
 
-\item{param}{the scan parameter to plot}
+\item{param}{the scan parameter to plot, see details below}
 
 \item{xlim}{range of x values to plot}
 
@@ -24,10 +24,25 @@
 \description{
 Plots a plan position indicator (PPI) generated with \link{ppi} using \link[ggplot2]{ggplot}
 }
+\details{
+Available scan parameters for plotting can by printed to screen by \code{summary(x)}.
+Commonly available parameters are:
+\describe{
+ \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+ \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards
+  the radar are negative, while radial velocities away from the radar are positive}
+ \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
+ \item{"\code{PHIDP}"}{Differential phase [degrees]}
+ \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+}
+The scan parameters are named according to the OPERA data information model (ODIM), see
+Table 16 in the \href{http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+}
 \examples{
 # load an example scan:
 data(SCAN)
-SCAN
+# print to screen the available scan parameters:
+summary(SCAN)
 # make ppi for the scan
 ppi=ppi(SCAN)
 # plot the first scan parameter, which in this case is "VRADH":

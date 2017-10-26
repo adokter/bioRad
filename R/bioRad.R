@@ -983,11 +983,13 @@ readvp.table=function(file,radar,wavelength='C'){
 #' Regularize a time series
 #'
 #' Projects objects of class \code{vpts} on a regular time grid
-#' @param ts an object inhereting from class \code{vpts}, see \link[bioRad]{vpts} for details
-#' @param interval time interval grid to project on. When '\code{auto}' the median interval in the time series is used
+#' @param ts an object inhereting from class \code{vpts}, see \link[bioRad]{vpts} for details.
+#' @param interval time interval grid to project on. When '\code{auto}' the median interval in the time series is used.
+#' @param t.min start time of the projected time series, as a POSIXct object. Taken from \code{ts} when '\code{auto}'.
+#' @param t.max end time of the projected time series, as a POSIXct object. Taken from \code{ts} when '\code{auto}'.
 #' @param units optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill logical. Whether to fill missing timesteps with the values of the closest neighbouring profile
-#' @param verbose logical. When \code{TRUE} prints text to console
+#' @param fill logical. Whether to fill missing timesteps with the values of the closest neighbouring profile.
+#' @param verbose logical. When \code{TRUE} prints text to console.
 #' @export
 #' @return an object of class \code{vpts} with regular time steps
 #' @examples
@@ -997,18 +999,21 @@ readvp.table=function(file,radar,wavelength='C'){
 #' ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular=regularize(ts, interval=5)
-regularize=function(ts,interval="auto",units="mins",fill=F,verbose=T){
+regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[1],units="mins",fill=F,verbose=T){
   stopifnot(inherits(ts, "vpts"))
+  stopifnot(inherits(daterange, "POSIXct"))
   if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) stop("invalid 'units' argument. Should be one of c('secs', 'mins', 'hours','days', 'weeks')")
   if (interval!="auto" && !is.numeric(interval)) stop("invalid or missing 'interval' argument. Should be a numeric value")
   if (length(units)>1) stop("invalid or missing 'units' argument.")
   if (!is.logical(fill) || length(fill)>1) stop("fill argument should be a logical value")
+
   if(interval=="auto"){
     dt=as.difftime(median(ts$timesteps),units="secs")
     if(verbose) cat(paste("projecting on",dt,"seconds interval grid...\n"))
   }
   else dt=as.difftime(interval,units=units)
-  grid=seq(from=ts$daterange[1],to=ts$daterange[2],by=dt)
+  daterange=c(t.min,t.max)
+  grid=seq(from=daterange[1],to=daterange[2],by=dt)
   index=sapply(grid,function(x) which.min(abs(ts$dates - x)))
   quantity.names=names(ts$data)
   ts$data=lapply(1:length(ts$data),function(x) ts$data[[x]][,index])
