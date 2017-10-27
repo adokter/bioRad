@@ -446,15 +446,14 @@ readvp.list=function(files){
   vps=lapply(files,readvp)
   # remove nulls
   vps <- vps[!sapply(vps, is.null)]
-  do.call(bind.vp,vps)
+  do.call(c.vp,vps)
 }
 
-
-#' bind \code{vp} objects into a \code{vplist} object
+#' concatenate \code{vp} objects into a \code{vplist} object
 #' @param ... objects of class \code{vp}
 #' @export
 #' @return an object of class \code{vplist}, see \link[bioRad]{readvp.list} for details
-bind.vp = function(...){
+c.vp = function(...){
   vps=list(...)
   vptest=sapply(vps,function(x) is(x,"vp"))
   if(FALSE %in% vptest) {
@@ -472,18 +471,46 @@ bind.vp = function(...){
   output
 }
 
-#' bind time series of vertical profiles (\code{vpts} objects)
-#' @param ... objects of class \code{vpts}
-#' @attributes.from which vpts object to copy attributes form (default: first)
+#' Bind vertical profiles into a time series object
+#'
+#' Use this function to combine profiles or time series objects of the same radar
+#' @param ... objects of class \code{vp} or \code{vpts}
 #' @export
 #' @return an object of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
+#' The profiles in the input \code{vpts} objects will be sorted in time in the output object.
+bind <- function (x, ...) UseMethod("bind", x)
+
+#' @describeIn bind bind \code{vp} objects into a \code{vpts} object
+#' @export
+bind.vp = function(...){
+  vps=list(...)
+  vptest=sapply(vps,function(x) is(x,"vp"))
+  if(FALSE %in% vptest) stop("requires vp objects as input")
+  # extract radar identifiers
+  radars=unique(sapply(vps,'[[',"radar"))
+  if(length(radars)>1) stop("Vertical profiles are not from a single radar")
+  if(length(unique(lapply(vps,'[[',"heights")))>1) stop("Vertical profiles have non-aligning altitude layers")
+  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop("Vertical profiles have different quantities")
+  vpts(c.vp(...))
+}
+
+#' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object
+#' @param attributes.from which vpts object to copy attributes form (default: first)
+#' @export
+#' @examples
+#' # load the example vpts object
+#' data(VPTS)
+#' # split the vpts object into two separate time series, one containing profile 1-10, and a second combining profile 11-20:
+#' vpts1=VPTS[1:10]
+#' vpts2=VPTS[11:20]
+#' # use bind to merge the two together:
+#' vpts1and2=bind(vpts1,vpts2)
+#' # verify that the binded objected now has 20 profiles, 10 from vpts1 and 10 from vpts2:
+#' summary(vpts1and2)
 bind.vpts = function(...,attributes.from=1){
   vptss=list(...)
   vptstest=sapply(vptss,function(x) is(x,"vpts"))
-  if(FALSE %in% vptstest) {
-    warning("non-vpts objects found, returning a standard list...")
-    return(vptss)
-  }
+  if(FALSE %in% vptstest) stop("requires vpts objects as input")
   # extract radar identifiers
   radars=unique(sapply(vptss,'[[',"radar"))
   if(length(radars)>1) stop("Vertical profiles are not from a single radar")
@@ -498,11 +525,10 @@ bind.vpts = function(...,attributes.from=1){
   names(data)=quantities
   difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
   if(length(unique(difftimes))==1) regular = T else regular = F
-  output=list(radar=radars,dates=dates,heights=vptss[[1]]$heights,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=data,attributes=vptss[attributes.from]$attributes,regular=regular)
+  output=list(radar=radars,dates=dates,heights=vptss[[1]]$heights,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=data,attributes=vptss[[attributes.from]]$attributes,regular=regular)
   class(output)="vpts"
   output
 }
-
 
 #' Class 'vplist': list of vertical profiles
 #'
@@ -610,8 +636,9 @@ vpts = function(x,radar=NA){
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
 #'    \item{\code{ff}}{Horizontal ground speed in m/s}
 #'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
-#'    \item{\code{u}}{Ground speed componenet west to east in m/s}
-#'    \item{\code{v}}{Ground speed componenet north to south in m/s}
+#'    \item{\code{u}}{Ground speed component west to east in m/s}
+#'    \item{\code{v}}{Ground speed component north to south in m/s}
+#'    \item{\code{HGHT}}{Height above sea level in m}
 #' }
 #' Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
 #' the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
@@ -652,11 +679,12 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
   rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
   vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
   vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
+  height=sum((x$heights[index]+x$attributes$where$interval/2)*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
   u=sum(fetch(x,"u")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
   v=sum(fetch(x,"v")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
   ff=sqrt(u^2+v^2)
   dd=(pi/2-atan2(v,u))*180/pi
-  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v)
+  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v,HGHT=height)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
@@ -698,11 +726,12 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   rtr=colSums(cosfactor*fetch(x,"ff")[index,]*3.6*fetch(x,"eta")[index,],na.rm=T)*interval/1000
   vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
   vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
+  height=colSums((x$heights[index]+x$attributes$where$interval/2)*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
   u=colSums(fetch(x,"u")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
   v=colSums(fetch(x,"v")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
   ff=sqrt(u^2+v^2)
   dd=(pi/2-atan2(v,u))*180/pi
-  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v)
+  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v,HGHT=height)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
@@ -1030,9 +1059,10 @@ readvp.table=function(file,radar,wavelength='C'){
 #' ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular=regularize(ts, interval=5)
-regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[1],units="mins",fill=F,verbose=T){
+regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
   stopifnot(inherits(ts, "vpts"))
-  stopifnot(inherits(daterange, "POSIXct"))
+  stopifnot(inherits(t.min, "POSIXct"))
+  stopifnot(inherits(t.max, "POSIXct"))
   if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) stop("invalid 'units' argument. Should be one of c('secs', 'mins', 'hours','days', 'weeks')")
   if (interval!="auto" && !is.numeric(interval)) stop("invalid or missing 'interval' argument. Should be a numeric value")
   if (length(units)>1) stop("invalid or missing 'units' argument.")

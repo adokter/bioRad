@@ -42,8 +42,9 @@ The function generates a specially classed data frame with the following quantit
    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
    \item{\code{ff}}{Horizontal ground speed in m/s}
    \item{\code{dd}}{Horizontal ground speed direction in degrees}
-   \item{\code{u}}{Ground speed componenet west to east in m/s}
-   \item{\code{v}}{Ground speed componenet north to south in m/s}
+   \item{\code{u}}{Ground speed component west to east in m/s}
+   \item{\code{v}}{Ground speed component north to south in m/s}
+   \item{\code{HGHT}}{Height above sea level in m}
 }
 Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
 the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity

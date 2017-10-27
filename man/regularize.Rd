@@ -5,7 +5,7 @@
 \title{Regularize a time series}
 \usage{
 regularize(ts, interval = "auto", t.min = ts$daterange[1],
-  t.max = ts$daterange[1], units = "mins", fill = F, verbose = T)
+  t.max = ts$daterange[2], units = "mins", fill = F, verbose = T)
 }
 \arguments{
 \item{ts}{an object inhereting from class \code{vpts}, see \link[bioRad]{vpts} for details.}
