@@ -3,12 +3,15 @@
 \name{bind}
 \alias{bind}
 \alias{bind.vp}
+\alias{bind.vplist}
 \alias{bind.vpts}
 \title{Bind vertical profiles into a time series object}
 \usage{
 bind(x, ...)
 
 \method{bind}{vp}(...)
+
+\method{bind}{vplist}(x)
 
 \method{bind}{vpts}(..., attributes.from = 1)
 }
@@ -26,7 +29,11 @@ Use this function to combine profiles or time series objects of the same radar
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{vp}: bind \code{vp} objects into a \code{vpts} object
+\item \code{vp}: bind \code{vp} objects into a \code{vpts} object. If \code{vp} of multiple radars are provided, a list
+is returned containing \code{vpts} time series objects for each radar.
+
+\item \code{vplist}: bind \code{vplist} objects into a \code{vpts} object. If data of multiple radars is provided, a list
+is returned containing \code{vpts} time series objects for each radar.
 
 \item \code{vpts}: bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object
 }}

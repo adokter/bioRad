@@ -477,7 +477,8 @@ c.vp = function(...){
 #' The profiles in the input \code{vpts} objects will be sorted in time in the output object.
 bind <- function (x, ...) UseMethod("bind", x)
 
-#' @describeIn bind bind \code{vp} objects into a \code{vpts} object
+#' @describeIn bind bind \code{vp} objects into a \code{vpts} object. If \code{vp} of multiple radars are provided, a list
+#' is returned containing \code{vpts} time series objects for each radar.
 #' @export
 bind.vp = function(...){
   vps=list(...)
@@ -485,10 +486,16 @@ bind.vp = function(...){
   if(FALSE %in% vptest) stop("requires vp objects as input")
   # extract radar identifiers
   radars=unique(sapply(vps,'[[',"radar"))
-  if(length(radars)>1) stop("Vertical profiles are not from a single radar")
-  if(length(unique(lapply(vps,'[[',"heights")))>1) stop("Vertical profiles have non-aligning altitude layers")
-  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop("Vertical profiles have different quantities")
   vpts(c.vp(...))
+}
+
+#' @describeIn bind bind \code{vplist} objects into a \code{vpts} object. If data of multiple radars is provided, a list
+#' is returned containing \code{vpts} time series objects for each radar.
+#' @export
+bind.vplist = function(x){
+  vptest=sapply(x,function(y) is(y,"vp"))
+  if(FALSE %in% vptest) stop("requires vplist object as input")
+  vpts(vps)
 }
 
 #' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object
@@ -604,11 +611,9 @@ vptsHelper = function(vps){
   difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
   profile.quantities=names(vps[[1]]$data)
 
-  where.attributes=sapply(lapply(vps,'[[',"attributes"),'[[',"where")
-  if(length(unique(unlist(where.attributes["interval",])))>1) stop("vertical profiles have different altitude bin size")
-  if(length(unique(unlist(where.attributes["levels",])))>1) stop("vertical profiles have different number of altitude bins")
-  if(length(unique(unlist(where.attributes["maxheight",])))>1) stop("vertical profiles have different maxheight")
-  if(length(unique(unlist(where.attributes["minheight",])))>1) stop("vertical profiles have different minheight")
+  if(length(unique(lapply(vps,'[[',"heights")))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"have non-aligning altitude layers"))
+  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"contain different quantities"))
+
   vpsFlat=lapply(profile.quantities, function(quantity) sapply(lapply(vps,'[[',"data"),'[[',quantity))
   names(vpsFlat)=profile.quantities
   if(length(unique(difftimes))==1) regular = T else regular = F
