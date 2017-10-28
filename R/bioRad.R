@@ -463,6 +463,7 @@ c.vp = function(...){
   # extract radar identifiers
   radars=unique(sapply(vps,'[[',"radar"))
   if(length(radars)>1) warning("Vertical profiles are not from a single radar")
+  output=vps
   class(output)=c("vplist","list")
   output
 }
