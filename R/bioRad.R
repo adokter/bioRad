@@ -468,12 +468,14 @@ c.vp = function(...){
   output
 }
 
-#' Bind vertical profiles into a time series object
+#' Bind vertical profiles into time series objects
 #'
-#' Use this function to combine profiles or time series objects of the same radar
-#' @param ... objects of class \code{vp} or \code{vpts}
+#' Binds profiles and list of profiles into a time series object. Also combines multiple time series objects of a single radar into one
+#' time series object.
+#' @param ... object of class \code{vp} or \code{vpts}
+#' @param x objects of class \code{vp}, \code{vplist} or \code{vpts}
 #' @export
-#' @return an object of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
+#' @return An object or a list of objects of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
 #' The profiles in the input \code{vpts} objects will be sorted in time in the output object.
 bind <- function (x, ...) UseMethod("bind", x)
 
@@ -498,7 +500,8 @@ bind.vplist = function(x){
   vpts(vps)
 }
 
-#' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object
+#' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object.
+#' Requires the \code{vpts} objects to be from the same radar.
 #' @param attributes.from which vpts object to copy attributes form (default: first)
 #' @export
 #' @examples
@@ -511,6 +514,13 @@ bind.vplist = function(x){
 #' vpts1and2=bind(vpts1,vpts2)
 #' # verify that the binded objected now has 20 profiles, 10 from vpts1 and 10 from vpts2:
 #' summary(vpts1and2)
+#' # extract two profiles
+#' vp1=VPTS[1]
+#' vp1
+#' vp2=VPTS[2]
+#' vp2
+#' # bind the profile objects back into a time series object:
+#' bind(vp1,vp2)
 bind.vpts = function(...,attributes.from=1){
   vptss=list(...)
   vptstest=sapply(vptss,function(x) is(x,"vpts"))

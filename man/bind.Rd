@@ -5,7 +5,7 @@
 \alias{bind.vp}
 \alias{bind.vplist}
 \alias{bind.vpts}
-\title{Bind vertical profiles into a time series object}
+\title{Bind vertical profiles into time series objects}
 \usage{
 bind(x, ...)
 
@@ -16,16 +16,19 @@ bind(x, ...)
 \method{bind}{vpts}(..., attributes.from = 1)
 }
 \arguments{
-\item{...}{objects of class \code{vp} or \code{vpts}}
+\item{x}{objects of class \code{vp}, \code{vplist} or \code{vpts}}
+
+\item{...}{object of class \code{vp} or \code{vpts}}
 
 \item{attributes.from}{which vpts object to copy attributes form (default: first)}
 }
 \value{
-an object of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
+An object or a list of objects of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
 The profiles in the input \code{vpts} objects will be sorted in time in the output object.
 }
 \description{
-Use this function to combine profiles or time series objects of the same radar
+Binds profiles and list of profiles into a time series object. Also combines multiple time series objects of a single radar into one
+time series object.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -35,7 +38,8 @@ is returned containing \code{vpts} time series objects for each radar.
 \item \code{vplist}: bind \code{vplist} objects into a \code{vpts} object. If data of multiple radars is provided, a list
 is returned containing \code{vpts} time series objects for each radar.
 
-\item \code{vpts}: bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object
+\item \code{vpts}: bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object.
+Requires the \code{vpts} objects to be from the same radar.
 }}
 
 \examples{
@@ -48,4 +52,11 @@ vpts2=VPTS[11:20]
 vpts1and2=bind(vpts1,vpts2)
 # verify that the binded objected now has 20 profiles, 10 from vpts1 and 10 from vpts2:
 summary(vpts1and2)
+# extract two profiles
+vp1=VPTS[1]
+vp1
+vp2=VPTS[2]
+vp2
+# bind the profile objects back into a time series object:
+bind(vp1,vp2)
 }
