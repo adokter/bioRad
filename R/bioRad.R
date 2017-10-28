@@ -544,7 +544,6 @@ summary.vplist=function(object, ...) print.vplist(object)
 #' @export
 `[.vplist` <- function(x,i) {
   stopifnot(inherits(x,"vplist"))
-  #if(length(i)==1) return(x[[i]])
   output=unclass(x)[i]
   class(output)=c("vplist","list")
   return(output)
@@ -750,8 +749,12 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("           radar: ",x$radar,"\n")
   cat("      # profiles: ",length(x$dates),"\n")
   cat("time range (UTC): ",as.character(x$daterange[1]),"-",as.character(x$daterange[2]),"\n")
-  if(x$regular) cat("   time step (s): ",min(x$timesteps),"\n")
-  else cat("   time step (s): ","min:",min(x$timesteps),"    max: ",max(x$timesteps),"\n")
+  if(length(x$timesteps)>0){
+    stepMin=min(x$timesteps)
+    stepMax=max(x$timesteps)
+  } else stepMin=stepMax=NA
+  if(x$regular) cat("   time step (s): ",stepMin,"\n")
+  else cat("   time step (s): ","min:",stepMin,"    max: ",stepMax,"\n")
 }
 
 #' Calculate a vertical profile of birds (VPB)
