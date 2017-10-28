@@ -2,22 +2,25 @@
 % Please edit documentation in R/bioRad.R
 \name{vpts}
 \alias{vpts}
-\title{Convert \code{vplist} to a single radar time series \code{vpts}}
+\title{Convert list of vertical profiles to time series (\code{vpts}) objects}
 \usage{
 vpts(x, radar = NA)
 }
 \arguments{
 \item{x}{An object of class \code{vplist}, usually a result of a call to \link[bioRad]{readvp.list}}
 
-\item{radar}{string containing the radar identifier to generate time series for. Only required when \code{vplist} object contains multiple radars}
+\item{radar}{optional string containing the radar identifier to generate time series for.}
 }
 \value{
-an object of class \link[=summary.vpts]{vpts}
+an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profiles of a single radar. A list of objects of class \link[=summary.vpts]{vpts} in
+case when \code{vplist} contains profiles of multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 }
 \description{
-Convert \code{vplist} to a single radar time series \code{vpts}
+Convert list of vertical profiles to time series (\code{vpts}) objects
 }
 \examples{
-\dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
-
+\dontrun{
+vps=readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+ts=vpts(vps)
+}
 }

@@ -567,29 +567,36 @@ print.vplist=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("time range (UTC): ",as.character(daterange[1]),"-",as.character(daterange[2]),"\n")
 }
 
-#' Convert \code{vplist} to a single radar time series \code{vpts}
+#' Convert list of vertical profiles to time series (\code{vpts}) objects
 #'
 #' @param x An object of class \code{vplist}, usually a result of a call to \link[bioRad]{readvp.list}
-#' @param radar string containing the radar identifier to generate time series for. Only required when \code{vplist} object contains multiple radars
+#' @param radar optional string containing the radar identifier to generate time series for.
 #' @export
-#' @return an object of class \link[=summary.vpts]{vpts}
+#' @return an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profiles of a single radar. A list of objects of class \link[=summary.vpts]{vpts} in
+#' case when \code{vplist} contains profiles of multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 #' @rdname vpts
 #' @examples
-#' \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
-#'
+#' \dontrun{
+#' vps=readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+#' ts=vpts(vps)
+#' }
 vpts = function(x,radar=NA){
   stopifnot(inherits(x, "vplist"))
   # extract radar identifiers
   radars=sapply(x,'[[',"radar")
-  uniqueRadars=unique(radars)
+  uniqueRadars=sort(unique(radars))
+  if(!is.na(radar)){
+    if(!(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
+    else return(vptsHelper(x[which(radars==radar)]))
+  }
   # extract date-times
-  dates=.POSIXct(do.call("c",lapply(x,'[[',"datetime")),tz="UTC")
+  if(is.na(radar) & (length(uniqueRadars)==1)) return(vptsHelper(x[which(radars==uniqueRadars)]))
+  else return(lapply(uniqueRadars,function(y) vpts(x[radars==y])))
+}
+
+vptsHelper = function(vps){
+  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
   daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
-  if(length(uniqueRadars)>1 & is.na(radar)) stop("vertical profile list of multiple radars, select one with 'radar' argument")
-  if(!is.na(radar) & !(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
-  if(is.na(radar) & length(uniqueRadars==1)) radar=uniqueRadars
-  index=which(radars==radar)
-  vps=x[index]
   # sort by datetime
   vps=vps[order(sapply(vps,'[[',"datetime"))]
   dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
@@ -605,7 +612,7 @@ vpts = function(x,radar=NA){
   names(vpsFlat)=profile.quantities
   if(length(unique(difftimes))==1) regular = T else regular = F
   vpsFlat$HGHT<-NULL
-  output=list(radar=radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
+  output=list(radar=vps[[1]]$radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
   class(output)="vpts"
   output
 }
