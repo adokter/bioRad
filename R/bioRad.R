@@ -463,11 +463,7 @@ c.vp = function(...){
   # extract radar identifiers
   radars=unique(sapply(vps,'[[',"radar"))
   if(length(radars)>1) warning("Vertical profiles are not from a single radar")
-  # extract date-times
-  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
-  output=list(vplist=vps,radar=radars,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),dates=dates)
-  output=vps
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   output
 }
 
@@ -548,9 +544,9 @@ summary.vplist=function(object, ...) print.vplist(object)
 #' @export
 `[.vplist` <- function(x,i) {
   stopifnot(inherits(x,"vplist"))
-  if(length(i)==1) return(x[[i]])
+  #if(length(i)==1) return(x[[i]])
   output=unclass(x)[i]
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   return(output)
 }
 
@@ -1268,7 +1264,7 @@ dim.vpts <- function(x) {
 #' @export
 `[.vpts` <- function(x,i) {
   stopifnot(inherits(x,"vpts"))
-  if(length(i)<1) stop("Time series should consist more than one profile")
+  if(length(i)<1) stop("Time series should contain more than one profile")
   if(length(i)==1){
     if(i>0) return(vpts2vp(x,i))
     else{
@@ -1377,7 +1373,7 @@ rcs.vivp <- function (x){
 `rcs<-.vplist` <- function(x,value){
   stopifnot(inherits(x,"vplist"))
   output=lapply(x,`rcs<-.vp`,value=value)
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   output
 }
 
@@ -1478,7 +1474,7 @@ sd_vvp.vpts <- function (x){
 `sd_vvp<-.vplist` <- function(x,value){
   stopifnot(inherits(x,"vplist"))
   output=lapply(x,`sd_vvp<-.vp`,value=value)
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   output
 }
 
