@@ -497,7 +497,7 @@ bind.vp = function(...){
 bind.vplist = function(x){
   vptest=sapply(x,function(y) is(y,"vp"))
   if(FALSE %in% vptest) stop("requires vplist object as input")
-  vpts(vps)
+  vpts(x)
 }
 
 #' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object.
