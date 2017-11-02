@@ -494,10 +494,10 @@ bind.vp = function(...){
 #' @describeIn bind bind \code{vplist} objects into a \code{vpts} object. If data of multiple radars is provided, a list
 #' is returned containing \code{vpts} time series objects for each radar.
 #' @export
-bind.vplist = function(x){
+bind.vplist = function(x, ...){
   vptest=sapply(x,function(y) is(y,"vp"))
   if(FALSE %in% vptest) stop("requires vplist object as input")
-  vpts(x)
+  vpts(x, ...)
 }
 
 #' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object.

@@ -11,7 +11,7 @@ bind(x, ...)
 
 \method{bind}{vp}(...)
 
-\method{bind}{vplist}(x)
+\method{bind}{vplist}(x, ...)
 
 \method{bind}{vpts}(..., attributes.from = 1)
 }
