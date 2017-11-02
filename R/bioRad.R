@@ -1838,3 +1838,50 @@ fetch.vpts=function(x, quantity="dens"){
   return(output)
 }
 
+#' Coerce Vertical Profile Time Series to a Data Frame
+#'
+#' Converts vertical profile time series (objects of class \code{vpts}) to a Data Frame,
+#' and optionally adds information on sunrise/sunset, day/night and derived quantities
+#' like migration traffic rates.
+#' @param x object of class vpts
+#' @param elev sun elevation in degrees
+#' @param lat radar latitude in decimal degrees
+#' @param lon radar longitude in decimal degrees
+#' @param suntime logical. When TRUE, adds sunrise/sunset and day/night information
+#' @return an object of class data.frame
+#' @export
+#' @examples
+#' # load an example vertical profile time series object
+#' data(VPTS)
+#' # convert the object to a data.frame
+#' df=as.data.frame(VPTS)
+#' # do not compute sunrise/sunset information
+#' df=as.data.frame(VPTS,suntime=FALSE)
+#' # override the latitude/longitude information stored in the object
+#' df=as.data.frame(VPTS,suntime=TRUE,lat=50,lon=4)
+as.data.frame.vpts = function(x,suntime=T, elev = -0.268, lat=x$attributes$where$lat, lon=x$attributes$where$lon){
+  stopifnot(inherits(x,"vpts"))
+  # coerce data to a data frame
+  output=as.data.frame(lapply(x$data,c))
+  # add height as a column
+  output=cbind(HGHT=rep(x$heights,length(x$dates)),datetime=as.POSIXct(c(t(replicate(length(x$heights),x$dates))),origin="1970-1-1",tz='UTC'), output)
+  # add radar name
+  output=cbind(radar=x$radar,output,stringsAsFactors=FALSE)
+  # add location information
+  output$lat=lat
+  output$lon=lon
+  # override the lat,lon attributes in case of user-provided values
+  x$attributes$where$lat=lat
+  x$attributes$where$lon=lon
+  # add day
+  if(suntime){
+    dayQ=day(x,elev=elev)
+    dayQ=c(t(replicate(length(x$heights),dayQ)))
+    output=cbind(output,day=dayQ)
+    sunrise=suntime(x$dates,lat=lat,lon=lon,rise=T)
+    sunset=suntime(x$dates,lat=lat,lon=lon,rise=F)
+    output$sunrise=as.POSIXct(c(t(replicate(length(x$heights),sunrise))),origin="1970-1-1",tz='UTC')
+    output$sunset=as.POSIXct(c(t(replicate(length(x$heights),sunset))),origin="1970-1-1",tz='UTC')
+  }
+  output
+}
