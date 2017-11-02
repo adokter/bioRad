@@ -309,9 +309,9 @@ readvp = function(filename){
   #convert some useful metadata
   datetime=as.POSIXct(paste(attribs.what$date, attribs.what$time), format = "%Y%m%d %H%M%S", tz='UTC')
   sources=strsplit(attribs.what$source,",")[[1]]
-  radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
+  radar=gsub("NOD:","",sources[which(grepl("NOD:",sources))])
   if(length(radar)==0){
-    radar=gsub("NOD:","",sources[which(grepl("NOD:",sources))])
+    radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
     if(length(radar)==0){
       radar=gsub("WMO:","",sources[which(grepl("WMO:",sources))])
       if(length(radar)==0){
@@ -463,24 +463,24 @@ c.vp = function(...){
   # extract radar identifiers
   radars=unique(sapply(vps,'[[',"radar"))
   if(length(radars)>1) warning("Vertical profiles are not from a single radar")
-  # extract date-times
-  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
-  output=list(vplist=vps,radar=radars,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),dates=dates)
   output=vps
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   output
 }
 
-#' Bind vertical profiles into a time series object
+#' Bind vertical profiles into time series objects
 #'
-#' Use this function to combine profiles or time series objects of the same radar
-#' @param ... objects of class \code{vp} or \code{vpts}
+#' Binds profiles and list of profiles into a time series object. Also combines multiple time series objects of a single radar into one
+#' time series object.
+#' @param ... object of class \code{vp} or \code{vpts}
+#' @param x objects of class \code{vp}, \code{vplist} or \code{vpts}
 #' @export
-#' @return an object of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
+#' @return An object or a list of objects of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
 #' The profiles in the input \code{vpts} objects will be sorted in time in the output object.
 bind <- function (x, ...) UseMethod("bind", x)
 
-#' @describeIn bind bind \code{vp} objects into a \code{vpts} object
+#' @describeIn bind bind \code{vp} objects into a \code{vpts} object. If \code{vp} of multiple radars are provided, a list
+#' is returned containing \code{vpts} time series objects for each radar.
 #' @export
 bind.vp = function(...){
   vps=list(...)
@@ -488,13 +488,20 @@ bind.vp = function(...){
   if(FALSE %in% vptest) stop("requires vp objects as input")
   # extract radar identifiers
   radars=unique(sapply(vps,'[[',"radar"))
-  if(length(radars)>1) stop("Vertical profiles are not from a single radar")
-  if(length(unique(lapply(vps,'[[',"heights")))>1) stop("Vertical profiles have non-aligning altitude layers")
-  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop("Vertical profiles have different quantities")
   vpts(c.vp(...))
 }
 
-#' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object
+#' @describeIn bind bind \code{vplist} objects into a \code{vpts} object. If data of multiple radars is provided, a list
+#' is returned containing \code{vpts} time series objects for each radar.
+#' @export
+bind.vplist = function(x, ...){
+  vptest=sapply(x,function(y) is(y,"vp"))
+  if(FALSE %in% vptest) stop("requires vplist object as input")
+  vpts(x, ...)
+}
+
+#' @describeIn bind bind multiple time series of vertical profiles (\code{vpts} objects) into a single \code{vpts} object.
+#' Requires the \code{vpts} objects to be from the same radar.
 #' @param attributes.from which vpts object to copy attributes form (default: first)
 #' @export
 #' @examples
@@ -507,6 +514,13 @@ bind.vp = function(...){
 #' vpts1and2=bind(vpts1,vpts2)
 #' # verify that the binded objected now has 20 profiles, 10 from vpts1 and 10 from vpts2:
 #' summary(vpts1and2)
+#' # extract two profiles
+#' vp1=VPTS[1]
+#' vp1
+#' vp2=VPTS[2]
+#' vp2
+#' # bind the profile objects back into a time series object:
+#' bind(vp1,vp2)
 bind.vpts = function(...,attributes.from=1){
   vptss=list(...)
   vptstest=sapply(vptss,function(x) is(x,"vpts"))
@@ -548,9 +562,8 @@ summary.vplist=function(object, ...) print.vplist(object)
 #' @export
 `[.vplist` <- function(x,i) {
   stopifnot(inherits(x,"vplist"))
-  if(length(i)==1) return(x[[i]])
   output=unclass(x)[i]
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   return(output)
 }
 
@@ -572,45 +585,50 @@ print.vplist=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("time range (UTC): ",as.character(daterange[1]),"-",as.character(daterange[2]),"\n")
 }
 
-#' Convert \code{vplist} to a single radar time series \code{vpts}
+#' Convert list of vertical profiles to time series (\code{vpts}) objects
 #'
 #' @param x An object of class \code{vplist}, usually a result of a call to \link[bioRad]{readvp.list}
-#' @param radar string containing the radar identifier to generate time series for. Only required when \code{vplist} object contains multiple radars
+#' @param radar optional string containing the radar identifier to generate time series for.
 #' @export
-#' @return an object of class \link[=summary.vpts]{vpts}
+#' @return an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profiles of a single radar. A list of objects of class \link[=summary.vpts]{vpts} in
+#' case when \code{vplist} contains profiles of multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 #' @rdname vpts
 #' @examples
-#' \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
-#'
+#' \dontrun{
+#' vps=readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+#' ts=vpts(vps)
+#' }
 vpts = function(x,radar=NA){
   stopifnot(inherits(x, "vplist"))
   # extract radar identifiers
   radars=sapply(x,'[[',"radar")
-  uniqueRadars=unique(radars)
+  uniqueRadars=sort(unique(radars))
+  if(!is.na(radar)){
+    if(!(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
+    else return(vptsHelper(x[which(radars==radar)]))
+  }
   # extract date-times
-  dates=.POSIXct(do.call("c",lapply(x,'[[',"datetime")),tz="UTC")
+  if(is.na(radar) & (length(uniqueRadars)==1)) return(vptsHelper(x[which(radars==uniqueRadars)]))
+  else return(lapply(uniqueRadars,function(y) vpts(x[radars==y])))
+}
+
+vptsHelper = function(vps){
+  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
   daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
-  if(length(uniqueRadars)>1 & is.na(radar)) stop("vertical profile list of multiple radars, select one with 'radar' argument")
-  if(!is.na(radar) & !(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
-  if(is.na(radar) & length(uniqueRadars==1)) radar=uniqueRadars
-  index=which(radars==radar)
-  vps=x[index]
   # sort by datetime
   vps=vps[order(sapply(vps,'[[',"datetime"))]
   dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
   difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
   profile.quantities=names(vps[[1]]$data)
 
-  where.attributes=sapply(lapply(vps,'[[',"attributes"),'[[',"where")
-  if(length(unique(unlist(where.attributes["interval",])))>1) stop("vertical profiles have different altitude bin size")
-  if(length(unique(unlist(where.attributes["levels",])))>1) stop("vertical profiles have different number of altitude bins")
-  if(length(unique(unlist(where.attributes["maxheight",])))>1) stop("vertical profiles have different maxheight")
-  if(length(unique(unlist(where.attributes["minheight",])))>1) stop("vertical profiles have different minheight")
+  if(length(unique(lapply(vps,'[[',"heights")))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"have non-aligning altitude layers"))
+  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"contain different quantities"))
+
   vpsFlat=lapply(profile.quantities, function(quantity) sapply(lapply(vps,'[[',"data"),'[[',quantity))
   names(vpsFlat)=profile.quantities
   if(length(unique(difftimes))==1) regular = T else regular = F
   vpsFlat$HGHT<-NULL
-  output=list(radar=radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
+  output=list(radar=vps[[1]]$radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
   class(output)="vpts"
   output
 }
@@ -754,8 +772,12 @@ print.vpts=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("           radar: ",x$radar,"\n")
   cat("      # profiles: ",length(x$dates),"\n")
   cat("time range (UTC): ",as.character(x$daterange[1]),"-",as.character(x$daterange[2]),"\n")
-  if(x$regular) cat("   time step (s): ",min(x$timesteps),"\n")
-  else cat("   time step (s): ","min:",min(x$timesteps),"    max: ",max(x$timesteps),"\n")
+  if(length(x$timesteps)>0){
+    stepMin=min(x$timesteps)
+    stepMax=max(x$timesteps)
+  } else stepMin=stepMax=NA
+  if(x$regular) cat("   time step (s): ",stepMin,"\n")
+  else cat("   time step (s): ","min:",stepMin,"    max: ",stepMax,"\n")
 }
 
 #' Calculate a vertical profile of birds (VPB)
@@ -1268,7 +1290,7 @@ dim.vpts <- function(x) {
 #' @export
 `[.vpts` <- function(x,i) {
   stopifnot(inherits(x,"vpts"))
-  if(length(i)<1) stop("Time series should consist more than one profile")
+  if(length(i)<1) stop("Time series should contain more than one profile")
   if(length(i)==1){
     if(i>0) return(vpts2vp(x,i))
     else{
@@ -1377,7 +1399,7 @@ rcs.vivp <- function (x){
 `rcs<-.vplist` <- function(x,value){
   stopifnot(inherits(x,"vplist"))
   output=lapply(x,`rcs<-.vp`,value=value)
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   output
 }
 
@@ -1478,7 +1500,7 @@ sd_vvp.vpts <- function (x){
 `sd_vvp<-.vplist` <- function(x,value){
   stopifnot(inherits(x,"vplist"))
   output=lapply(x,`sd_vvp<-.vp`,value=value)
-  class(output)="vplist"
+  class(output)=c("vplist","list")
   output
 }
 
@@ -1816,3 +1838,50 @@ fetch.vpts=function(x, quantity="dens"){
   return(output)
 }
 
+#' Coerce Vertical Profile Time Series to a Data Frame
+#'
+#' Converts vertical profile time series (objects of class \code{vpts}) to a Data Frame,
+#' and optionally adds information on sunrise/sunset, day/night and derived quantities
+#' like migration traffic rates.
+#' @param x object of class vpts
+#' @param elev sun elevation in degrees
+#' @param lat radar latitude in decimal degrees
+#' @param lon radar longitude in decimal degrees
+#' @param suntime logical. When TRUE, adds sunrise/sunset and day/night information
+#' @return an object of class data.frame
+#' @export
+#' @examples
+#' # load an example vertical profile time series object
+#' data(VPTS)
+#' # convert the object to a data.frame
+#' df=as.data.frame(VPTS)
+#' # do not compute sunrise/sunset information
+#' df=as.data.frame(VPTS,suntime=FALSE)
+#' # override the latitude/longitude information stored in the object
+#' df=as.data.frame(VPTS,suntime=TRUE,lat=50,lon=4)
+as.data.frame.vpts = function(x,suntime=T, elev = -0.268, lat=x$attributes$where$lat, lon=x$attributes$where$lon){
+  stopifnot(inherits(x,"vpts"))
+  # coerce data to a data frame
+  output=as.data.frame(lapply(x$data,c))
+  # add height as a column
+  output=cbind(HGHT=rep(x$heights,length(x$dates)),datetime=as.POSIXct(c(t(replicate(length(x$heights),x$dates))),origin="1970-1-1",tz='UTC'), output)
+  # add radar name
+  output=cbind(radar=x$radar,output,stringsAsFactors=FALSE)
+  # add location information
+  output$lat=lat
+  output$lon=lon
+  # override the lat,lon attributes in case of user-provided values
+  x$attributes$where$lat=lat
+  x$attributes$where$lon=lon
+  # add day
+  if(suntime){
+    dayQ=day(x,elev=elev)
+    dayQ=c(t(replicate(length(x$heights),dayQ)))
+    output=cbind(output,day=dayQ)
+    sunrise=suntime(x$dates,lat=lat,lon=lon,rise=T)
+    sunset=suntime(x$dates,lat=lat,lon=lon,rise=F)
+    output$sunrise=as.POSIXct(c(t(replicate(length(x$heights),sunrise))),origin="1970-1-1",tz='UTC')
+    output$sunset=as.POSIXct(c(t(replicate(length(x$heights),sunset))),origin="1970-1-1",tz='UTC')
+  }
+  output
+}
