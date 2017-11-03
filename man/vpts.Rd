@@ -7,7 +7,7 @@
 vpts(x, radar = NA)
 }
 \arguments{
-\item{x}{An object of class \code{vplist}, usually a result of a call to \link[bioRad]{readvp.list}}
+\item{x}{An object of class \code{vplist}, usually a result of a call to \link{readvp.list}}
 
 \item{radar}{optional string containing the radar identifier to generate time series for.}
 }

@@ -98,7 +98,7 @@ It's value may depend on radar wavelength. rcs will scale approximately \eqn{M^{
 
 Using default values of \code{range.min} and \code{range.max} is recommended.
 Ranges closer than 5 km tend to be contaminated by ground clutter, while range gates beyond
-25 km become too wide to resolve the default altitude layer width of 200 metre (see \link[bioRad]{beamwidth})
+25 km become too wide to resolve the default altitude layer width of 200 metre (see \link{beamwidth})
 
 For dealiasing, the torus mapping method by Haase et al. is used
 

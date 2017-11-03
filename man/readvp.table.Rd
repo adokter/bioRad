@@ -14,7 +14,7 @@ readvp.table(file, radar, wavelength = "C")
 \item{wavelength}{radar wavelength in cm, or one of 'C' or 'S' for C-band and S-band radar, respectively}
 }
 \value{
-an object inhereting from class "\code{vpts}", see \link[bioRad]{vpts} for details
+an object inhereting from class "\code{vpts}", see \link{vpts} for details
 }
 \description{
 Read vertical profiles from vol2bird stdout

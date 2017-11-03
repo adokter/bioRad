@@ -8,7 +8,7 @@ regularize(ts, interval = "auto", t.min = ts$daterange[1],
   t.max = ts$daterange[2], units = "mins", fill = F, verbose = T)
 }
 \arguments{
-\item{ts}{an object inhereting from class \code{vpts}, see \link[bioRad]{vpts} for details.}
+\item{ts}{an object inhereting from class \code{vpts}, see \link{vpts} for details.}
 
 \item{interval}{time interval grid to project on. When '\code{auto}' the median interval in the time series is used.}
 

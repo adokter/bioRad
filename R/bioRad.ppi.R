@@ -630,6 +630,7 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   if(missing(zlim)) zlim=get_zlim(param)
   colorscale=get_colorscale_fill(param,zlim)
   # extract the scan parameter
+  y=NULL #dummy asignment to suppress devtools check warning
   data=do.call(function(y) x$data[y],list(param))
   # convert to points
   data=data.frame(rasterToPoints(raster(data)))

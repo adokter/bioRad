@@ -48,7 +48,7 @@ Targets moving into the direction \code{alpha} contribute positively to \code{mt
 opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
 depending on the definition of alpha.
 
-This is a wrapper function for \link[bioRad]{vintegrate}, extracting only the
+This is a wrapper function for \link{vintegrate}, extracting only the
 migration traffic rate data.
 }
 \examples{

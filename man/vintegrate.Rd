@@ -46,11 +46,11 @@ The function generates a specially classed data frame with the following quantit
    \item{\code{v}}{Ground speed component north to south in m/s}
    \item{\code{HGHT}}{Height above sea level in m}
 }
-Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link[bioRad]{rcs}
+Vertically integrated density and reflectivity are related according to \eqn{vid=vir/rcs(x)}, with \link{rcs}
 the assumed radar cross section per individual. Similarly, migration traffic rate and reflectivity
 traffic rate are related according to \eqn{mtr=rtr/rcs(x)}
 
-See \link[bioRad]{mtr} for further information on the definition of migration traffic rate.
+See \link{mtr} for further information on the definition of migration traffic rate.
 }
 \section{Methods (by class)}{
 \itemize{

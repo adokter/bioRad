@@ -23,7 +23,7 @@ bind(x, ...)
 \item{attributes.from}{which vpts object to copy attributes form (default: first)}
 }
 \value{
-An object or a list of objects of class \code{vpts}, see \link[bioRad]{summary.vpts} for details
+An object or a list of objects of class \code{vpts}, see \link{summary.vpts} for details
 The profiles in the input \code{vpts} objects will be sorted in time in the output object.
 }
 \description{
@@ -45,7 +45,8 @@ Requires the \code{vpts} objects to be from the same radar.
 \examples{
 # load the example vpts object
 data(VPTS)
-# split the vpts object into two separate time series, one containing profile 1-10, and a second combining profile 11-20:
+# split the vpts object into two separate time series,
+# one containing profile 1-10, and a second combining profile 11-20:
 vpts1=VPTS[1:10]
 vpts2=VPTS[11:20]
 # use bind to merge the two together:

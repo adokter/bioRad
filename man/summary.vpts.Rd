@@ -41,11 +41,11 @@ The time series can be regular or irregular, indicated by the \code{regular} fie
 In a regular \code{vpts} object the profiles are equally spaced in time.
 In an irregular \code{vpts} object the time steps between profiles are of unequal length.
 
-Irregular time series can be projected onto a regular time grid using the \link[bioRad]{regularize} function.
+Irregular time series can be projected onto a regular time grid using the \link{regularize} function.
 
 By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
 
-Data contained in this class object should be accessed with the \link[bioRad]{fetch} function.
+Data contained in this class object should be accessed with the \link{fetch} function.
 Information stored under \code{attributes} (see below) can be accessed directly.
 
 An object of class \code{vpts} is a list containing
