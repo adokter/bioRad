@@ -1,15 +1,29 @@
 Package: bioRad
-Type: Package
-Title: Analysis and visualisation of weather radar data
 Version: 0.2.12
 Date: 2017-11-02
+Title: Analysis and visualisation of weather radar data
+Description: Extracts and visualizes biological signals from weather radar data.
 Authors@R: person("Adriaan M.", "Dokter", email = "amd427@cornell.edu",
            role = c("aut", "cre"))
-Description: Extracts and visualizes biological signals from weather radar data.
-License: GPL-3
-LazyData: TRUE
-Imports: stats, rhdf5, fields, methods, graphics, ggplot2, ggmap, sp, utils, raster, rgdal, lubridate, curl, RCurl
-Suggests: knitr
-VignetteBuilder: knitr
 Depends: R (>= 2.10)
+License: GPL-3
+LazyData: true
+Imports:
+    curl,
+    fields,
+    ggmap,
+    ggplot2,
+    graphics,
+    lubridate,
+    methods,
+    raster,
+    RCurl,
+    rgdal,
+    rhdf5,
+    sp,
+    stats,
+    utils
+Suggests:
+    knitr
+VignetteBuilder: knitr
 RoxygenNote: 6.0.1
