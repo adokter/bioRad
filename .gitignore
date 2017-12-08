@@ -4,3 +4,6 @@
 
 # markdown
 *.html
+
+# Mac OS X
+.DS_Store
