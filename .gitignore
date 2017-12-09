@@ -3,7 +3,7 @@
 .RData
 
 # markdown
-*.html
+#*.html
 
 # Mac OS X
 .DS_Store
