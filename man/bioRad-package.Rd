@@ -129,4 +129,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Adriaan M. Dokter \email{amd427@cornell.edu}
 
+Other contributors:
+\itemize{
+  \item Peter Desmet \email{peter.desmet@inbo.be} (http://orcid.org/0000-0002-8442-8025) [contributor]
+  \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (http://orcid.org/0000-0001-6413-3185) [contributor]
+}
+
 }
