@@ -1019,9 +1019,11 @@ readvp.table=function(file,radar,wavelength='C'){
   if(wavelength=='S') wavelength=10.6
   if(!is.numeric(wavelength) || length(wavelength)>1) stop("not a valid 'wavelength' argument")
   #header of the data file
-  header.names=c("Date","Time","HGHT","u","v","w","ff","dd","sd_vvp","gap","dbz","eta","dens","DBZH","n","n_dbz","n_all","n_dbz_all")
+  header.names.short=c("Date","Time","HGHT","u","v","w","ff","dd","sd_vvp","gap","dbz","eta","dens","DBZH","n","n_dbz","n_all","n_dbz_all")
+  header.names.long=c("Date","Time","HGHT","u","v","w","ff","dd","sd_vvp","head_bl","head_ff","head_dd","head_sd","gap","dbz","eta","dens","DBZH","n","n_dbz","n_all","n_dbz_all")
   #read the data
-  data=read.table(file=file, header = F, col.names=header.names)
+  data=read.table(file=file, header = F)
+  if(ncol(data)==22) colnames(data)=header.names.long else colnames(data)=header.names.short
   # convert Time into a POSIXct date-time
   data$datetime <- as.POSIXct(paste(data$Date, sprintf('%04d', data$Time), sep = ""), format = "%Y%m%d%H%M", tz='UTC')
   data$Date<-NULL
