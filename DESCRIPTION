@@ -3,8 +3,13 @@ Version: 0.2.12
 Date: 2017-11-02
 Title: Analysis and visualisation of weather radar data
 Description: Extracts and visualizes biological signals from weather radar data.
-Authors@R: person("Adriaan M.", "Dokter", email = "amd427@cornell.edu",
-           role = c("aut", "cre"))
+Authors@R: c(person("Adriaan M.", "Dokter", email = "amd427@cornell.edu",
+           role = c("aut", "cre")), person("Peter", "Desmet", role = c("ctb"),
+           email = "peter.desmet@inbo.be", 
+           comment = "http://orcid.org/0000-0002-8442-8025"),
+           person("Stijn", "Van Hoey", 
+           role = c("ctb"), email = "stijnvanhoey@gmail.com", 
+           comment = "http://orcid.org/0000-0001-6413-3185"))
 Depends: R (>= 2.10)
 License: GPL-3
 LazyData: true
