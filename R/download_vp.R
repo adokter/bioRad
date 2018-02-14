@@ -41,7 +41,7 @@ download_vp <- function(start_date, end_date, country, radar, localpath = ".") {
 
   # create date range set of potential downloadable zip files (if all data
   # would exist)
-  start <- as_date(start_date, tz = NULL)
+  start <- floor_date(as_date(start_date, tz = NULL), "month")
   end <- as_date(end_date, tz = NULL)
   dates_to_check <- seq(start, end, by = 'months')
 
