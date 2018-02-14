@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guidelines to load bird profiles into bioRad from ENRAM repository • bioRad</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -34,23 +34,23 @@
      
   </a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/intro_ppi.html">Guidelines to create PPI plots from polar volume files in bioRad</a>
+      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
     </li>
     <li>
-      <a href="../articles/intro_vp.html">Guidelines to load bird profiles into bioRad from ENRAM repository</a>
+      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -185,12 +185,12 @@ list.paths &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 <p><em>Special case</em>: if you want the paths to profiles for a <em>certain month across all years</em>, you will have to call the <code>retrieve_data_range</code> fuction several times across the years and put the outcomes together:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read paths of all vp files of all Swiss radars for Nov/16</span>
 list.paths16 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/retrieve_vp_paths.html">retrieve_vp_paths</a></span>(<span class="dt">path =</span> <span class="st">"PATH/TO/DATA-DIR"</span>, 
-                                  <span class="dt">country =</span> <span class="st">"cz"</span>, 
+                                  <span class="dt">country =</span> <span class="st">"ch"</span>, 
                                   <span class="dt">start_date =</span> <span class="st">"2016-11-01"</span>, 
                                   <span class="dt">end_date =</span> <span class="st">"2016-11-31"</span>)
 <span class="co"># read paths of all vp files of all Swiss radars for Nov/17</span>
 list.paths17 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/retrieve_vp_paths.html">retrieve_vp_paths</a></span>(<span class="dt">path =</span> <span class="st">"PATH/TO/DATA-DIR"</span>, 
-                                  <span class="dt">country =</span> <span class="st">"cz"</span>, 
+                                  <span class="dt">country =</span> <span class="st">"ch"</span>, 
                                   <span class="dt">start_date =</span> <span class="st">"2017-11-01"</span>, 
                                   <span class="dt">end_date =</span> <span class="st">"2017-11-31"</span>)
 <span class="co"># put paths together </span>

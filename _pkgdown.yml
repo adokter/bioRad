@@ -1,3 +1,117 @@
-# reference: functions
+navbar:
+  title: bioRad
+  type: default
+  left:
+  - icon: fa-home fa-lg
+    href: index.html
+  - text: Tutorials
+    href: articles/index.html
+    menu:
+    - text: Create PPI plots from polar volume files
+      href: articles/intro_ppi.html
+    - text: Load bird profiles into bioRad from ENRAM data repository
+      href: articles/intro_vp.html
+  - text: Functions
+    href: reference/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/adokter/bioRad
 
-# articles: vignettes
+articles:
+  - title: "Create PPI plots from polar volume files"
+    contents:
+    - intro_ppi
+  - title: "Load bird profiles into bioRad from ENRAM data repository"
+    contents:
+    - intro_vp
+
+reference:
+  - title: "Loading data"
+    contents:
+      - h5ODIMobject
+      - readvp.list
+      - readvp.table
+  - title: "Polar volume (`pvol`)"
+    contents:
+      - read.pvol
+      - is.pvol
+      - is.pvolfile
+  - title: "Polar scan"
+    contents:
+      - getscan
+      - dim.scan
+      - is.param
+      - is.scan
+  - title: "Projecting scans as a plan position indicator (`ppi`)"
+    contents:
+      - ppi
+      - dim.ppi
+      - is.ppi
+  - title: "Overlaying radar scans on a map"
+    contents:
+      - map
+      - basemap
+  - title: "Processing vertical profiles (`vp`) from polar volume data (`pvol`)"
+    contents:
+      - rsl2odim
+      - vol2bird
+  - title: "Vertical profile (`vp`)"
+    contents:
+      - readvp
+      - is.vpfile
+      - c.vp
+      - plot.vp
+      - is.vp
+      - is.vplist
+  - title: "Vertical profile attributes"
+    contents:
+      - rcs
+      - rcs<-
+  - title: "Vertical profile time series (`vpts`)"
+    contents:
+      - bind
+      - vpts
+      - regularize
+      - plot.vpts
+      - is.vpts
+  - title: "Migration traffic and vertical integration"
+    contents:
+      - vintegrate
+      - mtr
+      - mt
+      - cmt
+      - plot.vivp
+  - title: "Thresholding attributes"
+    contents:
+      - sd_vvp
+      - sd_vvp<-
+  - title: "Radar and scan geometry"
+    contents:
+      - beamheight
+      - beamwidth
+      - elangle
+  - title: "Converting reflectivity and reflectivity factor"
+    contents:
+      - dbz2eta
+      - eta2dbz
+  - title: "Sunrise and sunset functions"
+    contents:
+      - suntime
+      - night
+      - day
+  - title: "Compositing"
+    contents:
+      - composite
+  - title: "Extracting data from bioRad objects"
+    contents:
+      - fetch
+      - as.data.frame.vpts
+  - title: "Docker interface"
+    contents:
+      - checkDocker
+      - updateDocker
+
+template:
+  params:
+    bootswatch: yeti
+
