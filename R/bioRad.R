@@ -909,7 +909,7 @@ vol2bird =  function(vol.in, vp.out="", vol.out="",autoconf=F, verbose=F,mount=d
                  if(dualpol) "TRUE" else "FALSE",if(dealias) "TRUE" else "FALSE")
   opt.names=c("STDEV_BIRD","SIGMA_BIRD","RHOHVMIN","ELEVMIN","ELEVMAX",
                   "AZIMMIN","AZIMMAX","RANGEMIN","RANGEMAX","NLAYER","HLAYER",
-                  "MIN_NYQUIST_VELOCITY","DEALIAS_VRAD","DUALPOL")
+                  "MIN_NYQUIST_VELOCITY","DUALPOL","DEALIAS_VRAD")
   opt=data.frame("option"=opt.names,"is"=rep("=",length(opt.values)),"value"=opt.values)
   optfile=paste(normalizePath(mount,winslash="/"),"/options.conf",sep="")
   if(file.exists(optfile)){
