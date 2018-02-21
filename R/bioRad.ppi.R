@@ -705,8 +705,8 @@ basemap=function(x,verbose=TRUE,zoom,alpha=1,...){
 #' @param radar.size size of the symbol indicating the radar position
 #' @param radar.color colour of the symbol indicating the radar position
 #' @param n.color the number of colors (>=1) to be in the palette
-#' @param xlim range of x values to plot
-#' @param ylim range of y values to plot
+#' @param xlim range of x values to plot (degrees longitude), as atomic vector of length 2
+#' @param ylim range of y values to plot (degrees latitude), as an atomic vector of length 2
 #' @param zlim the range of values to plot
 #' @param ratio aspect ratio between x and y scale, by default \eqn{1/cos(latitude radar * pi/180)}
 #' @param ... arguments passed to low level \link[ggmap]{ggmap} function

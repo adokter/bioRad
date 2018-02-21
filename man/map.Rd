@@ -21,9 +21,9 @@ map(x, ...)
 
 \item{alpha}{transparency of the data, value between 0 and 1}
 
-\item{xlim}{range of x values to plot}
+\item{xlim}{range of x values to plot (degrees longitude), as atomic vector of length 2}
 
-\item{ylim}{range of y values to plot}
+\item{ylim}{range of y values to plot (degrees latitude), as an atomic vector of length 2}
 
 \item{zlim}{the range of values to plot}
 
