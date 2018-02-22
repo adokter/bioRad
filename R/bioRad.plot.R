@@ -115,7 +115,7 @@ plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [
   if(missing(lon)) lon=attributes(x)$lon
 
   # plot the data
-  plot(x$datetime,x[quantity][[1]],type='l',xlab="time",ylab=ylab,ylim=ylim,main=main,...)
+  plot(x$datetime,x[quantity][[1]],type='l',xlab="time",ylab=ylab,ylim=ylim,main=main,xaxs="i",yaxs="i",...)
 
   if(nightshade){
     if(!is.numeric(lat) || !is.numeric(lon)) stop("No latitude/longitude found in attribute data, please provide lat and lon arguments")
@@ -130,7 +130,7 @@ plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [
     }
 
     # determine the plot range of the night time shading
-    if(missing(ylim)) pol.range=c(0,2*max(x[quantity][[1]])) else pol.range=ylim
+    if(missing(ylim)) pol.range=c(min(c(0,2*min(x[quantity][[1]]))),2*max(x[quantity][[1]])) else pol.range=ylim
     ypolygon=c(pol.range[1],pol.range[1],pol.range[2],pol.range[2])
 
     # plot night time shading for each night.
