@@ -28,6 +28,12 @@ an object of class \code{vpts} with regular time steps
 \description{
 Projects objects of class \code{vpts} on a regular time grid
 }
+\details{
+Irregular time series of profiles are typically aligned on a regular time grid with the expected time interval
+at which a radar provides data. Empty profiles with only missing data values will be inserted at time stamps of the
+regular time grid that have no matching profile in the irregular time series. This also has the benefit that missing profiles
+become visible in profile plots of regular time series.
+}
 \examples{
 # locate example file:
 VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
