@@ -188,7 +188,7 @@ plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, bar
   stopifnot(inherits(x,"vpts"))
   stopifnot(quantity %in% c("dens","eta","dbz","DBZH"))
   args <- list(...)
-  if(!x$regular) warning("Irregular time-series: x-axis is not a linear time scale. Use 'regularize' to make time series regular.")
+  if(!x$regular) warning("Irregular time-series: potential data gaps due to missing profiles not visible. Use 'regularize' to make time series regular.")
 
   # prepare zlim, ticks and legendticks
   if(missing(zlim)) {
