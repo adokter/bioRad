@@ -577,7 +577,7 @@ get_colorscale_fill=function(param,zlim){
 get_zlim=function(param){
   if(param %in% c("DBZH","DBZV","DBZ")) return(c(-20,30))
   if(param %in% c("VRADH","VRADV","VRAD")) return(c(-20,20))
-  if(param == "RHOHV") return(c(0,1))
+  if(param == "RHOHV") return(c(0.4,1))
   if(param == "ZDR") return(c(-5,8))
   if(param == "PHIDP") return(c(-200,200))
 }
