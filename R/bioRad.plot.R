@@ -318,6 +318,7 @@ plot_wind_barbs = function(cx, cy, direction = 0, speed = NA, fill = rep(0, leng
   for (i in 1 : ns) {
     x = cx[i]
     y = cy[i]
+    if (is.na(is.na(x) || is.na(y))) next
     if (is.na(x) || is.na(y)) next
     spd = speed[i]
 
