@@ -32,7 +32,7 @@ url_existence <- function(url) {
 #' folders and unzip into the default folder structure
 #'
 #' @export
-#' @importFrom lubridate as_date
+#' @importFrom lubridate as_date floor_date
 #' @importFrom curl curl_download
 #' @examples
 #' my_path <- "~/my/directory/"
