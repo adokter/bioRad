@@ -5,7 +5,6 @@
 #' @return z with a lenght > 1 if the URL is existing and downloading would be
 #' possible
 #'
-#' @export
 #' @keywords internal
 #' @importFrom RCurl getBinaryURL
 url_existence <- function(url) {
@@ -99,7 +98,6 @@ download_vp <- function(start_date, end_date, country, radar, localpath = ".") {
 #' @return char subset of filenames from the filelist that comply to any of the
 #' provided regex expressions
 #'
-#' @export
 match_filenames <- function(filelist, regexlist) {
   grep(paste(regexlist, collapse = "|"), filelist, value = TRUE)
 }
@@ -119,7 +117,6 @@ match_filenames <- function(filelist, regexlist) {
 #' @return char list of filenames that comply to the given radar/country and
 #' date range query
 #'
-#' @export
 #' @importFrom lubridate as_date
 #'
 #' @examples
