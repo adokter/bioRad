@@ -48,8 +48,6 @@ reference:
       - dim.ppi
       - is.ppi
       - composite
-  - title: "Overlaying radar scans on a map"
-    contents:
       - map
       - basemap
   - title: "Processing vertical profiles (`vp`) from polar volume data (`pvol`)"
