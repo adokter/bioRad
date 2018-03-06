@@ -132,14 +132,17 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load a polar volume</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># load a polar volume</span>
 <span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"bioRad"</span>)
 <span class='no'>vol</span><span class='kw'>=</span><span class='fu'><a href='read.pvol.html'>read.pvol</a></span>(<span class='no'>pvol</span>)
 <span class='co'># elevations for the scans in the volume</span>
-<span class='fu'>elangle</span>(<span class='no'>vol</span>)</div><div class='output co'>#&gt;  [1]  0.5  0.5  1.0  1.5  2.0  2.5  4.0  8.0 14.0 24.0 40.0</div><div class='input'><span class='co'># extract the first scan:</span>
+<span class='fu'>elangle</span>(<span class='no'>vol</span>)
+<span class='co'># extract the first scan:</span>
 <span class='no'>scan</span><span class='kw'>=</span><span class='no'>vol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 <span class='co'># elevation angle of the scan:</span>
-<span class='fu'>elangle</span>(<span class='no'>scan</span>)</div><div class='output co'>#&gt; [1] 0.5</div></pre>
+<span class='fu'>elangle</span>(<span class='no'>scan</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

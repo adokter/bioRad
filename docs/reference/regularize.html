@@ -144,12 +144,14 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># locate example file:</span>
 <span class='no'>VPtable</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"VPtable.txt"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"bioRad"</span>)
 <span class='co'># load time series:</span>
 <span class='no'>ts</span><span class='kw'>=</span><span class='fu'><a href='readvp.table.html'>readvp.table</a></span>(<span class='no'>VPtable</span>,<span class='kw'>radar</span><span class='kw'>=</span><span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span><span class='kw'>=</span><span class='st'>'S'</span>)
 <span class='co'># regularize the time series on a 5 minute interval grid</span>
-<span class='no'>tsRegular</span><span class='kw'>=</span><span class='fu'>regularize</span>(<span class='no'>ts</span>, <span class='kw'>interval</span><span class='kw'>=</span><span class='fl'>5</span>)</div></pre>
+<span class='no'>tsRegular</span><span class='kw'>=</span><span class='fu'>regularize</span>(<span class='no'>ts</span>, <span class='kw'>interval</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
