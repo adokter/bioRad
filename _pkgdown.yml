@@ -47,6 +47,7 @@ reference:
       - ppi
       - dim.ppi
       - is.ppi
+      - composite
   - title: "Overlaying radar scans on a map"
     contents:
       - map
@@ -99,9 +100,6 @@ reference:
       - suntime
       - night
       - day
-  - title: "Compositing"
-    contents:
-      - composite
   - title: "Extracting data from bioRad objects"
     contents:
       - fetch
