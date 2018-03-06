@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class 'ppi': plan position indicator — summary.ppi • bioRad</title>
+<title>Class 'ppi': plan position indicator — [.ppi • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -102,17 +102,28 @@
     <p>Class 'ppi': plan position indicator</p>
     
 
-    <pre class="usage"><span class='co'># S3 method for ppi</span>
-<span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"># S3 method for ppi
+[(x, i)
 
-<span class='fu'>is.ppi</span>(<span class='no'>x</span>)
+# S3 method for ppi
+summary(object, ...)
 
-<span class='co'># S3 method for ppi</span>
-<span class='fu'>dim</span>(<span class='no'>x</span>)</pre>
+is.ppi(x)
+
+# S3 method for ppi
+dim(x)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>object of class 'ppi'</p></td>
+    </tr>
+    <tr>
+      <th>i</th>
+      <td><p>indices specifying elements to extract</p></td>
+    </tr>
     <tr>
       <th>object</th>
       <td><p>object of class 'ppi'</p></td>
@@ -120,10 +131,6 @@
     <tr>
       <th>...</th>
       <td><p>additional arguments affecting the summary produced.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>object of class 'ppi'</p></td>
     </tr>
     </table>
     

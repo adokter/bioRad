@@ -102,19 +102,16 @@
     <p>Make a plan position indicator (ppi)</p>
     
 
-    <pre class="usage">ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
-  lonlim = NULL)
+    <pre class="usage"><span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-# S3 method for ppi
-[(x, i)
+<span class='co'># S3 method for param</span>
+<span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-# S3 method for param
-ppi(x, cellsize = 500, range.max = 50000, project = F,
-  latlim = NULL, lonlim = NULL)
-
-# S3 method for scan
-ppi(x, cellsize = 500, range.max = 50000, project = F,
-  latlim = NULL, lonlim = NULL)</pre>
+<span class='co'># S3 method for scan</span>
+<span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -142,10 +139,6 @@ ppi(x, cellsize = 500, range.max = 50000, project = F,
     <tr>
       <th>lonlim</th>
       <td><p>the range of longitudes to include</p></td>
-    </tr>
-    <tr>
-      <th>i</th>
-      <td><p>indices specifying elements to extract</p></td>
     </tr>
     <tr>
       <th>...</th>
