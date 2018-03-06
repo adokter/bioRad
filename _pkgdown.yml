@@ -26,6 +26,9 @@ articles:
     - intro_vp
 
 reference:
+  - title: "Downloading data files from repository"
+    contents:
+      - download_vp
   - title: "Loading data"
     contents:
       - h5ODIMobject
