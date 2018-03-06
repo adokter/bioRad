@@ -1288,7 +1288,7 @@ dim.vpts <- function(x) {
   c(data.dim,length(x$data))
 }
 
-#' @rdname summary.vpts
+#' @rdname vpts
 #' @param i indices specifying elements to extract
 #' @export
 `[.vpts` <- function(x,i) {
