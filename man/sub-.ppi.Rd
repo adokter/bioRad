@@ -7,6 +7,8 @@
 \method{[}{ppi}(x, i)
 }
 \arguments{
+\item{x}{an object of class 'param' or 'scan'}
+
 \item{i}{indices specifying elements to extract}
 }
 \description{

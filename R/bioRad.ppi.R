@@ -416,7 +416,9 @@ ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NUL
 #'
 #' Extract by index from a ppi
 #'
+#' @param x an object of class 'param' or 'scan'
 #' @param i indices specifying elements to extract
+#'
 #' @export
 `[.ppi` <- function(x,i) {
   stopifnot(inherits(x,"ppi"))

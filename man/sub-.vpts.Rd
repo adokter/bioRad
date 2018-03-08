@@ -2,11 +2,13 @@
 % Please edit documentation in R/bioRad.R
 \name{[.vpts}
 \alias{[.vpts}
-\title{Subset `ppi`}
+\title{Subset `vpts`}
 \usage{
 \method{[}{vpts}(x, i)
 }
 \arguments{
+\item{x}{object of class 'vpts'}
+
 \item{i}{indices specifying elements to extract}
 }
 \description{

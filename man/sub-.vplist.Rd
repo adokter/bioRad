@@ -7,6 +7,8 @@
 \method{[}{vplist}(x, i)
 }
 \arguments{
+\item{x}{object of class 'vplist'}
+
 \item{i}{indices specifying elements to extract}
 }
 \description{
