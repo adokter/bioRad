@@ -29,7 +29,7 @@ reference:
   - title: "Downloading data files from repository"
     contents:
       - download_vp
-  - title: "Loading data"
+  - title: "Loading data from file"
     contents:
       - h5ODIMobject
       - readvp.list
@@ -60,6 +60,7 @@ reference:
   - title: "Vertical profile (`vp`)"
     contents:
       - readvp
+      - readvp.list
       - is.vpfile
       - c.vp
       - plot.vp
@@ -71,6 +72,7 @@ reference:
       - rcs<-
   - title: "Vertical profile time series (`vpts`)"
     contents:
+      - readvp.table
       - bind
       - vpts
       - regularize
