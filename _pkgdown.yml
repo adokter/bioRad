@@ -75,6 +75,8 @@ reference:
     contents:
       - rcs
       - rcs<-
+      - sd_vvp
+      - sd_vvp<-
   - title: "Vertical profile time series (`vpts`)"
     contents:
       - readvp.table
@@ -91,10 +93,6 @@ reference:
       - cmt
       - vintegrate
       - plot.vivp
-  - title: "Thresholding attributes"
-    contents:
-      - sd_vvp
-      - sd_vvp<-
   - title: "Radar and scan geometry"
     contents:
       - beamheight
