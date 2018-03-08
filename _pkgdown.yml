@@ -50,9 +50,9 @@ reference:
       - getscan
   - title: "Projecting scans as a plan position indicator (`ppi`)"
     contents:
-      - is.ppi
-      - dim.ppi
       - ppi
+      - is.ppi
+      - '`[.ppi`'
       - composite
       - map
       - basemap
@@ -68,6 +68,7 @@ reference:
       - is.vpfile
       - is.vp
       - is.vplist
+      - '`[.vplist`'
       - c.vp
       - plot.vp
   - title: "Vertical profile attributes"
@@ -77,8 +78,9 @@ reference:
   - title: "Vertical profile time series (`vpts`)"
     contents:
       - readvp.table
-      - is.vpts
       - vpts
+      - is.vpts
+      - '`[.vpts`'
       - bind
       - regularize
       - plot.vpts
