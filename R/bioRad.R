@@ -560,7 +560,7 @@ summary.vplist=function(object, ...) print.vplist(object)
 
 #' Subset `vplist`
 #'
-#' Elements from a vplist are extracted by index
+#' Extract by index from a vplist
 #'
 #' @param i indices specifying elements to extract
 #' @export
@@ -1293,7 +1293,7 @@ dim.vpts <- function(x) {
 
 #' Subset `ppi`
 #'
-#' Elements from a vpts are extracted by index
+#' Extract by index from a vpts
 #'
 #' @param i indices specifying elements to extract
 #' @export

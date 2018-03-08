@@ -10,5 +10,5 @@
 \item{i}{indices specifying elements to extract}
 }
 \description{
-Elements from a vplist are extracted by index
+Extract by index from a vplist
 }

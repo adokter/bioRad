@@ -414,7 +414,7 @@ ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NUL
 
 #' Subset `ppi`
 #'
-#' Elements from a ppi are extracted by index
+#' Extract by index from a ppi
 #'
 #' @param i indices specifying elements to extract
 #' @export
