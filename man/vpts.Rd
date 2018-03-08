@@ -2,19 +2,14 @@
 % Please edit documentation in R/bioRad.R
 \name{vpts}
 \alias{vpts}
-\alias{[.vpts}
 \title{Convert list of vertical profiles to time series (\code{vpts}) objects}
 \usage{
 vpts(x, radar = NA)
-
-\method{[}{vpts}(x, i)
 }
 \arguments{
 \item{x}{An object of class \code{vplist}, usually a result of a call to \link{readvp.list}}
 
 \item{radar}{optional string containing the radar identifier to generate time series for.}
-
-\item{i}{indices specifying elements to extract}
 }
 \value{
 an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profiles of a single radar. A list of objects of class \link[=summary.vpts]{vpts} in
