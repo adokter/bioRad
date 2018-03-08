@@ -29,6 +29,7 @@ reference:
   - title: "Downloading data files from repository"
     contents:
       - download_vp
+      - retrieve_vp_paths
   - title: "Reading data from file"
     contents:
       - h5ODIMobject
@@ -55,6 +56,7 @@ reference:
       - composite
       - map
       - basemap
+      - plot.ppi
   - title: "Processing vertical profiles (`vp`) from polar volume data (`pvol`)"
     contents:
       - rsl2odim
