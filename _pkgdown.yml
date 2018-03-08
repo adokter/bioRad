@@ -29,27 +29,28 @@ reference:
   - title: "Downloading data files from repository"
     contents:
       - download_vp
-  - title: "Loading data from file"
+  - title: "Reading data from file"
     contents:
       - h5ODIMobject
+      - read.pvol
       - readvp.list
       - readvp.table
   - title: "Polar volume (`pvol`)"
     contents:
       - read.pvol
-      - is.pvol
       - is.pvolfile
+      - is.pvol
   - title: "Polar scan"
     contents:
-      - getscan
-      - dim.scan
       - is.param
       - is.scan
+      - dim.scan
+      - getscan
   - title: "Projecting scans as a plan position indicator (`ppi`)"
     contents:
-      - ppi
-      - dim.ppi
       - is.ppi
+      - dim.ppi
+      - ppi
       - composite
       - map
       - basemap
@@ -62,10 +63,10 @@ reference:
       - readvp
       - readvp.list
       - is.vpfile
-      - c.vp
-      - plot.vp
       - is.vp
       - is.vplist
+      - c.vp
+      - plot.vp
   - title: "Vertical profile attributes"
     contents:
       - rcs
@@ -73,17 +74,17 @@ reference:
   - title: "Vertical profile time series (`vpts`)"
     contents:
       - readvp.table
-      - bind
+      - is.vpts
       - vpts
+      - bind
       - regularize
       - plot.vpts
-      - is.vpts
   - title: "Migration traffic and vertical integration"
     contents:
-      - vintegrate
-      - mtr
       - mt
+      - mtr
       - cmt
+      - vintegrate
       - plot.vivp
   - title: "Thresholding attributes"
     contents:
