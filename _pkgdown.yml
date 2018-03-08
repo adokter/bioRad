@@ -33,6 +33,7 @@ reference:
     contents:
       - h5ODIMobject
       - read.pvol
+      - readvp
       - readvp.list
       - readvp.table
   - title: "Polar volume (`pvol`)"
