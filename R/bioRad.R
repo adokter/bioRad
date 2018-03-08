@@ -558,7 +558,10 @@ bind.vpts = function(...,attributes.from=1){
 #' station. \code{vplist} objects can contain profiles of multiple radars.
 summary.vplist=function(object, ...) print.vplist(object)
 
-#' @rdname summary.vplist
+#' Subset `vplist`
+#'
+#' Elements from a vplist are extracted by index
+#'
 #' @param i indices specifying elements to extract
 #' @export
 `[.vplist` <- function(x,i) {
@@ -1288,7 +1291,10 @@ dim.vpts <- function(x) {
   c(data.dim,length(x$data))
 }
 
-#' @rdname vpts
+#' Subset `ppi`
+#'
+#' Elements from a vpts are extracted by index
+#'
 #' @param i indices specifying elements to extract
 #' @export
 `[.vpts` <- function(x,i) {
