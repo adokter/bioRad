@@ -118,7 +118,7 @@ match_filenames <- function(filelist, regexlist) {
 #' date range query
 #'
 #' @importFrom lubridate as_date
-#'
+#' @export
 #' @examples
 #' my_path <- "~/my/directory/"
 #' retrieve_vp_paths(my_path, "2016-10-01", "2017-01-31", c("be"))
