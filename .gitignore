@@ -4,3 +4,7 @@
 
 # Mac OS X
 .DS_Store
+
+# VP data
+/docs/**/*.h5
+/docs/**/*.zip
