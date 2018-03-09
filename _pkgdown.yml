@@ -2,8 +2,8 @@ navbar:
   title: bioRad
   type: default
   left:
-  - icon: fa-home fa-lg
-    href: index.html
+  - text: Functions
+    href: reference/index.html
   - text: Tutorials
     href: articles/index.html
     menu:
@@ -11,19 +11,9 @@ navbar:
       href: articles/intro_ppi.html
     - text: Load bird profiles into bioRad from ENRAM data repository
       href: articles/intro_vp.html
-  - text: Functions
-    href: reference/index.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/adokter/bioRad
-
-articles:
-  - title: "Create PPI plots from polar volume files"
-    contents:
-    - intro_ppi
-  - title: "Load bird profiles into bioRad from ENRAM data repository"
-    contents:
-    - intro_vp
 
 reference:
   - title: "Downloading data files from repository"
@@ -116,7 +106,14 @@ reference:
       - checkDocker
       - updateDocker
 
+articles:
+  - title: "Create PPI plots from polar volume files"
+    contents:
+    - intro_ppi
+  - title: "Load bird profiles into bioRad from ENRAM data repository"
+    contents:
+    - intro_vp
+
 template:
   params:
     bootswatch: yeti
-
