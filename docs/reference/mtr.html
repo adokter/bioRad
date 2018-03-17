@@ -18,13 +18,18 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Migration traffic rate — mtr" />
+
+<meta property="og:description" content="Migration traffic rate (MTR) for an altitude layer, defined as the
+number of targets crossing a 1 km line perpendicular to the migratory movement per hour" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,10 +57,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -71,9 +73,6 @@
       <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../reference/index.html">Functions</a>
 </li>
       </ul>
       
@@ -96,6 +95,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Migration traffic rate</h1>
+    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
     </div>
 
     
@@ -144,8 +144,8 @@ with the sum running over all altitude layers between <code>alt.min</code> and <
 \(ff_i\) the ground speed at altitude layer i, and \(\Delta h\) the altitude layer width.</p>
 <p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular to
 the direction <code>alpha</code>, and the number of crossing targets per hour per
-km transect is calculated as:
-    $$mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h$$
+km transect is calculated as:</p>
+<p>$$mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h$$
 with \(dd_i\) the migratory direction at altitude i.</p>
 <p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
 In this definition <code>mtr</code> is a traditional flux into a direction of interest.
@@ -190,7 +190,7 @@ migration traffic rate data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -198,3 +198,4 @@ migration traffic rate data.</p>
 
   </body>
 </html>
+
