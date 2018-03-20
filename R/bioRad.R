@@ -1546,6 +1546,8 @@ sd_vvp.vpts <- function (x){
 #' position of the radar for the full period of the time series
 #' within the specified altitude band.
 #' @param x an object inhereting from class '\code{vpts}'
+#' @param interval.max maximum time interval belonging to a single profile in seconds. Traffic rates are
+#' set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2} to \code{t+interval.max/2}.
 #' @inheritParams mtr
 #' @export
 #' @return a numeric value equal to migration traffic in number of individuals / km
@@ -1557,9 +1559,10 @@ sd_vvp.vpts <- function (x){
 #' mt(VPTS)
 #' # total migration traffic in 0-1000 meter band
 #' mt(VPTS,alt.min=0,alt.max=1000)
-mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
+mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
+  dt=pmin(interval.max,dt)
   # convert to hours
   dt=as.numeric(dt)/3600
   sum(dt*mtr(x,alt.min,alt.max,alpha))
@@ -1574,6 +1577,8 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
 #' position of the radar as a function oftime from the start of time series
 #' within the specified altitude band.
 #' @param x an object inhereting from class '\code{vpts}'
+#' @param interval.max maximum time interval belonging to a single profile in seconds. Traffic rates are
+#' set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2} to \code{t+interval.max/2}.
 #' @inheritParams mtr
 #' @export
 #' @return a numeric value equal to migration traffic in number of individuals / km
@@ -1584,9 +1589,10 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
 #' cmt(VPTS)
 #' # plot cumulative migration traffic:
 #' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
-cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA){
+cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
   dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
+  dt=pmin(interval.max,dt)
   # convert to hours
   dt=as.numeric(dt)/3600
   vintegrated=vintegrate(x,alt.min,alt.max,alpha)
