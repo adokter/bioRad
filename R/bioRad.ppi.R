@@ -412,8 +412,13 @@ getscan = function(x,angle){
 #' ppi
 ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
 
-#' @rdname ppi
+#' Subset `ppi`
+#'
+#' Extract by index from a ppi
+#'
+#' @param x an object of class 'param' or 'scan'
 #' @param i indices specifying elements to extract
+#'
 #' @export
 `[.ppi` <- function(x,i) {
   stopifnot(inherits(x,"ppi"))

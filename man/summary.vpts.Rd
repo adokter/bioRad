@@ -4,7 +4,6 @@
 \alias{summary.vpts}
 \alias{is.vpts}
 \alias{dim.vpts}
-\alias{[.vpts}
 \title{Class 'vpts': time series of vertical profiles}
 \usage{
 \method{summary}{vpts}(object, ...)
@@ -12,8 +11,6 @@
 is.vpts(x)
 
 \method{dim}{vpts}(x)
-
-\method{[}{vpts}(x, i)
 }
 \arguments{
 \item{object}{object of class 'vpts'}
@@ -21,8 +18,6 @@ is.vpts(x)
 \item{...}{additional arguments affecting the summary produced.}
 
 \item{x}{object of class 'vpts'}
-
-\item{i}{indices specifying elements to extract}
 }
 \value{
 for \code{is.vpts}: \code{TRUE} if its argument is of class "\code{vpts}"

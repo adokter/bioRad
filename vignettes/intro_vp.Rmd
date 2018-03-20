@@ -147,12 +147,12 @@ list.paths <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR",
 ```{r eval=FALSE}
 # read paths of all vp files of all Swiss radars for Nov/16
 list.paths16 <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
-                                  country = "cz", 
+                                  country = "ch", 
                                   start_date = "2016-11-01", 
                                   end_date = "2016-11-31")
 # read paths of all vp files of all Swiss radars for Nov/17
 list.paths17 <- retrieve_vp_paths(path = "PATH/TO/DATA-DIR", 
-                                  country = "cz", 
+                                  country = "ch", 
                                   start_date = "2017-11-01", 
                                   end_date = "2017-11-31")
 # put paths together 

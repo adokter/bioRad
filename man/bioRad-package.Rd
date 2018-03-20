@@ -117,7 +117,22 @@ of individuals passing a radar station in a certain time period
  \item Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
 }
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://adokter.github.io/bioRad}
+  \item \url{https://github.com/adokter/bioRad}
+  \item Report bugs at \url{http://adokter.github.io/bioRad/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Adriaan M. Dokter \email{amd427@cornell.edu}
+
+Other contributors:
+\itemize{
+  \item Peter Desmet \email{peter.desmet@inbo.be} (http://orcid.org/0000-0002-8442-8025) [contributor]
+  \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (http://orcid.org/0000-0001-6413-3185) [contributor]
+}
 
 }
