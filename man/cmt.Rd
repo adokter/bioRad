@@ -4,7 +4,7 @@
 \alias{cmt}
 \title{Cumulative migration traffic}
 \usage{
-cmt(x, alt.min = 0, alt.max = Inf, alpha = NA)
+cmt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
 }
 \arguments{
 \item{x}{an object inhereting from class '\code{vpts}'}
@@ -14,6 +14,9 @@ cmt(x, alt.min = 0, alt.max = Inf, alpha = NA)
 \item{alt.max}{maximum altitude in m}
 
 \item{alpha}{(optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}}
+
+\item{interval.max}{maximum time interval belonging to a single profile in seconds. Traffic rates are
+set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2} to \code{t+interval.max/2}.}
 }
 \value{
 a numeric value equal to migration traffic in number of individuals / km
