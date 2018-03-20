@@ -6,10 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guidelines to load bird profiles into bioRad from ENRAM repository • bioRad</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Guidelines to load bird profiles into bioRad from ENRAM repository">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -29,26 +32,20 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/intro_ppi.html">Guidelines to create PPI plots from polar volume files in bioRad</a>
+      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
     </li>
     <li>
-      <a href="../articles/intro_vp.html">Guidelines to load bird profiles into bioRad from ENRAM repository</a>
+      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
     </li>
   </ul>
 </li>
@@ -76,7 +73,10 @@
                         <h4 class="author">Liesbeth Verlinden, Peter Desmet, Stijn Van Hoey</h4>
             
             <h4 class="date">January 2017</h4>
-          </div>
+      
+      <small>Source: <a href="https:/github.com/adokter/bioRad/blob/master/vignettes/intro_vp.Rmd"><code>vignettes/intro_vp.Rmd</code></a></small>
+
+    </div>
 
     
     
@@ -124,10 +124,10 @@
 <p>The <code>download_vp</code> function provided with the BioRad function supports the download of a set of zip files, defined by a start date, end date, country and radar. As an example, here is how you can download the available data of October and November 2016 for two Belgian radars to the current working directory:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/download_vp.html">download_vp</a></span>(<span class="st">"2016-10-01"</span>, <span class="st">"2016-11-30"</span>, <span class="kw">c</span>(<span class="st">"be"</span>), 
             <span class="kw">c</span>(<span class="st">"jab"</span>, <span class="st">"wid"</span>), <span class="dt">localpath =</span> <span class="st">"."</span>)</code></pre></div>
-<pre><code>## [1] "no data available at URL https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/bejab201610.zip"
-## [1] "no data available at URL https://lw-enram.s3-eu-west-1.amazonaws.com/be/wid/2016/bewid201610.zip"
-## [1] "Downloading file bejab201611.zip"
-## [1] "Downloading file bewid201611.zip"</code></pre>
+<pre><code>## [1] "Downloading file bejab201610.zip"
+## [1] "Downloading file bewid201610.zip"
+## [1] "no data available at URL https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/bejab201611.zip"
+## [1] "no data available at URL https://lw-enram.s3-eu-west-1.amazonaws.com/be/wid/2016/bewid201611.zip"</code></pre>
 </div>
 </div>
 <div id="loading-bird-profile-data-into-biorad" class="section level2">
@@ -185,12 +185,12 @@ list.paths &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 <p><em>Special case</em>: if you want the paths to profiles for a <em>certain month across all years</em>, you will have to call the <code>retrieve_data_range</code> fuction several times across the years and put the outcomes together:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read paths of all vp files of all Swiss radars for Nov/16</span>
 list.paths16 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/retrieve_vp_paths.html">retrieve_vp_paths</a></span>(<span class="dt">path =</span> <span class="st">"PATH/TO/DATA-DIR"</span>, 
-                                  <span class="dt">country =</span> <span class="st">"cz"</span>, 
+                                  <span class="dt">country =</span> <span class="st">"ch"</span>, 
                                   <span class="dt">start_date =</span> <span class="st">"2016-11-01"</span>, 
                                   <span class="dt">end_date =</span> <span class="st">"2016-11-31"</span>)
 <span class="co"># read paths of all vp files of all Swiss radars for Nov/17</span>
 list.paths17 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/retrieve_vp_paths.html">retrieve_vp_paths</a></span>(<span class="dt">path =</span> <span class="st">"PATH/TO/DATA-DIR"</span>, 
-                                  <span class="dt">country =</span> <span class="st">"cz"</span>, 
+                                  <span class="dt">country =</span> <span class="st">"ch"</span>, 
                                   <span class="dt">start_date =</span> <span class="st">"2017-11-01"</span>, 
                                   <span class="dt">end_date =</span> <span class="st">"2017-11-31"</span>)
 <span class="co"># put paths together </span>
@@ -269,7 +269,7 @@ ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/regulari
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

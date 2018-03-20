@@ -11,20 +11,24 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Calculate a vertical profile of birds (VPB) — vol2bird" />
+
+<meta property="og:description" content="Calculates a vertical profile of birds (VPB) from a polar volume" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,26 +56,20 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro_ppi.html">Guidelines to create PPI plots from polar volume files in bioRad</a>
+      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
     </li>
     <li>
-      <a href="../articles/intro_vp.html">Guidelines to load bird profiles into bioRad from ENRAM repository</a>
+      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
     </li>
   </ul>
 </li>
@@ -96,6 +94,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate a vertical profile of birds (VPB)</h1>
+    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
     </div>
 
     
@@ -212,11 +211,11 @@ is to apply rain-filtering in single polarization mode, as well as dual polariza
 The default for S-band data is to apply
 precipitation filtering in dual-polarization mode.</p>
 <p>Arguments that sometimes require non-default values are: <code>rcs</code>, <code>sd_vvp</code>, <code>range.max</code>, <code>dualpol</code>, <code>dealias</code>.</p>
-<p>Other arguments are typically left at their defaults.
-    <code>azim.min</code> and <code>azim.max</code> only affects reflectivity-derived estimates in the profile (DBZH,eta,dens),
+<p>Other arguments are typically left at their defaults.</p>
+<p><code>azim.min</code> and <code>azim.max</code> only affects reflectivity-derived estimates in the profile (DBZH,eta,dens),
 not radial-velocity derived estimates (u,v,w,ff,dd,sd_vvp), which are estimated on all azimuths at all times.
-<code>azim.min</code>,<code>azim.max</code> may be set to exclude an angular sector with high ground clutter
-    <code>range.max</code> may be extended up to 40,000 m for volumes with low elevations only, in order to extend coverage to higher altitudes.</p>
+<code>azim.min</code>,<code>azim.max</code> may be set to exclude an angular sector with high ground clutter</p>
+<p><code>range.max</code> may be extended up to 40,000 m for volumes with low elevations only, in order to extend coverage to higher altitudes.</p>
 <p>For altitude layers with a VVP-retrieved radial velocity standard deviation value
 below the threshold <code>sd_vvp</code>, the bird density <code>dens</code> is set to zero (see vertical profile <a href='summary.vp.html'>vp</a> class). This threshold might be
 dependent on radar processing settings. Results from validation campaigns so far indicate that 2 m/s is
@@ -248,14 +247,18 @@ such that <code>vol2bird</code> calls are as fast as possible.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># locate example volume file:</span>
 <span class='no'>volume</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"bioRad"</span>)
 <span class='co'># copy to a home directory with read/write permissions:</span>
-<span class='fu'>file.copy</span>(<span class='no'>volume</span>,<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'># calculate the profile:
-</div><span class='co'># NOT RUN {</span>
+<span class='fu'>file.copy</span>(<span class='no'>volume</span>,<span class='st'>"~/volume.h5"</span>)
+<span class='co'># calculate the profile:</span>
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
 <span class='no'>profile</span><span class='kw'>=</span><span class='fu'>vol2bird</span>(<span class='st'>"~/volume.h5"</span>)
-<span class='co'># }</span><div class='input'><span class='co'># clean up:</span>
-<span class='fu'>file.remove</span>(<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
+<span class='co'># clean up:</span>
+<span class='fu'>file.remove</span>(<span class='st'>"~/volume.h5"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -280,7 +283,7 @@ such that <code>vol2bird</code> calls are as fast as possible.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -288,3 +291,4 @@ such that <code>vol2bird</code> calls are as fast as possible.</p>
 
   </body>
 </html>
+

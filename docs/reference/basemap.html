@@ -11,20 +11,24 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Grab a basemap for a ppi — basemap" />
+
+<meta property="og:description" content="downloads a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base layer map using get_map" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,26 +56,20 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro_ppi.html">Guidelines to create PPI plots from polar volume files in bioRad</a>
+      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
     </li>
     <li>
-      <a href="../articles/intro_vp.html">Guidelines to load bird profiles into bioRad from ENRAM repository</a>
+      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
     </li>
   </ul>
 </li>
@@ -96,6 +94,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Grab a basemap for a ppi</h1>
+    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.ppi.R'><code>R/bioRad.ppi.R</code></a></small>
     </div>
 
     
@@ -132,21 +131,23 @@ By default the zoom level matching the ppi extent is selected automatically.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load an example scan:</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># load an example scan:</span>
 <span class='fu'>data</span>(<span class='no'>SCAN</span>)
 <span class='co'># print summary info for the scan:</span>
-<span class='no'>SCAN</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make ppi for the scan</span>
+<span class='no'>SCAN</span>
+<span class='co'># make ppi for the scan</span>
 <span class='no'>ppi</span><span class='kw'>=</span><span class='fu'><a href='ppi.html'>ppi</a></span>(<span class='no'>SCAN</span>)
 <span class='co'># grab a basemap that matches the extent of the ppi:</span>
-<span class='no'>basemap</span><span class='kw'>=</span><span class='fu'>basemap</span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=56.364844,12.861212&amp;zoom=9&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</span></div><div class='input'><span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"DBZH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='basemap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># download a different type of basemap, e.g. satellite imagery:</span>
+<span class='no'>basemap</span><span class='kw'>=</span><span class='fu'>basemap</span>(<span class='no'>ppi</span>)
+<span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"DBZH"</span>)
+<span class='co'># download a different type of basemap, e.g. satellite imagery:</span>
 <span class='co'># see get_map() in ggmap library for full documentation of options</span>
-<span class='no'>basemap</span><span class='kw'>=</span><span class='fu'>basemap</span>(<span class='no'>ppi</span>,<span class='kw'>maptype</span><span class='kw'>=</span><span class='st'>"satellite"</span>)</div><div class='output co'>#&gt; downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=56.364844,12.861212&amp;zoom=9&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN&amp;sensor=false</span></div><div class='input'><span class='co'># map the radial velocities onto the satellite imagery:</span>
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"VRADH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='basemap-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='no'>basemap</span><span class='kw'>=</span><span class='fu'>basemap</span>(<span class='no'>ppi</span>,<span class='kw'>maptype</span><span class='kw'>=</span><span class='st'>"satellite"</span>)
+<span class='co'># map the radial velocities onto the satellite imagery:</span>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"VRADH"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -165,7 +166,7 @@ By default the zoom level matching the ppi extent is selected automatically.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -173,3 +174,4 @@ By default the zoom level matching the ppi extent is selected automatically.</p>
 
   </body>
 </html>
+

@@ -2,13 +2,10 @@
 % Please edit documentation in R/bioRad.R
 \name{summary.vplist}
 \alias{summary.vplist}
-\alias{[.vplist}
 \alias{is.vplist}
 \title{Class 'vplist': list of vertical profiles}
 \usage{
 \method{summary}{vplist}(object, ...)
-
-\method{[}{vplist}(x, i)
 
 is.vplist(x)
 }
@@ -18,8 +15,6 @@ is.vplist(x)
 \item{...}{additional arguments affecting the summary produced.}
 
 \item{x}{object of class 'vplist'}
-
-\item{i}{indices specifying elements to extract}
 }
 \value{
 for \code{is.vplist}: \code{TRUE} if its argument is of class "\code{vplist}"

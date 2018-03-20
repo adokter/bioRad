@@ -11,20 +11,24 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Make a plan position indicator (ppi) — ppi" />
+
+<meta property="og:description" content="Make a plan position indicator (ppi)" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,26 +56,20 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro_ppi.html">Guidelines to create PPI plots from polar volume files in bioRad</a>
+      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
     </li>
     <li>
-      <a href="../articles/intro_vp.html">Guidelines to load bird profiles into bioRad from ENRAM repository</a>
+      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
     </li>
   </ul>
 </li>
@@ -96,25 +94,23 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Make a plan position indicator (ppi)</h1>
+    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.ppi.R'><code>R/bioRad.ppi.R</code></a></small>
     </div>
 
     
     <p>Make a plan position indicator (ppi)</p>
     
 
-    <pre class="usage">ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
-  lonlim = NULL)
+    <pre class="usage"><span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-# S3 method for ppi
-[(x, i)
+<span class='co'># S3 method for param</span>
+<span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-# S3 method for param
-ppi(x, cellsize = 500, range.max = 50000, project = F,
-  latlim = NULL, lonlim = NULL)
-
-# S3 method for scan
-ppi(x, cellsize = 500, range.max = 50000, project = F,
-  latlim = NULL, lonlim = NULL)</pre>
+<span class='co'># S3 method for scan</span>
+<span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -144,10 +140,6 @@ ppi(x, cellsize = 500, range.max = 50000, project = F,
       <td><p>the range of longitudes to include</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>indices specifying elements to extract</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>arguments passed to methods</p></td>
     </tr>
@@ -170,29 +162,21 @@ ppi(x, cellsize = 500, range.max = 50000, project = F,
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load a polar scan example object</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># load a polar scan example object</span>
 <span class='fu'>data</span>(<span class='no'>SCAN</span>)
-<span class='no'>SCAN</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make PPIs for all scan parameters in the scan:</span>
+<span class='no'>SCAN</span>
+<span class='co'># make PPIs for all scan parameters in the scan:</span>
 <span class='no'>ppi</span><span class='kw'>=</span><span class='fu'>ppi</span>(<span class='no'>SCAN</span>)
 <span class='co'># print summary info for the ppi:</span>
-<span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
-#&gt; 
-#&gt;   quantities:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt;         dims:  200 x 200 pixels
-#&gt; </div><div class='input'><span class='co'># copy the first scan parameter of the first scan in the volume to a new object 'param':</span>
+<span class='no'>ppi</span>
+<span class='co'># copy the first scan parameter of the first scan in the volume to a new object 'param':</span>
 <span class='no'>param</span><span class='kw'>=</span><span class='no'>SCAN</span>$<span class='no'>params</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 <span class='co'># make a ppi for the new 'param' object:</span>
 <span class='no'>ppi</span><span class='kw'>=</span><span class='fu'>ppi</span>(<span class='no'>param</span>)
 <span class='co'># print summary info for this ppi:</span>
-<span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
-#&gt; 
-#&gt;   quantities:  VRADH 
-#&gt;         dims:  200 x 200 pixels
-#&gt; </div></pre>
+<span class='no'>ppi</span>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -217,7 +201,7 @@ ppi(x, cellsize = 500, range.max = 50000, project = F,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -225,3 +209,4 @@ ppi(x, cellsize = 500, range.max = 50000, project = F,
 
   </body>
 </html>
+
