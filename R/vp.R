@@ -227,3 +227,68 @@ quantityName = function(file,group){
   whatgroup$quantity
 }
 
+#' Coerce Vertical Profile data to a Data Frame
+#'
+#' Converts a vertical profile to a Data Frame,
+#' and optionally adds information on sunrise/sunset, day/night and derived quantities
+#' like migration traffic rates.
+#' @param x object of class vp
+#' @param row.names \code{NULL} or a character vector giving the row names for the data frame. Missing values are not allowed.
+#' @param optional If \code{FALSE} then the names of the variables in the data frame are checked to ensure that they are syntactically valid variable names and are not duplicated.
+#' @param quantities an optional character vector with the names of the quantities to include as columns in the data frame
+#' @param elev sun elevation in degrees, see \link{suntime}.
+#' @param lat radar latitude in decimal degrees. When set, overrides the latitude stored in \code{x} in \link{suntime} calculations
+#' @param lon radar longitude in decimal degrees. When set, overrides the longitude stored in \code{x} in \link{suntime} calculations
+#' @param suntime logical. When TRUE, adds sunrise/sunset and day/night information to each row
+#' @param geo logical. When TRUE, adds latitude, longitude and antenna height of the radar to each row
+#' @param ... additional arguments to be passed to or from methods.
+#' @return an object of class data.frame
+#' @export
+#' @examples
+#' # load an example vertical profile time series object
+#' data(VP)
+#' # convert the object to a data.frame
+#' df=as.data.frame(VP)
+#' # do not compute sunrise/sunset information
+#' df=as.data.frame(VP,suntime=FALSE)
+#' # override the latitude/longitude information stored in the object
+#' # when calculating sunrise / sunset
+#' df=as.data.frame(VP,suntime=TRUE,lat=50,lon=4)
+as.data.frame.vp = function(x, row.names = NULL, optional = FALSE, quantities=names(x$data),suntime=TRUE,geo=TRUE, elev = -0.268, lat=NULL, lon=NULL, ...){
+  stopifnot(inherits(x,"vp"))
+  if(!is.null(row.names)){
+    if(is.character(row.names) & length(row.names)==length(x$dates)*length(x$heights)) rownames(output)=row.names
+    else stop(paste("'row.names' is not a character vector of length",length(x$dates)*length(x$heights)))
+  }
+  if(is.null(lat)) lat = x$attributes$where$lat
+  if(is.null(lon)) lon = x$attributes$where$lon
+  missing=which(!(quantities %in% names(x$data)))
+  if(length(missing)>0) stop(paste(paste(quantities[missing],collapse=" "),"not an available quantity, select one or more of",paste(names(x$data),collapse=",")))
+  # coerce data to a data frame
+  output=as.data.frame(x$data,optional=optional,...)
+  # add height and datetime as a column
+  output=cbind(datetime=x$datetime,height=output$HGHT, output)
+  output$HGHT<-NULL
+  # add radar name
+  output=cbind(radar=x$radar,output,stringsAsFactors=FALSE)
+  # add location information
+  if(geo){
+    output$lat=lat
+    output$lon=lon
+    output$height_antenna=x$attributes$where$height
+  }
+  # override the lat,lon attributes in case of user-provided values
+  x$attributes$where$lat=lat
+  x$attributes$where$lon=lon
+  # add day
+  if(suntime){
+    dayQ=day(x,elev=elev)
+    dayQ=c(t(replicate(nrow(x),dayQ)))
+    output=cbind(output,day=dayQ)
+    sunrise=suntime(x$datetime,lat=lat,lon=lon,rise=T)
+    sunset=suntime(x$datetime,lat=lat,lon=lon,rise=F)
+    output$sunrise=as.POSIXct(c(t(replicate(nrow(x),sunrise))),origin="1970-1-1",tz='UTC')
+    output$sunset=as.POSIXct(c(t(replicate(nrow(x),sunset))),origin="1970-1-1",tz='UTC')
+  }
+  output
+}
