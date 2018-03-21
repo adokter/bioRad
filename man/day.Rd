@@ -24,7 +24,7 @@ day(x, elev = -0.268)
 \item{elev}{sun elevation in degrees}
 }
 \value{
-TRUE when night, FALSE when day, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
+TRUE when day, FALSE when night, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
 }
 \description{
 Test a bioRad object for day time. Dispatches to the logical inverse of \link{night}.

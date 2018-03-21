@@ -47,16 +47,6 @@
 #' plot(vintegrate(VPTS,alt.min=1000))
 vintegrate <- function(x, alt.min, alt.max, alpha=NA) UseMethod("vintegrate", x)
 
-#' @name height_int-deprecated
-#' @rdname bioRad-deprecated
-#' @section \code{height_int}:
-#' For \code{height_int}, use \code{\link{vintegrate}}.
-#' @export
-height_int=function(x, alt.min, alt.max, alpha=NA){
-  .Deprecated("vintegrate")
-  vintegrate(x, alt.min, alt.max, alpha=NA)
-}
-
 #' @describeIn vintegrate Vertically integrate a vertical profile
 #' @export
 vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){

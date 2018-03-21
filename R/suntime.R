@@ -106,7 +106,7 @@ night=function(lon,lat,date,elev=-0.268){
 #' @inheritParams night
 #' @param x An object of class \code{vp},\code{vplist} or \code{vpts}.
 #' @export
-#' @return TRUE when night, FALSE when day, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
+#' @return TRUE when day, FALSE when night, NA if unknown (either datetime or geographic location missing). For objects of class vpts an atomic logical vector
 #' @examples
 #' day(VP)
 day <- function (x, elev=-0.268) UseMethod("day", x)
