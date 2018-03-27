@@ -12,7 +12,7 @@ Authors@R: c(person("Adriaan M.", "Dokter", email = "amd427@cornell.edu",
            role = c("ctb"), email = "stijnvanhoey@gmail.com", 
            comment = "http://orcid.org/0000-0001-6413-3185"))
 Depends: R (>= 2.10)
-License: GPL-3
+License: MIT + file LICENSE
 LazyData: true
 Imports:
     curl,
