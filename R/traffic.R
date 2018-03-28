@@ -49,6 +49,8 @@
 #' plot(vintegrate(VPTS),quantity="mtr")
 mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
   stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
+  .Deprecated("vintegrate")
+  .Deprecated(msg="'mtr' has been moved to the 'mtr' column in the output of vintegrate()")
   vintegrated=vintegrate(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)
   vintegrated$mtr
 }
@@ -76,6 +78,8 @@ mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
 #' mt(VPTS,alt.min=0,alt.max=1000)
 mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
+  .Deprecated("vintegrate")
+  .Deprecated(msg="'mt' has been moved to the 'mt' column in the output of vintegrate()")
   cmt(x)[ncol(x)]
 }
 
@@ -102,6 +106,8 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
 #' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
 cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
+  .Deprecated("vintegrate")
+  .Deprecated(msg="'cmt' has been moved to the 'mt' column in the output of vintegrate()")
   vintegrated=vintegrate(x,alt.min,alt.max,alpha,interval.max)
   vintegrated$mt
 }
