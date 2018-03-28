@@ -50,6 +50,11 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   data=do.call(function(y) x$data[y],list(param))
   # convert to points
   data=data.frame(rasterToPoints(raster(data)))
+  # bring z-values within plotting range
+  index=which(data[,3]<zlim[1])
+  if(length(index)>0) data[index,3]=zlim[1]
+  index=which(data[,3]>zlim[2])
+  if(length(index)>0) data[index,3]=zlim[2]
   # plot
   if(missing(xlim)) xlim=x$data@bbox[1,]
   if(missing(ylim)) ylim=x$data@bbox[2,]
