@@ -1,4 +1,4 @@
-#' threshold VVP-retrieved radial velocity standard deviation
+#' Set and retrieve the VVP radial velocity standard deviation threshold
 #'
 #' Gives the current threshold in VVP-retrieved radial velocity standard deviation in m/s.
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object
