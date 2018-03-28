@@ -37,7 +37,7 @@ ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NUL
 #' @export
 `[.ppi` <- function(x,i) {
   stopifnot(inherits(x,"ppi"))
-  myppi=list(data=x$data[i],geo=x$geo)
+  myppi=list(radar=x$radar,datetime=x$datetime,data=x$data[i],geo=x$geo)
   class(myppi)="ppi"
   return(myppi)
 }
@@ -51,7 +51,7 @@ ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=N
   geo=attributes(x)$geo
   geo$bbox=attributes(data)$bboxlatlon
   geo$merged=FALSE
-  data=list(data=data, geo=geo)
+  data=list(radar=attributes(x)$radar,datetime=attributes(x)$datetime,data=data, geo=geo)
   class(data)="ppi"
   data
 }
@@ -69,7 +69,7 @@ ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NU
     alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project,latlim,lonlim))
     data=do.call(cbind,alldata)
   }
-  data=list(data=data, geo=geo)
+  data=list(radar=x$radar,datetime=x$datetime,data=data, geo=geo)
   class(data)="ppi"
   data
 }

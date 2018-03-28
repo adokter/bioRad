@@ -65,7 +65,7 @@ plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [
   plot(x$datetime,x[quantity][[1]],type='l',xlab="time",ylab=ylab,ylim=ylim,main=main,xaxs="i",yaxs="i",...)
 
   if(nightshade){
-    if(!is.numeric(lat) || !is.numeric(lon)) stop("No latitude/longitude found in attribute data, please provide lat and lon arguments")
+    if(!is.numeric(lat) || !is.numeric(lon)) stop("No latitude/longitude found in attribute data, please provide lat and lon arguments when nightshade=TRUE")
 
     # calculate sunrise and sunset
     days=as.POSIXct(seq(as.Date(min(x$datetime)-24*3600),as.Date(max(x$datetime)+24*3600),by="days"),tz="UTC")
