@@ -5,7 +5,7 @@
 \alias{sd_vvp.vp}
 \alias{sd_vvp.vplist}
 \alias{sd_vvp.vpts}
-\title{threshold VVP-retrieved radial velocity standard deviation}
+\title{Set and retrieve the VVP radial velocity standard deviation threshold}
 \usage{
 sd_vvp(x)
 

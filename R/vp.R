@@ -244,6 +244,10 @@ quantityName = function(file,group){
 #' @param ... additional arguments to be passed to or from methods.
 #' @return an object of class data.frame
 #' @export
+#' @details
+#' Note that only the 'dens' quantity is thresholded by the radial velocity standard deviation \link{sd_vvp}.
+#' Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{fetch.vp} functions, where
+#' quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}
 #' @examples
 #' # load an example vertical profile time series object
 #' data(VP)

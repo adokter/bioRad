@@ -37,6 +37,11 @@ Converts vertical profile time series (objects of class \code{vpts}) to a Data F
 and optionally adds information on sunrise/sunset, day/night and derived quantities
 like migration traffic rates.
 }
+\details{
+Note that only the 'dens' quantity is thresholded by the radial velocity standard deviation \link{sd_vvp}.
+Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{fetch.vp} functions, where
+quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}.
+}
 \examples{
 # load an example vertical profile time series object
 data(VPTS)
