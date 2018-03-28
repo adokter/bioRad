@@ -25,6 +25,8 @@ Class 'param': polar scan parameter
 \details{
 Scan parameters are simple matrices, with the following specific attributes:
 \describe{
+   \item{\code{radar}}{character string with the radar identifier}
+   \item{\code{datetime}}{nominal time of the volume to which this scan belongs [UTC]}
    \item{\code{lat}}{latitude of the radar [decimal degrees]}
    \item{\code{lon}}{longitude of the radar [decimal degrees]}
    \item{\code{height}}{height of the radar antenna [metres above sea level]}

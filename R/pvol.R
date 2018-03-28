@@ -164,7 +164,7 @@ read.pvol = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","PHIDP
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
 
   #read scan groups
-  data=lapply(scans,function(x) read.scan(filename,x,param,geo))
+  data=lapply(scans,function(x) read.scan(filename,x,param,radar,datetime,geo))
   #order by elevation
   if(sort) data=data[order(sapply(data,elangle))]
 
@@ -177,7 +177,7 @@ read.pvol = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","PHIDP
   output
 }
 
-read.scan=function(filename,scan,param,geo){
+read.scan=function(filename,scan,param,radar,datetime,geo){
   h5struct=h5ls(filename)
   h5struct=h5struct[h5struct$group==paste("/",scan,sep=""),]$name
   groups=h5struct[grep("data",h5struct)]
@@ -203,23 +203,25 @@ read.scan=function(filename,scan,param,geo){
   geo$ascale=360/attribs.where$nrays
 
   # read scan parameters
-  quantities=lapply(groups,function(x) read.quantity(filename,paste(scan,"/",x,sep=""),geo))
+  quantities=lapply(groups,function(x) read.quantity(filename,paste(scan,"/",x,sep=""),radar,datetime,geo))
   quantityNames=sapply(quantities,'[[',"quantityName")
   quantities=lapply(quantities,'[[',"quantity")
   names(quantities)=quantityNames
 
-  output=list(params=quantities,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where),geo=geo)
+  output=list(radar=radar,datetime=datetime,params=quantities,attributes=list(how=attribs.how,what=attribs.what,where=attribs.where),geo=geo)
   class(output)="scan"
   output
 }
 
-read.quantity=function(filename,quantity,geo){
+read.quantity=function(filename,quantity,radar,datetime,geo){
   data=h5read(filename,quantity)$data
   attr=h5readAttributes(filename,paste(quantity,"/what",sep=""))
   data=replace(data,data==as.numeric(attr$nodata),NA)
   data=replace(data,data==as.numeric(attr$undetect),NaN)
   data=as.numeric(attr$offset)+as.numeric(attr$gain)*data
   class(data)=c("param",class(data))
+  attributes(data)$radar=radar
+  attributes(data)$datetime=datetime
   attributes(data)$geo=geo
   attributes(data)$param=attr$quantity
   list(quantityName=attr$quantity,quantity=data)

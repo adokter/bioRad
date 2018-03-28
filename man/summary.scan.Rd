@@ -30,6 +30,8 @@ Class 'scan': polar scan
 \details{
 A polar scan object of class 'scan' is a list containing:
 \describe{
+ \item{\code{radar}}{character string with the radar identifier}
+ \item{\code{datetime}}{nominal time of the volume to which this scan belongs [UTC]}
  \item{\code{params}}{a list with scan parameters}
  \item{\code{attributes}}{list with the scans's \code{\\what}, \code{\\where} and \code{\\how} attributes}
  \item{\code{geo}}{geographic data, a list with:
