@@ -6,6 +6,9 @@
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
 #' @param alpha migratory direction in clockwise degrees from north
+#' @param interval.max maximum time interval belonging to a single profile in seconds. Traffic rates are
+#' set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2}
+#' to \code{t+interval.max/2}. Ignored for single profiles of class \code{vp}.
 #' @export
 #' @return an object of class \code{vivp}, a data frame with vertically integrated profile quantities
 #' @details
@@ -45,11 +48,11 @@
 #' plot(VPTS)
 #' #' plot migration traffic rates for altitudes > 1 km above sea level
 #' plot(vintegrate(VPTS,alt.min=1000))
-vintegrate <- function(x, alt.min, alt.max, alpha=NA) UseMethod("vintegrate", x)
+vintegrate <- function(x, alt.min, alt.max, alpha=NA, interval.max=Inf) UseMethod("vintegrate", x)
 
 #' @describeIn vintegrate Vertically integrate a vertical profile
 #' @export
-vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
+vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vp"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
@@ -67,7 +70,11 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
   v=sum(fetch(x,"v")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
   ff=sqrt(u^2+v^2)
   dd=(pi/2-atan2(v,u))*180/pi
-  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v,HGHT=height)
+  # time-integrated measures not defined for a single profile:
+  mt=NA
+  rt=NA
+  # prepare output
+  output=data.frame(datetime=x$datetime,mtr=mtr,vid=vid,vir=vir,rtr=rtr,mt=mt,rt=rt,ff=ff,dd=dd,u=u,v=v,HGHT=height)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
@@ -81,10 +88,10 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA){
 
 #' @describeIn vintegrate Vertically integrate a list of vertical profiles
 #' @export
-vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA){
+vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vplist"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  output=do.call(rbind,lapply(x,vintegrate.vp,alt.min=alt.min,alt.max=alt.max,alpha=alpha))
+  output=do.call(rbind,lapply(x,vintegrate.vp,alt.min=alt.min,alt.max=alt.max,alpha=alpha,interval.max=interval.max))
   class(output)=c("vivp","data.frame")
   attributes(output)$alt.min=alt.min
   attributes(output)$alt.max=alt.max
@@ -96,7 +103,7 @@ vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA){
 
 #' @describeIn vintegrate Vertically integrate a time series of vertical profiles
 #' @export
-vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
+vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
@@ -114,7 +121,15 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   v=colSums(fetch(x,"v")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
   ff=sqrt(u^2+v^2)
   dd=(pi/2-atan2(v,u))*180/pi
-  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr,ff=ff,dd=dd,u=u,v=v,HGHT=height)
+  # time-integrated measures:
+  dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
+  dt=pmin(interval.max,dt)
+  # convert to hours
+  dt=as.numeric(dt)/3600
+  mt=cumsum(dt*mtr)
+  rt=cumsum(dt*rtr)
+  # prepare output
+  output=data.frame(datetime=x$dates,mtr=mtr,vid=vid,vir=vir,rtr=rtr,mt=mt,rt=rt,ff=ff,dd=dd,u=u,v=v,HGHT=height)
   class(output)=c("vivp","data.frame")
   rownames(output)=NULL
   attributes(output)$alt.min=alt.min
@@ -125,7 +140,3 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA){
   attributes(output)$lon=x$attributes$where$lon
   return(output)
 }
-
-
-
-

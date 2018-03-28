@@ -31,7 +31,7 @@
 #' plot(vi.vpts,quantity="vid",nightshade=FALSE)
 plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [#/km/h]", main="MTR", nightshade=TRUE, elev=-0.268, lat=NULL,lon=NULL,ylim=NULL,...){
   stopifnot(inherits(x,"vivp"))
-  stopifnot(quantity %in% c("mtr","vid","vir","rtr","ff","dd","u","v"))
+  stopifnot(quantity %in% c("mtr","vid","vir","rtr","mt","rt","ff","dd","u","v"))
 
   # set up the plot labels
   if(missing(ylab)){
@@ -39,6 +39,8 @@ plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [
     if(quantity=="rtr") ylab=expression("reflectivity traffic rate [cm"^2*"/km/h]")
     if(quantity=="vid") ylab=expression("vertically integrated density [#/km"^2*"]")
     if(quantity=="vir") ylab=expression("vertically integrated reflectivity [cm"^2*"/km/h]")
+    if(quantity=="mt") ylab=expression("(cumulative) migration traffic [#/km]")
+    if(quantity=="rt") ylab=expression("(cumulative) reflectivity traffic [cm"^2*"/km]")
     if(quantity=="ff") ylab=expression("vertically averaged ground speed [m/s]")
     if(quantity=="dd") ylab=expression("vertically averaged direction [deg]")
     if(quantity=="u") ylab=expression("vertically averaged u-component ground speed [m/s]")
@@ -49,6 +51,8 @@ plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [
     if(quantity=="rtr") main="RTR"
     if(quantity=="vid") main="VID"
     if(quantity=="vir") main="VIR"
+    if(quantity=="mt") main="MT"
+    if(quantity=="rt") main="RT"
     if(quantity=="ff") main="Ground speed"
     if(quantity=="dd") main="Ground speed direction"
     if(quantity=="u") main="Ground speed u (east->west)"

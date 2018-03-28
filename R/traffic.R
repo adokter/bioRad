@@ -49,7 +49,8 @@
 #' plot(vintegrate(VPTS),quantity="mtr")
 mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
   stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
-  return(vintegrate(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)$mtr)
+  vintegrated=vintegrate(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)
+  vintegrated$mtr
 }
 
 #' Migration traffic
@@ -75,11 +76,7 @@ mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
 #' mt(VPTS,alt.min=0,alt.max=1000)
 mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
-  dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
-  dt=pmin(interval.max,dt)
-  # convert to hours
-  dt=as.numeric(dt)/3600
-  sum(dt*mtr(x,alt.min,alt.max,alpha))
+  cmt(x)[ncol(x)]
 }
 
 #' Cumulative migration traffic
@@ -95,7 +92,7 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
 #' set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2} to \code{t+interval.max/2}.
 #' @inheritParams mtr
 #' @export
-#' @return a numeric value equal to migration traffic in number of individuals / km
+#' @return atomic vector with (cumulative) migration traffic in number of individuals / km
 #' @examples
 #' # get the VPTS example dataset:
 #' data(VPTS)
@@ -105,10 +102,6 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
 #' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
 cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
-  dt=(c(0,x$timesteps)+c(x$timesteps,0))/2
-  dt=pmin(interval.max,dt)
-  # convert to hours
-  dt=as.numeric(dt)/3600
-  vintegrated=vintegrate(x,alt.min,alt.max,alpha)
-  data.frame(dates=vintegrated$datetime,cmt=cumsum(dt*vintegrated$mtr))
+  vintegrated=vintegrate(x,alt.min,alt.max,alpha,interval.max)
+  vintegrated$mt
 }
