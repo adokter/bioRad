@@ -19,7 +19,7 @@ cmt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
 set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2} to \code{t+interval.max/2}.}
 }
 \value{
-a numeric value equal to migration traffic in number of individuals / km
+atomic vector with (cumulative) migration traffic in number of individuals / km
 }
 \description{
 Cumulative migration traffic is calculated as the cumulative sum

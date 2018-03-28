@@ -7,13 +7,16 @@
 \alias{vintegrate.vpts}
 \title{Vertically integrate profiles}
 \usage{
-vintegrate(x, alt.min, alt.max, alpha = NA)
+vintegrate(x, alt.min, alt.max, alpha = NA, interval.max = Inf)
 
-\method{vintegrate}{vp}(x, alt.min = 0, alt.max = Inf, alpha = NA)
+\method{vintegrate}{vp}(x, alt.min = 0, alt.max = Inf, alpha = NA,
+  interval.max = Inf)
 
-\method{vintegrate}{vplist}(x, alt.min = 0, alt.max = Inf, alpha = NA)
+\method{vintegrate}{vplist}(x, alt.min = 0, alt.max = Inf, alpha = NA,
+  interval.max = Inf)
 
-\method{vintegrate}{vpts}(x, alt.min = 0, alt.max = Inf, alpha = NA)
+\method{vintegrate}{vpts}(x, alt.min = 0, alt.max = Inf, alpha = NA,
+  interval.max = Inf)
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
@@ -23,6 +26,10 @@ vintegrate(x, alt.min, alt.max, alpha = NA)
 \item{alt.max}{maximum altitude in m}
 
 \item{alpha}{migratory direction in clockwise degrees from north}
+
+\item{interval.max}{maximum time interval belonging to a single profile in seconds. Traffic rates are
+set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2}
+to \code{t+interval.max/2}. Ignored for single profiles of class \code{vp}.}
 }
 \value{
 an object of class \code{vivp}, a data frame with vertically integrated profile quantities
