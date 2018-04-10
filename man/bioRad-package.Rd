@@ -133,6 +133,10 @@ Other contributors:
 \itemize{
   \item Peter Desmet \email{peter.desmet@inbo.be} (http://orcid.org/0000-0002-8442-8025) [contributor]
   \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (http://orcid.org/0000-0001-6413-3185) [contributor]
+  \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
+  \item Lourens Veen \email{l.veen@esciencecenter.nl} [contributor]
+  \item Liesbeth Verlinden \email{l.verlinden@uva.nl} [contributor]
+  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} [contributor]
 }
 
 }
