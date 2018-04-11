@@ -10,6 +10,10 @@
 \alias{bind}
 \alias{vol2bird-deprecated}
 \alias{vol2bird}
+\alias{night-deprecated}
+\alias{night}
+\alias{day-deprecated}
+\alias{day}
 \title{Deprecated functions in package \pkg{bioRad}.}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -19,6 +23,10 @@ beamwidth(range, angle = 1)
 bind(x, ...)
 
 vol2bird()
+
+night(x, ..., elev = -0.268)
+
+day(x, elev = -0.268)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -43,6 +51,16 @@ For \code{bind}, use \code{\link{bind_into_vpts}}.
 \section{\code{vol2bird}}{
 
 For \code{vol2bird}, use \code{\link{calculate_vp}}.
+}
+
+\section{\code{night}}{
+
+For \code{night}, use \code{\link{check_night}}.
+}
+
+\section{\code{day}}{
+
+For \code{day}, use \code{\link{check_night}}.
 }
 
 \keyword{internal}

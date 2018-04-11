@@ -41,9 +41,32 @@ bind <- function(x, ...) {
 #' @rdname bioRad-deprecated
 #' @section \code{vol2bird}:
 #' For \code{vol2bird}, use \code{\link{calculate_vp}}.
-#' @exportg
+#' @export
 vol2bird <- function(){
   .Deprecated("calculate_vp")
   calculate_vp()
+}
+
+#' @name night-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{night}:
+#' For \code{night}, use \code{\link{check_night}}.
+#' @export
+night <- function(x, ..., elev=-0.268){
+  .Deprecated("check_night")
+  check_night(x, ..., elev = -0.268)
+}
+
+#' @name day-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{day}:
+#' For \code{day}, use \code{\link{check_night}}.
+#' @export
+day <- function(x, elev = -0.268){
+  .Deprecated("check_night",
+              msg = paste("'day' is deprecatedand, its functionality is",
+                          "replaced by the 'check_night' function",
+                          "(FALSE <-> TRUE)"))
+  !check_night(x, elev = -0.268)
 }
 

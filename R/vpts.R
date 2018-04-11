@@ -276,7 +276,7 @@ as.data.frame.vpts = function(x, row.names = NULL, optional = FALSE, quantities=
   x$attributes$where$lon=lon
   # add day
   if(suntime){
-    dayQ=day(x,elev=elev)
+    dayQ=!check_night(x,elev=elev)
     dayQ=c(t(replicate(length(x$heights),dayQ)))
     output=cbind(output,day=dayQ)
     sunrise=suntime(x$dates,lat=lat,lon=lon,rise=T)
