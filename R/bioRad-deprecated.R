@@ -27,3 +27,14 @@ beamwidth <- function(range, angle = 1) {
   beam_width(range, angle)
 }
 
+#' @name bind-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{oldName}:
+#' For \code{bind}, use \code{\link{bind_into_vpts}}.
+#' @export
+bind <- function(x, ...) {
+  .Deprecated("bind_into_vpts")
+  bind_into_vpts(x, ...)
+}
+
+

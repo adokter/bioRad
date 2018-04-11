@@ -48,7 +48,7 @@
 #' is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
 #' }
 #' \subsection{Organizing, analyzing and plotting vertical profile data}{
-#' Vertical profiles (\link[=summary.vp]{vp} objects) can be combined with \link{bind.vp} into lists of vertical profiles (\link[=summary.vplist]{vplist} objects).
+#' Vertical profiles (\link[=summary.vp]{vp} objects) can be combined with \link{bind_into_vpts.vp} into vertical profile time series (\link[=summary.vpts]{vpts} objects).
 #'
 #' Vertical profile lists (\link[=summary.vplist]{vplist} objects) can be converted into vertical profile time series (\link[=summary.vpts]{vpts} objects) using function \link{vpts}.
 #'

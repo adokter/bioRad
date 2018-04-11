@@ -6,11 +6,15 @@
 \alias{beamheight}
 \alias{beamwidth-deprecated}
 \alias{beamwidth}
+\alias{bind-deprecated}
+\alias{bind}
 \title{Deprecated functions in package \pkg{bioRad}.}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 
 beamwidth(range, angle = 1)
+
+bind(x, ...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -23,6 +27,9 @@ For \code{beamheight}, use \code{\link{beam_height}}.
 
 
 For \code{beamwidth}, use \code{\link{beam_width}}.
+
+
+For \code{bind}, use \code{\link{bind_into_vpts}}.
 }
 
 \keyword{internal}
