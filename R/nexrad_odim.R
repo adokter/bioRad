@@ -1,7 +1,7 @@
 #' convert RSL polar volume to ODIM hdf5 format
 #' @param vol.in polar volume input file in RSL format
 #' @param vol.out filename for the polar volume in ODIM hdf5 format to be generated
-#' @inheritParams vol2bird
+#' @inheritParams calculate_vp
 #' @export
 #' @return \code{TRUE} on success
 rsl2odim =function(vol.in,vol.out,verbose=F,mount=dirname(vol.in)){
