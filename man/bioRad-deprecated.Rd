@@ -2,10 +2,20 @@
 % Please edit documentation in R/bioRad-deprecated.R
 \name{bioRad-deprecated}
 \alias{bioRad-deprecated}
+\alias{beamheight-deprecated}
+\alias{beamheight}
 \title{Deprecated functions in package \pkg{bioRad}.}
+\usage{
+beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
+}
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
   the near future. When possible, alternative functions with similar
   functionality are also mentioned.
 }
+\section{\code{oldName}}{
+
+For \code{beamheight}, use \code{\link{beam_height}}.
+}
+
 \keyword{internal}
