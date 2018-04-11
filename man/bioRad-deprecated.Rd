@@ -21,13 +21,17 @@ The functions listed below are deprecated or renamed and will be defunct in
   the near future. When possible, alternative functions with similar
   functionality are also mentioned.
 }
-\section{\code{oldName}}{
+\section{\code{beamheight}}{
 
 For \code{beamheight}, use \code{\link{beam_height}}.
+}
 
+\section{\code{beamwidth}}{
 
 For \code{beamwidth}, use \code{\link{beam_width}}.
+}
 
+\section{\code{bind}}{
 
 For \code{bind}, use \code{\link{bind_into_vpts}}.
 }
