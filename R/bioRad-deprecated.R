@@ -9,7 +9,7 @@ NULL
 
 #' @name beamheight-deprecated
 #' @rdname bioRad-deprecated
-#' @section \code{oldName}:
+#' @section \code{beamheight}:
 #' For \code{beamheight}, use \code{\link{beam_height}}.
 #' @export
 beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
@@ -19,7 +19,7 @@ beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
 
 #' @name beamwidth-deprecated
 #' @rdname bioRad-deprecated
-#' @section \code{oldName}:
+#' @section \code{beamwidth}:
 #' For \code{beamwidth}, use \code{\link{beam_width}}.
 #' @export
 beamwidth <- function(range, angle = 1) {
@@ -29,7 +29,7 @@ beamwidth <- function(range, angle = 1) {
 
 #' @name bind-deprecated
 #' @rdname bioRad-deprecated
-#' @section \code{oldName}:
+#' @section \code{bind}:
 #' For \code{bind}, use \code{\link{bind_into_vpts}}.
 #' @export
 bind <- function(x, ...) {
