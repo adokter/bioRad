@@ -37,4 +37,13 @@ bind <- function(x, ...) {
   bind_into_vpts(x, ...)
 }
 
+#' @name vol2bird-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{vol2bird}:
+#' For \code{vol2bird}, use \code{\link{calculate_vp}}.
+#' @exportg
+vol2bird <- function(){
+  .Deprecated("calculate_vp")
+  calculate_vp()
+}
 
