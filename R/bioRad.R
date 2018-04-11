@@ -91,7 +91,7 @@
 #'  \item \link{checkDocker} checks whether your local Docker daemon is running correctly
 #'  \item \link{elangle} gives the elevation angle(s) of a polar volume or polar scan object
 #'  \item \link{beam_height} gives the radar beam height, for a certain elevation and range.
-#'  \item \link{beamwidth} gives the radar beam width, for a certain range.
+#'  \item \link{beam_width} gives the radar beam width, for a certain range.
 #'  }
 #' }
 #' \subsection{Example datasets}{

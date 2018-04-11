@@ -35,4 +35,4 @@ earth_radius <- function(a, b, latdeg){
 #' @param angle numeric. Beam angle in degrees
 #' @return numeric value. Beam width in m
 #' @export
-beamwidth=function(range,angle=1) range*1000*sin(angle*pi/180)
+beam_width <- function(range, angle = 1) range*1000*sin(angle*pi/180)

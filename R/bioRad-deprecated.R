@@ -16,3 +16,14 @@ beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
   .Deprecated("beam_height")
   beam_height(range, elev, k, lat, re, rp)
 }
+
+#' @name beamwidth-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{oldName}:
+#' For \code{beamwidth}, use \code{\link{beam_width}}.
+#' @export
+beamwidth <- function(range, angle = 1) {
+  .Deprecated("beam_width")
+  beam_width(range, angle)
+}
+
