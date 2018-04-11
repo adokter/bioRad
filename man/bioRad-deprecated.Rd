@@ -8,6 +8,8 @@
 \alias{beamwidth}
 \alias{bind-deprecated}
 \alias{bind}
+\alias{vol2bird-deprecated}
+\alias{vol2bird}
 \title{Deprecated functions in package \pkg{bioRad}.}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -15,6 +17,8 @@ beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 beamwidth(range, angle = 1)
 
 bind(x, ...)
+
+vol2bird()
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -34,6 +38,11 @@ For \code{beamwidth}, use \code{\link{beam_width}}.
 \section{\code{bind}}{
 
 For \code{bind}, use \code{\link{bind_into_vpts}}.
+}
+
+\section{\code{vol2bird}}{
+
+For \code{vol2bird}, use \code{\link{calculate_vp}}.
 }
 
 \keyword{internal}

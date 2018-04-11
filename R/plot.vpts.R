@@ -120,11 +120,11 @@ plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, bar
   axis.args=list(at=legendticks,labels=ticks)
   # FIXME: want to change this to
   # plotdata[is.nan(plotdata)]=(breaks[2]+breaks[3])/2
-  # when vol2bird stdout also differentiates between NA and NaN:
+  # when calculate_vp stdout also differentiates between NA and NaN:
   plotdata[is.na(plotdata)]=(breaks[2]+breaks[3])/2
   # FIXME: want to change this to
   # plotdata[is.na2(plotdata)]=(breaks[1]+breaks[2])/2
-  # when vol2bird stdout also differentiates between NA and NaN:
+  # when calculate_vp stdout also differentiates between NA and NaN:
   plotdata[is.na(plotdata)]=(breaks[2]+breaks[3])/2
 
   #plot the image
