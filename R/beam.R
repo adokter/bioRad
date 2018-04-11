@@ -18,14 +18,14 @@
 #' earth and the dependence of earth radius with latitude only a small correction.
 #' Using default values assumes an average earth's radius of 6371 km.
 beam_height <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
-  sqrt(range^2 + (k * earthradius(re, rp, lat))^2 +
-         2 * range * (k*earthradius(re, rp, lat)) * sin(elev * pi/180)
-       ) - k * earthradius(re, rp, lat)
+  sqrt(range^2 + (k * earth_radius(re, rp, lat))^2 +
+         2 * range * (k*earth_radius(re, rp, lat)) * sin(elev * pi/180)
+       ) - k * earth_radius(re, rp, lat)
 }
 
-earthradius=function(a,b,latdeg){
-  lat=latdeg*pi/180
-  sqrt(((a^2*cos(lat))^2+(b^2*sin(lat))^2)/((a*cos(lat))^2+(b*sin(lat))^2))
+earth_radius <- function(a, b, latdeg){
+  lat <- latdeg * pi/180
+  sqrt(((a^2*cos(lat))^2 + (b^2*sin(lat))^2)/((a*cos(lat))^2 + (b*sin(lat))^2))
 }
 
 #' Radar beam width
