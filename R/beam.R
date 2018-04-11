@@ -17,7 +17,11 @@
 #' Typically uncertainties in refraction coefficient are relatively large, making oblateness of the
 #' earth and the dependence of earth radius with latitude only a small correction.
 #' Using default values assumes an average earth's radius of 6371 km.
-beamheight=function(range,elev,k=4/3,lat=35,re=6378,rp=6357) sqrt(range^2+(k*earthradius(re,rp,lat))^2+2*range*(k*earthradius(re,rp,lat))*sin(elev*pi/180))-k*earthradius(re,rp,lat)
+beam_height <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
+  sqrt(range^2 + (k * earthradius(re, rp, lat))^2 +
+         2 * range * (k*earthradius(re, rp, lat)) * sin(elev * pi/180)
+       ) - k * earthradius(re, rp, lat)
+}
 
 earthradius=function(a,b,latdeg){
   lat=latdeg*pi/180
