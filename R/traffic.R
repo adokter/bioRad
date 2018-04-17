@@ -80,7 +80,7 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
   .Deprecated("vintegrate")
   .Deprecated(msg="'mt' has been moved to the 'mt' column in the output of vintegrate()")
-  cmt(x)[ncol(x)]
+  cmt(x,alt.min,alt.max,alpha,interval.max)[ncol(x)]
 }
 
 #' Cumulative migration traffic
