@@ -36,6 +36,8 @@
 \alias{getscan}
 \alias{vintegrate-deprecated}
 \alias{vintegrate}
+\alias{rsl2odim-deprecated}
+\alias{rsl2odim}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -71,6 +73,8 @@ fetch(...)
 getscan(...)
 
 vintegrate(...)
+
+rsl2odim(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -160,6 +164,11 @@ Use \code{\link{get_scan}} instead.
 \section{\code{vintegrate}}{
 
 Use \code{\link{integrate_profile}} instead.
+}
+
+\section{\code{rsl2odim}}{
+
+Use \code{\link{nexrad_to_odim}} instead.
 }
 
 \keyword{internal}
