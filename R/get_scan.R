@@ -1,0 +1,22 @@
+#' Extract a scan from a polar volume
+#'
+#' @param x An object of class \code{pvol}.
+#' @param angle Elevation angle.
+#'
+#' @return An object of class '\link[=summary.scan]{scan}'.
+#'
+#' @details The function returns the scan with elevation angle closest
+#' to \code{angle}.
+#'
+#' @export
+#' @examples
+#' # locate example volume file:
+#' pvol <- system.file("extdata", "volume.h5", package="bioRad")
+#' # load the file:
+#' vol <- read.pvol(pvol)
+#' # extract the scan at 3 degree elevation:
+#' myscan <- get_scan(vol,3)
+get_scan <- function(x, angle) {
+  stopifnot(inherits(x, "pvol"))
+  x$scans[[which.min(abs(get_angles(x) - angle))]]
+}
