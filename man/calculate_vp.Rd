@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_vp.R
 \name{calculate_vp}
 \alias{calculate_vp}
-\title{Calculate a vertical profile of birds (vp)}
+\title{Calculate a vertical profile of birds (vp) from a polar volume (pvol)}
 \usage{
 calculate_vp(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
   verbose = FALSE, mount = dirname(vol.in), sd_vvp = 2, rcs = 11,
@@ -19,23 +19,23 @@ format, which is the implementation of the OPERA data information model in
 supported by the
 \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.}
 
-\item{vp.out}{character string. Filename for the vertical profile to be
-generated in ODIM HDF5 format (optional)}
+\item{vp.out}{character. Filename for the vertical profile to be
+generated in ODIM HDF5 format (optional).}
 
-\item{vol.out}{character string. Filename for the polar volume to be
+\item{vol.out}{character. Filename for the polar volume to be
 generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
-to ODIM)}
+to ODIM).}
 
 \item{autoconf}{logical. When TRUE, default optimal configuration settings
 are selected automatically, and other user settings are ignored.}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
-Windows always TRUE}
+Windows always TRUE.}
 
-\item{mount}{character string with the mount point (a directory path) for
-the Docker container}
+\item{mount}{character. String with the mount point (a directory path) for
+the Docker container.}
 
-\item{sd_vvp}{numeric. lower threshold in radial velocity standard
+\item{sd_vvp}{numeric. Lower threshold in radial velocity standard
 deviation (\code{sd_vvp}) in m/s.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
@@ -46,40 +46,40 @@ meteorological echoes are filtered using the correlation coefficient
 on reflectivity and radial velocity quantities.}
 
 \item{rhohv}{numeric. Lower threshold in correlation coefficient used to
-filter meteorological scattering}
+filter meteorological scattering.}
 
-\item{elev.min}{numeric. Minimum scan elevation in degrees}
+\item{elev.min}{numeric. Minimum scan elevation in degrees.}
 
-\item{elev.max}{numeric. Maximum scan elevation in degrees}
+\item{elev.max}{numeric. Maximum scan elevation in degrees.}
 
-\item{azim.min}{numeric. Minimum azimuth in degrees clockwise from north}
+\item{azim.min}{numeric. Minimum azimuth in degrees clockwise from north.}
 
-\item{azim.max}{numeric. Maximum azimuth in degrees clockwise from north}
+\item{azim.max}{numeric. Maximum azimuth in degrees clockwise from north.}
 
-\item{range.min}{numeric. Minimum range in km}
+\item{range.min}{numeric. Minimum range in km.}
 
 \item{range.max}{numeric. Maximum range in km.}
 
-\item{nlayer}{numeric. Number of altitude layers in the profile}
+\item{nlayer}{numeric. Number of altitude layers in the profile.}
 
-\item{hlayer}{numeric. Width of altitude layers in metre}
+\item{hlayer}{numeric. Width of altitude layers in metre.}
 
 \item{dealias}{logical. Whether to dealias radial velocities; this should
 typically be done when the scans in the polar volume have low Nyquist
-velocities (below 25 m/s)}
+velocities (below 25 m/s).}
 
 \item{nyquist.min}{numeric. Minimum Nyquist velocity of scans in m/s for
-scans to be included in the analysis}
+scans to be included in the analysis.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When
 defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
 }
 \description{
-Calculates a vertical profile of birds (vp) from a polar volume
+Calculates a vertical profile of birds (vp) from a polar volume (pvol).
 }
 \details{
-Requires a running \href{https://www.docker.com/}{Docker} daemon
+Requires a running \href{https://www.docker.com/}{Docker} daemon.
 
 Common arguments set by users are \code{vol.in}, \code{vp.out},
 \code{autoconf} and \code{mount}.
@@ -98,9 +98,9 @@ Other arguments are typically left at their defaults.
 
 \code{azim.min} and \code{azim.max} only affects reflectivity-derived
 estimates in the profile (DBZH,eta,dens), not radial-velocity derived
-estimates (u,v,w,ff,dd,sd_vvp), which are estimated on all azimuths at
-all times. \code{azim.min},\code{azim.max} may be set to exclude an angular
-sector with high ground clutter
+estimates (u, v, w, ff, dd, sd_vvp), which are estimated on all azimuths at
+all times. \code{azim.min}, \code{azim.max} may be set to exclude an angular
+sector with high ground clutter.
 
 \code{range.max} may be extended up to 40,000 m for volumes with low
 elevations only, in order to extend coverage to higher altitudes.
@@ -120,8 +120,8 @@ patterns smaller than the beam width cannot be resolved.
 The default radar cross section (11 cm^2) corresponds to the average value
 found by Dokter et al. in a calibration campaign of a full migration autumn
 season in western Europe at C-band. It's value may depend on radar
-wavelength. rcs will scale approximately \eqn{M^{2/3}} with \code{M} the
-bird's mass.
+wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M}
+the bird's mass.
 
 Using default values of \code{range.min} and \code{range.max} is
 recommended. Ranges closer than 5 km tend to be contaminated by ground
@@ -157,7 +157,6 @@ file.remove("~/volume.h5")
   Technology, 21(10), pp.1566-1573.
   \item Bird migration flight altitudes studied by a network of
   operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54),
-  pp. 30--43, 2011.
-  DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
+  pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
 }
 }

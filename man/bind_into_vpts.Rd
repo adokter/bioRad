@@ -20,7 +20,7 @@ bind_into_vpts(x, ...)
 
 \item{...}{A \code{vp}, \code{vpts} or a vector of these.}
 
-\item{attributes_from}{integer. Which \code{vpts} to copy attributes from (default:
+\item{attributes_from}{numeric. Which \code{vpts} to copy attributes from (default:
 first).}
 }
 \value{
