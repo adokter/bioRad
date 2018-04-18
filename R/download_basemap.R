@@ -7,7 +7,7 @@
 #' @param zoom Zoom level (optional), see \link[ggmap]{get_map}. An integer
 #'   from 3 (continent) to 21 (building). By default the zoom level matching the
 #'   ppi extent is selected automatically.
-#' @param alpha Transparancy of the basemap (0-1).
+#' @param alpha Transparency of the basemap (0-1).
 #' @param verbose Logical, whether to print information to console.
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function.
 #' @export
@@ -19,15 +19,15 @@
 #' # make ppi for the scan
 #' ppi <- ppi(SCAN)
 #' # grab a basemap that matches the extent of the ppi:
-#' basemap <- basemap(ppi)
+#' basemap <- download_basemap(ppi)
 #' # map the reflectivity quantity of the ppi onto the basemap:
 #' map(ppi, map = basemap, param = "DBZH")
 #' # download a different type of basemap, e.g. satellite imagery:
 #' # see get_map() in ggmap library for full documentation of options
-#' basemap = basemap(ppi, maptype = "satellite")
+#' basemap = download_basemap(ppi, maptype = "satellite")
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi, map = basemap, param = "VRADH")
-basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...){
+download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...){
   stopifnot(inherits(x, "ppi"))
 
   if (!missing(zoom)) {
