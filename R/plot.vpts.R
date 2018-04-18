@@ -128,7 +128,7 @@ plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, bar
   plotdata[is.na(plotdata)]=(breaks[2]+breaks[3])/2
 
   #plot the image
-  image.plot(x$dates,x$heights,plotdata,col=plot.colors,xlab=xlab,ylab=ylab,axis.args=axis.args,breaks=breaks,zlim=zlim,main=main,...)
+  image.plot(x$dates,x$heights,plotdata,col=plot_colors,xlab=xlab,ylab=ylab,axis.args=axis.args,breaks=breaks,zlim=zlim,main=main,...)
 
   # overlay speed barbs
   if(barbs){
