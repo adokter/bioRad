@@ -1,9 +1,9 @@
-#' Check is a specific URL is existing and providing a return message
+#' Check if a specific URL is existing and providing a return message
 #'
-#' @param url char weblink to a potentially existing webpage
+#' @param url Weblink (char) to a potentially existing webpage.
 #'
-#' @return z with a lenght > 1 if the URL is existing and downloading would be
-#' possible
+#' @return z With a length > 1 if the URL is existing and downloading would be
+#' possible.
 #'
 #' @keywords internal
 #' @importFrom RCurl getBinaryURL
@@ -16,32 +16,36 @@ check_url_existence <- function(url) {
 
 #' Download a set of vp bird profiles from ENRAM repository
 #'
-#' Download a set of vp bird profiles from the ENRAM repository.
-#' These are stored within monthly available
-#' zip folders. This function downloads and unzips them at a user defined location.
-#' Check \href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/} for an overview
-#' of available data.
+#' Download a set of vp bird profiles from the ENRAM repository. These are
+#' stored within monthly available zip folders. This function downloads and
+#' unzips them at a user defined location. Check
+#' \href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/}
+#' for an overview of available data.
 #'
-#' @param start_date ISO fomat date indicating the first date to download files from
-#' @param end_date ISO fomat date indicating the last date to download files from
-#' @param country char vector with two letter country shortcuts
-#' @param radar char vector with three letter radar sindicators. Make sure the
+#' @param start_date ISO fomat date indicating the first date to download
+#' files from.
+#' @param end_date ISO fomat date indicating the last date to download
+#' files from
+#' @param country Char vector with two letter country shortcuts.
+#' @param radar Char vector with three letter radar sindicators. Make sure the
 #' radars selected are in accordance to the country selection
-#' @param localpath char defining the location to store the downloaded zip
+#' @param localpath Char defining the location to store the downloaded zip
 #' folders and unzip into the default folder structure
 #'
 #' @export
 #' @importFrom lubridate as_date floor_date
 #' @importFrom curl curl_download
+#'
 #' @examples
 #' my_path <- "~/my/directory/"
-#' \dontrun{download_vpfiles("2016-10-01", "2016-11-30", c("be"), c("jab", "wid"), localpath = my_path)}
-download_vpfiles <- function(start_date, end_date, country, radar, localpath = ".") {
-
+#' \dontrun{download_vpfiles("2016-10-01", "2016-11-30", c("be"),
+#' c("jab", "wid"), localpath = my_path)}
+download_vpfiles <- function(start_date, end_date, country, radar,
+                             localpath = ".") {
   # create date range set of potential downloadable zip files (if all data
   # would exist)
-  start <- floor_date(as_date(start_date, tz = NULL),"month")
-  end <- floor_date(as_date(end_date, tz = NULL),"month")
+  start <- floor_date(as_date(start_date, tz = NULL), "month")
+  end <- floor_date(as_date(end_date, tz = NULL), "month")
   dates_to_check <- seq(start, end, by = 'months')
 
   # ZIP-file format preparation
