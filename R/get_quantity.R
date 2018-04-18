@@ -27,25 +27,28 @@
 #' description of each of these quantities.
 #'
 #' @export
-get_quantity=function(x, quantity) UseMethod("get_quantity", x)
+get_quantity <- function(x, quantity) {
+  UseMethod("get_quantity", x)
+}
 
 #' @rdname get_quantity
 #' @export
 #' @return class \code{vp}: a named vector for the requested quantity.
-get_quantity.vp=function(x, quantity="dens"){
-  stopifnot(inherits(x,"vp"))
-  output=x$data[quantity][,1]
-  names(output)=x$data$HGHT
-  if(quantity == "eta"){
-    output[x$data$sd_vvp<sd_vvp(x)]=0
+get_quantity.vp <- function(x, quantity = "dens") {
+  stopifnot(inherits(x, "vp"))
+  output <- x$data[quantity][,1]
+  names(output) <- x$data$HGHT
+
+  if (quantity == "eta") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- 0
     return(output)
   }
-  if(quantity == "dbz"){
-    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+  if (quantity == "dbz") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
     return(output)
   }
-  if(quantity %in% c("ff","u","v","w","dd")){
-    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+  if (quantity %in% c("ff", "u", "v", "w", "dd")) {
+    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
     return(output)
   }
   return(output)
@@ -55,31 +58,31 @@ get_quantity.vp=function(x, quantity="dens"){
 #' @export
 #' @return class \code{vplist}: a list of a named vectors for the requested
 #' quantity.
-get_quantity.vplist <- function(x,quantity="dens") {
-  stopifnot(inherits(x,"vplist"))
-  lapply(x,get_quantity.vp,quantity=quantity)
+get_quantity.vplist <- function(x, quantity = "dens") {
+  stopifnot(inherits(x, "vplist"))
+  lapply(x, get_quantity.vp, quantity = quantity)
 }
 
 #' @rdname get_quantity
 #' @export
 #' @return class \code{vpts}: a (height x time) matrix of the
 #' requested quantity.
-get_quantity.vpts=function(x, quantity="dens"){
+get_quantity.vpts <- function(x, quantity = "dens") {
   ## this function should checkout both the gap and sd_vvp flags
-  stopifnot(inherits(x,"vpts"))
-  output=x$data[quantity][[1]]
-  rownames(output)=x$heights
-  colnames(output)=as.character(x$dates)
-  if(quantity == "eta"){
-    output[x$data$sd_vvp<sd_vvp(x)]=0
+  stopifnot(inherits(x, "vpts"))
+  output <- x$data[quantity][[1]]
+  rownames(output) <- x$heights
+  colnames(output) <- as.character(x$dates)
+  if (quantity == "eta") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- 0
     return(output)
   }
-  if(quantity == "dbz"){
-    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+  if (quantity == "dbz") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
     return(output)
   }
-  if(quantity %in% c("ff","u","v","w","dd")){
-    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+  if (quantity %in% c("ff", "u", "v", "w", "dd")) {
+    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
     return(output)
   }
   return(output)
