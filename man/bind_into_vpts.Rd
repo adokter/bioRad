@@ -5,7 +5,7 @@
 \alias{bind_into_vpts.vp}
 \alias{bind_into_vpts.vplist}
 \alias{bind_into_vpts.vpts}
-\title{Bind vertical profiles (vp) into time series (vpts)}
+\title{Bind vertical profiles (\code{vp}) into time series (\code{vpts})}
 \usage{
 bind_into_vpts(x, ...)
 

@@ -1,4 +1,4 @@
-#' Bind vertical profiles (vp) into time series (vpts)
+#' Bind vertical profiles (\code{vp}) into time series (\code{vpts})
 #'
 #' Binds vertical profiles (\code{vp}) into a vertical profile time series
 #' (\code{vpts}), sorted in time. Can also bind multiple \code{vpts} of a
