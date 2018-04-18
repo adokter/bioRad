@@ -1,24 +1,25 @@
-#' Calculate a vertical profile of birds (vp)
+#' Calculate a vertical profile of birds (vp) from a polar volume (pvol)
 #'
-#' Calculates a vertical profile of birds (vp) from a polar volume
+#' Calculates a vertical profile of birds (vp) from a polar volume (pvol).
+#'
 #' @param vol.in A radar file containing a radar polar volume, either in
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in
 #' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
 #' supported by the
 #' \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
-#' @param vp.out character string. Filename for the vertical profile to be
-#' generated in ODIM HDF5 format (optional)
-#' @param vol.out character string. Filename for the polar volume to be
+#' @param vp.out character. Filename for the vertical profile to be
+#' generated in ODIM HDF5 format (optional).
+#' @param vol.out character. Filename for the polar volume to be
 #' generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
-#' to ODIM)
+#' to ODIM).
 #' @param autoconf logical. When TRUE, default optimal configuration settings
 #' are selected automatically, and other user settings are ignored.
 #' @param verbose logical. When TRUE, pipe Docker stdout to R console. On
-#' Windows always TRUE
-#' @param mount character string with the mount point (a directory path) for
-#' the Docker container
-#' @param sd_vvp numeric. lower threshold in radial velocity standard
+#' Windows always TRUE.
+#' @param mount character. String with the mount point (a directory path) for
+#' the Docker container.
+#' @param sd_vvp numeric. Lower threshold in radial velocity standard
 #' deviation (\code{sd_vvp}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
 #' @param dualpol logical. When \code{TRUE} use dual-pol mode, in which
@@ -26,21 +27,22 @@
 #' \code{rhohv}. When \code{FALSE} use single polarization mode based only
 #' on reflectivity and radial velocity quantities.
 #' @param rhohv numeric. Lower threshold in correlation coefficient used to
-#' filter meteorological scattering
-#' @param elev.min numeric. Minimum scan elevation in degrees
-#' @param elev.max numeric. Maximum scan elevation in degrees
-#' @param azim.min numeric. Minimum azimuth in degrees clockwise from north
-#' @param azim.max numeric. Maximum azimuth in degrees clockwise from north
-#' @param range.min numeric. Minimum range in km
+#' filter meteorological scattering.
+#' @param elev.min numeric. Minimum scan elevation in degrees.
+#' @param elev.max numeric. Maximum scan elevation in degrees.
+#' @param azim.min numeric. Minimum azimuth in degrees clockwise from north.
+#' @param azim.max numeric. Maximum azimuth in degrees clockwise from north.
+#' @param range.min numeric. Minimum range in km.
 #' @param range.max numeric. Maximum range in km.
-#' @param nlayer numeric. Number of altitude layers in the profile
-#' @param hlayer numeric. Width of altitude layers in metre
+#' @param nlayer numeric. Number of altitude layers in the profile.
+#' @param hlayer numeric. Width of altitude layers in metre.
 #' @param nyquist.min numeric. Minimum Nyquist velocity of scans in m/s for
-#' scans to be included in the analysis
+#' scans to be included in the analysis.
 #' @param dealias logical. Whether to dealias radial velocities; this should
 #' typically be done when the scans in the polar volume have low Nyquist
-#' velocities (below 25 m/s)
-#' @details Requires a running \href{https://www.docker.com/}{Docker} daemon
+#' velocities (below 25 m/s).
+#'
+#' @details Requires a running \href{https://www.docker.com/}{Docker} daemon.
 #'
 #' Common arguments set by users are \code{vol.in}, \code{vp.out},
 #' \code{autoconf} and \code{mount}.
@@ -59,9 +61,9 @@
 #'
 #' \code{azim.min} and \code{azim.max} only affects reflectivity-derived
 #' estimates in the profile (DBZH,eta,dens), not radial-velocity derived
-#' estimates (u,v,w,ff,dd,sd_vvp), which are estimated on all azimuths at
-#' all times. \code{azim.min},\code{azim.max} may be set to exclude an angular
-#' sector with high ground clutter
+#' estimates (u, v, w, ff, dd, sd_vvp), which are estimated on all azimuths at
+#' all times. \code{azim.min}, \code{azim.max} may be set to exclude an angular
+#' sector with high ground clutter.
 #'
 #' \code{range.max} may be extended up to 40,000 m for volumes with low
 #' elevations only, in order to extend coverage to higher altitudes.
@@ -82,8 +84,8 @@
 #' The default radar cross section (11 cm^2) corresponds to the average value
 #' found by Dokter et al. in a calibration campaign of a full migration autumn
 #' season in western Europe at C-band. It's value may depend on radar
-#' wavelength. rcs will scale approximately \eqn{M^{2/3}} with \code{M} the
-#' bird's mass.
+#' wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M}
+#' the bird's mass.
 #'
 #' Using default values of \code{range.min} and \code{range.max} is
 #' recommended. Ranges closer than 5 km tend to be contaminated by ground
@@ -103,8 +105,10 @@
 #' as possible.
 #'
 #' @export
+#'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
 #' defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
+#'
 #' @references
 #' \itemize{
 #'   \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
@@ -112,9 +116,9 @@
 #'   Technology, 21(10), pp.1566-1573.
 #'   \item Bird migration flight altitudes studied by a network of
 #'   operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54),
-#'   pp. 30--43, 2011.
-#'   DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
+#'   pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
 #' }
+#'
 #' @examples
 #' # locate example volume file:
 #' volume <- system.file("extdata", "volume.h5", package = "bioRad")

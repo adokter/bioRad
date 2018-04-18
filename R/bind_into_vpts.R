@@ -66,7 +66,7 @@ bind_into_vpts.vplist <- function(x, ...) {
 #' @describeIn bind_into_vpts Bind multiple \code{vpts} into a single
 #' \code{vpts}. Requires the input \code{vpts} to be from the same radar.
 #'
-#' @param attributes_from integer. Which \code{vpts} to copy attributes from (default:
+#' @param attributes_from numeric. Which \code{vpts} to copy attributes from (default:
 #' first).
 #'
 #' @export
