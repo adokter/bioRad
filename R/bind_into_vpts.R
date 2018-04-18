@@ -1,20 +1,43 @@
-#' Bind vertical profiles into time series objects
+#' Bind vertical profiles (vp) into time series (vpts)
 #'
-#' Binds profiles and list of profiles into a time series object. Also combines
-#' multiple time series objects of a single radar into one
-#' time series object.
-#' @param ... object of class \code{vp} or \code{vpts}
-#' @param x objects of class \code{vp} or \code{vpts} (\code{vplist} is deprecated)
+#' Binds vertical profiles (\code{vp}) into a vertical profile time series
+#' (\code{vpts}), sorted in time. Can also bind multiple \code{vpts} of a
+#' single radar into one \code{vpts}.
+#'
+#' @param x A \code{vp}, \code{vpts} or a vector of these.
+#' @param ... A \code{vp}, \code{vpts} or a vector of these.
+#'
+#' @return A \code{vpts} (see \link{summary.vpts} for details) for a single
+#' radar or a list of \code{vpts} for multiple radars. Input \code{vp} are
+#' sorted in time in the output \code{vpts}.
+#'
 #' @export
-#' @return An object or a list of objects of class \code{vpts}, see
-#' \link{summary.vpts} for details
-#' The profiles in the input \code{vpts} objects will be sorted in time in
-#' the output object.
+#'
+#' @examples
+#' # load the example vertical profile time series (vpts):
+#' data(VPTS)
+#' # split the vpts into two separate time series,
+#' # one containing profile 1-10, and a second containing profile 11-20:
+#' vpts1 <- VPTS[1:10]
+#' vpts2 <- VPTS[11:20]
+#' # use bind_into_vpts to bind the two together:
+#' vpts1and2 <- bind_into_vpts(vpts1, vpts2)
+#' # verify that the binded vpts now has 20 profiles, 10 from vpts1
+#' # and 10 from vpts2:
+#' summary(vpts1and2)
+#' # extract two profiles:
+#' vp1 <- VPTS[1]
+#' vp1
+#' vp2 <- VPTS[2]
+#' vp2
+#' # bind the two profiles back into a vpts:
+#' bind_into_vpts(vp1, vp2)
 bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 
-#' @describeIn bind_into_vpts bind \code{vp} objects into a \code{vpts} object.
-#' If \code{vp} of multiple radars are provided, a list is returned containing
-#' \code{vpts} time series objects for each radar.
+#' @describeIn bind_into_vpts Bind multiple \code{vp} into a \code{vpts}.
+#' If \code{vp} for multiple radars are provided, a list is returned containing
+#' a \code{vpts} for each radar.
+#'
 #' @export
 bind_into_vpts.vp <- function(...){
   vps <- list(...)
@@ -27,9 +50,10 @@ bind_into_vpts.vp <- function(...){
   vpts(c.vp(...))
 }
 
-#' @describeIn bind_into_vpts bind \code{vplist} objects into a \code{vpts}
-#' object. If data of multiple radars is provided, a list
-#' is returned containing \code{vpts} time series objects for each radar.
+#' @describeIn bind_into_vpts Bind multiple \code{vplist} into a \code{vpts}.
+#' If data for multiple radars is provided, a list is returned containing
+#' a \code{vpts} for each radar.
+#'
 #' @export
 bind_into_vpts.vplist <- function(x, ...){
   vptest <- sapply(x, function(y) is(y, "vp"))
@@ -39,31 +63,13 @@ bind_into_vpts.vplist <- function(x, ...){
   vpts(x, ...)
 }
 
-#' @describeIn bind_into_vpts bind multiple time series of vertical profiles
-#' (\code{vpts} objects) into a single \code{vpts} object.
-#' Requires the \code{vpts} objects to be from the same radar.
-#' @param attributes.from which vpts object to copy attributes
-#' from (default: first)
+#' @describeIn bind_into_vpts Bind multiple \code{vpts} into a single
+#' \code{vpts}. Requires the input \code{vpts} to be from the same radar.
+#'
+#' @param attributes.from Which \code{vpts} to copy attributes from (default:
+#' first).
+#'
 #' @export
-#' @examples
-#' # load the example vpts object
-#' data(VPTS)
-#' # split the vpts object into two separate time series,
-#' # one containing profile 1-10, and a second combining profile 11-20:
-#' vpts1 <- VPTS[1:10]
-#' vpts2 <- VPTS[11:20]
-#' # use bind_into_vpts to merge the two together:
-#' vpts1and2 <- bind_into_vpts(vpts1, vpts2)
-#' # verify that the binded objected now has 20 profiles, 10 from vpts1
-#' # and 10 from vpts2:
-#' summary(vpts1and2)
-#' # extract two profiles
-#' vp1 <- VPTS[1]
-#' vp1
-#' vp2 <- VPTS[2]
-#' vp2
-#' # bind the profile objects back into a time series object:
-#' bind_into_vpts(vp1, vp2)
 bind_into_vpts.vpts <- function(..., attributes.from = 1){
   vptss <- list(...)
   vptstest <- sapply(vptss,function(x) is(x, "vpts"))
