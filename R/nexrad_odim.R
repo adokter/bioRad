@@ -22,7 +22,7 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   if(!grepl(normalizePath(mount,winslash="/"),filedir,fixed=T)) stop("mountpoint 'mount' has to be a parent directory of input file 'vol.in'")
   vol.tmp=tempfile(tmpdir=filedir)
   if(file.access(filedir,mode=2)<0) stop(paste("vol2bird requires write permission in",filedir))
-  if(startContainer(normalizePath(mount,winslash="/"))!=0) stop(paste("failed to start vol2bird Docker container"))
+  if(mount_docker_container(normalizePath(mount,winslash="/"))!=0) stop(paste("failed to start vol2bird Docker container"))
 
   # prepare docker input filenames relative to mountpoint
   prefixstart=if(mount=="/") 1 else 2
