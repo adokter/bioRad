@@ -14,7 +14,7 @@
 #' # load a polar scan example object
 #' data(SCAN)
 #' # to be written ...
-composite <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
+composite_ppi <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
   ppis <- lapply(x, `[.ppi`, i = param)
   if (FALSE %in% sapply(ppis,is.ppi)) {
     stop("'composite' expects objects of class ppi only")
