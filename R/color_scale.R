@@ -51,16 +51,16 @@ add_color_transparency <- function(col, alpha = 1) {
 }
 
 # color scale used in vertical profile plots:
-r.points = c(1, 63, 82, 94, 146, 177, 192, 209, 256)
-r.values = c(255, 255, 163, 255, 255, 81, 81, 0, 0)
-g.points = c(1, 65, 80, 111, 143, 256)
-g.values = c(255, 255, 163, 163, 0, 0)
-b.points = c(1, 80, 97, 111, 128, 160, 207, 256)
-b.values = c(255, 0, 0, 82, 0, 0, 255, 0)
-plot.colors = rgb(c(200, approx(r.points, r.values,
+r_points <- c(1, 63, 82, 94, 146, 177, 192, 209, 256)
+r_values <- c(255, 255, 163, 255, 255, 81, 81, 0, 0)
+g_points <- c(1, 65, 80, 111, 143, 256)
+g_values <- c(255, 255, 163, 163, 0, 0)
+b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
+b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
+plot_colors <- rgb(c(200, approx(r_points, r_values,
                                 seq(1, 256, length.out = 255))$y),
-                  c(200, approx(g.points, g.values,
+                  c(200, approx(g_points, g_values,
                                 seq(1, 256, length.out = 255))$y),
-                  c(200, approx(b.points, b.values,
+                  c(200, approx(b_points, b_values,
                                 seq(1, 256, length.out = 255))$y),
                   maxColorValue = 255)
