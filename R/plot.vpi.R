@@ -1,7 +1,7 @@
 #' Plot vertically integrated profiles
 #'
 #' Plot an object of class \code{vivp}.
-#' @param x a class object inheriting from class \code{vivp}, typically a call to \link[bioRad]{vintegrate}.
+#' @param x a class object inheriting from class \code{vivp}, typically a call to \link[bioRad]{integrate_profile}.
 #' @param quantity character string with the quantity to plot, one of '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density, reflectivity, reflectivity factor and migration traffic rate, respectively.
 #' @param ylim y-axis plot range, numeric atomic vector of length 2
 #' @param xlab a title for the x-axis
@@ -24,7 +24,7 @@
 #' }
 #' @examples
 #' # vertically integrate a vpts object:
-#' vi.vpts=vintegrate(VPTS)
+#' vi.vpts=integrate_profile(VPTS)
 #' # plot the migration traffic rates
 #' plot(vi.vpts)
 #' # plot the vertically integrated densities, without night shading:
