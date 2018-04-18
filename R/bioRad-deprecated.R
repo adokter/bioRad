@@ -169,3 +169,13 @@ getscan <- function(...) {
   .Deprecated("get_scan")
   get_scan(...)
 }
+
+#' @name vintegrate-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{vintegrate}:
+#' For \code{vintegrate}, use \code{\link{integrate_profile}}.
+#' @export
+vintegrate <- function(...) {
+  .Deprecated("integrate_profile")
+  integrate_profile(...)
+}
