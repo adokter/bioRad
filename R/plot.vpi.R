@@ -1,34 +1,52 @@
 #' Plot vertically integrated profiles
 #'
 #' Plot an object of class \code{vivp}.
-#' @param x a class object inheriting from class \code{vivp}, typically a call to \link[bioRad]{integrate_profile}.
-#' @param quantity character string with the quantity to plot, one of '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density, reflectivity, reflectivity factor and migration traffic rate, respectively.
-#' @param ylim y-axis plot range, numeric atomic vector of length 2
-#' @param xlab a title for the x-axis
-#' @param ylab a title for the y-axis
-#' @param main a title for the plot
-#' @param nightshade logical. whether to plot night time shading
-#' @param elev numeric. sun elevation to use for day/night transition, see \link[bioRad]{suntime}
-#' @param lat (optional) latitude in decimal degrees. Overrides the lat attribute of \code{x}
-#' @param lon (optional) longitude in decimal degrees. Overrides the lon attribute of \code{x}
-#' @param ... Additional arguments to be passed to the low level \link[graphics]{plot} plotting function
-#' @export
+#'
+#' @param x 1 class object inheriting from class \code{vivp}, typically a
+#' call to \link[bioRad]{integrate_profile}.
+#' @param quantity Character string with the quantity to plot, one of
+#' '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density,
+#' reflectivity, reflectivity factor and migration traffic rate, respectively.
+#' @param ylim y-axis plot range, numeric atomic vector of length 2.
+#' @param xlab A title for the x-axis.
+#' @param ylab A title for the y-axis.
+#' @param main A title for the plot.
+#' @param nightshade Logical, whether to plot night time shading.
+#' @param elev Numeric, sun elevation to use for day/night transition,
+#' see \link[bioRad]{suntime}.
+#' @param lat (optional) Latitude in decimal degrees. Overrides the lat
+#' attribute of \code{x}.
+#' @param lon (optional) Longitude in decimal degrees. Overrides the lon
+#' attribute of \code{x}.
+#' @param ... Additional arguments to be passed to the low level
+#' \link[graphics]{plot} plotting function.
+#'
 #' @method plot vivp
+#'
+#' @export
+#'
 #' @details
-#' Profile can be visualised in three related quantities, as specified by argument \code{quantity}:
+#' Profile can be visualised in three related quantities, as specified by
+#' argument \code{quantity}:
 #' \describe{
-#'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface density of individuals. This quantity is dependent on the assumed radar cross section per individual (RCS)}
-#'  \item{"\code{vir}"}{Vertically Integrated Reflectivity. This quantity is independent of the value of individual's radar cross section}
-#'  \item{"\code{mtr}"}{Migration Traffic Rate. This quantity is dependent on the assumed radar cross section (RCS)}
-#'  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent on the assumed radar cross section (RCS)}
+#'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface
+#'    density of individuals. This quantity is dependent on the assumed radar
+#'    cross section per individual (RCS)}
+#'  \item{"\code{vir}"}{Vertically Integrated Reflectivity. This quantity is
+#'    independent of the value of individual's radar cross section}
+#'  \item{"\code{mtr}"}{Migration Traffic Rate. This quantity is dependent on
+#'    the assumed radar cross section (RCS)}
+#'  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent
+#'    on the assumed radar cross section (RCS)}
 #' }
+#'
 #' @examples
 #' # vertically integrate a vpts object:
-#' vi.vpts=integrate_profile(VPTS)
+#' vi.vpts <- integrate_profile(VPTS)
 #' # plot the migration traffic rates
 #' plot(vi.vpts)
 #' # plot the vertically integrated densities, without night shading:
-#' plot(vi.vpts,quantity="vid",nightshade=FALSE)
+#' plot(vi.vpts, quantity = "vid", nightshade = FALSE)
 plot.vivp = function(x,quantity="mtr",xlab="time",ylab="migration traffic rate [#/km/h]", main="MTR", nightshade=TRUE, elev=-0.268, lat=NULL,lon=NULL,ylim=NULL,...){
   stopifnot(inherits(x,"vivp"))
   stopifnot(quantity %in% c("mtr","vid","vir","rtr","mt","rt","ff","dd","u","v"))
