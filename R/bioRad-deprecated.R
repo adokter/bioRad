@@ -42,7 +42,7 @@ bind <- function(x, ...) {
 #' @section \code{vol2bird}:
 #' For \code{vol2bird}, use \code{\link{calculate_vp}}.
 #' @export
-vol2bird <- function(...){
+vol2bird <- function(...) {
   .Deprecated("calculate_vp")
   calculate_vp(...)
 }
@@ -52,7 +52,7 @@ vol2bird <- function(...){
 #' @section \code{night}:
 #' For \code{night}, use \code{\link{check_night}}.
 #' @export
-night <- function(x, ..., elev=-0.268){
+night <- function(x, ..., elev=-0.268) {
   .Deprecated("check_night")
   check_night(x, ..., elev = -0.268)
 }
@@ -62,7 +62,7 @@ night <- function(x, ..., elev=-0.268){
 #' @section \code{day}:
 #' For \code{day}, use \code{\link{check_night}}.
 #' @export
-day <- function(x, elev = -0.268){
+day <- function(x, elev = -0.268) {
   .Deprecated("check_night",
               msg = paste("'day' is deprecatedand, its functionality is",
                           "replaced by the 'check_night' function",
@@ -75,7 +75,7 @@ day <- function(x, elev = -0.268){
 #' @section \code{night}:
 #' For \code{composite}, use \code{\link{composite_ppi}}.
 #' @export
-composite <- function(...){
+composite <- function(...) {
   .Deprecated("composite_ppi")
   composite_ppi(...)
 }
@@ -85,7 +85,7 @@ composite <- function(...){
 #' @section \code{night}:
 #' For \code{dbz2eta}, use \code{\link{dbz_to_eta}}.
 #' @export
-dbz2eta <- function(...){
+dbz2eta <- function(...) {
   .Deprecated("dbz_to_eta")
   dbz_to_eta(...)
 }
@@ -95,7 +95,7 @@ dbz2eta <- function(...){
 #' @section \code{night}:
 #' For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
 #' @export
-eta2dbz <- function(...){
+eta2dbz <- function(...) {
   .Deprecated("eta_to_dbz")
   eta_to_dbz(...)
 }
@@ -105,7 +105,7 @@ eta2dbz <- function(...){
 #' @section \code{night}:
 #' For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
 #' @export
-eta2dbz <- function(...){
+eta2dbz <- function(...) {
   .Deprecated("eta_to_dbz")
   eta_to_dbz(...)
 }
@@ -115,7 +115,7 @@ eta2dbz <- function(...){
 #' @section \code{checkDocker}:
 #' For \code{checkDocker}, use \code{\link{check_docker}}.
 #' @export
-checkDocker <- function(...){
+checkDocker <- function(...) {
   .Deprecated("check_docker")
   check_docker(...)
 }
@@ -125,7 +125,7 @@ checkDocker <- function(...){
 #' @section \code{updateDocker}:
 #' For \code{updateDocker}, use \code{\link{update_docker}}.
 #' @export
-updateDocker <- function(...){
+updateDocker <- function(...) {
   .Deprecated("update_docker")
   update_docker(...)
 }
@@ -135,7 +135,7 @@ updateDocker <- function(...){
 #' @section \code{basemap}:
 #' For \code{basemap}, use \code{\link{download_basemap}}.
 #' @export
-basemap <- function(...){
+basemap <- function(...) {
   .Deprecated("download_basemap")
   download_basemap(...)
 }
