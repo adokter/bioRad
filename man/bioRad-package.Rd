@@ -34,7 +34,7 @@ or a format supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software
 
 Raw (level-II) weather radar data is read with the function \link{read.pvol}, which returns a \link[=summary.pvol]{pvol} polar volume object.
 
-Use the function \link{rsl2odim} to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
+Use the function \link{nexrad_to_odim} to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
 }
 \subsection{Mapping and projecting radar scans}{
 Funtion \link{ppi} can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
