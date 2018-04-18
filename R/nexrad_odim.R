@@ -15,7 +15,7 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   # check input arguments
   if(file.access(mount,0)==-1) stop("invalid 'mount' argument. Directory not found")
   if(file.access(mount,2)==-1) stop(paste("invalid 'mount' argument. No write permission in directory",mount))
-  if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'checkDocker()' in R\n")
+  if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'check_docker()' in R\n")
   if(!file.exists(vol.in)) stop("No such file or directory")
   if(!length(verbose)==1 || !is.logical(verbose)) stop("verbose argument should be one of TRUE or FALSE")
   filedir=dirname(normalizePath(vol.in,winslash="/"))

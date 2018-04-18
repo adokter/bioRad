@@ -201,7 +201,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   }
   if (!docker) {
     stop("Requires a running Docker daemon.\nTo enable calculate_vp, start ",
-         "your local Docker daemon, and run 'checkDocker()' in R\n")
+         "your local Docker daemon, and run 'check_docker()' in R\n")
   }
   if (!length(autoconf) == 1 || !is.logical(autoconf)) {
     stop("autoconf argument should be one of TRUE or FALSE")
