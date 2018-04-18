@@ -1,8 +1,11 @@
-#' convert RSL polar volume to ODIM hdf5 format
-#' @param vol.in polar volume input file in RSL format
-#' @param vol.out filename for the polar volume in ODIM hdf5 format to be generated
+#' Convert RSL polar volume to ODIM hdf5 format
+#'
+#' @param vol.in Polar volume input file in RSL format.
+#' @param vol.out Filename for the polar volume in ODIM hdf5 format to be
+#' generated
+#'
 #' @inheritParams calculate_vp
-#' @export
+#'
 #' @return \code{TRUE} on success
 #'
 #' @export
