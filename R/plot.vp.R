@@ -1,21 +1,30 @@
 #' Plot a vertical profile
 #'
-#' @param x a vp class object
-#' @param quantity character string with the quantity to plot.
-#' See \link[=summary.vp]{vp} for list of available quantities.
-#' Aerial density related: '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
-#' Ground speed related: '\code{ff}','\code{dd}', for ground speed and direction, respectively.
-#' @param xlab a title for the x axis
-#' @param ylab a title for the y axis
-#' @param line.col Color of the plotted curve
-#' @param line.lwd Line width of the plotted curve
-#' @param ... Additional arguments to be passed to the low level \link[graphics]{plot} plotting function
-#' @export
+#' @param x A \code{vp} class object.
+#' @param quantity Character string with the quantity to plot. See
+#' \link[=summary.vp]{vp} for list of available quantities.
+##' \itemize{
+##'  \item{Aerial density related:}{'\code{dens}', '\code{eta}', '\code{dbz}',
+##'    '\code{DBZH}' for density, reflectivity, reflectivity factor and total
+##'    reflectivity factor, respectively.}
+##'  \item{Ground speed related:}{'\code{ff}','\code{dd}', for ground speed
+##'    and direction, respectively.}
+##' }
+#' @param xlab A title for the x axis.
+#' @param ylab A title for the y axis.
+#' @param line.col Color of the plotted curve.
+#' @param line.lwd Line width of the plotted curve.
+#' @param ... Additional arguments to be passed to the low level
+#' \link[graphics]{plot} plotting function.
+#'
 #' @method plot vp
+#'
+#' @export
+#'
 #' @examples
 #' data(VP)
 #' plot(VP)
-#' plot(VP,line.col='blue')
+#' plot(VP, line.col = 'blue')
 plot.vp=function(x, quantity="dens", xlab=expression("volume density [#/km"^3*"]"),ylab="height [km]",line.col='red',line.lwd=1,...){
   stopifnot(inherits(x,"vp"))
   if(!(quantity %in% names(x$data))) stop(paste("unknown quantity '",quantity,"'",sep=""))
