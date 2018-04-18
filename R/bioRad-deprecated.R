@@ -159,3 +159,13 @@ fetch <- function(...) {
   .Deprecated("get_quantity")
   get_quantity(...)
 }
+
+#' @name getscan-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{getscan}:
+#' For \code{getscan}, use \code{\link{get_scan}}.
+#' @export
+getscan <- function(...) {
+  .Deprecated("get_scan")
+  get_scan(...)
+}
