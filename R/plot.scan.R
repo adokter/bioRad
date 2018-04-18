@@ -1,14 +1,36 @@
 #' Plot a scan in polar coordinates
 #'
-#' Plots a scan in polar coordinates. For plots in Cartesian coordinates, see \link{ppi}
-#' @param x an object of class 'scan'
-#' @param param the scan parameter to plot, see details below
-#' @param xlim range of x (range, distance from radar) values to plot
-#' @param ylim range of y (azimuth) values to plot
-#' @param zlim the range of parameter values to plot
-#' @param ... arguments passed to low level \link[ggplot2]{ggplot} function
-#' @export
+#' Plots a scan in polar coordinates. For plots in Cartesian coordinates,
+#' see \link{ppi}
+#'
+#' @param x An object of class \code{scan}.
+#' @param param The scan parameter to plot, see details below.
+#' @param xlim Range of x (range, distance from radar) values to plot.
+#' @param ylim Range of y (azimuth) values to plot.
+#' @param zlim The range of parameter values to plot.
+#' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
+#'
 #' @method plot scan
+#'
+#' @export
+#' @details
+#' Available scan parameters for plotting can by printed to screen
+#' by \code{summary(x)}. Commonly available parameters are:
+#' \describe{
+#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
+#'    velocities towards the radar are negative, while radial velocities away
+#'    from the radar are positive}
+#'  \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation
+#'    between vertically polarized and horizontally polarized
+#'    reflectivity factor}
+#'  \item{"\code{PHIDP}"}{Differential phase [degrees]}
+#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+#' }
+#' The scan parameters are named according to the OPERA data information
+#' model (ODIM), see Table 16 in the
+#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#'
 #' @examples
 #' # load an example scan:
 #' data(SCAN)
@@ -16,22 +38,9 @@
 #' summary(SCAN)
 #' # make ppi for the scan
 #' # plot the reflectivity quantity:
-#' plot(SCAN,param="DBZH")
+#' plot(SCAN, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
-#' plot(SCAN,param="DBZH",zlim=c(-30,50))
-#' @details
-#' Available scan parameters for plotting can by printed to screen by \code{summary(x)}.
-#' Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards
-#'   the radar are negative, while radial velocities away from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase [degrees]}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
-#' }
-#' The scan parameters are named according to the OPERA data information model (ODIM), see
-#' Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' plot(SCAN, param = "DBZH", zlim = c(-30, 50))
 plot.scan=function(x,param,xlim=c(0,100),ylim=c(0,360),zlim=c(-20,20),...){
   stopifnot(inherits(x,"scan"))
   if(missing(param)){
