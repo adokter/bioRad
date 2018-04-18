@@ -129,3 +129,14 @@ basemap <- function(...) {
   .Deprecated("download_basemap")
   download_basemap(...)
 }
+
+#' @name download_vp-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{download_vp}:
+#' For \code{download_vp}, use \code{\link{download_vpfiles}}.
+#' @export
+download_vp <- function(...) {
+  .Deprecated("download_vpfiles")
+  download_vpfiles(...)
+}
+
