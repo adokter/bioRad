@@ -2,7 +2,6 @@
 #' @param object object of class 'param'
 #' @param x object of class 'param'
 #' @param ... additional arguments affecting the summary produced.
-#' @export
 #' @method summary param
 #' @details
 #' Scan parameters are simple matrices, with the following specific attributes:
@@ -29,7 +28,6 @@
 summary.param=function(object, ...) print.param(object)
 
 #' @rdname summary.param
-#' @export
 #' @return for \code{is.scan}: \code{TRUE} if its argument is of class "\code{param}"
 #' @examples
 #' is.param("this is not a polar scan parameter but a string")  #> FALSE
@@ -39,7 +37,6 @@ is.param <- function(x) inherits(x, "param")
 #'
 #' @param x An object of class \code{param}, a polar scan parameter
 #' @keywords internal
-#' @export
 print.param=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   stopifnot(inherits(x, "param"))
   cat("               Polar scan parameter (class param)\n\n")
