@@ -32,7 +32,7 @@ An object of class \code{vp} contains a vertical profile. A vertical profile con
  with each quantity having values at different altitude layers above the earth's surface,
  typically equally spaced altitudinal layers.
 
-Data contained in this class object should be accessed with the \link{fetch} function.
+Data contained in this class object should be accessed with the \link{get_quantity} function.
 Information stored under \code{attributes} (see below) can be accessed directly.
 
 A \code{vp} object is a list containing
