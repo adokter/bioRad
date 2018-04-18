@@ -145,9 +145,9 @@ download_vp <- function(...) {
 #' @section \code{elangle}:
 #' For \code{elangle}, use \code{\link{get_angles}}.
 #' @export
-elangle <- function(x, ...) {
+elangle <- function(...) {
   .Deprecated("get_angles")
-  get_angles(x, ...)
+  get_angles(...)
 }
 
 #' @name fetch-deprecated
