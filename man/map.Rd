@@ -15,7 +15,7 @@ map(x, ...)
 
 \item{...}{arguments passed to low level \link[ggmap]{ggmap} function}
 
-\item{map}{the basemap to use, result of a call to \link{basemap}}
+\item{map}{the basemap to use, result of a call to \link{download_basemap}}
 
 \item{param}{the scan parameter to plot}
 
@@ -67,7 +67,7 @@ data(SCAN)
 # make ppi's for all scan parameters in the scan
 ppi=ppi(SCAN)
 # grab a basemap that matches the extent of the ppi:
-basemap=basemap(ppi)
+basemap=download_basemap(ppi)
 # map the radial velocity scan parameter onto the basemap:
 map(ppi,map=basemap,param="VRADH")
 # extend the plotting range of velocities, from -50 to 50 m/s:

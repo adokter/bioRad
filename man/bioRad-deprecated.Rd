@@ -20,6 +20,16 @@
 \alias{dbz2eta}
 \alias{eta2dbz-deprecated}
 \alias{eta2dbz}
+\alias{checkDocker-deprecated}
+\alias{checkDocker}
+\alias{updateDocker-deprecated}
+\alias{updateDocker}
+\alias{basemap-deprecated}
+\alias{basemap}
+\alias{download_vp-deprecated}
+\alias{download_vp}
+\alias{elangle-deprecated}
+\alias{elangle}
 \title{Deprecated functions in package \pkg{bioRad}.}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -39,6 +49,16 @@ composite(...)
 dbz2eta(...)
 
 eta2dbz(...)
+
+checkDocker(...)
+
+updateDocker(...)
+
+basemap(...)
+
+download_vp(...)
+
+elangle(x, ...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -68,20 +88,51 @@ For \code{vol2bird}, use \code{\link{calculate_vp}}.
 \section{\code{night}}{
 
 For \code{night}, use \code{\link{check_night}}.
-
-
-For \code{composite}, use \code{\link{composite_ppi}}.
-
-
-For \code{dbz2eta}, use \code{\link{dbz_to_eta}}.
-
-
-For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
 }
 
 \section{\code{day}}{
 
 For \code{day}, use \code{\link{check_night}}.
+}
+
+\section{\code{composite}}{
+
+For \code{composite}, use \code{\link{composite_ppi}}.
+}
+
+\section{\code{dbz2eta}}{
+
+For \code{dbz2eta}, use \code{\link{dbz_to_eta}}.
+}
+
+\section{\code{eta2dbz}}{
+
+For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
+}
+
+\section{\code{checkDocker}}{
+
+For \code{checkDocker}, use \code{\link{check_docker}}.
+}
+
+\section{\code{updateDocker}}{
+
+For \code{updateDocker}, use \code{\link{update_docker}}.
+}
+
+\section{\code{basemap}}{
+
+For \code{basemap}, use \code{\link{download_basemap}}.
+}
+
+\section{\code{download_vp}}{
+
+For \code{download_vp}, use \code{\link{download_vpfiles}}.
+}
+
+\section{\code{elangle}}{
+
+For \code{elangle}, use \code{\link{get_angles}}.
 }
 
 \keyword{internal}
