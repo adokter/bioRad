@@ -42,9 +42,9 @@ bind <- function(x, ...) {
 #' @section \code{vol2bird}:
 #' For \code{vol2bird}, use \code{\link{calculate_vp}}.
 #' @export
-vol2bird <- function(){
+vol2bird <- function(...){
   .Deprecated("calculate_vp")
-  calculate_vp()
+  calculate_vp(...)
 }
 
 #' @name night-deprecated
