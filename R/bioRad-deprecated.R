@@ -72,7 +72,7 @@ day <- function(x, elev = -0.268) {
 
 #' @name composite-deprecated
 #' @rdname bioRad-deprecated
-#' @section \code{night}:
+#' @section \code{composite}:
 #' For \code{composite}, use \code{\link{composite_ppi}}.
 #' @export
 composite <- function(...) {
@@ -82,7 +82,7 @@ composite <- function(...) {
 
 #' @name dbz2eta-deprecated
 #' @rdname bioRad-deprecated
-#' @section \code{night}:
+#' @section \code{dbz2eta}:
 #' For \code{dbz2eta}, use \code{\link{dbz_to_eta}}.
 #' @export
 dbz2eta <- function(...) {
@@ -92,17 +92,7 @@ dbz2eta <- function(...) {
 
 #' @name eta2dbz-deprecated
 #' @rdname bioRad-deprecated
-#' @section \code{night}:
-#' For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
-#' @export
-eta2dbz <- function(...) {
-  .Deprecated("eta_to_dbz")
-  eta_to_dbz(...)
-}
-
-#' @name eta2dbz-deprecated
-#' @rdname bioRad-deprecated
-#' @section \code{night}:
+#' @section \code{eta2dbz}:
 #' For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
 #' @export
 eta2dbz <- function(...) {
