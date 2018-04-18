@@ -14,6 +14,12 @@
 \alias{night}
 \alias{day-deprecated}
 \alias{day}
+\alias{composite-deprecated}
+\alias{composite}
+\alias{dbz2eta-deprecated}
+\alias{dbz2eta}
+\alias{eta2dbz-deprecated}
+\alias{eta2dbz}
 \title{Deprecated functions in package \pkg{bioRad}.}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -22,11 +28,17 @@ beamwidth(range, angle = 1)
 
 bind(x, ...)
 
-vol2bird()
+vol2bird(...)
 
 night(x, ..., elev = -0.268)
 
 day(x, elev = -0.268)
+
+composite(...)
+
+dbz2eta(...)
+
+eta2dbz(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -56,6 +68,15 @@ For \code{vol2bird}, use \code{\link{calculate_vp}}.
 \section{\code{night}}{
 
 For \code{night}, use \code{\link{check_night}}.
+
+
+For \code{composite}, use \code{\link{composite_ppi}}.
+
+
+For \code{dbz2eta}, use \code{\link{dbz_to_eta}}.
+
+
+For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
 }
 
 \section{\code{day}}{
