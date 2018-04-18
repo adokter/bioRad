@@ -48,7 +48,7 @@ Targets moving into the direction \code{alpha} contribute positively to \code{mt
 opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
 depending on the definition of alpha.
 
-This is a wrapper function for \link{vintegrate}, extracting only the
+This is a wrapper function for \link{integrate_profile}, extracting only the
 migration traffic rate data.
 }
 \examples{
@@ -59,6 +59,6 @@ mtr(VP)
 data(VPTS)
 # print migration traffic rates:
 mtr(VPTS)
-# to plot migration traffic rate data, use vintegrate:
-plot(vintegrate(VPTS),quantity="mtr")
+# to plot migration traffic rate data, use integrate_profile:
+plot(integrate_profile(VPTS),quantity="mtr")
 }
