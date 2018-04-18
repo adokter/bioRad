@@ -41,32 +41,48 @@
 #' plot(SCAN, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
 #' plot(SCAN, param = "DBZH", zlim = c(-30, 50))
-plot.scan=function(x,param,xlim=c(0,100),ylim=c(0,360),zlim=c(-20,20),...){
-  stopifnot(inherits(x,"scan"))
-  if(missing(param)){
-    if("DBZH" %in% names(x$data)) param="DBZH"
-    else param=names(x$params)[1]
+plot.scan <- function(x, param, xlim = c(0, 100),
+                      ylim = c(0, 360), zlim = c(-20, 20), ...) {
+  stopifnot(inherits(x, "scan"))
+  if (missing(param)) {
+    if ("DBZH" %in% names(x$data)) {
+      param <- "DBZH"
+    } else {
+      param <- names(x$params)[1]
+    }
+  } else if (!is.character(param)) {
+    stop("'param' should be a character string with a valid scan",
+         "parameter name")
   }
-  else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
-  if(missing(zlim)) zlim=get_zlim(param)
-  colorscale=color_scale_fill(param,zlim)
+  if (missing(zlim)) {
+    zlim <- get_zlim(param)
+  }
+  colorscale <- color_scale_fill(param, zlim)
   # extract the scan parameter
-  y=NULL #dummy asignment to suppress devtools check warning
-  data=do.call(function(y) x$params[[y]],list(param))
+  y <- NULL #dummy asignment to suppress devtools check warning
+  data <- do.call(function(y) x$params[[y]], list(param))
   # remove the param class label, to enable raster function
-  class(data)="matrix"
+  class(data) <- "matrix"
   # convert to points
-  dimraster=dim(data)
-  data=data.frame(rasterToPoints(raster(data)))
-  data$x=(1-data$x)*dimraster[2]*x$attributes$where$nrays/360
-  data$y=(1-data$y)*dimraster[1]*x$attributes$where$rscale/1000
+  dimraster <- dim(data)
+  data <- data.frame(rasterToPoints(raster(data)))
+  data$x <- (1 - data$x) * dimraster[2] * x$attributes$where$nrays / 360
+  data$y <- (1 - data$y) * dimraster[1] * x$attributes$where$rscale / 1000
   # change the name from "layer" to the quantity names
-  names(data)=c("azimuth","range",param)
+  names(data) <- c("azimuth", "range", param)
   # bring z-values within plotting range
-  index=which(data[,3]<zlim[1])
-  if(length(index)>0) data[index,3]=zlim[1]
-  index=which(data[,3]>zlim[2])
-  if(length(index)>0) data[index,3]=zlim[2]
+  index <- which(data[,3] < zlim[1])
+  if (length(index) > 0) {
+    data[index,3] <- zlim[1]
+  }
+  index <- which(data[,3] > zlim[2])
+  if (length(index) > 0) {
+    data[index,3] <- zlim[2]
+  }
   # plot
-  ggplot(data=data,...) + geom_raster(aes(x=range,y=azimuth,fill=eval(parse(text=param)))) + colorscale + xlim(xlim[1],xlim[2]) + ylim(ylim[1],ylim[2])
+  ggplot(data = data,...) +
+    geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
+    colorscale +
+    xlim(xlim[1], xlim[2]) +
+    ylim(ylim[1], ylim[2])
 }
