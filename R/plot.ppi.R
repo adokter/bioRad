@@ -45,28 +45,47 @@
 #' plot(ppi, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
 #' plot(ppi, param = "DBZH",zlim = c(-30, 50))
-plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
-  stopifnot(inherits(x,"ppi"))
-  if(missing(param)){
-    if("DBZH" %in% names(x$data)) param="DBZH"
-    else param=names(x$data)[1]
+plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20), ratio = 1, ...){
+  stopifnot(inherits(x, "ppi"))
+  if (missing(param)) {
+    if ("DBZH" %in% names(x$data)) {
+      param <- "DBZH"
+    } else {
+      param <- names(x$data)[1]
+    }
+  } else if (!is.character(param)) {
+    stop("'param' should be a character string with a valid scan",
+         "parameter name")
   }
-  else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
-  if(missing(zlim)) zlim=get_zlim(param)
-  colorscale=color_scale_fill(param,zlim)
+
+  if (missing(zlim)) {
+    zlim <- get_zlim(param)
+  }
+  colorscale <- color_scale_fill(param,zlim)
   # extract the scan parameter
-  y=NULL #dummy asignment to suppress devtools check warning
-  data=do.call(function(y) x$data[y],list(param))
+  y <- NULL #dummy asignment to suppress devtools check warning
+  data <- do.call(function(y) x$data[y], list(param))
   # convert to points
-  data=data.frame(rasterToPoints(raster(data)))
+  data <- data.frame(rasterToPoints(raster(data)))
   # bring z-values within plotting range
-  index=which(data[,3]<zlim[1])
-  if(length(index)>0) data[index,3]=zlim[1]
-  index=which(data[,3]>zlim[2])
-  if(length(index)>0) data[index,3]=zlim[2]
+  index <- which(data[, 3] < zlim[1])
+  if (length(index) > 0) {
+    data[index, 3] <- zlim[1]
+  }
+  index <- which(data[,3] > zlim[2])
+  if (length(index) > 0) {
+    data[index, 3] <- zlim[2]
+  }
   # plot
-  if(missing(xlim)) xlim=x$data@bbox[1,]
-  if(missing(ylim)) ylim=x$data@bbox[2,]
-  bbox = coord_fixed(xlim=xlim,ylim=ylim,ratio=ratio)
-  ggplot(data=data,...) + geom_raster(aes(x, y, fill=eval(parse(text=param)))) + colorscale + bbox
+  if (missing(xlim)) {
+    xlim <- x$data@bbox[1,]
+  }
+  if (missing(ylim)) {
+    ylim <- x$data@bbox[2,]
+  }
+  bbox <- coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
+  ggplot(data = data,...) +
+    geom_raster(aes(x, y, fill = eval(parse(text = param)))) +
+    colorscale +
+    bbox
 }
