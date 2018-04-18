@@ -30,7 +30,7 @@
 \alias{download_vp}
 \alias{elangle-deprecated}
 \alias{elangle}
-\title{Deprecated functions in package \pkg{bioRad}.}
+\title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 
@@ -62,62 +62,62 @@ elangle(x, ...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
-  the near future. When possible, alternative functions with similar
-  functionality are also mentioned.
+the near future. When possible, alternative functions with similar
+functionality are mentioned.
 }
 \section{\code{beamheight}}{
 
-For \code{beamheight}, use \code{\link{beam_height}}.
+Use \code{\link{beam_height}} instead.
 }
 
 \section{\code{beamwidth}}{
 
-For \code{beamwidth}, use \code{\link{beam_width}}.
+Use \code{\link{beam_width}} instead.
 }
 
 \section{\code{bind}}{
 
-For \code{bind}, use \code{\link{bind_into_vpts}}.
+Use \code{\link{bind_into_vpts}} instead.
 }
 
 \section{\code{vol2bird}}{
 
-For \code{vol2bird}, use \code{\link{calculate_vp}}.
+Use \code{\link{calculate_vp}} instead.
 }
 
 \section{\code{night}}{
 
-For \code{night}, use \code{\link{check_night}}.
+Use \code{\link{check_night}} instead.
 }
 
 \section{\code{day}}{
 
-For \code{day}, use \code{\link{check_night}}.
+Use \code{\link{check_night}} instead.
 }
 
 \section{\code{composite}}{
 
-For \code{composite}, use \code{\link{composite_ppi}}.
+Use \code{\link{composite_ppi}} instead.
 }
 
 \section{\code{dbz2eta}}{
 
-For \code{dbz2eta}, use \code{\link{dbz_to_eta}}.
+Use \code{\link{dbz_to_eta}} instead.
 }
 
 \section{\code{eta2dbz}}{
 
-For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
+Use \code{\link{eta_to_dbz}} instead.
 }
 
 \section{\code{checkDocker}}{
 
-For \code{checkDocker}, use \code{\link{check_docker}}.
+Use \code{\link{check_docker}} instead.
 }
 
 \section{\code{updateDocker}}{
 
-For \code{updateDocker}, use \code{\link{update_docker}}.
+Use \code{\link{update_docker}} instead.
 }
 
 \section{\code{basemap}}{
