@@ -7,9 +7,9 @@
 #' @param x A \code{vp}, \code{vpts} or a vector of these.
 #' @param ... A \code{vp}, \code{vpts} or a vector of these.
 #'
-#' @return A \code{vpts} (see \link{summary.vpts} for details) for a single
-#' radar or a list of \code{vpts} for multiple radars. Input \code{vp} are
-#' sorted in time in the output \code{vpts}.
+#' @return A \code{\link[=summary.vpts]{vpts}} for a single radar or a list of
+#' \code{vpts} for multiple radars. Input \code{vp} are sorted in time in the
+#' output \code{vpts}.
 #'
 #' @export
 #'
@@ -66,7 +66,7 @@ bind_into_vpts.vplist <- function(x, ...) {
 #' @describeIn bind_into_vpts Bind multiple \code{vpts} into a single
 #' \code{vpts}. Requires the input \code{vpts} to be from the same radar.
 #'
-#' @param attributes_from numeric. Which \code{vpts} to copy attributes from (default:
+#' @param attributes_from integer. Which \code{vpts} to copy attributes from (default:
 #' first).
 #'
 #' @export
