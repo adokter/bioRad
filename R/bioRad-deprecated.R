@@ -110,4 +110,22 @@ eta2dbz <- function(...){
   eta_to_dbz(...)
 }
 
+#' @name checkDocker-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{checkDocker}:
+#' For \code{checkDocker}, use \code{\link{check_docker}}.
+#' @export
+checkDocker <- function(...){
+  .Deprecated("check_docker")
+  check_docker(...)
+}
 
+#' @name updateDocker-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{updateDocker}:
+#' For \code{updateDocker}, use \code{\link{update_docker}}.
+#' @export
+updateDocker <- function(...){
+  .Deprecated("update_docker")
+  update_docker(...)
+}
