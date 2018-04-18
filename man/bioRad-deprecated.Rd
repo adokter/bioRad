@@ -134,32 +134,32 @@ Use \code{\link{update_docker}} instead.
 
 \section{\code{basemap}}{
 
-For \code{basemap}, use \code{\link{download_basemap}}.
+Use \code{\link{download_basemap}} instead.
 }
 
 \section{\code{download_vp}}{
 
-For \code{download_vp}, use \code{\link{download_vpfiles}}.
+Use \code{\link{download_vpfiles}} instead.
 }
 
 \section{\code{elangle}}{
 
-For \code{elangle}, use \code{\link{get_angles}}.
+Use \code{\link{get_angles}} instead.
 }
 
 \section{\code{fetch}}{
 
-For \code{fetch}, use \code{\link{get_quantity}}.
+Use \code{\link{get_quantity}} instead.
 }
 
 \section{\code{getscan}}{
 
-For \code{getscan}, use \code{\link{get_scan}}.
+Use \code{\link{get_scan}} instead.
 }
 
 \section{\code{vintegrate}}{
 
-For \code{vintegrate}, use \code{\link{integrate_profile}}.
+Use \code{\link{integrate_profile}} instead.
 }
 
 \keyword{internal}
