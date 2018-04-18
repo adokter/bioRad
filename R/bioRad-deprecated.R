@@ -214,3 +214,15 @@ vintegrate <- function(...) {
   .Deprecated("integrate_profile")
   integrate_profile(...)
 }
+
+#' @name rsl2odim-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{rsl2odim}:
+#' Use \code{\link{nexrad_to_odim}} instead.
+#'
+#' @export
+rsl2odim <- function(...) {
+  .Deprecated("nexrad_to_odim")
+  nexrad_to_odim(...)
+}
