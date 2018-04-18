@@ -100,4 +100,14 @@ eta2dbz <- function(...){
   eta_to_dbz(...)
 }
 
+#' @name eta2dbz-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{night}:
+#' For \code{eta2dbz}, use \code{\link{eta_to_dbz}}.
+#' @export
+eta2dbz <- function(...){
+  .Deprecated("eta_to_dbz")
+  eta_to_dbz(...)
+}
+
 
