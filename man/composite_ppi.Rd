@@ -2,30 +2,32 @@
 % Please edit documentation in R/composite_ppi.R
 \name{composite_ppi}
 \alias{composite_ppi}
-\title{Make a composite of multiple plan position indicators (ppi objects)}
+\title{Make a composite of multiple plan position indicators (\code{ppi})}
 \usage{
 composite_ppi(x, param = "DBZH", cells.dim = c(100, 100))
 }
 \arguments{
-\item{x}{a list of objects of class 'ppi'}
+\item{x}{A list of \code{ppi}.}
 
-\item{param}{scan parameter to composite}
+\item{param}{Scan paramater/quantity to composite.}
 
-\item{cells.dim}{integer; vector with number of cells in each
-spatial dimension}
+\item{cells.dim}{integer. Vector with number of cells in each spatial
+dimension.}
 }
 \value{
-an object of class '\link[=summary.ppi]{ppi}'.
+A \code{\link[=summary.ppi]{ppi}}.
 }
 \description{
-Merge multiple plan position indicators (ppi objects). Can be used to
-make a composite of ppi's from multiple radars
+Combines multiple plan position indicators (\code{ppi}) into a single
+\code{ppi}. Can be used to make a composite of \code{ppi}'s from multiple
+radars.
 }
 \details{
-The returned PPI is in WGS84 projection (longitude, latitude)
+The latitude/longitude of the returned \code{ppi} use the WGS84
+datum.
 }
 \examples{
-# load a polar scan example object
+# load the example polar scan:
 data(SCAN)
 # to be written ...
 }
