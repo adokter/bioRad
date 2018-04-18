@@ -59,15 +59,15 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA,interval.max=Inf){
   interval=x$attributes$where$interval
   index=which(x$data$HGHT>=alt.min & x$data$HGHT<alt.max)
   if(is.na(alpha)) cosfactor=rep(1,length(index))
-  else cosfactor = cos((fetch(x,"dd")[index]-alpha)*pi/180)
+  else cosfactor = cos((get_quantity(x,"dd")[index]-alpha)*pi/180)
   # multiply speeds by 3.6 to convert m/s to km/h
-  mtr=sum(fetch(x,"dens")[index] * cosfactor * fetch(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
-  rtr=sum(fetch(x,"eta")[index] * cosfactor * fetch(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
-  vid=sum(fetch(x,"dens")[index],na.rm=T)*interval/1000
-  vir=sum(fetch(x,"eta")[index],na.rm=T)*interval/1000
-  height=sum((x$heights[index]+x$attributes$where$interval/2)*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
-  u=sum(fetch(x,"u")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
-  v=sum(fetch(x,"v")[index]*fetch(x,"dens")[index],na.rm=T)/sum(fetch(x,"dens")[index],na.rm=T)
+  mtr=sum(get_quantity(x,"dens")[index] * cosfactor * get_quantity(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
+  rtr=sum(get_quantity(x,"eta")[index] * cosfactor * get_quantity(x,"ff")[index] * 3.6 * interval/1000,na.rm=T)
+  vid=sum(get_quantity(x,"dens")[index],na.rm=T)*interval/1000
+  vir=sum(get_quantity(x,"eta")[index],na.rm=T)*interval/1000
+  height=sum((x$heights[index]+x$attributes$where$interval/2)*get_quantity(x,"dens")[index],na.rm=T)/sum(get_quantity(x,"dens")[index],na.rm=T)
+  u=sum(get_quantity(x,"u")[index]*get_quantity(x,"dens")[index],na.rm=T)/sum(get_quantity(x,"dens")[index],na.rm=T)
+  v=sum(get_quantity(x,"v")[index]*get_quantity(x,"dens")[index],na.rm=T)/sum(get_quantity(x,"dens")[index],na.rm=T)
   ff=sqrt(u^2+v^2)
   dd=(pi/2-atan2(v,u))*180/pi
   # time-integrated measures not defined for a single profile:
@@ -109,16 +109,16 @@ vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
   stopifnot(is.na(alpha) || is.numeric(alpha))
   interval=x$attributes$where$interval
   index=which(x$heights>=alt.min & x$heights<alt.max)
-  if(is.na(alpha)) cosfactor=1+0*fetch(x,"dd")[index,]
-  else cosfactor = cos((fetch(x,"dd")[index,]-alpha)*pi/180)
+  if(is.na(alpha)) cosfactor=1+0*get_quantity(x,"dd")[index,]
+  else cosfactor = cos((get_quantity(x,"dd")[index,]-alpha)*pi/180)
   # multiply speeds by 3.6 to convert m/s to km/h
-  mtr=colSums(cosfactor*fetch(x,"ff")[index,]*3.6*fetch(x,"dens")[index,],na.rm=T)*interval/1000
-  rtr=colSums(cosfactor*fetch(x,"ff")[index,]*3.6*fetch(x,"eta")[index,],na.rm=T)*interval/1000
-  vid=colSums(fetch(x,"dens")[index,],na.rm=T)*interval/1000
-  vir=colSums(fetch(x,"eta")[index,],na.rm=T)*interval/1000
-  height=colSums((x$heights[index]+x$attributes$where$interval/2)*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
-  u=colSums(fetch(x,"u")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
-  v=colSums(fetch(x,"v")[index,]*fetch(x,"dens")[index,],na.rm=T)/colSums(fetch(x,"dens")[index,],na.rm=T)
+  mtr=colSums(cosfactor*get_quantity(x,"ff")[index,]*3.6*get_quantity(x,"dens")[index,],na.rm=T)*interval/1000
+  rtr=colSums(cosfactor*get_quantity(x,"ff")[index,]*3.6*get_quantity(x,"eta")[index,],na.rm=T)*interval/1000
+  vid=colSums(get_quantity(x,"dens")[index,],na.rm=T)*interval/1000
+  vir=colSums(get_quantity(x,"eta")[index,],na.rm=T)*interval/1000
+  height=colSums((x$heights[index]+x$attributes$where$interval/2)*get_quantity(x,"dens")[index,],na.rm=T)/colSums(get_quantity(x,"dens")[index,],na.rm=T)
+  u=colSums(get_quantity(x,"u")[index,]*get_quantity(x,"dens")[index,],na.rm=T)/colSums(get_quantity(x,"dens")[index,],na.rm=T)
+  v=colSums(get_quantity(x,"v")[index,]*get_quantity(x,"dens")[index,],na.rm=T)/colSums(get_quantity(x,"dens")[index,],na.rm=T)
   ff=sqrt(u^2+v^2)
   dd=(pi/2-atan2(v,u))*180/pi
   # time-integrated measures:
