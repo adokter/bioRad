@@ -44,7 +44,7 @@ plot.ppi=function(x,param,xlim,ylim,zlim=c(-20,20),ratio=1,...){
   }
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
   if(missing(zlim)) zlim=get_zlim(param)
-  colorscale=get_colorscale_fill(param,zlim)
+  colorscale=color_scale_fill(param,zlim)
   # extract the scan parameter
   y=NULL #dummy asignment to suppress devtools check warning
   data=do.call(function(y) x$data[y],list(param))

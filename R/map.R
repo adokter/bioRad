@@ -79,8 +79,8 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   # rasterize
   r<-raster::rasterize(data[,2:3], r, data[,1])
   # assign colors
-  if(param %in% c("VRADH","VRADV","VRAD")) cols=add.alpha(colorRampPalette(colors=c("blue","white","red"),alpha=TRUE)(n.color),alpha=alpha)
-  else cols=add.alpha(colorRampPalette(colors=c("lightblue","darkblue","green","yellow","red","magenta"),alpha=TRUE)(n.color),alpha=alpha)
+  if(param %in% c("VRADH","VRADV","VRAD")) cols=add_color_transparency(colorRampPalette(colors=c("blue","white","red"),alpha=TRUE)(n.color),alpha=alpha)
+  else cols=add_color_transparency(colorRampPalette(colors=c("lightblue","darkblue","green","yellow","red","magenta"),alpha=TRUE)(n.color),alpha=alpha)
 
   col.func=function(value,lim){
     output=rep(0,length(value))
@@ -97,7 +97,7 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   dummy=geom_point(aes(x = lon, y = lat, colour=z),size=0,data=data.frame(lon=x$geo$lon,lat=x$geo$lat,z=0))
   radarpoint=geom_point(aes(x = lon, y = lat),colour=radar.color,size=radar.size,data=data.frame(lon=x$geo$lon,lat=x$geo$lat))
   # colorscale
-  colorscale=get_colorscale(param,zlim)
+  colorscale=color_scale(param,zlim)
   # bounding box
   bboxlatlon=attributes(map)$geo$bbox
   # remove dimnames, otherwise ggmap will give a warning message below:
@@ -160,7 +160,7 @@ basemap=function(x,verbose=TRUE,zoom,alpha=1,...){
   attributes(map)$geo=x$geo
   attributes(map)$ppi=T
   # add transparency
-  add.alpha(map, alpha=alpha)
+  add_color_transparency(map, alpha=alpha)
 }
 
 get_zlim=function(param){

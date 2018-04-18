@@ -1,4 +1,4 @@
-get_colorscale <- function(param, zlim) {
+color_scale <- function(param, zlim) {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_colour_gradient2(low = "blue", high = "red",
                                          mid = "white", name = param,
@@ -12,7 +12,7 @@ get_colorscale <- function(param, zlim) {
   return(colorscale)
 }
 
-get_colorscale_fill <- function(param, zlim) {
+color_scale_fill <- function(param, zlim) {
   if (param %in% c("VRADH","VRADV","VRAD")) {
     colorscale <- scale_fill_gradient2(low = "blue", high = "red",
                                        mid = "white", name = param,
@@ -28,7 +28,7 @@ get_colorscale_fill <- function(param, zlim) {
 
 # helper function to add transparency
 # class dispatching needs improvement
-add.alpha <- function(col, alpha = 1) {
+add_color_transparency <- function(col, alpha = 1) {
   if (missing(col)) {
     stop("Please provide a vector or matrix of colours.")
   }

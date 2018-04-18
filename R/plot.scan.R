@@ -40,7 +40,7 @@ plot.scan=function(x,param,xlim=c(0,100),ylim=c(0,360),zlim=c(-20,20),...){
   }
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
   if(missing(zlim)) zlim=get_zlim(param)
-  colorscale=get_colorscale_fill(param,zlim)
+  colorscale=color_scale_fill(param,zlim)
   # extract the scan parameter
   y=NULL #dummy asignment to suppress devtools check warning
   data=do.call(function(y) x$params[[y]],list(param))
