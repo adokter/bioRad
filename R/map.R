@@ -1,52 +1,66 @@
 #' Map a plan position indicator (ppi)
 #'
-#' Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base layer map using \link[ggmap]{ggmap}
-#' @param x an object of class 'ppi'
-#' @param map the basemap to use, result of a call to \link{download_basemap}
-#' @param param the scan parameter to plot
-#' @param alpha transparency of the data, value between 0 and 1
-#' @param radar.size size of the symbol indicating the radar position
-#' @param radar.color colour of the symbol indicating the radar position
-#' @param n.color the number of colors (>=1) to be in the palette
-#' @param xlim range of x values to plot (degrees longitude), as atomic vector of length 2
-#' @param ylim range of y values to plot (degrees latitude), as an atomic vector of length 2
-#' @param zlim the range of values to plot
-#' @param ratio aspect ratio between x and y scale, by default \eqn{1/cos(latitude radar * pi/180)}
-#' @param ... arguments passed to low level \link[ggmap]{ggmap} function
-#' @export
-#' @return a ggmap object (a classed raster object with a bounding box attribute)
+#' Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
+#' layer map using \link[ggmap]{ggmap}
+#'
+#' @param x An object of class \code{ppi}.
+#' @param map  The basemap to use, result of a call to \link{download_basemap}.
+#' @param param The scan parameter to plot.
+#' @param alpha Transparency of the data, value between 0 and 1.
+#' @param radar.size Size of the symbol indicating the radar position.
+#' @param radar.color Colour of the symbol indicating the radar position.
+#' @param n.color The number of colors (>=1) to be in the palette.
+#' @param xlim Range of x values to plot (degrees longitude), as atomic
+#' vector of length 2.
+#' @param ylim Range of y values to plot (degrees latitude), as an atomic
+#' vector of length 2.
+#' @param zlim The range of values to plot.
+#' @param ratio Aspect ratio between x and y scale, by default
+#' \eqn{1/cos(latitude radar * pi/180)}.
+#' @param ... Arguments passed to low level \link[ggmap]{ggmap} function.
+#'
+#' @return A ggmap object (a classed raster object with a bounding
+#' box attribute).
+#'
 #' @details
-#' Available scan parameters for mapping can by printed to screen by \code{summary(x)}.
-#' Commonly available parameters are:
+#' Available scan parameters for mapping can by printed to screen by
+#' \code{summary(x)}. Commonly available parameters are:
 #' \describe{
 #'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial velocities towards
-#'   the radar are negative, while radial velocities away from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor}
+#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
+#'  velocities towards the radar are negative, while radial velocities away
+#'  from the radar are positive}
+#'  \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation
+#'  between vertically polarized and horizontally polarized reflectivity factor}
 #'  \item{"\code{PHIDP}"}{Differential phase [degrees]}
 #'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
 #' }
-#' The scan parameters
-#' are named according to the OPERA data information model (ODIM), see
-#' Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' The scan parameters are named according to the OPERA data information
+#' model (ODIM), see Table 16 in the
+#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#'
+#' @export
+#'
 #' @examples
 #' # load an example scan:
 #' data(SCAN)
 #' # make ppi's for all scan parameters in the scan
-#' ppi=ppi(SCAN)
+#' ppi <- ppi(SCAN)
 #' # grab a basemap that matches the extent of the ppi:
-#' basemap=download_basemap(ppi)
+#' basemap <- download_basemap(ppi)
 #' # map the radial velocity scan parameter onto the basemap:
-#' map(ppi,map=basemap,param="VRADH")
+#' map(ppi, map = basemap, param = "VRADH")
 #' # extend the plotting range of velocities, from -50 to 50 m/s:
-#' map(ppi,map=basemap,param="VRADH",zlim=c(-50,50))
+#' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 #' # give the data less transparency:
-#' map(ppi,map=basemap,alpha=0.9)
+#' map(ppi, map = basemap, alpha = 0.9)
 #' # change the appearance of the symbol indicating the radar location:
-#' map(ppi,map=basemap,radar.size=5,radar.color="green")
+#' map(ppi, map = basemap, radar.size = 5, radar.color = "green")
 #' # crop the map:
-#' map(ppi,map=basemap,xlim=c(12.4,13.2),ylim=c(56,56.5))
-map <- function (x, ...) UseMethod("map", x)
+#' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
+map <- function (x, ...) {
+  UseMethod("map", x)
+}
 
 #' @describeIn map plot a 'ppi' object on a map
 #' @export
@@ -110,10 +124,10 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
 }
 
 
-get_zlim=function(param){
-  if(param %in% c("DBZH","DBZV","DBZ")) return(c(-20,30))
-  if(param %in% c("VRADH","VRADV","VRAD")) return(c(-20,20))
-  if(param == "RHOHV") return(c(0.4,1))
-  if(param == "ZDR") return(c(-5,8))
-  if(param == "PHIDP") return(c(-200,200))
+get_zlim <- function(param) {
+  if (param %in% c("DBZH","DBZV","DBZ")) return(c(-20,30))
+  if (param %in% c("VRADH","VRADV","VRAD")) return(c(-20,20))
+  if (param == "RHOHV") return(c(0.4,1))
+  if (param == "ZDR") return(c(-5,8))
+  if (param == "PHIDP") return(c(-200,200))
 }
