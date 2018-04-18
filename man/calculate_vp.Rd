@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_vp.R
 \name{calculate_vp}
 \alias{calculate_vp}
-\title{Calculate a vertical profile of birds (vp) from a polar volume (pvol)}
+\title{Calculate a vertical profile of birds (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
 calculate_vp(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
   verbose = FALSE, mount = dirname(vol.in), sd_vvp = 2, rcs = 11,
