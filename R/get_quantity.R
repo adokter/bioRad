@@ -1,66 +1,88 @@
-#' fetch a profile quantity
-#' @param x a vp,vplist or vpts object
-#' @param quantity a profile quantity, one of
-#' \code{"HGHT"},\code{"u"},\code{"v"},\code{"w"},\code{"ff"},
-#' \code{"dd"},\code{"sd_vvp"},\code{"gap"},\code{"dbz"},\code{"eta"},
-#' \code{"dens"},\code{"DBZH"},\code{"n"},\code{"n_all"},\code{"n_dbz"},\code{"n_dbz_all"}.
-#' @details This function grabs any of the data quantities stored in \link[=summary.vp]{vp},
-#' \link[=summary.vplist]{vplist} or \link[=summary.vpts]{vpts} objects.
+#' Get a profile quantity
 #'
-#' See the documentation of the vertical profile \link[=summary.vp]{vp} class
-#' for a description of each of these quantities.
+#' @param x A vp or vpts object.
+#' @param quantity A profile quantity, one of:
+#' \itemize{
+#'  \item{\code{"HGHT"}}{}
+#'  \item{\code{"u"}}{}
+#'  \item{\code{"v"}}{}
+#'  \item{\code{"w"}}{}
+#'  \item{\code{"ff"}}{}
+#'  \item{\code{"dd"}}{}
+#'  \item{\code{"sd_vvp"}}{}
+#'  \item{\code{"gap"}}{}
+#'  \item{\code{"dbz"}}{}
+#'  \item{\code{"eta"}}{}
+#'  \item{\code{"dens"}}{}
+#'  \item{\code{"DBZH"}}{}
+#'  \item{\code{"n"}}{}
+#'  \item{\code{"n_all"}}{}
+#'  \item{\code{"n_dbz"}}{}
+#'  \item{\code{"n_dbz_all"}}{}
+#' }
+#'
+#' @details This function grabs any of the data quantities stored in
+#' \link[=summary.vp]{vp} or \link[=summary.vpts]{vpts} objects. See the
+#' documentation of the vertical profile \link[=summary.vp]{vp} class for a
+#' description of each of these quantities.
+#'
 #' @export
-fetch=function(x, quantity) UseMethod("fetch", x)
+get_quantity <- function(x, quantity) {
+  UseMethod("get_quantity", x)
+}
 
-#' @rdname fetch
+#' @rdname get_quantity
 #' @export
-#' @return class \code{vp}: a named vector for the requested quantity
-fetch.vp=function(x, quantity="dens"){
-  stopifnot(inherits(x,"vp"))
-  output=x$data[quantity][,1]
-  names(output)=x$data$HGHT
-  if(quantity == "eta"){
-    output[x$data$sd_vvp<sd_vvp(x)]=0
+#' @return class \code{vp}: a named vector for the requested quantity.
+get_quantity.vp <- function(x, quantity = "dens") {
+  stopifnot(inherits(x, "vp"))
+  output <- x$data[quantity][,1]
+  names(output) <- x$data$HGHT
+
+  if (quantity == "eta") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- 0
     return(output)
   }
-  if(quantity == "dbz"){
-    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+  if (quantity == "dbz") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
     return(output)
   }
-  if(quantity %in% c("ff","u","v","w","dd")){
-    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+  if (quantity %in% c("ff", "u", "v", "w", "dd")) {
+    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
     return(output)
   }
   return(output)
 }
 
-#' @rdname fetch
+#' @rdname get_quantity
 #' @export
-#' @return class \code{vplist}: a list of a named vectors for the requested quantity
-fetch.vplist <- function(x,quantity="dens") {
-  stopifnot(inherits(x,"vplist"))
-  lapply(x,fetch.vp,quantity=quantity)
+#' @return class \code{vplist}: a list of a named vectors for the requested
+#' quantity.
+get_quantity.vplist <- function(x, quantity = "dens") {
+  stopifnot(inherits(x, "vplist"))
+  lapply(x, get_quantity.vp, quantity = quantity)
 }
 
-#' @rdname fetch
+#' @rdname get_quantity
 #' @export
-#' @return class \code{vpts}: a (height x time) matrix of the requested quantity
-fetch.vpts=function(x, quantity="dens"){
+#' @return class \code{vpts}: a (height x time) matrix of the
+#' requested quantity.
+get_quantity.vpts <- function(x, quantity = "dens") {
   ## this function should checkout both the gap and sd_vvp flags
-  stopifnot(inherits(x,"vpts"))
-  output=x$data[quantity][[1]]
-  rownames(output)=x$heights
-  colnames(output)=as.character(x$dates)
-  if(quantity == "eta"){
-    output[x$data$sd_vvp<sd_vvp(x)]=0
+  stopifnot(inherits(x, "vpts"))
+  output <- x$data[quantity][[1]]
+  rownames(output) <- x$heights
+  colnames(output) <- as.character(x$dates)
+  if (quantity == "eta") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- 0
     return(output)
   }
-  if(quantity == "dbz"){
-    output[x$data$sd_vvp<sd_vvp(x)]=-Inf
+  if (quantity == "dbz") {
+    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
     return(output)
   }
-  if(quantity %in% c("ff","u","v","w","dd")){
-    output[x$data$sd_vvp<sd_vvp(x)]=NaN
+  if (quantity %in% c("ff", "u", "v", "w", "dd")) {
+    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
     return(output)
   }
   return(output)

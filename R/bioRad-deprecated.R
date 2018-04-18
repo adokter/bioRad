@@ -145,8 +145,10 @@ updateDocker <- function(...) {
 
 #' @name basemap-deprecated
 #' @rdname bioRad-deprecated
+#'
 #' @section \code{basemap}:
 #' For \code{basemap}, use \code{\link{download_basemap}}.
+#'
 #' @export
 basemap <- function(...) {
   .Deprecated("download_basemap")
@@ -155,8 +157,10 @@ basemap <- function(...) {
 
 #' @name download_vp-deprecated
 #' @rdname bioRad-deprecated
+#'
 #' @section \code{download_vp}:
 #' For \code{download_vp}, use \code{\link{download_vpfiles}}.
+#'
 #' @export
 download_vp <- function(...) {
   .Deprecated("download_vpfiles")
@@ -165,10 +169,48 @@ download_vp <- function(...) {
 
 #' @name elangle-deprecated
 #' @rdname bioRad-deprecated
+#'
 #' @section \code{elangle}:
 #' For \code{elangle}, use \code{\link{get_angles}}.
+#'
 #' @export
-elangle <- function(x, ...) {
+elangle <- function(...) {
   .Deprecated("get_angles")
-  get_angles(x, ...)
+  get_angles(...)
+}
+
+#' @name fetch-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{fetch}:
+#' For \code{fetch}, use \code{\link{get_quantity}}.
+#'
+#' @export
+fetch <- function(...) {
+  .Deprecated("get_quantity")
+  get_quantity(...)
+}
+
+#' @name getscan-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{getscan}:
+#' For \code{getscan}, use \code{\link{get_scan}}.
+#'
+#' @export
+getscan <- function(...) {
+  .Deprecated("get_scan")
+  get_scan(...)
+}
+
+#' @name vintegrate-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{vintegrate}:
+#' For \code{vintegrate}, use \code{\link{integrate_profile}}.
+#'
+#' @export
+vintegrate <- function(...) {
+  .Deprecated("integrate_profile")
+  integrate_profile(...)
 }

@@ -1,4 +1,3 @@
-
 #' Calculate whether it is night at a geographic location and time
 #'
 #' The night check is based on the combination of lat, lon, date and the sun

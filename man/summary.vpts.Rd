@@ -40,7 +40,7 @@ Irregular time series can be projected onto a regular time grid using the \link{
 
 By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
 
-Data contained in this class object should be accessed with the \link{fetch} function.
+Data contained in this class object should be accessed with the \link{get_quantity} function.
 Information stored under \code{attributes} (see below) can be accessed directly.
 
 An object of class \code{vpts} is a list containing

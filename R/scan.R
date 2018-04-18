@@ -59,23 +59,3 @@ print.scan=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("elevation angle: ",x$attributes$where$elangle,"deg\n")
   cat("           dims: ",x$attributes$where$nbins,"bins x",x$attributes$where$nrays,"rays\n")
 }
-
-#' Extract a scan from a polar volume
-#'
-#' Extract a scan from a polar volume
-#' @param x an object of class 'pvol'
-#' @param angle elevation angle
-#' @export
-#' @return an object of class '\link[=summary.scan]{scan}'.
-#' @details The function returns the scan with elevation angle closest to \code{angle}
-#' @examples
-#' # locate example volume file:
-#' pvol <- system.file("extdata", "volume.h5", package="bioRad")
-#' # load the file:
-#' vol=read.pvol(pvol)
-#' # extract the scan at 3 degree elevation:
-#' myscan = getscan(vol,3)
-getscan = function(x,angle){
-  stopifnot(inherits(x,"pvol"))
-  x$scans[[which.min(abs(get_angles(x)-angle))]]
-}

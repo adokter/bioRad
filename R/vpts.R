@@ -18,7 +18,7 @@
 #'
 #' By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
 #'
-#' Data contained in this class object should be accessed with the \link{fetch} function.
+#' Data contained in this class object should be accessed with the \link{get_quantity} function.
 #' Information stored under \code{attributes} (see below) can be accessed directly.
 #'
 #' An object of class \code{vpts} is a list containing
@@ -237,7 +237,7 @@ regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[
 #' @export
 #' @details
 #' Note that only the 'dens' quantity is thresholded by the radial velocity standard deviation \link{sd_vvp}.
-#' Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{fetch.vp} functions, where
+#' Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{get_quantity.vp} functions, where
 #' quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}.
 #' @examples
 #' # load an example vertical profile time series object

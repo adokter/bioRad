@@ -43,7 +43,7 @@ plot.vp=function(x, quantity="dens", xlab=expression("volume density [#/km"^3*"]
   }
 
   # extract the data from the time series object
-  pdat=fetch(x,quantity)
+  pdat=get_quantity(x,quantity)
   plot(pdat,x$data$HGHT/1000,xlab=xlab,ylab=ylab,...)
   points(pdat,x$data$HGHT/1000, col=line.col,lwd=line.lwd,type="l")
 }
