@@ -7,31 +7,33 @@
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{numeric. Range (distance from the radar antenna) in km}
+\item{range}{numeric. Range (distance from the radar antenna) in km.}
 
-\item{elev}{numeric. Elevation in degrees}
+\item{elev}{numeric. Elevation in degrees.}
 
-\item{k}{standard refraction coefficient}
+\item{k}{Standard refraction coefficient.}
 
-\item{lat}{geodetic latitude in degrees}
+\item{lat}{Geodetic latitude in degrees.}
 
-\item{re}{Earth equatorial radius in km}
+\item{re}{Earth equatorial radius in km.}
 
-\item{rp}{Earth polar radius in km}
+\item{rp}{Earth polar radius in km.}
 }
 \value{
-numeric value. Beam height in km
+numeric. Beam height in km.
 }
 \description{
-Calculates the height of a radar beam as a function of elevation and range, assuming the beam
-is emitted at surface level.
+Calculates the height of a radar beam as a function of elevation and range,
+assuming the beam is emitted at surface level.
 }
 \details{
-To account for refraction of the beam towards the earth's surface, an effective earth's radius of 4/3 * (true radius) is assumed.
+To account for refraction of the beam towards the earth's surface,
+an effective earth's radius of 4/3 * (true radius) is assumed.
 
-The earth's radius is approximated as a point on a spheroid surface, with \code{re}
-the longer equatorial radius, and \code{rp} the shorter polar radius.
-Typically uncertainties in refraction coefficient are relatively large, making oblateness of the
-earth and the dependence of earth radius with latitude only a small correction.
-Using default values assumes an average earth's radius of 6371 km.
+The earth's radius is approximated as a point on a spheroid surface, with
+\code{re} the longer equatorial radius, and \code{rp} the shorter polar
+radius. Typically uncertainties in refraction coefficient are relatively
+large, making oblateness of the earth and the dependence of earth radius with
+latitude only a small correction. Using default values assumes an average
+earth's radius of 6371 km.
 }

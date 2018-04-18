@@ -7,13 +7,13 @@
 beam_width(range, angle = 1)
 }
 \arguments{
-\item{range}{numeric. Range (distance from the radar antenna) in km}
+\item{range}{numeric. Range (distance from the radar antenna) in km.}
 
-\item{angle}{numeric. Beam angle in degrees}
+\item{angle}{numeric. Beam angle in degrees.}
 }
 \value{
-numeric value. Beam width in m
+numeric. Beam width in m.
 }
 \description{
-Calculates the width of a radar beam as a function of range and beam angle
+Calculates the width of a radar beam as a function of range and beam angle.
 }

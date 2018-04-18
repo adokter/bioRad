@@ -13,14 +13,14 @@ bind_into_vpts(x, ...)
 
 \method{bind_into_vpts}{vplist}(x, ...)
 
-\method{bind_into_vpts}{vpts}(..., attributes.from = 1)
+\method{bind_into_vpts}{vpts}(..., attributes_from = 1)
 }
 \arguments{
 \item{x}{A \code{vp}, \code{vpts} or a vector of these.}
 
 \item{...}{A \code{vp}, \code{vpts} or a vector of these.}
 
-\item{attributes.from}{Which \code{vpts} to copy attributes from (default:
+\item{attributes_from}{numeric. Which \code{vpts} to copy attributes from (default:
 first).}
 }
 \value{
