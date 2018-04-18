@@ -30,6 +30,12 @@
 \alias{download_vp}
 \alias{elangle-deprecated}
 \alias{elangle}
+\alias{fetch-deprecated}
+\alias{fetch}
+\alias{getscan-deprecated}
+\alias{getscan}
+\alias{vintegrate-deprecated}
+\alias{vintegrate}
 \title{Deprecated functions in package \pkg{bioRad}.}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -58,7 +64,13 @@ basemap(...)
 
 download_vp(...)
 
-elangle(x, ...)
+elangle(...)
+
+fetch(...)
+
+getscan(...)
+
+vintegrate(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -133,6 +145,21 @@ For \code{download_vp}, use \code{\link{download_vpfiles}}.
 \section{\code{elangle}}{
 
 For \code{elangle}, use \code{\link{get_angles}}.
+}
+
+\section{\code{fetch}}{
+
+For \code{fetch}, use \code{\link{get_quantity}}.
+}
+
+\section{\code{getscan}}{
+
+For \code{getscan}, use \code{\link{get_scan}}.
+}
+
+\section{\code{vintegrate}}{
+
+For \code{vintegrate}, use \code{\link{integrate_profile}}.
 }
 
 \keyword{internal}

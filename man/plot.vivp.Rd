@@ -10,7 +10,7 @@
   ylim = NULL, ...)
 }
 \arguments{
-\item{x}{a class object inheriting from class \code{vivp}, typically a call to \link[bioRad]{vintegrate}.}
+\item{x}{a class object inheriting from class \code{vivp}, typically a call to \link[bioRad]{integrate_profile}.}
 
 \item{quantity}{character string with the quantity to plot, one of '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density, reflectivity, reflectivity factor and migration traffic rate, respectively.}
 
@@ -46,7 +46,7 @@ Profile can be visualised in three related quantities, as specified by argument 
 }
 \examples{
 # vertically integrate a vpts object:
-vi.vpts=vintegrate(VPTS)
+vi.vpts=integrate_profile(VPTS)
 # plot the migration traffic rates
 plot(vi.vpts)
 # plot the vertically integrated densities, without night shading:
