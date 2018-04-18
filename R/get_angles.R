@@ -11,27 +11,27 @@
 #' @examples
 #' # load a polar volume
 #' pvol <- system.file("extdata", "volume.h5", package="bioRad")
-#' vol=read.pvol(pvol)
+#' vol <- read.pvol(pvol)
 #' # elevations for the scans in the volume
-#' elangle(vol)
+#' get_angles(vol)
 #' # extract the first scan:
-#' scan=vol$scans[[1]]
+#' scan <- vol$scans[[1]]
 #' # elevation angle of the scan:
-#' elangle(scan)
-elangle <- function(x) {
-  UseMethod("elangle", x)
+#' get_angles(scan)
+get_angles <- function(x) {
+  UseMethod("get_angles", x)
 }
 
-#' @describeIn elangle Elevation angle of a scan.
+#' @describeIn get_angles Elevation angle of a scan.
 #' @export
-elangle.scan <- function(x) {
+get_angles.scan <- function(x) {
   stopifnot(inherits(x, "scan"))
   x$attributes$where$elangle
 }
 
-#' @describeIn elangle Elevation angles of all scans in a polar volume.
+#' @describeIn get_angles Elevation angles of all scans in a polar volume.
 #' @export
-elangle.pvol <- function(x) {
+get_angles.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))
   sapply(x$scans, elangle.scan)
 }

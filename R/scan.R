@@ -77,5 +77,5 @@ print.scan=function(x,digits = max(3L, getOption("digits") - 3L), ...){
 #' myscan = getscan(vol,3)
 getscan = function(x,angle){
   stopifnot(inherits(x,"pvol"))
-  x$scans[[which.min(abs(elangle(x)-angle))]]
+  x$scans[[which.min(abs(get_angles(x)-angle))]]
 }
