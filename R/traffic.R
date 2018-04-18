@@ -34,7 +34,7 @@
 #' opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
 #' depending on the definition of alpha.
 #'
-#' This is a wrapper function for \link{vintegrate}, extracting only the
+#' This is a wrapper function for \link{integrate_profile}, extracting only the
 #' migration traffic rate data.
 #'
 #' @examples
@@ -45,13 +45,13 @@
 #' data(VPTS)
 #' # print migration traffic rates:
 #' mtr(VPTS)
-#' # to plot migration traffic rate data, use vintegrate:
-#' plot(vintegrate(VPTS),quantity="mtr")
+#' # to plot migration traffic rate data, use integrate_profile:
+#' plot(integrate_profile(VPTS),quantity="mtr")
 mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
   stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
-  .Deprecated("vintegrate")
-  .Deprecated(msg="'mtr' has been moved to the 'mtr' column in the output of vintegrate()")
-  vintegrated=vintegrate(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)
+  .Deprecated("integrate_profile")
+  .Deprecated(msg="'mtr' has been moved to the 'mtr' column in the output of integrate_profile()")
+  vintegrated=integrate_profile(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)
   vintegrated$mtr
 }
 
@@ -78,8 +78,8 @@ mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
 #' mt(VPTS,alt.min=0,alt.max=1000)
 mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
-  .Deprecated("vintegrate")
-  .Deprecated(msg="'mt' has been moved to the 'mt' column in the output of vintegrate()")
+  .Deprecated("integrate_profile")
+  .Deprecated(msg="'mt' has been moved to the 'mt' column in the output of integrate_profile()")
   cmt(x,alt.min,alt.max,alpha,interval.max)[ncol(x)]
 }
 
@@ -106,8 +106,8 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
 #' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
 cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
-  .Deprecated("vintegrate")
-  .Deprecated(msg="'cmt' has been moved to the 'mt' column in the output of vintegrate()")
-  vintegrated=vintegrate(x,alt.min,alt.max,alpha,interval.max)
+  .Deprecated("integrate_profile")
+  .Deprecated(msg="'cmt' has been moved to the 'mt' column in the output of integrate_profile()")
+  vintegrated=integrate_profile(x,alt.min,alt.max,alpha,interval.max)
   vintegrated$mt
 }

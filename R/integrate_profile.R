@@ -33,26 +33,26 @@
 #' See \link{mtr} for further information on the definition of migration traffic rate.
 #' @examples
 #' ### MTR for a single vertical profile ###
-#' vintegrate(VP)
+#' integrate_profile(VP)
 #'
 #' ### MTRs for a list of vertical profiles ###
-#' vintegrate(c(VP,VP))
+#' integrate_profile(c(VP,VP))
 #'
 #' ### MTRs for a time series of vertical profiles ###
 #' # load example data:
 #' data(VPTS)
 #' VPTS
 #' # print migration traffic rates:
-#' vivp=vintegrate(VPTS)
+#' vivp=integrate_profile(VPTS)
 #' # plot migration traffic rates for the full air column:
 #' plot(VPTS)
 #' #' plot migration traffic rates for altitudes > 1 km above sea level
-#' plot(vintegrate(VPTS,alt.min=1000))
-vintegrate <- function(x, alt.min, alt.max, alpha=NA, interval.max=Inf) UseMethod("vintegrate", x)
+#' plot(integrate_profile(VPTS,alt.min=1000))
+integrate_profile <- function(x, alt.min, alt.max, alpha=NA, interval.max=Inf) UseMethod("integrate_profile", x)
 
-#' @describeIn vintegrate Vertically integrate a vertical profile
+#' @describeIn integrate_profile Vertically integrate a vertical profile
 #' @export
-vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA,interval.max=Inf){
+integrate_profile.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vp"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
@@ -86,12 +86,12 @@ vintegrate.vp = function(x,alt.min=0,alt.max=Inf, alpha=NA,interval.max=Inf){
   return(output)
 }
 
-#' @describeIn vintegrate Vertically integrate a list of vertical profiles
+#' @describeIn integrate_profile Vertically integrate a list of vertical profiles
 #' @export
-vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
+integrate_profile.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vplist"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
-  output=do.call(rbind,lapply(x,vintegrate.vp,alt.min=alt.min,alt.max=alt.max,alpha=alpha,interval.max=interval.max))
+  output=do.call(rbind,lapply(x,integrate_profile.vp,alt.min=alt.min,alt.max=alt.max,alpha=alpha,interval.max=interval.max))
   class(output)=c("vivp","data.frame")
   attributes(output)$alt.min=alt.min
   attributes(output)$alt.max=alt.max
@@ -101,9 +101,9 @@ vintegrate.vplist = function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
   return(output)
 }
 
-#' @describeIn vintegrate Vertically integrate a time series of vertical profiles
+#' @describeIn integrate_profile Vertically integrate a time series of vertical profiles
 #' @export
-vintegrate.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
+integrate_profile.vpts <- function(x,alt.min=0,alt.max=Inf,alpha=NA,interval.max=Inf){
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
