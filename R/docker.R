@@ -77,8 +77,8 @@ update_docker <- function() {
   return(creationDate)
 }
 
-startContainer <- function(mount = "~/") {
-  parent.env <- environment(startContainer)
+mount_docker_container <- function(mount = "~/") {
+  parent.env <- environment(mount_docker_container)
   # if docker not running, cannot start container
   if (!parent.env$docker) {
     return(1)

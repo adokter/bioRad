@@ -223,7 +223,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   if (file.access(filedir, mode = 2) < 0) {
     stop(paste("vol2bird requires write permission in", filedir))
   }
-  if (startContainer(normalizePath(mount, winslash = "/")) != 0) {
+  if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
     stop(paste("failed to start vol2bird Docker container"))
   }
 
