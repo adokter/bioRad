@@ -2,7 +2,7 @@
 #'
 #' Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base layer map using \link[ggmap]{ggmap}
 #' @param x an object of class 'ppi'
-#' @param map the basemap to use, result of a call to \link{basemap}
+#' @param map the basemap to use, result of a call to \link{download_basemap}
 #' @param param the scan parameter to plot
 #' @param alpha transparency of the data, value between 0 and 1
 #' @param radar.size size of the symbol indicating the radar position
@@ -35,7 +35,7 @@
 #' # make ppi's for all scan parameters in the scan
 #' ppi=ppi(SCAN)
 #' # grab a basemap that matches the extent of the ppi:
-#' basemap=basemap(ppi)
+#' basemap=download_basemap(ppi)
 #' # map the radial velocity scan parameter onto the basemap:
 #' map(ppi,map=basemap,param="VRADH")
 #' # extend the plotting range of velocities, from -50 to 50 m/s:
@@ -59,7 +59,7 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   else if(!is.character(param)) stop("'param' should be a character string with a valid scan parameter name")
   if(missing(zlim)) zlim=get_zlim(param)
   if(!(param %in% names(x$data))) stop(paste("no scan parameter '",param,"' in this ppi",sep=""))
-  if(!attributes(map)$ppi) stop("not a ppi map, use basemap() to download a map")
+  if(!attributes(map)$ppi) stop("not a ppi map, use download_basemap() to download a map")
   if(attributes(map)$geo$lat!=x$geo$lat || attributes(map)$geo$lon!=x$geo$lon) stop("not a basemap for this radar location")
   # extract the scan parameter
   data=do.call(function(y) x$data[y],list(param))
