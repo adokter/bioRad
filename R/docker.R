@@ -96,7 +96,7 @@ mount_docker_container <- function(mount = "~/") {
                             show.output.on.console = FALSE))
   }
   # fire up the container:
-  if (.Platform$OS.type=="unix") {
+  if (.Platform$OS.type == "unix") {
     result <- system(
         paste("docker run -v ",
               normalizePath(mount,
