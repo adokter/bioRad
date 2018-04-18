@@ -39,7 +39,7 @@ bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 #' a \code{vpts} for each radar.
 #'
 #' @export
-bind_into_vpts.vp <- function(...){
+bind_into_vpts.vp <- function(...) {
   vps <- list(...)
   vptest <- sapply(vps, function(x) is(x, "vp"))
   if (FALSE %in% vptest) {
@@ -55,7 +55,7 @@ bind_into_vpts.vp <- function(...){
 #' a \code{vpts} for each radar.
 #'
 #' @export
-bind_into_vpts.vplist <- function(x, ...){
+bind_into_vpts.vplist <- function(x, ...) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires vplist object as input")
@@ -66,11 +66,11 @@ bind_into_vpts.vplist <- function(x, ...){
 #' @describeIn bind_into_vpts Bind multiple \code{vpts} into a single
 #' \code{vpts}. Requires the input \code{vpts} to be from the same radar.
 #'
-#' @param attributes.from Which \code{vpts} to copy attributes from (default:
+#' @param attributes_from integer. Which \code{vpts} to copy attributes from (default:
 #' first).
 #'
 #' @export
-bind_into_vpts.vpts <- function(..., attributes.from = 1){
+bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   vptss <- list(...)
   vptstest <- sapply(vptss,function(x) is(x, "vpts"))
   if (FALSE %in% vptstest) {
@@ -109,7 +109,7 @@ bind_into_vpts.vpts <- function(..., attributes.from = 1){
   output <- list(radar = radars, dates = dates, heights = vptss[[1]]$heights,
                  daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
                  timesteps = difftimes, data = data,
-                 attributes = vptss[[attributes.from]]$attributes,
+                 attributes = vptss[[attributes_from]]$attributes,
                  regular = regular)
   class(output) = "vpts"
   output
