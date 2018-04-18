@@ -12,7 +12,7 @@
 #'    \item{\code{lat}}{latitude of the radar [decimal degrees]}
 #'    \item{\code{lon}}{longitude of the radar [decimal degrees]}
 #'    \item{\code{height}}{height of the radar antenna [metres above sea level]}
-#'    \item{\code{elangle}}{radar beam elevation [degrees]}
+#'    \item{\code{get_angles}}{radar beam elevation [degrees]}
 #'    \item{\code{param}}{string with the name of the polar scan parameter}
 #' }
 #' Scan parameters are named according to the OPERA data information model (ODIM), see

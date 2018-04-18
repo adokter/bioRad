@@ -140,3 +140,12 @@ download_vp <- function(...) {
   download_vpfiles(...)
 }
 
+#' @name elangle-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{elangle}:
+#' For \code{elangle}, use \code{\link{get_angles}}.
+#' @export
+elangle <- function(x, ...) {
+  .Deprecated("get_angles")
+  get_angles(x, ...)
+}
