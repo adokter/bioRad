@@ -82,14 +82,14 @@ map.ppi=function(x,map,param,alpha=0.7,xlim,ylim,zlim=c(-20,20),ratio,radar.size
   if(param %in% c("VRADH","VRADV","VRAD")) cols=add_color_transparency(colorRampPalette(colors=c("blue","white","red"),alpha=TRUE)(n.color),alpha=alpha)
   else cols=add_color_transparency(colorRampPalette(colors=c("lightblue","darkblue","green","yellow","red","magenta"),alpha=TRUE)(n.color),alpha=alpha)
 
-  col.func=function(value,lim){
+  color_scale=function(value,lim){
     output=rep(0,length(value))
     output=round((value-lim[1])/(lim[2]-lim[1])*n.color)
     output[output>n.color]=n.color
     output[output<1]=1
     return(cols[output])
   }
-  r@data@values=col.func(r@data@values,zlim)
+  r@data@values=color_scale(r@data@values,zlim)
   # these declarations prevent generation of NOTE "no visible binding for global variable" during package Check
   lon=lat=y=z=NA
   # symbols for the radar position
