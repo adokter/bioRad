@@ -33,5 +33,5 @@ get_angles.scan <- function(x) {
 #' @export
 get_angles.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))
-  sapply(x$scans, elangle.scan)
+  sapply(x$scans, get_angles.scan)
 }
