@@ -149,3 +149,13 @@ elangle <- function(x, ...) {
   .Deprecated("get_angles")
   get_angles(x, ...)
 }
+
+#' @name fetch-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{fetch}:
+#' For \code{fetch}, use \code{\link{get_quantity}}.
+#' @export
+fetch <- function(...) {
+  .Deprecated("get_quantity")
+  get_quantity(...)
+}
