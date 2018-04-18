@@ -110,7 +110,7 @@ read.pvol = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","PHIDP
   }
   else{
     if(verbose) cat("Converting using Docker ...\n")
-    if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'checkDocker()' in R\n")
+    if(!docker) stop("Requires a running Docker daemon.\nTo enable, start your local Docker daemon, and run 'check_docker()' in R\n")
     filename = rsl2odim_tempfile(filename,verbose=verbose,mount=mount)
     if(!is.pvolfile(filename)){
       file.remove(filename)

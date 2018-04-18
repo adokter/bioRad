@@ -16,7 +16,7 @@ mount <- "~/"
 #' R console. On Windows always TRUE.
 #' @export
 #' @return 0 upon success, otherwise an error code.
-checkDocker <- function(verbose = TRUE) {
+check_docker <- function(verbose = TRUE) {
   if (.Platform$OS.type == "unix") {
     system("docker rm -f hello-world", ignore.stderr = TRUE,
            ignore.stdout = TRUE)
@@ -31,7 +31,7 @@ checkDocker <- function(verbose = TRUE) {
                        ignore.stderr = !verbose, ignore.stdout = !verbose,
                        show.output.on.console = TRUE))
   }
-  parent.env <- environment(checkDocker)
+  parent.env <- environment(check_docker)
   unlockBinding("docker", parent.env)
   unlockBinding("mounted", parent.env)
   parent.env$docker <- (result == 0)
@@ -54,7 +54,7 @@ checkDocker <- function(verbose = TRUE) {
 #' \link{vol2bird} function) runs at the latest available version.
 #' @export
 #' @return the POSIXct creation date of the installed Docker image
-updateDocker <- function() {
+update_docker <- function() {
   creationDate <- NULL
   if (.Platform$OS.type == "unix") {
     result <- system("docker pull adokter/vol2bird:latest")
@@ -132,12 +132,13 @@ setLoadActions(
           as.character(packageVersion(getNamespaceName(ns))),"...\n")
     },
   function(ns) {
-    if ((checkDocker(verbose = FALSE) != 0)) {
+    if ((check_docker(verbose = FALSE) != 0)) {
       cat("Warning: no running Docker daemon found\n")
       cat("Warning:", getNamespaceName(ns),
           "functionality requiring Docker has been disabled\n\n")
-      cat("To enable Docker functionality, start Docker and run 'checkDocker()' in R")
-      unlockBinding("docker", environment(checkDocker))
+      cat(paste("To enable Docker functionality,",
+                "start Docker and run 'check_docker()' in R"))
+      unlockBinding("docker", environment(check_docker))
       assign("docker", FALSE, envir = ns)
     } else {
       cat("Docker daemon running, Docker functionality enabled.\n")
