@@ -129,3 +129,13 @@ updateDocker <- function(...){
   .Deprecated("update_docker")
   update_docker(...)
 }
+
+#' @name basemap-deprecated
+#' @rdname bioRad-deprecated
+#' @section \code{basemap}:
+#' For \code{basemap}, use \code{\link{download_basemap}}.
+#' @export
+basemap <- function(...){
+  .Deprecated("download_basemap")
+  download_basemap(...)
+}
