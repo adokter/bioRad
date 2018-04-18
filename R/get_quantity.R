@@ -10,12 +10,12 @@
 #' See the documentation of the vertical profile \link[=summary.vp]{vp} class
 #' for a description of each of these quantities.
 #' @export
-fetch=function(x, quantity) UseMethod("fetch", x)
+get_quantity=function(x, quantity) UseMethod("get_quantity", x)
 
-#' @rdname fetch
+#' @rdname get_quantity
 #' @export
 #' @return class \code{vp}: a named vector for the requested quantity
-fetch.vp=function(x, quantity="dens"){
+get_quantity.vp=function(x, quantity="dens"){
   stopifnot(inherits(x,"vp"))
   output=x$data[quantity][,1]
   names(output)=x$data$HGHT
@@ -34,18 +34,18 @@ fetch.vp=function(x, quantity="dens"){
   return(output)
 }
 
-#' @rdname fetch
+#' @rdname get_quantity
 #' @export
 #' @return class \code{vplist}: a list of a named vectors for the requested quantity
-fetch.vplist <- function(x,quantity="dens") {
+get_quantity.vplist <- function(x,quantity="dens") {
   stopifnot(inherits(x,"vplist"))
-  lapply(x,fetch.vp,quantity=quantity)
+  lapply(x,get_quantity.vp,quantity=quantity)
 }
 
-#' @rdname fetch
+#' @rdname get_quantity
 #' @export
 #' @return class \code{vpts}: a (height x time) matrix of the requested quantity
-fetch.vpts=function(x, quantity="dens"){
+get_quantity.vpts=function(x, quantity="dens"){
   ## this function should checkout both the gap and sd_vvp flags
   stopifnot(inherits(x,"vpts"))
   output=x$data[quantity][[1]]

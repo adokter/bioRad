@@ -12,7 +12,7 @@
 #'  with each quantity having values at different altitude layers above the earth's surface,
 #'  typically equally spaced altitudinal layers.
 #'
-#' Data contained in this class object should be accessed with the \link{fetch} function.
+#' Data contained in this class object should be accessed with the \link{get_quantity} function.
 #' Information stored under \code{attributes} (see below) can be accessed directly.
 #'
 #' A \code{vp} object is a list containing
@@ -246,7 +246,7 @@ quantityName = function(file,group){
 #' @export
 #' @details
 #' Note that only the 'dens' quantity is thresholded by the radial velocity standard deviation \link{sd_vvp}.
-#' Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{fetch.vp} functions, where
+#' Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{get_quantity.vp} functions, where
 #' quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}
 #' @examples
 #' # load an example vertical profile time series object

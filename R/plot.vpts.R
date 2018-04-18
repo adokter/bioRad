@@ -87,21 +87,21 @@ plot.vpts = function(x, xlab="time",ylab="height [m]",quantity="dens",log=T, bar
   }
 
   # extract the data from the time series object
-  if(quantity=="dens") plotdata=t(fetch(x,quantity))
-  if(quantity=="eta") plotdata=t(fetch(x,quantity))
+  if(quantity=="dens") plotdata=t(get_quantity(x,quantity))
+  if(quantity=="eta") plotdata=t(get_quantity(x,quantity))
   if(quantity=="dbz"){
     if(log){
       if(!missing(log)) warning("reflectivity factor 'dbz' is already logarithmic, ignoring 'log' argument...")
       log=F
     }
-    plotdata=t(fetch(x,quantity))
+    plotdata=t(get_quantity(x,quantity))
   }
   if(quantity=="DBZH"){
     if(log){
       if(!missing(log)) warning("total reflectivity factor 'DBZH' is already logarithmic, ignoring 'log' argument...")
       log=F
     }
-    plotdata=t(fetch(x,quantity))
+    plotdata=t(get_quantity(x,quantity))
   }
 
   # do log-transformations:
