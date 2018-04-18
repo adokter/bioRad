@@ -4,7 +4,9 @@
 #' @param Km refractive index of water
 #' @return reflectivity in cm^2/km^3
 #' @export
-dbz2eta=function(dbz, wavelength, Km=0.93) (1000*pi^5/wavelength^4)*(Km^2)*(10^(dbz/10))
+dbz2eta <- function(dbz, wavelength, Km = 0.93) {
+  (1000*pi^5/wavelength^4)*(Km^2)*(10^(dbz/10))
+}
 
 #' Convert reflectivity to reflectivity factor
 #' @param eta reflectivity in cm^2/km^3
@@ -12,4 +14,6 @@ dbz2eta=function(dbz, wavelength, Km=0.93) (1000*pi^5/wavelength^4)*(Km^2)*(10^(
 #' @param Km refractive index of water
 #' @return reflectivity factor in dBZ
 #' @export
-eta2dbz=function(eta, wavelength, Km=0.93) 10*log10(eta*wavelength^4/(1000*(Km^2)*pi^5))
+eta2dbz <- function(eta, wavelength, Km = 0.93) {
+  10*log10(eta*wavelength^4/(1000*(Km^2)*pi^5))
+}
