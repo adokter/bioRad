@@ -4,14 +4,16 @@
 #' @inheritParams calculate_vp
 #' @export
 #' @return \code{TRUE} on success
-rsl2odim =function(vol.in,vol.out,verbose=F,mount=dirname(vol.in)){
+#'
+#' @export
+nexrad_to_odim =function(vol.in,vol.out,verbose=F,mount=dirname(vol.in)){
   if(!file.exists(dirname(vol.out))) stop(paste("output directory",dirname(vol.out),"not found"))
   if(file.access(dirname(vol.out),2)==-1) stop(paste("No write permission in directory",dirname(vol.out)))
-  vol.tmp=rsl2odim_tempfile(vol.in,verbose,mount)
+  vol.tmp=nexrad_to_odim_tempfile(vol.in,verbose,mount)
   file.rename(vol.tmp,vol.out)
 }
 
-rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
+nexrad_to_odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   # check input arguments
   if(file.access(mount,0)==-1) stop("invalid 'mount' argument. Directory not found")
   if(file.access(mount,2)==-1) stop(paste("invalid 'mount' argument. No write permission in directory",mount))
@@ -35,7 +37,7 @@ rsl2odim_tempfile =  function(vol.in,verbose=F,mount=dirname(vol.in)){
   if(.Platform$OS.type=="unix") result = system(paste("docker exec vol2bird bash -c 'cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"'"),ignore.stdout=!verbose)
   else result = suppressWarnings(system(paste("docker exec vol2bird bash -c \"cd data && rsl2odim ",vol.in.docker,vol.tmp.docker,"\""),ignore.stdout=!verbose,show.output.on.console = TRUE))
   if(result!=0){
-    stop("failed to run rsl2odim in Docker container")
+    stop("failed to run nexrad_to_odim (rsl2odim) in Docker container")
   }
 
   # return filename of generated temporary file
