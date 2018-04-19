@@ -7,7 +7,7 @@
 \alias{check_night.vplist}
 \alias{check_night.vpts}
 \alias{check_night.pvol}
-\title{Calculate whether it is night at a geographic location and time}
+\title{Check whether it is night at a given time and place}
 \usage{
 check_night(x, ..., elev = -0.268)
 
@@ -22,43 +22,43 @@ check_night(x, ..., elev = -0.268)
 \method{check_night}{pvol}(x, elev = -0.268)
 }
 \arguments{
-\item{x}{An object of class \code{numeric}, \code{vp},
-\code{vplist} or \code{vpts}.}
+\item{x}{A \code{numeric}, \code{pvol}, \code{vp} or \code{vpts}.}
 
-\item{elev}{sun elevation in degrees}
+\item{elev}{numeric. Sun elevation in degrees.}
 
-\item{lon}{longitude in decimal degrees}
+\item{lon}{numeric. Longitude in decimal degrees.}
 
-\item{lat}{latitude in decimal degrees}
+\item{lat}{numeric. Latitude in decimal degrees.}
 
-\item{date}{date inhereting from class "\code{POSIXt}" or a string
-interpretable by \link[base]{as.Date}}
+\item{date}{Date. Date inheriting from class \code{POSIXt} or a string
+interpretable by \link[base]{as.Date}.}
 }
 \value{
-TRUE when night, FALSE when day, NA if unknown (either datetime or
-geographic location missing). For objects of class vpts an atomic logical
-vector
+\code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
+(either datetime or geographic location missing). For \code{vpts} a
+vector of \code{TRUE}/\code{FALSE} values is returned.
 }
 \description{
-The night check is based on the combination of lat, lon, date and the sun
-elevation. When testing a bioRad object for day/night time, this information
-is extracted from the bioRad data types directly
+Checks whether it is night (\code{TRUE}/\code{FALSE}) for a combination of
+latitude, longitude, date and sun elevation. When used on a bioRad object
+(\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
+bioRad object directly.
 }
 \details{
 The angular diameter of the sun is about 0.536 degrees, therefore
 the moment of sunrise/sunset corresponds to half that elevation at
 -0.268 degrees.
 
-check_night evaluates to FALSE when the sun has a higher elevation than
-parameter elev, otherwise to TRUE
+\code{check_night()} evaluates to \code{FALSE} when the sun has a higher
+elevation than parameter \code{elev}, otherwise \code{TRUE}.
 
 Approximate astronomical formula are used, therefore the day/night
-transition may be off by a few minutes
+transition may be off by a few minutes.
 }
 \examples{
-# it's day in the Netherlands at UTC noon on January first:
-check_night(5,53,"2016-01-01 12:00")
-# applied on the bioRad object classes
+# check whether it's night at UTC midnight in the Netherlands on January 1st:
+check_night(5, 53, "2016-01-01 00:00")
+# check on bioRad objects directly:
 check_night(VP)
 check_night(VPTS)
 }

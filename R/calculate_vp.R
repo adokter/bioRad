@@ -1,4 +1,4 @@
-#' Calculate a vertical profile of birds (vp) from a polar volume (pvol)
+#' Calculate a vertical profile of birds (\code{vp}) from a polar volume (\code{pvol})
 #'
 #' Calculates a vertical profile of birds (vp) from a polar volume (pvol).
 #'
@@ -41,6 +41,11 @@
 #' @param dealias logical. Whether to dealias radial velocities; this should
 #' typically be done when the scans in the polar volume have low Nyquist
 #' velocities (below 25 m/s).
+#'
+#' @return A vertical profile object of class \link[=summary.vp]{vp}. When
+#' defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
+#'
+#' @export
 #'
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon.
 #'
@@ -103,11 +108,6 @@
 #' it is advised to choose a mountpoint that is a parent directory of all
 #' volume files to be processed, such that \code{calculate_vp} calls are as fast
 #' as possible.
-#'
-#' @export
-#'
-#' @return A vertical profile object of class \link[=summary.vp]{vp}. When
-#' defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
 #'
 #' @references
 #' \itemize{

@@ -5,7 +5,7 @@
 \alias{bind_into_vpts.vp}
 \alias{bind_into_vpts.vplist}
 \alias{bind_into_vpts.vpts}
-\title{Bind vertical profiles (vp) into time series (vpts)}
+\title{Bind vertical profiles (\code{vp}) into time series (\code{vpts})}
 \usage{
 bind_into_vpts(x, ...)
 
@@ -20,13 +20,13 @@ bind_into_vpts(x, ...)
 
 \item{...}{A \code{vp}, \code{vpts} or a vector of these.}
 
-\item{attributes_from}{numeric. Which \code{vpts} to copy attributes from (default:
+\item{attributes_from}{integer. Which \code{vpts} to copy attributes from (default:
 first).}
 }
 \value{
-A \code{vpts} (see \link{summary.vpts} for details) for a single
-radar or a list of \code{vpts} for multiple radars. Input \code{vp} are
-sorted in time in the output \code{vpts}.
+A \code{\link[=summary.vpts]{vpts}} for a single radar or a list of
+\code{vpts} for multiple radars. Input \code{vp} are sorted in time in the
+output \code{vpts}.
 }
 \description{
 Binds vertical profiles (\code{vp}) into a vertical profile time series
