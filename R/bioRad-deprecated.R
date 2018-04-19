@@ -159,7 +159,7 @@ basemap <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{download_vp}:
-#' Use \code{\link{download_vpfiles}} instead.
+#' Use \code{\link{download_vpfiles}} instead.g
 #'
 #' @export
 download_vp <- function(...) {

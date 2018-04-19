@@ -58,7 +58,7 @@ dim.vp <- function(x) {
 
 #' print method for class \code{vp}
 #'
-#' @param x An object of class \code{vp}, like the result of a call to \link[=summary.vp]{readvp}
+#' @param x An object of class \code{vp}, like the result of a call to \link[=summary.vp]{read_vpfiles}
 #' @keywords internal
 #' @export
 print.vp=function(x,digits = max(3L, getOption("digits") - 3L), ...){

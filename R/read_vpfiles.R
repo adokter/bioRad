@@ -9,9 +9,9 @@
 #' # print the local path of the profile file:
 #' prof
 #' # load the file:
-#' readvp(prof)
+#' read_vpfiles(prof)
 #'
-readvp = function(filename){
+read_vpfiles = function(filename){
   if(!is.vpfile(filename)){
     warning(paste(filename,"is not a vertical profile"))
     return(NULL)
@@ -61,10 +61,10 @@ readvp = function(filename){
 #' @export
 #' @return an object of class \code{vplist}, which is a list \code{vp} objects
 #' @examples
-#' \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
+#' \dontrun{read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
 #'
 readvp.list=function(files){
-  vps=lapply(files,readvp)
+  vps=lapply(files,read_vpfiles)
   # remove nulls
   vps <- vps[!sapply(vps, is.null)]
   do.call(c.vp,vps)

@@ -29,7 +29,7 @@
 #'  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
 #'  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
 #'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
-#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
+#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{read_vpfiles}}
 #'  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
 #'  \item{\code{regular}}{logical indicating whether the time series is regular or not}
 #' }
@@ -103,7 +103,7 @@ vpts2vp <- function(x,i) {
 #' @rdname vpts
 #' @examples
 #' \dontrun{
-#' vps=readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+#' vps=read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
 #' ts=vpts(vps)
 #' }
 vpts = function(x,radar=NA){
