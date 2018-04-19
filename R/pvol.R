@@ -32,7 +32,7 @@
 #' # print the local path of the volume file:
 #' pvol
 #' # load the file:
-#' vol <- read.pvol(pvol)
+#' vol <- read_pvolfile(pvol)
 #' # print summary info for the loaded polar volume:
 #' vol
 #' # print summary info for the scans in the polar volume:
