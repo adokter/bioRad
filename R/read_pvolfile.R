@@ -145,7 +145,7 @@ read_pvolfile_scan=function(filename,scan,param,radar,datetime,geo){
   geo$ascale=360/attribs.where$nrays
 
   # read scan parameters
-  quantities=lapply(groups,function(x) read.quantity(filename,paste(scan,"/",x,sep=""),radar,datetime,geo))
+  quantities=lapply(groups,function(x) read_pvolfile_quantity(filename,paste(scan,"/",x,sep=""),radar,datetime,geo))
   quantityNames=sapply(quantities,'[[',"quantityName")
   quantities=lapply(quantities,'[[',"quantity")
   names(quantities)=quantityNames
@@ -155,7 +155,7 @@ read_pvolfile_scan=function(filename,scan,param,radar,datetime,geo){
   output
 }
 
-read.quantity=function(filename,quantity,radar,datetime,geo){
+read_pvolfile_quantity=function(filename,quantity,radar,datetime,geo){
   data=h5read(filename,quantity)$data
   attr=h5readAttributes(filename,paste(quantity,"/what",sep=""))
   data=replace(data,data==as.numeric(attr$nodata),NA)
