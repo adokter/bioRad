@@ -38,6 +38,12 @@
 \alias{vintegrate}
 \alias{rsl2odim-deprecated}
 \alias{rsl2odim}
+\alias{ppi-deprecated}
+\alias{ppi}
+\alias{h5ODIMobject-deprecated}
+\alias{h5ODIMobject}
+\alias{read.pvol-deprecated}
+\alias{read.pvol}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -75,6 +81,12 @@ getscan(...)
 vintegrate(...)
 
 rsl2odim(...)
+
+ppi(...)
+
+h5ODIMobject(...)
+
+read.pvol(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -169,6 +181,21 @@ Use \code{\link{integrate_profile}} instead.
 \section{\code{rsl2odim}}{
 
 Use \code{\link{nexrad_to_odim}} instead.
+}
+
+\section{\code{ppi}}{
+
+Use \code{\link{project_as_ppi}} instead.
+}
+
+\section{\code{h5ODIMobject}}{
+
+Use \code{\link{get_odim_object_type}} instead.
+}
+
+\section{\code{read.pvol}}{
+
+Use \code{\link{read_pvolfile}} instead.
 }
 
 \keyword{internal}

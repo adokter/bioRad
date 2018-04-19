@@ -72,7 +72,7 @@ model (ODIM), see Table 16 in the
 # load an example scan:
 data(SCAN)
 # make ppi's for all scan parameters in the scan
-ppi <- ppi(SCAN)
+ppi <- project_as_ppi(SCAN)
 # grab a basemap that matches the extent of the ppi:
 basemap <- download_basemap(ppi)
 # map the radial velocity scan parameter onto the basemap:

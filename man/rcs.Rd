@@ -35,7 +35,8 @@ Gives the currently assumed radar cross section in cm^2.
 
 \item \code{vpts}: radar cross section of a time series of vertical profile
 
-\item \code{vpi}: radar cross section of a time series of vertically integrated vertical profile(s)
+\item \code{vpi}: radar cross section of a time series of vertically
+integrated vertical profile(s)
 }}
 
 \examples{

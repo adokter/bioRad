@@ -7,16 +7,17 @@
 is.pvolfile(filename)
 }
 \arguments{
-\item{filename}{A string containing a filename}
+\item{filename}{A string containing a filename.}
 }
 \value{
-TRUE when \code{filename} is a polar volume in readable format, otherwise FALSE
+TRUE when \code{filename} is a polar volume in readable format,
+otherwise FALSE
 }
 \description{
-Checker whether a file is a polar volume that can be read with package \pkg{bioRad}
+Checker whether a file is a polar volume that can be read with
+package \pkg{bioRad}
 }
 \examples{
-volume <- system.file("extdata", "volume.h5", package="bioRad")
+volume <- system.file("extdata", "volume.h5", package = "bioRad")
 is.pvolfile(volume)   #> TRUE
-
 }

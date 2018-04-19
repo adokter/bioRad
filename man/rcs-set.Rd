@@ -24,7 +24,8 @@ rcs(x) <- value
 \item{value}{the cross section value to assign}
 }
 \description{
-Sets the assumed radar cross section in cm^2. This method also updates the migration densities in \code{x$data$dens}
+Sets the assumed radar cross section in cm^2. This method also updates
+the migration densities in \code{x$data$dens}
 }
 \examples{
 # change RCS for a single vertical profile:

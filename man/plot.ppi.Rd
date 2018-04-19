@@ -48,7 +48,7 @@ data(SCAN)
 # print to screen the available scan parameters:
 summary(SCAN)
 # make ppi for the scan
-ppi <- ppi(SCAN)
+ppi <- project_as_ppi(SCAN)
 # plot the first scan parameter, which in this case is "VRADH":
 plot(ppi)
 # plot the reflectivity quantity:
