@@ -1,8 +1,8 @@
 #' Example object of class \code{vp}
 #'
 #' Example of a \code{\link[=summary.vp]{vp}} object with name \code{VP}. Can
-#' be created with \code{\link{calculate_vp}} or read from file with
-#' \code{\link{read_vpfiles}}.
+#' be created with \code{\link{calculate_vp()}} or read from file with
+#' \code{\link{read_vpfiles()}}.
 #'
 #' @rdname vp_dataset
 #'
