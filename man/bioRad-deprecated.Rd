@@ -44,6 +44,10 @@
 \alias{h5ODIMobject}
 \alias{read.pvol-deprecated}
 \alias{read.pvol}
+\alias{readvp-deprecated}
+\alias{readvp}
+\alias{readvp.list-deprecated}
+\alias{readvp.list}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -87,6 +91,10 @@ ppi(...)
 h5ODIMobject(...)
 
 read.pvol(...)
+
+readvp(...)
+
+readvp.list(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -155,7 +163,7 @@ Use \code{\link{download_basemap}} instead.
 
 \section{\code{download_vp}}{
 
-Use \code{\link{download_vpfiles}} instead.
+Use \code{\link{download_vpfiles}} instead.g
 }
 
 \section{\code{elangle}}{
@@ -196,6 +204,16 @@ Use \code{\link{get_odim_object_type}} instead.
 \section{\code{read.pvol}}{
 
 Use \code{\link{read_pvolfile}} instead.
+}
+
+\section{\code{readvp}}{
+
+Use \code{\link{read_vpfiles}} instead.
+}
+
+\section{\code{readvp.list}}{
+
+Use \code{\link{read_vpfiles}} instead.
 }
 
 \keyword{internal}
