@@ -5,7 +5,7 @@
 \alias{get_quantity.vp}
 \alias{get_quantity.vplist}
 \alias{get_quantity.vpts}
-\title{Get a profile quantity}
+\title{Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})}
 \usage{
 get_quantity(x, quantity)
 
@@ -48,7 +48,7 @@ class \code{vpts}: a (height x time) matrix of the
 requested quantity.
 }
 \description{
-Get a profile quantity
+Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})
 }
 \details{
 This function grabs any of the data quantities stored in

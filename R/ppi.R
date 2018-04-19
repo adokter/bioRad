@@ -1,4 +1,4 @@
-#' Make a plan position indicator (ppi)
+#' Project a scan (\code{scan}) or parameter (\code{param}) to a plan position indicator (\code{ppi})
 #'
 #' Make a plan position indicator (ppi)
 #' @param x an object of class 'param' or 'scan'
@@ -27,7 +27,7 @@
 #' ppi
 ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
 
-#' Subset `ppi`
+#' Subset a plan position indicator (\code{ppi})
 #'
 #' Extract by index from a ppi
 #'
@@ -86,7 +86,8 @@ print.ppi=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("        dims: ",x$data@grid@cells.dim[1],"x",x$data@grid@cells.dim[2],"pixels\n\n")
 }
 
-#' Class 'ppi': plan position indicator
+#' Object of class \code{ppi}: a plan position indicator
+#'
 #' @param object object of class 'ppi'
 #' @param x object of class 'ppi'
 #' @param ... additional arguments affecting the summary produced.

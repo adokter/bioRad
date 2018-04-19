@@ -2,7 +2,7 @@
 % Please edit documentation in R/docker.R
 \name{update_docker}
 \alias{update_docker}
-\title{Update Docker image for vol2bird}
+\title{Update Docker image from Docker hub}
 \usage{
 update_docker()
 }

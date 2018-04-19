@@ -1,4 +1,4 @@
-#' Plot a plan position indicator (PPI)
+#' Plot a plan position indicator (\code{ppi})
 #'
 #' Plot a plan position indicator (PPI) generated with \link{ppi}
 #' using \link[ggplot2]{ggplot}

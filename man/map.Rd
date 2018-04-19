@@ -3,7 +3,7 @@
 \name{map}
 \alias{map}
 \alias{map.ppi}
-\title{Map a plan position indicator (ppi)}
+\title{Map a plan position indicator (\code{ppi})}
 \usage{
 map(x, ...)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/vpts.R
 \name{[.vpts}
 \alias{[.vpts}
-\title{Subset `vpts`}
+\title{Subset a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{[}{vpts}(x, i)
 }

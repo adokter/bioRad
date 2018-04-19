@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.vpts.R
 \name{plot.vpts}
 \alias{plot.vpts}
-\title{Plot a time series of vertical profiles}
+\title{Plot a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{plot}{vpts}(x, xlab = "time", ylab = "height [m]",
   quantity = "dens", log = T, barbs = T, barbs.h = 10, barbs.t = 20,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/vpts.R
 \name{vpts}
 \alias{vpts}
-\title{Convert list of vertical profiles to time series (\code{vpts}) objects}
+\title{Bind vertical profiles (\code{vp}) into time series (\code{vpts}) DEPRECATED}
 \usage{
 vpts(x, radar = NA)
 }
@@ -16,7 +16,7 @@ an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profil
 case when \code{vplist} contains profiles of multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 }
 \description{
-Convert list of vertical profiles to time series (\code{vpts}) objects
+Bind vertical profiles (\code{vp}) into time series (\code{vpts}) DEPRECATED
 }
 \examples{
 \dontrun{

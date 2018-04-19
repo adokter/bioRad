@@ -2,7 +2,7 @@
 % Please edit documentation in R/vp.R
 \name{readvp}
 \alias{readvp}
-\title{Read a vertical profile (vp) from file}
+\title{Read a vertical profile (\code{vp}) from file}
 \usage{
 readvp(filename)
 }
@@ -13,7 +13,7 @@ readvp(filename)
 an object of class \link{summary.vp}
 }
 \description{
-Read a vertical profile (vp) from file
+Read a vertical profile (\code{vp}) from file
 }
 \examples{
 # locate example profile file:

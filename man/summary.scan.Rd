@@ -4,7 +4,7 @@
 \alias{summary.scan}
 \alias{is.scan}
 \alias{dim.scan}
-\title{Class 'scan': polar scan}
+\title{Object of class \code{scan}: a scan of a polar volume}
 \usage{
 \method{summary}{scan}(object, ...)
 
@@ -25,7 +25,7 @@ for \code{is.scan}: \code{TRUE} if its argument is of class "\code{scan}"
 for \code{dim.scan}: dimensions of the scan
 }
 \description{
-Class 'scan': polar scan
+Object of class \code{scan}: a scan of a polar volume
 }
 \details{
 A polar scan object of class 'scan' is a list containing:

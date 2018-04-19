@@ -1,4 +1,4 @@
-#' Check whether file is a polar volume
+#' Check if a file is a polar volume (\code{pvol})
 #'
 #' Checker whether a file is a polar volume that can be read with package \pkg{bioRad}
 #'
@@ -15,7 +15,7 @@ is.pvolfile = function(filename){
   else return(type=="PVOL")
 }
 
-#' Check ODIM HDF5 data class
+#' Check the ODIM data class of a polar volume file
 #'
 #' Checks which data class is contained in ODIM HDF5 file
 #'
@@ -73,7 +73,7 @@ is.ODIMfile = function(filename){
   return(output)
 }
 
-#' Check whether file is a vertical profile
+#' Check if a file is a vertical profile (\code{vp})
 #'
 #' Checker whether a file is a vertical profile that can be read with package \pkg{bioRad}
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/vp.R
 \name{readvp.list}
 \alias{readvp.list}
-\title{Read a list of vertical profiles from multiple files}
+\title{Read a list of vertical profiles (\code{vp}) from multiple files}
 \usage{
 readvp.list(files)
 }
@@ -13,7 +13,7 @@ readvp.list(files)
 an object of class \code{vplist}, which is a list \code{vp} objects
 }
 \description{
-Read a list of vertical profiles from multiple files
+Read a list of vertical profiles (\code{vp}) from multiple files
 }
 \examples{
 \dontrun{readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))}

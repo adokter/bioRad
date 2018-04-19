@@ -2,7 +2,7 @@
 % Please edit documentation in R/beam.R
 \name{beam_width}
 \alias{beam_width}
-\title{Radar beam width}
+\title{Calculate radar beam width}
 \usage{
 beam_width(range, angle = 1)
 }

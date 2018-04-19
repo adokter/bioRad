@@ -1,4 +1,4 @@
-#' Check if a specific URL is existing and providing a return message
+#' Check if a specific URL exists
 #'
 #' @param url Weblink (char) to a potentially existing webpage.
 #'
@@ -14,7 +14,7 @@ check_url_existence <- function(url) {
   return(z)
 }
 
-#' Download a set of vp bird profiles from ENRAM repository
+#' Download vertical profile files (\code{vp}) from the ENRAM data repository
 #'
 #' Download a set of vp bird profiles from the ENRAM repository. These are
 #' stored within monthly available zip folders. This function downloads and

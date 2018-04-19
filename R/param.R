@@ -1,4 +1,4 @@
-#' Class 'param': polar scan parameter
+#' Object of class \code{param}: a parameter of a scan of a polar volume
 #'
 #' @param object Object of class \code{param}.
 #' @param x Object of class \code{param}.

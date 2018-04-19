@@ -1,4 +1,4 @@
-#' Get a profile quantity
+#' Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})
 #'
 #' @param x A vp or vpts object.
 #' @param quantity A profile quantity, one of:

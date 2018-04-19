@@ -3,7 +3,7 @@
 \name{summary.vplist}
 \alias{summary.vplist}
 \alias{is.vplist}
-\title{Class 'vplist': list of vertical profiles}
+\title{Object of class \code{vplist}: a list of vertical profiles}
 \usage{
 \method{summary}{vplist}(object, ...)
 

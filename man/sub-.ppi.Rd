@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppi.R
 \name{[.ppi}
 \alias{[.ppi}
-\title{Subset `ppi`}
+\title{Subset a plan position indicator (\code{ppi})}
 \usage{
 \method{[}{ppi}(x, i)
 }

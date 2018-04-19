@@ -1,4 +1,4 @@
-#' Make a composite of multiple plan position indicators (\code{ppi})
+#' Create a composite of multiple plan position indicators (\code{ppi})
 #'
 #' Combines multiple plan position indicators (\code{ppi}) into a single
 #' \code{ppi}. Can be used to make a composite of \code{ppi}'s from multiple

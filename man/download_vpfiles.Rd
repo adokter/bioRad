@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_vpfiles.R
 \name{download_vpfiles}
 \alias{download_vpfiles}
-\title{Download a set of vp bird profiles from ENRAM repository}
+\title{Download vertical profile files (\code{vp}) from the ENRAM data repository}
 \usage{
 download_vpfiles(start_date, end_date, country, radar, localpath = ".")
 }

@@ -1,4 +1,5 @@
 #' Convert reflectivity factor to reflectivity
+#'
 #' @param dbz reflectivity factor in dBZ
 #' @param wavelength radar wavelength in cm
 #' @param Km refractive index of water
@@ -9,6 +10,7 @@ dbz_to_eta <- function(dbz, wavelength, Km = 0.93) {
 }
 
 #' Convert reflectivity to reflectivity factor
+#'
 #' @param eta reflectivity in cm^2/km^3
 #' @param wavelength radar wavelength in cm
 #' @param Km refractive index of water

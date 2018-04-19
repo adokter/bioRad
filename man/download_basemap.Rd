@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_basemap.R
 \name{download_basemap}
 \alias{download_basemap}
-\title{Grab a basemap for a ppi}
+\title{Download a basemap for \code{map(ppi)}}
 \usage{
 download_basemap(x, verbose = TRUE, zoom, alpha = 1, ...)
 }

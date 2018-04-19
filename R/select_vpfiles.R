@@ -1,4 +1,4 @@
-#' Collect a list of vp file names
+#' Select vertical profiles files (\code{vp}) from computer
 #'
 #' Collect a list of vp file names within a directory that comply to the given
 #' country, radar and date range combination

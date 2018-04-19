@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.vpi.R
 \name{plot.vivp}
 \alias{plot.vivp}
-\title{Plot vertically integrated profiles}
+\title{Plot an integrated profile (\code{vpi})}
 \usage{
 \method{plot}{vivp}(x, quantity = "mtr", xlab = "time",
   ylab = "migration traffic rate [#/km/h]", main = "MTR",

@@ -1,4 +1,4 @@
-#' Radar beam height
+#' Calculate radar beam height
 #'
 #' Calculates the height of a radar beam as a function of elevation and range,
 #' assuming the beam is emitted at surface level.
@@ -34,7 +34,7 @@ earth_radius <- function(a, b, latdeg){
   sqrt(((a^2*cos(lat))^2 + (b^2*sin(lat))^2)/((a*cos(lat))^2 + (b*sin(lat))^2))
 }
 
-#' Radar beam width
+#' Calculate radar beam width
 #'
 #' Calculates the width of a radar beam as a function of range and beam angle.
 #'

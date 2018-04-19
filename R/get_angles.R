@@ -1,4 +1,4 @@
-#' Elevation angle of scan(s)
+#' Get elevation angle of a scan (\code{scan}) or scans in a polar volume (\code{scan})
 #'
 #' Gives the elevation angle of a scan, or the elevation angles within a
 #' polar volume

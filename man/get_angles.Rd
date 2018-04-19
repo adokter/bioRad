@@ -4,7 +4,7 @@
 \alias{get_angles}
 \alias{get_angles.scan}
 \alias{get_angles.pvol}
-\title{Elevation angle of scan(s)}
+\title{Get elevation angle of a scan (\code{scan}) or scans in a polar volume (\code{scan})}
 \usage{
 get_angles(x)
 

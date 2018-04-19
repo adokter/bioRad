@@ -6,7 +6,7 @@
 \alias{rcs.vplist}
 \alias{rcs.vpts}
 \alias{rcs.vivp}
-\title{Radar cross section}
+\title{Get radar cross section}
 \usage{
 rcs(x)
 

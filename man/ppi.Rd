@@ -4,7 +4,7 @@
 \alias{ppi}
 \alias{ppi.param}
 \alias{ppi.scan}
-\title{Make a plan position indicator (ppi)}
+\title{Project a scan (\code{scan}) or parameter (\code{param}) to a plan position indicator (\code{ppi})}
 \usage{
 ppi(x, cellsize = 500, range.max = 50000, project = F, latlim = NULL,
   lonlim = NULL)

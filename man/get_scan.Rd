@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_scan.R
 \name{get_scan}
 \alias{get_scan}
-\title{Extract a scan from a polar volume}
+\title{Get a scan (\code{scan}) from a polar volume (\code{pvol})}
 \usage{
 get_scan(x, angle)
 }
@@ -15,7 +15,7 @@ get_scan(x, angle)
 An object of class '\link[=summary.scan]{scan}'.
 }
 \description{
-Extract a scan from a polar volume
+Get a scan (\code{scan}) from a polar volume (\code{pvol})
 }
 \details{
 The function returns the scan with elevation angle closest

@@ -1,6 +1,6 @@
-#' Check whether it is night at a given time and place
+#' Check if it is night at a given time and place
 #'
-#' Checks whether it is night (\code{TRUE}/\code{FALSE}) for a combination of
+#' Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
 #' latitude, longitude, date and sun elevation. When used on a bioRad object
 #' (\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
 #' bioRad object directly.

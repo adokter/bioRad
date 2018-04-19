@@ -1,4 +1,4 @@
-#' Plot a scan in polar coordinates
+#' Plot a scan (\code{scan}) in polar coordinates
 #'
 #' Plots a scan in polar coordinates. For plots in Cartesian coordinates,
 #' see \link{ppi}

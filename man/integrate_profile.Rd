@@ -5,7 +5,7 @@
 \alias{integrate_profile.vp}
 \alias{integrate_profile.vplist}
 \alias{integrate_profile.vpts}
-\title{Vertically integrate profiles}
+\title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an integrated profile (\code{vpi})}
 \usage{
 integrate_profile(x, alt.min, alt.max, alpha = NA, interval.max = Inf)
 
