@@ -106,7 +106,7 @@ read_pvolfile = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","P
   radar=gsub("RAD:","",sources[which(grepl("RAD:",sources))])
 
   #read scan groups
-  data=lapply(scans,function(x) read.scan(filename,x,param,radar,datetime,geo))
+  data=lapply(scans,function(x) read_pvolfile_scan(filename,x,param,radar,datetime,geo))
   #order by elevation
   if(sort) data=data[order(sapply(data,elangle))]
 
@@ -119,7 +119,7 @@ read_pvolfile = function(filename,param=c("DBZH","VRADH","VRAD","RHOHV","ZDR","P
   output
 }
 
-read.scan=function(filename,scan,param,radar,datetime,geo){
+read_pvolfile_scan=function(filename,scan,param,radar,datetime,geo){
   h5struct=h5ls(filename)
   h5struct=h5struct[h5struct$group==paste("/",scan,sep=""),]$name
   groups=h5struct[grep("data",h5struct)]
