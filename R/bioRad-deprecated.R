@@ -238,3 +238,15 @@ ppi <- function(...) {
   .Deprecated("project_as_ppi")
   project_as_ppi(...)
 }
+
+#' @name h5ODIMobject-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{h5ODIMobject}:
+#' Use \code{\link{get_odim_object_type}} instead.
+#'
+#' @export
+h5ODIMobject <- function(...) {
+  .Deprecated("get_odim_object_type")
+  get_odim_object_type(...)
+}
