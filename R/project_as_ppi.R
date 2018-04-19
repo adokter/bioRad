@@ -16,21 +16,21 @@
 #' data(SCAN)
 #' SCAN
 #' # make PPIs for all scan parameters in the scan:
-#' ppi=ppi(SCAN)
+#' ppi=project_as_ppi(SCAN)
 #' # print summary info for the ppi:
 #' ppi
 #' # copy the first scan parameter of the first scan in the volume to a new object 'param':
 #' param=SCAN$params[[1]]
 #' # make a ppi for the new 'param' object:
-#' ppi=ppi(param)
+#' ppi=project_as_ppi(param)
 #' # print summary info for this ppi:
 #' ppi
-ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("ppi", x)
+project_as_ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL) UseMethod("project_as_ppi", x)
 
 
-#' @describeIn ppi ppi for a single scan parameter
+#' @describeIn project_as_ppi ppi for a single scan parameter
 #' @export
-ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
+project_as_ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"param"))
   data=samplePolar(x,cellsize,range.max,project,latlim,lonlim)
   # copy the parameter's attributes
@@ -42,9 +42,9 @@ ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=N
   data
 }
 
-#' @describeIn ppi multiple ppi's for all scan parameters in a scan
+#' @describeIn project_as_ppi multiple ppi's for all scan parameters in a scan
 #' @export
-ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
+project_as_ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"scan"))
   data=samplePolar(x$params[[1]],cellsize,range.max,project,latlim,lonlim)
   # copy the parameter's geo list to attributes
