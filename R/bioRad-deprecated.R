@@ -250,3 +250,15 @@ h5ODIMobject <- function(...) {
   .Deprecated("get_odim_object_type")
   get_odim_object_type(...)
 }
+
+#' @name read.pvol-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{read.pvol}:
+#' Use \code{\link{read_pvolfile}} instead.
+#'
+#' @export
+read.pvol <- function(...) {
+  .Deprecated("read_pvolfile")
+  read_pvolfile(...)
+}
