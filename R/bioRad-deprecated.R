@@ -275,3 +275,15 @@ readvp <- function(...) {
   read_vpfiles(...)
 }
 
+#' @name readvp.list-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{readvp.list}:
+#' Use \code{\link{read_vpfiles}} instead.
+#'
+#' @export
+readvp.list <- function(...) {
+  .Deprecated("read_vpfiles")
+  read_vpfiles(...)
+}
+
