@@ -11,7 +11,7 @@
 #' # load the file:
 #' read_vpfiles(prof)
 #'
-read_vpfiles = function(filename){
+read_vp = function(filename){
   if(!is.vpfile(filename)){
     warning(paste(filename,"is not a vertical profile"))
     return(NULL)
@@ -63,10 +63,13 @@ read_vpfiles = function(filename){
 #' @examples
 #' \dontrun{read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
 #'
-readvp.list=function(files){
-  vps=lapply(files,read_vpfiles)
-  # remove nulls
-  vps <- vps[!sapply(vps, is.null)]
-  do.call(c.vp,vps)
+read_vpfiles=function(files){
+  if (length(files) == 1) {
+    return(read_vp(files))
+  } else {
+    vps=lapply(files, read_vp)
+    # remove nulls
+    vps <- vps[!sapply(vps, is.null)]
+    do.call(c.vp,vps)
+  }
 }
-
