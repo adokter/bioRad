@@ -48,6 +48,8 @@
 \alias{readvp}
 \alias{readvp.list-deprecated}
 \alias{readvp.list}
+\alias{readvp.table-deprecated}
+\alias{readvp.table}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -95,6 +97,8 @@ read.pvol(...)
 readvp(...)
 
 readvp.list(...)
+
+readvp.table(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -214,6 +218,11 @@ Use \code{\link{read_vpfiles}} instead.
 \section{\code{readvp.list}}{
 
 Use \code{\link{read_vpfiles}} instead.
+}
+
+\section{\code{readvp.table}}{
+
+Use \code{\link{read_vpts}} instead.
 }
 
 \keyword{internal}

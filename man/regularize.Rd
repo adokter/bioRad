@@ -38,7 +38,7 @@ become visible in profile plots of regular time series using \link{plot.vpts}.
 # locate example file:
 VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
 # load time series:
-ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+ts=read_vpts(VPtable,radar="KBGM", wavelength='S')
 # regularize the time series on a 5 minute interval grid
 tsRegular=regularize(ts, interval=5)
 }

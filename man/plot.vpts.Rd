@@ -71,7 +71,7 @@ each pennant (triangle) 25 m/s
 # locate example file:
 VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
 # load and regularize time series of vertical profiles:
-ts <- regularize(readvp.table(VPtable, radar = "KBGM", wavelength = 'S'))
+ts <- regularize(read_vpts(VPtable, radar = "KBGM", wavelength = 'S'))
 # plot density of individuals for the first 500 time steps, in the altitude
 # layer 0-3000 m.
 plot(ts[1:500], ylim = c(0, 3000))
