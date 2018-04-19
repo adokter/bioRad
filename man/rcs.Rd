@@ -5,7 +5,7 @@
 \alias{rcs.vp}
 \alias{rcs.vplist}
 \alias{rcs.vpts}
-\alias{rcs.vivp}
+\alias{rcs.vpi}
 \title{Radar cross section}
 \usage{
 rcs(x)
@@ -16,7 +16,7 @@ rcs(x)
 
 \method{rcs}{vpts}(x)
 
-\method{rcs}{vivp}(x)
+\method{rcs}{vpi}(x)
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
@@ -35,7 +35,7 @@ Gives the currently assumed radar cross section in cm^2.
 
 \item \code{vpts}: radar cross section of a time series of vertical profile
 
-\item \code{vivp}: radar cross section of a time series of vertically integrated vertical profile(s)
+\item \code{vpi}: radar cross section of a time series of vertically integrated vertical profile(s)
 }}
 
 \examples{

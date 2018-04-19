@@ -5,7 +5,7 @@
 \alias{rcs<-.vp}
 \alias{rcs<-.vplist}
 \alias{rcs<-.vpts}
-\alias{rcs<-.vivp}
+\alias{rcs<-.vpi}
 \title{Set radar cross section}
 \usage{
 rcs(x) <- value
@@ -16,7 +16,7 @@ rcs(x) <- value
 
 \method{rcs}{vpts}(x) <- value
 
-\method{rcs}{vivp}(x) <- value
+\method{rcs}{vpi}(x) <- value
 }
 \arguments{
 \item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}

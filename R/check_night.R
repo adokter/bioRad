@@ -12,6 +12,12 @@
 #' interpretable by \link[base]{as.Date}.
 #' @param elev numeric. Sun elevation in degrees.
 #'
+#' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
+#' (either datetime or geographic location missing). For \code{vpts} a
+#' vector of \code{TRUE}/\code{FALSE} values is returned.
+#'
+#' @export
+#'
 #' @details The angular diameter of the sun is about 0.536 degrees, therefore
 #' the moment of sunrise/sunset corresponds to half that elevation at
 #' -0.268 degrees.
@@ -21,12 +27,6 @@
 #'
 #' Approximate astronomical formula are used, therefore the day/night
 #' transition may be off by a few minutes.
-#'
-#' @export
-#'
-#' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
-#' (either datetime or geographic location missing). For \code{vpts} a
-#' vector of \code{TRUE}/\code{FALSE} values is returned.
 #'
 #' @examples
 #' # check whether it's night at UTC midnight in the Netherlands on January 1st:
