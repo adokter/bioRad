@@ -81,7 +81,7 @@ sample_polar=function(param,cellsize,range.max,project,latlim,lonlim){
   # if projecting, account for elevation angle - not accounting for earths curvature
   if(project) elev=attributes(param)$geo$elangle*pi/180 else elev=0
   # get scan parameter indices, and extract data
-  index=polar2index(cartesian_to_polar(coordinates(gridTopo),elev),attributes(param)$geo$rscale,attributes(param)$geo$ascale)
+  index=polar_to_index(cartesian_to_polar(coordinates(gridTopo),elev),attributes(param)$geo$rscale,attributes(param)$geo$ascale)
   data=data.frame(mapply(function(x,y) safe_subset(param,x,y),x=index$row,y=index$col))
   colnames(data)=attributes(param)$param
   output=SpatialGridDataFrame(grid=SpatialGrid(grid=gridTopo,proj4string=proj4string),data=data)
@@ -124,7 +124,7 @@ safe_subset=function(data,indexx,indexy){
   out
 }
 
-polar2index=function(coords.polar,rangebin=1, azimbin=1){
+polar_to_index=function(coords.polar,rangebin=1, azimbin=1){
   row=floor(1 + coords.polar$range/rangebin)
   col=floor(1 + coords.polar$azim/azimbin)
   data.frame(row=row,col=col)
