@@ -19,7 +19,7 @@
 #' # print summary info for the scan:
 #' SCAN
 #' # make ppi for the scan
-#' ppi <- ppi(SCAN)
+#' ppi <- project_as_ppi(SCAN)
 #' # grab a basemap that matches the extent of the ppi:
 #' basemap <- download_basemap(ppi)
 #' # map the reflectivity quantity of the ppi onto the basemap:
