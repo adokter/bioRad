@@ -33,7 +33,7 @@ profiles can be found within the period \code{t-interval.max/2} to
 \code{t+interval.max/2}. Ignored for single profiles of class \code{vp}.}
 }
 \value{
-an object of class \code{vivp}, a data frame with vertically
+an object of class \code{vpi}, a data frame with vertically
 integrated profile quantities
 }
 \description{
@@ -89,7 +89,7 @@ integrate_profile(c(VP, VP))
 data(VPTS)
 VPTS
 # print migration traffic rates
-vivp <- integrate_profile(VPTS)
+vpi <- integrate_profile(VPTS)
 # plot migration traffic rates for the full air column
 plot(VPTS)
 # plot migration traffic rates for altitudes > 1 km above sea level

@@ -33,8 +33,8 @@ rcs.vpts <- function (x){
 
 #' @describeIn rcs radar cross section of a time series of vertically integrated vertical profile(s)
 #' @export
-rcs.vivp <- function (x){
-  stopifnot(inherits(x,"vivp"))
+rcs.vpi <- function (x){
+  stopifnot(inherits(x,"vpi"))
   attributes(x)$rcs
 }
 
@@ -95,8 +95,8 @@ rcs.vivp <- function (x){
 
 #' @rdname rcs-set
 #' @export
-`rcs<-.vivp` <- function(x,value){
-  stopifnot(inherits(x,"vivp"))
+`rcs<-.vpi` <- function(x,value){
+  stopifnot(inherits(x,"vpi"))
   attributes(x)$rcs=value
   x$mtr=x$rtr/value
   x$vid=x$vir/value

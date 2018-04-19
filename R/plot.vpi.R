@@ -1,8 +1,8 @@
 #' Plot an integrated profile (\code{vpi})
 #'
-#' Plot an object of class \code{vivp}.
+#' Plot an object of class \code{vpi}.
 #'
-#' @param x 1 class object inheriting from class \code{vivp}, typically a
+#' @param x 1 class object inheriting from class \code{vpi}, typically a
 #' call to \link[bioRad]{integrate_profile}.
 #' @param quantity Character string with the quantity to plot, one of
 #' '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density,
@@ -21,7 +21,7 @@
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{plot} plotting function.
 #'
-#' @method plot vivp
+#' @method plot vpi
 #'
 #' @export
 #'
@@ -47,11 +47,11 @@
 #' plot(vi.vpts)
 #' # plot the vertically integrated densities, without night shading:
 #' plot(vi.vpts, quantity = "vid", nightshade = FALSE)
-plot.vivp <- function(x, quantity = "mtr", xlab = "time",
+plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      ylab = "migration traffic rate [#/km/h]",
                      main = "MTR", nightshade = TRUE, elev = -0.268,
                      lat = NULL, lon = NULL, ylim = NULL, ...){
-  stopifnot(inherits(x, "vivp"))
+  stopifnot(inherits(x, "vpi"))
   stopifnot(quantity %in% c("mtr", "vid", "vir", "rtr", "mt",
                             "rt", "ff", "dd", "u", "v"))
 
