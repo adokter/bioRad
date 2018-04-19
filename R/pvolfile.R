@@ -72,20 +72,3 @@ is.ODIMfile = function(filename){
   }
   return(output)
 }
-
-#' Check if a file is a vertical profile (\code{vp})
-#'
-#' Checker whether a file is a vertical profile that can be read with package \pkg{bioRad}
-#'
-#' @param filename A string containing a filename
-#' @export
-#' @return TRUE when \code{filename} is a vertical profile, otherwise FALSE
-#' @examples
-#' profile <- system.file("extdata", "profile.h5", package="bioRad")
-#' is.vpfile(profile)   #> TRUE
-#'
-is.vpfile = function(filename){
-  type=h5ODIMobject(filename)
-  if(is.na(type)) return(FALSE)
-  else return(type=="VP")
-}
