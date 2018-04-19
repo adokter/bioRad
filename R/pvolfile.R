@@ -32,7 +32,7 @@ get_odim_object_type = function(filename){
     warning(paste(filename,"does not exist"))
     return(NA)
   }
-  if(!is.ODIMfile(filename)){
+  if(!is.odimfile(filename)){
     warning(paste(filename,"is not a ODIM HDF5 file"))
     return(NA)
   }
@@ -40,7 +40,7 @@ get_odim_object_type = function(filename){
   return(object)
 }
 
-is.ODIMfile = function(filename){
+is.odimfile = function(filename){
   if(!H5Fis_hdf5(filename)){
     warning(paste(filename,"is not a HDF5 file"))
     return(FALSE)
