@@ -21,7 +21,7 @@
 #' @keywords internal
 #'
 #' @export
-print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...){
+print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "ppi"))
   cat("               Plan position indicator (class ppi)\n\n")
   cat("  quantities: ", names(x$data), "\n")
