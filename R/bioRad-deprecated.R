@@ -226,3 +226,15 @@ rsl2odim <- function(...) {
   .Deprecated("nexrad_to_odim")
   nexrad_to_odim(...)
 }
+
+#' @name ppi-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{ppi}:
+#' Use \code{\link{project_as_ppi}} instead.
+#'
+#' @export
+ppi <- function(...) {
+  .Deprecated("project_as_ppi")
+  project_as_ppi(...)
+}
