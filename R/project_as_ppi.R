@@ -32,7 +32,7 @@ project_as_ppi <- function (x,cellsize=500,range.max=50000,project=F,latlim=NULL
 #' @export
 project_as_ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"param"))
-  data=samplePolar(x,cellsize,range.max,project,latlim,lonlim)
+  data=sample_polar(x,cellsize,range.max,project,latlim,lonlim)
   # copy the parameter's attributes
   geo=attributes(x)$geo
   geo$bbox=attributes(data)$bboxlatlon
@@ -46,13 +46,13 @@ project_as_ppi.param=function(x,cellsize=500,range.max=50000,project=F,latlim=NU
 #' @export
 project_as_ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NULL,lonlim=NULL){
   stopifnot(inherits(x,"scan"))
-  data=samplePolar(x$params[[1]],cellsize,range.max,project,latlim,lonlim)
+  data=sample_polar(x$params[[1]],cellsize,range.max,project,latlim,lonlim)
   # copy the parameter's geo list to attributes
   geo=x$geo
   geo$bbox=attributes(data)$bboxlatlon
   geo$merged=FALSE
   if(length(x$params)>1){
-    alldata=lapply(x$params,function(param) samplePolar(param,cellsize,range.max,project,latlim,lonlim))
+    alldata=lapply(x$params,function(param) sample_polar(param,cellsize,range.max,project,latlim,lonlim))
     data=do.call(cbind,alldata)
   }
   data=list(radar=x$radar,datetime=x$datetime,data=data, geo=geo)
@@ -61,7 +61,7 @@ project_as_ppi.scan=function(x,cellsize=500,range.max=50000,project=F,latlim=NUL
 }
 
 
-samplePolar=function(param,cellsize,range.max,project,latlim,lonlim){
+sample_polar=function(param,cellsize,range.max,project,latlim,lonlim){
   #proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +units=m",sep=""))
   bboxlatlon=proj2wgs(c(-range.max,range.max),c(-range.max,range.max),proj4string)@bbox
