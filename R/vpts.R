@@ -180,7 +180,7 @@ vptsHelper = function(vps){
 #' # locate example file:
 #' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
 #' # load time series:
-#' ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+#' ts=read_vpts(VPtable,radar="KBGM", wavelength='S')
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular=regularize(ts, interval=5)
 regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
