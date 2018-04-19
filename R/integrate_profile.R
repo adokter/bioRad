@@ -1,4 +1,4 @@
-#' Vertically integrate profiles
+#' Vertically integrate profiles (\code{vp} or \code{vpts}) to an integrated profile (\code{vpi})
 #'
 #' Performs a vertical integration of density, reflectivity and migration
 #' traffic rate, and a vertical averaging of ground speed and direction

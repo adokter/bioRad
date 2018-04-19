@@ -1,4 +1,4 @@
-#' Subset `ppi`
+#' Subset a plan position indicator (\code{ppi})
 #'
 #' Extract by index from a ppi
 #'
@@ -29,7 +29,7 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...){
       x$data@grid@cells.dim[2], "pixels\n\n")
 }
 
-#' Class 'ppi': plan position indicator
+#' Object of class \code{ppi}: a plan position indicator
 #'
 #' @param object Object of class \code{ppi}.
 #' @param x Object of class \code{ppi}.

@@ -1,4 +1,4 @@
-#' Extract a scan from a polar volume
+#' Get a scan (\code{scan}) from a polar volume (\code{pvol})
 #'
 #' @param x An object of class \code{pvol}.
 #' @param angle Elevation angle.

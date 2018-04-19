@@ -1,4 +1,4 @@
-#' Plot a vertical profile
+#' Plot a vertical profile (\code{vp})
 #'
 #' @param x A \code{vp} class object.
 #' @param quantity Character string with the quantity to plot. See

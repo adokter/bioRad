@@ -1,6 +1,7 @@
 # function obtained via Hidde Leijnse, source unknown
 
-#' Calculate sunrise and sunset
+#' Calculate sunrise and sunset for a time and place
+#'
 #' @param lon longitude in decimal degrees
 #' @param lat latitude in decimal degrees
 #' @param date date inhereting from class "\code{POSIXt}" or a string

@@ -2,7 +2,7 @@
 % Please edit documentation in R/sunrise_sunset.R
 \name{suntime}
 \alias{suntime}
-\title{Calculate sunrise and sunset}
+\title{Calculate sunrise and sunset for a time and place}
 \usage{
 suntime(lon, lat, date, elev = -0.268, rise = TRUE)
 }
@@ -22,7 +22,7 @@ interpretable by \link[base]{as.Date}}
 the moment of sunrise or sunset in UTC time
 }
 \description{
-Calculate sunrise and sunset
+Calculate sunrise and sunset for a time and place
 }
 \details{
 The angular diameter of the sun is about 0.536 degrees,

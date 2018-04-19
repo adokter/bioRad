@@ -3,7 +3,7 @@
 \name{summary.pvol}
 \alias{summary.pvol}
 \alias{is.pvol}
-\title{Class 'pvol': polar volume}
+\title{Object of class \code{pvol}: a polar volume}
 \usage{
 \method{summary}{pvol}(object, ...)
 
@@ -20,7 +20,7 @@ is.pvol(x)
 for \code{is.pvol}: \code{TRUE} if its argument is of class "\code{pvol}"
 }
 \description{
-Class 'pvol': polar volume
+Object of class \code{pvol}: a polar volume
 }
 \details{
 A polar scan object of class 'pvol' is a list containing:

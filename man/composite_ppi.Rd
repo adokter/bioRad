@@ -2,7 +2,7 @@
 % Please edit documentation in R/composite_ppi.R
 \name{composite_ppi}
 \alias{composite_ppi}
-\title{Make a composite of multiple plan position indicators (\code{ppi})}
+\title{Create a composite of multiple plan position indicators (\code{ppi})}
 \usage{
 composite_ppi(x, param = "DBZH", cells.dim = c(100, 100))
 }

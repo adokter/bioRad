@@ -1,4 +1,4 @@
-#' Calculate a vertical profile of birds (\code{vp}) from a polar volume (\code{pvol})
+#' Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})
 #'
 #' Calculates a vertical profile of birds (vp) from a polar volume (pvol).
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.scan.R
 \name{plot.scan}
 \alias{plot.scan}
-\title{Plot a scan in polar coordinates}
+\title{Plot a scan (\code{scan}) in polar coordinates}
 \usage{
 \method{plot}{scan}(x, param, xlim = c(0, 100), ylim = c(0, 360),
   zlim = c(-20, 20), ...)

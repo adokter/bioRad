@@ -1,4 +1,4 @@
-#' Convert RSL polar volume to ODIM hdf5 format
+#' Convert a NEXRAD polar volume file to an ODIM polar volume file
 #'
 #' @param vol.in Polar volume input file in RSL format.
 #' @param vol.out Filename for the polar volume in ODIM hdf5 format to be

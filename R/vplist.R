@@ -1,4 +1,4 @@
-#' Class 'vplist': list of vertical profiles
+#' Object of class \code{vplist}: a list of vertical profiles
 #'
 #' Class for list of vertical profiles
 #' @param object object of class 'vplist'
@@ -16,7 +16,7 @@ summary.vplist=function(object, ...) print.vplist(object)
 #' @return for \code{is.vplist}: \code{TRUE} if its argument is of class "\code{vplist}"
 is.vplist <- function(x) inherits(x, "vplist")
 
-#' Subset `vplist`
+#' Subset a list of vertical profiles (\code{vplist})
 #'
 #' Extract by index from a vplist
 #'
@@ -48,7 +48,8 @@ print.vplist=function(x,digits = max(3L, getOption("digits") - 3L), ...){
   cat("time range (UTC): ",as.character(daterange[1]),"-",as.character(daterange[2]),"\n")
 }
 
-#' concatenate \code{vp} objects into a \code{vplist} object
+#' Concatenate vertical profiles (\code{vp}) into a list of vertical profiles (\code{vplist})
+#'
 #' @param ... objects of class \code{vp}
 #' @export
 #' @return an object of class \code{vplist}, see \link{readvp.list} for details

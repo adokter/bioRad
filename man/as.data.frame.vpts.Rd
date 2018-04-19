@@ -2,7 +2,7 @@
 % Please edit documentation in R/vpts.R
 \name{as.data.frame.vpts}
 \alias{as.data.frame.vpts}
-\title{Coerce Vertical Profile Time Series to a Data Frame}
+\title{Convert a time series of vertical profiles (\code{vpts}) to a Data Frame}
 \usage{
 \method{as.data.frame}{vpts}(x, row.names = NULL, optional = FALSE,
   quantities = names(x$data), suntime = TRUE, geo = TRUE, elev = -0.268,

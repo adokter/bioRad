@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvol.R
 \name{read.pvol}
 \alias{read.pvol}
-\title{Read a polar volume (pvol) from file}
+\title{Read a polar volume (\code{pvol}) from file}
 \usage{
 read.pvol(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
   "PHIDP", "CELL"), sort = T, lat, lon, height, elangle.min = 0,
@@ -33,7 +33,7 @@ read.pvol(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
 an object of class \link[=summary.pvol]{pvol}, which is a list containing polar scans, i.e. objects of class \code{scan}
 }
 \description{
-Read a polar volume (pvol) from file
+Read a polar volume (\code{pvol}) from file
 }
 \details{
 Scan parameters are named according to the OPERA data information model (ODIM), see

@@ -1,4 +1,4 @@
-#' Make a plan position indicator (ppi)
+#' Project a scan (\code{scan}) or parameter (\code{param}) to a plan position indicator (\code{ppi})
 #'
 #' Make a plan position indicator (ppi)
 #' @param x an object of class 'param' or 'scan'

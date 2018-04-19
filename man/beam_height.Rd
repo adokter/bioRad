@@ -2,7 +2,7 @@
 % Please edit documentation in R/beam.R
 \name{beam_height}
 \alias{beam_height}
-\title{Radar beam height}
+\title{Calculate radar beam height}
 \usage{
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }

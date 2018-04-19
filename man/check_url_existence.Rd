@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_vpfiles.R
 \name{check_url_existence}
 \alias{check_url_existence}
-\title{Check if a specific URL is existing and providing a return message}
+\title{Check if a specific URL exists}
 \usage{
 check_url_existence(url)
 }
@@ -14,6 +14,6 @@ z With a length > 1 if the URL is existing and downloading would be
 possible.
 }
 \description{
-Check if a specific URL is existing and providing a return message
+Check if a specific URL exists
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/vpts.R
 \name{regularize}
 \alias{regularize}
-\title{Regularize a time series}
+\title{Regularize a time series of vertical profiles (\code{vpts}) on a regular time grid}
 \usage{
 regularize(ts, interval = "auto", t.min = ts$daterange[1],
   t.max = ts$daterange[2], units = "mins", fill = F, verbose = T)

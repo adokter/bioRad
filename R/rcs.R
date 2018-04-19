@@ -1,4 +1,4 @@
-#' Radar cross section
+#' Get radar cross section
 #'
 #' Gives the currently assumed radar cross section in cm^2.
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object

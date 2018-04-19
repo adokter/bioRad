@@ -1,4 +1,5 @@
-#' Class 'scan': polar scan
+#' Object of class \code{scan}: a scan of a polar volume
+#'
 #' @param object object of class 'scan'
 #' @param x object of class 'scan'
 #' @param ... additional arguments affecting the summary produced.

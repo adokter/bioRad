@@ -2,7 +2,7 @@
 % Please edit documentation in R/vplist.R
 \name{[.vplist}
 \alias{[.vplist}
-\title{Subset `vplist`}
+\title{Subset a list of vertical profiles (\code{vplist})}
 \usage{
 \method{[}{vplist}(x, i)
 }

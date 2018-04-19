@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvolfile.R
 \name{is.vpfile}
 \alias{is.vpfile}
-\title{Check whether file is a vertical profile}
+\title{Check if a file is a vertical profile (\code{vp})}
 \usage{
 is.vpfile(filename)
 }

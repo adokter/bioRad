@@ -1,4 +1,4 @@
-#' Set and retrieve the VVP radial velocity standard deviation threshold
+#' Get threshold of the VVP-retrieved radial velocity standard deviation
 #'
 #' Gives the current threshold in VVP-retrieved radial velocity standard deviation in m/s.
 #' @param x a \code{vp}, \code{vplist} or \code{vpts} object
@@ -31,7 +31,7 @@ sd_vvp.vpts <- function (x){
   x$attributes$how$sd_vvp_thresh
 }
 
-#' Set threshold for VVP-retrieved radial velocity standard deviation
+#' Set threshold of the VVP-retrieved radial velocity standard deviation
 #'
 #' Sets the threshold in \code{sd_vvp}. Altitude layers with \code{sd_vvp} below this threshold are
 #' assumed to have an aerial density of zero individuals. This method updates the migration densities in \code{x$data$dens}

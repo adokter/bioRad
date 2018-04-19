@@ -8,7 +8,7 @@ mounted <- FALSE
 #' the current mountpoint of the vol2bird docker container
 mount <- "~/"
 
-#' Checks that Docker is running
+#' Check if Docker is running
 #'
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running
 #' correctly on the local system
@@ -43,7 +43,7 @@ check_docker <- function(verbose = TRUE) {
   }
 }
 
-#' Update Docker image for vol2bird
+#' Update Docker image from Docker hub
 #'
 #' Pulls and installs the latest Docker image used by bioRad from Docker hub
 #' @details

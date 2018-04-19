@@ -2,7 +2,7 @@
 % Please edit documentation in R/vp.R
 \name{as.data.frame.vp}
 \alias{as.data.frame.vp}
-\title{Coerce Vertical Profile data to a Data Frame}
+\title{Convert a vertical profile (\code{vp}) to a Data Frame}
 \usage{
 \method{as.data.frame}{vp}(x, row.names = NULL, optional = FALSE,
   quantities = names(x$data), suntime = TRUE, geo = TRUE, elev = -0.268,

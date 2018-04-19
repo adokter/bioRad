@@ -2,7 +2,7 @@
 % Please edit documentation in R/nexrad_odim.R
 \name{nexrad_to_odim}
 \alias{nexrad_to_odim}
-\title{Convert RSL polar volume to ODIM hdf5 format}
+\title{Convert a NEXRAD polar volume file to an ODIM polar volume file}
 \usage{
 nexrad_to_odim(vol.in, vol.out, verbose = FALSE, mount = dirname(vol.in))
 }
@@ -22,5 +22,5 @@ the Docker container.}
 \code{TRUE} on success
 }
 \description{
-Convert RSL polar volume to ODIM hdf5 format
+Convert a NEXRAD polar volume file to an ODIM polar volume file
 }

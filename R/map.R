@@ -1,4 +1,4 @@
-#' Map a plan position indicator (ppi)
+#' Map a plan position indicator (\code{ppi})
 #'
 #' Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
 #' layer map using \link[ggmap]{ggmap}

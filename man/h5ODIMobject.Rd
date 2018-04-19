@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvolfile.R
 \name{h5ODIMobject}
 \alias{h5ODIMobject}
-\title{Check ODIM HDF5 data class}
+\title{Check the ODIM data class of a polar volume file}
 \usage{
 h5ODIMobject(filename)
 }

@@ -1,4 +1,4 @@
-#' Class 'vpts': time series of vertical profiles
+#' Object of class \code{vpts}: a time series of vertical profiles
 #'
 #' Class for single-site time series of vertical profiles
 #' @param object object of class 'vpts'
@@ -49,7 +49,7 @@ dim.vpts <- function(x) {
   c(data.dim,length(x$data))
 }
 
-#' Subset `vpts`
+#' Subset a time series of vertical profiles (\code{vpts})
 #'
 #' Extract by index from a vpts
 #'
@@ -93,7 +93,7 @@ vpts2vp <- function(x,i) {
   vpout
 }
 
-#' Convert list of vertical profiles to time series (\code{vpts}) objects
+#' Bind vertical profiles (\code{vp}) into time series (\code{vpts}) DEPRECATED
 #'
 #' @param x An object of class \code{vplist}, usually a result of a call to \link{readvp.list}
 #' @param radar optional string containing the radar identifier to generate time series for.
@@ -160,7 +160,7 @@ vptsHelper = function(vps){
   output
 }
 
-#' Regularize a time series
+#' Regularize a time series of vertical profiles (\code{vpts}) on a regular time grid
 #'
 #' Projects objects of class \code{vpts} on a regular time grid
 #' @param ts an object inhereting from class \code{vpts}, see \link{vpts} for details.
@@ -218,7 +218,7 @@ regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[
   return(ts)
 }
 
-#' Coerce Vertical Profile Time Series to a Data Frame
+#' Convert a time series of vertical profiles (\code{vpts}) to a Data Frame
 #'
 #' Converts vertical profile time series (objects of class \code{vpts}) to a Data Frame,
 #' and optionally adds information on sunrise/sunset, day/night and derived quantities

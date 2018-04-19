@@ -2,62 +2,79 @@
 % Please edit documentation in R/plot.vpts.R
 \name{plot.vpts}
 \alias{plot.vpts}
-\title{Plot a time series of vertical profiles}
+\title{Plot a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{plot}{vpts}(x, xlab = "time", ylab = "height [m]",
-  quantity = "dens", log = T, barbs = T, barbs.h = 10, barbs.t = 20,
-  barbs.dens = 5, zlim, legend.ticks, main, ...)
+  quantity = "dens", log = TRUE, barbs = TRUE, barbs.h = 10,
+  barbs.t = 20, barbs.dens = 5, zlim, legend.ticks, main, ...)
 }
 \arguments{
-\item{x}{a vp class object inheriting from class \code{vpts}}
+\item{x}{A vp class object inheriting from class \code{vpts}.}
 
-\item{xlab}{a title for the x-axis}
+\item{xlab}{A title for the x-axis.}
 
-\item{ylab}{a title for the y-axis}
+\item{ylab}{A title for the y-axis.}
 
-\item{quantity}{character string with the quantity to plot, one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.}
+\item{quantity}{Character string with the quantity to plot,
+one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density,
+reflectivity, reflectivity factor and total reflectivity factor,
+respectively.}
 
-\item{log}{logical. Whether to display \code{quantity} data on a logarithmic scale}
+\item{log}{Logical, whether to display \code{quantity} data on a
+logarithmic scale.}
 
-\item{barbs}{logical. Whether to overlay speed barbs}
+\item{barbs}{Logical, whether to overlay speed barbs.}
 
-\item{barbs.h}{integer. Number of barbs to plot in altitudinal dimension}
+\item{barbs.h}{Integer, number of barbs to plot in altitudinal dimension.}
 
-\item{barbs.t}{integer. Number of barbs to plot in temporal dimension}
+\item{barbs.t}{Integer, number of barbs to plot in temporal dimension.}
 
-\item{barbs.dens}{numeric. Lower threshold in aerial density of individuals for plotting speed barbs in individuals/km^3}
+\item{barbs.dens}{Numeric, lower threshold in aerial density of individuals
+for plotting speed barbs in individuals/km^3.}
 
-\item{zlim}{optional numerical atomic vector of length 2, specifying the range of \code{quantity} values to plot}
+\item{zlim}{Optional numerical atomic vector of length 2, specifying the
+range of \code{quantity} values to plot.}
 
-\item{legend.ticks}{numeric atomic vector specifying the ticks on the color bar}
+\item{legend.ticks}{Numeric atomic vector specifying the ticks on the
+color bar.}
 
-\item{main}{a title for the plot}
+\item{main}{A title for the plot.}
 
-\item{...}{Additional arguments to be passed to the low level \link[graphics]{image} plotting function}
+\item{...}{Additional arguments to be passed to the low level
+\link[graphics]{image} plotting function.}
 }
 \description{
 Plot a time series of vertical profiles  of class \code{vpts}.
 }
 \details{
-Profile can be visualised in three related quantities, as specified by argument \code{quantity}:
+Profile can be visualised in three related quantities, as specified
+by argument \code{quantity}:
 \describe{
- \item{"\code{dens}"}{the aerial density of individuals. This quantity is dependent on the assumed radar cross section (RCS) in the \code{x$attributes$how$rcs_bird} attribute}
- \item{"\code{eta}"}{reflectivity. This quantity is independent of the value of the \code{rcs_bird} attribute}
- \item{"\code{dbz}"}{reflectivity factor. This quantity is independent of the value
- of the \code{rcs_bird} attribute, and corresponds to the dBZ scale commonly used in weather radar meteorology.
- Bioscatter by birds tends to occur at much higher reflectivity factors at S-band than at C-band}
- \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the reflectivity factor of all scatterers (biological and meteorological scattering cambined)}
+ \item{"\code{dens}"}{the aerial density of individuals. This quantity is
+   dependent on the assumed radar cross section (RCS) in the
+   \code{x$attributes$how$rcs_bird} attribute}
+ \item{"\code{eta}"}{reflectivity. This quantity is independent of the
+   value of the \code{rcs_bird} attribute}
+ \item{"\code{dbz}"}{reflectivity factor. This quantity is independent
+   of the value of the \code{rcs_bird} attribute, and corresponds to the
+   dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
+   tends to occur at much higher reflectivity factors at S-band
+   than at C-band}
+ \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
+   reflectivity factor of all scatterers (biological and meteorological
+   scattering cambined)}
 }
-
-In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s
+In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
+each pennant (triangle) 25 m/s
 }
 \examples{
 # locate example file:
-VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
 # load and regularize time series of vertical profiles:
-ts=regularize(readvp.table(VPtable,radar="KBGM", wavelength='S'))
-# plot density of individuals for the first 500 time steps, in the altitude layer 0-3000 m.
-plot(ts[1:500], ylim=c(0,3000))
-# plot total reflectivity factor (rain,birds,insects together):
-plot(ts[1:500], ylim=c(0,3000), quantity="DBZH")
+ts <- regularize(readvp.table(VPtable, radar = "KBGM", wavelength = 'S'))
+# plot density of individuals for the first 500 time steps, in the altitude
+# layer 0-3000 m.
+plot(ts[1:500], ylim = c(0, 3000))
+# plot total reflectivity factor (rain, birds, insects together):
+plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
 }

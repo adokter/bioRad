@@ -2,7 +2,7 @@
 % Please edit documentation in R/vp.R
 \name{readvp.table}
 \alias{readvp.table}
-\title{Read vertical profiles from calculate_vp (i.e. vol2bird algorithm) stdout}
+\title{Read a time series of vertical profiles (\code{vpts}) from file}
 \usage{
 readvp.table(file, radar, wavelength = "C")
 }
@@ -17,7 +17,7 @@ readvp.table(file, radar, wavelength = "C")
 an object inhereting from class "\code{vpts}", see \link{vpts} for details
 }
 \description{
-Read vertical profiles from calculate_vp (i.e. vol2bird algorithm) stdout
+Read a time series of vertical profiles (\code{vpts}) from file
 }
 \examples{
 # locate example file:

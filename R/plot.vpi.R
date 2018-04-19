@@ -1,4 +1,4 @@
-#' Plot vertically integrated profiles
+#' Plot an integrated profile (\code{vpi})
 #'
 #' Plot an object of class \code{vpi}.
 #'

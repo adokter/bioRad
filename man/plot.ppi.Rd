@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.ppi.R
 \name{plot.ppi}
 \alias{plot.ppi}
-\title{Plot a plan position indicator (PPI)}
+\title{Plot a plan position indicator (\code{ppi})}
 \usage{
 \method{plot}{ppi}(x, param, xlim, ylim, zlim = c(-20, 20), ratio = 1, ...)
 }

@@ -1,4 +1,4 @@
-#' Grab a basemap for a ppi
+#' Download a basemap for \code{map(ppi)}
 #'
 #' Downloads a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
 #' layer map using \link[ggmap]{get_map}.

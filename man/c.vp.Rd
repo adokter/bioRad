@@ -2,7 +2,7 @@
 % Please edit documentation in R/vplist.R
 \name{c.vp}
 \alias{c.vp}
-\title{concatenate \code{vp} objects into a \code{vplist} object}
+\title{Concatenate vertical profiles (\code{vp}) into a list of vertical profiles (\code{vplist})}
 \usage{
 \method{c}{vp}(...)
 }
@@ -13,5 +13,5 @@
 an object of class \code{vplist}, see \link{readvp.list} for details
 }
 \description{
-concatenate \code{vp} objects into a \code{vplist} object
+Concatenate vertical profiles (\code{vp}) into a list of vertical profiles (\code{vplist})
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.vp.R
 \name{plot.vp}
 \alias{plot.vp}
-\title{Plot a vertical profile}
+\title{Plot a vertical profile (\code{vp})}
 \usage{
 \method{plot}{vp}(x, quantity = "dens",
   xlab = expression("volume density [#/km"^3 * "]"), ylab = "height [km]",
@@ -33,7 +33,7 @@
 \link[graphics]{plot} plotting function.}
 }
 \description{
-Plot a vertical profile
+Plot a vertical profile (\code{vp})
 }
 \examples{
 data(VP)

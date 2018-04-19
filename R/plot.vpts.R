@@ -1,4 +1,4 @@
-#' Plot a time series of vertical profiles
+#' Plot a time series of vertical profiles (\code{vpts})
 #'
 #' Plot a time series of vertical profiles  of class \code{vpts}.
 #'

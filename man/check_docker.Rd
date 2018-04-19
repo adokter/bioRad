@@ -2,7 +2,7 @@
 % Please edit documentation in R/docker.R
 \name{check_docker}
 \alias{check_docker}
-\title{Checks that Docker is running}
+\title{Check if Docker is running}
 \usage{
 check_docker(verbose = TRUE)
 }

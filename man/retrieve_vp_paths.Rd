@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_vpfiles.R
 \name{retrieve_vp_paths}
 \alias{retrieve_vp_paths}
-\title{Collect a list of vp file names}
+\title{Select vertical profiles files (\code{vp}) from computer}
 \usage{
 retrieve_vp_paths(path, start_date, end_date, country = NULL, radar = NULL)
 }
