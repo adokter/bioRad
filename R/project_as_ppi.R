@@ -72,7 +72,7 @@ sample_polar=function(param,cellsize,range.max,project,latlim,lonlim){
     cells.dim=ceiling(rep(2*range.max/cellsize,2))
   }
   else{
-    bbox=wgs2proj(bboxlatlon["lon",],bboxlatlon["lat",],proj4string)
+    bbox=wgs_to_proj(bboxlatlon["lon",],bboxlatlon["lat",],proj4string)
     cellcentre.offset=c(min(bbox@coords[,"x"]),min(bbox@coords[,"y"]))
     cells.dim=c(ceiling((max(bbox@coords[,"x"])-min(bbox@coords[,"x"]))/cellsize),ceiling((max(bbox@coords[,"y"])-min(bbox@coords[,"y"]))/cellsize))
   }
@@ -89,10 +89,10 @@ sample_polar=function(param,cellsize,range.max,project,latlim,lonlim){
   output
 }
 
-# wgs2proj is a wrapper for spTransform
+# wgs_to_proj is a wrapper for spTransform
 # proj4string should be an object of class 'CRS', as defined in package sp.
 # returns an object of class SpatialPoints
-wgs2proj<-function(lon,lat,proj4string){
+wgs_to_proj<-function(lon,lat,proj4string){
   xy <- data.frame(x = lon, y = lat)
   coordinates(xy) <- c("x", "y")
   proj4string(xy) <- CRS("+proj=longlat +datum=WGS84")
