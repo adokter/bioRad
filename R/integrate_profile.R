@@ -13,7 +13,7 @@
 #' profiles can be found within the period \code{t-interval.max/2} to
 #' \code{t+interval.max/2}. Ignored for single profiles of class \code{vp}.
 #'
-#' @return an object of class \code{vivp}, a data frame with vertically
+#' @return an object of class \code{vpi}, a data frame with vertically
 #' integrated profile quantities
 #'
 #' @details
@@ -55,7 +55,7 @@
 #' data(VPTS)
 #' VPTS
 #' # print migration traffic rates
-#' vivp <- integrate_profile(VPTS)
+#' vpi <- integrate_profile(VPTS)
 #' # plot migration traffic rates for the full air column
 #' plot(VPTS)
 #' # plot migration traffic rates for altitudes > 1 km above sea level
@@ -105,7 +105,7 @@ integrate_profile.vp <- function(x, alt.min = 0, alt.max = Inf, alpha = NA,
   output <- data.frame(datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
                        rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
                        v = v, HGHT = height)
-  class(output) <- c("vivp", "data.frame")
+  class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
   attributes(output)$alt.min <- alt.min
   attributes(output)$alt.max <- alt.max
@@ -128,7 +128,7 @@ integrate_profile.vplist <- function(x, alt.min = 0, alt.max = Inf,
   output <- do.call(rbind, lapply(x, integrate_profile.vp, alt.min = alt.min,
                                   alt.max = alt.max, alpha = alpha,
                                   interval.max = interval.max))
-  class(output) <- c("vivp", "data.frame")
+  class(output) <- c("vpi", "data.frame")
   attributes(output)$alt.min <- alt.min
   attributes(output)$alt.max <- alt.max
   attributes(output)$alpha <- alpha
@@ -184,7 +184,7 @@ integrate_profile.vpts <- function(x, alt.min = 0, alt.max = Inf,
   output <- data.frame(datetime = x$dates, mtr = mtr, vid = vid, vir = vir,
                        rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
                        v = v, HGHT = height)
-  class(output) <- c("vivp", "data.frame")
+  class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
   attributes(output)$alt.min <- alt.min
   attributes(output)$alt.max <- alt.max

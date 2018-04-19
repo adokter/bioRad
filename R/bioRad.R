@@ -12,7 +12,7 @@
 #'     \item{\link[=summary.vp]{vp}}{, a vertical profile: typically biological data extracted from a polar volume by \link{calculate_vp}.}
 #'     \item{\link[=summary.vplist]{vplist}}{, a list of \link[=summary.vp]{vp} objects.}
 #'     \item{\link[=summary.vpts]{vpts}}{, a vertical profile time series: a time-oredered list of \link[=summary.vp]{vp} objects for a single radar.}
-#'     \item{\link[=integrate_profile]{vivp}}{, vertically integrated vertical profiles.}
+#'     \item{\link[=integrate_profile]{vpi}}{, vertically integrated vertical profiles.}
 #'   }
 #' }
 #' The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link[base]{Extract} methods are available for each of these classes.
