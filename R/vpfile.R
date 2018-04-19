@@ -14,7 +14,7 @@
 #' is.vpfile(profile)   #> TRUE
 #'
 is.vpfile  <- function(filename){
-  type <- h5ODIMobject(filename)
+  type <- get_odim_object_type(filename)
   if (is.na(type)) {
     return(FALSE)
   } else {

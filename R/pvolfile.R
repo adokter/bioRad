@@ -10,7 +10,7 @@
 #' is.pvolfile(volume)   #> TRUE
 #'
 is.pvolfile = function(filename){
-  type=h5ODIMobject(filename)
+  type=get_odim_object_type(filename)
   if(is.na(type)) return(FALSE)
   else return(type=="PVOL")
 }
@@ -25,9 +25,9 @@ is.pvolfile = function(filename){
 #' @examples
 #' # locate a polar volume file
 #' pvol <- system.file("extdata", "volume.h5", package="bioRad")
-#' h5ODIMobject(pvol)   #> "pvol"
+#' get_odim_object_type(pvol)   #> "pvol"
 #'
-h5ODIMobject = function(filename){
+get_odim_object_type = function(filename){
   if(!file.exists(filename)){
     warning(paste(filename,"does not exist"))
     return(NA)
