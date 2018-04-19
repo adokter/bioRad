@@ -8,7 +8,8 @@ test_that("Read a vertical profile", {
 
 test_that("Read a list of vertical profiles", {
   prof <- system.file("extdata", "profile.h5", package = "bioRad")
-  # old function -> to vplist class
+  # old function -> to vplist class; readvp.list was the function in the earlier
+  # releases (not the S3 based method dispatching)
   expect_s3_class(readvp.list(c(prof, prof)), "vplist")
   expect_is(readvp.list(c(prof, prof)), "list")
   # new function -> just a list of vp
