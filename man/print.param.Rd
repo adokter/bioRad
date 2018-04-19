@@ -2,14 +2,14 @@
 % Please edit documentation in R/param.R
 \name{print.param}
 \alias{print.param}
-\title{print method for class \code{param}}
+\title{Print method for class \code{param}}
 \usage{
 \method{print}{param}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
-\item{x}{An object of class \code{param}, a polar scan parameter}
+\item{x}{An object of class \code{param}, a polar scan parameter.}
 }
 \description{
-print method for class \code{param}
+Print method for class \code{param}
 }
 \keyword{internal}

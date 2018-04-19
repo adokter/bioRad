@@ -9,22 +9,28 @@
   line.col = "red", line.lwd = 1, ...)
 }
 \arguments{
-\item{x}{a vp class object}
+\item{x}{A \code{vp} class object.}
 
-\item{quantity}{character string with the quantity to plot.
-See \link[=summary.vp]{vp} for list of available quantities.
-Aerial density related: '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density, reflectivity, reflectivity factor and total reflectivity factor, respectively.
-Ground speed related: '\code{ff}','\code{dd}', for ground speed and direction, respectively.}
+\item{quantity}{Character string with the quantity to plot. See
+\link[=summary.vp]{vp} for list of available quantities.
+\itemize{
+ \item{Aerial density related:}{'\code{dens}', '\code{eta}', '\code{dbz}',
+   '\code{DBZH}' for density, reflectivity, reflectivity factor and total
+   reflectivity factor, respectively.}
+ \item{Ground speed related:}{'\code{ff}','\code{dd}', for ground speed
+   and direction, respectively.}
+}}
 
-\item{xlab}{a title for the x axis}
+\item{xlab}{A title for the x axis.}
 
-\item{ylab}{a title for the y axis}
+\item{ylab}{A title for the y axis.}
 
-\item{line.col}{Color of the plotted curve}
+\item{line.col}{Color of the plotted curve.}
 
-\item{line.lwd}{Line width of the plotted curve}
+\item{line.lwd}{Line width of the plotted curve.}
 
-\item{...}{Additional arguments to be passed to the low level \link[graphics]{plot} plotting function}
+\item{...}{Additional arguments to be passed to the low level
+\link[graphics]{plot} plotting function.}
 }
 \description{
 Plot a vertical profile
@@ -32,5 +38,5 @@ Plot a vertical profile
 \examples{
 data(VP)
 plot(VP)
-plot(VP,line.col='blue')
+plot(VP, line.col = 'blue')
 }
