@@ -82,7 +82,7 @@ sample_polar=function(param,cellsize,range.max,project,latlim,lonlim){
   if(project) elev=attributes(param)$geo$elangle*pi/180 else elev=0
   # get scan parameter indices, and extract data
   index=polar2index(cartesian_to_polar(coordinates(gridTopo),elev),attributes(param)$geo$rscale,attributes(param)$geo$ascale)
-  data=data.frame(mapply(function(x,y) safeSubset(param,x,y),x=index$row,y=index$col))
+  data=data.frame(mapply(function(x,y) safe_subset(param,x,y),x=index$row,y=index$col))
   colnames(data)=attributes(param)$param
   output=SpatialGridDataFrame(grid=SpatialGrid(grid=gridTopo,proj4string=proj4string),data=data)
   attributes(output)$bboxlatlon=bboxlatlon
@@ -117,7 +117,7 @@ cartesian_to_polar=function(coords,elev=0){
   data.frame(range=range,azim=azim*180/pi)
 }
 
-safeSubset=function(data,indexx,indexy){
+safe_subset=function(data,indexx,indexy){
   datadim=dim(data)
   if(indexx<1 || indexx > datadim[1] || indexy<1 || indexy> datadim[2]) out=NA
   else out=data[indexx,indexy]
