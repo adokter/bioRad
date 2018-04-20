@@ -17,8 +17,8 @@
 #' @export
 #' @examples
 #' my_path <- "~/my/directory/"
-#' retrieve_vp_paths(my_path, "2016-10-01", "2017-01-31", c("be"))
-retrieve_vp_paths <- function(path, start_date, end_date,
+#' select_vpfiles(my_path, "2016-10-01", "2017-01-31", c("be"))
+select_vpfiles <- function(path, start_date, end_date,
                               country = NULL, radar = NULL) {
   if (is.null(country)) {country <- "([a-z]{2})"}
   if (is.null(radar)) {radar <- "([a-z]{3})"}
