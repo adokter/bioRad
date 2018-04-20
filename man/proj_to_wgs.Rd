@@ -7,11 +7,11 @@
 proj_to_wgs(x, y, proj4string)
 }
 \arguments{
+\item{x}{Longitude}
+
+\item{y}{Latitude}
+
 \item{proj4string}{An object of class 'CRS', as defined in package \code{sp}.}
-
-\item{lon}{Longitude}
-
-\item{lat}{Latitude}
 }
 \value{
 An object of class \code{SpatialPoints}.

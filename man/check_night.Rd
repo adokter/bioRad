@@ -24,6 +24,8 @@ check_night(x, ..., elev = -0.268)
 \arguments{
 \item{x}{A \code{numeric}, \code{pvol}, \code{vp} or \code{vpts}.}
 
+\item{...}{A bioRad object of lat/lon combination.}
+
 \item{elev}{numeric. Sun elevation in degrees.}
 
 \item{lon}{numeric. Longitude in decimal degrees.}

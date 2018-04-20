@@ -56,6 +56,14 @@
 \alias{sd_vvp}
 \alias{sd_vvp-deprecated}
 \alias{sd_vvp<-}
+\alias{retrieve_vp_paths-deprecated}
+\alias{retrieve_vp_paths}
+\alias{VP-deprecated}
+\alias{VP}
+\alias{VPTS-deprecated}
+\alias{VPTS}
+\alias{SCAN-deprecated}
+\alias{SCAN}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -110,7 +118,15 @@ regularize(...)
 
 sd_vvp(...)
 
-sd_vvp(...) <- value
+sd_vvp(x) <- value
+
+retrieve_vp_paths(...)
+
+VP(...)
+
+VPTS(...)
+
+SCAN(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -250,6 +266,26 @@ Use \code{\link{rvsd}} instead.
 \section{\code{sd_vvp<-}}{
 
 Use \code{\link{rvsd<-}} instead.
+}
+
+\section{\code{retrieve_vp_paths}}{
+
+Use \code{\link{select_vpfiles}} instead.
+}
+
+\section{\code{VP}}{
+
+Use \code{\link{example_vp}} instead.
+}
+
+\section{\code{VPTS}}{
+
+Use \code{\link{example_vpts}} instead.
+}
+
+\section{\code{SCAN}}{
+
+Use \code{\link{example_scan}} instead.
 }
 
 \keyword{internal}
