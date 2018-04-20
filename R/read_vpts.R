@@ -6,8 +6,8 @@
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
 #' and S-band radar, respectively.
 #'
-#' @return An object inhereting from class \code{vpts}, see \code{\link{vpts}}
-#' for details
+#' @return An object inhereting from class \code{vpts}, see
+#' \code{\link[=summary.vpts]{vpts}} for details.
 #'
 #' @export
 #'

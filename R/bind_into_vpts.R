@@ -128,9 +128,9 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' @param radar optional string containing the radar identifier to generate
 #' time series for.
 #'
-#' @return an object of class \link[=summary.vpts]{vpts} when \code{vplist}
+#' @return an object of class \link[=summary.vpts]{vpts} when \code{list}
 #' contains profiles of a single radar. A list of objects of class
-#' \link[=summary.vpts]{vpts} in case when \code{vplist} contains profiles of
+#' \link[=summary.vpts]{vpts} in case when \code{list} contains profiles of
 #' multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 #'
 #' @export
