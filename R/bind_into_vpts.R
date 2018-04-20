@@ -55,15 +55,15 @@ bind_into_vpts.vp <- function(...) {
   vplist_to_vpts(c.vp(...))
 }
 
-#' @describeIn bind_into_vpts Bind multiple \code{vplist} into a \code{vpts}.
-#' If data for multiple radars is provided, a list is returned containing
-#' a \code{vpts} for each radar.
+#' @describeIn bind_into_vpts Bind multiple \code{vp} objects into a
+#' \code{vpts}. If data for multiple radars is provided, a list is returned
+#' containing a \code{vpts} for each radar.
 #'
 #' @export
-bind_into_vpts.vplist <- function(x, ...) {
+bind_into_vpts.list <- function(x, ...) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("requires vplist object as input")
+    stop("requires list of vp objects as input")
   }
   vplist_to_vpts(x, ...)
 }
@@ -123,7 +123,7 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' Bind vertical profiles (\code{vp}) into time series (\code{vpts})
 #' @rdname vpts
 #'
-#' @param x An object of class \code{vplist}, usually a result of a call
+#' @param x An list of \code{vp} objects, usually a result of a call
 #' to \link{read_vpfiles}.
 #' @param radar optional string containing the radar identifier to generate
 #' time series for.
@@ -141,7 +141,7 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' ts <- bind_into_vpts(vps)
 #' }
 vplist_to_vpts <-  function(x, radar = NA) {
-  stopifnot(inherits(x, "vplist"))
+  stopifnot(inherits(x, "list"))
   # extract radar identifiers
   radars <- sapply(x, '[[', "radar")
   uniqueRadars <- sort(unique(radars))

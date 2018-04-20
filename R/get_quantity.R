@@ -56,10 +56,13 @@ get_quantity.vp <- function(x, quantity = "dens") {
 
 #' @rdname get_quantity
 #' @export
-#' @return class \code{vplist}: a list of a named vectors for the requested
+#' @return class \code{list}: a list of a named vectors for the requested
 #' quantity.
-get_quantity.vplist <- function(x, quantity = "dens") {
-  stopifnot(inherits(x, "vplist"))
+get_quantity.list <- function(x, quantity = "dens") {
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("Requires list of vp objects as input.")
+  }
   lapply(x, get_quantity.vp, quantity = quantity)
 }
 

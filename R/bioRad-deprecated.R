@@ -376,6 +376,8 @@ is.vplist <- function(...) {
   .Deprecated("is.vplist")
 }
 
+# todo DEPRECATE vpts() -> to...
+
 # deprecated example files
 
 #' @name VP-deprecated

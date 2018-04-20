@@ -2,7 +2,7 @@
 #'
 #' Gives the currently assumed radar cross section in cm^2.
 #'
-#' @param x a \code{vp}, \code{vplist} or \code{vpts} object
+#' @param x A \code{vp}, list of \code{vp} or \code{vpts} object.
 #'
 #' @return a radar cross section in cm^2
 #'
@@ -26,8 +26,11 @@ rcs.vp <- function(x) {
 #' @describeIn rcs radar cross sections for a list of vertical profiles
 #'
 #' @export
-rcs.vplist <- function(x){
-  stopifnot(inherits(x,"vplist"))
+rcs.list <- function(x){
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("requires list of vp objects as input")
+  }
   output = sapply(x, `rcs.vp`)
   output
 }
@@ -53,7 +56,7 @@ rcs.vpi <- function(x) {
 #' Sets the assumed radar cross section in cm^2. This method also updates
 #' the migration densities in \code{x$data$dens}
 #'
-#' @param x a \code{vp}, \code{vplist} or \code{vpts} object
+#' @param x a \code{vp}, list of \code{vp} or \code{vpts} object
 #' @param value the cross section value to assign
 #'
 #' @export
@@ -85,10 +88,13 @@ rcs.vpi <- function(x) {
 #' @rdname rcs-set
 #'
 #' @export
-`rcs<-.vplist` <- function(x,value) {
-  stopifnot(inherits(x, "vplist"))
+`rcs<-.list` <- function(x, value) {
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("requires list of vp objects as input")
+  }
   output <- lapply(x,`rcs<-.vp`, value = value)
-  class(output) = c("vplist", "list")
+  class(output) = c("list")
   output
 }
 

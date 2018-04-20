@@ -120,9 +120,12 @@ integrate_profile.vp <- function(x, alt.min = 0, alt.max = Inf, alpha = NA,
 #' vertical profiles.
 #'
 #' @export
-integrate_profile.vplist <- function(x, alt.min = 0, alt.max = Inf,
+integrate_profile.list <- function(x, alt.min = 0, alt.max = Inf,
                                      alpha = NA, interval.max = Inf) {
-  stopifnot(inherits(x, "vplist"))
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("requires list of vp objects as input")
+  }
   stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
 
   output <- do.call(rbind, lapply(x, integrate_profile.vp, alt.min = alt.min,

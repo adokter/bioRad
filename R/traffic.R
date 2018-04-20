@@ -2,7 +2,7 @@
 #'
 #' Migration traffic rate (MTR) for an altitude layer, defined as the
 #' number of targets crossing a 1 km line perpendicular to the migratory movement per hour
-#' @param x a \code{vp}, \code{vplist} or \code{vpts} object
+#' @param x A \code{vp}, list of \code{vp} objects or \code{vpts} object.
 #' @param alt.min minimum altitude in m
 #' @param alt.max maximum altitude in m
 #' @param alpha (optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}
@@ -47,8 +47,14 @@
 #' mtr(example_vpts)
 #' # to plot migration traffic rate data, use integrate_profile:
 #' plot(integrate_profile(example_vpts), quantity = "mtr")
-mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
-  stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
+mtr <- function(x, alt.min=0, alt.max=Inf, alpha=NA) {
+  stopifnot(inherits(x, "vp") || inherits(x, "vpts") || inherits(x, "list"))
+  if (inherits(x, "list")){
+    vptest <- sapply(x, function(y) is(y, "vp"))
+    if (FALSE %in% vptest) {
+      stop("Not all objects in list are vp objects")
+    }
+  }
   .Deprecated("integrate_profile")
   .Deprecated(msg="'mtr' has been moved to the 'mtr' column in the output of integrate_profile()")
   vintegrated=integrate_profile(x,alt.min=alt.min,alt.max=alt.max,alpha=alpha)

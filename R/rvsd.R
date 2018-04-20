@@ -3,7 +3,7 @@
 #' Gives the current threshold in VVP-retrieved radial velocity standard
 #' deviation in m/s.
 #'
-#' @param x A \code{vp}, \code{vplist} or \code{vpts} object.
+#' @param x A \code{vp}, list of \code{vp} or \code{vpts} object.
 #'
 #' @return threshold for \code{sd_vvp} in m/s.
 #'
@@ -29,8 +29,11 @@ rvsd.vp <- function(x) {
 #' deviation of a list of vertical profiles
 #'
 #' @export
-rvsd.vplist <- function(x) {
-  stopifnot(inherits(x, "vplist"))
+rvsd.list <- function(x) {
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("requires list of vp objects as input")
+  }
   output <- sapply(x, `rvsd.vp`)
   output
 }
@@ -50,7 +53,7 @@ rvsd.vpts <- function(x) {
 #' individuals. This method updates the migration densities
 #' in \code{x$data$dens}
 #'
-#' @param x a \code{vp}, \code{vplist} or \code{vpts} object
+#' @param x a \code{vp}, list of \code{vp} or \code{vpts} object
 #' @param value the value to assign
 #'
 #' @export
@@ -85,10 +88,13 @@ rvsd.vpts <- function(x) {
 #' @rdname rvsd-set
 #'
 #' @export
-`rvsd<-.vplist` <- function(x, value) {
-  stopifnot(inherits(x, "vplist"))
+`rvsd<-.list` <- function(x, value) {
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("requires list of vp objects as input")
+  }
   output <- lapply(x, `rvsd<-.vp`, value = value)
-  class(output) <- c("vplist", "list")
+  class(output) <- c("list")
   output
 }
 

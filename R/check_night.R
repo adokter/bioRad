@@ -66,8 +66,11 @@ check_night.vp <- function(x, elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.vplist <- function(x, elev = -0.268) {
-  stopifnot(inherits(x, "vplist"))
+check_night.list <- function(x, elev = -0.268) {
+  vptest <- sapply(x, function(y) is(y, "vp"))
+  if (FALSE %in% vptest) {
+    stop("requires list of vp objects as input")
+  }
   sapply(x, check_night.vp, elev = elev)
 }
 
