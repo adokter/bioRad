@@ -19,7 +19,7 @@ read_vp <- function(filename) {
   groups <- groups[which(groups$name == "data"),]$group
   quantities <- sapply(groups,
                        function(x) {
-                         quantityName(filename, x)
+                         quantity_name(filename, x)
                        })
   profile <- as.data.frame(lapply(groups,
                                   function(x) {
@@ -92,8 +92,8 @@ read_vpfiles <- function(files) {
   }
 }
 
-quantityName = function(file,group){
-  whatgroup=h5readAttributes(file,paste(group,"/what",sep=""))
+quantity_name  <- function(file, group){
+  whatgroup <- h5readAttributes(file, paste(group, "/what", sep = ""))
   whatgroup$quantity
 }
 
