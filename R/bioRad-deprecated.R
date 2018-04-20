@@ -330,9 +330,9 @@ sd_vvp <- function(...) {
 #' Use \code{\link{rvsd<-}} instead.
 #'
 #' @export
-`sd_vvp<-` <- function(...) {
+`sd_vvp<-` <- function(x, value) {
   .Deprecated("rvsd<-")
-  `rvsd<-`(...)
+  `rvsd<-`(x, value)
 }
 
 #' @name retrieve_vp_paths-deprecated
@@ -346,3 +346,39 @@ retrieve_vp_paths <- function(...) {
   .Deprecated("select_vpfiles")
   select_vpfiles(...)
 }
+
+#' @name VP-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{VP}:
+#' Use \code{\link{example_vp}} instead.
+#'
+#' @export
+VP <- function(...) {
+  .Deprecated("example_vp")
+  example_vp(...)
+}
+#' @name VPTS-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{VPTS}:
+#' Use \code{\link{example_vpts}} instead.
+#'
+#' @export
+VPTS <- function(...) {
+  .Deprecated("example_vpts")
+  example_vpts(...)
+}
+#' @name SCAN-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{SCAN}:
+#' Use \code{\link{example_scan}} instead.
+#'
+#' @export
+SCAN <- function(...) {
+  .Deprecated("example_scan")
+  example_scan(...)
+}
+
+
