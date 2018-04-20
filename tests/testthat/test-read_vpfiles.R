@@ -10,7 +10,6 @@ test_that("Read multiple vertical profiles", {
   vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
   # old function -> to vplist class; readvp.list was the function in the earlier
   # releases (not the S3 based method dispatching)
-  expect_s3_class(readvp.list(c(vpfile, vpfile)), "vplist")
   expect_is(readvp.list(c(vpfile, vpfile)), "list")
   # new function -> just a list of vp
   expect_is(read_vpfiles(c(vpfile, vpfile)), "list")
