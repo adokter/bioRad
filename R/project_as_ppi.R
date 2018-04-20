@@ -154,8 +154,8 @@ wgs_to_proj <- function(lon, lat, proj4string){
 
 #' A wrapper for \code{\link{spTransform}}.
 #'
-#' @param lon Longitude
-#' @param lat Latitude
+#' @param x Longitude
+#' @param y Latitude
 #' @param proj4string An object of class 'CRS', as defined in package \code{sp}.
 #'
 #' @return An object of class \code{SpatialPoints}.
