@@ -39,10 +39,8 @@ summary.param <- function(object, ...) {
 
 #' @rdname summary.param
 #'
-#' @return for \code{is.scan}: \code{TRUE} if its argument is of class "\code{param}"
-#'
-#' @examples
-#' is.param("this is not a polar scan parameter but a string")  #> FALSE
+#' @return for \code{is.scan}: \code{TRUE} if its argument is of
+#' class "\code{param}"
 is.param <- function(x) {
   inherits(x, "param")
 }
