@@ -2,14 +2,14 @@
 % Please edit documentation in R/vpts.R
 \name{[.vpts}
 \alias{[.vpts}
-\title{Subset `vpts`}
+\title{Subset a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{[}{vpts}(x, i)
 }
 \arguments{
-\item{x}{object of class 'vpts'}
+\item{x}{Object of class \code{vpts}.}
 
-\item{i}{indices specifying elements to extract}
+\item{i}{Indices specifying elements to extract.}
 }
 \description{
 Extract by index from a vpts

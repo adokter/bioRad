@@ -7,7 +7,7 @@
 mtr(x, alt.min = 0, alt.max = Inf, alpha = NA)
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+\item{x}{A \code{vp}, list of \code{vp} objects or \code{vpts} object.}
 
 \item{alt.min}{minimum altitude in m}
 
@@ -48,17 +48,17 @@ Targets moving into the direction \code{alpha} contribute positively to \code{mt
 opposite direction contribute negatively to \code{mtr}. Therefore \code{mtr} can be both positive or negative,
 depending on the definition of alpha.
 
-This is a wrapper function for \link{vintegrate}, extracting only the
+This is a wrapper function for \link{integrate_profile}, extracting only the
 migration traffic rate data.
 }
 \examples{
 ### MTR for a single vertical profile ###
-mtr(VP)
+mtr(example_vp)
 ### MTRs for a time series of vertical profiles ###
 # load example time series
-data(VPTS)
+data(example_vpts)
 # print migration traffic rates:
-mtr(VPTS)
-# to plot migration traffic rate data, use vintegrate:
-plot(vintegrate(VPTS),quantity="mtr")
+mtr(example_vpts)
+# to plot migration traffic rate data, use integrate_profile:
+plot(integrate_profile(example_vpts), quantity = "mtr")
 }

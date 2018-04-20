@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvol.R
 \name{print.pvol}
 \alias{print.pvol}
-\title{print method for class \code{pvol}}
+\title{Print method for class \code{pvol}}
 \usage{
 \method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
@@ -10,6 +10,6 @@
 \item{x}{An object of class \code{pvol}, a polar volume}
 }
 \description{
-print method for class \code{pvol}
+Print method for class \code{pvol}
 }
 \keyword{internal}

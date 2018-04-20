@@ -30,10 +30,10 @@ position of the radar as a function oftime from the start of time series
 within the specified altitude band.
 }
 \examples{
-# get the VPTS example dataset:
-data(VPTS)
+# get example time series object:
+data(example_vpts)
 # print cumulative migration traffic to console:
-cmt(VPTS)
+cmt(example_vpts)
 # plot cumulative migration traffic:
-plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
+plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")
 }

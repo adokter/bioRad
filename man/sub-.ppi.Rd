@@ -2,14 +2,14 @@
 % Please edit documentation in R/ppi.R
 \name{[.ppi}
 \alias{[.ppi}
-\title{Subset `ppi`}
+\title{Subset a plan position indicator (\code{ppi})}
 \usage{
 \method{[}{ppi}(x, i)
 }
 \arguments{
-\item{x}{an object of class 'param' or 'scan'}
+\item{x}{An object of class \code{param} or \code{scan}.}
 
-\item{i}{indices specifying elements to extract}
+\item{i}{Indices specifying elements to extract.}
 }
 \description{
 Extract by index from a ppi

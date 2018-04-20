@@ -3,53 +3,56 @@
 \name{summary.pvol}
 \alias{summary.pvol}
 \alias{is.pvol}
-\title{Class 'pvol': polar volume}
+\title{Object of class \code{pvol}: a polar volume}
 \usage{
 \method{summary}{pvol}(object, ...)
 
 is.pvol(x)
 }
 \arguments{
-\item{object}{object of class 'pvol'}
+\item{object}{Object of class \code{pvol}.}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{object of class 'pvol'}
+\item{x}{Object of class \code{pvol}.}
 }
 \value{
-for \code{is.pvol}: \code{TRUE} if its argument is of class "\code{pvol}"
+for \code{is.pvol}: \code{TRUE} if its argument is of
+class \code{pvol}
 }
 \description{
-Class 'pvol': polar volume
+Object of class \code{pvol}: a polar volume
 }
 \details{
-A polar scan object of class 'pvol' is a list containing:
+A polar scan object of class \code{pvol} is a list containing:
 \describe{
  \item{\code{radar}}{character string with the radar identifier}
  \item{\code{datetime}}{nominal time of the volume [UTC]}
  \item{\code{scans}}{a list with scan objects of class 'scan'}
- \item{\code{attributes}}{list with the volume's \code{\\what}, \code{\\where} and \code{\\how} attributes}
+ \item{\code{attributes}}{list with the volume's \code{\\what},
+   \code{\\where} and \code{\\how} attributes}
  \item{\code{geo}}{geographic data, a list with:
   \describe{
      \item{\code{lat}}{latitude of the radar [decimal degrees]}
      \item{\code{lon}}{longitude of the radar [decimal degrees]}
-     \item{\code{height}}{height of the radar antenna [metres above sea level]}
+     \item{\code{height}}{height of the radar
+       antenna [metres above sea level]}
   }
  }
 }
 }
 \examples{
 # locate example volume file:
-pvol <- system.file("extdata", "volume.h5", package="bioRad")
+pvol <- system.file("extdata", "volume.h5", package = "bioRad")
 # print the local path of the volume file:
 pvol
 # load the file:
-vol=read.pvol(pvol)
+vol <- read_pvolfile(pvol)
 # print summary info for the loaded polar volume:
 vol
 # print summary info for the scans in the polar volume:
 vol$scans
 # copy the first scan to a new object 'scan'
-scan=vol$scans[[1]]
+scan <- vol$scans[[1]]
 is.pvol("this is not a polar volume but a string")  #> FALSE
 }

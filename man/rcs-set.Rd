@@ -3,30 +3,31 @@
 \name{rcs<-}
 \alias{rcs<-}
 \alias{rcs<-.vp}
-\alias{rcs<-.vplist}
+\alias{rcs<-.list}
 \alias{rcs<-.vpts}
-\alias{rcs<-.vivp}
+\alias{rcs<-.vpi}
 \title{Set radar cross section}
 \usage{
 rcs(x) <- value
 
 \method{rcs}{vp}(x) <- value
 
-\method{rcs}{vplist}(x) <- value
+\method{rcs}{list}(x) <- value
 
 \method{rcs}{vpts}(x) <- value
 
-\method{rcs}{vivp}(x) <- value
+\method{rcs}{vpi}(x) <- value
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+\item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
 
 \item{value}{the cross section value to assign}
 }
 \description{
-Sets the assumed radar cross section in cm^2. This method also updates the migration densities in \code{x$data$dens}
+Sets the assumed radar cross section in cm^2. This method also updates
+the migration densities in \code{x$data$dens}
 }
 \examples{
 # change RCS for a single vertical profile:
-rcs(VP)<-20
+rcs(example_vp) <- 20
 }

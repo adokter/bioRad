@@ -4,7 +4,7 @@
 \alias{summary.vp}
 \alias{is.vp}
 \alias{dim.vp}
-\title{Class 'vp': vertical profile}
+\title{Object of class \code{vp}: a vertical profile of birds}
 \usage{
 \method{summary}{vp}(object, ...)
 
@@ -13,27 +13,29 @@ is.vp(x)
 \method{dim}{vp}(x)
 }
 \arguments{
-\item{object}{object of class 'vp'}
+\item{object}{An object of class \code{vp}.}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{object of class 'vp'}
+\item{x}{An object of class \code{vp}.}
 }
 \value{
-for \code{is.vp}: \code{TRUE} if its argument is of class "\code{vp}"
+For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
 
-for \code{dim.vp}: dimensions of the profile data
+For \code{dim.vp}: dimensions of the profile data.
 }
 \description{
 Class for vertical profiles
 }
 \details{
-An object of class \code{vp} contains a vertical profile. A vertical profile contains a collection of quantities,
- with each quantity having values at different altitude layers above the earth's surface,
- typically equally spaced altitudinal layers.
+An object of class \code{vp} contains a vertical profile. A vertical profile
+contains a collection of quantities, with each quantity having values at
+different altitude layers above the earth's surface, typically equally
+spaced altitudinal layers.
 
-Data contained in this class object should be accessed with the \link{fetch} function.
-Information stored under \code{attributes} (see below) can be accessed directly.
+Data contained in this class object should be accessed with the
+\link{get_quantity} function. Information stored under \code{attributes}
+(see below) can be accessed directly.
 
 A \code{vp} object is a list containing
 \describe{
@@ -59,6 +61,7 @@ A \code{vp} object is a list containing
        \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
    }
  }
- \item{\strong{\code{attributes}}}{list with the profile's \code{\\what}, \code{\\where} and \code{\\how} attributes}
+ \item{\strong{\code{attributes}}}{list with the profile's \code{\\what},
+ \code{\\where} and \code{\\how} attributes}
 }
 }
