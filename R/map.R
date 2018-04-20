@@ -136,15 +136,15 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
                        alpha = TRUE)(n.color), alpha = alpha)
   }
 
-  color_scale <- function(value, lim){
+  col_func <- function(value, lim){
     output <- rep(0, length(value))
     output <- round((value - lim[1])/(lim[2] - lim[1]) * n.color)
     output[output > n.color] <- n.color
-    output[output < 1] < -1
+    output[output < 1] <- 1
     return(cols[output])
   }
 
-  r@data@values <- color_scale(r@data@values, zlim)
+  r@data@values <- col_func(r@data@values, zlim)
   # these declarations prevent generation of NOTE "no visible binding for
   # global variable" during package Check
   lon = lat = y = z = NA
