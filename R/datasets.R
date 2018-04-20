@@ -11,8 +11,9 @@
 #' summary(example_vp)
 #'
 #' # example_vp was created with:
-#' example_vp <- read_vpfiles("/inst/extdata/profile.h5")
-#' save(example_vp, file = "data/example_vp.RData")
+#' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+#' example_vp <- read_vpfiles(vpfile)
+#' save(example_vp, file = "data/example_vp.rda")
 "example_vp"
 
 #' Example object of class \code{scan}
@@ -30,7 +31,7 @@
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
 #' example_scan <- pvol$scans[[1]]
-#' save(example_scan, file = "data/example_scan.RData")
+#' save(example_scan, file = "data/example_scan.rda")
 "example_scan"
 
 #' Example object of class \code{vpts}
@@ -50,5 +51,5 @@
 #' rcs(example_vpts) <- 11
 #' example_vpts$attributes$where$lat <- 42.2
 #' example_vpts$attributes$where$lon <- -75.98
-#' save(example_vpts, file = "data/example_vpts", compress = "xz")
+#' save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
 "example_vpts"
