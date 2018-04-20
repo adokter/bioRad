@@ -17,7 +17,8 @@ is.param(x)
 \item{x}{Object of class \code{param}.}
 }
 \value{
-for \code{is.scan}: \code{TRUE} if its argument is of class "\code{param}"
+for \code{is.scan}: \code{TRUE} if its argument is of
+class "\code{param}"
 }
 \description{
 Object of class \code{param}: a parameter of a scan of a polar volume
@@ -49,7 +50,4 @@ Commonly available parameters are:
  \item{"\code{PHIDP}"}{Differential phase [degrees]}
  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
 }
-}
-\examples{
-is.param("this is not a polar scan parameter but a string")  #> FALSE
 }

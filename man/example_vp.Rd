@@ -20,6 +20,8 @@ summary(example_vp)
 # example_vp was created with:
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 example_vp <- read_vpfiles(vpfile)
+\dontrun{
 save(example_vp, file = "data/example_vp.rda")
+}
 }
 \keyword{datasets}

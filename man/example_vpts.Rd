@@ -22,6 +22,8 @@ example_vpts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 rcs(example_vpts) <- 11
 example_vpts$attributes$where$lat <- 42.2
 example_vpts$attributes$where$lon <- -75.98
+\dontrun{
 save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
+}
 }
 \keyword{datasets}

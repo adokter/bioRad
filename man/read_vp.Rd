@@ -16,11 +16,3 @@ An object of class \code{\link{summary.vp}}.
 \description{
 Read a vertical profile (\code{vp}) from file
 }
-\examples{
-# locate example profile file:
-vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
-# print the local path of the profile file:
-vpfile
-# load the file:
-read_vp(vpfile)
-}
