@@ -10,7 +10,7 @@ regularize_vpts(ts, interval = "auto", t.min = ts$daterange[1],
 }
 \arguments{
 \item{ts}{An object inhereting from class \code{vpts}, see
-\code{\link{vpts}} for details.}
+\code{\link[=summary.vpts]{vpts}} for details.}
 
 \item{interval}{Time interval grid to project on. When '\code{auto}' the
 median interval in the time series is used.}

@@ -16,8 +16,8 @@ by vol2bird (or the package function \code{calculate_vp}).}
 and S-band radar, respectively.}
 }
 \value{
-An object inhereting from class \code{vpts}, see \code{\link{vpts}}
-for details
+An object inhereting from class \code{vpts}, see
+\code{\link[=summary.vpts]{vpts}} for details.
 }
 \description{
 Read a time series of vertical profiles (\code{vpts}) from file

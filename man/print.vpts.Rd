@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{x}{An object of class \code{vpts}, usually a result of a call
-to \link{vpts}.}
+to \code{\link{bind_into_vpts}}.}
 }
 \description{
 print method for class \code{vpts}
