@@ -13,13 +13,13 @@ check_night(x, ..., elev = -0.268)
 
 \method{check_night}{default}(lon, lat, date, elev = -0.268)
 
-\method{check_night}{vp}(x, elev = -0.268)
+\method{check_night}{vp}(x, ..., elev = -0.268)
 
-\method{check_night}{list}(x, elev = -0.268)
+\method{check_night}{list}(x, ..., elev = -0.268)
 
-\method{check_night}{vpts}(x, elev = -0.268)
+\method{check_night}{vpts}(x, ..., elev = -0.268)
 
-\method{check_night}{pvol}(x, elev = -0.268)
+\method{check_night}{pvol}(x, ..., elev = -0.268)
 }
 \arguments{
 \item{x}{A \code{numeric}, \code{pvol}, \code{vp} or \code{vpts}.}

@@ -57,7 +57,7 @@ check_night.default <- function(lon, lat, date, elev = -0.268){
 #' @rdname check_night
 #'
 #' @export
-check_night.vp <- function(x, elev = -0.268) {
+check_night.vp <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vp"))
   check_night(x$attributes$where$lon, x$attributes$where$lat,
               x$datetime, elev = elev)
@@ -66,7 +66,7 @@ check_night.vp <- function(x, elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.list <- function(x, elev = -0.268) {
+check_night.list <- function(x, ..., elev = -0.268) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
@@ -77,7 +77,7 @@ check_night.list <- function(x, elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.vpts <- function(x, elev = -0.268) {
+check_night.vpts <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vpts"))
   check_night(x$attributes$where$lon, x$attributes$where$lat,
          x$dates, elev = elev)
@@ -86,7 +86,7 @@ check_night.vpts <- function(x, elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.pvol <- function(x, elev = -0.268) {
+check_night.pvol <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "pvol"))
   check_night(x$geo$lon, x$geo$lat, x$datetime, elev = elev)
 }
