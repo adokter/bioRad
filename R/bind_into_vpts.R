@@ -52,7 +52,7 @@ bind_into_vpts.vp <- function(...) {
   }
   # extract radar identifiers
   radars <- unique(sapply(vps, '[[', "radar"))
-  vpts(c.vp(...))
+  vplist_to_vpts(c.vp(...))
 }
 
 #' @describeIn bind_into_vpts Bind multiple \code{vplist} into a \code{vpts}.
@@ -65,7 +65,7 @@ bind_into_vpts.vplist <- function(x, ...) {
   if (FALSE %in% vptest) {
     stop("requires vplist object as input")
   }
-  vpts(x, ...)
+  vplist_to_vpts(x, ...)
 }
 
 #' @describeIn bind_into_vpts Bind multiple \code{vpts} into a single
@@ -118,4 +118,31 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
                  regular = regular)
   class(output) = "vpts"
   output
+}
+
+#' Bind vertical profiles (\code{vp}) into time series (\code{vpts}) DEPRECATED
+#'
+#' @param x An object of class \code{vplist}, usually a result of a call to \link{readvp.list}
+#' @param radar optional string containing the radar identifier to generate time series for.
+#' @export
+#' @return an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profiles of a single radar. A list of objects of class \link[=summary.vpts]{vpts} in
+#' case when \code{vplist} contains profiles of multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
+#' @rdname vpts
+#' @examples
+#' \dontrun{
+#' vps=read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+#' ts=bind_into_vpts(vps)
+#' }
+vplist_to_vpts <-  function(x,radar=NA){
+  stopifnot(inherits(x, "vplist"))
+  # extract radar identifiers
+  radars=sapply(x,'[[',"radar")
+  uniqueRadars=sort(unique(radars))
+  if(!is.na(radar)){
+    if(!(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
+    else return(vptsHelper(x[which(radars==radar)]))
+  }
+  # extract date-times
+  if(is.na(radar) & (length(uniqueRadars)==1)) return(vptsHelper(x[which(radars==uniqueRadars)]))
+  else return(lapply(uniqueRadars,function(y) vplist_to_vpts(x[radars==y])))
 }
