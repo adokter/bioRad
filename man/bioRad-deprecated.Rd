@@ -50,6 +50,12 @@
 \alias{readvp.list}
 \alias{readvp.table-deprecated}
 \alias{readvp.table}
+\alias{regularize-deprecated}
+\alias{regularize}
+\alias{sd_vvp-deprecated}
+\alias{sd_vvp}
+\alias{sd_vvp-deprecated}
+\alias{sd_vvp<-}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
@@ -99,6 +105,12 @@ readvp(...)
 readvp.list(...)
 
 readvp.table(...)
+
+regularize(...)
+
+sd_vvp(...)
+
+sd_vvp(...) <- value
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
@@ -223,6 +235,21 @@ Use \code{\link{read_vpfiles}} instead.
 \section{\code{readvp.table}}{
 
 Use \code{\link{read_vpts}} instead.
+}
+
+\section{\code{regularize}}{
+
+Use \code{\link{regularize_vpts}} instead.
+}
+
+\section{\code{sd_vvp}}{
+
+Use \code{\link{rvsd}} instead.
+}
+
+\section{\code{sd_vvp<-}}{
+
+Use \code{\link{rvsd<-}} instead.
 }
 
 \keyword{internal}
