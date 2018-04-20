@@ -347,6 +347,25 @@ retrieve_vp_paths <- function(...) {
   select_vpfiles(...)
 }
 
+#' @name suntime-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{suntime}:
+#' Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
+#'
+#' @export
+suntime <- function(..., rise = TRUE) {
+  if (rise == TRUE) {
+    .Deprecated("sunrise")
+    sunrise(...)
+  } else {
+    .Deprecated("sunset")
+    sunset(...)
+  }
+}
+
+# deprecated example files
+
 #' @name VP-deprecated
 #' @rdname bioRad-deprecated
 #'
@@ -380,5 +399,4 @@ SCAN <- function(...) {
   .Deprecated("example_scan")
   example_scan(...)
 }
-
 

@@ -36,28 +36,27 @@ NULL
 #'
 #' @export
 sunrise <- function(lon, lat, date, elev = -0.268) {
-  rise <- TRUE
-  suntime(lon, lat, date, elev, rise)
+  sign_angle <- 1
+  get_suntime(lon, lat, date, sign_angle, elev)
 }
 
 #' @rdname sunrise_sunset
 #'
 #' @export
 sunset <- function(lon, lat, date, elev = -0.268) {
-  rise <- FALSE
-  suntime(lon, lat, date, elev, rise)
+  sign_angle <- -1
+  get_suntime(lon, lat, date, sign_angle, elev)
 }
 
-#' Helper function to caclulate sunrise or sunset
+#' Helper function to calculate sunrise or sunset
 #'
-#' Use the \code{\link{sunrise}} or \code{\link{sunset}} functions. The current
-#' approach with rise = TRUE is kept for backward compatibility
+#' Use the \code{\link{sunrise}} or \code{\link{sunset}} functions.
 #'
-#' @param rise Whether to output for rising (\code{TRUE}) or setting
-#' (\code{FALSE}) sun.
+#' @param sign_angle Whether to output for rising (\code{1}) or setting
+#' (\code{-1}) sun.
 #' @inheritParams sunrise_sunset
 #'
-suntime <- function(lon, lat, date, elev = -0.268, rise = TRUE) {
+get_suntime <- function(lon, lat, date, sign_angle, elev = -0.268) {
   dateOnly <- as.Date(date)
 
   #Convert date to julian day
@@ -103,11 +102,6 @@ suntime <- function(lon, lat, date, elev = -0.268, rise = TRUE) {
   angleH[abs(acos_arg) <= 1] <- acos(acos_arg[abs(acos_arg) <= 1])
 
   #Determine sign of the derivative to see if the sun is rising or setting
-  if (rise) {
-    sign_angle <- 1
-  } else {
-    sign_angle <- -1
-  }
   sign_angle <- -1 * sign_angle * sign(cos(Declinat) *
                                          cos(lat * pi / 180) * sin(angleH))
   sign_angle[sign_angle == 0] <- 1

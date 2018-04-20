@@ -58,6 +58,8 @@
 \alias{sd_vvp<-}
 \alias{retrieve_vp_paths-deprecated}
 \alias{retrieve_vp_paths}
+\alias{suntime-deprecated}
+\alias{suntime}
 \alias{VP-deprecated}
 \alias{VP}
 \alias{VPTS-deprecated}
@@ -121,6 +123,8 @@ sd_vvp(...)
 sd_vvp(x) <- value
 
 retrieve_vp_paths(...)
+
+suntime(..., rise = TRUE)
 
 VP(...)
 
@@ -271,6 +275,11 @@ Use \code{\link{rvsd<-}} instead.
 \section{\code{retrieve_vp_paths}}{
 
 Use \code{\link{select_vpfiles}} instead.
+}
+
+\section{\code{suntime}}{
+
+Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
 }
 
 \section{\code{VP}}{
