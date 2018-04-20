@@ -1,26 +1,41 @@
-#' Regularize a time series of vertical profiles (\code{vpts}) on a regular time grid
+#' Regularize a time series of vertical profiles (\code{vpts}) on a
+#' regular time grid
 #'
 #' Projects objects of class \code{vpts} on a regular time grid
-#' @param ts an object inhereting from class \code{vpts}, see \link{vpts} for details.
-#' @param interval time interval grid to project on. When '\code{auto}' the median interval in the time series is used.
-#' @param t.min start time of the projected time series, as a POSIXct object. Taken from \code{ts} when '\code{auto}'.
-#' @param t.max end time of the projected time series, as a POSIXct object. Taken from \code{ts} when '\code{auto}'.
-#' @param units optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill logical. Whether to fill missing timesteps with the values of the closest neighbouring profile.
-#' @param verbose logical. When \code{TRUE} prints text to console.
+#'
+#' @param ts An object inhereting from class \code{vpts}, see
+#' \code{\link{vpts}} for details.
+#' @param interval Time interval grid to project on. When '\code{auto}' the
+#' median interval in the time series is used.
+#' @param t.min Start time of the projected time series, as a POSIXct object.
+#' Taken from \code{ts} when '\code{auto}'.
+#' @param t.max End time of the projected time series, as a POSIXct object.
+#' Taken from \code{ts} when '\code{auto}'.
+#' @param units Optional units of \code{interval}, one of 'secs', 'mins',
+#' 'hours','days', 'weeks'. Defaults to 'mins'.
+#' @param fill Logical, whether to fill missing timesteps with the values of
+#' the closest neighbouring profile.
+#' @param verbose Logical, when \code{TRUE} prints text to console.
+#'
+#' @return An object of class \code{vpts} with regular time steps.
+#'
 #' @export
-#' @return an object of class \code{vpts} with regular time steps
-#' @details Irregular time series of profiles are typically aligned on a regular time grid with the expected time interval
-#' at which a radar provides data. Empty profiles with only missing data values will be inserted at time stamps of the
-#' regular time grid that have no matching profile in the irregular time series. This also has the benefit that missing profiles
-#' become visible in profile plots of regular time series using \link{plot.vpts}.
+#'
+#' @details Irregular time series of profiles are typically aligned on a
+#' regular time grid with the expected time interval at which a radar provides
+#' data. Empty profiles with only missing data values will be inserted at
+#' time stamps of the regular time grid that have no matching profile in the
+#' irregular time series. This also has the benefit that missing profiles
+#' become visible in profile plots of regular time series using
+#' \code{\link{plot.vpts}}.
+#'
 #' @examples
 #' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+#' VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
 #' # load time series:
-#' ts=read_vpts(VPtable,radar="KBGM", wavelength='S')
+#' ts <- read_vpts(VPtable, radar = "KBGM", wavelength = 'S')
 #' # regularize the time series on a 5 minute interval grid
-#' tsRegular=regularize_vpts(ts, interval=5)
+#' tsRegular <- regularize_vpts(ts, interval = 5)
 regularize_vpts=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(t.min, "POSIXct"))
