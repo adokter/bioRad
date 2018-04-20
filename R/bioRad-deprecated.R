@@ -299,3 +299,14 @@ readvp.table <- function(...) {
   read_vpts(...)
 }
 
+#' @name regularize-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{regularize}:
+#' Use \code{\link{regularize_vpts}} instead.
+#'
+#' @export
+regularize <- function(...) {
+  .Deprecated("regularize_vpts")
+  regularize_vpts(...)
+}
