@@ -364,6 +364,18 @@ suntime <- function(..., rise = TRUE) {
   }
 }
 
+#' @name is.vplist-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{is.vplist}:
+#' The \code{vp.list} object is deprecated. Handle as a regular
+#' list of `vp` objects.
+#'
+#' @export
+is.vplist <- function(...) {
+  .Deprecated("is.vplist")
+}
+
 # deprecated example files
 
 #' @name VP-deprecated
@@ -399,4 +411,3 @@ SCAN <- function(...) {
   .Deprecated("example_scan")
   example_scan(...)
 }
-
