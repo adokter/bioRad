@@ -146,3 +146,25 @@ vplist_to_vpts <-  function(x,radar=NA){
   if(is.na(radar) & (length(uniqueRadars)==1)) return(vptsHelper(x[which(radars==uniqueRadars)]))
   else return(lapply(uniqueRadars,function(y) vplist_to_vpts(x[radars==y])))
 }
+
+vptsHelper <- function(vps) {
+  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
+  daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
+  # sort by datetime
+  vps=vps[order(sapply(vps,'[[',"datetime"))]
+  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
+  difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
+  profile.quantities=names(vps[[1]]$data)
+
+  if(length(unique(lapply(vps,'[[',"heights")))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"have non-aligning altitude layers"))
+  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"contain different quantities"))
+
+  vpsFlat=lapply(profile.quantities, function(quantity) sapply(lapply(vps,'[[',"data"),'[[',quantity))
+  names(vpsFlat)=profile.quantities
+  if(length(unique(difftimes))==1) regular = T else regular = F
+  vpsFlat$HGHT<-NULL
+  output=list(radar=vps[[1]]$radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
+  class(output)="vpts"
+  output
+}
+
