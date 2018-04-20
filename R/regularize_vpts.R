@@ -36,37 +36,57 @@
 #' ts <- read_vpts(VPtable, radar = "KBGM", wavelength = 'S')
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 5)
-regularize_vpts=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
+regularize_vpts <- function(ts, interval = "auto", t.min = ts$daterange[1],
+                            t.max = ts$daterange[2], units = "mins",
+                            fill = FALSE, verbose = TRUE) {
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(t.min, "POSIXct"))
   stopifnot(inherits(t.max, "POSIXct"))
-  if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) stop("invalid 'units' argument. Should be one of c('secs', 'mins', 'hours','days', 'weeks')")
-  if (interval!="auto" && !is.numeric(interval)) stop("invalid or missing 'interval' argument. Should be a numeric value")
-  if (length(units)>1) stop("invalid or missing 'units' argument.")
-  if (!is.logical(fill) || length(fill)>1) stop("fill argument should be a logical value")
+  if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) {
+    stop("Invalid 'units' argument. Should be one of",
+         "c('secs', 'mins', 'hours','days', 'weeks')")
+  }
+  if (interval != "auto" && !is.numeric(interval)) {
+    stop("Invalid or missing 'interval' argument. Should be a numeric value.")
+  }
+  if (length(units) > 1) {
+    stop("Invalid or missing 'units' argument.")
+  }
+  if (!is.logical(fill) || length(fill) > 1) {
+    stop("Fill argument should be a logical value.")
+  }
 
-  if(interval=="auto"){
-    dt=as.difftime(median(ts$timesteps),units="secs")
-    if(verbose) cat(paste("projecting on",dt,"seconds interval grid...\n"))
-  }
-  else dt=as.difftime(interval,units=units)
-  daterange=c(t.min,t.max)
-  grid=seq(from=daterange[1],to=daterange[2],by=dt)
-  index=sapply(grid,function(x) which.min(abs(ts$dates - x)))
-  quantity.names=names(ts$data)
-  ts$data=lapply(1:length(ts$data),function(x) ts$data[[x]][,index])
-  if(!fill){
-    index2=which(abs(ts$dates[index] - grid)>as.double(dt,units="secs"))
-    ts$data=lapply(1:length(ts$data),function(x) {
-      tmp=ts$data[[x]]
-      tmp[,index2]<-NA
-      tmp
+  if (interval == "auto") {
+    dt <- as.difftime(median(ts$timesteps), units = "secs")
+    if (verbose) {
+      cat(paste("projecting on", dt, "seconds interval grid...\n"))
     }
-    )
+  } else {
+    dt <- as.difftime(interval, units = units)
   }
-  names(ts$data)=quantity.names
-  ts$dates=grid
-  ts$timesteps=rep(as.double(dt,units="secs"),length(grid)-1)
-  ts$regular=T
+  daterange <- c(t.min, t.max)
+  grid <- seq(from = daterange[1], to = daterange[2], by = dt)
+  index <- sapply(grid,
+                  function(x) {
+                    which.min(abs(ts$dates - x))
+                  })
+  quantity.names <- names(ts$data)
+  ts$data <- lapply(1:length(ts$data),
+                    function(x) {
+                      ts$data[[x]][,index]
+                    })
+  if (!fill) {
+    index2 <- which(abs(ts$dates[index] - grid) > as.double(dt, units = "secs"))
+    ts$data <- lapply(1:length(ts$data),
+                      function(x) {
+                        tmp <- ts$data[[x]]
+                        tmp[,index2] <- NA
+                        tmp
+                      })
+  }
+  names(ts$data) <- quantity.names
+  ts$dates <- grid
+  ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
+  ts$regular <- TRUE
   return(ts)
 }
