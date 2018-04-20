@@ -140,14 +140,14 @@ vplist_to_vpts <-  function(x,radar=NA){
   uniqueRadars=sort(unique(radars))
   if(!is.na(radar)){
     if(!(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
-    else return(vptsHelper(x[which(radars==radar)]))
+    else return(vp_to_vpts_helper(x[which(radars==radar)]))
   }
   # extract date-times
-  if(is.na(radar) & (length(uniqueRadars)==1)) return(vptsHelper(x[which(radars==uniqueRadars)]))
+  if(is.na(radar) & (length(uniqueRadars)==1)) return(vp_to_vpts_helper(x[which(radars==uniqueRadars)]))
   else return(lapply(uniqueRadars,function(y) vplist_to_vpts(x[radars==y])))
 }
 
-vptsHelper <- function(vps) {
+vp_to_vpts_helper <- function(vps) {
   dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
   daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
   # sort by datetime
