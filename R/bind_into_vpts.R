@@ -121,9 +121,11 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 }
 
 #' Bind vertical profiles (\code{vp}) into time series (\code{vpts})
-#' @rdname vpts
 #'
-#' @param x An list of \code{vp} objects, usually a result of a call
+#' Used as helper function for the method dispatched \code{bind_into_vpts} and
+#' keeping backward compatibility with the \code{vpts} function.
+#'
+#' @param x A list of \code{vp} objects, usually a result of a call
 #' to \link{read_vpfiles}.
 #' @param radar optional string containing the radar identifier to generate
 #' time series for.
@@ -132,8 +134,6 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' contains profiles of a single radar. A list of objects of class
 #' \link[=summary.vpts]{vpts} in case when \code{list} contains profiles of
 #' multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
-#'
-#' @export
 #'
 #' @examples
 #' \dontrun{

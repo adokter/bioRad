@@ -376,19 +376,17 @@ is.vplist <- function(...) {
   .Deprecated("is.vplist")
 }
 
-#' @name is.vplist-deprecated
+#' @name vpts-deprecated
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{is.vplist}:
-#' The \code{vp.list} object is deprecated. Handle as a regular
-#' list of `vp` objects.
+#' @section \code{vpts}:
+#' Use \code{\link{vplist_to_vpts}} instead.
 #'
 #' @export
-is.vplist <- function(...) {
-  .Deprecated("is.vplist")
+vpts <- function(...) {
+  .Deprecated("vplist_to_vpts")
+  vplist_to_vpts(...)
 }
-
-# todo DEPRECATE vpts() -> to...
 
 # deprecated example files
 

@@ -62,8 +62,8 @@
 \alias{suntime}
 \alias{is.vplist-deprecated}
 \alias{is.vplist}
-\alias{is.vplist-deprecated}
-\alias{is.vplist}
+\alias{vpts-deprecated}
+\alias{vpts}
 \alias{VP-deprecated}
 \alias{VP}
 \alias{VPTS-deprecated}
@@ -132,7 +132,7 @@ suntime(..., rise = TRUE)
 
 is.vplist(...)
 
-is.vplist(...)
+vpts(...)
 
 VP(...)
 
@@ -294,10 +294,11 @@ Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
 
 The \code{vp.list} object is deprecated. Handle as a regular
 list of `vp` objects.
+}
 
+\section{\code{vpts}}{
 
-The \code{vp.list} object is deprecated. Handle as a regular
-list of `vp` objects.
+Use \code{\link{vplist_to_vpts}} instead.
 }
 
 \section{\code{VP}}{

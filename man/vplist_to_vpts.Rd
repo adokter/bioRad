@@ -7,7 +7,7 @@
 vplist_to_vpts(x, radar = NA)
 }
 \arguments{
-\item{x}{An list of \code{vp} objects, usually a result of a call
+\item{x}{A list of \code{vp} objects, usually a result of a call
 to \link{read_vpfiles}.}
 
 \item{radar}{optional string containing the radar identifier to generate
@@ -20,7 +20,8 @@ contains profiles of a single radar. A list of objects of class
 multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 }
 \description{
-Bind vertical profiles (\code{vp}) into time series (\code{vpts})
+Used as helper function for the method dispatched \code{bind_into_vpts} and
+keeping backward compatibility with the \code{vpts} function.
 }
 \examples{
 \dontrun{
