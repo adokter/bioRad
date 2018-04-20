@@ -89,14 +89,14 @@ dim.vpts <- function(x) {
   }
   if (length(i) == 1) {
     if (i > 0) {
-      return(vpts2vp(x,i))
+      return(vpts_to_vp(x,i))
     } else {
       if (dim(x)[2] == 2) {
         if (i == -1) {
-          return(vpts2vp(x,2))
+          return(vpts_to_vp(x,2))
         }
         if (i == -2) {
-          return(vpts2vp(x,1))
+          return(vpts_to_vp(x,1))
         }
       }
     }
@@ -117,21 +117,6 @@ dim.vpts <- function(x) {
                    })
   names(x$data) <- quantity.names
   return(x)
-}
-
-vpts2vp <- function(x,i) {
-  stopifnot(inherits(x,"vpts"))
-  nvp=dim(x)[2]
-  if(i<1 || i>nvp) return(NA)
-  vpout=list()
-  vpout$radar=x$radar
-  vpout$datetime=x$dates[i]
-  vpout$data=as.data.frame(lapply(names(x$data),function(y) x$data[y][[1]][,i]))
-  names(vpout$data)=names(x$data)
-  vpout$attributes=x$attributes
-  vpout$data$HGHT=x$heights
-  class(vpout)="vp"
-  vpout
 }
 
 #' print method for class \code{vpts}
@@ -166,27 +151,6 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   } else {
     cat("   time step (s): ", "min:", stepMin,"    max: ", stepMax, "\n")
   }
-}
-
-vptsHelper = function(vps){
-  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
-  daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
-  # sort by datetime
-  vps=vps[order(sapply(vps,'[[',"datetime"))]
-  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
-  difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
-  profile.quantities=names(vps[[1]]$data)
-
-  if(length(unique(lapply(vps,'[[',"heights")))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"have non-aligning altitude layers"))
-  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"contain different quantities"))
-
-  vpsFlat=lapply(profile.quantities, function(quantity) sapply(lapply(vps,'[[',"data"),'[[',quantity))
-  names(vpsFlat)=profile.quantities
-  if(length(unique(difftimes))==1) regular = T else regular = F
-  vpsFlat$HGHT<-NULL
-  output=list(radar=vps[[1]]$radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
-  class(output)="vpts"
-  output
 }
 
 #' Convert a time series of vertical profiles (\code{vpts}) to a data frame
@@ -298,4 +262,24 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
       origin = "1970-1-1", tz = 'UTC')
   }
   output
+}
+
+vpts_to_vp <- function(x, i) {
+  stopifnot(inherits(x, "vpts"))
+  nvp <- dim(x)[2]
+  if (i < 1 || i > nvp) {
+    return(NA)
+  }
+  vpout <- list()
+  vpout$radar <- x$radar
+  vpout$datetime <- x$dates[i]
+  vpout$data <- as.data.frame(lapply(names(x$data),
+                                     function(y) {
+                                       x$data[y][[1]][,i]
+                                     }))
+  names(vpout$data) <- names(x$data)
+  vpout$attributes <- x$attributes
+  vpout$data$HGHT <- x$heights
+  class(vpout) <- "vp"
+  vpout
 }
