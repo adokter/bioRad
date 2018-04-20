@@ -28,5 +28,5 @@ in \code{x$data$dens}
 }
 \examples{
 # change threshold for a single vertical profile:
-rvsd(VP)<-2
+rvsd(example_vp) <- 2
 }

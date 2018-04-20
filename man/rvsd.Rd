@@ -39,5 +39,5 @@ deviation of a time series of vertical profiles
 
 \examples{
 # extract threshold for a single vertical profile:
-rvsd(VP)
+rvsd(example_vp)
 }

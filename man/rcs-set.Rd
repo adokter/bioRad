@@ -29,5 +29,5 @@ the migration densities in \code{x$data$dens}
 }
 \examples{
 # change RCS for a single vertical profile:
-rcs(VP)<-20
+rcs(example_vp) <- 20
 }

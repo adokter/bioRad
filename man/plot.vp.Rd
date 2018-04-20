@@ -36,7 +36,7 @@
 Plot a vertical profile (\code{vp})
 }
 \examples{
-data(VP)
-plot(VP)
-plot(VP, line.col = 'blue')
+data(example_vp)
+plot(example_vp)
+plot(example_vp, line.col = "blue")
 }

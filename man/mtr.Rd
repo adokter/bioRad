@@ -53,12 +53,12 @@ migration traffic rate data.
 }
 \examples{
 ### MTR for a single vertical profile ###
-mtr(VP)
+mtr(example_vp)
 ### MTRs for a time series of vertical profiles ###
 # load example time series
-data(VPTS)
+data(example_vpts)
 # print migration traffic rates:
-mtr(VPTS)
+mtr(example_vpts)
 # to plot migration traffic rate data, use integrate_profile:
-plot(integrate_profile(VPTS),quantity="mtr")
+plot(integrate_profile(example_vpts), quantity = "mtr")
 }

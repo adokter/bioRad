@@ -24,8 +24,8 @@ Read a time series of vertical profiles (\code{vpts}) from file
 }
 \examples{
 # locate example file:
-VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
+vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
 # load time series:
-ts <- read_vpts(VPtable, radar = "KBGM", wavelength = 'S')
+ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 ts
 }

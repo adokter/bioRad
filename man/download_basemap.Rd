@@ -25,11 +25,11 @@ layer map using \link[ggmap]{get_map}.
 }
 \examples{
 # load an example scan:
-data(SCAN)
+data(example_scan)
 # print summary info for the scan:
-SCAN
+example_scan
 # make ppi for the scan
-ppi <- project_as_ppi(SCAN)
+ppi <- project_as_ppi(example_scan)
 # grab a basemap that matches the extent of the ppi:
 basemap <- download_basemap(ppi)
 # map the reflectivity quantity of the ppi onto the basemap:

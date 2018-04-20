@@ -2,14 +2,14 @@
 % Please edit documentation in R/scan.R
 \name{print.scan}
 \alias{print.scan}
-\title{print method for class \code{scan}}
+\title{Print method for class \code{scan}}
 \usage{
 \method{print}{scan}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
-\item{x}{An object of class \code{scan}, a polar scan}
+\item{x}{An object of class \code{scan}, a polar scan.}
 }
 \description{
-print method for class \code{scan}
+Print method for class \code{scan}
 }
 \keyword{internal}

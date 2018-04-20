@@ -13,46 +13,51 @@ is.scan(x)
 \method{dim}{scan}(x)
 }
 \arguments{
-\item{object}{object of class 'scan'}
+\item{object}{Object of class \code{scan}}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{object of class 'scan'}
+\item{x}{Object of class \code{scan}}
 }
 \value{
-for \code{is.scan}: \code{TRUE} if its argument is of class "\code{scan}"
+For \code{is.scan}: \code{TRUE} if its argument is of
+class \code{scan}.
 
-for \code{dim.scan}: dimensions of the scan
+For \code{dim.scan}: dimensions of the scan.
 }
 \description{
 Object of class \code{scan}: a scan of a polar volume
 }
 \details{
-A polar scan object of class 'scan' is a list containing:
+A polar scan object of class \code{scan} is a list containing:
 \describe{
  \item{\code{radar}}{character string with the radar identifier}
- \item{\code{datetime}}{nominal time of the volume to which this scan belongs [UTC]}
+ \item{\code{datetime}}{nominal time of the volume to which this
+   scan belongs [UTC]}
  \item{\code{params}}{a list with scan parameters}
- \item{\code{attributes}}{list with the scans's \code{\\what}, \code{\\where} and \code{\\how} attributes}
+ \item{\code{attributes}}{list with the scans's \code{\\what},
+   \code{\\where} and \code{\\how} attributes}
  \item{\code{geo}}{geographic data, a list with:
     \describe{
      \item{\code{lat}}{latitude of the radar [decimal degrees]}
      \item{\code{lon}}{longitude of the radar [decimal degrees]}
-     \item{\code{height}}{height of the radar antenna [metres above sea level]}
+     \item{\code{height}}{height of the radar
+       antenna [metres above sea level]}
      \item{\code{elangle}}{radar beam elevation [degrees]}
      \item{\code{rscale}}{range bin size [m]}
      \item{\code{ascale}}{azimuth bin size [deg]}
     }
-    The \code{geo} element of a 'scan' object is a copy of the \code{geo} element of its parent polar volume of class 'pvol'.
+    The \code{geo} element of a \code{scan} object is a copy of the
+    \code{geo} element of its parent polar volume of class \code{pvol}.
   }
 }
 }
 \examples{
 # load example scan object
-data(SCAN)
+data(example_scan)
 # print the scan parameters contained in the scan:
-SCAN$params
+example_scan$params
 # extract the first scan parameter:
-param=SCAN$params[1]
+param <- example_scan$params[1]
 is.scan("this is not a polar scan but a string")  #> FALSE
 }

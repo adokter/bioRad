@@ -29,11 +29,11 @@ position of the radar for the full period of the time series
 within the specified altitude band.
 }
 \examples{
-# get example time series object
-data(VPTS)
-VPTS
+# get example time series object:
+data(example_vpts)
+example_vpts
 # total migration traffic in full altitude band
-mt(VPTS)
+mt(example_vpts)
 # total migration traffic in 0-1000 meter band
-mt(VPTS,alt.min=0,alt.max=1000)
+mt(example_vpts, alt.min = 0, alt.max = 1000)
 }
