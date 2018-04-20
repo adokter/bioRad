@@ -310,3 +310,27 @@ regularize <- function(...) {
   .Deprecated("regularize_vpts")
   regularize_vpts(...)
 }
+
+#' @name sd_vvp-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{sd_vvp}:
+#' Use \code{\link{rvsd}} instead.
+#'
+#' @export
+sd_vvp <- function(...) {
+  .Deprecated("rvsd")
+  rvsd(...)
+}
+
+#' @name sd_vvp-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{sd_vvp<-}:
+#' Use \code{\link{rvsd<-}} instead.
+#'
+#' @export
+`sd_vvp<-` <- function(...) {
+  .Deprecated("rvsd<-")
+  `rvsd<-`(...)
+}
