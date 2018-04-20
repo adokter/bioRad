@@ -3,7 +3,7 @@
 \name{rvsd<-}
 \alias{rvsd<-}
 \alias{rvsd<-.vp}
-\alias{rvsd<-.vplist}
+\alias{rvsd<-.list}
 \alias{rvsd<-.vpts}
 \title{Set threshold of the VVP-retrieved radial velocity standard deviation}
 \usage{
@@ -11,12 +11,12 @@ rvsd(x) <- value
 
 \method{rvsd}{vp}(x) <- value
 
-\method{rvsd}{vplist}(x) <- value
+\method{rvsd}{list}(x) <- value
 
 \method{rvsd}{vpts}(x) <- value
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+\item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
 
 \item{value}{the value to assign}
 }

@@ -3,7 +3,7 @@
 \name{rcs<-}
 \alias{rcs<-}
 \alias{rcs<-.vp}
-\alias{rcs<-.vplist}
+\alias{rcs<-.list}
 \alias{rcs<-.vpts}
 \alias{rcs<-.vpi}
 \title{Set radar cross section}
@@ -12,14 +12,14 @@ rcs(x) <- value
 
 \method{rcs}{vp}(x) <- value
 
-\method{rcs}{vplist}(x) <- value
+\method{rcs}{list}(x) <- value
 
 \method{rcs}{vpts}(x) <- value
 
 \method{rcs}{vpi}(x) <- value
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+\item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
 
 \item{value}{the cross section value to assign}
 }

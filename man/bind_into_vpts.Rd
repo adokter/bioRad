@@ -3,7 +3,7 @@
 \name{bind_into_vpts}
 \alias{bind_into_vpts}
 \alias{bind_into_vpts.vp}
-\alias{bind_into_vpts.vplist}
+\alias{bind_into_vpts.list}
 \alias{bind_into_vpts.vpts}
 \title{Bind vertical profiles (\code{vp}) into time series (\code{vpts})}
 \usage{
@@ -11,7 +11,7 @@ bind_into_vpts(x, ...)
 
 \method{bind_into_vpts}{vp}(...)
 
-\method{bind_into_vpts}{vplist}(x, ...)
+\method{bind_into_vpts}{list}(x, ...)
 
 \method{bind_into_vpts}{vpts}(..., attributes_from = 1)
 }
@@ -39,9 +39,9 @@ single radar into one \code{vpts}.
 If \code{vp} for multiple radars are provided, a list is returned containing
 a \code{vpts} for each radar.
 
-\item \code{vplist}: Bind multiple \code{vplist} into a \code{vpts}.
-If data for multiple radars is provided, a list is returned containing
-a \code{vpts} for each radar.
+\item \code{list}: Bind multiple \code{vp} objects into a
+\code{vpts}. If data for multiple radars is provided, a list is returned
+containing a \code{vpts} for each radar.
 
 \item \code{vpts}: Bind multiple \code{vpts} into a single
 \code{vpts}. Requires the input \code{vpts} to be from the same radar.

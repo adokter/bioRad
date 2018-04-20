@@ -3,7 +3,7 @@
 \name{integrate_profile}
 \alias{integrate_profile}
 \alias{integrate_profile.vp}
-\alias{integrate_profile.vplist}
+\alias{integrate_profile.list}
 \alias{integrate_profile.vpts}
 \title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an integrated profile (\code{vpi})}
 \usage{
@@ -12,7 +12,7 @@ integrate_profile(x, alt.min, alt.max, alpha = NA, interval.max = Inf)
 \method{integrate_profile}{vp}(x, alt.min = 0, alt.max = Inf, alpha = NA,
   interval.max = Inf)
 
-\method{integrate_profile}{vplist}(x, alt.min = 0, alt.max = Inf,
+\method{integrate_profile}{list}(x, alt.min = 0, alt.max = Inf,
   alpha = NA, interval.max = Inf)
 
 \method{integrate_profile}{vpts}(x, alt.min = 0, alt.max = Inf,
@@ -70,7 +70,7 @@ traffic rate.
 \itemize{
 \item \code{vp}: Vertically integrate a vertical profile.
 
-\item \code{vplist}: Vertically integrate a list of
+\item \code{list}: Vertically integrate a list of
 vertical profiles.
 
 \item \code{vpts}: Vertically integrate a time series of

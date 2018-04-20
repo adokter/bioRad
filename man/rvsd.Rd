@@ -3,7 +3,7 @@
 \name{rvsd}
 \alias{rvsd}
 \alias{rvsd.vp}
-\alias{rvsd.vplist}
+\alias{rvsd.list}
 \alias{rvsd.vpts}
 \title{Get threshold of the VVP-retrieved radial velocity standard deviation}
 \usage{
@@ -11,12 +11,12 @@ rvsd(x)
 
 \method{rvsd}{vp}(x)
 
-\method{rvsd}{vplist}(x)
+\method{rvsd}{list}(x)
 
 \method{rvsd}{vpts}(x)
 }
 \arguments{
-\item{x}{A \code{vp}, \code{vplist} or \code{vpts} object.}
+\item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 }
 \value{
 threshold for \code{sd_vvp} in m/s.
@@ -30,7 +30,7 @@ deviation in m/s.
 \item \code{vp}: threshold in VVP-retrieved radial velocity standard
 deviation of a vertical profile
 
-\item \code{vplist}: threshold in VVP-retrieved radial velocity standard
+\item \code{list}: threshold in VVP-retrieved radial velocity standard
 deviation of a list of vertical profiles
 
 \item \code{vpts}: threshold in VVP-retrieved radial velocity standard

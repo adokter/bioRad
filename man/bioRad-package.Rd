@@ -17,7 +17,6 @@
     \item{\link[=summary.param]{param}}{, a polar scan parameter: one of the observable quantities recorded within a polar scan, such as reflectivity (DBZH) or radial velocity (VRADH).}
     \item{\link[=summary.ppi]{ppi}}{, a Cartesian plan position indicator: a projection on a Cartesian grid of a polar scan or a polar scan parameter}
     \item{\link[=summary.vp]{vp}}{, a vertical profile: typically biological data extracted from a polar volume by \link{calculate_vp}.}
-    \item{\link[=summary.vplist]{vplist}}{, a list of \link[=summary.vp]{vp} objects.}
     \item{\link[=summary.vpts]{vpts}}{, a vertical profile time series: a time-oredered list of \link[=summary.vp]{vp} objects for a single radar.}
     \item{\link[=integrate_profile]{vpi}}{, vertically integrated vertical profiles.}
   }
@@ -55,9 +54,7 @@ For users running their own installation of vol2bird outside R and Docker, the f
 is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
 }
 \subsection{Organizing, analyzing and plotting vertical profile data}{
-Vertical profiles (\link[=summary.vp]{vp} objects) can be combined with \link{bind_into_vpts.vp} into vertical profile time series (\link[=summary.vpts]{vpts} objects).
-
-Vertical profile lists (\link[=summary.vplist]{vplist} objects) can be converted into vertical profile time series (\link[=summary.vpts]{vpts} objects) using function \link{vpts}.
+Vertical profiles (\link[=summary.vp]{vp} objects) or a list of vertical profiles can be combined with \link{bind_into_vpts.vp} into vertical profile time series (\link[=summary.vpts]{vpts} objects).
 
 \link{regularize_vpts} can be used to project a \link[=summary.vpts]{vpts} object on a regular time grid.
 This is typically done before plotting a vertical profile time series.

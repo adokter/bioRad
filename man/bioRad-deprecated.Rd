@@ -60,6 +60,10 @@
 \alias{retrieve_vp_paths}
 \alias{suntime-deprecated}
 \alias{suntime}
+\alias{is.vplist-deprecated}
+\alias{is.vplist}
+\alias{is.vplist-deprecated}
+\alias{is.vplist}
 \alias{VP-deprecated}
 \alias{VP}
 \alias{VPTS-deprecated}
@@ -125,6 +129,10 @@ sd_vvp(x) <- value
 retrieve_vp_paths(...)
 
 suntime(..., rise = TRUE)
+
+is.vplist(...)
+
+is.vplist(...)
 
 VP(...)
 
@@ -280,6 +288,16 @@ Use \code{\link{select_vpfiles}} instead.
 \section{\code{suntime}}{
 
 Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
+}
+
+\section{\code{is.vplist}}{
+
+The \code{vp.list} object is deprecated. Handle as a regular
+list of `vp` objects.
+
+
+The \code{vp.list} object is deprecated. Handle as a regular
+list of `vp` objects.
 }
 
 \section{\code{VP}}{

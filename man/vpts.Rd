@@ -7,16 +7,16 @@
 vplist_to_vpts(x, radar = NA)
 }
 \arguments{
-\item{x}{An object of class \code{vplist}, usually a result of a call
+\item{x}{An list of \code{vp} objects, usually a result of a call
 to \link{read_vpfiles}.}
 
 \item{radar}{optional string containing the radar identifier to generate
 time series for.}
 }
 \value{
-an object of class \link[=summary.vpts]{vpts} when \code{vplist}
+an object of class \link[=summary.vpts]{vpts} when \code{list}
 contains profiles of a single radar. A list of objects of class
-\link[=summary.vpts]{vpts} in case when \code{vplist} contains profiles of
+\link[=summary.vpts]{vpts} in case when \code{list} contains profiles of
 multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 }
 \description{

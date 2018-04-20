@@ -3,7 +3,7 @@
 \name{rcs}
 \alias{rcs}
 \alias{rcs.vp}
-\alias{rcs.vplist}
+\alias{rcs.list}
 \alias{rcs.vpts}
 \alias{rcs.vpi}
 \title{Get radar cross section}
@@ -12,14 +12,14 @@ rcs(x)
 
 \method{rcs}{vp}(x)
 
-\method{rcs}{vplist}(x)
+\method{rcs}{list}(x)
 
 \method{rcs}{vpts}(x)
 
 \method{rcs}{vpi}(x)
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+\item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 }
 \value{
 a radar cross section in cm^2
@@ -31,7 +31,7 @@ Gives the currently assumed radar cross section in cm^2.
 \itemize{
 \item \code{vp}: radar cross section of a vertical profile
 
-\item \code{vplist}: radar cross sections for a list of vertical profiles
+\item \code{list}: radar cross sections for a list of vertical profiles
 
 \item \code{vpts}: radar cross section of a time series of vertical profile
 

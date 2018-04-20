@@ -4,7 +4,7 @@
 \alias{check_night}
 \alias{check_night.default}
 \alias{check_night.vp}
-\alias{check_night.vplist}
+\alias{check_night.list}
 \alias{check_night.vpts}
 \alias{check_night.pvol}
 \title{Check if it is night at a given time and place}
@@ -15,7 +15,7 @@ check_night(x, ..., elev = -0.268)
 
 \method{check_night}{vp}(x, elev = -0.268)
 
-\method{check_night}{vplist}(x, elev = -0.268)
+\method{check_night}{list}(x, elev = -0.268)
 
 \method{check_night}{vpts}(x, elev = -0.268)
 

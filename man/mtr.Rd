@@ -7,7 +7,7 @@
 mtr(x, alt.min = 0, alt.max = Inf, alpha = NA)
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vplist} or \code{vpts} object}
+\item{x}{A \code{vp}, list of \code{vp} objects or \code{vpts} object.}
 
 \item{alt.min}{minimum altitude in m}
 

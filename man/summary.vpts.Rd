@@ -42,8 +42,9 @@ unequal length.
 Irregular time series can be projected onto a regular time grid using
 the \link{regularize_vpts} function.
 
-By contrast, in \link[=summary.vp]{vplist} objects the profiles have no
-time ordering, and can contain profiles of multiple radars.
+By contrast, \link[=summary.vp]{vp} objects can be concatenated in a list
+to combine profiles without time ordering, and profiles of
+multiple radars.
 
 Data contained in this class object should be accessed with the
 \link{get_quantity} function. Information stored under \code{attributes}

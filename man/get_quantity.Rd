@@ -3,7 +3,7 @@
 \name{get_quantity}
 \alias{get_quantity}
 \alias{get_quantity.vp}
-\alias{get_quantity.vplist}
+\alias{get_quantity.list}
 \alias{get_quantity.vpts}
 \title{Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})}
 \usage{
@@ -11,7 +11,7 @@ get_quantity(x, quantity)
 
 \method{get_quantity}{vp}(x, quantity = "dens")
 
-\method{get_quantity}{vplist}(x, quantity = "dens")
+\method{get_quantity}{list}(x, quantity = "dens")
 
 \method{get_quantity}{vpts}(x, quantity = "dens")
 }
@@ -41,7 +41,7 @@ get_quantity(x, quantity)
 \value{
 class \code{vp}: a named vector for the requested quantity.
 
-class \code{vplist}: a list of a named vectors for the requested
+class \code{list}: a list of a named vectors for the requested
 quantity.
 
 class \code{vpts}: a (height x time) matrix of the
