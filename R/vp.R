@@ -139,7 +139,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' # override the latitude/longitude information stored in the object
 #' # when calculating sunrise / sunset
 #' df <- as.data.frame(example_vp, suntime = TRUE, lat = 50, lon = 4)
-as.data.frame.vp <  function(x, row.names = NULL, optional = FALSE,
+as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
                              quantities = names(x$data), suntime = TRUE,
                              geo = TRUE, elev = -0.268, lat = NULL,
                              lon = NULL, ...) {
