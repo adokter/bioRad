@@ -53,7 +53,7 @@
 #'
 #' Vertical profile lists (\link[=summary.vplist]{vplist} objects) can be converted into vertical profile time series (\link[=summary.vpts]{vpts} objects) using function \link{vpts}.
 #'
-#' \link{regularize} can be used to project a \link[=summary.vpts]{vpts} object on a regular time grid.
+#' \link{regularize_vpts} can be used to project a \link[=summary.vpts]{vpts} object on a regular time grid.
 #' This is typically done before plotting a vertical profile time series.
 #'
 #' \link{plot.vp} can be used to make a plot of a single vertical profile.

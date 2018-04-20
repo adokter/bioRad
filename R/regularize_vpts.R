@@ -20,8 +20,8 @@
 #' # load time series:
 #' ts=read_vpts(VPtable,radar="KBGM", wavelength='S')
 #' # regularize the time series on a 5 minute interval grid
-#' tsRegular=regularize(ts, interval=5)
-regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
+#' tsRegular=regularize_vpts(ts, interval=5)
+regularize_vpts=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(t.min, "POSIXct"))
   stopifnot(inherits(t.max, "POSIXct"))

@@ -53,7 +53,7 @@
 #' # locate example file:
 #' VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
 #' # load and regularize time series of vertical profiles:
-#' ts <- regularize(read_vpts(VPtable, radar = "KBGM", wavelength = 'S'))
+#' ts <- regularize_vpts(read_vpts(VPtable, radar = "KBGM", wavelength = 'S'))
 #' # plot density of individuals for the first 500 time steps, in the altitude
 #' # layer 0-3000 m.
 #' plot(ts[1:500], ylim = c(0, 3000))
@@ -67,7 +67,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   args <- list(...)
   if (!x$regular) {
     warning("Irregular time-series: missing profiles will not be visible.",
-            "Use 'regularize' to make time series regular.")
+            "Use 'regularize_vpts' to make time series regular.")
   }
 
   # prepare zlim, ticks and legendticks
