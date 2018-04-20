@@ -120,12 +120,15 @@
 #' }
 #'
 #' @examples
-#' # locate example volume file:
-#' volume <- system.file("extdata", "volume.h5", package = "bioRad")
+#' # locate example polar volume file:
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#'
 #' # copy to a home directory with read/write permissions:
-#' file.copy(volume, "~/volume.h5")
+#' file.copy(pvolfile, "~/volume.h5")
+#'
 #' # calculate the profile:
 #' \dontrun{profile <- calculate_vp("~/volume.h5")}
+#'
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
