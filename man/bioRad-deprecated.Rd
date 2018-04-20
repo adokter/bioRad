@@ -207,7 +207,7 @@ Use \code{\link{download_basemap}} instead.
 
 \section{\code{download_vp}}{
 
-Use \code{\link{download_vpfiles}} instead.g
+Use \code{\link{download_vpfiles}} instead.
 }
 
 \section{\code{elangle}}{
@@ -292,13 +292,13 @@ Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
 
 \section{\code{is.vplist}}{
 
-The \code{vp.list} object is deprecated. Handle as a regular
-list of `vp` objects.
+The \code{vplist} object is deprecated. Use a regular list of \code{vp}
+objects (\code{c(vp, vp))} instead.
 }
 
 \section{\code{vpts}}{
 
-Use \code{\link{vplist_to_vpts}} instead.
+Use \code{\link{bind_to_vpts}} instead.
 }
 
 \section{\code{VP}}{

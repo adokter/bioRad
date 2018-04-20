@@ -159,7 +159,7 @@ basemap <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{download_vp}:
-#' Use \code{\link{download_vpfiles}} instead.g
+#' Use \code{\link{download_vpfiles}} instead.
 #'
 #' @export
 download_vp <- function(...) {
@@ -368,8 +368,8 @@ suntime <- function(..., rise = TRUE) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{is.vplist}:
-#' The \code{vp.list} object is deprecated. Handle as a regular
-#' list of `vp` objects.
+#' The \code{vplist} object is deprecated. Use a regular list of \code{vp}
+#' objects (\code{c(vp, vp))} instead.
 #'
 #' @export
 is.vplist <- function(...) {
@@ -380,7 +380,7 @@ is.vplist <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{vpts}:
-#' Use \code{\link{vplist_to_vpts}} instead.
+#' Use \code{\link{bind_to_vpts}} instead.
 #'
 #' @export
 vpts <- function(...) {
