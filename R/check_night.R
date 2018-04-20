@@ -11,6 +11,7 @@
 #' @param date Date. Date inheriting from class \code{POSIXt} or a string
 #' interpretable by \link[base]{as.Date}.
 #' @param elev numeric. Sun elevation in degrees.
+#' @param ... A bioRad object of lat/lon combination.
 #'
 #' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
 #' (either datetime or geographic location missing). For \code{vpts} a
@@ -35,7 +36,9 @@
 #' # check on bioRad objects directly:
 #' check_night(example_vp)
 #' check_night(example_vpts)
-check_night <- function(x, ..., elev=-0.268) UseMethod("check_night", x)
+check_night <- function(x, ..., elev = -0.268) {
+  UseMethod("check_night", x)
+}
 
 #' @rdname check_night
 #'
