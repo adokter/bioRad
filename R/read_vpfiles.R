@@ -23,7 +23,7 @@ read_vp <- function(filename) {
                        })
   profile <- as.data.frame(lapply(groups,
                                   function(x) {
-                                    readOdimProfileData(filename,x)
+                                    read_odim_profile_data(filename, x)
                                   }))
   names(profile) <- quantities
 
@@ -92,7 +92,7 @@ read_vpfiles <- function(files) {
   }
 }
 
-readOdimProfileData = function(file,group){
+read_odim_profile_data = function(file,group){
   whatgroup=h5readAttributes(file,sprintf("%s/what",group))
   nodata=whatgroup$nodata
   undetect=whatgroup$undetect
