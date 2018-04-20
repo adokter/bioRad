@@ -92,15 +92,15 @@ read_vpfiles <- function(files) {
   }
 }
 
-read_odim_profile_data = function(file,group){
-  whatgroup=h5readAttributes(file,sprintf("%s/what",group))
-  nodata=whatgroup$nodata
-  undetect=whatgroup$undetect
-  gain=whatgroup$gain
-  offset=whatgroup$offset
-  data=h5read(file,sprintf("%s/data",group))[1,]
-  data=replace(data,data==nodata,NA)
-  data=replace(data,data==undetect,NaN)
-  offset+gain*data
+read_odim_profile_data  <- function(file, group) {
+  whatgroup <- h5readAttributes(file,sprintf("%s/what", group))
+  nodata <- whatgroup$nodata
+  undetect <- whatgroup$undetect
+  gain <- whatgroup$gain
+  offset <- whatgroup$offset
+  data <- h5read(file, sprintf("%s/data", group))[1,]
+  data <- replace(data, data == nodata, NA)
+  data <- replace(data, data == undetect, NaN)
+  offset + gain*data
 }
 
