@@ -120,51 +120,83 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   output
 }
 
-#' Bind vertical profiles (\code{vp}) into time series (\code{vpts}) DEPRECATED
-#'
-#' @param x An object of class \code{vplist}, usually a result of a call to \link{readvp.list}
-#' @param radar optional string containing the radar identifier to generate time series for.
-#' @export
-#' @return an object of class \link[=summary.vpts]{vpts} when \code{vplist} contains profiles of a single radar. A list of objects of class \link[=summary.vpts]{vpts} in
-#' case when \code{vplist} contains profiles of multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
+#' Bind vertical profiles (\code{vp}) into time series (\code{vpts})
 #' @rdname vpts
+#'
+#' @param x An object of class \code{vplist}, usually a result of a call
+#' to \link{read_vpfiles}.
+#' @param radar optional string containing the radar identifier to generate
+#' time series for.
+#'
+#' @return an object of class \link[=summary.vpts]{vpts} when \code{vplist}
+#' contains profiles of a single radar. A list of objects of class
+#' \link[=summary.vpts]{vpts} in case when \code{vplist} contains profiles of
+#' multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
+#'
+#' @export
+#'
 #' @examples
 #' \dontrun{
-#' vps=read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
-#' ts=bind_into_vpts(vps)
+#' vps <- read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+#' ts <- bind_into_vpts(vps)
 #' }
-vplist_to_vpts <-  function(x,radar=NA){
+vplist_to_vpts <-  function(x, radar = NA) {
   stopifnot(inherits(x, "vplist"))
   # extract radar identifiers
-  radars=sapply(x,'[[',"radar")
-  uniqueRadars=sort(unique(radars))
-  if(!is.na(radar)){
-    if(!(radar %in% uniqueRadars)) stop(paste("no profiles found for radar",radar))
-    else return(vp_to_vpts_helper(x[which(radars==radar)]))
+  radars <- sapply(x, '[[', "radar")
+  uniqueRadars <- sort(unique(radars))
+  if (!is.na(radar)) {
+    if (!(radar %in% uniqueRadars)) {
+      stop(paste("no profiles found for radar", radar))
+    } else {
+      return(vp_to_vpts_helper(x[which(radars == radar)]))
+    }
   }
   # extract date-times
-  if(is.na(radar) & (length(uniqueRadars)==1)) return(vp_to_vpts_helper(x[which(radars==uniqueRadars)]))
-  else return(lapply(uniqueRadars,function(y) vplist_to_vpts(x[radars==y])))
+  if (is.na(radar) & (length(uniqueRadars) == 1)) {
+    return(vp_to_vpts_helper(x[which(radars == uniqueRadars)]))
+  } else {
+    return(lapply(uniqueRadars,
+                  function(y) {
+                    vplist_to_vpts(x[radars == y])
+                  }))
+  }
 }
 
 vp_to_vpts_helper <- function(vps) {
-  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
-  daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC")
+  dates <- .POSIXct(do.call("c", lapply(vps, '[[', "datetime")), tz = "UTC")
+  daterange <- .POSIXct(c(min(dates), max(dates)), tz = "UTC")
   # sort by datetime
-  vps=vps[order(sapply(vps,'[[',"datetime"))]
-  dates=.POSIXct(do.call("c",lapply(vps,'[[',"datetime")),tz="UTC")
-  difftimes=difftime(dates[-1],dates[-length(dates)],units="secs")
-  profile.quantities=names(vps[[1]]$data)
+  vps <- vps[order(sapply(vps, '[[', "datetime"))]
+  dates <- .POSIXct(do.call("c", lapply(vps, '[[',"datetime")), tz = "UTC")
+  difftimes <- difftime(dates[-1], dates[-length(dates)], units = "secs")
+  profile.quantities <- names(vps[[1]]$data)
 
-  if(length(unique(lapply(vps,'[[',"heights")))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"have non-aligning altitude layers"))
-  if(length(unique(lapply(vps,function(x) names(x$"data"))))>1) stop(paste("Vertical profiles of radar",vps[[1]]$radar,"contain different quantities"))
+  if (length(unique(lapply(vps, '[[', "heights"))) > 1) {
+    stop(paste("Vertical profiles of radar", vps[[1]]$radar,
+               "have non-aligning altitude layers."))
+  }
+  if (length(unique(lapply(vps, function(x) names(x$"data")))) > 1) {
+    stop(paste("Vertical profiles of radar", vps[[1]]$radar,
+               "contain different quantities."))
+  }
 
-  vpsFlat=lapply(profile.quantities, function(quantity) sapply(lapply(vps,'[[',"data"),'[[',quantity))
-  names(vpsFlat)=profile.quantities
-  if(length(unique(difftimes))==1) regular = T else regular = F
-  vpsFlat$HGHT<-NULL
-  output=list(radar=vps[[1]]$radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
-  class(output)="vpts"
+  vpsFlat <- lapply(profile.quantities,
+                    function(quantity) {
+                      sapply(lapply(vps, '[[', "data"), '[[', quantity)
+                    })
+  names(vpsFlat) <- profile.quantities
+  if (length(unique(difftimes)) == 1) {
+    regular = TRUE
+  } else {
+    regular = FALSE
+  }
+  vpsFlat$HGHT <- NULL
+  output <- list(radar = vps[[1]]$radar, dates = dates,
+                 heights = vps[[1]]$data$HGHT,
+                 daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
+                 timesteps = difftimes, data = vpsFlat,
+                 attributes = vps[[1]]$attributes, regular = regular)
+  class(output) <- "vpts"
   output
 }
-
