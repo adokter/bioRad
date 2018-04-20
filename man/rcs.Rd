@@ -41,5 +41,5 @@ integrated vertical profile(s)
 
 \examples{
 # extract RCS for a single vertical profile:
-rcs(VP)
+rcs(example_vp)
 }

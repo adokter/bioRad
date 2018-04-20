@@ -1,53 +1,55 @@
 #' Example object of class \code{vp}
 #'
-#' Example of a \code{\link[=summary.vp]{vp}} object with name \code{VP}. Can
-#' be created with \code{\link{calculate_vp()}} or read from file with
-#' \code{\link{read_vpfiles()}}.
+#' Example of a \code{\link[=summary.vp]{vp}} object with name
+#' \code{example_vp}. Can be created with \code{\link{calculate_vp()}} or read
+#' from file with \code{\link{read_vpfiles()}}.
 #'
-#' @rdname vp_dataset
+#' @rdname example_vp
 #'
 #' @examples
 #' # get summary of example vp:
-#' summary(VP)
+#' summary(example_vp)
 #'
-#' # VP was created with:
-#' VP <- read_vpfiles("/inst/extdata/profile.h5")
-#' save(VP, file = "data/VP.RData")
-"VP"
+#' # example_vp was created with:
+#' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+#' example_vp <- read_vpfiles(vpfile)
+#' save(example_vp, file = "data/example_vp.rda")
+"example_vp"
 
 #' Example object of class \code{scan}
 #'
-#' Example of a \code{\link[=summary.scan]{scan}} object with name \code{SCAN}.
+#' Example of a \code{\link[=summary.scan]{scan}} object with name
+#' \code{example_scan}.
 #'
-#' @rdname scan_dataset
+#' @rdname example_scan
 #'
 #' @examples
 #' # get summary of example scan:
-#' summary(SCAN)
+#' summary(example_scan)
 #'
-#' # SCAN was created with:
+#' # example_scan was created with:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
-#' SCAN <- pvol$scans[[1]]
-#' save(SCAN, file = "data/SCAN.RData")
-"SCAN"
+#' example_scan <- pvol$scans[[1]]
+#' save(example_scan, file = "data/example_scan.rda")
+"example_scan"
 
 #' Example object of class \code{vpts}
 #'
 #' Example of a \code{\link[=summary.vpts]{vpts}} object (a time series of
-#' vertical profiles) with name \code{SCAN}.
+#' vertical profiles) with name \code{example_vpts}.
 #'
-#' @rdname vpts_dataset
+#' @rdname example_vpts
 #'
 #' @examples
 #' # get summary of example vpts:
-#' summary(VPTS)
+#' summary(example_vpts)
 #'
-#' # VPTS was created with:
-#' vptsfile <- system.file("extdata", "VPtable.txt", package = "bioRad")
-#' VPTS <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
-#' rcs(VPTS) <- 11
-#' VPTS$attributes$where$lat <- 42.2
-#' VPTS$attributes$where$lon <- -75.98
-#' save(VPTS, file = "data/VPTS.RData", compress = "xz")
-"VPTS"
+#' # example_vpts was created with:
+#' vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
+#' example_vpts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
+#' rcs(example_vpts) <- 11
+#' example_vpts$attributes$where$lat <- 42.2
+#' example_vpts$attributes$where$lon <- -75.98
+#' save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
+"example_vpts"

@@ -22,9 +22,9 @@
 #' @export
 #'
 #' @examples
-#' data(VP)
-#' plot(VP)
-#' plot(VP, line.col = 'blue')
+#' data(example_vp)
+#' plot(example_vp)
+#' plot(example_vp, line.col = "blue")
 plot.vp <- function(x, quantity="dens",
                     xlab = expression("volume density [#/km"^3*"]"),
                     ylab = "height [km]", line.col='red', line.lwd=1, ...){

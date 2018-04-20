@@ -39,14 +39,14 @@
 #'
 #' @examples
 #' ### MTR for a single vertical profile ###
-#' mtr(VP)
+#' mtr(example_vp)
 #' ### MTRs for a time series of vertical profiles ###
 #' # load example time series
-#' data(VPTS)
+#' data(example_vpts)
 #' # print migration traffic rates:
-#' mtr(VPTS)
+#' mtr(example_vpts)
 #' # to plot migration traffic rate data, use integrate_profile:
-#' plot(integrate_profile(VPTS),quantity="mtr")
+#' plot(integrate_profile(example_vpts), quantity = "mtr")
 mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
   stopifnot(inherits(x,"vp") || inherits(x,"vpts") || inherits(x,"vplist"))
   .Deprecated("integrate_profile")
@@ -69,13 +69,13 @@ mtr <- function (x, alt.min=0, alt.max=Inf, alpha=NA) {
 #' @export
 #' @return a numeric value equal to migration traffic in number of individuals / km
 #' @examples
-#' # get example time series object
-#' data(VPTS)
-#' VPTS
+#' # get example time series object:
+#' data(example_vpts)
+#' example_vpts
 #' # total migration traffic in full altitude band
-#' mt(VPTS)
+#' mt(example_vpts)
 #' # total migration traffic in 0-1000 meter band
-#' mt(VPTS,alt.min=0,alt.max=1000)
+#' mt(example_vpts, alt.min = 0, alt.max = 1000)
 mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
   .Deprecated("integrate_profile")
@@ -98,12 +98,12 @@ mt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
 #' @export
 #' @return atomic vector with (cumulative) migration traffic in number of individuals / km
 #' @examples
-#' # get the VPTS example dataset:
-#' data(VPTS)
+#' # get example time series object:
+#' data(example_vpts)
 #' # print cumulative migration traffic to console:
-#' cmt(VPTS)
+#' cmt(example_vpts)
 #' # plot cumulative migration traffic:
-#' plot(cmt(VPTS),type='l',xlab="time",ylab="CMT [birds/km]")
+#' plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")
 cmt <- function(x,alt.min=0, alt.max=Inf, alpha=NA,interval.max=Inf){
   stopifnot(inherits(x,"vpts"))
   .Deprecated("integrate_profile")

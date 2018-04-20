@@ -51,9 +51,9 @@
 #'
 #' @examples
 #' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
+#' vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
 #' # load and regularize time series of vertical profiles:
-#' ts <- regularize_vpts(read_vpts(VPtable, radar = "KBGM", wavelength = 'S'))
+#' ts <- regularize_vpts(read_vpts(vptsfile, radar = "KBGM", wavelength = "S"))
 #' # plot density of individuals for the first 500 time steps, in the altitude
 #' # layer 0-3000 m.
 #' plot(ts[1:500], ylim = c(0, 3000))

@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' # load the example polar scan:
-#' data(SCAN)
+#' data(example_scan)
 #' # to be written ...
 composite_ppi <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
   ppis <- lapply(x, `[.ppi`, i = param)

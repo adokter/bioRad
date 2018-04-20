@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' # extract threshold for a single vertical profile:
-#' rvsd(VP)
+#' rvsd(example_vp)
 rvsd <- function(x) {
   UseMethod("rvsd", x)
 }
@@ -57,7 +57,7 @@ rvsd.vpts <- function(x) {
 #'
 #' @examples
 #' # change threshold for a single vertical profile:
-#' rvsd(VP)<-2
+#' rvsd(example_vp) <- 2
 `rvsd<-` <- function(x, value) {
   UseMethod("rvsd<-", x)
 }

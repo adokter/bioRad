@@ -56,9 +56,10 @@ Approximate astronomical formula are used, therefore the day/night
 transition may be off by a few minutes.
 }
 \examples{
-# check whether it's night at UTC midnight in the Netherlands on January 1st:
+# check if it is night at UTC midnight in the Netherlands on January 1st:
 check_night(5, 53, "2016-01-01 00:00")
+
 # check on bioRad objects directly:
-check_night(VP)
-check_night(VPTS)
+check_night(example_vp)
+check_night(example_vpts)
 }

@@ -183,14 +183,14 @@ vptsHelper = function(vps){
 #' quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}.
 #' @examples
 #' # load an example vertical profile time series object
-#' data(VPTS)
+#' data(example_vpts)
 #' # convert the object to a data.frame
-#' df=as.data.frame(VPTS)
+#' df <- as.data.frame(example_vpts)
 #' # do not compute sunrise/sunset information
-#' df=as.data.frame(VPTS,suntime=FALSE)
+#' df <- as.data.frame(example_vpts, suntime = FALSE)
 #' # override the latitude/longitude information stored in the object
 #' # when calculating sunrise / sunset
-#' df=as.data.frame(VPTS,suntime=TRUE,lat=50,lon=4)
+#' df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
 as.data.frame.vpts = function(x, row.names = NULL, optional = FALSE, quantities=names(x$data),suntime=TRUE,geo=TRUE, elev = -0.268, lat=NULL, lon=NULL, ...){
   stopifnot(inherits(x,"vpts"))
   if(!is.null(row.names)){

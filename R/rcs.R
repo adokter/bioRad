@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' # extract RCS for a single vertical profile:
-#' rcs(VP)
+#' rcs(example_vp)
 rcs <- function(x) {
   UseMethod("rcs", x)
 }
@@ -60,7 +60,7 @@ rcs.vpi <- function(x) {
 #'
 #' @examples
 #' # change RCS for a single vertical profile:
-#' rcs(VP)<-20
+#' rcs(example_vp) <- 20
 `rcs<-` <- function(x, value) {
   UseMethod("rcs<-", x)
 }

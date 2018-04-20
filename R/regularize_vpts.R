@@ -31,9 +31,9 @@
 #'
 #' @examples
 #' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package = "bioRad")
+#' vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
 #' # load time series:
-#' ts <- read_vpts(VPtable, radar = "KBGM", wavelength = 'S')
+#' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 5)
 regularize_vpts <- function(ts, interval = "auto", t.min = ts$daterange[1],

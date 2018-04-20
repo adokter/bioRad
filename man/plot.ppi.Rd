@@ -44,11 +44,11 @@ model (ODIM), see Table 16 in the
 }
 \examples{
 # load an example scan:
-data(SCAN)
+data(example_scan)
 # print to screen the available scan parameters:
-summary(SCAN)
+summary(example_scan)
 # make ppi for the scan
-ppi <- project_as_ppi(SCAN)
+ppi <- project_as_ppi(example_scan)
 # plot the first scan parameter, which in this case is "VRADH":
 plot(ppi)
 # plot the reflectivity quantity:

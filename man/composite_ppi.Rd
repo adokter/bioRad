@@ -28,6 +28,6 @@ datum.
 }
 \examples{
 # load the example polar scan:
-data(SCAN)
+data(example_scan)
 # to be written ...
 }

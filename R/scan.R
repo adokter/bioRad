@@ -34,11 +34,11 @@
 #'
 #' @examples
 #' # load example scan object
-#' data(SCAN)
+#' data(example_scan)
 #' # print the scan parameters contained in the scan:
-#' SCAN$params
+#' example_scan$params
 #' # extract the first scan parameter:
-#' param <- SCAN$params[1]
+#' param <- example_scan$params[1]
 summary.scan <- function(object, ...) {
   print.scan(object)
 }
