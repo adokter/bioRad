@@ -334,3 +334,15 @@ sd_vvp <- function(...) {
   .Deprecated("rvsd<-")
   `rvsd<-`(...)
 }
+
+#' @name retrieve_vp_paths-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{retrieve_vp_paths}:
+#' Use \code{\link{select_vpfiles}} instead.
+#'
+#' @export
+retrieve_vp_paths <- function(...) {
+  .Deprecated("select_vpfiles")
+  select_vpfiles(...)
+}
