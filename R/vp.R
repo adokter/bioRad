@@ -90,11 +90,6 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
                               x$attributes$how$task_version), "\n")
 }
 
-quantityName = function(file,group){
-  whatgroup=h5readAttributes(file,paste(group,"/what",sep=""))
-  whatgroup$quantity
-}
-
 #' Convert a vertical profile (\code{vp}) to a Data Frame
 #'
 #' Converts a vertical profile to a Data Frame, and optionally adds information

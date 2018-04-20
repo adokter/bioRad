@@ -92,6 +92,11 @@ read_vpfiles <- function(files) {
   }
 }
 
+quantityName = function(file,group){
+  whatgroup=h5readAttributes(file,paste(group,"/what",sep=""))
+  whatgroup$quantity
+}
+
 read_odim_profile_data  <- function(file, group) {
   whatgroup <- h5readAttributes(file,sprintf("%s/what", group))
   nodata <- whatgroup$nodata
@@ -103,4 +108,3 @@ read_odim_profile_data  <- function(file, group) {
   data <- replace(data, data == undetect, NaN)
   offset + gain*data
 }
-
