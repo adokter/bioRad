@@ -9,46 +9,59 @@
   lat = NULL, lon = NULL, ...)
 }
 \arguments{
-\item{x}{object of class vp}
+\item{x}{An object of class \code{vp}.}
 
-\item{row.names}{\code{NULL} or a character vector giving the row names for the data frame. Missing values are not allowed.}
+\item{row.names}{\code{NULL} or a character vector giving the row names for
+the data frame. Missing values are not allowed.}
 
-\item{optional}{If \code{FALSE} then the names of the variables in the data frame are checked to ensure that they are syntactically valid variable names and are not duplicated.}
+\item{optional}{If \code{FALSE} then the names of the variables in the data
+frame are checked to ensure that they are syntactically valid variable names
+and are not duplicated.}
 
-\item{quantities}{an optional character vector with the names of the quantities to include as columns in the data frame}
+\item{quantities}{An optional character vector with the names of the
+quantities to include as columns in the data frame.}
 
-\item{suntime}{logical. When TRUE, adds sunrise/sunset and day/night information to each row}
+\item{suntime}{Logical, when \code{TRUE}, adds sunrise/sunset and day/night
+information to each row.}
 
-\item{geo}{logical. When TRUE, adds latitude, longitude and antenna height of the radar to each row}
+\item{geo}{Logical, when \code{TRUE}, adds latitude, longitude and antenna
+height of the radar to each row.}
 
-\item{elev}{sun elevation in degrees, see \link{suntime}.}
+\item{elev}{Sun elevation in degrees, see \link{suntime}.}
 
-\item{lat}{radar latitude in decimal degrees. When set, overrides the latitude stored in \code{x} in \link{suntime} calculations}
+\item{lat}{Radar latitude in decimal degrees. When set, overrides the
+latitude stored in \code{x} in \link{suntime} calculations}
 
-\item{lon}{radar longitude in decimal degrees. When set, overrides the longitude stored in \code{x} in \link{suntime} calculations}
+\item{lon}{Radar longitude in decimal degrees. When set, ove.rrides the
+longitude stored in \code{x} in \link{suntime} calculations.}
 
-\item{...}{additional arguments to be passed to or from methods.}
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
-an object of class data.frame
+An object of class \code{data.frame}.
 }
 \description{
-Converts a vertical profile to a Data Frame,
-and optionally adds information on sunrise/sunset, day/night and derived quantities
-like migration traffic rates.
+Converts a vertical profile to a Data Frame, and optionally adds information
+on sunrise/sunset, day/night and derived quantities like migration
+traffic rates.
 }
 \details{
-Note that only the 'dens' quantity is thresholded by the radial velocity standard deviation \link{sd_vvp}.
-Note that this is different from the default \link{plot.vp}, \link{plot.vpts} and \link{get_quantity.vp} functions, where
-quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}
+Note that only the "dens" quantity is thresholded by the radial velocity
+standard deviation \link{sd_vvp}. Note that this is different from the
+default \link{plot.vp}, \link{plot.vpts} and \link{get_quantity.vp}
+functions, where quantities "eta", "dbz", "ff", "u", "v", "w", "dd" are
+all thresholded by \link{sd_vvp}
 }
 \examples{
 # load an example vertical profile time series object
 data(example_vp)
+
 # convert the object to a data.frame
 df <- as.data.frame(example_vp)
+
 # do not compute sunrise/sunset information
 df <- as.data.frame(example_vp, suntime = FALSE)
+
 # override the latitude/longitude information stored in the object
 # when calculating sunrise / sunset
 df <- as.data.frame(example_vp, suntime = TRUE, lat = 50, lon = 4)
