@@ -2,14 +2,18 @@
 
 #' Calculate sunrise and sunset for a time and place
 #'
-#' @param lon longitude in decimal degrees
-#' @param lat latitude in decimal degrees
-#' @param date date inhereting from class "\code{POSIXt}" or a string
-#' interpretable by \link[base]{as.Date}
-#' @param elev sun elevation in degrees
-#' @param rise whether to output for rising or setting sun
+#' @param lon Longitude in decimal degrees.
+#' @param lat Latitude in decimal degrees.
+#' @param date Date inhereting from class \code{POSIXt} or a string
+#' interpretable by \link[base]{as.Date}.
+#' @param elev Sun elevation in degrees.
+#' @param rise Whether to output for rising (\code{TRUE}) or setting
+#' (\code{FALSE}) sun.
+#'
+#' @return The moment of sunrise or sunset in UTC time.
+#'
 #' @export
-#' @return the moment of sunrise or sunset in UTC time
+#'
 #' @details The angular diameter of the sun is about 0.536 degrees,
 #' therefore the moment of sunrise/sunset corresponds to half that elevation
 #' at -0.268 degrees.
@@ -91,3 +95,16 @@ suntime <- function(lon, lat, date, elev = -0.268, rise = TRUE) {
   output <- as.POSIXct(as.POSIXlt(dateOnly, tz = 'UTC')) + 3600 * hour
   return(output)
 }
+
+
+sunrise <- function(lon, lat, date, elev = -0.268) {
+  rise <- TRUE
+  suntime(lon, lat, date, elev, rise)
+}
+
+
+sunset <- function(lon, lat, date, elev = -0.268) {
+  rise <- FALSE
+  suntime(lon, lat, date, elev, rise)
+}
+
