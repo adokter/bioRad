@@ -74,15 +74,15 @@ get_quantity.vpts <- function(x, quantity = "dens") {
   rownames(output) <- x$heights
   colnames(output) <- as.character(x$dates)
   if (quantity == "eta") {
-    output[x$data$sd_vvp < sd_vvp(x)] <- 0
+    output[x$data$sd_vvp < rvsd(x)] <- 0
     return(output)
   }
   if (quantity == "dbz") {
-    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
+    output[x$data$sd_vvp < rvsd(x)] <- -Inf
     return(output)
   }
   if (quantity %in% c("ff", "u", "v", "w", "dd")) {
-    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
+    output[x$data$sd_vvp < rvsd(x)] <- NaN
     return(output)
   }
   return(output)
