@@ -2,45 +2,24 @@
 % Please edit documentation in R/sunrise_sunset.R
 \name{suntime}
 \alias{suntime}
-\title{Calculate sunrise and sunset for a time and place}
+\title{Helper function to caclulate sunrise or sunset}
 \usage{
 suntime(lon, lat, date, elev = -0.268, rise = TRUE)
 }
 \arguments{
-\item{lon}{longitude in decimal degrees}
+\item{lon}{Longitude in decimal degrees.}
 
-\item{lat}{latitude in decimal degrees}
+\item{lat}{Latitude in decimal degrees.}
 
-\item{date}{date inhereting from class "\code{POSIXt}" or a string
-interpretable by \link[base]{as.Date}}
+\item{date}{Date inhereting from class \code{POSIXt} or a string
+interpretable by \link[base]{as.Date}.}
 
-\item{elev}{sun elevation in degrees}
+\item{elev}{Sun elevation in degrees.}
 
-\item{rise}{whether to output for rising or setting sun}
-}
-\value{
-the moment of sunrise or sunset in UTC time
+\item{rise}{Whether to output for rising (\code{TRUE}) or setting
+(\code{FALSE}) sun.}
 }
 \description{
-Calculate sunrise and sunset for a time and place
-}
-\details{
-The angular diameter of the sun is about 0.536 degrees,
-therefore the moment of sunrise/sunset corresponds to half that elevation
-at -0.268 degrees.
-
-Note that for a given date and location, sunrise time can be after sunset
-time, depending on the time difference between the local time and the UTC
-time zone.
-
-Approximate astronomical formula are used, therefore the moment of
-sunrise / sunset may be off by a few minutes
-}
-\examples{
-# sunrise in the Netherlands
-suntime(5, 53, "2016-01-01")
-# sunset in the Netherlands
-suntime(5, 53, "2016-01-01", rise = FALSE)
-# civil twilight in Ithaca, NY, today
-suntime(-76.5, 42.4, Sys.time(), elev = -6)
+Use the \code{\link{sunrise}} or \code{\link{sunset}} functions. The current
+approach with rise = TRUE is kept for backward compatibility
 }
