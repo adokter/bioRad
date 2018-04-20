@@ -19,15 +19,15 @@
 #'
 #' @examples
 #' # load a polar scan example object
-#' data(SCAN)
-#' SCAN
+#' data(example_scan)
+#' example_scan
 #' # make PPIs for all scan parameters in the scan:
-#' ppi <- project_as_ppi(SCAN)
+#' ppi <- project_as_ppi(example_scan)
 #' # print summary info for the ppi:
 #' ppi
 #' # copy the first scan parameter of the first scan in the volume to a new
 #' # object 'param':
-#' param <- SCAN$params[[1]]
+#' param <- example_scan$params[[1]]
 #' # make a ppi for the new 'param' object:
 #' ppi <- project_as_ppi(param)
 #' # print summary info for this ppi:

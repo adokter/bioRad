@@ -33,14 +33,14 @@
 #'
 #' @examples
 #' # load an example scan:
-#' data(SCAN)
+#' data(example_scan)
 #' # print to screen the available scan parameters
-#' summary(SCAN)
+#' summary(example_scan)
 #' # make ppi for the scan
 #' # plot the reflectivity quantity:
-#' plot(SCAN, param = "DBZH")
+#' plot(example_scan, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
-#' plot(SCAN, param = "DBZH", zlim = c(-30, 50))
+#' plot(example_scan, param = "DBZH", zlim = c(-30, 50))
 plot.scan <- function(x, param, xlim = c(0, 100),
                       ylim = c(0, 360), zlim = c(-20, 20), ...) {
   stopifnot(inherits(x, "scan"))

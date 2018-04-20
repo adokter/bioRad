@@ -42,11 +42,11 @@
 #'
 #' @examples
 #' # vertically integrate a vpts object:
-#' vi.vpts <- integrate_profile(VPTS)
+#' vpi <- integrate_profile(example_vpts)
 #' # plot the migration traffic rates
-#' plot(vi.vpts)
+#' plot(vpi)
 #' # plot the vertically integrated densities, without night shading:
-#' plot(vi.vpts, quantity = "vid", nightshade = FALSE)
+#' plot(vpi, quantity = "vid", nightshade = FALSE)
 plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      ylab = "migration traffic rate [#/km/h]",
                      main = "MTR", nightshade = TRUE, elev = -0.268,

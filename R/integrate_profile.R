@@ -44,22 +44,22 @@
 #' @export
 #'
 #' @examples
-#' ### MTR for a single vertical profile ###
-#' integrate_profile(VP)
+#' # MTR for a single vertical profile
+#' integrate_profile(example_vp)
 #'
-#' ### MTRs for a list of vertical profiles ###
-#' integrate_profile(c(VP, VP))
+#' # MTRs for a list of vertical profiles
+#' integrate_profile(c(example_vp, example_vp))
 #'
-#' ### MTRs for a time series of vertical profiles ###
+#' # MTRs for a time series of vertical profiles
 #' # load example data:
-#' data(VPTS)
-#' VPTS
+#' data(example_vpts)
+#' example_vpts
 #' # print migration traffic rates
-#' vpi <- integrate_profile(VPTS)
+#' vpi <- integrate_profile(example_vpts)
 #' # plot migration traffic rates for the full air column
-#' plot(VPTS)
+#' plot(example_vpts)
 #' # plot migration traffic rates for altitudes > 1 km above sea level
-#' plot(integrate_profile(VPTS, alt.min = 1000))
+#' plot(integrate_profile(example_vpts, alt.min = 1000))
 integrate_profile <- function(x, alt.min, alt.max,
                               alpha = NA, interval.max = Inf) {
   UseMethod("integrate_profile", x)

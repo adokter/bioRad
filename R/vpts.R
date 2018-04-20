@@ -178,11 +178,11 @@ vptsHelper = function(vps){
 #' become visible in profile plots of regular time series using \link{plot.vpts}.
 #' @examples
 #' # locate example file:
-#' VPtable <- system.file("extdata", "VPtable.txt", package="bioRad")
+#' vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
 #' # load time series:
-#' ts=readvp.table(VPtable,radar="KBGM", wavelength='S')
+#' ts <- readvp.table(vptsfile, radar = "KBGM", wavelength = "S")
 #' # regularize the time series on a 5 minute interval grid
-#' tsRegular=regularize(ts, interval=5)
+#' tsRegular <- regularize(ts, interval = 5)
 regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(t.min, "POSIXct"))
@@ -241,14 +241,14 @@ regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[
 #' quantities "eta","dbz","ff","u","v","w","dd" are all thresholded by \link{sd_vvp}.
 #' @examples
 #' # load an example vertical profile time series object
-#' data(VPTS)
+#' data(example_vpts)
 #' # convert the object to a data.frame
-#' df=as.data.frame(VPTS)
+#' df <- as.data.frame(example_vpts)
 #' # do not compute sunrise/sunset information
-#' df=as.data.frame(VPTS,suntime=FALSE)
+#' df <- as.data.frame(example_vpts, suntime = FALSE)
 #' # override the latitude/longitude information stored in the object
 #' # when calculating sunrise / sunset
-#' df=as.data.frame(VPTS,suntime=TRUE,lat=50,lon=4)
+#' df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
 as.data.frame.vpts = function(x, row.names = NULL, optional = FALSE, quantities=names(x$data),suntime=TRUE,geo=TRUE, elev = -0.268, lat=NULL, lon=NULL, ...){
   stopifnot(inherits(x,"vpts"))
   if(!is.null(row.names)){

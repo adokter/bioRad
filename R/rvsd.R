@@ -6,7 +6,7 @@
 #' @return threshold for \code{sd_vvp} in m/s.
 #' @examples
 #' # extract threshold for a single vertical profile:
-#' sd_vvp(VP)
+#' sd_vvp(example_vp)
 sd_vvp <- function (x) UseMethod("sd_vvp", x)
 
 #' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard deviation of a vertical profile
@@ -40,7 +40,7 @@ sd_vvp.vpts <- function (x){
 #' @export
 #' @examples
 #' # change threshold for a single vertical profile:
-#' sd_vvp(VP)<-2
+#' sd_vvp(example_vp) <- 2
 `sd_vvp<-` <- function (x, value) UseMethod("sd_vvp<-", x)
 
 #' @rdname sd_vvp-set
