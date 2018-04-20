@@ -3,23 +3,24 @@
 #' Collect a list of vp file names within a directory that comply to the given
 #' country, radar and date range combination
 #'
-#' @param path main path to look into recusively
-#' @param start_date ISO format date as start of the vp file query
-#' @param end_date ISO format date as end of the vp file query
-#' @param country char vector with two letter country shortcuts
-#' @param radar char vector with three letter radar sindicators. This can be
-#' defined independently from the countries named.
+#' @param path Main path to look into recusively.
+#' @param start_date ISO format date as start of the vp file query.
+#' @param end_date ISO format date as end of the vp file query.
+#' @param country Character vector with two letter country shortcuts.
+#' @param radar Character vector with three letter radar sindicators. This
+#' can be defined independently from the countries named.
 #'
-#' @return char list of filenames that comply to the given radar/country and
-#' date range query
+#' @return Character list of filenames that comply to the given
+#' radar/country and date range query
 #'
-#' @importFrom lubridate as_date
 #' @export
+#' @importFrom lubridate as_date
+#'
 #' @examples
 #' my_path <- "~/my/directory/"
 #' select_vpfiles(my_path, "2016-10-01", "2017-01-31", c("be"))
 select_vpfiles <- function(path, start_date, end_date,
-                              country = NULL, radar = NULL) {
+                           country = NULL, radar = NULL) {
   if (is.null(country)) {country <- "([a-z]{2})"}
   if (is.null(radar)) {radar <- "([a-z]{3})"}
 
@@ -32,7 +33,9 @@ select_vpfiles <- function(path, start_date, end_date,
 
   datestring_to_check <- format(dates_to_check, "%Y%m%d")
   countryradar <- apply(expand.grid(country, radar), 1, paste,collapse = "")
-  countryradardate <- apply(expand.grid(countryradar, "_vp_", datestring_to_check), 1, paste, collapse = "")
+  countryradardate <- apply(expand.grid(countryradar, "_vp_",
+                                        datestring_to_check), 1, paste,
+                            collapse = "")
   match_filenames(filelist, paste(countryradardate, collapse = "|"))
 
 }
@@ -44,14 +47,14 @@ select_vpfiles <- function(path, start_date, end_date,
 #' wraps a grep to make it working on vectors by combining the vector of
 #' regex options as possible options
 #'
-#' @param filelist char list of filenames/filepaths
-#' @param regexlist char list of regex expressions to which the file names
-#' should comply
-#' @keywords internal
-#' @return char subset of filenames from the filelist that comply to any of the
-#' provided regex expressions
+#' @param filelist Character list of filenames/filepaths.
+#' @param regexlist Character list of regex expressions to which the file names
+#' should comply.
 #'
+#' @keywords internal
+#'
+#' @return Character subset of filenames from the filelist that comply to any
+#' of the provided regex expressions
 match_filenames <- function(filelist, regexlist) {
   grep(paste(regexlist, collapse = "|"), filelist, value = TRUE)
 }
-
