@@ -14,7 +14,7 @@
 #' In a regular \code{vpts} object the profiles are equally spaced in time.
 #' In an irregular \code{vpts} object the time steps between profiles are of unequal length.
 #'
-#' Irregular time series can be projected onto a regular time grid using the \link{regularize} function.
+#' Irregular time series can be projected onto a regular time grid using the \link{regularize_vpts} function.
 #'
 #' By contrast, in \link[=summary.vp]{vplist} objects the profiles have no time ordering, and can contain profiles of multiple radars.
 #'
@@ -29,7 +29,7 @@
 #'  \item{\code{daterange}}{the minimum and maximum nominal time of the profiles in the list}
 #'  \item{\code{timesteps}}{time differences between the profiles. Element \code{i} gives the time difference between profile \code{i} and \code{i+1}}
 #'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the vertical profiles for each quantity.
-#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{readvp}}
+#'                     For a description of available quantities, see the \code{data} element of the \code{vp} class in \link[=summary.vp]{read_vpfiles}}
 #'  \item{\code{attributes}}{profile attributes, copied from the first profile contained in \code{x}}
 #'  \item{\code{regular}}{logical indicating whether the time series is regular or not}
 #' }
@@ -103,7 +103,7 @@ vpts2vp <- function(x,i) {
 #' @rdname vpts
 #' @examples
 #' \dontrun{
-#' vps=readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+#' vps=read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
 #' ts=vpts(vps)
 #' }
 vpts = function(x,radar=NA){
@@ -158,64 +158,6 @@ vptsHelper = function(vps){
   output=list(radar=vps[[1]]$radar,dates=dates,heights=vps[[1]]$data$HGHT,daterange=.POSIXct(c(min(dates),max(dates)),tz="UTC"),timesteps=difftimes,data=vpsFlat,attributes=vps[[1]]$attributes,regular=regular)
   class(output)="vpts"
   output
-}
-
-#' Regularize a time series of vertical profiles (\code{vpts}) on a regular time grid
-#'
-#' Projects objects of class \code{vpts} on a regular time grid
-#' @param ts an object inhereting from class \code{vpts}, see \link{vpts} for details.
-#' @param interval time interval grid to project on. When '\code{auto}' the median interval in the time series is used.
-#' @param t.min start time of the projected time series, as a POSIXct object. Taken from \code{ts} when '\code{auto}'.
-#' @param t.max end time of the projected time series, as a POSIXct object. Taken from \code{ts} when '\code{auto}'.
-#' @param units optional units of \code{interval}, one of 'secs', 'mins', 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill logical. Whether to fill missing timesteps with the values of the closest neighbouring profile.
-#' @param verbose logical. When \code{TRUE} prints text to console.
-#' @export
-#' @return an object of class \code{vpts} with regular time steps
-#' @details Irregular time series of profiles are typically aligned on a regular time grid with the expected time interval
-#' at which a radar provides data. Empty profiles with only missing data values will be inserted at time stamps of the
-#' regular time grid that have no matching profile in the irregular time series. This also has the benefit that missing profiles
-#' become visible in profile plots of regular time series using \link{plot.vpts}.
-#' @examples
-#' # locate example file:
-#' vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
-#' # load time series:
-#' ts <- readvp.table(vptsfile, radar = "KBGM", wavelength = "S")
-#' # regularize the time series on a 5 minute interval grid
-#' tsRegular <- regularize(ts, interval = 5)
-regularize=function(ts,interval="auto",t.min=ts$daterange[1],t.max=ts$daterange[2],units="mins",fill=F,verbose=T){
-  stopifnot(inherits(ts, "vpts"))
-  stopifnot(inherits(t.min, "POSIXct"))
-  stopifnot(inherits(t.max, "POSIXct"))
-  if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) stop("invalid 'units' argument. Should be one of c('secs', 'mins', 'hours','days', 'weeks')")
-  if (interval!="auto" && !is.numeric(interval)) stop("invalid or missing 'interval' argument. Should be a numeric value")
-  if (length(units)>1) stop("invalid or missing 'units' argument.")
-  if (!is.logical(fill) || length(fill)>1) stop("fill argument should be a logical value")
-
-  if(interval=="auto"){
-    dt=as.difftime(median(ts$timesteps),units="secs")
-    if(verbose) cat(paste("projecting on",dt,"seconds interval grid...\n"))
-  }
-  else dt=as.difftime(interval,units=units)
-  daterange=c(t.min,t.max)
-  grid=seq(from=daterange[1],to=daterange[2],by=dt)
-  index=sapply(grid,function(x) which.min(abs(ts$dates - x)))
-  quantity.names=names(ts$data)
-  ts$data=lapply(1:length(ts$data),function(x) ts$data[[x]][,index])
-  if(!fill){
-    index2=which(abs(ts$dates[index] - grid)>as.double(dt,units="secs"))
-    ts$data=lapply(1:length(ts$data),function(x) {
-      tmp=ts$data[[x]]
-      tmp[,index2]<-NA
-      tmp
-    }
-    )
-  }
-  names(ts$data)=quantity.names
-  ts$dates=grid
-  ts$timesteps=rep(as.double(dt,units="secs"),length(grid)-1)
-  ts$regular=T
-  return(ts)
 }
 
 #' Convert a time series of vertical profiles (\code{vpts}) to a Data Frame

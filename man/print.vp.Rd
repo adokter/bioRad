@@ -7,7 +7,7 @@
 \method{print}{vp}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
-\item{x}{An object of class \code{vp}, like the result of a call to \link[=summary.vp]{readvp}}
+\item{x}{An object of class \code{vp}, like the result of a call to \link[=summary.vp]{read_vpfiles}}
 }
 \description{
 print method for class \code{vp}

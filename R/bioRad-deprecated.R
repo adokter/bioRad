@@ -159,7 +159,7 @@ basemap <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{download_vp}:
-#' Use \code{\link{download_vpfiles}} instead.
+#' Use \code{\link{download_vpfiles}} instead.g
 #'
 #' @export
 download_vp <- function(...) {
@@ -261,4 +261,52 @@ h5ODIMobject <- function(...) {
 read.pvol <- function(...) {
   .Deprecated("read_pvolfile")
   read_pvolfile(...)
+}
+
+#' @name readvp-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{readvp}:
+#' Use \code{\link{read_vpfiles}} instead.
+#'
+#' @export
+readvp <- function(...) {
+  .Deprecated("read_vpfiles")
+  read_vpfiles(...)
+}
+
+#' @name readvp.list-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{readvp.list}:
+#' Use \code{\link{read_vpfiles}} instead.
+#'
+#' @export
+readvp.list <- function(...) {
+  .Deprecated("read_vpfiles")
+  read_vpfiles(...)
+}
+
+#' @name readvp.table-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{readvp.table}:
+#' Use \code{\link{read_vpts}} instead.
+#'
+#' @export
+readvp.table <- function(...) {
+  .Deprecated("read_vpts")
+  read_vpts(...)
+}
+
+#' @name regularize-deprecated
+#' @rdname bioRad-deprecated
+#'
+#' @section \code{regularize}:
+#' Use \code{\link{regularize_vpts}} instead.
+#'
+#' @export
+regularize <- function(...) {
+  .Deprecated("regularize_vpts")
+  regularize_vpts(...)
 }

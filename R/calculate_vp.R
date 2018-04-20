@@ -292,7 +292,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   }
 
   # read output into a vp object
-  output <- readvp(profile.tmp)
+  output <- read_vpfiles(profile.tmp)
 
   # clean up
   if (vp.out == "") {

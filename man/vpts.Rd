@@ -20,7 +20,7 @@ Bind vertical profiles (\code{vp}) into time series (\code{vpts}) DEPRECATED
 }
 \examples{
 \dontrun{
-vps=readvp(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+vps=read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
 ts=vpts(vps)
 }
 }
