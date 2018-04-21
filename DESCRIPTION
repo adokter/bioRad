@@ -18,9 +18,11 @@ Authors@R: c(
   person("Lourens", "Veen", role = c("ctb"),
     email = "l.veen@esciencecenter.nl"),
   person("Liesbeth", "Verlinden", role = c("ctb"),
-    email = "l.verlinden@uva.nl"),
+    email = "l.verlinden@uva.nl",
+    comment = "https://orcid.org/0000-0003-1744-9325"),
   person("Hidde", "Leijnse", role = c("ctb"),
-    email = "hidde.leijnse@knmi.nl"))
+    email = "hidde.leijnse@knmi.nl",
+    comment = "https://orcid.org/0000-0001-7835-4480"))
 Depends: R (>= 2.10)
 License: MIT + file LICENSE
 LazyData: true

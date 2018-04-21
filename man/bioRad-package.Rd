@@ -132,8 +132,8 @@ Other contributors:
   \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (http://orcid.org/0000-0001-6413-3185) [contributor]
   \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
   \item Lourens Veen \email{l.veen@esciencecenter.nl} [contributor]
-  \item Liesbeth Verlinden \email{l.verlinden@uva.nl} [contributor]
-  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} [contributor]
+  \item Liesbeth Verlinden \email{l.verlinden@uva.nl} (https://orcid.org/0000-0003-1744-9325) [contributor]
+  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} (https://orcid.org/0000-0001-7835-4480) [contributor]
 }
 
 }
