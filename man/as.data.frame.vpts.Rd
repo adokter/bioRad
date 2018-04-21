@@ -27,13 +27,13 @@ information to each row.}
 \item{geo}{Logical, when TRUE, adds latitude, longitude and antenna height
 of the radar to each row.}
 
-\item{elev}{Sun elevation in degrees, see \link{suntime}.}
+\item{elev}{Sun elevation in degrees, see \link{sunrise}/\link{sunset}.}
 
 \item{lat}{Radar latitude in decimal degrees. When set, overrides the
-latitude stored in \code{x} in \link{suntime} calculations.}
+latitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations.}
 
 \item{lon}{Radar longitude in decimal degrees. When set, overrides the
-longitude stored in \code{x} in \link{suntime} calculations.}
+longitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations.}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }

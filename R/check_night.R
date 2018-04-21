@@ -44,8 +44,8 @@ check_night <- function(x, ..., elev = -0.268) {
 #'
 #' @export
 check_night.default <- function(lon, lat, date, elev = -0.268){
-  trise <- suntime(lon, lat, date, elev, rise = TRUE)
-  tset <- suntime(lon, lat, date, elev, rise = FALSE)
+  trise <- sunrise(lon, lat, date, elev)
+  tset <- sunset(lon, lat, date, elev)
   output <- rep(NA, length(date))
   itsday <- (date > trise & date < tset)
   output[trise < tset] <- itsday[trise < tset]

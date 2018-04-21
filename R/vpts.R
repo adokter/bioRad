@@ -168,11 +168,11 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' and are not duplicated.
 #' @param quantities An optional character vector with the names of the
 #' quantities to include as columns in the data frame.
-#' @param elev Sun elevation in degrees, see \link{suntime}.
+#' @param elev Sun elevation in degrees, see \link{sunrise}/\link{sunset}.
 #' @param lat Radar latitude in decimal degrees. When set, overrides the
-#' latitude stored in \code{x} in \link{suntime} calculations.
+#' latitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations.
 #' @param lon Radar longitude in decimal degrees. When set, overrides the
-#' longitude stored in \code{x} in \link{suntime} calculations.
+#' longitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations.
 #' @param suntime Logical, when TRUE, adds sunrise/sunset and day/night
 #' information to each row.
 #' @param geo Logical, when TRUE, adds latitude, longitude and antenna height
@@ -253,8 +253,8 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
     dayQ <- !check_night(x, elev = elev)
     dayQ <- c(t(replicate(length(x$heights), dayQ)))
     output <- cbind(output, day = dayQ)
-    sunrise <- suntime(x$dates, lat = lat, lon = lon, rise = TRUE)
-    sunset <- suntime(x$dates, lat = lat, lon = lon, rise = FALSE)
+    sunrise <- sunrise(x$dates, lat = lat, lon = lon)
+    sunset <- sunset(x$dates, lat = lat, lon = lon)
     output$sunrise <- as.POSIXct(
       c(t(replicate(length(x$heights), sunrise))),
       origin = "1970-1-1", tz = 'UTC')
