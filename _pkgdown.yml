@@ -4,24 +4,9 @@ navbar:
   left:
   - text: Functions
     href: reference/index.html
-  - text: Tutorials
-    href: articles/index.html
-    menu:
-    - text: Create PPI plots from polar volume files
-      href: articles/intro_ppi.html
-    - text: Load bird profiles into bioRad from ENRAM data repository
-      href: articles/intro_vp.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/adokter/bioRad
-
-articles:
-  - title: "Create PPI plots from polar volume files"
-    contents:
-    - intro_ppi
-  - title: "Load bird profiles into bioRad from ENRAM data repository"
-    contents:
-    - intro_vp
 
 template:
   params:
