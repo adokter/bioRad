@@ -120,37 +120,37 @@ The functions listed below are deprecated or renamed and will be defunct in
 the near future. When possible, alternative functions with similar
 functionality are mentioned.
 }
-\section{\code{basemap}}{
+\section{basemap}{
 
 Use \code{\link{download_basemap}} instead.
 }
 
-\section{\code{beamheight}}{
+\section{beamheight}{
 
 Use \code{\link{beam_height}} instead.
 }
 
-\section{\code{beamwidth}}{
+\section{beamwidth}{
 
 Use \code{\link{beam_width}} instead.
 }
 
-\section{\code{bind}}{
+\section{bind}{
 
 Use \code{\link{bind_into_vpts}} instead.
 }
 
-\section{\code{checkDocker}}{
+\section{checkDocker}{
 
 Use \code{\link{check_docker}} instead.
 }
 
-\section{\code{composite}}{
+\section{composite}{
 
 Use \code{\link{composite_ppi}} instead.
 }
 
-\section{\code{cmt}}{
+\section{cmt}{
 
 \code{\link{cmt}} is deprecated as a separate function. Cumulative migration
 traffic is now included in the output of \code{\link{integrate_profile}} as
@@ -158,157 +158,157 @@ column \code{mt}, which can be summed to get the cumulative migration
 traffic.
 }
 
-\section{\code{day}}{
+\section{day}{
 
 Use \code{\link{check_night}} instead.
 }
 
-\section{\code{dbz2eta}}{
+\section{dbz2eta}{
 
 Use \code{\link{dbz_to_eta}} instead.
 }
 
-\section{\code{download_vp}}{
+\section{download_vp}{
 
 Use \code{\link{download_vpfiles}} instead.
 }
 
-\section{\code{elangle}}{
+\section{elangle}{
 
 Use \code{\link{get_angles}} instead.
 }
 
-\section{\code{eta2dbz}}{
+\section{eta2dbz}{
 
 Use \code{\link{eta_to_dbz}} instead.
 }
 
-\section{\code{fetch}}{
+\section{fetch}{
 
 Use \code{\link{get_quantity}} instead.
 }
 
-\section{\code{getscan}}{
+\section{getscan}{
 
 Use \code{\link{get_scan}} instead.
 }
 
-\section{\code{h5ODIMobject}}{
+\section{h5ODIMobject}{
 
 Use \code{\link{get_odim_object_type}} instead.
 }
 
-\section{\code{is.vplist}}{
+\section{is.vplist}{
 
 The \code{vplist} object is deprecated. Use a regular list of \code{vp}
 objects (\code{c(vp, vp))} instead.
 }
 
-\section{\code{mt}}{
+\section{mt}{
 
 \code{\link{mt}} is deprecated as a separate function. Migration traffic
 is now included in the output of \code{\link{integrate_profile}} as
 column \code{mt}.
 }
 
-\section{\code{mtr}}{
+\section{mtr}{
 
 \code{\link{mtr}} is deprecated as a separate function. Migration traffic
 rate is now included in the output of \code{\link{integrate_profile}} as
 column \code{mtr}.
 }
 
-\section{\code{night}}{
+\section{night}{
 
 Use \code{\link{check_night}} instead.
 }
 
-\section{\code{ppi}}{
+\section{ppi}{
 
 Use \code{\link{project_as_ppi}} instead.
 }
 
-\section{\code{read.pvol}}{
+\section{read.pvol}{
 
 Use \code{\link{read_pvolfile}} instead.
 }
 
-\section{\code{readvp}}{
+\section{readvp}{
 
 Use \code{\link{read_vpfiles}} instead.
 }
 
-\section{\code{readvp.list}}{
+\section{readvp.list}{
 
 Use \code{\link{read_vpfiles}} instead.
 }
 
-\section{\code{readvp.table}}{
+\section{readvp.table}{
 
 Use \code{\link{read_vpts}} instead.
 }
 
-\section{\code{regularize}}{
+\section{regularize}{
 
 Use \code{\link{regularize_vpts}} instead.
 }
 
-\section{\code{retrieve_vp_paths}}{
+\section{retrieve_vp_paths}{
 
 Use \code{\link{select_vpfiles}} instead.
 }
 
-\section{\code{rsl2odim}}{
+\section{rsl2odim}{
 
 Use \code{\link{nexrad_to_odim}} instead.
 }
 
-\section{\code{sd_vvp}}{
+\section{sd_vvp}{
 
 Use \code{\link{rvsd}} instead.
 }
 
-\section{\code{sd_vvp<-}}{
+\section{sd_vvp<-}{
 
 Use \code{\link{rvsd<-}} instead.
 }
 
-\section{\code{suntime}}{
+\section{suntime}{
 
 Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
 }
 
-\section{\code{updateDocker}}{
+\section{updateDocker}{
 
 Use \code{\link{update_docker}} instead.
 }
 
-\section{\code{vintegrate}}{
+\section{vintegrate}{
 
 Use \code{\link{integrate_profile}} instead.
 }
 
-\section{\code{vol2bird}}{
+\section{vol2bird}{
 
 Use \code{\link{calculate_vp}} instead.
 }
 
-\section{\code{vpts}}{
+\section{vpts}{
 
 Use \code{\link{bind_to_vpts}} instead.
 }
 
-\section{\code{SCAN}}{
+\section{SCAN}{
 
 Use \code{\link{example_scan}} instead.
 }
 
-\section{\code{VP}}{
+\section{VP}{
 
 Use \code{\link{example_vp}} instead.
 }
 
-\section{\code{VPTS}}{
+\section{VPTS}{
 
 Use \code{\link{example_vpts}} instead.
 }
