@@ -18,17 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Set radar cross section — rcs&lt;-" />
-
-<meta property="og:description" content="Sets the assumed radar cross section in cm^2. This method also updates the migration densities in x$data$dens" />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -94,11 +90,11 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Set radar cross section</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
     </div>
 
     
-    <p>Sets the assumed radar cross section in cm^2. This method also updates the migration densities in <code>x$data$dens</code></p>
+    <p>Sets the assumed radar cross section in cm^2. This method also updates
+the migration densities in <code>x$data$dens</code></p>
     
 
     <pre class="usage"><span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
@@ -106,13 +102,13 @@
 <span class='co'># S3 method for vp</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
-<span class='co'># S3 method for vplist</span>
+<span class='co'># S3 method for list</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
 <span class='co'># S3 method for vpts</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
-<span class='co'># S3 method for vivp</span>
+<span class='co'># S3 method for vpi</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -120,7 +116,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code>vp</code>, <code>vplist</code> or <code>vpts</code> object</p></td>
+      <td><p>a <code>vp</code>, list of <code>vp</code> or <code>vpts</code> object</p></td>
     </tr>
     <tr>
       <th>value</th>
@@ -130,10 +126,8 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># change RCS for a single vertical profile:</span>
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>VP</span>)<span class='kw'>&lt;-</span><span class='fl'>20</span>
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='co'># change RCS for a single vertical profile:</span>
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>20</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -152,7 +146,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -160,4 +154,3 @@
 
   </body>
 </html>
-

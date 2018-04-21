@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class 'scan': polar scan — summary.scan • bioRad</title>
+<title>Object of class <code>scan</code>: a scan of a polar volume — summary.scan • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,17 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Class 'scan': polar scan — summary.scan" />
-
-<meta property="og:description" content="Class 'scan': polar scan" />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -93,12 +89,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class 'scan': polar scan</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.ppi.R'><code>R/bioRad.ppi.R</code></a></small>
+    <h1>Object of class <code>scan</code>: a scan of a polar volume</h1>
     </div>
 
     
-    <p>Class 'scan': polar scan</p>
+    <p>Object of class <code>scan</code>: a scan of a polar volume</p>
     
 
     <pre class="usage"><span class='co'># S3 method for scan</span>
@@ -114,51 +109,84 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>object of class 'scan'</p></td>
+      <td><p>Object of class <code>scan</code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments affecting the summary produced.</p></td>
+      <td><p>Additional arguments affecting the summary produced.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>object of class 'scan'</p></td>
+      <td><p>Object of class <code>scan</code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>for <code>is.scan</code>: <code>TRUE</code> if its argument is of class "<code>scan</code>"</p>
-<p>for <code>dim.scan</code>: dimensions of the scan</p>
+    <p>For <code>is.scan</code>: <code>TRUE</code> if its argument is of
+class <code>scan</code>.</p>
+<p>For <code>dim.scan</code>: dimensions of the scan.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A polar scan object of class 'scan' is a list containing:</p><dl class='dl-horizontal'>
+    <p>A polar scan object of class <code>scan</code> is a list containing:</p><dl class='dl-horizontal'>
+ <dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
+ <dt><code>datetime</code></dt><dd><p>nominal time of the volume to which this
+   scan belongs [UTC]</p></dd>
  <dt><code>params</code></dt><dd><p>a list with scan parameters</p></dd>
- <dt><code>attributes</code></dt><dd><p>list with the scans's <code>\what</code>, <code>\where</code> and <code>\how</code> attributes</p></dd>
+ <dt><code>attributes</code></dt><dd><p>list with the scans's <code>\what</code>,
+   <code>\where</code> and <code>\how</code> attributes</p></dd>
  <dt><code>geo</code></dt><dd><p>geographic data, a list with:
     <dl class='dl-horizontal'>
      <dt><code>lat</code></dt><dd><p>latitude of the radar [decimal degrees]</p></dd>
      <dt><code>lon</code></dt><dd><p>longitude of the radar [decimal degrees]</p></dd>
-     <dt><code>height</code></dt><dd><p>height of the radar antenna [metres above sea level]</p></dd>
+     <dt><code>height</code></dt><dd><p>height of the radar
+       antenna [metres above sea level]</p></dd>
      <dt><code>elangle</code></dt><dd><p>radar beam elevation [degrees]</p></dd>
      <dt><code>rscale</code></dt><dd><p>range bin size [m]</p></dd>
      <dt><code>ascale</code></dt><dd><p>azimuth bin size [deg]</p></dd>
     </dl>
-    The <code>geo</code> element of a 'scan' object is a copy of the <code>geo</code> element of its parent polar volume of class 'pvol'.</p></dd>
+    The <code>geo</code> element of a <code>scan</code> object is a copy of the
+    <code>geo</code> element of its parent polar volume of class <code>pvol</code>.</p></dd>
 </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># load example scan object</span>
-<span class='fu'>data</span>(<span class='no'>SCAN</span>)
+    <pre class="examples"><div class='input'><span class='co'># load example scan object</span>
+<span class='fu'>data</span>(<span class='no'>example_scan</span>)
 <span class='co'># print the scan parameters contained in the scan:</span>
-<span class='no'>SCAN</span>$<span class='no'>params</span>
-<span class='co'># extract the first scan parameter:</span>
-<span class='no'>param</span><span class='kw'>=</span><span class='no'>SCAN</span>$<span class='no'>params</span>[<span class='fl'>1</span>]
-<span class='fu'>is.scan</span>(<span class='st'>"this is not a polar scan but a string"</span>)  <span class='co'>#&gt; FALSE</span>
-<span class='co'># }</span></pre>
+<span class='no'>example_scan</span>$<span class='no'>params</span></div><div class='output co'>#&gt; $VRADH
+#&gt;                Polar scan parameter (class param)
+#&gt; 
+#&gt;     quantity:  VRADH 
+#&gt;         dims:  480 bins x 360 rays
+#&gt; 
+#&gt; $DBZH
+#&gt;                Polar scan parameter (class param)
+#&gt; 
+#&gt;     quantity:  DBZH 
+#&gt;         dims:  480 bins x 360 rays
+#&gt; 
+#&gt; $ZDR
+#&gt;                Polar scan parameter (class param)
+#&gt; 
+#&gt;     quantity:  ZDR 
+#&gt;         dims:  480 bins x 360 rays
+#&gt; 
+#&gt; $RHOHV
+#&gt;                Polar scan parameter (class param)
+#&gt; 
+#&gt;     quantity:  RHOHV 
+#&gt;         dims:  480 bins x 360 rays
+#&gt; 
+#&gt; $PHIDP
+#&gt;                Polar scan parameter (class param)
+#&gt; 
+#&gt;     quantity:  PHIDP 
+#&gt;         dims:  480 bins x 360 rays
+#&gt; </div><div class='input'><span class='co'># extract the first scan parameter:</span>
+<span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='no'>example_scan</span>$<span class='no'>params</span>[<span class='fl'>1</span>]
+<span class='fu'>is.scan</span>(<span class='st'>"this is not a polar scan but a string"</span>)  <span class='co'>#&gt; FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -189,4 +217,3 @@
 
   </body>
 </html>
-

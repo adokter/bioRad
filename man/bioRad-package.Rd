@@ -117,8 +117,8 @@ of individuals passing a radar station in a certain time period
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://adokter.github.io/bioRad}
   \item \url{https://github.com/adokter/bioRad}
+  \item \url{https://adokter.github.io/bioRad}
   \item Report bugs at \url{https://github.com/adokter/bioRad/issues}
 }
 

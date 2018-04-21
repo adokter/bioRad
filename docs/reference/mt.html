@@ -18,21 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Migration traffic — mt" />
-
-<meta property="og:description" content="Total migration traffic, which is calculated by time-integration
-of migration traffic rates. Migration traffic gives the number of individuals
-that have passed per km perpendicular to the migratory direction at the
-position of the radar for the full period of the time series
-within the specified altitude band." />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -98,7 +90,6 @@ within the specified altitude band." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Migration traffic</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
     </div>
 
     
@@ -109,7 +100,7 @@ position of the radar for the full period of the time series
 within the specified altitude band.</p>
     
 
-    <pre class="usage"><span class='fu'>mt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>mt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -130,6 +121,11 @@ within the specified altitude band.</p>
       <th>alpha</th>
       <td><p>(optional) migratory direction of interest in clockwise degrees from north, otherwise <code>NA</code></p></td>
     </tr>
+    <tr>
+      <th>interval.max</th>
+      <td><p>maximum time interval belonging to a single profile in seconds. Traffic rates are
+set to zero at times <code>t</code> for which no profiles can be found within the period <code>t-interval.max/2</code> to <code>t+interval.max/2</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -138,15 +134,24 @@ within the specified altitude band.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># get example time series object</span>
-<span class='fu'>data</span>(<span class='no'>VPTS</span>)
-<span class='no'>VPTS</span>
-<span class='co'># total migration traffic in full altitude band</span>
-<span class='fu'>mt</span>(<span class='no'>VPTS</span>)
-<span class='co'># total migration traffic in 0-1000 meter band</span>
-<span class='fu'>mt</span>(<span class='no'>VPTS</span>,<span class='kw'>alt.min</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>alt.max</span><span class='kw'>=</span><span class='fl'>1000</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='co'># get example time series object:</span>
+<span class='fu'>data</span>(<span class='no'>example_vpts</span>)
+<span class='no'>example_vpts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  6135 
+#&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-30 23:58:00 
+#&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'><span class='co'># total migration traffic in full altitude band</span>
+<span class='fu'>mt</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' is deprecated.</span>
+#&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
+#&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; [1] 717536.2</div><div class='input'><span class='co'># total migration traffic in 0-1000 meter band</span>
+<span class='fu'>mt</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' is deprecated.</span>
+#&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
+#&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; [1] 594508.7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -167,7 +172,7 @@ within the specified altitude band.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -175,4 +180,3 @@ within the specified altitude band.</p>
 
   </body>
 </html>
-
