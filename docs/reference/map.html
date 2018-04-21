@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -194,11 +179,11 @@ model (ODIM), see Table 16 in the
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
 <span class='co'># grab a basemap that matches the extent of the ppi:</span>
 <span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=56.364844,12.861212&amp;zoom=9&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</span></div><div class='input'><span class='co'># map the radial velocity scan parameter onto the basemap:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># extend the plotting range of velocities, from -50 to 50 m/s:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>50</span>, <span class='fl'>50</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># give the data less transparency:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># change the appearance of the symbol indicating the radar location:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>radar.size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>radar.color</span> <span class='kw'>=</span> <span class='st'>"green"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># crop the map:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12.4</span>, <span class='fl'>13.2</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>56</span>, <span class='fl'>56.5</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-10.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># extend the plotting range of velocities, from -50 to 50 m/s:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>50</span>, <span class='fl'>50</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># give the data less transparency:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># change the appearance of the symbol indicating the radar location:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>radar.size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>radar.color</span> <span class='kw'>=</span> <span class='st'>"green"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># crop the map:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12.4</span>, <span class='fl'>13.2</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>56</span>, <span class='fl'>56.5</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-5.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

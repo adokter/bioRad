@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -93,11 +78,11 @@
     </div>
 
     
-    <p>Total migration traffic, which is calculated by time-integration
-of migration traffic rates. Migration traffic gives the number of individuals
+    <p>Total migration traffic, which is calculated by time-integration of
+migration traffic rates. Migration traffic gives the number of individuals
 that have passed per km perpendicular to the migratory direction at the
-position of the radar for the full period of the time series
-within the specified altitude band.</p>
+position of the radar for the full period of the time series within the
+specified altitude band.</p>
     
 
     <pre class="usage"><span class='fu'>mt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
@@ -107,51 +92,46 @@ within the specified altitude band.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an object inhereting from class '<code>vpts</code>'</p></td>
-    </tr>
-    <tr>
-      <th>alt.min</th>
-      <td><p>minimum altitude in m</p></td>
-    </tr>
-    <tr>
-      <th>alt.max</th>
-      <td><p>maximum altitude in m</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>(optional) migratory direction of interest in clockwise degrees from north, otherwise <code>NA</code></p></td>
+      <td><p>A <code>vpts</code>.</p></td>
     </tr>
     <tr>
       <th>interval.max</th>
-      <td><p>maximum time interval belonging to a single profile in seconds. Traffic rates are
-set to zero at times <code>t</code> for which no profiles can be found within the period <code>t-interval.max/2</code> to <code>t+interval.max/2</code>.</p></td>
+      <td><p>Maximum time interval belonging to a single profile in
+seconds. Traffic rates are set to zero at times <code>t</code> for which no
+profiles can be found within the period <code>t-interval.max/2</code> to
+<code>t+interval.max/2</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a numeric value equal to migration traffic in number of individuals / km</p>
+    <p>A numeric value equal to migration traffic in number of
+individuals / km.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='bioRad-deprecated.html'>bioRad-deprecated</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># get example time series object:</span>
+    <pre class="examples"><div class='input'><span class='co'># get example time series of vertical profiles:</span>
 <span class='fu'>data</span>(<span class='no'>example_vpts</span>)
 <span class='no'>example_vpts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
 #&gt; 
 #&gt;            radar:  KBGM 
 #&gt;       # profiles:  6135 
 #&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-30 23:58:00 
-#&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'><span class='co'># total migration traffic in full altitude band</span>
+#&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'><span class='co'># total migration traffic in full altitude band:</span>
 <span class='fu'>mt</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' is deprecated.</span>
 #&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Migration traffic is now included in the output of integrate_profile() as column 'mt'.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
 #&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; [1] 717536.2</div><div class='input'><span class='co'># total migration traffic in 0-1000 meter band</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Cumulative migration traffic is now included in the output of integrate_profile() as column 'mt' (summed).</span></div><div class='output co'>#&gt; [1] 717536.2</div><div class='input'><span class='co'># total migration traffic in 0-1000 meter band:</span>
 <span class='fu'>mt</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' is deprecated.</span>
 #&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'mt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Migration traffic is now included in the output of integrate_profile() as column 'mt'.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
 #&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' has been moved to the 'mt' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; [1] 594508.7</div></pre>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Cumulative migration traffic is now included in the output of integrate_profile() as column 'mt' (summed).</span></div><div class='output co'>#&gt; [1] 594508.7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -159,6 +139,8 @@ set to zero at times <code>t</code> for which no profiles can be found within th
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

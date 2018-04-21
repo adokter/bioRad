@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -94,7 +79,8 @@
 
     
     <p>Migration traffic rate (MTR) for an altitude layer, defined as the
-number of targets crossing a 1 km line perpendicular to the migratory movement per hour</p>
+number of targets crossing a 1 km line perpendicular to the migratory
+movement per hour.</p>
     
 
     <pre class="usage"><span class='fu'>mtr</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
@@ -108,53 +94,61 @@ number of targets crossing a 1 km line perpendicular to the migratory movement p
     </tr>
     <tr>
       <th>alt.min</th>
-      <td><p>minimum altitude in m</p></td>
+      <td><p>Minimum altitude in m.</p></td>
     </tr>
     <tr>
       <th>alt.max</th>
-      <td><p>maximum altitude in m</p></td>
+      <td><p>Maximum altitude in m.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>(optional) migratory direction of interest in clockwise degrees from north, otherwise <code>NA</code></p></td>
+      <td><p>(optional) migratory direction of interest in clockwise degrees
+from north, otherwise <code>NA</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an atomic vector of migration traffic rates in individuals/km/hour</p>
+    <p>An atomic vector of migration traffic rates in individuals/km/hour.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Migration traffic rate (MTR) for an altitude layer is a flux measure, defined as the
-number of targets crossing a unit of transect per hour.</p>
-<p>The transect direction is set by the angle <code>alpha</code>. When <code>alpha=NA</code>,
-the transect runs perpendicular to the measured migratory direction. <code>mtr</code> then equals the
-number of crossing targets per km transect per hour, for a transect kept perpendicular to the
-measured migratory movement at all times and altitudes. In this case <code>mtr</code> is always a positive quantity,
-defined as:
-$$mtr = \sum_i dens_i ff_i \Delta h$$
-with the sum running over all altitude layers between <code>alt.min</code> and <code>alt.max</code>, \(dens_i\) the bird density,
-\(ff_i\) the ground speed at altitude layer i, and \(\Delta h\) the altitude layer width.</p>
-<p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular to
-the direction <code>alpha</code>, and the number of crossing targets per hour per
-km transect is calculated as:
+    <p>Migration traffic rate (MTR) for an altitude layer is a flux measure, defined
+as the number of targets crossing a unit of transect per hour.</p>
+<p>The transect direction is set by the angle <code>alpha</code>. When
+<code>alpha=NA</code>, the transect runs perpendicular to the measured migratory
+direction. <code>mtr</code> then equals the number of crossing targets per km
+transect per hour, for a transect kept perpendicular to the measured
+migratory movement at all times and altitudes. In this case <code>mtr</code> is
+always a positive quantity, defined as:
+    $$mtr = \sum_i dens_i ff_i \Delta h$$</p>
+<p>with the sum running over all altitude layers between <code>alt.min</code> and
+<code>alt.max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
+altitude layer i, and \(\Delta h\) the altitude layer width.</p>
+<p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
+to the direction <code>alpha</code>, and the number of crossing targets per hour
+per km transect is calculated as:
     $$mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h$$
 with \(dd_i\) the migratory direction at altitude i.</p>
-<p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
-In this definition <code>mtr</code> is a traditional flux into a direction of interest.
-Targets moving into the direction <code>alpha</code> contribute positively to <code>mtr</code>, while targets moving in the
-opposite direction contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be both positive or negative,
-depending on the definition of alpha.</p>
+<p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).</p>
+<p>In this definition <code>mtr</code> is a traditional flux into a direction of
+interest. Targets moving into the direction <code>alpha</code> contribute
+positively to <code>mtr</code>, while targets moving in the opposite direction
+contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be both
+positive or negative, depending on the definition of alpha.</p>
 <p>This is a wrapper function for <a href='integrate_profile.html'>integrate_profile</a>, extracting only the
 migration traffic rate data.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='bioRad-deprecated.html'>bioRad-deprecated</a></code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>### MTR for a single vertical profile ###</span>
+    <pre class="examples"><div class='input'><span class='co'># MTR for a single vertical profile:</span>
 <span class='fu'>mtr</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'mtr' is deprecated.</span>
 #&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'mtr' has been moved to the 'mtr' column in the output of integrate_profile()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'sd_vvp' is deprecated.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Migration traffic rate is now included in the output of integrate_profile() as column 'mtr'.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'sd_vvp' is deprecated.</span>
 #&gt; <span class='warning'>Use 'rvsd' instead.</span>
 #&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'sd_vvp' is deprecated.</span>
 #&gt; <span class='warning'>Use 'rvsd' instead.</span>
@@ -166,13 +160,13 @@ migration traffic rate data.</p>
 #&gt; <span class='warning'>Use 'rvsd' instead.</span>
 #&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'sd_vvp' is deprecated.</span>
 #&gt; <span class='warning'>Use 'rvsd' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; [1] 4108.289</div><div class='input'><span class='co'>### MTRs for a time series of vertical profiles ###</span>
-<span class='co'># load example time series</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; [1] 4108.289</div><div class='input'>
+<span class='co'># MTRs for a time series of vertical profiles:</span>
 <span class='fu'>data</span>(<span class='no'>example_vpts</span>)
 <span class='co'># print migration traffic rates:</span>
 <span class='fu'>mtr</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'mtr' is deprecated.</span>
 #&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'mtr' has been moved to the 'mtr' column in the output of integrate_profile()</span></div><div class='output co'>#&gt;    [1]   18.8638691   11.8356218   10.1017309   19.8803782   25.6903200
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Migration traffic rate is now included in the output of integrate_profile() as column 'mtr'.</span></div><div class='output co'>#&gt;    [1]   18.8638691   11.8356218   10.1017309   19.8803782   25.6903200
 #&gt;    [6]   29.6948945   46.8092945   61.5505091   77.1157964   95.0330618
 #&gt;   [11]  101.8199782  112.9853455  106.3724073  105.6005018  102.9118255
 #&gt;   [16]  100.9667782  108.5409164  112.6992436  112.5828655  108.6510764
@@ -373,7 +367,7 @@ migration traffic rate data.</p>
 #&gt;  [991]    0.0000000    0.0000000    0.0000000    0.0000000    0.0000000
 #&gt;  [996]    1.6480800    0.0000000    4.0901236   47.2251927  192.7503491
 #&gt;  [ reached getOption("max.print") -- omitted 5135 entries ]</div><div class='input'><span class='co'># to plot migration traffic rate data, use integrate_profile:</span>
-<span class='fu'>plot</span>(<span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mtr"</span>)</div><div class='img'><img src='mtr-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mtr"</span>)</div><div class='img'><img src='mtr-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -383,6 +377,8 @@ migration traffic rate data.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

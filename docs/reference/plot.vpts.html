@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -193,8 +178,8 @@ each pennant (triangle) 25 m/s</p>
 <span class='co'># load and regularize time series of vertical profiles:</span>
 <span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='regularize_vpts.html'>regularize_vpts</a></span>(<span class='fu'><a href='read_vpts.html'>read_vpts</a></span>(<span class='no'>vptsfile</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>))</div><div class='output co'>#&gt; projecting on 360 seconds interval grid...</div><div class='input'><span class='co'># plot density of individuals for the first 500 time steps, in the altitude</span>
 <span class='co'># layer 0-3000 m.</span>
-<span class='fu'>plot</span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>3000</span>))</div><div class='img'><img src='plot.vpts-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot total reflectivity factor (rain, birds, insects together):</span>
-<span class='fu'>plot</span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>3000</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.vpts-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>3000</span>))</div><div class='img'><img src='plot.vpts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot total reflectivity factor (rain, birds, insects together):</span>
+<span class='fu'>plot</span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>3000</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.vpts-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

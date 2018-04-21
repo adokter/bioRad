@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -98,45 +83,45 @@ the near future. When possible, alternative functions with similar
 functionality are mentioned.</p>
     
 
-    <pre class="usage"><span class='fu'>beamheight</span>(<span class='no'>range</span>, <span class='no'>elev</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>, <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)
+    <pre class="usage"><span class='fu'>basemap</span>(<span class='no'>...</span>)
+
+<span class='fu'>beamheight</span>(<span class='no'>range</span>, <span class='no'>elev</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fl'>35</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>, <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)
 
 <span class='fu'>beamwidth</span>(<span class='no'>range</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>bind</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>vol2bird</span>(<span class='no'>...</span>)
-
-<span class='fu'>night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
-
-<span class='fu'>day</span>(<span class='no'>x</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+<span class='fu'>checkDocker</span>(<span class='no'>...</span>)
 
 <span class='fu'>composite</span>(<span class='no'>...</span>)
 
+<span class='fu'>cmt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+
+<span class='fu'>day</span>(<span class='no'>x</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+
 <span class='fu'>dbz2eta</span>(<span class='no'>...</span>)
-
-<span class='fu'>eta2dbz</span>(<span class='no'>...</span>)
-
-<span class='fu'>checkDocker</span>(<span class='no'>...</span>)
-
-<span class='fu'>updateDocker</span>(<span class='no'>...</span>)
-
-<span class='fu'>basemap</span>(<span class='no'>...</span>)
 
 <span class='fu'>download_vp</span>(<span class='no'>...</span>)
 
 <span class='fu'>elangle</span>(<span class='no'>...</span>)
 
+<span class='fu'>eta2dbz</span>(<span class='no'>...</span>)
+
 <span class='fu'>fetch</span>(<span class='no'>...</span>)
 
 <span class='fu'>getscan</span>(<span class='no'>...</span>)
 
-<span class='fu'>vintegrate</span>(<span class='no'>...</span>)
+<span class='fu'>h5ODIMobject</span>(<span class='no'>...</span>)
 
-<span class='fu'>rsl2odim</span>(<span class='no'>...</span>)
+<span class='fu'>is.vplist</span>(<span class='no'>...</span>)
+
+<span class='fu'>mt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+
+<span class='fu'>mtr</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+
+<span class='fu'>night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
 
 <span class='fu'>ppi</span>(<span class='no'>...</span>)
-
-<span class='fu'>h5ODIMobject</span>(<span class='no'>...</span>)
 
 <span class='fu'>read.pvol</span>(<span class='no'>...</span>)
 
@@ -148,194 +133,219 @@ functionality are mentioned.</p>
 
 <span class='fu'>regularize</span>(<span class='no'>...</span>)
 
+<span class='fu'>retrieve_vp_paths</span>(<span class='no'>...</span>)
+
+<span class='fu'>rsl2odim</span>(<span class='no'>...</span>)
+
 <span class='fu'>sd_vvp</span>(<span class='no'>...</span>)
 
 <span class='fu'>sd_vvp</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
-<span class='fu'>retrieve_vp_paths</span>(<span class='no'>...</span>)
-
 <span class='fu'>suntime</span>(<span class='no'>...</span>, <span class='kw'>rise</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>is.vplist</span>(<span class='no'>...</span>)
+<span class='fu'>updateDocker</span>(<span class='no'>...</span>)
+
+<span class='fu'>vintegrate</span>(<span class='no'>...</span>)
+
+<span class='fu'>vol2bird</span>(<span class='no'>...</span>)
 
 <span class='fu'>vpts</span>(<span class='no'>...</span>)
 
+<span class='fu'>SCAN</span>(<span class='no'>...</span>)
+
 <span class='fu'>VP</span>(<span class='no'>...</span>)
 
-<span class='fu'>VPTS</span>(<span class='no'>...</span>)
-
-<span class='fu'>SCAN</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>VPTS</span>(<span class='no'>...</span>)</pre>
         
-    <h2 class="hasAnchor" id="-code-beamheight-code-"><a class="anchor" href="#-code-beamheight-code-"></a>&lt;code&gt;beamheight&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='beam_height.html'>beam_height</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-beamwidth-code-"><a class="anchor" href="#-code-beamwidth-code-"></a>&lt;code&gt;beamwidth&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='beam_width.html'>beam_width</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-bind-code-"><a class="anchor" href="#-code-bind-code-"></a>&lt;code&gt;bind&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='bind_into_vpts.html'>bind_into_vpts</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-vol-bird-code-"><a class="anchor" href="#-code-vol-bird-code-"></a>&lt;code&gt;vol2bird&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='calculate_vp.html'>calculate_vp</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-night-code-"><a class="anchor" href="#-code-night-code-"></a>&lt;code&gt;night&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='check_night.html'>check_night</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-day-code-"><a class="anchor" href="#-code-day-code-"></a>&lt;code&gt;day&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='check_night.html'>check_night</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-composite-code-"><a class="anchor" href="#-code-composite-code-"></a>&lt;code&gt;composite&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='composite_ppi.html'>composite_ppi</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-dbz-eta-code-"><a class="anchor" href="#-code-dbz-eta-code-"></a>&lt;code&gt;dbz2eta&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='dbz_to_eta.html'>dbz_to_eta</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-eta-dbz-code-"><a class="anchor" href="#-code-eta-dbz-code-"></a>&lt;code&gt;eta2dbz&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='eta_to_dbz.html'>eta_to_dbz</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-checkdocker-code-"><a class="anchor" href="#-code-checkdocker-code-"></a>&lt;code&gt;checkDocker&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='check_docker.html'>check_docker</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-updatedocker-code-"><a class="anchor" href="#-code-updatedocker-code-"></a>&lt;code&gt;updateDocker&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='update_docker.html'>update_docker</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-basemap-code-"><a class="anchor" href="#-code-basemap-code-"></a>&lt;code&gt;basemap&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="basemap"><a class="anchor" href="#basemap"></a>basemap</h2>
 
     
     <p>Use <code><a href='download_basemap.html'>download_basemap</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-download-vp-code-"><a class="anchor" href="#-code-download-vp-code-"></a>&lt;code&gt;download_vp&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="beamheight"><a class="anchor" href="#beamheight"></a>beamheight</h2>
+
+    
+    <p>Use <code><a href='beam_height.html'>beam_height</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="beamwidth"><a class="anchor" href="#beamwidth"></a>beamwidth</h2>
+
+    
+    <p>Use <code><a href='beam_width.html'>beam_width</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="bind"><a class="anchor" href="#bind"></a>bind</h2>
+
+    
+    <p>Use <code><a href='bind_into_vpts.html'>bind_into_vpts</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="checkdocker"><a class="anchor" href="#checkdocker"></a>checkDocker</h2>
+
+    
+    <p>Use <code><a href='check_docker.html'>check_docker</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="composite"><a class="anchor" href="#composite"></a>composite</h2>
+
+    
+    <p>Use <code><a href='composite_ppi.html'>composite_ppi</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="cmt"><a class="anchor" href="#cmt"></a>cmt</h2>
+
+    <p><code>cmt</code> is deprecated as a separate function. Cumulative migration
+traffic is now included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as
+column <code>mt</code>, which can be summed to get the cumulative migration
+traffic.</p>
+    
+    <h2 class="hasAnchor" id="day"><a class="anchor" href="#day"></a>day</h2>
+
+    
+    <p>Use <code><a href='check_night.html'>check_night</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="dbz-eta"><a class="anchor" href="#dbz-eta"></a>dbz2eta</h2>
+
+    
+    <p>Use <code><a href='dbz_to_eta.html'>dbz_to_eta</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="download-vp"><a class="anchor" href="#download-vp"></a>download_vp</h2>
 
     
     <p>Use <code><a href='download_vpfiles.html'>download_vpfiles</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-elangle-code-"><a class="anchor" href="#-code-elangle-code-"></a>&lt;code&gt;elangle&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="elangle"><a class="anchor" href="#elangle"></a>elangle</h2>
 
     
     <p>Use <code><a href='get_angles.html'>get_angles</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-fetch-code-"><a class="anchor" href="#-code-fetch-code-"></a>&lt;code&gt;fetch&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="eta-dbz"><a class="anchor" href="#eta-dbz"></a>eta2dbz</h2>
+
+    
+    <p>Use <code><a href='eta_to_dbz.html'>eta_to_dbz</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="fetch"><a class="anchor" href="#fetch"></a>fetch</h2>
 
     
     <p>Use <code><a href='get_quantity.html'>get_quantity</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-getscan-code-"><a class="anchor" href="#-code-getscan-code-"></a>&lt;code&gt;getscan&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="getscan"><a class="anchor" href="#getscan"></a>getscan</h2>
 
     
     <p>Use <code><a href='get_scan.html'>get_scan</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-vintegrate-code-"><a class="anchor" href="#-code-vintegrate-code-"></a>&lt;code&gt;vintegrate&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='integrate_profile.html'>integrate_profile</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-rsl-odim-code-"><a class="anchor" href="#-code-rsl-odim-code-"></a>&lt;code&gt;rsl2odim&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='nexrad_to_odim.html'>nexrad_to_odim</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-ppi-code-"><a class="anchor" href="#-code-ppi-code-"></a>&lt;code&gt;ppi&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='project_as_ppi.html'>project_as_ppi</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-h-odimobject-code-"><a class="anchor" href="#-code-h-odimobject-code-"></a>&lt;code&gt;h5ODIMobject&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="h-odimobject"><a class="anchor" href="#h-odimobject"></a>h5ODIMobject</h2>
 
     
     <p>Use <code><a href='get_odim_object_type.html'>get_odim_object_type</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-read-pvol-code-"><a class="anchor" href="#-code-read-pvol-code-"></a>&lt;code&gt;read.pvol&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='read_pvolfile.html'>read_pvolfile</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-readvp-code-"><a class="anchor" href="#-code-readvp-code-"></a>&lt;code&gt;readvp&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='read_vpfiles.html'>read_vpfiles</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-readvp-list-code-"><a class="anchor" href="#-code-readvp-list-code-"></a>&lt;code&gt;readvp.list&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='read_vpfiles.html'>read_vpfiles</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-readvp-table-code-"><a class="anchor" href="#-code-readvp-table-code-"></a>&lt;code&gt;readvp.table&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='read_vpts.html'>read_vpts</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-regularize-code-"><a class="anchor" href="#-code-regularize-code-"></a>&lt;code&gt;regularize&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='regularize_vpts.html'>regularize_vpts</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-sd-vvp-code-"><a class="anchor" href="#-code-sd-vvp-code-"></a>&lt;code&gt;sd_vvp&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='rvsd.html'>rvsd</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-sd-vvp-lt-code-"><a class="anchor" href="#-code-sd-vvp-lt-code-"></a>&lt;code&gt;sd_vvp&amp;lt;-&lt;/code&gt;</h2>
-
-    
-    <p>Use <code>rvsd&lt;-</code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-retrieve-vp-paths-code-"><a class="anchor" href="#-code-retrieve-vp-paths-code-"></a>&lt;code&gt;retrieve_vp_paths&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='select_vpfiles.html'>select_vpfiles</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-suntime-code-"><a class="anchor" href="#-code-suntime-code-"></a>&lt;code&gt;suntime&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='sunrise_sunset.html'>sunrise</a></code> or <code><a href='sunrise_sunset.html'>sunset</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-is-vplist-code-"><a class="anchor" href="#-code-is-vplist-code-"></a>&lt;code&gt;is.vplist&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="is-vplist"><a class="anchor" href="#is-vplist"></a>is.vplist</h2>
 
     
     <p>The <code>vplist</code> object is deprecated. Use a regular list of <code>vp</code>
 objects (<code>c(vp, vp))</code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-vpts-code-"><a class="anchor" href="#-code-vpts-code-"></a>&lt;code&gt;vpts&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="mt"><a class="anchor" href="#mt"></a>mt</h2>
+
+    <p><code>mt</code> is deprecated as a separate function. Migration traffic
+is now included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as
+column <code>mt</code>.</p>
+    
+    <h2 class="hasAnchor" id="mtr"><a class="anchor" href="#mtr"></a>mtr</h2>
+
+    <p><code>mtr</code> is deprecated as a separate function. Migration traffic
+rate is now included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as
+column <code>mtr</code>.</p>
+    
+    <h2 class="hasAnchor" id="night"><a class="anchor" href="#night"></a>night</h2>
 
     
-    <p>Use <code>bind_to_vpts</code> instead.</p>
+    <p>Use <code><a href='check_night.html'>check_night</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-vp-code-"><a class="anchor" href="#-code-vp-code-"></a>&lt;code&gt;VP&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="ppi"><a class="anchor" href="#ppi"></a>ppi</h2>
+
+    
+    <p>Use <code><a href='project_as_ppi.html'>project_as_ppi</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="read-pvol"><a class="anchor" href="#read-pvol"></a>read.pvol</h2>
+
+    
+    <p>Use <code><a href='read_pvolfile.html'>read_pvolfile</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="readvp"><a class="anchor" href="#readvp"></a>readvp</h2>
+
+    
+    <p>Use <code><a href='read_vpfiles.html'>read_vpfiles</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="readvp-list"><a class="anchor" href="#readvp-list"></a>readvp.list</h2>
+
+    
+    <p>Use <code><a href='read_vpfiles.html'>read_vpfiles</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="readvp-table"><a class="anchor" href="#readvp-table"></a>readvp.table</h2>
+
+    
+    <p>Use <code><a href='read_vpts.html'>read_vpts</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="regularize"><a class="anchor" href="#regularize"></a>regularize</h2>
+
+    
+    <p>Use <code><a href='regularize_vpts.html'>regularize_vpts</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="retrieve-vp-paths"><a class="anchor" href="#retrieve-vp-paths"></a>retrieve_vp_paths</h2>
+
+    
+    <p>Use <code><a href='select_vpfiles.html'>select_vpfiles</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="rsl-odim"><a class="anchor" href="#rsl-odim"></a>rsl2odim</h2>
+
+    
+    <p>Use <code><a href='nexrad_to_odim.html'>nexrad_to_odim</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="sd-vvp"><a class="anchor" href="#sd-vvp"></a>sd_vvp</h2>
+
+    
+    <p>Use <code><a href='rvsd.html'>rvsd</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="sd-vvp-lt-"><a class="anchor" href="#sd-vvp-lt-"></a>sd_vvp&amp;lt;-</h2>
+
+    
+    <p>Use <code>rvsd&lt;-</code> instead.</p>
+    
+    <h2 class="hasAnchor" id="suntime"><a class="anchor" href="#suntime"></a>suntime</h2>
+
+    
+    <p>Use <code><a href='sunrise_sunset.html'>sunrise</a></code> or <code><a href='sunrise_sunset.html'>sunset</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="updatedocker"><a class="anchor" href="#updatedocker"></a>updateDocker</h2>
+
+    
+    <p>Use <code><a href='update_docker.html'>update_docker</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="vintegrate"><a class="anchor" href="#vintegrate"></a>vintegrate</h2>
+
+    
+    <p>Use <code><a href='integrate_profile.html'>integrate_profile</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="vol-bird"><a class="anchor" href="#vol-bird"></a>vol2bird</h2>
+
+    
+    <p>Use <code><a href='calculate_vp.html'>calculate_vp</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="vpts"><a class="anchor" href="#vpts"></a>vpts</h2>
+
+    
+    <p>Use <code><a href='bind_into_vpts.html'>bind_into_vpts</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="scan"><a class="anchor" href="#scan"></a>SCAN</h2>
+
+    
+    <p>Use <code><a href='example_scan.html'>example_scan</a></code> instead.</p>
+    
+    <h2 class="hasAnchor" id="vp"><a class="anchor" href="#vp"></a>VP</h2>
 
     
     <p>Use <code><a href='example_vp.html'>example_vp</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="-code-vpts-code-"><a class="anchor" href="#-code-vpts-code-"></a>&lt;code&gt;VPTS&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="vpts"><a class="anchor" href="#vpts"></a>VPTS</h2>
 
     
     <p>Use <code><a href='example_vpts.html'>example_vpts</a></code> instead.</p>
-    
-    <h2 class="hasAnchor" id="-code-scan-code-"><a class="anchor" href="#-code-scan-code-"></a>&lt;code&gt;SCAN&lt;/code&gt;</h2>
-
-    
-    <p>Use <code><a href='example_scan.html'>example_scan</a></code> instead.</p>
     
 
   </div>
@@ -343,73 +353,79 @@ objects (<code>c(vp, vp))</code> instead.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#-code-beamheight-code-">&lt;code&gt;beamheight&lt;/code&gt;</a></li>
+      <li><a href="#basemap">basemap</a></li>
 
-      <li><a href="#-code-beamwidth-code-">&lt;code&gt;beamwidth&lt;/code&gt;</a></li>
+      <li><a href="#beamheight">beamheight</a></li>
 
-      <li><a href="#-code-bind-code-">&lt;code&gt;bind&lt;/code&gt;</a></li>
+      <li><a href="#beamwidth">beamwidth</a></li>
 
-      <li><a href="#-code-vol-bird-code-">&lt;code&gt;vol2bird&lt;/code&gt;</a></li>
+      <li><a href="#bind">bind</a></li>
 
-      <li><a href="#-code-night-code-">&lt;code&gt;night&lt;/code&gt;</a></li>
+      <li><a href="#checkdocker">checkDocker</a></li>
 
-      <li><a href="#-code-day-code-">&lt;code&gt;day&lt;/code&gt;</a></li>
+      <li><a href="#composite">composite</a></li>
 
-      <li><a href="#-code-composite-code-">&lt;code&gt;composite&lt;/code&gt;</a></li>
+      <li><a href="#cmt">cmt</a></li>
 
-      <li><a href="#-code-dbz-eta-code-">&lt;code&gt;dbz2eta&lt;/code&gt;</a></li>
+      <li><a href="#day">day</a></li>
 
-      <li><a href="#-code-eta-dbz-code-">&lt;code&gt;eta2dbz&lt;/code&gt;</a></li>
+      <li><a href="#dbz-eta">dbz2eta</a></li>
 
-      <li><a href="#-code-checkdocker-code-">&lt;code&gt;checkDocker&lt;/code&gt;</a></li>
+      <li><a href="#download-vp">download_vp</a></li>
 
-      <li><a href="#-code-updatedocker-code-">&lt;code&gt;updateDocker&lt;/code&gt;</a></li>
+      <li><a href="#elangle">elangle</a></li>
 
-      <li><a href="#-code-basemap-code-">&lt;code&gt;basemap&lt;/code&gt;</a></li>
+      <li><a href="#eta-dbz">eta2dbz</a></li>
 
-      <li><a href="#-code-download-vp-code-">&lt;code&gt;download_vp&lt;/code&gt;</a></li>
+      <li><a href="#fetch">fetch</a></li>
 
-      <li><a href="#-code-elangle-code-">&lt;code&gt;elangle&lt;/code&gt;</a></li>
+      <li><a href="#getscan">getscan</a></li>
 
-      <li><a href="#-code-fetch-code-">&lt;code&gt;fetch&lt;/code&gt;</a></li>
+      <li><a href="#h-odimobject">h5ODIMobject</a></li>
 
-      <li><a href="#-code-getscan-code-">&lt;code&gt;getscan&lt;/code&gt;</a></li>
+      <li><a href="#is-vplist">is.vplist</a></li>
 
-      <li><a href="#-code-vintegrate-code-">&lt;code&gt;vintegrate&lt;/code&gt;</a></li>
+      <li><a href="#mt">mt</a></li>
 
-      <li><a href="#-code-rsl-odim-code-">&lt;code&gt;rsl2odim&lt;/code&gt;</a></li>
+      <li><a href="#mtr">mtr</a></li>
 
-      <li><a href="#-code-ppi-code-">&lt;code&gt;ppi&lt;/code&gt;</a></li>
+      <li><a href="#night">night</a></li>
 
-      <li><a href="#-code-h-odimobject-code-">&lt;code&gt;h5ODIMobject&lt;/code&gt;</a></li>
+      <li><a href="#ppi">ppi</a></li>
 
-      <li><a href="#-code-read-pvol-code-">&lt;code&gt;read.pvol&lt;/code&gt;</a></li>
+      <li><a href="#read-pvol">read.pvol</a></li>
 
-      <li><a href="#-code-readvp-code-">&lt;code&gt;readvp&lt;/code&gt;</a></li>
+      <li><a href="#readvp">readvp</a></li>
 
-      <li><a href="#-code-readvp-list-code-">&lt;code&gt;readvp.list&lt;/code&gt;</a></li>
+      <li><a href="#readvp-list">readvp.list</a></li>
 
-      <li><a href="#-code-readvp-table-code-">&lt;code&gt;readvp.table&lt;/code&gt;</a></li>
+      <li><a href="#readvp-table">readvp.table</a></li>
 
-      <li><a href="#-code-regularize-code-">&lt;code&gt;regularize&lt;/code&gt;</a></li>
+      <li><a href="#regularize">regularize</a></li>
 
-      <li><a href="#-code-sd-vvp-code-">&lt;code&gt;sd_vvp&lt;/code&gt;</a></li>
+      <li><a href="#retrieve-vp-paths">retrieve_vp_paths</a></li>
 
-      <li><a href="#-code-sd-vvp-lt-code-">&lt;code&gt;sd_vvp&amp;lt;-&lt;/code&gt;</a></li>
+      <li><a href="#rsl-odim">rsl2odim</a></li>
 
-      <li><a href="#-code-retrieve-vp-paths-code-">&lt;code&gt;retrieve_vp_paths&lt;/code&gt;</a></li>
+      <li><a href="#sd-vvp">sd_vvp</a></li>
 
-      <li><a href="#-code-suntime-code-">&lt;code&gt;suntime&lt;/code&gt;</a></li>
+      <li><a href="#sd-vvp-lt-">sd_vvp&amp;lt;-</a></li>
 
-      <li><a href="#-code-is-vplist-code-">&lt;code&gt;is.vplist&lt;/code&gt;</a></li>
+      <li><a href="#suntime">suntime</a></li>
 
-      <li><a href="#-code-vpts-code-">&lt;code&gt;vpts&lt;/code&gt;</a></li>
+      <li><a href="#updatedocker">updateDocker</a></li>
 
-      <li><a href="#-code-vp-code-">&lt;code&gt;VP&lt;/code&gt;</a></li>
+      <li><a href="#vintegrate">vintegrate</a></li>
 
-      <li><a href="#-code-vpts-code-">&lt;code&gt;VPTS&lt;/code&gt;</a></li>
+      <li><a href="#vol-bird">vol2bird</a></li>
 
-      <li><a href="#-code-scan-code-">&lt;code&gt;SCAN&lt;/code&gt;</a></li>
+      <li><a href="#vpts">vpts</a></li>
+
+      <li><a href="#scan">SCAN</a></li>
+
+      <li><a href="#vp">VP</a></li>
+
+      <li><a href="#vpts">VPTS</a></li>
           </ul>
 
   </div>

@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -161,9 +146,9 @@ model (ODIM), see Table 16 in the
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make ppi for the scan</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
 <span class='co'># plot the first scan parameter, which in this case is "VRADH":</span>
-<span class='fu'>plot</span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot the reflectivity quantity:</span>
-<span class='fu'>plot</span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.ppi-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># change the range of reflectivities to plot to -30 to 50 dBZ:</span>
-<span class='fu'>plot</span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,<span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>30</span>, <span class='fl'>50</span>))</div><div class='img'><img src='plot.ppi-6.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot the reflectivity quantity:</span>
+<span class='fu'>plot</span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.ppi-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># change the range of reflectivities to plot to -30 to 50 dBZ:</span>
+<span class='fu'>plot</span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,<span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>30</span>, <span class='fl'>50</span>))</div><div class='img'><img src='plot.ppi-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

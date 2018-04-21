@@ -54,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -165,7 +150,7 @@ quantities:</p><dl class='dl-horizontal'>
 \(vid=vir/rcs(x)\), with <a href='rcs.html'>rcs</a> the assumed radar cross section per
 individual. Similarly, migration traffic rate and reflectivity traffic rate
 are related according to \(mtr=rtr/rcs(x)\)</p>
-<p>See <a href='mtr.html'>mtr</a> for further information on the definition of migration
+<p>See mtr for further information on the definition of migration
 traffic rate.</p>
     
     <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
@@ -239,8 +224,8 @@ vertical profiles.</p></li>
 #&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'><span class='co'># print migration traffic rates</span>
 <span class='no'>vpi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>)
 <span class='co'># plot migration traffic rates for the full air column</span>
-<span class='fu'>plot</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='integrate_profile-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot migration traffic rates for altitudes &gt; 1 km above sea level</span>
-<span class='fu'>plot</span>(<span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>1000</span>))</div><div class='img'><img src='integrate_profile-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='integrate_profile-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot migration traffic rates for altitudes &gt; 1 km above sea level</span>
+<span class='fu'>plot</span>(<span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>1000</span>))</div><div class='img'><img src='integrate_profile-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
