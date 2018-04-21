@@ -147,7 +147,7 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
 #' plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")
 cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
-  .Deprecated(msg = "Cumulative migration traffic is now inclued in the output of integrate_profile() as column 'mt' (summed).")
+  .Deprecated(msg = "Cumulative migration traffic is now included in the output of integrate_profile() as column 'mt' (summed).")
   stopifnot(inherits(x,"vpts"))
   vintegrated=integrate_profile(x,alt.min,alt.max,alpha,interval.max)
   vintegrated$mt
