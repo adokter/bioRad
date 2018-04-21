@@ -8,7 +8,7 @@
 #' @keywords internal
 NULL
 
-#' @name basemap-deprecated
+# basemap
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{basemap}:
@@ -20,7 +20,7 @@ basemap <- function(...) {
   download_basemap(...)
 }
 
-#' @name beamheight-deprecated
+# beamheight
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{beamheight}:
@@ -32,7 +32,7 @@ beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
   beam_height(range, elev, k, lat, re, rp)
 }
 
-#' @name beamwidth-deprecated
+# beamwidth
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{beamwidth}:
@@ -44,7 +44,7 @@ beamwidth <- function(range, angle = 1) {
   beam_width(range, angle)
 }
 
-#' @name bind-deprecated
+# bind
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{bind}:
@@ -56,7 +56,7 @@ bind <- function(x, ...) {
   bind_into_vpts(x, ...)
 }
 
-#' @name checkDocker-deprecated
+# checkDocker
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{checkDocker}:
@@ -68,7 +68,7 @@ checkDocker <- function(...) {
   check_docker(...)
 }
 
-#' @name composite-deprecated
+# composite
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{composite}:
@@ -80,6 +80,7 @@ composite <- function(...) {
   composite_ppi(...)
 }
 
+# cmt
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{cmt}:
@@ -93,7 +94,7 @@ cmt <- function(...) {
   cmt(...)
 }
 
-#' @name day-deprecated
+# day
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{day}:
@@ -108,7 +109,7 @@ day <- function(x, elev = -0.268) {
   !check_night(x, elev = -0.268)
 }
 
-#' @name dbz2eta-deprecated
+# dbz2eta
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{dbz2eta}:
@@ -120,7 +121,7 @@ dbz2eta <- function(...) {
   dbz_to_eta(...)
 }
 
-#' @name download_vp-deprecated
+# download_vp
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{download_vp}:
@@ -132,7 +133,7 @@ download_vp <- function(...) {
   download_vpfiles(...)
 }
 
-#' @name elangle-deprecated
+# elangle
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{elangle}:
@@ -144,7 +145,7 @@ elangle <- function(...) {
   get_angles(...)
 }
 
-#' @name eta2dbz-deprecated
+# eta2dbz
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{eta2dbz}:
@@ -156,7 +157,7 @@ eta2dbz <- function(...) {
   eta_to_dbz(...)
 }
 
-#' @name fetch-deprecated
+# fetch
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{fetch}:
@@ -168,7 +169,7 @@ fetch <- function(...) {
   get_quantity(...)
 }
 
-#' @name getscan-deprecated
+# getscan
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{getscan}:
@@ -180,7 +181,7 @@ getscan <- function(...) {
   get_scan(...)
 }
 
-#' @name h5ODIMobject-deprecated
+# h5ODIMobject
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{h5ODIMobject}:
@@ -192,7 +193,7 @@ h5ODIMobject <- function(...) {
   get_odim_object_type(...)
 }
 
-#' @name is.vplist-deprecated
+# is.vplist
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{is.vplist}:
@@ -204,6 +205,7 @@ is.vplist <- function(...) {
   .Deprecated("is.vplist")
 }
 
+# mt
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{mt}:
@@ -216,6 +218,7 @@ mt <- function(...) {
   mt(...)
 }
 
+# mtr
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{mtr}:
@@ -228,7 +231,7 @@ mtr <- function(...) {
   mtr(...)
 }
 
-#' @name night-deprecated
+# night
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{night}:
@@ -240,7 +243,7 @@ night <- function(x, ..., elev=-0.268) {
   check_night(x, ..., elev = -0.268)
 }
 
-#' @name ppi-deprecated
+# ppi
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{ppi}:
@@ -252,7 +255,7 @@ ppi <- function(...) {
   project_as_ppi(...)
 }
 
-#' @name read.pvol-deprecated
+# read.pvol
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{read.pvol}:
@@ -264,7 +267,7 @@ read.pvol <- function(...) {
   read_pvolfile(...)
 }
 
-#' @name readvp-deprecated
+# readvp
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{readvp}:
@@ -276,7 +279,7 @@ readvp <- function(...) {
   read_vpfiles(...)
 }
 
-#' @name readvp.list-deprecated
+# readvp.list
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{readvp.list}:
@@ -288,7 +291,7 @@ readvp.list <- function(...) {
   read_vpfiles(...)
 }
 
-#' @name readvp.table-deprecated
+# readvp.table
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{readvp.table}:
@@ -300,7 +303,7 @@ readvp.table <- function(...) {
   read_vpts(...)
 }
 
-#' @name regularize-deprecated
+# regularize
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{regularize}:
@@ -312,7 +315,7 @@ regularize <- function(...) {
   regularize_vpts(...)
 }
 
-#' @name retrieve_vp_paths-deprecated
+# retrieve_vp_paths
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{retrieve_vp_paths}:
@@ -324,7 +327,7 @@ retrieve_vp_paths <- function(...) {
   select_vpfiles(...)
 }
 
-#' @name rsl2odim-deprecated
+# rsl2odim
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{rsl2odim}:
@@ -336,7 +339,7 @@ rsl2odim <- function(...) {
   nexrad_to_odim(...)
 }
 
-#' @name sd_vvp-deprecated
+# sd_vvp
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{sd_vvp}:
@@ -348,7 +351,7 @@ sd_vvp <- function(...) {
   rvsd(...)
 }
 
-#' @name sd_vvp-deprecated
+# sd_vvp<-
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{sd_vvp<-}:
@@ -360,7 +363,7 @@ sd_vvp <- function(...) {
   `rvsd<-`(x, value)
 }
 
-#' @name suntime-deprecated
+# suntime
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{suntime}:
@@ -377,7 +380,7 @@ suntime <- function(..., rise = TRUE) {
   }
 }
 
-#' @name updateDocker-deprecated
+# updateDocker
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{updateDocker}:
@@ -389,7 +392,7 @@ updateDocker <- function(...) {
   update_docker(...)
 }
 
-#' @name vintegrate-deprecated
+# vintegrate
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{vintegrate}:
@@ -401,6 +404,7 @@ vintegrate <- function(...) {
   integrate_profile(...)
 }
 
+# vol2bird
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{vol2bird}:
@@ -412,7 +416,7 @@ vol2bird <- function(...) {
   calculate_vp(...)
 }
 
-#' @name vpts-deprecated
+# vpts
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{vpts}:
@@ -426,7 +430,7 @@ vpts <- function(...) {
 
 # deprecated example files
 
-#' @name SCAN-deprecated
+# SCAN
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{SCAN}:
@@ -438,7 +442,7 @@ SCAN <- function(...) {
   example_scan(...)
 }
 
-#' @name VP-deprecated
+# VP
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{VP}:
@@ -450,7 +454,7 @@ VP <- function(...) {
   example_vp(...)
 }
 
-#' @name VPTS-deprecated
+# VPTS
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{VPTS}:

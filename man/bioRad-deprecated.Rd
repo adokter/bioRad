@@ -2,75 +2,42 @@
 % Please edit documentation in R/bioRad-deprecated.R
 \name{bioRad-deprecated}
 \alias{bioRad-deprecated}
-\alias{basemap-deprecated}
 \alias{basemap}
-\alias{beamheight-deprecated}
 \alias{beamheight}
-\alias{beamwidth-deprecated}
 \alias{beamwidth}
-\alias{bind-deprecated}
 \alias{bind}
-\alias{checkDocker-deprecated}
 \alias{checkDocker}
-\alias{composite-deprecated}
 \alias{composite}
 \alias{cmt}
-\alias{day-deprecated}
 \alias{day}
-\alias{dbz2eta-deprecated}
 \alias{dbz2eta}
-\alias{download_vp-deprecated}
 \alias{download_vp}
-\alias{elangle-deprecated}
 \alias{elangle}
-\alias{eta2dbz-deprecated}
 \alias{eta2dbz}
-\alias{fetch-deprecated}
 \alias{fetch}
-\alias{getscan-deprecated}
 \alias{getscan}
-\alias{h5ODIMobject-deprecated}
 \alias{h5ODIMobject}
-\alias{is.vplist-deprecated}
 \alias{is.vplist}
 \alias{mt}
 \alias{mtr}
-\alias{night-deprecated}
 \alias{night}
-\alias{ppi-deprecated}
 \alias{ppi}
-\alias{read.pvol-deprecated}
 \alias{read.pvol}
-\alias{readvp-deprecated}
 \alias{readvp}
-\alias{readvp.list-deprecated}
 \alias{readvp.list}
-\alias{readvp.table-deprecated}
 \alias{readvp.table}
-\alias{regularize-deprecated}
 \alias{regularize}
-\alias{retrieve_vp_paths-deprecated}
 \alias{retrieve_vp_paths}
-\alias{rsl2odim-deprecated}
 \alias{rsl2odim}
-\alias{suntime-deprecated}
-\alias{suntime}
-\alias{sd_vvp-deprecated}
 \alias{sd_vvp}
-\alias{sd_vvp-deprecated}
 \alias{sd_vvp<-}
-\alias{updateDocker-deprecated}
+\alias{suntime}
 \alias{updateDocker}
-\alias{vintegrate-deprecated}
 \alias{vintegrate}
 \alias{vol2bird}
-\alias{vpts-deprecated}
 \alias{vpts}
-\alias{SCAN-deprecated}
 \alias{SCAN}
-\alias{VP-deprecated}
 \alias{VP}
-\alias{VPTS-deprecated}
 \alias{VPTS}
 \title{Deprecated functions in package \pkg{bioRad}}
 \usage{
@@ -128,11 +95,11 @@ retrieve_vp_paths(...)
 
 rsl2odim(...)
 
-suntime(..., rise = TRUE)
-
 sd_vvp(...)
 
 sd_vvp(x) <- value
+
+suntime(..., rise = TRUE)
 
 updateDocker(...)
 
@@ -296,11 +263,6 @@ Use \code{\link{select_vpfiles}} instead.
 Use \code{\link{nexrad_to_odim}} instead.
 }
 
-\section{\code{suntime}}{
-
-Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
-}
-
 \section{\code{sd_vvp}}{
 
 Use \code{\link{rvsd}} instead.
@@ -309,6 +271,11 @@ Use \code{\link{rvsd}} instead.
 \section{\code{sd_vvp<-}}{
 
 Use \code{\link{rvsd<-}} instead.
+}
+
+\section{\code{suntime}}{
+
+Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
 }
 
 \section{\code{updateDocker}}{
