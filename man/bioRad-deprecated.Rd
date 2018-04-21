@@ -295,7 +295,7 @@ Use \code{\link{calculate_vp}} instead.
 
 \section{vpts}{
 
-Use \code{\link{bind_to_vpts}} instead.
+Use \code{\link{bind_into_vpts}} instead.
 }
 
 \section{SCAN}{

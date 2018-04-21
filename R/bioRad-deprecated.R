@@ -384,7 +384,7 @@ vol2bird <- function(...) {
 }
 
 #' @section vpts:
-#' Use \code{\link{bind_to_vpts}} instead.
+#' Use \code{\link{bind_into_vpts}} instead.
 #'
 #' @rdname bioRad-deprecated
 #'
