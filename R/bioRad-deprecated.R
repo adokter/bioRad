@@ -312,17 +312,6 @@ rsl2odim <- function(...) {
   nexrad_to_odim(...)
 }
 
-#' @section sd_vvp:
-#' Use \code{\link{rvsd}} instead.
-#'
-#' @rdname bioRad-deprecated
-#'
-#' @export
-sd_vvp <- function(...) {
-  .Deprecated("rvsd")
-  rvsd(...)
-}
-
 #' @section sd_vvp<-:
 #' Use \code{\link{rvsd<-}} instead.
 #'

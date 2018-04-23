@@ -29,7 +29,6 @@
 \alias{regularize}
 \alias{retrieve_vp_paths}
 \alias{rsl2odim}
-\alias{sd_vvp}
 \alias{sd_vvp<-}
 \alias{suntime}
 \alias{updateDocker}
@@ -94,8 +93,6 @@ regularize(...)
 retrieve_vp_paths(...)
 
 rsl2odim(...)
-
-sd_vvp(x)
 
 sd_vvp(x) <- value
 
@@ -255,11 +252,6 @@ Use \code{\link{select_vpfiles}} instead.
 \section{rsl2odim}{
 
 Use \code{\link{nexrad_to_odim}} instead.
-}
-
-\section{sd_vvp}{
-
-Use \code{\link{rvsd}} instead.
 }
 
 \section{sd_vvp<-}{
