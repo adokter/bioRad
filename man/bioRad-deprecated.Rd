@@ -203,7 +203,7 @@ Use \code{\link{download_vpfiles}} instead.
 
 \section{\code{elangle}}{
 
-Use \code{\link{get_angles}} instead.
+Use \code{\link{get_elevation_angles}} instead.
 }
 
 \section{\code{fetch}}{

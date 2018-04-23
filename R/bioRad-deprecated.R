@@ -171,12 +171,12 @@ download_vp <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{elangle}:
-#' Use \code{\link{get_angles}} instead.
+#' Use \code{\link{get_elevation_angles}} instead.
 #'
 #' @export
 elangle <- function(...) {
-  .Deprecated("get_angles")
-  get_angles(...)
+  .Deprecated("get_elevation_angles")
+  get_elevation_angles(...)
 }
 
 #' @name fetch-deprecated
