@@ -66,7 +66,7 @@ To pull up the main help page:
 ```
 To open the vignette with several exercises covering the functionality of bioRad:
 ```
-vignette("bioRad-overview")
+vignette("functionality_overview")
 ```
 
 ### install note 1: rgdal on linux and mac OS v10.11 or older:

@@ -6,7 +6,7 @@
 #  packageVersion("bioRad")
 #  # make sure you have the latest version (0.3.0). If you have an older version, update as follows:
 #  library(devtools)
-#  install_github("adokter/bioRad", ref = "ecography")
+#  devtools::install_github("adokter/bioRad@ecography")
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  # bring up the package general help page:
