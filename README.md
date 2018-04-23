@@ -18,7 +18,7 @@ biocLite("rhdf5")
 You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
 ```
 library(devtools)
-install_github("adokter/bioRad", ref="ecography")
+devtools::install_github("adokter/bioRad@ecography")
 ```
 If your installation completed correctly, you can load bioRad with `library(bioRad)`, which should give you the following:
 
@@ -33,7 +33,7 @@ To enable Docker functionality, start Docker and run 'checkDocker()' in R
 
 On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:
 ```
-install_github(“adokter/bioRad”,ref="ecography",args="--no-multiarch")
+devtools::install_github("adokter/bioRad@ecography", args="--no-multiarch")
 ```
 
 ### 3. Docker (optional)
