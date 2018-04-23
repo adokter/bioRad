@@ -29,7 +29,6 @@
 \alias{regularize}
 \alias{retrieve_vp_paths}
 \alias{rsl2odim}
-\alias{sd_vvp<-}
 \alias{suntime}
 \alias{updateDocker}
 \alias{vintegrate}
@@ -93,8 +92,6 @@ regularize(...)
 retrieve_vp_paths(...)
 
 rsl2odim(...)
-
-sd_vvp(x) <- value
 
 suntime(..., rise = TRUE)
 
@@ -166,7 +163,7 @@ Use \code{\link{download_vpfiles}} instead.
 
 \section{elangle}{
 
-Use \code{\link{get_angles}} instead.
+Use \code{\link{get_elevation_angles}} instead.
 }
 
 \section{eta2dbz}{
@@ -252,11 +249,6 @@ Use \code{\link{select_vpfiles}} instead.
 \section{rsl2odim}{
 
 Use \code{\link{nexrad_to_odim}} instead.
-}
-
-\section{sd_vvp<-}{
-
-Use \code{\link{rvsd<-}} instead.
 }
 
 \section{suntime}{

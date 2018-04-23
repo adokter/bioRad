@@ -4,7 +4,7 @@
 \name{bioRad-package}
 \alias{bioRad}
 \alias{bioRad-package}
-\title{Analyze and visualize biological signals in weather radar data}
+\title{Biological analysis and visualization of weather radar data}
 \description{
 \pkg{bioRad}
 }

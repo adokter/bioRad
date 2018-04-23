@@ -42,6 +42,7 @@ traffic rate, and a vertical averaging of ground speed and direction
 weighted by density.
 }
 \details{
+\subsection{Available quantities}{
 The function generates a specially classed data frame with the following
 quantities:
 \describe{
@@ -62,9 +63,54 @@ Vertically integrated density and reflectivity are related according to
 \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
 individual. Similarly, migration traffic rate and reflectivity traffic rate
 are related according to \eqn{mtr=rtr/rcs(x)}
+}
 
-See \link{mtr} for further information on the definition of migration
-traffic rate.
+\subsection{Migration traffic rate (mtr)}{
+Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
+as the number of targets crossing a unit of transect per hour.
+
+Column mtr of the output dataframe gives migration traffic rates in individuals/km/hour.
+
+The transect direction is set by the angle \code{alpha}. When
+\code{alpha=NA}, the transect runs perpendicular to the measured migratory
+direction. \code{mtr} then equals the number of crossing targets per km
+transect per hour, for a transect kept perpendicular to the measured
+migratory movement at all times and altitudes. In this case \code{mtr} is
+always a positive quantity, defined as:
+
+\deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
+
+with the sum running over all altitude layers between \code{alt.min} and
+\code{alt.max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+altitude layer i, and \eqn{\Delta h} the altitude layer width.
+
+If \code{alpha} is given a numeric value, the transect is taken perpendicular
+to the direction \code{alpha}, and the number of crossing targets per hour
+per km transect is calculated as:
+
+\deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}
+with \eqn{dd_i} the migratory direction at altitude i.
+
+Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+
+In this definition \code{mtr} is a traditional flux into a direction of
+interest. Targets moving into the direction \code{alpha} contribute
+positively to \code{mtr}, while targets moving in the opposite direction
+contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
+positive or negative, depending on the definition of alpha.
+}
+
+\subsection{Migration traffic (mt)}{
+Total migration traffic, which is calculated by time-integration of
+migration traffic rates. Migration traffic gives the number of individuals
+that have passed per km perpendicular to the migratory direction at the
+position of the radar for the full period of the time series within the
+specified altitude band.
+
+Columnn mt in the output dataframe provides migration traffic as a numeric value equal to migration traffic
+in number of individuals / km from the start of the time series up till the moment of the time stamp
+of the respective row.
+}
 }
 \section{Methods (by class)}{
 \itemize{
@@ -78,6 +124,7 @@ vertical profiles.
 }}
 
 \examples{
+
 # MTR for a single vertical profile
 integrate_profile(example_vp)
 

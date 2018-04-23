@@ -1,4 +1,4 @@
-#' Analyze and visualize biological signals in weather radar data
+#' Biological analysis and visualization of weather radar data
 #'
 #' \pkg{bioRad}
 #' @details

@@ -124,7 +124,7 @@ download_vp <- function(...) {
 }
 
 #' @section elangle:
-#' Use \code{\link{get_angles}} instead.
+#' Use \code{\link{get_elevation_angles}} instead.
 #'
 #' @rdname bioRad-deprecated
 #'
@@ -310,17 +310,6 @@ retrieve_vp_paths <- function(...) {
 rsl2odim <- function(...) {
   .Deprecated("nexrad_to_odim")
   nexrad_to_odim(...)
-}
-
-#' @section sd_vvp<-:
-#' Use \code{\link{rvsd<-}} instead.
-#'
-#' @rdname bioRad-deprecated
-#'
-#' @export
-`sd_vvp<-` <- function(x, value) {
-  .Deprecated("rvsd<-")
-  `rvsd<-`(x, value)
 }
 
 #' @section suntime:
