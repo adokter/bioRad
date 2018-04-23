@@ -80,6 +80,7 @@ plot.scan <- function(x, param, xlim = c(0, 100),
     data[index,3] <- zlim[2]
   }
   # plot
+  azimuth <- NULL #dummy asignment to suppress devtools check warning
   ggplot(data = data,...) +
     geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
