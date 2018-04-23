@@ -143,6 +143,8 @@ sample_polar <- function(param, cellsize, range.max, project, latlim, lonlim){
 #' @param lat Latitude
 #' @param proj4string An object of class 'CRS', as defined in package \code{sp}.
 #'
+#' @keywords internal
+#'
 #' @return An object of class \code{SpatialPoints}.
 wgs_to_proj <- function(lon, lat, proj4string){
   xy <- data.frame(x = lon, y = lat)
@@ -157,7 +159,7 @@ wgs_to_proj <- function(lon, lat, proj4string){
 #' @param x Longitude
 #' @param y Latitude
 #' @param proj4string An object of class 'CRS', as defined in package \code{sp}.
-#'
+#' @keywords internal
 #' @return An object of class \code{SpatialPoints}.
 proj_to_wgs <- function(x, y, proj4string){
   xy <- data.frame(lon = x, lat = y)
