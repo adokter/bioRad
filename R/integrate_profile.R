@@ -108,6 +108,8 @@
 #' plot(example_vpts)
 #' # plot migration traffic rates for altitudes > 1 km above sea level
 #' plot(integrate_profile(example_vpts, alt.min = 1000))
+#' # plot the (cumulative) migration traffic
+#' plot(integrate_profile(example_vpts), quantity="mt")
 
 integrate_profile <- function(x, alt.min, alt.max,
                               alpha = NA, interval.max = Inf) {
