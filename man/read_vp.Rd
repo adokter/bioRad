@@ -16,3 +16,4 @@ An object of class \code{\link{summary.vp}}.
 \description{
 Read a vertical profile (\code{vp}) from file
 }
+\keyword{internal}

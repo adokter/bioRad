@@ -19,3 +19,4 @@ An object of class \code{SpatialPoints}.
 \description{
 A wrapper for \code{\link{spTransform}}.
 }
+\keyword{internal}

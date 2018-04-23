@@ -61,12 +61,11 @@ migration traffic rate data.
 }
 \examples{
 # MTR for a single vertical profile:
-mtr(example_vp)
-
+\dontrun{mtr(example_vp)}
 # MTRs for a time series of vertical profiles:
 data(example_vpts)
 # print migration traffic rates:
-mtr(example_vpts)
+\dontrun{mtr(example_vpts)}
 # to plot migration traffic rate data, use integrate_profile:
 plot(integrate_profile(example_vpts), quantity = "mtr")
 }

@@ -18,5 +18,5 @@
 #' myscan <- get_scan(vol,3)
 get_scan <- function(x, angle) {
   stopifnot(inherits(x, "pvol"))
-  x$scans[[which.min(abs(get_angles(x) - angle))]]
+  x$scans[[which.min(abs(get_elevation_angles(x) - angle))]]
 }

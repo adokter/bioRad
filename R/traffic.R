@@ -53,12 +53,11 @@
 #'
 #' @examples
 #' # MTR for a single vertical profile:
-#' mtr(example_vp)
-#'
+#' \dontrun{mtr(example_vp)}
 #' # MTRs for a time series of vertical profiles:
 #' data(example_vpts)
 #' # print migration traffic rates:
-#' mtr(example_vpts)
+#' \dontrun{mtr(example_vpts)}
 #' # to plot migration traffic rate data, use integrate_profile:
 #' plot(integrate_profile(example_vpts), quantity = "mtr")
 mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
@@ -104,9 +103,9 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
 #' data(example_vpts)
 #' example_vpts
 #' # total migration traffic in full altitude band:
-#' mt(example_vpts)
+#' \dontrun{mt(example_vpts)}
 #' # total migration traffic in 0-1000 meter band:
-#' mt(example_vpts, alt.min = 0, alt.max = 1000)
+#' \dontrun{mt(example_vpts, alt.min = 0, alt.max = 1000)}
 mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
   .Deprecated(msg = "Migration traffic is now included in the output of integrate_profile() as column 'mt'.")
@@ -142,9 +141,9 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
 #' # get example time series of vertical profiles:
 #' data(example_vpts)
 #' # print cumulative migration traffic to console:
-#' cmt(example_vpts)
+#' \dontrun{cmt(example_vpts)}
 #' # plot cumulative migration traffic:
-#' plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")
+#' \dontrun{plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")}
 cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
   .Deprecated(msg = "Cumulative migration traffic is now included in the output of integrate_profile() as column 'mt' (summed).")

@@ -30,9 +30,9 @@ specified altitude band.
 data(example_vpts)
 example_vpts
 # total migration traffic in full altitude band:
-mt(example_vpts)
+\dontrun{mt(example_vpts)}
 # total migration traffic in 0-1000 meter band:
-mt(example_vpts, alt.min = 0, alt.max = 1000)
+\dontrun{mt(example_vpts, alt.min = 0, alt.max = 1000)}
 }
 \seealso{
 \code{\link{bioRad-deprecated}}.

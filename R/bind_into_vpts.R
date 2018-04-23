@@ -135,6 +135,8 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' \link[=summary.vpts]{vpts} in case when \code{list} contains profiles of
 #' multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
 #'
+#' @keywords internal
+#'
 #' @examples
 #' \dontrun{
 #' vps <- read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))

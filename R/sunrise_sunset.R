@@ -55,7 +55,7 @@ sunset <- function(lon, lat, date, elev = -0.268) {
 #' @param sign_angle Whether to output for rising (\code{1}) or setting
 #' (\code{-1}) sun.
 #' @inheritParams sunrise_sunset
-#'
+#' @keywords internal
 get_suntime <- function(lon, lat, date, sign_angle, elev = -0.268) {
   dateOnly <- as.Date(date)
 

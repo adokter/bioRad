@@ -125,23 +125,3 @@ mount_docker_container <- function(mount = "~/") {
     }
   return(result)
 }
-
-setLoadActions(
-  function(ns) {
-      cat("Loading package", sQuote(getNamespaceName(ns)), "version",
-          as.character(packageVersion(getNamespaceName(ns))),"...\n")
-    },
-  function(ns) {
-    if ((check_docker(verbose = FALSE) != 0)) {
-      cat("Warning: no running Docker daemon found\n")
-      cat("Warning:", getNamespaceName(ns),
-          "functionality requiring Docker has been disabled\n\n")
-      cat(paste("To enable Docker functionality,",
-                "start Docker and run 'check_docker()' in R"))
-      unlockBinding("docker", environment(check_docker))
-      assign("docker", FALSE, envir = ns)
-    } else {
-      cat("Docker daemon running, Docker functionality enabled.\n")
-    }
-  }
-)

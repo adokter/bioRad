@@ -22,3 +22,4 @@ interpretable by \link[base]{as.Date}.}
 \description{
 Use the \code{\link{sunrise}} or \code{\link{sunset}} functions.
 }
+\keyword{internal}

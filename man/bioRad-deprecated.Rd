@@ -36,10 +36,10 @@
 \alias{vintegrate}
 \alias{vol2bird}
 \alias{vpts}
-\alias{SCAN}
-\alias{VP}
-\alias{VPTS}
-\title{Deprecated functions in package \pkg{bioRad}}
+\alias{VP-deprecated}
+\alias{VPTS-deprecated}
+\alias{SCAN-deprecated}
+\title{Deprecated functions and data in package \pkg{bioRad}}
 \usage{
 basemap(...)
 
@@ -108,15 +108,9 @@ vintegrate(...)
 vol2bird(...)
 
 vpts(...)
-
-SCAN(...)
-
-VP(...)
-
-VPTS(...)
 }
 \description{
-The functions listed below are deprecated or renamed and will be defunct in
+The functions and data listed below are deprecated or renamed and will be defunct in
 the near future. When possible, alternative functions with similar
 functionality are mentioned.
 }
@@ -298,19 +292,19 @@ Use \code{\link{calculate_vp}} instead.
 Use \code{\link{bind_into_vpts}} instead.
 }
 
-\section{SCAN}{
-
-Use \code{\link{example_scan}} instead.
-}
-
-\section{VP}{
+\section{\code{VP}}{
 
 Use \code{\link{example_vp}} instead.
 }
 
-\section{VPTS}{
+\section{\code{VPTS}}{
 
 Use \code{\link{example_vpts}} instead.
+}
+
+\section{\code{SCAN}}{
+
+Use \code{\link{example_scan}} instead.
 }
 
 \keyword{internal}

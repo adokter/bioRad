@@ -184,7 +184,7 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
                  })
   #order by elevation
   if (sort) {
-    data <- data[order(sapply(data, elangle))]
+    data <- data[order(sapply(data, get_elevation_angles))]
   }
 
   #prepare output
