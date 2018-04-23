@@ -1,12 +1,7 @@
 # bioRad
 bioRad is an R package for extracting and visualising biological signals from weather radar data.
 
-* analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=debilt)).
-* overlays radar scans with geographic maps and satellite imagery of various online sources (e.g Google Maps and Stamen Maps), using  [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html).
-* contains an implementation of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of bird migration from weather radar data. 
-* Reads radar files in [ODIM](http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format, or formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as [NEXRAD](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) data.
-
-The [vol2bird](https://github.com/adokter/vol2bird) algorithm, and a tool to convert NEXRAD data into ODIM format, require a working installation of [Docker](https://www.docker.com/).
+The version in this branch has been specifically prepared for review purposes of the paper "bioRad: biological analysis and visualization of weather radar data".
 
 # installation
 To install `bioRad` complete these four steps:
@@ -59,6 +54,20 @@ Docker needs local drives to be available for Docker containers. To enable:
 * select settings -> shared drives
 * select the drives where you will be processing radar files
 * click apply
+
+### 4. run bioRad in R
+To load the package:
+```
+library(bioRad)
+```
+To pull up the main help page:
+```
+?bioRad
+```
+To open the vignette with several exercises covering the functionality of bioRad:
+```
+vignette("bioRad-overview")
+```
 
 ### install note 1: rgdal on linux and mac OS v10.11 or older:
 bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.
