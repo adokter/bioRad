@@ -1,6 +1,6 @@
-#' Deprecated functions in package \pkg{bioRad}
+#' Deprecated functions and data in package \pkg{bioRad}
 #'
-#' The functions listed below are deprecated or renamed and will be defunct in
+#' The functions and data listed below are deprecated or renamed and will be defunct in
 #' the near future. When possible, alternative functions with similar
 #' functionality are mentioned.
 #'
@@ -395,31 +395,18 @@ vpts <- function(...) {
 #'
 #' @section \code{VP}:
 #' Use \code{\link{example_vp}} instead.
-#'
-#' @export
-VP <- function(...) {
-  .Deprecated("example_vp")
-  example_vp(...)
-}
+NULL
+
 #' @name VPTS-deprecated
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{VPTS}:
 #' Use \code{\link{example_vpts}} instead.
-#'
-#' @export
-VPTS <- function(...) {
-  .Deprecated("example_vpts")
-  example_vpts(...)
-}
+NULL
+
 #' @name SCAN-deprecated
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{SCAN}:
 #' Use \code{\link{example_scan}} instead.
-#'
-#' @export
-SCAN <- function(...) {
-  .Deprecated("example_scan")
-  example_scan(...)
-}
+NULL

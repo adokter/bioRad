@@ -65,12 +65,9 @@
 \alias{vpts-deprecated}
 \alias{vpts}
 \alias{VP-deprecated}
-\alias{VP}
 \alias{VPTS-deprecated}
-\alias{VPTS}
 \alias{SCAN-deprecated}
-\alias{SCAN}
-\title{Deprecated functions in package \pkg{bioRad}}
+\title{Deprecated functions and data in package \pkg{bioRad}}
 \usage{
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 
@@ -133,12 +130,6 @@ suntime(..., rise = TRUE)
 is.vplist(...)
 
 vpts(...)
-
-VP(...)
-
-VPTS(...)
-
-SCAN(...)
 }
 \description{
 The functions listed below are deprecated or renamed and will be defunct in
