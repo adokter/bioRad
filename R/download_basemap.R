@@ -29,7 +29,7 @@
 #' basemap = download_basemap(ppi, maptype = "satellite")
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi, map = basemap, param = "VRADH")
-download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...){
+download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...) {
   stopifnot(inherits(x, "ppi"))
 
   if (!missing(zoom)) {

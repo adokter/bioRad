@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class 'vp': vertical profile — summary.vp • bioRad</title>
+<title>Object of class <code>vp</code>: a vertical profile of birds — summary.vp • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,17 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Class 'vp': vertical profile — summary.vp" />
-
-<meta property="og:description" content="Class for vertical profiles" />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -93,8 +74,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class 'vp': vertical profile</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
+    <h1>Object of class <code>vp</code>: a vertical profile of birds</h1>
     </div>
 
     
@@ -114,30 +94,32 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>object of class 'vp'</p></td>
+      <td><p>An object of class <code>vp</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments affecting the summary produced.</p></td>
+      <td><p>Additional arguments affecting the summary produced.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>object of class 'vp'</p></td>
+      <td><p>An object of class <code>vp</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>for <code>is.vp</code>: <code>TRUE</code> if its argument is of class "<code>vp</code>"</p>
-<p>for <code>dim.vp</code>: dimensions of the profile data</p>
+    <p>For <code>is.vp</code>: <code>TRUE</code> if its argument is of class <code>vp</code>.</p>
+<p>For <code>dim.vp</code>: dimensions of the profile data.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An object of class <code>vp</code> contains a vertical profile. A vertical profile contains a collection of quantities,
- with each quantity having values at different altitude layers above the earth's surface,
- typically equally spaced altitudinal layers.</p>
-<p>Data contained in this class object should be accessed with the <a href='fetch.html'>fetch</a> function.
-Information stored under <code>attributes</code> (see below) can be accessed directly.</p>
+    <p>An object of class <code>vp</code> contains a vertical profile. A vertical profile
+contains a collection of quantities, with each quantity having values at
+different altitude layers above the earth's surface, typically equally
+spaced altitudinal layers.</p>
+<p>Data contained in this class object should be accessed with the
+<a href='get_quantity.html'>get_quantity</a> function. Information stored under <code>attributes</code>
+(see below) can be accessed directly.</p>
 <p>A <code>vp</code> object is a list containing</p><dl class='dl-horizontal'>
  <dt><strong><code>radar</code></strong></dt><dd><p>the radar identifier</p></dd>
  <dt><strong><code>datetime</code></strong></dt><dd><p>the nominal time of the profile</p></dd>
@@ -160,7 +142,8 @@ Information stored under <code>attributes</code> (see below) can be accessed dir
        <dt><code>n_dbz</code></dt><dd><p>number of points bird density estimate (dbz,eta,dens)</p></dd>
        <dt><code>n_dbz_all</code></dt><dd><p>number of points total reflectivity estimate (DBZH)</p></dd>
    </dl></p></dd>
- <dt><strong><code>attributes</code></strong></dt><dd><p>list with the profile's <code>\what</code>, <code>\where</code> and <code>\how</code> attributes</p></dd>
+ <dt><strong><code>attributes</code></strong></dt><dd><p>list with the profile's <code>\what</code>,
+ <code>\where</code> and <code>\how</code> attributes</p></dd>
 </dl>
     
 
@@ -184,7 +167,7 @@ Information stored under <code>attributes</code> (see below) can be accessed dir
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -192,4 +175,3 @@ Information stored under <code>attributes</code> (see below) can be accessed dir
 
   </body>
 </html>
-

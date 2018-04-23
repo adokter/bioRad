@@ -7,33 +7,34 @@
 mt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
 }
 \arguments{
-\item{x}{an object inhereting from class '\code{vpts}'}
+\item{x}{A \code{vpts}.}
 
-\item{alt.min}{minimum altitude in m}
-
-\item{alt.max}{maximum altitude in m}
-
-\item{alpha}{(optional) migratory direction of interest in clockwise degrees from north, otherwise \code{NA}}
-
-\item{interval.max}{maximum time interval belonging to a single profile in seconds. Traffic rates are
-set to zero at times \code{t} for which no profiles can be found within the period \code{t-interval.max/2} to \code{t+interval.max/2}.}
+\item{interval.max}{Maximum time interval belonging to a single profile in
+seconds. Traffic rates are set to zero at times \code{t} for which no
+profiles can be found within the period \code{t-interval.max/2} to
+\code{t+interval.max/2}.}
 }
 \value{
-a numeric value equal to migration traffic in number of individuals / km
+A numeric value equal to migration traffic in number of
+individuals / km.
 }
 \description{
-Total migration traffic, which is calculated by time-integration
-of migration traffic rates. Migration traffic gives the number of individuals
+Total migration traffic, which is calculated by time-integration of
+migration traffic rates. Migration traffic gives the number of individuals
 that have passed per km perpendicular to the migratory direction at the
-position of the radar for the full period of the time series
-within the specified altitude band.
+position of the radar for the full period of the time series within the
+specified altitude band.
 }
 \examples{
-# get example time series object:
+# get example time series of vertical profiles:
 data(example_vpts)
 example_vpts
-# total migration traffic in full altitude band
+# total migration traffic in full altitude band:
 \dontrun{mt(example_vpts)}
-# total migration traffic in 0-1000 meter band
+# total migration traffic in 0-1000 meter band:
 \dontrun{mt(example_vpts, alt.min = 0, alt.max = 1000)}
 }
+\seealso{
+\code{\link{bioRad-deprecated}}.
+}
+\keyword{internal}

@@ -50,7 +50,7 @@ is.param <- function(x) {
 #' @param x An object of class \code{param}, a polar scan parameter.
 #'
 #' @keywords internal
-print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...){
+print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
   cat("               Polar scan parameter (class param)\n\n")
   cat("    quantity: ", attributes(x)$param, "\n")

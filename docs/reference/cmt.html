@@ -18,22 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Cumulative migration traffic — cmt" />
-
-<meta property="og:description" content="Cumulative migration traffic is calculated as the cumulative sum
-of the migration traffic within each time step of a time series.
-Cumulative migration traffic gives the number of individuals
-that have passed per km perpendicular to the migratory direction at the
-position of the radar as a function oftime from the start of time series
-within the specified altitude band." />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,21 +54,6 @@ within the specified altitude band." />
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -99,55 +75,255 @@ within the specified altitude band." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Cumulative migration traffic</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
     </div>
 
     
-    <p>Cumulative migration traffic is calculated as the cumulative sum
-of the migration traffic within each time step of a time series.
-Cumulative migration traffic gives the number of individuals
-that have passed per km perpendicular to the migratory direction at the
-position of the radar as a function oftime from the start of time series
-within the specified altitude band.</p>
+    <p>Cumulative migration traffic is calculated as the cumulative sum of the
+migration traffic within each time step of a time series. Cumulative
+migration traffic gives the number of individuals that have passed per km
+perpendicular to the migratory direction at the position of the radar as a
+function of time from the start of time series within the specified altitude
+band.</p>
     
 
-    <pre class="usage"><span class='fu'>cmt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>cmt</span>(<span class='no'>x</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval.max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an object inhereting from class '<code>vpts</code>'</p></td>
+      <td><p>A <code>vpts</code>.</p></td>
     </tr>
     <tr>
-      <th>alt.min</th>
-      <td><p>minimum altitude in m</p></td>
-    </tr>
-    <tr>
-      <th>alt.max</th>
-      <td><p>maximum altitude in m</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>(optional) migratory direction of interest in clockwise degrees from north, otherwise <code>NA</code></p></td>
+      <th>interval.max</th>
+      <td><p>Maximum time interval belonging to a single profile in
+seconds. Traffic rates are set to zero at times <code>t</code> for which no
+profiles can be found within the period <code>t-interval.max/2</code> to
+<code>t+interval.max/2</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a numeric value equal to migration traffic in number of individuals / km</p>
+    <p>Atomic vector with (cumulative) migration traffic in number of
+individuals / km.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='bioRad-deprecated.html'>bioRad-deprecated</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># get the VPTS example dataset:</span>
-<span class='fu'>data</span>(<span class='no'>VPTS</span>)
+    <pre class="examples"><div class='input'><span class='co'># get example time series of vertical profiles:</span>
+<span class='fu'>data</span>(<span class='no'>example_vpts</span>)
 <span class='co'># print cumulative migration traffic to console:</span>
-<span class='fu'>cmt</span>(<span class='no'>VPTS</span>)
-<span class='co'># plot cumulative migration traffic:</span>
-<span class='fu'>plot</span>(<span class='fu'>cmt</span>(<span class='no'>VPTS</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>'l'</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"time"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"CMT [birds/km]"</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>cmt</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
+#&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Cumulative migration traffic is now included in the output of integrate_profile() as column 'mt' (summed).</span></div><div class='output co'>#&gt;    [1] 6.287956e-01 1.417837e+00 2.091286e+00 3.416644e+00 5.129332e+00
+#&gt;    [6] 7.108992e+00 1.022961e+01 1.433298e+01 1.947403e+01 2.580957e+01
+#&gt;   [11] 3.259757e+01 4.012992e+01 4.722142e+01 5.426145e+01 6.112224e+01
+#&gt;   [16] 6.785336e+01 7.508942e+01 8.260270e+01 9.010823e+01 9.735163e+01
+#&gt;   [21] 1.042375e+02 1.135674e+02 1.210037e+02 1.276177e+02 1.347786e+02
+#&gt;   [26] 1.429733e+02 1.502622e+02 1.568399e+02 1.636950e+02 1.705353e+02
+#&gt;   [31] 1.786873e+02 1.875067e+02 1.939140e+02 2.013087e+02 2.075019e+02
+#&gt;   [36] 2.135587e+02 2.201902e+02 2.276499e+02 2.309963e+02 2.385310e+02
+#&gt;   [41] 2.459202e+02 2.549865e+02 2.625256e+02 2.700757e+02 2.739599e+02
+#&gt;   [46] 2.818915e+02 2.919630e+02 2.989781e+02 3.026936e+02 3.067266e+02
+#&gt;   [51] 3.157352e+02 3.237652e+02 3.339223e+02 3.450597e+02 3.497558e+02
+#&gt;   [56] 3.538513e+02 3.572331e+02 3.599862e+02 3.641708e+02 3.661892e+02
+#&gt;   [61] 3.706956e+02 3.752004e+02 3.795158e+02 3.850877e+02 3.915417e+02
+#&gt;   [66] 4.003829e+02 4.088539e+02 4.177771e+02 4.275259e+02 4.403875e+02
+#&gt;   [71] 4.546146e+02 4.707547e+02 4.850923e+02 5.020452e+02 5.220232e+02
+#&gt;   [76] 5.422516e+02 5.596590e+02 5.814171e+02 6.050485e+02 6.320448e+02
+#&gt;   [81] 6.523002e+02 6.709054e+02 6.931981e+02 7.159501e+02 7.394331e+02
+#&gt;   [86] 7.616792e+02 7.879783e+02 8.171152e+02 8.544120e+02 8.914413e+02
+#&gt;   [91] 9.234572e+02 9.581372e+02 9.947303e+02 1.029380e+03 1.067852e+03
+#&gt;   [96] 1.099679e+03 1.132384e+03 1.163162e+03 1.197800e+03 1.273556e+03
+#&gt;  [101] 1.303243e+03 1.335560e+03 1.364776e+03 1.394147e+03 1.418677e+03
+#&gt;  [106] 1.443320e+03 1.471490e+03 1.495401e+03 1.518536e+03 1.539284e+03
+#&gt;  [111] 1.559560e+03 1.580992e+03 1.603461e+03 1.623953e+03 1.640279e+03
+#&gt;  [116] 1.656624e+03 1.673432e+03 1.688565e+03 1.706507e+03 1.725578e+03
+#&gt;  [121] 1.744382e+03 1.758293e+03 1.774870e+03 1.790305e+03 1.801232e+03
+#&gt;  [126] 1.812219e+03 1.823918e+03 1.833932e+03 1.842824e+03 1.856721e+03
+#&gt;  [131] 1.866150e+03 1.875478e+03 1.881366e+03 1.888653e+03 1.892250e+03
+#&gt;  [136] 1.893846e+03 1.895499e+03 1.895704e+03 1.895754e+03 1.896144e+03
+#&gt;  [141] 1.896254e+03 1.896456e+03 1.896565e+03 1.896818e+03 1.896962e+03
+#&gt;  [146] 1.897138e+03 1.897455e+03 1.897523e+03 1.897723e+03 1.897943e+03
+#&gt;  [151] 1.898397e+03 1.898609e+03 1.899335e+03 1.899640e+03 1.899767e+03
+#&gt;  [156] 1.899843e+03 1.900244e+03 1.900934e+03 1.901069e+03 1.901764e+03
+#&gt;  [161] 1.901888e+03 1.902086e+03 1.902349e+03 1.902821e+03 1.903144e+03
+#&gt;  [166] 1.903696e+03 1.904224e+03 1.904279e+03 1.904664e+03 1.904720e+03
+#&gt;  [171] 1.904761e+03 1.905306e+03 1.905488e+03 1.905851e+03 1.905911e+03
+#&gt;  [176] 1.906622e+03 1.907154e+03 1.907620e+03 1.907732e+03 1.907916e+03
+#&gt;  [181] 1.908022e+03 1.909021e+03 1.909156e+03 1.909287e+03 1.909414e+03
+#&gt;  [186] 1.911483e+03 1.912860e+03 1.914163e+03 1.914223e+03 1.914429e+03
+#&gt;  [191] 1.914600e+03 1.914818e+03 1.915983e+03 1.916197e+03 1.917008e+03
+#&gt;  [196] 1.918183e+03 1.920132e+03 1.921225e+03 1.923664e+03 1.925406e+03
+#&gt;  [201] 1.925538e+03 1.925813e+03 1.925903e+03 1.926607e+03 1.926953e+03
+#&gt;  [206] 1.927123e+03 1.930448e+03 1.931043e+03 1.931765e+03 1.931896e+03
+#&gt;  [211] 1.931947e+03 1.932421e+03 1.934241e+03 1.934294e+03 1.936052e+03
+#&gt;  [216] 1.936098e+03 1.937539e+03 1.938296e+03 1.939768e+03 1.940841e+03
+#&gt;  [221] 1.941220e+03 1.941516e+03 1.946343e+03 1.952101e+03 1.958832e+03
+#&gt;  [226] 1.962140e+03 1.967856e+03 1.974059e+03 1.981478e+03 1.988913e+03
+#&gt;  [231] 1.997611e+03 2.006280e+03 2.017881e+03 2.030129e+03 2.044593e+03
+#&gt;  [236] 2.058809e+03 2.073274e+03 2.087803e+03 2.103452e+03 2.117413e+03
+#&gt;  [241] 2.130924e+03 2.146170e+03 2.159792e+03 2.173443e+03 2.193684e+03
+#&gt;  [246] 2.207059e+03 2.212267e+03 2.222986e+03 2.232240e+03 2.241164e+03
+#&gt;  [251] 2.245912e+03 2.260697e+03 2.260697e+03 2.260697e+03 2.265726e+03
+#&gt;  [256] 2.270679e+03 2.274381e+03 2.274381e+03 2.274418e+03 2.274433e+03
+#&gt;  [261] 2.274492e+03 2.274523e+03 2.276469e+03 2.278632e+03 2.278737e+03
+#&gt;  [266] 2.279364e+03 2.280504e+03 2.281805e+03 2.282747e+03 2.283480e+03
+#&gt;  [271] 2.284321e+03 2.284995e+03 2.285802e+03 2.286419e+03 2.287214e+03
+#&gt;  [276] 2.287775e+03 2.290381e+03 2.295502e+03 2.299742e+03 2.302547e+03
+#&gt;  [281] 2.306209e+03 2.319682e+03 2.385655e+03 2.528333e+03 2.836059e+03
+#&gt;  [286] 3.462679e+03 4.335264e+03 5.461514e+03 6.745192e+03 8.265224e+03
+#&gt;  [291] 9.793024e+03 1.124636e+04 1.264348e+04 1.396850e+04 1.534053e+04
+#&gt;  [296] 1.650902e+04 1.767158e+04 1.892230e+04 2.017659e+04 2.150002e+04
+#&gt;  [301] 2.282722e+04 2.431953e+04 2.576765e+04 2.711060e+04 2.845786e+04
+#&gt;  [306] 2.977495e+04 3.095475e+04 3.209058e+04 3.331731e+04 3.437190e+04
+#&gt;  [311] 3.540702e+04 3.634362e+04 3.713122e+04 3.794677e+04 3.866227e+04
+#&gt;  [316] 3.936822e+04 3.995051e+04 4.045887e+04 4.095388e+04 4.145372e+04
+#&gt;  [321] 4.199519e+04 4.259056e+04 4.308069e+04 4.359516e+04 4.407902e+04
+#&gt;  [326] 4.458153e+04 4.500872e+04 4.544147e+04 4.588540e+04 4.624670e+04
+#&gt;  [331] 4.661129e+04 4.695779e+04 4.728254e+04 4.757293e+04 4.785512e+04
+#&gt;  [336] 4.805335e+04 4.832015e+04 4.855444e+04 4.879364e+04 4.903597e+04
+#&gt;  [341] 4.920136e+04 4.935453e+04 4.954643e+04 4.970620e+04 4.979684e+04
+#&gt;  [346] 4.982315e+04 4.982315e+04 4.982315e+04 4.982636e+04 4.983223e+04
+#&gt;  [351] 4.983883e+04 4.984800e+04 4.985797e+04 4.986831e+04 4.987574e+04
+#&gt;  [356] 4.988745e+04 4.989731e+04 4.990343e+04 4.990343e+04 4.990715e+04
+#&gt;  [361] 4.991143e+04 4.991713e+04 4.992289e+04 4.992732e+04 4.993376e+04
+#&gt;  [366] 4.993804e+04 4.994210e+04 4.994933e+04 4.995404e+04 4.995891e+04
+#&gt;  [371] 4.996319e+04 4.996802e+04 4.997139e+04 4.997715e+04 4.998184e+04
+#&gt;  [376] 4.998663e+04 4.999135e+04 4.999484e+04 4.999842e+04 5.000091e+04
+#&gt;  [381] 5.000896e+04 5.001228e+04 5.002014e+04 5.002964e+04 5.003466e+04
+#&gt;  [386] 5.003999e+04 5.004586e+04 5.005209e+04 5.005506e+04 5.006119e+04
+#&gt;  [391] 5.006369e+04 5.007065e+04 5.007624e+04 5.008177e+04 5.008698e+04
+#&gt;  [396] 5.009309e+04 5.009861e+04 5.010481e+04 5.011061e+04 5.011631e+04
+#&gt;  [401] 5.012084e+04 5.012311e+04 5.012789e+04 5.013164e+04 5.013331e+04
+#&gt;  [406] 5.013865e+04 5.014170e+04 5.014341e+04 5.014584e+04 5.014584e+04
+#&gt;  [411] 5.014808e+04 5.015005e+04 5.015005e+04 5.015005e+04 5.015005e+04
+#&gt;  [416] 5.015005e+04 5.015005e+04 5.015005e+04 5.015005e+04 5.015005e+04
+#&gt;  [421] 5.015005e+04 5.015005e+04 5.015005e+04 5.015005e+04 5.015224e+04
+#&gt;  [426] 5.015383e+04 5.015521e+04 5.015675e+04 5.015675e+04 5.015675e+04
+#&gt;  [431] 5.016224e+04 5.018119e+04 5.022474e+04 5.034916e+04 5.054376e+04
+#&gt;  [436] 5.079514e+04 5.109363e+04 5.145213e+04 5.185296e+04 5.229118e+04
+#&gt;  [441] 5.277510e+04 5.332116e+04 5.386513e+04 5.442887e+04 5.503075e+04
+#&gt;  [446] 5.564992e+04 5.638774e+04 5.707151e+04 5.774889e+04 5.848510e+04
+#&gt;  [451] 5.924981e+04 5.999494e+04 6.077977e+04 6.155771e+04 6.246076e+04
+#&gt;  [456] 6.327808e+04 6.409156e+04 6.492834e+04 6.570893e+04 6.648243e+04
+#&gt;  [461] 6.720788e+04 6.796066e+04 6.879017e+04 6.957591e+04 7.034326e+04
+#&gt;  [466] 7.119160e+04 7.191040e+04 7.266607e+04 7.345454e+04 7.415721e+04
+#&gt;  [471] 7.491413e+04 7.571814e+04 7.640246e+04 7.705527e+04 7.762396e+04
+#&gt;  [476] 7.814724e+04 7.856351e+04 7.892320e+04 7.922064e+04 7.947359e+04
+#&gt;  [481] 7.971388e+04 7.990544e+04 8.008478e+04 8.024474e+04 8.039458e+04
+#&gt;  [486] 8.052709e+04 8.064069e+04 8.073030e+04 8.081697e+04 8.085498e+04
+#&gt;  [491] 8.089611e+04 8.093336e+04 8.098921e+04 8.101018e+04 8.101380e+04
+#&gt;  [496] 8.101380e+04 8.101380e+04 8.101380e+04 8.101380e+04 8.101380e+04
+#&gt;  [501] 8.102285e+04 8.102285e+04 8.102285e+04 8.103138e+04 8.103706e+04
+#&gt;  [506] 8.103706e+04 8.104389e+04 8.104857e+04 8.105393e+04 8.105853e+04
+#&gt;  [511] 8.106252e+04 8.106630e+04 8.107076e+04 8.107434e+04 8.107804e+04
+#&gt;  [516] 8.108107e+04 8.108345e+04 8.108585e+04 8.108847e+04 8.109050e+04
+#&gt;  [521] 8.109330e+04 8.109608e+04 8.109608e+04 8.109925e+04 8.110206e+04
+#&gt;  [526] 8.110442e+04 8.110647e+04 8.110842e+04 8.111085e+04 8.111191e+04
+#&gt;  [531] 8.111386e+04 8.111569e+04 8.111647e+04 8.111789e+04 8.112018e+04
+#&gt;  [536] 8.112258e+04 8.112587e+04 8.112740e+04 8.113036e+04 8.113381e+04
+#&gt;  [541] 8.113739e+04 8.114130e+04 8.114578e+04 8.114841e+04 8.115371e+04
+#&gt;  [546] 8.115920e+04 8.116553e+04 8.117122e+04 8.117620e+04 8.118263e+04
+#&gt;  [551] 8.118757e+04 8.119503e+04 8.119806e+04 8.120403e+04 8.120903e+04
+#&gt;  [556] 8.121326e+04 8.121907e+04 8.122458e+04 8.122764e+04 8.123435e+04
+#&gt;  [561] 8.123860e+04 8.124063e+04 8.124307e+04 8.124307e+04 8.124307e+04
+#&gt;  [566] 8.124307e+04 8.124307e+04 8.124307e+04 8.124307e+04 8.124307e+04
+#&gt;  [571] 8.124307e+04 8.124307e+04 8.124307e+04 8.124637e+04 8.124637e+04
+#&gt;  [576] 8.124637e+04 8.124637e+04 8.124637e+04 8.124692e+04 8.125163e+04
+#&gt;  [581] 8.126528e+04 8.130276e+04 8.138001e+04 8.149144e+04 8.164812e+04
+#&gt;  [586] 8.184195e+04 8.211953e+04 8.244137e+04 8.281047e+04 8.317505e+04
+#&gt;  [591] 8.355156e+04 8.398093e+04 8.440736e+04 8.481851e+04 8.527425e+04
+#&gt;  [596] 8.565130e+04 8.602481e+04 8.642508e+04 8.680314e+04 8.717694e+04
+#&gt;  [601] 8.757601e+04 8.798620e+04 8.834158e+04 8.873283e+04 8.912366e+04
+#&gt;  [606] 8.952049e+04 8.989225e+04 9.028240e+04 9.068664e+04 9.110040e+04
+#&gt;  [611] 9.148655e+04 9.188655e+04 9.222689e+04 9.256600e+04 9.289231e+04
+#&gt;  [616] 9.320136e+04 9.346940e+04 9.372123e+04 9.398735e+04 9.427616e+04
+#&gt;  [621] 9.456156e+04 9.484812e+04 9.509547e+04 9.536389e+04 9.557010e+04
+#&gt;  [626] 9.578972e+04 9.598457e+04 9.607615e+04 9.624670e+04 9.640801e+04
+#&gt;  [631] 9.656313e+04 9.669512e+04 9.682522e+04 9.693993e+04 9.704151e+04
+#&gt;  [636] 9.714121e+04 9.718485e+04 9.726102e+04 9.729354e+04 9.732524e+04
+#&gt;  [641] 9.736116e+04 9.739910e+04 9.741350e+04 9.741350e+04 9.741350e+04
+#&gt;  [646] 9.741351e+04 9.741351e+04 9.742361e+04 9.742361e+04 9.742361e+04
+#&gt;  [651] 9.743133e+04 9.743133e+04 9.743133e+04 9.743419e+04 9.743884e+04
+#&gt;  [656] 9.744236e+04 9.744616e+04 9.744913e+04 9.745241e+04 9.745241e+04
+#&gt;  [661] 9.745606e+04 9.745848e+04 9.746277e+04 9.746571e+04 9.746571e+04
+#&gt;  [666] 9.746571e+04 9.746752e+04 9.746983e+04 9.747172e+04 9.747366e+04
+#&gt;  [671] 9.747637e+04 9.747945e+04 9.748095e+04 9.748318e+04 9.748662e+04
+#&gt;  [676] 9.748855e+04 9.750288e+04 9.750458e+04 9.752101e+04 9.753284e+04
+#&gt;  [681] 9.754874e+04 9.757081e+04 9.759532e+04 9.761433e+04 9.762614e+04
+#&gt;  [686] 9.764487e+04 9.767064e+04 9.770635e+04 9.775013e+04 9.778585e+04
+#&gt;  [691] 9.782321e+04 9.784525e+04 9.785024e+04 9.785200e+04 9.785588e+04
+#&gt;  [696] 9.786091e+04 9.786569e+04 9.786884e+04 9.787178e+04 9.787358e+04
+#&gt;  [701] 9.787786e+04 9.788103e+04 9.788308e+04 9.788706e+04 9.788861e+04
+#&gt;  [706] 9.789180e+04 9.789361e+04 9.789543e+04 9.789836e+04 9.789999e+04
+#&gt;  [711] 9.790129e+04 9.790129e+04 9.790129e+04 9.790129e+04 9.790129e+04
+#&gt;  [716] 9.790129e+04 9.790129e+04 9.790129e+04 9.790129e+04 9.790129e+04
+#&gt;  [721] 9.790129e+04 9.790229e+04 9.790496e+04 9.790496e+04 9.790496e+04
+#&gt;  [726] 9.790496e+04 9.790496e+04 9.790542e+04 9.791096e+04 9.792551e+04
+#&gt;  [731] 9.796179e+04 9.801045e+04 9.808044e+04 9.815961e+04 9.826594e+04
+#&gt;  [736] 9.839368e+04 9.853256e+04 9.870319e+04 9.887988e+04 9.906820e+04
+#&gt;  [741] 9.929337e+04 9.950779e+04 9.976569e+04 1.000595e+05 1.003855e+05
+#&gt;  [746] 1.006890e+05 1.010312e+05 1.013344e+05 1.016460e+05 1.019276e+05
+#&gt;  [751] 1.022156e+05 1.025092e+05 1.027391e+05 1.029662e+05 1.032001e+05
+#&gt;  [756] 1.033912e+05 1.035770e+05 1.037466e+05 1.039218e+05 1.041007e+05
+#&gt;  [761] 1.042425e+05 1.043832e+05 1.045208e+05 1.046497e+05 1.047680e+05
+#&gt;  [766] 1.048945e+05 1.050060e+05 1.051083e+05 1.052011e+05 1.052916e+05
+#&gt;  [771] 1.053939e+05 1.054770e+05 1.055540e+05 1.056327e+05 1.056937e+05
+#&gt;  [776] 1.057605e+05 1.058221e+05 1.058907e+05 1.059462e+05 1.059925e+05
+#&gt;  [781] 1.060320e+05 1.060721e+05 1.060906e+05 1.061237e+05 1.061567e+05
+#&gt;  [786] 1.061736e+05 1.062021e+05 1.062224e+05 1.062429e+05 1.062792e+05
+#&gt;  [791] 1.062984e+05 1.063045e+05 1.063045e+05 1.063126e+05 1.063217e+05
+#&gt;  [796] 1.063289e+05 1.063366e+05 1.063430e+05 1.063654e+05 1.063763e+05
+#&gt;  [801] 1.063851e+05 1.063916e+05 1.063992e+05 1.064037e+05 1.064094e+05
+#&gt;  [806] 1.064145e+05 1.064191e+05 1.064236e+05 1.064284e+05 1.064333e+05
+#&gt;  [811] 1.064372e+05 1.064415e+05 1.064449e+05 1.064473e+05 1.064498e+05
+#&gt;  [816] 1.064520e+05 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05
+#&gt;  [821] 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05
+#&gt;  [826] 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05
+#&gt;  [831] 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05
+#&gt;  [836] 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05
+#&gt;  [841] 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05 1.064811e+05
+#&gt;  [846] 1.064811e+05 1.064811e+05 1.064814e+05 1.064842e+05 1.064995e+05
+#&gt;  [851] 1.065274e+05 1.065812e+05 1.066952e+05 1.068614e+05 1.070769e+05
+#&gt;  [856] 1.073626e+05 1.077213e+05 1.081419e+05 1.085824e+05 1.090308e+05
+#&gt;  [861] 1.094601e+05 1.098726e+05 1.103111e+05 1.107113e+05 1.111400e+05
+#&gt;  [866] 1.115767e+05 1.120776e+05 1.127034e+05 1.133229e+05 1.140422e+05
+#&gt;  [871] 1.148230e+05 1.156130e+05 1.163965e+05 1.172928e+05 1.182120e+05
+#&gt;  [876] 1.191044e+05 1.199647e+05 1.206894e+05 1.214435e+05 1.221334e+05
+#&gt;  [881] 1.227416e+05 1.230351e+05 1.234472e+05 1.237957e+05 1.241425e+05
+#&gt;  [886] 1.244528e+05 1.247492e+05 1.250201e+05 1.252978e+05 1.255886e+05
+#&gt;  [891] 1.258794e+05 1.261348e+05 1.262809e+05 1.265714e+05 1.269134e+05
+#&gt;  [896] 1.272280e+05 1.276338e+05 1.279777e+05 1.283280e+05 1.286298e+05
+#&gt;  [901] 1.289234e+05 1.291846e+05 1.293147e+05 1.294502e+05 1.296865e+05
+#&gt;  [906] 1.298801e+05 1.299878e+05 1.301905e+05 1.303000e+05 1.304824e+05
+#&gt;  [911] 1.306714e+05 1.308342e+05 1.309153e+05 1.309375e+05 1.309467e+05
+#&gt;  [916] 1.309802e+05 1.310060e+05 1.310361e+05 1.310647e+05 1.310897e+05
+#&gt;  [921] 1.311138e+05 1.311420e+05 1.311631e+05 1.311753e+05 1.311979e+05
+#&gt;  [926] 1.312170e+05 1.312235e+05 1.312333e+05 1.312465e+05 1.312527e+05
+#&gt;  [931] 1.312598e+05 1.312686e+05 1.312774e+05 1.312853e+05 1.312897e+05
+#&gt;  [936] 1.312951e+05 1.312983e+05 1.313011e+05 1.313054e+05 1.313085e+05
+#&gt;  [941] 1.313117e+05 1.313183e+05 1.313266e+05 1.313317e+05 1.313357e+05
+#&gt;  [946] 1.313388e+05 1.313413e+05 1.313450e+05 1.313492e+05 1.313535e+05
+#&gt;  [951] 1.313586e+05 1.313609e+05 1.313652e+05 1.313684e+05 1.313738e+05
+#&gt;  [956] 1.313790e+05 1.313855e+05 1.313883e+05 1.313960e+05 1.314027e+05
+#&gt;  [961] 1.314027e+05 1.314027e+05 1.314027e+05 1.314073e+05 1.314195e+05
+#&gt;  [966] 1.314307e+05 1.314354e+05 1.314402e+05 1.314441e+05 1.314520e+05
+#&gt;  [971] 1.314558e+05 1.314603e+05 1.314642e+05 1.314680e+05 1.314726e+05
+#&gt;  [976] 1.314793e+05 1.314793e+05 1.314838e+05 1.314838e+05 1.314838e+05
+#&gt;  [981] 1.314838e+05 1.314838e+05 1.314838e+05 1.314838e+05 1.314865e+05
+#&gt;  [986] 1.314865e+05 1.314865e+05 1.314865e+05 1.314865e+05 1.314865e+05
+#&gt;  [991] 1.314865e+05 1.314865e+05 1.314865e+05 1.314865e+05 1.314865e+05
+#&gt;  [996] 1.314868e+05 1.314868e+05 1.314874e+05 1.314949e+05 1.315254e+05
+#&gt;  [ reached getOption("max.print") -- omitted 5135 entries ]</div><div class='input'><span class='co'># plot cumulative migration traffic:</span>
+<span class='fu'>plot</span>(<span class='fu'>cmt</span>(<span class='no'>example_vpts</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"l"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"time"</span> , <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"CMT [birds/km]"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'cmt' is deprecated.</span>
+#&gt; <span class='warning'>Use 'integrate_profile' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Cumulative migration traffic is now included in the output of integrate_profile() as column 'mt' (summed).</span></div><div class='img'><img src='cmt-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -155,6 +331,8 @@ within the specified altitude band.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -168,7 +346,7 @@ within the specified altitude band.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -176,4 +354,3 @@ within the specified altitude band.</p>
 
   </body>
 </html>
-

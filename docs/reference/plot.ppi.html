@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a plan position indicator (PPI) — plot.ppi • bioRad</title>
+<title>Plot a plan position indicator (<code>ppi</code>) — plot.ppi • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,17 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Plot a plan position indicator (PPI) — plot.ppi" />
-
-<meta property="og:description" content="Plots a plan position indicator (PPI) generated with ppi using ggplot" />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -93,12 +74,12 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a plan position indicator (PPI)</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.ppi.R'><code>R/bioRad.ppi.R</code></a></small>
+    <h1>Plot a plan position indicator (<code>ppi</code>)</h1>
     </div>
 
     
-    <p>Plots a plan position indicator (PPI) generated with <a href='ppi.html'>ppi</a> using <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></p>
+    <p>Plot a plan position indicator (PPI) generated with <a href='bioRad-deprecated.html'>ppi</a>
+using <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></p>
     
 
     <pre class="usage"><span class='co'># S3 method for ppi</span>
@@ -109,63 +90,65 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an object of class 'ppi'</p></td>
+      <td><p>An object of class <code>ppi</code>.</p></td>
     </tr>
     <tr>
       <th>param</th>
-      <td><p>the scan parameter to plot, see details below</p></td>
+      <td><p>The scan parameter to plot, see details below.</p></td>
     </tr>
     <tr>
       <th>xlim</th>
-      <td><p>range of x values to plot</p></td>
+      <td><p>Range of x values to plot.</p></td>
     </tr>
     <tr>
       <th>ylim</th>
-      <td><p>range of y values to plot</p></td>
+      <td><p>Range of y values to plot.</p></td>
     </tr>
     <tr>
       <th>zlim</th>
-      <td><p>the range of parameter values to plot</p></td>
+      <td><p>The range of parameter values to plot.</p></td>
     </tr>
     <tr>
       <th>ratio</th>
-      <td><p>aspect ratio between x and y scale</p></td>
+      <td><p>Aspect ratio between x and y scale.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to low level <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> function</p></td>
+      <td><p>Arguments passed to low level <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> function.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Available scan parameters for plotting can by printed to screen by <code>summary(x)</code>.
-Commonly available parameters are:</p><dl class='dl-horizontal'>
+    <p>Available scan parameters for plotting can by printed to screen
+by <code>summary(x)</code>. Commonly available parameters are:</p><dl class='dl-horizontal'>
  <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
- <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial velocities towards
-  the radar are negative, while radial velocities away from the radar are positive</p></dd>
- <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor</p></dd>
+ <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
+ velocities towards the radar are negative, while radial velocities away
+ from the radar are positive</p></dd>
+ <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation
+ between vertically polarized and horizontally polarized reflectivity factor</p></dd>
  <dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase [degrees]</p></dd>
  <dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity [dB]</p></dd>
-</dl><p>The scan parameters are named according to the OPERA data information model (ODIM), see
-Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.</p>
+</dl><p>The scan parameters are named according to the OPERA data information
+model (ODIM), see Table 16 in the
+<a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># load an example scan:</span>
-<span class='fu'>data</span>(<span class='no'>SCAN</span>)
+    <pre class="examples"><div class='input'><span class='co'># load an example scan:</span>
+<span class='fu'>data</span>(<span class='no'>example_scan</span>)
 <span class='co'># print to screen the available scan parameters:</span>
-<span class='fu'>summary</span>(<span class='no'>SCAN</span>)
-<span class='co'># make ppi for the scan</span>
-<span class='no'>ppi</span><span class='kw'>=</span><span class='fu'><a href='ppi.html'>ppi</a></span>(<span class='no'>SCAN</span>)
+<span class='fu'>summary</span>(<span class='no'>example_scan</span>)</div><div class='output co'>#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  0.5 deg
+#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make ppi for the scan</span>
+<span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
 <span class='co'># plot the first scan parameter, which in this case is "VRADH":</span>
-<span class='fu'>plot</span>(<span class='no'>ppi</span>)
-<span class='co'># plot the reflectivity quantity:</span>
-<span class='fu'>plot</span>(<span class='no'>ppi</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"DBZH"</span>)
-<span class='co'># change the range of reflectivities to plot to -30 to 50 dBZ:</span>
-<span class='fu'>plot</span>(<span class='no'>ppi</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"DBZH"</span>,<span class='kw'>zlim</span><span class='kw'>=</span><span class='fu'>c</span>(-<span class='fl'>30</span>,<span class='fl'>50</span>))
-<span class='co'># }</span></pre>
+<span class='fu'>plot</span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># plot the reflectivity quantity:</span>
+<span class='fu'>plot</span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.ppi-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># change the range of reflectivities to plot to -30 to 50 dBZ:</span>
+<span class='fu'>plot</span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,<span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>30</span>, <span class='fl'>50</span>))</div><div class='img'><img src='plot.ppi-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -186,7 +169,7 @@ Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPE
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -194,4 +177,3 @@ Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPE
 
   </body>
 </html>
-

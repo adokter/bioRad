@@ -2,112 +2,84 @@
 % Please edit documentation in R/bioRad-deprecated.R
 \name{bioRad-deprecated}
 \alias{bioRad-deprecated}
-\alias{beamheight-deprecated}
-\alias{beamheight}
-\alias{beamwidth-deprecated}
-\alias{beamwidth}
-\alias{bind-deprecated}
-\alias{bind}
-\alias{vol2bird-deprecated}
-\alias{vol2bird}
-\alias{night-deprecated}
-\alias{night}
-\alias{day-deprecated}
-\alias{day}
-\alias{composite-deprecated}
-\alias{composite}
-\alias{dbz2eta-deprecated}
-\alias{dbz2eta}
-\alias{eta2dbz-deprecated}
-\alias{eta2dbz}
-\alias{checkDocker-deprecated}
-\alias{checkDocker}
-\alias{updateDocker-deprecated}
-\alias{updateDocker}
-\alias{basemap-deprecated}
 \alias{basemap}
-\alias{download_vp-deprecated}
+\alias{beamheight}
+\alias{beamwidth}
+\alias{bind}
+\alias{checkDocker}
+\alias{composite}
+\alias{cmt}
+\alias{day}
+\alias{dbz2eta}
 \alias{download_vp}
-\alias{elangle-deprecated}
 \alias{elangle}
-\alias{fetch-deprecated}
+\alias{eta2dbz}
 \alias{fetch}
-\alias{getscan-deprecated}
 \alias{getscan}
-\alias{vintegrate-deprecated}
-\alias{vintegrate}
-\alias{rsl2odim-deprecated}
-\alias{rsl2odim}
-\alias{ppi-deprecated}
-\alias{ppi}
-\alias{h5ODIMobject-deprecated}
 \alias{h5ODIMobject}
-\alias{read.pvol-deprecated}
-\alias{read.pvol}
-\alias{readvp-deprecated}
-\alias{readvp}
-\alias{readvp.list-deprecated}
-\alias{readvp.list}
-\alias{readvp.table-deprecated}
-\alias{readvp.table}
-\alias{regularize-deprecated}
-\alias{regularize}
-\alias{sd_vvp-deprecated}
-\alias{sd_vvp}
-\alias{sd_vvp-deprecated}
-\alias{sd_vvp<-}
-\alias{retrieve_vp_paths-deprecated}
-\alias{retrieve_vp_paths}
-\alias{suntime-deprecated}
-\alias{suntime}
-\alias{is.vplist-deprecated}
 \alias{is.vplist}
-\alias{vpts-deprecated}
+\alias{mt}
+\alias{mtr}
+\alias{night}
+\alias{ppi}
+\alias{read.pvol}
+\alias{readvp}
+\alias{readvp.list}
+\alias{readvp.table}
+\alias{regularize}
+\alias{retrieve_vp_paths}
+\alias{rsl2odim}
+\alias{sd_vvp}
+\alias{sd_vvp<-}
+\alias{suntime}
+\alias{updateDocker}
+\alias{vintegrate}
+\alias{vol2bird}
 \alias{vpts}
 \alias{VP-deprecated}
 \alias{VPTS-deprecated}
 \alias{SCAN-deprecated}
 \title{Deprecated functions and data in package \pkg{bioRad}}
 \usage{
+basemap(...)
+
 beamheight(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 
 beamwidth(range, angle = 1)
 
 bind(x, ...)
 
-vol2bird(...)
-
-night(x, ..., elev = -0.268)
-
-day(x, elev = -0.268)
+checkDocker(...)
 
 composite(...)
 
+cmt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
+
+day(x, elev = -0.268)
+
 dbz2eta(...)
-
-eta2dbz(...)
-
-checkDocker(...)
-
-updateDocker(...)
-
-basemap(...)
 
 download_vp(...)
 
 elangle(...)
 
+eta2dbz(...)
+
 fetch(...)
 
 getscan(...)
 
-vintegrate(...)
+h5ODIMobject(...)
 
-rsl2odim(...)
+is.vplist(...)
+
+mt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
+
+mtr(x, alt.min = 0, alt.max = Inf, alpha = NA)
+
+night(x, ..., elev = -0.268)
 
 ppi(...)
-
-h5ODIMobject(...)
 
 read.pvol(...)
 
@@ -119,15 +91,21 @@ readvp.table(...)
 
 regularize(...)
 
+retrieve_vp_paths(...)
+
+rsl2odim(...)
+
 sd_vvp(...)
 
 sd_vvp(x) <- value
 
-retrieve_vp_paths(...)
-
 suntime(..., rise = TRUE)
 
-is.vplist(...)
+updateDocker(...)
+
+vintegrate(...)
+
+vol2bird(...)
 
 vpts(...)
 }
@@ -136,158 +114,180 @@ The functions and data listed below are deprecated or renamed and will be defunc
 the near future. When possible, alternative functions with similar
 functionality are mentioned.
 }
-\section{\code{beamheight}}{
-
-Use \code{\link{beam_height}} instead.
-}
-
-\section{\code{beamwidth}}{
-
-Use \code{\link{beam_width}} instead.
-}
-
-\section{\code{bind}}{
-
-Use \code{\link{bind_into_vpts}} instead.
-}
-
-\section{\code{vol2bird}}{
-
-Use \code{\link{calculate_vp}} instead.
-}
-
-\section{\code{night}}{
-
-Use \code{\link{check_night}} instead.
-}
-
-\section{\code{day}}{
-
-Use \code{\link{check_night}} instead.
-}
-
-\section{\code{composite}}{
-
-Use \code{\link{composite_ppi}} instead.
-}
-
-\section{\code{dbz2eta}}{
-
-Use \code{\link{dbz_to_eta}} instead.
-}
-
-\section{\code{eta2dbz}}{
-
-Use \code{\link{eta_to_dbz}} instead.
-}
-
-\section{\code{checkDocker}}{
-
-Use \code{\link{check_docker}} instead.
-}
-
-\section{\code{updateDocker}}{
-
-Use \code{\link{update_docker}} instead.
-}
-
-\section{\code{basemap}}{
+\section{basemap}{
 
 Use \code{\link{download_basemap}} instead.
 }
 
-\section{\code{download_vp}}{
+\section{beamheight}{
+
+Use \code{\link{beam_height}} instead.
+}
+
+\section{beamwidth}{
+
+Use \code{\link{beam_width}} instead.
+}
+
+\section{bind}{
+
+Use \code{\link{bind_into_vpts}} instead.
+}
+
+\section{checkDocker}{
+
+Use \code{\link{check_docker}} instead.
+}
+
+\section{composite}{
+
+Use \code{\link{composite_ppi}} instead.
+}
+
+\section{cmt}{
+
+\code{\link{cmt}} is deprecated as a separate function. Cumulative migration
+traffic is now included in the output of \code{\link{integrate_profile}} as
+column \code{mt}, which can be summed to get the cumulative migration
+traffic.
+}
+
+\section{day}{
+
+Use \code{\link{check_night}} instead.
+}
+
+\section{dbz2eta}{
+
+Use \code{\link{dbz_to_eta}} instead.
+}
+
+\section{download_vp}{
 
 Use \code{\link{download_vpfiles}} instead.
 }
 
-\section{\code{elangle}}{
+\section{elangle}{
 
-Use \code{\link{get_elevation_angles}} instead.
+Use \code{\link{get_angles}} instead.
 }
 
-\section{\code{fetch}}{
+\section{eta2dbz}{
+
+Use \code{\link{eta_to_dbz}} instead.
+}
+
+\section{fetch}{
 
 Use \code{\link{get_quantity}} instead.
 }
 
-\section{\code{getscan}}{
+\section{getscan}{
 
 Use \code{\link{get_scan}} instead.
 }
 
-\section{\code{vintegrate}}{
-
-Use \code{\link{integrate_profile}} instead.
-}
-
-\section{\code{rsl2odim}}{
-
-Use \code{\link{nexrad_to_odim}} instead.
-}
-
-\section{\code{ppi}}{
-
-Use \code{\link{project_as_ppi}} instead.
-}
-
-\section{\code{h5ODIMobject}}{
+\section{h5ODIMobject}{
 
 Use \code{\link{get_odim_object_type}} instead.
 }
 
-\section{\code{read.pvol}}{
-
-Use \code{\link{read_pvolfile}} instead.
-}
-
-\section{\code{readvp}}{
-
-Use \code{\link{read_vpfiles}} instead.
-}
-
-\section{\code{readvp.list}}{
-
-Use \code{\link{read_vpfiles}} instead.
-}
-
-\section{\code{readvp.table}}{
-
-Use \code{\link{read_vpts}} instead.
-}
-
-\section{\code{regularize}}{
-
-Use \code{\link{regularize_vpts}} instead.
-}
-
-\section{\code{sd_vvp}}{
-
-Use \code{\link{rvsd}} instead.
-}
-
-\section{\code{sd_vvp<-}}{
-
-Use \code{\link{rvsd<-}} instead.
-}
-
-\section{\code{retrieve_vp_paths}}{
-
-Use \code{\link{select_vpfiles}} instead.
-}
-
-\section{\code{suntime}}{
-
-Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
-}
-
-\section{\code{is.vplist}}{
+\section{is.vplist}{
 
 The \code{vplist} object is deprecated. Use a regular list of \code{vp}
 objects (\code{c(vp, vp))} instead.
 }
 
-\section{\code{vpts}}{
+\section{mt}{
+
+\code{\link{mt}} is deprecated as a separate function. Migration traffic
+is now included in the output of \code{\link{integrate_profile}} as
+column \code{mt}.
+}
+
+\section{mtr}{
+
+\code{\link{mtr}} is deprecated as a separate function. Migration traffic
+rate is now included in the output of \code{\link{integrate_profile}} as
+column \code{mtr}.
+}
+
+\section{night}{
+
+Use \code{\link{check_night}} instead.
+}
+
+\section{ppi}{
+
+Use \code{\link{project_as_ppi}} instead.
+}
+
+\section{read.pvol}{
+
+Use \code{\link{read_pvolfile}} instead.
+}
+
+\section{readvp}{
+
+Use \code{\link{read_vpfiles}} instead.
+}
+
+\section{readvp.list}{
+
+Use \code{\link{read_vpfiles}} instead.
+}
+
+\section{readvp.table}{
+
+Use \code{\link{read_vpts}} instead.
+}
+
+\section{regularize}{
+
+Use \code{\link{regularize_vpts}} instead.
+}
+
+\section{retrieve_vp_paths}{
+
+Use \code{\link{select_vpfiles}} instead.
+}
+
+\section{rsl2odim}{
+
+Use \code{\link{nexrad_to_odim}} instead.
+}
+
+\section{sd_vvp}{
+
+Use \code{\link{rvsd}} instead.
+}
+
+\section{sd_vvp<-}{
+
+Use \code{\link{rvsd<-}} instead.
+}
+
+\section{suntime}{
+
+Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
+}
+
+\section{updateDocker}{
+
+Use \code{\link{update_docker}} instead.
+}
+
+\section{vintegrate}{
+
+Use \code{\link{integrate_profile}} instead.
+}
+
+\section{vol2bird}{
+
+Use \code{\link{calculate_vp}} instead.
+}
+
+\section{vpts}{
 
 Use \code{\link{bind_into_vpts}} instead.
 }

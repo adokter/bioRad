@@ -26,7 +26,7 @@ rcs.vp <- function(x) {
 #' @describeIn rcs radar cross sections for a list of vertical profiles
 #'
 #' @export
-rcs.list <- function(x){
+rcs.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")

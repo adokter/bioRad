@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class 'pvol': polar volume — summary.pvol • bioRad</title>
+<title>Object of class <code>pvol</code>: a polar volume — summary.pvol • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,17 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Class 'pvol': polar volume — summary.pvol" />
-
-<meta property="og:description" content="Class 'pvol': polar volume" />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,21 +54,6 @@
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -93,12 +74,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class 'pvol': polar volume</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.ppi.R'><code>R/bioRad.ppi.R</code></a></small>
+    <h1>Object of class <code>pvol</code>: a polar volume</h1>
     </div>
 
     
-    <p>Class 'pvol': polar volume</p>
+    <p>Object of class <code>pvol</code>: a polar volume</p>
     
 
     <pre class="usage"><span class='co'># S3 method for pvol</span>
@@ -111,54 +91,155 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>object of class 'pvol'</p></td>
+      <td><p>Object of class <code>pvol</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments affecting the summary produced.</p></td>
+      <td><p>Additional arguments affecting the summary produced.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>object of class 'pvol'</p></td>
+      <td><p>Object of class <code>pvol</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>for <code>is.pvol</code>: <code>TRUE</code> if its argument is of class "<code>pvol</code>"</p>
+    <p>for <code>is.pvol</code>: <code>TRUE</code> if its argument is of
+class <code>pvol</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A polar scan object of class 'pvol' is a list containing:</p><dl class='dl-horizontal'>
+    <p>A polar scan object of class <code>pvol</code> is a list containing:</p><dl class='dl-horizontal'>
  <dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
  <dt><code>datetime</code></dt><dd><p>nominal time of the volume [UTC]</p></dd>
  <dt><code>scans</code></dt><dd><p>a list with scan objects of class 'scan'</p></dd>
- <dt><code>attributes</code></dt><dd><p>list with the volume's <code>\what</code>, <code>\where</code> and <code>\how</code> attributes</p></dd>
+ <dt><code>attributes</code></dt><dd><p>list with the volume's <code>\what</code>,
+   <code>\where</code> and <code>\how</code> attributes</p></dd>
  <dt><code>geo</code></dt><dd><p>geographic data, a list with:
   <dl class='dl-horizontal'>
      <dt><code>lat</code></dt><dd><p>latitude of the radar [decimal degrees]</p></dd>
      <dt><code>lon</code></dt><dd><p>longitude of the radar [decimal degrees]</p></dd>
-     <dt><code>height</code></dt><dd><p>height of the radar antenna [metres above sea level]</p></dd>
+     <dt><code>height</code></dt><dd><p>height of the radar
+       antenna [metres above sea level]</p></dd>
   </dl></p></dd>
 </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># locate example volume file:</span>
-<span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"bioRad"</span>)
+    <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
+<span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='co'># print the local path of the volume file:</span>
-<span class='no'>pvol</span>
-<span class='co'># load the file:</span>
-<span class='no'>vol</span><span class='kw'>=</span><span class='fu'><a href='read.pvol.html'>read.pvol</a></span>(<span class='no'>pvol</span>)
-<span class='co'># print summary info for the loaded polar volume:</span>
-<span class='no'>vol</span>
-<span class='co'># print summary info for the scans in the polar volume:</span>
-<span class='no'>vol</span>$<span class='no'>scans</span>
-<span class='co'># copy the first scan to a new object 'scan'</span>
-<span class='no'>scan</span><span class='kw'>=</span><span class='no'>vol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='fu'>is.pvol</span>(<span class='st'>"this is not a polar volume but a string"</span>)  <span class='co'>#&gt; FALSE</span>
-<span class='co'># }</span></pre>
+<span class='no'>pvol</span></div><div class='output co'>#&gt; [1] "/Users/peter_desmet/Coding/Repositories/enram/bioRad/inst/extdata/volume.h5"</div><div class='input'><span class='co'># load the file:</span>
+<span class='no'>vol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvol</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
+#&gt; <span class='warning'>Use 'get_angles' instead.</span>
+#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='input'><span class='co'># print summary info for the loaded polar volume:</span>
+<span class='no'>vol</span></div><div class='output co'>#&gt;                Polar volume (class pvol)
+#&gt; 
+#&gt;      # scans:  11 
+#&gt;        radar:  SE50 
+#&gt;       source:  WMO:02606,RAD:SE50,PLC:Ängelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar 
+#&gt; nominal time:  2015-10-18 18:00:00 
+#&gt; </div><div class='input'><span class='co'># print summary info for the scans in the polar volume:</span>
+<span class='no'>vol</span>$<span class='no'>scans</span></div><div class='output co'>#&gt; [[1]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  0.5 deg
+#&gt;            dims:  480 bins x 360 rays
+#&gt; 
+#&gt; [[2]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  0.5 deg
+#&gt;            dims:  480 bins x 359 rays
+#&gt; 
+#&gt; [[3]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  1 deg
+#&gt;            dims:  480 bins x 360 rays
+#&gt; 
+#&gt; [[4]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  1.5 deg
+#&gt;            dims:  480 bins x 360 rays
+#&gt; 
+#&gt; [[5]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  2 deg
+#&gt;            dims:  480 bins x 360 rays
+#&gt; 
+#&gt; [[6]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  2.5 deg
+#&gt;            dims:  480 bins x 360 rays
+#&gt; 
+#&gt; [[7]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  4 deg
+#&gt;            dims:  480 bins x 329 rays
+#&gt; 
+#&gt; [[8]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  8 deg
+#&gt;            dims:  480 bins x 333 rays
+#&gt; 
+#&gt; [[9]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  14 deg
+#&gt;            dims:  480 bins x 335 rays
+#&gt; 
+#&gt; [[10]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  24 deg
+#&gt;            dims:  480 bins x 329 rays
+#&gt; 
+#&gt; [[11]]
+#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt; elevation angle:  40 deg
+#&gt;            dims:  480 bins x 328 rays
+#&gt; </div><div class='input'><span class='co'># copy the first scan to a new object 'scan'</span>
+<span class='no'>scan</span> <span class='kw'>&lt;-</span> <span class='no'>vol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
+<span class='fu'>is.pvol</span>(<span class='st'>"this is not a polar volume but a string"</span>)  <span class='co'>#&gt; FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,7 +262,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -189,4 +270,3 @@
 
   </body>
 </html>
-

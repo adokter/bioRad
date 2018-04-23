@@ -18,14 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Function reference" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,21 +53,6 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../reference/index.html">Functions</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
 </li>
       </ul>
       
@@ -107,470 +91,355 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-downloading-data-files-from-repository" class="hasAnchor"><a href="#section-downloading-data-files-from-repository" class="anchor"></a>Downloading data files from repository</h2>
+            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
             <p class="section-desc"></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="download_vp.html">download_vp()</a></code> </p>
+            <p><code><a href="as.data.frame.vp.html">as.data.frame</a></code> </p>
           </td>
-          <td><p>Download a set of vp bird profiles from ENRAM repository</p></td>
+          <td><p>Convert a vertical profile (<code>vp</code>) to a Data Frame</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="retrieve_vp_paths.html">retrieve_vp_paths()</a></code> </p>
+            <p><code><a href="as.data.frame.vpts.html">as.data.frame</a></code> </p>
           </td>
-          <td><p>Collect a list of vp file names</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-reading-data-from-file" class="hasAnchor"><a href="#section-reading-data-from-file" class="anchor"></a>Reading data from file</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="h5ODIMobject.html">h5ODIMobject()</a></code> </p>
-          </td>
-          <td><p>Check ODIM HDF5 data class</p></td>
+          <td><p>Convert a time series of vertical profiles (<code>vpts</code>) to a data frame</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="read.pvol.html">read.pvol()</a></code> </p>
+            <p><code><a href="beam_height.html">beam_height</a></code> </p>
           </td>
-          <td><p>Read a polar volume (pvol) from file</p></td>
+          <td><p>Calculate radar beam height</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="readvp.html">readvp()</a></code> </p>
+            <p><code><a href="beam_width.html">beam_width</a></code> </p>
           </td>
-          <td><p>Read a vertical profile (vp) from file</p></td>
+          <td><p>Calculate radar beam width</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="readvp.list.html">readvp.list()</a></code> </p>
+            <p><code><a href="bind_into_vpts.html">bind_into_vpts</a></code> </p>
           </td>
-          <td><p>Read a list of vertical profiles from multiple files</p></td>
+          <td><p>Bind vertical profiles (<code>vp</code>) into time series (<code>vpts</code>)</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="readvp.table.html">readvp.table()</a></code> </p>
+            <p><code><a href="bioRad-package.html">bioRad-package</a></code> </p>
           </td>
-          <td><p>Read vertical profiles from vol2bird stdout</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-polar-volume-pvol-" class="hasAnchor"><a href="#section-polar-volume-pvol-" class="anchor"></a>Polar volume (pvol)</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="read.pvol.html">read.pvol()</a></code> </p>
-          </td>
-          <td><p>Read a polar volume (pvol) from file</p></td>
+          <td><p>Analyze and visualize biological signals in weather radar data</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="is.pvolfile.html">is.pvolfile()</a></code> </p>
+            <p><code><a href="c.vp.html">c</a></code> </p>
           </td>
-          <td><p>Check whether file is a polar volume</p></td>
+          <td><p>Concatenate vertical profiles (<code>vp</code>) into a list of vertical profiles</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="summary.pvol.html">summary(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="summary.pvol.html">is.pvol()</a></code> </p>
+            <p><code><a href="calculate_vp.html">calculate_vp</a></code> </p>
           </td>
-          <td><p>Class 'pvol': polar volume</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-polar-scan" class="hasAnchor"><a href="#section-polar-scan" class="anchor"></a>Polar scan</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.param.html">summary(<i>&lt;param&gt;</i>)</a></code> <code><a href="summary.param.html">is.param()</a></code> </p>
-          </td>
-          <td><p>Class 'param': polar scan parameter</p></td>
+          <td><p>Calculate a vertical profile (<code>vp</code>) from a polar volume (<code>pvol</code>)</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="summary.scan.html">summary(<i>&lt;scan&gt;</i>)</a></code> <code><a href="summary.scan.html">is.scan()</a></code> <code><a href="summary.scan.html">dim(<i>&lt;scan&gt;</i>)</a></code> </p>
+            <p><code><a href="check_docker.html">check_docker</a></code> </p>
           </td>
-          <td><p>Class 'scan': polar scan</p></td>
+          <td><p>Check if Docker is running</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="getscan.html">getscan()</a></code> </p>
+            <p><code><a href="check_night.html">check_night</a></code> </p>
           </td>
-          <td><p>Extract a scan from a polar volume</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-projecting-scans-as-a-plan-position-indicator-ppi-" class="hasAnchor"><a href="#section-projecting-scans-as-a-plan-position-indicator-ppi-" class="anchor"></a>Projecting scans as a plan position indicator (ppi)</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ppi.html">ppi()</a></code> </p>
-          </td>
-          <td><p>Make a plan position indicator (ppi)</p></td>
+          <td><p>Check if it is night at a given time and place</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="summary.ppi.html">summary(<i>&lt;ppi&gt;</i>)</a></code> <code><a href="summary.ppi.html">is.ppi()</a></code> <code><a href="summary.ppi.html">dim(<i>&lt;ppi&gt;</i>)</a></code> </p>
+            <p><code><a href="composite_ppi.html">composite_ppi</a></code> </p>
           </td>
-          <td><p>Class 'ppi': plan position indicator</p></td>
+          <td><p>Create a composite of multiple plan position indicators (<code>ppi</code>)</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="sub-.ppi.html">`[`(<i>&lt;ppi&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Subset `ppi`</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="composite.html">composite()</a></code> </p>
-          </td>
-          <td><p>Make a composite of multiple plan position indicators (ppi objects)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="map.html">map()</a></code> </p>
-          </td>
-          <td><p>Map a plan position indicator (ppi)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="basemap.html">basemap()</a></code> </p>
-          </td>
-          <td><p>Grab a basemap for a ppi</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.ppi.html">plot(<i>&lt;ppi&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Plot a plan position indicator (PPI)</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-processing-vertical-profiles-vp-from-polar-volume-data-pvol-" class="hasAnchor"><a href="#section-processing-vertical-profiles-vp-from-polar-volume-data-pvol-" class="anchor"></a>Processing vertical profiles (vp) from polar volume data (pvol)</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rsl2odim.html">rsl2odim()</a></code> </p>
-          </td>
-          <td><p>convert RSL polar volume to ODIM hdf5 format</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="vol2bird.html">vol2bird()</a></code> </p>
-          </td>
-          <td><p>Calculate a vertical profile of birds (VPB)</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-vertical-profile-vp-" class="hasAnchor"><a href="#section-vertical-profile-vp-" class="anchor"></a>Vertical profile (vp)</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="readvp.html">readvp()</a></code> </p>
-          </td>
-          <td><p>Read a vertical profile (vp) from file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="readvp.list.html">readvp.list()</a></code> </p>
-          </td>
-          <td><p>Read a list of vertical profiles from multiple files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="is.vpfile.html">is.vpfile()</a></code> </p>
-          </td>
-          <td><p>Check whether file is a vertical profile</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.vp.html">summary(<i>&lt;vp&gt;</i>)</a></code> <code><a href="summary.vp.html">is.vp()</a></code> <code><a href="summary.vp.html">dim(<i>&lt;vp&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Class 'vp': vertical profile</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.vplist.html">summary(<i>&lt;vplist&gt;</i>)</a></code> <code><a href="summary.vplist.html">is.vplist()</a></code> </p>
-          </td>
-          <td><p>Class 'vplist': list of vertical profiles</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sub-.vplist.html">`[`(<i>&lt;vplist&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Subset `vplist`</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="c.vp.html">c(<i>&lt;vp&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>concatenate <code>vp</code> objects into a <code>vplist</code> object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.vp.html">plot(<i>&lt;vp&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Plot a vertical profile</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-vertical-profile-attributes" class="hasAnchor"><a href="#section-vertical-profile-attributes" class="anchor"></a>Vertical profile attributes</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rcs.html">rcs()</a></code> </p>
-          </td>
-          <td><p>Radar cross section</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rcs-set.html">`rcs<-`()</a></code> </p>
-          </td>
-          <td><p>Set radar cross section</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sd_vvp.html">sd_vvp()</a></code> </p>
-          </td>
-          <td><p>threshold VVP-retrieved radial velocity standard deviation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sd_vvp-set.html">`sd_vvp<-`()</a></code> </p>
-          </td>
-          <td><p>Set threshold for VVP-retrieved radial velocity standard deviation</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-vertical-profile-time-series-vpts-" class="hasAnchor"><a href="#section-vertical-profile-time-series-vpts-" class="anchor"></a>Vertical profile time series (vpts)</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="readvp.table.html">readvp.table()</a></code> </p>
-          </td>
-          <td><p>Read vertical profiles from vol2bird stdout</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="vpts.html">vpts()</a></code> </p>
-          </td>
-          <td><p>Convert list of vertical profiles to time series (<code>vpts</code>) objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.vpts.html">summary(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">is.vpts()</a></code> <code><a href="summary.vpts.html">dim(<i>&lt;vpts&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Class 'vpts': time series of vertical profiles</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sub-.vpts.html">`[`(<i>&lt;vpts&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Subset `vpts`</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bind.html">bind()</a></code> </p>
-          </td>
-          <td><p>Bind vertical profiles into time series objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="regularize.html">regularize()</a></code> </p>
-          </td>
-          <td><p>Regularize a time series</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.vpts.html">plot(<i>&lt;vpts&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Plot a time series of vertical profiles</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-migration-traffic-and-vertical-integration" class="hasAnchor"><a href="#section-migration-traffic-and-vertical-integration" class="anchor"></a>Migration traffic and vertical integration</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mt.html">mt()</a></code> </p>
-          </td>
-          <td><p>Migration traffic</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mtr.html">mtr()</a></code> </p>
-          </td>
-          <td><p>Migration traffic rate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="cmt.html">cmt()</a></code> </p>
-          </td>
-          <td><p>Cumulative migration traffic</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="vintegrate.html">vintegrate()</a></code> </p>
-          </td>
-          <td><p>Vertically integrate profiles</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.vivp.html">plot(<i>&lt;vivp&gt;</i>)</a></code> </p>
-          </td>
-          <td><p>Plot vertically integrated profiles</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-radar-and-scan-geometry" class="hasAnchor"><a href="#section-radar-and-scan-geometry" class="anchor"></a>Radar and scan geometry</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="beamheight.html">beamheight()</a></code> </p>
-          </td>
-          <td><p>Radar beam height</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="beamwidth.html">beamwidth()</a></code> </p>
-          </td>
-          <td><p>Radar beam width</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="elangle.html">elangle()</a></code> </p>
-          </td>
-          <td><p>Elevation angle of scan(s)</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-converting-reflectivity-and-reflectivity-factor" class="hasAnchor"><a href="#section-converting-reflectivity-and-reflectivity-factor" class="anchor"></a>Converting reflectivity and reflectivity factor</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="dbz2eta.html">dbz2eta()</a></code> </p>
+            <p><code><a href="dbz_to_eta.html">dbz_to_eta</a></code> </p>
           </td>
           <td><p>Convert reflectivity factor to reflectivity</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="eta2dbz.html">eta2dbz()</a></code> </p>
+            <p><code><a href="download_basemap.html">download_basemap</a></code> </p>
+          </td>
+          <td><p>Download a basemap for <code><a href='reference/map.html'>map(ppi)</a></code></p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="download_vpfiles.html">download_vpfiles</a></code> </p>
+          </td>
+          <td><p>Download vertical profile files (<code>vp</code>) from the ENRAM data repository</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="eta_to_dbz.html">eta_to_dbz</a></code> </p>
           </td>
           <td><p>Convert reflectivity to reflectivity factor</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-sunrise-and-sunset-functions" class="hasAnchor"><a href="#section-sunrise-and-sunset-functions" class="anchor"></a>Sunrise and sunset functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="suntime.html">suntime()</a></code> </p>
-          </td>
-          <td><p>Calculate sunrise and sunset</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="night.html">night()</a></code> </p>
+            <p><code><a href="example_scan.html">example_scan</a></code> </p>
           </td>
-          <td><p>Calculate whether it is night at a geographic location and time</p></td>
+          <td><p>Example object of class <code>scan</code></p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="day.html">day()</a></code> </p>
+            <p><code><a href="example_vp.html">example_vp</a></code> </p>
           </td>
-          <td><p>Test a bioRad object for night time</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-extracting-data-from-biorad-objects" class="hasAnchor"><a href="#section-extracting-data-from-biorad-objects" class="anchor"></a>Extracting data from bioRad objects</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fetch.html">fetch()</a></code> </p>
-          </td>
-          <td><p>fetch a profile quantity</p></td>
+          <td><p>Example object of class <code>vp</code></p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="as.data.frame.vpts.html">as.data.frame(<i>&lt;vpts&gt;</i>)</a></code> </p>
+            <p><code><a href="example_vpts.html">example_vpts</a></code> </p>
           </td>
-          <td><p>Coerce Vertical Profile Time Series to a Data Frame</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-docker-interface" class="hasAnchor"><a href="#section-docker-interface" class="anchor"></a>Docker interface</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="checkDocker.html">checkDocker()</a></code> </p>
-          </td>
-          <td><p>Checks that Docker is running</p></td>
+          <td><p>Example object of class <code>vpts</code></p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="updateDocker.html">updateDocker()</a></code> </p>
+            <p><code><a href="get_angles.html">get_angles</a></code> </p>
           </td>
-          <td><p>Update Docker image for vol2bird</p></td>
+          <td><p>Get elevation angle of a scan (<code>scan</code>) or scans in a polar volume (<code>scan</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="get_odim_object_type.html">get_odim_object_type</a></code> </p>
+          </td>
+          <td><p>Check the ODIM data class of a polar volume file</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="get_quantity.html">get_quantity</a></code> </p>
+          </td>
+          <td><p>Get a quantity of a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="get_scan.html">get_scan</a></code> </p>
+          </td>
+          <td><p>Get a scan (<code>scan</code>) from a polar volume (<code>pvol</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="get_suntime.html">get_suntime</a></code> </p>
+          </td>
+          <td><p>Helper function to calculate sunrise or sunset</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="integrate_profile.html">integrate_profile</a></code> </p>
+          </td>
+          <td><p>Vertically integrate profiles (<code>vp</code> or <code>vpts</code>) to an integrated profile (<code>vpi</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="is.pvolfile.html">is.pvolfile</a></code> </p>
+          </td>
+          <td><p>Check if a file is a polar volume (<code>pvol</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="is.vpfile.html">is.vpfile</a></code> </p>
+          </td>
+          <td><p>Check if a file is a vertical profile (<code>vp</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="map.html">map</a></code> </p>
+          </td>
+          <td><p>Map a plan position indicator (<code>ppi</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="nexrad_to_odim.html">nexrad_to_odim</a></code> </p>
+          </td>
+          <td><p>Convert a NEXRAD polar volume file to an ODIM polar volume file</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot.ppi.html">plot</a></code> </p>
+          </td>
+          <td><p>Plot a plan position indicator (<code>ppi</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot.scan.html">plot</a></code> </p>
+          </td>
+          <td><p>Plot a scan (<code>scan</code>) in polar coordinates</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot.vp.html">plot</a></code> </p>
+          </td>
+          <td><p>Plot a vertical profile (<code>vp</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot.vpi.html">plot</a></code> </p>
+          </td>
+          <td><p>Plot an integrated profile (<code>vpi</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot.vpts.html">plot</a></code> </p>
+          </td>
+          <td><p>Plot a time series of vertical profiles (<code>vpts</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="proj_to_wgs.html">proj_to_wgs</a></code> </p>
+          </td>
+          <td><p>A wrapper for <code>spTransform</code>.</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="project_as_ppi.html">project_as_ppi</a></code> </p>
+          </td>
+          <td><p>Project a scan (<code>scan</code>) or parameter (<code>param</code>) to a plan
+position indicator (<code>ppi</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="rcs-set.html">rcs<-</a></code> </p>
+          </td>
+          <td><p>Set radar cross section</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="rcs.html">rcs</a></code> </p>
+          </td>
+          <td><p>Get radar cross section</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="read_pvolfile.html">read_pvolfile</a></code> </p>
+          </td>
+          <td><p>Read a polar volume (<code>pvol</code>) from file</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="read_vp.html">read_vp</a></code> </p>
+          </td>
+          <td><p>Read a vertical profile (<code>vp</code>) from file</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="read_vpfiles.html">read_vpfiles</a></code> </p>
+          </td>
+          <td><p>Read a vertical profile (<code>vp</code>) or a list of vertical profiles
+(<code>vp</code>) from files</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="read_vpts.html">read_vpts</a></code> </p>
+          </td>
+          <td><p>Read a time series of vertical profiles (<code>vpts</code>) from file</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="regularize_vpts.html">regularize_vpts</a></code> </p>
+          </td>
+          <td><p>Regularize a time series of vertical profiles (<code>vpts</code>) on a
+regular time grid</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="rvsd-set.html">rvsd<-</a></code> </p>
+          </td>
+          <td><p>Set threshold of the VVP-retrieved radial velocity standard deviation</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="rvsd.html">rvsd</a></code> </p>
+          </td>
+          <td><p>Get threshold of the VVP-retrieved radial velocity standard deviation</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="select_vpfiles.html">select_vpfiles</a></code> </p>
+          </td>
+          <td><p>Select vertical profiles files (<code>vp</code>) from computer</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sub-.ppi.html">[.ppi</a></code> </p>
+          </td>
+          <td><p>Subset a plan position indicator (<code>ppi</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sub-.vpts.html">[.vpts</a></code> </p>
+          </td>
+          <td><p>Subset a time series of vertical profiles (<code>vpts</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="summary.param.html">summary</a></code> <code><a href="summary.param.html">is.param</a></code> </p>
+          </td>
+          <td><p>Object of class <code>param</code>: a parameter of a scan of a polar volume</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="summary.ppi.html">summary</a></code> <code><a href="summary.ppi.html">is.ppi</a></code> <code><a href="summary.ppi.html">dim</a></code> </p>
+          </td>
+          <td><p>Object of class <code>ppi</code>: a plan position indicator</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="summary.pvol.html">summary</a></code> <code><a href="summary.pvol.html">is.pvol</a></code> </p>
+          </td>
+          <td><p>Object of class <code>pvol</code>: a polar volume</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="summary.scan.html">summary</a></code> <code><a href="summary.scan.html">is.scan</a></code> <code><a href="summary.scan.html">dim</a></code> </p>
+          </td>
+          <td><p>Object of class <code>scan</code>: a scan of a polar volume</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="summary.vp.html">summary</a></code> <code><a href="summary.vp.html">is.vp</a></code> <code><a href="summary.vp.html">dim</a></code> </p>
+          </td>
+          <td><p>Object of class <code>vp</code>: a vertical profile of birds</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="summary.vpts.html">summary</a></code> <code><a href="summary.vpts.html">is.vpts</a></code> <code><a href="summary.vpts.html">dim</a></code> </p>
+          </td>
+          <td><p>Object of class <code>vpts</code>: a time series of vertical profiles</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="sunrise_sunset.html">sunrise</a></code> <code><a href="sunrise_sunset.html">sunset</a></code> </p>
+          </td>
+          <td><p>Calculate sunrise or sunset for a time and place</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="update_docker.html">update_docker</a></code> </p>
+          </td>
+          <td><p>Update Docker image from Docker hub</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="vplist_to_vpts.html">vplist_to_vpts</a></code> </p>
+          </td>
+          <td><p>Bind vertical profiles (<code>vp</code>) into time series (<code>vpts</code>)</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="wgs_to_proj.html">wgs_to_proj</a></code> </p>
+          </td>
+          <td><p>A wrapper for <code>spTransform</code>.</p></td>
         </tr>
       </tbody>
       </table>
@@ -580,21 +449,7 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-downloading-data-files-from-repository">Downloading data files from repository</a></li>
-      <li><a href="#section-reading-data-from-file">Reading data from file</a></li>
-      <li><a href="#section-polar-volume-pvol-">Polar volume (pvol)</a></li>
-      <li><a href="#section-polar-scan">Polar scan</a></li>
-      <li><a href="#section-projecting-scans-as-a-plan-position-indicator-ppi-">Projecting scans as a plan position indicator (ppi)</a></li>
-      <li><a href="#section-processing-vertical-profiles-vp-from-polar-volume-data-pvol-">Processing vertical profiles (vp) from polar volume data (pvol)</a></li>
-      <li><a href="#section-vertical-profile-vp-">Vertical profile (vp)</a></li>
-      <li><a href="#section-vertical-profile-attributes">Vertical profile attributes</a></li>
-      <li><a href="#section-vertical-profile-time-series-vpts-">Vertical profile time series (vpts)</a></li>
-      <li><a href="#section-migration-traffic-and-vertical-integration">Migration traffic and vertical integration</a></li>
-      <li><a href="#section-radar-and-scan-geometry">Radar and scan geometry</a></li>
-      <li><a href="#section-converting-reflectivity-and-reflectivity-factor">Converting reflectivity and reflectivity factor</a></li>
-      <li><a href="#section-sunrise-and-sunset-functions">Sunrise and sunset functions</a></li>
-      <li><a href="#section-extracting-data-from-biorad-objects">Extracting data from bioRad objects</a></li>
-      <li><a href="#section-docker-interface">Docker interface</a></li>
+      <li><a href="#section-all-functions">All functions</a></li>
     </ul>
   </div>
 </div>
@@ -605,7 +460,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -613,4 +468,3 @@
 
   </body>
 </html>
-

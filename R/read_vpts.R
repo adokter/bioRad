@@ -17,7 +17,7 @@
 #' # load time series:
 #' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 #' ts
-read_vpts <- function(file, radar, wavelength = 'C') {
+read_vpts <- function(file, radar, wavelength = "C") {
   # input checks
   if (!file.exists(file)) {
     stop(paste("File", file, "doesn't exist."))

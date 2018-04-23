@@ -137,7 +137,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
                          elev.max = 90, azim.min = 0, azim.max = 360,
                          range.min = 5000, range.max = 25000, nlayer = 20L,
                          hlayer = 200, dealias = TRUE,
-                         nyquist.min = if (dealias) 5 else 25){
+                         nyquist.min = if (dealias) 5 else 25) {
   # check input arguments
   if (!file.exists(vol.in)) {
     stop("No such file or directory")

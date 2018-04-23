@@ -8,11 +8,21 @@
 #' @keywords internal
 NULL
 
-#' @name beamheight-deprecated
+#' @section basemap:
+#' Use \code{\link{download_basemap}} instead.
+#'
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{beamheight}:
+#' @export
+basemap <- function(...) {
+  .Deprecated("download_basemap")
+  download_basemap(...)
+}
+
+#' @section beamheight:
 #' Use \code{\link{beam_height}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
@@ -20,11 +30,10 @@ beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
   beam_height(range, elev, k, lat, re, rp)
 }
 
-#' @name beamwidth-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{beamwidth}:
+#' @section beamwidth:
 #' Use \code{\link{beam_width}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 beamwidth <- function(range, angle = 1) {
@@ -32,11 +41,10 @@ beamwidth <- function(range, angle = 1) {
   beam_width(range, angle)
 }
 
-#' @name bind-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{bind}:
+#' @section bind:
 #' Use \code{\link{bind_into_vpts}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 bind <- function(x, ...) {
@@ -44,35 +52,45 @@ bind <- function(x, ...) {
   bind_into_vpts(x, ...)
 }
 
-#' @name vol2bird-deprecated
-#' @rdname bioRad-deprecated
+#' @section checkDocker:
+#' Use \code{\link{check_docker}} instead.
 #'
-#' @section \code{vol2bird}:
-#' Use \code{\link{calculate_vp}} instead.
+#' @rdname bioRad-deprecated
 #'
 #' @export
-vol2bird <- function(...) {
-  .Deprecated("calculate_vp")
-  calculate_vp(...)
+checkDocker <- function(...) {
+  .Deprecated("check_docker")
+  check_docker(...)
 }
 
-#' @name night-deprecated
-#' @rdname bioRad-deprecated
+#' @section composite:
+#' Use \code{\link{composite_ppi}} instead.
 #'
-#' @section \code{night}:
-#' Use \code{\link{check_night}} instead.
+#' @rdname bioRad-deprecated
 #'
 #' @export
-night <- function(x, ..., elev=-0.268) {
-  .Deprecated("check_night")
-  check_night(x, ..., elev = -0.268)
+composite <- function(...) {
+  .Deprecated("composite_ppi")
+  composite_ppi(...)
 }
 
-#' @name day-deprecated
+#' @section cmt:
+#' \code{\link{cmt}} is deprecated as a separate function. Cumulative migration
+#' traffic is now included in the output of \code{\link{integrate_profile}} as
+#' column \code{mt}, which can be summed to get the cumulative migration
+#' traffic.
+#'
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{day}:
+#' @export
+cmt <- function(...) {
+  cmt(...)
+}
+
+#' @section day:
 #' Use \code{\link{check_night}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 day <- function(x, elev = -0.268) {
@@ -83,23 +101,10 @@ day <- function(x, elev = -0.268) {
   !check_night(x, elev = -0.268)
 }
 
-#' @name composite-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{composite}:
-#' Use \code{\link{composite_ppi}} instead.
-#'
-#' @export
-composite <- function(...) {
-  .Deprecated("composite_ppi")
-  composite_ppi(...)
-}
-
-#' @name dbz2eta-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{dbz2eta}:
+#' @section dbz2eta:
 #' Use \code{\link{dbz_to_eta}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 dbz2eta <- function(...) {
@@ -107,59 +112,10 @@ dbz2eta <- function(...) {
   dbz_to_eta(...)
 }
 
-#' @name eta2dbz-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{eta2dbz}:
-#' Use \code{\link{eta_to_dbz}} instead.
-#'
-#' @export
-eta2dbz <- function(...) {
-  .Deprecated("eta_to_dbz")
-  eta_to_dbz(...)
-}
-
-#' @name checkDocker-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{checkDocker}:
-#' Use \code{\link{check_docker}} instead.
-#'
-#' @export
-checkDocker <- function(...) {
-  .Deprecated("check_docker")
-  check_docker(...)
-}
-
-#' @name updateDocker-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{updateDocker}:
-#' Use \code{\link{update_docker}} instead.
-#'
-#' @export
-updateDocker <- function(...) {
-  .Deprecated("update_docker")
-  update_docker(...)
-}
-
-#' @name basemap-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{basemap}:
-#' Use \code{\link{download_basemap}} instead.
-#'
-#' @export
-basemap <- function(...) {
-  .Deprecated("download_basemap")
-  download_basemap(...)
-}
-
-#' @name download_vp-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{download_vp}:
+#' @section download_vp:
 #' Use \code{\link{download_vpfiles}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 download_vp <- function(...) {
@@ -167,11 +123,10 @@ download_vp <- function(...) {
   download_vpfiles(...)
 }
 
-#' @name elangle-deprecated
-#' @rdname bioRad-deprecated
+#' @section elangle:
+#' Use \code{\link{get_angles}} instead.
 #'
-#' @section \code{elangle}:
-#' Use \code{\link{get_elevation_angles}} instead.
+#' @rdname bioRad-deprecated
 #'
 #' @export
 elangle <- function(...) {
@@ -179,11 +134,21 @@ elangle <- function(...) {
   get_elevation_angles(...)
 }
 
-#' @name fetch-deprecated
+#' @section eta2dbz:
+#' Use \code{\link{eta_to_dbz}} instead.
+#'
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{fetch}:
+#' @export
+eta2dbz <- function(...) {
+  .Deprecated("eta_to_dbz")
+  eta_to_dbz(...)
+}
+
+#' @section fetch:
 #' Use \code{\link{get_quantity}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 fetch <- function(...) {
@@ -191,11 +156,10 @@ fetch <- function(...) {
   get_quantity(...)
 }
 
-#' @name getscan-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{getscan}:
+#' @section getscan:
 #' Use \code{\link{get_scan}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 getscan <- function(...) {
@@ -203,47 +167,10 @@ getscan <- function(...) {
   get_scan(...)
 }
 
-#' @name vintegrate-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{vintegrate}:
-#' Use \code{\link{integrate_profile}} instead.
-#'
-#' @export
-vintegrate <- function(...) {
-  .Deprecated("integrate_profile")
-  integrate_profile(...)
-}
-
-#' @name rsl2odim-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{rsl2odim}:
-#' Use \code{\link{nexrad_to_odim}} instead.
-#'
-#' @export
-rsl2odim <- function(...) {
-  .Deprecated("nexrad_to_odim")
-  nexrad_to_odim(...)
-}
-
-#' @name ppi-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{ppi}:
-#' Use \code{\link{project_as_ppi}} instead.
-#'
-#' @export
-ppi <- function(...) {
-  .Deprecated("project_as_ppi")
-  project_as_ppi(...)
-}
-
-#' @name h5ODIMobject-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{h5ODIMobject}:
+#' @section h5ODIMobject:
 #' Use \code{\link{get_odim_object_type}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 h5ODIMobject <- function(...) {
@@ -251,11 +178,67 @@ h5ODIMobject <- function(...) {
   get_odim_object_type(...)
 }
 
-#' @name read.pvol-deprecated
+#' @section is.vplist:
+#' The \code{vplist} object is deprecated. Use a regular list of \code{vp}
+#' objects (\code{c(vp, vp))} instead.
+#'
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{read.pvol}:
+#' @export
+is.vplist <- function(...) {
+  .Deprecated("is.vplist")
+}
+
+#' @section mt:
+#' \code{\link{mt}} is deprecated as a separate function. Migration traffic
+#' is now included in the output of \code{\link{integrate_profile}} as
+#' column \code{mt}.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+mt <- function(...) {
+  mt(...)
+}
+
+#' @section mtr:
+#' \code{\link{mtr}} is deprecated as a separate function. Migration traffic
+#' rate is now included in the output of \code{\link{integrate_profile}} as
+#' column \code{mtr}.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+mtr <- function(...) {
+  mtr(...)
+}
+
+#' @section night:
+#' Use \code{\link{check_night}} instead.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+night <- function(x, ..., elev=-0.268) {
+  .Deprecated("check_night")
+  check_night(x, ..., elev = -0.268)
+}
+
+#' @section ppi:
+#' Use \code{\link{project_as_ppi}} instead.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+ppi <- function(...) {
+  .Deprecated("project_as_ppi")
+  project_as_ppi(...)
+}
+
+#' @section read.pvol:
 #' Use \code{\link{read_pvolfile}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 read.pvol <- function(...) {
@@ -263,11 +246,10 @@ read.pvol <- function(...) {
   read_pvolfile(...)
 }
 
-#' @name readvp-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{readvp}:
+#' @section readvp:
 #' Use \code{\link{read_vpfiles}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 readvp <- function(...) {
@@ -275,11 +257,10 @@ readvp <- function(...) {
   read_vpfiles(...)
 }
 
-#' @name readvp.list-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{readvp.list}:
+#' @section readvp.list:
 #' Use \code{\link{read_vpfiles}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 readvp.list <- function(...) {
@@ -287,11 +268,10 @@ readvp.list <- function(...) {
   read_vpfiles(...)
 }
 
-#' @name readvp.table-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{readvp.table}:
+#' @section readvp.table:
 #' Use \code{\link{read_vpts}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 readvp.table <- function(...) {
@@ -299,11 +279,10 @@ readvp.table <- function(...) {
   read_vpts(...)
 }
 
-#' @name regularize-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{regularize}:
+#' @section regularize:
 #' Use \code{\link{regularize_vpts}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 regularize <- function(...) {
@@ -311,35 +290,10 @@ regularize <- function(...) {
   regularize_vpts(...)
 }
 
-#' @name sd_vvp-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{sd_vvp}:
-#' Use \code{\link{rvsd}} instead.
-#'
-#' @export
-sd_vvp <- function(...) {
-  .Deprecated("rvsd")
-  rvsd(...)
-}
-
-#' @name sd_vvp-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{sd_vvp<-}:
-#' Use \code{\link{rvsd<-}} instead.
-#'
-#' @export
-`sd_vvp<-` <- function(x, value) {
-  .Deprecated("rvsd<-")
-  `rvsd<-`(x, value)
-}
-
-#' @name retrieve_vp_paths-deprecated
-#' @rdname bioRad-deprecated
-#'
-#' @section \code{retrieve_vp_paths}:
+#' @section retrieve_vp_paths:
 #' Use \code{\link{select_vpfiles}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 retrieve_vp_paths <- function(...) {
@@ -347,11 +301,43 @@ retrieve_vp_paths <- function(...) {
   select_vpfiles(...)
 }
 
-#' @name suntime-deprecated
+#' @section rsl2odim:
+#' Use \code{\link{nexrad_to_odim}} instead.
+#'
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{suntime}:
+#' @export
+rsl2odim <- function(...) {
+  .Deprecated("nexrad_to_odim")
+  nexrad_to_odim(...)
+}
+
+#' @section sd_vvp:
+#' Use \code{\link{rvsd}} instead.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+sd_vvp <- function(...) {
+  .Deprecated("rvsd")
+  rvsd(...)
+}
+
+#' @section sd_vvp<-:
+#' Use \code{\link{rvsd<-}} instead.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+`sd_vvp<-` <- function(x, value) {
+  .Deprecated("rvsd<-")
+  `rvsd<-`(x, value)
+}
+
+#' @section suntime:
 #' Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 suntime <- function(..., rise = TRUE) {
@@ -364,23 +350,43 @@ suntime <- function(..., rise = TRUE) {
   }
 }
 
-#' @name is.vplist-deprecated
-#' @rdname bioRad-deprecated
+#' @section updateDocker:
+#' Use \code{\link{update_docker}} instead.
 #'
-#' @section \code{is.vplist}:
-#' The \code{vplist} object is deprecated. Use a regular list of \code{vp}
-#' objects (\code{c(vp, vp))} instead.
+#' @rdname bioRad-deprecated
 #'
 #' @export
-is.vplist <- function(...) {
-  .Deprecated("is.vplist")
+updateDocker <- function(...) {
+  .Deprecated("update_docker")
+  update_docker(...)
 }
 
-#' @name vpts-deprecated
+#' @section vintegrate:
+#' Use \code{\link{integrate_profile}} instead.
+#'
 #' @rdname bioRad-deprecated
 #'
-#' @section \code{vpts}:
+#' @export
+vintegrate <- function(...) {
+  .Deprecated("integrate_profile")
+  integrate_profile(...)
+}
+
+#' @section vol2bird:
+#' Use \code{\link{calculate_vp}} instead.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+vol2bird <- function(...) {
+  .Deprecated("calculate_vp")
+  calculate_vp(...)
+}
+
+#' @section vpts:
 #' Use \code{\link{bind_into_vpts}} instead.
+#'
+#' @rdname bioRad-deprecated
 #'
 #' @export
 vpts <- function(...) {

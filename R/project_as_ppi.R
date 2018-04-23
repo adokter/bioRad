@@ -42,7 +42,7 @@ project_as_ppi <- function(x, cellsize = 500, range.max = 50000,
 #'
 #' @export
 project_as_ppi.param <- function(x, cellsize = 500, range.max = 50000,
-                                 project = FALSE, latlim = NULL, lonlim = NULL){
+                                 project = FALSE, latlim = NULL, lonlim = NULL) {
   stopifnot(inherits(x, "param"))
   data <- sample_polar(x, cellsize, range.max, project, latlim, lonlim)
   # copy the parameter's attributes
@@ -60,7 +60,7 @@ project_as_ppi.param <- function(x, cellsize = 500, range.max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, cellsize = 500, range.max = 50000,
-                                project = FALSE, latlim = NULL, lonlim = NULL){
+                                project = FALSE, latlim = NULL, lonlim = NULL) {
   stopifnot(inherits(x, "scan"))
   data <- sample_polar(x$params[[1]], cellsize, range.max,
                        project, latlim, lonlim)
@@ -84,7 +84,7 @@ project_as_ppi.scan <- function(x, cellsize = 500, range.max = 50000,
 }
 
 
-sample_polar <- function(param, cellsize, range.max, project, latlim, lonlim){
+sample_polar <- function(param, cellsize, range.max, project, latlim, lonlim) {
   #proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
                            " +lon_0=", attributes(param)$geo$lon,
@@ -146,7 +146,7 @@ sample_polar <- function(param, cellsize, range.max, project, latlim, lonlim){
 #' @keywords internal
 #'
 #' @return An object of class \code{SpatialPoints}.
-wgs_to_proj <- function(lon, lat, proj4string){
+wgs_to_proj <- function(lon, lat, proj4string) {
   xy <- data.frame(x = lon, y = lat)
   coordinates(xy) <- c("x", "y")
   proj4string(xy) <- CRS("+proj=longlat +datum=WGS84")
@@ -161,7 +161,7 @@ wgs_to_proj <- function(lon, lat, proj4string){
 #' @param proj4string An object of class 'CRS', as defined in package \code{sp}.
 #' @keywords internal
 #' @return An object of class \code{SpatialPoints}.
-proj_to_wgs <- function(x, y, proj4string){
+proj_to_wgs <- function(x, y, proj4string) {
   xy <- data.frame(lon = x, lat = y)
   coordinates(xy) <- c("lon", "lat")
   proj4string(xy) <- proj4string
@@ -169,13 +169,13 @@ proj_to_wgs <- function(x, y, proj4string){
   return(res)
 }
 
-cartesian_to_polar <- function(coords, elev = 0){
+cartesian_to_polar <- function(coords, elev = 0) {
   range <- sqrt(coords[,1]^2 + coords[,2]^2)/cos(elev)
   azim <- (0.5*pi - atan2(coords[, 2], coords[,1])) %% (2*pi)
   data.frame(range = range,azim = azim*180/pi)
 }
 
-safe_subset <- function(data, indexx, indexy){
+safe_subset <- function(data, indexx, indexy) {
   datadim <- dim(data)
   if (indexx < 1 || indexx > datadim[1] || indexy < 1 || indexy > datadim[2]) {
     out <- NA
@@ -185,7 +185,7 @@ safe_subset <- function(data, indexx, indexy){
   out
 }
 
-polar_to_index <- function(coords.polar, rangebin = 1, azimbin = 1){
+polar_to_index <- function(coords.polar, rangebin = 1, azimbin = 1) {
   row <- floor(1 + coords.polar$range/rangebin)
   col <- floor(1 + coords.polar$azim/azimbin)
   data.frame(row = row,col = col)

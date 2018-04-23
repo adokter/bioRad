@@ -4,46 +4,49 @@ Title: Analysis and visualisation of weather radar data
 Version: 0.2.13
 Date: 2018-02-18
 Description: Extracts and visualizes biological signals from weather radar data.
-Authors@R: c(person("Adriaan M.", "Dokter",role = c("aut", "cre"),
-           email = "amd427@cornell.edu"),
-           person("Peter", "Desmet", role = c("ctb"),
-           email = "peter.desmet@inbo.be", 
-           comment = "http://orcid.org/0000-0002-8442-8025"),
-           person("Stijn", "Van Hoey", 
-           role = c("ctb"), email = "stijnvanhoey@gmail.com", 
-           comment = "http://orcid.org/0000-0001-6413-3185"),
-           person("Jurriaan", "Spaaks", 
-           role = c("ctb"), email = "j.spaaks@esciencecenter.nl"),
-           person("Lourens", "Veen", 
-           role = c("ctb"), email = "l.veen@esciencecenter.nl"),
-           person("Liesbeth", "Verlinden", 
-           role = c("ctb"), email = "l.verlinden@uva.nl"),
-           person("Hidde", "Leijnse", 
-           role = c("ctb"), email = "hidde.leijnse@knmi.nl"))
+Authors@R: c(
+  person("Adriaan M.", "Dokter", role = c("aut", "cre"),
+    email = "amd427@cornell.edu"),
+  person("Peter", "Desmet", role = c("ctb"),
+    email = "peter.desmet@inbo.be",
+    comment = "http://orcid.org/0000-0002-8442-8025"),
+  person("Stijn", "Van Hoey", role = c("ctb"),
+    email = "stijnvanhoey@gmail.com", 
+    comment = "http://orcid.org/0000-0001-6413-3185"),
+  person("Jurriaan", "Spaaks", role = c("ctb"),
+    email = "j.spaaks@esciencecenter.nl"),
+  person("Lourens", "Veen", role = c("ctb"),
+    email = "l.veen@esciencecenter.nl"),
+  person("Liesbeth", "Verlinden", role = c("ctb"),
+    email = "l.verlinden@uva.nl",
+    comment = "https://orcid.org/0000-0003-1744-9325"),
+  person("Hidde", "Leijnse", role = c("ctb"),
+    email = "hidde.leijnse@knmi.nl",
+    comment = "https://orcid.org/0000-0001-7835-4480"))
 Depends: R (>= 2.10)
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-    curl,
-    fields,
-    ggmap,
-    ggplot2,
-    graphics,
-    lubridate,
-    methods,
-    raster,
-    RCurl,
-    rgdal,
-    rhdf5,
-    sp,
-    stats,
-    utils
+  curl,
+  fields,
+  ggmap,
+  ggplot2,
+  graphics,
+  lubridate,
+  methods,
+  raster,
+  RCurl,
+  rgdal,
+  rhdf5,
+  sp,
+  stats,
+  utils
 Suggests:
-    knitr,
-    testthat
+  knitr,
+  testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 URL:
-    http://adokter.github.io/bioRad,
-    https://github.com/adokter/bioRad
+  https://github.com/adokter/bioRad,
+  https://adokter.github.io/bioRad
 BugReports: https://github.com/adokter/bioRad/issues

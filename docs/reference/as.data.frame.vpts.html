@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce Vertical Profile Time Series to a Data Frame — as.data.frame.vpts • bioRad</title>
+<title>Convert a time series of vertical profiles (<code>vpts</code>) to a data frame — as.data.frame.vpts • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,19 +18,13 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-<!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Coerce Vertical Profile Time Series to a Data Frame — as.data.frame.vpts" />
-
-<meta property="og:description" content="Converts vertical profile time series (objects of class vpts) to a Data Frame,
-and optionally adds information on sunrise/sunset, day/night and derived quantities
-like migration traffic rates." />
-<meta name="twitter:card" content="summary" />
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -60,21 +54,6 @@ like migration traffic rates." />
         <li>
   <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -95,14 +74,13 @@ like migration traffic rates." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce Vertical Profile Time Series to a Data Frame</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
+    <h1>Convert a time series of vertical profiles (<code>vpts</code>) to a data frame</h1>
     </div>
 
     
-    <p>Converts vertical profile time series (objects of class <code>vpts</code>) to a Data Frame,
-and optionally adds information on sunrise/sunset, day/night and derived quantities
-like migration traffic rates.</p>
+    <p>Converts vertical profile time series (objects of class <code>vpts</code>) to a
+data Frame, and optionally adds information on sunrise/sunset, day/night
+and derived quantities like migration traffic rates.</p>
     
 
     <pre class="usage"><span class='co'># S3 method for vpts</span>
@@ -115,63 +93,80 @@ like migration traffic rates.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object of class vpts</p></td>
+      <td><p>An object of class <code>vpts</code>.</p></td>
     </tr>
     <tr>
       <th>row.names</th>
-      <td><p><code>NULL</code> or a character vector giving the row names for the data frame. Missing values are not allowed.</p></td>
+      <td><p><code>NULL</code> or a character vector giving the row names for
+the data frame. Missing values are not allowed.</p></td>
     </tr>
     <tr>
       <th>optional</th>
-      <td><p>If <code>FALSE</code> then the names of the variables in the data frame are checked to ensure that they are syntactically valid variable names and are not duplicated.</p></td>
+      <td><p>If <code>FALSE</code> then the names of the variables in the data
+frame are checked to ensure that they are syntactically valid variable names
+and are not duplicated.</p></td>
     </tr>
     <tr>
       <th>quantities</th>
-      <td><p>an optional character vector with the names of the quantities to include as columns in the data frame</p></td>
+      <td><p>An optional character vector with the names of the
+quantities to include as columns in the data frame.</p></td>
     </tr>
     <tr>
       <th>suntime</th>
-      <td><p>logical. When TRUE, adds sunrise/sunset and day/night information to each row</p></td>
+      <td><p>Logical, when TRUE, adds sunrise/sunset and day/night
+information to each row.</p></td>
     </tr>
     <tr>
       <th>geo</th>
-      <td><p>logical. When TRUE, adds latitude, longitude and antenna height of the radar to each row</p></td>
+      <td><p>Logical, when TRUE, adds latitude, longitude and antenna height
+of the radar to each row.</p></td>
     </tr>
     <tr>
       <th>elev</th>
-      <td><p>sun elevation in degrees, see <a href='suntime.html'>suntime</a>.</p></td>
+      <td><p>Sun elevation in degrees, see <a href='sunrise_sunset.html'>sunrise</a>/<a href='sunrise_sunset.html'>sunset</a>.</p></td>
     </tr>
     <tr>
       <th>lat</th>
-      <td><p>radar latitude in decimal degrees. When set, overrides the latitude stored in <code>x</code> in <a href='suntime.html'>suntime</a> calculations</p></td>
+      <td><p>Radar latitude in decimal degrees. When set, overrides the
+latitude stored in <code>x</code> in <a href='sunrise_sunset.html'>sunrise</a>/<a href='sunrise_sunset.html'>sunset</a> calculations.</p></td>
     </tr>
     <tr>
       <th>lon</th>
-      <td><p>radar longitude in decimal degrees. When set, overrides the longitude stored in <code>x</code> in <a href='suntime.html'>suntime</a> calculations</p></td>
+      <td><p>Radar longitude in decimal degrees. When set, overrides the
+longitude stored in <code>x</code> in <a href='sunrise_sunset.html'>sunrise</a>/<a href='sunrise_sunset.html'>sunset</a> calculations.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments to be passed to or from methods.</p></td>
+      <td><p>Additional arguments to be passed to or from methods.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an object of class data.frame</p>
+    <p>An object of class data.frame.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note that only the 'dens' quantity is thresholded by the radial velocity
+standard deviation <a href='bioRad-deprecated.html'>sd_vvp</a>. Note that this is different from the
+default <a href='plot.vp.html'>plot.vp</a>, <a href='plot.vpts.html'>plot.vpts</a> and <a href='get_quantity.html'>get_quantity.vp</a>
+functions, where quantities "eta", "dbz", "ff", "u", "v", "w", "dd" are all
+thresholded by <a href='bioRad-deprecated.html'>sd_vvp</a>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># load an example vertical profile time series object</span>
-<span class='fu'>data</span>(<span class='no'>VPTS</span>)
+    <pre class="examples"><div class='input'><span class='co'># load an example vertical profile time series object</span>
+<span class='fu'>data</span>(<span class='no'>example_vpts</span>)
+
 <span class='co'># convert the object to a data.frame</span>
-<span class='no'>df</span><span class='kw'>=</span><span class='fu'>as.data.frame</span>(<span class='no'>VPTS</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>example_vpts</span>)
+
 <span class='co'># do not compute sunrise/sunset information</span>
-<span class='no'>df</span><span class='kw'>=</span><span class='fu'>as.data.frame</span>(<span class='no'>VPTS</span>,<span class='kw'>suntime</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>example_vpts</span>, <span class='kw'>suntime</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
 <span class='co'># override the latitude/longitude information stored in the object</span>
 <span class='co'># when calculating sunrise / sunset</span>
-<span class='no'>df</span><span class='kw'>=</span><span class='fu'>as.data.frame</span>(<span class='no'>VPTS</span>,<span class='kw'>suntime</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>lat</span><span class='kw'>=</span><span class='fl'>50</span>,<span class='kw'>lon</span><span class='kw'>=</span><span class='fl'>4</span>)
-<span class='co'># }</span></pre>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>example_vpts</span>, <span class='kw'>suntime</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -179,6 +174,8 @@ like migration traffic rates.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -192,7 +189,7 @@ like migration traffic rates.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -200,4 +197,3 @@ like migration traffic rates.</p>
 
   </body>
 </html>
-

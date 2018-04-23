@@ -66,7 +66,7 @@ map <- function(x, ...) {
 #' @export
 map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
                     zlim = c(-20, 20), ratio, radar.size = 3,
-                    radar.color = "red", n.color = 1000, ...){
+                    radar.color = "red", n.color = 1000, ...) {
   stopifnot(inherits(x, "ppi"))
 
   if (missing(param)) {
@@ -136,7 +136,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
                        alpha = TRUE)(n.color), alpha = alpha)
   }
 
-  col_func <- function(value, lim){
+  col_func <- function(value, lim) {
     output <- rep(0, length(value))
     output <- round((value - lim[1])/(lim[2] - lim[1]) * n.color)
     output[output > n.color] <- n.color
