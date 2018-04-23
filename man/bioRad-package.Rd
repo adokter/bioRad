@@ -23,7 +23,7 @@
 }
 The common \link[base]{summary}, \link[methods]{is}, \link[base]{dim}, and \link[base]{Extract} methods are available for each of these classes.
 
-Plot methods are available for ppi, vp and vpts objects
+Plot methods are available for vp, vpts, vpi and ppi objects
 \subsection{Reading radar data}{
 \pkg{bioRad} can read radar files in
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
@@ -36,9 +36,9 @@ Raw (level-II) weather radar data is read with the function \link{read_pvolfile}
 Use the function \link{nexrad_to_odim} to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
 }
 \subsection{Mapping and projecting radar scans}{
-Funtion \link{ppi} can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
+Function \link{project_as_ppi} can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
 
-Function \link{map} can be used together with \link{basemap} to overlay radar data with all kinds of publicly available map and satellite data.
+Function \link{map} can be used together with \link{download_basemap} to overlay radar data with all kinds of publicly available map and satellite data.
 }
 \subsection{Processing weather radar data into vertical profiles of birds}{
 \pkg{bioRad} contains an implementation of the \code{vol2bird} algorithm, which
@@ -70,12 +70,8 @@ cross section per individual needs to be assumed, which is set with \link{rcs}.
 By default, a radar cross section of 11 cm^2 is used, which is the average value found
 by Dokter et al. during a full autumn migration season in Europe at C-band.
 
-\link{mtr} combines reflectivity and speed into migration traffic rates within user-defined altitude bands
-
-\link{mt} calculates migration traffic: it integrates migration traffic rates over time and altitude, to find the total number
-of individuals passing a radar station in a certain time period
-
-\link{cmt} calculates cumulative migration traffic.
+\link{integrate_profile} calculates various height-integrated values within user-defined altitude bands,
+such as migration traffic rate (MTR).
 }
 
 \subsection{Conventions}{
@@ -91,7 +87,7 @@ of individuals passing a radar station in a certain time period
 
 \subsection{Other useful functionality}{
  \itemize{
- \item \link{suntime} calculates runrise and sunset times
+ \item \link{sunrise} and \link{sunset} calculates runrise and sunset times
  \item \link{check_docker} checks whether your local Docker daemon is running correctly
  \item \link{get_angles} gives the elevation angle(s) of a polar volume or polar scan object
  \item \link{beam_height} gives the radar beam height, for a certain elevation and range.
