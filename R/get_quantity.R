@@ -40,15 +40,15 @@ get_quantity.vp <- function(x, quantity = "dens") {
   names(output) <- x$data$HGHT
 
   if (quantity == "eta") {
-    output[x$data$sd_vvp < rvsd(x)] <- 0
+    output[x$data$sd_vvp < sd_vvp(x)] <- 0
     return(output)
   }
   if (quantity == "dbz") {
-    output[x$data$sd_vvp < rvsd(x)] <- -Inf
+    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
     return(output)
   }
   if (quantity %in% c("ff", "u", "v", "w", "dd")) {
-    output[x$data$sd_vvp < rvsd(x)] <- NaN
+    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
     return(output)
   }
   return(output)
@@ -77,15 +77,15 @@ get_quantity.vpts <- function(x, quantity = "dens") {
   rownames(output) <- x$heights
   colnames(output) <- as.character(x$dates)
   if (quantity == "eta") {
-    output[x$data$sd_vvp < rvsd(x)] <- 0
+    output[x$data$sd_vvp < sd_vvp(x)] <- 0
     return(output)
   }
   if (quantity == "dbz") {
-    output[x$data$sd_vvp < rvsd(x)] <- -Inf
+    output[x$data$sd_vvp < sd_vvp(x)] <- -Inf
     return(output)
   }
   if (quantity %in% c("ff", "u", "v", "w", "dd")) {
-    output[x$data$sd_vvp < rvsd(x)] <- NaN
+    output[x$data$sd_vvp < sd_vvp(x)] <- NaN
     return(output)
   }
   return(output)
