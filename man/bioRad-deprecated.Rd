@@ -95,7 +95,7 @@ retrieve_vp_paths(...)
 
 rsl2odim(...)
 
-sd_vvp(...)
+sd_vvp(x)
 
 sd_vvp(x) <- value
 

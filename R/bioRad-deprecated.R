@@ -336,7 +336,6 @@ sd_vvp <- function(...) {
 
 #' @section suntime:
 #' Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
-#'
 #' @rdname bioRad-deprecated
 #'
 #' @export
