@@ -27,7 +27,7 @@
 #' plot(example_vp, line.col = "blue")
 plot.vp <- function(x, quantity="dens",
                     xlab = expression("volume density [#/km"^3*"]"),
-                    ylab = "height [km]", line.col='red', line.lwd=1, ...){
+                    ylab = "height [km]", line.col='red', line.lwd=1, ...) {
   stopifnot(inherits(x, "vp"))
   if (!(quantity %in% names(x$data))) {
     stop(paste("unknown quantity '", quantity, "'", sep = ""))

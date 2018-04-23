@@ -73,7 +73,7 @@ dim.scan <- function(x) {
 #' @keywords internal
 #'
 #' @export
-print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...){
+print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "scan"))
   cat("                  Polar scan (class scan)\n\n")
   cat("     parameters: ", names(x$params), "\n")

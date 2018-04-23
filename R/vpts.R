@@ -206,7 +206,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
                                quantities = names(x$data), suntime = TRUE,
                                geo = TRUE, elev = -0.268, lat = NULL,
-                               lon = NULL, ...){
+                               lon = NULL, ...) {
   stopifnot(inherits(x, "vpts"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==

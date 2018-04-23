@@ -13,7 +13,7 @@
 #' profile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' is.vpfile(profile)   #> TRUE
 #'
-is.vpfile  <- function(filename){
+is.vpfile  <- function(filename) {
   type <- get_odim_object_type(filename)
   if (is.na(type)) {
     return(FALSE)

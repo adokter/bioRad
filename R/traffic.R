@@ -65,7 +65,7 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
   .Deprecated("integrate_profile")
   .Deprecated(msg = "Migration traffic rate is now included in the output of integrate_profile() as column 'mtr'.")
   stopifnot(inherits(x, "vp") || inherits(x, "vpts") || inherits(x, "list"))
-  if (inherits(x, "list")){
+  if (inherits(x, "list")) {
     vptest <- sapply(x, function(y) is(y, "vp"))
     if (FALSE %in% vptest) {
       stop("Not all objects in list are vp objects")

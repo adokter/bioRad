@@ -62,7 +62,7 @@ is.pvol <- function(x) inherits(x, "pvol")
 #' @keywords internal
 #'
 #' @export
-print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...){
+print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "pvol"))
   cat("               Polar volume (class pvol)\n\n")
   cat("     # scans: ", length(x$scans), "\n")

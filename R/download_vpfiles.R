@@ -84,6 +84,5 @@ download_vpfiles <- function(start_date, end_date, country, radar,
       unzip(file.path(localpath, countryradardate[i]),
             exdir = countryradarlocalpath[i])
     }
-
   }
 }

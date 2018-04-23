@@ -43,7 +43,7 @@ check_night <- function(x, ..., elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.default <- function(lon, lat, date, elev = -0.268){
+check_night.default <- function(lon, lat, date, elev = -0.268) {
   trise <- sunrise(lon, lat, date, elev)
   tset <- sunset(lon, lat, date, elev)
   output <- rep(NA, length(date))

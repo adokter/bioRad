@@ -92,12 +92,12 @@ read_vpfiles <- function(files) {
   }
 }
 
-quantity_name  <- function(file, group){
+quantity_name <- function(file, group) {
   whatgroup <- h5readAttributes(file, paste(group, "/what", sep = ""))
   whatgroup$quantity
 }
 
-read_odim_profile_data  <- function(file, group) {
+read_odim_profile_data <- function(file, group) {
   whatgroup <- h5readAttributes(file,sprintf("%s/what", group))
   nodata <- whatgroup$nodata
   undetect <- whatgroup$undetect
