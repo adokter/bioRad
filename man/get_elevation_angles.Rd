@@ -4,7 +4,7 @@
 \alias{get_elevation_angles}
 \alias{get_elevation_angles.scan}
 \alias{get_elevation_angles.pvol}
-\title{Get elevation angle of a scan (\code{scan}) or scans in a polar volume (\code{scan})}
+\title{Get elevation angles of a scan (\code{scan}) or polar volume (\code{pvol})}
 \usage{
 get_elevation_angles(x)
 
@@ -19,7 +19,7 @@ get_elevation_angles(x)
 elevation in degrees
 }
 \description{
-Gives the elevation angle of a scan, or the elevation angles within a
+Gives the elevation angle of a single scan, or the elevation angles of all scans within a
 polar volume
 }
 \section{Methods (by class)}{
