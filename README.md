@@ -38,7 +38,7 @@ To enable Docker functionality, start Docker and run 'checkDocker()' in R
 
 On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:
 ```
-install_github(“adokter/bioRad”,args="--no-multiarch")
+install_github(“adokter/bioRad”,ref="ecography",args="--no-multiarch")
 ```
 
 ### 3. Docker (optional)
