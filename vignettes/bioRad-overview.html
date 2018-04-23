@@ -95,8 +95,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a new local directory on your machine where to download data for this practical</span>
 <span class="co"># replace the string below with the path of that directory:</span>
 HOME=<span class="st">&quot;your/personal/working/directory/&quot;</span>
-<span class="co"># for example, in Adriaan's case:</span>
-HOME=<span class="st">&quot;~/Dropbox/teaching/buler2018&quot;</span>
 <span class="co"># check that the directory exists. If the next statement evaluates to FALSE, something went wrong: the directory does not exist or you didn't specify its path correctly</span>
 <span class="kw">file.exists</span>(HOME)
 <span class="co"># we will make HOME our work directory, the default folder in which R will look</span>
@@ -283,16 +281,16 @@ my_dataframe</code></pre></div>
 integrated.ts =<span class="st"> </span><span class="kw">integrate_profile</span>(ts)
 <span class="co"># plot the integrated data to screen:</span>
 integrated.ts
-<span class="co"># The vintegrated.ts object you created is a vivp class object, which is an acronym for Vertically Integrated Vertical Profile. It has its own plot method, which by default plots migration traffic rate (MTR):</span>
+<span class="co"># The integrated.ts object you created is a vpi class object, which is an acronym for Vertical Profiles Integrated. It has its own plot method, which by default plots migration traffic rate (MTR):</span>
 <span class="kw">plot</span>(integrated.ts)
 <span class="co"># you can also plot vertically integrated densities (VID):</span>
-<span class="kw">plot</span>(vintegrated.ts, <span class="dt">quantity=</span><span class="st">&quot;vid&quot;</span>)</code></pre></div>
+<span class="kw">plot</span>(integrated.ts, <span class="dt">quantity=</span><span class="st">&quot;vid&quot;</span>)</code></pre></div>
 <p>Now let’s calculate how many birds passed over the radar during the full time series:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let's continue with the ts object created in the previous example.</span>
 <span class="co"># we can integrate all the traffic rates [unit: birds/km/h] over time, to obtain the number of birds that</span>
 <span class="co"># have passed over the radar [unit: birds/km]. Like the traffic rates, these numbers are calculated for </span>
-<span class="co"># a 1 km transect perpendicular to the migratory direction:</span>
-integrated.ts$mt</code></pre></div>
+<span class="co"># a 1 km transect perpendicular to the migratory direction, and stored in column mt of the object:</span>
+<span class="kw">plot</span>(integrated.ts, <span class="dt">quantity=</span><span class="st">&quot;mt&quot;</span>)</code></pre></div>
 </div>
 </div>
 

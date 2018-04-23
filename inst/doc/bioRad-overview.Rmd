@@ -42,8 +42,6 @@ Start by making a new directory on your local machine that you will use for this
 # make a new local directory on your machine where to download data for this practical
 # replace the string below with the path of that directory:
 HOME="your/personal/working/directory/"
-# for example, in Adriaan's case:
-HOME="~/Dropbox/teaching/buler2018"
 # check that the directory exists. If the next statement evaluates to FALSE, something went wrong: the directory does not exist or you didn't specify its path correctly
 file.exists(HOME)
 # we will make HOME our work directory, the default folder in which R will look
@@ -268,10 +266,10 @@ We will be using bioRad's `integrate_profile` function to calculate these quanti
 integrated.ts = integrate_profile(ts)
 # plot the integrated data to screen:
 integrated.ts
-# The vintegrated.ts object you created is a vivp class object, which is an acronym for Vertically Integrated Vertical Profile. It has its own plot method, which by default plots migration traffic rate (MTR):
+# The integrated.ts object you created is a vpi class object, which is an acronym for Vertical Profiles Integrated. It has its own plot method, which by default plots migration traffic rate (MTR):
 plot(integrated.ts)
 # you can also plot vertically integrated densities (VID):
-plot(vintegrated.ts, quantity="vid")
+plot(integrated.ts, quantity="vid")
 ```
 
 Now let's calculate how many birds passed over the radar during the full time series:
@@ -279,6 +277,7 @@ Now let's calculate how many birds passed over the radar during the full time se
 # Let's continue with the ts object created in the previous example.
 # we can integrate all the traffic rates [unit: birds/km/h] over time, to obtain the number of birds that
 # have passed over the radar [unit: birds/km]. Like the traffic rates, these numbers are calculated for 
-# a 1 km transect perpendicular to the migratory direction:
-integrated.ts$mt
+# a 1 km transect perpendicular to the migratory direction, and stored in column mt of the object:
+plot(integrated.ts, quantity="mt")
+
 ```

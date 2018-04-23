@@ -97,6 +97,9 @@
 #' \item \code{vpts.txt}: example standard output of \link{calculate_vp} piped to a text file. Locate this file in your local installation with \code{system.file("extdata", "vpts.txt", package = "bioRad")}. Read it with \code{\link{read_vpts}}.
 #' }
 #' }
+#' \subsection{Vignettes}{
+#' Execute \code{vignette("bioRad-overview")} for vignette with exercises that covers most of bioRad's functionality
+#' }
 #'
 #' @references
 #' \itemize{
