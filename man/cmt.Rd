@@ -33,7 +33,7 @@ within the specified altitude band.
 # get example time series object:
 data(example_vpts)
 # print cumulative migration traffic to console:
-cmt(example_vpts)
+\dontrun{cmt(example_vpts)}
 # plot cumulative migration traffic:
-plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")
+\dontrun{plot(cmt(example_vpts), type = "l", xlab = "time" , ylab = "CMT [birds/km]")}
 }

@@ -380,7 +380,7 @@ is.vplist <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @section \code{vpts}:
-#' Use \code{\link{bind_to_vpts}} instead.
+#' Use \code{\link{bind_into_vpts}} instead.
 #'
 #' @export
 vpts <- function(...) {

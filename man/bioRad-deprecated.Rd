@@ -132,7 +132,7 @@ is.vplist(...)
 vpts(...)
 }
 \description{
-The functions listed below are deprecated or renamed and will be defunct in
+The functions and data listed below are deprecated or renamed and will be defunct in
 the near future. When possible, alternative functions with similar
 functionality are mentioned.
 }
@@ -289,7 +289,7 @@ objects (\code{c(vp, vp))} instead.
 
 \section{\code{vpts}}{
 
-Use \code{\link{bind_to_vpts}} instead.
+Use \code{\link{bind_into_vpts}} instead.
 }
 
 \section{\code{VP}}{
