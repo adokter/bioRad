@@ -11,37 +11,37 @@
 #'
 #' @examples
 #' # extract threshold for a single vertical profile:
-#' rvsd(example_vp)
-rvsd <- function(x) {
-  UseMethod("rvsd", x)
+#' sd_vvp(example_vp)
+sd_vvp <- function(x) {
+  UseMethod("sd_vvp", x)
 }
 
-#' @describeIn rvsd threshold in VVP-retrieved radial velocity standard
+#' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard
 #' deviation of a vertical profile
 #'
 #' @export
-rvsd.vp <- function(x) {
+sd_vvp.vp <- function(x) {
   stopifnot(inherits(x, "vp"))
   x$attributes$how$sd_vvp_thresh
 }
 
-#' @describeIn rvsd threshold in VVP-retrieved radial velocity standard
+#' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard
 #' deviation of a list of vertical profiles
 #'
 #' @export
-rvsd.list <- function(x) {
+sd_vvp.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  output <- sapply(x, `rvsd.vp`)
+  output <- sapply(x, `sd_vvp.vp`)
   output
 }
 
-#' @describeIn rvsd threshold in VVP-retrieved radial velocity standard
+#' @describeIn sd_vvp threshold in VVP-retrieved radial velocity standard
 #' deviation of a time series of vertical profiles
 #' @export
-rvsd.vpts <- function(x) {
+sd_vvp.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
   x$attributes$how$sd_vvp_thresh
 }
@@ -60,17 +60,17 @@ rvsd.vpts <- function(x) {
 #'
 #' @examples
 #' # change threshold for a single vertical profile:
-#' rvsd(example_vp) <- 2
-`rvsd<-` <- function(x, value) {
-  UseMethod("rvsd<-", x)
+#' sd_vvp(example_vp) <- 2
+`sd_vvp<-` <- function(x, value) {
+  UseMethod("sd_vvp<-", x)
 }
 
-#' @rdname rvsd-set
+#' @rdname sd_vvp-set
 #'
-#' @method rvsd<- vp
+#' @method sd_vvp<- vp
 #'
 #' @export
-`rvsd<-.vp` <- function(x, value) {
+`sd_vvp<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
@@ -85,23 +85,23 @@ rvsd.vpts <- function(x) {
   x
 }
 
-#' @rdname rvsd-set
+#' @rdname sd_vvp-set
 #'
 #' @export
-`rvsd<-.list` <- function(x, value) {
+`sd_vvp<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  output <- lapply(x, `rvsd<-.vp`, value = value)
+  output <- lapply(x, `sd_vvp<-.vp`, value = value)
   class(output) <- c("list")
   output
 }
 
-#' @rdname rvsd-set
+#' @rdname sd_vvp-set
 #'
 #' @export
-`rvsd<-.vpts` <- function(x, value) {
+`sd_vvp<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
