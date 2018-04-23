@@ -52,10 +52,6 @@
 \alias{readvp.table}
 \alias{regularize-deprecated}
 \alias{regularize}
-\alias{sd_vvp-deprecated}
-\alias{sd_vvp}
-\alias{sd_vvp-deprecated}
-\alias{sd_vvp<-}
 \alias{retrieve_vp_paths-deprecated}
 \alias{retrieve_vp_paths}
 \alias{suntime-deprecated}
@@ -118,10 +114,6 @@ readvp.list(...)
 readvp.table(...)
 
 regularize(...)
-
-sd_vvp(...)
-
-sd_vvp(x) <- value
 
 retrieve_vp_paths(...)
 
@@ -259,16 +251,6 @@ Use \code{\link{read_vpts}} instead.
 \section{\code{regularize}}{
 
 Use \code{\link{regularize_vpts}} instead.
-}
-
-\section{\code{sd_vvp}}{
-
-Use \code{\link{rvsd}} instead.
-}
-
-\section{\code{sd_vvp<-}}{
-
-Use \code{\link{rvsd<-}} instead.
 }
 
 \section{\code{retrieve_vp_paths}}{
