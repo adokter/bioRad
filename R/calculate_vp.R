@@ -206,7 +206,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
     stop(paste("invalid 'mount' argument. No write permission in directory",
                mount))
   }
-  if (!docker) {
+  if (!.pkgenv$docker) {
     stop("Requires a running Docker daemon.\nTo enable calculate_vp, start ",
          "your local Docker daemon, and run 'check_docker()' in R\n")
   }

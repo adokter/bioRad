@@ -31,7 +31,7 @@ nexrad_to_odim_tempfile <- function(vol.in, verbose = FALSE,
     stop(paste("Invalid 'mount' argument. No write permission in directory.",
                mount))
   }
-  if (!docker) {
+  if (!.pkgenv$docker) {
     stop("Requires a running Docker daemon.\nTo enable, start your",
          "local Docker daemon, and run 'check_docker()' in R\n")
   }
