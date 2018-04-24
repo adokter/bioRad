@@ -1,3 +1,4 @@
+# environment for storing dynamic package flags
 .pkgenv <- new.env(parent=emptyenv())
 
 .onLoad <- function(libname, pkgname) {
