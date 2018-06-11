@@ -9,7 +9,7 @@ calculate_vp(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
   dualpol = FALSE, rhohv = 0.95, elev.min = 0, elev.max = 90,
   azim.min = 0, azim.max = 360, range.min = 5000, range.max = 25000,
   nlayer = 20L, hlayer = 200, dealias = TRUE, nyquist.min = if (dealias)
-  5 else 25)
+  5 else 25, dbz_quantity = "DBZH")
 }
 \arguments{
 \item{vol.in}{A radar file containing a radar polar volume, either in
@@ -70,6 +70,9 @@ velocities (below 25 m/s).}
 
 \item{nyquist.min}{numeric. Minimum Nyquist velocity of scans in m/s for
 scans to be included in the analysis.}
+
+\item{dbz_quantity}{character. One of the available reflectivity factor
+quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When

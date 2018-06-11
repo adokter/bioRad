@@ -28,7 +28,7 @@ assuming the beam is emitted at surface level.
 }
 \details{
 To account for refraction of the beam towards the earth's surface,
-an effective earth's radius of 4/3 * (true radius) is assumed.
+an effective earth's radius of k * (true radius) is assumed, with k = 4/3.
 
 The earth's radius is approximated as a point on a spheroid surface, with
 \code{re} the longer equatorial radius, and \code{rp} the shorter polar

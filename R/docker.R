@@ -1,13 +1,3 @@
-#' flag indicating whether docker is running
-#' @keywords internal
-docker <- FALSE
-#' flag indicating whether vol2bird docker container is mounted
-#' @keywords internal
-mounted <- FALSE
-#' @keywords internal
-#' the current mountpoint of the vol2bird docker container
-mount <- "~/"
-
 #' Check if Docker is running
 #'
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running
@@ -31,13 +21,8 @@ check_docker <- function(verbose = TRUE) {
                        ignore.stderr = !verbose, ignore.stdout = !verbose,
                        show.output.on.console = TRUE))
   }
-  parent.env <- environment(check_docker)
-  unlockBinding("docker", parent.env)
-  unlockBinding("mounted", parent.env)
-  parent.env$docker <- (result == 0)
-  parent.env$mounted <- FALSE
-  lockBinding("docker", parent.env)
-  lockBinding("mounted", parent.env)
+  .pkgenv$docker <- (result == 0)
+  .pkgenv$mounted <- FALSE
   if (!verbose) {
     return(result)
   }
@@ -78,13 +63,12 @@ update_docker <- function() {
 }
 
 mount_docker_container <- function(mount = "~/") {
-  parent.env <- environment(mount_docker_container)
   # if docker not running, cannot start container
-  if (!parent.env$docker) {
+  if (!.pkgenv$docker) {
     return(1)
   }
   # if container already running at this mount point, nothing to be done:
-  if (parent.env$mounted & parent.env$mount == mount) {
+  if (.pkgenv$mounted & .pkgenv$mount == mount) {
     return(0)
   }
   # remove any existing vol2bird containers
@@ -116,12 +100,8 @@ mount_docker_container <- function(mount = "~/") {
                   "-> File Sharing' and add this directory (or its root",
                   "directory) as a bind mounted directory"))
     } else{
-      unlockBinding("mounted", parent.env)
-      unlockBinding("mount", parent.env)
-      parent.env$mounted <- (result == 0)
-      parent.env$mount <- mount
-      lockBinding("mounted", parent.env)
-      lockBinding("mount", parent.env)
+      .pkgenv$mounted <- (result == 0)
+      .pkgenv$mount <- mount
     }
   return(result)
 }

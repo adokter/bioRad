@@ -94,7 +94,7 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
     if (verbose) {
       cat("Converting using Docker...\n")
     }
-    if (!docker) {
+    if (!.pkgenv$docker) {
       stop("Requires a running Docker daemon.\nTo enable, start your",
            "local Docker daemon, and run 'check_docker()' in R\n")
     }

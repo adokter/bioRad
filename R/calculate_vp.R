@@ -38,6 +38,8 @@
 #' @param hlayer numeric. Width of altitude layers in metre.
 #' @param nyquist.min numeric. Minimum Nyquist velocity of scans in m/s for
 #' scans to be included in the analysis.
+#' @param dbz_quantity character. One of the available reflectivity factor
+#' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param dealias logical. Whether to dealias radial velocities; this should
 #' typically be done when the scans in the polar volume have low Nyquist
 #' velocities (below 25 m/s).
@@ -137,7 +139,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
                          elev.max = 90, azim.min = 0, azim.max = 360,
                          range.min = 5000, range.max = 25000, nlayer = 20L,
                          hlayer = 200, dealias = TRUE,
-                         nyquist.min = if (dealias) 5 else 25) {
+                         nyquist.min = if (dealias) 5 else 25, dbz_quantity="DBZH") {
   # check input arguments
   if (!file.exists(vol.in)) {
     stop("No such file or directory")
@@ -196,6 +198,9 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   if (!is.numeric(nyquist.min) || nyquist.min < 0) {
     stop("invalid 'nyquist.min' argument, should be a positive numeric value")
   }
+  if (!(dbz_quantity %in% c("DBZ","DBZH","DBZV","TH","TV"))) {
+    warning(paste("expecting 'dbz_quantity' to be one of DBZ, DBZH, DBZV, TH, TV"))
+  }
   if (!is.logical(dealias)) {
     stop("invalid 'dealias' argument, should be logical")
   }
@@ -206,7 +211,7 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
     stop(paste("invalid 'mount' argument. No write permission in directory",
                mount))
   }
-  if (!docker) {
+  if (!.pkgenv$docker) {
     stop("Requires a running Docker daemon.\nTo enable calculate_vp, start ",
          "your local Docker daemon, and run 'check_docker()' in R\n")
   }
@@ -237,13 +242,13 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   # put options file in place, to be read by vol2bird container
   opt.values <- c(as.character(c(sd_vvp, rcs, rhohv, elev.min, elev.max,
                                  azim.min, azim.max, range.min, range.max,
-                                 nlayer, hlayer, nyquist.min)),
+                                 nlayer, hlayer, nyquist.min,dbz_quantity)),
                   if (dualpol) "TRUE" else "FALSE",
                   if (dealias) "TRUE" else "FALSE")
 
   opt.names <- c("STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
                  "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DUALPOL", "DEALIAS_VRAD")
+                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE","DUALPOL", "DEALIAS_VRAD")
   opt <- data.frame("option" = opt.names, "is" = rep("=", length(opt.values)),
                     "value" = opt.values)
   optfile <- paste(normalizePath(mount, winslash = "/"),
