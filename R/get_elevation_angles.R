@@ -22,6 +22,13 @@ get_elevation_angles <- function(x) {
   UseMethod("get_elevation_angles", x)
 }
 
+#' @describeIn get_elevation_angles Elevation angles of all scans in a polar volume.
+#' @export
+get_elevation_angles.pvol <- function(x) {
+  stopifnot(inherits(x, "pvol"))
+  sapply(x$scans, get_elevation_angles.scan)
+}
+
 #' @describeIn get_elevation_angles Elevation angle of a scan.
 #' @export
 get_elevation_angles.scan <- function(x) {
@@ -29,9 +36,9 @@ get_elevation_angles.scan <- function(x) {
   x$attributes$where$elangle
 }
 
-#' @describeIn get_elevation_angles Elevation angles of all scans in a polar volume.
+#' @describeIn get_elevation_angles Elevation angle of a scan parameter.
 #' @export
-get_elevation_angles.pvol <- function(x) {
-  stopifnot(inherits(x, "pvol"))
-  sapply(x$scans, get_elevation_angles.scan)
+get_elevation_angles.param <- function(x) {
+  stopifnot(inherits(x, "param"))
+  attributes(x)$geo$elangle
 }

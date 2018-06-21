@@ -66,7 +66,7 @@ get_suntime <- function(lon, lat, date, sign_angle, elev = -0.268) {
   jy = yyyy
 
   if (any(jy == 0)) {
-    stop("get_time_sun: there is no year zero!")
+    stop("get_suntime: there is no year zero!")
   }
 
   jy[jy < 0] = jy[jy < 0] + 1

@@ -2,15 +2,18 @@
 % Please edit documentation in R/get_elevation_angles.R
 \name{get_elevation_angles}
 \alias{get_elevation_angles}
-\alias{get_elevation_angles.scan}
 \alias{get_elevation_angles.pvol}
+\alias{get_elevation_angles.scan}
+\alias{get_elevation_angles.param}
 \title{Get elevation angles of a scan (\code{scan}) or polar volume (\code{pvol})}
 \usage{
 get_elevation_angles(x)
 
+\method{get_elevation_angles}{pvol}(x)
+
 \method{get_elevation_angles}{scan}(x)
 
-\method{get_elevation_angles}{pvol}(x)
+\method{get_elevation_angles}{param}(x)
 }
 \arguments{
 \item{x}{A \code{pvol} or \code{scan} object.}
@@ -24,9 +27,11 @@ polar volume
 }
 \section{Methods (by class)}{
 \itemize{
+\item \code{pvol}: Elevation angles of all scans in a polar volume.
+
 \item \code{scan}: Elevation angle of a scan.
 
-\item \code{pvol}: Elevation angles of all scans in a polar volume.
+\item \code{param}: Elevation angle of a scan parameter.
 }}
 
 \examples{
