@@ -77,12 +77,14 @@ regularize_vpts <- function(ts, interval = "auto", t.min = ts$daterange[1],
                     })
   if (!fill) {
     index2 <- which(abs(ts$dates[index] - grid) > as.double(dt, units = "secs"))
-    ts$data <- lapply(1:length(ts$data),
-                      function(x) {
-                        tmp <- ts$data[[x]]
-                        tmp[,index2] <- NA
-                        tmp
-                      })
+    if(length(index2)>0){
+      ts$data <- lapply(1:length(ts$data),
+                        function(x) {
+                          tmp <- ts$data[[x]]
+                          tmp[,index2] <- NA
+                          tmp
+                        })  
+    }
   }
   names(ts$data) <- quantity.names
   ts$dates <- grid
