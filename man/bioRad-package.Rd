@@ -122,7 +122,7 @@ Useful links:
 \itemize{
   \item \url{http://adokter.github.io/bioRad}
   \item \url{https://github.com/adokter/bioRad}
-  \item Report bugs at \url{http://adokter.github.io/bioRad/issues}
+  \item Report bugs at \url{https://github.com/adokter/bioRad/issues}
 }
 
 }
