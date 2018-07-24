@@ -6,9 +6,9 @@
 \alias{sunset}
 \title{Calculate sunrise or sunset for a time and place}
 \usage{
-sunrise(lon, lat, date, elev = -0.268)
+sunrise(lon, lat, date, elev = -0.268, tz = "UTC")
 
-sunset(lon, lat, date, elev = -0.268)
+sunset(lon, lat, date, elev = -0.268, tz = "UTC")
 }
 \arguments{
 \item{lon}{Longitude in decimal degrees.}
@@ -19,6 +19,8 @@ sunset(lon, lat, date, elev = -0.268)
 interpretable by \link[base]{as.Date}.}
 
 \item{elev}{Sun elevation in degrees.}
+
+\item{tz}{output time zone. Ignored if \code{date} has an associated time zone already}
 }
 \value{
 The moment of sunrise or sunset in UTC time.

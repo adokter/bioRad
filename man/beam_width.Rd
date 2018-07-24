@@ -9,7 +9,8 @@ beam_width(range, angle = 1)
 \arguments{
 \item{range}{numeric. Range (distance from the radar antenna) in km.}
 
-\item{angle}{numeric. Beam angle in degrees.}
+\item{angle}{numeric. Beam opening angle in degrees, typically the
+the angle between the half-power (-3 dB) points of the main lobe}
 }
 \value{
 numeric. Beam width in m.

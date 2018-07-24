@@ -40,7 +40,8 @@ Imports:
   rhdf5,
   sp,
   stats,
-  utils
+  utils,
+  maptools
 Suggests:
   knitr,
   testthat

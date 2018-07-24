@@ -7,6 +7,7 @@
 #' @param date Date inhereting from class \code{POSIXt} or a string
 #' interpretable by \link[base]{as.Date}.
 #' @param elev Sun elevation in degrees.
+#' @param tz output time zone. Ignored if \code{date} has an associated time zone already
 #'
 #' @return The moment of sunrise or sunset in UTC time.
 #'
@@ -35,17 +36,21 @@ NULL
 #' @rdname sunrise_sunset
 #'
 #' @export
-sunrise <- function(lon, lat, date, elev = -0.268) {
-  sign_angle <- 1
-  get_suntime(lon, lat, date, sign_angle, elev)
+sunrise <- function(lon, lat, date, elev = -0.268, tz="UTC") {
+  locations <- data.frame(lon=lon, lat=lat)
+  locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
+  dates <- as.POSIXct(date, tz = tz)
+  crepuscule(locations, dates, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)$time
 }
 
 #' @rdname sunrise_sunset
 #'
 #' @export
-sunset <- function(lon, lat, date, elev = -0.268) {
-  sign_angle <- -1
-  get_suntime(lon, lat, date, sign_angle, elev)
+sunset <- function(lon, lat, date, elev = -0.268, tz="UTC") {
+  locations <- data.frame(lon=lon, lat=lat)
+  locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
+  dates <- as.POSIXct(date, tz = tz)
+  crepuscule(locations, dates, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)$time
 }
 
 #' Helper function to calculate sunrise or sunset
