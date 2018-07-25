@@ -11,7 +11,7 @@
 \usage{
 check_night(x, ..., elev = -0.268)
 
-\method{check_night}{default}(x, lon, lat, ..., elev = -0.268)
+\method{check_night}{default}(x, lon, lat, ..., tz = "UTC", elev = -0.268)
 
 \method{check_night}{vp}(x, ..., elev = -0.268)
 
@@ -33,6 +33,8 @@ interpretable by \link[base]{as.POSIXct}.}
 \item{lon}{numeric. Longitude in decimal degrees.}
 
 \item{lat}{numeric. Latitude in decimal degrees.}
+
+\item{tz}{character. Time zone. Ignored when \code{date} already has an associated time zone}
 }
 \value{
 \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
@@ -58,7 +60,7 @@ transition may be off by a few minutes.
 }
 \examples{
 # check if it is night at UTC midnight in the Netherlands on January 1st:
-check_night(5, 53, "2016-01-01 00:00")
+check_night("2016-01-01 00:00",5, 53)
 
 # check on bioRad objects directly:
 check_night(example_vp)

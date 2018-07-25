@@ -10,6 +10,7 @@
 #' interpretable by \link[base]{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
+#' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
 #' @param elev numeric. Sun elevation in degrees.
 #' @param ... A bioRad object of lat/lon combination.
 #'
@@ -43,18 +44,19 @@ check_night <- function(x, ..., elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.default <- function(x, lon, lat, ..., elev = -0.268) {
+check_night.default <- function(x, lon, lat, ..., tz="UTC", elev = -0.268) {
+  x=as.POSIXct(x,tz=tz)
   # calculate sunrises
-  trise <- sunrise(lon, lat, x, elev)
+  trise <- sunrise(lon, lat, x, tz=tz, elev=elev)
   # calculate sunsets
-  tset <- sunset(lon, lat, x, elev)
+  tset <- sunset(lon, lat, x, tz=tz, elev=elev)
   # for returned rise times on a different day, recalculate for the current day
   dt <- as.numeric(difftime(as.Date(trise),as.Date(x),units="days"))
   change <- which(dt!=0)
-  if(length(change)>0) trise[change] <- sunrise(lon, lat, x[change]-dt[change]*24*3600, elev)
+  if(length(change)>0) trise[change] <- sunrise(lon, lat, x[change]-dt[change]*24*3600, tz=tz, elev=elev)
   dt <- as.numeric(difftime(as.Date(tset),as.Date(x),units="days"))
   change <- which(dt!=0)
-  if(length(change)>0) tset[change] <- sunset(lon, lat, x[change]-dt[change]*24*3600, elev)
+  if(length(change)>0) tset[change] <- sunset(lon, lat, x[change]-dt[change]*24*3600, tz=tz, elev=elev)
   # prepare output
   output <- rep(NA, length(x))
   itsday <- (x > trise & x < tset)
