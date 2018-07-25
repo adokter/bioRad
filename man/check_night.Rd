@@ -23,8 +23,8 @@ check_night(x, ..., elev = -0.268)
 }
 \arguments{
 \item{x}{\code{pvol}, \code{vp} or \code{vpts},
-or a date inhereting from class \code{POSIXt} or a string
-interpretable by \link[base]{as.Date}.}
+or a date inhereting from class \code{POSIXct} or a string
+interpretable by \link[base]{as.POSIXct}.}
 
 \item{...}{A bioRad object of lat/lon combination.}
 

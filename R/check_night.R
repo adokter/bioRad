@@ -6,8 +6,8 @@
 #' bioRad object directly.
 #'
 #' @param x \code{pvol}, \code{vp} or \code{vpts},
-#' or a date inhereting from class \code{POSIXt} or a string
-#' interpretable by \link[base]{as.Date}.
+#' or a date inhereting from class \code{POSIXct} or a string
+#' interpretable by \link[base]{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
 #' @param elev numeric. Sun elevation in degrees.
@@ -31,7 +31,7 @@
 #'
 #' @examples
 #' # check if it is night at UTC midnight in the Netherlands on January 1st:
-#' check_night(5, 53, "2016-01-01 00:00")
+#' check_night("2016-01-01 00:00",5, 53)
 #'
 #' # check on bioRad objects directly:
 #' check_night(example_vp)
