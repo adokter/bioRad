@@ -5,11 +5,11 @@
 #' (\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
 #' bioRad object directly.
 #'
-#' @param x A \code{numeric}, \code{pvol}, \code{vp} or \code{vpts}.
+#' @param x \code{pvol}, \code{vp} or \code{vpts},
+#' or a date inhereting from class \code{POSIXt} or a string
+#' interpretable by \link[base]{as.Date}.
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
-#' @param date Date. Date inheriting from class \code{POSIXt} or a string
-#' interpretable by \link[base]{as.Date}.
 #' @param elev numeric. Sun elevation in degrees.
 #' @param ... A bioRad object of lat/lon combination.
 #'
@@ -43,13 +43,23 @@ check_night <- function(x, ..., elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.default <- function(lon, lat, date, elev = -0.268) {
-  trise <- sunrise(lon, lat, date, elev)
-  tset <- sunset(lon, lat, date, elev)
-  output <- rep(NA, length(date))
-  itsday <- (date > trise & date < tset)
+check_night.default <- function(x, lon, lat, ..., elev = -0.268) {
+  # calculate sunrises
+  trise <- sunrise(lon, lat, x, elev)
+  # calculate sunsets
+  tset <- sunset(lon, lat, x, elev)
+  # for returned rise times on a different day, recalculate for the current day
+  dt <- as.numeric(difftime(as.Date(trise),as.Date(x),units="days"))
+  change <- which(dt!=0)
+  if(length(change)>0) trise[change] <- sunrise(lon, lat, x[change]-dt[change]*24*3600, elev)
+  dt <- as.numeric(difftime(as.Date(tset),as.Date(x),units="days"))
+  change <- which(dt!=0)
+  if(length(change)>0) tset[change] <- sunset(lon, lat, x[change]-dt[change]*24*3600, elev)
+  # prepare output
+  output <- rep(NA, length(x))
+  itsday <- (x > trise & x < tset)
   output[trise < tset] <- itsday[trise < tset]
-  itsday <- (date < tset | date > trise)
+  itsday <- (x < tset | x > trise)
   output[trise >= tset] <- itsday[trise >= tset]
   !output
 }
@@ -59,8 +69,8 @@ check_night.default <- function(lon, lat, date, elev = -0.268) {
 #' @export
 check_night.vp <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vp"))
-  check_night(x$attributes$where$lon, x$attributes$where$lat,
-              x$datetime, elev = elev)
+  check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
+              elev = elev)
 }
 
 #' @rdname check_night
@@ -79,8 +89,8 @@ check_night.list <- function(x, ..., elev = -0.268) {
 #' @export
 check_night.vpts <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vpts"))
-  check_night(x$attributes$where$lon, x$attributes$where$lat,
-         x$dates, elev = elev)
+  check_night(x$dates, x$attributes$where$lon, x$attributes$where$lat,
+         elev = elev)
 }
 
 #' @rdname check_night
@@ -88,5 +98,5 @@ check_night.vpts <- function(x, ..., elev = -0.268) {
 #' @export
 check_night.pvol <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "pvol"))
-  check_night(x$geo$lon, x$geo$lat, x$datetime, elev = elev)
+  check_night(x$datetime, x$geo$lon, x$geo$lat, elev = elev)
 }

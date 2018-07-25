@@ -80,12 +80,12 @@ composite <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-day <- function(x, elev = -0.268) {
+day <- function(x, ..., elev = -0.268) {
   .Deprecated("check_night",
               msg = paste("'day' is deprecated and its functionality is",
                           "replaced by the 'check_night' function",
                           "(FALSE <-> TRUE)"))
-  !check_night(x, elev = -0.268)
+  !check_night(x, ..., elev = -0.268)
 }
 
 #' @section dbz2eta:

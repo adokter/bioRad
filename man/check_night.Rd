@@ -11,7 +11,7 @@
 \usage{
 check_night(x, ..., elev = -0.268)
 
-\method{check_night}{default}(lon, lat, date, elev = -0.268)
+\method{check_night}{default}(x, lon, lat, ..., elev = -0.268)
 
 \method{check_night}{vp}(x, ..., elev = -0.268)
 
@@ -22,7 +22,9 @@ check_night(x, ..., elev = -0.268)
 \method{check_night}{pvol}(x, ..., elev = -0.268)
 }
 \arguments{
-\item{x}{A \code{numeric}, \code{pvol}, \code{vp} or \code{vpts}.}
+\item{x}{\code{pvol}, \code{vp} or \code{vpts},
+or a date inhereting from class \code{POSIXt} or a string
+interpretable by \link[base]{as.Date}.}
 
 \item{...}{A bioRad object of lat/lon combination.}
 
@@ -31,9 +33,6 @@ check_night(x, ..., elev = -0.268)
 \item{lon}{numeric. Longitude in decimal degrees.}
 
 \item{lat}{numeric. Latitude in decimal degrees.}
-
-\item{date}{Date. Date inheriting from class \code{POSIXt} or a string
-interpretable by \link[base]{as.Date}.}
 }
 \value{
 \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown

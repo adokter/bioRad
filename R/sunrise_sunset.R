@@ -40,7 +40,11 @@ sunrise <- function(lon, lat, date, elev = -0.268, tz="UTC") {
   locations <- data.frame(lon=lon, lat=lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   dates <- as.POSIXct(date, tz = tz)
-  crepuscule(locations, dates, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)$time
+  suntimes=crepuscule(locations, dates, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
+  ## wrapping sunset time to the day itself (adds a small error)
+  #suntimes[suntimes$day_frac<0,"time"] = suntimes[suntimes$day_frac<0,"time"]+24*3600
+  #suntimes[suntimes$day_frac>1,"time"] = suntimes[suntimes$day_frac>1,"time"]-24*3600
+  suntimes$time
 }
 
 #' @rdname sunrise_sunset
@@ -50,7 +54,11 @@ sunset <- function(lon, lat, date, elev = -0.268, tz="UTC") {
   locations <- data.frame(lon=lon, lat=lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   dates <- as.POSIXct(date, tz = tz)
-  crepuscule(locations, dates, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)$time
+  suntimes=crepuscule(locations, dates, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
+  ## wrapping sunset time to the day itself (adds a small error)
+  #suntimes[suntimes$day_frac<0,"time"] = suntimes[suntimes$day_frac<0,"time"]+24*3600
+  #suntimes[suntimes$day_frac>1,"time"] = suntimes[suntimes$day_frac>1,"time"]-24*3600
+  suntimes$time
 }
 
 #' Helper function to calculate sunrise or sunset

@@ -51,7 +51,7 @@ checkDocker(...)
 
 composite(...)
 
-day(x, elev = -0.268)
+day(x, ..., elev = -0.268)
 
 dbz2eta(...)
 

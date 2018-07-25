@@ -1,7 +1,7 @@
 context("test-check_night.R")
 
 test_that("check_night identifies night with numeric values", {
-  expect_false(check_night(5, 53, "2016-01-01 12:00"))
+  expect_false(check_night(as.POSIXct("2016-1-1 12:00",tz="UTC"), 5, 53))
 })
 
 test_that("check_night identifies day/night for example data", {

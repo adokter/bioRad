@@ -82,7 +82,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
   }
   if (missing(lat)) lat = attributes(x)$lat
   if (missing(lon)) lon = attributes(x)$lon
-
+  
   # plot the data
   plot(x$datetime, x[quantity][[1]], type = 'l', xlab = "time", ylab = ylab,
        ylim = ylim, main = main, xaxs = "i", yaxs = "i", ...)
@@ -99,6 +99,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                            by = "days"), tz = "UTC")
     trise <- sunrise(lon, lat, days)
     tset <- sunset(lon, lat, days)
+    
     if (trise[1] < tset[1]) {
       trise = trise[-1]
       tset = tset[-length(tset)]
