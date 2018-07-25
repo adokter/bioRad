@@ -357,8 +357,8 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
 #' ylab = "CMT [birds/km]")}
 cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
-  .Deprecated(msg = "Cumulative migration traffic is now included in the",
-              "output of `integrate_profile()` as column 'mt' (summed).")
+  .Deprecated(msg = paste("Cumulative migration traffic is now included in the",
+              "output of `integrate_profile()` as column 'mt' (summed)."))
   stopifnot(inherits(x, "vpts"))
   vintegrated <- integrate_profile(x, alt.min, alt.max, alpha, interval.max)
   vintegrated$mt
