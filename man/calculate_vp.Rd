@@ -5,11 +5,11 @@
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
 calculate_vp(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(vol.in), sd_vvp = 2, rcs = 11,
-  dualpol = FALSE, rhohv = 0.95, elev.min = 0, elev.max = 90,
-  azim.min = 0, azim.max = 360, range.min = 5000, range.max = 25000,
-  nlayer = 20L, hlayer = 200, dealias = TRUE, nyquist.min = if (dealias)
-  5 else 25, dbz_quantity = "DBZH")
+  verbose = FALSE, mount = dirname(vol.in), sd_vvp_threshold = 2,
+  rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
+  elev.max = 90, azim.min = 0, azim.max = 360, range.min = 5000,
+  range.max = 25000, nlayer = 20L, hlayer = 200, dealias = TRUE,
+  nyquist.min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
 }
 \arguments{
 \item{vol.in}{A radar file containing a radar polar volume, either in
@@ -35,8 +35,8 @@ Windows always TRUE.}
 \item{mount}{character. String with the mount point (a directory path) for
 the Docker container.}
 
-\item{sd_vvp}{numeric. Lower threshold in radial velocity standard
-deviation (\code{sd_vvp}) in m/s.}
+\item{sd_vvp_threshold}{numeric. Lower threshold in radial velocity standard
+deviation (\code{sd_vvp_threshold}) in m/s.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
@@ -95,7 +95,7 @@ The default for S-band data is to apply precipitation filtering in
 dual-polarization mode.
 
 Arguments that sometimes require non-default values are: \code{rcs},
-\code{sd_vvp}, \code{range.max}, \code{dualpol}, \code{dealias}.
+\code{sd_vvp_threshold}, \code{range.max}, \code{dualpol}, \code{dealias}.
 
 Other arguments are typically left at their defaults.
 
@@ -109,7 +109,7 @@ sector with high ground clutter.
 elevations only, in order to extend coverage to higher altitudes.
 
 For altitude layers with a VVP-retrieved radial velocity standard deviation
-value below the threshold \code{sd_vvp}, the bird density \code{dens} is set
+value below the threshold \code{sd_vvp_threshold}, the bird density \code{dens} is set
 to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold
 might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter

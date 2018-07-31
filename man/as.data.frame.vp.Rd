@@ -46,11 +46,11 @@ on sunrise/sunset, day/night and derived quantities like migration
 traffic rates.
 }
 \details{
-Note that only the "dens" quantity is thresholded by the radial velocity
-standard deviation \link{sd_vvp}. Note that this is different from the
+Note that only the "dens" quantity is thresholded for radial velocity
+standard deviation by \link{sd_vvp_threshold}. Note that this is different from the
 default \link{plot.vp}, \link{plot.vpts} and \link{get_quantity.vp}
 functions, where quantities "eta", "dbz", "ff", "u", "v", "w", "dd" are
-all thresholded by \link{sd_vvp}
+all thresholded by \link{sd_vvp_threshold}
 }
 \examples{
 # load an example vertical profile time series object
