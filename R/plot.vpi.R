@@ -97,8 +97,8 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     days <- as.POSIXct(seq(as.Date(min(x$datetime) - 24*3600),
                            as.Date(max(x$datetime) + 24*3600),
                            by = "days"), tz = "UTC")
-    trise <- sunrise(lon, lat, days)
-    tset <- sunset(lon, lat, days)
+    trise <- sunrise(days, lon, lat)
+    tset <- sunset(days, lon, lat)
     
     if (trise[1] < tset[1]) {
       trise = trise[-1]
