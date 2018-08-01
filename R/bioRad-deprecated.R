@@ -38,7 +38,7 @@ beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
 #' @export
 beamwidth <- function(range, angle = 1) {
   .Deprecated("beam_width")
-  beam_width(range, angle)
+  beam_width(range, beam_angle = angle)
 }
 
 #' @section bind:
@@ -94,9 +94,9 @@ day <- function(x, ..., elev = -0.268) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-dbz2eta <- function(...) {
+dbz2eta <- function(dbz, wavelength, Km = 0.93) {
   .Deprecated("dbz_to_eta")
-  dbz_to_eta(...)
+  dbz_to_eta(dbz, wavelength, K = Km)
 }
 
 #' @section download_vp:
@@ -127,9 +127,9 @@ elangle <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-eta2dbz <- function(...) {
+eta2dbz <- function(eta, wavelength, Km = 0.93) {
   .Deprecated("eta_to_dbz")
-  eta_to_dbz(...)
+  eta_to_dbz(eta, wavelength, K = Km)
 }
 
 #' @section fetch:
@@ -506,9 +506,23 @@ vintegrate <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-vol2bird <- function(...) {
+vol2bird <- function(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
+                     verbose = FALSE, mount = dirname(vol.in),
+                     sd_vvp_threshold = 2, rcs = 11, dualpol = FALSE,
+                     rhohv = 0.95, elev.min = 0, elev.max = 90, azim.min = 0,
+                     azim.max = 360, range.min = 5000, range.max = 25000,
+                     nlayer = 20L, hlayer = 200, dealias = TRUE,
+                     nyquist.min = if (dealias) 5 else 25,
+                     dbz_quantity="DBZH") {
   .Deprecated("calculate_vp")
-  calculate_vp(...)
+  calculate_vp(pvolfile = vol.in, vpfile = vp.out, pvolfile_out = vol.out,
+               autoconf = autoconf, verbose = verbose, mount = mount,
+               sd_vvp = sd_vvp_threshold, rcs = rcs, dual_pol = dualpol,
+               rho_hv = rhohv, elev_min = elev.min, elev_max = elev.max,
+               azim_min = azim.min, azim_max = azim.max, range_min = range.min,
+               range_max = range.max, n_layer = nlayer, h_layer = hlayer,
+               dealias = dealias, nyquist_min = yquist.min,
+               dbz_quantity = dbz_quantity)
 }
 
 #' @section vpts:
