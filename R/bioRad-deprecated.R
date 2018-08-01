@@ -460,9 +460,11 @@ retrieve_vp_paths <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-rsl2odim <- function(...) {
+rsl2odim <- function(vol.in, vol.out, verbose = FALSE,
+                     mount = dirname(vol.in)) {
   .Deprecated("nexrad_to_odim")
-  nexrad_to_odim(...)
+  nexrad_to_odim(pvolfile_nexrad = vol.in, pvolfile_odim = vol.out, verbose,
+                 mount)
 }
 
 #' @section suntime:
