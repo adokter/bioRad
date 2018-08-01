@@ -6,9 +6,9 @@
 #' @param range numeric. Range (distance from the radar antenna) in km.
 #' @param elev numeric. Elevation in degrees.
 #' @param k Standard refraction coefficient.
+#' @param lat Geodetic latitude in degrees.
 #' @param re Earth equatorial radius in km.
 #' @param rp Earth polar radius in km.
-#' @param lat Geodetic latitude in degrees.
 #'
 #' @return numeric. Beam height in km.
 #'
