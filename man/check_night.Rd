@@ -26,7 +26,7 @@ check_night(x, ..., elev = -0.268)
 or a date inhereting from class \code{POSIXct} or a string
 interpretable by \link[base]{as.POSIXct}.}
 
-\item{...}{A bioRad object of lat/lon combination.}
+\item{...}{optional lat,lon arguments.}
 
 \item{elev}{numeric. Sun elevation in degrees.}
 
