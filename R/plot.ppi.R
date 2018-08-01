@@ -10,6 +10,7 @@
 #' @param ratio Aspect ratio between x and y scale.
 #' @param zlim The range of parameter values to plot.
 #' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
+#' @param param Deprecated argument, use quantity instead.
 #'
 #' @method plot ppi
 #'
