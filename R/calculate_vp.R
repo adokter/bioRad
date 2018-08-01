@@ -38,11 +38,11 @@
 #' @param h_layer numeric. Width of altitude layers in metre.
 #' @param nyquist_min numeric. Minimum Nyquist velocity of scans in m/s for
 #' scans to be included in the analysis.
-#' @param dbz_quantity character. One of the available reflectivity factor
-#' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param dealias logical. Whether to dealias radial velocities; this should
 #' typically be done when the scans in the polar volume have low Nyquist
 #' velocities (below 25 m/s).
+#' @param dbz_quantity character. One of the available reflectivity factor
+#' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
 #' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
@@ -134,13 +134,14 @@
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
-                         autoconf = FALSE, verbose=FALSE,
+                         autoconf = FALSE, verbose = FALSE,
                          mount = dirname(pvolfile), sd_vvp = 2, rcs = 11,
                          dualpol = FALSE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 25000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
-                         nyquist_min = if (dealias) 5 else 25, dbz_quantity="DBZH") {
+                         nyquist_min = if (dealias) 5 else 25,
+                         dbz_quantity = "DBZH") {
   # check input arguments
   if (!file.exists(pvolfile)) {
     stop("No such file or directory")
@@ -249,7 +250,8 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
 
   opt.names <- c("STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
                  "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE","DUALPOL", "DEALIAS_VRAD")
+                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
+                 "DEALIAS_VRAD")
   opt <- data.frame("option" = opt.names, "is" = rep("=", length(opt.values)),
                     "value" = opt.values)
   optfile <- paste(normalizePath(mount, winslash = "/"),
