@@ -39,9 +39,12 @@ earth_radius <- function(a, b, latdeg) {
 #' Calculates the width of a radar beam as a function of range and beam angle.
 #'
 #' @param range numeric. Range (distance from the radar antenna) in km.
-#' @param angle numeric. Beam opening angle in degrees, typically the
+#' @param beam_angle numeric. Beam opening angle in degrees, typically the
 #' the angle between the half-power (-3 dB) points of the main lobe
 #' @return numeric. Beam width in m.
 #'
 #' @export
-beam_width <- function(range, angle = 1) range*1000*sin(angle*pi/180)
+beam_width <- function(range, beam_angle = 1) {
+  range*1000*sin(beam_angle*pi/180)
+}
+
