@@ -42,10 +42,10 @@ sunrise / sunset may be off by a few minutes
 }
 \examples{
 # sunrise in the Netherlands
-sunrise(5, 53, "2016-01-01")
+sunrise("2016-01-01", 5, 53)
 # sunset in the Netherlands
-sunset(5, 53, "2016-01-01")
+sunset("2016-01-01", 5, 53)
 # civil twilight in Ithaca, NY, today
-sunrise(-76.5, 42.4, Sys.time(), elev = -6)
+sunrise(Sys.time(), -76.5, 42.4, elev = -6)
 
 }
