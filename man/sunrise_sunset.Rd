@@ -6,17 +6,17 @@
 \alias{sunset}
 \title{Calculate sunrise or sunset for a time and place}
 \usage{
-sunrise(lon, lat, date, elev = -0.268, tz = "UTC")
+sunrise(date, lon, lat, elev = -0.268, tz = "UTC")
 
-sunset(lon, lat, date, elev = -0.268, tz = "UTC")
+sunset(date, lon, lat, elev = -0.268, tz = "UTC")
 }
 \arguments{
+\item{date}{Date inhereting from class \code{POSIXt} or a string
+interpretable by \link[base]{as.Date}.}
+
 \item{lon}{Longitude in decimal degrees.}
 
 \item{lat}{Latitude in decimal degrees.}
-
-\item{date}{Date inhereting from class \code{POSIXt} or a string
-interpretable by \link[base]{as.Date}.}
 
 \item{elev}{Sun elevation in degrees.}
 
