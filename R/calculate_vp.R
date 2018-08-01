@@ -2,15 +2,15 @@
 #'
 #' Calculates a vertical profile of birds (vp) from a polar volume (pvol).
 #'
-#' @param vol.in A radar file containing a radar polar volume, either in
+#' @param pvolfile A radar file containing a radar polar volume, either in
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in
 #' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
 #' supported by the
 #' \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
-#' @param vp.out character. Filename for the vertical profile to be
+#' @param vpfile character. Filename for the vertical profile to be
 #' generated in ODIM HDF5 format (optional).
-#' @param vol.out character. Filename for the polar volume to be
+#' @param pvolfile_out character. Filename for the polar volume to be
 #' generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
 #' to ODIM).
 #' @param autoconf logical. When TRUE, default optimal configuration settings
@@ -45,13 +45,13 @@
 #' velocities (below 25 m/s).
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
-#' defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
+#' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
 #'
 #' @export
 #'
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon.
 #'
-#' Common arguments set by users are \code{vol.in}, \code{vp.out},
+#' Common arguments set by users are \code{pvolfile}, \code{vpfile},
 #' \code{autoconf} and \code{mount}.
 #'
 #' Turn on \code{autoconf} to automatically select the optimal parameters for a
@@ -133,15 +133,15 @@
 #'
 #' # clean up:
 #' file.remove("~/volume.h5")
-calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
-                         verbose=FALSE, mount = dirname(vol.in), sd_vvp_threshold = 2,
+calculate_vp <- function(pvolfile, vpfile="", pvolfile_out="", autoconf=FALSE,
+                         verbose=FALSE, mount = dirname(pvolfile), sd_vvp_threshold = 2,
                          rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
                          elev.max = 90, azim.min = 0, azim.max = 360,
                          range.min = 5000, range.max = 25000, nlayer = 20L,
                          hlayer = 200, dealias = TRUE,
                          nyquist.min = if (dealias) 5 else 25, dbz_quantity="DBZH") {
   # check input arguments
-  if (!file.exists(vol.in)) {
+  if (!file.exists(pvolfile)) {
     stop("No such file or directory")
   }
   if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
@@ -221,14 +221,14 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   if (!length(verbose) == 1 || !is.logical(verbose)) {
     stop("verbose argument should be one of TRUE or FALSE")
   }
-  if (vp.out != "" && !file.exists(dirname(vp.out))) {
-    stop(paste("output directory", dirname(vp.out), "not found"))
+  if (vpfile != "" && !file.exists(dirname(vpfile))) {
+    stop(paste("output directory", dirname(vpfile), "not found"))
   }
 
-  filedir <- dirname(normalizePath(vol.in, winslash = "/"))
+  filedir <- dirname(normalizePath(pvolfile, winslash = "/"))
   if (!grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE)) {
     stop("mountpoint 'mount' has to be a parent directory ",
-         "of input file 'vol.in'")
+         "of input file 'pvolfile'")
   }
 
   profile.tmp <- tempfile(tmpdir = filedir)
@@ -274,24 +274,24 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   if (nchar(prefix) > 0) {
     prefix <- paste(prefix, "/", sep = "")
   }
-  vol.in.docker <- paste(prefix,basename(vol.in), sep = "")
+  pvolfile_docker <- paste(prefix,basename(pvolfile), sep = "")
   profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
-  if (vol.out != "") {
-    vol.out.docker <- paste(prefix, basename(vol.out), sep = "")
+  if (pvolfile_out != "") {
+    pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
   } else {
-    vol.out.docker <- ""
+    pvolfile_out_docker <- ""
   }
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
     result <- system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",
-                          vol.in.docker, profile.tmp.docker,
-                          vol.out.docker, "\""),
+                          pvolfile_docker, profile.tmp.docker,
+                          pvolfile_out_docker, "\""),
                     ignore.stdout = !verbose)
   } else{
     winstring <- paste("docker exec vol2bird bash -c \"cd data && vol2bird ",
-                       vol.in.docker, profile.tmp.docker,
-                       vol.out.docker, "\"")
+                       pvolfile_docker, profile.tmp.docker,
+                       pvolfile_out_docker, "\"")
     result <- suppressWarnings(system(winstring))
   }
   if (result != 0) {
@@ -303,10 +303,10 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   output <- read_vpfiles(profile.tmp)
 
   # clean up
-  if (vp.out == "") {
+  if (vpfile == "") {
     file.remove(profile.tmp)
   } else {
-    file.rename(profile.tmp,vp.out)
+    file.rename(profile.tmp,vpfile)
   }
   if (file.exists(optfile)) {
     file.remove(optfile)
