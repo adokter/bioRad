@@ -12,7 +12,7 @@
 #' @param lat numeric. Latitude in decimal degrees.
 #' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
 #' @param elev numeric. Sun elevation in degrees.
-#' @param ... A bioRad object of lat/lon combination.
+#' @param ... optional lat,lon arguments.
 #'
 #' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
 #' (either datetime or geographic location missing). For \code{vpts} a
