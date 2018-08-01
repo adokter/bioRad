@@ -52,7 +52,8 @@ plot.ppi <- function(x, quantity, param, xlim, ylim, zlim = c(-20, 20),
 
   # deprecate function argument
   if (!missing(param)) {
-    warning("argument param is deprecated; please use quantity instead.", call. = FALSE)
+    warning("argument param is deprecated; please use quantity instead.",
+            call. = FALSE)
     quantity <- param
   }
 
