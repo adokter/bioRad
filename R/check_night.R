@@ -57,6 +57,7 @@ check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268) {
     trise[change] <- sunrise(x[change] - dt[change]*24*3600, lon, lat,
                              tz = tz, elev = elev)
   }
+
   dt <- as.numeric(difftime(as.Date(tset), as.Date(x), units = "days"))
   change <- which(dt != 0)
   if (length(change) > 0) {
