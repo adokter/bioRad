@@ -105,9 +105,10 @@ dbz2eta <- function(dbz, wavelength, Km = 0.93) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-download_vp <- function(...) {
+download_vp <- function(start_date, end_date, country, radar, localpath = ".") {
   .Deprecated("download_vpfiles")
-  download_vpfiles(...)
+  download_vpfiles(date_min = start_date, date_max = end_date,
+                   country, radar, directory = localpath)
 }
 
 #' @section elangle:
