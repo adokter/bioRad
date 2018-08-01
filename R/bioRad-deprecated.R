@@ -150,9 +150,9 @@ fetch <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-getscan <- function(...) {
+getscan <- function(x, angle) {
   .Deprecated("get_scan")
-  get_scan(...)
+  get_scan(x, elev = angle)
 }
 
 #' @section h5ODIMobject:
