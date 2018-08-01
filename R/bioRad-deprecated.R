@@ -222,7 +222,7 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated(msg = paste("Migration traffic is now included in the output",
                           "of `integrate_profile()` as column 'mt'."))
   stopifnot(inherits(x, "vpts"))
-  cmt(x,alt.min,alt.max,alpha,interval.max)[ncol(x)]
+  cmt(x, alt.min, alt.max, alpha, interval.max)[ncol(x)]
 }
 
 #' Migration traffic rate
@@ -307,7 +307,7 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
       stop("Not all objects in list are vp objects")
     }
   }
-  vintegrated <- integrate_profile(x, alt.min = alt.min, alt.max = alt.max,
+  vintegrated <- integrate_profile(x, alt_min = alt.min, alt_max = alt.max,
                                    alpha = alpha)
   vintegrated$mtr
 }
@@ -361,7 +361,8 @@ cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated(msg = paste("Cumulative migration traffic is now included in the",
               "output of `integrate_profile()` as column 'mt' (summed)."))
   stopifnot(inherits(x, "vpts"))
-  vintegrated <- integrate_profile(x, alt.min, alt.max, alpha, interval.max)
+  vintegrated <- integrate_profile(x, alt_min = alt.min, alt_max = alt.max,
+                                   alpha = alpha, interval_max = interval.max)
   vintegrated$mt
 }
 
