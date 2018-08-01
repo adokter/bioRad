@@ -159,8 +159,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                        v = v, HGHT = height)
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
-  attributes(output)$alt.min <- alt_min
-  attributes(output)$alt.max <- alt_max
+  attributes(output)$alt_min <- alt_min
+  attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
@@ -184,8 +184,8 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
                                   alt_max = alt_max, alpha = alpha,
                                   interval_max = interval_max))
   class(output) <- c("vpi", "data.frame")
-  attributes(output)$alt.min <- alt_min
-  attributes(output)$alt.max <- alt_max
+  attributes(output)$alt_min <- alt_min
+  attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
   #TODO set lat/lon attributes
@@ -241,8 +241,8 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
                        v = v, HGHT = height)
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
-  attributes(output)$alt.min <- alt_min
-  attributes(output)$alt.max <- alt_max
+  attributes(output)$alt_min <- alt_min
+  attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
