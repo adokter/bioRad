@@ -19,8 +19,8 @@
 #' Windows always TRUE.
 #' @param mount character. String with the mount point (a directory path) for
 #' the Docker container.
-#' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
-#' deviation (\code{sd_vvp_threshold}) in m/s.
+#' @param sd_vvp numeric. Lower threshold in radial velocity standard
+#' deviation (\code{sd_vvp}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
 #' @param dualpol logical. When \code{TRUE} use dual-pol mode, in which
 #' meteorological echoes are filtered using the correlation coefficient
@@ -62,7 +62,7 @@
 #' dual-polarization mode.
 #'
 #' Arguments that sometimes require non-default values are: \code{rcs},
-#' \code{sd_vvp_threshold}, \code{range.max}, \code{dualpol}, \code{dealias}.
+#' \code{sd_vvp}, \code{range.max}, \code{dualpol}, \code{dealias}.
 #'
 #' Other arguments are typically left at their defaults.
 #'
@@ -76,7 +76,7 @@
 #' elevations only, in order to extend coverage to higher altitudes.
 #'
 #' For altitude layers with a VVP-retrieved radial velocity standard deviation
-#' value below the threshold \code{sd_vvp_threshold}, the bird density \code{dens} is set
+#' value below the threshold \code{sd_vvp}, the bird density \code{dens} is set
 #' to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold
 #' might be dependent on radar processing settings. Results from validation
 #' campaigns so far indicate that 2 m/s is the best choice for this parameter
@@ -133,8 +133,8 @@
 #'
 #' # clean up:
 #' file.remove("~/volume.h5")
-calculate_vp <- function(pvolfile, vpfile="", pvolfile_out="", autoconf=FALSE,
-                         verbose=FALSE, mount = dirname(pvolfile), sd_vvp_threshold = 2,
+calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
+                         autoconf = FALSE, verbose=FALSE, mount = dirname(pvolfile), sd_vvp = 2,
                          rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
                          elev.max = 90, azim.min = 0, azim.max = 360,
                          range.min = 5000, range.max = 25000, nlayer = 20L,
@@ -144,8 +144,8 @@ calculate_vp <- function(pvolfile, vpfile="", pvolfile_out="", autoconf=FALSE,
   if (!file.exists(pvolfile)) {
     stop("No such file or directory")
   }
-  if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
-    stop("invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
+  if (!is.numeric(sd_vvp) || sd_vvp <= 0) {
+    stop("invalid 'sd_vvp' argument, radial velocity standard deviation ",
          "threshold should be a positive numeric value")
   }
   if (!is.numeric(rcs) || rcs <= 0) {
@@ -240,7 +240,7 @@ calculate_vp <- function(pvolfile, vpfile="", pvolfile_out="", autoconf=FALSE,
   }
 
   # put options file in place, to be read by vol2bird container
-  opt.values <- c(as.character(c(sd_vvp_threshold, rcs, rhohv, elev.min, elev.max,
+  opt.values <- c(as.character(c(sd_vvp, rcs, rhohv, elev.min, elev.max,
                                  azim.min, azim.max, range.min, range.max,
                                  nlayer, hlayer, nyquist.min,dbz_quantity)),
                   if (dualpol) "TRUE" else "FALSE",
