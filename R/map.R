@@ -5,11 +5,11 @@
 #'
 #' @param x An object of class \code{ppi}.
 #' @param map  The basemap to use, result of a call to \link{download_basemap}.
-#' @param param The scan parameter to plot.
+#' @param quantity The scan parameter to plot.
 #' @param alpha Transparency of the data, value between 0 and 1.
-#' @param radar.size Size of the symbol indicating the radar position.
-#' @param radar.color Colour of the symbol indicating the radar position.
-#' @param n.color The number of colors (>=1) to be in the palette.
+#' @param radar_size Size of the symbol indicating the radar position.
+#' @param radar_color Colour of the symbol indicating the radar position.
+#' @param n_color The number of colors (>=1) to be in the palette.
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.
 #' @param ylim Range of y values to plot (degrees latitude), as an atomic
@@ -18,6 +18,10 @@
 #' @param ratio Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
 #' @param ... Arguments passed to low level \link[ggmap]{ggmap} function.
+#' @param param Deprecated argument, use quantity instead.
+#' @param radar.size Deprecated argument, use radar_size instead.
+#' @param radar.color Deprecated argument, use radar_color instead.
+#' @param n.color Deprecated argument, use n_color instead.
 #'
 #' @return A ggmap object (a classed raster object with a bounding
 #' box attribute).
@@ -49,13 +53,13 @@
 #' # grab a basemap that matches the extent of the ppi:
 #' basemap <- download_basemap(ppi)
 #' # map the radial velocity scan parameter onto the basemap:
-#' map(ppi, map = basemap, param = "VRADH")
+#' map(ppi, map = basemap, quantity = "VRADH")
 #' # extend the plotting range of velocities, from -50 to 50 m/s:
-#' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
+#' map(ppi, map = basemap, quantity = "VRADH", zlim = c(-50, 50))
 #' # give the data less transparency:
 #' map(ppi, map = basemap, alpha = 0.9)
 #' # change the appearance of the symbol indicating the radar location:
-#' map(ppi, map = basemap, radar.size = 5, radar.color = "green")
+#' map(ppi, map = basemap, radar_size = 5, radar_color = "green")
 #' # crop the map:
 #' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 map <- function(x, ...) {
@@ -64,26 +68,50 @@ map <- function(x, ...) {
 
 #' @describeIn map plot a 'ppi' object on a map
 #' @export
-map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
-                    zlim = c(-20, 20), ratio, radar.size = 3,
-                    radar.color = "red", n.color = 1000, ...) {
+map.ppi <- function(x, map, quantity, param, alpha = 0.7, xlim, ylim,
+                    zlim = c(-20, 20), ratio, radar_size = 3, radar.size = 3,
+                    radar_color = "red", radar.color = "red", n_color = 1000,
+                    n.color = 1000, ...) {
+
+  # deprecate function arguments
+  if (!missing(param)) {
+    warning("argument param is deprecated; please use quantity instead.",
+            call. = FALSE)
+    quantity <- param
+  }
+  if (!missing(radar.size)) {
+    warning("argument radar.size is deprecated; please use radar_size instead.",
+            call. = FALSE)
+    radar_size <- radar.size
+  }
+  if (!missing(radar.color)) {
+    warning("argument radar.color is deprecated; please use radar_color instead.",
+            call. = FALSE)
+    radar_color <- radar.color
+  }
+  if (!missing(n.color)) {
+    warning("argument n.color is deprecated; please use n_color instead.",
+            call. = FALSE)
+    n_color <- n.color
+  }
+
   stopifnot(inherits(x, "ppi"))
 
-  if (missing(param)) {
+  if (missing(quantity)) {
     if ("DBZH" %in% names(x$data)) {
-      param <- "DBZH"
+      quantity <- "DBZH"
     } else {
-      param <- names(x$data)[1]
+      quantity <- names(x$data)[1]
     }
-  } else if (!is.character(param)) {
-    stop("'param' should be a character string with a valid ",
+  } else if (!is.character(quantity)) {
+    stop("'quantity' should be a character string with a valid ",
          "scan parameter name.")
   }
   if (missing(zlim)) {
-    zlim <- get_zlim(param)
+    zlim <- get_zlim(quantity)
   }
-  if (!(param %in% names(x$data))) {
-    stop(paste("no scan parameter '", param, "' in this ppi", sep = ""))
+  if (!(quantity %in% names(x$data))) {
+    stop(paste("no scan parameter '", quantity, "' in this ppi", sep = ""))
   }
   if (!attributes(map)$ppi) {
     stop("Not a ppi map, use download_basemap() to download a map.")
@@ -94,7 +122,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   }
 
   # extract the scan parameter
-  data <- do.call(function(y) x$data[y], list(param))
+  data <- do.call(function(y) x$data[y], list(quantity))
   wgs84 <- CRS("+proj=longlat +datum=WGS84")
   epsg3857 <- CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox <- suppressWarnings(
@@ -125,21 +153,21 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # rasterize
   r <- raster::rasterize(data[,2:3], r, data[,1])
   # assign colors
-  if (param %in% c("VRADH", "VRADV", "VRAD")) {
+  if (quantity %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
       colorRampPalette(colors = c("blue", "white", "red"),
-                       alpha = TRUE)(n.color), alpha = alpha)
+                       alpha = TRUE)(n_color), alpha = alpha)
   } else {
     cols <- add_color_transparency(
       colorRampPalette(colors = c("lightblue", "darkblue", "green",
                                   "yellow", "red", "magenta"),
-                       alpha = TRUE)(n.color), alpha = alpha)
+                       alpha = TRUE)(n_color), alpha = alpha)
   }
 
   col_func <- function(value, lim) {
     output <- rep(0, length(value))
-    output <- round((value - lim[1])/(lim[2] - lim[1]) * n.color)
-    output[output > n.color] <- n.color
+    output <- round((value - lim[1])/(lim[2] - lim[1]) * n_color)
+    output[output > n_color] <- n_color
     output[output < 1] <- 1
     return(cols[output])
   }
@@ -155,11 +183,11 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
                       data = data.frame(lon = x$geo$lon,
                                         lat = x$geo$lat,
                                         z = 0))
-  radarpoint <- geom_point(aes(x = lon, y = lat), colour = radar.color,
-                           size = radar.size,
+  radarpoint <- geom_point(aes(x = lon, y = lat), colour = radar_color,
+                           size = radar_size,
                            data = data.frame(lon = x$geo$lon, lat = x$geo$lat))
   # colorscale
-  colorscale <- color_scale(param, zlim)
+  colorscale <- color_scale(quantity, zlim)
   # bounding box
   bboxlatlon <- attributes(map)$geo$bbox
   # remove dimnames, otherwise ggmap will give a warning message below:
@@ -178,10 +206,10 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
 }
 
 
-get_zlim <- function(param) {
-  if (param %in% c("DBZH","DBZV","DBZ")) return(c(-20, 30))
-  if (param %in% c("VRADH","VRADV","VRAD")) return(c(-20, 20))
-  if (param == "RHOHV") return(c(0.4, 1))
-  if (param == "ZDR") return(c(-5, 8))
-  if (param == "PHIDP") return(c(-200, 200))
+get_zlim <- function(quantity) {
+  if (quantity %in% c("DBZH","DBZV","DBZ")) return(c(-20, 30))
+  if (quantity %in% c("VRADH","VRADV","VRAD")) return(c(-20, 20))
+  if (quantity == "RHOHV") return(c(0.4, 1))
+  if (quantity == "ZDR") return(c(-5, 8))
+  if (quantity == "PHIDP") return(c(-200, 200))
 }
