@@ -32,6 +32,19 @@ plot.vp <- function(x, quantity = "dens",
                     ylab = "height [km]", line_col = 'red', line.col = 'red',
                     line_lwd = 1, line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
+
+  # deprecate function argument
+  if (!missing(line.col)) {
+    warning("argument line.col is deprecated; please use line_col instead.",
+            call. = FALSE)
+    line_col <- line.col
+  }
+  if (!missing(line.lwd)) {
+    warning("argument line.lwd is deprecated; please use line_lwd instead.",
+            call. = FALSE)
+    line_lwd <- line.lwd
+  }
+
   if (!(quantity %in% names(x$data))) {
     stop(paste("unknown quantity '", quantity, "'", sep = ""))
   }
