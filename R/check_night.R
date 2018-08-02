@@ -44,19 +44,26 @@ check_night <- function(x, ..., elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.default <- function(x, lon, lat, ..., tz="UTC", elev = -0.268) {
-  x=as.POSIXct(x,tz=tz)
+check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268) {
+  x <- as.POSIXct(x, tz = tz)
   # calculate sunrises
-  trise <- sunrise(x, lon, lat, tz=tz, elev=elev)
+  trise <- sunrise(x, lon, lat, tz = tz, elev = elev)
   # calculate sunsets
-  tset <- sunset(x, lon, lat, tz=tz, elev=elev)
+  tset <- sunset(x, lon, lat, tz = tz, elev = elev)
   # for returned rise times on a different day, recalculate for the current day
-  dt <- as.numeric(difftime(as.Date(trise),as.Date(x),units="days"))
-  change <- which(dt!=0)
-  if(length(change)>0) trise[change] <- sunrise(x[change]-dt[change]*24*3600, lon, lat, tz=tz, elev=elev)
-  dt <- as.numeric(difftime(as.Date(tset),as.Date(x),units="days"))
-  change <- which(dt!=0)
-  if(length(change)>0) tset[change] <- sunset(x[change]-dt[change]*24*3600, lon, lat, tz=tz, elev=elev)
+  dt <- as.numeric(difftime(as.Date(trise), as.Date(x), units = "days"))
+  change <- which(dt != 0)
+  if (length(change) > 0) {
+    trise[change] <- sunrise(x[change] - dt[change]*24*3600, lon, lat,
+                             tz = tz, elev = elev)
+  }
+  dt <- as.numeric(difftime(as.Date(tset), as.Date(x), units = "days"))
+  change <- which(dt != 0)
+  if (length(change) > 0) {
+    tset[change] <- sunset(x[change] - dt[change]*24*3600, lon, lat,
+                           tz = tz, elev = elev)
+  }
+
   # prepare output
   output <- rep(NA, length(x))
   itsday <- (x > trise & x < tset)
