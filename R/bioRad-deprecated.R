@@ -460,9 +460,11 @@ regularize <- function(ts, interval = "auto", t.min = ts$daterange[1],
 #' @rdname bioRad-deprecated
 #'
 #' @export
-retrieve_vp_paths <- function(...) {
+retrieve_vp_paths <- function(path, start_date, end_date,
+                              country = NULL, radar = NULL) {
   .Deprecated("select_vpfiles")
-  select_vpfiles(...)
+  select_vpfiles(directory, date_min = start_date, date_max = end_date,
+                 country, radar)
 }
 
 #' @section rsl2odim:

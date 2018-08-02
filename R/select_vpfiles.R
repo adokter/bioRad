@@ -4,11 +4,13 @@
 #' country, radar and date range combination
 #'
 #' @param path Main path to look into recusively.
-#' @param start_date ISO format date as start of the vp file query.
-#' @param end_date ISO format date as end of the vp file query.
+#' @param date_min ISO format date as start of the vp file query.
+#' @param date_max ISO format date as end of the vp file query.
 #' @param country Character vector with two letter country shortcuts.
 #' @param radar Character vector with three letter radar sindicators. This
 #' can be defined independently from the countries named.
+#' @param start_date Deprecated argument, use date_min instead.
+#' @param end_date Deprecated argument, use date_max instead.
 #'
 #' @return Character list of filenames that comply to the given
 #' radar/country and date range query
@@ -19,14 +21,27 @@
 #' @examples
 #' my_path <- "~/my/directory/"
 #' select_vpfiles(my_path, "2016-10-01", "2017-01-31", c("be"))
-select_vpfiles <- function(path, start_date, end_date,
-                           country = NULL, radar = NULL) {
+select_vpfiles <- function(path, date_min, start_date = NULL, date_max,
+                           end_date = NULL, country = NULL, radar = NULL) {
+
+  # deprecate function arguments
+  if (!missing(start_date)) {
+    warning("argument start_date is deprecated; please use date_min instead.",
+            call. = FALSE)
+    date_min <- start_date
+  }
+  if (!missing(end_date)) {
+    warning("argument end_date is deprecated; please use date_max instead.",
+            call. = FALSE)
+    date_max <- end_date
+  }
+
   if (is.null(country)) {country <- "([a-z]{2})"}
   if (is.null(radar)) {radar <- "([a-z]{3})"}
 
   # create period of dates to check for
-  start <- as_date(start_date, tz = NULL)
-  end <- as_date(end_date, tz = NULL)
+  start <- as_date(date_min, tz = NULL)
+  end <- as_date(date_max, tz = NULL)
   dates_to_check <- seq(start, end, by = 'days')
 
   filelist <- dir(path, recursive = TRUE)
