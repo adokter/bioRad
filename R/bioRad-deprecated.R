@@ -161,9 +161,9 @@ getscan <- function(x, angle) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-h5ODIMobject <- function(...) {
+h5ODIMobject <- function(filename) {
   .Deprecated("get_odim_object_type")
-  get_odim_object_type(...)
+  get_odim_object_type(file = filename)
 }
 
 #' @section is.vplist:
