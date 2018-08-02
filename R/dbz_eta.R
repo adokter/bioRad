@@ -2,7 +2,7 @@
 #'
 #' @param dbz reflectivity factor in dBZ
 #' @param wavelength radar wavelength in cm
-#' @param Km norm of the complex refractive index of water
+#' @param K norm of the complex refractive index of water
 #'
 #' @return reflectivity in cm^2/km^3
 #'
@@ -15,7 +15,7 @@ dbz_to_eta <- function(dbz, wavelength, K = 0.93) {
 #'
 #' @param eta reflectivity in cm^2/km^3
 #' @param wavelength radar wavelength in cm
-#' @param Km norm of the complex refractive index of water
+#' @param K norm of the complex refractive index of water
 #'
 #' @return reflectivity factor in dBZ
 #'
