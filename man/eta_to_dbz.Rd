@@ -11,7 +11,7 @@ eta_to_dbz(eta, wavelength, K = 0.93)
 
 \item{wavelength}{radar wavelength in cm}
 
-\item{Km}{norm of the complex refractive index of water}
+\item{K}{norm of the complex refractive index of water}
 }
 \value{
 reflectivity factor in dBZ

@@ -6,7 +6,7 @@
 \usage{
 calculate_vp(pvolfile, vpfile = "", pvolfile_out = "", autoconf = FALSE,
   verbose = FALSE, mount = dirname(pvolfile), sd_vvp_threshold = 2,
-  rcs = 11, dualpol = FALSE, rho_hv = 0.95, elev_min = 0,
+  rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
   elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
   range_max = 25000, n_layer = 20L, h_layer = 200, dealias = TRUE,
   nyquist_min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
@@ -40,7 +40,7 @@ deviation (\code{sd_vvp_threshold}) in m/s.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
-\item{dualpol}{logical. When \code{TRUE} use dual-pol mode, in which
+\item{dual_pol}{logical. When \code{TRUE} use dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
 \code{rho_hv}. When \code{FALSE} use single polarization mode based only
 on reflectivity and radial velocity quantities.}
@@ -95,7 +95,7 @@ The default for S-band data is to apply precipitation filtering in
 dual-polarization mode.
 
 Arguments that sometimes require non-default values are: \code{rcs},
-\code{sd_vvp_threshold}, \code{range_max}, \code{dualpol}, \code{dealias}.
+\code{sd_vvp_threshold}, \code{range_max}, \code{dual_pol}, \code{dealias}.
 
 Other arguments are typically left at their defaults.
 
@@ -133,8 +133,8 @@ default altitude layer width of 200 metre (see \link{beam_width}).
 
 For dealiasing, the torus mapping method by Haase et al. is used.
 
-At S-band (radar wavelength ~ 10 cm), currently only \code{dualpol=T} mode
-is recommended.
+At S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol=TRUE}
+mode is recommended.
 
 On repeated calls of \code{calculate_vp}, the Docker container mount can be
 recycled from one call to the next if subsequent calls share the same

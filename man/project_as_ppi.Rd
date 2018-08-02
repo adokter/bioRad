@@ -7,7 +7,8 @@
 \title{Project a scan (\code{scan}) or parameter (\code{param}) to a plan
 position indicator (\code{ppi})}
 \usage{
-project_as_ppi(x, ...)
+project_as_ppi(x, grid_size = 500, range_max = 50000, project = FALSE,
+  ylim = NULL, xlim = NULL)
 
 \method{project_as_ppi}{param}(x, grid_size = 500, range_max = 50000,
   project = FALSE, ylim = NULL, xlim = NULL)
@@ -18,8 +19,6 @@ project_as_ppi(x, ...)
 \arguments{
 \item{x}{An object of class \code{param} or \code{scan}.}
 
-\item{...}{Arguments passed to methods.}
-
 \item{grid_size}{Cartesian grid size in m.}
 
 \item{range_max}{Maximum range in m.}
@@ -29,6 +28,8 @@ project_as_ppi(x, ...)
 \item{ylim}{The range of latitudes to include.}
 
 \item{xlim}{The range of longitudes to include.}
+
+\item{...}{Arguments passed to methods.}
 }
 \value{
 An object of class '\link[=summary.ppi]{ppi}'.
