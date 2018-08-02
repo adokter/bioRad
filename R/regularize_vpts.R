@@ -7,15 +7,17 @@
 #' \code{\link[=summary.vpts]{vpts}} for details.
 #' @param interval Time interval grid to project on. When '\code{auto}' the
 #' median interval in the time series is used.
-#' @param t.min Start time of the projected time series, as a POSIXct object.
+#' @param date_min Start time of the projected time series, as a POSIXct object.
 #' Taken from \code{ts} when '\code{auto}'.
-#' @param t.max End time of the projected time series, as a POSIXct object.
+#' @param date_max End time of the projected time series, as a POSIXct object.
 #' Taken from \code{ts} when '\code{auto}'.
 #' @param units Optional units of \code{interval}, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
 #' @param fill Logical, whether to fill missing timesteps with the values of
 #' the closest neighbouring profile.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
+#' @param t.min Deprecated argument, use date_min instead.
+#' @param t.max Deprecated argument, use date_max instead.
 #'
 #' @return An object of class \code{vpts} with regular time steps.
 #'
@@ -36,12 +38,26 @@
 #' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 5)
-regularize_vpts <- function(ts, interval = "auto", t.min = ts$daterange[1],
-                            t.max = ts$daterange[2], units = "mins",
-                            fill = FALSE, verbose = TRUE) {
+regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
+                            t.min = NULL, date_max = ts$daterange[2],
+                            t.max = NULL, units = "mins", fill = FALSE,
+                            verbose = TRUE) {
+  # deprecate function arguments
+  if (!missing(t.min)) {
+    warning("argument t.min is deprecated; please use date_min instead.",
+            call. = FALSE)
+    date_min <- t.min
+  }
+  if (!missing(t.max)) {
+    warning("argument t.max is deprecated; please use date_max instead.",
+            call. = FALSE)
+    date_max <- t.max
+  }
+
   stopifnot(inherits(ts, "vpts"))
-  stopifnot(inherits(t.min, "POSIXct"))
-  stopifnot(inherits(t.max, "POSIXct"))
+  stopifnot(inherits(date_min, "POSIXct"))
+  stopifnot(inherits(date_max, "POSIXct"))
+
   if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) {
     stop("Invalid 'units' argument. Should be one of",
          "c('secs', 'mins', 'hours','days', 'weeks')")
@@ -64,7 +80,7 @@ regularize_vpts <- function(ts, interval = "auto", t.min = ts$daterange[1],
   } else {
     dt <- as.difftime(interval, units = units)
   }
-  daterange <- c(t.min, t.max)
+  daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
   index <- sapply(grid,
                   function(x) {
@@ -83,7 +99,7 @@ regularize_vpts <- function(ts, interval = "auto", t.min = ts$daterange[1],
                           tmp <- ts$data[[x]]
                           tmp[,index2] <- NA
                           tmp
-                        })  
+                        })
     }
   }
   names(ts$data) <- quantity.names

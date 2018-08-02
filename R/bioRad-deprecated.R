@@ -446,9 +446,12 @@ readvp.table <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-regularize <- function(...) {
+regularize <- function(ts, interval = "auto", t.min = ts$daterange[1],
+                       t.max = ts$daterange[2], units = "mins",
+                       fill = FALSE, verbose = TRUE) {
   .Deprecated("regularize_vpts")
-  regularize_vpts(...)
+  regularize_vpts(ts, interval, date_min = t.min, date_max = t.max, units,
+                  fill, verbose)
 }
 
 #' @section retrieve_vp_paths:
