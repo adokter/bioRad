@@ -100,7 +100,7 @@ read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
            "local Docker daemon, and run 'check_docker()' in R\n")
     }
     file <- nexrad_to_odim_tempfile(file, verbose = verbose,
-                                        mount = mount)
+                                    mount = mount)
     if (!is.pvolfile(file)) {
       file.remove(file)
       stop("converted file contains errors")
