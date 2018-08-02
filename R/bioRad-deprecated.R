@@ -396,9 +396,15 @@ ppi <- function(x, cellsize = 500, range.max = 50000,
 #' @rdname bioRad-deprecated
 #'
 #' @export
-read.pvol <- function(...) {
+read.pvol <- function(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
+                                          "ZDR", "PHIDP", "CELL"),
+                      sort = TRUE, lat, lon, height, elangle.min = 0,
+                      elangle.max = 90, verbose = TRUE,
+                      mount = dirname(filename)) {
   .Deprecated("read_pvolfile")
-  read_pvolfile(...)
+  read_pvolfile(file = filename, param = parm, sort = sort, lat = lat,
+                lon = lon, height = height, elev_min = elangle.min,
+                elev_max = elangle.max, verbose = verbose, mount = mount)
 }
 
 #' @section readvp:

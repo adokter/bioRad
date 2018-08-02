@@ -1,6 +1,6 @@
 #' Read a polar volume (\code{pvol}) from file
 #'
-#' @param filename A string containing the path to a vertical profile generated
+#' @param file A string containing the path to a vertical profile generated
 #' by \link[bioRad]{calculate_vp}.
 #' @param sort A logical value, when \code{TRUE} sort scans ascending
 #' by elevation.
@@ -15,12 +15,15 @@
 #' @param height Height of the centre of the antenna in meters above sea
 #' level. If not specified, value stored in file is used. If specified, value
 #' stored in file is overwritten.
-#' @param elangle.min Minimum scan elevation to read in degrees.
-#' @param elangle.max Maximum scan elevation to read in degrees.
+#' @param elev_min Minimum scan elevation to read in degrees.
+#' @param elev_max Maximum scan elevation to read in degrees.
 #' @param verbose A logical value, whether to print messages (\code{TRUE})
 #' to console.
 #' @param mount A character string with the mount point (a directory path)
 #' for the Docker container.
+#' @param filename Deprecated argument, use file instead.
+#' @param elangle.min Deprecated argument, use elev_min instead.
+#' @param elangle.max Deprecated argument, use elev_max instead.
 #'
 #' @return An object of class \link[=summary.pvol]{pvol}, which is a list
 #' containing polar scans, i.e. objects of class \code{scan}
@@ -59,11 +62,30 @@
 #' scan <- vol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
-read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
-                                            "RHOHV", "ZDR", "PHIDP", "CELL"),
-                          sort = TRUE, lat, lon, height, elangle.min = 0,
-                          elangle.max = 90, verbose = TRUE,
-                          mount = dirname(filename)) {
+read_pvolfile <- function(file, filename = NULL,
+                          param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
+                                    "PHIDP", "CELL"), sort = TRUE, lat, lon,
+                          height, elev_min = 0, elangle.min = 0,
+                          elev_max = 90, elangle.max = 90,
+                          verbose = TRUE, mount = dirname(file)) {
+
+  # deprecate function arguments
+  if (!missing(filename)) {
+    warning("argument filename is deprecated; please use file instead.",
+            call. = FALSE)
+    file <- filename
+  }
+  if (!missing(elangle.min)) {
+    warning("argument elangle.min is deprecated; please use elev_min instead.",
+            call. = FALSE)
+    elev_min <- elangle.min
+  }
+  if (!missing(elangle.max)) {
+    warning("argument elangle.max is deprecated; please use elev_max instead.",
+            call. = FALSE)
+    elev_max <- elangle.max
+  }
+
   # input checks
   if (!is.logical(sort)) {
     stop("'sort' should be logical")
@@ -86,8 +108,8 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
 
   # check file type. If not ODIM hdf5, try to convert from RSL
   cleanup <- FALSE
-  if (H5Fis_hdf5(filename)) {
-    if (!is.pvolfile(filename)) {
+  if (H5Fis_hdf5(file)) {
+    if (!is.pvolfile(file)) {
       stop("Failed to read hdf5 file.")
     }
   } else {
@@ -98,40 +120,40 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
       stop("Requires a running Docker daemon.\nTo enable, start your",
            "local Docker daemon, and run 'check_docker()' in R\n")
     }
-    filename <- nexrad_to_odim_tempfile(filename, verbose = verbose,
+    file <- nexrad_to_odim_tempfile(file, verbose = verbose,
                                         mount = mount)
-    if (!is.pvolfile(filename)) {
-      file.remove(filename)
+    if (!is.pvolfile(file)) {
+      file.remove(file)
       stop("converted file contains errors")
     }
     cleanup <- TRUE
   }
 
   #extract scan groups
-  scans <- h5ls(filename, recursive = FALSE)$name
+  scans <- h5ls(file, recursive = FALSE)$name
   scans <- scans[grep("dataset", scans)]
 
   #extract elevations, and make selection based on elevation
   elevs <- sapply(scans,
                   function(x) {
-                    h5readAttributes(filename,
+                    h5readAttributes(file,
                                      paste(x, "/where", sep = ""))$elangle
                     }
                   )
-  scans <- scans[elevs >= elangle.min & elevs <= elangle.max]
+  scans <- scans[elevs >= elev_min & elevs <= elev_max]
 
   #extract attributes
-  h5struct <- h5ls(filename)
+  h5struct <- h5ls(file)
   h5struct <- h5struct[h5struct$group == "/",]$name
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- h5readAttributes(filename, "how")
+    attribs.how <- h5readAttributes(file, "how")
   }
   if ("what" %in% h5struct) {
-    attribs.what <- h5readAttributes(filename, "what")
+    attribs.what <- h5readAttributes(file, "what")
   }
   if ("where" %in% h5struct) {
-    attribs.where <- h5readAttributes(filename, "where")
+    attribs.where <- h5readAttributes(file, "where")
   }
 
   vol.lat <- attribs.where$lat
@@ -140,7 +162,7 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
   if (is.null(vol.lat)) {
     if (missing(lat)) {
       if (cleanup) {
-        file.remove(filename)
+        file.remove(file)
       }
       stop("latitude not found in file, provide 'lat' argument")
     } else {
@@ -151,7 +173,7 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
   if (is.null(vol.lon)) {
     if (missing(lon)) {
       if (cleanup) {
-        file.remove(filename)
+        file.remove(file)
       }
       stop("longitude not found in file, provide 'lon' argument")
     } else {
@@ -162,7 +184,7 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
   if (is.null(vol.height)) {
     if (missing(height)) {
       if (cleanup) {
-        file.remove(filename)
+        file.remove(file)
       }
       stop("antenna height not found in file, provide 'height' argument")
     } else {
@@ -180,7 +202,7 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
   #read scan groups
   data <- lapply(scans,
                  function(x) {
-                   read_pvolfile_scan(filename, x, param, radar, datetime, geo)
+                   read_pvolfile_scan(file, x, param, radar, datetime, geo)
                  })
   #order by elevation
   if (sort) {
@@ -193,13 +215,13 @@ read_pvolfile <- function(filename, param=c("DBZH", "VRADH", "VRAD",
                                    where = attribs.where), geo = geo)
   class(output)  <- "pvol"
   if (cleanup) {
-    file.remove(filename)
+    file.remove(file)
   }
   output
 }
 
-read_pvolfile_scan <- function(filename, scan, param, radar, datetime, geo) {
-  h5struct <- h5ls(filename)
+read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
+  h5struct <- h5ls(file)
   h5struct <- h5struct[h5struct$group == paste("/", scan, sep = ""),]$name
   groups <- h5struct[grep("data", h5struct)]
 
@@ -213,26 +235,26 @@ read_pvolfile_scan <- function(filename, scan, param, radar, datetime, geo) {
   if (!allParam) {
     quantityNames <- sapply(groups,
                             function(x) {
-                              h5readAttributes(filename,
+                              h5readAttributes(file,
                                                paste(scan, "/", x, "/what",
                                                      sep = ""))$quantity
                             })
     groups <- groups[quantityNames %in% param]
     if (length(groups) == 0) {
-      stop(paste("none of the requested scan parameters present in", filename))
+      stop(paste("none of the requested scan parameters present in", file))
     }
   }
 
   # read attributes
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- h5readAttributes(filename, paste(scan, "/how", sep = ""))
+    attribs.how <- h5readAttributes(file, paste(scan, "/how", sep = ""))
   }
   if ("what" %in% h5struct) {
-    attribs.what <- h5readAttributes(filename, paste(scan, "/what", sep = ""))
+    attribs.what <- h5readAttributes(file, paste(scan, "/what", sep = ""))
   }
   if ("where" %in% h5struct) {
-    attribs.where <- h5readAttributes(filename, paste(scan, "/where", sep = ""))
+    attribs.where <- h5readAttributes(file, paste(scan, "/where", sep = ""))
   }
 
   # add attributes to geo list
@@ -243,7 +265,7 @@ read_pvolfile_scan <- function(filename, scan, param, radar, datetime, geo) {
   # read scan parameters
   quantities <- lapply(groups,
                        function(x) {
-                         read_pvolfile_quantity(filename,
+                         read_pvolfile_quantity(file,
                                                 paste(scan, "/", x, sep = ""),
                                                 radar, datetime, geo)
                        })
@@ -258,9 +280,9 @@ read_pvolfile_scan <- function(filename, scan, param, radar, datetime, geo) {
   output
 }
 
-read_pvolfile_quantity <- function(filename, quantity, radar, datetime, geo) {
-  data <- h5read(filename, quantity)$data
-  attr <- h5readAttributes(filename, paste(quantity, "/what", sep = ""))
+read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo) {
+  data <- h5read(file, quantity)$data
+  attr <- h5readAttributes(file, paste(quantity, "/what", sep = ""))
   data <- replace(data,data == as.numeric(attr$nodata), NA)
   data <- replace(data,data == as.numeric(attr$undetect), NaN)
   data <- as.numeric(attr$offset) + as.numeric(attr$gain)*data
