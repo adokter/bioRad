@@ -29,8 +29,8 @@ beam_height <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
        ) - k * earth_radius(re, rp, lat)
 }
 
-earth_radius <- function(a, b, latdeg) {
-  lat <- latdeg * pi/180
+earth_radius <- function(a, b, lat) {
+  lat <- lat * pi/180
   sqrt(((a^2*cos(lat))^2 + (b^2*sin(lat))^2)/((a*cos(lat))^2 + (b*sin(lat))^2))
 }
 
