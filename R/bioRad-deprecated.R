@@ -463,7 +463,7 @@ regularize <- function(ts, interval = "auto", t.min = ts$daterange[1],
 retrieve_vp_paths <- function(path, start_date, end_date,
                               country = NULL, radar = NULL) {
   .Deprecated("select_vpfiles")
-  select_vpfiles(directory, date_min = start_date, date_max = end_date,
+  select_vpfiles(path, date_min = start_date, date_max = end_date,
                  country, radar)
 }
 
