@@ -383,9 +383,11 @@ night <- function(x, ..., elev=-0.268) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-ppi <- function(...) {
+ppi <- function(x, cellsize = 500, range.max = 50000,
+                project = FALSE, latlim = NULL, lonlim = NULL) {
   .Deprecated("project_as_ppi")
-  project_as_ppi(...)
+  project_as_ppi(x, grid_size = cellsize, range_max = range.max,
+                 project = project, ylim = latlim, xlim = lonlim)
 }
 
 #' @section read.pvol:
