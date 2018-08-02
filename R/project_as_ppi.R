@@ -32,7 +32,8 @@
 #' ppi <- project_as_ppi(param)
 #' # print summary info for this ppi:
 #' ppi
-project_as_ppi <- function(x, ...) {
+project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
+                           project = FALSE, ylim = NULL, xlim = NULL) {
   UseMethod("project_as_ppi", x)
 }
 
