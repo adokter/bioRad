@@ -13,7 +13,7 @@ color_scale <- function(param, zlim) {
 }
 
 color_scale_fill <- function(param, zlim) {
-  if (param %in% c("VRADH","VRADV","VRAD")) {
+  if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_fill_gradient2(low = "blue", high = "red",
                                        mid = "white", name = param,
                                        midpoint = 0, limits = zlim)
@@ -28,25 +28,25 @@ color_scale_fill <- function(param, zlim) {
 
 # helper function to add transparency
 # class dispatching needs improvement
-add_color_transparency <- function(col, alpha = 1) {
-  if (missing(col)) {
+add_color_transparency <- function(color, alpha = 1) {
+  if (missing(color)) {
     stop("Please provide a vector or matrix of colours.")
   }
 
-  mycol <- col2rgb(col)/255
+  mycol <- col2rgb(color)/255
   mycol <- rgb(mycol[1,], mycol[2,], mycol[3,], alpha = alpha)
-  if (inherits(col,"ggmap")) {
-    mycol <- matrix(mycol, nrow = dim(col)[1], ncol = dim(col)[2])
-    attributes(mycol) <- attributes(col)
-    class(mycol) <- class(col)
+  if (inherits(color, "ggmap")) {
+    mycol <- matrix(mycol, nrow = dim(color)[1], ncol = dim(color)[2])
+    attributes(mycol) <- attributes(color)
+    class(mycol) <- class(color)
     return(mycol)
-  } else if (inherits(col, "raster")) {
-    col@data@values <- mycol
-    return(col)
+  } else if (inherits(color, "raster")) {
+    color@data@values <- mycol
+    return(color)
   }
   else{
     return(mycol)
-    #apply(sapply(col, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha=alpha))
+    #apply(sapply(color, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha=alpha))
   }
 }
 
