@@ -22,7 +22,7 @@
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
 #' deviation (\code{sd_vvp_threshold}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
-#' @param dualpol logical. When \code{TRUE} use dual-pol mode, in which
+#' @param dual_pol logical. When \code{TRUE} use dual-pol mode, in which
 #' meteorological echoes are filtered using the correlation coefficient
 #' \code{rho_hv}. When \code{FALSE} use single polarization mode based only
 #' on reflectivity and radial velocity quantities.
@@ -62,7 +62,7 @@
 #' dual-polarization mode.
 #'
 #' Arguments that sometimes require non-default values are: \code{rcs},
-#' \code{sd_vvp_threshold}, \code{range_max}, \code{dualpol}, \code{dealias}.
+#' \code{sd_vvp_threshold}, \code{range_max}, \code{dual_pol}, \code{dealias}.
 #'
 #' Other arguments are typically left at their defaults.
 #'
@@ -101,8 +101,8 @@
 #'
 #' For dealiasing, the torus mapping method by Haase et al. is used.
 #'
-#' At S-band (radar wavelength ~ 10 cm), currently only \code{dualpol=T} mode
-#' is recommended.
+#' At S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol=TRUE}
+#' mode is recommended.
 #'
 #' On repeated calls of \code{calculate_vp}, the Docker container mount can be
 #' recycled from one call to the next if subsequent calls share the same
@@ -136,7 +136,7 @@
 calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE,
                          mount = dirname(pvolfile), sd_vvp_threshold = 2,
-                         rcs = 11, dualpol = FALSE, rho_hv = 0.95, elev_min = 0,
+                         rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 25000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
@@ -154,8 +154,8 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
     stop("invalid 'rcs' argument, radar cross section should be a ",
          "positive numeric value")
   }
-  if (!is.logical(dualpol)) {
-    stop("invalid 'dualpol' argument, should be logical")
+  if (!is.logical(dual_pol)) {
+    stop("invalid 'dual_pol' argument, should be logical")
   }
   if (!is.numeric(rho_hv) || rho_hv <= 0 || rho_hv > 1) {
     stop("invalid 'rho_hv' argument, correlation coefficient treshold ",
@@ -245,12 +245,12 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   opt.values <- c(as.character(c(sd_vvp_threshold, rcs, rho_hv, elev_min, elev_max,
                                  azim_min, azim_max, range_min, range_max,
                                  n_layer, h_layer, nyquist_min, dbz_quantity)),
-                  if (dualpol) "TRUE" else "FALSE",
+                  if (dual_pol) "TRUE" else "FALSE",
                   if (dealias) "TRUE" else "FALSE")
 
   opt.names <- c("STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
                  "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
+                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "dual_pol",
                  "DEALIAS_VRAD")
   opt <- data.frame("option" = opt.names, "is" = rep("=", length(opt.values)),
                     "value" = opt.values)
