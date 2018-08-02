@@ -16,8 +16,6 @@
 #' @param fill Logical, whether to fill missing timesteps with the values of
 #' the closest neighbouring profile.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
-#' @param t.min Deprecated argument, use date_min instead.
-#' @param t.max Deprecated argument, use date_max instead.
 #'
 #' @return An object of class \code{vpts} with regular time steps.
 #'
@@ -39,20 +37,8 @@
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 5)
 regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
-                            t.min = NULL, date_max = ts$daterange[2],
-                            t.max = NULL, units = "mins", fill = FALSE,
-                            verbose = TRUE) {
-  # deprecate function arguments
-  if (!missing(t.min)) {
-    warning("argument t.min is deprecated; please use date_min instead.",
-            call. = FALSE)
-    date_min <- t.min
-  }
-  if (!missing(t.max)) {
-    warning("argument t.max is deprecated; please use date_max instead.",
-            call. = FALSE)
-    date_max <- t.max
-  }
+                            date_max = ts$daterange[2], units = "mins",
+                            fill = FALSE, verbose = TRUE) {
 
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(date_min, "POSIXct"))

@@ -66,7 +66,8 @@
 plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       log = TRUE, barbs = TRUE, barbs_height = 10, barbs.h = 10,
                       barbs_time = 20, barbs.t = 20, barbs_dens_min = 5,
-                      barbs.dens = 5, zlim, legend_ticks, legend.ticks, main, ...) {
+                      barbs.dens = 5, zlim, legend_ticks, legend.ticks,
+                      main, ...) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
 

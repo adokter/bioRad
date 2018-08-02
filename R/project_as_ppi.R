@@ -10,10 +10,6 @@
 #' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
 #' @param ... Arguments passed to methods.
-#' @param cellsize Deprecated argument, use grid_size instead.
-#' @param range.max Deprecated argument, use range_max instead.
-#' @param latlim Deprecated argument, use ylim instead.
-#' @param lonlim Deprecated argument, use xlim instead.
 #'
 #' @return An object of class '\link[=summary.ppi]{ppi}'.
 #'
@@ -44,33 +40,9 @@ project_as_ppi <- function(x, ...) {
 #' @describeIn project_as_ppi Project as \code{ppi} for a single scan parameter.
 #'
 #' @export
-project_as_ppi.param <- function(x, grid_size = 500, cellsize = 500,
-                                 range_max = 50000, range.max = 50000,
-                                 project = FALSE, ylim = NULL, latlim = NULL,
-                                 xlim = NULL, lonlim = NULL) {
+project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
+                                 project = FALSE, ylim = NULL, xlim = NULL) {
   stopifnot(inherits(x, "param"))
-
-  # deprecate function arguments
-  if (!missing(cellsize)) {
-    warning("argument cellsize is deprecated; please use grid_size instead.",
-            call. = FALSE)
-    grid_size <- cellsize
-  }
-  if (!missing(range.max)) {
-    warning("argument range.max is deprecated; please use range_max instead.",
-            call. = FALSE)
-    range_max <- range.max
-  }
-  if (!missing(latlim)) {
-    warning("argument latlim is deprecated; please use ylim instead.",
-            call. = FALSE)
-    ylim <- latlim
-  }
-  if (!missing(lonlim)) {
-    warning("argument lonlim is deprecated; please use xlim instead.",
-            call. = FALSE)
-    xlim <- lonlim
-  }
 
   data <- sample_polar(x, grid_size, range_max, project, ylim, xlim)
   # copy the parameter's attributes
@@ -87,33 +59,9 @@ project_as_ppi.param <- function(x, grid_size = 500, cellsize = 500,
 #' parameters in a scan
 #'
 #' @export
-project_as_ppi.scan <- function(x, grid_size = 500, cellsize = 500,
-                                range_max = 50000, range.max = 50000,
-                                project = FALSE, ylim = NULL, latlim = NULL,
-                                xlim = NULL, lonlim = NULL) {
+project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
+                                project = FALSE, ylim = NULL,  xlim = NULL) {
   stopifnot(inherits(x, "scan"))
-
-  # deprecate function arguments
-  if (!missing(cellsize)) {
-    warning("argument cellsize is deprecated; please use grid_size instead.",
-            call. = FALSE)
-    grid_size <- cellsize
-  }
-  if (!missing(range.max)) {
-    warning("argument range.max is deprecated; please use range_max instead.",
-            call. = FALSE)
-    range_max <- range.max
-  }
-  if (!missing(latlim)) {
-    warning("argument latlim is deprecated; please use ylim instead.",
-            call. = FALSE)
-    ylim <- latlim
-  }
-  if (!missing(lonlim)) {
-    warning("argument lonlim is deprecated; please use xlim instead.",
-            call. = FALSE)
-    xlim <- lonlim
-  }
 
   data <- sample_polar(x$params[[1]], grid_size, range_max,
                        project, ylim, xlim)

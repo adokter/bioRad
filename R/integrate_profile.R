@@ -173,7 +173,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
-                                     alpha = NA, interval_max = Inf) {
+                                   alpha = NA, interval_max = Inf) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")

@@ -21,9 +21,6 @@
 #' to console.
 #' @param mount A character string with the mount point (a directory path)
 #' for the Docker container.
-#' @param filename Deprecated argument, use file instead.
-#' @param elangle.min Deprecated argument, use elev_min instead.
-#' @param elangle.max Deprecated argument, use elev_max instead.
 #'
 #' @return An object of class \link[=summary.pvol]{pvol}, which is a list
 #' containing polar scans, i.e. objects of class \code{scan}
@@ -62,29 +59,11 @@
 #' scan <- vol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
-read_pvolfile <- function(file, filename = NULL,
-                          param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
-                                    "PHIDP", "CELL"), sort = TRUE, lat, lon,
-                          height, elev_min = 0, elangle.min = 0,
-                          elev_max = 90, elangle.max = 90,
-                          verbose = TRUE, mount = dirname(file)) {
-
-  # deprecate function arguments
-  if (!missing(filename)) {
-    warning("argument filename is deprecated; please use file instead.",
-            call. = FALSE)
-    file <- filename
-  }
-  if (!missing(elangle.min)) {
-    warning("argument elangle.min is deprecated; please use elev_min instead.",
-            call. = FALSE)
-    elev_min <- elangle.min
-  }
-  if (!missing(elangle.max)) {
-    warning("argument elangle.max is deprecated; please use elev_max instead.",
-            call. = FALSE)
-    elev_max <- elangle.max
-  }
+read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
+                                          "ZDR", "PHIDP", "CELL"),
+                          sort = TRUE, lat, lon, height, elev_min = 0,
+                          elev_max = 90, verbose = TRUE,
+                          mount = dirname(file)) {
 
   # input checks
   if (!is.logical(sort)) {

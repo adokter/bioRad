@@ -41,6 +41,7 @@ earth_radius <- function(a, b, latdeg) {
 #' @param range numeric. Range (distance from the radar antenna) in km.
 #' @param beam_angle numeric. Beam opening angle in degrees, typically the
 #' the angle between the half-power (-3 dB) points of the main lobe
+#'
 #' @return numeric. Beam width in m.
 #'
 #' @export

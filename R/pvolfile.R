@@ -36,7 +36,6 @@ is.pvolfile <- function(file, filename = NULL) {
 #' Checks which data class is contained in ODIM HDF5 file
 #'
 #' @param file A string containing a file name.
-#' @param filename Deprecated argument, use file instead.
 #'
 #' @return character string \code{pvol} for polar volume, \code{vp} for
 #' vertical profile, otherwise \code{NA}
@@ -47,17 +46,10 @@ is.pvolfile <- function(file, filename = NULL) {
 #' # locate a polar volume file
 #' pvol <- system.file("extdata", "volume.h5", package = "bioRad")
 #' get_odim_object_type(pvol)   #> "pvol"
-get_odim_object_type <- function(file, filename = NULL) {
+get_odim_object_type <- function(file) {
 
-  # deprecate function arguments
-  if (!missing(filename)) {
-    warning("argument filename is deprecated; please use file instead.",
-            call. = FALSE)
-    file <- filename
-  }
-
-  if (!file.exists(filen)) {
-    warning(paste(filen, "does not exist"))
+  if (!file.exists(file)) {
+    warning(paste(file, "does not exist"))
     return(NA)
   }
   if (!is.odimfile(file)) {
