@@ -538,7 +538,7 @@ vol2bird <- function(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
                rho_hv = rhohv, elev_min = elev.min, elev_max = elev.max,
                azim_min = azim.min, azim_max = azim.max, range_min = range.min,
                range_max = range.max, n_layer = nlayer, h_layer = hlayer,
-               dealias = dealias, nyquist_min = yquist.min,
+               dealias = dealias, nyquist_min = nyquist.min,
                dbz_quantity = dbz_quantity)
 }
 
