@@ -4,12 +4,12 @@
 \alias{read_pvolfile}
 \title{Read a polar volume (\code{pvol}) from file}
 \usage{
-read_pvolfile(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
-  "PHIDP", "CELL"), sort = TRUE, lat, lon, height, elangle.min = 0,
-  elangle.max = 90, verbose = TRUE, mount = dirname(filename))
+read_pvolfile(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
+  "PHIDP", "CELL"), sort = TRUE, lat, lon, height, elev_min = 0,
+  elev_max = 90, verbose = TRUE, mount = dirname(file))
 }
 \arguments{
-\item{filename}{A string containing the path to a vertical profile generated
+\item{file}{A string containing the path to a vertical profile generated
 by \link[bioRad]{calculate_vp}.}
 
 \item{param}{An atomic vector of character strings, containing the names
@@ -30,9 +30,9 @@ file is overwritten.}
 level. If not specified, value stored in file is used. If specified, value
 stored in file is overwritten.}
 
-\item{elangle.min}{Minimum scan elevation to read in degrees.}
+\item{elev_min}{Minimum scan elevation to read in degrees.}
 
-\item{elangle.max}{Maximum scan elevation to read in degrees.}
+\item{elev_max}{Maximum scan elevation to read in degrees.}
 
 \item{verbose}{A logical value, whether to print messages (\code{TRUE})
 to console.}

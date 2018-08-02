@@ -5,32 +5,33 @@
 \alias{integrate_profile.vp}
 \alias{integrate_profile.list}
 \alias{integrate_profile.vpts}
-\title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an integrated profile (\code{vpi})}
+\title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an
+integrated profile (\code{vpi})}
 \usage{
-integrate_profile(x, alt.min, alt.max, alpha = NA, interval.max = Inf)
+integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
 
-\method{integrate_profile}{vp}(x, alt.min = 0, alt.max = Inf, alpha = NA,
-  interval.max = Inf)
+\method{integrate_profile}{vp}(x, alt_min = 0, alt_max = Inf, alpha = NA,
+  interval_max = Inf)
 
-\method{integrate_profile}{list}(x, alt.min = 0, alt.max = Inf,
-  alpha = NA, interval.max = Inf)
+\method{integrate_profile}{list}(x, alt_min = 0, alt_max = Inf,
+  alpha = NA, interval_max = Inf)
 
-\method{integrate_profile}{vpts}(x, alt.min = 0, alt.max = Inf,
-  alpha = NA, interval.max = Inf)
+\method{integrate_profile}{vpts}(x, alt_min = 0, alt_max = Inf,
+  alpha = NA, interval_max = Inf)
 }
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}
 
-\item{alt.min}{Minimum altitude in m.}
+\item{alt_min}{Minimum altitude in m.}
 
-\item{alt.max}{Maximum altitude in m.}
+\item{alt_max}{Maximum altitude in m.}
 
 \item{alpha}{Migratory direction in clockwise degrees from north.}
 
-\item{interval.max}{Maximum time interval belonging to a single profile in
+\item{interval_max}{Maximum time interval belonging to a single profile in
 seconds. Traffic rates are set to zero at times \code{t} for which no
-profiles can be found within the period \code{t-interval.max/2} to
-\code{t+interval.max/2}. Ignored for single profiles of class \code{vp}.}
+profiles can be found within the period \code{t-interval_max/2} to
+\code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.}
 }
 \value{
 an object of class \code{vpi}, a data frame with vertically
@@ -80,8 +81,8 @@ always a positive quantity, defined as:
 
 \deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
 
-with the sum running over all altitude layers between \code{alt.min} and
-\code{alt.max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+with the sum running over all altitude layers between \code{alt_min} and
+\code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
 altitude layer i, and \eqn{\Delta h} the altitude layer width.
 
 If \code{alpha} is given a numeric value, the transect is taken perpendicular
@@ -140,7 +141,7 @@ vpi <- integrate_profile(example_vpts)
 # plot migration traffic rates for the full air column
 plot(example_vpts)
 # plot migration traffic rates for altitudes > 1 km above sea level
-plot(integrate_profile(example_vpts, alt.min = 1000))
+plot(integrate_profile(example_vpts, alt_min = 1000))
 # plot the (cumulative) migration traffic
-plot(integrate_profile(example_vpts), quantity="mt")
+plot(integrate_profile(example_vpts), quantity = "mt")
 }

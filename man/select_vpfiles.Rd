@@ -4,14 +4,14 @@
 \alias{select_vpfiles}
 \title{Select vertical profiles files (\code{vp}) from computer}
 \usage{
-select_vpfiles(path, start_date, end_date, country = NULL, radar = NULL)
+select_vpfiles(path, date_min, date_max, country = NULL, radar = NULL)
 }
 \arguments{
 \item{path}{Main path to look into recusively.}
 
-\item{start_date}{ISO format date as start of the vp file query.}
+\item{date_min}{ISO format date as start of the vp file query.}
 
-\item{end_date}{ISO format date as end of the vp file query.}
+\item{date_max}{ISO format date as end of the vp file query.}
 
 \item{country}{Character vector with two letter country shortcuts.}
 

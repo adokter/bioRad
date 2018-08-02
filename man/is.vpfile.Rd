@@ -4,10 +4,12 @@
 \alias{is.vpfile}
 \title{Check if a file is a vertical profile (\code{vp})}
 \usage{
-is.vpfile(filename)
+is.vpfile(file, filename = NULL)
 }
 \arguments{
-\item{filename}{A string containing a filename}
+\item{file}{A string containing a filename}
+
+\item{filename}{Deprecated argument, use file instead.}
 }
 \value{
 TRUE when \code{filename} is a vertical profile, otherwise FALSE

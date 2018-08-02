@@ -4,15 +4,14 @@
 \alias{composite_ppi}
 \title{Create a composite of multiple plan position indicators (\code{ppi})}
 \usage{
-composite_ppi(x, param = "DBZH", cells.dim = c(100, 100))
+composite_ppi(x, param = "DBZH", dim = c(100, 100))
 }
 \arguments{
 \item{x}{A list of \code{ppi}.}
 
-\item{param}{Scan paramater/quantity to composite.}
+\item{param}{Scan paramater to composite.}
 
-\item{cells.dim}{integer. Vector with number of cells in each spatial
-dimension.}
+\item{dim}{integer. Vector with number of cells in each spatial dimension.}
 }
 \value{
 A \code{\link[=summary.ppi]{ppi}}.

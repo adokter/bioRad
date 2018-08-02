@@ -4,7 +4,7 @@
 \alias{dbz_to_eta}
 \title{Convert reflectivity factor to reflectivity}
 \usage{
-dbz_to_eta(dbz, wavelength, Km = 0.93)
+dbz_to_eta(dbz, wavelength, K = 0.93)
 }
 \arguments{
 \item{dbz}{reflectivity factor in dBZ}
