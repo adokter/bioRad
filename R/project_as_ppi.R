@@ -186,9 +186,9 @@ safe_subset <- function(data, indexx, indexy) {
   out
 }
 
-polar_to_index <- function(coords.polar, rangebin = 1, azimbin = 1) {
-  row <- floor(1 + coords.polar$range/rangebin)
-  col <- floor(1 + coords.polar$azim/azimbin)
+polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1) {
+  row <- floor(1 + coords_polar$range/rangebin)
+  col <- floor(1 + coords_polar$azim/azimbin)
   data.frame(row = row,col = col)
 }
 
