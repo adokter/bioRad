@@ -69,9 +69,9 @@ checkDocker <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-composite <- function(...) {
+composite <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
   .Deprecated("composite_ppi")
-  composite_ppi(...)
+  composite_ppi(x, param, dim = cells.dim)
 }
 
 #' @section day:
