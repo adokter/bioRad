@@ -5,7 +5,7 @@
 #' radars.
 #'
 #' @param x A list of \code{ppi}.
-#' @param param Scan paramater/quantity to composite.
+#' @param param Scan paramater to composite.
 #' @param cells.dim integer. Vector with number of cells in each spatial
 #' dimension.
 #'
