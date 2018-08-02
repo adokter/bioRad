@@ -111,7 +111,6 @@
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
 #' # plot the (cumulative) migration traffic
 #' plot(integrate_profile(example_vpts), quantity = "mt")
-
 integrate_profile <- function(x, alt_min, alt_max,
                               alpha = NA, interval_max = Inf) {
   UseMethod("integrate_profile", x)

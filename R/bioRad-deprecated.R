@@ -295,7 +295,7 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
 #' # print migration traffic rates:
 #' \dontrun{mtr(example_vpts)}
 #' # to plot migration traffic rate data, use integrate_profile:
-#' plot(integrate_profile(example_vpts), quantity = "mtr")
+#' \dontrun{plot(integrate_profile(example_vpts), quantity = "mtr")}
 mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
   .Deprecated("integrate_profile")
   .Deprecated(msg = paste("Migration traffic rate is now included in the",
