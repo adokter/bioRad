@@ -3,9 +3,9 @@
 #' Collect a list of vp file names within a directory that comply to the given
 #' country, radar and date range combination
 #'
-#' @param path Main path to look into recusively.
-#' @param start_date ISO format date as start of the vp file query.
-#' @param end_date ISO format date as end of the vp file query.
+#' @param directory Main directory to look into recusively.
+#' @param date_min ISO format date as start of the vp file query.
+#' @param date_max ISO format date as end of the vp file query.
 #' @param country Character vector with two letter country shortcuts.
 #' @param radar Character vector with three letter radar sindicators. This
 #' can be defined independently from the countries named.
@@ -17,19 +17,20 @@
 #' @importFrom lubridate as_date
 #'
 #' @examples
-#' my_path <- "~/my/directory/"
-#' select_vpfiles(my_path, "2016-10-01", "2017-01-31", c("be"))
-select_vpfiles <- function(path, start_date, end_date,
-                           country = NULL, radar = NULL) {
+#' my_directory <- "~/my/directory/"
+#' select_vpfiles(my_directory, "2016-10-01", "2017-01-31", c("be"))
+select_vpfiles <- function(directory, date_min, date_max, country = NULL,
+                           radar = NULL) {
+
   if (is.null(country)) {country <- "([a-z]{2})"}
   if (is.null(radar)) {radar <- "([a-z]{3})"}
 
   # create period of dates to check for
-  start <- as_date(start_date, tz = NULL)
-  end <- as_date(end_date, tz = NULL)
+  start <- as_date(date_min, tz = NULL)
+  end <- as_date(date_max, tz = NULL)
   dates_to_check <- seq(start, end, by = 'days')
 
-  filelist <- dir(path, recursive = TRUE)
+  filelist <- dir(directory, recursive = TRUE)
 
   datestring_to_check <- format(dates_to_check, "%Y%m%d")
   countryradar <- apply(expand.grid(country, radar), 1, paste,collapse = "")

@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{vp}(x, quantity = "dens",
   xlab = expression("volume density [#/km"^3 * "]"), ylab = "height [km]",
-  line.col = "red", line.lwd = 1, ...)
+  line_col = "red", line.col = "red", line_lwd = 1, line.lwd = 1, ...)
 }
 \arguments{
 \item{x}{A \code{vp} class object.}
@@ -25,9 +25,13 @@
 
 \item{ylab}{A title for the y axis.}
 
-\item{line.col}{Color of the plotted curve.}
+\item{line_col}{Color of the plotted curve.}
 
-\item{line.lwd}{Line width of the plotted curve.}
+\item{line.col}{Deprecated argument, use line_col instead.}
+
+\item{line_lwd}{Line width of the plotted curve.}
+
+\item{line.lwd}{Deprecated argument, use line_lwd instead.}
 
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics]{plot} plotting function.}
@@ -38,5 +42,5 @@ Plot a vertical profile (\code{vp})
 \examples{
 data(example_vp)
 plot(example_vp)
-plot(example_vp, line.col = "blue")
+plot(example_vp, line_col = "blue")
 }

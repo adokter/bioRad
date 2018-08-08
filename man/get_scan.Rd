@@ -4,12 +4,12 @@
 \alias{get_scan}
 \title{Get a scan (\code{scan}) from a polar volume (\code{pvol})}
 \usage{
-get_scan(x, angle)
+get_scan(x, elev)
 }
 \arguments{
 \item{x}{An object of class \code{pvol}.}
 
-\item{angle}{Elevation angle.}
+\item{elev}{Elevation angle.}
 }
 \value{
 An object of class '\link[=summary.scan]{scan}'.
@@ -19,7 +19,7 @@ Get a scan (\code{scan}) from a polar volume (\code{pvol})
 }
 \details{
 The function returns the scan with elevation angle closest
-to \code{angle}.
+to \code{elev}.
 }
 \examples{
 # locate example volume file:

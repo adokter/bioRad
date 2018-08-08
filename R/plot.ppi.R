@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @details
-#' Available scan parameters for plotting can by printed to screen
+#' Available scan paramters for plotting can by printed to screen
 #' by \code{summary(x)}. Commonly available parameters are:
 #' \describe{
 #'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
@@ -41,12 +41,14 @@
 #' ppi <- project_as_ppi(example_scan)
 #' # plot the first scan parameter, which in this case is "VRADH":
 #' plot(ppi)
-#' # plot the reflectivity quantity:
+#' # plot the reflectivity parameter:
 #' plot(ppi, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
 #' plot(ppi, param = "DBZH",zlim = c(-30, 50))
-plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20), ratio = 1, ...) {
+plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
+                     ratio = 1, ...) {
   stopifnot(inherits(x, "ppi"))
+
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {
       param <- "DBZH"
@@ -61,7 +63,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20), ratio = 1, ...) {
   if (missing(zlim)) {
     zlim <- get_zlim(param)
   }
-  colorscale <- color_scale_fill(param,zlim)
+  colorscale <- color_scale_fill(param, zlim)
   # extract the scan parameter
   y <- NULL #dummy asignment to suppress devtools check warning
   data <- do.call(function(y) x$data[y], list(param))

@@ -2,15 +2,15 @@
 #'
 #' Calculates a vertical profile of birds (vp) from a polar volume (pvol).
 #'
-#' @param vol.in A radar file containing a radar polar volume, either in
+#' @param pvolfile A radar file containing a radar polar volume, either in
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in
 #' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
 #' supported by the
 #' \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
-#' @param vp.out character. Filename for the vertical profile to be
+#' @param vpfile character. Filename for the vertical profile to be
 #' generated in ODIM HDF5 format (optional).
-#' @param vol.out character. Filename for the polar volume to be
+#' @param pvolfile_out character. Filename for the polar volume to be
 #' generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
 #' to ODIM).
 #' @param autoconf logical. When TRUE, default optimal configuration settings
@@ -22,36 +22,36 @@
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
 #' deviation (\code{sd_vvp_threshold}) in m/s.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
-#' @param dualpol logical. When \code{TRUE} use dual-pol mode, in which
+#' @param dual_pol logical. When \code{TRUE} use dual-pol mode, in which
 #' meteorological echoes are filtered using the correlation coefficient
-#' \code{rhohv}. When \code{FALSE} use single polarization mode based only
+#' \code{rho_hv}. When \code{FALSE} use single polarization mode based only
 #' on reflectivity and radial velocity quantities.
-#' @param rhohv numeric. Lower threshold in correlation coefficient used to
+#' @param rho_hv numeric. Lower threshold in correlation coefficient used to
 #' filter meteorological scattering.
-#' @param elev.min numeric. Minimum scan elevation in degrees.
-#' @param elev.max numeric. Maximum scan elevation in degrees.
-#' @param azim.min numeric. Minimum azimuth in degrees clockwise from north.
-#' @param azim.max numeric. Maximum azimuth in degrees clockwise from north.
-#' @param range.min numeric. Minimum range in km.
-#' @param range.max numeric. Maximum range in km.
-#' @param nlayer numeric. Number of altitude layers in the profile.
-#' @param hlayer numeric. Width of altitude layers in metre.
-#' @param nyquist.min numeric. Minimum Nyquist velocity of scans in m/s for
+#' @param elev_min numeric. Minimum scan elevation in degrees.
+#' @param elev_max numeric. Maximum scan elevation in degrees.
+#' @param azim_min numeric. Minimum azimuth in degrees clockwise from north.
+#' @param azim_max numeric. Maximum azimuth in degrees clockwise from north.
+#' @param range_min numeric. Minimum range in km.
+#' @param range_max numeric. Maximum range in km.
+#' @param n_layer numeric. Number of altitude layers in the profile.
+#' @param h_layer numeric. Width of altitude layers in metre.
+#' @param nyquist_min numeric. Minimum Nyquist velocity of scans in m/s for
 #' scans to be included in the analysis.
-#' @param dbz_quantity character. One of the available reflectivity factor
-#' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param dealias logical. Whether to dealias radial velocities; this should
 #' typically be done when the scans in the polar volume have low Nyquist
 #' velocities (below 25 m/s).
+#' @param dbz_quantity character. One of the available reflectivity factor
+#' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
-#' defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
+#' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
 #'
 #' @export
 #'
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon.
 #'
-#' Common arguments set by users are \code{vol.in}, \code{vp.out},
+#' Common arguments set by users are \code{pvolfile}, \code{vpfile},
 #' \code{autoconf} and \code{mount}.
 #'
 #' Turn on \code{autoconf} to automatically select the optimal parameters for a
@@ -62,17 +62,17 @@
 #' dual-polarization mode.
 #'
 #' Arguments that sometimes require non-default values are: \code{rcs},
-#' \code{sd_vvp_threshold}, \code{range.max}, \code{dualpol}, \code{dealias}.
+#' \code{sd_vvp_threshold}, \code{range_max}, \code{dual_pol}, \code{dealias}.
 #'
 #' Other arguments are typically left at their defaults.
 #'
-#' \code{azim.min} and \code{azim.max} only affects reflectivity-derived
+#' \code{azim_min} and \code{azim_max} only affects reflectivity-derived
 #' estimates in the profile (DBZH,eta,dens), not radial-velocity derived
 #' estimates (u, v, w, ff, dd, sd_vvp), which are estimated on all azimuths at
-#' all times. \code{azim.min}, \code{azim.max} may be set to exclude an angular
+#' all times. \code{azim_min}, \code{azim_max} may be set to exclude an angular
 #' sector with high ground clutter.
 #'
-#' \code{range.max} may be extended up to 40,000 m for volumes with low
+#' \code{range_max} may be extended up to 40,000 m for volumes with low
 #' elevations only, in order to extend coverage to higher altitudes.
 #'
 #' For altitude layers with a VVP-retrieved radial velocity standard deviation
@@ -83,7 +83,7 @@
 #' for most weather radars.
 
 #' The algorithm has been tested and developed for altitude layers with
-#' \code{hlayer} = 200 m. Smaller widths are not recommended as they may cause
+#' \code{h_layer} = 200 m. Smaller widths are not recommended as they may cause
 #' instabilities of the volume velocity profiling (VVP) and dealiasing routines,
 #' and effectively lead to pseudo-replicated altitude data, since altitudinal
 #' patterns smaller than the beam width cannot be resolved.
@@ -94,15 +94,15 @@
 #' wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M}
 #' the bird's mass.
 #'
-#' Using default values of \code{range.min} and \code{range.max} is
+#' Using default values of \code{range_min} and \code{range_max} is
 #' recommended. Ranges closer than 5 km tend to be contaminated by ground
 #' clutter, while range gates beyond 25 km become too wide to resolve the
 #' default altitude layer width of 200 metre (see \link{beam_width}).
 #'
 #' For dealiasing, the torus mapping method by Haase et al. is used.
 #'
-#' At S-band (radar wavelength ~ 10 cm), currently only \code{dualpol=T} mode
-#' is recommended.
+#' At S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol=TRUE}
+#' mode is recommended.
 #'
 #' On repeated calls of \code{calculate_vp}, the Docker container mount can be
 #' recycled from one call to the next if subsequent calls share the same
@@ -133,15 +133,17 @@
 #'
 #' # clean up:
 #' file.remove("~/volume.h5")
-calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
-                         verbose=FALSE, mount = dirname(vol.in), sd_vvp_threshold = 2,
-                         rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
-                         elev.max = 90, azim.min = 0, azim.max = 360,
-                         range.min = 5000, range.max = 25000, nlayer = 20L,
-                         hlayer = 200, dealias = TRUE,
-                         nyquist.min = if (dealias) 5 else 25, dbz_quantity="DBZH") {
+calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
+                         autoconf = FALSE, verbose = FALSE,
+                         mount = dirname(pvolfile), sd_vvp_threshold = 2,
+                         rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
+                         elev_max = 90, azim_min = 0, azim_max = 360,
+                         range_min = 5000, range_max = 25000, n_layer = 20L,
+                         h_layer = 200, dealias = TRUE,
+                         nyquist_min = if (dealias) 5 else 25,
+                         dbz_quantity = "DBZH") {
   # check input arguments
-  if (!file.exists(vol.in)) {
+  if (!file.exists(pvolfile)) {
     stop("No such file or directory")
   }
   if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
@@ -152,51 +154,51 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
     stop("invalid 'rcs' argument, radar cross section should be a ",
          "positive numeric value")
   }
-  if (!is.logical(dualpol)) {
-    stop("invalid 'dualpol' argument, should be logical")
+  if (!is.logical(dual_pol)) {
+    stop("invalid 'dual_pol' argument, should be logical")
   }
-  if (!is.numeric(rhohv) || rhohv <= 0 || rhohv > 1) {
-    stop("invalid 'rhohv' argument, correlation coefficient treshold ",
+  if (!is.numeric(rho_hv) || rho_hv <= 0 || rho_hv > 1) {
+    stop("invalid 'rho_hv' argument, correlation coefficient treshold ",
          "should be a numeric value between 0 and 1")
   }
-  if (!is.numeric(elev.min) || elev.min < -90 || elev.min > 90) {
-    stop("invalid 'elev.min' argument, elevation should be between ",
+  if (!is.numeric(elev_min) || elev_min < -90 || elev_min > 90) {
+    stop("invalid 'elev_min' argument, elevation should be between ",
          "-90 and 90 degrees")
   }
-  if (!is.numeric(elev.max) || elev.max < -90 || elev.max > 90) {
-    stop("invalid 'elev.max' argument, elevation should be between ",
+  if (!is.numeric(elev_max) || elev_max < -90 || elev_max > 90) {
+    stop("invalid 'elev_max' argument, elevation should be between ",
          "-90 and 90 degrees")
   }
-  if (elev.max < elev.min) {
-    stop("'elev.max' cannot be larger than 'elev.min'")
+  if (elev_max < elev_min) {
+    stop("'elev_max' cannot be larger than 'elev_min'")
   }
-  if (!is.numeric(azim.min) || azim.min < 0 || azim.min > 360) {
-    stop("invalid 'azim.min' argument, azimuth should be between ",
+  if (!is.numeric(azim_min) || azim_min < 0 || azim_min > 360) {
+    stop("invalid 'azim_min' argument, azimuth should be between ",
          "0 and 360 degrees")
   }
-  if (!is.numeric(azim.max) || azim.max < 0 || azim.max > 360) {
-    stop("invalid 'azim.max' argument, azimuth should be between ",
+  if (!is.numeric(azim_max) || azim_max < 0 || azim_max > 360) {
+    stop("invalid 'azim_max' argument, azimuth should be between ",
          "0 and 360 degrees")
   }
-  if (!is.numeric(range.min) || range.min < 0) {
-    stop("invalid 'range.min' argument, range should be a positive ",
+  if (!is.numeric(range_min) || range_min < 0) {
+    stop("invalid 'range_min' argument, range should be a positive ",
          "numeric value")
   }
-  if (!is.numeric(range.max) || range.max < 0) {
-    stop("invalid 'range.max' argument, range should be a positive ",
+  if (!is.numeric(range_max) || range_max < 0) {
+    stop("invalid 'range_max' argument, range should be a positive ",
          "numeric value")
   }
-  if (range.max < range.min) {
+  if (range_max < range_min) {
     stop("'rang.max' cannot be larger than 'rang.min'")
   }
-  if (!is.integer(nlayer) & nlayer <= 0) {
-    stop("'nlayer' should be a positive integer")
+  if (!is.integer(n_layer) & n_layer <= 0) {
+    stop("'n_layer' should be a positive integer")
   }
-  if (!is.numeric(hlayer) || hlayer < 0) {
-    stop("invalid 'hlayer' argument, should be a positive numeric value")
+  if (!is.numeric(h_layer) || h_layer < 0) {
+    stop("invalid 'h_layer' argument, should be a positive numeric value")
   }
-  if (!is.numeric(nyquist.min) || nyquist.min < 0) {
-    stop("invalid 'nyquist.min' argument, should be a positive numeric value")
+  if (!is.numeric(nyquist_min) || nyquist_min < 0) {
+    stop("invalid 'nyquist_min' argument, should be a positive numeric value")
   }
   if (!(dbz_quantity %in% c("DBZ","DBZH","DBZV","TH","TV"))) {
     warning(paste("expecting 'dbz_quantity' to be one of DBZ, DBZH, DBZV, TH, TV"))
@@ -221,14 +223,14 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   if (!length(verbose) == 1 || !is.logical(verbose)) {
     stop("verbose argument should be one of TRUE or FALSE")
   }
-  if (vp.out != "" && !file.exists(dirname(vp.out))) {
-    stop(paste("output directory", dirname(vp.out), "not found"))
+  if (vpfile != "" && !file.exists(dirname(vpfile))) {
+    stop(paste("output directory", dirname(vpfile), "not found"))
   }
 
-  filedir <- dirname(normalizePath(vol.in, winslash = "/"))
+  filedir <- dirname(normalizePath(pvolfile, winslash = "/"))
   if (!grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE)) {
     stop("mountpoint 'mount' has to be a parent directory ",
-         "of input file 'vol.in'")
+         "of input file 'pvolfile'")
   }
 
   profile.tmp <- tempfile(tmpdir = filedir)
@@ -240,15 +242,16 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   }
 
   # put options file in place, to be read by vol2bird container
-  opt.values <- c(as.character(c(sd_vvp_threshold, rcs, rhohv, elev.min, elev.max,
-                                 azim.min, azim.max, range.min, range.max,
-                                 nlayer, hlayer, nyquist.min,dbz_quantity)),
-                  if (dualpol) "TRUE" else "FALSE",
+  opt.values <- c(as.character(c(sd_vvp_threshold, rcs, rho_hv, elev_min, elev_max,
+                                 azim_min, azim_max, range_min, range_max,
+                                 n_layer, h_layer, nyquist_min, dbz_quantity)),
+                  if (dual_pol) "TRUE" else "FALSE",
                   if (dealias) "TRUE" else "FALSE")
 
   opt.names <- c("STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
                  "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE","DUALPOL", "DEALIAS_VRAD")
+                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "dual_pol",
+                 "DEALIAS_VRAD")
   opt <- data.frame("option" = opt.names, "is" = rep("=", length(opt.values)),
                     "value" = opt.values)
   optfile <- paste(normalizePath(mount, winslash = "/"),
@@ -274,24 +277,24 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   if (nchar(prefix) > 0) {
     prefix <- paste(prefix, "/", sep = "")
   }
-  vol.in.docker <- paste(prefix,basename(vol.in), sep = "")
+  pvolfile_docker <- paste(prefix,basename(pvolfile), sep = "")
   profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
-  if (vol.out != "") {
-    vol.out.docker <- paste(prefix, basename(vol.out), sep = "")
+  if (pvolfile_out != "") {
+    pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
   } else {
-    vol.out.docker <- ""
+    pvolfile_out_docker <- ""
   }
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
     result <- system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",
-                          vol.in.docker, profile.tmp.docker,
-                          vol.out.docker, "\""),
+                          pvolfile_docker, profile.tmp.docker,
+                          pvolfile_out_docker, "\""),
                     ignore.stdout = !verbose)
   } else{
     winstring <- paste("docker exec vol2bird bash -c \"cd data && vol2bird ",
-                       vol.in.docker, profile.tmp.docker,
-                       vol.out.docker, "\"")
+                       pvolfile_docker, profile.tmp.docker,
+                       pvolfile_out_docker, "\"")
     result <- suppressWarnings(system(winstring))
   }
   if (result != 0) {
@@ -303,10 +306,10 @@ calculate_vp <- function(vol.in, vp.out="", vol.out="", autoconf=FALSE,
   output <- read_vpfiles(profile.tmp)
 
   # clean up
-  if (vp.out == "") {
+  if (vpfile == "") {
     file.remove(profile.tmp)
   } else {
-    file.rename(profile.tmp,vp.out)
+    file.rename(profile.tmp,vpfile)
   }
   if (file.exists(optfile)) {
     file.remove(optfile)

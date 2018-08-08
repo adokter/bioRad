@@ -45,8 +45,8 @@ read_cajun <- function(file, rcs=11, wavelength='S') {
   data$DBZH <- 10*log10(data$linear_eta_unfiltered)
   data$w <- NA
   data$gap <- FALSE
-  data$dbz <- 10*log10(data$linear_eta)
-  data$dens <- data$linear_eta/rcs
+  data$dbz <- 10*log10(data$eta)
+  data$dens <- data$eta/rcs
   data$n <- NA
   data$n_dbz <- data$n_dbz_all*data$percent_rain
   data$n_all <- NA

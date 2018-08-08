@@ -4,25 +4,25 @@
 \alias{calculate_vp}
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
-calculate_vp(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(vol.in), sd_vvp_threshold = 2,
-  rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
-  elev.max = 90, azim.min = 0, azim.max = 360, range.min = 5000,
-  range.max = 25000, nlayer = 20L, hlayer = 200, dealias = TRUE,
-  nyquist.min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
+calculate_vp(pvolfile, vpfile = "", pvolfile_out = "", autoconf = FALSE,
+  verbose = FALSE, mount = dirname(pvolfile), sd_vvp_threshold = 2,
+  rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
+  elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
+  range_max = 25000, n_layer = 20L, h_layer = 200, dealias = TRUE,
+  nyquist_min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
 }
 \arguments{
-\item{vol.in}{A radar file containing a radar polar volume, either in
+\item{pvolfile}{A radar file containing a radar polar volume, either in
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
 \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
 supported by the
 \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.}
 
-\item{vp.out}{character. Filename for the vertical profile to be
+\item{vpfile}{character. Filename for the vertical profile to be
 generated in ODIM HDF5 format (optional).}
 
-\item{vol.out}{character. Filename for the polar volume to be
+\item{pvolfile_out}{character. Filename for the polar volume to be
 generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
 to ODIM).}
 
@@ -40,35 +40,35 @@ deviation (\code{sd_vvp_threshold}) in m/s.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
-\item{dualpol}{logical. When \code{TRUE} use dual-pol mode, in which
+\item{dual_pol}{logical. When \code{TRUE} use dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
-\code{rhohv}. When \code{FALSE} use single polarization mode based only
+\code{rho_hv}. When \code{FALSE} use single polarization mode based only
 on reflectivity and radial velocity quantities.}
 
-\item{rhohv}{numeric. Lower threshold in correlation coefficient used to
+\item{rho_hv}{numeric. Lower threshold in correlation coefficient used to
 filter meteorological scattering.}
 
-\item{elev.min}{numeric. Minimum scan elevation in degrees.}
+\item{elev_min}{numeric. Minimum scan elevation in degrees.}
 
-\item{elev.max}{numeric. Maximum scan elevation in degrees.}
+\item{elev_max}{numeric. Maximum scan elevation in degrees.}
 
-\item{azim.min}{numeric. Minimum azimuth in degrees clockwise from north.}
+\item{azim_min}{numeric. Minimum azimuth in degrees clockwise from north.}
 
-\item{azim.max}{numeric. Maximum azimuth in degrees clockwise from north.}
+\item{azim_max}{numeric. Maximum azimuth in degrees clockwise from north.}
 
-\item{range.min}{numeric. Minimum range in km.}
+\item{range_min}{numeric. Minimum range in km.}
 
-\item{range.max}{numeric. Maximum range in km.}
+\item{range_max}{numeric. Maximum range in km.}
 
-\item{nlayer}{numeric. Number of altitude layers in the profile.}
+\item{n_layer}{numeric. Number of altitude layers in the profile.}
 
-\item{hlayer}{numeric. Width of altitude layers in metre.}
+\item{h_layer}{numeric. Width of altitude layers in metre.}
 
 \item{dealias}{logical. Whether to dealias radial velocities; this should
 typically be done when the scans in the polar volume have low Nyquist
 velocities (below 25 m/s).}
 
-\item{nyquist.min}{numeric. Minimum Nyquist velocity of scans in m/s for
+\item{nyquist_min}{numeric. Minimum Nyquist velocity of scans in m/s for
 scans to be included in the analysis.}
 
 \item{dbz_quantity}{character. One of the available reflectivity factor
@@ -76,7 +76,7 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When
-defined, output files \code{vp.out} and \code{vol.out} are saved to disk.
+defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
 }
 \description{
 Calculates a vertical profile of birds (vp) from a polar volume (pvol).
@@ -84,7 +84,7 @@ Calculates a vertical profile of birds (vp) from a polar volume (pvol).
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon.
 
-Common arguments set by users are \code{vol.in}, \code{vp.out},
+Common arguments set by users are \code{pvolfile}, \code{vpfile},
 \code{autoconf} and \code{mount}.
 
 Turn on \code{autoconf} to automatically select the optimal parameters for a
@@ -95,17 +95,17 @@ The default for S-band data is to apply precipitation filtering in
 dual-polarization mode.
 
 Arguments that sometimes require non-default values are: \code{rcs},
-\code{sd_vvp_threshold}, \code{range.max}, \code{dualpol}, \code{dealias}.
+\code{sd_vvp_threshold}, \code{range_max}, \code{dual_pol}, \code{dealias}.
 
 Other arguments are typically left at their defaults.
 
-\code{azim.min} and \code{azim.max} only affects reflectivity-derived
+\code{azim_min} and \code{azim_max} only affects reflectivity-derived
 estimates in the profile (DBZH,eta,dens), not radial-velocity derived
 estimates (u, v, w, ff, dd, sd_vvp), which are estimated on all azimuths at
-all times. \code{azim.min}, \code{azim.max} may be set to exclude an angular
+all times. \code{azim_min}, \code{azim_max} may be set to exclude an angular
 sector with high ground clutter.
 
-\code{range.max} may be extended up to 40,000 m for volumes with low
+\code{range_max} may be extended up to 40,000 m for volumes with low
 elevations only, in order to extend coverage to higher altitudes.
 
 For altitude layers with a VVP-retrieved radial velocity standard deviation
@@ -115,7 +115,7 @@ might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter
 for most weather radars.
 The algorithm has been tested and developed for altitude layers with
-\code{hlayer} = 200 m. Smaller widths are not recommended as they may cause
+\code{h_layer} = 200 m. Smaller widths are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,
 and effectively lead to pseudo-replicated altitude data, since altitudinal
 patterns smaller than the beam width cannot be resolved.
@@ -126,15 +126,15 @@ season in western Europe at C-band. It's value may depend on radar
 wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M}
 the bird's mass.
 
-Using default values of \code{range.min} and \code{range.max} is
+Using default values of \code{range_min} and \code{range_max} is
 recommended. Ranges closer than 5 km tend to be contaminated by ground
 clutter, while range gates beyond 25 km become too wide to resolve the
 default altitude layer width of 200 metre (see \link{beam_width}).
 
 For dealiasing, the torus mapping method by Haase et al. is used.
 
-At S-band (radar wavelength ~ 10 cm), currently only \code{dualpol=T} mode
-is recommended.
+At S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol=TRUE}
+mode is recommended.
 
 On repeated calls of \code{calculate_vp}, the Docker container mount can be
 recycled from one call to the next if subsequent calls share the same

@@ -12,17 +12,21 @@
 #' @param log Logical, whether to display \code{quantity} data on a
 #' logarithmic scale.
 #' @param barbs Logical, whether to overlay speed barbs.
-#' @param barbs.h Integer, number of barbs to plot in altitudinal dimension.
-#' @param barbs.t Integer, number of barbs to plot in temporal dimension.
-#' @param barbs.dens Numeric, lower threshold in aerial density of individuals
+#' @param barbs_height Integer, number of barbs to plot in altitudinal dimension.
+#' @param barbs_time Integer, number of barbs to plot in temporal dimension.
+#' @param barbs_dens_min Numeric, lower threshold in aerial density of individuals
 #' for plotting speed barbs in individuals/km^3.
 #' @param zlim Optional numerical atomic vector of length 2, specifying the
 #' range of \code{quantity} values to plot.
-#' @param legend.ticks Numeric atomic vector specifying the ticks on the
+#' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{image} plotting function.
+#' @param barbs.h Deprecated argument, use barbs_height instead.
+#' @param barbs.t Deprecated argument, use barbs_time instead.
+#' @param barbs.dens Deprecated argument, use barbs_dens_min instead.
+#' @param legend.ticks Deprecated argument, use legend_ticks instead.
 #'
 #' @method plot vpts
 #'
@@ -60,10 +64,37 @@
 #' # plot total reflectivity factor (rain, birds, insects together):
 #' plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
 plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
-                      log = TRUE, barbs = TRUE, barbs.h = 10, barbs.t = 20,
-                      barbs.dens = 5, zlim, legend.ticks, main, ...) {
+                      log = TRUE, barbs = TRUE, barbs_height = 10, barbs.h = 10,
+                      barbs_time = 20, barbs.t = 20, barbs_dens_min = 5,
+                      barbs.dens = 5, zlim, legend_ticks, legend.ticks,
+                      main, ...) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
+
+  # deprecate function arguments
+  if (!missing(barbs.h)) {
+    warning("argument barbs.h is deprecated; please use barbs_height instead.",
+            call. = FALSE)
+    barbs_height <- barbs.h
+  }
+  if (!missing(barbs.t)) {
+    warning("argument barbs.t is deprecated; please use barbs_time instead.",
+            call. = FALSE)
+    barbs_time <- barbs.t
+  }
+  if (!missing(barbs.dens)) {
+    warning("argument barbs.dens is deprecated; please use barbs_dens_min ",
+            "instead.",
+            call. = FALSE)
+    barbs_dens_min <- barbs.dens
+  }
+  if (!missing(legend.ticks)) {
+    warning("argument legend.ticks is deprecated; please use legend_ticks ",
+            "instead.",
+            call. = FALSE)
+    legend_ticks <- legend.ticks
+  }
+
   args <- list(...)
   if (!x$regular) {
     warning("Irregular time-series: missing profiles will not be visible.",
@@ -101,8 +132,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   } else {
     ticks <- legendticks <- seq(zlim[1], zlim[2], length.out = 10)
   }
-  if (!missing(legend.ticks)) {
-    ticks <- legendticks <- legend.ticks
+  if (!missing(legend_ticks)) {
+    ticks <- legendticks <- legend_ticks
   }
 
   # set up the plot labels
@@ -169,14 +200,14 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   # overlay speed barbs
   if (barbs) {
     if ("xlim" %in% names(args)) {
-      t.barbs <- seq(min(args$xlim), max(args$xlim), length.out = barbs.t)
+      t.barbs <- seq(min(args$xlim), max(args$xlim), length.out = barbs_time)
     } else {
-      t.barbs <- seq(x$dates[1], tail(x$dates, 1), length.out = barbs.t)
+      t.barbs <- seq(x$dates[1], tail(x$dates, 1), length.out = barbs_time)
     }
     if ("ylim" %in% names(args)) {
-      h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs.h)
+      h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height)
     } else {
-      h.barbs <- seq(x$heights[1], tail(x$heights, 1), length.out = barbs.h)
+      h.barbs <- seq(x$heights[1], tail(x$heights, 1), length.out = barbs_height)
     }
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)
     barbdata$indext <- sapply(barbdata$date,
@@ -189,7 +220,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       function(xx,yy) x$data$dd[xx,yy], barbdata$indexh, barbdata$indext)
     barbdata$dens <- mapply(
       function(xx,yy) x$data$dens[xx,yy], barbdata$indexh, barbdata$indext)
-    barbdata <- barbdata[barbdata$dens > barbs.dens,]
+    barbdata <- barbdata[barbdata$dens > barbs_dens_min,]
     plot_wind_barbs(barbdata$date,barbdata$height, 180 + barbdata$dd,
                     2*barbdata$ff, cex = 0.7)
   }

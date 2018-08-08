@@ -11,7 +11,7 @@
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
 #' @param main A title for the plot.
-#' @param nightshade Logical, whether to plot night time shading.
+#' @param night_shade Logical, whether to plot night time shading.
 #' @param elev Numeric, sun elevation to use for day/night transition,
 #' see \link[bioRad]{suntime}.
 #' @param lat (optional) Latitude in decimal degrees. Overrides the lat
@@ -20,6 +20,7 @@
 #' attribute of \code{x}.
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{plot} plotting function.
+#' @param nightshade Deprecated argument, use night_shade instead.
 #'
 #' @method plot vpi
 #'
@@ -46,14 +47,21 @@
 #' # plot the migration traffic rates
 #' plot(vpi)
 #' # plot the vertically integrated densities, without night shading:
-#' plot(vpi, quantity = "vid", nightshade = FALSE)
+#' plot(vpi, quantity = "vid", night_shade = FALSE)
 plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      ylab = "migration traffic rate [#/km/h]",
-                     main = "MTR", nightshade = TRUE, elev = -0.268,
-                     lat = NULL, lon = NULL, ylim = NULL, ...) {
+                     main = "MTR", night_shade = TRUE, nightshade = TRUE,
+                     elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, ...) {
   stopifnot(inherits(x, "vpi"))
   stopifnot(quantity %in% c("mtr", "vid", "vir", "rtr", "mt",
                             "rt", "ff", "dd", "u", "v"))
+
+  # deprecate function argument
+  if (!missing(nightshade)) {
+    warning("argument nightshade is deprecated; please use night_shade instead.",
+            call. = FALSE)
+    night_shade <- nightshade
+  }
 
   # set up the plot labels
   if (missing(ylab)) {
@@ -82,24 +90,25 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
   }
   if (missing(lat)) lat = attributes(x)$lat
   if (missing(lon)) lon = attributes(x)$lon
-  
+
   # plot the data
   plot(x$datetime, x[quantity][[1]], type = 'l', xlab = "time", ylab = ylab,
        ylim = ylim, main = main, xaxs = "i", yaxs = "i", ...)
 
-  if (nightshade) {
+  if (night_shade) {
     if (!is.numeric(lat) || !is.numeric(lon)) {
       stop("No latitude/longitude found in attribute data, please provide",
-           "lat and lon arguments when nightshade=TRUE.")
+           "lat and lon arguments when night_shade=TRUE.")
     }
 
     # calculate sunrise and sunset
     days <- as.POSIXct(seq(as.Date(min(x$datetime) - 24*3600),
                            as.Date(max(x$datetime) + 24*3600),
                            by = "days"), tz = "UTC")
+
     trise <- sunrise(days, lon, lat)
     tset <- sunset(days, lon, lat)
-    
+
     if (trise[1] < tset[1]) {
       trise = trise[-1]
       tset = tset[-length(tset)]

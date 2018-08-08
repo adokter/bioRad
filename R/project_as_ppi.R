@@ -4,10 +4,10 @@
 #' Make a plan position indicator (ppi)
 #'
 #' @param x An object of class \code{param} or \code{scan}.
-#' @param cellsize Cartesian grid size in m.
-#' @param range.max Maximum range in m.
-#' @param latlim The range of latitudes to include.
-#' @param lonlim The range of longitudes to include.
+#' @param grid_size Cartesian grid size in m.
+#' @param range_max Maximum range in m.
+#' @param ylim The range of latitudes to include.
+#' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
 #' @param ... Arguments passed to methods.
 #'
@@ -32,8 +32,8 @@
 #' ppi <- project_as_ppi(param)
 #' # print summary info for this ppi:
 #' ppi
-project_as_ppi <- function(x, cellsize = 500, range.max = 50000,
-                           project = FALSE, latlim = NULL, lonlim = NULL) {
+project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
+                           project = FALSE, ylim = NULL, xlim = NULL) {
   UseMethod("project_as_ppi", x)
 }
 
@@ -41,10 +41,11 @@ project_as_ppi <- function(x, cellsize = 500, range.max = 50000,
 #' @describeIn project_as_ppi Project as \code{ppi} for a single scan parameter.
 #'
 #' @export
-project_as_ppi.param <- function(x, cellsize = 500, range.max = 50000,
-                                 project = FALSE, latlim = NULL, lonlim = NULL) {
+project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
+                                 project = FALSE, ylim = NULL, xlim = NULL) {
   stopifnot(inherits(x, "param"))
-  data <- sample_polar(x, cellsize, range.max, project, latlim, lonlim)
+
+  data <- sample_polar(x, grid_size, range_max, project, ylim, xlim)
   # copy the parameter's attributes
   geo <- attributes(x)$geo
   geo$bbox <- attributes(data)$bboxlatlon
@@ -59,11 +60,12 @@ project_as_ppi.param <- function(x, cellsize = 500, range.max = 50000,
 #' parameters in a scan
 #'
 #' @export
-project_as_ppi.scan <- function(x, cellsize = 500, range.max = 50000,
-                                project = FALSE, latlim = NULL, lonlim = NULL) {
+project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
+                                project = FALSE, ylim = NULL,  xlim = NULL) {
   stopifnot(inherits(x, "scan"))
-  data <- sample_polar(x$params[[1]], cellsize, range.max,
-                       project, latlim, lonlim)
+
+  data <- sample_polar(x$params[[1]], grid_size, range_max,
+                       project, ylim, xlim)
   # copy the parameter's geo list to attributes
   geo <- x$geo
   geo$bbox <- attributes(data)$bboxlatlon
@@ -71,8 +73,8 @@ project_as_ppi.scan <- function(x, cellsize = 500, range.max = 50000,
   if (length(x$params) > 1) {
     alldata <- lapply(x$params,
                       function(param) {
-                        sample_polar(param, cellsize, range.max,
-                                     project, latlim, lonlim)
+                        sample_polar(param, grid_size, range_max,
+                                     project, ylim, xlim)
                         }
                       )
     data <- do.call(cbind, alldata)
@@ -84,34 +86,34 @@ project_as_ppi.scan <- function(x, cellsize = 500, range.max = 50000,
 }
 
 
-sample_polar <- function(param, cellsize, range.max, project, latlim, lonlim) {
+sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   #proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
                            " +lon_0=", attributes(param)$geo$lon,
                            " +units=m",sep = ""))
-  bboxlatlon <- proj_to_wgs(c(-range.max,range.max),
-                         c(-range.max,range.max),
+  bboxlatlon <- proj_to_wgs(c(-range_max,range_max),
+                         c(-range_max,range_max),
                          proj4string)@bbox
-  if (!missing(latlim) & !is.null(latlim)) {
-    bboxlatlon["lat",] <- latlim
+  if (!missing(ylim) & !is.null(ylim)) {
+    bboxlatlon["lat",] <- ylim
   }
-  if (!missing(lonlim) & !is.null(lonlim)) {
-    bboxlatlon["lon",] <- lonlim
+  if (!missing(xlim) & !is.null(xlim)) {
+    bboxlatlon["lon",] <- xlim
   }
-  if (missing(latlim) & missing(lonlim)) {
-    cellcentre.offset <- -c(range.max, range.max)
-    cells.dim <- ceiling(rep(2*range.max/cellsize, 2))
+  if (missing(ylim) & missing(xlim)) {
+    cellcentre.offset <- -c(range_max, range_max)
+    cells.dim <- ceiling(rep(2*range_max/grid_size, 2))
   } else {
     bbox <- wgs_to_proj(bboxlatlon["lon",], bboxlatlon["lat",], proj4string)
     cellcentre.offset <- c(min(bbox@coords[, "x"]),
                            min(bbox@coords[, "y"]))
     cells.dim <- c(ceiling((max(bbox@coords[, "x"]) -
-                              min(bbox@coords[, "x"]))/cellsize),
+                              min(bbox@coords[, "x"]))/grid_size),
                    ceiling((max(bbox@coords[, "y"]) -
-                              min(bbox@coords[, "y"]))/cellsize))
+                              min(bbox@coords[, "y"]))/grid_size))
   }
   # define cartesian grid
-  gridTopo <- GridTopology(cellcentre.offset, c(cellsize, cellsize), cells.dim)
+  gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   # if projecting, account for elevation angle - not accounting for
   # earths curvature
   if (project) {
@@ -185,9 +187,9 @@ safe_subset <- function(data, indexx, indexy) {
   out
 }
 
-polar_to_index <- function(coords.polar, rangebin = 1, azimbin = 1) {
-  row <- floor(1 + coords.polar$range/rangebin)
-  col <- floor(1 + coords.polar$azim/azimbin)
+polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1) {
+  row <- floor(1 + coords_polar$range/rangebin)
+  col <- floor(1 + coords_polar$azim/azimbin)
   data.frame(row = row,col = col)
 }
 

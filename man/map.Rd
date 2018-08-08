@@ -8,7 +8,8 @@
 map(x, ...)
 
 \method{map}{ppi}(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
-  ratio, radar.size = 3, radar.color = "red", n.color = 1000, ...)
+  ratio, radar_size = 3, radar.size = 3, radar_color = "red",
+  radar.color = "red", n_color = 1000, n.color = 1000, ...)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}
@@ -32,11 +33,17 @@ vector of length 2.}
 \item{ratio}{Aspect ratio between x and y scale, by default
 \eqn{1/cos(latitude radar * pi/180)}.}
 
-\item{radar.size}{Size of the symbol indicating the radar position.}
+\item{radar_size}{Size of the symbol indicating the radar position.}
 
-\item{radar.color}{Colour of the symbol indicating the radar position.}
+\item{radar.size}{Deprecated argument, use radar_size instead.}
 
-\item{n.color}{The number of colors (>=1) to be in the palette.}
+\item{radar_color}{Colour of the symbol indicating the radar position.}
+
+\item{radar.color}{Deprecated argument, use radar_color instead.}
+
+\item{n_color}{The number of colors (>=1) to be in the palette.}
+
+\item{n.color}{Deprecated argument, use n_color instead.}
 }
 \value{
 A ggmap object (a classed raster object with a bounding
@@ -82,7 +89,7 @@ map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 # give the data less transparency:
 map(ppi, map = basemap, alpha = 0.9)
 # change the appearance of the symbol indicating the radar location:
-map(ppi, map = basemap, radar.size = 5, radar.color = "green")
+map(ppi, map = basemap, radar_size = 5, radar_color = "green")
 # crop the map:
 map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }

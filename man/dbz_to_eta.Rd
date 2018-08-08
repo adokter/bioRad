@@ -4,14 +4,14 @@
 \alias{dbz_to_eta}
 \title{Convert reflectivity factor to reflectivity}
 \usage{
-dbz_to_eta(dbz, wavelength, Km = 0.93)
+dbz_to_eta(dbz, wavelength, K = 0.93)
 }
 \arguments{
 \item{dbz}{reflectivity factor in dBZ}
 
 \item{wavelength}{radar wavelength in cm}
 
-\item{Km}{norm of the complex refractive index of water}
+\item{K}{norm of the complex refractive index of water}
 }
 \value{
 reflectivity in cm^2/km^3

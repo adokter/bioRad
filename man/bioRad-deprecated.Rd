@@ -49,23 +49,23 @@ bind(x, ...)
 
 checkDocker(...)
 
-composite(...)
+composite(x, param = "DBZH", cells.dim = c(100, 100))
 
 day(x, ..., elev = -0.268)
 
-dbz2eta(...)
+dbz2eta(dbz, wavelength, Km = 0.93)
 
-download_vp(...)
+download_vp(start_date, end_date, country, radar, localpath = ".")
 
 elangle(...)
 
-eta2dbz(...)
+eta2dbz(eta, wavelength, Km = 0.93)
 
 fetch(...)
 
-getscan(...)
+getscan(x, angle)
 
-h5ODIMobject(...)
+h5ODIMobject(filename)
 
 is.vplist(...)
 
@@ -77,9 +77,12 @@ cmt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
 
 night(x, ..., elev = -0.268)
 
-ppi(...)
+ppi(x, cellsize = 500, range.max = 50000, project = FALSE,
+  latlim = NULL, lonlim = NULL)
 
-read.pvol(...)
+read.pvol(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
+  "PHIDP", "CELL"), sort = TRUE, lat, lon, height, elangle.min = 0,
+  elangle.max = 90, verbose = TRUE, mount = dirname(filename))
 
 readvp(...)
 
@@ -87,11 +90,12 @@ readvp.list(...)
 
 readvp.table(...)
 
-regularize(...)
+regularize(ts, interval = "auto", t.min = ts$daterange[1],
+  t.max = ts$daterange[2], units = "mins", fill = FALSE, verbose = TRUE)
 
-retrieve_vp_paths(...)
+retrieve_vp_paths(path, start_date, end_date, country = NULL, radar = NULL)
 
-rsl2odim(...)
+rsl2odim(vol.in, vol.out, verbose = FALSE, mount = dirname(vol.in))
 
 suntime(..., rise = TRUE)
 
@@ -99,7 +103,12 @@ updateDocker(...)
 
 vintegrate(...)
 
-vol2bird(...)
+vol2bird(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
+  verbose = FALSE, mount = dirname(vol.in), sd_vvp_threshold = 2,
+  rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
+  elev.max = 90, azim.min = 0, azim.max = 360, range.min = 5000,
+  range.max = 25000, nlayer = 20L, hlayer = 200, dealias = TRUE,
+  nyquist.min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
 
 vpts(...)
 }
@@ -391,7 +400,7 @@ data(example_vpts)
 # print migration traffic rates:
 \dontrun{mtr(example_vpts)}
 # to plot migration traffic rate data, use integrate_profile:
-plot(integrate_profile(example_vpts), quantity = "mtr")
+\dontrun{plot(integrate_profile(example_vpts), quantity = "mtr")}
 # get example time series of vertical profiles:
 data(example_vpts)
 

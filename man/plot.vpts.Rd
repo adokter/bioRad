@@ -5,8 +5,9 @@
 \title{Plot a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{plot}{vpts}(x, xlab = "time", ylab = "height [m]",
-  quantity = "dens", log = TRUE, barbs = TRUE, barbs.h = 10,
-  barbs.t = 20, barbs.dens = 5, zlim, legend.ticks, main, ...)
+  quantity = "dens", log = TRUE, barbs = TRUE, barbs_height = 10,
+  barbs.h = 10, barbs_time = 20, barbs.t = 20, barbs_dens_min = 5,
+  barbs.dens = 5, zlim, legend_ticks, legend.ticks, main, ...)
 }
 \arguments{
 \item{x}{A vp class object inheriting from class \code{vpts}.}
@@ -25,18 +26,26 @@ logarithmic scale.}
 
 \item{barbs}{Logical, whether to overlay speed barbs.}
 
-\item{barbs.h}{Integer, number of barbs to plot in altitudinal dimension.}
+\item{barbs_height}{Integer, number of barbs to plot in altitudinal dimension.}
 
-\item{barbs.t}{Integer, number of barbs to plot in temporal dimension.}
+\item{barbs.h}{Deprecated argument, use barbs_height instead.}
 
-\item{barbs.dens}{Numeric, lower threshold in aerial density of individuals
+\item{barbs_time}{Integer, number of barbs to plot in temporal dimension.}
+
+\item{barbs.t}{Deprecated argument, use barbs_time instead.}
+
+\item{barbs_dens_min}{Numeric, lower threshold in aerial density of individuals
 for plotting speed barbs in individuals/km^3.}
+
+\item{barbs.dens}{Deprecated argument, use barbs_dens_min instead.}
 
 \item{zlim}{Optional numerical atomic vector of length 2, specifying the
 range of \code{quantity} values to plot.}
 
-\item{legend.ticks}{Numeric atomic vector specifying the ticks on the
+\item{legend_ticks}{Numeric atomic vector specifying the ticks on the
 color bar.}
+
+\item{legend.ticks}{Deprecated argument, use legend_ticks instead.}
 
 \item{main}{A title for the plot.}
 
