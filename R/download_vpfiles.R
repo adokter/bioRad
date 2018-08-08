@@ -22,14 +22,14 @@ check_url_existence <- function(url) {
 #' \href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/}
 #' for an overview of available data.
 #'
-#' @param start_date ISO fomat date indicating the first date to download
+#' @param date_min ISO fomat date indicating the first date to download
 #' files from.
-#' @param end_date ISO fomat date indicating the last date to download
+#' @param date_max ISO fomat date indicating the last date to download
 #' files from
 #' @param country Char vector with two letter country shortcuts.
 #' @param radar Char vector with three letter radar sindicators. Make sure the
 #' radars selected are in accordance to the country selection
-#' @param localpath Char defining the location to store the downloaded zip
+#' @param directory Char defining the location to store the downloaded zip
 #' folders and unzip into the default folder structure
 #'
 #' @export
@@ -39,13 +39,13 @@ check_url_existence <- function(url) {
 #' @examples
 #' my_path <- "~/my/directory/"
 #' \dontrun{download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-#' c("jab", "wid"), localpath = my_path)}
-download_vpfiles <- function(start_date, end_date, country, radar,
-                             localpath = ".") {
+#' c("jab", "wid"), directory = my_path)}
+download_vpfiles <- function(date_min, date_max, country, radar,
+                             directory = ".") {
   # create date range set of potential downloadable zip files (if all data
   # would exist)
-  start <- floor_date(as_date(start_date, tz = NULL), "month")
-  end <- floor_date(as_date(end_date, tz = NULL), "month")
+  start <- floor_date(as_date(date_min, tz = NULL), "month")
+  end <- floor_date(as_date(date_max, tz = NULL), "month")
   dates_to_check <- seq(start, end, by = 'months')
 
   # ZIP-file format preparation
@@ -60,12 +60,12 @@ download_vpfiles <- function(start_date, end_date, country, radar,
                             paste,
                             collapse = "/")
   # PATH-format as it will be represented locally
-  countryradarlocalpath <- apply(expand.grid(country, radar,
+  countryradardirectory <- apply(expand.grid(country, radar,
                                              format(dates_to_check, "%Y/%m")),
                                  1,
                                  paste,
                                  collapse = "/")
-  countryradarlocalpath <- file.path(localpath, countryradarlocalpath)
+  countryradardirectory <- file.path(directory, countryradardirectory)
 
   # combine base path (S3 location) with the potential data URLS
   base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
@@ -77,12 +77,12 @@ download_vpfiles <- function(start_date, end_date, country, radar,
     z <- check_url_existence(urls[i])
     if (length(z) > 1) {
       print(paste("Downloading file", countryradardate[i]))
-      curl_download(urls[i], file.path(localpath, countryradardate[i]),
+      curl_download(urls[i], file.path(directory, countryradardate[i]),
                     quiet = FALSE)
 
       # Unzip the downloaded archive to the common file structure
-      unzip(file.path(localpath, countryradardate[i]),
-            exdir = countryradarlocalpath[i])
+      unzip(file.path(directory, countryradardate[i]),
+            exdir = countryradardirectory[i])
     }
   }
 }

@@ -6,9 +6,9 @@
 #' @param range numeric. Range (distance from the radar antenna) in km.
 #' @param elev numeric. Elevation in degrees.
 #' @param k Standard refraction coefficient.
+#' @param lat Geodetic latitude in degrees.
 #' @param re Earth equatorial radius in km.
 #' @param rp Earth polar radius in km.
-#' @param lat Geodetic latitude in degrees.
 #'
 #' @return numeric. Beam height in km.
 #'
@@ -29,8 +29,8 @@ beam_height <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
        ) - k * earth_radius(re, rp, lat)
 }
 
-earth_radius <- function(a, b, latdeg) {
-  lat <- latdeg * pi/180
+earth_radius <- function(a, b, lat) {
+  lat <- lat * pi/180
   sqrt(((a^2*cos(lat))^2 + (b^2*sin(lat))^2)/((a*cos(lat))^2 + (b*sin(lat))^2))
 }
 
@@ -39,8 +39,13 @@ earth_radius <- function(a, b, latdeg) {
 #' Calculates the width of a radar beam as a function of range and beam angle.
 #'
 #' @param range numeric. Range (distance from the radar antenna) in km.
-#' @param angle numeric. Beam angle in degrees.
+#' @param beam_angle numeric. Beam opening angle in degrees, typically the
+#' the angle between the half-power (-3 dB) points of the main lobe
+#'
 #' @return numeric. Beam width in m.
 #'
 #' @export
-beam_width <- function(range, angle = 1) range*1000*sin(angle*pi/180)
+beam_width <- function(range, beam_angle = 1) {
+  range*1000*sin(beam_angle*pi/180)
+}
+

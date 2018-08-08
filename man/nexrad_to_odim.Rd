@@ -4,13 +4,14 @@
 \alias{nexrad_to_odim}
 \title{Convert a NEXRAD polar volume file to an ODIM polar volume file}
 \usage{
-nexrad_to_odim(vol.in, vol.out, verbose = FALSE, mount = dirname(vol.in))
+nexrad_to_odim(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
+  mount = dirname(pvolfile_nexrad))
 }
 \arguments{
-\item{vol.in}{Polar volume input file in RSL format.}
+\item{pvolfile_nexrad}{Polar volume input file in RSL format.}
 
-\item{vol.out}{Filename for the polar volume in ODIM hdf5 format to be
-generated}
+\item{pvolfile_odim}{Filename for the polar volume in ODIM hdf5 format to be
+generated.}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
 Windows always TRUE.}

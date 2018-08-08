@@ -37,13 +37,14 @@
 #' # print to screen the available scan parameters
 #' summary(example_scan)
 #' # make ppi for the scan
-#' # plot the reflectivity quantity:
+#' # plot the reflectivity param:
 #' plot(example_scan, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
 #' plot(example_scan, param = "DBZH", zlim = c(-30, 50))
 plot.scan <- function(x, param, xlim = c(0, 100),
                       ylim = c(0, 360), zlim = c(-20, 20), ...) {
   stopifnot(inherits(x, "scan"))
+
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {
       param <- "DBZH"
@@ -68,7 +69,7 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   data <- data.frame(rasterToPoints(raster(data)))
   data$x <- (1 - data$x) * dimraster[2] * x$attributes$where$nrays / 360
   data$y <- (1 - data$y) * dimraster[1] * x$attributes$where$rscale / 1000
-  # change the name from "layer" to the quantity names
+  # change the name from "layer" to the parameter names
   names(data) <- c("azimuth", "range", param)
   # bring z-values within plotting range
   index <- which(data[,3] < zlim[1])

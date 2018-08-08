@@ -7,9 +7,9 @@
 #' @param map  The basemap to use, result of a call to \link{download_basemap}.
 #' @param param The scan parameter to plot.
 #' @param alpha Transparency of the data, value between 0 and 1.
-#' @param radar.size Size of the symbol indicating the radar position.
-#' @param radar.color Colour of the symbol indicating the radar position.
-#' @param n.color The number of colors (>=1) to be in the palette.
+#' @param radar_size Size of the symbol indicating the radar position.
+#' @param radar_color Colour of the symbol indicating the radar position.
+#' @param n_color The number of colors (>=1) to be in the palette.
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.
 #' @param ylim Range of y values to plot (degrees latitude), as an atomic
@@ -18,6 +18,9 @@
 #' @param ratio Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
 #' @param ... Arguments passed to low level \link[ggmap]{ggmap} function.
+#' @param radar.size Deprecated argument, use radar_size instead.
+#' @param radar.color Deprecated argument, use radar_color instead.
+#' @param n.color Deprecated argument, use n_color instead.
 #'
 #' @return A ggmap object (a classed raster object with a bounding
 #' box attribute).
@@ -55,7 +58,7 @@
 #' # give the data less transparency:
 #' map(ppi, map = basemap, alpha = 0.9)
 #' # change the appearance of the symbol indicating the radar location:
-#' map(ppi, map = basemap, radar.size = 5, radar.color = "green")
+#' map(ppi, map = basemap, radar_size = 5, radar_color = "green")
 #' # crop the map:
 #' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 map <- function(x, ...) {
@@ -65,8 +68,27 @@ map <- function(x, ...) {
 #' @describeIn map plot a 'ppi' object on a map
 #' @export
 map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
-                    zlim = c(-20, 20), ratio, radar.size = 3,
-                    radar.color = "red", n.color = 1000, ...) {
+                    zlim = c(-20, 20), ratio, radar_size = 3, radar.size = 3,
+                    radar_color = "red", radar.color = "red", n_color = 1000,
+                    n.color = 1000, ...) {
+
+  # deprecate function arguments
+  if (!missing(radar.size)) {
+    warning("argument radar.size is deprecated; please use radar_size instead.",
+            call. = FALSE)
+    radar_size <- radar.size
+  }
+  if (!missing(radar.color)) {
+    warning("argument radar.color is deprecated; please use radar_color instead.",
+            call. = FALSE)
+    radar_color <- radar.color
+  }
+  if (!missing(n.color)) {
+    warning("argument n.color is deprecated; please use n_color instead.",
+            call. = FALSE)
+    n_color <- n.color
+  }
+
   stopifnot(inherits(x, "ppi"))
 
   if (missing(param)) {
@@ -128,18 +150,18 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
       colorRampPalette(colors = c("blue", "white", "red"),
-                       alpha = TRUE)(n.color), alpha = alpha)
+                       alpha = TRUE)(n_color), alpha = alpha)
   } else {
     cols <- add_color_transparency(
       colorRampPalette(colors = c("lightblue", "darkblue", "green",
                                   "yellow", "red", "magenta"),
-                       alpha = TRUE)(n.color), alpha = alpha)
+                       alpha = TRUE)(n_color), alpha = alpha)
   }
 
   col_func <- function(value, lim) {
     output <- rep(0, length(value))
-    output <- round((value - lim[1])/(lim[2] - lim[1]) * n.color)
-    output[output > n.color] <- n.color
+    output <- round((value - lim[1])/(lim[2] - lim[1]) * n_color)
+    output[output > n_color] <- n_color
     output[output < 1] <- 1
     return(cols[output])
   }
@@ -155,8 +177,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
                       data = data.frame(lon = x$geo$lon,
                                         lat = x$geo$lat,
                                         z = 0))
-  radarpoint <- geom_point(aes(x = lon, y = lat), colour = radar.color,
-                           size = radar.size,
+  radarpoint <- geom_point(aes(x = lon, y = lat), colour = radar_color,
+                           size = radar_size,
                            data = data.frame(lon = x$geo$lon, lat = x$geo$lat))
   # colorscale
   colorscale <- color_scale(param, zlim)

@@ -4,13 +4,13 @@
 \alias{download_vpfiles}
 \title{Download vertical profile files (\code{vp}) from the ENRAM data repository}
 \usage{
-download_vpfiles(start_date, end_date, country, radar, localpath = ".")
+download_vpfiles(date_min, date_max, country, radar, directory = ".")
 }
 \arguments{
-\item{start_date}{ISO fomat date indicating the first date to download
+\item{date_min}{ISO fomat date indicating the first date to download
 files from.}
 
-\item{end_date}{ISO fomat date indicating the last date to download
+\item{date_max}{ISO fomat date indicating the last date to download
 files from}
 
 \item{country}{Char vector with two letter country shortcuts.}
@@ -18,7 +18,7 @@ files from}
 \item{radar}{Char vector with three letter radar sindicators. Make sure the
 radars selected are in accordance to the country selection}
 
-\item{localpath}{Char defining the location to store the downloaded zip
+\item{directory}{Char defining the location to store the downloaded zip
 folders and unzip into the default folder structure}
 }
 \description{
@@ -31,5 +31,5 @@ for an overview of available data.
 \examples{
 my_path <- "~/my/directory/"
 \dontrun{download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-c("jab", "wid"), localpath = my_path)}
+c("jab", "wid"), directory = my_path)}
 }

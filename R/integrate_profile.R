@@ -1,17 +1,18 @@
-#' Vertically integrate profiles (\code{vp} or \code{vpts}) to an integrated profile (\code{vpi})
+#' Vertically integrate profiles (\code{vp} or \code{vpts}) to an
+#' integrated profile (\code{vpi})
 #'
 #' Performs a vertical integration of density, reflectivity and migration
 #' traffic rate, and a vertical averaging of ground speed and direction
 #' weighted by density.
 #'
 #' @param x A \code{vp} or \code{vpts} object.
-#' @param alt.min Minimum altitude in m.
-#' @param alt.max Maximum altitude in m.
+#' @param alt_min Minimum altitude in m.
+#' @param alt_max Maximum altitude in m.
 #' @param alpha Migratory direction in clockwise degrees from north.
-#' @param interval.max Maximum time interval belonging to a single profile in
+#' @param interval_max Maximum time interval belonging to a single profile in
 #' seconds. Traffic rates are set to zero at times \code{t} for which no
-#' profiles can be found within the period \code{t-interval.max/2} to
-#' \code{t+interval.max/2}. Ignored for single profiles of class \code{vp}.
+#' profiles can be found within the period \code{t-interval_max/2} to
+#' \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.
 #'
 #' @return an object of class \code{vpi}, a data frame with vertically
 #' integrated profile quantities
@@ -55,8 +56,8 @@
 #'
 #' \deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
 #'
-#' with the sum running over all altitude layers between \code{alt.min} and
-#' \code{alt.max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+#' with the sum running over all altitude layers between \code{alt_min} and
+#' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
 #' altitude layer i, and \eqn{\Delta h} the altitude layer width.
 #'
 #' If \code{alpha} is given a numeric value, the transect is taken perpendicular
@@ -107,26 +108,25 @@
 #' # plot migration traffic rates for the full air column
 #' plot(example_vpts)
 #' # plot migration traffic rates for altitudes > 1 km above sea level
-#' plot(integrate_profile(example_vpts, alt.min = 1000))
+#' plot(integrate_profile(example_vpts, alt_min = 1000))
 #' # plot the (cumulative) migration traffic
-#' plot(integrate_profile(example_vpts), quantity="mt")
-
-integrate_profile <- function(x, alt.min, alt.max,
-                              alpha = NA, interval.max = Inf) {
+#' plot(integrate_profile(example_vpts), quantity = "mt")
+integrate_profile <- function(x, alt_min, alt_max,
+                              alpha = NA, interval_max = Inf) {
   UseMethod("integrate_profile", x)
 }
 
 #' @describeIn integrate_profile Vertically integrate a vertical profile.
 #'
 #' @export
-integrate_profile.vp <- function(x, alt.min = 0, alt.max = Inf, alpha = NA,
-                                 interval.max = Inf) {
+integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
+                                 interval_max = Inf) {
   stopifnot(inherits(x, "vp"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
   interval <- x$attributes$where$interval
-  index <- which(x$data$HGHT >= alt.min & x$data$HGHT < alt.max)
+  index <- which(x$data$HGHT >= alt_min & x$data$HGHT < alt_max)
 
   if (is.na(alpha)) {
     cosfactor <- rep(1, length(index))
@@ -158,8 +158,8 @@ integrate_profile.vp <- function(x, alt.min = 0, alt.max = Inf, alpha = NA,
                        v = v, HGHT = height)
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
-  attributes(output)$alt.min <- alt.min
-  attributes(output)$alt.max <- alt.max
+  attributes(output)$alt_min <- alt_min
+  attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
@@ -171,20 +171,20 @@ integrate_profile.vp <- function(x, alt.min = 0, alt.max = Inf, alpha = NA,
 #' vertical profiles.
 #'
 #' @export
-integrate_profile.list <- function(x, alt.min = 0, alt.max = Inf,
-                                     alpha = NA, interval.max = Inf) {
+integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
+                                   alpha = NA, interval_max = Inf) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
 
-  output <- do.call(rbind, lapply(x, integrate_profile.vp, alt.min = alt.min,
-                                  alt.max = alt.max, alpha = alpha,
-                                  interval.max = interval.max))
+  output <- do.call(rbind, lapply(x, integrate_profile.vp, alt_min = alt_min,
+                                  alt_max = alt_max, alpha = alpha,
+                                  interval_max = interval_max))
   class(output) <- c("vpi", "data.frame")
-  attributes(output)$alt.min <- alt.min
-  attributes(output)$alt.max <- alt.max
+  attributes(output)$alt_min <- alt_min
+  attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
   #TODO set lat/lon attributes
@@ -195,14 +195,14 @@ integrate_profile.list <- function(x, alt.min = 0, alt.max = Inf,
 #' vertical profiles.
 #'
 #' @export
-integrate_profile.vpts <- function(x, alt.min = 0, alt.max = Inf,
-                                   alpha = NA, interval.max = Inf) {
+integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
+                                   alpha = NA, interval_max = Inf) {
   stopifnot(inherits(x, "vpts"))
-  stopifnot(is.numeric(alt.min) & is.numeric(alt.max))
+  stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
   interval <- x$attributes$where$interval
-  index <- which(x$heights >= alt.min & x$heights < alt.max)
+  index <- which(x$heights >= alt_min & x$heights < alt_max)
   if (is.na(alpha)) {
     cosfactor <- 1 + 0*get_quantity(x, "dd")[index,]
   } else {
@@ -229,7 +229,7 @@ integrate_profile.vpts <- function(x, alt.min = 0, alt.max = Inf,
   dd <- (pi/2 - atan2(v, u)) * 180/pi
   # time-integrated measures:
   dt <- (c(0, x$timesteps) + c(x$timesteps, 0))/2
-  dt <- pmin(interval.max, dt)
+  dt <- pmin(interval_max, dt)
   # convert to hours
   dt <- as.numeric(dt)/3600
   mt <- cumsum(dt * mtr)
@@ -240,8 +240,8 @@ integrate_profile.vpts <- function(x, alt.min = 0, alt.max = Inf,
                        v = v, HGHT = height)
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
-  attributes(output)$alt.min <- alt.min
-  attributes(output)$alt.max <- alt.max
+  attributes(output)$alt_min <- alt_min
+  attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat

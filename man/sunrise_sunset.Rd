@@ -6,19 +6,21 @@
 \alias{sunset}
 \title{Calculate sunrise or sunset for a time and place}
 \usage{
-sunrise(lon, lat, date, elev = -0.268)
+sunrise(date, lon, lat, elev = -0.268, tz = "UTC")
 
-sunset(lon, lat, date, elev = -0.268)
+sunset(date, lon, lat, elev = -0.268, tz = "UTC")
 }
 \arguments{
+\item{date}{Date inhereting from class \code{POSIXt} or a string
+interpretable by \link[base]{as.Date}.}
+
 \item{lon}{Longitude in decimal degrees.}
 
 \item{lat}{Latitude in decimal degrees.}
 
-\item{date}{Date inhereting from class \code{POSIXt} or a string
-interpretable by \link[base]{as.Date}.}
-
 \item{elev}{Sun elevation in degrees.}
+
+\item{tz}{output time zone. Ignored if \code{date} has an associated time zone already}
 }
 \value{
 The moment of sunrise or sunset in UTC time.
@@ -31,19 +33,17 @@ The angular diameter of the sun is about 0.536 degrees,
 therefore the moment of sunrise/sunset corresponds to half that elevation
 at -0.268 degrees.
 
-Note that for a given date and location, sunrise time can be after sunset
-time, depending on the time difference between the local time and the UTC
-time zone.
+This is a convenience function mapping to \link[maptools]{crepuscule}.
 
 Approximate astronomical formula are used, therefore the moment of
 sunrise / sunset may be off by a few minutes
 }
 \examples{
 # sunrise in the Netherlands
-sunrise(5, 53, "2016-01-01")
+sunrise("2016-01-01", 5, 53)
 # sunset in the Netherlands
-sunset(5, 53, "2016-01-01")
+sunset("2016-01-01", 5, 53)
 # civil twilight in Ithaca, NY, today
-sunrise(-76.5, 42.4, Sys.time(), elev = -6)
+sunrise(Sys.time(), -76.5, 42.4, elev = -6)
 
 }

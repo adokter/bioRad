@@ -5,8 +5,9 @@
 \title{Regularize a time series of vertical profiles (\code{vpts}) on a
 regular time grid}
 \usage{
-regularize_vpts(ts, interval = "auto", t.min = ts$daterange[1],
-  t.max = ts$daterange[2], units = "mins", fill = FALSE, verbose = TRUE)
+regularize_vpts(ts, interval = "auto", date_min = ts$daterange[1],
+  date_max = ts$daterange[2], units = "mins", fill = FALSE,
+  verbose = TRUE)
 }
 \arguments{
 \item{ts}{An object inhereting from class \code{vpts}, see
@@ -15,10 +16,10 @@ regularize_vpts(ts, interval = "auto", t.min = ts$daterange[1],
 \item{interval}{Time interval grid to project on. When '\code{auto}' the
 median interval in the time series is used.}
 
-\item{t.min}{Start time of the projected time series, as a POSIXct object.
+\item{date_min}{Start time of the projected time series, as a POSIXct object.
 Taken from \code{ts} when '\code{auto}'.}
 
-\item{t.max}{End time of the projected time series, as a POSIXct object.
+\item{date_max}{End time of the projected time series, as a POSIXct object.
 Taken from \code{ts} when '\code{auto}'.}
 
 \item{units}{Optional units of \code{interval}, one of 'secs', 'mins',

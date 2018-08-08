@@ -120,6 +120,7 @@
 #' @importFrom raster raster
 #' @importFrom curl curl_download
 #' @importFrom grDevices col2rgb colorRampPalette rgb
+#' @importFrom maptools crepuscule
 #'
 "_PACKAGE"
 #> [1] "_PACKAGE"

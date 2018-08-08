@@ -4,14 +4,14 @@
 \alias{select_vpfiles}
 \title{Select vertical profiles files (\code{vp}) from computer}
 \usage{
-select_vpfiles(path, start_date, end_date, country = NULL, radar = NULL)
+select_vpfiles(directory, date_min, date_max, country = NULL, radar = NULL)
 }
 \arguments{
-\item{path}{Main path to look into recusively.}
+\item{directory}{Main directory to look into recusively.}
 
-\item{start_date}{ISO format date as start of the vp file query.}
+\item{date_min}{ISO format date as start of the vp file query.}
 
-\item{end_date}{ISO format date as end of the vp file query.}
+\item{date_max}{ISO format date as end of the vp file query.}
 
 \item{country}{Character vector with two letter country shortcuts.}
 
@@ -27,6 +27,6 @@ Collect a list of vp file names within a directory that comply to the given
 country, radar and date range combination
 }
 \examples{
-my_path <- "~/my/directory/"
-select_vpfiles(my_path, "2016-10-01", "2017-01-31", c("be"))
+my_directory <- "~/my/directory/"
+select_vpfiles(my_directory, "2016-10-01", "2017-01-31", c("be"))
 }

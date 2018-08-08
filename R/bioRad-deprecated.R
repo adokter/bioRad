@@ -38,7 +38,7 @@ beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
 #' @export
 beamwidth <- function(range, angle = 1) {
   .Deprecated("beam_width")
-  beam_width(range, angle)
+  beam_width(range, beam_angle = angle)
 }
 
 #' @section bind:
@@ -69,9 +69,9 @@ checkDocker <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-composite <- function(...) {
+composite <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
   .Deprecated("composite_ppi")
-  composite_ppi(...)
+  composite_ppi(x, param, dim = cells.dim)
 }
 
 #' @section day:
@@ -80,12 +80,12 @@ composite <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-day <- function(x, elev = -0.268) {
+day <- function(x, ..., elev = -0.268) {
   .Deprecated("check_night",
               msg = paste("'day' is deprecated and its functionality is",
                           "replaced by the 'check_night' function",
                           "(FALSE <-> TRUE)"))
-  !check_night(x, elev = -0.268)
+  !check_night(x, ..., elev = -0.268)
 }
 
 #' @section dbz2eta:
@@ -94,9 +94,9 @@ day <- function(x, elev = -0.268) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-dbz2eta <- function(...) {
+dbz2eta <- function(dbz, wavelength, Km = 0.93) {
   .Deprecated("dbz_to_eta")
-  dbz_to_eta(...)
+  dbz_to_eta(dbz, wavelength, K = Km)
 }
 
 #' @section download_vp:
@@ -105,9 +105,10 @@ dbz2eta <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-download_vp <- function(...) {
+download_vp <- function(start_date, end_date, country, radar, localpath = ".") {
   .Deprecated("download_vpfiles")
-  download_vpfiles(...)
+  download_vpfiles(date_min = start_date, date_max = end_date,
+                   country, radar, directory = localpath)
 }
 
 #' @section elangle:
@@ -127,9 +128,9 @@ elangle <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-eta2dbz <- function(...) {
+eta2dbz <- function(eta, wavelength, Km = 0.93) {
   .Deprecated("eta_to_dbz")
-  eta_to_dbz(...)
+  eta_to_dbz(eta, wavelength, K = Km)
 }
 
 #' @section fetch:
@@ -149,9 +150,9 @@ fetch <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-getscan <- function(...) {
+getscan <- function(x, angle) {
   .Deprecated("get_scan")
-  get_scan(...)
+  get_scan(x, elev = angle)
 }
 
 #' @section h5ODIMobject:
@@ -160,9 +161,9 @@ getscan <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-h5ODIMobject <- function(...) {
+h5ODIMobject <- function(filename) {
   .Deprecated("get_odim_object_type")
-  get_odim_object_type(...)
+  get_odim_object_type(file = filename)
 }
 
 #' @section is.vplist:
@@ -221,7 +222,7 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated(msg = paste("Migration traffic is now included in the output",
                           "of `integrate_profile()` as column 'mt'."))
   stopifnot(inherits(x, "vpts"))
-  cmt(x,alt.min,alt.max,alpha,interval.max)[ncol(x)]
+  cmt(x, alt.min, alt.max, alpha, interval.max)[ncol(x)]
 }
 
 #' Migration traffic rate
@@ -294,7 +295,7 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
 #' # print migration traffic rates:
 #' \dontrun{mtr(example_vpts)}
 #' # to plot migration traffic rate data, use integrate_profile:
-#' plot(integrate_profile(example_vpts), quantity = "mtr")
+#' \dontrun{plot(integrate_profile(example_vpts), quantity = "mtr")}
 mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
   .Deprecated("integrate_profile")
   .Deprecated(msg = paste("Migration traffic rate is now included in the",
@@ -306,7 +307,7 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
       stop("Not all objects in list are vp objects")
     }
   }
-  vintegrated <- integrate_profile(x, alt.min = alt.min, alt.max = alt.max,
+  vintegrated <- integrate_profile(x, alt_min = alt.min, alt_max = alt.max,
                                    alpha = alpha)
   vintegrated$mtr
 }
@@ -357,10 +358,11 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
 #' ylab = "CMT [birds/km]")}
 cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
-  .Deprecated(msg = "Cumulative migration traffic is now included in the",
-              "output of `integrate_profile()` as column 'mt' (summed).")
+  .Deprecated(msg = paste("Cumulative migration traffic is now included in the",
+              "output of `integrate_profile()` as column 'mt' (summed)."))
   stopifnot(inherits(x, "vpts"))
-  vintegrated <- integrate_profile(x, alt.min, alt.max, alpha, interval.max)
+  vintegrated <- integrate_profile(x, alt_min = alt.min, alt_max = alt.max,
+                                   alpha = alpha, interval_max = interval.max)
   vintegrated$mt
 }
 
@@ -381,9 +383,11 @@ night <- function(x, ..., elev=-0.268) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-ppi <- function(...) {
+ppi <- function(x, cellsize = 500, range.max = 50000,
+                project = FALSE, latlim = NULL, lonlim = NULL) {
   .Deprecated("project_as_ppi")
-  project_as_ppi(...)
+  project_as_ppi(x, grid_size = cellsize, range_max = range.max,
+                 project = project, ylim = latlim, xlim = lonlim)
 }
 
 #' @section read.pvol:
@@ -392,9 +396,15 @@ ppi <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-read.pvol <- function(...) {
+read.pvol <- function(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
+                                          "ZDR", "PHIDP", "CELL"),
+                      sort = TRUE, lat, lon, height, elangle.min = 0,
+                      elangle.max = 90, verbose = TRUE,
+                      mount = dirname(filename)) {
   .Deprecated("read_pvolfile")
-  read_pvolfile(...)
+  read_pvolfile(file = filename, param = param, sort = sort, lat = lat,
+                lon = lon, height = height, elev_min = elangle.min,
+                elev_max = elangle.max, verbose = verbose, mount = mount)
 }
 
 #' @section readvp:
@@ -436,9 +446,12 @@ readvp.table <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-regularize <- function(...) {
+regularize <- function(ts, interval = "auto", t.min = ts$daterange[1],
+                       t.max = ts$daterange[2], units = "mins",
+                       fill = FALSE, verbose = TRUE) {
   .Deprecated("regularize_vpts")
-  regularize_vpts(...)
+  regularize_vpts(ts, interval, date_min = t.min, date_max = t.max, units,
+                  fill, verbose)
 }
 
 #' @section retrieve_vp_paths:
@@ -447,9 +460,11 @@ regularize <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-retrieve_vp_paths <- function(...) {
+retrieve_vp_paths <- function(path, start_date, end_date,
+                              country = NULL, radar = NULL) {
   .Deprecated("select_vpfiles")
-  select_vpfiles(...)
+  select_vpfiles(directory = path, date_min = start_date, date_max = end_date,
+                 country, radar)
 }
 
 #' @section rsl2odim:
@@ -458,9 +473,11 @@ retrieve_vp_paths <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-rsl2odim <- function(...) {
+rsl2odim <- function(vol.in, vol.out, verbose = FALSE,
+                     mount = dirname(vol.in)) {
   .Deprecated("nexrad_to_odim")
-  nexrad_to_odim(...)
+  nexrad_to_odim(pvolfile_nexrad = vol.in, pvolfile_odim = vol.out, verbose,
+                 mount)
 }
 
 #' @section suntime:
@@ -506,9 +523,23 @@ vintegrate <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-vol2bird <- function(...) {
+vol2bird <- function(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
+                     verbose = FALSE, mount = dirname(vol.in),
+                     sd_vvp_threshold = 2, rcs = 11, dualpol = FALSE,
+                     rhohv = 0.95, elev.min = 0, elev.max = 90, azim.min = 0,
+                     azim.max = 360, range.min = 5000, range.max = 25000,
+                     nlayer = 20L, hlayer = 200, dealias = TRUE,
+                     nyquist.min = if (dealias) 5 else 25,
+                     dbz_quantity="DBZH") {
   .Deprecated("calculate_vp")
-  calculate_vp(...)
+  calculate_vp(pvolfile = vol.in, vpfile = vp.out, pvolfile_out = vol.out,
+               autoconf = autoconf, verbose = verbose, mount = mount,
+               sd_vvp_threshold = sd_vvp_threshold, rcs = rcs, dual_pol = dualpol,
+               rho_hv = rhohv, elev_min = elev.min, elev_max = elev.max,
+               azim_min = azim.min, azim_max = azim.max, range_min = range.min,
+               range_max = range.max, n_layer = nlayer, h_layer = hlayer,
+               dealias = dealias, nyquist_min = nyquist.min,
+               dbz_quantity = dbz_quantity)
 }
 
 #' @section vpts:

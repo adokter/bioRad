@@ -5,13 +5,14 @@
 #' (\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
 #' bioRad object directly.
 #'
-#' @param x A \code{numeric}, \code{pvol}, \code{vp} or \code{vpts}.
+#' @param x \code{pvol}, \code{vp} or \code{vpts},
+#' or a date inhereting from class \code{POSIXct} or a string
+#' interpretable by \link[base]{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
-#' @param date Date. Date inheriting from class \code{POSIXt} or a string
-#' interpretable by \link[base]{as.Date}.
+#' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
 #' @param elev numeric. Sun elevation in degrees.
-#' @param ... A bioRad object of lat/lon combination.
+#' @param ... optional lat,lon arguments.
 #'
 #' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
 #' (either datetime or geographic location missing). For \code{vpts} a
@@ -31,7 +32,7 @@
 #'
 #' @examples
 #' # check if it is night at UTC midnight in the Netherlands on January 1st:
-#' check_night(5, 53, "2016-01-01 00:00")
+#' check_night("2016-01-01 00:00",5, 53)
 #'
 #' # check on bioRad objects directly:
 #' check_night(example_vp)
@@ -43,13 +44,32 @@ check_night <- function(x, ..., elev = -0.268) {
 #' @rdname check_night
 #'
 #' @export
-check_night.default <- function(lon, lat, date, elev = -0.268) {
-  trise <- sunrise(lon, lat, date, elev)
-  tset <- sunset(lon, lat, date, elev)
-  output <- rep(NA, length(date))
-  itsday <- (date > trise & date < tset)
+check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268) {
+  x <- as.POSIXct(x, tz = tz)
+  # calculate sunrises
+  trise <- sunrise(x, lon, lat, tz = tz, elev = elev)
+  # calculate sunsets
+  tset <- sunset(x, lon, lat, tz = tz, elev = elev)
+  # for returned rise times on a different day, recalculate for the current day
+  dt <- as.numeric(difftime(as.Date(trise), as.Date(x), units = "days"))
+  change <- which(dt != 0)
+  if (length(change) > 0) {
+    trise[change] <- sunrise(x[change] - dt[change]*24*3600, lon, lat,
+                             tz = tz, elev = elev)
+  }
+
+  dt <- as.numeric(difftime(as.Date(tset), as.Date(x), units = "days"))
+  change <- which(dt != 0)
+  if (length(change) > 0) {
+    tset[change] <- sunset(x[change] - dt[change]*24*3600, lon, lat,
+                           tz = tz, elev = elev)
+  }
+
+  # prepare output
+  output <- rep(NA, length(x))
+  itsday <- (x > trise & x < tset)
   output[trise < tset] <- itsday[trise < tset]
-  itsday <- (date < tset | date > trise)
+  itsday <- (x < tset | x > trise)
   output[trise >= tset] <- itsday[trise >= tset]
   !output
 }
@@ -59,8 +79,8 @@ check_night.default <- function(lon, lat, date, elev = -0.268) {
 #' @export
 check_night.vp <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vp"))
-  check_night(x$attributes$where$lon, x$attributes$where$lat,
-              x$datetime, elev = elev)
+  check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
+              elev = elev)
 }
 
 #' @rdname check_night
@@ -79,8 +99,8 @@ check_night.list <- function(x, ..., elev = -0.268) {
 #' @export
 check_night.vpts <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vpts"))
-  check_night(x$attributes$where$lon, x$attributes$where$lat,
-         x$dates, elev = elev)
+  check_night(x$dates, x$attributes$where$lon, x$attributes$where$lat,
+         elev = elev)
 }
 
 #' @rdname check_night
@@ -88,5 +108,5 @@ check_night.vpts <- function(x, ..., elev = -0.268) {
 #' @export
 check_night.pvol <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "pvol"))
-  check_night(x$geo$lon, x$geo$lat, x$datetime, elev = elev)
+  check_night(x$datetime, x$geo$lon, x$geo$lat, elev = elev)
 }

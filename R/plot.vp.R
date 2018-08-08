@@ -12,10 +12,12 @@
 ##' }
 #' @param xlab A title for the x axis.
 #' @param ylab A title for the y axis.
-#' @param line.col Color of the plotted curve.
-#' @param line.lwd Line width of the plotted curve.
+#' @param line_col Color of the plotted curve.
+#' @param line_lwd Line width of the plotted curve.
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{plot} plotting function.
+#' @param line.col Deprecated argument, use line_col instead.
+#' @param line.lwd Deprecated argument, use line_lwd instead.
 #'
 #' @method plot vp
 #'
@@ -24,11 +26,25 @@
 #' @examples
 #' data(example_vp)
 #' plot(example_vp)
-#' plot(example_vp, line.col = "blue")
-plot.vp <- function(x, quantity="dens",
+#' plot(example_vp, line_col = "blue")
+plot.vp <- function(x, quantity = "dens",
                     xlab = expression("volume density [#/km"^3*"]"),
-                    ylab = "height [km]", line.col='red', line.lwd=1, ...) {
+                    ylab = "height [km]", line_col = 'red', line.col = 'red',
+                    line_lwd = 1, line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
+
+  # deprecate function argument
+  if (!missing(line.col)) {
+    warning("argument line.col is deprecated; please use line_col instead.",
+            call. = FALSE)
+    line_col <- line.col
+  }
+  if (!missing(line.lwd)) {
+    warning("argument line.lwd is deprecated; please use line_lwd instead.",
+            call. = FALSE)
+    line_lwd <- line.lwd
+  }
+
   if (!(quantity %in% names(x$data))) {
     stop(paste("unknown quantity '", quantity, "'", sep = ""))
   }
@@ -58,5 +74,5 @@ plot.vp <- function(x, quantity="dens",
   # extract the data from the time series object
   pdat <- get_quantity(x, quantity)
   plot(pdat, x$data$HGHT/1000, xlab = xlab, ylab = ylab, ...)
-  points(pdat, x$data$HGHT/1000, col = line.col, lwd = line.lwd, type = "l")
+  points(pdat, x$data$HGHT/1000, col = line_col, lwd = line_lwd, type = "l")
 }

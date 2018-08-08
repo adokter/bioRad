@@ -4,13 +4,15 @@
 \alias{is.pvolfile}
 \title{Check if a file is a polar volume (\code{pvol})}
 \usage{
-is.pvolfile(filename)
+is.pvolfile(file, filename = NULL)
 }
 \arguments{
-\item{filename}{A string containing a filename.}
+\item{file}{A string containing a file name.}
+
+\item{filename}{Deprecated argument, use file instead.}
 }
 \value{
-TRUE when \code{filename} is a polar volume in readable format,
+TRUE when \code{file} is a polar volume in readable format,
 otherwise FALSE
 }
 \description{

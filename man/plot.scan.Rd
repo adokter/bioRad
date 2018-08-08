@@ -48,7 +48,7 @@ data(example_scan)
 # print to screen the available scan parameters
 summary(example_scan)
 # make ppi for the scan
-# plot the reflectivity quantity:
+# plot the reflectivity param:
 plot(example_scan, param = "DBZH")
 # change the range of reflectivities to plot to -30 to 50 dBZ:
 plot(example_scan, param = "DBZH", zlim = c(-30, 50))

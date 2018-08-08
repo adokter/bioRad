@@ -6,8 +6,8 @@
 \usage{
 \method{plot}{vpi}(x, quantity = "mtr", xlab = "time",
   ylab = "migration traffic rate [#/km/h]", main = "MTR",
-  nightshade = TRUE, elev = -0.268, lat = NULL, lon = NULL,
-  ylim = NULL, ...)
+  night_shade = TRUE, nightshade = TRUE, elev = -0.268, lat = NULL,
+  lon = NULL, ylim = NULL, ...)
 }
 \arguments{
 \item{x}{1 class object inheriting from class \code{vpi}, typically a
@@ -23,7 +23,9 @@ reflectivity, reflectivity factor and migration traffic rate, respectively.}
 
 \item{main}{A title for the plot.}
 
-\item{nightshade}{Logical, whether to plot night time shading.}
+\item{night_shade}{Logical, whether to plot night time shading.}
+
+\item{nightshade}{Deprecated argument, use night_shade instead.}
 
 \item{elev}{Numeric, sun elevation to use for day/night transition,
 see \link[bioRad]{suntime}.}
@@ -63,5 +65,5 @@ vpi <- integrate_profile(example_vpts)
 # plot the migration traffic rates
 plot(vpi)
 # plot the vertically integrated densities, without night shading:
-plot(vpi, quantity = "vid", nightshade = FALSE)
+plot(vpi, quantity = "vid", night_shade = FALSE)
 }

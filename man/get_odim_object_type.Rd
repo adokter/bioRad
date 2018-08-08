@@ -4,10 +4,10 @@
 \alias{get_odim_object_type}
 \title{Check the ODIM data class of a polar volume file}
 \usage{
-get_odim_object_type(filename)
+get_odim_object_type(file)
 }
 \arguments{
-\item{filename}{A string containing a filename.}
+\item{file}{A string containing a file name.}
 }
 \value{
 character string \code{pvol} for polar volume, \code{vp} for
