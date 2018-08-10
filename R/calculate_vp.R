@@ -20,7 +20,8 @@
 #' @param mount character. String with the mount point (a directory path) for
 #' the Docker container.
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
-#' deviation (\code{sd_vvp_threshold}) in m/s.
+#' deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
+#' \code{sd_vvp} < \code{sd_vvp_threshold} are set to zero.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
 #' @param dual_pol logical. When \code{TRUE} use dual-pol mode, in which
 #' meteorological echoes are filtered using the correlation coefficient

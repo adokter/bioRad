@@ -480,6 +480,17 @@ rsl2odim <- function(vol.in, vol.out, verbose = FALSE,
                  mount)
 }
 
+#' @section sd_vvp:
+#' Use \code{\link{sd_vvp_threshold}} instead.
+#'
+#' @rdname bioRad-deprecated
+#'
+#' @export
+sd_vvp <- function(x) {
+  .Deprecated("sd_vvp_threshold")
+  sd_vvp_threshold(x)
+}
+
 #' @section suntime:
 #' Use \code{\link{sunrise}} or \code{\link{sunset}} instead.
 #' @rdname bioRad-deprecated

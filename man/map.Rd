@@ -7,9 +7,9 @@
 \usage{
 map(x, ...)
 
-\method{map}{ppi}(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
-  ratio, radar_size = 3, radar.size = 3, radar_color = "red",
-  radar.color = "red", n_color = 1000, n.color = 1000, ...)
+\method{map}{ppi}(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20,
+  20), ratio, radar_size = 3, radar_color = "red", n_color = 1000,
+  radar.size = 3, radar.color = "red", n.color = 1000, ...)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}
@@ -35,13 +35,13 @@ vector of length 2.}
 
 \item{radar_size}{Size of the symbol indicating the radar position.}
 
-\item{radar.size}{Deprecated argument, use radar_size instead.}
-
 \item{radar_color}{Colour of the symbol indicating the radar position.}
 
-\item{radar.color}{Deprecated argument, use radar_color instead.}
-
 \item{n_color}{The number of colors (>=1) to be in the palette.}
+
+\item{radar.size}{Deprecated argument, use radar_size instead.}
+
+\item{radar.color}{Deprecated argument, use radar_color instead.}
 
 \item{n.color}{Deprecated argument, use n_color instead.}
 }

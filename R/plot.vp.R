@@ -29,8 +29,8 @@
 #' plot(example_vp, line_col = "blue")
 plot.vp <- function(x, quantity = "dens",
                     xlab = expression("volume density [#/km"^3*"]"),
-                    ylab = "height [km]", line_col = 'red', line.col = 'red',
-                    line_lwd = 1, line.lwd = 1, ...) {
+                    ylab = "height [km]", line_col = 'red',
+                    line_lwd = 1, line.col = 'red', line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
 
   # deprecate function argument

@@ -6,8 +6,8 @@
 \usage{
 \method{plot}{vpi}(x, quantity = "mtr", xlab = "time",
   ylab = "migration traffic rate [#/km/h]", main = "MTR",
-  night_shade = TRUE, nightshade = TRUE, elev = -0.268, lat = NULL,
-  lon = NULL, ylim = NULL, ...)
+  night_shade = TRUE, elev = -0.268, lat = NULL, lon = NULL,
+  ylim = NULL, nightshade = TRUE, ...)
 }
 \arguments{
 \item{x}{1 class object inheriting from class \code{vpi}, typically a
@@ -25,8 +25,6 @@ reflectivity, reflectivity factor and migration traffic rate, respectively.}
 
 \item{night_shade}{Logical, whether to plot night time shading.}
 
-\item{nightshade}{Deprecated argument, use night_shade instead.}
-
 \item{elev}{Numeric, sun elevation to use for day/night transition,
 see \link[bioRad]{suntime}.}
 
@@ -37,6 +35,8 @@ attribute of \code{x}.}
 attribute of \code{x}.}
 
 \item{ylim}{y-axis plot range, numeric atomic vector of length 2.}
+
+\item{nightshade}{Deprecated argument, use night_shade instead.}
 
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics]{plot} plotting function.}

@@ -50,8 +50,8 @@
 #' plot(vpi, quantity = "vid", night_shade = FALSE)
 plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      ylab = "migration traffic rate [#/km/h]",
-                     main = "MTR", night_shade = TRUE, nightshade = TRUE,
-                     elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, ...) {
+                     main = "MTR", night_shade = TRUE,
+                     elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
   stopifnot(quantity %in% c("mtr", "vid", "vir", "rtr", "mt",
                             "rt", "ff", "dd", "u", "v"))

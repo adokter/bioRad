@@ -4,12 +4,13 @@
 \alias{calculate_vp}
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
-calculate_vp(pvolfile, vpfile = "", pvolfile_out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(pvolfile), sd_vvp_threshold = 2,
-  rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
-  elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
-  range_max = 25000, n_layer = 20L, h_layer = 200, dealias = TRUE,
-  nyquist_min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
+calculate_vp(pvolfile, vpfile = "", pvolfile_out = "",
+  autoconf = FALSE, verbose = FALSE, mount = dirname(pvolfile),
+  sd_vvp_threshold = 2, rcs = 11, dual_pol = FALSE, rho_hv = 0.95,
+  elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
+  range_min = 5000, range_max = 25000, n_layer = 20L,
+  h_layer = 200, dealias = TRUE, nyquist_min = if (dealias) 5 else
+  25, dbz_quantity = "DBZH")
 }
 \arguments{
 \item{pvolfile}{A radar file containing a radar polar volume, either in
@@ -36,7 +37,8 @@ Windows always TRUE.}
 the Docker container.}
 
 \item{sd_vvp_threshold}{numeric. Lower threshold in radial velocity standard
-deviation (\code{sd_vvp_threshold}) in m/s.}
+deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
+\code{sd_vvp} < \code{sd_vvp_threshold} are set to zero.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
