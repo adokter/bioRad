@@ -64,10 +64,11 @@
 #' # plot total reflectivity factor (rain, birds, insects together):
 #' plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
 plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
-                      log = TRUE, barbs = TRUE, barbs_height = 10, barbs.h = 10,
-                      barbs_time = 20, barbs.t = 20, barbs_dens_min = 5,
-                      barbs.dens = 5, zlim, legend_ticks, legend.ticks,
-                      main, ...) {
+                      log = TRUE, barbs = TRUE, barbs_height = 10,
+                      barbs_time = 20, barbs_dens_min = 5,
+                      zlim, legend_ticks, legend.ticks, main,
+                      barbs.h = 10,barbs.t = 20,barbs.dens = 5,
+                      ...) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
 

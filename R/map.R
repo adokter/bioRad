@@ -68,9 +68,9 @@ map <- function(x, ...) {
 #' @describeIn map plot a 'ppi' object on a map
 #' @export
 map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
-                    zlim = c(-20, 20), ratio, radar_size = 3, radar.size = 3,
-                    radar_color = "red", radar.color = "red", n_color = 1000,
-                    n.color = 1000, ...) {
+                    zlim = c(-20, 20), ratio, radar_size = 3,
+                    radar_color = "red", n_color = 1000,
+                    radar.size = 3, radar.color = "red", n.color = 1000, ...) {
 
   # deprecate function arguments
   if (!missing(radar.size)) {

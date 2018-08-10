@@ -29,6 +29,7 @@
 \alias{regularize}
 \alias{retrieve_vp_paths}
 \alias{rsl2odim}
+\alias{sd_vvp}
 \alias{suntime}
 \alias{updateDocker}
 \alias{vintegrate}
@@ -91,11 +92,15 @@ readvp.list(...)
 readvp.table(...)
 
 regularize(ts, interval = "auto", t.min = ts$daterange[1],
-  t.max = ts$daterange[2], units = "mins", fill = FALSE, verbose = TRUE)
+  t.max = ts$daterange[2], units = "mins", fill = FALSE,
+  verbose = TRUE)
 
-retrieve_vp_paths(path, start_date, end_date, country = NULL, radar = NULL)
+retrieve_vp_paths(path, start_date, end_date, country = NULL,
+  radar = NULL)
 
 rsl2odim(vol.in, vol.out, verbose = FALSE, mount = dirname(vol.in))
+
+sd_vvp(x)
 
 suntime(..., rise = TRUE)
 
@@ -343,6 +348,11 @@ Use \code{\link{select_vpfiles}} instead.
 \section{rsl2odim}{
 
 Use \code{\link{nexrad_to_odim}} instead.
+}
+
+\section{sd_vvp}{
+
+Use \code{\link{sd_vvp_threshold}} instead.
 }
 
 \section{suntime}{

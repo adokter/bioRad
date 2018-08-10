@@ -4,7 +4,8 @@
 \alias{select_vpfiles}
 \title{Select vertical profiles files (\code{vp}) from computer}
 \usage{
-select_vpfiles(directory, date_min, date_max, country = NULL, radar = NULL)
+select_vpfiles(directory, date_min, date_max, country = NULL,
+  radar = NULL)
 }
 \arguments{
 \item{directory}{Main directory to look into recusively.}

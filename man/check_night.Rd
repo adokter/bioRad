@@ -11,7 +11,8 @@
 \usage{
 check_night(x, ..., elev = -0.268)
 
-\method{check_night}{default}(x, lon, lat, ..., tz = "UTC", elev = -0.268)
+\method{check_night}{default}(x, lon, lat, ..., tz = "UTC",
+  elev = -0.268)
 
 \method{check_night}{vp}(x, ..., elev = -0.268)
 

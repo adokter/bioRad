@@ -5,8 +5,8 @@
 \title{Convert a vertical profile (\code{vp}) to a Data Frame}
 \usage{
 \method{as.data.frame}{vp}(x, row.names = NULL, optional = FALSE,
-  quantities = names(x$data), suntime = TRUE, geo = TRUE, elev = -0.268,
-  lat = NULL, lon = NULL, ...)
+  quantities = names(x$data), suntime = TRUE, geo = TRUE,
+  elev = -0.268, lat = NULL, lon = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class \code{vp}.}
