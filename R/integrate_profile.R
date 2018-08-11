@@ -29,6 +29,8 @@
 #'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
 #'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
+#'    \item{\code{mt}}{Migration Traffic in individuals/km}
+#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km}
 #'    \item{\code{ff}}{Horizontal ground speed in m/s}
 #'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
 #'    \item{\code{u}}{Ground speed component west to east in m/s}
@@ -41,7 +43,7 @@
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }
 #'
-#' \subsection{Migration traffic rate (mtr)}{
+#' \subsection{Migration traffic rate (mtr) and reflectivity traffic rate (rtr)}{
 #' Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
 #' as the number of targets crossing a unit of transect per hour.
 #'
@@ -74,22 +76,33 @@
 #' positively to \code{mtr}, while targets moving in the opposite direction
 #' contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
 #' positive or negative, depending on the definition of alpha.
+#'
+#' Formula for reflectivity traffic rate \code{rtr} are found by replacing
+#' \code{dens} with \code{eta} in the formula for \code{mtr}.
+#' Reflectivity traffic rate gives the cross-sectional area
+#' passing the radar per km transect perpendicular to the migratory direction per hour.
+#' \code{rtr} values are conditional on settings of \link{rcs}, while \code{mtr} values are not.
 #' }
 #'
-#' \subsection{Migration traffic (mt)}{
-#' Total migration traffic, which is calculated by time-integration of
+#' \subsection{Migration traffic (mt) and reflectivity traffic (rt)}{
+#' Migration traffic is calculated by time-integration of
 #' migration traffic rates. Migration traffic gives the number of individuals
 #' that have passed per km perpendicular to the migratory direction at the
 #' position of the radar for the full period of the time series within the
 #' specified altitude band.
 #'
-#' Columnn mt in the output dataframe provides migration traffic as a numeric value equal to migration traffic
-#' in number of individuals / km from the start of the time series up till the moment of the time stamp
+#' Reflectivity traffic is calculated by time-integration of
+#' refletivity traffic rates. Reflectivity traffic gives the total cross-sectional area
+#' that has passed per km perpendicular to the migratory direction at the
+#' position of the radar for the full period of the time series within the
+#' specified altitude band.
+#'
+#' \code{rt} values are conditional on settings of \link{rcs}, while \code{mt} values are not.
+#'
+#' Columnns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
+#' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 #' of the respective row.
 #' }
-#'
-#' @examples
-#'
 #' @export
 #'
 #' @examples
@@ -140,7 +153,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                get_quantity(x, "ff")[index] * 3.6 * interval/1000, na.rm = TRUE)
   vid <- sum(get_quantity(x, "dens")[index], na.rm = TRUE)*interval/1000
   vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE)*interval/1000
-  height <- sum((x$heights[index] + x$attributes$where$interval/2) *
+  height <- sum((get_quantity(x,"HGHT") + x$attributes$where$interval/2) *
                   get_quantity(x, "dens")[index], na.rm = TRUE)/sum(
                     get_quantity(x,"dens")[index],na.rm = TRUE)
   u <- sum(get_quantity(x, "u")[index] * get_quantity(x, "dens")[index],

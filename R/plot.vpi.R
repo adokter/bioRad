@@ -5,8 +5,16 @@
 #' @param x 1 class object inheriting from class \code{vpi}, typically a
 #' call to \link[bioRad]{integrate_profile}.
 #' @param quantity Character string with the quantity to plot, one of
-#' '\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density,
-#' reflectivity, reflectivity factor and migration traffic rate, respectively.
+#' '\code{vid}' (vertically integrated denstiy),
+#' '\code{vir}' (vertically integrated reflectivity),
+#' '\code{mtr}' (migration traffic rate),
+#' '\code{rtr}' (reflectivity traffic rate),
+#' '\code{mt}' ((cumulative) migration traffic),
+#' '\code{rt}' ((cumulative) reflectivity traffic),
+#' `\code{ff}`, (height-averaged speed)
+#' `\code{dd}`, (height-averaged direction)
+#' `\code{u}`, (height-averaged u-component of speed),
+#' `\code{v}`, (height-averaged v-component of speed).
 #' @param ylim y-axis plot range, numeric atomic vector of length 2.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
@@ -27,7 +35,7 @@
 #' @export
 #'
 #' @details
-#' Profile can be visualised in three related quantities, as specified by
+#' The integatated profiles can be visualised in various related quantities, as specified by
 #' argument \code{quantity}:
 #' \describe{
 #'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface
@@ -39,8 +47,17 @@
 #'    the assumed radar cross section (RCS)}
 #'  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent
 #'    on the assumed radar cross section (RCS)}
+#'  \item{"\code{mt}"}{Migration Traffic. This quantity is dependent on
+#'    the assumed radar cross section (RCS)}
+#'  \item{"\code{rt}"}{Reflectivity Traffic. This quantity is independent
+#'    on the assumed radar cross section (RCS)}
+#'  \item{\code{ff}}{Horizontal ground speed in m/s}
+#'  \item{\code{dd}}{Horizontal ground speed direction in degrees}
+#'  \item{\code{u}}{Ground speed component west to east in m/s}
+#'  \item{\code{v}}{Ground speed component north to south in m/s}
+#'  \item{\code{HGHT}}{Height above sea level in m}
 #' }
-#'
+#' The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
 #' @examples
 #' # vertically integrate a vpts object:
 #' vpi <- integrate_profile(example_vpts)
@@ -54,7 +71,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
   stopifnot(quantity %in% c("mtr", "vid", "vir", "rtr", "mt",
-                            "rt", "ff", "dd", "u", "v"))
+                            "rt", "ff", "dd", "u", "v","HGHT"))
 
   # deprecate function argument
   if (!missing(nightshade)) {
@@ -75,6 +92,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     if (quantity == "dd") ylab = expression("vertically averaged direction [deg]")
     if (quantity == "u") ylab = expression("vertically averaged u-component ground speed [m/s]")
     if (quantity == "v") ylab = expression("vertically averaged v-component ground speed [m/s]")
+    if (quantity == "HGHT") ylab = expression("height above mean sea level [m]")
   }
   if (missing(main)) {
     if (quantity == "mtr") main = "MTR"
@@ -83,10 +101,11 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     if (quantity == "vir") main = "VIR"
     if (quantity == "mt") main = "MT"
     if (quantity == "rt") main = "RT"
-    if (quantity == "ff") main = "Ground speed"
-    if (quantity == "dd") main = "Ground speed direction"
-    if (quantity == "u") main = "Ground speed u (east->west)"
-    if (quantity == "v") main = "Ground speed v (north->south)"
+    if (quantity == "ff") main = "Average ground speed"
+    if (quantity == "dd") main = "Average ground speed direction"
+    if (quantity == "u") main = "Average ground speed u (east->west)"
+    if (quantity == "v") main = "Average ground speed v (north->south)"
+    if (quantity == "HGHT") main = "Average flight height above sea level"
   }
   if (missing(lat)) lat = attributes(x)$lat
   if (missing(lon)) lon = attributes(x)$lon

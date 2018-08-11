@@ -14,8 +14,16 @@
 call to \link[bioRad]{integrate_profile}.}
 
 \item{quantity}{Character string with the quantity to plot, one of
-'\code{vid}','\code{vir}','\code{mtr}' for vertically integrated density,
-reflectivity, reflectivity factor and migration traffic rate, respectively.}
+'\code{vid}' (vertically integrated denstiy),
+'\code{vir}' (vertically integrated reflectivity),
+'\code{mtr}' (migration traffic rate),
+'\code{rtr}' (reflectivity traffic rate),
+'\code{mt}' ((cumulative) migration traffic),
+'\code{rt}' ((cumulative) reflectivity traffic),
+`\code{ff}`, (height-averaged speed)
+`\code{dd}`, (height-averaged direction)
+`\code{u}`, (height-averaged u-component of speed),
+`\code{v}`, (height-averaged v-component of speed).}
 
 \item{xlab}{A title for the x-axis.}
 
@@ -45,7 +53,7 @@ attribute of \code{x}.}
 Plot an object of class \code{vpi}.
 }
 \details{
-Profile can be visualised in three related quantities, as specified by
+The integatated profiles can be visualised in various related quantities, as specified by
 argument \code{quantity}:
 \describe{
  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface
@@ -57,7 +65,17 @@ argument \code{quantity}:
    the assumed radar cross section (RCS)}
  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent
    on the assumed radar cross section (RCS)}
+ \item{"\code{mt}"}{Migration Traffic. This quantity is dependent on
+   the assumed radar cross section (RCS)}
+ \item{"\code{rt}"}{Reflectivity Traffic. This quantity is independent
+   on the assumed radar cross section (RCS)}
+ \item{\code{ff}}{Horizontal ground speed in m/s}
+ \item{\code{dd}}{Horizontal ground speed direction in degrees}
+ \item{\code{u}}{Ground speed component west to east in m/s}
+ \item{\code{v}}{Ground speed component north to south in m/s}
+ \item{\code{HGHT}}{Height above sea level in m}
 }
+The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
 }
 \examples{
 # vertically integrate a vpts object:
