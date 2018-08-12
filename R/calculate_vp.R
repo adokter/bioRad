@@ -251,7 +251,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
 
   opt.names <- c("STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
                  "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "dual_pol",
+                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
                  "DEALIAS_VRAD")
   opt <- data.frame("option" = opt.names, "is" = rep("=", length(opt.values)),
                     "value" = opt.values)
