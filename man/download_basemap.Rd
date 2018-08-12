@@ -17,7 +17,8 @@ ppi extent is selected automatically.}
 
 \item{alpha}{Transparency of the basemap (0-1).}
 
-\item{...}{Arguments to pass to \link[ggmap]{get_map} function.}
+\item{...}{Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
+for selection of different types of basemaps.s}
 }
 \description{
 Downloads a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base

@@ -9,7 +9,8 @@
 #'   ppi extent is selected automatically.
 #' @param alpha Transparency of the basemap (0-1).
 #' @param verbose Logical, whether to print information to console.
-#' @param ... Arguments to pass to \link[ggmap]{get_map} function.
+#' @param ... Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
+#' for selection of different types of basemaps.s
 #'
 #' @export
 #'
