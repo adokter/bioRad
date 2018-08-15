@@ -1,7 +1,13 @@
 # bioRad
 bioRad is an R package for extracting and visualising biological signals from weather radar data.
 
-The version in this branch has been specifically prepared for review purposes of the paper "bioRad: biological analysis and visualization of weather radar data".
+* analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=debilt)).
+* overlays radar scans with geographic maps and satellite imagery of various online sources (e.g Google Maps and Stamen Maps), using  [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html).
+* contains an implementation of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of bird migration from weather radar data. 
+* Reads radar files in [ODIM](http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format, or formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as [NEXRAD](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) data.
+
+The [vol2bird](https://github.com/adokter/vol2bird) algorithm, and a tool to convert NEXRAD data into ODIM format, require a working installation of [Docker](https://www.docker.com/).
+
 
 # installation
 To install `bioRad` complete these four steps:
@@ -18,7 +24,7 @@ biocLite("rhdf5")
 You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
 ```
 library(devtools)
-devtools::install_github("adokter/bioRad@ecography")
+devtools::install_github("adokter/bioRad")
 ```
 If your installation completed correctly, you can load bioRad with `library(bioRad)`, which should give you the following:
 
@@ -33,7 +39,7 @@ To enable Docker functionality, start Docker and run 'checkDocker()' in R
 
 On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:
 ```
-devtools::install_github("adokter/bioRad@ecography", args="--no-multiarch")
+devtools::install_github("adokter/bioRad", args="--no-multiarch")
 ```
 
 ### 3. Docker (optional)
