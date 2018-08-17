@@ -41,6 +41,8 @@ summary.param <- function(object, ...) {
 #'
 #' @return for \code{is.scan}: \code{TRUE} if its argument is of
 #' class "\code{param}"
+#'
+#' @export
 is.param <- function(x) {
   inherits(x, "param")
 }
@@ -50,6 +52,8 @@ is.param <- function(x) {
 #' @param x An object of class \code{param}, a polar scan parameter.
 #'
 #' @keywords internal
+#'
+#' @export
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
   cat("               Polar scan parameter (class param)\n\n")
