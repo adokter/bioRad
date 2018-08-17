@@ -12,4 +12,3 @@
 \description{
 Print method for class \code{scan}
 }
-\keyword{internal}
