@@ -70,8 +70,6 @@ dim.scan <- function(x) {
 #'
 #' @param x An object of class \code{scan}, a polar scan.
 #'
-#' @keywords internal
-#'
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "scan"))
