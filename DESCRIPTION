@@ -1,8 +1,6 @@
 Package: bioRad
-Type: Package
 Title: Biological analysis and visualization of weather radar data
 Version: 0.3.0
-Date: 2018-04-23
 Description: Extracts and visualizes biological signals from weather radar data.
 Authors@R: c(
   person("Adriaan M.", "Dokter", role = c("aut", "cre"),
@@ -48,5 +46,6 @@ Suggests:
     knitr,
     testthat
 LazyData: true
+Encoding: UTF-8
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
