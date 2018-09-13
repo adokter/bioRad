@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Analyze and visualize biological signals in weather radar data — bioRad-package • bioRad</title>
+<title>Biological analysis and visualization of weather radar data — bioRad-package • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Biological analysis and visualization of weather radar data — bioRad-package" />
+
+<meta property="og:description" content="bioRad" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -64,6 +77,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -71,15 +85,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Analyze and visualize biological signals in weather radar data</h1>
+    <h1>Biological analysis and visualization of weather radar data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
+    <div class="hidden name"><code>bioRad-package.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><span class="pkg">bioRad</span></p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -96,7 +114,7 @@
 <li><p><a href='integrate_profile.html'>vpi</a>, vertically integrated vertical profiles.</p></li>
 </ul>
 <p>The common <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/is'>is</a>, <a href='http://www.rdocumentation.org/packages/base/topics/dim'>dim</a>, and <a href='http://www.rdocumentation.org/packages/base/topics/Extract'>Extract</a> methods are available for each of these classes.</p>
-<p>Plot methods are available for ppi, vp and vpts objects</p><h3>Reading radar data</h3>
+<p>Plot methods are available for vp, vpts, vpi and ppi objects</p><h3>Reading radar data</h3>
     <span class="pkg">bioRad</span> can read radar files in
 <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM</a>
 format, which is the implementation of the OPERA data information model in <a href='https://support.hdfgroup.org/HDF5/'>HDF5</a> format,
@@ -105,8 +123,8 @@ or a format supported by the <a href='http://trmm-fc.gsfc.nasa.gov/trmm_gv/softw
     Raw (level-II) weather radar data is read with the function <a href='read_pvolfile.html'>read_pvolfile</a>, which returns a <a href='summary.pvol.html'>pvol</a> polar volume object.
     Use the function <a href='nexrad_to_odim.html'>nexrad_to_odim</a> to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
     <h3>Mapping and projecting radar scans</h3>
-    Funtion <a href='bioRad-deprecated.html'>ppi</a> can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
-    Function <a href='map.html'>map</a> can be used together with <a href='bioRad-deprecated.html'>basemap</a> to overlay radar data with all kinds of publicly available map and satellite data.
+    Function <a href='project_as_ppi.html'>project_as_ppi</a> can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
+    Function <a href='map.html'>map</a> can be used together with <a href='download_basemap.html'>download_basemap</a> to overlay radar data with all kinds of publicly available map and satellite data.
     <h3>Processing weather radar data into vertical profiles of birds</h3>
     <span class="pkg">bioRad</span> contains an implementation of the <code>vol2bird</code> algorithm, which
 processes polar volume data into a vertical profiles of birds (vp).
@@ -129,10 +147,8 @@ both in terms of density and speed, which can be visualized simultaneously (with
 cross section per individual needs to be assumed, which is set with <a href='rcs.html'>rcs</a>.
 By default, a radar cross section of 11 cm^2 is used, which is the average value found
 by Dokter et al. during a full autumn migration season in Europe at C-band.
-    mtr combines reflectivity and speed into migration traffic rates within user-defined altitude bands
-    mt calculates migration traffic: it integrates migration traffic rates over time and altitude, to find the total number
-of individuals passing a radar station in a certain time period
-    cmt calculates cumulative migration traffic.
+    <a href='integrate_profile.html'>integrate_profile</a> calculates various height-integrated values within user-defined altitude bands,
+such as migration traffic rate (MTR).
     <h3>Conventions</h3>
     <ul>
 <li><p><code>NA</code> Maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)</p></li>
@@ -144,11 +160,11 @@ of individuals passing a radar station in a certain time period
   to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
     <h3>Other useful functionality</h3>
     <ul>
-<li><p><a href='bioRad-deprecated.html'>suntime</a> calculates runrise and sunset times</p></li>
+<li><p><a href='sunrise_sunset.html'>sunrise</a> and <a href='sunrise_sunset.html'>sunset</a> calculates runrise and sunset times</p></li>
 <li><p><a href='check_docker.html'>check_docker</a> checks whether your local Docker daemon is running correctly</p></li>
-<li><p><a href='get_angles.html'>get_angles</a> gives the elevation angle(s) of a polar volume or polar scan object</p></li>
-<li><p><a href='beam_height.html'>beam_height</a> gives the radar beam height, for a certain elevation and range.</p></li>
-<li><p><a href='beam_width.html'>beam_width</a> gives the radar beam width, for a certain range.</p></li>
+<li><p><a href='get_elevation_angles.html'>get_elevation_angles</a> gives the elevation angle(s) of a polar volume or polar scan object</p></li>
+<li><p><a href='beam_height.html'>beam_height</a> gives the radar beam height, at a certain elevation and range.</p></li>
+<li><p><a href='beam_width.html'>beam_width</a> gives the radar beam width, at a certain range.</p></li>
 </ul>
     <h3>Example datasets</h3>
     <ul>
@@ -159,6 +175,8 @@ of individuals passing a radar station in a certain time period
 <li><p><code>volume.h5</code>: example hdf5 file containing a polar volume. Locate this file in your local installation with <code>system.file("extdata", "volume.h5", package = "bioRad")</code>. Read it with <a href='read_pvolfile.html'>read_pvolfile</a>.</p></li>
 <li><p><code>vpts.txt</code>: example standard output of <a href='calculate_vp.html'>calculate_vp</a> piped to a text file. Locate this file in your local installation with <code>system.file("extdata", "vpts.txt", package = "bioRad")</code>. Read it with <code><a href='read_vpts.html'>read_vpts</a></code>.</p></li>
 </ul>
+    <h3>Vignettes</h3>
+    Execute <code>vignette("bioRad-overview")</code> for vignette with exercises that covers most of bioRad's functionality
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -168,11 +186,11 @@ of individuals passing a radar station in a certain time period
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Useful links:</p><ul>
+    <div class='dont-index'><p>Useful links:</p><ul>
 <li><p><a href='https://github.com/adokter/bioRad'>https://github.com/adokter/bioRad</a></p></li>
 <li><p><a href='https://adokter.github.io/bioRad'>https://adokter.github.io/bioRad</a></p></li>
 <li><p>Report bugs at <a href='https://github.com/adokter/bioRad/issues'>https://github.com/adokter/bioRad/issues</a></p></li>
-</ul>
+</ul></div>
     
 
   </div>
@@ -211,11 +229,14 @@ Other contributors:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

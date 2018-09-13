@@ -19,13 +19,23 @@ position indicator (<code>ppi</code>) — project_as_ppi • bioRad</title>
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Project a scan (<code>scan</code>) or parameter (<code>param</code>) to a plan
+position indicator (<code>ppi</code>) — project_as_ppi" />
+
+<meta property="og:description" content="Make a plan position indicator (ppi)" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -48,8 +58,12 @@ position indicator (<code>ppi</code>) — project_as_ppi • bioRad</title>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,6 +79,7 @@ position indicator (<code>ppi</code>) — project_as_ppi • bioRad</title>
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -72,29 +87,33 @@ position indicator (<code>ppi</code>) — project_as_ppi • bioRad</title>
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Project a scan (<code>scan</code>) or parameter (<code>param</code>) to a plan
 position indicator (<code>ppi</code>)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/project_as_ppi.R'><code>R/project_as_ppi.R</code></a></small>
+    <div class="hidden name"><code>project_as_ppi.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Make a plan position indicator (ppi)</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for param</span>
-<span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for scan</span>
-<span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -102,11 +121,11 @@ position indicator (<code>ppi</code>)</h1>
       <td><p>An object of class <code>param</code> or <code>scan</code>.</p></td>
     </tr>
     <tr>
-      <th>cellsize</th>
+      <th>grid_size</th>
       <td><p>Cartesian grid size in m.</p></td>
     </tr>
     <tr>
-      <th>range.max</th>
+      <th>range_max</th>
       <td><p>Maximum range in m.</p></td>
     </tr>
     <tr>
@@ -114,11 +133,11 @@ position indicator (<code>ppi</code>)</h1>
       <td><p>Whether to vertically project onto earth's surface.</p></td>
     </tr>
     <tr>
-      <th>latlim</th>
+      <th>ylim</th>
       <td><p>The range of latitudes to include.</p></td>
     </tr>
     <tr>
-      <th>lonlim</th>
+      <th>xlim</th>
       <td><p>The range of longitudes to include.</p></td>
     </tr>
     <tr>
@@ -193,11 +212,14 @@ parameters in a scan</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

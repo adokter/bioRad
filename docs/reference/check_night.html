@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Check if it is night at a given time and place — check_night" />
+
+<meta property="og:description" content="Checks if it is night (TRUE/FALSE) for a combination of
+latitude, longitude, date and sun elevation. When used on a bioRad object
+(pvol, vp, vpts) this information is extracted from the
+bioRad object directly." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -64,6 +80,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -71,23 +88,28 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Check if it is night at a given time and place</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/check_night.R'><code>R/check_night.R</code></a></small>
+    <div class="hidden name"><code>check_night.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Checks if it is night (<code>TRUE</code>/<code>FALSE</code>) for a combination of
 latitude, longitude, date and sun elevation. When used on a bioRad object
 (<code>pvol</code>, <code>vp</code>, <code>vpts</code>) this information is extracted from the
 bioRad object directly.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>check_night</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>date</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
 
 <span class='co'># S3 method for vp</span>
 <span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
@@ -101,16 +123,18 @@ bioRad object directly.</p>
 <span class='co'># S3 method for pvol</span>
 <span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A <code>numeric</code>, <code>pvol</code>, <code>vp</code> or <code>vpts</code>.</p></td>
+      <td><p><code>pvol</code>, <code>vp</code> or <code>vpts</code>,
+or a date inhereting from class <code>POSIXct</code> or a string
+interpretable by <a href='http://www.rdocumentation.org/packages/base/topics/as.POSIXlt'>as.POSIXct</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>A bioRad object of lat/lon combination.</p></td>
+      <td><p>optional lat,lon arguments.</p></td>
     </tr>
     <tr>
       <th>elev</th>
@@ -125,9 +149,8 @@ bioRad object directly.</p>
       <td><p>numeric. Latitude in decimal degrees.</p></td>
     </tr>
     <tr>
-      <th>date</th>
-      <td><p>Date. Date inheriting from class <code>POSIXt</code> or a string
-interpretable by <a href='http://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a>.</p></td>
+      <th>tz</th>
+      <td><p>character. Time zone. Ignored when <code>date</code> already has an associated time zone</p></td>
     </tr>
     </table>
     
@@ -141,8 +164,8 @@ vector of <code>TRUE</code>/<code>FALSE</code> values is returned.</p>
 
     <p>The angular diameter of the sun is about 0.536 degrees, therefore
 the moment of sunrise/sunset corresponds to half that elevation at
--0.268 degrees.
-    <code>check_night()</code> evaluates to <code>FALSE</code> when the sun has a higher
+-0.268 degrees.</p>
+<p><code>check_night()</code> evaluates to <code>FALSE</code> when the sun has a higher
 elevation than parameter <code>elev</code>, otherwise <code>TRUE</code>.</p>
 <p>Approximate astronomical formula are used, therefore the day/night
 transition may be off by a few minutes.</p>
@@ -150,7 +173,7 @@ transition may be off by a few minutes.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># check if it is night at UTC midnight in the Netherlands on January 1st:</span>
-<span class='fu'>check_night</span>(<span class='fl'>5</span>, <span class='fl'>53</span>, <span class='st'>"2016-01-01 00:00"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>check_night</span>(<span class='st'>"2016-01-01 00:00"</span>,<span class='fl'>5</span>, <span class='fl'>53</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># check on bioRad objects directly:</span>
 <span class='fu'>check_night</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>check_night</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt;    [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 #&gt;   [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
@@ -234,7 +257,7 @@ transition may be off by a few minutes.</p>
 #&gt;  [949] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #&gt;  [961] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #&gt;  [973] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#&gt;  [985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt;  [985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
 #&gt;  [997]  TRUE  TRUE  TRUE  TRUE
 #&gt;  [ reached getOption("max.print") -- omitted 5135 entries ]</div></pre>
   </div>
@@ -259,11 +282,14 @@ transition may be off by a few minutes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

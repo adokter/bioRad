@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A wrapper for <code>spTransform</code>. — wgs_to_proj • bioRad</title>
+<title>Read a vertical profile from UMASS Cajun text file — read_cajun • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="A wrapper for <code>spTransform</code>. — wgs_to_proj" />
+<meta property="og:title" content="Read a vertical profile from UMASS Cajun text file — read_cajun" />
 
-<meta property="og:description" content="A wrapper for spTransform." />
+<meta property="og:description" content="Read a vertical profile from UMASS Cajun text file" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -88,39 +88,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A wrapper for <code>spTransform</code>.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/project_as_ppi.R'><code>R/project_as_ppi.R</code></a></small>
-    <div class="hidden name"><code>wgs_to_proj.Rd</code></div>
+    <h1>Read a vertical profile from UMASS Cajun text file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/read_cajun.R'><code>R/read_cajun.R</code></a></small>
+    <div class="hidden name"><code>read_cajun.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A wrapper for <code>spTransform</code>.</p>
+    <p>Read a vertical profile from UMASS Cajun text file</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>wgs_to_proj</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>proj4string</span>)</pre>
+    <pre class="usage"><span class='fu'>read_cajun</span>(<span class='no'>file</span>, <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lon</th>
-      <td><p>Longitude</p></td>
+      <th>file</th>
+      <td><p>A text file containing the standard output (stdout) generated
+by UMASS Cajun pipeline</p></td>
     </tr>
     <tr>
-      <th>lat</th>
-      <td><p>Latitude</p></td>
+      <th>rcs</th>
+      <td><p>numeric. Radar cross section per bird in cm^2.</p></td>
     </tr>
     <tr>
-      <th>proj4string</th>
-      <td><p>An object of class 'CRS', as defined in package <code>sp</code>.</p></td>
+      <th>wavelength</th>
+      <td><p>Radar wavelength in cm, or one of 'C' or 'S' for C-band and S-band radar, respectively.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>SpatialPoints</code>.</p>
+    <p>An object inhereting from class <code>vp</code>, see
+<code><a href='summary.vp.html'>vp</a></code> for details.</p>
     
 
   </div>
