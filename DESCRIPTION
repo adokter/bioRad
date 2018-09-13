@@ -23,31 +23,30 @@ Authors@R: c(
   person("Hidde", "Leijnse", role = c("ctb"),
     email = "hidde.leijnse@knmi.nl",
     comment = "https://orcid.org/0000-0001-7835-4480"))
-Depends: R (>= 2.10)
 License: MIT + file LICENSE
-LazyData: true
+URL: https://github.com/adokter/bioRad, https://adokter.github.io/bioRad
+BugReports: https://github.com/adokter/bioRad/issues
+Depends:
+    R (>= 2.10)
 Imports:
-  curl,
-  fields,
-  ggmap,
-  ggplot2,
-  graphics,
-  lubridate,
-  methods,
-  raster,
-  RCurl,
-  rgdal,
-  rhdf5,
-  sp,
-  stats,
-  utils,
-  maptools
+    curl,
+    fields,
+    ggmap,
+    ggplot2,
+    graphics,
+    lubridate,
+    methods,
+    raster,
+    RCurl,
+    rgdal,
+    rhdf5,
+    sp,
+    stats,
+    utils,
+    maptools
 Suggests:
-  knitr,
-  testthat
+    knitr,
+    testthat
+LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
-URL:
-  https://github.com/adokter/bioRad,
-  https://adokter.github.io/bioRad
-BugReports: https://github.com/adokter/bioRad/issues
