@@ -1,27 +1,23 @@
 reference:
-  - title: "Polar volume (pvol)"
-    desc: "Functions to work with a polar volume."
+  - title: "Reading radar data"
+    desc: "Functions to read polar volume (pvol) data."
     contents:
       - is.pvolfile
       - get_odim_object_type
       - nexrad_to_odim
       - read_pvolfile
       - is.pvol
-      - get_elevation_angles
-  - title: "Polar scan (scan)"
-    desc: "Functions to work with a scan (at a certain elevation) of a polar volume."
+  - title: "Inspecting a radar scan"
+    desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
     contents:
+      - get_elevation_angles
       - get_scan
       - is.scan
       - example_scan
       - plot.scan
-      - get_elevation_angles
-  - title: "Polar scan paramater (param)"
-    desc: "Functions to work with a parameter of a polar scan."
-    contents:
       - is.param
-  - title: "Plan position indicator (ppi)"
-    desc: "Functions to project a polar scan or scan parameter to a Cartesian grid."
+  - title: "Projecting a radar scan"
+    desc: "Functions to project a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
     contents:
       - project_as_ppi
       - is.ppi
@@ -30,15 +26,15 @@ reference:
       - download_basemap
       - composite_ppi
       - "`[.ppi`"
-  - title: "Creating vertical profiles (vp)"
-    desc: "Functions to process weather radar data into vertical profiles of birds. Requires a locally running Docker daemon."
+  - title: "Creating vertical profiles of birds"
+    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of birds. Requires a locally running Docker daemon."
     contents:
       - calculate_vp
-      - nexrad_to_odim
       - update_docker
       - check_docker
-  - title: "Vertical profile (vp)"
-    desc: "Functions to work with vertical profiles."
+      - nexrad_to_odim
+  - title: "Reading vertical profile data"
+    desc: "Functions to download, read, inspect and plot vertical profiles (vp) of birds data."
     contents:
       - download_vpfiles
       - select_vpfiles
@@ -49,13 +45,8 @@ reference:
       - example_vp
       - plot.vp
       - as.data.frame.vp
-      - sd_vvp_threshold
-      - "`sd_vvp_threshold<-`"
-      - rcs
-      - "`rcs<-`"
-      - get_quantity
-  - title: "Vertical profile time series (vpts)"
-    desc: "Functions to work with vertical profile time series"
+  - title: "Combining vertical profiles into time series"
+    desc: "Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these."
     contents:
       - c.vp
       - bind_into_vpts
@@ -71,12 +62,13 @@ reference:
       - rcs
       - "`rcs<-`"
       - get_quantity
-  - title: "Integrated profiles (vpi)"
-    desc: "Functions to work with integrated profiles."
+  - title: "Integrating vertical profiles"
+    desc: "Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi)."
     contents:
       - integrate_profile
       - plot.vpi
   - title: "Other functions"
+    desc: "Other useful functions."
     contents:
       - beam_height
       - beam_width
