@@ -1,12 +1,3 @@
-navbar:
-  title: bioRad
-  type: default
-  left:
-  - text: Functions
-    href: reference/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/adokter/bioRad
 reference:
   - title: "Polar volume (pvol)"
     desc: "Functions to work with a polar volume."
