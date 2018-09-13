@@ -7,6 +7,92 @@ navbar:
   right:
   - icon: fa-github fa-lg
     href: https://github.com/adokter/bioRad
+reference:
+  - title: "Polar volume (pvol)"
+    desc: "Functions to work with a polar volume."
+    contents:
+      - is.pvolfile
+      - get_odim_object_type
+      - nexrad_to_odim
+      - read_pvolfile
+      - is.pvol
+      - get_elevation_angles
+  - title: "Polar scan (scan)"
+    desc: "Functions to work with a scan (at a certain elevation) of a polar volume."
+    contents:
+      - get_scan
+      - is.scan
+      - example_scan
+      - plot.scan
+      - get_elevation_angles
+  - title: "Polar scan paramater (param)"
+    desc: "Functions to work with a parameter of a polar scan."
+    contents:
+      - is.param
+  - title: "Plan position indicator (ppi)"
+    desc: "Functions to project a polar scan or scan parameter to a Cartesian grid."
+    contents:
+      - project_as_ppi
+      - is.ppi
+      - plot.ppi
+      - map
+      - download_basemap
+      - composite_ppi
+      - "`[.ppi`"
+  - title: "Creating vertical profiles (vp)"
+    desc: "Functions to process weather radar data into vertical profiles of birds. Requires a locally running Docker daemon."
+    contents:
+      - calculate_vp
+      - nexrad_to_odim
+      - update_docker
+      - check_docker
+  - title: "Vertical profile (vp)"
+    desc: "Functions to work with vertical profiles."
+    contents:
+      - download_vpfiles
+      - select_vpfiles
+      - is.vpfile
+      - read_vpfiles
+      - read_cajun
+      - is.vp
+      - example_vp
+      - plot.vp
+      - as.data.frame.vp
+      - sd_vvp_threshold
+      - "`sd_vvp_threshold<-`"
+      - rcs
+      - "`rcs<-`"
+      - get_quantity
+  - title: "Vertical profile time series (vpts)"
+    desc: "Functions to work with vertical profile time series"
+    contents:
+      - c.vp
+      - bind_into_vpts
+      - read_vpts
+      - is.vpts
+      - example_vpts
+      - plot.vpts
+      - regularize_vpts
+      - as.data.frame.vpts
+      - "`[.vpts`"
+      - sd_vvp_threshold
+      - "`sd_vvp_threshold<-`"
+      - rcs
+      - "`rcs<-`"
+      - get_quantity
+  - title: "Integrated profiles (vpi)"
+    desc: "Functions to work with integrated profiles."
+    contents:
+      - integrate_profile
+      - plot.vpi
+  - title: "Other functions"
+    contents:
+      - beam_height
+      - beam_width
+      - dbz_to_eta
+      - eta_to_dbz
+      - check_night
+      - sunrise
 
 template:
   params:
