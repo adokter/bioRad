@@ -50,27 +50,29 @@ plot.vp <- function(x, quantity = "dens",
   }
   # set up the plot labels
   if (missing(xlab)) {
-    if (quantity == "u") xlab = "W->E ground speed component U [m/s]"
-    if (quantity == "v") xlab = "N->S ground speed component V [m/s]"
-    if (quantity == "w") xlab = "vertical speed W [m/s]"
-    if (quantity == "ff") xlab = "ground speed [m/s]"
-    if (quantity == "dd") xlab = "ground speed direction [deg]"
-    if (quantity == "sd_vvp") xlab = "VVP-retrieved radial velocity standard deviation [m/s]"
-    if (quantity == "head_bl") xlab = "heading baseline [unitless]"
-    if (quantity == "head_ff") xlab = "heading amplitude [unitless]"
-    if (quantity == "head_dd") xlab = "heading direction [deg]"
-    if (quantity == "head_sd") xlab = "heading standard deviation [unitless]"
-    if (quantity == "dbz") xlab = expression("reflectivity factor [dBZ"[e] * "]")
-    if (quantity == "dens") xlab = expression("volume density [#/km"^3*"]")
-    if (quantity == "eta") xlab = expression("reflectivity "*eta*" [cm"^2*"/km"^3*"]")
-    if (quantity == "DBZH") xlab = expression("total reflectivity factor [dBZ"[e] * "]")
-    if (quantity == "gap") xlab = "Angular data gap detected [logical]"
-    if (quantity == "n") xlab = "# range gates in VVP velocity analysis"
-    if (quantity == "n_all") xlab = "# range gates in sd_vvp estimate"
-    if (quantity == "n_dbz") xlab = "# range gates in density estimates"
-    if (quantity == "n_dbz_all") xlab = "# range gates in DBZH estimate"
+    xlab = switch(quantity,
+                   "u" = "W->E ground speed component U [m/s]",
+                   "v" = "N->S ground speed component V [m/s]",
+                   "w" = "vertical speed W [m/s]",
+                   "ff" = "ground speed [m/s]",
+                   "dd" = "ground speed direction [deg]",
+                   "sd_vvp" = "VVP-retrieved radial velocity standard deviation [m/s]",
+                   "head_bl" = "heading baseline [unitless]",
+                   "head_ff" = "heading amplitude [unitless]",
+                   "head_dd" = "heading direction [deg]",
+                   "head_sd" = "heading standard deviation [unitless]",
+                   "dbz" = expression("reflectivity factor [dBZ"[e] * "]"),
+                   "dens" = expression("volume density [#/km"^3*"]"),
+                   "eta" = expression("reflectivity "*eta*" [cm"^2*"/km"^3*"]"),
+                   "DBZH" = expression("total reflectivity factor [dBZ"[e] * "]"),
+                   "gap" = "Angular data gap detected [logical]",
+                   "n" = "# range gates in VVP velocity analysis",
+                   "n_all" = "# range gates in sd_vvp estimate",
+                   "n_dbz" = "# range gates in density estimates",
+                   "n_dbz_all" = "# range gates in DBZH estimate",
+                   quantity)
   }
-
+  print(xlab)
   # extract the data from the time series object
   pdat <- get_quantity(x, quantity)
   plot(pdat, x$data$HGHT/1000, xlab = xlab, ylab = ylab, ...)
