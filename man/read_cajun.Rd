@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_cajun.R
 \name{read_cajun}
 \alias{read_cajun}
-\title{Read a vertical profile from UMASS Cajun text file}
+\title{Read a vertical profile (\code{vp}) from UMASS Cajun text file}
 \usage{
 read_cajun(file, rcs = 11, wavelength = "S")
 }
@@ -19,5 +19,5 @@ An object inhereting from class \code{vp}, see
 \code{\link[=summary.vp]{vp}} for details.
 }
 \description{
-Read a vertical profile from UMASS Cajun text file
+Read a vertical profile (\code{vp}) from UMASS Cajun text file
 }
