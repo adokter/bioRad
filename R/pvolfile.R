@@ -1,4 +1,4 @@
-#' Check if a file is a polar volume (\code{pvol})
+#' Check if a local file is a polar volume (\code{pvol})
 #'
 #' Checker whether a file is a polar volume that can be read with
 #' package \pkg{bioRad}

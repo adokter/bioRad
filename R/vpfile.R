@@ -1,4 +1,4 @@
-#' Check if a file is a vertical profile (\code{vp})
+#' Check if a local file is a vertical profile (\code{vp})
 #'
 #' Checker whether a file is a vertical profile that can be read with
 #' package \pkg{bioRad}
