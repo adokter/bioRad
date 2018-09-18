@@ -29,7 +29,7 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
       x$data@grid@cells.dim[2], "pixels\n\n")
 }
 
-#' Object of class \code{ppi}: a plan position indicator
+#' R base functions for an object of class \code{ppi}: a plan position indicator
 #'
 #' @param object Object of class \code{ppi}.
 #' @param x Object of class \code{ppi}.

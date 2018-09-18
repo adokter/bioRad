@@ -1,4 +1,4 @@
-#' Object of class \code{vp}: a vertical profile of birds
+#' R base functions for an object of class \code{vp}: a vertical profile of birds
 #'
 #' Class for vertical profiles
 #'

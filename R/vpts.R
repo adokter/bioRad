@@ -1,4 +1,4 @@
-#' Object of class \code{vpts}: a time series of vertical profiles
+#' R base functions for an object of class \code{vpts}: a time series of vertical profiles
 #'
 #' Class for single-site time series of vertical profiles
 #'

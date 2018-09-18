@@ -1,4 +1,4 @@
-#' Object of class \code{pvol}: a polar volume
+#' R base functions for an object of class \code{pvol}: a polar volume
 #'
 #' @param object Object of class \code{pvol}.
 #' @param x Object of class \code{pvol}.

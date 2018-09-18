@@ -4,7 +4,7 @@
 \alias{summary.scan}
 \alias{is.scan}
 \alias{dim.scan}
-\title{Object of class \code{scan}: a scan of a polar volume}
+\title{R base functions for an object of class \code{scan}: a scan of a polar volume}
 \usage{
 \method{summary}{scan}(object, ...)
 
@@ -26,7 +26,7 @@ class \code{scan}.
 For \code{dim.scan}: dimensions of the scan.
 }
 \description{
-Object of class \code{scan}: a scan of a polar volume
+R base functions for an object of class \code{scan}: a scan of a polar volume
 }
 \details{
 A polar scan object of class \code{scan} is a list containing:

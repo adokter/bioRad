@@ -1,4 +1,4 @@
-#' Object of class \code{scan}: a scan of a polar volume
+#' R base functions for an object of class \code{scan}: a scan of a polar volume
 #'
 #' @param object Object of class \code{scan}
 #' @param x Object of class \code{scan}
@@ -69,9 +69,9 @@ dim.scan <- function(x) {
 #' Print method for class \code{scan}
 #'
 #' @param x An object of class \code{scan}, a polar scan.
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "scan"))

@@ -4,7 +4,7 @@
 \alias{summary.vpts}
 \alias{is.vpts}
 \alias{dim.vpts}
-\title{Object of class \code{vpts}: a time series of vertical profiles}
+\title{R base functions for an object of class \code{vpts}: a time series of vertical profiles}
 \usage{
 \method{summary}{vpts}(object, ...)
 

@@ -4,7 +4,7 @@
 \alias{summary.ppi}
 \alias{is.ppi}
 \alias{dim.ppi}
-\title{Object of class \code{ppi}: a plan position indicator}
+\title{R base functions for an object of class \code{ppi}: a plan position indicator}
 \usage{
 \method{summary}{ppi}(object, ...)
 
@@ -26,7 +26,7 @@ class \code{ppi}.
 For \code{dim.ppi}: dimensions of the ppi.
 }
 \description{
-Object of class \code{ppi}: a plan position indicator
+R base functions for an object of class \code{ppi}: a plan position indicator
 }
 \details{
 A PPI of class 'ppi' is a list containing:

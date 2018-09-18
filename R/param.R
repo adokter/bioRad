@@ -1,4 +1,4 @@
-#' Object of class \code{param}: a parameter of a scan of a polar volume
+#' R base functions for an object of class \code{param}: a parameter of a scan of a polar volume
 #'
 #' @param object Object of class \code{param}.
 #' @param x Object of class \code{param}.

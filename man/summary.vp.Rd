@@ -4,7 +4,7 @@
 \alias{summary.vp}
 \alias{is.vp}
 \alias{dim.vp}
-\title{Object of class \code{vp}: a vertical profile of birds}
+\title{R base functions for an object of class \code{vp}: a vertical profile of birds}
 \usage{
 \method{summary}{vp}(object, ...)
 
