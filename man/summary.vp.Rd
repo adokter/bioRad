@@ -4,7 +4,7 @@
 \alias{summary.vp}
 \alias{is.vp}
 \alias{dim.vp}
-\title{R base functions for an object of class \code{vp}: a vertical profile of birds}
+\title{Class \code{vp}: a vertical profile of birds}
 \usage{
 \method{summary}{vp}(object, ...)
 
@@ -25,7 +25,8 @@ For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
 For \code{dim.vp}: dimensions of the profile data.
 }
 \description{
-Class for vertical profiles
+Class \code{vp} for a vertical profile of birds, and its associated R base
+functions.
 }
 \details{
 An object of class \code{vp} contains a vertical profile. A vertical profile

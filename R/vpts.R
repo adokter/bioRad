@@ -1,6 +1,7 @@
-#' R base functions for an object of class \code{vpts}: a time series of vertical profiles
+#' Class \code{vpts}: a time series of vertical profiles
 #'
-#' Class for single-site time series of vertical profiles
+#' Class \code{vpts} for a time series of vertical profiles, and its associated
+#' R base functions.
 #'
 #' @param object An object of class \code{vpts}.
 #' @param x An object of class \code{vpts}.
@@ -10,8 +11,9 @@
 #'
 #' @export
 #'
-#' @details An object of class \code{vpts} contains time-ordered profiles of
-#' a single radar station.
+#' @details
+#' An object of class \code{vpts} contains time-ordered profiles of a single
+#' radar station.
 #'
 #' The time series can be regular or irregular, indicated by the \code{regular}
 #' field
@@ -120,7 +122,7 @@ dim.vpts <- function(x) {
   return(x)
 }
 
-#' print method for class \code{vpts}
+#' Print method for class \code{vpts}
 #'
 #' @param x An object of class \code{vpts}, usually a result of a call
 #' to \code{\link{bind_into_vpts}}.

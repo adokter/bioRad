@@ -1,6 +1,7 @@
-#' R base functions for an object of class \code{vp}: a vertical profile of birds
+#' Class \code{vp}: a vertical profile of birds
 #'
-#' Class for vertical profiles
+#' Class \code{vp} for a vertical profile of birds, and its associated R base
+#' functions.
 #'
 #' @rdname summary.vp
 #'

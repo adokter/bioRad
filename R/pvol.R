@@ -1,4 +1,6 @@
-#' R base functions for an object of class \code{pvol}: a polar volume
+#' Class \code{pvol}: a polar volume
+#'
+#' Class \code{pvol} for a polar volume, and its associated R base functions.
 #'
 #' @param object Object of class \code{pvol}.
 #' @param x Object of class \code{pvol}.
@@ -9,7 +11,7 @@
 #' @export
 #'
 #' @details
-#' A polar scan object of class \code{pvol} is a list containing:
+#' An object of class \code{pvol} is a list containing:
 #' \describe{
 #'  \item{\code{radar}}{character string with the radar identifier}
 #'  \item{\code{datetime}}{nominal time of the volume [UTC]}

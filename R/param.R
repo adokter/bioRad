@@ -1,4 +1,7 @@
-#' R base functions for an object of class \code{param}: a parameter of a scan of a polar volume
+#' Class \code{param}: a parameter of a scan of a polar volume
+#'
+#' Class \code{param} for a parameter of a scan of a polar volume, and its
+#' associated R base functions.
 #'
 #' @param object Object of class \code{param}.
 #' @param x Object of class \code{param}.
@@ -7,7 +10,8 @@
 #' @method summary param
 #'
 #' @details
-#' Scan parameters are simple matrices, with the following specific attributes:
+#' An object of class \code{scan} is a simple matrix, with the following
+#' specific attributes:
 #' \describe{
 #'    \item{\code{radar}}{character string with the radar identifier}
 #'    \item{\code{datetime}}{nominal time of the volume to which this
