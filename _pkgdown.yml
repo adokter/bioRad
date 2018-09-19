@@ -7,7 +7,7 @@ reference:
       - nexrad_to_odim
       - read_pvolfile
       - is.pvol
-  - title: "Inspecting a radar scan"
+  - title: "Inspecting radar scans"
     desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
     contents:
       - get_elevation_angles
@@ -16,8 +16,8 @@ reference:
       - example_scan
       - plot.scan
       - is.param
-  - title: "Projecting a radar scan"
-    desc: "Functions to project a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
+  - title: "Plotting radar scans"
+    desc: "Functions to plot a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
     contents:
       - project_as_ppi
       - is.ppi
@@ -26,15 +26,15 @@ reference:
       - download_basemap
       - composite_ppi
       - "`[.ppi`"
-  - title: "Creating vertical profiles of birds"
-    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of birds. Requires a locally running Docker daemon."
+  - title: "Creating vertical profiles of biological targets"
+    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon."
     contents:
       - calculate_vp
-      - update_docker
       - check_docker
+      - update_docker
       - nexrad_to_odim
   - title: "Reading vertical profile data"
-    desc: "Functions to download, read, inspect and plot vertical profiles (vp) of birds data."
+    desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
     contents:
       - download_vpfiles
       - select_vpfiles
@@ -57,16 +57,20 @@ reference:
       - regularize_vpts
       - as.data.frame.vpts
       - "`[.vpts`"
-      - sd_vvp_threshold
-      - "`sd_vvp_threshold<-`"
-      - rcs
-      - "`rcs<-`"
       - get_quantity
   - title: "Integrating vertical profiles"
     desc: "Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi)."
     contents:
       - integrate_profile
       - plot.vpi
+  - title: "Accessing vertical profile metadata"
+    desc: "Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi)."
+    contents:
+      - rcs
+      - "`rcs<-`"
+      - sd_vvp_threshold
+      - "`sd_vvp_threshold<-`"
+      - check_night
   - title: "Other functions"
     desc: "Other useful functions."
     contents:
@@ -74,7 +78,6 @@ reference:
       - beam_width
       - dbz_to_eta
       - eta_to_dbz
-      - check_night
       - sunrise
 
 template:
