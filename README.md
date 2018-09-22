@@ -92,7 +92,7 @@ To open the vignette with several exercises covering the functionality of bioRad
 vignette("functionality_overview")
 ```
 
-### install note 1: rgdal on linux and mac OS v10.11 or older:
+### Install note 1: rgdal on linux and mac OS v10.11 or older:
 
 bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.
 
@@ -109,6 +109,6 @@ When compiling rgdal you need to specify the installation directory of the PROJ.
 install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/include', '--with-proj-lib=/opt/local/lib', '--with-gdal-config=/opt/local/bin/gdal-config'),type="source")
 ```
 
-### Install note 3: Virtualbox / Hyper-V conflicts
+### Install note 2: Virtualbox / Hyper-V conflicts
 
 Unfortunately, Hyper-V can not run together with Virtualbox. When you want to use Virtualbox after running Docker, you need to disable Hyper-V, requiring a reboot of the system. [Here](https://marcofranssen.nl/switch-between-hyper-v-and-virtualbox-on-windows/) some instructions on how to set up a dual-boot system fairly easily (haven't tested this myself yet)
