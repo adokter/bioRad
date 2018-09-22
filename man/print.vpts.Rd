@@ -2,7 +2,7 @@
 % Please edit documentation in R/vpts.R
 \name{print.vpts}
 \alias{print.vpts}
-\title{print method for class \code{vpts}}
+\title{Print method for class \code{vpts}}
 \usage{
 \method{print}{vpts}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
@@ -11,6 +11,6 @@
 to \code{\link{bind_into_vpts}}.}
 }
 \description{
-print method for class \code{vpts}
+Print method for class \code{vpts}
 }
 \keyword{internal}

@@ -105,6 +105,7 @@
 #' \itemize{
 #'  \item Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI \href{http://dx.doi.org/10.1098/rsif.2010.0116}{10.1098/rsif.2010.0116}
 #' }
+#'
 #' @keywords internal
 #'
 #' @import stats

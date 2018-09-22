@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppi.R
 \name{print.ppi}
 \alias{print.ppi}
-\title{Print method for ppi}
+\title{Print method for class \code{ppi}}
 \usage{
 \method{print}{ppi}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
@@ -10,6 +10,6 @@
 \item{x}{An object of class \code{ppi}.}
 }
 \description{
-Print method for ppi
+Print method for class \code{ppi}
 }
 \keyword{internal}
