@@ -1,4 +1,5 @@
-# bioRad
+# bioRad <img src="man/figures/logo.png" align="right">
+
 bioRad is an R package for extracting and visualising biological signals from weather radar data.
 
 * analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=debilt)).
