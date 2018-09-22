@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Radar cross section — rcs • bioRad</title>
+<title>Get radar cross section — rcs • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -21,14 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Radar cross section — rcs" />
+
+
+
+<meta property="og:title" content="Get radar cross section — rcs" />
 
 <meta property="og:description" content="Gives the currently assumed radar cross section in cm^2." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,27 +61,40 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Functions</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/bioRad.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
+    Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
+      <a href="../articles/functionality_overview.html">Overview of bioRad functionality</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -83,6 +106,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,37 +114,40 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Radar cross section</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
+    <h1>Get radar cross section</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/rcs.R'><code>R/rcs.R</code></a></small>
+    <div class="hidden name"><code>rcs.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Gives the currently assumed radar cross section in cm^2.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>rcs</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for vp</span>
 <span class='fu'>rcs</span>(<span class='no'>x</span>)
 
-<span class='co'># S3 method for vplist</span>
+<span class='co'># S3 method for list</span>
 <span class='fu'>rcs</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for vpts</span>
 <span class='fu'>rcs</span>(<span class='no'>x</span>)
 
-<span class='co'># S3 method for vivp</span>
+<span class='co'># S3 method for vpi</span>
 <span class='fu'>rcs</span>(<span class='no'>x</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code>vp</code>, <code>vplist</code> or <code>vpts</code> object</p></td>
+      <td><p>A <code>vp</code>, list of <code>vp</code> or <code>vpts</code> object.</p></td>
     </tr>
     </table>
     
@@ -132,17 +159,16 @@
 
     <ul>
 <li><p><code>vp</code>: radar cross section of a vertical profile</p></li>
-<li><p><code>vplist</code>: radar cross sections for a list of vertical profiles</p></li>
+<li><p><code>list</code>: radar cross sections for a list of vertical profiles</p></li>
 <li><p><code>vpts</code>: radar cross section of a time series of vertical profile</p></li>
-<li><p><code>vivp</code>: radar cross section of a time series of vertically integrated vertical profile(s)</p></li>
+<li><p><code>vpi</code>: radar cross section of a time series of vertically
+integrated vertical profile(s)</p></li>
 </ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># extract RCS for a single vertical profile:</span>
-<span class='fu'>rcs</span>(<span class='no'>VP</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='co'># extract RCS for a single vertical profile:</span>
+<span class='fu'>rcs</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 11</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -170,6 +196,8 @@
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

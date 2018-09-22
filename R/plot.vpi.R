@@ -1,0 +1,156 @@
+#' Plot an integrated profile (\code{vpi})
+#'
+#' Plot an object of class \code{vpi}.
+#'
+#' @param x 1 class object inheriting from class \code{vpi}, typically a
+#' call to \link[bioRad]{integrate_profile}.
+#' @param quantity Character string with the quantity to plot, one of
+#' '\code{vid}' (vertically integrated denstiy),
+#' '\code{vir}' (vertically integrated reflectivity),
+#' '\code{mtr}' (migration traffic rate),
+#' '\code{rtr}' (reflectivity traffic rate),
+#' '\code{mt}' ((cumulative) migration traffic),
+#' '\code{rt}' ((cumulative) reflectivity traffic),
+#' `\code{ff}`, (height-averaged speed)
+#' `\code{dd}`, (height-averaged direction)
+#' `\code{u}`, (height-averaged u-component of speed),
+#' `\code{v}`, (height-averaged v-component of speed).
+#' @param ylim y-axis plot range, numeric atomic vector of length 2.
+#' @param xlab A title for the x-axis.
+#' @param ylab A title for the y-axis.
+#' @param main A title for the plot.
+#' @param night_shade Logical, whether to plot night time shading.
+#' @param elev Numeric, sun elevation to use for day/night transition,
+#' see \link[bioRad]{suntime}.
+#' @param lat (optional) Latitude in decimal degrees. Overrides the lat
+#' attribute of \code{x}.
+#' @param lon (optional) Longitude in decimal degrees. Overrides the lon
+#' attribute of \code{x}.
+#' @param ... Additional arguments to be passed to the low level
+#' \link[graphics]{plot} plotting function.
+#' @param nightshade Deprecated argument, use night_shade instead.
+#'
+#' @method plot vpi
+#'
+#' @export
+#'
+#' @details
+#' The integatated profiles can be visualised in various related quantities, as specified by
+#' argument \code{quantity}:
+#' \describe{
+#'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface
+#'    density of individuals. This quantity is dependent on the assumed radar
+#'    cross section per individual (RCS)}
+#'  \item{"\code{vir}"}{Vertically Integrated Reflectivity. This quantity is
+#'    independent of the value of individual's radar cross section}
+#'  \item{"\code{mtr}"}{Migration Traffic Rate. This quantity is dependent on
+#'    the assumed radar cross section (RCS)}
+#'  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent
+#'    on the assumed radar cross section (RCS)}
+#'  \item{"\code{mt}"}{Migration Traffic. This quantity is dependent on
+#'    the assumed radar cross section (RCS)}
+#'  \item{"\code{rt}"}{Reflectivity Traffic. This quantity is independent
+#'    on the assumed radar cross section (RCS)}
+#'  \item{\code{ff}}{Horizontal ground speed in m/s}
+#'  \item{\code{dd}}{Horizontal ground speed direction in degrees}
+#'  \item{\code{u}}{Ground speed component west to east in m/s}
+#'  \item{\code{v}}{Ground speed component north to south in m/s}
+#'  \item{\code{HGHT}}{Height above sea level in m}
+#' }
+#' The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
+#' @examples
+#' # vertically integrate a vpts object:
+#' vpi <- integrate_profile(example_vpts)
+#' # plot the migration traffic rates
+#' plot(vpi)
+#' # plot the vertically integrated densities, without night shading:
+#' plot(vpi, quantity = "vid", night_shade = FALSE)
+plot.vpi <- function(x, quantity = "mtr", xlab = "time",
+                     ylab = "migration traffic rate [#/km/h]",
+                     main = "MTR", night_shade = TRUE,
+                     elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
+  stopifnot(inherits(x, "vpi"))
+  stopifnot(quantity %in% c("mtr", "vid", "vir", "rtr", "mt",
+                            "rt", "ff", "dd", "u", "v","HGHT"))
+
+  # deprecate function argument
+  if (!missing(nightshade)) {
+    warning("argument nightshade is deprecated; please use night_shade instead.",
+            call. = FALSE)
+    night_shade <- nightshade
+  }
+
+  # set up the plot labels
+  if (missing(ylab)) {
+    if (quantity == "mtr") ylab = "migration traffic rate [#/km/h]"
+    if (quantity == "rtr") ylab = expression("reflectivity traffic rate [cm"^2*"/km/h]")
+    if (quantity == "vid") ylab = expression("vertically integrated density [#/km"^2*"]")
+    if (quantity == "vir") ylab = expression("vertically integrated reflectivity [cm"^2*"/km/h]")
+    if (quantity == "mt") ylab = expression("(cumulative) migration traffic [#/km]")
+    if (quantity == "rt") ylab = expression("(cumulative) reflectivity traffic [cm"^2*"/km]")
+    if (quantity == "ff") ylab = expression("vertically averaged ground speed [m/s]")
+    if (quantity == "dd") ylab = expression("vertically averaged direction [deg]")
+    if (quantity == "u") ylab = expression("vertically averaged u-component ground speed [m/s]")
+    if (quantity == "v") ylab = expression("vertically averaged v-component ground speed [m/s]")
+    if (quantity == "HGHT") ylab = expression("height above mean sea level [m]")
+  }
+  if (missing(main)) {
+    if (quantity == "mtr") main = "MTR"
+    if (quantity == "rtr") main = "RTR"
+    if (quantity == "vid") main = "VID"
+    if (quantity == "vir") main = "VIR"
+    if (quantity == "mt") main = "MT"
+    if (quantity == "rt") main = "RT"
+    if (quantity == "ff") main = "Average ground speed"
+    if (quantity == "dd") main = "Average ground speed direction"
+    if (quantity == "u") main = "Average ground speed u (east->west)"
+    if (quantity == "v") main = "Average ground speed v (north->south)"
+    if (quantity == "HGHT") main = "Average flight height above sea level"
+  }
+  if (missing(lat)) lat = attributes(x)$lat
+  if (missing(lon)) lon = attributes(x)$lon
+
+  # plot the data
+  plot(x$datetime, x[quantity][[1]], type = 'l', xlab = "time", ylab = ylab,
+       ylim = ylim, main = main, xaxs = "i", yaxs = "i", ...)
+
+  if (night_shade) {
+    if (!is.numeric(lat) || !is.numeric(lon)) {
+      stop("No latitude/longitude found in attribute data, please provide",
+           "lat and lon arguments when night_shade=TRUE.")
+    }
+
+    # calculate sunrise and sunset
+    days <- as.POSIXct(seq(as.Date(min(x$datetime) - 24*3600),
+                           as.Date(max(x$datetime) + 24*3600),
+                           by = "days"), tz = "UTC")
+
+    trise <- sunrise(days, lon, lat)
+    tset <- sunset(days, lon, lat)
+
+    if (trise[1] < tset[1]) {
+      trise = trise[-1]
+      tset = tset[-length(tset)]
+    }
+
+    # determine the plot range of the night time shading
+    if (missing(ylim)) {
+      pol.range <- c(min(c(0, 2*min(x[quantity][[1]]))),
+                    2*max(x[quantity][[1]]))
+    } else {
+      pol.range <- ylim
+    }
+    ypolygon <- c(pol.range[1], pol.range[1],
+                  pol.range[2], pol.range[2])
+
+    # plot night time shading for each night.
+    for (i in 1:length(days)) {
+      polygon(c(tset[i], trise[i], trise[i], tset[i]),
+              ypolygon, lty = 0, col = "#CCCCCC")
+    }
+
+    # plot the data again on top of the shading
+    points(x$datetime, x[quantity][[1]], type = 'l',
+           xlab = "time", ylab = ylab, ylim = ylim, main = main, ...)
+  }
+}

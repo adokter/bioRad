@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Map a plan position indicator (ppi) — map • bioRad</title>
+<title>Map a plan position indicator (<code>ppi</code>) — map • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -21,14 +21,25 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Map a plan position indicator (ppi) — map" />
 
-<meta property="og:description" content="Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base layer map using ggmap" />
+
+
+<meta property="og:title" content="Map a plan position indicator (<code>ppi</code>) — map" />
+
+<meta property="og:description" content="Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
+layer map using ggmap" />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,27 +62,40 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Functions</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/bioRad.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tutorials
+    Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro_ppi.html">Create PPI plots from polar volume files</a>
-    </li>
-    <li>
-      <a href="../articles/intro_vp.html">Load bird profiles into bioRad from ENRAM data repository</a>
+      <a href="../articles/functionality_overview.html">Overview of bioRad functionality</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -83,6 +107,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,93 +115,116 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Map a plan position indicator (ppi)</h1>
-    <small>Source: <a href='https:/github.com/adokter/bioRad/blob/master/R/bioRad.ppi.R'><code>R/bioRad.ppi.R</code></a></small>
+    <h1>Map a plan position indicator (<code>ppi</code>)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/map.R'><code>R/map.R</code></a></small>
+    <div class="hidden name"><code>map.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base layer map using <a href='http://www.rdocumentation.org/packages/ggmap/topics/ggmap'>ggmap</a></p>
+    <p>Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
+layer map using <a href='http://www.rdocumentation.org/packages/ggmap/topics/ggmap'>ggmap</a></p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>map</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ppi</span>
-<span class='fu'>map</span>(<span class='no'>x</span>, <span class='no'>map</span>, <span class='no'>param</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>, <span class='no'>xlim</span>, <span class='no'>ylim</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>20</span>, <span class='fl'>20</span>),
-  <span class='no'>ratio</span>, <span class='kw'>radar.size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>radar.color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>n.color</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>map</span>(<span class='no'>x</span>, <span class='no'>map</span>, <span class='no'>param</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>, <span class='no'>xlim</span>, <span class='no'>ylim</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>20</span>,
+  <span class='fl'>20</span>), <span class='no'>ratio</span>, <span class='kw'>radar_size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>radar_color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>n_color</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>radar.size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>radar.color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>n.color</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an object of class 'ppi'</p></td>
+      <td><p>An object of class <code>ppi</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to low level <a href='http://www.rdocumentation.org/packages/ggmap/topics/ggmap'>ggmap</a> function</p></td>
+      <td><p>Arguments passed to low level <a href='http://www.rdocumentation.org/packages/ggmap/topics/ggmap'>ggmap</a> function.</p></td>
     </tr>
     <tr>
       <th>map</th>
-      <td><p>the basemap to use, result of a call to <a href='basemap.html'>basemap</a></p></td>
+      <td><p>The basemap to use, result of a call to <a href='download_basemap.html'>download_basemap</a>.</p></td>
     </tr>
     <tr>
       <th>param</th>
-      <td><p>the scan parameter to plot</p></td>
+      <td><p>The scan parameter to plot.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>transparency of the data, value between 0 and 1</p></td>
+      <td><p>Transparency of the data, value between 0 and 1.</p></td>
     </tr>
     <tr>
       <th>xlim</th>
-      <td><p>range of x values to plot</p></td>
+      <td><p>Range of x values to plot (degrees longitude), as atomic
+vector of length 2.</p></td>
     </tr>
     <tr>
       <th>ylim</th>
-      <td><p>range of y values to plot</p></td>
+      <td><p>Range of y values to plot (degrees latitude), as an atomic
+vector of length 2.</p></td>
     </tr>
     <tr>
       <th>zlim</th>
-      <td><p>the range of values to plot</p></td>
+      <td><p>The range of values to plot.</p></td>
     </tr>
     <tr>
       <th>ratio</th>
-      <td><p>aspect ratio between x and y scale, by default \(1/cos(latitude radar * pi/180)\)</p></td>
+      <td><p>Aspect ratio between x and y scale, by default
+\(1/cos(latitude radar * pi/180)\).</p></td>
+    </tr>
+    <tr>
+      <th>radar_size</th>
+      <td><p>Size of the symbol indicating the radar position.</p></td>
+    </tr>
+    <tr>
+      <th>radar_color</th>
+      <td><p>Colour of the symbol indicating the radar position.</p></td>
+    </tr>
+    <tr>
+      <th>n_color</th>
+      <td><p>The number of colors (&gt;=1) to be in the palette.</p></td>
     </tr>
     <tr>
       <th>radar.size</th>
-      <td><p>size of the symbol indicating the radar position</p></td>
+      <td><p>Deprecated argument, use radar_size instead.</p></td>
     </tr>
     <tr>
       <th>radar.color</th>
-      <td><p>colour of the symbol indicating the radar position</p></td>
+      <td><p>Deprecated argument, use radar_color instead.</p></td>
     </tr>
     <tr>
       <th>n.color</th>
-      <td><p>the number of colors (&gt;=1) to be in the palette</p></td>
+      <td><p>Deprecated argument, use n_color instead.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a ggmap object (a classed raster object with a bounding box attribute)</p>
+    <p>A ggmap object (a classed raster object with a bounding
+box attribute).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Available scan parameters for mapping can by printed to screen by <code>summary(x)</code>.
-Commonly available parameters are:</p><dl class='dl-horizontal'>
+    <p>Available scan parameters for mapping can by printed to screen by
+<code>summary(x)</code>. Commonly available parameters are:</p><dl class='dl-horizontal'>
  <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
- <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial velocities towards
-  the radar are negative, while radial velocities away from the radar are positive</p></dd>
- <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation between vertically polarized and horizontally polarized reflectivity factor</p></dd>
+ <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
+ velocities towards the radar are negative, while radial velocities away
+ from the radar are positive</p></dd>
+ <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation
+ between vertically polarized and horizontally polarized reflectivity factor</p></dd>
  <dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase [degrees]</p></dd>
  <dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity [dB]</p></dd>
-</dl><p>The scan parameters
-are named according to the OPERA data information model (ODIM), see
-Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.</p>
+</dl><p>The scan parameters are named according to the OPERA data information
+model (ODIM), see Table 16 in the
+<a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.</p>
     
     <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
@@ -186,23 +234,27 @@ Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPE
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># load an example scan:</span>
-<span class='fu'>data</span>(<span class='no'>SCAN</span>)
+    <pre class="examples"><div class='input'><span class='co'># load an example scan:</span>
+<span class='fu'>data</span>(<span class='no'>example_scan</span>)
 <span class='co'># make ppi's for all scan parameters in the scan</span>
-<span class='no'>ppi</span><span class='kw'>=</span><span class='fu'><a href='ppi.html'>ppi</a></span>(<span class='no'>SCAN</span>)
-<span class='co'># grab a basemap that matches the extent of the ppi:</span>
-<span class='no'>basemap</span><span class='kw'>=</span><span class='fu'><a href='basemap.html'>basemap</a></span>(<span class='no'>ppi</span>)
-<span class='co'># map the radial velocity scan parameter onto the basemap:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"VRADH"</span>)
-<span class='co'># extend the plotting range of velocities, from -50 to 50 m/s:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='st'>"VRADH"</span>,<span class='kw'>zlim</span><span class='kw'>=</span><span class='fu'>c</span>(-<span class='fl'>50</span>,<span class='fl'>50</span>))
-<span class='co'># give the data less transparency:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.9</span>)
-<span class='co'># change the appearance of the symbol indicating the radar location:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>radar.size</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>radar.color</span><span class='kw'>=</span><span class='st'>"green"</span>)
-<span class='co'># crop the map:</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>,<span class='kw'>map</span><span class='kw'>=</span><span class='no'>basemap</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>12.4</span>,<span class='fl'>13.2</span>),<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>56</span>,<span class='fl'>56.5</span>))
+<span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
+<span class='co'># grab a basemap that matches the extent of the ppi:</span></div><span class='co'># NOT RUN {</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>)
+<span class='co'># }</span><div class='input'># map the radial velocity scan parameter onto the basemap:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)
+<span class='co'># }</span><div class='input'># extend the plotting range of velocities, from -50 to 50 m/s:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>50</span>, <span class='fl'>50</span>))
+<span class='co'># }</span><div class='input'># give the data less transparency:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)
+<span class='co'># }</span><div class='input'># change the appearance of the symbol indicating the radar location:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>radar_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>radar_color</span> <span class='kw'>=</span> <span class='st'>"green"</span>)
+<span class='co'># }</span><div class='input'># crop the map:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12.4</span>, <span class='fl'>13.2</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>56</span>, <span class='fl'>56.5</span>))
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -233,6 +285,8 @@ Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPE
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>
