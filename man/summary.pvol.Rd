@@ -3,7 +3,7 @@
 \name{summary.pvol}
 \alias{summary.pvol}
 \alias{is.pvol}
-\title{Object of class \code{pvol}: a polar volume}
+\title{Class \code{pvol}: a polar volume}
 \usage{
 \method{summary}{pvol}(object, ...)
 
@@ -21,10 +21,10 @@ for \code{is.pvol}: \code{TRUE} if its argument is of
 class \code{pvol}
 }
 \description{
-Object of class \code{pvol}: a polar volume
+Class \code{pvol} for a polar volume, and its associated R base functions.
 }
 \details{
-A polar scan object of class \code{pvol} is a list containing:
+An object of class \code{pvol} is a list containing:
 \describe{
  \item{\code{radar}}{character string with the radar identifier}
  \item{\code{datetime}}{nominal time of the volume [UTC]}

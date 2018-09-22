@@ -18,13 +18,27 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Get a scan (<code>scan</code>) from a polar volume (<code>pvol</code>) — get_scan" />
+
+<meta property="og:description" content="Get a scan (scan) from a polar volume (pvol)" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +61,34 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Functions</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/functionality_overview.html">Overview of bioRad functionality</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -64,6 +100,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -71,19 +108,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get a scan (<code>scan</code>) from a polar volume (<code>pvol</code>)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/get_scan.R'><code>R/get_scan.R</code></a></small>
+    <div class="hidden name"><code>get_scan.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Get a scan (<code>scan</code>) from a polar volume (<code>pvol</code>)</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>get_scan</span>(<span class='no'>x</span>, <span class='no'>angle</span>)</pre>
+    <pre class="usage"><span class='fu'>get_scan</span>(<span class='no'>x</span>, <span class='no'>elev</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -91,7 +132,7 @@
       <td><p>An object of class <code>pvol</code>.</p></td>
     </tr>
     <tr>
-      <th>angle</th>
+      <th>elev</th>
       <td><p>Elevation angle.</p></td>
     </tr>
     </table>
@@ -103,36 +144,15 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function returns the scan with elevation angle closest
-to <code>angle</code>.</p>
+to <code>elev</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
 <span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"bioRad"</span>)
 <span class='co'># load the file:</span>
-<span class='no'>vol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvol</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'FUN' is deprecated.</span>
-#&gt; <span class='warning'>Use 'get_angles' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='input'><span class='co'># extract the scan at 3 degree elevation:</span>
+<span class='no'>vol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvol</span>)
+<span class='co'># extract the scan at 3 degree elevation:</span>
 <span class='no'>myscan</span> <span class='kw'>&lt;-</span> <span class='fu'>get_scan</span>(<span class='no'>vol</span>,<span class='fl'>3</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -156,11 +176,14 @@ to <code>angle</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

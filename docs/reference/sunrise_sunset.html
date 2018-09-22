@@ -18,13 +18,27 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Calculate sunrise or sunset for a time and place — sunrise_sunset" />
+
+<meta property="og:description" content="Calculate sunrise or sunset for a time and place" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +61,34 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Functions</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/functionality_overview.html">Overview of bioRad functionality</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -64,6 +100,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -71,23 +108,32 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate sunrise or sunset for a time and place</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/sunrise_sunset.R'><code>R/sunrise_sunset.R</code></a></small>
+    <div class="hidden name"><code>sunrise_sunset.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculate sunrise or sunset for a time and place</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>sunrise</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>date</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+    <pre class="usage"><span class='fu'>sunrise</span>(<span class='no'>date</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
 
-<span class='fu'>sunset</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>date</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)</pre>
+<span class='fu'>sunset</span>(<span class='no'>date</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>date</th>
+      <td><p>Date inhereting from class <code>POSIXt</code> or a string
+interpretable by <a href='http://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a>.</p></td>
+    </tr>
     <tr>
       <th>lon</th>
       <td><p>Longitude in decimal degrees.</p></td>
@@ -97,13 +143,12 @@
       <td><p>Latitude in decimal degrees.</p></td>
     </tr>
     <tr>
-      <th>date</th>
-      <td><p>Date inhereting from class <code>POSIXt</code> or a string
-interpretable by <a href='http://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a>.</p></td>
-    </tr>
-    <tr>
       <th>elev</th>
       <td><p>Sun elevation in degrees.</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p>output time zone. Ignored if <code>date</code> has an associated time zone already</p></td>
     </tr>
     </table>
     
@@ -116,18 +161,16 @@ interpretable by <a href='http://www.rdocumentation.org/packages/base/topics/as.
     <p>The angular diameter of the sun is about 0.536 degrees,
 therefore the moment of sunrise/sunset corresponds to half that elevation
 at -0.268 degrees.</p>
-<p>Note that for a given date and location, sunrise time can be after sunset
-time, depending on the time difference between the local time and the UTC
-time zone.</p>
+<p>This is a convenience function mapping to <a href='http://www.rdocumentation.org/packages/maptools/topics/sun-methods'>crepuscule</a>.</p>
 <p>Approximate astronomical formula are used, therefore the moment of
 sunrise / sunset may be off by a few minutes</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># sunrise in the Netherlands</span>
-<span class='fu'>sunrise</span>(<span class='fl'>5</span>, <span class='fl'>53</span>, <span class='st'>"2016-01-01"</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 07:58:17 UTC"</div><div class='input'><span class='co'># sunset in the Netherlands</span>
-<span class='fu'>sunset</span>(<span class='fl'>5</span>, <span class='fl'>53</span>, <span class='st'>"2016-01-01"</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 15:28:21 UTC"</div><div class='input'><span class='co'># civil twilight in Ithaca, NY, today</span>
-<span class='fu'>sunrise</span>(-<span class='fl'>76.5</span>, <span class='fl'>42.4</span>, <span class='fu'>Sys.time</span>(), <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>6</span>)</div><div class='output co'>#&gt; [1] "2018-04-21 09:45:45 UTC"</div><div class='input'>
+<span class='fu'>sunrise</span>(<span class='st'>"2016-01-01"</span>, <span class='fl'>5</span>, <span class='fl'>53</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 07:58:17 UTC"</div><div class='input'><span class='co'># sunset in the Netherlands</span>
+<span class='fu'>sunset</span>(<span class='st'>"2016-01-01"</span>, <span class='fl'>5</span>, <span class='fl'>53</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 15:28:31 UTC"</div><div class='input'><span class='co'># civil twilight in Ithaca, NY, today</span>
+<span class='fu'>sunrise</span>(<span class='fu'>Sys.time</span>(), -<span class='fl'>76.5</span>, <span class='fl'>42.4</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>6</span>)</div><div class='output co'>#&gt; [1] "2018-09-22 10:25:19 GMT"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -151,11 +194,14 @@ sunrise / sunset may be off by a few minutes</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

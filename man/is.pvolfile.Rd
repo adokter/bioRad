@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvolfile.R
 \name{is.pvolfile}
 \alias{is.pvolfile}
-\title{Check if a file is a polar volume (\code{pvol})}
+\title{Check if a local file is a polar volume (\code{pvol})}
 \usage{
 is.pvolfile(file, filename = NULL)
 }

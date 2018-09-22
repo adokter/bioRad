@@ -4,7 +4,7 @@
 \alias{summary.scan}
 \alias{is.scan}
 \alias{dim.scan}
-\title{Object of class \code{scan}: a scan of a polar volume}
+\title{Class \code{scan}: a scan of a polar volume}
 \usage{
 \method{summary}{scan}(object, ...)
 
@@ -26,10 +26,10 @@ class \code{scan}.
 For \code{dim.scan}: dimensions of the scan.
 }
 \description{
-Object of class \code{scan}: a scan of a polar volume
+Class \code{scan} for a scan of a polar volume, and its associated R base functions.
 }
 \details{
-A polar scan object of class \code{scan} is a list containing:
+A object of class \code{scan} is a list containing:
 \describe{
  \item{\code{radar}}{character string with the radar identifier}
  \item{\code{datetime}}{nominal time of the volume to which this

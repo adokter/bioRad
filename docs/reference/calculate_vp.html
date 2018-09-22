@@ -18,13 +18,27 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Calculate a vertical profile (<code>vp</code>) from a polar volume (<code>pvol</code>) — calculate_vp" />
+
+<meta property="og:description" content="Calculates a vertical profile of birds (vp) from a polar volume (pvol)." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,12 +61,34 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bioRad</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bioRad</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Functions</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/functionality_overview.html">Overview of bioRad functionality</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -64,6 +100,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -71,28 +108,33 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate a vertical profile (<code>vp</code>) from a polar volume (<code>pvol</code>)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/calculate_vp.R'><code>R/calculate_vp.R</code></a></small>
+    <div class="hidden name"><code>calculate_vp.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculates a vertical profile of birds (vp) from a polar volume (pvol).</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>calculate_vp</span>(<span class='no'>vol.in</span>, <span class='kw'>vp.out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>vol.out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'>dirname</span>(<span class='no'>vol.in</span>), <span class='kw'>sd_vvp</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>dualpol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rhohv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>elev.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>elev.max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
-  <span class='kw'>azim.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>azim.max</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>range.min</span> <span class='kw'>=</span> <span class='fl'>5000</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>25000</span>,
-  <span class='kw'>nlayer</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>hlayer</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>nyquist.min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>)
-  <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>)</pre>
+    <pre class="usage"><span class='fu'>calculate_vp</span>(<span class='no'>pvolfile</span>, <span class='kw'>vpfile</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>pvolfile_out</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'>dirname</span>(<span class='no'>pvolfile</span>),
+  <span class='kw'>sd_vvp_threshold</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>azim_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>azim_max</span> <span class='kw'>=</span> <span class='fl'>360</span>,
+  <span class='kw'>range_min</span> <span class='kw'>=</span> <span class='fl'>5000</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>25000</span>, <span class='kw'>n_layer</span> <span class='kw'>=</span> <span class='fl'>20L</span>,
+  <span class='kw'>h_layer</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span>
+  <span class='fl'>25</span>, <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vol.in</th>
+      <th>pvolfile</th>
       <td><p>A radar file containing a radar polar volume, either in
 <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM</a>
 format, which is the implementation of the OPERA data information model in
@@ -101,12 +143,12 @@ supported by the
 <a href='http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/'>RSL library</a>.</p></td>
     </tr>
     <tr>
-      <th>vp.out</th>
+      <th>vpfile</th>
       <td><p>character. Filename for the vertical profile to be
 generated in ODIM HDF5 format (optional).</p></td>
     </tr>
     <tr>
-      <th>vol.out</th>
+      <th>pvolfile_out</th>
       <td><p>character. Filename for the polar volume to be
 generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
 to ODIM).</p></td>
@@ -127,56 +169,57 @@ Windows always TRUE.</p></td>
 the Docker container.</p></td>
     </tr>
     <tr>
-      <th>sd_vvp</th>
+      <th>sd_vvp_threshold</th>
       <td><p>numeric. Lower threshold in radial velocity standard
-deviation (<code>sd_vvp</code>) in m/s.</p></td>
+deviation (profile quantity <code>sd_vvp</code>) in m/s. Biological signals with
+<code>sd_vvp</code> &lt; <code>sd_vvp_threshold</code> are set to zero.</p></td>
     </tr>
     <tr>
       <th>rcs</th>
       <td><p>numeric. Radar cross section per bird in cm^2.</p></td>
     </tr>
     <tr>
-      <th>dualpol</th>
+      <th>dual_pol</th>
       <td><p>logical. When <code>TRUE</code> use dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
-<code>rhohv</code>. When <code>FALSE</code> use single polarization mode based only
+<code>rho_hv</code>. When <code>FALSE</code> use single polarization mode based only
 on reflectivity and radial velocity quantities.</p></td>
     </tr>
     <tr>
-      <th>rhohv</th>
+      <th>rho_hv</th>
       <td><p>numeric. Lower threshold in correlation coefficient used to
 filter meteorological scattering.</p></td>
     </tr>
     <tr>
-      <th>elev.min</th>
+      <th>elev_min</th>
       <td><p>numeric. Minimum scan elevation in degrees.</p></td>
     </tr>
     <tr>
-      <th>elev.max</th>
+      <th>elev_max</th>
       <td><p>numeric. Maximum scan elevation in degrees.</p></td>
     </tr>
     <tr>
-      <th>azim.min</th>
+      <th>azim_min</th>
       <td><p>numeric. Minimum azimuth in degrees clockwise from north.</p></td>
     </tr>
     <tr>
-      <th>azim.max</th>
+      <th>azim_max</th>
       <td><p>numeric. Maximum azimuth in degrees clockwise from north.</p></td>
     </tr>
     <tr>
-      <th>range.min</th>
+      <th>range_min</th>
       <td><p>numeric. Minimum range in km.</p></td>
     </tr>
     <tr>
-      <th>range.max</th>
+      <th>range_max</th>
       <td><p>numeric. Maximum range in km.</p></td>
     </tr>
     <tr>
-      <th>nlayer</th>
+      <th>n_layer</th>
       <td><p>numeric. Number of altitude layers in the profile.</p></td>
     </tr>
     <tr>
-      <th>hlayer</th>
+      <th>h_layer</th>
       <td><p>numeric. Width of altitude layers in metre.</p></td>
     </tr>
     <tr>
@@ -186,21 +229,26 @@ typically be done when the scans in the polar volume have low Nyquist
 velocities (below 25 m/s).</p></td>
     </tr>
     <tr>
-      <th>nyquist.min</th>
+      <th>nyquist_min</th>
       <td><p>numeric. Minimum Nyquist velocity of scans in m/s for
 scans to be included in the analysis.</p></td>
+    </tr>
+    <tr>
+      <th>dbz_quantity</th>
+      <td><p>character. One of the available reflectivity factor
+quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vertical profile object of class <a href='summary.vp.html'>vp</a>. When
-defined, output files <code>vp.out</code> and <code>vol.out</code> are saved to disk.</p>
+defined, output files <code>vpfile</code> and <code>pvolfile_out</code> are saved to disk.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Requires a running <a href='https://www.docker.com/'>Docker</a> daemon.</p>
-<p>Common arguments set by users are <code>vol.in</code>, <code>vp.out</code>,
+<p>Common arguments set by users are <code>pvolfile</code>, <code>vpfile</code>,
 <code>autoconf</code> and <code>mount</code>.</p>
 <p>Turn on <code>autoconf</code> to automatically select the optimal parameters for a
 given radar file. The default for C-band data is to apply rain-filtering in
@@ -208,23 +256,23 @@ single polarization mode, as well as dual polarization mode when available.</p>
 <p>The default for S-band data is to apply precipitation filtering in
 dual-polarization mode.</p>
 <p>Arguments that sometimes require non-default values are: <code>rcs</code>,
-<code>sd_vvp</code>, <code>range.max</code>, <code>dualpol</code>, <code>dealias</code>.</p>
-<p>Other arguments are typically left at their defaults.
-    <code>azim.min</code> and <code>azim.max</code> only affects reflectivity-derived
+<code>sd_vvp_threshold</code>, <code>range_max</code>, <code>dual_pol</code>, <code>dealias</code>.</p>
+<p>Other arguments are typically left at their defaults.</p>
+<p><code>azim_min</code> and <code>azim_max</code> only affects reflectivity-derived
 estimates in the profile (DBZH,eta,dens), not radial-velocity derived
 estimates (u, v, w, ff, dd, sd_vvp), which are estimated on all azimuths at
-all times. <code>azim.min</code>, <code>azim.max</code> may be set to exclude an angular
-sector with high ground clutter.
-    <code>range.max</code> may be extended up to 40,000 m for volumes with low
+all times. <code>azim_min</code>, <code>azim_max</code> may be set to exclude an angular
+sector with high ground clutter.</p>
+<p><code>range_max</code> may be extended up to 40,000 m for volumes with low
 elevations only, in order to extend coverage to higher altitudes.</p>
 <p>For altitude layers with a VVP-retrieved radial velocity standard deviation
-value below the threshold <code>sd_vvp</code>, the bird density <code>dens</code> is set
+value below the threshold <code>sd_vvp_threshold</code>, the bird density <code>dens</code> is set
 to zero (see vertical profile <a href='summary.vp.html'>vp</a> class). This threshold
 might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter
 for most weather radars.
 The algorithm has been tested and developed for altitude layers with
-<code>hlayer</code> = 200 m. Smaller widths are not recommended as they may cause
+<code>h_layer</code> = 200 m. Smaller widths are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,
 and effectively lead to pseudo-replicated altitude data, since altitudinal
 patterns smaller than the beam width cannot be resolved.</p>
@@ -233,13 +281,13 @@ found by Dokter et al. in a calibration campaign of a full migration autumn
 season in western Europe at C-band. It's value may depend on radar
 wavelength. <code>rcs</code> will scale approximately \(M^{2/3}\) with <code>M</code>
 the bird's mass.</p>
-<p>Using default values of <code>range.min</code> and <code>range.max</code> is
+<p>Using default values of <code>range_min</code> and <code>range_max</code> is
 recommended. Ranges closer than 5 km tend to be contaminated by ground
 clutter, while range gates beyond 25 km become too wide to resolve the
 default altitude layer width of 200 metre (see <a href='beam_width.html'>beam_width</a>).</p>
 <p>For dealiasing, the torus mapping method by Haase et al. is used.</p>
-<p>At S-band (radar wavelength ~ 10 cm), currently only <code>dualpol=T</code> mode
-is recommended.</p>
+<p>At S-band (radar wavelength ~ 10 cm), currently only <code>dual_pol=TRUE</code>
+mode is recommended.</p>
 <p>On repeated calls of <code>calculate_vp</code>, the Docker container mount can be
 recycled from one call to the next if subsequent calls share the same
 <code>mount</code> argument. Re-mounting a Docker container takes time, therefore
@@ -295,11 +343,14 @@ as possible.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

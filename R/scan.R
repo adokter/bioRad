@@ -1,4 +1,6 @@
-#' Object of class \code{scan}: a scan of a polar volume
+#' Class \code{scan}: a scan of a polar volume
+#'
+#' Class \code{scan} for a scan of a polar volume, and its associated R base functions.
 #'
 #' @param object Object of class \code{scan}
 #' @param x Object of class \code{scan}
@@ -9,7 +11,7 @@
 #' @export
 #'
 #' @details
-#' A polar scan object of class \code{scan} is a list containing:
+#' A object of class \code{scan} is a list containing:
 #' \describe{
 #'  \item{\code{radar}}{character string with the radar identifier}
 #'  \item{\code{datetime}}{nominal time of the volume to which this
@@ -69,9 +71,9 @@ dim.scan <- function(x) {
 #' Print method for class \code{scan}
 #'
 #' @param x An object of class \code{scan}, a polar scan.
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "scan"))

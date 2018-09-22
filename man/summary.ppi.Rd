@@ -4,7 +4,7 @@
 \alias{summary.ppi}
 \alias{is.ppi}
 \alias{dim.ppi}
-\title{Object of class \code{ppi}: a plan position indicator}
+\title{Class \code{ppi}: a plan position indicator}
 \usage{
 \method{summary}{ppi}(object, ...)
 
@@ -26,10 +26,11 @@ class \code{ppi}.
 For \code{dim.ppi}: dimensions of the ppi.
 }
 \description{
-Object of class \code{ppi}: a plan position indicator
+Class \code{ppi} for a plan position indicator, and its associated R base
+functions.
 }
 \details{
-A PPI of class 'ppi' is a list containing:
+An object of class \code{ppi} is a list containing:
 \describe{
  \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame}
    containing the georeferenced data. Commonly available parameters are:

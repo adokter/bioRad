@@ -4,7 +4,7 @@
 \alias{summary.vpts}
 \alias{is.vpts}
 \alias{dim.vpts}
-\title{Object of class \code{vpts}: a time series of vertical profiles}
+\title{Class \code{vpts}: a time series of vertical profiles}
 \usage{
 \method{summary}{vpts}(object, ...)
 
@@ -26,11 +26,12 @@ class \code{vpts}.
 For \code{dim.vpts}: dimensions of the time series.
 }
 \description{
-Class for single-site time series of vertical profiles
+Class \code{vpts} for a time series of vertical profiles, and its associated
+R base functions.
 }
 \details{
-An object of class \code{vpts} contains time-ordered profiles of
-a single radar station.
+An object of class \code{vpts} contains time-ordered profiles of a single
+radar station.
 
 The time series can be regular or irregular, indicated by the \code{regular}
 field

@@ -1,4 +1,4 @@
-#' Read a vertical profile from UMASS Cajun text file
+#' Read a vertical profile (\code{vp}) from UMASS Cajun text file
 #'
 #' @param file A text file containing the standard output (stdout) generated
 #' by UMASS Cajun pipeline

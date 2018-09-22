@@ -3,7 +3,7 @@
 \name{summary.param}
 \alias{summary.param}
 \alias{is.param}
-\title{Object of class \code{param}: a parameter of a scan of a polar volume}
+\title{Class \code{param}: a parameter of a scan of a polar volume}
 \usage{
 \method{summary}{param}(object, ...)
 
@@ -21,10 +21,12 @@ for \code{is.scan}: \code{TRUE} if its argument is of
 class "\code{param}"
 }
 \description{
-Object of class \code{param}: a parameter of a scan of a polar volume
+Class \code{param} for a parameter of a scan of a polar volume, and its
+associated R base functions.
 }
 \details{
-Scan parameters are simple matrices, with the following specific attributes:
+An object of class \code{scan} is a simple matrix, with the following
+specific attributes:
 \describe{
    \item{\code{radar}}{character string with the radar identifier}
    \item{\code{datetime}}{nominal time of the volume to which this

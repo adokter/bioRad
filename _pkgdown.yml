@@ -1,12 +1,84 @@
-navbar:
-  title: bioRad
-  type: default
-  left:
-  - text: Functions
-    href: reference/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/adokter/bioRad
+reference:
+  - title: "Reading radar data"
+    desc: "Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data."
+    contents:
+      - is.pvolfile
+      - get_odim_object_type
+      - nexrad_to_odim
+      - read_pvolfile
+      - is.pvol
+  - title: "Inspecting radar scans"
+    desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
+    contents:
+      - get_elevation_angles
+      - get_scan
+      - is.scan
+      - example_scan
+      - plot.scan
+      - is.param
+  - title: "Plotting radar scans"
+    desc: "Functions to plot a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
+    contents:
+      - project_as_ppi
+      - is.ppi
+      - plot.ppi
+      - map
+      - download_basemap
+      - composite_ppi
+      - "`[.ppi`"
+  - title: "Creating vertical profiles of biological targets"
+    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon."
+    contents:
+      - calculate_vp
+      - check_docker
+      - update_docker
+      - nexrad_to_odim
+  - title: "Reading vertical profile data"
+    desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
+    contents:
+      - download_vpfiles
+      - select_vpfiles
+      - is.vpfile
+      - read_vpfiles
+      - read_cajun
+      - is.vp
+      - example_vp
+      - plot.vp
+      - as.data.frame.vp
+  - title: "Combining vertical profiles into time series"
+    desc: "Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these."
+    contents:
+      - c.vp
+      - bind_into_vpts
+      - read_vpts
+      - is.vpts
+      - example_vpts
+      - plot.vpts
+      - regularize_vpts
+      - as.data.frame.vpts
+      - "`[.vpts`"
+      - get_quantity
+  - title: "Integrating vertical profiles"
+    desc: "Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi)."
+    contents:
+      - integrate_profile
+      - plot.vpi
+  - title: "Accessing vertical profile metadata"
+    desc: "Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi)."
+    contents:
+      - rcs
+      - "`rcs<-`"
+      - sd_vvp_threshold
+      - "`sd_vvp_threshold<-`"
+      - check_night
+  - title: "Other functions"
+    desc: "Other useful functions."
+    contents:
+      - beam_height
+      - beam_width
+      - dbz_to_eta
+      - eta_to_dbz
+      - sunrise
 
 template:
   params:
