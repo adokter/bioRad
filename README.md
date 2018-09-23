@@ -112,3 +112,11 @@ install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/includ
 ### Install note 2: Virtualbox / Hyper-V conflicts
 
 Unfortunately, Hyper-V can not run together with Virtualbox. When you want to use Virtualbox after running Docker, you need to disable Hyper-V, requiring a reboot of the system. [Here](https://marcofranssen.nl/switch-between-hyper-v-and-virtualbox-on-windows/) some instructions on how to set up a dual-boot system fairly easily (haven't tested this myself yet)
+
+## Furthermore...
+
+This package is an experimental open-source project. All functionalities are provided as is, without any guarantee.
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+Please [report any issues or bugs](https://github.com/adokter/bioRad/issues/new).
