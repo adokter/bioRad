@@ -122,17 +122,17 @@
     <div id="biorad-0-3-0" class="section level1">
 <h1 class="page-header">
 <a href="#biorad-0-3-0" class="anchor"></a>bioRad 0.3.0</h1>
+<p>Release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1">here</a>.</p>
 <ul>
-<li><p>new release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028">https://doi.org/10.1111/ecog.04028</a>).</p></li>
-<li><p>A full list of all deprecated functions is available at <a href="http://adokter.github.io/bioRad/reference/bioRad-deprecated.html">http://adokter.github.io/bioRad/reference/bioRad-deprecated.html</a></p></li>
-<li><p>Use consistent naming convention (<a href='https://github.com/adokter/bioRad/issues/51'>#51</a>) and rename relevant bioRad objects (<a href='https://github.com/adokter/bioRad/issues/80'>#80</a>), functions (<a href='https://github.com/adokter/bioRad/issues/84'>#84</a>) and function arguments (<a href='https://github.com/adokter/bioRad/issues/112'>#112</a>) + deprecate old names</p></li>
-<li><p>Deprecate <code>cmt</code> (<a href='https://github.com/adokter/bioRad/issues/75'>#75</a>), <code>mt</code> (<a href='https://github.com/adokter/bioRad/issues/76'>#76</a>) in favour of <code>integrate_profile</code></p></li>
-<li><p>Add plot method for <code>scan</code> (<a href='https://github.com/adokter/bioRad/issues/71'>#71</a>)</p></li>
-<li><p>Split single bioRad.R file into one file per function for easier maintenance (<a href='https://github.com/adokter/bioRad/issues/50'>#50</a>)</p></li>
-<li><p>Include first tests</p></li>
-<li><p>Update pkgdown website + add useful sections to in function reference (<a href='https://github.com/adokter/bioRad/issues/110'>#110</a>)</p></li>
-<li><p>Update contributors (<a href='https://github.com/adokter/bioRad/issues/90'>#90</a>)</p></li>
-<li><p>Add bioRad logo (<a href='https://github.com/adokter/bioRad/issues/137'>#137</a>)</p></li>
+<li><p>Functions (<a href='https://github.com/adokter/bioRad/issues/84'>#84</a>), arguments (<a href='https://github.com/adokter/bioRad/issues/112'>#112</a>) and objects (<a href='https://github.com/adokter/bioRad/issues/80'>#80</a>) have been renamed to be consistent (<a href='https://github.com/adokter/bioRad/issues/51'>#51</a>). Deprecated functions will remain functional for now, but we will trigger a warning: <strong>we advise to use the new functions names</strong>. See the lists for <a href="../reference/">current functions</a> and <a href="../reference/bioRad-deprecated.html">deprecated functions</a>.</p></li>
+<li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> replaces the functionality of <code><a href="../reference/bioRad-deprecated.html">cmt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/75'>#75</a>) and <code><a href="../reference/bioRad-deprecated.html">mt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/76'>#76</a>).</p></li>
+<li><p><code>plot()</code> can now we used for scans (<a href='https://github.com/adokter/bioRad/issues/71'>#71</a>), e.g. <code>plot(example_scan)</code>.</p></li>
+<li><p>Functions are <a href="../reference/">organized in sections</a> on the website (<a href='https://github.com/adokter/bioRad/issues/110'>#110</a>).</p></li>
+<li><p>Changelog section (this page) has been added to website (<a href='https://github.com/adokter/bioRad/issues/144'>#144</a>).</p></li>
+<li><p>Package R code is reorganized as one function = one file for easier maintenance (<a href='https://github.com/adokter/bioRad/issues/50'>#50</a>).</p></li>
+<li><p>First tests are included for some functions.</p></li>
+<li><p>Contributors (<a href='https://github.com/adokter/bioRad/issues/90'>#90</a>) and citation (<a href='https://github.com/adokter/bioRad/issues/141'>#141</a>) have been updated.</p></li>
+<li><p>bioRad now has a hex logo (<a href='https://github.com/adokter/bioRad/issues/137'>#137</a>). ✨</p></li>
 </ul>
 </div>
   </div>
