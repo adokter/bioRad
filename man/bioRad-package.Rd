@@ -105,7 +105,7 @@ such as migration traffic rate (MTR).
 }
 }
 \subsection{Vignettes}{
-Execute \code{vignette("bioRad-overview")} for vignette with exercises that covers most of bioRad's functionality
+Execute \code{vignette("functionality_overview")} or check http://adokter.github.io/bioRad/articles/functionality_overview.html for vignette with exercises that covers most of bioRad's functionality
 }
 }
 \references{

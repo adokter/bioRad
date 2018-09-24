@@ -171,12 +171,16 @@ for selection of different types of basemaps.s</p></td>
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make ppi for the scan</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
-<span class='co'># grab a basemap that matches the extent of the ppi:</span>
-<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=56.364844,12.861212&amp;zoom=9&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN&amp;sensor=false</span></div><div class='input'><span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='download_basemap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># download a different type of basemap, e.g. satellite imagery:</span>
+<span class='co'># grab a basemap that matches the extent of the ppi:</span></div><span class='co'># NOT RUN {</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>)
+<span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)
+<span class='co'># download a different type of basemap, e.g. satellite imagery:</span>
 <span class='co'># see get_map() in ggmap library for full documentation of options</span>
-<span class='no'>basemap</span> <span class='kw'>=</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"satellite"</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=56.364844,12.861212&amp;zoom=9&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN&amp;sensor=false</span></div><div class='input'><span class='co'># map the radial velocities onto the satellite imagery:</span>
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='download_basemap-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>basemap</span> <span class='kw'>=</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"satellite"</span>)
+<span class='co'># map the radial velocities onto the satellite imagery:</span>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
