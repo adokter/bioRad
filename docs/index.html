@@ -87,8 +87,10 @@
 <a href="#biorad" class="anchor"></a>bioRad <img src="reference/figures/logo.png" align="right">
 </h1></div>
 <p>bioRad is an R package for extracting and visualising biological signals from weather radar data.</p>
+<p>See our recent <a href="https://doi.org/10.1111/ecog.04028">paper</a> in Ecography for an overview of its functionality:</p>
+<p>Dokter AM, Desmet P, Spaaks JH, van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. DOI <a href="https://doi.org/10.1111/ecog.04028">10.1111/ecog.04028</a></p>
 <ul>
-<li>analyzes time series of profile data, and makes profile visualisations (see this real-time <a href="http://www.flysafe-birdtam.eu/profile.php?radar=debilt">example</a>).</li>
+<li>analyzes time series of profile data, and makes profile visualisations (see this real-time <a href="http://www.flysafe-birdtam.eu/profile.php?radar=herwijnen">example</a>).</li>
 <li>overlays radar scans with geographic maps and satellite imagery of various online sources (e.g Google Maps and Stamen Maps), using <a href="https://cran.r-project.org/web/packages/ggmap/index.html">ggmap</a>.</li>
 <li>contains an implementation of <a href="https://github.com/adokter/vol2bird">vol2bird</a>, an algorithm to extract vertical profiles of bird migration from weather radar data.</li>
 <li>Reads radar files in <a href="http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf">ODIM</a> format, which is the implementation of the OPERA data information model in <a href="https://support.hdfgroup.org/HDF5/">HDF5</a> format, or formats supported by the <a href="http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/">RSL library</a>, such as <a href="https://www.ncdc.noaa.gov/data-access/radar-data/nexrad">NEXRAD</a> data.</li>
@@ -102,24 +104,24 @@
 <h3 class="hasAnchor">
 <a href="#rhdf5" class="anchor"></a>1. rhdf5</h3>
 <p>bioRad requires the rhdf5 library to read <a href="https://support.hdfgroup.org/HDF5/">hdf5</a> files. This library is available through bioconductor (not CRAN). To install, run in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)
-<span class="kw">biocLite</span>(<span class="st">"rhdf5"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)
+<span class="kw">biocLite</span>(<span class="st">"rhdf5"</span>)</code></pre>
 </div>
 <div id="biorad-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#biorad-1" class="anchor"></a>2. bioRad</h3>
 <p>You are now ready to install the bioRad package. In R, first load the devtools package, then install using <code>install_github</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
+devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</code></pre>
 <p>If your installation completed correctly, you can load bioRad with <code>library(bioRad)</code>, which should give you the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(bioRad)
-Loading package ‘bioRad’ version <span class="fl">0.3</span>.<span class="dv">0</span> ...
-Warning<span class="op">:</span><span class="st"> </span>no running Docker daemon found
-Warning<span class="op">:</span><span class="st"> </span>bioRad functionality requiring Docker has been disabled
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(bioRad)
+Loading package ‘bioRad’ version <span class="fl">0.3.0</span> ...
+Warning:<span class="st"> </span>no running Docker daemon found
+Warning:<span class="st"> </span>bioRad functionality requiring Docker has been disabled
 
-To enable Docker functionality, start Docker and run <span class="st">'checkDocker()'</span> <span class="cf">in</span> R</code></pre></div>
+To enable Docker functionality, start Docker and run <span class="st">'checkDocker()'</span> in R</code></pre>
 <p>On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>, <span class="dt">args=</span><span class="st">"--no-multiarch"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>, <span class="dt">args=</span><span class="st">"--no-multiarch"</span>)</code></pre>
 </div>
 <div id="docker-optional" class="section level3">
 <h3 class="hasAnchor">
@@ -152,21 +154,21 @@ To enable Docker functionality, start Docker and run <span class="st">'checkDock
 <h3 class="hasAnchor">
 <a href="#run-biorad-in-r" class="anchor"></a>4. Run bioRad in R</h3>
 <p>To load the package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bioRad)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bioRad)</code></pre>
 <p>To pull up the main help page:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><a href="reference/bioRad-package.html">?bioRad</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><a href="reference/bioRad-package.html">?bioRad</a></code></pre>
 <p>To open the vignette with several exercises covering the functionality of bioRad:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"functionality_overview"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"functionality_overview"</span>)</code></pre>
 </div>
 <div id="install-note-1-rgdal-on-linux-and-mac-os-v10-11-or-older" class="section level3">
 <h3 class="hasAnchor">
 <a href="#install-note-1-rgdal-on-linux-and-mac-os-v10-11-or-older" class="anchor"></a>Install note 1: rgdal on linux and mac OS v10.11 or older:</h3>
 <p>bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.</p>
 <p>You can use the package managing systems, like Macports on Mac, to install these dependencies, e.g.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> port install proj
-<span class="fu">sudo</span> port install gdal +expat</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> port install proj
+<span class="kw">sudo</span> port install gdal +expat</code></pre>
 <p>When compiling rgdal you need to specify the installation directory of the PROJ.4 and GDAL libraries that rgdal depends on. Install from source using the following command (example here with <code>/opt/local/</code> as the leading path, which is the directory where the Macports package managing system installs PROJ.4 and GDAL):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'rgdal'</span>,<span class="dt">configure.args=</span><span class="kw">c</span>(<span class="st">'--with-proj-include=/opt/local/include'</span>, <span class="st">'--with-proj-lib=/opt/local/lib'</span>, <span class="st">'--with-gdal-config=/opt/local/bin/gdal-config'</span>),<span class="dt">type=</span><span class="st">"source"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'rgdal'</span>,<span class="dt">configure.args=</span><span class="kw">c</span>(<span class="st">'--with-proj-include=/opt/local/include'</span>, <span class="st">'--with-proj-lib=/opt/local/lib'</span>, <span class="st">'--with-gdal-config=/opt/local/bin/gdal-config'</span>),<span class="dt">type=</span><span class="st">"source"</span>)</code></pre>
 </div>
 <div id="install-note-2-virtualbox-hyper-v-conflicts" class="section level3">
 <h3 class="hasAnchor">

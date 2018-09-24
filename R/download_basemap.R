@@ -22,6 +22,7 @@
 #' # make ppi for the scan
 #' ppi <- project_as_ppi(example_scan)
 #' # grab a basemap that matches the extent of the ppi:
+#' \dontrun{
 #' basemap <- download_basemap(ppi)
 #' # map the reflectivity quantity of the ppi onto the basemap:
 #' map(ppi, map = basemap, param = "DBZH")
@@ -30,6 +31,7 @@
 #' basemap = download_basemap(ppi, maptype = "satellite")
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi, map = basemap, param = "VRADH")
+#' }
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...) {
   stopifnot(inherits(x, "ppi"))
 
