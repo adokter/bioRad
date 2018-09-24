@@ -4,7 +4,7 @@
 \name{example_vpts}
 \alias{example_vpts}
 \title{Example object of class \code{vpts}}
-\format{An object of class \code{vpts} of dimension 25 x 6135 x 15.}
+\format{An object of class \code{vpts} of dimension 25 x 1934 x 15.}
 \usage{
 example_vpts
 }
@@ -17,12 +17,14 @@ vertical profiles) with name \code{example_vpts}.
 summary(example_vpts)
 
 # example_vpts was created with:
-vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
+\dontrun{
+vptsfile <- system.file("extdata", "vpts.txt.zip", package = "bioRad")
+unzip(vptsfile,exdir(dirname(vptsfile)),junkpaths=T)
+vptsfile=substr(vptsfile,1,nchar(vptsfile)-4)
 example_vpts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 rcs(example_vpts) <- 11
 example_vpts$attributes$where$lat <- 42.2
 example_vpts$attributes$where$lon <- -75.98
-\dontrun{
 save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
 }
 }
