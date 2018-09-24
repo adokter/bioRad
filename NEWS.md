@@ -1,21 +1,21 @@
 # bioRad 0.3.0
 
-* new release consistent with and in preparation of the bioRad methods paper (https://doi.org/10.1111/ecog.04028).
+Release consistent with and in preparation of the bioRad methods paper (https://doi.org/10.1111/ecog.04028). All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/1).
 
-* A full list of all deprecated functions is available at http://adokter.github.io/bioRad/reference/bioRad-deprecated.html
+* Functions (#84), arguments (#112) and objects (#80) have been renamed to be consistent (#51). Deprecated functions will remain functional for now, but we will trigger a warning: **we advise to use the new functions names**. See the lists for [current functions](../reference/) and [deprecated functions](../reference/bioRad-deprecated.html).
 
-* Use consistent naming convention (#51) and rename relevant bioRad objects (#80), functions (#84) and function arguments (#112) + deprecate old names
+* `integrate_profile()` replaces the functionality of `cmt()` (#75) and `mt()` (#76).
 
-* Deprecate `cmt` (#75), `mt` (#76) in favour of `integrate_profile`
+* `plot()` can now we used for scans (#71), e.g. `plot(example_scan)`.
 
-* Add plot method for `scan` (#71)
+* Functions are [organized in sections](../reference/) on the website (#110).
 
-* Split single bioRad.R file into one file per function for easier maintenance (#50)
+* Changelog section (this page) has been added to website (#144).
 
-* Include first tests
+* Package R code is reorganized as one function = one file for easier maintenance (#50).
 
-* Update pkgdown website + add useful sections to in function reference (#110)
+* First tests are included for some functions.
 
-* Update contributors (#90)
+* Contributors (#90) and citation (#141) have been updated.
 
-* Add bioRad logo (#137)
+* bioRad now has a hex logo (#137). ✨

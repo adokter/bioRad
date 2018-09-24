@@ -101,22 +101,22 @@
 <div id="preparation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preparation" class="anchor"></a>1.1. Preparation</h2>
-<p>Throughout the practical we will use the bioRad R package. It’s currently not (yet) in the default CRAN repository, but can be downloaded from Github. See <a href="https://github.com/adokter/bioRad"></a><a href="https://github.com/adokter/bioRad">https://github.com/adokter/bioRad</a> for install instructions. Go through steps 1-3 of these install instructions if you haven’t done so already.</p>
+<p>Throughout the practical we will use the bioRad R package. It’s currently not (yet) in the default CRAN repository, but can be downloaded from Github. See <a href="https://github.com/adokter/bioRad" class="uri">https://github.com/adokter/bioRad</a> for install instructions. Go through steps 1-3 of these install instructions if you haven’t done so already.</p>
 <p>Execute each of the code examples provided below in Rstudio, and try to complete the exercises.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make sure you start with a fresh R session</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make sure you start with a fresh R session</span>
 <span class="co"># load the bioRad package</span>
 <span class="kw">library</span>(bioRad)
 <span class="co"># check the package version</span>
 <span class="kw">packageVersion</span>(<span class="st">"bioRad"</span>)
 <span class="co"># make sure you have the latest version (0.3.0). If you have an older version, update as follows:</span>
 <span class="kw">library</span>(devtools)
-devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad@ecography"</span>)</code></pre>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad@ecography"</span>)</code></pre></div>
 <p>All the functions of the bioRad package have fairly elaborated manual pages, that you can refer to at any moment:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># bring up the package general help page:</span>
-?bioRad</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># bring up the package general help page:</span>
+?bioRad</code></pre></div>
 <p>In the help window, you can click on each of the links to pull up help pages of specific functions. Click on the <code>Index</code> link at the bottom of each help page to get an overview of all functions and available manual pages.</p>
 <p>Start by making a new directory on your local machine that you will use for this practical</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a new local directory on your machine where to download data for this practical</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a new local directory on your machine where to download data for this practical</span>
 <span class="co"># replace the string below with the path of that directory:</span>
 HOME=<span class="st">"your/personal/working/directory/"</span>
 <span class="co"># check that the directory exists. If the next statement evaluates to FALSE, something went wrong: the directory does not exist or you didn't specify its path correctly</span>
@@ -125,12 +125,12 @@ HOME=<span class="st">"your/personal/working/directory/"</span>
 <span class="co"># for files, and where it will output newly generated files.</span>
 <span class="kw">setwd</span>(HOME)
 <span class="co"># Finally, we set the local time zone to UTC, so all plotted time axes will be in UTC</span>
-<span class="kw">Sys.setenv</span>(<span class="dt">TZ=</span><span class="st">"UTC"</span>)</code></pre>
+<span class="kw">Sys.setenv</span>(<span class="dt">TZ=</span><span class="st">"UTC"</span>)</code></pre></div>
 <p>Your R session is now properly set up</p>
 <p>To work with US NEXRAD data, bioRad currently require a working installation of Docker (linux / mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). If you managed to successfully install Docker, test whether it works</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># start your local Docker installation</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># start your local Docker installation</span>
 <span class="co"># we first test whether R can communicate with Docker:</span>
-<span class="kw"><a href="../reference/check_docker.html">check_docker</a></span>()</code></pre>
+<span class="kw"><a href="../reference/check_docker.html">check_docker</a></span>()</code></pre></div>
 <p>If you get a “Hello from Docker!” welcome message, everything is working.</p>
 <p>If you did <strong>not</strong> manage to install Docker, you will not be able to load NEXRAD data into R at this time, but you will be able to continue the exercises with European radar data that can be loaded without Docker.</p>
 </div>
@@ -144,7 +144,7 @@ HOME=<span class="st">"your/personal/working/directory/"</span>
 <div id="the-structure-of-polar-volumes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-structure-of-polar-volumes" class="anchor"></a>1.3. The structure of polar volumes</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  let's read in the downloaded volume:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  let's read in the downloaded volume:</span>
 file.in=<span class="st">"KPAH20171025_040338_V06"</span>
 <span class="co"># or in case you downloaded the file that doesn't require docker, the filename is different:</span>
 file.in=<span class="st">"volume.h5"</span>
@@ -155,13 +155,13 @@ pvol=<span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a
 ## print some information about the polar volume
 pvol
 <span class="co"># print information about the polar scans contained in this polar volume:</span>
-pvol$scans</code></pre>
+pvol<span class="op">$</span>scans</code></pre></div>
 </div>
 <div id="inspecting-radar-scans-sweeps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#inspecting-radar-scans-sweeps" class="anchor"></a>1.4. Inspecting radar scans (sweeps)</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's extract the third scan, which was collected at 0.48 degree elevation:</span>
-pscan =<span class="st"> </span>pvol$scans[[<span class="dv">1</span>]]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's extract the third scan, which was collected at 0.48 degree elevation:</span>
+pscan =<span class="st"> </span>pvol<span class="op">$</span>scans[[<span class="dv">1</span>]]
 <span class="co"># print some information about this scan:</span>
 pscan
 <span class="co"># before we can plot the scan, we need to project it on a Cartesian grid,</span>
@@ -173,25 +173,25 @@ my_ppi =<span class="st"> </span><span class="kw"><a href="../reference/project_
 <span class="co"># Check the manual of the ppi function to see how you can change the projection</span>
 <span class="co"># Now we are ready to plot the ppi</span>
 <span class="co"># plot the reflectivity factor image:</span>
-<span class="kw">plot</span>(my_ppi, <span class="dt">param=</span><span class="st">"VRADH"</span>,<span class="dt">zlim=</span><span class="kw">c</span>(-<span class="dv">30</span>,<span class="dv">30</span>))
+<span class="kw">plot</span>(my_ppi, <span class="dt">param=</span><span class="st">"VRADH"</span>,<span class="dt">zlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>))
 <span class="co"># see plot.ppi for all the plot options for a ppi object:</span>
-?plot.ppi</code></pre>
+?plot.ppi</code></pre></div>
 </div>
 <div id="overlaying-radar-scans-on-maps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overlaying-radar-scans-on-maps" class="anchor"></a>1.5. Overlaying radar scans on maps</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># It is often informative to plot radar data on a base layer, such as google earth maps.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># It is often informative to plot radar data on a base layer, such as google earth maps.</span>
 <span class="co"># first download the background image:</span>
 satelliteImage=<span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi,<span class="dt">maptype=</span><span class="st">"satellite"</span>)
 <span class="co"># then overlay the PPI on the satellite image:</span>
-<span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi,<span class="dt">param=</span><span class="st">"DBZH"</span>,<span class="dt">map=</span>satelliteImage, <span class="dt">zlim=</span><span class="kw">c</span>(-<span class="dv">20</span>,<span class="dv">15</span>))
+<span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi,<span class="dt">param=</span><span class="st">"DBZH"</span>,<span class="dt">map=</span>satelliteImage, <span class="dt">zlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">20</span>,<span class="dv">15</span>))
 <span class="co"># Note that in R, spatial data is often contained in class objects of packag 'sp'</span>
 <span class="co"># bioRad also uses these objects in the background, and they can be extracted if you want to.</span>
 <span class="co"># The spatial data is stored in the data slot, as in:</span>
-my_spatialgrid=my_ppi$data
+my_spatialgrid=my_ppi<span class="op">$</span>data
 <span class="co"># you can use the sp package to save the spatial data to all kinds GIS formats, for example ArcGis:</span>
 <span class="kw">library</span>(sp)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/asciigrid">write.asciigrid</a></span>(my_spatialgrid,<span class="st">"PPI_in_arcgis_format.asc"</span>)</code></pre>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/asciigrid">write.asciigrid</a></span>(my_spatialgrid,<span class="st">"PPI_in_arcgis_format.asc"</span>)</code></pre></div>
 </div>
 </div>
 <div id="exercise-2" class="section level1">
@@ -200,8 +200,8 @@ my_spatialgrid=my_ppi$data
 <div id="processing-polar-volume-data-into-vertical-profiles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#processing-polar-volume-data-into-vertical-profiles" class="anchor"></a>2.1. Processing polar volume data into vertical profiles</h2>
-<p>We will generate vertical profiles with the automated algorithm vol2bird (<a href="https://github.com/adokter/vol2bird">https://github.com/adokter/vol2bird</a>), which is included in the bioRad package. You need a working installation of Docker (linux / mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we will process the same file as in section 1.3:</span>
+<p>We will generate vertical profiles with the automated algorithm vol2bird (<a href="https://github.com/adokter/vol2bird" class="uri">https://github.com/adokter/vol2bird</a>), which is included in the bioRad package. You need a working installation of Docker (linux / mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we will process the same file as in section 1.3:</span>
 file.in
 <span class="co"># check whether the file is still there:</span>
 <span class="kw">file.exists</span>(file.in)
@@ -220,29 +220,29 @@ file.out
 <span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(file.in,file.out,<span class="dt">range.max=</span><span class="dv">35000</span>,<span class="dt">sd_vvp=</span><span class="dv">1</span>,<span class="dt">dealias=</span>T,<span class="dt">dualpol=</span>T)
 <span class="co"># your work directory should now contain a new file with the name you specified in file.out</span>
 <span class="co"># check that we can read this file, and retrieve the vertical profile from it:</span>
-vp=<span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(file.out)</code></pre>
+vp=<span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(file.out)</code></pre></div>
 </div>
 <div id="inspecting-single-vertical-profiles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#inspecting-single-vertical-profiles" class="anchor"></a>2.2. Inspecting single vertical profiles</h2>
 <p>Now that you have loaded a list of vertical profiles, we can start exploring them. We will start with plotting and inspecting single vertical profiles, i.e. a single profile from the vplist object you have just loaded.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the vertical profile, in terms of reflectivity factor</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the vertical profile, in terms of reflectivity factor</span>
 <span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"dbz"</span>)
 <span class="co"># plot the vertical profile, in terms of reflectivity</span>
-<span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"eta"</span>)</code></pre>
+<span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"eta"</span>)</code></pre></div>
 <p>These two plots look very different, but they are twice the same data plotted on a different scale.</p>
 <pre><code>eta = (radar-wavelength dependent constant) * 10^(dbz/10)</code></pre>
 <p>So <code>eta</code> and <code>dbz</code> are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear.</p>
 <p>The reflectivity factor <code>dbz</code> is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at equal reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit</p>
 <p>In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this case the reflectivity <code>eta</code> is more similar between S-band and C-band (though might be a little different). <code>eta</code> is also more directly related to the density of birds, since <code>eta</code> can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists reflectivity <code>eta</code> is the more conventional unit (instead of reflectivity factor in dBZ).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print the currently assumed radar cross section (RCS) per bird:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print the currently assumed radar cross section (RCS) per bird:</span>
 <span class="kw"><a href="../reference/rcs.html">rcs</a></span>(vp)
 <span class="co"># plot the vertical profile, in terms of bird density</span>
-<span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"dens"</span>)</code></pre>
+<span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"dens"</span>)</code></pre></div>
 <p>We can change the assumed radar cross section as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's change the RCS to 110 cm^2</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's change the RCS to 110 cm^2</span>
 <span class="kw"><a href="../reference/rcs.html">rcs</a></span>(vp) =<span class="st"> </span><span class="dv">110</span>
-<span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"dd"</span>)</code></pre>
+<span class="kw">plot</span>(vp, <span class="dt">quantity=</span><span class="st">"dd"</span>)</code></pre></div>
 </div>
 </div>
 <div id="exercise-3" class="section level1">
@@ -252,8 +252,8 @@ vp=<span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></s
 <h2 class="hasAnchor">
 <a href="#loading-processed-vertical-profiles" class="anchor"></a>3.1. Loading processed vertical profiles</h2>
 <p>To save some time, we will continue with some pre-processed vertical profiles for the KPAH radar.</p>
-<p>Navigate to <a href="https://www.dropbox.com/s/6em8s4yjqutkfle/profiles.zip?dl=0"></a><a href="https://www.dropbox.com/s/6em8s4yjqutkfle/profiles.zip?dl=0">https://www.dropbox.com/s/6em8s4yjqutkfle/profiles.zip?dl=0</a> and download the processed profiles, <code>profiles.zip</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># unzip the profiles.zip file, either by clicking the file or the command below; after unzipping you should have a folder 'profiles' with processed data</span>
+<p>Navigate to <a href="https://www.dropbox.com/s/6em8s4yjqutkfle/profiles.zip?dl=0" class="uri">https://www.dropbox.com/s/6em8s4yjqutkfle/profiles.zip?dl=0</a> and download the processed profiles, <code>profiles.zip</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># unzip the profiles.zip file, either by clicking the file or the command below; after unzipping you should have a folder 'profiles' with processed data</span>
 <span class="co"># load all the filenames in the new 'profiles' subfolder in your working directory</span>
 vp_paths=<span class="kw">dir</span>(<span class="st">"./profiles"</span>, <span class="dt">recursive=</span><span class="ot">TRUE</span>,<span class="dt">full.names=</span><span class="ot">TRUE</span>)
 vp_paths
@@ -264,13 +264,13 @@ vplist
 <span class="co"># save the object, which allows you to load the data more quickly next time</span>
 <span class="kw">save</span>(vplist,<span class="dt">file=</span><span class="st">"vplist.RData"</span>)
 <span class="co"># you can restore the vplist object at any time as follows:</span>
-<span class="kw">load</span>(<span class="st">"vplist.RData"</span>)</code></pre>
+<span class="kw">load</span>(<span class="st">"vplist.RData"</span>)</code></pre></div>
 </div>
 <div id="plotting-time-series-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-time-series-data" class="anchor"></a>3.2. Plotting time series data</h2>
 <p>We will now examine multiple vertical profiles at once that are ordered into a time series, e.g. the vertical profiles obtained from a single radar over a full day.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># convert the list of vertical profiles into a time series:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># convert the list of vertical profiles into a time series:</span>
 <span class="co"># In case your vplist contains profiles of different radars, this function will</span>
 <span class="co"># group the profiles and make a separate time-series for each radar.</span>
 <span class="co"># (but in our case we have profiles for only one radar)</span>
@@ -286,32 +286,32 @@ ts
 <span class="co"># check the help file for more plotting options</span>
 <span class="co"># Because profile timeseries are of class 'vpts', it's associated plotting function</span>
 <span class="co"># is plot.vpts:</span>
-?plot.vpts</code></pre>
+?plot.vpts</code></pre></div>
 <p>To interpret the wind barbs in the profile time series figure: each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># time series objects can be subsetted, just as you may be used to with vectors</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># time series objects can be subsetted, just as you may be used to with vectors</span>
 <span class="co"># here we subset the first 50 timesteps:</span>
-ts[<span class="dv">1</span>:<span class="dv">50</span>]</code></pre>
+ts[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</code></pre></div>
 <p>Precipitation is known to have a major influence on the timing and intensity of migration, therefore it can be useful to inspect profiles for presence of precipitation. An easy way of doing that is plotting the vertical profile of total reflectivity (quantity DBZH), which includes everything: birds, insects and precipitation. Precipitation often has higher reflectivities than birds, and also extends to much higher altitudes.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the time series</span>
-<span class="kw">plot</span>(ts, <span class="dt">quantity=</span><span class="st">"DBZH"</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can also extract the data from bioRad's class objects into a simple R format:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the time series</span>
+<span class="kw">plot</span>(ts, <span class="dt">quantity=</span><span class="st">"DBZH"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can also extract the data from bioRad's class objects into a simple R format:</span>
 <span class="co">#</span>
 <span class="co"># Extract some data from the time series, e.g. the bird density</span>
 <span class="kw"><a href="../reference/get_quantity.html">get_quantity</a></span>(ts, <span class="dt">quantity=</span><span class="st">"dens"</span>)
 <span class="co"># convert all the data in the time series to a standard data.frame:</span>
 my_dataframe=<span class="kw">as.data.frame</span>(ts)
-my_dataframe</code></pre>
+my_dataframe</code></pre></div>
 </div>
 <div id="vertical-integration-surface-density-migration-traffic-rate" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vertical-integration-surface-density-migration-traffic-rate" class="anchor"></a>3.3 Vertical integration: surface density &amp; migration traffic rate</h2>
 <p>Often you will want to sum together all the migrants in the vertical dimension, for example if you want a single index of how many birds are migrating at a certain instant. There are at least two ways in which you can do that</p>
 <ul>
-<li>by calculating the vertically integrated bird density (VID), which is <em>surface</em> density as opposed to a <em>volume</em> densities you have been plotting in the previous exercises: this number gives you how many migrants are aloft per square kilometer earth’s surface (unit individuals/km<span class="math">\(^{2}\)</span>), and is a vertical integration of the volume densities (unit individuals/km<span class="math">\(^{3}\)</span>).</li>
+<li>by calculating the vertically integrated bird density (VID), which is <em>surface</em> density as opposed to a <em>volume</em> densities you have been plotting in the previous exercises: this number gives you how many migrants are aloft per square kilometer earth’s surface (unit individuals/km<span class="math inline">\(^{2}\)</span>), and is a vertical integration of the volume densities (unit individuals/km<span class="math inline">\(^{3}\)</span>).</li>
 <li>Note that the VID quantity doesn’t depend on the speed of the migrants. A common measure that reflects both the density and speed of the migration is migration traffic rate (MTR). This is flux measure that gives you how many migrants are passing the radar station per unit of time and per unit of distance perpendicular to the migratory direction (unit individuals/km/hour).</li>
 </ul>
 <p>We will be using bioRad’s <code>integrate_profile</code> function to calculate these quantities</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let's continue with the ts object created in the previous example.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let's continue with the ts object created in the previous example.</span>
 <span class="co"># The vertically integrated quantities are calculated as follows:</span>
 integrated.ts =<span class="st"> </span><span class="kw"><a href="../reference/integrate_profile.html">integrate_profile</a></span>(ts)
 <span class="co"># plot the integrated data to screen:</span>
@@ -319,13 +319,13 @@ integrated.ts
 <span class="co"># The integrated.ts object you created is a vpi class object, which is an acronym for Vertical Profiles Integrated. It has its own plot method, which by default plots migration traffic rate (MTR):</span>
 <span class="kw">plot</span>(integrated.ts)
 <span class="co"># you can also plot vertically integrated densities (VID):</span>
-<span class="kw">plot</span>(integrated.ts, <span class="dt">quantity=</span><span class="st">"vid"</span>)</code></pre>
+<span class="kw">plot</span>(integrated.ts, <span class="dt">quantity=</span><span class="st">"vid"</span>)</code></pre></div>
 <p>Now let’s calculate how many birds passed over the radar during the full time series:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let's continue with the ts object created in the previous example.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let's continue with the ts object created in the previous example.</span>
 <span class="co"># we can integrate all the traffic rates [unit: birds/km/h] over time, to obtain the number of birds that</span>
 <span class="co"># have passed over the radar [unit: birds/km]. Like the traffic rates, these numbers are calculated for </span>
 <span class="co"># a 1 km transect perpendicular to the migratory direction, and stored in column mt of the object:</span>
-<span class="kw">plot</span>(integrated.ts, <span class="dt">quantity=</span><span class="st">"mt"</span>)</code></pre>
+<span class="kw">plot</span>(integrated.ts, <span class="dt">quantity=</span><span class="st">"mt"</span>)</code></pre></div>
 </div>
 </div>
   </div>

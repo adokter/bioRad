@@ -102,24 +102,24 @@
 <h3 class="hasAnchor">
 <a href="#rhdf5" class="anchor"></a>1. rhdf5</h3>
 <p>bioRad requires the rhdf5 library to read <a href="https://support.hdfgroup.org/HDF5/">hdf5</a> files. This library is available through bioconductor (not CRAN). To install, run in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)
-<span class="kw">biocLite</span>(<span class="st">"rhdf5"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)
+<span class="kw">biocLite</span>(<span class="st">"rhdf5"</span>)</code></pre></div>
 </div>
 <div id="biorad-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#biorad-1" class="anchor"></a>2. bioRad</h3>
 <p>You are now ready to install the bioRad package. In R, first load the devtools package, then install using <code>install_github</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
-devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</code></pre></div>
 <p>If your installation completed correctly, you can load bioRad with <code>library(bioRad)</code>, which should give you the following:</p>
-<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">library</span>(bioRad)
-Loading package ‘bioRad’ version <span class="fl">0.3.0</span> ...
-Warning:<span class="st"> </span>no running Docker daemon found
-Warning:<span class="st"> </span>bioRad functionality requiring Docker has been disabled
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">library</span>(bioRad)
+Loading package ‘bioRad’ version <span class="fl">0.3</span>.<span class="dv">0</span> ...
+Warning<span class="op">:</span><span class="st"> </span>no running Docker daemon found
+Warning<span class="op">:</span><span class="st"> </span>bioRad functionality requiring Docker has been disabled
 
-To enable Docker functionality, start Docker and run <span class="st">'checkDocker()'</span> in R</code></pre>
+To enable Docker functionality, start Docker and run <span class="st">'checkDocker()'</span> <span class="cf">in</span> R</code></pre></div>
 <p>On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:</p>
-<pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>, <span class="dt">args=</span><span class="st">"--no-multiarch"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>, <span class="dt">args=</span><span class="st">"--no-multiarch"</span>)</code></pre></div>
 </div>
 <div id="docker-optional" class="section level3">
 <h3 class="hasAnchor">
@@ -152,27 +152,37 @@ To enable Docker functionality, start Docker and run <span class="st">'checkDock
 <h3 class="hasAnchor">
 <a href="#run-biorad-in-r" class="anchor"></a>4. Run bioRad in R</h3>
 <p>To load the package:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bioRad)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bioRad)</code></pre></div>
 <p>To pull up the main help page:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><a href="reference/bioRad-package.html">?bioRad</a></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><a href="reference/bioRad-package.html">?bioRad</a></code></pre></div>
 <p>To open the vignette with several exercises covering the functionality of bioRad:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"functionality_overview"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"functionality_overview"</span>)</code></pre></div>
 </div>
 <div id="install-note-1-rgdal-on-linux-and-mac-os-v10-11-or-older" class="section level3">
 <h3 class="hasAnchor">
 <a href="#install-note-1-rgdal-on-linux-and-mac-os-v10-11-or-older" class="anchor"></a>Install note 1: rgdal on linux and mac OS v10.11 or older:</h3>
 <p>bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.</p>
 <p>You can use the package managing systems, like Macports on Mac, to install these dependencies, e.g.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> port install proj
-<span class="kw">sudo</span> port install gdal +expat</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> port install proj
+<span class="fu">sudo</span> port install gdal +expat</code></pre></div>
 <p>When compiling rgdal you need to specify the installation directory of the PROJ.4 and GDAL libraries that rgdal depends on. Install from source using the following command (example here with <code>/opt/local/</code> as the leading path, which is the directory where the Macports package managing system installs PROJ.4 and GDAL):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'rgdal'</span>,<span class="dt">configure.args=</span><span class="kw">c</span>(<span class="st">'--with-proj-include=/opt/local/include'</span>, <span class="st">'--with-proj-lib=/opt/local/lib'</span>, <span class="st">'--with-gdal-config=/opt/local/bin/gdal-config'</span>),<span class="dt">type=</span><span class="st">"source"</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'rgdal'</span>,<span class="dt">configure.args=</span><span class="kw">c</span>(<span class="st">'--with-proj-include=/opt/local/include'</span>, <span class="st">'--with-proj-lib=/opt/local/lib'</span>, <span class="st">'--with-gdal-config=/opt/local/bin/gdal-config'</span>),<span class="dt">type=</span><span class="st">"source"</span>)</code></pre></div>
 </div>
 <div id="install-note-2-virtualbox-hyper-v-conflicts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#install-note-2-virtualbox-hyper-v-conflicts" class="anchor"></a>Install note 2: Virtualbox / Hyper-V conflicts</h3>
 <p>Unfortunately, Hyper-V can not run together with Virtualbox. When you want to use Virtualbox after running Docker, you need to disable Hyper-V, requiring a reboot of the system. <a href="https://marcofranssen.nl/switch-between-hyper-v-and-virtualbox-on-windows/">Here</a> some instructions on how to set up a dual-boot system fairly easily (haven’t tested this myself yet)</p>
 </div>
+</div>
+<div id="meta" class="section level2">
+<h2 class="hasAnchor">
+<a href="#meta" class="anchor"></a>Meta</h2>
+<ul>
+<li>We welcome <a href="CONTRIBUTING.html">contributions</a> including bug reports.</li>
+<li>License: MIT</li>
+<li>Get citation information for <code>bioRad</code> in R doing <code>citation(package = "bioRad")</code>.</li>
+<li>Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
+</ul>
 </div>
 </div>
   </div>
