@@ -9,7 +9,11 @@ vignette: >
 ---
 bioRad is an R package for thebiological analysis and visualization of weather radar data.
 
-Also check the [vignette](http://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to bioRad.
+Check the [vignette](http://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to bioRad.
+
+Our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography provides an overview of bioRad's functionality:
+
+Dokter AM, Desmet P, Spaaks JH, van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. DOI [10.1111/ecog.04028](https://doi.org/10.1111/ecog.04028)
 
 ## BioRad's class objects
 
