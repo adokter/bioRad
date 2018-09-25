@@ -54,15 +54,17 @@ check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268) {
   dt <- as.numeric(difftime(as.Date(trise), as.Date(x), units = "days"))
   change <- which(dt != 0)
   if (length(change) > 0) {
-    trise[change] <- sunrise(x[change] - dt[change]*24*3600, lon, lat,
-                             tz = tz, elev = elev)
+    trise[change] <- sunrise(x[change] - dt[change] * 24 * 3600, lon, lat,
+      tz = tz, elev = elev
+    )
   }
 
   dt <- as.numeric(difftime(as.Date(tset), as.Date(x), units = "days"))
   change <- which(dt != 0)
   if (length(change) > 0) {
-    tset[change] <- sunset(x[change] - dt[change]*24*3600, lon, lat,
-                           tz = tz, elev = elev)
+    tset[change] <- sunset(x[change] - dt[change] * 24 * 3600, lon, lat,
+      tz = tz, elev = elev
+    )
   }
 
   # prepare output
@@ -80,7 +82,8 @@ check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268) {
 check_night.vp <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vp"))
   check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
-              elev = elev)
+    elev = elev
+  )
 }
 
 #' @rdname check_night
@@ -100,7 +103,8 @@ check_night.list <- function(x, ..., elev = -0.268) {
 check_night.vpts <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vpts"))
   check_night(x$dates, x$attributes$where$lon, x$attributes$where$lat,
-         elev = elev)
+    elev = elev
+  )
 }
 
 #' @rdname check_night

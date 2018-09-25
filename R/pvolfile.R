@@ -19,7 +19,8 @@ is.pvolfile <- function(file, filename = NULL) {
   # deprecate function arguments
   if (!missing(filename)) {
     warning("argument filename is deprecated; please use file instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     file <- filename
   }
 
@@ -47,7 +48,6 @@ is.pvolfile <- function(file, filename = NULL) {
 #' pvol <- system.file("extdata", "volume.h5", package = "bioRad")
 #' get_odim_object_type(pvol)   #> "pvol"
 get_odim_object_type <- function(file) {
-
   if (!file.exists(file)) {
     warning(paste(file, "does not exist"))
     return(NA)
@@ -65,18 +65,22 @@ is.odimfile <- function(file) {
     warning(paste(file, "is not a HDF5 file"))
     return(FALSE)
   }
-  output <-  TRUE
+  output <- TRUE
   groups <- h5ls(file, recursive = FALSE)$name
   if (!("dataset1" %in% groups)) {
-    output = FALSE
-    warning(paste("HDF5 file", file,
-                  "does not contain a /dataset1 group"))
+    output <- FALSE
+    warning(paste(
+      "HDF5 file", file,
+      "does not contain a /dataset1 group"
+    ))
   }
 
   if (!("what" %in% groups)) {
-    output = FALSE
-    warning(paste("HDF5 file", file,
-                  "does not contain a /what group"))
+    output <- FALSE
+    warning(paste(
+      "HDF5 file", file,
+      "does not contain a /what group"
+    ))
   } else {
     object <- h5readAttributes(file, "what")$object
 
@@ -87,11 +91,11 @@ is.odimfile <- function(file) {
   }
 
   if (!("how" %in% groups)) {
-    output = FALSE
+    output <- FALSE
     warning(paste("HDF5 file", file, "does not contain a /how group"))
   }
   if (!("where" %in% groups)) {
-    output = FALSE
+    output <- FALSE
     warning(paste("HDF5 file", file, "does not contain a /where group"))
   }
   return(output)

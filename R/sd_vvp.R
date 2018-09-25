@@ -74,11 +74,11 @@ sd_vvp_threshold.vpts <- function(x) {
   stopifnot(inherits(x, "vp"))
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
-    x$data$dens <- x$data$eta/x$attributes$how$rcs_bird
+    x$data$dens <- x$data$eta / x$attributes$how$rcs_bird
     x$data$dens[x$data$sd_vvp < value] <- 0
   } else {
     warning("Radar cross section not set, defaulting to 11 cm^2 ...")
-    x$data$dens <- x$data$eta/11
+    x$data$dens <- x$data$eta / 11
     x$attributes$how$rcs_bird <- 11
     x$data$dens[x$data$sd_vvp < value] <- 0
   }
@@ -105,11 +105,11 @@ sd_vvp_threshold.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
-    x$data$dens <- x$data$eta/x$attributes$how$rcs_bird
+    x$data$dens <- x$data$eta / x$attributes$how$rcs_bird
     x$data$dens[x$data$sd_vvp < value] <- 0
   } else {
     warning("Radar cross section not set, defaulting to 11 cm^2 ...")
-    x$data$dens <- x$data$eta/11
+    x$data$dens <- x$data$eta / 11
     x$attributes$how$rcs_bird <- 11
     x$data$dens[x$data$sd_vvp < value] <- 0
   }

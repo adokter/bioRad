@@ -25,7 +25,7 @@ basemap <- function(...) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-beamheight <- function(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357) {
+beamheight <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   .Deprecated("beam_height")
   beam_height(range, elev, k, lat, re, rp)
 }
@@ -82,9 +82,12 @@ composite <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
 #' @export
 day <- function(x, ..., elev = -0.268) {
   .Deprecated("check_night",
-              msg = paste("'day' is deprecated and its functionality is",
-                          "replaced by the 'check_night' function",
-                          "(FALSE <-> TRUE)"))
+    msg = paste(
+      "'day' is deprecated and its functionality is",
+      "replaced by the 'check_night' function",
+      "(FALSE <-> TRUE)"
+    )
+  )
   !check_night(x, ..., elev = -0.268)
 }
 
@@ -107,8 +110,10 @@ dbz2eta <- function(dbz, wavelength, Km = 0.93) {
 #' @export
 download_vp <- function(start_date, end_date, country, radar, localpath = ".") {
   .Deprecated("download_vpfiles")
-  download_vpfiles(date_min = start_date, date_max = end_date,
-                   country, radar, directory = localpath)
+  download_vpfiles(
+    date_min = start_date, date_max = end_date,
+    country, radar, directory = localpath
+  )
 }
 
 #' @section elangle:
@@ -219,8 +224,10 @@ is.vplist <- function(...) {
 #' \dontrun{mt(example_vpts, alt.min = 0, alt.max = 1000)}
 mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
-  .Deprecated(msg = paste("Migration traffic is now included in the output",
-                          "of `integrate_profile()` as column 'mt'."))
+  .Deprecated(msg = paste(
+    "Migration traffic is now included in the output",
+    "of `integrate_profile()` as column 'mt'."
+  ))
   stopifnot(inherits(x, "vpts"))
   cmt(x, alt.min, alt.max, alpha, interval.max)[ncol(x)]
 }
@@ -298,8 +305,10 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
 #' \dontrun{plot(integrate_profile(example_vpts), quantity = "mtr")}
 mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
   .Deprecated("integrate_profile")
-  .Deprecated(msg = paste("Migration traffic rate is now included in the",
-                          "output of `integrate_profile()` as column 'mtr'."))
+  .Deprecated(msg = paste(
+    "Migration traffic rate is now included in the",
+    "output of `integrate_profile()` as column 'mtr'."
+  ))
   stopifnot(inherits(x, "vp") || inherits(x, "vpts") || inherits(x, "list"))
   if (inherits(x, "list")) {
     vptest <- sapply(x, function(y) is(y, "vp"))
@@ -307,8 +316,10 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
       stop("Not all objects in list are vp objects")
     }
   }
-  vintegrated <- integrate_profile(x, alt_min = alt.min, alt_max = alt.max,
-                                   alpha = alpha)
+  vintegrated <- integrate_profile(x,
+    alt_min = alt.min, alt_max = alt.max,
+    alpha = alpha
+  )
   vintegrated$mtr
 }
 
@@ -358,11 +369,15 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
 #' ylab = "CMT [birds/km]")}
 cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
   .Deprecated("integrate_profile")
-  .Deprecated(msg = paste("Cumulative migration traffic is now included in the",
-              "output of `integrate_profile()` as column 'mt' (summed)."))
+  .Deprecated(msg = paste(
+    "Cumulative migration traffic is now included in the",
+    "output of `integrate_profile()` as column 'mt' (summed)."
+  ))
   stopifnot(inherits(x, "vpts"))
-  vintegrated <- integrate_profile(x, alt_min = alt.min, alt_max = alt.max,
-                                   alpha = alpha, interval_max = interval.max)
+  vintegrated <- integrate_profile(x,
+    alt_min = alt.min, alt_max = alt.max,
+    alpha = alpha, interval_max = interval.max
+  )
   vintegrated$mt
 }
 
@@ -372,7 +387,7 @@ cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
 #' @rdname bioRad-deprecated
 #'
 #' @export
-night <- function(x, ..., elev=-0.268) {
+night <- function(x, ..., elev = -0.268) {
   .Deprecated("check_night")
   check_night(x, ..., elev = -0.268)
 }
@@ -386,8 +401,10 @@ night <- function(x, ..., elev=-0.268) {
 ppi <- function(x, cellsize = 500, range.max = 50000,
                 project = FALSE, latlim = NULL, lonlim = NULL) {
   .Deprecated("project_as_ppi")
-  project_as_ppi(x, grid_size = cellsize, range_max = range.max,
-                 project = project, ylim = latlim, xlim = lonlim)
+  project_as_ppi(x,
+    grid_size = cellsize, range_max = range.max,
+    project = project, ylim = latlim, xlim = lonlim
+  )
 }
 
 #' @section read.pvol:
@@ -396,15 +413,19 @@ ppi <- function(x, cellsize = 500, range.max = 50000,
 #' @rdname bioRad-deprecated
 #'
 #' @export
-read.pvol <- function(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
-                                          "ZDR", "PHIDP", "CELL"),
+read.pvol <- function(filename, param = c(
+                        "DBZH", "VRADH", "VRAD", "RHOHV",
+                        "ZDR", "PHIDP", "CELL"
+                      ),
                       sort = TRUE, lat, lon, height, elangle.min = 0,
                       elangle.max = 90, verbose = TRUE,
                       mount = dirname(filename)) {
   .Deprecated("read_pvolfile")
-  read_pvolfile(file = filename, param = param, sort = sort, lat = lat,
-                lon = lon, height = height, elev_min = elangle.min,
-                elev_max = elangle.max, verbose = verbose, mount = mount)
+  read_pvolfile(
+    file = filename, param = param, sort = sort, lat = lat,
+    lon = lon, height = height, elev_min = elangle.min,
+    elev_max = elangle.max, verbose = verbose, mount = mount
+  )
 }
 
 #' @section readvp:
@@ -450,8 +471,10 @@ regularize <- function(ts, interval = "auto", t.min = ts$daterange[1],
                        t.max = ts$daterange[2], units = "mins",
                        fill = FALSE, verbose = TRUE) {
   .Deprecated("regularize_vpts")
-  regularize_vpts(ts, interval, date_min = t.min, date_max = t.max, units,
-                  fill, verbose)
+  regularize_vpts(ts, interval,
+    date_min = t.min, date_max = t.max, units,
+    fill, verbose
+  )
 }
 
 #' @section retrieve_vp_paths:
@@ -463,8 +486,10 @@ regularize <- function(ts, interval = "auto", t.min = ts$daterange[1],
 retrieve_vp_paths <- function(path, start_date, end_date,
                               country = NULL, radar = NULL) {
   .Deprecated("select_vpfiles")
-  select_vpfiles(directory = path, date_min = start_date, date_max = end_date,
-                 country, radar)
+  select_vpfiles(
+    directory = path, date_min = start_date, date_max = end_date,
+    country, radar
+  )
 }
 
 #' @section rsl2odim:
@@ -476,8 +501,10 @@ retrieve_vp_paths <- function(path, start_date, end_date,
 rsl2odim <- function(vol.in, vol.out, verbose = FALSE,
                      mount = dirname(vol.in)) {
   .Deprecated("nexrad_to_odim")
-  nexrad_to_odim(pvolfile_nexrad = vol.in, pvolfile_odim = vol.out, verbose,
-                 mount)
+  nexrad_to_odim(
+    pvolfile_nexrad = vol.in, pvolfile_odim = vol.out, verbose,
+    mount
+  )
 }
 
 #' @section sd_vvp:
@@ -541,16 +568,18 @@ vol2bird <- function(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
                      azim.max = 360, range.min = 5000, range.max = 25000,
                      nlayer = 20L, hlayer = 200, dealias = TRUE,
                      nyquist.min = if (dealias) 5 else 25,
-                     dbz_quantity="DBZH") {
+                     dbz_quantity = "DBZH") {
   .Deprecated("calculate_vp")
-  calculate_vp(pvolfile = vol.in, vpfile = vp.out, pvolfile_out = vol.out,
-               autoconf = autoconf, verbose = verbose, mount = mount,
-               sd_vvp_threshold = sd_vvp_threshold, rcs = rcs, dual_pol = dualpol,
-               rho_hv = rhohv, elev_min = elev.min, elev_max = elev.max,
-               azim_min = azim.min, azim_max = azim.max, range_min = range.min,
-               range_max = range.max, n_layer = nlayer, h_layer = hlayer,
-               dealias = dealias, nyquist_min = nyquist.min,
-               dbz_quantity = dbz_quantity)
+  calculate_vp(
+    pvolfile = vol.in, vpfile = vp.out, pvolfile_out = vol.out,
+    autoconf = autoconf, verbose = verbose, mount = mount,
+    sd_vvp_threshold = sd_vvp_threshold, rcs = rcs, dual_pol = dualpol,
+    rho_hv = rhohv, elev_min = elev.min, elev_max = elev.max,
+    azim_min = azim.min, azim_max = azim.max, range_min = range.min,
+    range_max = range.max, n_layer = nlayer, h_layer = hlayer,
+    dealias = dealias, nyquist_min = nyquist.min,
+    dbz_quantity = dbz_quantity
+  )
 }
 
 #' @section vpts:

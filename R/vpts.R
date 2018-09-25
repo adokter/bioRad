@@ -92,14 +92,14 @@ dim.vpts <- function(x) {
   }
   if (length(i) == 1) {
     if (i > 0) {
-      return(vpts_to_vp(x,i))
+      return(vpts_to_vp(x, i))
     } else {
       if (dim(x)[2] == 2) {
         if (i == -1) {
-          return(vpts_to_vp(x,2))
+          return(vpts_to_vp(x, 2))
         }
         if (i == -2) {
-          return(vpts_to_vp(x,1))
+          return(vpts_to_vp(x, 1))
         }
       }
     }
@@ -107,17 +107,20 @@ dim.vpts <- function(x) {
   x$dates <- x$dates[i]
   x$daterange <- .POSIXct(c(min(x$dates), max(x$dates)), tz = "UTC")
   x$timesteps <- difftime(x$dates[-1], x$dates[-length(x$dates)],
-                          units = "secs")
+    units = "secs"
+  )
   if (length(unique(x$timesteps)) == 1) {
     x$regular <- TRUE
   } else {
     x$regular <- FALSE
   }
   quantity.names <- names(x$data)
-  x$data <- lapply(names(x$data),
-                   function(quantity) {
-                     getElement(x$data, quantity)[,i]
-                   })
+  x$data <- lapply(
+    names(x$data),
+    function(quantity) {
+      getElement(x$data, quantity)[, i]
+    }
+  )
   names(x$data) <- quantity.names
   return(x)
 }
@@ -132,17 +135,21 @@ dim.vpts <- function(x) {
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
-  cat("                  ",
-      if (x$regular) {
-        "Regular"
-      } else {
-        "Irregular"
-      },
-      "time series of vertical profiles (class vpts)\n\n")
+  cat(
+    "                  ",
+    if (x$regular) {
+      "Regular"
+    } else {
+      "Irregular"
+    },
+    "time series of vertical profiles (class vpts)\n\n"
+  )
   cat("           radar: ", x$radar, "\n")
   cat("      # profiles: ", length(x$dates), "\n")
-  cat("time range (UTC): ", as.character(x$daterange[1]),
-      "-", as.character(x$daterange[2]), "\n")
+  cat(
+    "time range (UTC): ", as.character(x$daterange[1]),
+    "-", as.character(x$daterange[2]), "\n"
+  )
   if (length(x$timesteps) > 0) {
     stepMin <- min(x$timesteps)
     stepMax <- max(x$timesteps)
@@ -150,9 +157,9 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
     stepMin <- stepMax <- NA
   }
   if (x$regular) {
-    cat("   time step (s): ", stepMin,"\n")
+    cat("   time step (s): ", stepMin, "\n")
   } else {
-    cat("   time step (s): ", "min:", stepMin,"    max: ", stepMax, "\n")
+    cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")
   }
 }
 
@@ -212,33 +219,41 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   stopifnot(inherits(x, "vpts"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-        length(x$dates)*length(x$heights)) {
+      length(x$dates) * length(x$heights)) {
       rownames(output) <- row.names
     } else {
-      stop(paste("'row.names' is not a character vector of length",
-                 length(x$dates)*length(x$heights)))
+      stop(paste(
+        "'row.names' is not a character vector of length",
+        length(x$dates) * length(x$heights)
+      ))
     }
   }
   if (is.null(lat)) {
-    lat = x$attributes$where$lat
+    lat <- x$attributes$where$lat
   }
   if (is.null(lon)) {
-    lon = x$attributes$where$lon
+    lon <- x$attributes$where$lon
   }
   missing <- which(!(quantities %in% names(x$data)))
   if (length(missing) > 0) {
-    stop(paste(paste(quantities[missing], collapse = " "),
-               "not an available quantity, select one or more of",
-               paste(names(x$data), collapse = ",")))
+    stop(paste(
+      paste(quantities[missing], collapse = " "),
+      "not an available quantity, select one or more of",
+      paste(names(x$data), collapse = ",")
+    ))
   }
   # coerce data to a data frame
   output <- as.data.frame(lapply(x$data[quantities], c),
-                          optional = optional, ...)
+    optional = optional, ...
+  )
   # add height and datetime as a column
-  output <- cbind(datetime = as.POSIXct(
-    c(t(replicate(length(x$heights), x$dates))),
-    origin = "1970-1-1", tz = 'UTC'),
-    height = rep(x$heights,length(x$dates)), output)
+  output <- cbind(
+    datetime = as.POSIXct(
+      c(t(replicate(length(x$heights), x$dates))),
+      origin = "1970-1-1", tz = "UTC"
+    ),
+    height = rep(x$heights, length(x$dates)), output
+  )
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
   # add location information
@@ -259,10 +274,12 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
     sunset <- sunset(x$dates, lat = lat, lon = lon)
     output$sunrise <- as.POSIXct(
       c(t(replicate(length(x$heights), sunrise))),
-      origin = "1970-1-1", tz = 'UTC')
+      origin = "1970-1-1", tz = "UTC"
+    )
     output$sunset <- as.POSIXct(
       c(t(replicate(length(x$heights), sunset))),
-      origin = "1970-1-1", tz = 'UTC')
+      origin = "1970-1-1", tz = "UTC"
+    )
   }
   output
 }
@@ -276,10 +293,12 @@ vpts_to_vp <- function(x, i) {
   vpout <- list()
   vpout$radar <- x$radar
   vpout$datetime <- x$dates[i]
-  vpout$data <- as.data.frame(lapply(names(x$data),
-                                     function(y) {
-                                       x$data[y][[1]][,i]
-                                     }))
+  vpout$data <- as.data.frame(lapply(
+    names(x$data),
+    function(y) {
+      x$data[y][[1]][, i]
+    }
+  ))
   names(vpout$data) <- names(x$data)
   vpout$attributes <- x$attributes
   vpout$data$HGHT <- x$heights

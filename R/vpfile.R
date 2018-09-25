@@ -14,12 +14,13 @@
 #' profile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' is.vpfile(profile)   #> TRUE
 #'
-is.vpfile  <- function(file, filename = NULL) {
+is.vpfile <- function(file, filename = NULL) {
 
   # deprecate function arguments
   if (!missing(filename)) {
     warning("argument filename is deprecated; please use file instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     file <- filename
   }
 

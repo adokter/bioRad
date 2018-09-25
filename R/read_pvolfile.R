@@ -59,8 +59,10 @@
 #' scan <- vol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
-read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
-                                          "ZDR", "PHIDP", "CELL"),
+read_pvolfile <- function(file, param = c(
+                            "DBZH", "VRADH", "VRAD", "RHOHV",
+                            "ZDR", "PHIDP", "CELL"
+                          ),
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file)) {
@@ -68,7 +70,7 @@ read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
   # input checks
   if (!is.logical(sort)) {
     stop("'sort' should be logical")
-    }
+  }
   if (!missing(lat)) {
     if (!is.numeric(lat) || lat < -90 || lat > 90) {
       stop("'lat' should be numeric between -90 and 90 degrees")
@@ -96,11 +98,15 @@ read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
       cat("Converting using Docker...\n")
     }
     if (!.pkgenv$docker) {
-      stop("Requires a running Docker daemon.\nTo enable, start your",
-           "local Docker daemon, and run 'check_docker()' in R\n")
+      stop(
+        "Requires a running Docker daemon.\nTo enable, start your",
+        "local Docker daemon, and run 'check_docker()' in R\n"
+      )
     }
-    file <- nexrad_to_odim_tempfile(file, verbose = verbose,
-                                    mount = mount)
+    file <- nexrad_to_odim_tempfile(file,
+      verbose = verbose,
+      mount = mount
+    )
     if (!is.pvolfile(file)) {
       file.remove(file)
       stop("converted file contains errors")
@@ -108,22 +114,25 @@ read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
     cleanup <- TRUE
   }
 
-  #extract scan groups
+  # extract scan groups
   scans <- h5ls(file, recursive = FALSE)$name
   scans <- scans[grep("dataset", scans)]
 
-  #extract elevations, and make selection based on elevation
-  elevs <- sapply(scans,
-                  function(x) {
-                    h5readAttributes(file,
-                                     paste(x, "/where", sep = ""))$elangle
-                    }
-                  )
+  # extract elevations, and make selection based on elevation
+  elevs <- sapply(
+    scans,
+    function(x) {
+      h5readAttributes(
+        file,
+        paste(x, "/where", sep = "")
+      )$elangle
+    }
+  )
   scans <- scans[elevs >= elev_min & elevs <= elev_max]
 
-  #extract attributes
+  # extract attributes
   h5struct <- h5ls(file)
-  h5struct <- h5struct[h5struct$group == "/",]$name
+  h5struct <- h5struct[h5struct$group == "/", ]$name
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
     attribs.how <- h5readAttributes(file, "how")
@@ -172,27 +181,34 @@ read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
   }
   geo <- list(lat = vol.lat, lon = vol.lon, height = vol.height)
 
-  #convert some useful metadata
+  # convert some useful metadata
   datetime <- as.POSIXct(paste(attribs.what$date, attribs.what$time),
-                         format = "%Y%m%d %H%M%S", tz = 'UTC')
+    format = "%Y%m%d %H%M%S", tz = "UTC"
+  )
   sources <- strsplit(attribs.what$source, ",")[[1]]
   radar <- gsub("RAD:", "", sources[which(grepl("RAD:", sources))])
 
-  #read scan groups
-  data <- lapply(scans,
-                 function(x) {
-                   read_pvolfile_scan(file, x, param, radar, datetime, geo)
-                 })
-  #order by elevation
+  # read scan groups
+  data <- lapply(
+    scans,
+    function(x) {
+      read_pvolfile_scan(file, x, param, radar, datetime, geo)
+    }
+  )
+  # order by elevation
   if (sort) {
     data <- data[order(sapply(data, get_elevation_angles))]
   }
 
-  #prepare output
-  output <- list(radar = radar, datetime = datetime, scans = data,
-                 attributes = list(how = attribs.how, what = attribs.what,
-                                   where = attribs.where), geo = geo)
-  class(output)  <- "pvol"
+  # prepare output
+  output <- list(
+    radar = radar, datetime = datetime, scans = data,
+    attributes = list(
+      how = attribs.how, what = attribs.what,
+      where = attribs.where
+    ), geo = geo
+  )
+  class(output) <- "pvol"
   if (cleanup) {
     file.remove(file)
   }
@@ -201,7 +217,7 @@ read_pvolfile <- function(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV",
 
 read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   h5struct <- h5ls(file)
-  h5struct <- h5struct[h5struct$group == paste("/", scan, sep = ""),]$name
+  h5struct <- h5struct[h5struct$group == paste("/", scan, sep = ""), ]$name
   groups <- h5struct[grep("data", h5struct)]
 
   # select which scan parameters to read
@@ -212,12 +228,17 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   }
 
   if (!allParam) {
-    quantityNames <- sapply(groups,
-                            function(x) {
-                              h5readAttributes(file,
-                                               paste(scan, "/", x, "/what",
-                                                     sep = ""))$quantity
-                            })
+    quantityNames <- sapply(
+      groups,
+      function(x) {
+        h5readAttributes(
+          file,
+          paste(scan, "/", x, "/what",
+            sep = ""
+          )
+        )$quantity
+      }
+    )
     groups <- groups[quantityNames %in% param]
     if (length(groups) == 0) {
       stop(paste("none of the requested scan parameters present in", file))
@@ -239,22 +260,30 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   # add attributes to geo list
   geo$elangle <- attribs.where$elangle
   geo$rscale <- attribs.where$rscale
-  geo$ascale <- 360/attribs.where$nrays
+  geo$ascale <- 360 / attribs.where$nrays
 
   # read scan parameters
-  quantities <- lapply(groups,
-                       function(x) {
-                         read_pvolfile_quantity(file,
-                                                paste(scan, "/", x, sep = ""),
-                                                radar, datetime, geo)
-                       })
-  quantityNames <- sapply(quantities, '[[', "quantityName")
-  quantities <- lapply(quantities, '[[', "quantity")
+  quantities <- lapply(
+    groups,
+    function(x) {
+      read_pvolfile_quantity(
+        file,
+        paste(scan, "/", x, sep = ""),
+        radar, datetime, geo
+      )
+    }
+  )
+  quantityNames <- sapply(quantities, "[[", "quantityName")
+  quantities <- lapply(quantities, "[[", "quantity")
   names(quantities) <- quantityNames
 
-  output <- list(radar = radar, datetime = datetime, params = quantities,
-                 attributes = list(how = attribs.how, what = attribs.what,
-                                   where = attribs.where), geo = geo)
+  output <- list(
+    radar = radar, datetime = datetime, params = quantities,
+    attributes = list(
+      how = attribs.how, what = attribs.what,
+      where = attribs.where
+    ), geo = geo
+  )
   class(output) <- "scan"
   output
 }
@@ -262,9 +291,9 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
 read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo) {
   data <- h5read(file, quantity)$data
   attr <- h5readAttributes(file, paste(quantity, "/what", sep = ""))
-  data <- replace(data,data == as.numeric(attr$nodata), NA)
-  data <- replace(data,data == as.numeric(attr$undetect), NaN)
-  data <- as.numeric(attr$offset) + as.numeric(attr$gain)*data
+  data <- replace(data, data == as.numeric(attr$nodata), NA)
+  data <- replace(data, data == as.numeric(attr$undetect), NaN)
+  data <- as.numeric(attr$offset) + as.numeric(attr$gain) * data
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime

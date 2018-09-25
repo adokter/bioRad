@@ -50,9 +50,11 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
   geo <- attributes(x)$geo
   geo$bbox <- attributes(data)$bboxlatlon
   geo$merged <- FALSE
-  data <- list(radar = attributes(x)$radar, datetime = attributes(x)$datetime,
-               data = data, geo = geo)
-  class(data) = "ppi"
+  data <- list(
+    radar = attributes(x)$radar, datetime = attributes(x)$datetime,
+    data = data, geo = geo
+  )
+  class(data) <- "ppi"
   data
 }
 
@@ -61,80 +63,102 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
-                                project = FALSE, ylim = NULL,  xlim = NULL) {
+                                project = FALSE, ylim = NULL, xlim = NULL) {
   stopifnot(inherits(x, "scan"))
 
-  data <- sample_polar(x$params[[1]], grid_size, range_max,
-                       project, ylim, xlim)
+  data <- sample_polar(
+    x$params[[1]], grid_size, range_max,
+    project, ylim, xlim
+  )
   # copy the parameter's geo list to attributes
   geo <- x$geo
   geo$bbox <- attributes(data)$bboxlatlon
   geo$merged <- FALSE
   if (length(x$params) > 1) {
-    alldata <- lapply(x$params,
-                      function(param) {
-                        sample_polar(param, grid_size, range_max,
-                                     project, ylim, xlim)
-                        }
-                      )
+    alldata <- lapply(
+      x$params,
+      function(param) {
+        sample_polar(
+          param, grid_size, range_max,
+          project, ylim, xlim
+        )
+      }
+    )
     data <- do.call(cbind, alldata)
   }
-  data <- list(radar = x$radar, datetime = x$datetime,
-               data = data, geo = geo)
+  data <- list(
+    radar = x$radar, datetime = x$datetime,
+    data = data, geo = geo
+  )
   class(data) <- "ppi"
   data
 }
 
 
 sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
-  #proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
+  # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
-                           " +lon_0=", attributes(param)$geo$lon,
-                           " +units=m",sep = ""))
-  bboxlatlon <- proj_to_wgs(c(-range_max,range_max),
-                         c(-range_max,range_max),
-                         proj4string)@bbox
+    " +lon_0=", attributes(param)$geo$lon,
+    " +units=m",
+    sep = ""
+  ))
+  bboxlatlon <- proj_to_wgs(
+    c(-range_max, range_max),
+    c(-range_max, range_max),
+    proj4string
+  )@bbox
   if (!missing(ylim) & !is.null(ylim)) {
-    bboxlatlon["lat",] <- ylim
+    bboxlatlon["lat", ] <- ylim
   }
   if (!missing(xlim) & !is.null(xlim)) {
-    bboxlatlon["lon",] <- xlim
+    bboxlatlon["lon", ] <- xlim
   }
   if (missing(ylim) & missing(xlim)) {
     cellcentre.offset <- -c(range_max, range_max)
-    cells.dim <- ceiling(rep(2*range_max/grid_size, 2))
+    cells.dim <- ceiling(rep(2 * range_max / grid_size, 2))
   } else {
-    bbox <- wgs_to_proj(bboxlatlon["lon",], bboxlatlon["lat",], proj4string)
-    cellcentre.offset <- c(min(bbox@coords[, "x"]),
-                           min(bbox@coords[, "y"]))
-    cells.dim <- c(ceiling((max(bbox@coords[, "x"]) -
-                              min(bbox@coords[, "x"]))/grid_size),
-                   ceiling((max(bbox@coords[, "y"]) -
-                              min(bbox@coords[, "y"]))/grid_size))
+    bbox <- wgs_to_proj(bboxlatlon["lon", ], bboxlatlon["lat", ], proj4string)
+    cellcentre.offset <- c(
+      min(bbox@coords[, "x"]),
+      min(bbox@coords[, "y"])
+    )
+    cells.dim <- c(
+      ceiling((max(bbox@coords[, "x"]) -
+        min(bbox@coords[, "x"])) / grid_size),
+      ceiling((max(bbox@coords[, "y"]) -
+        min(bbox@coords[, "y"])) / grid_size)
+    )
   }
   # define cartesian grid
   gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   # if projecting, account for elevation angle - not accounting for
   # earths curvature
   if (project) {
-    elev <- attributes(param)$geo$elangle * pi/180
+    elev <- attributes(param)$geo$elangle * pi / 180
   } else {
     elev <- 0
   }
   # get scan parameter indices, and extract data
-  index <- polar_to_index(cartesian_to_polar(coordinates(gridTopo), elev),
-                          attributes(param)$geo$rscale,
-                          attributes(param)$geo$ascale)
+  index <- polar_to_index(
+    cartesian_to_polar(coordinates(gridTopo), elev),
+    attributes(param)$geo$rscale,
+    attributes(param)$geo$ascale
+  )
   data <- data.frame(mapply(
     function(x, y) {
-      safe_subset(param,x,y)
-      },
+      safe_subset(param, x, y)
+    },
     x = index$row,
-    y = index$col))
+    y = index$col
+  ))
   colnames(data) <- attributes(param)$param
-  output <- SpatialGridDataFrame(grid = SpatialGrid(grid = gridTopo,
-                                                    proj4string = proj4string),
-                                 data = data)
+  output <- SpatialGridDataFrame(
+    grid = SpatialGrid(
+      grid = gridTopo,
+      proj4string = proj4string
+    ),
+    data = data
+  )
   attributes(output)$bboxlatlon <- bboxlatlon
   output
 }
@@ -172,9 +196,9 @@ proj_to_wgs <- function(x, y, proj4string) {
 }
 
 cartesian_to_polar <- function(coords, elev = 0) {
-  range <- sqrt(coords[,1]^2 + coords[,2]^2)/cos(elev)
-  azim <- (0.5*pi - atan2(coords[, 2], coords[,1])) %% (2*pi)
-  data.frame(range = range,azim = azim*180/pi)
+  range <- sqrt(coords[, 1]^2 + coords[, 2]^2) / cos(elev)
+  azim <- (0.5 * pi - atan2(coords[, 2], coords[, 1])) %% (2 * pi)
+  data.frame(range = range, azim = azim * 180 / pi)
 }
 
 safe_subset <- function(data, indexx, indexy) {
@@ -188,8 +212,7 @@ safe_subset <- function(data, indexx, indexy) {
 }
 
 polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1) {
-  row <- floor(1 + coords_polar$range/rangebin)
-  col <- floor(1 + coords_polar$azim/azimbin)
-  data.frame(row = row,col = col)
+  row <- floor(1 + coords_polar$range / rangebin)
+  col <- floor(1 + coords_polar$azim / azimbin)
+  data.frame(row = row, col = col)
 }
-

@@ -13,6 +13,6 @@
 #' myparam <- get_param(example_scan,"VRADH")
 get_param <- function(x, param) {
   stopifnot(inherits(x, "scan"))
-  if(!(param %in% names(x$params))) stop(paste("scan parameter",param,"not found"))
+  if (!(param %in% names(x$params))) stop(paste("scan parameter", param, "not found"))
   x$params[[param]]
 }
