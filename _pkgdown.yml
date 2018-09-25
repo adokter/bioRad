@@ -81,6 +81,16 @@ reference:
       - eta_to_dbz
       - sunrise
 
+authors:
+  Adriaan M. Dokter:
+    href: "http://adriaandokter.com"
+
+  Peter Desmet:
+    href: "https://twitter.com/peterdesmet"
+
+  Stijn Van Hoey:
+    href: "https://twitter.com/SVanHoey"
+
 template:
   params:
     bootswatch: yeti
