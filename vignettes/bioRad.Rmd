@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-bioRad is an R package for thebiological analysis and visualization of weather radar data.
+bioRad is an R package for the biological analysis and visualization of weather radar data.
 
 Check the [vignette](http://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to bioRad.
 
@@ -15,7 +15,7 @@ Our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography provides an 
 
 Dokter AM, Desmet P, Spaaks JH, van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. DOI [10.1111/ecog.04028](https://doi.org/10.1111/ecog.04028)
 
-## BioRad's class objects
+## bioRad's class objects
 
 `bioRad` uses the following class objects for storing radar data:
 
@@ -29,14 +29,11 @@ Dokter AM, Desmet P, Spaaks JH, van Hoey S, Veen L, Verlinden L, Nilsson C, Haas
 
 The common `summary`, `is`, `dim`, `Extract` methods are available for each of these classes.
 
-Plot methods are available for vp, vpts, vpi and ppi objects
+Plot methods are available for `vp`, `vpts`, `vpi` and `ppi` objects
 
 ## Reading radar data
 
-bioRad can read radar files in [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf)
- format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format or a format supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data.
- 
-bioRad's class objects are organised very similar to the OPERA data information model.
+bioRad can read radar files in [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format or a format supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. bioRad's class objects are organised very similar to the OPERA data information model.
 
 Raw (level-II) weather radar data is read with the function `bioRad::read_pvolfile`, which returns a `pvol` polar volume object.
 
@@ -48,16 +45,13 @@ Function `bioRad::project_as_ppi` can be used to project polar scans or polar sc
 
 Function `bioRad::map` can be used together with `bioRad::download_basemap` to overlay radar data with all kinds of publicly available map and satellite data.
 
-
 ## Processing weather radar data into vertical profiles of birds
 
-bioRad contains an implementation of the vol2bird algorithm, which processes polar volume data into a vertical profiles of birds (`vp`). The function `bioRad::calculate_vp` calls the *vol2bird* algorithm and
-requires a locally running [Docker](https://www.docker.com/) daemon.
+bioRad contains an implementation of the vol2bird algorithm, which processes polar volume data into a vertical profiles of birds (`vp`). The function `bioRad::calculate_vp` calls the *vol2bird* algorithm and requires a locally running [Docker](https://www.docker.com/) daemon.
 
 `bioRad::calculate_vp` outputs a vertical profile object (`vp`) in R, and can store the vertical profile object in an ODIM-complient hdf5 format on disk. Stored hdf5 profiles can be read from disk with `bioRad::read_vpfiles` (for a single file or for a list of files)
 
-For users running their own installation of vol2bird outside R and Docker, the function `bioRad::read_vpts`
-is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
+For users running their own installation of vol2bird outside R and Docker, the function `bioRad::read_vpts` is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
 
 ## Organizing, analyzing and plotting vertical profile data
 
@@ -67,17 +61,15 @@ Vertical profiles (`vp` objects) or a list of vertical profiles can be combined 
 
 `bioRad::plot.vp` can be used to make a plot of a single vertical profile.
 
-`bioRad::plot.vpts can be used to visually summarize vertical profile time series, both in terms of density and speed, which can be visualized simultaneously (with colors and speed barbs).
+`bioRad::plot.vpts` can be used to visually summarize vertical profile time series, both in terms of density and speed, which can be visualized simultaneously (with colors and speed barbs).
 
 ## Conversions into numbers of migrating individuals
 
 To convert radar reflectivity into densities of individuals, a specific radar
 cross section per individual needs to be assumed, which is set with `bioRad::rcs`.
-By default, a radar cross section of 11 cm^2 is used, which is the average value found
-by Dokter et al. during a full autumn migration season in Europe at C-band.
+By default, a radar cross section of 11 cm^2 is used, which is the average value found by Dokter et al. during a full autumn migration season in Europe at C-band.
 
-`bioRad::integrate_profile` calculates various height-integrated values within user-defined altitude bands,
-such as migration traffic rate (MTR).
+`bioRad::integrate_profile` calculates various height-integrated values within user-defined altitude bands, such as migration traffic rate (MTR).
 
 ## Conventions
 
@@ -85,8 +77,7 @@ such as migration traffic rate (MTR).
 * *NaN* Maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
 * *0* Maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
 
-It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it is typically safe
-to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
+It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
 
 ## Other useful functionality
 
@@ -102,10 +93,10 @@ to assume aerial densities (dens) and reflectivities (eta) are in fact zero in c
 * `bioRad::example_vp`: example object of class `vp` as generated by `bioRad::calculate_vp`.
 * `bioRad::example_vpts`: example object of class `vpts`.
 * `profile.h5`: example hdf5 file containing a vertical profile generated by `bioRad::calculate_vp`. Locate this file in your local installation with `system.file("extdata", "profile.h5", package = "bioRad")`. Read it with `bioRad::read_vpfiles`
-* \item `volume.h5`: example hdf5 file containing a polar volume. Locate this file in your local installation with `system.file("extdata", "volume.h5", package = "bioRad")`. Read it with `bioRad::read_pvolfile`.
+* `volume.h5`: example hdf5 file containing a polar volume. Locate this file in your local installation with `system.file("extdata", "volume.h5", package = "bioRad")`. Read it with `bioRad::read_pvolfile`.
 * `vpts.txt.zip`: example standard output of `bioRad::calculate_vp` piped to a text file (and zipped). Locate this file in your local installation with `system.file("extdata", "vpts.txt", package = "bioRad")`. Read it with `bioRad::read_vpts` after unzipping.
 
-## References:
+## References
 
 * Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI [10.1098/rsif.2010.0116](http://dx.doi.org/10.1098/rsif.2010.0116)
 * bioRad: biological analysis and visualization of weather radar data. Dokter, A.M., Desmet, P., Spaaks, J.H., van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., Ecography, 2018. DOI [10.1111/ecog.04028](https://doi.org/10.1111/ecog.04028)
