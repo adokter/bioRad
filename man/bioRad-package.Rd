@@ -125,10 +125,14 @@ Useful links:
 \author{
 \strong{Maintainer}: Adriaan M. Dokter \email{amd427@cornell.edu} (0000-0001-6573-066X)
 
+Authors:
+\itemize{
+  \item Peter Desmet \email{peter.desmet@inbo.be} (0000-0002-8442-8025)
+  \item Stijn Van Hoey \email{stijn.vanhoey@inbo.be} (0000-0001-6413-3185)
+}
+
 Other contributors:
 \itemize{
-  \item Peter Desmet \email{peter.desmet@inbo.be} (0000-0002-8442-8025) [contributor]
-  \item Stijn Van Hoey \email{stijn.vanhoey@inbo.be} (0000-0001-6413-3185) [contributor]
   \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
   \item Lourens Veen \email{l.veen@esciencecenter.nl} [contributor]
   \item Liesbeth Verlinden \email{l.verlinden@uva.nl} (0000-0003-1744-9325) [contributor]
