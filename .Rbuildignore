@@ -1,7 +1,10 @@
-^README\.Rmd$
-^codemeta\.json$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.Rhistory
+^README\.Rmd$
+^README-.*\.png$
 ^docs$
 ^_pkgdown\.yml$
-^README-.*\.png$
+.gitignore
+.github
+^codemeta\.json$
