@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Biological analysis and visualization of weather radar data — bioRad-package • bioRad</title>
+<title>bioRad: Biological analysis and visualization of weather radar data — bioRad-package • bioRad</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Biological analysis and visualization of weather radar data — bioRad-package" />
+<meta property="og:title" content="bioRad: Biological analysis and visualization of weather radar data — bioRad-package" />
 
-<meta property="og:description" content="bioRad" />
+<meta property="og:description" content="
+Extracts and visualizes biological signals from weather radar data." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -117,100 +118,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Biological analysis and visualization of weather radar data</h1>
+    <h1>bioRad: Biological analysis and visualization of weather radar data</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/bioRad.R'><code>R/bioRad.R</code></a></small>
     <div class="hidden name"><code>bioRad-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><span class="pkg">bioRad</span></p>
+    <p><img src='figures/logo.png' align='right' /></p>
+<p>Extracts and visualizes biological signals from weather radar data.</p>
     
     </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h3>BioRad's class objects</h3>
-    <span class="pkg">bioRad</span> uses the following class objects for storing radar data:
-  <ul>
-<li><p><a href='summary.pvol.html'>pvol</a>, a polar volume: consists typically of a set of polar scans, collected at different elevation angles, that together sample the full aerial volume surrounding the radar</p></li>
-<li><p><a href='summary.scan.html'>scan</a>, a polar scan: a 360 degree radar scan at a fixed elevation in polar coordinates. One scan typically contains multiple scan parameters.</p></li>
-<li><p><a href='summary.param.html'>param</a>, a polar scan parameter: one of the observable quantities recorded within a polar scan, such as reflectivity (DBZH) or radial velocity (VRADH).</p></li>
-<li><p><a href='summary.ppi.html'>ppi</a>, a Cartesian plan position indicator: a projection on a Cartesian grid of a polar scan or a polar scan parameter</p></li>
-<li><p><a href='summary.vp.html'>vp</a>, a vertical profile: typically biological data extracted from a polar volume by <a href='calculate_vp.html'>calculate_vp</a>.</p></li>
-<li><p><a href='summary.vpts.html'>vpts</a>, a vertical profile time series: a time-oredered list of <a href='summary.vp.html'>vp</a> objects for a single radar.</p></li>
-<li><p><a href='integrate_profile.html'>vpi</a>, vertically integrated vertical profiles.</p></li>
-</ul>
-<p>The common <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/is'>is</a>, <a href='http://www.rdocumentation.org/packages/base/topics/dim'>dim</a>, and <a href='http://www.rdocumentation.org/packages/base/topics/Extract'>Extract</a> methods are available for each of these classes.</p>
-<p>Plot methods are available for vp, vpts, vpi and ppi objects</p><h3>Reading radar data</h3>
-    <span class="pkg">bioRad</span> can read radar files in
-<a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM</a>
-format, which is the implementation of the OPERA data information model in <a href='https://support.hdfgroup.org/HDF5/'>HDF5</a> format,
-or a format supported by the <a href='http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/'>RSL library</a>, such as NEXRAD data.
-<span class="pkg">bioRad</span>'s class objects are organised very similar to the OPERA data information model.
-    Raw (level-II) weather radar data is read with the function <a href='read_pvolfile.html'>read_pvolfile</a>, which returns a <a href='summary.pvol.html'>pvol</a> polar volume object.
-    Use the function <a href='nexrad_to_odim.html'>nexrad_to_odim</a> to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
-    <h3>Mapping and projecting radar scans</h3>
-    Function <a href='project_as_ppi.html'>project_as_ppi</a> can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
-    Function <a href='map.html'>map</a> can be used together with <a href='download_basemap.html'>download_basemap</a> to overlay radar data with all kinds of publicly available map and satellite data.
-    <h3>Processing weather radar data into vertical profiles of birds</h3>
-    <span class="pkg">bioRad</span> contains an implementation of the <code>vol2bird</code> algorithm, which
-processes polar volume data into a vertical profiles of birds (vp).
-The function <a href='calculate_vp.html'>calculate_vp</a> calls the <code>vol2bird</code> algorithm and
-requires a locally running <a href='https://www.docker.com/'>Docker</a> daemon.
-    <a href='calculate_vp.html'>calculate_vp</a> outputs a vertical profile object (<a href='summary.vp.html'>vp</a>) in R,
-and can store the vertical profile object in an ODIM-complient hdf5 format on disk.
-Stored hdf5 profiles can be read from disk with <a href='read_vpfiles.html'>read_vpfiles</a> (for a single file or for a list of files)
-    For users running their own installation of vol2bird outside R and Docker, the function <code><a href='read_vpts.html'>read_vpts</a></code>
-is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
-    <h3>Organizing, analyzing and plotting vertical profile data</h3>
-    Vertical profiles (<a href='summary.vp.html'>vp</a> objects) or a list of vertical profiles can be combined with <a href='bind_into_vpts.html'>bind_into_vpts.vp</a> into vertical profile time series (<a href='summary.vpts.html'>vpts</a> objects).
-    <a href='regularize_vpts.html'>regularize_vpts</a> can be used to project a <a href='summary.vpts.html'>vpts</a> object on a regular time grid.
-This is typically done before plotting a vertical profile time series.
-    <a href='plot.vp.html'>plot.vp</a> can be used to make a plot of a single vertical profile.
-    <a href='plot.vpts.html'>plot.vpts</a> can be used to visually summarize vertical profile time series,
-both in terms of density and speed, which can be visualized simultaneously (with colors and speed barbs).
-    <h3>Conversions into numbers of migrating individuals</h3>
-    To convert radar reflectivity into densities of individuals, a specific radar
-cross section per individual needs to be assumed, which is set with <a href='rcs.html'>rcs</a>.
-By default, a radar cross section of 11 cm^2 is used, which is the average value found
-by Dokter et al. during a full autumn migration season in Europe at C-band.
-    <a href='integrate_profile.html'>integrate_profile</a> calculates various height-integrated values within user-defined altitude bands,
-such as migration traffic rate (MTR).
-    <h3>Conventions</h3>
-    <ul>
-<li><p><code>NA</code> Maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)</p></li>
-<li><p><code>NaN</code> Maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.</p></li>
-<li><p><code>0</code> Maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).</p></li>
-</ul>
-  It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent
-  to zero. When dealing with close range data only (within 35 km), it is typically safe
-  to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
-    <h3>Other useful functionality</h3>
-    <ul>
-<li><p><a href='sunrise_sunset.html'>sunrise</a> and <a href='sunrise_sunset.html'>sunset</a> calculates runrise and sunset times</p></li>
-<li><p><a href='check_docker.html'>check_docker</a> checks whether your local Docker daemon is running correctly</p></li>
-<li><p><a href='get_elevation_angles.html'>get_elevation_angles</a> gives the elevation angle(s) of a polar volume or polar scan object</p></li>
-<li><p><a href='beam_height.html'>beam_height</a> gives the radar beam height, at a certain elevation and range.</p></li>
-<li><p><a href='beam_width.html'>beam_width</a> gives the radar beam width, at a certain range.</p></li>
-</ul>
-    <h3>Example datasets</h3>
-    <ul>
-<li><p><a href='example_scan.html'>example_scan</a>: example object of class <a href='summary.scan.html'>scan</a>.</p></li>
-<li><p><a href='example_vp.html'>example_vp</a>: example object of class <a href='summary.vp.html'>vp</a> as generated by <a href='calculate_vp.html'>calculate_vp</a>.</p></li>
-<li><p><a href='example_vpts.html'>example_vpts</a>: example object of class <a href='summary.vpts.html'>vpts</a>.</p></li>
-<li><p><code>profile.h5</code>: example hdf5 file containing a vertical profile generated by <a href='calculate_vp.html'>calculate_vp</a>. Locate this file in your local installation with <code>system.file("extdata", "profile.h5", package = "bioRad")</code>. Read it with <a href='read_vpfiles.html'>read_vpfiles</a>.</p></li>
-<li><p><code>volume.h5</code>: example hdf5 file containing a polar volume. Locate this file in your local installation with <code>system.file("extdata", "volume.h5", package = "bioRad")</code>. Read it with <a href='read_pvolfile.html'>read_pvolfile</a>.</p></li>
-<li><p><code>vpts.txt.zip</code>: example standard output of <a href='calculate_vp.html'>calculate_vp</a> piped to a (zipped) text file. Locate this file in your local installation with <code>system.file("extdata", "vpts.txt.zip", package = "bioRad")</code>. After unzipping, read it with <code><a href='read_vpts.html'>read_vpts</a></code>.</p></li>
-</ul>
-    <h3>Vignettes</h3>
-    Execute <code><a href='../articles/functionality_overview.html'>vignette("functionality_overview")</a></code> or check http://adokter.github.io/bioRad/articles/functionality_overview.html for vignette with exercises that covers most of bioRad's functionality
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <ul>
-<li><p>Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI <a href='http://dx.doi.org/10.1098/rsif.2010.0116'>10.1098/rsif.2010.0116</a></p></li>
+    <p>To get started, see:</p>
+<ul>
+<li><p>Our <a href='https://doi.org/10.1111/ecog.04028'>paper</a> describing the
+  package.</p></li>
+<li><p>An <a href='https://adokter.github.io/bioRad/articles/bioRad.html'>
+  introduction to bioRad</a>.</p></li>
+<li><p>An <a href='https://adokter.github.io/bioRad/reference/index.html'>
+  overview of all functions</a>.</p></li>
+<li><p><a href='https://adokter.github.io/bioRad/articles/functionality_overview.html'>Introduction exercises</a>.</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -228,8 +159,6 @@ such as migration traffic rate (MTR).
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>
