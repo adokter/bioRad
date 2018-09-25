@@ -1,3 +1,5 @@
+^README\.Rmd$
+^codemeta\.json$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^docs$
