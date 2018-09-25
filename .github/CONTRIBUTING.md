@@ -60,7 +60,7 @@ Noticed a typo on the website? Think a function could use a better example? Good
 
 Functions are described as comments near their code and translated to documentation using [`roxygen2`](https://klutometis.github.io/roxygen/). If you want to improve a function description:
 
-1. Go to `/R` directory in the [code repository][repo].
+1. Go to `R/` directory in the [code repository][repo].
 2. Look for the file with the name of the function.
 3. [Propose a file change](https://help.github.com/articles/editing-files-in-another-user-s-repository/) to update the function documentation in the roxygen comments (starting with `#'`).
 

@@ -4,8 +4,8 @@ Version: 0.3.0
 Description: Extracts and visualizes biological signals from weather radar data.
 Authors@R: c(
     person("Adriaan M.", "Dokter", role = c("aut", "cre"), email = "amd427@cornell.edu", comment = c(ORCID = "0000-0001-6573-066X")),
-    person("Peter", "Desmet", role = "ctb", email = "peter.desmet@inbo.be", comment = c(ORCID = "0000-0002-8442-8025")),
-    person("Stijn", "Van Hoey", role = "ctb", email = "stijn.vanhoey@inbo.be", comment = c(ORCID = "0000-0001-6413-3185")),
+    person("Peter", "Desmet", role = "aut", email = "peter.desmet@inbo.be", comment = c(ORCID = "0000-0002-8442-8025")),
+    person("Stijn", "Van Hoey", role = "aut", email = "stijn.vanhoey@inbo.be", comment = c(ORCID = "0000-0001-6413-3185")),
     person("Jurriaan", "Spaaks", role = "ctb", email = "j.spaaks@esciencecenter.nl"),
     person("Lourens", "Veen", role = "ctb", email = "l.veen@esciencecenter.nl"),
     person("Liesbeth", "Verlinden", role = "ctb", email = "l.verlinden@uva.nl", comment = c(ORCID = "0000-0003-1744-9325")),

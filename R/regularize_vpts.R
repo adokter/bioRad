@@ -30,10 +30,8 @@
 #' \code{\link{plot.vpts}}.
 #'
 #' @examples
-#' # locate example file:
-#' vptsfile <- system.file("extdata", "vpts.txt", package = "bioRad")
-#' # load time series:
-#' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
+#' # start form example vpts object:
+#' ts <- example_vpts
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 5)
 regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],

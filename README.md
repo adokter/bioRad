@@ -2,7 +2,12 @@
 
 bioRad is an R package for extracting and visualising biological signals from weather radar data.
 
-* analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=debilt)).
+See our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography for an overview of its functionality:
+
+Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
+
+
+* analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=herwijnen)).
 * overlays radar scans with geographic maps and satellite imagery of various online sources (e.g Google Maps and Stamen Maps), using  [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html).
 * contains an implementation of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of bird migration from weather radar data. 
 * Reads radar files in [ODIM](http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format, or formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as [NEXRAD](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) data.

@@ -182,87 +182,31 @@ class <code>pvol</code></p>
 <span class='co'># print summary info for the loaded polar volume:</span>
 <span class='no'>vol</span></div><div class='output co'>#&gt;                Polar volume (class pvol)
 #&gt; 
-#&gt;      # scans:  11 
+#&gt;      # scans:  3 
 #&gt;        radar:  SE50 
-#&gt;       source:  WMO:02606,RAD:SE50,PLC:Ängelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar 
+#&gt;       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar 
 #&gt; nominal time:  2015-10-18 18:00:00 
 #&gt; </div><div class='input'><span class='co'># print summary info for the scans in the polar volume:</span>
 <span class='no'>vol</span>$<span class='no'>scans</span></div><div class='output co'>#&gt; [[1]]
 #&gt;                   Polar scan (class scan)
 #&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays
 #&gt; 
 #&gt; [[2]]
 #&gt;                   Polar scan (class scan)
 #&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 359 rays
+#&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
+#&gt; elevation angle:  1.5 deg
+#&gt;            dims:  480 bins x 360 rays
 #&gt; 
 #&gt; [[3]]
 #&gt;                   Polar scan (class scan)
 #&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  1 deg
-#&gt;            dims:  480 bins x 360 rays
-#&gt; 
-#&gt; [[4]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  1.5 deg
-#&gt;            dims:  480 bins x 360 rays
-#&gt; 
-#&gt; [[5]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  2 deg
-#&gt;            dims:  480 bins x 360 rays
-#&gt; 
-#&gt; [[6]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
 #&gt; elevation angle:  2.5 deg
 #&gt;            dims:  480 bins x 360 rays
-#&gt; 
-#&gt; [[7]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  4 deg
-#&gt;            dims:  480 bins x 329 rays
-#&gt; 
-#&gt; [[8]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  8 deg
-#&gt;            dims:  480 bins x 333 rays
-#&gt; 
-#&gt; [[9]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  14 deg
-#&gt;            dims:  480 bins x 335 rays
-#&gt; 
-#&gt; [[10]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  24 deg
-#&gt;            dims:  480 bins x 329 rays
-#&gt; 
-#&gt; [[11]]
-#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt; elevation angle:  40 deg
-#&gt;            dims:  480 bins x 328 rays
 #&gt; </div><div class='input'><span class='co'># copy the first scan to a new object 'scan'</span>
 <span class='no'>scan</span> <span class='kw'>&lt;-</span> <span class='no'>vol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 <span class='fu'>is.pvol</span>(<span class='st'>"this is not a polar volume but a string"</span>)  <span class='co'>#&gt; FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
@@ -284,7 +228,7 @@ class <code>pvol</code></p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Adriaan M. Dokter.</p>
+  <p>Developed by Adriaan M. Dokter, Peter Desmet, Stijn Van Hoey.</p>
 </div>
 
 <div class="pkgdown">

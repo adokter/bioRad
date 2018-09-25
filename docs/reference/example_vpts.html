@@ -134,7 +134,7 @@ vertical profiles) with name <code>example_vpts</code>.</p>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>vpts</code> of dimension 25 x 6135 x 15.</p>
+    <p>An object of class <code>vpts</code> of dimension 25 x 1934 x 15.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -142,14 +142,18 @@ vertical profiles) with name <code>example_vpts</code>.</p>
 <span class='fu'>summary</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
 #&gt; 
 #&gt;            radar:  KBGM 
-#&gt;       # profiles:  6135 
-#&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-30 23:58:00 
+#&gt;       # profiles:  1934 
+#&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 
 #&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'>
-<span class='co'># example_vpts was created with:</span>
-<span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+# example_vpts was created with:
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+<span class='fu'>unzip</span>(<span class='no'>vptsfile</span>,<span class='fu'>exdir</span>(<span class='fu'>dirname</span>(<span class='no'>vptsfile</span>)),<span class='kw'>junkpaths</span><span class='kw'>=</span><span class='no'>T</span>)
+<span class='no'>vptsfile</span><span class='kw'>=</span><span class='fu'>substr</span>(<span class='no'>vptsfile</span>,<span class='fl'>1</span>,<span class='fu'>nchar</span>(<span class='no'>vptsfile</span>)-<span class='fl'>4</span>)
 <span class='no'>example_vpts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_vpts.html'>read_vpts</a></span>(<span class='no'>vptsfile</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Threshold for sd_vvp not set, defaulting to 2 m/s</span></div><div class='input'><span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lat</span> <span class='kw'>&lt;-</span> <span class='fl'>42.2</span>
-<span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lon</span> <span class='kw'>&lt;-</span> -<span class='fl'>75.98</span></div><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
+<span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lat</span> <span class='kw'>&lt;-</span> <span class='fl'>42.2</span>
+<span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lon</span> <span class='kw'>&lt;-</span> -<span class='fl'>75.98</span>
 <span class='fu'>save</span>(<span class='no'>example_vpts</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_vpts.rda"</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='st'>"xz"</span>)
 <span class='co'># }</span></pre>
   </div>
@@ -167,7 +171,7 @@ vertical profiles) with name <code>example_vpts</code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Adriaan M. Dokter.</p>
+  <p>Developed by Adriaan M. Dokter, Peter Desmet, Stijn Van Hoey.</p>
 </div>
 
 <div class="pkgdown">

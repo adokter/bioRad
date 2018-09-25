@@ -190,10 +190,8 @@ become visible in profile plots of regular time series using
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
-<span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-<span class='co'># load time series:</span>
-<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_vpts.html'>read_vpts</a></span>(<span class='no'>vptsfile</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
+    <pre class="examples"><div class='input'><span class='co'># start form example vpts object:</span>
+<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
 <span class='co'># regularize the time series on a 5 minute interval grid</span>
 <span class='no'>tsRegular</span> <span class='kw'>&lt;-</span> <span class='fu'>regularize_vpts</span>(<span class='no'>ts</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div></pre>
   </div>
@@ -214,7 +212,7 @@ become visible in profile plots of regular time series using
 
       <footer>
       <div class="copyright">
-  <p>Developed by Adriaan M. Dokter.</p>
+  <p>Developed by Adriaan M. Dokter, Peter Desmet, Stijn Van Hoey.</p>
 </div>
 
 <div class="pkgdown">

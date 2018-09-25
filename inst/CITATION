@@ -2,11 +2,11 @@ citHeader("To cite bioRad in publications, please use:")
 
 citEntry(entry = "article",
   title = "bioRad: biological analysis and visualization of weather radar data",
-  author = c(person(c("Adriaan", "M."), "Dokter"), person("Peter", "Desmet"),person(c("Jurriaan","H."), "Spaaks"),person("Stijn", "van Hoey"),person("Lourens", "Veen"),person("Liesbeth", "Verlinden"),person("Cecilia","Nilsson"),person("Günther","Haase"),person("Hidde","Leijnse"),person("Andrew","Farnsworth"),person("Willem","Bouten"),person("Judy","Shamoun-Baranes")),
+  author = c(person(c("Adriaan", "M."), "Dokter"), person("Peter", "Desmet"), person(c("Jurriaan","H."), "Spaaks"), person("Stijn", "Van Hoey"), person("Lourens", "Veen"), person("Liesbeth", "Verlinden"), person("Cecilia","Nilsson"), person("Günther","Haase"), person("Hidde","Leijnse"), person("Andrew","Farnsworth"), person("Willem","Bouten"), person("Judy","Shamoun-Baranes")),
   journal="Ecography",
   year="2018",
   volume="",
   pages="",
   doi="10.1111/ecog.04028",
-  textVersion="Dokter, A.M., Desmet, P., Spaaks, J.H., van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., 2018. bioRad: biological analysis and visualization of weather radar data. Ecography."
+  textVersion="Dokter, A.M., Desmet, P., Spaaks, J.H., Van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., 2018. bioRad: biological analysis and visualization of weather radar data. Ecography."
 )
