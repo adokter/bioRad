@@ -9,11 +9,11 @@ vignette: >
 ---
 bioRad is an R package for the biological analysis and visualization of weather radar data.
 
-Check the [vignette](http://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to bioRad.
+Check the [vignette](https://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to most of bioRad's functionality.
 
 Our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography provides an overview of bioRad's functionality:
 
-Dokter AM, Desmet P, Spaaks JH, van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. DOI [10.1111/ecog.04028](https://doi.org/10.1111/ecog.04028)
+Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
 
 ## bioRad's class objects
 
@@ -98,5 +98,5 @@ It depends on a radar's detection threshold or signal to noise ratio whether it 
 
 ## References
 
-* Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30--43, 2011. DOI [10.1098/rsif.2010.0116](http://dx.doi.org/10.1098/rsif.2010.0116)
-* bioRad: biological analysis and visualization of weather radar data. Dokter, A.M., Desmet, P., Spaaks, J.H., van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., Ecography, 2018. DOI [10.1111/ecog.04028](https://doi.org/10.1111/ecog.04028)
+* Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30-43, 2011. <https://doi.org/10.1098/rsif.2010.0116>
+* bioRad: biological analysis and visualization of weather radar data. Dokter, A.M., Desmet, P., Spaaks, J.H., Van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., Ecography, 2018. <https://doi.org/10.1111/ecog.04028>

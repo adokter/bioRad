@@ -4,7 +4,7 @@ bioRad is an R package for extracting and visualising biological signals from we
 
 See our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography for an overview of its functionality:
 
-Dokter AM, Desmet P, Spaaks JH, van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. DOI [10.1111/ecog.04028](https://doi.org/10.1111/ecog.04028)
+Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
 
 
 * analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=herwijnen)).
