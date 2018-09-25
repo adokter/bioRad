@@ -23,7 +23,7 @@ Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haas
 * `scan` a polar scan: a 360 degree radar scan at a fixed elevation in polar coordinates. One scan typically contains multiple scan parameters.
 * `param` a polar scan parameter: one of the observable quantities recorded within a polar scan, such as reflectivity (DBZH) or radial velocity (VRADH).
 * `ppi` a Cartesian plan position indicator: a projection on a Cartesian grid of a polar scan or a polar scan parameter
-* `vp` a vertical profile: typically biological data extracted from a polar volume by `bioRad::calculate_vp`
+* `vp` a vertical profile: typically biological data extracted from a polar volume by `calculate_vp()`
 * `vpts` a vertical profile time series: a time-oredered list of `vp` objects for a single radar.
 * `vpi` vertically integrated vertical profiles.
 
@@ -35,29 +35,29 @@ Plot methods are available for `vp`, `vpts`, `vpi` and `ppi` objects
 
 bioRad can read radar files in [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format or a format supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. bioRad's class objects are organised very similar to the OPERA data information model.
 
-Raw (level-II) weather radar data is read with the function `bioRad::read_pvolfile`, which returns a `pvol` polar volume object.
+Raw (level-II) weather radar data is read with the function `read_pvolfile()`, which returns a `pvol` polar volume object.
 
-Use the function `bioRad::nexrad_to_odim` to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
+Use the function `nexrad_to_odim()` to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
 
 ## Mapping and projecting radar scans
 
-Function `bioRad::project_as_ppi` can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
+Function `project_as_ppi()` can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
 
-Function `bioRad::map` can be used together with `bioRad::download_basemap` to overlay radar data with all kinds of publicly available map and satellite data.
+Function `map()` can be used together with `download_basemap()` to overlay radar data with all kinds of publicly available map and satellite data.
 
 ## Processing weather radar data into vertical profiles of birds
 
-bioRad contains an implementation of the vol2bird algorithm, which processes polar volume data into a vertical profiles of birds (`vp`). The function `bioRad::calculate_vp` calls the *vol2bird* algorithm and requires a locally running [Docker](https://www.docker.com/) daemon.
+bioRad contains an implementation of the vol2bird algorithm, which processes polar volume data into a vertical profiles of birds (`vp`). The function `calculate_vp()` calls the *vol2bird* algorithm and requires a locally running [Docker](https://www.docker.com/) daemon.
 
-`bioRad::calculate_vp` outputs a vertical profile object (`vp`) in R, and can store the vertical profile object in an ODIM-complient hdf5 format on disk. Stored hdf5 profiles can be read from disk with `bioRad::read_vpfiles` (for a single file or for a list of files)
+`calculate_vp()` outputs a vertical profile object (`vp`) in R, and can store the vertical profile object in an ODIM-complient hdf5 format on disk. Stored hdf5 profiles can be read from disk with `read_vpfiles()` (for a single file or for a list of files)
 
-For users running their own installation of vol2bird outside R and Docker, the function `bioRad::read_vpts` is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
+For users running their own installation of vol2bird outside R and Docker, the function `read_vpts()` is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
 
 ## Organizing, analyzing and plotting vertical profile data
 
-Vertical profiles (`vp` objects) or a list of vertical profiles can be combined with `bioRad::bind_into_vpts.vp` into vertical profile time series (`vpts` objects).
+Vertical profiles (`vp` objects) or a list of vertical profiles can be combined with `bind_into_vpts()` into vertical profile time series (`vpts` objects).
 
-`bioRad::regularize_vpts` can be used to project a `vpts` object on a regular time grid.
+`regularize_vpts()` can be used to project a `vpts` object on a regular time grid.
 
 `bioRad::plot.vp` can be used to make a plot of a single vertical profile.
 
@@ -66,35 +66,35 @@ Vertical profiles (`vp` objects) or a list of vertical profiles can be combined 
 ## Conversions into numbers of migrating individuals
 
 To convert radar reflectivity into densities of individuals, a specific radar
-cross section per individual needs to be assumed, which is set with `bioRad::rcs`.
+cross section per individual needs to be assumed, which is set with `rcs()`.
 By default, a radar cross section of 11 cm^2 is used, which is the average value found by Dokter et al. during a full autumn migration season in Europe at C-band.
 
-`bioRad::integrate_profile` calculates various height-integrated values within user-defined altitude bands, such as migration traffic rate (MTR).
+`integrate_profile()` calculates various height-integrated values within user-defined altitude bands, such as migration traffic rate (MTR).
 
 ## Conventions
 
-* *NA* Maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)
-* *NaN* Maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
-* *0* Maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
+* `NA` maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)
+* `NaN` maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
+* `0` maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
 
 It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
 
 ## Other useful functionality
 
-* `bioRad::sunrise and `bioRad::sunset` calculates runrise and sunset times
-* `bioRad::check_docker` checks whether your local Docker daemon is running correctly
-* `bioRad::get_elevation_angles` gives the elevation angle(s) of a polar volume or polar scan object
-* `bioRad::beam_height` gives the radar beam height, at a certain elevation and range.
-* `bioRad::beam_width` gives the radar beam width, at a certain range.
+* `sunrise()` and `sunset()` calculates runrise and sunset times
+* `check_docker()` checks whether your local Docker daemon is running correctly
+* `get_elevation_angles()` gives the elevation angle(s) of a polar volume or polar scan object
+* `beam_height()` gives the radar beam height, at a certain elevation and range.
+* `beam_width()` gives the radar beam width, at a certain range.
 
 ## Example datasets
 
 * `bioRad::example_scan`: example object of class `scan`
-* `bioRad::example_vp`: example object of class `vp` as generated by `bioRad::calculate_vp`.
+* `bioRad::example_vp`: example object of class `vp` as generated by `calculate_vp()`.
 * `bioRad::example_vpts`: example object of class `vpts`.
-* `profile.h5`: example hdf5 file containing a vertical profile generated by `bioRad::calculate_vp`. Locate this file in your local installation with `system.file("extdata", "profile.h5", package = "bioRad")`. Read it with `bioRad::read_vpfiles`
-* `volume.h5`: example hdf5 file containing a polar volume. Locate this file in your local installation with `system.file("extdata", "volume.h5", package = "bioRad")`. Read it with `bioRad::read_pvolfile`.
-* `vpts.txt.zip`: example standard output of `bioRad::calculate_vp` piped to a text file (and zipped). Locate this file in your local installation with `system.file("extdata", "vpts.txt", package = "bioRad")`. Read it with `bioRad::read_vpts` after unzipping.
+* `profile.h5`: example hdf5 file containing a vertical profile generated by `calculate_vp()`. Locate this file in your local installation with `system.file("extdata", "profile.h5", package = "bioRad")`. Read it with `read_vpfiles()`
+* `volume.h5`: example hdf5 file containing a polar volume. Locate this file in your local installation with `system.file("extdata", "volume.h5", package = "bioRad")`. Read it with `read_pvolfile()`.
+* `vpts.txt.zip`: example standard output of `calculate_vp()` piped to a text file (and zipped). Locate this file in your local installation with `system.file("extdata", "vpts.txt", package = "bioRad")`. Read it with `read_vpts()` after unzipping.
 
 ## References
 
