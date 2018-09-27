@@ -6,6 +6,8 @@
 #' visualize these biological extractions, and calculate further summary
 #' statistics.
 #'
+#' To get started, see:
+#'
 #' \itemize{
 #'   \item \href{https://doi.org/10.1111/ecog.04028}{Dokter et al. (2018)}: a
 #'   paper describing the package.
