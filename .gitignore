@@ -42,3 +42,4 @@ rsconnect/
 # Data in docs
 /docs/*/*.h5
 /docs/*/*.zip
+.Rproj.user
