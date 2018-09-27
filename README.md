@@ -59,7 +59,7 @@ Usage
 
 bioRad can read weather radar data (= polar volumes) in the [`ODIM`](http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf) format and formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. NEXRAD data (US) are [available as open data](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) and on [AWS](https://registry.opendata.aws/noaa-nexrad/).
 
-Here we read an example polar volume data file (`read_pvolfile()`), extract the scan/sweep at elevation angle 3 (`get_scan()`), project the data to a plan position indicator (`project_as_ppi()`) and plot the radial velocity of detected targets (`plot()`):
+Here we read an example polar volume data file with `read_pvolfile()`, extract the scan/sweep at elevation angle 3 with `get_scan()`, project the data to a plan position indicator with `project_as_ppi()` and plot the *radial velocity* of detected targets with `plot()`:
 
 ``` r
 library(tidyverse) # To pipe %>% the steps below
@@ -72,13 +72,13 @@ system.file("extdata", "volume.h5", package = "bioRad") %>%
 
 <img src="man/figures/README-plot_ppi-1.png" width="100%" />
 
-Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in the plot above there is movement from the top right to the bottom left.
+*Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.*
 
 ### Vertical profile data example
 
 Weather radar data can be processed into vertical profiles of biological targets using `calculate_vp()`. This type of data is [available as open data](https://registry.opendata.aws/noaa-nexrad/) for over 100 European weather radars.
 
-Once vertical profile data are loaded into bioRad, these can be bound into time series using `bind_into_vpts()`. Here we read an example time series, project it on a regular time grid (`regularize_vpts()`), and plot it (`plot()`):
+Once vertical profile data are loaded into bioRad, these can be bound into time series using `bind_into_vpts()`. Here we read an example time series, project it on a regular time grid with `regularize_vpts()` and plot it with `plot()`:
 
 ``` r
 example_vpts %>%
@@ -89,28 +89,26 @@ example_vpts %>%
 
 <img src="man/figures/README-plot_vpts-1.png" width="100%" />
 
-The gray bars indicate gaps in the data.
+*The gray bars in the plot indicate gaps in the data.*
 
-To calculate the number of birds passing over the radar during the full time series, we first integrate the altitudes in the profile (`integrate_profile()`)
+The altitudes in the profile can be integrated with `integrate_profile()` resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity *migration traffic rate* (column `mtr`) with `plot()`:
 
 ``` r
-example_vpts %>%
-  regularize_vpts() %>%
-  integrate_profile() -> my_vpi
-#> projecting on 300 seconds interval grid...
+# Note: integrated profiles are regularized automatically
+my_vpi <- integrate_profile(example_vpts)
 
-plot(my_vpi) # plot the height-integrated time-series
+plot(my_vpi, quantity = "mtr") # mtr = migration traffic rate
 ```
 
-<img src="man/figures/README-sum_mt-1.png" width="100%" />
+<img src="man/figures/README-plot_vpi-1.png" width="100%" />
 
-Next, we extract the value of the cumulative migration traffic (column mt) at the last timestep:
+To know the total number of birds passing over the radar during the full time series, we use the last value of the *cumulative migration traffic* (column `mt`):
 
 ``` r
-  my_vpi %>%
-  summarize(last(mt)) %>%
-  pull() # Pull out the single last(mt) variable
-#> [1] 170906.7
+my_vpi %>%
+  pull(mt) %>% # Extract column mt as a vector
+  last()
+#> [1] 173023.8
 ```
 
 For more exercises, see [this tutorial](https://adokter.github;io/bioRad/articles/functionality_overview.html).
