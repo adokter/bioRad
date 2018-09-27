@@ -12,7 +12,7 @@
 \item{i}{Indices specifying elements to extract.}
 }
 \description{
-Extract profiles or time series of profiles by index from a vpts
+Extract a profile or a time series of profiles by index from a vpts
 }
 \examples{
 # we start with the example vertical profile time series:
