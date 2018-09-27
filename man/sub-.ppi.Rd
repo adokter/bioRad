@@ -17,7 +17,8 @@ Subset the quantities of a ppi by index from a ppi
 \examples{
 # make a ppi:
 my_ppi <- project_as_ppi(example_scan)
-# this ppi contains 5 quantities: VRADH DBZH ZDR RHOHV PHIDP
+# this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):
+my_ppi
 #
 # This ppi only contains the first quantity (VRADH):
 my_ppi[1]
