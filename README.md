@@ -91,16 +91,23 @@ example_vpts %>%
 
 The gray bars indicate gaps in the data.
 
-To calculate the number of birds passing over the radar during the full time series, we integrate the altitudes in the profile (`integrate_profile()`) and take the sum of the migration traffic rate:
+To calculate the number of birds passing over the radar during the full time series, we first integrate the altitudes in the profile (`integrate_profile()`)
 
 ``` r
 example_vpts %>%
   regularize_vpts() %>%
-  integrate_profile() %>%
-  summarize(sum(mtr)) %>%
-  pull() # Pull out the single sum variable
+  integrate_profile() -> my_vpi
 #> projecting on 300 seconds interval grid...
-#> [1] 2050889
+
+plot(my_vpi) # plot the height-integrated time-series
+
+```
+Next, we extract the last value of the cumulative migration traffic (column mt)
+``` r
+  my_vpi %>%
+  summarize(last(mt)) %>%
+  pull() # Pull out the single last(mt) variable
+#> [1] 170906.7
 ```
 
 For more exercises, see [this tutorial](https://adokter.github;io/bioRad/articles/functionality_overview.html).
