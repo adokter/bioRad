@@ -12,5 +12,11 @@
 \item{i}{Indices specifying elements to extract.}
 }
 \description{
-Extract by index from a vpts
+Extract profiles or time series of profiles by index from a vpts
+}
+\examples{
+# extract the 10th profile in the time series (returns a vp object)
+example_vpts[10]
+# extract the 20th to 100th profile form the time series (returns a vpts object)
+example_vpts[20:100]
 }
