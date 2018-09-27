@@ -99,7 +99,7 @@ read_pvolfile <- function(file, param = c(
     }
     if (!.pkgenv$docker) {
       stop(
-        "Requires a running Docker daemon.\nTo enable, start your",
+        "Requires a running Docker daemon.\nTo enable, start your ",
         "local Docker daemon, and run 'check_docker()' in R\n"
       )
     }
