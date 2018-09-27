@@ -1,11 +1,4 @@
 #' @details
-#' bioRad aims to standardize methods for extracting and reporting biological
-#' signals from weather radars. It provides functionality to access low‐level
-#' radar data, process these data into meaningful biological information on
-#' animal speeds and directions at different altitudes in the atmosphere,
-#' visualize these biological extractions, and calculate further summary
-#' statistics.
-#'
 #' To get started, see:
 #'
 #' \itemize{
