@@ -66,12 +66,21 @@ dim.ppi <- function(x) {
 
 #' Subset a plan position indicator (\code{ppi})
 #'
-#' Extract by index from a ppi
+#' Subset the quantities of a ppi by index from a ppi
 #'
 #' @param x An object of class \code{param} or \code{scan}.
 #' @param i Indices specifying elements to extract.
 #'
 #' @export
+#' @examples
+#' # make a ppi:
+#' my_ppi <- project_as_ppi(example_scan)
+#' # this ppi contains 5 quantities: VRADH DBZH ZDR RHOHV PHIDP
+#' #
+#' # This ppi only contains the first quantity (VRADH):
+#' my_ppi[1]
+#' # This ppi contains the first three quantities (VRADH, DBZH, ZDR):
+#' my_ppi[1:3]
 `[.ppi` <- function(x, i) {
   stopifnot(inherits(x, "ppi"))
   myppi <- list(radar = x$radar, datetime = x$datetime,
