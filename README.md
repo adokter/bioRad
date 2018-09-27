@@ -102,7 +102,7 @@ example_vpts %>%
 plot(my_vpi) # plot the height-integrated time-series
 
 ```
-Next, we extract the last value of the cumulative migration traffic (column mt)
+Next, we extract the value of the cumulative migration traffic (column mt) at the last timestep:
 ``` r
   my_vpi %>%
   summarize(last(mt)) %>%
