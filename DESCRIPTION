@@ -1,6 +1,6 @@
 Package: bioRad
 Title: Biological analysis and visualization of weather radar data
-Version: 0.3.1
+Version: 0.3.0.9151
 Description: Extracts and visualizes biological signals from weather radar data.
 Authors@R: c(
     person("Adriaan M.", "Dokter", role = c("aut", "cre"), email = "amd427@cornell.edu", comment = c(ORCID = "0000-0001-6573-066X")),
@@ -14,6 +14,7 @@ Authors@R: c(
 License: MIT + file LICENSE
 URL: https://github.com/adokter/bioRad, https://adokter.github.io/bioRad
 BugReports: https://github.com/adokter/bioRad/issues
+biocViews:
 Depends:
     R (>= 2.10)
 Imports:
