@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "bioRad",
-  "description": "bioRad aims to standardize methods for extracting and reporting \n    biological signals from weather radars. It provides functionality to access \n    low‐level radar data, process these data into meaningful biological \n    information on animal speeds and directions at different altitudes in the \n    atmosphere, visualize these biological extractions, and calculate further \n    summary statistics.",
+  "description": "bioRad aims to provide standardized methods for extracting and \n    reporting biological signals from weather radars. It includes functionality \n    to inspect low‐level radar data, process these data into meaningful \n    biological information on animal speeds and directions at different \n    altitudes in the atmosphere, visualize these biological extractions, and \n    calculate further summary statistics.",
   "name": "bioRad: Biological analysis and visualization of weather radar data",
   "codeRepository": "https://github.com/adokter/bioRad",
   "relatedLink": "https://adokter.github.io/bioRad",
@@ -267,7 +267,7 @@
   ],
   "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "fileSize": "4161.593KB",
+  "fileSize": "4197.749KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
