@@ -17,19 +17,23 @@ Installation
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("bioRad")
+install.packages("bioRad") # Coming soon!
 ```
 
-Example
--------
-
-This is a basic example which shows you how to solve a common problem:
+Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
 
 ``` r
-## basic example code
+devtools::install_github("adokter/bioRad")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Then load the package with:
+
+``` r
+library(bioRad)
+#> Welcome to bioRad version 0.3.0
+#> Docker daemon running, Docker functionality enabled.
+```
+
 
 ``` r
 summary(cars)
