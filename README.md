@@ -100,9 +100,12 @@ example_vpts %>%
 #> projecting on 300 seconds interval grid...
 
 plot(my_vpi) # plot the height-integrated time-series
-
 ```
+
+<img src="man/figures/README-sum_mt-1.png" width="100%" />
+
 Next, we extract the value of the cumulative migration traffic (column mt) at the last timestep:
+
 ``` r
   my_vpi %>%
   summarize(last(mt)) %>%
