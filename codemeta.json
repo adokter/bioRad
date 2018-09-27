@@ -1,14 +1,17 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "bioRad",
-  "description": "Extracts and visualizes biological signals from weather radar data.",
+  "description": "bioRad aims to standardize methods for extracting and reporting \n    biological signals from weather radars. It provides functionality to access \n    low‐level radar data, process these data into meaningful biological \n    information on animal speeds and directions at different altitudes in the \n    atmosphere, visualize these biological extractions, and calculate further \n    summary statistics.",
   "name": "bioRad: Biological analysis and visualization of weather radar data",
   "codeRepository": "https://github.com/adokter/bioRad",
   "relatedLink": "https://adokter.github.io/bioRad",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.0",
+  "version": "0.3.0.9151",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -264,7 +267,7 @@
   ],
   "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "fileSize": "4067.295KB",
+  "fileSize": "4161.593KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
