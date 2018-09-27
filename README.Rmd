@@ -69,3 +69,9 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
 
 ```
 
+## Meta
+
+* We welcome [contributions](.github/CONTRIBUTING.md) including bug reports.
+* License: MIT
+* Get citation information for `bioRad` in R doing `citation(package = "bioRad")`.
+* Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
