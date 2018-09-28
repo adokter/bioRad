@@ -1,6 +1,7 @@
 #' Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})
 #'
-#' Calculates a vertical profile of birds (vp) from a polar volume (pvol).
+#' Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
+#' using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 #'
 #' @param pvolfile A radar file containing a radar polar volume, either in
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}

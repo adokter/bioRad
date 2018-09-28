@@ -81,7 +81,8 @@ A vertical profile object of class \link[=summary.vp]{vp}. When
 defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
 }
 \description{
-Calculates a vertical profile of birds (vp) from a polar volume (pvol).
+Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
+using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird}
 }
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon.
