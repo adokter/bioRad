@@ -14,9 +14,9 @@
 #' @details The angular diameter of the sun is about 0.536 degrees,
 #' therefore the moment of sunrise/sunset corresponds to half that elevation
 #' at -0.268 degrees.
-#' 
+#'
 #' This is a convenience function mapping to \link[maptools]{crepuscule}.
-#' 
+#'
 #' Approximate astronomical formula are used, therefore the moment of
 #' sunrise / sunset may be off by a few minutes
 #'
@@ -34,21 +34,21 @@ NULL
 #' @rdname sunrise_sunset
 #'
 #' @export
-sunrise <- function(date, lon, lat, elev = -0.268, tz="UTC") {
-  locations <- data.frame(lon=lon, lat=lat)
+sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC") {
+  locations <- data.frame(lon = lon, lat = lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   dates <- as.POSIXct(date, tz = tz)
-  suntimes=crepuscule(locations, dates, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
+  suntimes <- crepuscule(locations, dates, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
   suntimes$time
 }
 
 #' @rdname sunrise_sunset
 #'
 #' @export
-sunset <- function(date, lon, lat, elev = -0.268, tz="UTC") {
-  locations <- data.frame(lon=lon, lat=lat)
+sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC") {
+  locations <- data.frame(lon = lon, lat = lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   dates <- as.POSIXct(date, tz = tz)
-  suntimes=crepuscule(locations, dates, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
+  suntimes <- crepuscule(locations, dates, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
   suntimes$time
 }

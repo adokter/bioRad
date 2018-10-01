@@ -1,0 +1,351 @@
+{
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
+  "@type": "SoftwareSourceCode",
+  "identifier": "bioRad",
+  "description": "bioRad aims to provide standardized methods for extracting and \n    reporting biological signals from weather radars. It includes functionality \n    to inspect low‐level radar data, process these data into meaningful \n    biological information on animal speeds and directions at different \n    altitudes in the atmosphere, visualize these biological extractions, and \n    calculate further summary statistics.",
+  "name": "bioRad: Biological analysis and visualization of weather radar data",
+  "codeRepository": "https://github.com/adokter/bioRad",
+  "relatedLink": "https://adokter.github.io/bioRad",
+  "issueTracker": "https://github.com/adokter/bioRad/issues",
+  "license": "https://spdx.org/licenses/MIT",
+  "version": "0.3.0.9151",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "version": "3.4.2",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 3.4.2 (2017-09-28)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Adriaan M.",
+      "familyName": "Dokter",
+      "email": "amd427@cornell.edu",
+      "@id": "https://orcid.org/0000-0001-6573-066X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Peter",
+      "familyName": "Desmet",
+      "email": "peter.desmet@inbo.be",
+      "@id": "https://orcid.org/0000-0002-8442-8025"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Stijn",
+      "familyName": "Van Hoey",
+      "email": "stijn.vanhoey@inbo.be",
+      "@id": "https://orcid.org/0000-0001-6413-3185"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Jurriaan",
+      "familyName": "Spaaks",
+      "email": "j.spaaks@esciencecenter.nl"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Lourens",
+      "familyName": "Veen",
+      "email": "l.veen@esciencecenter.nl"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Liesbeth",
+      "familyName": "Verlinden",
+      "email": "l.verlinden@uva.nl",
+      "@id": "https://orcid.org/0000-0003-1744-9325"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Hidde",
+      "familyName": "Leijnse",
+      "email": "hidde.leijnse@knmi.nl",
+      "@id": "https://orcid.org/0000-0001-7835-4480"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Adriaan M.",
+      "familyName": "Dokter",
+      "email": "amd427@cornell.edu",
+      "@id": "https://orcid.org/0000-0001-6573-066X"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 2.10"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "curl",
+      "name": "curl",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=curl"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "fields",
+      "name": "fields",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=fields"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ggmap",
+      "name": "ggmap",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggmap"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ggplot2",
+      "name": "ggplot2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "graphics",
+      "name": "graphics"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lubridate",
+      "name": "lubridate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lubridate"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "methods",
+      "name": "methods"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "raster",
+      "name": "raster",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=raster"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "RCurl",
+      "name": "RCurl",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=RCurl"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rgdal",
+      "name": "rgdal",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rgdal"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rhdf5",
+      "name": "rhdf5",
+      "provider": {
+        "@id": "https://www.bioconductor.org",
+        "@type": "Organization",
+        "name": "BioConductor",
+        "url": "https://www.bioconductor.org"
+      },
+      "sameAs": "https://bioconductor.org/packages/release/bioc/html/rhdf5.html"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "sp",
+      "name": "sp",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sp"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "maptools",
+      "name": "maptools",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=maptools"
+    }
+  ],
+  "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
+  "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
+  "fileSize": "4197.749KB",
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2018",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": ["Adriaan", "M."],
+          "familyName": "Dokter"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Peter",
+          "familyName": "Desmet"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Jurriaan", "H."],
+          "familyName": "Spaaks"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Stijn",
+          "familyName": "Van Hoey"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Lourens",
+          "familyName": "Veen"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Liesbeth",
+          "familyName": "Verlinden"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Cecilia",
+          "familyName": "Nilsson"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Günther",
+          "familyName": "Haase"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Hidde",
+          "familyName": "Leijnse"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Andrew",
+          "familyName": "Farnsworth"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Willem",
+          "familyName": "Bouten"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Judy",
+          "familyName": "Shamoun-Baranes"
+        }
+      ],
+      "name": "bioRad: biological analysis and visualization of weather radar data",
+      "identifier": "10.1111/ecog.04028",
+      "@id": "https://doi.org/10.1111/ecog.04028",
+      "sameAs": "https://doi.org/10.1111/ecog.04028",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2018",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "name": "Ecography"
+        }
+      }
+    }
+  ]
+}

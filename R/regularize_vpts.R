@@ -25,9 +25,12 @@
 #' regular time grid with the expected time interval at which a radar provides
 #' data. Empty profiles with only missing data values will be inserted at
 #' time stamps of the regular time grid that have no matching profile in the
-#' irregular time series. This also has the benefit that missing profiles
-#' become visible in profile plots of regular time series using
-#' \code{\link{plot.vpts}}.
+#' irregular time series.
+#' 
+#' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
+#' missing profiles (e.g. due to radar down time) become visible. In irregular
+#' time series data points in the plot are carried through until the time series
+#' continues, and temporal data gaps are filled up visually.
 #'
 #' @examples
 #' # start form example vpts object:
@@ -37,14 +40,15 @@
 regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
                             date_max = ts$daterange[2], units = "mins",
                             fill = FALSE, verbose = TRUE) {
-
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(date_min, "POSIXct"))
   stopifnot(inherits(date_max, "POSIXct"))
 
-  if (!(units %in% c("secs", "mins", "hours","days", "weeks"))) {
-    stop("Invalid 'units' argument. Should be one of",
-         "c('secs', 'mins', 'hours','days', 'weeks')")
+  if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
+    stop(
+      "Invalid 'units' argument. Should be one of",
+      "c('secs', 'mins', 'hours','days', 'weeks')"
+    )
   }
   if (interval != "auto" && !is.numeric(interval)) {
     stop("Invalid or missing 'interval' argument. Should be a numeric value.")
@@ -66,24 +70,30 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
   }
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
-  index <- sapply(grid,
-                  function(x) {
-                    which.min(abs(ts$dates - x))
-                  })
+  index <- sapply(
+    grid,
+    function(x) {
+      which.min(abs(ts$dates - x))
+    }
+  )
   quantity.names <- names(ts$data)
-  ts$data <- lapply(1:length(ts$data),
-                    function(x) {
-                      ts$data[[x]][,index]
-                    })
+  ts$data <- lapply(
+    1:length(ts$data),
+    function(x) {
+      ts$data[[x]][, index]
+    }
+  )
   if (!fill) {
     index2 <- which(abs(ts$dates[index] - grid) > as.double(dt, units = "secs"))
-    if(length(index2)>0){
-      ts$data <- lapply(1:length(ts$data),
-                        function(x) {
-                          tmp <- ts$data[[x]]
-                          tmp[,index2] <- NA
-                          tmp
-                        })
+    if (length(index2) > 0) {
+      ts$data <- lapply(
+        1:length(ts$data),
+        function(x) {
+          tmp <- ts$data[[x]]
+          tmp[, index2] <- NA
+          tmp
+        }
+      )
     }
   }
   names(ts$data) <- quantity.names

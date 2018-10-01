@@ -70,87 +70,103 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  stopifnot(quantity %in% c("mtr", "vid", "vir", "rtr", "mt",
-                            "rt", "ff", "dd", "u", "v","HGHT"))
+  stopifnot(quantity %in% c(
+    "mtr", "vid", "vir", "rtr", "mt",
+    "rt", "ff", "dd", "u", "v", "HGHT"
+  ))
 
   # deprecate function argument
   if (!missing(nightshade)) {
     warning("argument nightshade is deprecated; please use night_shade instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     night_shade <- nightshade
   }
 
   # set up the plot labels
   if (missing(ylab)) {
-    if (quantity == "mtr") ylab = "migration traffic rate [#/km/h]"
-    if (quantity == "rtr") ylab = expression("reflectivity traffic rate [cm"^2*"/km/h]")
-    if (quantity == "vid") ylab = expression("vertically integrated density [#/km"^2*"]")
-    if (quantity == "vir") ylab = expression("vertically integrated reflectivity [cm"^2*"/km/h]")
-    if (quantity == "mt") ylab = expression("(cumulative) migration traffic [#/km]")
-    if (quantity == "rt") ylab = expression("(cumulative) reflectivity traffic [cm"^2*"/km]")
-    if (quantity == "ff") ylab = expression("vertically averaged ground speed [m/s]")
-    if (quantity == "dd") ylab = expression("vertically averaged direction [deg]")
-    if (quantity == "u") ylab = expression("vertically averaged u-component ground speed [m/s]")
-    if (quantity == "v") ylab = expression("vertically averaged v-component ground speed [m/s]")
-    if (quantity == "HGHT") ylab = expression("height above mean sea level [m]")
+    if (quantity == "mtr") ylab <- "migration traffic rate [#/km/h]"
+    if (quantity == "rtr") ylab <- expression("reflectivity traffic rate [cm"^2 * "/km/h]")
+    if (quantity == "vid") ylab <- expression("vertically integrated density [#/km"^2 * "]")
+    if (quantity == "vir") ylab <- expression("vertically integrated reflectivity [cm"^2 * "/km/h]")
+    if (quantity == "mt") ylab <- expression("(cumulative) migration traffic [#/km]")
+    if (quantity == "rt") ylab <- expression("(cumulative) reflectivity traffic [cm"^2 * "/km]")
+    if (quantity == "ff") ylab <- expression("vertically averaged ground speed [m/s]")
+    if (quantity == "dd") ylab <- expression("vertically averaged direction [deg]")
+    if (quantity == "u") ylab <- expression("vertically averaged u-component ground speed [m/s]")
+    if (quantity == "v") ylab <- expression("vertically averaged v-component ground speed [m/s]")
+    if (quantity == "HGHT") ylab <- expression("height above mean sea level [m]")
   }
   if (missing(main)) {
-    if (quantity == "mtr") main = "MTR"
-    if (quantity == "rtr") main = "RTR"
-    if (quantity == "vid") main = "VID"
-    if (quantity == "vir") main = "VIR"
-    if (quantity == "mt") main = "MT"
-    if (quantity == "rt") main = "RT"
-    if (quantity == "ff") main = "Average ground speed"
-    if (quantity == "dd") main = "Average ground speed direction"
-    if (quantity == "u") main = "Average ground speed u (east->west)"
-    if (quantity == "v") main = "Average ground speed v (north->south)"
-    if (quantity == "HGHT") main = "Average flight height above sea level"
+    if (quantity == "mtr") main <- "MTR"
+    if (quantity == "rtr") main <- "RTR"
+    if (quantity == "vid") main <- "VID"
+    if (quantity == "vir") main <- "VIR"
+    if (quantity == "mt") main <- "MT"
+    if (quantity == "rt") main <- "RT"
+    if (quantity == "ff") main <- "Average ground speed"
+    if (quantity == "dd") main <- "Average ground speed direction"
+    if (quantity == "u") main <- "Average ground speed u (east->west)"
+    if (quantity == "v") main <- "Average ground speed v (north->south)"
+    if (quantity == "HGHT") main <- "Average flight height above sea level"
   }
-  if (missing(lat)) lat = attributes(x)$lat
-  if (missing(lon)) lon = attributes(x)$lon
+  if (missing(lat)) lat <- attributes(x)$lat
+  if (missing(lon)) lon <- attributes(x)$lon
 
   # plot the data
-  plot(x$datetime, x[quantity][[1]], type = 'l', xlab = "time", ylab = ylab,
-       ylim = ylim, main = main, xaxs = "i", yaxs = "i", ...)
+  plot(x$datetime, x[quantity][[1]],
+    type = "l", xlab = "time", ylab = ylab,
+    ylim = ylim, main = main, xaxs = "i", yaxs = "i", ...
+  )
 
   if (night_shade) {
     if (!is.numeric(lat) || !is.numeric(lon)) {
-      stop("No latitude/longitude found in attribute data, please provide",
-           "lat and lon arguments when night_shade=TRUE.")
+      stop(
+        "No latitude/longitude found in attribute data, please provide",
+        "lat and lon arguments when night_shade=TRUE."
+      )
     }
 
     # calculate sunrise and sunset
-    days <- as.POSIXct(seq(as.Date(min(x$datetime) - 24*3600),
-                           as.Date(max(x$datetime) + 24*3600),
-                           by = "days"), tz = "UTC")
+    days <- as.POSIXct(seq(as.Date(min(x$datetime) - 24 * 3600),
+      as.Date(max(x$datetime) + 24 * 3600),
+      by = "days"
+    ), tz = "UTC")
 
     trise <- sunrise(days, lon, lat)
     tset <- sunset(days, lon, lat)
 
     if (trise[1] < tset[1]) {
-      trise = trise[-1]
-      tset = tset[-length(tset)]
+      trise <- trise[-1]
+      tset <- tset[-length(tset)]
     }
 
     # determine the plot range of the night time shading
     if (missing(ylim)) {
-      pol.range <- c(min(c(0, 2*min(x[quantity][[1]]))),
-                    2*max(x[quantity][[1]]))
+      pol.range <- c(
+        min(c(0, 2 * min(x[quantity][[1]]))),
+        2 * max(x[quantity][[1]])
+      )
     } else {
       pol.range <- ylim
     }
-    ypolygon <- c(pol.range[1], pol.range[1],
-                  pol.range[2], pol.range[2])
+    ypolygon <- c(
+      pol.range[1], pol.range[1],
+      pol.range[2], pol.range[2]
+    )
 
     # plot night time shading for each night.
     for (i in 1:length(days)) {
       polygon(c(tset[i], trise[i], trise[i], tset[i]),
-              ypolygon, lty = 0, col = "#CCCCCC")
+        ypolygon,
+        lty = 0, col = "#CCCCCC"
+      )
     }
 
     # plot the data again on top of the shading
-    points(x$datetime, x[quantity][[1]], type = 'l',
-           xlab = "time", ylab = ylab, ylim = ylim, main = main, ...)
+    points(x$datetime, x[quantity][[1]],
+      type = "l",
+      xlab = "time", ylab = ylab, ylim = ylim, main = main, ...
+    )
   }
 }

@@ -33,27 +33,33 @@ read_vpts <- function(file, radar, wavelength = "C") {
   }
   if (missing(wavelength)) {
     warning(paste("No 'wavelength' argument provided, assuming radar operates",
-                  "at ", wavelength, "-band", sep = ""))
+      "at ", wavelength, "-band",
+      sep = ""
+    ))
   }
-  if (wavelength == 'C') {
+  if (wavelength == "C") {
     wavelength <- 5.3
   }
-  if (wavelength == 'S') {
+  if (wavelength == "S") {
     wavelength <- 10.6
   }
   if (!is.numeric(wavelength) || length(wavelength) > 1) {
     stop("Not a valid 'wavelength' argument.")
   }
 
-  #header of the data file
-  header.names.short <- c("Date", "Time", "HGHT", "u", "v", "w", "ff", "dd",
-                          "sd_vvp", "gap", "dbz", "eta", "dens", "DBZH", "n",
-                          "n_dbz", "n_all", "n_dbz_all")
-  header.names.long <- c("Date", "Time", "HGHT", "u", "v", "w", "ff", "dd",
-                         "sd_vvp", "head_bl", "head_ff", "head_dd", "head_sd",
-                         "gap", "dbz", "eta", "dens", "DBZH", "n", "n_dbz",
-                         "n_all", "n_dbz_all")
-  #read the data
+  # header of the data file
+  header.names.short <- c(
+    "Date", "Time", "HGHT", "u", "v", "w", "ff", "dd",
+    "sd_vvp", "gap", "dbz", "eta", "dens", "DBZH", "n",
+    "n_dbz", "n_all", "n_dbz_all"
+  )
+  header.names.long <- c(
+    "Date", "Time", "HGHT", "u", "v", "w", "ff", "dd",
+    "sd_vvp", "head_bl", "head_ff", "head_dd", "head_sd",
+    "gap", "dbz", "eta", "dens", "DBZH", "n", "n_dbz",
+    "n_all", "n_dbz_all"
+  )
+  # read the data
   data <- read.table(file = file, header = FALSE)
   if (ncol(data) == 22) {
     colnames(data) <- header.names.long
@@ -61,43 +67,54 @@ read_vpts <- function(file, radar, wavelength = "C") {
     colnames(data) <- header.names.short
   }
   # convert Time into a POSIXct date-time
-  data$datetime <- as.POSIXct(paste(data$Date, sprintf('%04d', data$Time),
-                                    sep = ""), format = "%Y%m%d%H%M",
-                              tz = 'UTC')
+  data$datetime <- as.POSIXct(paste(data$Date, sprintf("%04d", data$Time),
+    sep = ""
+  ),
+  format = "%Y%m%d%H%M",
+  tz = "UTC"
+  )
   data$Date <- NULL
   data$Time <- NULL
   # sort
-  data <- data[with(data, order(datetime, HGHT)),]
+  data <- data[with(data, order(datetime, HGHT)), ]
   # remove duplicates
   data <- unique(data)
   # split into profiles
-  data  <- split(data, data$datetime)
+  data <- split(data, data$datetime)
   names(data) <- NULL
   # verify that profiles can be flattened
   datadim <- sapply(1:length(data), function(x) dim(data[[x]]))
 
-  if (length(unique(datadim[1,])) > 1) {
-    mostFrequent <- sort(table(datadim[1,]),decreasing = TRUE)[1]
+  if (length(unique(datadim[1, ])) > 1) {
+    mostFrequent <- sort(table(datadim[1, ]), decreasing = TRUE)[1]
     if (mostFrequent <= 1) {
       stop("Profiles are of unequal altitudinal dimensions, unable to merge")
     }
     mostFrequentNBins <- as.integer(names(mostFrequent))
-    warning(paste("Profiles are of unequal altitudinal dimensions or",
-                  "contain duplicates. Discarding", length(data) - mostFrequent,
-                  "of", length(data), "profiles, restricting to",
-                  mostFrequentNBins, "altitude bins."))
-    data <- data[datadim[1,] == mostFrequentNBins]
+    warning(paste(
+      "Profiles are of unequal altitudinal dimensions or",
+      "contain duplicates. Discarding", length(data) - mostFrequent,
+      "of", length(data), "profiles, restricting to",
+      mostFrequentNBins, "altitude bins."
+    ))
+    data <- data[datadim[1, ] == mostFrequentNBins]
   }
   # strip the datetime field
-  dates <- .POSIXct(sapply(1:length(data),
-                           function(x) {
-                             data[[x]]$datetime[1]
-                           }),
-                    tz = "UTC")
-  data <- lapply(data,
-                 function(x) {
-                   x["datetime"] <- NULL; x
-                 })
+  dates <- .POSIXct(sapply(
+    1:length(data),
+    function(x) {
+      data[[x]]$datetime[1]
+    }
+  ),
+  tz = "UTC"
+  )
+  data <- lapply(
+    data,
+    function(x) {
+      x["datetime"] <- NULL
+      x
+    }
+  )
   # check whether the time series is regular
   difftimes <- difftime(dates[-1], dates[-length(dates)], units = "secs")
   if (length(unique(difftimes)) == 1) {
@@ -107,23 +124,31 @@ read_vpts <- function(file, radar, wavelength = "C") {
   }
   # flatten the profiles
   profile.quantities <- names(data[[1]])
-  vpsFlat <- lapply(profile.quantities,
-                    function(quantity) {
-                      sapply(data, '[[', quantity)}
-                    )
+  vpsFlat <- lapply(
+    profile.quantities,
+    function(quantity) {
+      sapply(data, "[[", quantity)
+    }
+  )
   names(vpsFlat) <- profile.quantities
   vpsFlat$HGHT <- NULL
   # prepare output
   heights <- data[[1]]$"HGHT"
   interval <- unique(heights[-1] - heights[-length(heights)])
 
-  attributes <- list(where = data.frame(interval = interval,
-                                        levels = length(heights)),
-                     how = data.frame(wavelength = wavelength))
-  output <- list(radar = radar, dates = dates, heights = heights,
-                 daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
-                 timesteps = difftimes, data = vpsFlat,
-                 attributes = attributes, regular = regular)
+  attributes <- list(
+    where = data.frame(
+      interval = interval,
+      levels = length(heights)
+    ),
+    how = data.frame(wavelength = wavelength)
+  )
+  output <- list(
+    radar = radar, dates = dates, heights = heights,
+    daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
+    timesteps = difftimes, data = vpsFlat,
+    attributes = attributes, regular = regular
+  )
   class(output) <- "vpts"
   output
 }

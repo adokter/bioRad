@@ -84,8 +84,10 @@ dim.ppi <- function(x) {
 #' my_ppi[1:3]
 `[.ppi` <- function(x, i) {
   stopifnot(inherits(x, "ppi"))
-  myppi <- list(radar = x$radar, datetime = x$datetime,
-                data = x$data[i], geo = x$geo)
+  myppi <- list(
+    radar = x$radar, datetime = x$datetime,
+    data = x$data[i], geo = x$geo
+  )
   class(myppi) <- "ppi"
   return(myppi)
 }
@@ -101,6 +103,8 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "ppi"))
   cat("               Plan position indicator (class ppi)\n\n")
   cat("  quantities: ", names(x$data), "\n")
-  cat("        dims: ", x$data@grid@cells.dim[1], "x",
-      x$data@grid@cells.dim[2], "pixels\n\n")
+  cat(
+    "        dims: ", x$data@grid@cells.dim[1], "x",
+    x$data@grid@cells.dim[2], "pixels\n\n"
+  )
 }

@@ -75,17 +75,20 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # deprecate function arguments
   if (!missing(radar.size)) {
     warning("argument radar.size is deprecated; please use radar_size instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     radar_size <- radar.size
   }
   if (!missing(radar.color)) {
     warning("argument radar.color is deprecated; please use radar_color instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     radar_color <- radar.color
   }
   if (!missing(n.color)) {
     warning("argument n.color is deprecated; please use n_color instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     n_color <- n.color
   }
 
@@ -98,8 +101,10 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       param <- names(x$data)[1]
     }
   } else if (!is.character(param)) {
-    stop("'param' should be a character string with a valid ",
-         "scan parameter name.")
+    stop(
+      "'param' should be a character string with a valid ",
+      "scan parameter name."
+    )
   }
   if (missing(zlim)) {
     zlim <- get_zlim(param)
@@ -111,7 +116,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
     stop("Not a ppi map, use download_basemap() to download a map.")
   }
   if (attributes(map)$geo$lat != x$geo$lat ||
-      attributes(map)$geo$lon != x$geo$lon) {
+    attributes(map)$geo$lon != x$geo$lon) {
     stop("Not a basemap for this radar location.")
   }
 
@@ -120,47 +125,68 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   wgs84 <- CRS("+proj=longlat +datum=WGS84")
   epsg3857 <- CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox <- suppressWarnings(
-    spTransform(SpatialPoints(t(data@bbox),
-                              proj4string = data@proj4string),
-                CRS("+init=epsg:3857")))
+    spTransform(
+      SpatialPoints(t(data@bbox),
+        proj4string = data@proj4string
+      ),
+      CRS("+init=epsg:3857")
+    )
+  )
   mybbox.wgs <- suppressWarnings(
-    spTransform(SpatialPoints(t(data@bbox),
-                              proj4string = data@proj4string),
-                wgs84))
+    spTransform(
+      SpatialPoints(t(data@bbox),
+        proj4string = data@proj4string
+      ),
+      wgs84
+    )
+  )
   e <- raster::extent(mybbox.wgs)
-  r <- raster(raster::extent(mybbox), ncol = data@grid@cells.dim[1]*.9,
-              nrow = data@grid@cells.dim[2]*.9, crs = CRS(proj4string(mybbox)))
+  r <- raster(raster::extent(mybbox),
+    ncol = data@grid@cells.dim[1] * .9,
+    nrow = data@grid@cells.dim[2] * .9, crs = CRS(proj4string(mybbox))
+  )
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(spTransform(data, CRS("+init=epsg:3857"))))
+    as.data.frame(spTransform(data, CRS("+init=epsg:3857")))
+  )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])
   if (length(index) > 0) {
-    data[index,]$z <- zlim[1]
+    data[index, ]$z <- zlim[1]
   }
   index <- which(data$z > zlim[2])
   if (length(index) > 0) {
-    data[index,]$z <- zlim[2]
+    data[index, ]$z <- zlim[2]
   }
 
   # rasterize
-  r <- raster::rasterize(data[,2:3], r, data[,1])
+  r <- raster::rasterize(data[, 2:3], r, data[, 1])
   # assign colors
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
-      colorRampPalette(colors = c("blue", "white", "red"),
-                       alpha = TRUE)(n_color), alpha = alpha)
+      colorRampPalette(
+        colors = c("blue", "white", "red"),
+        alpha = TRUE
+      )(n_color),
+      alpha = alpha
+    )
   } else {
     cols <- add_color_transparency(
-      colorRampPalette(colors = c("lightblue", "darkblue", "green",
-                                  "yellow", "red", "magenta"),
-                       alpha = TRUE)(n_color), alpha = alpha)
+      colorRampPalette(
+        colors = c(
+          "lightblue", "darkblue", "green",
+          "yellow", "red", "magenta"
+        ),
+        alpha = TRUE
+      )(n_color),
+      alpha = alpha
+    )
   }
 
   col_func <- function(value, lim) {
     output <- rep(0, length(value))
-    output <- round((value - lim[1])/(lim[2] - lim[1]) * n_color)
+    output <- round((value - lim[1]) / (lim[2] - lim[1]) * n_color)
     output[output > n_color] <- n_color
     output[output < 1] <- 1
     return(cols[output])
@@ -169,25 +195,31 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   r@data@values <- col_func(r@data@values, zlim)
   # these declarations prevent generation of NOTE "no visible binding for
   # global variable" during package Check
-  lon = lat = y = z = NA
+  lon <- lat <- y <- z <- NA
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
-  dummy <- geom_point(aes(x = lon, y = lat, colour = z), size = 0,
-                      data = data.frame(lon = x$geo$lon,
-                                        lat = x$geo$lat,
-                                        z = 0))
-  radarpoint <- geom_point(aes(x = lon, y = lat), colour = radar_color,
-                           size = radar_size,
-                           data = data.frame(lon = x$geo$lon, lat = x$geo$lat))
+  dummy <- geom_point(aes(x = lon, y = lat, colour = z),
+    size = 0,
+    data = data.frame(
+      lon = x$geo$lon,
+      lat = x$geo$lat,
+      z = 0
+    )
+  )
+  radarpoint <- geom_point(aes(x = lon, y = lat),
+    colour = radar_color,
+    size = radar_size,
+    data = data.frame(lon = x$geo$lon, lat = x$geo$lat)
+  )
   # colorscale
   colorscale <- color_scale(param, zlim)
   # bounding box
   bboxlatlon <- attributes(map)$geo$bbox
   # remove dimnames, otherwise ggmap will give a warning message below:
   dimnames(bboxlatlon) <- NULL
-  if (missing(xlim)) xlim <- bboxlatlon[1,]
-  if (missing(ylim)) ylim <- bboxlatlon[2,]
+  if (missing(xlim)) xlim <- bboxlatlon[1, ]
+  if (missing(ylim)) ylim <- bboxlatlon[2, ]
   # plot the data on the map
   mymap <- suppressMessages(
     ggmap(map) +
@@ -195,14 +227,15 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       dummy + colorscale +
       radarpoint +
       scale_x_continuous(limits = xlim, expand = c(0, 0)) +
-      scale_y_continuous(limits = ylim, expand = c(0, 0)))
+      scale_y_continuous(limits = ylim, expand = c(0, 0))
+  )
   suppressWarnings(mymap)
 }
 
 
 get_zlim <- function(param) {
-  if (param %in% c("DBZH","DBZV","DBZ")) return(c(-20, 30))
-  if (param %in% c("VRADH","VRADV","VRAD")) return(c(-20, 20))
+  if (param %in% c("DBZH", "DBZV", "DBZ")) return(c(-20, 30))
+  if (param %in% c("VRADH", "VRADV", "VRAD")) return(c(-20, 20))
   if (param == "RHOHV") return(c(0.4, 1))
   if (param == "ZDR") return(c(-5, 8))
   if (param == "PHIDP") return(c(-200, 200))

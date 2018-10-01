@@ -52,15 +52,17 @@ plot.scan <- function(x, param, xlim = c(0, 100),
       param <- names(x$params)[1]
     }
   } else if (!is.character(param)) {
-    stop("'param' should be a character string with a valid scan",
-         "parameter name")
+    stop(
+      "'param' should be a character string with a valid scan",
+      "parameter name"
+    )
   }
   if (missing(zlim)) {
     zlim <- get_zlim(param)
   }
   colorscale <- color_scale_fill(param, zlim)
   # extract the scan parameter
-  y <- NULL #dummy asignment to suppress devtools check warning
+  y <- NULL # dummy asignment to suppress devtools check warning
   data <- do.call(function(y) x$params[[y]], list(param))
   # remove the param class label, to enable raster function
   class(data) <- "matrix"
@@ -72,17 +74,17 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   # change the name from "layer" to the parameter names
   names(data) <- c("azimuth", "range", param)
   # bring z-values within plotting range
-  index <- which(data[,3] < zlim[1])
+  index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {
-    data[index,3] <- zlim[1]
+    data[index, 3] <- zlim[1]
   }
-  index <- which(data[,3] > zlim[2])
+  index <- which(data[, 3] > zlim[2])
   if (length(index) > 0) {
-    data[index,3] <- zlim[2]
+    data[index, 3] <- zlim[2]
   }
   # plot
-  azimuth <- NULL #dummy asignment to suppress devtools check warning
-  ggplot(data = data,...) +
+  azimuth <- NULL # dummy asignment to suppress devtools check warning
+  ggplot(data = data, ...) +
     geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
     xlim(xlim[1], xlim[2]) +

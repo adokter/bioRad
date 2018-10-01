@@ -1,126 +1,121 @@
-# bioRad <img src="man/figures/logo.png" align="right">
 
-bioRad is an R package for extracting and visualising biological signals from weather radar data.
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+bioRad <img src="man/figures/logo.png" align="right">
+=====================================================
 
-See our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography for an overview of its functionality:
+bioRad aims to provide standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low‐level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.
 
-Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
+To get started, see:
 
+-   [Dokter et al. (2018)](https://doi.org/10.1111/ecog.04028): a paper describing the package.
+-   [bioRad vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an introduction to bioRad's main functionalities.
+-   [Function reference](https://adokter.github.io/bioRad/reference/index.html): an overview of all bioRad functions.
 
-* analyzes time series of profile data, and makes profile visualisations (see this real-time [example](http://www.flysafe-birdtam.eu/profile.php?radar=herwijnen)).
-* overlays radar scans with geographic maps and satellite imagery of various online sources (e.g Google Maps and Stamen Maps), using  [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html).
-* contains an implementation of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of bird migration from weather radar data. 
-* Reads radar files in [ODIM](http://www.eumetnet.eu/sites/default/files/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format, or formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as [NEXRAD](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) data.
+Installation
+------------
 
-The [vol2bird](https://github.com/adokter/vol2bird) algorithm, and a tool to convert NEXRAD data into ODIM format, require a working installation of [Docker](https://www.docker.com/).
+You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
-## Installation
-
-To install `bioRad` complete these four steps:
-
-### 1. rhdf5
-
-bioRad requires the rhdf5 library to read [hdf5](https://support.hdfgroup.org/HDF5/) files. This library is available through bioconductor (not CRAN). To install, run in R:
-
-```r
-source("http://bioconductor.org/biocLite.R")
-biocLite("rhdf5")
+``` r
+install.packages("bioRad") # Coming soon!
 ```
 
-### 2. bioRad 
+Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
 
-You are now ready to install the bioRad package. In R, first load the devtools package, then install using `install_github`:
-
-```r
-library(devtools)
+``` r
 devtools::install_github("adokter/bioRad")
 ```
 
-If your installation completed correctly, you can load bioRad with `library(bioRad)`, which should give you the following:
+Then load the package with:
 
-```r
-> library(bioRad)
-Loading package ‘bioRad’ version 0.3.0 ...
-Warning: no running Docker daemon found
-Warning: bioRad functionality requiring Docker has been disabled
-
-To enable Docker functionality, start Docker and run 'checkDocker()' in R
-```
-
-On Windows 7, some users have had an installation problem with 32-bits package versions. To suppress the building of 32-bits packages (and use 64-bits only) install with:
-
-```r
-devtools::install_github("adokter/bioRad", args="--no-multiarch")
-```
-
-### 3. Docker (optional)
-
-You only need to install Docker if:
-
-* you want to run the [vol2bird](https://github.com/adokter/vol2bird) algorithm.
-* you want to analyze NEXRAD data. The tools to convert NEXRAD data into ODIM format require Docker.
-
-#### 3.a Install Docker
-
-The functionality of [vol2bird](https://github.com/adokter/vol2bird), an algorithm to extract vertical profiles of birds from weather radar data, is available in bioRad through Docker.
-
-Go to the [Docker](https://www.docker.com/) webpage for instructions on how to install Docker on your local system. On 8 Dec 2016 Docker is available for Windows 10 Professional or Enterprise 64-bit, MacOS Yosemite 10.10.3 or above, or any linux/unix distribution.
-
-Without a Docker installation, the bioRad package disables volbird automatically. All the other tools will still work.
-
-#### 3.b Setup Docker
-
-Docker needs local drives to be available for Docker containers. To enable:
-
-* right click the Docker (whale) icon on your task or menu bar
-* select settings -> shared drives
-* select the drives where you will be processing radar files
-* click apply
-
-### 4. Run bioRad in R
-
-To load the package:
-
-```r
+``` r
 library(bioRad)
+#> Welcome to bioRad version 0.3.0
+#> Docker daemon running, Docker functionality enabled.
 ```
 
-To pull up the main help page:
+### Docker (optional)
 
-```r
-?bioRad
+You only need to install Docker to:
+
+-   Read [NEXRAD radar data](https://www.ncdc.noaa.gov/data-access/radar-data) with `read_pvolfile()`. Docker is not required for reading ODIM radar data.
+-   Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
+-   Process radar data into vertical profiles of biological targets with `calculate_vp()`.
+
+Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation.
+
+<details> <summary><strong>Installing Docker</strong></summary>
+
+1.  Go to [Docker Desktop](https://www.docker.com/products/docker-desktop).
+2.  Download Docker for Windows or Mac (free login required) and follow the installation instructions.
+3.  Open the Docker application. The Docker (whale) icon will appear in your menu bar and indicate if it is running correctly.
+4.  In R do `check_docker()`.
+5.  You can now use the bioRad functionality that requires Docker. </details>
+
+Usage
+-----
+
+### Radar data example
+
+bioRad can read weather radar data (= polar volumes) in the [`ODIM`](http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf) format and formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. NEXRAD data (US) are [available as open data](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) and on [AWS](https://registry.opendata.aws/noaa-nexrad/).
+
+Here we read an example polar volume data file with `read_pvolfile()`, extract the scan/sweep at elevation angle 3 with `get_scan()`, project the data to a plan position indicator with `project_as_ppi()` and plot the *radial velocity* of detected targets with `plot()`:
+
+``` r
+library(tidyverse) # To pipe %>% the steps below
+system.file("extdata", "volume.h5", package = "bioRad") %>%
+  read_pvolfile() %>%
+  get_scan(3) %>%
+  project_as_ppi() %>%
+  plot(param = "VRADH") # VRADH = radial velocity in m/s
 ```
 
-To open the vignette with several exercises covering the functionality of bioRad:
+<img src="man/figures/README-plot_ppi-1.png" width="100%" />
 
-```r
-vignette("functionality_overview")
+*Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.*
+
+### Vertical profile data example
+
+Weather radar data can be processed into vertical profiles of biological targets using `calculate_vp()`. This type of data is [available as open data](https://registry.opendata.aws/noaa-nexrad/) for over 100 European weather radars.
+
+Once vertical profile data are loaded into bioRad, these can be bound into time series using `bind_into_vpts()`. Here we read an example time series, project it on a regular time grid with `regularize_vpts()` and plot it with `plot()`:
+
+``` r
+example_vpts %>%
+  regularize_vpts() %>%
+  plot()
+#> projecting on 300 seconds interval grid...
 ```
 
-### Install note 1: rgdal on linux and mac OS v10.11 or older:
+<img src="man/figures/README-plot_vpts-1.png" width="100%" />
 
-bioRad requires an installation of rgdal, which can be fetched from CRAN. The GDAL and PROJ.4 libraries are external to the rgdal package, and, when installing the package from source, must be correctly installed first.
+*The gray bars in the plot indicate gaps in the data.*
 
-You can use the package managing systems, like Macports on Mac, to install these dependencies, e.g.
+The altitudes in the profile can be integrated with `integrate_profile()` resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity *migration traffic rate* (column `mtr`) with `plot()`:
 
-```bash
-sudo port install proj
-sudo port install gdal +expat
+``` r
+my_vpi <- integrate_profile(example_vpts)
+
+plot(my_vpi, quantity = "mtr") # mtr = migration traffic rate
 ```
 
-When compiling rgdal you need to specify the installation directory of the PROJ.4 and GDAL libraries that rgdal depends on. Install from source using the following command (example here with `/opt/local/` as the leading path, which is the directory where the Macports package managing system installs PROJ.4 and GDAL):
+<img src="man/figures/README-plot_vpi-1.png" width="100%" />
 
-```r
-install.packages('rgdal',configure.args=c('--with-proj-include=/opt/local/include', '--with-proj-lib=/opt/local/lib', '--with-gdal-config=/opt/local/bin/gdal-config'),type="source")
+To know the total number of birds passing over the radar during the full time series, we use the last value of the *cumulative migration traffic* (column `mt`):
+
+``` r
+my_vpi %>%
+  pull(mt) %>% # Extract column mt as a vector
+  last()
+#> [1] 173023.8
 ```
 
-### Install note 2: Virtualbox / Hyper-V conflicts
+For more exercises, see [this tutorial](https://adokter.github;io/bioRad/articles/functionality_overview.html).
 
-Unfortunately, Hyper-V can not run together with Virtualbox. When you want to use Virtualbox after running Docker, you need to disable Hyper-V, requiring a reboot of the system. [Here](https://marcofranssen.nl/switch-between-hyper-v-and-virtualbox-on-windows/) some instructions on how to set up a dual-boot system fairly easily (haven't tested this myself yet)
+Meta
+----
 
-## Meta
-
-* We welcome [contributions](.github/CONTRIBUTING.md) including bug reports.
-* License: MIT
-* Get citation information for `bioRad` in R doing `citation(package = "bioRad")`.
-* Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+-   We welcome [contributions](.github/CONTRIBUTING.md) including bug reports.
+-   License: MIT
+-   Get citation information for `bioRad` in R doing `citation(package = "bioRad")`.
+-   Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.

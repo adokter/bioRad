@@ -11,36 +11,41 @@ read_vp <- function(file) {
     warning(paste(file, "is not a vertical profile"))
     return(NULL)
   }
-  #check input argument
+  # check input argument
   groups <- h5ls(file, recursive = FALSE)$name
   if (!("dataset1" %in% groups)) {
     stop("HDF5 file does not contain a /dataset1 group")
   }
-  #extract quantities
+  # extract quantities
   groups <- h5ls(file)
-  groups <- groups[which(groups$name == "data"),]$group
-  quantities <- sapply(groups,
-                       function(x) {
-                         quantity_name(file, x)
-                       })
-  profile <- as.data.frame(lapply(groups,
-                                  function(x) {
-                                    read_odim_profile_data(file, x)
-                                  }))
+  groups <- groups[which(groups$name == "data"), ]$group
+  quantities <- sapply(
+    groups,
+    function(x) {
+      quantity_name(file, x)
+    }
+  )
+  profile <- as.data.frame(lapply(
+    groups,
+    function(x) {
+      read_odim_profile_data(file, x)
+    }
+  ))
   names(profile) <- quantities
 
-  #extract attributes
+  # extract attributes
   attribs.how <- h5readAttributes(file, "how")
   attribs.what <- h5readAttributes(file, "what")
   attribs.where <- h5readAttributes(file, "where")
-  #add vp_filename attribute if missing
+  # add vp_filename attribute if missing
   if (is.null(attribs.how$filename_vp)) {
     attribs.how$filename_vp <- file
   }
 
-  #convert some useful metadata
+  # convert some useful metadata
   datetime <- as.POSIXct(paste(attribs.what$date, attribs.what$time),
-                         format = "%Y%m%d %H%M%S", tz = 'UTC')
+    format = "%Y%m%d %H%M%S", tz = "UTC"
+  )
   sources <- strsplit(attribs.what$source, ",")[[1]]
   radar <- gsub("NOD:", "", sources[which(grepl("NOD:", sources))])
   if (length(radar) == 0) {
@@ -53,11 +58,15 @@ read_vp <- function(file) {
     }
   }
 
-  #prepare output
-  output <- list(radar = radar, datetime = datetime, data = profile,
-                 attributes = list(how = attribs.how, what = attribs.what,
-                                   where = attribs.where))
-  class(output)  <- "vp"
+  # prepare output
+  output <- list(
+    radar = radar, datetime = datetime, data = profile,
+    attributes = list(
+      how = attribs.how, what = attribs.what,
+      where = attribs.where
+    )
+  )
+  class(output) <- "vp"
   output
 }
 
@@ -100,13 +109,13 @@ quantity_name <- function(file, group) {
 }
 
 read_odim_profile_data <- function(file, group) {
-  whatgroup <- h5readAttributes(file,sprintf("%s/what", group))
+  whatgroup <- h5readAttributes(file, sprintf("%s/what", group))
   nodata <- whatgroup$nodata
   undetect <- whatgroup$undetect
   gain <- whatgroup$gain
   offset <- whatgroup$offset
-  data <- h5read(file, sprintf("%s/data", group))[1,]
+  data <- h5read(file, sprintf("%s/data", group))[1, ]
   data <- replace(data, data == nodata, NA)
   data <- replace(data, data == undetect, NaN)
-  offset + gain*data
+  offset + gain * data
 }

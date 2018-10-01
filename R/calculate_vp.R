@@ -149,46 +149,64 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
     stop("No such file or directory")
   }
   if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
-    stop("invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
-         "threshold should be a positive numeric value")
+    stop(
+      "invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
+      "threshold should be a positive numeric value"
+    )
   }
   if (!is.numeric(rcs) || rcs <= 0) {
-    stop("invalid 'rcs' argument, radar cross section should be a ",
-         "positive numeric value")
+    stop(
+      "invalid 'rcs' argument, radar cross section should be a ",
+      "positive numeric value"
+    )
   }
   if (!is.logical(dual_pol)) {
     stop("invalid 'dual_pol' argument, should be logical")
   }
   if (!is.numeric(rho_hv) || rho_hv <= 0 || rho_hv > 1) {
-    stop("invalid 'rho_hv' argument, correlation coefficient treshold ",
-         "should be a numeric value between 0 and 1")
+    stop(
+      "invalid 'rho_hv' argument, correlation coefficient treshold ",
+      "should be a numeric value between 0 and 1"
+    )
   }
   if (!is.numeric(elev_min) || elev_min < -90 || elev_min > 90) {
-    stop("invalid 'elev_min' argument, elevation should be between ",
-         "-90 and 90 degrees")
+    stop(
+      "invalid 'elev_min' argument, elevation should be between ",
+      "-90 and 90 degrees"
+    )
   }
   if (!is.numeric(elev_max) || elev_max < -90 || elev_max > 90) {
-    stop("invalid 'elev_max' argument, elevation should be between ",
-         "-90 and 90 degrees")
+    stop(
+      "invalid 'elev_max' argument, elevation should be between ",
+      "-90 and 90 degrees"
+    )
   }
   if (elev_max < elev_min) {
     stop("'elev_max' cannot be larger than 'elev_min'")
   }
   if (!is.numeric(azim_min) || azim_min < 0 || azim_min > 360) {
-    stop("invalid 'azim_min' argument, azimuth should be between ",
-         "0 and 360 degrees")
+    stop(
+      "invalid 'azim_min' argument, azimuth should be between ",
+      "0 and 360 degrees"
+    )
   }
   if (!is.numeric(azim_max) || azim_max < 0 || azim_max > 360) {
-    stop("invalid 'azim_max' argument, azimuth should be between ",
-         "0 and 360 degrees")
+    stop(
+      "invalid 'azim_max' argument, azimuth should be between ",
+      "0 and 360 degrees"
+    )
   }
   if (!is.numeric(range_min) || range_min < 0) {
-    stop("invalid 'range_min' argument, range should be a positive ",
-         "numeric value")
+    stop(
+      "invalid 'range_min' argument, range should be a positive ",
+      "numeric value"
+    )
   }
   if (!is.numeric(range_max) || range_max < 0) {
-    stop("invalid 'range_max' argument, range should be a positive ",
-         "numeric value")
+    stop(
+      "invalid 'range_max' argument, range should be a positive ",
+      "numeric value"
+    )
   }
   if (range_max < range_min) {
     stop("'rang.max' cannot be larger than 'rang.min'")
@@ -202,7 +220,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   if (!is.numeric(nyquist_min) || nyquist_min < 0) {
     stop("invalid 'nyquist_min' argument, should be a positive numeric value")
   }
-  if (!(dbz_quantity %in% c("DBZ","DBZH","DBZV","TH","TV"))) {
+  if (!(dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"))) {
     warning(paste("expecting 'dbz_quantity' to be one of DBZ, DBZH, DBZV, TH, TV"))
   }
   if (!is.logical(dealias)) {
@@ -212,12 +230,16 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
     stop("invalid 'mount' argument. Directory not found")
   }
   if (file.access(mount, 2) == -1) {
-    stop(paste("invalid 'mount' argument. No write permission in directory",
-               mount))
+    stop(paste(
+      "invalid 'mount' argument. No write permission in directory",
+      mount
+    ))
   }
   if (!.pkgenv$docker) {
-    stop("Requires a running Docker daemon.\nTo enable calculate_vp, start ",
-         "your local Docker daemon, and run 'check_docker()' in R\n")
+    stop(
+      "Requires a running Docker daemon.\nTo enable calculate_vp, start ",
+      "your local Docker daemon, and run 'check_docker()' in R\n"
+    )
   }
   if (!length(autoconf) == 1 || !is.logical(autoconf)) {
     stop("autoconf argument should be one of TRUE or FALSE")
@@ -231,8 +253,10 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
 
   filedir <- dirname(normalizePath(pvolfile, winslash = "/"))
   if (!grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE)) {
-    stop("mountpoint 'mount' has to be a parent directory ",
-         "of input file 'pvolfile'")
+    stop(
+      "mountpoint 'mount' has to be a parent directory ",
+      "of input file 'pvolfile'"
+    )
   }
 
   profile.tmp <- tempfile(tmpdir = filedir)
@@ -244,42 +268,57 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   }
 
   # put options file in place, to be read by vol2bird container
-  opt.values <- c(as.character(c(sd_vvp_threshold, rcs, rho_hv, elev_min, elev_max,
-                                 azim_min, azim_max, range_min, range_max,
-                                 n_layer, h_layer, nyquist_min, dbz_quantity)),
-                  if (dual_pol) "TRUE" else "FALSE",
-                  if (dealias) "TRUE" else "FALSE")
+  opt.values <- c(
+    as.character(c(
+      sd_vvp_threshold, rcs, rho_hv, elev_min, elev_max,
+      azim_min, azim_max, range_min, range_max,
+      n_layer, h_layer, nyquist_min, dbz_quantity
+    )),
+    if (dual_pol) "TRUE" else "FALSE",
+    if (dealias) "TRUE" else "FALSE"
+  )
 
-  opt.names <- c("STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
-                 "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-                 "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
-                 "DEALIAS_VRAD")
-  opt <- data.frame("option" = opt.names, "is" = rep("=", length(opt.values)),
-                    "value" = opt.values)
+  opt.names <- c(
+    "STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
+    "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
+    "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
+    "DEALIAS_VRAD"
+  )
+  opt <- data.frame(
+    "option" = opt.names, "is" = rep("=", length(opt.values)),
+    "value" = opt.values
+  )
   optfile <- paste(normalizePath(mount, winslash = "/"),
-                   "/options.conf", sep = "")
+    "/options.conf",
+    sep = ""
+  )
 
   if (file.exists(optfile)) {
     warning(paste("options.conf file found in directory ", mount,
-                  ". Renamed to options.conf.save to prevent overwrite...",
-                  sep = ""))
+      ". Renamed to options.conf.save to prevent overwrite...",
+      sep = ""
+    ))
     file.rename(optfile, paste(optfile, ".saved", sep = ""))
   }
 
   # only use user configuration when autoconfiguration is off.
   if (!autoconf) {
-    write.table(opt, file = optfile, col.names = FALSE,
-                row.names = FALSE, quote = FALSE)
+    write.table(opt,
+      file = optfile, col.names = FALSE,
+      row.names = FALSE, quote = FALSE
+    )
   }
 
   # prepare docker input filenames relative to mountpoint
   prefixstart <- if (mount == "/") 1 else 2
-  prefix <- substring(filedir,
-                      prefixstart + nchar(normalizePath(mount, winslash = "/")))
+  prefix <- substring(
+    filedir,
+    prefixstart + nchar(normalizePath(mount, winslash = "/"))
+  )
   if (nchar(prefix) > 0) {
     prefix <- paste(prefix, "/", sep = "")
   }
-  pvolfile_docker <- paste(prefix,basename(pvolfile), sep = "")
+  pvolfile_docker <- paste(prefix, basename(pvolfile), sep = "")
   profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
   if (pvolfile_out != "") {
     pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
@@ -289,14 +328,19 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
-    result <- system(paste("docker exec vol2bird bash -c \"cd data && vol2bird ",
-                          pvolfile_docker, profile.tmp.docker,
-                          pvolfile_out_docker, "\""),
-                    ignore.stdout = !verbose)
-  } else{
-    winstring <- paste("docker exec vol2bird bash -c \"cd data && vol2bird ",
-                       pvolfile_docker, profile.tmp.docker,
-                       pvolfile_out_docker, "\"")
+    result <- system(paste(
+      "docker exec vol2bird bash -c \"cd data && vol2bird ",
+      pvolfile_docker, profile.tmp.docker,
+      pvolfile_out_docker, "\""
+    ),
+    ignore.stdout = !verbose
+    )
+  } else {
+    winstring <- paste(
+      "docker exec vol2bird bash -c \"cd data && vol2bird ",
+      pvolfile_docker, profile.tmp.docker,
+      pvolfile_out_docker, "\""
+    )
     result <- suppressWarnings(system(winstring))
   }
   if (result != 0) {
@@ -311,7 +355,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   if (vpfile == "") {
     file.remove(profile.tmp)
   } else {
-    file.rename(profile.tmp,vpfile)
+    file.rename(profile.tmp, vpfile)
   }
   if (file.exists(optfile)) {
     file.remove(optfile)

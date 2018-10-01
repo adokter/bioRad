@@ -36,7 +36,7 @@ get_quantity <- function(x, quantity) {
 #' @return class \code{vp}: a named vector for the requested quantity.
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
-  output <- x$data[quantity][,1]
+  output <- x$data[quantity][, 1]
   names(output) <- x$data$HGHT
 
   if (quantity == "eta") {
