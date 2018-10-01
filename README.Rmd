@@ -84,7 +84,7 @@ _Radial velocities towards the radar are negative, while radial velocities away 
 
 ### Vertical profile data example
 
-Weather radar data can be processed into vertical profiles of biological targets using `calculate_vp()`. This type of data is [available as open data](https://registry.opendata.aws/noaa-nexrad/) for over 100 European weather radars.
+Weather radar data can be processed into vertical profiles of biological targets using `calculate_vp()`. This type of data is [available as open data](https://enram.github.io/data-repository) for over 100 European weather radars.
 
 Once vertical profile data are loaded into bioRad, these can be bound into time series using `bind_into_vpts()`. Here we read an example time series, project it on a regular time grid with `regularize_vpts()` and plot it with `plot()`:
 
@@ -112,7 +112,7 @@ my_vpi %>%
   last()
 ```
 
-For more exercises, see [this tutorial](https://adokter.github;io/bioRad/articles/functionality_overview.html).
+For more exercises, see [this tutorial](https://adokter.github.io/bioRad/articles/functionality_overview.html).
 
 ## Meta
 
