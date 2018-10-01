@@ -65,7 +65,7 @@ regular time grid — regularize_vpts" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9151</span>
       </span>
     </div>
 
@@ -184,9 +184,11 @@ the closest neighbouring profile.</p></td>
 regular time grid with the expected time interval at which a radar provides
 data. Empty profiles with only missing data values will be inserted at
 time stamps of the regular time grid that have no matching profile in the
-irregular time series. This also has the benefit that missing profiles
-become visible in profile plots of regular time series using
-<code><a href='plot.vpts.html'>plot.vpts</a></code>.</p>
+irregular time series.</p>
+<p>In plots of regular time series (see <code><a href='plot.vpts.html'>plot.vpts</a></code>) temporal gaps of
+missing profiles (e.g. due to radar down time) become visible. In irregular
+time series data points in the plot are carried through until the time series
+continues, and temporal data gaps are filled up visually.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -212,7 +214,7 @@ become visible in profile plots of regular time series using
 
       <footer>
       <div class="copyright">
-  <p>Developed by Adriaan M. Dokter, Peter Desmet, Stijn Van Hoey.</p>
+  <p>Developed by <a href='http://adriaandokter.com'>Adriaan M. Dokter</a>, <a href='https://twitter.com/peterdesmet'>Peter Desmet</a>, <a href='https://twitter.com/SVanHoey'>Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
