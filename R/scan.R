@@ -80,6 +80,8 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("                  Polar scan (class scan)\n\n")
   cat("     parameters: ", names(x$params), "\n")
   cat("elevation angle: ", x$attributes$where$elangle, "deg\n")
-  cat("           dims: ", x$attributes$where$nbins, "bins x",
-      x$attributes$where$nrays, "rays\n")
+  cat(
+    "           dims: ", x$attributes$where$nbins, "bins x",
+    x$attributes$where$nrays, "rays\n"
+  )
 }

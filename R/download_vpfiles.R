@@ -9,8 +9,11 @@
 #' @importFrom RCurl getBinaryURL
 check_url_existence <- function(url) {
   z <- ""
-  tryCatch(z <- getBinaryURL(url, failonerror = TRUE) ,
-           error = function(e) {print(paste("no data available at URL",  url))})
+  tryCatch(z <- getBinaryURL(url, failonerror = TRUE),
+    error = function(e) {
+      print(paste("no data available at URL", url))
+    }
+  )
   return(z)
 }
 
@@ -46,31 +49,43 @@ download_vpfiles <- function(date_min, date_max, country, radar,
   # would exist)
   start <- floor_date(as_date(date_min, tz = NULL), "month")
   end <- floor_date(as_date(date_max, tz = NULL), "month")
-  dates_to_check <- seq(start, end, by = 'months')
+  dates_to_check <- seq(start, end, by = "months")
 
   # ZIP-file format preparation
   countryradar <- apply(expand.grid(country, radar), 1, paste, collapse = "")
   datestring_to_check <- format(dates_to_check, "%Y%m")
-  countryradardate <- apply(expand.grid(countryradar,
-                                        datestring_to_check, ".zip"), 1,
-                            paste, collapse = "")
+  countryradardate <- apply(expand.grid(
+    countryradar,
+    datestring_to_check, ".zip"
+  ), 1,
+  paste,
+  collapse = ""
+  )
   # PATH-format
-  countryradarpath <- apply(expand.grid(country, radar,
-                                        format(dates_to_check, "%Y")), 1,
-                            paste,
-                            collapse = "/")
+  countryradarpath <- apply(expand.grid(
+    country, radar,
+    format(dates_to_check, "%Y")
+  ), 1,
+  paste,
+  collapse = "/"
+  )
   # PATH-format as it will be represented locally
-  countryradardirectory <- apply(expand.grid(country, radar,
-                                             format(dates_to_check, "%Y/%m")),
-                                 1,
-                                 paste,
-                                 collapse = "/")
+  countryradardirectory <- apply(expand.grid(
+    country, radar,
+    format(dates_to_check, "%Y/%m")
+  ),
+  1,
+  paste,
+  collapse = "/"
+  )
   countryradardirectory <- file.path(directory, countryradardirectory)
 
   # combine base path (S3 location) with the potential data URLS
   base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
   urls <- paste(base_url, "/", countryradarpath, "/",
-                countryradardate, sep = "")
+    countryradardate,
+    sep = ""
+  )
 
   # Attempt download at predefined location
   for (i in 1:length(urls)) {
@@ -78,11 +93,13 @@ download_vpfiles <- function(date_min, date_max, country, radar,
     if (length(z) > 1) {
       print(paste("Downloading file", countryradardate[i]))
       curl_download(urls[i], file.path(directory, countryradardate[i]),
-                    quiet = FALSE)
+        quiet = FALSE
+      )
 
       # Unzip the downloaded archive to the common file structure
       unzip(file.path(directory, countryradardate[i]),
-            exdir = countryradardirectory[i])
+        exdir = countryradardirectory[i]
+      )
     }
   }
 }

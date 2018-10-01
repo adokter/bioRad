@@ -21,24 +21,29 @@
 #' select_vpfiles(my_directory, "2016-10-01", "2017-01-31", c("be"))
 select_vpfiles <- function(directory, date_min, date_max, country = NULL,
                            radar = NULL) {
-
-  if (is.null(country)) {country <- "([a-z]{2})"}
-  if (is.null(radar)) {radar <- "([a-z]{3})"}
+  if (is.null(country)) {
+    country <- "([a-z]{2})"
+  }
+  if (is.null(radar)) {
+    radar <- "([a-z]{3})"
+  }
 
   # create period of dates to check for
   start <- as_date(date_min, tz = NULL)
   end <- as_date(date_max, tz = NULL)
-  dates_to_check <- seq(start, end, by = 'days')
+  dates_to_check <- seq(start, end, by = "days")
 
   filelist <- dir(directory, recursive = TRUE)
 
   datestring_to_check <- format(dates_to_check, "%Y%m%d")
-  countryradar <- apply(expand.grid(country, radar), 1, paste,collapse = "")
-  countryradardate <- apply(expand.grid(countryradar, "_vp_",
-                                        datestring_to_check), 1, paste,
-                            collapse = "")
+  countryradar <- apply(expand.grid(country, radar), 1, paste, collapse = "")
+  countryradardate <- apply(expand.grid(
+    countryradar, "_vp_",
+    datestring_to_check
+  ), 1, paste,
+  collapse = ""
+  )
   match_filenames(filelist, paste(countryradardate, collapse = "|"))
-
 }
 
 #' Match a set of regex expression to a list of files

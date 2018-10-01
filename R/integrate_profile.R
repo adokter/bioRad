@@ -144,31 +144,37 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   if (is.na(alpha)) {
     cosfactor <- rep(1, length(index))
   } else {
-    cosfactor <- cos((get_quantity(x, "dd")[index] - alpha) * pi/180)
+    cosfactor <- cos((get_quantity(x, "dd")[index] - alpha) * pi / 180)
   }
   # multiply speeds by 3.6 to convert m/s to km/h
   mtr <- sum(get_quantity(x, "dens")[index] * cosfactor *
-               get_quantity(x, "ff")[index] * 3.6 * interval/1000, na.rm = TRUE)
+    get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
   rtr <- sum(get_quantity(x, "eta")[index] * cosfactor *
-               get_quantity(x, "ff")[index] * 3.6 * interval/1000, na.rm = TRUE)
-  vid <- sum(get_quantity(x, "dens")[index], na.rm = TRUE)*interval/1000
-  vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE)*interval/1000
-  height <- sum((get_quantity(x,"HGHT") + x$attributes$where$interval/2) *
-                  get_quantity(x, "dens")[index], na.rm = TRUE)/sum(
-                    get_quantity(x,"dens")[index],na.rm = TRUE)
+    get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
+  vid <- sum(get_quantity(x, "dens")[index], na.rm = TRUE) * interval / 1000
+  vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE) * interval / 1000
+  height <- sum((get_quantity(x, "HGHT") + x$attributes$where$interval / 2) *
+    get_quantity(x, "dens")[index], na.rm = TRUE) / sum(
+    get_quantity(x, "dens")[index],
+    na.rm = TRUE
+  )
   u <- sum(get_quantity(x, "u")[index] * get_quantity(x, "dens")[index],
-           na.rm = TRUE)/sum(get_quantity(x, "dens")[index], na.rm = TRUE)
-  v <- sum(get_quantity(x,"v")[index] * get_quantity(x,"dens")[index],
-           na.rm = TRUE)/sum(get_quantity(x, "dens")[index], na.rm = TRUE)
+    na.rm = TRUE
+  ) / sum(get_quantity(x, "dens")[index], na.rm = TRUE)
+  v <- sum(get_quantity(x, "v")[index] * get_quantity(x, "dens")[index],
+    na.rm = TRUE
+  ) / sum(get_quantity(x, "dens")[index], na.rm = TRUE)
   ff <- sqrt(u^2 + v^2)
-  dd <- (pi/2 - atan2(v, u)) * 180/pi
+  dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures not defined for a single profile:
   mt <- NA
   rt <- NA
   # prepare output
-  output <- data.frame(datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
-                       rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
-                       v = v, HGHT = height)
+  output <- data.frame(
+    datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
+    rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
+    v = v, HGHT = height
+  )
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
   attributes(output)$alt_min <- alt_min
@@ -192,15 +198,17 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
   }
   stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
 
-  output <- do.call(rbind, lapply(x, integrate_profile.vp, alt_min = alt_min,
-                                  alt_max = alt_max, alpha = alpha,
-                                  interval_max = interval_max))
+  output <- do.call(rbind, lapply(x, integrate_profile.vp,
+    alt_min = alt_min,
+    alt_max = alt_max, alpha = alpha,
+    interval_max = interval_max
+  ))
   class(output) <- c("vpi", "data.frame")
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$rcs <- rcs(x)
-  #TODO set lat/lon attributes
+  # TODO set lat/lon attributes
   return(output)
 }
 
@@ -217,40 +225,48 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   interval <- x$attributes$where$interval
   index <- which(x$heights >= alt_min & x$heights < alt_max)
   if (is.na(alpha)) {
-    cosfactor <- 1 + 0*get_quantity(x, "dd")[index,]
+    cosfactor <- 1 + 0 * get_quantity(x, "dd")[index, ]
   } else {
-    cosfactor <- cos((get_quantity(x, "dd")[index,] - alpha) * pi/180)
+    cosfactor <- cos((get_quantity(x, "dd")[index, ] - alpha) * pi / 180)
   }
   # multiply speeds by 3.6 to convert m/s to km/h
-  mtr <- colSums(cosfactor * get_quantity(x, "ff")[index,] * 3.6 *
-                   get_quantity(x, "dens")[index,],na.rm = TRUE) * interval/1000
-  rtr <- colSums(cosfactor * get_quantity(x, "ff")[index,] * 3.6 *
-                   get_quantity(x, "eta")[index,], na.rm = TRUE) * interval/1000
-  vid <- colSums(get_quantity(x, "dens")[index,], na.rm = TRUE) * interval/1000
-  vir <- colSums(get_quantity(x, "eta")[index,], na.rm = TRUE) * interval/1000
-  height <- colSums((x$heights[index] + x$attributes$where$interval/2) *
-                      get_quantity(x, "dens")[index,],
-                    na.rm = TRUE)/colSums(get_quantity(x, "dens")[index,],
-                                          na.rm = TRUE)
-  u <- colSums(get_quantity(x, "u")[index,] * get_quantity(x, "dens")[index,],
-               na.rm = TRUE)/colSums(get_quantity(x, "dens")[index,],
-                                     na.rm = TRUE)
-  v <- colSums(get_quantity(x, "v")[index,] * get_quantity(x, "dens")[index,],
-               na.rm = TRUE)/colSums(get_quantity(x, "dens")[index,],
-                                     na.rm = TRUE)
+  mtr <- colSums(cosfactor * get_quantity(x, "ff")[index, ] * 3.6 *
+    get_quantity(x, "dens")[index, ], na.rm = TRUE) * interval / 1000
+  rtr <- colSums(cosfactor * get_quantity(x, "ff")[index, ] * 3.6 *
+    get_quantity(x, "eta")[index, ], na.rm = TRUE) * interval / 1000
+  vid <- colSums(get_quantity(x, "dens")[index, ], na.rm = TRUE) * interval / 1000
+  vir <- colSums(get_quantity(x, "eta")[index, ], na.rm = TRUE) * interval / 1000
+  height <- colSums((x$heights[index] + x$attributes$where$interval / 2) *
+    get_quantity(x, "dens")[index, ],
+  na.rm = TRUE
+  ) / colSums(get_quantity(x, "dens")[index, ],
+    na.rm = TRUE
+  )
+  u <- colSums(get_quantity(x, "u")[index, ] * get_quantity(x, "dens")[index, ],
+    na.rm = TRUE
+  ) / colSums(get_quantity(x, "dens")[index, ],
+    na.rm = TRUE
+  )
+  v <- colSums(get_quantity(x, "v")[index, ] * get_quantity(x, "dens")[index, ],
+    na.rm = TRUE
+  ) / colSums(get_quantity(x, "dens")[index, ],
+    na.rm = TRUE
+  )
   ff <- sqrt(u^2 + v^2)
-  dd <- (pi/2 - atan2(v, u)) * 180/pi
+  dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures:
-  dt <- (c(0, x$timesteps) + c(x$timesteps, 0))/2
+  dt <- (c(0, x$timesteps) + c(x$timesteps, 0)) / 2
   dt <- pmin(interval_max, dt)
   # convert to hours
-  dt <- as.numeric(dt)/3600
+  dt <- as.numeric(dt) / 3600
   mt <- cumsum(dt * mtr)
   rt <- cumsum(dt * rtr)
   # prepare output
-  output <- data.frame(datetime = x$dates, mtr = mtr, vid = vid, vir = vir,
-                       rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
-                       v = v, HGHT = height)
+  output <- data.frame(
+    datetime = x$dates, mtr = mtr, vid = vid, vir = vir,
+    rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
+    v = v, HGHT = height
+  )
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
   attributes(output)$alt_min <- alt_min

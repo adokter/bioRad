@@ -1,5 +1,5 @@
 # environment for storing dynamic package flags
-.pkgenv <- new.env(parent=emptyenv())
+.pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
   has_docker <- (check_docker(verbose = FALSE) == 0)
@@ -12,13 +12,15 @@
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage(paste("Welcome to",pkgname,"version",packageVersion(pkgname)))
+  packageStartupMessage(paste("Welcome to", pkgname, "version", packageVersion(pkgname)))
   if (!.pkgenv$docker) {
-    msg <- paste("Warning: no running Docker daemon found\n",
-                 "Warning:", pkgname,"functionality requiring Docker has been disabled\n\n",
-                 "To enable Docker functionality,",
-                 "start Docker and run 'check_docker()' in R")
-    msg <- paste(strwrap(msg), collapse="\n")
+    msg <- paste(
+      "Warning: no running Docker daemon found\n",
+      "Warning:", pkgname, "functionality requiring Docker has been disabled\n\n",
+      "To enable Docker functionality,",
+      "start Docker and run 'check_docker()' in R"
+    )
+    msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)
   } else {
     packageStartupMessage("Docker daemon running, Docker functionality enabled.")

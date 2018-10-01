@@ -56,8 +56,10 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
       param <- names(x$data)[1]
     }
   } else if (!is.character(param)) {
-    stop("'param' should be a character string with a valid scan",
-         "parameter name")
+    stop(
+      "'param' should be a character string with a valid scan",
+      "parameter name"
+    )
   }
 
   if (missing(zlim)) {
@@ -65,7 +67,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   }
   colorscale <- color_scale_fill(param, zlim)
   # extract the scan parameter
-  y <- NULL #dummy asignment to suppress devtools check warning
+  y <- NULL # dummy asignment to suppress devtools check warning
   data <- do.call(function(y) x$data[y], list(param))
   # convert to points
   data <- data.frame(rasterToPoints(raster(data)))
@@ -74,19 +76,19 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   if (length(index) > 0) {
     data[index, 3] <- zlim[1]
   }
-  index <- which(data[,3] > zlim[2])
+  index <- which(data[, 3] > zlim[2])
   if (length(index) > 0) {
     data[index, 3] <- zlim[2]
   }
   # plot
   if (missing(xlim)) {
-    xlim <- x$data@bbox[1,]
+    xlim <- x$data@bbox[1, ]
   }
   if (missing(ylim)) {
-    ylim <- x$data@bbox[2,]
+    ylim <- x$data@bbox[2, ]
   }
   bbox <- coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
-  ggplot(data = data,...) +
+  ggplot(data = data, ...) +
     geom_raster(aes(x, y, fill = eval(parse(text = param)))) +
     colorscale +
     bbox

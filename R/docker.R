@@ -8,18 +8,26 @@
 #' @return 0 upon success, otherwise an error code.
 check_docker <- function(verbose = TRUE) {
   if (.Platform$OS.type == "unix") {
-    system("docker rm -f hello-world", ignore.stderr = TRUE,
-           ignore.stdout = TRUE)
+    system("docker rm -f hello-world",
+      ignore.stderr = TRUE,
+      ignore.stdout = TRUE
+    )
     result <- system("docker run --name hello-world hello-world",
-                     ignore.stderr = !verbose, ignore.stdout = !verbose)
-  } else{
+      ignore.stderr = !verbose, ignore.stdout = !verbose
+    )
+  } else {
     suppressWarnings(
-                system("docker rm -f hello-world", ignore.stderr = TRUE,
-                       ignore.stdout = TRUE, show.output.on.console = FALSE))
+      system("docker rm -f hello-world",
+        ignore.stderr = TRUE,
+        ignore.stdout = TRUE, show.output.on.console = FALSE
+      )
+    )
     result <- suppressWarnings(
-                system("docker run --name hello-world hello-world",
-                       ignore.stderr = !verbose, ignore.stdout = !verbose,
-                       show.output.on.console = TRUE))
+      system("docker run --name hello-world hello-world",
+        ignore.stderr = !verbose, ignore.stdout = !verbose,
+        show.output.on.console = TRUE
+      )
+    )
   }
   .pkgenv$docker <- (result == 0)
   .pkgenv$mounted <- FALSE
@@ -46,14 +54,17 @@ update_docker <- function() {
     if (result == 0) {
       creationDate <- system(
         "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
-        intern = TRUE)
+        intern = TRUE
+      )
     }
-  } else{
+  } else {
     result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
     if (result == 0) {
       creationDate <- suppressWarnings(
         system("docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
-               intern = TRUE))
+          intern = TRUE
+        )
+      )
     }
   }
   if (!is.null(creationDate)) {
@@ -76,32 +87,41 @@ mount_docker_container <- function(mount = "~/") {
     system("docker rm -f vol2bird", ignore.stderr = TRUE, ignore.stdout = TRUE)
   } else {
     suppressWarnings(system("docker rm -f vol2bird",
-                            ignore.stderr = TRUE, ignore.stdout = TRUE,
-                            show.output.on.console = FALSE))
+      ignore.stderr = TRUE, ignore.stdout = TRUE,
+      show.output.on.console = FALSE
+    ))
   }
   # fire up the container:
   if (.Platform$OS.type == "unix") {
     result <- system(
-        paste("docker run -v ",
-              normalizePath(mount,
-                            winslash = "/"),
-              ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
-              sep = ""), ignore.stdout = TRUE)
+      paste("docker run -v ",
+        normalizePath(mount,
+          winslash = "/"
+        ),
+        ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
+        sep = ""
+      ),
+      ignore.stdout = TRUE
+    )
   } else {
     result <- suppressWarnings(system(
       paste("docker run -v ",
-            normalizePath(mount, winslash = "/"),
-            ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
-            sep = ""),
-      ignore.stdout = TRUE, show.output.on.console = FALSE))
+        normalizePath(mount, winslash = "/"),
+        ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
+        sep = ""
+      ),
+      ignore.stdout = TRUE, show.output.on.console = FALSE
+    ))
   }
   if (result != 0) {
-    warning(paste("failed to mount", mount, "... Go to 'Docker -> preferences",
-                  "-> File Sharing' and add this directory (or its root",
-                  "directory) as a bind mounted directory"))
-    } else{
-      .pkgenv$mounted <- (result == 0)
-      .pkgenv$mount <- mount
-    }
+    warning(paste(
+      "failed to mount", mount, "... Go to 'Docker -> preferences",
+      "-> File Sharing' and add this directory (or its root",
+      "directory) as a bind mounted directory"
+    ))
+  } else {
+    .pkgenv$mounted <- (result == 0)
+    .pkgenv$mount <- mount
+  }
   return(result)
 }

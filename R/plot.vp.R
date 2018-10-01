@@ -28,20 +28,22 @@
 #' plot(example_vp)
 #' plot(example_vp, line_col = "blue")
 plot.vp <- function(x, quantity = "dens",
-                    xlab = expression("volume density [#/km"^3*"]"),
-                    ylab = "height [km]", line_col = 'red',
-                    line_lwd = 1, line.col = 'red', line.lwd = 1, ...) {
+                    xlab = expression("volume density [#/km"^3 * "]"),
+                    ylab = "height [km]", line_col = "red",
+                    line_lwd = 1, line.col = "red", line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
 
   # deprecate function argument
   if (!missing(line.col)) {
     warning("argument line.col is deprecated; please use line_col instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     line_col <- line.col
   }
   if (!missing(line.lwd)) {
     warning("argument line.lwd is deprecated; please use line_lwd instead.",
-            call. = FALSE)
+      call. = FALSE
+    )
     line_lwd <- line.lwd
   }
 
@@ -50,31 +52,32 @@ plot.vp <- function(x, quantity = "dens",
   }
   # set up the plot labels
   if (missing(xlab)) {
-    xlab = switch(quantity,
-                   "u" = "W->E ground speed component U [m/s]",
-                   "v" = "N->S ground speed component V [m/s]",
-                   "w" = "vertical speed W [m/s]",
-                   "ff" = "ground speed [m/s]",
-                   "dd" = "ground speed direction [deg]",
-                   "sd_vvp" = "VVP-retrieved radial velocity standard deviation [m/s]",
-                   "head_bl" = "heading baseline [unitless]",
-                   "head_ff" = "heading amplitude [unitless]",
-                   "head_dd" = "heading direction [deg]",
-                   "head_sd" = "heading standard deviation [unitless]",
-                   "dbz" = expression("reflectivity factor [dBZ"[e] * "]"),
-                   "dens" = expression("volume density [#/km"^3*"]"),
-                   "eta" = expression("reflectivity "*eta*" [cm"^2*"/km"^3*"]"),
-                   "DBZH" = expression("total reflectivity factor [dBZ"[e] * "]"),
-                   "gap" = "Angular data gap detected [logical]",
-                   "n" = "# range gates in VVP velocity analysis",
-                   "n_all" = "# range gates in sd_vvp estimate",
-                   "n_dbz" = "# range gates in density estimates",
-                   "n_dbz_all" = "# range gates in DBZH estimate",
-                   quantity)
+    xlab <- switch(quantity,
+      "u" = "W->E ground speed component U [m/s]",
+      "v" = "N->S ground speed component V [m/s]",
+      "w" = "vertical speed W [m/s]",
+      "ff" = "ground speed [m/s]",
+      "dd" = "ground speed direction [deg]",
+      "sd_vvp" = "VVP-retrieved radial velocity standard deviation [m/s]",
+      "head_bl" = "heading baseline [unitless]",
+      "head_ff" = "heading amplitude [unitless]",
+      "head_dd" = "heading direction [deg]",
+      "head_sd" = "heading standard deviation [unitless]",
+      "dbz" = expression("reflectivity factor [dBZ"[e] * "]"),
+      "dens" = expression("volume density [#/km"^3 * "]"),
+      "eta" = expression("reflectivity " * eta * " [cm"^2 * "/km"^3 * "]"),
+      "DBZH" = expression("total reflectivity factor [dBZ"[e] * "]"),
+      "gap" = "Angular data gap detected [logical]",
+      "n" = "# range gates in VVP velocity analysis",
+      "n_all" = "# range gates in sd_vvp estimate",
+      "n_dbz" = "# range gates in density estimates",
+      "n_dbz_all" = "# range gates in DBZH estimate",
+      quantity
+    )
   }
   print(xlab)
   # extract the data from the time series object
   pdat <- get_quantity(x, quantity)
-  plot(pdat, x$data$HGHT/1000, xlab = xlab, ylab = ylab, ...)
-  points(pdat, x$data$HGHT/1000, col = line_col, lwd = line_lwd, type = "l")
+  plot(pdat, x$data$HGHT / 1000, xlab = xlab, ylab = ylab, ...)
+  points(pdat, x$data$HGHT / 1000, col = line_col, lwd = line_lwd, type = "l")
 }

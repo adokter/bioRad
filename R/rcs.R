@@ -31,7 +31,7 @@ rcs.list <- function(x) {
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  output = sapply(x, `rcs.vp`)
+  output <- sapply(x, `rcs.vp`)
   output
 }
 
@@ -74,7 +74,7 @@ rcs.vpi <- function(x) {
 `rcs<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
   x$attributes$how$rcs_bird <- value
-  x$data$dens <- x$data$eta/value
+  x$data$dens <- x$data$eta / value
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
@@ -93,8 +93,8 @@ rcs.vpi <- function(x) {
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  output <- lapply(x,`rcs<-.vp`, value = value)
-  class(output) = c("list")
+  output <- lapply(x, `rcs<-.vp`, value = value)
+  class(output) <- c("list")
   output
 }
 
@@ -104,7 +104,7 @@ rcs.vpi <- function(x) {
 `rcs<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
   x$attributes$how$rcs_bird <- value
-  x$data$dens <- x$data$eta/value
+  x$data$dens <- x$data$eta / value
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
@@ -121,7 +121,7 @@ rcs.vpi <- function(x) {
 `rcs<-.vpi` <- function(x, value) {
   stopifnot(inherits(x, "vpi"))
   attributes(x)$rcs <- value
-  x$mtr <- x$rtr/value
-  x$vid <- x$vir/value
+  x$mtr <- x$rtr / value
+  x$vid <- x$vir / value
   x
 }
