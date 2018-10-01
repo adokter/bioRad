@@ -82,7 +82,7 @@ defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
 }
 \description{
 Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
-using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird}
+using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 }
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon.
