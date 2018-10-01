@@ -99,7 +99,6 @@ _The gray bars in the plot indicate gaps in the data._
 The altitudes in the profile can be integrated with `integrate_profile()` resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity _migration traffic rate_ (column `mtr`) with `plot()`:
 
 ```{r plot_vpi, warning = FALSE, message = FALSE}
-# Note: integrated profiles are regularized automatically
 my_vpi <- integrate_profile(example_vpts)
 
 plot(my_vpi, quantity = "mtr") # mtr = migration traffic rate

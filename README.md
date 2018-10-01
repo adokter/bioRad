@@ -94,7 +94,6 @@ example_vpts %>%
 The altitudes in the profile can be integrated with `integrate_profile()` resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity *migration traffic rate* (column `mtr`) with `plot()`:
 
 ``` r
-# Note: integrated profiles are regularized automatically
 my_vpi <- integrate_profile(example_vpts)
 
 plot(my_vpi, quantity = "mtr") # mtr = migration traffic rate
