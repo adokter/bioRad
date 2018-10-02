@@ -66,7 +66,7 @@ dim.ppi <- function(x) {
 
 #' Subset a plan position indicator (\code{ppi})
 #'
-#' Subset the quantities of a ppi by index from a ppi
+#' Select quantities by index from a \code{ppi}
 #'
 #' @param x An object of class \code{param} or \code{scan}.
 #' @param i Indices specifying elements to extract.

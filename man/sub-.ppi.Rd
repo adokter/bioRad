@@ -12,7 +12,7 @@
 \item{i}{Indices specifying elements to extract.}
 }
 \description{
-Subset the quantities of a ppi by index from a ppi
+Select quantities by index from a \code{ppi}
 }
 \examples{
 # make a ppi:
