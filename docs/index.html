@@ -160,7 +160,7 @@
 <div id="vertical-profile-data-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#vertical-profile-data-example" class="anchor"></a>Vertical profile data example</h3>
-<p>Weather radar data can be processed into vertical profiles of biological targets using <code><a href="reference/calculate_vp.html">calculate_vp()</a></code>. This type of data is <a href="https://registry.opendata.aws/noaa-nexrad/">available as open data</a> for over 100 European weather radars.</p>
+<p>Weather radar data can be processed into vertical profiles of biological targets using <code><a href="reference/calculate_vp.html">calculate_vp()</a></code>. This type of data is <a href="https://enram.github.io/data-repository">available as open data</a> for over 100 European weather radars.</p>
 <p>Once vertical profile data are loaded into bioRad, these can be bound into time series using <code><a href="reference/bind_into_vpts.html">bind_into_vpts()</a></code>. Here we read an example time series, project it on a regular time grid with <code><a href="reference/regularize_vpts.html">regularize_vpts()</a></code> and plot it with <code>plot()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">example_vpts %&gt;%
 <span class="st">  </span><span class="kw"><a href="reference/regularize_vpts.html">regularize_vpts</a></span>() %&gt;%
@@ -178,7 +178,7 @@
 <span class="st">  </span><span class="kw">pull</span>(mt) %&gt;%<span class="st"> </span><span class="co"># Extract column mt as a vector</span>
 <span class="st">  </span><span class="kw">last</span>()
 <span class="co">#&gt; [1] 173023.8</span></code></pre>
-<p>For more exercises, see <a href="https://adokter.github;io/bioRad/articles/functionality_overview.html">this tutorial</a>.</p>
+<p>For more exercises, see <a href="https://adokter.github.io/bioRad/articles/functionality_overview.html">this tutorial</a>.</p>
 </div>
 </div>
 <div id="meta" class="section level2">
