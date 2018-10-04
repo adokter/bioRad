@@ -320,7 +320,7 @@ as possible.</p>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 
 <span class='co'># copy to a home directory with read/write permissions:</span>
-<span class='fu'>file.copy</span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'>file.copy</span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 # calculate the profile:
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>profile</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_vp</span>(<span class='st'>"~/volume.h5"</span>)

@@ -229,7 +229,7 @@ mt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
     "of `integrate_profile()` as column 'mt'."
   ))
   stopifnot(inherits(x, "vpts"))
-  cmt(x, alt.min, alt.max, alpha, interval.max)[ncol(x)]
+  cmt(x, alt.min, alt.max, alpha, interval.max)[ncol(x),2]
 }
 
 #' Migration traffic rate
@@ -378,7 +378,7 @@ cmt <- function(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf) {
     alt_min = alt.min, alt_max = alt.max,
     alpha = alpha, interval_max = interval.max
   )
-  vintegrated$mt
+  data.frame(datetime=vintegrated$datetime,mt=vintegrated$mt)
 }
 
 #' @section night:
