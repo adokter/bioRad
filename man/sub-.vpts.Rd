@@ -12,7 +12,8 @@
 \item{i}{Indices specifying elements to extract.}
 }
 \description{
-Extract a profile or a time series of profiles by index from a vpts
+Select a vertical profile (\code{vp}) or a time series of vertical profiles
+(\code{vpts}) by index from a \code{vpts}
 }
 \examples{
 # we start with the example vertical profile time series:

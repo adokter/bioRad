@@ -79,7 +79,8 @@ dim.vpts <- function(x) {
 
 #' Subset a time series of vertical profiles (\code{vpts})
 #'
-#' Extract a profile or a time series of profiles by index from a vpts
+#' Select a vertical profile (\code{vp}) or a time series of vertical profiles
+#' (\code{vpts}) by index from a \code{vpts}
 #'
 #' @param x Object of class \code{vpts}.
 #' @param i Indices specifying elements to extract.
