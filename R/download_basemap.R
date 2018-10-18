@@ -9,6 +9,7 @@
 #'   ppi extent is selected automatically.
 #' @param alpha Transparency of the basemap (0-1).
 #' @param verbose Logical, whether to print information to console.
+#' @param source "google","osm", "stamen". If source != google, adapt location to provide boundingbox instead of center.
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
 #' for selection of different types of basemaps.s
 #'
@@ -32,9 +33,15 @@
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
-download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...) {
+download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source, ...) {
   stopifnot(inherits(x, "ppi"))
 
+  if (source != "google") {
+    location_box = c(left = x$geo$bbox["lon","min"] , bottom = x$geo$bbox["lat","min"], right = x$geo$bbox["lon","max"], top = x$geo$bbox["lat","max"])
+  } else {
+    location_center = c(lon = mean(x$geo$bbox["lon", ]), lat = mean(x$geo$bbox["lat", ]))
+  }
+  
   if (!missing(zoom)) {
     if (!is.numeric(zoom)) {
       stop("zoom should be a numeric integer")
@@ -50,13 +57,21 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...) {
   if (verbose) {
     cat("Downloading zoom =", use_zoom, "...\n")
   }
-  map <- get_map(
-    location = c(
-      lon = mean(x$geo$bbox["lon", ]),
-      lat = mean(x$geo$bbox["lat", ])
-    ),
-    zoom = use_zoom, ...
-  )
+  
+  if (source != "google"){
+    map <- get_map(
+      location = location_box,
+      zoom = use_zoom,
+      source = source,
+      ...)
+  } else {
+    map <- get_map(
+      location = location_center,
+      zoom = use_zoom, 
+      source = source,
+      ...)
+  }
+  
   bboxmap <- attributes(map)$bb
 
   if ((x$geo$bbox["lon", "max"] - x$geo$bbox["lon", "min"] >
@@ -67,13 +82,21 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...) {
       if (verbose) {
         cat("Map too small, downloading zoom =", use_zoom - 1, "...\n")
       }
-      map <- get_map(
-        location = c(
-          lon = mean(x$geo$bbox["lon", ]),
-          lat = mean(x$geo$bbox["lat", ])
-        ),
-        zoom = use_zoom - 1, ...
-      )
+      
+      if (source != "google"){
+        map <- get_map(
+          location = location_box,
+          zoom = use_zoom,
+          source = source,
+          ...)
+      } else {
+        map <- get_map(
+          location = location_center,
+          zoom = use_zoom, 
+          source = source,
+          ...)
+      }
+      
       bboxmap <- attributes(map)$bb
       if ((x$geo$bbox["lon", "max"] - x$geo$bbox["lon", "min"] >
         bboxmap$ur.lon - bboxmap$ll.lon) ||
@@ -82,13 +105,20 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, ...) {
         if (verbose) {
           cat("Map still too small, downloading zoom =", use_zoom - 2, "...\n")
         }
-        map <- get_map(
-          location = c(
-            lon = mean(x$geo$bbox["lon", ]),
-            lat = mean(x$geo$bbox["lat", ])
-          ),
-          zoom = use_zoom - 2, ...
-        )
+        
+        if (source != "google"){
+          map <- get_map(
+            location = location_box,
+            zoom = use_zoom,
+            source = source,
+            ...)
+        } else {
+          map <- get_map(
+            location = location_center,
+            zoom = use_zoom, 
+            source = source,
+            ...)
+        }
       }
     } else {
       warning("Map is smaller than ppi bounding box.")
