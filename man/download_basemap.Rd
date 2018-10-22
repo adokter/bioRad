@@ -4,7 +4,8 @@
 \alias{download_basemap}
 \title{Download a basemap for \code{map(ppi)}}
 \usage{
-download_basemap(x, verbose = TRUE, zoom, alpha = 1, ...)
+download_basemap(x, verbose = TRUE, zoom, alpha = 1,
+  source = "stamen", ...)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}
@@ -16,6 +17,8 @@ from 3 (continent) to 21 (building). By default the zoom level matching the
 ppi extent is selected automatically.}
 
 \item{alpha}{Transparency of the basemap (0-1).}
+
+\item{source}{String identifying which map service should be used: "google", "osm" or "stamen"}
 
 \item{...}{Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
 for selection of different types of basemaps.s}

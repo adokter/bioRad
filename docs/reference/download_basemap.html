@@ -64,7 +64,7 @@ layer map using get_map." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9160</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9163</span>
       </span>
     </div>
 
@@ -130,7 +130,8 @@ layer map using <a href='http://www.rdocumentation.org/packages/ggmap/topics/get
     
     </div>
 
-    <pre class="usage"><span class='fu'>download_basemap</span>(<span class='no'>x</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>zoom</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>download_basemap</span>(<span class='no'>x</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>zoom</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"stamen"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +153,10 @@ ppi extent is selected automatically.</p></td>
     <tr>
       <th>alpha</th>
       <td><p>Transparency of the basemap (0-1).</p></td>
+    </tr>
+    <tr>
+      <th>source</th>
+      <td><p>String identifying which map service should be used: "google", "osm" or "stamen"</p></td>
     </tr>
     <tr>
       <th>...</th>

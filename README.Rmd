@@ -43,6 +43,12 @@ Then load the package with:
 library(bioRad)
 ```
 
+### _Attention!_ 
+
+Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing), and __ggmap__ - the package used by bioRad to overlay radar scans on maps -  now requires users to provide an API key _and_ enable billing in order to use Google imagery. bioRad switched to using [stamen](http://maps.stamen.com/) maps by default, which do not require special credentials.
+
+__ggmap__ itself is outdated on CRAN; its developers hope to have the new version up on CRAN soon, but until then, see [ggmap Github page](https://github.com/dkahle/ggmap/) for how to install the latest development version.
+
 ### Docker (optional)
 
 You only need to install Docker to:
