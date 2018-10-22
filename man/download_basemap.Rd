@@ -4,7 +4,8 @@
 \alias{download_basemap}
 \title{Download a basemap for \code{map(ppi)}}
 \usage{
-download_basemap(x, verbose = TRUE, zoom, alpha = 1, source, ...)
+download_basemap(x, verbose = TRUE, zoom, alpha = 1,
+  source = "stamen", ...)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}
