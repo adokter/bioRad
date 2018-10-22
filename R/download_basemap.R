@@ -33,7 +33,7 @@
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
-download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source, ...) {
+download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", ...) {
 
   stopifnot(inherits(x, "ppi"))
 
