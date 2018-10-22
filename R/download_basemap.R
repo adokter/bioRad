@@ -34,7 +34,10 @@
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source, ...) {
+
   stopifnot(inherits(x, "ppi"))
+
+
 
   if (source != "google") {
     location = c(left = x$geo$bbox["lon","min"] , bottom = x$geo$bbox["lat","min"], right = x$geo$bbox["lon","max"], top = x$geo$bbox["lat","max"])
@@ -60,7 +63,9 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source, ...) {
   }
   map <- get_map(
     location = location,
-    zoom = use_zoom, ...
+    zoom = use_zoom,
+    source = source,
+    ...
   )
   bboxmap <- attributes(map)$bb
 
@@ -74,7 +79,9 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source, ...) {
       }
       map <- get_map(
         location = location,
-        zoom = use_zoom - 1, ...
+        zoom = use_zoom - 1,
+        source = source,
+        ...
       )
       bboxmap <- attributes(map)$bb
       if ((x$geo$bbox["lon", "max"] - x$geo$bbox["lon", "min"] >
@@ -86,7 +93,9 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source, ...) {
         }
         map <- get_map(
           location = location,
-          zoom = use_zoom - 2, ...
+          zoom = use_zoom - 2,
+          source = source,
+          ...
         )
       }
     } else {
