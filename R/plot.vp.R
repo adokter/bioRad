@@ -75,7 +75,6 @@ plot.vp <- function(x, quantity = "dens",
       quantity
     )
   }
-  print(xlab)
   # extract the data from the time series object
   pdat <- get_quantity(x, quantity)
   plot(pdat, x$data$HGHT / 1000, xlab = xlab, ylab = ylab, ...)
