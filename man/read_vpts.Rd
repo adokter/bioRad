@@ -13,7 +13,8 @@ by vol2bird (or the package function \code{calculate_vp}).}
 \item{radar}{A string containing a radar identifier.}
 
 \item{wavelength}{Radar wavelength in cm, or one of 'C' or 'S' for C-band
-and S-band radar, respectively.}
+and S-band radar, respectively, in which case C-band wavelength is assumed
+to be 5.3 cm and S-band wavelength 10.6 cm}
 }
 \value{
 An object inhereting from class \code{vpts}, see

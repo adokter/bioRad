@@ -12,7 +12,8 @@ by UMASS Cajun pipeline}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
-\item{wavelength}{Radar wavelength in cm, or one of 'C' or 'S' for C-band and S-band radar, respectively.}
+\item{wavelength}{Radar wavelength in cm, or one of 'C' or 'S' for C-band and S-band radar, respectively,
+in which case C-band wavelength is assumed to be 5.3 cm and S-band wavelength 10.6 cm}
 }
 \value{
 An object inhereting from class \code{vp}, see
