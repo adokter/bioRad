@@ -21,5 +21,5 @@ package \pkg{bioRad}
 }
 \examples{
 volume <- system.file("extdata", "volume.h5", package = "bioRad")
-is.pvolfile(volume)   #> TRUE
+is.pvolfile(volume) # > TRUE
 }

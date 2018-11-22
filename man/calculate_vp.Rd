@@ -154,7 +154,9 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 file.copy(pvolfile, "~/volume.h5")
 
 # calculate the profile:
-\dontrun{profile <- calculate_vp("~/volume.h5")}
+\dontrun{
+profile <- calculate_vp("~/volume.h5")
+}
 
 # clean up:
 file.remove("~/volume.h5")

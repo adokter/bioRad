@@ -55,5 +55,5 @@ plot(ppi)
 # plot the reflectivity parameter:
 plot(ppi, param = "DBZH")
 # change the range of reflectivities to plot to -30 to 50 dBZ:
-plot(ppi, param = "DBZH",zlim = c(-30, 50))
+plot(ppi, param = "DBZH", zlim = c(-30, 50))
 }
