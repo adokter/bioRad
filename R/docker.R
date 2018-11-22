@@ -62,18 +62,17 @@ update_docker <- function() {
     if (result == 0) {
       creationDate <- suppressWarnings(system(
         "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
-          intern = TRUE
-        )
-      )
+        intern = TRUE
+      ))
     }
   }
   if (!is.null(creationDate)) {
     # docker reports time stamps in Zulu (UTC) time
-    creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T",tz='UTC')
+    creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
   }
-  if(result == 0){
+  if (result == 0) {
     # to initialize new container.
-    check_docker(verbose=FALSE)
+    check_docker(verbose = FALSE)
   }
   return(creationDate)
 }

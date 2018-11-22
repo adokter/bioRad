@@ -41,8 +41,12 @@ check_url_existence <- function(url) {
 #'
 #' @examples
 #' my_path <- "~/my/directory/"
-#' \dontrun{download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-#' c("jab", "wid"), directory = my_path)}
+#' \dontrun{
+#' download_vpfiles("2016-10-01", "2016-11-30", c("be"),
+#'   c("jab", "wid"),
+#'   directory = my_path
+#' )
+#' }
 download_vpfiles <- function(date_min, date_max, country, radar,
                              directory = ".") {
   # create date range set of potential downloadable zip files (if all data
