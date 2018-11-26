@@ -64,7 +64,7 @@ vertical profiles) with name example_vpts." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9163</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9166</span>
       </span>
     </div>
 
@@ -148,8 +148,8 @@ vertical profiles) with name <code>example_vpts</code>.</p>
 # example_vpts was created with:
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-<span class='fu'>unzip</span>(<span class='no'>vptsfile</span>,<span class='fu'>exdir</span>(<span class='fu'>dirname</span>(<span class='no'>vptsfile</span>)),<span class='kw'>junkpaths</span><span class='kw'>=</span><span class='no'>T</span>)
-<span class='no'>vptsfile</span><span class='kw'>=</span><span class='fu'>substr</span>(<span class='no'>vptsfile</span>,<span class='fl'>1</span>,<span class='fu'>nchar</span>(<span class='no'>vptsfile</span>)-<span class='fl'>4</span>)
+<span class='fu'>unzip</span>(<span class='no'>vptsfile</span>, <span class='fu'>exdir</span>(<span class='fu'>dirname</span>(<span class='no'>vptsfile</span>)), <span class='kw'>junkpaths</span> <span class='kw'>=</span> <span class='no'>T</span>)
+<span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'>substr</span>(<span class='no'>vptsfile</span>, <span class='fl'>1</span>, <span class='fu'>nchar</span>(<span class='no'>vptsfile</span>) - <span class='fl'>4</span>)
 <span class='no'>example_vpts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_vpts.html'>read_vpts</a></span>(<span class='no'>vptsfile</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
 <span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lat</span> <span class='kw'>&lt;-</span> <span class='fl'>42.2</span>

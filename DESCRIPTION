@@ -1,6 +1,6 @@
 Package: bioRad
 Title: Biological analysis and visualization of weather radar data
-Version: 0.3.0.9163
+Version: 0.3.0.9166
 Description: bioRad aims to provide standardized methods for extracting and 
     reporting biological signals from weather radars. It includes functionality 
     to inspect low‐level radar data, process these data into meaningful 
@@ -44,4 +44,4 @@ Suggests:
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

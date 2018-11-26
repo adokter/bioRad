@@ -4,7 +4,7 @@
 #' by vol2bird (or the package function \code{calculate_vp}).
 #' @param radar A string containing a radar identifier.
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
-#' and S-band radar, respectively, in which case C-band wavelenvth is assumed
+#' and S-band radar, respectively, in which case C-band wavelength is assumed
 #' to be 5.3 cm and S-band wavelength 10.6 cm
 #'
 #' @return An object inhereting from class \code{vpts}, see
@@ -16,7 +16,7 @@
 #' # locate example file:
 #' vptszipfile <- system.file("extdata", "vpts.txt.zip", package = "bioRad")
 #' \dontrun{
-#' unzip(vptszipfile,"your/directory/and/file/name.txt")
+#' unzip(vptszipfile, "your/directory/and/file/name.txt")
 #' # load time series:
 #' ts <- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")
 #' ts

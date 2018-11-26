@@ -26,7 +26,7 @@
 #' data. Empty profiles with only missing data values will be inserted at
 #' time stamps of the regular time grid that have no matching profile in the
 #' irregular time series.
-#' 
+#'
 #' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
 #' time series data points in the plot are carried through until the time series

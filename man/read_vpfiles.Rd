@@ -19,8 +19,12 @@ Read a vertical profile (\code{vp}) or a list of vertical profiles
 (\code{vp}) from files
 }
 \examples{
-\dontrun{read_vpfiles("my/path/profile1.h5")}
-\dontrun{read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))}
+\dontrun{
+read_vpfiles("my/path/profile1.h5")
+}
+\dontrun{
+read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
+}
 
 # locate example profile file:
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")

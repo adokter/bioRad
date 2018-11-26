@@ -10,7 +10,7 @@
 #' @export
 #' @examples
 #' # load a polar volume
-#' pvol <- system.file("extdata", "volume.h5", package="bioRad")
+#' pvol <- system.file("extdata", "volume.h5", package = "bioRad")
 #' vol <- read_pvolfile(pvol)
 #' # elevations for the scans in the volume
 #' get_elevation_angles(vol)

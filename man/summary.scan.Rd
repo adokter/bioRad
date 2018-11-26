@@ -59,5 +59,5 @@ data(example_scan)
 example_scan$params
 # extract the first scan parameter:
 param <- example_scan$params[1]
-is.scan("this is not a polar scan but a string")  #> FALSE
+is.scan("this is not a polar scan but a string") # > FALSE
 }

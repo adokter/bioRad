@@ -60,15 +60,19 @@ update_docker <- function() {
   } else {
     result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
     if (result == 0) {
-      creationDate <- suppressWarnings(
-        system("docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
-          intern = TRUE
-        )
-      )
+      creationDate <- suppressWarnings(system(
+        "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
+        intern = TRUE
+      ))
     }
   }
   if (!is.null(creationDate)) {
-    creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T")
+    # docker reports time stamps in Zulu (UTC) time
+    creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
+  }
+  if (result == 0) {
+    # to initialize new container.
+    check_docker(verbose = FALSE)
   }
   return(creationDate)
 }

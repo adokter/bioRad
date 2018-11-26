@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9163</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0.9166</span>
       </span>
     </div>
 
@@ -145,7 +145,8 @@ by vol2bird (or the package function <code>calculate_vp</code>).</p></td>
     <tr>
       <th>wavelength</th>
       <td><p>Radar wavelength in cm, or one of 'C' or 'S' for C-band
-and S-band radar, respectively.</p></td>
+and S-band radar, respectively, in which case C-band wavelength is assumed
+to be 5.3 cm and S-band wavelength 10.6 cm</p></td>
     </tr>
     </table>
     
@@ -158,7 +159,7 @@ and S-band radar, respectively.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
 <span class='no'>vptszipfile</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)</div><span class='co'># NOT RUN {</span>
-<span class='fu'>unzip</span>(<span class='no'>vptszipfile</span>,<span class='st'>"your/directory/and/file/name.txt"</span>)
+<span class='fu'>unzip</span>(<span class='no'>vptszipfile</span>, <span class='st'>"your/directory/and/file/name.txt"</span>)
 <span class='co'># load time series:</span>
 <span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'>read_vpts</span>(<span class='st'>"your/directory/and/file/name.txt"</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
 <span class='no'>ts</span>

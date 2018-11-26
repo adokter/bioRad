@@ -20,6 +20,5 @@ package \pkg{bioRad}
 }
 \examples{
 profile <- system.file("extdata", "profile.h5", package = "bioRad")
-is.vpfile(profile)   #> TRUE
-
+is.vpfile(profile) # > TRUE
 }

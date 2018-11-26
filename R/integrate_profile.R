@@ -108,10 +108,10 @@
 #' @examples
 #' # MTR for a single vertical profile
 #' integrate_profile(example_vp)
-#'
+#' 
 #' # MTRs for a list of vertical profiles
 #' integrate_profile(c(example_vp, example_vp))
-#'
+#' 
 #' # MTRs for a time series of vertical profiles
 #' # load example data:
 #' data(example_vpts)

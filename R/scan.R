@@ -53,7 +53,7 @@ summary.scan <- function(object, ...) {
 #' @export
 #'
 #' @examples
-#' is.scan("this is not a polar scan but a string")  #> FALSE
+#' is.scan("this is not a polar scan but a string") # > FALSE
 is.scan <- function(x) {
   inherits(x, "scan")
 }

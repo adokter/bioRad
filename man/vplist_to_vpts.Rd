@@ -25,7 +25,7 @@ keeping backward compatibility with the \code{vpts} function.
 }
 \examples{
 \dontrun{
-vps <- read_vpfiles(c("my/path/profile1.h5","my/path/profile2.h5", ...))
+vps <- read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
 ts <- bind_into_vpts(vps)
 }
 }

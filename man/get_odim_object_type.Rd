@@ -19,5 +19,5 @@ Checks which data class is contained in ODIM HDF5 file
 \examples{
 # locate a polar volume file
 pvol <- system.file("extdata", "volume.h5", package = "bioRad")
-get_odim_object_type(pvol)   #> "pvol"
+get_odim_object_type(pvol) # > "pvol"
 }

@@ -53,7 +53,7 @@ summary.pvol <- function(object, ...) {
 #' @export
 #'
 #' @examples
-#' is.pvol("this is not a polar volume but a string")  #> FALSE
+#' is.pvol("this is not a polar volume but a string") # > FALSE
 is.pvol <- function(x) inherits(x, "pvol")
 
 

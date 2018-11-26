@@ -41,7 +41,7 @@ basemap <- download_basemap(ppi)
 map(ppi, map = basemap, param = "DBZH")
 # download a different type of basemap, e.g. satellite imagery:
 # see get_map() in ggmap library for full documentation of options
-basemap = download_basemap(ppi, maptype = "satellite")
+basemap <- download_basemap(ppi, maptype = "satellite")
 # map the radial velocities onto the satellite imagery:
 map(ppi, map = basemap, param = "VRADH")
 }

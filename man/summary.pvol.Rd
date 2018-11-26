@@ -54,5 +54,5 @@ vol
 vol$scans
 # copy the first scan to a new object 'scan'
 scan <- vol$scans[[1]]
-is.pvol("this is not a polar volume but a string")  #> FALSE
+is.pvol("this is not a polar volume but a string") # > FALSE
 }

@@ -29,20 +29,19 @@
 #' map(ppi, map = basemap, param = "DBZH")
 #' # download a different type of basemap, e.g. satellite imagery:
 #' # see get_map() in ggmap library for full documentation of options
-#' basemap = download_basemap(ppi, maptype = "satellite")
+#' basemap <- download_basemap(ppi, maptype = "satellite")
 #' # map the radial velocities onto the satellite imagery:
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", ...) {
-
   stopifnot(inherits(x, "ppi"))
 
 
 
   if (source != "google") {
-    location = c(left = x$geo$bbox["lon","min"] , bottom = x$geo$bbox["lat","min"], right = x$geo$bbox["lon","max"], top = x$geo$bbox["lat","max"])
+    location <- c(left = x$geo$bbox["lon", "min"], bottom = x$geo$bbox["lat", "min"], right = x$geo$bbox["lon", "max"], top = x$geo$bbox["lat", "max"])
   } else {
-    location = c(lon = mean(x$geo$bbox["lon", ]), lat = mean(x$geo$bbox["lat", ]))
+    location <- c(lon = mean(x$geo$bbox["lon", ]), lat = mean(x$geo$bbox["lat", ]))
   }
 
 
@@ -70,9 +69,9 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   bboxmap <- attributes(map)$bb
 
   if ((x$geo$bbox["lon", "max"] - x$geo$bbox["lon", "min"] >
-       bboxmap$ur.lon - bboxmap$ll.lon) ||
-      (x$geo$bbox["lat", "max"] - x$geo$bbox["lat", "min"] >
-       bboxmap$ur.lat - bboxmap$ll.lat)) {
+    bboxmap$ur.lon - bboxmap$ll.lon) ||
+    (x$geo$bbox["lat", "max"] - x$geo$bbox["lat", "min"] >
+      bboxmap$ur.lat - bboxmap$ll.lat)) {
     if (missing(zoom)) {
       if (verbose) {
         cat("Map too small, downloading zoom =", use_zoom - 1, "...\n")
@@ -85,9 +84,9 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
       )
       bboxmap <- attributes(map)$bb
       if ((x$geo$bbox["lon", "max"] - x$geo$bbox["lon", "min"] >
-           bboxmap$ur.lon - bboxmap$ll.lon) ||
-          (x$geo$bbox["lat", "max"] - x$geo$bbox["lat", "min"] >
-           bboxmap$ur.lat - bboxmap$ll.lat)) {
+        bboxmap$ur.lon - bboxmap$ll.lon) ||
+        (x$geo$bbox["lat", "max"] - x$geo$bbox["lat", "min"] >
+          bboxmap$ur.lat - bboxmap$ll.lat)) {
         if (verbose) {
           cat("Map still too small, downloading zoom =", use_zoom - 2, "...\n")
         }

@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit that file and knit -->
 bioRad <img src="man/figures/logo.png" align="right">
 =====================================================
 
@@ -30,9 +30,19 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.3.0
-#> Docker daemon running, Docker functionality enabled.
+#> Welcome to bioRad version 0.3.0.9163
+#> Warning: no running Docker daemon found Warning: bioRad
+#> functionality requiring Docker has been disabled
+#> 
+#> To enable Docker functionality, start Docker and run
+#> 'check_docker()' in R
 ```
+
+### *Attention!*
+
+Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing), and \*\*ggmap\*\_\_\*\* - the package used by bioRad to overlay radar scans on maps - now requires users to provide an API key *and* enable billing in order to use Google imagery. bioRad switched to using [stamen](http://maps.stamen.com/) maps by default, which do not require special credentials.
+
+**ggmap** itself is outdated on CRAN; its developers hope to have the new version up on CRAN soon, but until then, see [ggmap Github page](https://github.com/dkahle/ggmap/) for how to install the latest development version.
 
 ### Docker (optional)
 
@@ -76,7 +86,7 @@ system.file("extdata", "volume.h5", package = "bioRad") %>%
 
 ### Vertical profile data example
 
-Weather radar data can be processed into vertical profiles of biological targets using `calculate_vp()`. This type of data is [available as open data](https://registry.opendata.aws/noaa-nexrad/) for over 100 European weather radars.
+Weather radar data can be processed into vertical profiles of biological targets using `calculate_vp()`. This type of data is [available as open data](https://enram.github.io/data-repository) for over 100 European weather radars.
 
 Once vertical profile data are loaded into bioRad, these can be bound into time series using `bind_into_vpts()`. Here we read an example time series, project it on a regular time grid with `regularize_vpts()` and plot it with `plot()`:
 
@@ -110,7 +120,7 @@ my_vpi %>%
 #> [1] 173023.8
 ```
 
-For more exercises, see [this tutorial](https://adokter.github;io/bioRad/articles/functionality_overview.html).
+For more exercises, see [this tutorial](https://adokter.github.io/bioRad/articles/functionality_overview.html).
 
 Meta
 ----

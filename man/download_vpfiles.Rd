@@ -30,6 +30,10 @@ for an overview of available data.
 }
 \examples{
 my_path <- "~/my/directory/"
-\dontrun{download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-c("jab", "wid"), directory = my_path)}
+\dontrun{
+download_vpfiles("2016-10-01", "2016-11-30", c("be"),
+  c("jab", "wid"),
+  directory = my_path
+)
+}
 }
