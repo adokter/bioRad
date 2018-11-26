@@ -182,7 +182,7 @@ for selection of different types of basemaps.s</p></td>
 <span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)
 <span class='co'># download a different type of basemap, e.g. satellite imagery:</span>
 <span class='co'># see get_map() in ggmap library for full documentation of options</span>
-<span class='no'>basemap</span> <span class='kw'>=</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"satellite"</span>)
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"satellite"</span>)
 <span class='co'># map the radial velocities onto the satellite imagery:</span>
 <span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)
 <span class='co'># }</span></pre>
