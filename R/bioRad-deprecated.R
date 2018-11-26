@@ -159,13 +159,15 @@ h5ODIMobject <- function(filename) {
 
 #' @section is.vplist:
 #' The \code{vplist} object is deprecated. Use a regular list of \code{vp}
-#' objects (\code{c(vp, vp))} instead, which elements can be checked
-#' individually with \code{\link{is.vp}}.
+#' objects \code{c(vp, vp)} and check with {\code{sapply(x, is.vp)}}.
 #'
 #' @rdname bioRad-deprecated
 #' @export
-is.vplist <- function(...) {
-  .Deprecated("is.vp")
+is.vplist <- function(x) {
+  .Deprecated("is.vp", msg = paste("The 'vplist' object is deprecated. Use a",
+    "regular list of 'vp' objects 'c(vp, vp)' instead and check with",
+    "'sapply(x, is.vp)'."))
+  sapply(x, is.vp)
 }
 
 #' @section mt:
@@ -521,8 +523,8 @@ vol2bird <- function(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
 #' @rdname bioRad-deprecated
 #' @export
 vpts <- function(...) {
-  .Deprecated("vplist_to_vpts")
-  vplist_to_vpts(...)
+  .Deprecated("bind_into_vpts")
+  bind_into_vpts(...)
 }
 
 #' @section \code{VP}:

@@ -68,7 +68,7 @@ getscan(x, angle)
 
 h5ODIMobject(filename)
 
-is.vplist(...)
+is.vplist(x)
 
 mt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
 
@@ -195,8 +195,7 @@ Use \code{\link{get_odim_object_type}} instead.
 \section{is.vplist}{
 
 The \code{vplist} object is deprecated. Use a regular list of \code{vp}
-objects (\code{c(vp, vp))} instead, which elements can be checked
-individually with \code{\link{is.vp}}.
+objects \code{c(vp, vp)} and check with {\code{sapply(x, is.vp)}}.
 }
 
 \section{mt}{
