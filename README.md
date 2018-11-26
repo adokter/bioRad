@@ -31,11 +31,7 @@ Then load the package with:
 ``` r
 library(bioRad)
 #> Welcome to bioRad version 0.3.0.9163
-#> Warning: no running Docker daemon found Warning: bioRad
-#> functionality requiring Docker has been disabled
-#> 
-#> To enable Docker functionality, start Docker and run
-#> 'check_docker()' in R
+#> Docker daemon running, Docker functionality enabled.
 ```
 
 ### *Attention!*
@@ -52,12 +48,10 @@ You only need to install Docker to:
 -   Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
 -   Process radar data into vertical profiles of biological targets with `calculate_vp()`.
 
-Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation.
-
-<details> <summary><strong>Installing Docker</strong></summary>
+Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation. <details> <summary><strong>Installing Docker</strong></summary>
 
 1.  Go to [Docker Desktop](https://www.docker.com/products/docker-desktop).
-2.  Download Docker for Windows or Mac (free login required) and follow the installation instructions.
+2.  Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit. Installing Docker Toolbox for previous versions will *not* work.
 3.  Open the Docker application. The Docker (whale) icon will appear in your menu bar and indicate if it is running correctly.
 4.  In R do `check_docker()`.
 5.  You can now use the bioRad functionality that requires Docker. </details>
