@@ -16,6 +16,9 @@ Our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography provides an 
 
 Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
 
+<!-- References used in this document -->
+
+[dokter_2018]: https://doi.org/10.1111/ecog.04028
 ## General package structure and functionality
 
 The functionality of bioRad is summarized in Fig. 2. Essentially, the package allows users to:
@@ -28,7 +31,18 @@ In bioRad, class objects are used for storing low‐level data and data products
 
 For this publication the underlying C‐code for the algorithm has been refactored for compatibility with European and US radar formats, and for improved structure and readability of the code base. Additional support has been added for dual‐polarization S‐band radars, like the US WSR‐88D/NEXRAD radars, as well for dealiasing radial velocities. The package does not yet support automated removal of precipitation signals for single‐polarization S‐band radar. For these radars the generated profiles should be manually screened for precipitation contamination (cf. step 4 analysis workflow).
 
-![**Figure 2.** The structure and interrelation of bioRad's main class objects, functions, and plotting methods. (A) objects (rounded box), functions (`fixed width font`) and their relation (arrows). (B–K) output of the default plot methods for a European radar (left row, Offenthal radar, Germany, 2016‐10‐04 15:15 UTC–2016‐10‐05 08:45 UTC) and US radar (right row, KBRO radar, Texas, 2017‐05‐14 00:09 UTC–2017‐05‐14 13:25 UTC). The dotted line in (H) and (K) indicates the time slice of (B), (D), (F) and (C), (E), (J) respectively. Figures (B) and (C) show radial velocity (VRADH) in m s<sup>–1</sup> for the 1.5° elevation scans. Figures (D) and (E) show reflectivity factor (DBZH) in dBZ for the same scans. Figure (F) and (G) shows animal density (`dens`) versus altitude (RCS = 11 cm<sup>2</sup>) for a single vertical profile. Figure (H) and (I) show animal density (`dens`) and speed and direction (`dd` and `ff`) for a time series of vertical profiles. In figure (J) and (K), black line shows MTR (migration traffic rate across a transect perpendicular to ground speed direction), blue line MTR<sub>0</sub> (migration traffic rate across a fixed east‐to‐west transect) and red line MTR<sub>90</sub> (migration traffic rate across a fixed north‐to‐south transect). Grey shading indicates night time (time on the x‐axis is in UTC). Altitudes are relative to mean sea level.](../man/figures/ecog12354-fig-0002-m.jpg)
+## Figure 2
+
+![**Figure 2 from [Dokter et al. (2018)][dokter_2018]**](../man/figures/ecog12354-fig-0002-m.jpg)
+
+The figure shows the structure and interrelation of bioRad's main class objects, functions, and plotting methods. (A) **objects** (rounded box), **functions** (`fixed width font`) and their **relation** (arrows). (B–K) output of the default plot methods for a European radar (left row, Offenthal radar, Germany, 2016‐10‐04 15:15 UTC–2016‐10‐05 08:45 UTC) and US radar (right row, KBRO radar, Texas, 2017‐05‐14 00:09 UTC–2017‐05‐14 13:25 UTC). The dotted line in (H) and (K) indicates the time slice of (B), (D), (F) and (C), (E), (J) respectively. Grey shading indicates night time (time on the x‐axis is in UTC). Altitudes are relative to mean sea level.
+
+* Figures (B) and (C) show radial velocity (VRADH) in m s<sup>–1</sup> for the 1.5° elevation scans.
+* Figures (D) and (E) show reflectivity factor (DBZH) in dBZ for the same scans.
+* Figure (F) and (G) shows animal density (`dens`) versus altitude (RCS = 11 cm<sup>2</sup>) for a single vertical profile.
+* Figure (H) and (I) show animal density (`dens`) and speed and direction (`dd` and `ff`) for a time series of vertical profiles.
+* In figure (J) and (K), the black line shows MTR (migration traffic rate across a transect perpendicular to ground speed direction), blue line MTR<sub>0</sub> (migration traffic rate across a fixed east‐to‐west transect) and red line MTR<sub>90</sub> (migration traffic rate across a fixed north‐to‐south transect).
+
 
 ## Analysis workflow
 
