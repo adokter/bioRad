@@ -117,95 +117,10 @@ vol2bird(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
 
 vpts(...)
 }
-\arguments{
-\item{x}{A \code{vpts}.}
-
-\item{alt.min}{Minimum altitude in m.}
-
-\item{alt.max}{Maximum altitude in m.}
-
-\item{alpha}{(optional) migratory direction of interest in clockwise degrees
-from north, otherwise \code{NA}.}
-
-\item{interval.max}{Maximum time interval belonging to a single profile in
-seconds. Traffic rates are set to zero at times \code{t} for which no
-profiles can be found within the period \code{t-interval.max/2} to
-\code{t+interval.max/2}.}
-
-\item{x}{A \code{vp}, list of \code{vp} objects or \code{vpts} object.}
-
-\item{x}{A \code{vpts}.}
-
-\item{interval.max}{Maximum time interval belonging to a single profile in
-seconds. Traffic rates are set to zero at times \code{t} for which no
-profiles can be found within the period \code{t-interval.max/2} to
-\code{t+interval.max/2}.}
-}
-\value{
-A numeric value equal to migration traffic in number of
-individuals / km.
-
-An atomic vector of migration traffic rates in individuals/km/hour.
-
-Atomic vector with (cumulative) migration traffic in number of
-individuals / km.
-}
 \description{
-The functions and data listed below are deprecated or renamed and will be defunct in
-the near future. When possible, alternative functions with similar
+The functions and data listed below are deprecated or renamed and will be
+defunct in the near future. When possible, alternative functions with similar
 functionality are mentioned.
-
-Total migration traffic, which is calculated by time-integration of
-migration traffic rates. Migration traffic gives the number of individuals
-that have passed per km perpendicular to the migratory direction at the
-position of the radar for the full period of the time series within the
-specified altitude band.
-
-Migration traffic rate (MTR) for an altitude layer, defined as the
-number of targets crossing a 1 km line perpendicular to the migratory
-movement per hour.
-
-Cumulative migration traffic is calculated as the cumulative sum of the
-migration traffic within each time step of a time series. Cumulative
-migration traffic gives the number of individuals that have passed per km
-perpendicular to the migratory direction at the position of the radar as a
-function of time from the start of time series within the specified altitude
-band.
-}
-\details{
-Migration traffic rate (MTR) for an altitude layer is a flux measure, defined
-as the number of targets crossing a unit of transect per hour.
-
-The transect direction is set by the angle \code{alpha}. When
-\code{alpha=NA}, the transect runs perpendicular to the measured migratory
-direction. \code{mtr} then equals the number of crossing targets per km
-transect per hour, for a transect kept perpendicular to the measured
-migratory movement at all times and altitudes. In this case \code{mtr} is
-always a positive quantity, defined as:
-
-\deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
-
-with the sum running over all altitude layers between \code{alt.min} and
-\code{alt.max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
-altitude layer i, and \eqn{\Delta h} the altitude layer width.
-
-If \code{alpha} is given a numeric value, the transect is taken perpendicular
-to the direction \code{alpha}, and the number of crossing targets per hour
-per km transect is calculated as:
-
-\deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}
-with \eqn{dd_i} the migratory direction at altitude i.
-
-Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
-
-In this definition \code{mtr} is a traditional flux into a direction of
-interest. Targets moving into the direction \code{alpha} contribute
-positively to \code{mtr}, while targets moving in the opposite direction
-contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
-positive or negative, depending on the definition of alpha.
-
-This is a wrapper function for \link{integrate_profile}, extracting only the
-migration traffic rate data.
 }
 \section{basemap}{
 
@@ -280,14 +195,35 @@ Use \code{\link{get_odim_object_type}} instead.
 \section{is.vplist}{
 
 The \code{vplist} object is deprecated. Use a regular list of \code{vp}
-objects (\code{c(vp, vp))} instead.
+objects (\code{c(vp, vp))} instead, which elements can be checked
+individually with \code{\link{is.vp}}.
 }
 
 \section{mt}{
 
-\code{\link{mt}} is deprecated as a separate function. Migration traffic
-is now included in the output of \code{\link{integrate_profile}} as
-column \code{mt}.
+\code{mt} is deprecated as a separate function. Migration traffic is now
+included in the output of \code{\link{integrate_profile}} as column
+\code{mt}.
+
+\strong{Deprecated description}
+
+Total migration traffic, which is calculated by time-integration of
+migration traffic rates. Migration traffic gives the number of individuals
+that have passed per km perpendicular to the migratory direction at the
+position of the radar for the full period of the time series within the
+specified altitude band.
+
+\strong{Deprecated examples}
+
+\preformatted{
+# get example time series of vertical profiles:
+data(example_vpts)
+example_vpts
+# total migration traffic in full altitude band:
+mt(example_vpts)
+# total migration traffic in 0-1000 meter band:
+mt(example_vpts, alt.min = 0, alt.max = 1000)
+}
 }
 
 \section{mtr}{
@@ -295,6 +231,60 @@ column \code{mt}.
 \code{\link{mtr}} is deprecated as a separate function. Migration traffic
 rate is now included in the output of \code{\link{integrate_profile}} as
 column \code{mtr}.
+
+\strong{Deprecated description}
+
+Migration traffic rate (MTR) for an altitude layer, defined as the number of
+targets crossing a 1 km line perpendicular to the migratory movement per
+hour.
+
+\strong{Deprecated details}
+
+Migration traffic rate (MTR) for an altitude layer is a flux measure, defined
+as the number of targets crossing a unit of transect per hour.
+
+The transect direction is set by the angle \code{alpha}. When
+\code{alpha=NA}, the transect runs perpendicular to the measured migratory
+direction. \code{mtr} then equals the number of crossing targets per km
+transect per hour, for a transect kept perpendicular to the measured
+migratory movement at all times and altitudes. In this case \code{mtr} is
+always a positive quantity, defined as:
+
+\deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
+
+with the sum running over all altitude layers between \code{alt.min} and
+\code{alt.max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+altitude layer i, and \eqn{\Delta h} the altitude layer width.
+
+If \code{alpha} is given a numeric value, the transect is taken perpendicular
+to the direction \code{alpha}, and the number of crossing targets per hour
+per km transect is calculated as:
+
+\deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i
+ff_i \cos(dd_i-alpha) \Delta h} with \eqn{dd_i} the migratory direction at
+altitude i.
+
+Note that this equation evaluates to the previous equation when \code{alpha}
+equals \eqn{dd_i}.
+
+In this definition \code{mtr} is a traditional flux into a direction of
+interest. Targets moving into the direction \code{alpha} contribute
+positively to \code{mtr}, while targets moving in the opposite direction
+contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
+positive or negative, depending on the definition of alpha.
+
+\strong{Deprecated examples}
+
+\preformatted{
+# MTR for a single vertical profile:
+mtr(example_vp)
+# MTRs for a time series of vertical profiles:
+data(example_vpts)
+# print migration traffic rates:
+mtr(example_vpts)
+# to plot migration traffic rate data, use integrate_profile:
+plot(integrate_profile(example_vpts), quantity = "mtr")
+}
 }
 
 \section{cmt}{
@@ -303,6 +293,25 @@ column \code{mtr}.
 traffic is now included in the output of \code{\link{integrate_profile}} as
 column \code{mt}, which can be summed to get the cumulative migration
 traffic.
+
+\strong{Deprecated description}
+
+Cumulative migration traffic is calculated as the cumulative sum of the
+migration traffic within each time step of a time series. Cumulative
+migration traffic gives the number of individuals that have passed per km
+perpendicular to the migratory direction at the position of the radar as a
+function of time from the start of time series within the specified altitude
+band.
+
+\strong{Deprecated examples}
+
+\preformatted{
+# get example time series of vertical profiles:
+data(example_vpts)
+
+# print cumulative migration traffic to console:
+cmt(example_vpts)
+}
 }
 
 \section{night}{
@@ -395,53 +404,4 @@ Use \code{\link{example_vpts}} instead.
 Use \code{\link{example_scan}} instead.
 }
 
-\examples{
-# get example time series of vertical profiles:
-data(example_vpts)
-example_vpts
-# total migration traffic in full altitude band:
-\dontrun{
-mt(example_vpts)
-}
-# total migration traffic in 0-1000 meter band:
-\dontrun{
-mt(example_vpts, alt.min = 0, alt.max = 1000)
-}
-# MTR for a single vertical profile:
-\dontrun{
-mtr(example_vp)
-}
-# MTRs for a time series of vertical profiles:
-data(example_vpts)
-# print migration traffic rates:
-\dontrun{
-mtr(example_vpts)
-}
-# to plot migration traffic rate data, use integrate_profile:
-\dontrun{
-plot(integrate_profile(example_vpts), quantity = "mtr")
-}
-# get example time series of vertical profiles:
-data(example_vpts)
-
-# print cumulative migration traffic to console:
-\dontrun{
-cmt(example_vpts)
-}
-
-# plot cumulative migration traffic:
-\dontrun{
-plot(cmt(example_vpts),
-  type = "l", xlab = "time",
-  ylab = "CMT [birds/km]"
-)
-}
-}
-\seealso{
-\code{\link{bioRad-deprecated}}.
-
-\code{\link{bioRad-deprecated}}.
-
-\code{\link{bioRad-deprecated}}.
-}
 \keyword{internal}

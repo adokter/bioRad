@@ -32,23 +32,9 @@
 
 <meta property="og:title" content="Deprecated functions and data in package <span class="pkg">bioRad</span> — bioRad-deprecated" />
 
-<meta property="og:description" content="The functions and data listed below are deprecated or renamed and will be defunct in
-the near future. When possible, alternative functions with similar
-functionality are mentioned.
-Total migration traffic, which is calculated by time-integration of
-migration traffic rates. Migration traffic gives the number of individuals
-that have passed per km perpendicular to the migratory direction at the
-position of the radar for the full period of the time series within the
-specified altitude band.
-Migration traffic rate (MTR) for an altitude layer, defined as the
-number of targets crossing a 1 km line perpendicular to the migratory
-movement per hour.
-Cumulative migration traffic is calculated as the cumulative sum of the
-migration traffic within each time step of a time series. Cumulative
-migration traffic gives the number of individuals that have passed per km
-perpendicular to the migratory direction at the position of the radar as a
-function of time from the start of time series within the specified altitude
-band." />
+<meta property="og:description" content="The functions and data listed below are deprecated or renamed and will be
+defunct in the near future. When possible, alternative functions with similar
+functionality are mentioned." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -140,23 +126,9 @@ band." />
 
     <div class="ref-description">
     
-    <p>The functions and data listed below are deprecated or renamed and will be defunct in
-the near future. When possible, alternative functions with similar
+    <p>The functions and data listed below are deprecated or renamed and will be
+defunct in the near future. When possible, alternative functions with similar
 functionality are mentioned.</p>
-<p>Total migration traffic, which is calculated by time-integration of
-migration traffic rates. Migration traffic gives the number of individuals
-that have passed per km perpendicular to the migratory direction at the
-position of the radar for the full period of the time series within the
-specified altitude band.</p>
-<p>Migration traffic rate (MTR) for an altitude layer, defined as the
-number of targets crossing a 1 km line perpendicular to the migratory
-movement per hour.</p>
-<p>Cumulative migration traffic is calculated as the cumulative sum of the
-migration traffic within each time step of a time series. Cumulative
-migration traffic gives the number of individuals that have passed per km
-perpendicular to the migratory direction at the position of the radar as a
-function of time from the start of time series within the specified altitude
-band.</p>
     
     </div>
 
@@ -236,87 +208,7 @@ band.</p>
   <span class='kw'>nyquist.min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>, <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)
 
 <span class='fu'>vpts</span>(<span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>A <code>vpts</code>.</p></td>
-    </tr>
-    <tr>
-      <th>alt.min</th>
-      <td><p>Minimum altitude in m.</p></td>
-    </tr>
-    <tr>
-      <th>alt.max</th>
-      <td><p>Maximum altitude in m.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>(optional) migratory direction of interest in clockwise degrees
-from north, otherwise <code>NA</code>.</p></td>
-    </tr>
-    <tr>
-      <th>interval.max</th>
-      <td><p>Maximum time interval belonging to a single profile in
-seconds. Traffic rates are set to zero at times <code>t</code> for which no
-profiles can be found within the period <code>t-interval.max/2</code> to
-<code>t+interval.max/2</code>.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>A <code>vp</code>, list of <code>vp</code> objects or <code>vpts</code> object.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>A <code>vpts</code>.</p></td>
-    </tr>
-    <tr>
-      <th>interval.max</th>
-      <td><p>Maximum time interval belonging to a single profile in
-seconds. Traffic rates are set to zero at times <code>t</code> for which no
-profiles can be found within the period <code>t-interval.max/2</code> to
-<code>t+interval.max/2</code>.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A numeric value equal to migration traffic in number of
-individuals / km.</p>
-<p>An atomic vector of migration traffic rates in individuals/km/hour.</p>
-<p>Atomic vector with (cumulative) migration traffic in number of
-individuals / km.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Migration traffic rate (MTR) for an altitude layer is a flux measure, defined
-as the number of targets crossing a unit of transect per hour.</p>
-<p>The transect direction is set by the angle <code>alpha</code>. When
-<code>alpha=NA</code>, the transect runs perpendicular to the measured migratory
-direction. <code>mtr</code> then equals the number of crossing targets per km
-transect per hour, for a transect kept perpendicular to the measured
-migratory movement at all times and altitudes. In this case <code>mtr</code> is
-always a positive quantity, defined as:</p>
-<p>$$mtr = \sum_i dens_i ff_i \Delta h$$</p>
-<p>with the sum running over all altitude layers between <code>alt.min</code> and
-<code>alt.max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
-altitude layer i, and \(\Delta h\) the altitude layer width.</p>
-<p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
-to the direction <code>alpha</code>, and the number of crossing targets per hour
-per km transect is calculated as:</p>
-<p>$$mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h$$
-with \(dd_i\) the migratory direction at altitude i.</p>
-<p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).</p>
-<p>In this definition <code>mtr</code> is a traditional flux into a direction of
-interest. Targets moving into the direction <code>alpha</code> contribute
-positively to <code>mtr</code>, while targets moving in the opposite direction
-contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be both
-positive or negative, depending on the definition of alpha.</p>
-<p>This is a wrapper function for <a href='integrate_profile.html'>integrate_profile</a>, extracting only the
-migration traffic rate data.</p>
-    
+        
     <h2 class="hasAnchor" id="basemap"><a class="anchor" href="#basemap"></a>basemap</h2>
 
     
@@ -391,14 +283,31 @@ migration traffic rate data.</p>
 
     
     <p>The <code>vplist</code> object is deprecated. Use a regular list of <code>vp</code>
-objects (<code>c(vp, vp))</code> instead.</p>
+objects (<code>c(vp, vp))</code> instead, which elements can be checked
+individually with <code><a href='summary.vp.html'>is.vp</a></code>.</p>
     
     <h2 class="hasAnchor" id="mt"><a class="anchor" href="#mt"></a>mt</h2>
 
     
-    <p><code>mt</code> is deprecated as a separate function. Migration traffic
-is now included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as
-column <code>mt</code>.</p>
+    <p><code>mt</code> is deprecated as a separate function. Migration traffic is now
+included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as column
+<code>mt</code>.</p>
+<p><strong>Deprecated description</strong></p>
+<p>Total migration traffic, which is calculated by time-integration of
+migration traffic rates. Migration traffic gives the number of individuals
+that have passed per km perpendicular to the migratory direction at the
+position of the radar for the full period of the time series within the
+specified altitude band.</p>
+<p><strong>Deprecated examples</strong></p>
+<pre>
+# get example time series of vertical profiles:
+data(example_vpts)
+example_vpts
+# total migration traffic in full altitude band:
+mt(example_vpts)
+# total migration traffic in 0-1000 meter band:
+mt(example_vpts, alt.min = 0, alt.max = 1000)
+</pre>
     
     <h2 class="hasAnchor" id="mtr"><a class="anchor" href="#mtr"></a>mtr</h2>
 
@@ -406,6 +315,46 @@ column <code>mt</code>.</p>
     <p><code>mtr</code> is deprecated as a separate function. Migration traffic
 rate is now included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as
 column <code>mtr</code>.</p>
+<p><strong>Deprecated description</strong></p>
+<p>Migration traffic rate (MTR) for an altitude layer, defined as the number of
+targets crossing a 1 km line perpendicular to the migratory movement per
+hour.</p>
+<p><strong>Deprecated details</strong></p>
+<p>Migration traffic rate (MTR) for an altitude layer is a flux measure, defined
+as the number of targets crossing a unit of transect per hour.</p>
+<p>The transect direction is set by the angle <code>alpha</code>. When
+<code>alpha=NA</code>, the transect runs perpendicular to the measured migratory
+direction. <code>mtr</code> then equals the number of crossing targets per km
+transect per hour, for a transect kept perpendicular to the measured
+migratory movement at all times and altitudes. In this case <code>mtr</code> is
+always a positive quantity, defined as:</p>
+<p>$$mtr = \sum_i dens_i ff_i \Delta h$$</p>
+<p>with the sum running over all altitude layers between <code>alt.min</code> and
+<code>alt.max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
+altitude layer i, and \(\Delta h\) the altitude layer width.</p>
+<p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
+to the direction <code>alpha</code>, and the number of crossing targets per hour
+per km transect is calculated as:</p>
+<p>$$mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h$$ with \(dd_i\) the migratory direction at
+altitude i.</p>
+<p>Note that this equation evaluates to the previous equation when <code>alpha</code>
+equals \(dd_i\).</p>
+<p>In this definition <code>mtr</code> is a traditional flux into a direction of
+interest. Targets moving into the direction <code>alpha</code> contribute
+positively to <code>mtr</code>, while targets moving in the opposite direction
+contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be both
+positive or negative, depending on the definition of alpha.</p>
+<p><strong>Deprecated examples</strong></p>
+<pre>
+# MTR for a single vertical profile:
+mtr(example_vp)
+# MTRs for a time series of vertical profiles:
+data(example_vpts)
+# print migration traffic rates:
+mtr(example_vpts)
+# to plot migration traffic rate data, use integrate_profile:
+plot(integrate_profile(example_vpts), quantity = "mtr")
+</pre>
     
     <h2 class="hasAnchor" id="cmt"><a class="anchor" href="#cmt"></a>cmt</h2>
 
@@ -414,6 +363,20 @@ column <code>mtr</code>.</p>
 traffic is now included in the output of <code><a href='integrate_profile.html'>integrate_profile</a></code> as
 column <code>mt</code>, which can be summed to get the cumulative migration
 traffic.</p>
+<p><strong>Deprecated description</strong></p>
+<p>Cumulative migration traffic is calculated as the cumulative sum of the
+migration traffic within each time step of a time series. Cumulative
+migration traffic gives the number of individuals that have passed per km
+perpendicular to the migratory direction at the position of the radar as a
+function of time from the start of time series within the specified altitude
+band.</p>
+<p><strong>Deprecated examples</strong></p>
+<pre>
+# get example time series of vertical profiles:
+data(example_vpts)
+    # print cumulative migration traffic to console:
+cmt(example_vpts)
+</pre>
     
     <h2 class="hasAnchor" id="night"><a class="anchor" href="#night"></a>night</h2>
 
@@ -505,58 +468,12 @@ traffic.</p>
     
     <p>Use <code><a href='example_scan.html'>example_scan</a></code> instead.</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>bioRad-deprecated</code>.</p>
-<p><code>bioRad-deprecated</code>.</p>
-<p><code>bioRad-deprecated</code>.</p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># get example time series of vertical profiles:</span>
-<span class='fu'>data</span>(<span class='no'>example_vpts</span>)
-<span class='no'>example_vpts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
-#&gt; 
-#&gt;            radar:  KBGM 
-#&gt;       # profiles:  1934 
-#&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 
-#&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'># total migration traffic in full altitude band:
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>mt</span>(<span class='no'>example_vpts</span>)
-<span class='co'># }</span><div class='input'># total migration traffic in 0-1000 meter band:
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>mt</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
-<span class='co'># }</span><div class='input'># MTR for a single vertical profile:
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>mtr</span>(<span class='no'>example_vp</span>)
-<span class='co'># }</span><div class='input'><span class='co'># MTRs for a time series of vertical profiles:</span>
-<span class='fu'>data</span>(<span class='no'>example_vpts</span>)
-<span class='co'># print migration traffic rates:</span></div><span class='co'># NOT RUN {</span>
-<span class='fu'>mtr</span>(<span class='no'>example_vpts</span>)
-<span class='co'># }</span><div class='input'># to plot migration traffic rate data, use integrate_profile:
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plot</span>(<span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mtr"</span>)
-<span class='co'># }</span><div class='input'><span class='co'># get example time series of vertical profiles:</span>
-<span class='fu'>data</span>(<span class='no'>example_vpts</span>)
-
-<span class='co'># print cumulative migration traffic to console:</span></div><span class='co'># NOT RUN {</span>
-<span class='fu'>cmt</span>(<span class='no'>example_vpts</span>)
-<span class='co'># }</span><div class='input'>
-# plot cumulative migration traffic:
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plot</span>(<span class='fu'>cmt</span>(<span class='no'>example_vpts</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"l"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"time"</span> ,
-<span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"CMT [birds/km]"</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
       <li><a href="#basemap">basemap</a></li>
 
       <li><a href="#beamheight">beamheight</a></li>
@@ -628,11 +545,7 @@ traffic.</p>
       <li><a href="#vpts"><code>VPTS</code></a></li>
 
       <li><a href="#scan"><code>SCAN</code></a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
