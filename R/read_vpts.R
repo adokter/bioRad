@@ -34,7 +34,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
   }
   if (missing(wavelength)) {
     warning(paste("No 'wavelength' argument provided, assuming radar operates",
-      "at ", wavelength, "-band",
+      " at ", wavelength, "-band",
       sep = ""
     ))
   }
