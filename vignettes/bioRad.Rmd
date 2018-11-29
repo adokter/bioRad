@@ -21,7 +21,9 @@ Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haas
 [figure_2]: #figure-2
 [bruderer_2018]: https://doi.org/10.1007/s10336-017-1506-z
 [buler_2009]: https://doi.org/10.1109/TGRS.2009.2014463
+[chilson_2012b]: https://doi.org/10.1890/ES12-00027.1
 [dokter_2011]: https://doi.org/10.1098/rsif.2010.0116
+[dokter_2013]: https://doi.org/10.1371/journal.pone.0052300
 [dokter_2018]: https://doi.org/10.1111/ecog.04028
 [haase_2004]: https://doi.org/10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2
 [holleman_2005]: https://doi.org/10.1175/JTECH1781.1
@@ -85,9 +87,9 @@ The `sd_vvp_threshold` and `rcs` parameters can be changed using the `sd_vvp_thr
 
 ### Step 3: visualizing and interpreting individual profiles
 
-The various quantities in a vertical profile (e.g. dens: animal density, ff: ground speed, dd: ground speed direction, eta: reflectivity) can be visualized with `plot`, as shown in Fig. 2F and 2G for density. These profile plots and Fig. 2D, E are for the same moment in time. Note that both profiles show layering of birds: a density concentration at high altitude (here at approx. 1.5 km) (cf. Dokter et al. 2013). These layers show up as concentric rings in Fig. 2D and 2E. These rings appear because at an increasing distance from the radar, measurements are made at higher altitudes, because of the positive beam elevation and the curvature of the earth.
+The various quantities in a **vertical profile** (e.g. `dens`: animal density, `ff`: ground speed, `dd`: ground speed direction, `eta`: reflectivity) can be visualized with `plot.vp()`, as shown in [Fig. 2F and 2G][figure_2] for density. These profile plots and [Fig. 2D and 2E][figure_2] are for the same moment in time. Note that both profiles show layering of birds: a density concentration at high altitude (here at approx. 1.5 km) (cf. [Dokter et al. 2013][dokter_2013]). These layers show up as concentric rings in [Fig. 2D and 2E][figure_2]. These rings appear because at an increasing distance from the radar, measurements are made at higher altitudes, because of the positive beam elevation and the curvature of the earth.
 
-Also note that the peak densities of the two cases are similar, on the order of 100 individuals km<sup>–3</sup> (assuming RCS = 11 cm<sup>2</sup>) (Fig. 2H, I). The reflectivity factors (in dBZ scale, not to be confused with reflectivity η (Dokter et al. 2011, Chilson et al. 2012b)) are however much higher for the US case than the European case. This is related to the difference in radar wavelength (Dokter et al. 2011), with NEXRAD radars in the US being S‐band and European radars being mostly C‐band.
+Also note that the peak densities of the two cases are similar, on the order of 100 individuals km<sup>–3</sup> (assuming RCS = 11 cm<sup>2</sup>) ([Fig. 2H and 2I][figure_2]). The reflectivity factors (in dBZ scale, not to be confused with reflectivity η ([Dokter et al. 2011][dokter_2011], [Chilson et al. 2012b][chilson_2012b]) are however much higher for the US case than the European case. This is related to the difference in radar wavelength ([Dokter et al. 2011][dokter_2011]), with NEXRAD radars in the US being S‐band and European radars being mostly C‐band.
 
 ### Step 4: analyzing and visualizing vertical profiles as time series
 
