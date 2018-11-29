@@ -1,102 +1,143 @@
 ---
-author: "Adriaan M. Dokter"
 title: "Introduction to bioRad"
+author: Adriaan M. Dokter & Peter Desmet
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{bioRad}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-bioRad is an R package for the biological analysis and visualization of weather radar data.
 
-Check the [vignette](https://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to most of bioRad's functionality.
+bioRad is an R package for the biological analysis and visualization of weather radar data. The package is described in our paper:
 
-Our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography provides an overview of bioRad's functionality:
+> Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2018) bioRad: biological analysis and visualization of weather radar data. Ecography. <https://doi.org/10.1111/ecog.04028>
 
-Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
+The [paper][dokter_2018] also defines weather radar equivalents for familiar measures used in the field of migration ecology and is thus a good start if you are new to radar aeroecology. Below we included the sections and figure from the paper describing the package and typical analysis workflow, with links to the functions used.
 
-## bioRad's class objects
+In the top navigation, see [**Reference**](https://adokter.github.io/bioRad/reference/index.html) for an overview of all functions, [**Articles**](https://adokter.github.io/bioRad/articles/index.html) for course exercises and [**Changelog**](https://adokter.github.io/bioRad/news/index.html) for package updates.
 
-`bioRad` uses the following class objects for storing radar data:
+<!-- References used in this document -->
 
-* `pvol` a polar volume: consists typically of a set of polar scans, collected at different elevation angles, that together sample the full aerial volume surrounding the radar
-* `scan` a polar scan: a 360 degree radar scan at a fixed elevation in polar coordinates. One scan typically contains multiple scan parameters.
-* `param` a polar scan parameter: one of the observable quantities recorded within a polar scan, such as reflectivity (DBZH) or radial velocity (VRADH).
-* `ppi` a Cartesian plan position indicator: a projection on a Cartesian grid of a polar scan or a polar scan parameter
-* `vp` a vertical profile: typically biological data extracted from a polar volume by `calculate_vp()`
-* `vpts` a vertical profile time series: a time-oredered list of `vp` objects for a single radar.
-* `vpi` vertically integrated vertical profiles.
+[figure_2]: #figure-2
+[bruderer_2018]: https://doi.org/10.1007/s10336-017-1506-z
+[buler_2009]: https://doi.org/10.1109/TGRS.2009.2014463
+[chambers_2016]: https://www.crcpress.com/Extending-R/Chambers/p/book/9781498775717
+[chilson_2012b]: https://doi.org/10.1890/ES12-00027.1
+[dokter_2011]: https://doi.org/10.1098/rsif.2010.0116
+[dokter_2013]: https://doi.org/10.1371/journal.pone.0052300
+[dokter_2018]: https://doi.org/10.1111/ecog.04028
+[haase_2004]: https://doi.org/10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2
+[holleman_2005]: https://doi.org/10.1175/JTECH1781.1
+[huuskonen_2014]: https://doi.org/10.1175/BAMS-D-12-00216.1
+[kahle_2013]: https://journal.r-project.org/archive/2013/RJ-2013-014/index.html
+[michelson_2014]: http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf
+[ryzhkov_1998]: https://doi.org/10.1175/1520-0450(1998)037%3C1228:DBRASW%3E2.0.CO;2
+[stepanian_2016]: https://doi.org/10.1002/ecs2.1539
+[vaughn_1985]: https://doi.org/10.1109/PROC.1985.13134
+[waldteufel_1978]: https://doi.org/10.1175/1520-0450(1979)018%3C0532:OTAOSD%3E2.0.CO;2
+[wickham_2016]: https://doi.org/10.1007/978-0-387-98141-3
 
-The common `summary`, `is`, `dim`, `Extract` methods are available for each of these classes.
+## General package structure and functionality
 
-Plot methods are available for `vp`, `vpts`, `vpi` and `ppi` objects
+The functionality of bioRad is summarized in [Fig. 2][figure_2]. Essentially, the package allows users to:
 
-## Reading radar data
+1. Load, inspect and visualize low‐level radar data (polar volume data, also called level‐II data in the US) of C‐band or S‐band weather radars, formatted in either the European OPERA (ODIM hdf5) or US NEXRAD data standard.
+2. Extract biological information (speed, direction and density) at different altitudes.
+3. Visualize, aggregate, and summarize this biological information over specific altitudes and time periods.
 
-bioRad can read radar files in [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf) format, which is the implementation of the OPERA data information model in [HDF5](https://support.hdfgroup.org/HDF5/) format or a format supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. bioRad's class objects are organised very similar to the OPERA data information model.
+In bioRad, class objects are used for storing low‐level data and data products, shown as blue/green boxes in [Fig. 2][figure_2]. R has multiple class object systems, and bioRad uses the S3 object system ([Chambers 2016][chambers_2016]). Most of these class objects have an associated plot method for making quick visualizations. The right‐hand side of [Fig. 2][figure_2] shows examples of the output of these plot methods, for two migration events of similar intensity, one in Europe and one in the US. bioRad is able to extract vertical profiles of speed, direction, and density at different flight altitudes from low‐level radar data, while offering standardized tools for post‐processing and further analysis. Spatial variation in the horizontal plane is averaged out in profiles, and data is usually processed up to 25–35 km from the radar. Vertical profiles are generated in bioRad with the [vol2bird algorithm](https://github.com/adokter/vol2bird), originally developed for single and dual‐polarization C‐band radars ([Dokter et al. 2011][dokter_2011]).
 
-Raw (level-II) weather radar data is read with the function `read_pvolfile()`, which returns a `pvol` polar volume object.
+The underlying C‐code for the algorithm has been refactored for compatibility with European and US radar formats, and for improved structure and readability of the code base. Additional support has been added for dual‐polarization S‐band radars, like the US WSR‐88D/NEXRAD radars, as well for dealiasing radial velocities. The package does not yet support automated removal of precipitation signals for single‐polarization S‐band radar. For these radars the generated profiles should be manually screened for precipitation contamination (cf. step 4 analysis workflow).
 
-Use the function `nexrad_to_odim()` to convert RSL (e.g. NEXRAD) radar data into ODIM HDF5 format.
+## Figure 2
 
-## Mapping and projecting radar scans
+![**Figure 2 from [Dokter et al. (2018)][dokter_2018]**](ecog12354-fig-0002-m.jpg)
 
-Function `project_as_ppi()` can be used to project polar scans or polar scan parameters onto a user-defined Cartesian grid
+The figure shows the structure and interrelation of bioRad's main class objects, functions, and plotting methods. (A) **objects** (rounded box), **functions** (`fixed width font`) and their **relation** (arrows). (B–K) output of the default plot methods for a European radar (left row, Offenthal radar, Germany, 2016‐10‐04 15:15 UTC–2016‐10‐05 08:45 UTC) and US radar (right row, KBRO radar, Texas, 2017‐05‐14 00:09 UTC–2017‐05‐14 13:25 UTC). The dotted line in (H) and (K) indicates the time slice of (B), (D), (F) and (C), (E), (J) respectively. Grey shading indicates night time (time on the x‐axis is in UTC). Altitudes are relative to mean sea level.
 
-Function `map()` can be used together with `download_basemap()` to overlay radar data with all kinds of publicly available map and satellite data.
+* Figures (B) and (C) show radial velocity (VRADH) in m s<sup>–1</sup> for the 1.5° elevation scans.
+* Figures (D) and (E) show reflectivity factor (DBZH) in dBZ for the same scans.
+* Figures (F) and (G) shows animal density (`dens`) versus altitude (RCS = 11 cm<sup>2</sup>) for a single vertical profile.
+* Figures (H) and (I) show animal density (`dens`) and speed and direction (`dd` and `ff`) for a time series of vertical profiles.
+* In figures (J) and (K), the black line shows MTR (migration traffic rate across a transect perpendicular to ground speed direction), blue line MTR<sub>0</sub> (migration traffic rate across a fixed east‐to‐west transect) and red line MTR<sub>90</sub> (migration traffic rate across a fixed north‐to‐south transect).
 
-## Processing weather radar data into vertical profiles of birds
+## Analysis workflow
 
-bioRad contains an implementation of the vol2bird algorithm, which processes polar volume data into a vertical profiles of birds (`vp`). The function `calculate_vp()` calls the *vol2bird* algorithm and requires a locally running [Docker](https://www.docker.com/) daemon.
+### Step 1: loading and visualizing radar scans
 
-`calculate_vp()` outputs a vertical profile object (`vp`) in R, and can store the vertical profile object in an ODIM-complient hdf5 format on disk. Stored hdf5 profiles can be read from disk with `read_vpfiles()` (for a single file or for a list of files)
+The low‐level radar data with which bioRad interacts are so‐called **polar volume data**. A polar volume is a collection of full‐circle azimuthal scans (also referred to as sweeps) at various elevations of the radar antenna, which together provide a sampling of the atmosphere at all altitudes of interest. bioRad reads polar volumes with the `read_pvolfile()` function, which returns the polar volume as an object of class `pvol`. bioRad currently supports HDF5 files ([Michelson 2014][michelson_2014]) that are compliant with the European OPERA Data Information Model (ODIM) (OPERA: Operational Program for Exchange of Weather Radar Information; see [Huuskonen et al. 2014][huuskonen_2014]), and level‐2 data generated by the US Next Generation Weather Radar (NEXRAD) network.
 
-For users running their own installation of vol2bird outside R and Docker, the function `read_vpts()` is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
+A polar volume (class `pvol`) contains a list of **scans** (class `scan`), each of which consists of a list of scan parameters (class `param`). A **scan parameter** is one of the radar's basic observed quantities, such as reflectivity factor and radial velocity, and for dual‐polarization radars additional quantities such as correlation coefficient, differential phase, and differential reflectivity.
 
-## Organizing, analyzing and plotting vertical profile data
+Scan parameters can be projected on a georeferenced Cartesian grid in the form of a **plan position indicator** (PPI) objects (class `ppi`) using the function `project_as_ppi()`. These can either be plotted directly using the function `plot.ppi()` ([Fig. 2B and 2C][figure_2]) or overlayed on a customizable basemap using the function `map()` ([Fig. 2D and 2E][figure_2]), which makes use of the [ggplot2](https://ggplot2.tidyverse.org/) ([Wickham 2016][wickham_2016]) and [ggmap](https://github.com/dkahle/ggmap) ([Kahle and Wickham 2013][kahle_2013]) R libraries.
 
-Vertical profiles (`vp` objects) or a list of vertical profiles can be combined with `bind_into_vpts()` into vertical profile time series (`vpts` objects).
+### Step 2: processing volumes into vertical profiles
 
-`regularize_vpts()` can be used to project a `vpts` object on a regular time grid.
+Polar volumes can be processed into vertical profiles of biological targets using the `calculate_vp()` function, which is a release of the algorithm vol2bird ([Dokter et al. 2011][dokter_2011]), available independently on [Github](https://github.com/adokter/vol2bird). The function takes in a polar volume file and outputs a vertical profile file and/or a vertical profile (`vp`) class object. The function has an argument `autoconf`, which when set to TRUE will select default settings automatically (depending on radar wavelength and availability of polarimetric data).
 
-`bioRad::plot.vp` can be used to make a plot of a single vertical profile.
+We describe the most important algorithm parameters and their preferred settings:
 
-`bioRad::plot.vpts` can be used to visually summarize vertical profile time series, both in terms of density and speed, which can be visualized simultaneously (with colors and speed barbs).
+1. `range_min`, `range_max`: sets the minimum and maximum range (distance from the radar) of data to include. We recommend a minimum range of 5 km, to exclude the closest ranges that typically contain a lot of ground clutter. We recommend a maximum range of 35 km, which for most radars allows coverage up to 3 to 4 km a.s.l., which is the altitude band in which most migration occurs ([Bruderer et al. 2018][bruderer_2018]). At longer ranges, the radar beam gets very wide, hampering the radar's ability to resolve altitudinal distributions.
+2. `layers`, `layer_height`: sets the number of altitude layers and their thickness, respectively. Altitudes are defined relative to mean sea level, taking into account the antenna height as stored in the original polar volume file. We recommend a thickness of 200 m. Profiles with narrower altitude bin spacings can be extracted ([Buler and Diehl 2009][buler_2009]), but the finite size of the radar beam precludes resolving altitudinal features smaller than approximately 100–200 m. Profile quantities are estimated based on resolution samples centered within the altitudinal spacing of each layer.
+3. `dual_pol`, `rho_hv`: the logical `dual_pol` enables polarimetric filtering of precipitation, which discards contiguous areas with correlation coefficient (ρ<sub>HV</sub>) above a threshold `rho_hv`. We recommend `rho_hv` = 0.95, since precipitation typically has higher correlation coefficient values ([Stepanian et al. 2016][stepanian_2016]) (but note that lower ρ<sub>HV</sub> is possible in mixed precipitation, like a combination of snow and rain, cf. [Ryzhkov and Zrnic 1998][ryzhkov_1998]). Single polarization mode is currently only available for C‐band radars.
+4. `dealias`, `nyquist_min`: the logical `dealias` enables radial velocity dealiasing following the method by [Haase and Landelius (2004)][haase_2004] when scans are present with a Nyquist velocity smaller than threshold `nyquist_min` (default 25 m s<sup>–1</sup>). The Nyquist velocity is stored in the `attributes$how$NI` slot of scan class objects. Some radars dealias velocities at acquisition time, e.g. using the dual‐PRF technique ([Holleman 2005][holleman_2005]). For such radars we recommend no dealiasing for scans on which this is applied. For data acquired with a single PRF we recommend dealiasing when the Nyquist velocity of a scan is below 25 m s<sup>–1</sup>, i.e. if there is a high probability that animal movements will be faster than the Nyquist velocity.
+5. `sd_vvp_threshold`: animal speed and direction are estimated using the Volume Velocity Profiling (VVP) technique ([Waldteufel and Corbin 1978][waldteufel_1978], [Holleman 2005][holleman_2005]). VVP also provides the standard deviation of the fit residuals (quantity `sd_vvp` in a profile). The `sd_vvp_threshold` parameter sets the threshold for discarding data based on this standard deviation measure. Animal density will be set to zero in altitude layers with a VVP standard deviation `sd_vvp` < `sd_vvp_threshold`. We recommend applying this thresholding as a way of removing residual rain contaminations and insects in bird studies using C‐band radars, where `sd_vvp_threshold` = 2 m s<sup>–1</sup> was shown a suitable value ([Dokter et al. 2011][dokter_2011]). We note that `sd_vvp` may become large in relatively rare cases where the velocity field is highly nonlinear (e.g. strong shear), causing this thresholding criterion to break down. For S‐band radars VVP standard deviation thresholding has not been thoroughly evaluated, but radial velocity variability during bird migration may be lower than at C‐band in certain cases. We currently recommend a conservative threshold of 1 m s<sup>–1</sup> to retain more biological scatter.
+6. `rcs`: value for the radar cross section (RCS) of an individual. We recommend 11 cm<sup>2</sup> as a starting point, which was the seasonal average for C‐band radars in western Europe during nocturnal passerine migration, according to a calibration experiment ([Dokter et al. 2011][dokter_2011]). Note that radar cross sections depend on target size, body orientation, and radar wavelength ([Vaughn 1985][vaughn_1985]).
 
-## Conversions into numbers of migrating individuals
+The `sd_vvp_threshold` and `rcs` parameters can be changed using the `sd_vvp_threshold()` and `rcs()` functions (in step 3 and up) without having to reprocess the vertical profile (step 2).
 
-To convert radar reflectivity into densities of individuals, a specific radar
-cross section per individual needs to be assumed, which is set with `rcs()`.
-By default, a radar cross section of 11 cm^2 is used, which is the average value found by Dokter et al. during a full autumn migration season in Europe at C-band.
+### Step 3: visualizing and interpreting individual profiles
 
-`integrate_profile()` calculates various height-integrated values within user-defined altitude bands, such as migration traffic rate (MTR).
+The various quantities in a **vertical profile** (e.g. `dens`: animal density, `ff`: ground speed, `dd`: ground speed direction, `eta`: reflectivity) can be visualized with `plot.vp()`, as shown in [Fig. 2F and 2G][figure_2] for density. These profile plots and [Fig. 2D and 2E][figure_2] are for the same moment in time. Note that both profiles show layering of birds: a density concentration at high altitude (here at approx. 1.5 km) (cf. [Dokter et al. 2013][dokter_2013]). These layers show up as concentric rings in [Fig. 2D and 2E][figure_2]. These rings appear because at an increasing distance from the radar, measurements are made at higher altitudes, because of the positive beam elevation and the curvature of the earth.
 
-## Conventions
+Also note that the peak densities of the two cases are similar, on the order of 100 individuals km<sup>–3</sup> (assuming RCS = 11 cm<sup>2</sup>) ([Fig. 2H and 2I][figure_2]). The reflectivity factors (in dBZ scale, not to be confused with reflectivity η ([Dokter et al. 2011][dokter_2011], [Chilson et al. 2012b][chilson_2012b]) are however much higher for the US case than the European case. This is related to the difference in radar wavelength ([Dokter et al. 2011][dokter_2011]), with NEXRAD radars in the US being S‐band and European radars being mostly C‐band.
 
-* `NA` maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)
-* `NaN` maps to 'undetect' in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
-* `0` maps to 0 in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
+### Step 4: analyzing and visualizing vertical profiles as time series
 
-It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
+After processing volume data into profiles, the profile data of consecutive volume scans of a radar can be organized into a **time series of vertical profiles**. The function `bind_into_vpts()` binds vertical profile objects (class `vp`) into time series object (class `vpts`), for which the default plot is shown in [figure 2H and 2I][figure_2]. The dotted line indicates the time slice of [Fig. 2B–G][figure_2].
 
-## Other useful functionality
+The `plot.vpts()` method overlays one of the reflectivity‐based quantities (e.g. `dens`, `eta` or `dbz`) with a barb indicating the animals ground speed and direction. This follows meteorological conventions for graphically displaying wind speed and direction (with north being up). The number of barb flags indicate the speed (`ff`) while its tip points into the direction where animals are moving (`dd`).
 
-* `sunrise()` and `sunset()` calculates runrise and sunset times
-* `check_docker()` checks whether your local Docker daemon is running correctly
-* `get_elevation_angles()` gives the elevation angle(s) of a polar volume or polar scan object
-* `beam_height()` gives the radar beam height, at a certain elevation and range.
-* `beam_width()` gives the radar beam width, at a certain range.
+Another useful profile quantity to inspect as time series is DBZH. This is the reflectivity factor for all scatterers, including meteorological targets like precipitation. Time periods with rain are often clearly visible as high DBZH values over the full altitude column. We recommend making plots of DBZH as a way of screening for precipitation contaminations and quality control, which is often a useful way to check remarkable altitude patterns in the biological data (e.g. the layering of birds at 1.5 km can also be seen in [Fig. 2I][figure_2]) or short spikes with high values that might be due to rain contamination.
+
+bioRad provides multiple functions to further aggregate and summarize time series data. We can integrate over the altitude dimension using `integrate_profile()`, which outputs a specially classed `data.frame` (class `vpi`) containing altitudinally integrated or averaged quantities. [Figure 2J and 2K][figure_2] show plots of migration traffic rate, both MTR (variable transect angle, Eq. 1) and MTR<sub>0</sub> and MTR<sub>90</sub> (fixed transect angle, Eq. 2). We note that MTR is always positive, but MTR<sub>α</sub> definitions can become negative depending on the migratory direction in relation to α. For example, the northward spring migration (US case, [Fig. 2K][figure_2]) result in a positive MTR<sub>0</sub>, while the southward autumn migration (European case, [Fig. 2J][figure_2]) is negative. For the US case, migration is directed mostly northward, therefore MTR<sub>0</sub> is much larger than MTR<sub>90</sub>, while in the European case, migration is mostly westward, therefore (in absolute value) MTR<sub>0</sub> is smaller than MTR<sub>90</sub>.
+
+**Vertically‐integrated time series** can be further accumulated in time into measures summarizing migration traffic having passed the radar station during a time period, like MT (migration traffic) or RT (reflectivity traffic) (cf. output columns `mt` and `rt` of `integrate_profile()`). For example, for the European case we find MT = 55 × 10<sup>3</sup>, MT<sub>0</sub> = –28 × 10<sup>3</sup> and MT<sub>90</sub> = –45 × 10<sup>3</sup> for the time night‐time period. This means that – assuming a radar cross section (RCS) per individual of 11 cm<sup>2</sup> – 55 thousand birds per 1 km transect flew over the radar station in this night (irrespective of direction). Decomposing the migration traffic into two perpendicularly oriented components, we find a net 28 thousand birds flew southward per km over a west‐to‐east transect (MT<sub>0</sub>), and a net 45 thousand birds per km flew westward per km over a north‐to‐south transect (MT<sub>90</sub>). For these specific definitions, MT ≤ √(MT<sub>0</sub><sup>2</sup> + MT<sub>90</sub><sup>2</sup>), with the left‐ and right‐hand side being equal when migration directions `dd` all point into a sector of at most 180 degrees wide, as is usually the case for periods confined to a single spring or fall.
+
+Both the `vp` and `vpts` class objects can be exported to standard R data frames (using `as.data.frame.vp()` and `as.data.frame.vpts()`) for further analysis outside of bioRad.
 
 ## Example datasets
 
-* `bioRad::example_scan`: example object of class `scan`
+bioRad includes a number of example datasets:
+
+* `bioRad::example_scan`: example object of class `scan`.
 * `bioRad::example_vp`: example object of class `vp` as generated by `calculate_vp()`.
 * `bioRad::example_vpts`: example object of class `vpts`.
-* `profile.h5`: example hdf5 file containing a vertical profile generated by `calculate_vp()`. Locate this file in your local installation with `system.file("extdata", "profile.h5", package = "bioRad")`. Read it with `read_vpfiles()`
-* `volume.h5`: example hdf5 file containing a polar volume. Locate this file in your local installation with `system.file("extdata", "volume.h5", package = "bioRad")`. Read it with `read_pvolfile()`.
-* `vpts.txt.zip`: example standard output of `calculate_vp()` piped to a text file (and zipped). Locate this file in your local installation with `system.file("extdata", "vpts.txt", package = "bioRad")`. Read it with `read_vpts()` after unzipping.
+* `volume.h5`: example hdf5 file containing a polar volume. Read using:
 
-## References
+    ```R
+    pvol_file <- system.file("extdata", "volume.h5", package = "bioRad")
+    read_pvolfile(pvol_file)
+    ```
 
-* Bird migration flight altitudes studied by a network of operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54), pp. 30-43, 2011. <https://doi.org/10.1098/rsif.2010.0116>
-* bioRad: biological analysis and visualization of weather radar data. Dokter, A.M., Desmet, P., Spaaks, J.H., Van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., Ecography, 2018. <https://doi.org/10.1111/ecog.04028>
+* `profile.h5`: example hdf5 file containing a vertical profile generated by `calculate_vp()`. Read using:
+
+    ```R
+    vp_file <- system.file("extdata", "profile.h5", package = "bioRad")
+    read_vpfiles(vp_file)
+    ```
+    
+* `vpts.txt.zip`: example standard output of `calculate_vp()` piped to a text file (and zipped). Read using:
+
+    ```R
+    vpts_file <- unzip(system.file("extdata", "vpts.txt.zip", package = "bioRad"))
+    read_vpts(vpts_file, radar = "KBGM", wavelength = "S")
+    ```
+
+Conventions in data files:
+
+* `NA` maps to `nodata` in the ODIM convention: value to denote areas void of data (never radiated).
+* `NaN` maps to `undetect` in the ODIM convention: denote areas below the measurement detection threshold (radiated but nothing detected). The value is also used when there are too few datapoints to calculate a quantity.
+* `0` maps to `0` in the ODIM convention: denote areas where the quantity has a measured value of zero (radiated and value zero detected or inferred).
+
+It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an `undetect` is equivalent to zero. When dealing with close range data only (within 35 km), it is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
