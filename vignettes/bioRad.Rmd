@@ -1,6 +1,6 @@
 ---
-author: "Adriaan M. Dokter"
 title: "Introduction to bioRad"
+author: Adriaan M. Dokter & Peter Desmet
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{bioRad}
@@ -8,19 +8,20 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-bioRad is an R package for the biological analysis and visualization of weather radar data.
+bioRad is an R package for the biological analysis and visualization of weather radar data. The package is described in our paper:
 
-Check the [vignette](https://adokter.github.io/bioRad/articles/functionality_overview.html) with exercises introducing you to most of bioRad's functionality.
+> Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2018) bioRad: biological analysis and visualization of weather radar data. Ecography. <https://doi.org/10.1111/ecog.04028>
 
-Our recent [paper](https://doi.org/10.1111/ecog.04028) in Ecography provides an overview of bioRad's functionality:
+The [paper][dokter_2018] also defines weather radar equivalents for familiar measures used in the field of migration ecology and is thus a good start if you are new to radar aeroecology. Below we included the sections and figure from the paper describing the package and typical analysis workflow, with links to the functions used.
 
-Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S. bioRad: biological analysis and visualization of weather radar data. Ecography 2018. <https://doi.org/10.1111/ecog.04028>
+In the top navigation, see [**Reference**](https://adokter.github.io/bioRad/reference/index.html) for an overview of all functions, **Articles** for course exercises and [**Changelog**](https://adokter.github.io/bioRad/news/index.html) for package updates.
 
 <!-- References used in this document -->
 
 [figure_2]: #figure-2
 [bruderer_2018]: https://doi.org/10.1007/s10336-017-1506-z
 [buler_2009]: https://doi.org/10.1109/TGRS.2009.2014463
+[chambers_2016]: https://www.crcpress.com/Extending-R/Chambers/p/book/9781498775717
 [chilson_2012b]: https://doi.org/10.1890/ES12-00027.1
 [dokter_2011]: https://doi.org/10.1098/rsif.2010.0116
 [dokter_2013]: https://doi.org/10.1371/journal.pone.0052300
@@ -38,15 +39,15 @@ Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haas
 
 ## General package structure and functionality
 
-The functionality of bioRad is summarized in Fig. 2. Essentially, the package allows users to:
+The functionality of bioRad is summarized in [Fig. 2][figure_2]. Essentially, the package allows users to:
 
 1. Load, inspect and visualize low‐level radar data (polar volume data, also called level‐II data in the US) of C‐band or S‐band weather radars, formatted in either the European OPERA (ODIM hdf5) or US NEXRAD data standard.
 2. Extract biological information (speed, direction and density) at different altitudes.
 3. Visualize, aggregate, and summarize this biological information over specific altitudes and time periods.
 
-In bioRad, class objects are used for storing low‐level data and data products, shown as blue/green boxes in Fig. 2. R has multiple class object systems, and bioRad uses the S3 object system (Chambers 2016). Most of these class objects have an associated plot method for making quick visualizations. The right‐hand side of Fig. 2 shows examples of the output of these plot methods, for two migration events of similar intensity, one in Europe and one in the US. bioRad is able to extract vertical profiles of speed, direction, and density at different flight altitudes from low‐level radar data, while offering standardized tools for post‐processing and further analysis. Spatial variation in the horizontal plane is averaged out in profiles, and data is usually processed up to 25–35 km from the radar. Vertical profiles are generated in bioRad with the vol2bird algorithm (available at <https://github.com/adokter/vol2bird>), originally developed for single and dual‐polarization C‐band radars (Dokter et al. 2011).
+In bioRad, class objects are used for storing low‐level data and data products, shown as blue/green boxes in [Fig. 2][figure_2]. R has multiple class object systems, and bioRad uses the S3 object system ([Chambers 2016][chambers_2016]). Most of these class objects have an associated plot method for making quick visualizations. The right‐hand side of [Fig. 2][figure_2] shows examples of the output of these plot methods, for two migration events of similar intensity, one in Europe and one in the US. bioRad is able to extract vertical profiles of speed, direction, and density at different flight altitudes from low‐level radar data, while offering standardized tools for post‐processing and further analysis. Spatial variation in the horizontal plane is averaged out in profiles, and data is usually processed up to 25–35 km from the radar. Vertical profiles are generated in bioRad with the [vol2bird algorithm](https://github.com/adokter/vol2bird), originally developed for single and dual‐polarization C‐band radars ([Dokter et al. 2011][dokter_2011]).
 
-For this publication the underlying C‐code for the algorithm has been refactored for compatibility with European and US radar formats, and for improved structure and readability of the code base. Additional support has been added for dual‐polarization S‐band radars, like the US WSR‐88D/NEXRAD radars, as well for dealiasing radial velocities. The package does not yet support automated removal of precipitation signals for single‐polarization S‐band radar. For these radars the generated profiles should be manually screened for precipitation contamination (cf. step 4 analysis workflow).
+The underlying C‐code for the algorithm has been refactored for compatibility with European and US radar formats, and for improved structure and readability of the code base. Additional support has been added for dual‐polarization S‐band radars, like the US WSR‐88D/NEXRAD radars, as well for dealiasing radial velocities. The package does not yet support automated removal of precipitation signals for single‐polarization S‐band radar. For these radars the generated profiles should be manually screened for precipitation contamination (cf. step 4 analysis workflow).
 
 ## Figure 2
 
