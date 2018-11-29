@@ -18,6 +18,7 @@ Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haas
 
 <!-- References used in this document -->
 
+[figure_2]: #figure-2
 [bruderer_2018]: https://doi.org/10.1007/s10336-017-1506-z
 [buler_2009]: https://doi.org/10.1109/TGRS.2009.2014463
 [dokter_2011]: https://doi.org/10.1098/rsif.2010.0116
@@ -53,9 +54,9 @@ The figure shows the structure and interrelation of bioRad's main class objects,
 
 * Figures (B) and (C) show radial velocity (VRADH) in m s<sup>–1</sup> for the 1.5° elevation scans.
 * Figures (D) and (E) show reflectivity factor (DBZH) in dBZ for the same scans.
-* Figure (F) and (G) shows animal density (`dens`) versus altitude (RCS = 11 cm<sup>2</sup>) for a single vertical profile.
-* Figure (H) and (I) show animal density (`dens`) and speed and direction (`dd` and `ff`) for a time series of vertical profiles.
-* In figure (J) and (K), the black line shows MTR (migration traffic rate across a transect perpendicular to ground speed direction), blue line MTR<sub>0</sub> (migration traffic rate across a fixed east‐to‐west transect) and red line MTR<sub>90</sub> (migration traffic rate across a fixed north‐to‐south transect).
+* Figures (F) and (G) shows animal density (`dens`) versus altitude (RCS = 11 cm<sup>2</sup>) for a single vertical profile.
+* Figures (H) and (I) show animal density (`dens`) and speed and direction (`dd` and `ff`) for a time series of vertical profiles.
+* In figures (J) and (K), the black line shows MTR (migration traffic rate across a transect perpendicular to ground speed direction), blue line MTR<sub>0</sub> (migration traffic rate across a fixed east‐to‐west transect) and red line MTR<sub>90</sub> (migration traffic rate across a fixed north‐to‐south transect).
 
 ## Analysis workflow
 
@@ -65,11 +66,11 @@ The low‐level radar data with which bioRad interacts are so‐called **polar v
 
 A polar volume (class `pvol`) contains a list of **scans** (class `scan`), each of which consists of a list of scan parameters (class `param`). A **scan parameter** is one of the radar's basic observed quantities, such as reflectivity factor and radial velocity, and for dual‐polarization radars additional quantities such as correlation coefficient, differential phase, and differential reflectivity.
 
-Scan parameters can be projected on a georeferenced Cartesian grid in the form of a **plan position indicator** (PPI) objects (class `ppi`) using the function `project_as_ppi()`. These can either be plotted directly using the function `plot()` ([Fig. 2B, 2C](#figure-2)) or overlayed on a customizable basemap using the function `map()` ([Fig. 2D, 2E](#figure-2)), which makes use of the [ggplot2](https://ggplot2.tidyverse.org/) ([Wickham 2016][wickham_2016]) and [ggmap](https://github.com/dkahle/ggmap) ([Kahle and Wickham 2013][kahle_2013]) R libraries.
+Scan parameters can be projected on a georeferenced Cartesian grid in the form of a **plan position indicator** (PPI) objects (class `ppi`) using the function `project_as_ppi()`. These can either be plotted directly using the function `plot.ppi()` ([Fig. 2B and 2C][figure_2]) or overlayed on a customizable basemap using the function `map()` ([Fig. 2D and 2E][figure_2]), which makes use of the [ggplot2](https://ggplot2.tidyverse.org/) ([Wickham 2016][wickham_2016]) and [ggmap](https://github.com/dkahle/ggmap) ([Kahle and Wickham 2013][kahle_2013]) R libraries.
 
 ### Step 2: processing volumes into vertical profiles
 
-Polar volumes can be processed into **vertical profiles** of biological targets using the `calculate_vp()` function, which is a release of the algorithm vol2bird ([Dokter et al. 2011][dokter_2011]), available independently on [Github](https://github.com/adokter/vol2bird). The function takes in a polar volume file and outputs a vertical profile file and/or a vertical profile (`vp`) class object. The function has an argument `autoconf`, which when set to TRUE will select default settings automatically (depending on radar wavelength and availability of polarimetric data).
+Polar volumes can be processed into vertical profiles of biological targets using the `calculate_vp()` function, which is a release of the algorithm vol2bird ([Dokter et al. 2011][dokter_2011]), available independently on [Github](https://github.com/adokter/vol2bird). The function takes in a polar volume file and outputs a vertical profile file and/or a vertical profile (`vp`) class object. The function has an argument `autoconf`, which when set to TRUE will select default settings automatically (depending on radar wavelength and availability of polarimetric data).
 
 We describe the most important algorithm parameters and their preferred settings:
 
