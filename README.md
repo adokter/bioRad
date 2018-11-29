@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file and knit -->
-bioRad <img src="man/figures/logo.png" align="right">
-=====================================================
+bioRad <img src="man/figures/logo.png" align="right" alt="" width="120">
+========================================================================
 
 bioRad aims to provide standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low‐level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.
 
@@ -30,7 +30,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.3.0.9163
+#> Welcome to bioRad version 0.3.0.9166
 #> Docker daemon running, Docker functionality enabled.
 ```
 

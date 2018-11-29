@@ -125,7 +125,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       zlim <- c(0, 5000)
     }
     if (quantity == "dbz" || quantity == "DBZH") {
-      if (x$attributes$how$wavelength > 10) {
+      if (x$attributes$how$wavelength >= 10) {
         ticks <- legendticks <- seq(-5, 30, 5)
         zlim <- c(-5, 30)
       }
