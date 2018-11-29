@@ -105,48 +105,6 @@ bioRad provides multiple functions to further aggregate and summarize time serie
 
 Both the `vp` and `vpts` class objects can be exported to standard R data frames (using `as.data.frame.vp()` and `as.data.frame.vpts()`) for further analysis outside of bioRad.
 
-## bioRad's class objects
-
-`bioRad` uses the following class objects for storing radar data:
-
-* `pvol` a polar volume: consists typically of a set of polar scans, collected at different elevation angles, that together sample the full aerial volume surrounding the radar
-* `scan` a polar scan: a 360 degree radar scan at a fixed elevation in polar coordinates. One scan typically contains multiple scan parameters.
-* `param` a polar scan parameter: one of the observable quantities recorded within a polar scan, such as reflectivity (DBZH) or radial velocity (VRADH).
-* `ppi` a Cartesian plan position indicator: a projection on a Cartesian grid of a polar scan or a polar scan parameter
-* `vp` a vertical profile: typically biological data extracted from a polar volume by `calculate_vp()`
-* `vpts` a vertical profile time series: a time-oredered list of `vp` objects for a single radar.
-* `vpi` vertically integrated vertical profiles.
-
-The common `summary`, `is`, `dim`, `Extract` methods are available for each of these classes.
-
-Plot methods are available for `vp`, `vpts`, `vpi` and `ppi` objects
-
-## Processing weather radar data into vertical profiles of birds
-
-bioRad contains an implementation of the vol2bird algorithm, which processes polar volume data into a vertical profiles of birds (`vp`). The function `calculate_vp()` calls the *vol2bird* algorithm and requires a locally running [Docker](https://www.docker.com/) daemon.
-
-`calculate_vp()` outputs a vertical profile object (`vp`) in R, and can store the vertical profile object in an ODIM-complient hdf5 format on disk. Stored hdf5 profiles can be read from disk with `read_vpfiles()` (for a single file or for a list of files)
-
-For users running their own installation of vol2bird outside R and Docker, the function `read_vpts()` is provided to read vol2bird's stdout (standard output) into R (after piping the stdout to a file).
-
-## Organizing, analyzing and plotting vertical profile data
-
-Vertical profiles (`vp` objects) or a list of vertical profiles can be combined with `bind_into_vpts()` into vertical profile time series (`vpts` objects).
-
-`regularize_vpts()` can be used to project a `vpts` object on a regular time grid.
-
-`bioRad::plot.vp` can be used to make a plot of a single vertical profile.
-
-`bioRad::plot.vpts` can be used to visually summarize vertical profile time series, both in terms of density and speed, which can be visualized simultaneously (with colors and speed barbs).
-
-## Conversions into numbers of migrating individuals
-
-To convert radar reflectivity into densities of individuals, a specific radar
-cross section per individual needs to be assumed, which is set with `rcs()`.
-By default, a radar cross section of 11 cm^2 is used, which is the average value found by Dokter et al. during a full autumn migration season in Europe at C-band.
-
-`integrate_profile()` calculates various height-integrated values within user-defined altitude bands, such as migration traffic rate (MTR).
-
 ## Conventions
 
 * `NA` maps to 'nodata' in the ODIM convention: value to denote areas void of data (never radiated)
