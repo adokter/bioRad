@@ -113,13 +113,7 @@ Both the `vp` and `vpts` class objects can be exported to standard R data frames
 
 It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero in case of undetects.
 
-## Other useful functionality
 
-* `sunrise()` and `sunset()` calculates runrise and sunset times
-* `check_docker()` checks whether your local Docker daemon is running correctly
-* `get_elevation_angles()` gives the elevation angle(s) of a polar volume or polar scan object
-* `beam_height()` gives the radar beam height, at a certain elevation and range.
-* `beam_width()` gives the radar beam width, at a certain range.
 
 ## Example datasets
 
