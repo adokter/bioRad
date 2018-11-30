@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/RadAero18.html">Introductory exercises with bioRad</a>
+      <a href="articles/rad_aero_18.html">Introductory exercises with bioRad</a>
     </li>
   </ul>
 </li>
@@ -124,7 +124,7 @@
 <h3 class="hasAnchor">
 <a href="#attention" class="anchor"></a><em>Attention!</em>
 </h3>
-<p>Google has <a href="https://developers.google.com/maps/documentation/geocoding/usage-and-billing">recently changed its API requirements</a>, and **ggmap*__** - the package used by bioRad to overlay radar scans on maps - now requires users to provide an API key <em>and</em> enable billing in order to use Google imagery. bioRad switched to using <a href="http://maps.stamen.com/">stamen</a> maps by default, which do not require special credentials.</p>
+<p>Google has <a href="https://developers.google.com/maps/documentation/geocoding/usage-and-billing">recently changed its API requirements</a>, and <strong><a href="https://github.com/dkahle/ggmap">ggmap</a></strong> - the package used by bioRad to overlay radar scans on maps - now requires users to provide an API key <em>and</em> enable billing in order to use Google imagery. bioRad switched to using <a href="http://maps.stamen.com/">stamen</a> maps by default, which do not require special credentials.</p>
 <p><strong>ggmap</strong> itself is outdated on CRAN; its developers hope to have the new version up on CRAN soon, but until then, see <a href="https://github.com/dkahle/ggmap/">ggmap Github page</a> for how to install the latest development version.</p>
 </div>
 <div id="docker-optional" class="section level3">
@@ -144,6 +144,13 @@
 <li>In R do <code><a href="reference/check_docker.html">check_docker()</a></code>.</li>
 <li>You can now use the bioRad functionality that requires Docker. </li>
 </ol>
+<p><details><summary><strong>Known issues with Docker</strong></summary></details></p>
+<ol style="list-style-type: decimal">
+<li>Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.</li>
+<li>For firewall issues on Windows, see <a href="https://github.com/adokter/bioRad/issues/128">this issue</a>
+</li>
+</ol>
+<p></p>
 </div>
 </div>
 <div id="usage" class="section level2">
