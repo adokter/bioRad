@@ -72,7 +72,7 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
 <summary><strong>Known issues with Docker</strong></summary>
 
 1. Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.
-1. For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/154)
+1. For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/128)
 
 </details>
 
