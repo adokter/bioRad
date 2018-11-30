@@ -30,13 +30,13 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.3.0.9166
+#> Welcome to bioRad version 0.3.0.9163
 #> Docker daemon running, Docker functionality enabled.
 ```
 
 ### *Attention!*
 
-Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing), and \*\*ggmap\*\_\_\*\* - the package used by bioRad to overlay radar scans on maps - now requires users to provide an API key *and* enable billing in order to use Google imagery. bioRad switched to using [stamen](http://maps.stamen.com/) maps by default, which do not require special credentials.
+Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing), and **[ggmap](https://github.com/dkahle/ggmap)** - the package used by bioRad to overlay radar scans on maps - now requires users to provide an API key *and* enable billing in order to use Google imagery. bioRad switched to using [stamen](http://maps.stamen.com/) maps by default, which do not require special credentials.
 
 **ggmap** itself is outdated on CRAN; its developers hope to have the new version up on CRAN soon, but until then, see [ggmap Github page](https://github.com/dkahle/ggmap/) for how to install the latest development version.
 
@@ -55,6 +55,13 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
 3.  Open the Docker application. The Docker (whale) icon will appear in your menu bar and indicate if it is running correctly.
 4.  In R do `check_docker()`.
 5.  You can now use the bioRad functionality that requires Docker. </details>
+
+<details> <summary><strong>Known issues with Docker</strong></summary>
+
+1.  Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.
+2.  For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/154)
+
+</details>
 
 Usage
 -----
