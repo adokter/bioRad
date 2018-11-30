@@ -7,15 +7,17 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-*These course materials weres developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA*
+
+_These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA_
 
 # 1: Basic visualisation of radar scans in R
 
 ## 1.1 Preparation
+
 Radar data needed for this practical can be downloaded from Dropbox.
 [https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0](https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0) 
 
-Execute each of the code examples provided below in [Rstudio](https://www.rstudio.com/), and try to complete the exercises.
+Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
 
 ```{r, eval=FALSE}
 # make sure you start with a fresh R session
@@ -25,8 +27,7 @@ library(bioRad)
 packageVersion("bioRad")
 # make sure you have the latest version (0.3.0). If you have an older version, download and reinstall as follows:
 library(devtools)
-install_github("adokter/bioRad@ecography")
-# note that we are installing an early beta release for the purpose of this practical (from a branch called 'ecography' on Github). The usual command to install bioRad is simply: install_github("adokter/bioRad")
+install_github("adokter/bioRad")
 ```
 
 All the functions of the bioRad package have fairly elaborated manual pages, that you can refer to at any moment:
@@ -38,35 +39,37 @@ All the functions of the bioRad package have fairly elaborated manual pages, tha
 
 In the help window, you can click on each of the links to pull up help pages of specific functions. Click on the `Index` link at the bottom of each help page to get an overview of all functions and available manual pages.
 
-Start by making a new directory on your local machine that you will use for this practical
+Start by making a new directory on your local machine that you will use for this practical:
 
 ```{r, eval=FALSE}
 # make a new local directory on your machine where to download data for this practical
 # replace the string below with the path of that directory:
-HOME="your/personal/working/directory/"
+HOME <- "your/personal/working/directory/"
 # check that the directory exists. If the next statement evaluates to FALSE, something went wrong: the directory does not exist or you didn't specify its path correctly
 file.exists(HOME)
 # we will make HOME our work directory, the default folder in which R will look
 # for files, and where it will output newly generated files.
 setwd(HOME)
 # Finally, we set the local time zone to UTC, so all plotted time axes will be in UTC
-Sys.setenv(TZ="UTC")
+Sys.setenv(TZ = "UTC")
 ```
 
-Your R session is now properly set up
+Your R session is now properly set up.
 
-To work with US NEXRAD data, bioRad currently requires  a working installation of Docker (linux / mac) or Docker for Windows (**not** Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). If you managed to successfully install Docker, test whether it works
+To work with US NEXRAD data, bioRad currently requires a working installation of Docker (Linux/Mac) or Docker for Windows (**not** Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). If you managed to successfully install Docker, test whether it works:
+
 ```{r, eval=FALSE}
 # start your local Docker installation
 # we first test whether R can communicate with Docker:
 check_docker()
 ```
+
 If you get a "Hello from Docker!" welcome message, everything is working.
 
 If you did **not** manage to install Docker, you will not be able to load NEXRAD data into R at this time, but you will be able to continue the exercises radar data that can be loaded without Docker.
 
-
 ## 1.3. The structure of polar volumes
+
 ```{r, eval=FALSE}
 # the bioRad package comes with an example radar volume file, that we will inspect first
 # first locate this example file on our computer:
@@ -74,29 +77,30 @@ my_filename <- system.file("extdata", "volume.h5", package="bioRad")
 # print the local path of the volume file:
 my_filename
 # load the file into R:
-my_pvol=read_pvolfile(my_filename)
+my_pvol <- read_pvolfile(my_filename)
 ## print some information about the polar volume
 my_pvol
 # print information about the polar scans contained in this polar volume:
 my_pvol$scans
 ```
 
-* **Exercise** Load the polar volume file, `example_pvol.h5` from the zipfile downloaded earlier. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the `read_pvolfile` function for the nomenclature of various available quantities).
+**Exercise 1:** Load the polar volume file, `example_pvol.h5` from the zipfile downloaded earlier. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the `read_pvolfile()` function for the nomenclature of various available quantities).
 
 ## 1.4. Plotting radar scans
+
 ```{r, eval=FALSE}
 # (if you haven't done so already) load the polar volume data from the volume.h5 file you just downloaded
-my_pvol=read_pvolfile("example_pvol.h5")
+my_pvol <- read_pvolfile("example_pvol.h5")
 # let's extract the third scan, which was collected at 1.5 degree elevation:
-my_scan = my_pvol$scans[[3]]
+my_scan <- my_pvol$scans[[3]]
 # print some information about this scan:
 my_scan
 # before we can plot the scan, we need to project it on a Cartesian grid,
 # i.e. we need to make a Plan Position Indicator (PPI)
-my_ppi = project_as_ppi(my_scan)
+my_ppi <- project_as_ppi(my_scan)
 # print some information about this ppi:
 my_ppi
-# you can see we projected it on a 500 metre grid
+# you can see we projected it on a 500 meter grid
 # (check the manual of the project_as_ppi function to see how you can
 # change the grid size (argument grid_size) and the maximum distance
 # from the radar up to where to plot data (argument range_max))
@@ -105,19 +109,21 @@ my_ppi
 plot(my_ppi, param="DBZH")
 ```
 
-* **Exercise** This case contains convective precipitation, characterised by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitive areas differs from the areas with biological scattering.
+**Exercise 2:** This case contains convective precipitation, characterised by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitive areas differs from the areas with biological scattering.
 
-* **Exercise** Based on the radial velocity image, are the biological scatterers birds or insects? Why?
+**Exercise 3:** Based on the radial velocity image, are the biological scatterers birds or insects? Why?
 
 ## 1.5. Overlaying radar scans on maps
+
 ```{r, eval=FALSE}
 # It is often informative to plot radar data on a base layer, such as google earth maps.
 # first download the background image:
-satellite_basemap=download_basemap(my_ppi,maptype="satellite")
+satellite_basemap <- download_basemap(my_ppi, maptype = "satellite")
 # then overlay the PPI on the satellite image:
-map(my_ppi,map=satellite_basemap, param="DBZH", zlim=c(-20,15))
+map(my_ppi,map = satellite_basemap, param = "DBZH", zlim = c(-20,15))
 ```
-* **Exercise** Plot the same ppi but now using a cartographic map instead of satellite maps as baselayer. See help of bioRad's `map` function for available types of basemaps, specifically the argument `maptype`.
+
+**Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as baselayer. See help of bioRad's `map()` function for available types of basemaps, specifically the argument `maptype`.
 
 # 2: Analysis and visualisation of vertical bird profiles
 
@@ -126,9 +132,10 @@ In this section you will learn to compute, interpret and analyze vertical profil
 See section 3 for information on how to process polar volume data into vertical profiles. To save some time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).
 
 ## 2.1. Loading processed vertical profiles
+
 ```{r, eval=FALSE}
 # Usually we would load processed vertical profiles (vp files) by:
-# my_vplist=read_vpfiles("./your/directory/with/processed/profiles/goes/here")
+# my_vplist <- read_vpfiles("./your/directory/with/processed/profiles/goes/here")
 # my_vplist contains after running the command a list of vertical profile (vp) objects
 # To save time, we load these data directly from file
 load("KBRO20170514.RData")
@@ -137,52 +144,59 @@ my_vplist
 ```
 
 ## 2.2. Inspecting single vertical profiles
+
 Now that you have loaded a list of vertical profiles, we can start exploring them. We will start with plotting and inspecting single vertical profiles, i.e. a single profile from the list of vp objects you have just loaded.
 
 ```{r, eval=FALSE}
 # let's extract a profile from the list, in this example the 41st profile:
-my_vp=my_vplist[[41]]
+my_vp <- my_vplist[[41]]
 # print some info for this profile to the console
 my_vp
 # test whether this profile was collected at day time:
 check_night(my_vp)
 # plot the vertical profile, in terms of reflectivity factor
-plot(my_vp, quantity="dbz")
+plot(my_vp, quantity = "dbz")
 # plot the vertical profile, in terms of reflectivity
-plot(my_vp, quantity="eta")
+plot(my_vp, quantity = "eta")
 ```
 
 These two plots look very different, but they are twice the same data plotted on a different scale.
+
 ```
 eta = (radar-wavelength dependent constant) * 10^(dbz/10)
 ```
+
 So `eta` and `dbz` are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear.
 
-The reflectivity factor `dbz` is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at equal reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit
+The reflectivity factor `dbz` is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at equal reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.
 
 In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this case the reflectivity `eta` is more similar between S-band and C-band. `eta` is also more directly related to the density of birds, since `eta` can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists reflectivity `eta` is the more conventional unit (instead of reflectivity factor in dBZ).
 
 ```{r, eval=FALSE}
 # plot the vertical profile, in terms of bird density
-plot(my_vp, quantity="dens")
+plot(my_vp, quantity = "dens")
 # print the currently assumed radar cross section (RCS) per bird:
 rcs(my_vp)
 ```
 
-* **Exercise** If you change your assumption on the bird's radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?
+**Exercise 5:** If you change your assumption on the bird's radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?
 
 The assumed radar cross section can be changed as follows:
+
 ```{r, eval=FALSE}
 # let's change the RCS to 110 cm^2
-rcs(my_vp) = 110
+rcs(my_vp) <- 110
 ```
-* **Exercise** Verify your answers on the previous two questions, by re-plotting the vertical profiles for the bird density quantity.
+
+**Exercise 6:** Verify your answers on the previous two questions, by re-plotting the vertical profiles for the bird density quantity.
 
 ## 2.3. Plotting vertical profile time series
+
 We will now examine multiple vertical profiles at once that are ordered into a time series, e.g. the vertical profiles obtained from a single radar over a full day.
+
 ```{r, eval=FALSE}
 # convert the list of vertical profiles into a time series:
-my_vpts=bind_into_vpts(my_vplist)
+my_vpts <- bind_into_vpts(my_vplist)
 # print summary information
 my_vpts
 # time series objects can be subsetted, just as you may be used to with vectors
@@ -199,51 +213,57 @@ plot(my_vpts)
 # is called plot.vpts:
 ?plot.vpts
 ```
+
 Let's make a plot for a subselection of the time series:
+
 ```{r, eval=FALSE}
 # make a subselection for night time only
-index_night=check_night(my_vpts)
-# index_night is a logical vectot that specifies each profile whether it occurred at night or not:
+index_night <- check_night(my_vpts)
+# index_night is a logical vector that specifies each profile whether it occurred at night or not:
 index_night
 # now subset our vpts using this selection:
-my_vpts_night=my_vpts[index_night]
+my_vpts_night <- my_vpts[index_night]
 # plot this smaller time series:
 plot(my_vpts_night)
 ```
-* **Exercise** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 metre at 22 UTC. In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
 
-* **Exercise** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speeds (quantity `ff`, see manual for the vp class for full list of available quantities). Check whether your answer to the previous question was approximately correct.
+**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC. In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
+
+**Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speeds (quantity `ff`, see manual for the vp class for full list of available quantities). Check whether your answer to the previous question was approximately correct.
 
 ## 2.4. Vertical and time integration of profiles
-Often you will want to sum together all the migrants in the vertical dimension, for example if you want a single index of how many birds are migrating at a certain instant. There are at least two ways in which you can do that
 
-* by calculating the vertically integrated bird density (VID), which is *surface* density as opposed to a *volume* densities you have been plotting in the previous exercises: this number gives you how many migrants are aloft per square kilometer earth's surface (unit individuals/km$^{2}$), and is a vertical integration of the volume densities  (unit individuals/km$^{3}$).
+Often you will want to sum together all the migrants in the vertical dimension, for example if you want a single index of how many birds are migrating at a certain instant. There are at least two ways in which you can do that:
+
+* by calculating the vertically integrated bird density (VID), which is _surface_ density as opposed to a _volume_ densities you have been plotting in the previous exercises: this number gives you how many migrants are aloft per square kilometer earth's surface (unit individuals/km$^{2}$), and is a vertical integration of the volume densities(unit individuals/km$^{3}$).
 * Note that the VID quantity doesn't depend on the speed of the migrants. A common measure that reflects both the density and speed of the migration is migration traffic rate (MTR). This is flux measure that gives you how many migrants are passing the radar station per unit of time and per unit of distance perpendicular to the migratory direction (unit individuals/km/hour).
 
-We will be using bioRad's `integrate_profile` function to calculate these quantities
+We will be using bioRad's `integrate_profile()` function to calculate these quantities:
 
 ```{r, eval=FALSE}
 # Let's continue with the vpts object created in the previous example.
 # The vertically integrated quantities are calculated as follows:
-my_vpi = integrate_profile(my_vpts)
+my_vpi <- integrate_profile(my_vpts)
 # The my_vpi object you created is a vpi class object, which is an acronym for "vertical profile integrated". It has its own plot method, which by default plots migration traffic rate (MTR):
 plot(my_vpi)
 # you can also plot vertically integrated densities (VID):
-plot(my_vpi, quantity="vid")
+plot(my_vpi, quantity = "vid")
 # the gray and white shading indicates day and night, which is calculated 
 # from the date and the radar position. You can also turn this off:
 plot(my_vpi, night_shade = FALSE)
 # plot the cumulative number of birds passing the radar, i.e. migration traffic (mt):
-plot(my_vpi, quantity="mt")
+plot(my_vpi, quantity = "mt")
 # execute `?plot.vpi` to open the help page listing all the options.
 ?plot.vpi
 ```
 
-The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1000 metre above ground is 200 birds per cubic kilometer, and from 1000-1500 metre 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 metre there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.
+The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1000 meter above ground is 200 birds per cubic kilometer, and from 1000-1500 meter 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 meter there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.
 
-* **Exercise** What is in this case the bird's vertically integrated density (VID)? Give your answer in units birds/km$^2$
-* **Exercise** What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour
-* **Exercise** How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.
+**Exercise 9:** What is in this case the bird's vertically integrated density (VID)? Give your answer in units birds/km$^2$.
+
+**Exercise 10:** What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour.
+
+**Exercise 11:** How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.
 
 Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling to make any assumptions on RCS, you can alternively use two closely related quantities that do not depend on RCS:
 
@@ -251,20 +271,22 @@ Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. I
 # print the currently assumed radar cross section:
 rcs(my_vpi)
 # instead of VID, you can use vertically integrated reflectivity (VIR):
-plot(my_vpi, quantity="vir")
+plot(my_vpi, quantity = "vir")
 # instead of MTR, you can use the reflectivity traffic rate (RTR):
-plot(my_vpi, quantity="rtr")
+plot(my_vpi, quantity = "rtr")
 # instead of MT, you can use the reflectivity traffic (RT):
-plot(my_vpi, quantity="rt")
+plot(my_vpi, quantity = "rt")
 ```
+
 VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicalur to the migratory flow per hour.
 
-* **Exercise** Re-plot the vertically integrated quantities discussed so far using a different radar cross section, and verify which quantities are affected by a change in radar cross section.
+**Exercise 12:** Re-plot the vertically integrated quantities discussed so far using a different radar cross section, and verify which quantities are affected by a change in radar cross section.
 
 ## 2.6. Inspecting precipitation signals in profiles
+
 Precipitation is known to have a major influence on the timing and intensity of migration, therefore it is a useful skill to be able to inspect profiles for presence of precipitation.
 
-Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algoriths in specific cases. It is therefore important to have the skills to  inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.
+Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algoriths in specific cases. It is therefore important to have the skills to inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.
 
 An easy way of doing that is plotting the vertical profile of total reflectivity (quantity DBZH), which includes everything: birds, insects and precipitation. Precipitation often has higher reflectivities than birds, and also extends to much higher altitudes.
 
@@ -274,12 +296,12 @@ load("KBGM20170527-20170602.RData")
 # print the loaded vpts time series for this radar:
 my_vpts
 # plot the bird density over time:
-plot(my_vpts, quantity="dens")
+plot(my_vpts, quantity = "dens")
 # also show meteorological signals:
-plot(my_vpts, quantity="DBZH")
+plot(my_vpts, quantity = "DBZH")
 ```
 
-* **Exercise** Compare your plots for bird density (quantity 'dens') with a profile plot for total reflectivity (quantity `DBZH`, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.
+**Exercise 13:** Compare your plots for bird density (quantity `dens`) with a profile plot for total reflectivity (quantity `DBZH`, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.
 
 # 3. Processing polar volume data into profiles
 
@@ -293,69 +315,76 @@ The names of the radars in the networks can be found here:
 * US: [NEXRAD network](https://www.roc.noaa.gov/WSR88D/Maps.aspx)
 * Europe: [OPERA database](http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html)
 
-Useful sites for inspecting premade movies of the US composite are http://birdcast.info/live-migration-maps/ and http://www.pauljhurtado.com/US_Composite_Radar/.
-
+Useful sites for inspecting premade movies of the US composite are <http://birdcast.info/live-migration-maps/> and <http://www.pauljhurtado.com/US_Composite_Radar/>.
 
 ## 3.2. Processing a single polar volume with the vol2bird algorithm
-The following steps take you through the process applying the vol2bird algorithm yourself. You need a working installation of Docker (linux / mac) or Docker for Windows (**not** Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). 
 
-We will generate vertical profiles with the automated algorithm vol2bird (https://github.com/adokter/vol2bird), which is included in the bioRad package
+The following steps take you through the process applying the vol2bird algorithm yourself. You need a working installation of Docker (Linux/Mac) or Docker for Windows (**not** Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). 
+
+We will generate vertical profiles with the automated algorithm vol2bird (<https://github.com/adokter/vol2bird>), which is included in the bioRad package.
 
 ```{r, eval=FALSE}
 # start your local Docker installation
 # we first test whether R can communicate with Docker:
 check_docker()
 ```
-If you get a "Hello from Docker!" welcome message, everything is working and you can start processing
+
+If you get a "Hello from Docker!" welcome message, everything is working and you can start processing.
 
 ```{r, eval=FALSE}
 # download a polar volume file you want to process and put it in your home directory.
-my_file="write_your_file_to_be_processed_here"
+my_file <- "write_your_file_to_be_processed_here"
 # Alternatively, continue with the polar volume that comes with the package:
-my_file <- system.file("extdata", "volume.h5", package="bioRad")
+my_file <- system.file("extdata", "volume.h5", package = "bioRad")
 # run vol2bird
 # we set autoconf to TRUE, to let vol2bird figure out the optimal settings by itself
-my_vp=calculate_vp(my_file,autoconf=TRUE)
+my_vp <- calculate_vp(my_file, autoconf = TRUE)
 # vp is now a 'vp' profile object, that you can examine as in the previous exercises
 # alternatively, you may also store the profile as a hdf5 file, which is what we will do next:
-calculate_vp(my_file,"my_vpfile.h5",autoconf=TRUE)
+calculate_vp(my_file, "my_vpfile.h5" , autoconf = TRUE)
 # your work directory should now contain a new file 'my_vpfile.h5'
 # check that we can read this file, and retrieve the vertical profile from it:
-vp=read_vpfiles("my_vpfile.h5")
+vp <- read_vpfiles("my_vpfile.h5")
 ```
 
 ## 3.3. Processing multiple polar volumes
-This section contains an example for processing a directory of polar volumes into profiles
+
+This section contains an example for processing a directory of polar volumes into profiles:
+
 ```{r, eval=FALSE}
 # read the filenames of the polar volumes you want to process
-my_files=list.files("your/directory/with/volumes/goes/here/",full.names=TRUE)
+my_files <- list.files("your/directory/with/volumes/goes/here/", full.names = TRUE)
 # print the filenames
 my_files
 # create output directory for processed profiles
-outputdir="~/processed_data"
+outputdir <- "~/processed_data"
 dir.create(outputdir)
 # let's loop over the files and generate profiles
-for(file_in in my_files){
+for(file_in in my_files) {
   # generate the output filename for the input file
-  file_out=paste(outputdir,"/",basename(file_in),"_vp.h5",sep="")
+  file_out <- paste(outputdir, "/", basename(file_in), "_vp.h5", sep = "")
   # generate the profile, and write it as a hdf5 file (for later reference)
   # we turn autoconfiguration on, so vol2bird chooses the optimal settings for the file automatically
-  vp=calculate_vp(file_in,file_out,autoconf=T)
+  vp <- calculate_vp(file_in, file_out, autoconf = TRUE)
 }
 ```
-Having generated the profiles, we can read them into R
+
+Having generated the profiles, we can read them into R:
+
 ```{r, eval=FALSE}
 # we assume outputdir contains the path to the directory with processed profiles
-my_vpfiles=list.files(outputdir,full.names=TRUE)
+my_vpfiles <- list.files(outputdir, full.names = TRUE)
 # print them
 my_vpfiles
 # read them
-my_vplist=read_vpfiles(my_vpfiles)
+my_vplist <- read_vpfiles(my_vpfiles)
 ```
-You can now continue with visualizing and post-processing as we did earlier
+
+You can now continue with visualizing and post-processing as we did earlier:
+
 ```{r, eval=FALSE}
 # make a time series of profiles:
-my_vpts=bind_into_vpts(my_vplist)
+my_vpts <- bind_into_vpts(my_vplist)
 # plot them between 0 - 3 km altitude:
-plot(my_vpts,ylim=c(0,3000))
+plot(my_vpts, ylim = c(0, 3000))
 ```
