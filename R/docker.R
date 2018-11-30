@@ -77,6 +77,13 @@ update_docker <- function() {
   return(creationDate)
 }
 
+# adds escapes before non-word characters
+split_path <- function(x) if (dirname(x)==x) x else c(basename(x),split_path(dirname(x)))
+
+escape=function(string) {
+  str_replace_all(string, "(\\W)", "\\\\\\1")
+}
+
 mount_docker_container <- function(mount = "~/") {
   # if docker not running, cannot start container
   if (!.pkgenv$docker) {
@@ -99,9 +106,7 @@ mount_docker_container <- function(mount = "~/") {
   if (.Platform$OS.type == "unix") {
     result <- system(
       paste("docker run -v ",
-        normalizePath(mount,
-          winslash = "/"
-        ),
+        paste(dirname(mount),"/",escape(basename(mount)),sep=""),
         ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
         sep = ""
       ),

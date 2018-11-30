@@ -36,6 +36,7 @@ Imports:
     rhdf5,
     sp,
     stats,
+    stringr,
     utils,
     maptools
 Suggests:
