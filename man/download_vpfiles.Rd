@@ -30,9 +30,15 @@ for an overview of available data.
 }
 \examples{
 my_path <- "~/my/directory/"
+# Download data from radars "jab" and "wid" in Belgium.
+# Should successfully download October data, but warn that no data was found
+# for November (as these are not available).
 \dontrun{
-download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-  c("jab", "wid"),
+download_vpfiles(
+  date_min = "2016-10-01",
+  date_max = "2016-11-30",
+  country = c("be"),
+  radar = c("jab", "wid"),
   directory = my_path
 )
 }

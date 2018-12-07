@@ -1,22 +1,3 @@
-#' Check if a specific URL exists
-#'
-#' @param url Weblink (char) to a potentially existing webpage.
-#'
-#' @return z With a length > 1 if the URL is existing and downloading would be
-#' possible.
-#'
-#' @keywords internal
-#' @importFrom RCurl getBinaryURL
-check_url_existence <- function(url) {
-  z <- ""
-  tryCatch(z <- getBinaryURL(url, failonerror = TRUE),
-    error = function(e) {
-      print(paste("no data available at URL", url))
-    }
-  )
-  return(z)
-}
-
 #' Download vertical profile files (\code{vp}) from the ENRAM data repository
 #'
 #' Download a set of vp bird profiles from the ENRAM repository. These are
@@ -37,13 +18,19 @@ check_url_existence <- function(url) {
 #'
 #' @export
 #' @importFrom lubridate as_date floor_date
-#' @importFrom curl curl_download
+#' @importFrom curl curl_download new_handle
 #'
 #' @examples
 #' my_path <- "~/my/directory/"
+#' # Download data from radars "jab" and "wid" in Belgium.
+#' # Should successfully download October data, but warn that no data was found
+#' # for November (as these are not available).
 #' \dontrun{
-#' download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-#'   c("jab", "wid"),
+#' download_vpfiles(
+#'   date_min = "2016-10-01",
+#'   date_max = "2016-11-30",
+#'   country = c("be"),
+#'   radar = c("jab", "wid"),
 #'   directory = my_path
 #' )
 #' }
@@ -91,19 +78,21 @@ download_vpfiles <- function(date_min, date_max, country, radar,
     sep = ""
   )
 
-  # Attempt download at predefined location
   for (i in 1:length(urls)) {
-    z <- check_url_existence(urls[i])
-    if (length(z) > 1) {
-      print(paste("Downloading file", countryradardate[i]))
-      curl_download(urls[i], file.path(directory, countryradardate[i]),
-        quiet = FALSE
-      )
-
-      # Unzip the downloaded archive to the common file structure
-      unzip(file.path(directory, countryradardate[i]),
-        exdir = countryradardirectory[i]
-      )
-    }
+    tryCatch({
+      message(paste("Downloading", urls[i]))
+      # Download file from url: will create zip file regardless of http status
+      file_path <- curl_download(urls[i],
+                                 file.path(directory, countryradardate[i]),
+                                 quiet = TRUE, handle = new_handle())
+      # Unzip file
+      unzip(file_path, exdir = countryradardirectory[i])
+    },
+    error = function(e) {
+      message(e) # http error (unzip error won't be shown unless no http error)
+      message("") # New line after error message
+      # Delete zip file that was created (empty or containing error html)
+      if (file.exists(file_path)) { invisible(file.remove(file_path)) }
+    })
   }
 }

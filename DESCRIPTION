@@ -31,7 +31,6 @@ Imports:
     lubridate,
     methods,
     raster,
-    RCurl,
     rgdal,
     rhdf5,
     sp,
