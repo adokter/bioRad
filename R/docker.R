@@ -108,7 +108,7 @@ mount_docker_container <- function(mount = "~/") {
   } else {
     result <- suppressWarnings(system(
       paste("docker run -v ",
-        normalizePath(mount, winslash = "/"),
+        shQuote(normalizePath(mount, winslash = "/")),
         ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
         sep = ""
       ),
