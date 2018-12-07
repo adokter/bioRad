@@ -108,10 +108,10 @@
 #' @examples
 #' # MTR for a single vertical profile
 #' integrate_profile(example_vp)
-#' 
+#'
 #' # MTRs for a list of vertical profiles
 #' integrate_profile(c(example_vp, example_vp))
-#' 
+#'
 #' # MTRs for a time series of vertical profiles
 #' # load example data:
 #' data(example_vpts)
@@ -139,8 +139,14 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
   interval <- x$attributes$where$interval
-  index <- which(x$data$HGHT >= alt_min & x$data$HGHT < alt_max)
 
+  if(alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
+
+  alt_min=max(alt_min,min(x$data$HGHT))
+  alt_max=min(alt_max,max(x$data$HGHT)+interval)
+  if(alt_max-alt_min <= interval) stop(paste("selected altitude range (" ,alt_min,"-",alt_max, " m) should be wider than the width of a single altitude layer (",interval," m)",sep=""))
+
+  index <- which(x$data$HGHT >= alt_min & x$data$HGHT < alt_max)
   if (is.na(alpha)) {
     cosfactor <- rep(1, length(index))
   } else {
@@ -223,6 +229,13 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
   interval <- x$attributes$where$interval
+
+  if(alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
+
+  alt_min=max(alt_min,min(x$heights))
+  alt_max=min(alt_max,max(x$heights)+interval)
+  if(alt_max-alt_min <= interval) stop(paste("selected altitude range (" ,alt_min,"-",alt_max, " m) should be wider than the width of a single altitude layer (",interval," m)",sep=""))
+
   index <- which(x$heights >= alt_min & x$heights < alt_max)
   if (is.na(alpha)) {
     cosfactor <- 1 + 0 * get_quantity(x, "dd")[index, ]
