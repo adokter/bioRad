@@ -1,98 +1,99 @@
 #' Download vertical profile files (\code{vp}) from the ENRAM data repository
 #'
-#' Download a set of vp bird profiles from the ENRAM repository. These are
-#' stored within monthly available zip folders. This function downloads and
-#' unzips them at a user defined location. Check
-#' \href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/}
-#' for an overview of available data.
+#' Download and unzip a selection of vertical profile files (\code{vp}) from the
+#' \href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+#' these are stored as monthly zips per radar.
 #'
-#' @param date_min ISO fomat date indicating the first date to download
-#' files from.
-#' @param date_max ISO fomat date indicating the last date to download
-#' files from
-#' @param country Char vector with two letter country shortcuts.
-#' @param radar Char vector with three letter radar sindicators. Make sure the
-#' radars selected are in accordance to the country selection
-#' @param directory Char defining the location to store the downloaded zip
-#' folders and unzip into the default folder structure
+#' @param date_min character. ISO 8601 start date of data selection. Days will
+#'   be ignored.
+#' @param date_max character. ISO 8601 end date of data selection. Days will be
+#'   ignored.
+#' @param radar character (vector). 5-letter country/radar code(s)
+#'   (e.g. "bejab") of radars to include in data selection.
+#' @param directory character. Path to local directory for downloading and
+#'   unzipping files.
+#' @param overwrite logical. TRUE for redownloading and overwriting previously
+#'   downloaded files of the same names.
 #'
 #' @export
-#' @importFrom lubridate as_date floor_date
-#' @importFrom curl curl_download new_handle
+#' @importFrom curl curl_fetch_disk
 #'
 #' @examples
 #' my_path <- "~/my/directory/"
-#' # Download data from radars "jab" and "wid" in Belgium.
-#' # Should successfully download October data, but warn that no data was found
-#' # for November (as these are not available).
+#' # Download data from radars "bejab" and "bewid", even if previously
+#' # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
+#' # but show 404 error for 2016-11 files (as these are not available).
 #' \dontrun{
 #' download_vpfiles(
 #'   date_min = "2016-10-01",
 #'   date_max = "2016-11-30",
-#'   country = c("be"),
-#'   radar = c("jab", "wid"),
-#'   directory = my_path
+#'   radar = c("bejab", "bewid"),
+#'   directory = my_path,
+#'   overwrite = TRUE
 #' )
 #' }
-download_vpfiles <- function(date_min, date_max, country, radar,
-                             directory = ".") {
-  # create date range set of potential downloadable zip files (if all data
-  # would exist)
-  start <- floor_date(as_date(date_min, tz = NULL), "month")
-  end <- floor_date(as_date(date_max, tz = NULL), "month")
-  dates_to_check <- seq(start, end, by = "months")
+download_vpfiles <- function(date_min, date_max, radars, directory = ".",
+                             overwrite = FALSE) {
+  # Stop if radar codes don't contain exactly 5 characters
+  wrong_codes <- radars[nchar(radars) != 5]
+  if (length(wrong_codes) > 0) {
+    stop("Radar codes should contain exactly 5 letters: ",
+         paste(wrong_codes, collapse = ", "))
+  }
 
-  # ZIP-file format preparation
-  countryradar <- apply(expand.grid(country, radar), 1, paste, collapse = "")
-  datestring_to_check <- format(dates_to_check, "%Y%m")
-  countryradardate <- apply(expand.grid(
-    countryradar,
-    datestring_to_check, ".zip"
-  ), 1,
-  paste,
-  collapse = ""
-  )
-  # PATH-format
-  countryradarpath <- apply(expand.grid(
-    country, radar,
-    format(dates_to_check, "%Y")
-  ), 1,
-  paste,
-  collapse = "/"
-  )
-  # PATH-format as it will be represented locally
-  countryradardirectory <- apply(expand.grid(
-    country, radar,
-    format(dates_to_check, "%Y/%m")
-  ),
-  1,
-  paste,
-  collapse = "/"
-  )
-  countryradardirectory <- file.path(directory, countryradardirectory)
+  # Split 5 letter radar codes into form be_jab
+  ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5),
+                       sep = "_")
 
-  # combine base path (S3 location) with the potential data URLS
+  # Create series of year/month based on date_min/max: 2016/10, 2016/11, 2016/12
+  dates <- seq(
+    as.Date(date_min, tz = NULL),
+    as.Date(date_max, tz = NULL),
+    by = "months"
+  )
+  year_months <- format(dates, "%Y/%m")
+
+  # Expand to series of radar/year/month: be_jab/2016/10, be_wid/2016/10, ...
+  radar_year_months <- apply(expand.grid(ra_dars, year_months), 1, paste,
+                             collapse = "/")
+
+  # Set base url of data repository
   base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
-  urls <- paste(base_url, "/", countryradarpath, "/",
-    countryradardate,
-    sep = ""
-  )
 
-  for (i in 1:length(urls)) {
-    tryCatch({
-      message(paste("Downloading", urls[i]))
-      # Download file from url: will create zip file regardless of http status
-      file_path <- curl_download(urls[i],
-                                 file.path(directory, countryradardate[i]),
-                                 quiet = TRUE, handle = new_handle())
+  # Start download and unzipping
+  message(paste("Downloading data from", base_url))
+
+  for (radar_year_month in radar_year_months) {
+    # Create filename of form bejab201610.zip (removing _ and /)
+    file_name <- paste0(gsub("/", "", gsub("_", "", radar_year_month)), ".zip")
+    # Create filepath of form directory/bejab201610.zip
+    file_path <- file.path(directory, file_name)
+    # Create url of form base_url/be/jab/2016/bejab201610.zip (removing month)
+    url <- paste(base_url, gsub("_", "/",
+                substring(radar_year_month, 1, nchar(radar_year_month) - 3)),
+                file_name,
+                sep = "/")
+    # Create local unzip directory of form directory/bejab/2016/10
+    unzip_dir <- gsub("_", "", radar_year_month)
+
+    # Skip download if overwrite = FALSE and file already exists locally
+    if (file.exists(file_path) && overwrite == FALSE) {
+      message(paste0(file_name, ": already downloaded"))
+      next
+    }
+
+    # Start download
+    req <- curl_fetch_disk(url, file_path) # will download regardless of status
+
+    # Check http status
+    if (req$status_code == "200") {
       # Unzip file
-      unzip(file_path, exdir = countryradardirectory[i])
-    },
-    error = function(e) {
-      message(e) # http error (unzip error won't be shown unless no http error)
-      message("") # New line after error message
-      # Delete zip file that was created (empty or containing error html)
-      if (file.exists(file_path)) { invisible(file.remove(file_path)) }
-    })
+      unzip(file_path, exdir = file.path(directory, unzip_dir))
+      message(paste0(file_name, ": successfully downloaded"))
+    } else {
+      # Remove file
+      unlink(file_path)
+      message(paste0(file_name, ": http error ", req$status_code))
+    }
   }
 }

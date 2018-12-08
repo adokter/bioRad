@@ -4,42 +4,42 @@
 \alias{download_vpfiles}
 \title{Download vertical profile files (\code{vp}) from the ENRAM data repository}
 \usage{
-download_vpfiles(date_min, date_max, country, radar, directory = ".")
+download_vpfiles(date_min, date_max, radars, directory = ".",
+  overwrite = FALSE)
 }
 \arguments{
-\item{date_min}{ISO fomat date indicating the first date to download
-files from.}
+\item{date_min}{character. ISO 8601 start date of data selection. Days will
+be ignored.}
 
-\item{date_max}{ISO fomat date indicating the last date to download
-files from}
+\item{date_max}{character. ISO 8601 end date of data selection. Days will be
+ignored.}
 
-\item{country}{Char vector with two letter country shortcuts.}
+\item{directory}{character. Path to local directory for downloading and
+unzipping files.}
 
-\item{radar}{Char vector with three letter radar sindicators. Make sure the
-radars selected are in accordance to the country selection}
+\item{overwrite}{logical. TRUE for redownloading and overwriting previously
+downloaded files of the same names.}
 
-\item{directory}{Char defining the location to store the downloaded zip
-folders and unzip into the default folder structure}
+\item{radar}{character (vector). 5-letter country/radar code(s)
+(e.g. "bejab") of radars to include in data selection.}
 }
 \description{
-Download a set of vp bird profiles from the ENRAM repository. These are
-stored within monthly available zip folders. This function downloads and
-unzips them at a user defined location. Check
-\href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/}
-for an overview of available data.
+Download and unzip a selection of vertical profile files (\code{vp}) from the
+\href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+these are stored as monthly zips per radar.
 }
 \examples{
 my_path <- "~/my/directory/"
-# Download data from radars "jab" and "wid" in Belgium.
-# Should successfully download October data, but warn that no data was found
-# for November (as these are not available).
+# Download data from radars "bejab" and "bewid", even if previously
+# downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
+# but show 404 error for 2016-11 files (as these are not available).
 \dontrun{
 download_vpfiles(
   date_min = "2016-10-01",
   date_max = "2016-11-30",
-  country = c("be"),
-  radar = c("jab", "wid"),
-  directory = my_path
+  radar = c("bejab", "bewid"),
+  directory = my_path,
+  overwrite = TRUE
 )
 }
 }
