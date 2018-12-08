@@ -1,66 +1,82 @@
-#' Select vertical profiles files (\code{vp}) from computer
+#' Select vertical profile files (\code{vp}) from computer
 #'
-#' Collect a list of vp file names within a directory that comply to the given
-#' country, radar and date range combination
+#' Create a list of vertical profile files (\code{vp}) from a local directory
+#' that match a specific date and radar range. Files are selected based on their
+#' file name (not directory structure), which should be of format
+#' radar_vp_yyyymmdd*.*, such as bewid_vp_20171123T1900Z_0x5.h5.
 #'
-#' @param directory Main directory to look into recusively.
-#' @param date_min ISO format date as start of the vp file query.
-#' @param date_max ISO format date as end of the vp file query.
-#' @param country Character vector with two letter country shortcuts.
-#' @param radar Character vector with three letter radar sindicators. This
-#' can be defined independently from the countries named.
+#' @param date_min character. YYYY-MM-DD start date of file selection.
+#' @param date_max character. YYYY-MM-DD end date of file selection.
+#' @param radars character (vector). 5-letter country/radar code(s) (e.g.
+#'   "bejab") of radars to include in file selection.
+#' @param directory character. Path to local directory where files should be
+#'   looked for.
 #'
-#' @return Character list of filenames that comply to the given
-#' radar/country and date range query
+#' @return Character vector of file paths that comply to the given date and
+#'   radar range.
 #'
 #' @export
-#' @importFrom lubridate as_date
 #'
 #' @examples
-#' my_directory <- "~/my/directory/"
-#' select_vpfiles(my_directory, "2016-10-01", "2017-01-31", c("be"))
-select_vpfiles <- function(directory, date_min, date_max, country = NULL,
-                           radar = NULL) {
-  if (is.null(country)) {
-    country <- "([a-z]{2})"
+#' my_path <- "~/my/directory/"
+#' select_vpfiles(
+#'   date_min = "2016-10-03",
+#'   date_max = "2016-10-05",
+#'   radars = "bejab",
+#'   directory = my_path
+#' )
+select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
+                           directory = ".") {
+  # Stop if radar codes don't contain exactly 5 characters
+  wrong_codes <- radars[nchar(radars) != 5]
+  if (length(wrong_codes) > 0) {
+    stop("Radar codes should contain exactly 5 letters: ",
+         paste(wrong_codes, collapse = ", "))
   }
-  if (is.null(radar)) {
-    radar <- "([a-z]{3})"
+
+  # If radars not defined, create regex for any 5 letters lowercase code
+  if (is.null(radars)) {
+    radars <- "([a-z]{5})"
   }
 
-  # create period of dates to check for
-  start <- as_date(date_min, tz = NULL)
-  end <- as_date(date_max, tz = NULL)
-  dates_to_check <- seq(start, end, by = "days")
+  # Create series of dates based on date_min/max: 20161001, 20161002, ...
+  # or regex for any yyyymmdd date
+  if (!is.null(date_min) && !is.null(date_max)) {
+    dates <- seq(
+      as.Date(date_min, tz = NULL),
+      as.Date(date_max, tz = NULL),
+      by = "days"
+    )
+    dates <- format(dates, "%Y%m%d")
+  } else {
+    dates <- c("(19|20)\\d\\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])")
+  }
 
-  filelist <- dir(directory, recursive = TRUE)
+  # Expand to series of radar_vp_yyyymmdd: bejab_vp_20161001, bejab_vp_20161002
+  radar_dates <- apply(expand.grid(radars, "_vp_", dates), 1, paste,
+                       collapse = "")
 
-  datestring_to_check <- format(dates_to_check, "%Y%m%d")
-  countryradar <- apply(expand.grid(country, radar), 1, paste, collapse = "")
-  countryradardate <- apply(expand.grid(
-    countryradar, "_vp_",
-    datestring_to_check
-  ), 1, paste,
-  collapse = ""
-  )
-  match_filenames(filelist, paste(countryradardate, collapse = "|"))
+  # Create list of all files in target directory
+  all_files <- dir(directory, recursive = TRUE)
+
+  # Search for radar_dates filenames in all file names
+  match_filenames(all_files, paste(radar_dates, collapse = "|"))
 }
 
-#' Match a set of regex expression to a list of files
+#' Match a set of regular expressions to a list of files
 #'
-#' Match a set of regex expression to a list of files and return those filenames
-#' that comply to any of the provided regex expressions. This function basically
-#' wraps a grep to make it working on vectors by combining the vector of
-#' regex options as possible options
+#' Match a set of regular expressions to a list of files and return those
+#' filenames that comply to any of the provided regular expressions. This
+#' function basically wraps a grep to make it work on vectors by combining the
+#' vector of regex options as possible options.
 #'
-#' @param filelist Character list of filenames/filepaths.
-#' @param regexlist Character list of regex expressions to which the file names
-#' should comply.
+#' @param file_list character vector. Haystack of filenames/filepaths.
+#' @param regex_list character vector. Needle of regular expressions to which
+#'   filenames should comply.
 #'
+#' @return character vector. Subset of filenames from the file_list that comply
+#'   to the provided regular expressions in regex_list.
 #' @keywords internal
-#'
-#' @return Character subset of filenames from the filelist that comply to any
-#' of the provided regex expressions
-match_filenames <- function(filelist, regexlist) {
-  grep(paste(regexlist, collapse = "|"), filelist, value = TRUE)
+match_filenames <- function(file_list, regex_list) {
+  grep(paste(regex_list, collapse = "|"), file_list, value = TRUE)
 }
