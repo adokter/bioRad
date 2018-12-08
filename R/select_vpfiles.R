@@ -60,7 +60,10 @@ select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
   all_files <- dir(directory, recursive = TRUE)
 
   # Search for radar_dates filenames in all file names
-  match_filenames(all_files, paste(radar_dates, collapse = "|"))
+  matched_files <- match_filenames(all_files, paste(radar_dates, collapse = "|"))
+
+  # Append target directory to file paths
+  paste(directory, matched_files, sep = "/")
 }
 
 #' Match a set of regular expressions to a list of files
