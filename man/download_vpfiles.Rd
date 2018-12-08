@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_vpfiles.R
 \name{download_vpfiles}
 \alias{download_vpfiles}
-\title{Download vertical profile files (\code{vp}) from the ENRAM data repository}
+\title{Download vertical profile (\code{vp}) files from the ENRAM data repository}
 \usage{
 download_vpfiles(date_min, date_max, radars, directory = ".",
   overwrite = FALSE)
@@ -24,12 +24,12 @@ downloaded and unzipped.}
 downloaded files of the same names.}
 }
 \description{
-Download and unzip a selection of vertical profile files (\code{vp}) from the
+Download and unzip a selection of vertical profile (\code{vp}) files from the
 \href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
 these are stored as monthly zips per radar.
 }
 \examples{
-my_path <- "~/my/directory/"
+my_path <- "~/my/directory"
 # Download data from radars "bejab" and "bewid", even if previously
 # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
 # but show 404 error for 2016-11 files (as these are not available).
