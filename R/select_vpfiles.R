@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' my_path <- "~/my/directory/"
+#' my_path <- "~/my/directory"
 #' select_vpfiles(
 #'   date_min = "2016-10-03",
 #'   date_max = "2016-10-05",
@@ -63,7 +63,7 @@ select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
   matched_files <- match_filenames(all_files, paste(radar_dates, collapse = "|"))
 
   # Append target directory to file paths
-  paste(directory, matched_files, sep = "/")
+  file.path(directory, matched_files)
 }
 
 #' Match a set of regular expressions to a list of files

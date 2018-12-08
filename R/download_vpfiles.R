@@ -1,6 +1,6 @@
-#' Download vertical profile files (\code{vp}) from the ENRAM data repository
+#' Download vertical profile (\code{vp}) files from the ENRAM data repository
 #'
-#' Download and unzip a selection of vertical profile files (\code{vp}) from the
+#' Download and unzip a selection of vertical profile (\code{vp}) files from the
 #' \href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
 #' these are stored as monthly zips per radar.
 #'
@@ -19,7 +19,7 @@
 #' @importFrom curl curl_fetch_disk
 #'
 #' @examples
-#' my_path <- "~/my/directory/"
+#' my_path <- "~/my/directory"
 #' # Download data from radars "bejab" and "bewid", even if previously
 #' # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
 #' # but show 404 error for 2016-11 files (as these are not available).
