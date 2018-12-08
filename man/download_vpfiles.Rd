@@ -8,20 +8,20 @@ download_vpfiles(date_min, date_max, radars, directory = ".",
   overwrite = FALSE)
 }
 \arguments{
-\item{date_min}{character. ISO 8601 start date of data selection. Days will
+\item{date_min}{character. YYYY-MM-DD start date of file selection. Days will
 be ignored.}
 
-\item{date_max}{character. ISO 8601 end date of data selection. Days will be
-ignored.}
+\item{date_max}{character. YYYY-MM-DD end date of file selection. Days will
+be ignored.}
 
-\item{directory}{character. Path to local directory for downloading and
-unzipping files.}
+\item{radars}{character (vector). 5-letter country/radar code(s)
+(e.g. "bejab") of radars to include in file selection.}
+
+\item{directory}{character. Path to local directory where files should be
+downloaded and unzipped.}
 
 \item{overwrite}{logical. TRUE for redownloading and overwriting previously
 downloaded files of the same names.}
-
-\item{radar}{character (vector). 5-letter country/radar code(s)
-(e.g. "bejab") of radars to include in data selection.}
 }
 \description{
 Download and unzip a selection of vertical profile files (\code{vp}) from the

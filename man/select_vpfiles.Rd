@@ -2,32 +2,38 @@
 % Please edit documentation in R/select_vpfiles.R
 \name{select_vpfiles}
 \alias{select_vpfiles}
-\title{Select vertical profiles files (\code{vp}) from computer}
+\title{Select vertical profile files (\code{vp}) from computer}
 \usage{
-select_vpfiles(directory, date_min, date_max, country = NULL,
-  radar = NULL)
+select_vpfiles(date_min = NULL, date_max = NULL, radars = NULL,
+  directory = ".")
 }
 \arguments{
-\item{directory}{Main directory to look into recusively.}
+\item{date_min}{character. YYYY-MM-DD start date of file selection.}
 
-\item{date_min}{ISO format date as start of the vp file query.}
+\item{date_max}{character. YYYY-MM-DD end date of file selection.}
 
-\item{date_max}{ISO format date as end of the vp file query.}
+\item{radars}{character (vector). 5-letter country/radar code(s) (e.g.
+"bejab") of radars to include in file selection.}
 
-\item{country}{Character vector with two letter country shortcuts.}
-
-\item{radar}{Character vector with three letter radar sindicators. This
-can be defined independently from the countries named.}
+\item{directory}{character. Path to local directory where files should be
+looked for.}
 }
 \value{
-Character list of filenames that comply to the given
-radar/country and date range query
+Character vector of file paths that comply to the given date and
+  radar range.
 }
 \description{
-Collect a list of vp file names within a directory that comply to the given
-country, radar and date range combination
+Create a list of vertical profile files (\code{vp}) from a local directory
+that match a specific date and radar range. Files are selected based on their
+file name (not directory structure), which should be of format
+radar_vp_yyyymmdd*.*, such as bewid_vp_20171123T1900Z_0x5.h5.
 }
 \examples{
-my_directory <- "~/my/directory/"
-select_vpfiles(my_directory, "2016-10-01", "2017-01-31", c("be"))
+my_path <- "~/my/directory/"
+select_vpfiles(
+  date_min = "2016-10-03",
+  date_max = "2016-10-05",
+  radars = "bejab",
+  directory = my_path
+)
 }
