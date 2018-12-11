@@ -204,7 +204,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
 
   # plot the image
-  image.plot(x$dates, x$heights, plotdata,
+  image.plot(x$datetime, x$heights, plotdata,
     col = plot_colors, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = zlim, main = main, ...
@@ -215,7 +215,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     if ("xlim" %in% names(args)) {
       t.barbs <- seq(min(args$xlim), max(args$xlim), length.out = barbs_time)
     } else {
-      t.barbs <- seq(x$dates[1], tail(x$dates, 1), length.out = barbs_time)
+      t.barbs <- seq(x$datetime[1], tail(x$datetime, 1), length.out = barbs_time)
     }
     if ("ylim" %in% names(args)) {
       h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height)
@@ -225,7 +225,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)
     barbdata$indext <- sapply(
       barbdata$date,
-      function(y) which.min(abs(x$dates - y))
+      function(y) which.min(abs(x$datetime - y))
     )
     barbdata$indexh <- sapply(
       barbdata$height,

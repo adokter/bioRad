@@ -276,7 +276,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   rt <- cumsum(dt * rtr)
   # prepare output
   output <- data.frame(
-    datetime = x$dates, mtr = mtr, vid = vid, vir = vir,
+    datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
     rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
     v = v, HGHT = height
   )

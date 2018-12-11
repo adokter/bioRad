@@ -205,7 +205,7 @@ my_vpts[1:50]
 # here we extract a single timestep, which gives you back a vertical profile class object:
 my_vpts[100]
 # to extract all the dates of all profiles in the time series:
-my_vpts$dates
+my_vpts$datetime
 # to plot the full time series:
 plot(my_vpts)
 # check the help file for the plotting function of profile time series

@@ -36,8 +36,8 @@ NULL
 sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC") {
   locations <- data.frame(lon = lon, lat = lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
-  dates <- as.POSIXct(date, tz = tz)
-  suntimes <- crepuscule(locations, dates, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
+  datetime <- as.POSIXct(date, tz = tz)
+  suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
   suntimes$time
 }
 
@@ -47,7 +47,7 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC") {
 sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC") {
   locations <- data.frame(lon = lon, lat = lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
-  dates <- as.POSIXct(date, tz = tz)
-  suntimes <- crepuscule(locations, dates, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
+  datetime <- as.POSIXct(date, tz = tz)
+  suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
   suntimes$time
 }
