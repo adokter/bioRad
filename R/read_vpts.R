@@ -101,7 +101,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
     data <- data[datadim[1, ] == mostFrequentNBins]
   }
   # strip the datetime field
-  dates <- .POSIXct(sapply(
+  datetime <- .POSIXct(sapply(
     1:length(data),
     function(x) {
       data[[x]]$datetime[1]
@@ -117,7 +117,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
     }
   )
   # check whether the time series is regular
-  difftimes <- difftime(dates[-1], dates[-length(dates)], units = "secs")
+  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   if (length(unique(difftimes)) == 1) {
     regular <- TRUE
   } else {
@@ -145,8 +145,8 @@ read_vpts <- function(file, radar, wavelength = "C") {
     how = data.frame(wavelength = wavelength)
   )
   output <- list(
-    radar = radar, dates = dates, heights = heights,
-    daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
+    radar = radar, datetime = datetime, heights = heights,
+    daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = vpsFlat,
     attributes = attributes, regular = regular
   )

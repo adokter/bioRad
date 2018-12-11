@@ -36,7 +36,7 @@
 #' An object of class \code{vpts} is a list containing
 #' \describe{
 #'  \item{\code{radar}}{string containing the radar identifier}
-#'  \item{\code{dates}}{the \code{N} nominal times of the profiles}
+#'  \item{\code{datetime}}{the \code{N} nominal times of the profiles}
 #'  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
 #'  \item{\code{daterange}}{the minimum and maximum nominal time of the
 #'    profiles in the list}
@@ -112,9 +112,9 @@ dim.vpts <- function(x) {
       }
     }
   }
-  x$dates <- x$dates[i]
-  x$daterange <- .POSIXct(c(min(x$dates), max(x$dates)), tz = "UTC")
-  x$timesteps <- difftime(x$dates[-1], x$dates[-length(x$dates)],
+  x$datetime <- x$datetime[i]
+  x$daterange <- .POSIXct(c(min(x$datetime), max(x$datetime)), tz = "UTC")
+  x$timesteps <- difftime(x$datetime[-1], x$datetime[-length(x$datetime)],
     units = "secs"
   )
   if (length(unique(x$timesteps)) == 1) {
@@ -153,7 +153,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
     "time series of vertical profiles (class vpts)\n\n"
   )
   cat("           radar: ", x$radar, "\n")
-  cat("      # profiles: ", length(x$dates), "\n")
+  cat("      # profiles: ", length(x$datetime), "\n")
   cat(
     "time range (UTC): ", as.character(x$daterange[1]),
     "-", as.character(x$daterange[2]), "\n"
@@ -227,12 +227,12 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   stopifnot(inherits(x, "vpts"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-      length(x$dates) * length(x$heights)) {
+      length(x$datetime) * length(x$heights)) {
       rownames(output) <- row.names
     } else {
       stop(paste(
         "'row.names' is not a character vector of length",
-        length(x$dates) * length(x$heights)
+        length(x$datetime) * length(x$heights)
       ))
     }
   }
@@ -257,10 +257,10 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   # add height and datetime as a column
   output <- cbind(
     datetime = as.POSIXct(
-      c(t(replicate(length(x$heights), x$dates))),
+      c(t(replicate(length(x$heights), x$datetime))),
       origin = "1970-1-1", tz = "UTC"
     ),
-    height = rep(x$heights, length(x$dates)), output
+    height = rep(x$heights, length(x$datetime)), output
   )
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
@@ -278,8 +278,8 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
     dayQ <- !check_night(x, elev = elev)
     dayQ <- c(t(replicate(length(x$heights), dayQ)))
     output <- cbind(output, day = dayQ)
-    sunrise <- sunrise(x$dates, lat = lat, lon = lon)
-    sunset <- sunset(x$dates, lat = lat, lon = lon)
+    sunrise <- sunrise(x$datetime, lat = lat, lon = lon)
+    sunset <- sunset(x$datetime, lat = lat, lon = lon)
     output$sunrise <- as.POSIXct(
       c(t(replicate(length(x$heights), sunrise))),
       origin = "1970-1-1", tz = "UTC"
@@ -300,7 +300,7 @@ vpts_to_vp <- function(x, i) {
   }
   vpout <- list()
   vpout$radar <- x$radar
-  vpout$datetime <- x$dates[i]
+  vpout$datetime <- x$datetime[i]
   vpout$data <- as.data.frame(lapply(
     names(x$data),
     function(y) {
