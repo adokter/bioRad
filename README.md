@@ -30,7 +30,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.3.0.9163
+#> Welcome to bioRad version 0.3.0.9170
 #> Docker daemon running, Docker functionality enabled.
 ```
 
@@ -51,10 +51,13 @@ You only need to install Docker to:
 Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation. <details> <summary><strong>Installing Docker</strong></summary>
 
 1.  Go to [Docker Desktop](https://www.docker.com/products/docker-desktop).
-2.  Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit. Installing Docker Toolbox for previous versions will *not* work.
-3.  Open the Docker application. The Docker (whale) icon will appear in your menu bar and indicate if it is running correctly.
-4.  In R do `check_docker()`.
-5.  You can now use the bioRad functionality that requires Docker. </details>
+2.  Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit: installing Docker *Toolbox* for previous Windows versions will not work.
+3.  Open the Docker application. The Docker (whale) icon will appear in your menu or task bar and indicate if it is running correctly.
+4.  Docker will need access to the directories where you will be processing radar files. To verify and/or add directories:
+    -   On Windows: right click the Docker (whale) icon &gt; `Settings` &gt; `Shared drives`
+    -   On Mac: click the Docker (whale) icon &gt; `Preferences` &gt; `File sharing`
+5.  In R do `check_docker()`.
+6.  You can now use the bioRad functionality that requires Docker. </details>
 
 <details> <summary><strong>Known issues with Docker</strong></summary>
 
