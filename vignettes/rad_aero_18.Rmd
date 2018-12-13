@@ -3,7 +3,7 @@ title: "Introductory exercises with bioRad"
 author: Adriaan M. Dokter
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{bioRad}
+  %\VignetteIndexEntry{Introductory exercises with bioRad}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
