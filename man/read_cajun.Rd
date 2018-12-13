@@ -16,7 +16,7 @@ by UMASS Cajun pipeline}
 in which case C-band wavelength is assumed to be 5.3 cm and S-band wavelength 10.6 cm}
 }
 \value{
-An object inhereting from class \code{vp}, see
+An object inheriting from class \code{vp}, see
 \code{\link[=summary.vp]{vp}} for details.
 }
 \description{

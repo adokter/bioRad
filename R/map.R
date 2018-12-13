@@ -8,7 +8,7 @@
 #' @param param The scan parameter to plot.
 #' @param alpha Transparency of the data, value between 0 and 1.
 #' @param radar_size Size of the symbol indicating the radar position.
-#' @param radar_color Colour of the symbol indicating the radar position.
+#' @param radar_color Color of the symbol indicating the radar position.
 #' @param n_color The number of colors (>=1) to be in the palette.
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.

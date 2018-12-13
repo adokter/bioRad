@@ -12,7 +12,7 @@
 #' @param lon Longitude in decimal degrees of the radar position. If not
 #' specified, value stored in file is used. If specified, value stored in
 #' file is overwritten.
-#' @param height Height of the centre of the antenna in meters above sea
+#' @param height Height of the center of the antenna in meters above sea
 #' level. If not specified, value stored in file is used. If specified, value
 #' stored in file is overwritten.
 #' @param elev_min Minimum scan elevation to read in degrees.

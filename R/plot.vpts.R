@@ -33,7 +33,7 @@
 #' @export
 #'
 #' @details
-#' Profile can be visualised in three related quantities, as specified
+#' Profile can be visualized in three related quantities, as specified
 #' by argument \code{quantity}:
 #' \describe{
 #'  \item{"\code{dens}"}{the aerial density of individuals. This quantity is
@@ -48,7 +48,7 @@
 #'    than at C-band}
 #'  \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
 #'    reflectivity factor of all scatterers (biological and meteorological
-#'    scattering cambined)}
+#'    scattering combined)}
 #' }
 #' In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
 #' each pennant (triangle) 25 m/s

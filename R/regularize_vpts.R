@@ -3,7 +3,7 @@
 #'
 #' Projects objects of class \code{vpts} on a regular time grid
 #'
-#' @param ts An object inhereting from class \code{vpts}, see
+#' @param ts An object inheriting from class \code{vpts}, see
 #' \code{\link[=summary.vpts]{vpts}} for details.
 #' @param interval Time interval grid to project on. When '\code{auto}' the
 #' median interval in the time series is used.
@@ -14,7 +14,7 @@
 #' @param units Optional units of \code{interval}, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
 #' @param fill Logical, whether to fill missing timesteps with the values of
-#' the closest neighbouring profile.
+#' the closest neighboring profile.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
 #'
 #' @return An object of class \code{vpts} with regular time steps.

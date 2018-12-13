@@ -26,7 +26,7 @@ file is overwritten.}
 specified, value stored in file is used. If specified, value stored in
 file is overwritten.}
 
-\item{height}{Height of the centre of the antenna in meters above sea
+\item{height}{Height of the center of the antenna in meters above sea
 level. If not specified, value stored in file is used. If specified, value
 stored in file is overwritten.}
 

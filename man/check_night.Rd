@@ -24,7 +24,7 @@ check_night(x, ..., elev = -0.268)
 }
 \arguments{
 \item{x}{\code{pvol}, \code{vp} or \code{vpts},
-or a date inhereting from class \code{POSIXct} or a string
+or a date inheriting from class \code{POSIXct} or a string
 interpretable by \link[base]{as.POSIXct}.}
 
 \item{...}{optional lat,lon arguments.}
