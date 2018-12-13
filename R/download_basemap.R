@@ -11,7 +11,7 @@
 #' @param verbose Logical, whether to print information to console.
 #' @param source String identifying which map service should be used: "google", "osm" or "stamen"
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
-#' for selection of different types of basemaps.s
+#' for selection of different types of basemaps.
 #'
 #' @export
 #'
