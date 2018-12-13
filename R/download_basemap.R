@@ -36,7 +36,7 @@
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", ...) {
   stopifnot(inherits(x, "ppi"))
 
-
+  if(compareVersion(as.character(packageVersion("ggmap")),"2.7.904")<0) stop("version of package ggmap should be >= 2.7.904, visit https://github.com/dkahle/ggmap for upgrade instructions")
 
   if (source != "google") {
     location <- c(left = x$geo$bbox["lon", "min"], bottom = x$geo$bbox["lat", "min"], right = x$geo$bbox["lon", "max"], top = x$geo$bbox["lat", "max"])
