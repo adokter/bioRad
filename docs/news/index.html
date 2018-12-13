@@ -121,10 +121,26 @@
       <small>Source: <a href='https://github.com/adokter/bioRad/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="biorad-0-4-0" class="section level1">
+<h1 class="page-header">
+<a href="#biorad-0-4-0" class="anchor"></a>bioRad 0.4.0</h1>
+<p>First release on CRAN! All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/4?closed=1">here</a>.</p>
+<ul>
+<li><p><code><a href="../reference/get_param.html">get_param()</a></code> added as new function to get parameters from scan (<a href='https://github.com/adokter/bioRad/issues/132'>#132</a>).</p></li>
+<li><p><code><a href="../reference/download_basemap.html">download_basemap()</a></code> now uses Stamen basemaps by default (parameter <code>source</code>), so users do not need to request an API key for the previous default Google Maps (<a href='https://github.com/adokter/bioRad/issues/163'>#163</a>).</p></li>
+<li><p><code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/select_vpfiles.html">select_vpfiles()</a></code> now use 5 letter radar codes (parameter <code>radars</code> instead of <code>radar</code> and <code>country</code>), allow to skip already downloaded files (parameter <code>overwrite = TRUE</code>) and have improved download and error messages (<a href='https://github.com/adokter/bioRad/issues/176'>#176</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>, <code><a href="../reference/nexrad_to_odim.html">nexrad_to_odim()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (all Docker dependent) can now read files from directories containing a space (<a href='https://github.com/adokter/bioRad/issues/162'>#162</a>).</p></li>
+<li><p>Details for deprecated functions <code><a href="../reference/bioRad-deprecated.html">mt()</a></code>, <code><a href="../reference/bioRad-deprecated.html">mtr()</a></code>, <code><a href="../reference/bioRad-deprecated.html">cmt()</a></code> are now displayed with function (<a href='https://github.com/adokter/bioRad/issues/166'>#166</a>).</p></li>
+<li><p><a href="https://adokter.github.io/bioRad">README</a> reviewed for easier installation and usage (<a href='https://github.com/adokter/bioRad/issues/155'>#155</a>).</p></li>
+<li><p><a href="https://adokter.github.io/bioRad/articles/bioRad.html">Get started vignette</a> is now based on figure and workflow from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al.</a> (<a href='https://github.com/adokter/bioRad/issues/168'>#168</a>).</p></li>
+<li><p><a href="https://adokter.github.io/bioRad/articles/rad_aero_18.html">Introductory exercises vignette</a> renamed to <code>rad_aero_18.Rmd</code> since it is based on the 2nd Radar Aeroecology Training School.</p></li>
+<li><p>bioRad now has a <a href="https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html">code of conduct</a> and <a href="https://adokter.github.io/bioRad/CONTRIBUTING.html">contributing guidelines</a> (<a href='https://github.com/adokter/bioRad/issues/145'>#145</a>).</p></li>
+</ul>
+</div>
     <div id="biorad-0-3-0" class="section level1">
 <h1 class="page-header">
 <a href="#biorad-0-3-0" class="anchor"></a>bioRad 0.3.0</h1>
-<p>Release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1">here</a>.</p>
+<p>Release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1?closed=1">here</a>.</p>
 <ul>
 <li><p>Functions (<a href='https://github.com/adokter/bioRad/issues/84'>#84</a>), arguments (<a href='https://github.com/adokter/bioRad/issues/112'>#112</a>) and objects (<a href='https://github.com/adokter/bioRad/issues/80'>#80</a>) have been renamed to be consistent (<a href='https://github.com/adokter/bioRad/issues/51'>#51</a>). Deprecated functions will remain functional for now, but we will trigger a warning: <strong>we advise to use the new functions names</strong>. See the lists for <a href="../reference/">current functions</a> and <a href="../reference/bioRad-deprecated.html">deprecated functions</a>.</p></li>
 <li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> replaces the functionality of <code><a href="../reference/bioRad-deprecated.html">cmt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/75'>#75</a>) and <code><a href="../reference/bioRad-deprecated.html">mt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/76'>#76</a>).</p></li>
@@ -143,6 +159,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#biorad-0-4-0">0.4.0</a></li>
         <li><a href="#biorad-0-3-0">0.3.0</a></li>
       </ul>
     </div>
@@ -156,7 +173,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

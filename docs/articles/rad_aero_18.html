@@ -111,7 +111,7 @@
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/packageDescription">packageVersion</a></span>(<span class="st">"bioRad"</span>)
 <span class="co"># make sure you have the latest version (0.3.0). If you have an older version, download and reinstall as follows:</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</code></pre></div>
 <p>All the functions of the bioRad package have fairly elaborated manual pages, that you can refer to at any moment:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># bring up the package general help page:</span>
 ?bioRad</code></pre></div>
@@ -140,7 +140,7 @@ HOME &lt;-<span class="st"> "your/personal/working/directory/"</span>
 <a href="#the-structure-of-polar-volumes" class="anchor"></a>1.3. The structure of polar volumes</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the bioRad package comes with an example radar volume file, that we will inspect first</span>
 <span class="co"># first locate this example file on our computer:</span>
-my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package=</span><span class="st">"bioRad"</span>)
+my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package=</span><span class="st">"bioRad"</span>)
 <span class="co"># print the local path of the volume file:</span>
 my_filename
 <span class="co"># load the file into R:</span>
@@ -148,7 +148,7 @@ my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rea
 ## print some information about the polar volume
 my_pvol
 <span class="co"># print information about the polar scans contained in this polar volume:</span>
-my_pvol$scans</code></pre></div>
+my_pvol<span class="op">$</span>scans</code></pre></div>
 <p><strong>Exercise 1:</strong> Load the polar volume file, <code>example_pvol.h5</code> from the zipfile downloaded earlier. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> function for the nomenclature of various available quantities).</p>
 </div>
 <div id="plotting-radar-scans" class="section level2">
@@ -157,7 +157,7 @@ my_pvol$scans</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># (if you haven't done so already) load the polar volume data from the volume.h5 file you just downloaded</span>
 my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="st">"example_pvol.h5"</span>)
 <span class="co"># let's extract the third scan, which was collected at 1.5 degree elevation:</span>
-my_scan &lt;-<span class="st"> </span>my_pvol$scans[[<span class="dv">3</span>]]
+my_scan &lt;-<span class="st"> </span>my_pvol<span class="op">$</span>scans[[<span class="dv">3</span>]]
 <span class="co"># print some information about this scan:</span>
 my_scan
 <span class="co"># before we can plot the scan, we need to project it on a Cartesian grid,</span>
@@ -182,7 +182,7 @@ my_ppi
 <span class="co"># first download the background image:</span>
 satellite_basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi, <span class="dt">maptype =</span> <span class="st">"satellite"</span>)
 <span class="co"># then overlay the PPI on the satellite image:</span>
-<span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi,<span class="dt">map =</span> satellite_basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(-<span class="dv">20</span>,<span class="dv">15</span>))</code></pre></div>
+<span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi,<span class="dt">map =</span> satellite_basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="dv">20</span>,<span class="dv">15</span>))</code></pre></div>
 <p><strong>Exercise 4:</strong> Plot the same ppi but now using a cartographic map instead of satellite maps as baselayer. See help of bioRad’s <code><a href="../reference/map.html">map()</a></code> function for available types of basemaps, specifically the argument <code>maptype</code>.</p>
 </div>
 </div>
@@ -241,11 +241,11 @@ my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bin
 my_vpts
 <span class="co"># time series objects can be subsetted, just as you may be used to with vectors</span>
 <span class="co"># here we subset the first 50 timesteps:</span>
-my_vpts[<span class="dv">1</span>:<span class="dv">50</span>]
+my_vpts[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]
 <span class="co"># here we extract a single timestep, which gives you back a vertical profile class object:</span>
 my_vpts[<span class="dv">100</span>]
 <span class="co"># to extract all the dates of all profiles in the time series:</span>
-my_vpts$datetime
+my_vpts<span class="op">$</span>datetime
 <span class="co"># to plot the full time series:</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts)
 <span class="co"># check the help file for the plotting function of profile time series</span>
@@ -351,7 +351,7 @@ my_vpts
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download a polar volume file you want to process and put it in your home directory.</span>
 my_file &lt;-<span class="st"> "write_your_file_to_be_processed_here"</span>
 <span class="co"># Alternatively, continue with the polar volume that comes with the package:</span>
-my_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)
+my_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)
 <span class="co"># run vol2bird</span>
 <span class="co"># we set autoconf to TRUE, to let vol2bird figure out the optimal settings by itself</span>
 my_vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)
@@ -374,7 +374,7 @@ my_files
 outputdir &lt;-<span class="st"> "~/processed_data"</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files2">dir.create</a></span>(outputdir)
 <span class="co"># let's loop over the files and generate profiles</span>
-for(file_in in my_files) {
+<span class="cf">for</span>(file_in <span class="cf">in</span> my_files) {
   <span class="co"># generate the output filename for the input file</span>
   file_out &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(outputdir, <span class="st">"/"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/basename">basename</a></span>(file_in), <span class="st">"_vp.h5"</span>, <span class="dt">sep =</span> <span class="st">""</span>)
   <span class="co"># generate the profile, and write it as a hdf5 file (for later reference)</span>
@@ -438,7 +438,7 @@ my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bin
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>
