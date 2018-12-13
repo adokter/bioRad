@@ -11,14 +11,14 @@
   "relatedLink": "https://adokter.github.io/bioRad",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.3.0.9151",
+  "version": "0.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.4.2",
+    "version": "3.5.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.4.2 (2017-09-28)",
+  "runtimePlatform": "R version 3.5.1 (2018-07-02)",
   "author": [
     {
       "@type": "Person",
@@ -167,18 +167,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "lubridate",
-      "name": "lubridate",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=lubridate"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
@@ -193,18 +181,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=raster"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "RCurl",
-      "name": "RCurl",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=RCurl"
     },
     {
       "@type": "SoftwareApplication",
@@ -267,7 +243,7 @@
   ],
   "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "fileSize": "4197.749KB",
+  "fileSize": "5730.265KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -347,5 +323,6 @@
         }
       }
     }
-  ]
+  ],
+  "keywords": ["r", "package", "radar", "aeroecology", "movement-ecology", "enram", "nexrad", "eumetnet-opera", "lifewatchinbo", "lifewatch", "wsr-88d", "weather-radar"]
 }
