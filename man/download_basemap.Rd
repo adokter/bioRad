@@ -21,7 +21,7 @@ ppi extent is selected automatically.}
 \item{source}{String identifying which map service should be used: "google", "osm" or "stamen"}
 
 \item{...}{Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
-for selection of different types of basemaps.s}
+for selection of different types of basemaps.}
 }
 \description{
 Downloads a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base

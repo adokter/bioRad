@@ -140,7 +140,7 @@
 <a href="#the-structure-of-polar-volumes" class="anchor"></a>1.3. The structure of polar volumes</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># the bioRad package comes with an example radar volume file, that we will inspect first</span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="co"># first locate this example file on our computer:</span></a>
-<a class="sourceLine" id="cb5-3" title="3">my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package=</span><span class="st">"bioRad"</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
 <a class="sourceLine" id="cb5-4" title="4"><span class="co"># print the local path of the volume file:</span></a>
 <a class="sourceLine" id="cb5-5" title="5">my_filename</a>
 <a class="sourceLine" id="cb5-6" title="6"><span class="co"># load the file into R:</span></a>
@@ -171,7 +171,7 @@
 <a class="sourceLine" id="cb6-15" title="15"><span class="co"># from the radar up to where to plot data (argument range_max))</span></a>
 <a class="sourceLine" id="cb6-16" title="16"><span class="co">#</span></a>
 <a class="sourceLine" id="cb6-17" title="17"><span class="co"># Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:</span></a>
-<a class="sourceLine" id="cb6-18" title="18"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_ppi, <span class="dt">param=</span><span class="st">"DBZH"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-18" title="18"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_ppi, <span class="dt">param =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
 <p><strong>Exercise 2:</strong> This case contains convective precipitation, characterised by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitive areas differs from the areas with biological scattering.</p>
 <p><strong>Exercise 3:</strong> Based on the radial velocity image, are the biological scatterers birds or insects? Why?</p>
 </div>
@@ -182,7 +182,7 @@
 <a class="sourceLine" id="cb7-2" title="2"><span class="co"># first download the background image:</span></a>
 <a class="sourceLine" id="cb7-3" title="3">satellite_basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi, <span class="dt">maptype =</span> <span class="st">"satellite"</span>)</a>
 <a class="sourceLine" id="cb7-4" title="4"><span class="co"># then overlay the PPI on the satellite image:</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi,<span class="dt">map =</span> satellite_basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="dv">20</span>,<span class="dv">15</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb7-5" title="5"><span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi, <span class="dt">map =</span> satellite_basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="dv">20</span>, <span class="dv">15</span>))</a></code></pre></div>
 <p><strong>Exercise 4:</strong> Plot the same ppi but now using a cartographic map instead of satellite maps as baselayer. See help of bioRad’s <code><a href="../reference/map.html">map()</a></code> function for available types of basemaps, specifically the argument <code>maptype</code>.</p>
 </div>
 </div>
@@ -199,7 +199,7 @@
 <a class="sourceLine" id="cb8-3" title="3"><span class="co"># my_vplist contains after running the command a list of vertical profile (vp) objects</span></a>
 <a class="sourceLine" id="cb8-4" title="4"><span class="co"># To save time, we load these data directly from file</span></a>
 <a class="sourceLine" id="cb8-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="st">"KBRO20170514.RData"</span>)</a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="co"># print some information on the vplist object. It should contain 95 profiles </span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co"># print some information on the vplist object. It should contain 95 profiles</span></a>
 <a class="sourceLine" id="cb8-7" title="7">my_vplist</a></code></pre></div>
 </div>
 <div id="inspecting-single-vertical-profiles" class="section level2">
@@ -280,7 +280,7 @@
 <a class="sourceLine" id="cb15-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi)</a>
 <a class="sourceLine" id="cb15-6" title="6"><span class="co"># you can also plot vertically integrated densities (VID):</span></a>
 <a class="sourceLine" id="cb15-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"vid"</span>)</a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co"># the gray and white shading indicates day and night, which is calculated </span></a>
+<a class="sourceLine" id="cb15-8" title="8"><span class="co"># the gray and white shading indicates day and night, which is calculated</span></a>
 <a class="sourceLine" id="cb15-9" title="9"><span class="co"># from the date and the radar position. You can also turn this off:</span></a>
 <a class="sourceLine" id="cb15-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">night_shade =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb15-11" title="11"><span class="co"># plot the cumulative number of birds passing the radar, i.e. migration traffic (mt):</span></a>
@@ -357,7 +357,7 @@
 <a class="sourceLine" id="cb19-7" title="7">my_vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb19-8" title="8"><span class="co"># vp is now a 'vp' profile object, that you can examine as in the previous exercises</span></a>
 <a class="sourceLine" id="cb19-9" title="9"><span class="co"># alternatively, you may also store the profile as a hdf5 file, which is what we will do next:</span></a>
-<a class="sourceLine" id="cb19-10" title="10"><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="st">"my_vpfile.h5"</span> , <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb19-10" title="10"><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="st">"my_vpfile.h5"</span>, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb19-11" title="11"><span class="co"># your work directory should now contain a new file 'my_vpfile.h5'</span></a>
 <a class="sourceLine" id="cb19-12" title="12"><span class="co"># check that we can read this file, and retrieve the vertical profile from it:</span></a>
 <a class="sourceLine" id="cb19-13" title="13">vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(<span class="st">"my_vpfile.h5"</span>)</a></code></pre></div>
@@ -374,7 +374,7 @@
 <a class="sourceLine" id="cb20-6" title="6">outputdir &lt;-<span class="st"> "~/processed_data"</span></a>
 <a class="sourceLine" id="cb20-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files2">dir.create</a></span>(outputdir)</a>
 <a class="sourceLine" id="cb20-8" title="8"><span class="co"># let's loop over the files and generate profiles</span></a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="cf">for</span>(file_in <span class="cf">in</span> my_files) {</a>
+<a class="sourceLine" id="cb20-9" title="9"><span class="cf">for</span> (file_in <span class="cf">in</span> my_files) {</a>
 <a class="sourceLine" id="cb20-10" title="10">  <span class="co"># generate the output filename for the input file</span></a>
 <a class="sourceLine" id="cb20-11" title="11">  file_out &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(outputdir, <span class="st">"/"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/basename">basename</a></span>(file_in), <span class="st">"_vp.h5"</span>, <span class="dt">sep =</span> <span class="st">""</span>)</a>
 <a class="sourceLine" id="cb20-12" title="12">  <span class="co"># generate the profile, and write it as a hdf5 file (for later reference)</span></a>
