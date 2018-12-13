@@ -29,11 +29,10 @@ file name (not directory structure), which should be of format
 \code{radar_vp_yyyymmdd*.*}, such as \code{bewid_vp_20171123T1900Z_0x5.h5}.
 }
 \examples{
-my_path <- "~/my/directory"
 select_vpfiles(
   date_min = "2016-10-03",
   date_max = "2016-10-05",
   radars = "bejab",
-  directory = my_path
+  directory = "my_data"
 )
 }

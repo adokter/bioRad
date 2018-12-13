@@ -26,12 +26,8 @@
 #' )
 select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
                            directory = ".") {
-  # Stop if radar codes don't contain exactly 5 characters
-  wrong_codes <- radars[nchar(radars) != 5]
-  if (length(wrong_codes) > 0) {
-    stop("Radar codes should contain exactly 5 letters: ",
-         paste(wrong_codes, collapse = ", "))
-  }
+  # Stop if radar codes are not exactly 5 characters
+  check_radar_codes(radars)
 
   # If radars not defined, create regex for any 5 letters lowercase code
   if (is.null(radars)) {

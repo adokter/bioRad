@@ -29,7 +29,6 @@ Download and unzip a selection of vertical profile (\code{vp}) files from the
 these are stored as monthly zips per radar.
 }
 \examples{
-my_path <- "~/my/directory"
 # Download data from radars "bejab" and "bewid", even if previously
 # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
 # but show 404 error for 2016-11 files (as these are not available).
@@ -38,7 +37,7 @@ download_vpfiles(
   date_min = "2016-10-01",
   date_max = "2016-11-30",
   radar = c("bejab", "bewid"),
-  directory = my_path,
+  directory = "my_data",
   overwrite = TRUE
 )
 }

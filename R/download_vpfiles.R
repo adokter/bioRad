@@ -33,12 +33,8 @@
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
-  # Stop if radar codes don't contain exactly 5 characters
-  wrong_codes <- radars[nchar(radars) != 5]
-  if (length(wrong_codes) > 0) {
-    stop("Radar codes should contain exactly 5 letters: ",
-         paste(wrong_codes, collapse = ", "))
-  }
+  # Stop if radar codes are not exactly 5 characters
+  check_radar_codes(radars)
 
   # Split 5 letter radar codes into format be_jab
   ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5),
@@ -94,5 +90,22 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
       unlink(file_path)
       message(paste0(file_name, ": http error ", req$status_code))
     }
+  }
+}
+
+#' Check if radar codes are exactly 5 characters
+#'
+#' @param radars character vector. Radar codes to check, e.g. \code{c("bejab",
+#'   "bewideu")}.
+#'
+#' @return NULL. Will stop and show error message if at least one of the
+#'   provided radar codes is not exactly 5 characters.
+#'
+#' @keywords internal
+check_radar_codes <- function(radars) {
+  wrong_codes <- radars[nchar(radars) != 5]
+  if (length(wrong_codes) > 0) {
+    stop("Radar codes should be exactly 5 characters: ",
+         paste(wrong_codes, collapse = ", "))
   }
 }
