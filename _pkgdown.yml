@@ -1,3 +1,11 @@
+authors:
+  Adriaan M. Dokter:
+    href: "http://adriaandokter.com"
+  Peter Desmet:
+    href: "https://twitter.com/peterdesmet"
+  Stijn Van Hoey:
+    href: "https://twitter.com/SVanHoey"
+
 reference:
   - title: "Reading radar data"
     desc: "Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data."
@@ -80,16 +88,6 @@ reference:
       - dbz_to_eta
       - eta_to_dbz
       - sunrise
-
-authors:
-  Adriaan M. Dokter:
-    href: "http://adriaandokter.com"
-
-  Peter Desmet:
-    href: "https://twitter.com/peterdesmet"
-
-  Stijn Van Hoey:
-    href: "https://twitter.com/SVanHoey"
 
 template:
   params:

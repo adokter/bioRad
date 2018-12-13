@@ -2,38 +2,43 @@
 % Please edit documentation in R/download_vpfiles.R
 \name{download_vpfiles}
 \alias{download_vpfiles}
-\title{Download vertical profile files (\code{vp}) from the ENRAM data repository}
+\title{Download vertical profile (\code{vp}) files from the ENRAM data repository}
 \usage{
-download_vpfiles(date_min, date_max, country, radar, directory = ".")
+download_vpfiles(date_min, date_max, radars, directory = ".",
+  overwrite = FALSE)
 }
 \arguments{
-\item{date_min}{ISO fomat date indicating the first date to download
-files from.}
+\item{date_min}{character. YYYY-MM-DD start date of file selection. Days will
+be ignored.}
 
-\item{date_max}{ISO fomat date indicating the last date to download
-files from}
+\item{date_max}{character. YYYY-MM-DD end date of file selection. Days will
+be ignored.}
 
-\item{country}{Char vector with two letter country shortcuts.}
+\item{radars}{character (vector). 5-letter country/radar code(s)
+(e.g. "bejab") of radars to include in file selection.}
 
-\item{radar}{Char vector with three letter radar sindicators. Make sure the
-radars selected are in accordance to the country selection}
+\item{directory}{character. Path to local directory where files should be
+downloaded and unzipped.}
 
-\item{directory}{Char defining the location to store the downloaded zip
-folders and unzip into the default folder structure}
+\item{overwrite}{logical. TRUE for redownloading and overwriting previously
+downloaded files of the same names.}
 }
 \description{
-Download a set of vp bird profiles from the ENRAM repository. These are
-stored within monthly available zip folders. This function downloads and
-unzips them at a user defined location. Check
-\href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/}
-for an overview of available data.
+Download and unzip a selection of vertical profile (\code{vp}) files from the
+\href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+these are stored as monthly zips per radar.
 }
 \examples{
-my_path <- "~/my/directory/"
+# Download data from radars "bejab" and "bewid", even if previously
+# downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
+# but show 404 error for 2016-11 files (as these are not available).
 \dontrun{
-download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-  c("jab", "wid"),
-  directory = my_path
+download_vpfiles(
+  date_min = "2016-10-01",
+  date_max = "2016-11-30",
+  radar = c("bejab", "bewid"),
+  directory = "my_data",
+  overwrite = TRUE
 )
 }
 }
