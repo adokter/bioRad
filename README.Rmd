@@ -29,7 +29,7 @@ To get started, see:
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
-install.packages("bioRad") # Coming soon!
+install.packages("bioRad")
 ```
 
 Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
