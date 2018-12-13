@@ -28,7 +28,7 @@ Release consistent with and in preparation of the bioRad methods paper (https://
 
 * `integrate_profile()` replaces the functionality of `cmt()` (#75) and `mt()` (#76).
 
-* `plot()` can now we used for scans (#71), e.g. `plot(example_scan)`.
+* `plot()` can now be used for scans (#71), e.g. `plot(example_scan)`.
 
 * Functions are [organized in sections](../reference/) on the website (#110).
 
