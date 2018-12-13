@@ -8,11 +8,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-_These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA_
+_These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA._
 
-# 1: Basic visualization of radar scans in R
+# 1. Basic visualisation of radar scans in R
 
-## 1.1 Preparation
+## 1.1. Preparation
 
 Radar data needed for this practical can be downloaded from Dropbox.
 [https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0](https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0) 
@@ -68,7 +68,7 @@ If you get a "Hello from Docker!" welcome message, everything is working.
 
 If you did **not** manage to install Docker, you will not be able to load NEXRAD data into R at this time, but you will be able to continue the exercises with radar data that can be loaded without Docker.
 
-## 1.3. The structure of polar volumes
+## 1.2. The structure of polar volumes
 
 ```{r, eval=FALSE}
 # the bioRad package comes with an example radar volume file, that we will inspect first
@@ -86,7 +86,7 @@ my_pvol$scans
 
 **Exercise 1:** Load the polar volume file, `example_pvol.h5` from the zipfile downloaded earlier. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the `read_pvolfile()` function for the nomenclature of various available quantities).
 
-## 1.4. Plotting radar scans
+## 1.3. Plotting radar scans
 
 ```{r, eval=FALSE}
 # (if you haven't done so already) load the polar volume data from the volume.h5 file you just downloaded
@@ -113,7 +113,7 @@ plot(my_ppi, param = "DBZH")
 
 **Exercise 3:** Based on the radial velocity image, are the biological scatterers birds or insects? Why?
 
-## 1.5. Overlaying radar scans on maps
+## 1.4. Overlaying radar scans on maps
 
 ```{r, eval=FALSE}
 # It is often informative to plot radar data on a base layer, such as google earth maps.
@@ -125,7 +125,7 @@ map(my_ppi, map = satellite_basemap, param = "DBZH", zlim = c(-20, 15))
 
 **Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. See help of bioRad's `map()` function for available types of basemaps, specifically the argument `maptype`.
 
-# 2: Analysis and visualization of vertical bird profiles
+# 2. Analysis and visualisation of vertical bird profiles
 
 In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.
 
