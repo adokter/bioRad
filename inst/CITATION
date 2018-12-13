@@ -8,5 +8,5 @@ citEntry(entry = "article",
   volume="",
   pages="",
   doi="10.1111/ecog.04028",
-  textVersion="Dokter, A.M., Desmet, P., Spaaks, J.H., Van Hoey, S., Veen, L., Verlinden, L., Nilsson, C., Haase, G., Leijnse, H., Farnsworth, A. and Bouten, W., 2018. bioRad: biological analysis and visualization of weather radar data. Ecography."
+  textVersion="Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2018) bioRad: biological analysis and visualization of weather radar data. Ecography. https://doi.org/10.1111/ecog.04028"
 )
