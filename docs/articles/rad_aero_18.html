@@ -95,13 +95,13 @@
 
     
     
-<p><em>These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA</em></p>
+<p><em>These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA.</em></p>
 <div id="basic-visualisation-of-radar-scans-in-r" class="section level1">
 <h1 class="hasAnchor">
-<a href="#basic-visualisation-of-radar-scans-in-r" class="anchor"></a>1: Basic visualisation of radar scans in R</h1>
+<a href="#basic-visualisation-of-radar-scans-in-r" class="anchor"></a>1. Basic visualisation of radar scans in R</h1>
 <div id="preparation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#preparation" class="anchor"></a>1.1 Preparation</h2>
+<a href="#preparation" class="anchor"></a>1.1. Preparation</h2>
 <p>Radar data needed for this practical can be downloaded from Dropbox. <a href="https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0">https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0</a></p>
 <p>Execute each of the code examples provided below in <a href="https://www.rstudio.com/">RStudio</a>, and try to complete the exercises.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># make sure you start with a fresh R session</span></a>
@@ -137,7 +137,7 @@
 </div>
 <div id="the-structure-of-polar-volumes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#the-structure-of-polar-volumes" class="anchor"></a>1.3. The structure of polar volumes</h2>
+<a href="#the-structure-of-polar-volumes" class="anchor"></a>1.2. The structure of polar volumes</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># the bioRad package comes with an example radar volume file, that we will inspect first</span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="co"># first locate this example file on our computer:</span></a>
 <a class="sourceLine" id="cb5-3" title="3">my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
@@ -153,7 +153,7 @@
 </div>
 <div id="plotting-radar-scans" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plotting-radar-scans" class="anchor"></a>1.4. Plotting radar scans</h2>
+<a href="#plotting-radar-scans" class="anchor"></a>1.3. Plotting radar scans</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># (if you haven't done so already) load the polar volume data from the volume.h5 file you just downloaded</span></a>
 <a class="sourceLine" id="cb6-2" title="2">my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="st">"example_pvol.h5"</span>)</a>
 <a class="sourceLine" id="cb6-3" title="3"><span class="co"># let's extract the third scan, which was collected at 1.5 degree elevation:</span></a>
@@ -177,7 +177,7 @@
 </div>
 <div id="overlaying-radar-scans-on-maps" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overlaying-radar-scans-on-maps" class="anchor"></a>1.5. Overlaying radar scans on maps</h2>
+<a href="#overlaying-radar-scans-on-maps" class="anchor"></a>1.4. Overlaying radar scans on maps</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># It is often informative to plot radar data on a base layer, such as google earth maps.</span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="co"># first download the background image:</span></a>
 <a class="sourceLine" id="cb7-3" title="3">satellite_basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi, <span class="dt">maptype =</span> <span class="st">"satellite"</span>)</a>
@@ -188,7 +188,7 @@
 </div>
 <div id="analysis-and-visualisation-of-vertical-bird-profiles" class="section level1">
 <h1 class="hasAnchor">
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2: Analysis and visualisation of vertical bird profiles</h1>
+<a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2. Analysis and visualisation of vertical bird profiles</h1>
 <p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cilinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
 <p>See section 3 for information on how to process polar volume data into vertical profiles. To save some time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
 <div id="loading-processed-vertical-profiles" class="section level2">
@@ -403,15 +403,15 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#basic-visualisation-of-radar-scans-in-r">1: Basic visualisation of radar scans in R</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#preparation">1.1 Preparation</a></li>
-      <li><a href="#the-structure-of-polar-volumes">1.3. The structure of polar volumes</a></li>
-      <li><a href="#plotting-radar-scans">1.4. Plotting radar scans</a></li>
-      <li><a href="#overlaying-radar-scans-on-maps">1.5. Overlaying radar scans on maps</a></li>
+<a href="#basic-visualisation-of-radar-scans-in-r">1. Basic visualisation of radar scans in R</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#preparation">1.1. Preparation</a></li>
+      <li><a href="#the-structure-of-polar-volumes">1.2. The structure of polar volumes</a></li>
+      <li><a href="#plotting-radar-scans">1.3. Plotting radar scans</a></li>
+      <li><a href="#overlaying-radar-scans-on-maps">1.4. Overlaying radar scans on maps</a></li>
       </ul>
 </li>
       <li>
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles">2: Analysis and visualisation of vertical bird profiles</a><ul class="nav nav-pills nav-stacked">
+<a href="#analysis-and-visualisation-of-vertical-bird-profiles">2. Analysis and visualisation of vertical bird profiles</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#loading-processed-vertical-profiles">2.1. Loading processed vertical profiles</a></li>
       <li><a href="#inspecting-single-vertical-profiles">2.2. Inspecting single vertical profiles</a></li>
       <li><a href="#plotting-vertical-profile-time-series">2.3. Plotting vertical profile time series</a></li>
