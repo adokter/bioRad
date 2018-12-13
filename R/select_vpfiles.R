@@ -18,12 +18,11 @@
 #' @export
 #'
 #' @examples
-#' my_path <- "~/my/directory"
 #' select_vpfiles(
 #'   date_min = "2016-10-03",
 #'   date_max = "2016-10-05",
 #'   radars = "bejab",
-#'   directory = my_path
+#'   directory = "my_data"
 #' )
 select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
                            directory = ".") {
