@@ -93,10 +93,10 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
     stop("Vertical profiles have different quantities")
   }
   # extract date-times
-  dates <- .POSIXct(do.call("c", lapply(vptss, "[[", "dates")), tz = "UTC")
+  datetime <- .POSIXct(do.call("c", lapply(vptss, "[[", "datetime")), tz = "UTC")
   quantities <- names(vptss[[1]]$data)
-  ordering <- order(dates)
-  dates <- dates[ordering]
+  ordering <- order(datetime)
+  datetime <- datetime[ordering]
   data <- lapply(
     quantities,
     function(quantity) {
@@ -109,15 +109,15 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
     }
   )
   names(data) <- quantities
-  difftimes <- difftime(dates[-1], dates[-length(dates)], units = "secs")
+  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   if (length(unique(difftimes)) == 1) {
     regular <- TRUE
   } else {
     regular <- FALSE
   }
   output <- list(
-    radar = radars, dates = dates, heights = vptss[[1]]$heights,
-    daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
+    radar = radars, datetime = datetime, heights = vptss[[1]]$heights,
+    daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = data,
     attributes = vptss[[attributes_from]]$attributes,
     regular = regular
@@ -174,12 +174,12 @@ vplist_to_vpts <- function(x, radar = NA) {
 }
 
 vp_to_vpts_helper <- function(vps) {
-  dates <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
-  daterange <- .POSIXct(c(min(dates), max(dates)), tz = "UTC")
+  datetime <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
+  daterange <- .POSIXct(c(min(datetime), max(datetime)), tz = "UTC")
   # sort by datetime
   vps <- vps[order(sapply(vps, "[[", "datetime"))]
-  dates <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
-  difftimes <- difftime(dates[-1], dates[-length(dates)], units = "secs")
+  datetime <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
+  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   profile.quantities <- names(vps[[1]]$data)
 
   if (length(unique(lapply(vps, "[[", "heights"))) > 1) {
@@ -209,9 +209,9 @@ vp_to_vpts_helper <- function(vps) {
   }
   vpsFlat$HGHT <- NULL
   output <- list(
-    radar = vps[[1]]$radar, dates = dates,
+    radar = vps[[1]]$radar, datetime = datetime,
     heights = vps[[1]]$data$HGHT,
-    daterange = .POSIXct(c(min(dates), max(dates)), tz = "UTC"),
+    daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = vpsFlat,
     attributes = vps[[1]]$attributes, regular = regular
   )

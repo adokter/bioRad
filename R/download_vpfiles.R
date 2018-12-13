@@ -1,109 +1,134 @@
-#' Check if a specific URL exists
+#' Download vertical profile (\code{vp}) files from the ENRAM data repository
 #'
-#' @param url Weblink (char) to a potentially existing webpage.
+#' Download and unzip a selection of vertical profile (\code{vp}) files from the
+#' \href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+#' these are stored as monthly zips per radar.
 #'
-#' @return z With a length > 1 if the URL is existing and downloading would be
-#' possible.
-#'
-#' @keywords internal
-#' @importFrom RCurl getBinaryURL
-check_url_existence <- function(url) {
-  z <- ""
-  tryCatch(z <- getBinaryURL(url, failonerror = TRUE),
-    error = function(e) {
-      print(paste("no data available at URL", url))
-    }
-  )
-  return(z)
-}
-
-#' Download vertical profile files (\code{vp}) from the ENRAM data repository
-#'
-#' Download a set of vp bird profiles from the ENRAM repository. These are
-#' stored within monthly available zip folders. This function downloads and
-#' unzips them at a user defined location. Check
-#' \href{http://enram.github.io/data-repository/}{http://enram.github.io/data-repository/}
-#' for an overview of available data.
-#'
-#' @param date_min ISO fomat date indicating the first date to download
-#' files from.
-#' @param date_max ISO fomat date indicating the last date to download
-#' files from
-#' @param country Char vector with two letter country shortcuts.
-#' @param radar Char vector with three letter radar sindicators. Make sure the
-#' radars selected are in accordance to the country selection
-#' @param directory Char defining the location to store the downloaded zip
-#' folders and unzip into the default folder structure
+#' @param date_min character. YYYY-MM-DD start date of file selection. Days will
+#'   be ignored.
+#' @param date_max character. YYYY-MM-DD end date of file selection. Days will
+#'   be ignored.
+#' @param radars character (vector). 5-letter country/radar code(s)
+#'   (e.g. "bejab") of radars to include in file selection.
+#' @param directory character. Path to local directory where files should be
+#'   downloaded and unzipped.
+#' @param overwrite logical. TRUE for redownloading and overwriting previously
+#'   downloaded files of the same names.
 #'
 #' @export
-#' @importFrom lubridate as_date floor_date
-#' @importFrom curl curl_download
+#' @importFrom curl curl_fetch_disk
 #'
 #' @examples
-#' my_path <- "~/my/directory/"
+#' # Download data from radars "bejab" and "bewid", even if previously
+#' # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
+#' # but show 404 error for 2016-11 files (as these are not available).
 #' \dontrun{
-#' download_vpfiles("2016-10-01", "2016-11-30", c("be"),
-#'   c("jab", "wid"),
-#'   directory = my_path
+#' download_vpfiles(
+#'   date_min = "2016-10-01",
+#'   date_max = "2016-11-30",
+#'   radar = c("bejab", "bewid"),
+#'   directory = "my_data",
+#'   overwrite = TRUE
 #' )
 #' }
-download_vpfiles <- function(date_min, date_max, country, radar,
-                             directory = ".") {
-  # create date range set of potential downloadable zip files (if all data
-  # would exist)
-  start <- floor_date(as_date(date_min, tz = NULL), "month")
-  end <- floor_date(as_date(date_max, tz = NULL), "month")
-  dates_to_check <- seq(start, end, by = "months")
+download_vpfiles <- function(date_min, date_max, radars, directory = ".",
+                             overwrite = FALSE) {
+  # Stop if radar codes are not exactly 5 characters
+  check_radar_codes(radars)
 
-  # ZIP-file format preparation
-  countryradar <- apply(expand.grid(country, radar), 1, paste, collapse = "")
-  datestring_to_check <- format(dates_to_check, "%Y%m")
-  countryradardate <- apply(expand.grid(
-    countryradar,
-    datestring_to_check, ".zip"
-  ), 1,
-  paste,
-  collapse = ""
-  )
-  # PATH-format
-  countryradarpath <- apply(expand.grid(
-    country, radar,
-    format(dates_to_check, "%Y")
-  ), 1,
-  paste,
-  collapse = "/"
-  )
-  # PATH-format as it will be represented locally
-  countryradardirectory <- apply(expand.grid(
-    country, radar,
-    format(dates_to_check, "%Y/%m")
-  ),
-  1,
-  paste,
-  collapse = "/"
-  )
-  countryradardirectory <- file.path(directory, countryradardirectory)
+  # Split 5 letter radar codes into format be_jab
+  ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5),
+                       sep = "_")
 
-  # combine base path (S3 location) with the potential data URLS
+  # Stop if dates are not in YYYY-MM-DD format:
+  check_date_format(date_min, "%Y-%m-%d")
+  check_date_format(date_max, "%Y-%m-%d")
+
+  # Set day to 01 and create series of yyyy/mm based on date_min/max:
+  # 2016/10, 2016/11, 2016/12
+  dates <- seq(
+    as.Date(paste(substring(date_min, 1, 7), "01", sep = "-"), tz = NULL),
+    as.Date(paste(substring(date_max, 1, 7), "01", sep = "-"), tz = NULL),
+    by = "months"
+  )
+  year_months <- format(dates, "%Y/%m")
+
+  # Expand to series of radar/yyyy/mm: be_jab/2016/10, be_wid/2016/10, ...
+  radar_year_months <- apply(expand.grid(ra_dars, year_months), 1, paste,
+                             collapse = "/")
+
+  # Set base url of data repository
   base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
-  urls <- paste(base_url, "/", countryradarpath, "/",
-    countryradardate,
-    sep = ""
-  )
 
-  # Attempt download at predefined location
-  for (i in 1:length(urls)) {
-    z <- check_url_existence(urls[i])
-    if (length(z) > 1) {
-      print(paste("Downloading file", countryradardate[i]))
-      curl_download(urls[i], file.path(directory, countryradardate[i]),
-        quiet = FALSE
-      )
+  # Start download and unzipping
+  message(paste("Downloading data from", base_url))
 
-      # Unzip the downloaded archive to the common file structure
-      unzip(file.path(directory, countryradardate[i]),
-        exdir = countryradardirectory[i]
-      )
+  for (radar_year_month in radar_year_months) {
+    # Create filename of format bejab201610.zip (removing _ and /)
+    file_name <- paste0(gsub("/", "", gsub("_", "", radar_year_month)), ".zip")
+    # Create filepath of format directory/bejab201610.zip
+    file_path <- file.path(directory, file_name)
+    # Create url of format base_url/be/jab/2016/bejab201610.zip (removing month)
+    url <- paste(base_url, gsub("_", "/",
+                substring(radar_year_month, 1, nchar(radar_year_month) - 3)),
+                file_name,
+                sep = "/")
+    # Create local unzip directory of format directory/bejab/2016/10
+    unzip_dir <- gsub("_", "", radar_year_month)
+
+    # Skip download if overwrite = FALSE and file already exists locally
+    if (file.exists(file_path) && overwrite == FALSE) {
+      message(paste0(file_name, ": already downloaded"))
+      next
     }
+
+    # Start download
+    req <- curl_fetch_disk(url, file_path) # will download regardless of status
+
+    # Check http status
+    if (req$status_code == "200") {
+      # Unzip file
+      unzip(file_path, exdir = file.path(directory, unzip_dir))
+      message(paste0(file_name, ": successfully downloaded"))
+    } else {
+      # Remove file
+      unlink(file_path)
+      message(paste0(file_name, ": http error ", req$status_code))
+    }
+  }
+}
+
+#' Check if radar codes are exactly 5 characters
+#'
+#' @param radars character vector. Radar codes to check, e.g. \code{c("bejab",
+#'   "bewideu")}.
+#'
+#' @return NULL. Will stop and show error message if at least one of the
+#'   provided radar codes is not exactly 5 characters.
+#'
+#' @keywords internal
+check_radar_codes <- function(radars) {
+  wrong_codes <- radars[nchar(radars) != 5]
+  if (length(wrong_codes) > 0) {
+    stop("Radar codes should be 5 characters: ",
+         paste(wrong_codes, collapse = ", "))
+  }
+}
+
+#' Check if character date is in specific format
+#'
+#' @param date character. Character representation of a date, e.g.
+#'   \code{"2018-12-13"}.
+#' @param format character. strptime format the date should have, e.g.
+#'   \code{"\%Y-\%m-\%d"}
+#'
+#' @return NULL. Will stop and show error message if date does not have correct
+#'   date format.
+#'
+#' @keywords internal
+check_date_format <- function(date, format) {
+  parsed_date <- as.Date(date, format = format, tz = NULL)
+  if (is.na(parsed_date)) {
+    stop("Incorrect date format: ", date)
   }
 }

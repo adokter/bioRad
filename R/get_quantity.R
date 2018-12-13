@@ -75,7 +75,7 @@ get_quantity.vpts <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vpts"))
   output <- x$data[quantity][[1]]
   rownames(output) <- x$heights
-  colnames(output) <- as.character(x$dates)
+  colnames(output) <- as.character(x$datetime)
   if (quantity == "eta") {
     output[x$data$sd_vvp < sd_vvp_threshold(x)] <- 0
     return(output)

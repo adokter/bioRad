@@ -73,7 +73,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
   index <- sapply(
     grid,
     function(x) {
-      which.min(abs(ts$dates - x))
+      which.min(abs(ts$datetime - x))
     }
   )
   quantity.names <- names(ts$data)
@@ -84,7 +84,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
     }
   )
   if (!fill) {
-    index2 <- which(abs(ts$dates[index] - grid) > as.double(dt, units = "secs"))
+    index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs"))
     if (length(index2) > 0) {
       ts$data <- lapply(
         1:length(ts$data),
@@ -97,7 +97,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
     }
   }
   names(ts$data) <- quantity.names
-  ts$dates <- grid
+  ts$datetime <- grid
   ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
   ts$regular <- TRUE
   return(ts)

@@ -102,7 +102,7 @@ check_night.list <- function(x, ..., elev = -0.268) {
 #' @export
 check_night.vpts <- function(x, ..., elev = -0.268) {
   stopifnot(inherits(x, "vpts"))
-  check_night(x$dates, x$attributes$where$lon, x$attributes$where$lat,
+  check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
     elev = elev
   )
 }

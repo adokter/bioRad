@@ -102,8 +102,10 @@ dbz2eta <- function(dbz, wavelength, Km = 0.93) {
 download_vp <- function(start_date, end_date, country, radar, localpath = ".") {
   .Deprecated("download_vpfiles")
   download_vpfiles(
-    date_min = start_date, date_max = end_date,
-    country, radar, directory = localpath
+    date_min = start_date,
+    date_max = end_date,
+    radars = apply(expand.grid(country, radar), 1, paste, collapse = ""),
+    directory = localpath
   )
 }
 
@@ -427,8 +429,10 @@ retrieve_vp_paths <- function(path, start_date, end_date,
                               country = NULL, radar = NULL) {
   .Deprecated("select_vpfiles")
   select_vpfiles(
-    directory = path, date_min = start_date, date_max = end_date,
-    country, radar
+    date_min = start_date,
+    date_max = end_date,
+    radars = apply(expand.grid(country, radar), 1, paste, collapse = ""),
+    directory = path
   )
 }
 

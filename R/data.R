@@ -9,7 +9,7 @@
 #' @examples
 #' # get summary of example vp:
 #' summary(example_vp)
-#' 
+#'
 #' # example_vp was created with:
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' example_vp <- read_vpfiles(vpfile)
@@ -28,7 +28,7 @@
 #' @examples
 #' # get summary of example scan:
 #' summary(example_scan)
-#' 
+#'
 #' # example_scan was created with:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
@@ -48,14 +48,15 @@
 #' @examples
 #' # get summary of example vpts:
 #' summary(example_vpts)
-#' 
+#'
 #' # example_vpts was created with:
 #' \dontrun{
 #' vptsfile <- system.file("extdata", "vpts.txt.zip", package = "bioRad")
-#' unzip(vptsfile, exdir(dirname(vptsfile)), junkpaths = T)
+#' unzip(vptsfile, exdir=(dirname(vptsfile)), junkpaths = T)
 #' vptsfile <- substr(vptsfile, 1, nchar(vptsfile) - 4)
 #' example_vpts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 #' rcs(example_vpts) <- 11
+#' sd_vvp_threshold(example_vpts) <- 2
 #' example_vpts$attributes$where$lat <- 42.2
 #' example_vpts$attributes$where$lon <- -75.98
 #' save(example_vpts, file = "data/example_vpts.rda", compress = "xz")

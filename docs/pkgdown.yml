@@ -1,7 +1,7 @@
-pandoc: 1.12.4.2
-pkgdown: 1.1.0
+pandoc: 1.19.2.1
+pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
-  RadAero18: RadAero18.html
   bioRad: bioRad.html
+  rad_aero_18: rad_aero_18.html
 
