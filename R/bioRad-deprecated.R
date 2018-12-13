@@ -166,9 +166,11 @@ h5ODIMobject <- function(filename) {
 #' @rdname bioRad-deprecated
 #' @export
 is.vplist <- function(x) {
-  .Deprecated("is.vp", msg = paste("The 'vplist' object is deprecated. Use a",
+  .Deprecated("is.vp", msg = paste(
+    "The 'vplist' object is deprecated. Use a",
     "regular list of 'vp' objects 'c(vp, vp)' instead and check with",
-    "'sapply(x, is.vp)'."))
+    "'sapply(x, is.vp)'."
+  ))
   sapply(x, is.vp)
 }
 

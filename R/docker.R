@@ -99,7 +99,7 @@ mount_docker_container <- function(mount = "~/") {
   if (.Platform$OS.type == "unix") {
     result <- system(
       paste("docker run -v ",
-        system(paste("printf %q ",shQuote(normalizePath(mount)),sep=""),intern=T),
+        system(paste("printf %q ", shQuote(normalizePath(mount)), sep = ""), intern = T),
         ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
         sep = ""
       ),
