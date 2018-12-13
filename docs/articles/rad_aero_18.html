@@ -40,7 +40,7 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -52,7 +52,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -69,7 +69,7 @@
 <li>
   <a href="https://github.com/adokter/bioRad">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -80,28 +80,28 @@
 </div>
 <!--/.navbar -->
 
-      
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introductory exercises with bioRad</h1>
                         <h4 class="author">Adriaan M. Dokter</h4>
-            
-      
+
+
       <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/master/vignettes/rad_aero_18.Rmd"><code>vignettes/rad_aero_18.Rmd</code></a></small>
       <div class="hidden name"><code>rad_aero_18.Rmd</code></div>
 
     </div>
 
-    
-    
+
+
 <p><em>These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA.</em></p>
-<div id="basic-visualisation-of-radar-scans-in-r" class="section level1">
-<h1 class="hasAnchor">
-<a href="#basic-visualisation-of-radar-scans-in-r" class="anchor"></a>1. Basic visualisation of radar scans in R</h1>
-<div id="preparation" class="section level2">
+<div id="basic-visualisation-of-radar-scans-in-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#preparation" class="anchor"></a>1.1. Preparation</h2>
+<a href="#basic-visualisation-of-radar-scans-in-r" class="anchor"></a>1 Basic visualisation of radar scans in R</h2>
+<div id="preparation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#preparation" class="anchor"></a>1.1 Preparation</h3>
 <p>Radar data needed for this practical can be downloaded from Dropbox. <a href="https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0">https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0</a></p>
 <p>Execute each of the code examples provided below in <a href="https://www.rstudio.com/">RStudio</a>, and try to complete the exercises.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># make sure you start with a fresh R session</span></a>
@@ -135,9 +135,9 @@
 <p>If you get a “Hello from Docker!” welcome message, everything is working.</p>
 <p>If you did <strong>not</strong> manage to install Docker, you will not be able to load NEXRAD data into R at this time, but you will be able to continue the exercises with radar data that can be loaded without Docker.</p>
 </div>
-<div id="the-structure-of-polar-volumes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-structure-of-polar-volumes" class="anchor"></a>1.2. The structure of polar volumes</h2>
+<div id="the-structure-of-polar-volumes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#the-structure-of-polar-volumes" class="anchor"></a>1.2 The structure of polar volumes</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># the bioRad package comes with an example radar volume file, that we will inspect first</span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="co"># first locate this example file on our computer:</span></a>
 <a class="sourceLine" id="cb5-3" title="3">my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
@@ -151,9 +151,9 @@
 <a class="sourceLine" id="cb5-11" title="11">my_pvol<span class="op">$</span>scans</a></code></pre></div>
 <p><strong>Exercise 1:</strong> Load the polar volume file, <code>example_pvol.h5</code> from the zipfile downloaded earlier. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> function for the nomenclature of various available quantities).</p>
 </div>
-<div id="plotting-radar-scans" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plotting-radar-scans" class="anchor"></a>1.3. Plotting radar scans</h2>
+<div id="plotting-radar-scans" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plotting-radar-scans" class="anchor"></a>1.3 Plotting radar scans</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># (if you haven't done so already) load the polar volume data from the volume.h5 file you just downloaded</span></a>
 <a class="sourceLine" id="cb6-2" title="2">my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="st">"example_pvol.h5"</span>)</a>
 <a class="sourceLine" id="cb6-3" title="3"><span class="co"># let's extract the third scan, which was collected at 1.5 degree elevation:</span></a>
@@ -175,9 +175,9 @@
 <p><strong>Exercise 2:</strong> This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.</p>
 <p><strong>Exercise 3:</strong> Based on the radial velocity image, are the biological scatterers birds or insects? Why?</p>
 </div>
-<div id="overlaying-radar-scans-on-maps" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overlaying-radar-scans-on-maps" class="anchor"></a>1.4. Overlaying radar scans on maps</h2>
+<div id="overlaying-radar-scans-on-maps" class="section level3">
+<h3 class="hasAnchor">
+<a href="#overlaying-radar-scans-on-maps" class="anchor"></a>1.4 Overlaying radar scans on maps</h3>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># It is often informative to plot radar data on a base layer, such as google earth maps.</span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="co"># first download the background image:</span></a>
 <a class="sourceLine" id="cb7-3" title="3">satellite_basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi, <span class="dt">maptype =</span> <span class="st">"satellite"</span>)</a>
@@ -186,14 +186,14 @@
 <p><strong>Exercise 4:</strong> Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. See help of bioRad’s <code><a href="../reference/map.html">map()</a></code> function for available types of basemaps, specifically the argument <code>maptype</code>.</p>
 </div>
 </div>
-<div id="analysis-and-visualisation-of-vertical-bird-profiles" class="section level1">
-<h1 class="hasAnchor">
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2. Analysis and visualisation of vertical bird profiles</h1>
-<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
-<p>See section 3 for information on how to process polar volume data into vertical profiles. To save some time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
-<div id="loading-processed-vertical-profiles" class="section level2">
+<div id="analysis-and-visualisation-of-vertical-bird-profiles" class="section level2">
 <h2 class="hasAnchor">
-<a href="#loading-processed-vertical-profiles" class="anchor"></a>2.1. Loading processed vertical profiles</h2>
+<a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2 Analysis and visualisation of vertical bird profiles</h2>
+<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cilinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
+<p>See section 3 for information on how to process polar volume data into vertical profiles. To save some time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
+<div id="loading-processed-vertical-profiles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#loading-processed-vertical-profiles" class="anchor"></a>2.1 Loading processed vertical profiles</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># Usually we would load processed vertical profiles (vp files) by:</span></a>
 <a class="sourceLine" id="cb8-2" title="2"><span class="co"># my_vplist &lt;- read_vpfiles("./your/directory/with/processed/profiles/goes/here")</span></a>
 <a class="sourceLine" id="cb8-3" title="3"><span class="co"># my_vplist contains after running the command a list of vertical profile (vp) objects</span></a>
@@ -202,9 +202,9 @@
 <a class="sourceLine" id="cb8-6" title="6"><span class="co"># print some information on the vplist object. It should contain 95 profiles</span></a>
 <a class="sourceLine" id="cb8-7" title="7">my_vplist</a></code></pre></div>
 </div>
-<div id="inspecting-single-vertical-profiles" class="section level2">
-<h2 class="hasAnchor">
-<a href="#inspecting-single-vertical-profiles" class="anchor"></a>2.2. Inspecting single vertical profiles</h2>
+<div id="inspecting-single-vertical-profiles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#inspecting-single-vertical-profiles" class="anchor"></a>2.2 Inspecting single vertical profiles</h3>
 <p>Now that you have loaded a list of vertical profiles, we can start exploring them. We will start with plotting and inspecting single vertical profiles, i.e. a single profile from the list of vp objects you have just loaded.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># let's extract a profile from the list, in this example the 41st profile:</span></a>
 <a class="sourceLine" id="cb9-2" title="2">my_vp &lt;-<span class="st"> </span>my_vplist[[<span class="dv">41</span>]]</a>
@@ -231,9 +231,9 @@
 <a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="../reference/rcs.html">rcs</a></span>(my_vp) &lt;-<span class="st"> </span><span class="dv">110</span></a></code></pre></div>
 <p><strong>Exercise 6:</strong> Verify your answers on the previous two questions, by re-plotting the vertical profiles for the bird density quantity.</p>
 </div>
-<div id="plotting-vertical-profile-time-series" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plotting-vertical-profile-time-series" class="anchor"></a>2.3. Plotting vertical profile time series</h2>
+<div id="plotting-vertical-profile-time-series" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plotting-vertical-profile-time-series" class="anchor"></a>2.3 Plotting vertical profile time series</h3>
 <p>We will now examine multiple vertical profiles at once that are ordered into a time series, e.g. the vertical profiles obtained from a single radar over a full day.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># convert the list of vertical profiles into a time series:</span></a>
 <a class="sourceLine" id="cb13-2" title="2">my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span>(my_vplist)</a>
@@ -264,9 +264,9 @@
 <p><strong>Exercise 7:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC. In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.</p>
 <p><strong>Exercise 8:</strong> Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speeds (quantity <code>ff</code>, see manual for the vp class for full list of available quantities). Check whether your answer to the previous question was approximately correct.</p>
 </div>
-<div id="vertical-and-time-integration-of-profiles" class="section level2">
-<h2 class="hasAnchor">
-<a href="#vertical-and-time-integration-of-profiles" class="anchor"></a>2.4. Vertical and time integration of profiles</h2>
+<div id="vertical-and-time-integration-of-profiles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#vertical-and-time-integration-of-profiles" class="anchor"></a>2.4 Vertical and time integration of profiles</h3>
 <p>Often you will want to sum together all the migrants in the vertical dimension, for example if you want a single index of how many birds are migrating at a certain instant. There are at least two ways in which you can do that:</p>
 <ul>
 <li>by calculating the vertically integrated bird density (VID), which is <em>surface</em> density as opposed to a <em>volume</em> densities you have been plotting in the previous exercises: this number gives you how many migrants are aloft per square kilometer earth’s surface (unit individuals/km<span class="math inline">\(^{2}\)</span>), and is a vertical integration of the volume densities(unit individuals/km<span class="math inline">\(^{3}\)</span>).</li>
@@ -303,9 +303,9 @@
 <p>VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.</p>
 <p><strong>Exercise 12:</strong> Re-plot the vertically integrated quantities discussed so far using a different radar cross section, and verify which quantities are affected by a change in radar cross section.</p>
 </div>
-<div id="inspecting-precipitation-signals-in-profiles" class="section level2">
-<h2 class="hasAnchor">
-<a href="#inspecting-precipitation-signals-in-profiles" class="anchor"></a>2.6. Inspecting precipitation signals in profiles</h2>
+<div id="inspecting-precipitation-signals-in-profiles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#inspecting-precipitation-signals-in-profiles" class="anchor"></a>2.5 Inspecting precipitation signals in profiles</h3>
 <p>Precipitation is known to have a major influence on the timing and intensity of migration, therefore it is a useful skill to be able to inspect profiles for presence of precipitation.</p>
 <p>Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algorithms in specific cases. It is therefore important to have the skills to inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.</p>
 <p>An easy way of doing that is plotting the vertical profile of total reflectivity (quantity DBZH), which includes everything: birds, insects and precipitation. Precipitation often has higher reflectivities than birds, and also extends to much higher altitudes.</p>
@@ -320,12 +320,12 @@
 <p><strong>Exercise 13:</strong> Compare your plots for bird density (quantity <code>dens</code>) with a profile plot for total reflectivity (quantity <code>DBZH</code>, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.</p>
 </div>
 </div>
-<div id="processing-polar-volume-data-into-profiles" class="section level1">
-<h1 class="hasAnchor">
-<a href="#processing-polar-volume-data-into-profiles" class="anchor"></a>3. Processing polar volume data into profiles</h1>
-<div id="obtaining-radar-data" class="section level2">
+<div id="processing-polar-volume-data-into-profiles" class="section level2">
 <h2 class="hasAnchor">
-<a href="#obtaining-radar-data" class="anchor"></a>3.1. Obtaining radar data</h2>
+<a href="#processing-polar-volume-data-into-profiles" class="anchor"></a>3 Processing polar volume data into profiles</h2>
+<div id="obtaining-radar-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#obtaining-radar-data" class="anchor"></a>3.1 Obtaining radar data</h3>
 <ul>
 <li>US NEXRAD polar volume data can be accessed in the <a href="https://s3.amazonaws.com/noaa-nexrad-level2/index.html">Amazon cloud</a>.</li>
 <li>European radar data can be accessed at <a href="http://enram.github.io/data-repository/" class="uri">http://enram.github.io/data-repository/</a>. These are processed vertical profiles, the full polar volume data are not openly available for most countries.</li>
@@ -339,9 +339,9 @@
 </ul>
 <p>Useful sites for inspecting pre-made movies of the US composite are <a href="http://birdcast.info/live-migration-maps/" class="uri">http://birdcast.info/live-migration-maps/</a> and <a href="http://www.pauljhurtado.com/US_Composite_Radar/" class="uri">http://www.pauljhurtado.com/US_Composite_Radar/</a>.</p>
 </div>
-<div id="processing-a-single-polar-volume-with-the-vol2bird-algorithm" class="section level2">
-<h2 class="hasAnchor">
-<a href="#processing-a-single-polar-volume-with-the-vol2bird-algorithm" class="anchor"></a>3.2. Processing a single polar volume with the vol2bird algorithm</h2>
+<div id="processing-a-single-polar-volume-with-the-vol2bird-algorithm" class="section level3">
+<h3 class="hasAnchor">
+<a href="#processing-a-single-polar-volume-with-the-vol2bird-algorithm" class="anchor"></a>3.2 Processing a single polar volume with the vol2bird algorithm</h3>
 <p>The following steps take you through the process applying the vol2bird algorithm yourself. You need a working installation of Docker (Linux/Mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported).</p>
 <p>We will generate vertical profiles with the automated algorithm vol2bird (<a href="https://github.com/adokter/vol2bird" class="uri">https://github.com/adokter/vol2bird</a>), which is included in the bioRad package.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># start your local Docker installation</span></a>
@@ -362,9 +362,9 @@
 <a class="sourceLine" id="cb19-12" title="12"><span class="co"># check that we can read this file, and retrieve the vertical profile from it:</span></a>
 <a class="sourceLine" id="cb19-13" title="13">vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(<span class="st">"my_vpfile.h5"</span>)</a></code></pre></div>
 </div>
-<div id="processing-multiple-polar-volumes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#processing-multiple-polar-volumes" class="anchor"></a>3.3. Processing multiple polar volumes</h2>
+<div id="processing-multiple-polar-volumes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#processing-multiple-polar-volumes" class="anchor"></a>3.3 Processing multiple polar volumes</h3>
 <p>This section contains an example for processing a directory of polar volumes into profiles:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># read the filenames of the polar volumes you want to process</span></a>
 <a class="sourceLine" id="cb20-2" title="2">my_files &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(<span class="st">"your/directory/with/volumes/goes/here/"</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
@@ -402,30 +402,9 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#basic-visualisation-of-radar-scans-in-r">1. Basic visualisation of radar scans in R</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#preparation">1.1. Preparation</a></li>
-      <li><a href="#the-structure-of-polar-volumes">1.2. The structure of polar volumes</a></li>
-      <li><a href="#plotting-radar-scans">1.3. Plotting radar scans</a></li>
-      <li><a href="#overlaying-radar-scans-on-maps">1.4. Overlaying radar scans on maps</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles">2. Analysis and visualisation of vertical bird profiles</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#loading-processed-vertical-profiles">2.1. Loading processed vertical profiles</a></li>
-      <li><a href="#inspecting-single-vertical-profiles">2.2. Inspecting single vertical profiles</a></li>
-      <li><a href="#plotting-vertical-profile-time-series">2.3. Plotting vertical profile time series</a></li>
-      <li><a href="#vertical-and-time-integration-of-profiles">2.4. Vertical and time integration of profiles</a></li>
-      <li><a href="#inspecting-precipitation-signals-in-profiles">2.6. Inspecting precipitation signals in profiles</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#processing-polar-volume-data-into-profiles">3. Processing polar volume data into profiles</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#obtaining-radar-data">3.1. Obtaining radar data</a></li>
-      <li><a href="#processing-a-single-polar-volume-with-the-vol2bird-algorithm">3.2. Processing a single polar volume with the vol2bird algorithm</a></li>
-      <li><a href="#processing-multiple-polar-volumes">3.3. Processing multiple polar volumes</a></li>
-      </ul>
-</li>
+<li><a href="#basic-visualisation-of-radar-scans-in-r">1 Basic visualisation of radar scans in R</a></li>
+      <li><a href="#analysis-and-visualisation-of-vertical-bird-profiles">2 Analysis and visualisation of vertical bird profiles</a></li>
+      <li><a href="#processing-polar-volume-data-into-profiles">3 Processing polar volume data into profiles</a></li>
       </ul>
 </div>
       </div>
@@ -443,7 +422,7 @@
       </footer>
 </div>
 
-  
+
 
   </body>
 </html>
