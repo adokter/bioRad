@@ -54,7 +54,7 @@ Data contained in this class object should be accessed with the
 An object of class \code{vpts} is a list containing
 \describe{
  \item{\code{radar}}{string containing the radar identifier}
- \item{\code{datetime}}{the \code{N} nominal times of the profiles (named \code{dates} in bioRad verions < 0.4.0)}
+ \item{\code{datetime}}{the \code{N} nominal times of the profiles (named \code{dates} in bioRad versions < 0.4.0)}
  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
  \item{\code{daterange}}{the minimum and maximum nominal time of the
    profiles in the list}

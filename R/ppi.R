@@ -33,7 +33,7 @@
 #'      \item{\code{lat}}{latitude of the radar [decimal degrees]}
 #'      \item{\code{lon}}{longitude of the radar [decimal degrees]}
 #'      \item{\code{height}}{height of the radar
-#'        antenna [metres above sea level]}
+#'        antenna [meters above sea level]}
 #'      \item{\code{elangle}}{radar beam elevation [degrees]}
 #'      \item{\code{rscale}}{range bin size [m]}
 #'      \item{\code{ascale}}{azimuth bin size [deg]}

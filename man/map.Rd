@@ -35,7 +35,7 @@ vector of length 2.}
 
 \item{radar_size}{Size of the symbol indicating the radar position.}
 
-\item{radar_color}{Colour of the symbol indicating the radar position.}
+\item{radar_color}{Color of the symbol indicating the radar position.}
 
 \item{n_color}{The number of colors (>=1) to be in the palette.}
 

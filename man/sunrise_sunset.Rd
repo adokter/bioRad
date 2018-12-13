@@ -11,7 +11,7 @@ sunrise(date, lon, lat, elev = -0.268, tz = "UTC")
 sunset(date, lon, lat, elev = -0.268, tz = "UTC")
 }
 \arguments{
-\item{date}{Date inhereting from class \code{POSIXt} or a string
+\item{date}{Date inheriting from class \code{POSIXt} or a string
 interpretable by \link[base]{as.Date}.}
 
 \item{lon}{Longitude in decimal degrees.}

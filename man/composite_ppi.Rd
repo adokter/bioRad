@@ -9,7 +9,7 @@ composite_ppi(x, param = "DBZH", dim = c(100, 100))
 \arguments{
 \item{x}{A list of \code{ppi}.}
 
-\item{param}{Scan paramater to composite.}
+\item{param}{Scan parameter to composite.}
 
 \item{dim}{integer. Vector with number of cells in each spatial dimension.}
 }

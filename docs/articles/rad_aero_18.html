@@ -96,9 +96,9 @@
     
     
 <p><em>These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA</em></p>
-<div id="basic-visualisation-of-radar-scans-in-r" class="section level1">
+<div id="basic-visualization-of-radar-scans-in-r" class="section level1">
 <h1 class="hasAnchor">
-<a href="#basic-visualisation-of-radar-scans-in-r" class="anchor"></a>1: Basic visualisation of radar scans in R</h1>
+<a href="#basic-visualization-of-radar-scans-in-r" class="anchor"></a>1: Basic visualization of radar scans in R</h1>
 <div id="preparation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preparation" class="anchor"></a>1.1 Preparation</h2>
@@ -172,7 +172,7 @@
 <a class="sourceLine" id="cb6-16" title="16"><span class="co">#</span></a>
 <a class="sourceLine" id="cb6-17" title="17"><span class="co"># Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:</span></a>
 <a class="sourceLine" id="cb6-18" title="18"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_ppi, <span class="dt">param =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
-<p><strong>Exercise 2:</strong> This case contains convective precipitation, characterised by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitive areas differs from the areas with biological scattering.</p>
+<p><strong>Exercise 2:</strong> This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.</p>
 <p><strong>Exercise 3:</strong> Based on the radial velocity image, are the biological scatterers birds or insects? Why?</p>
 </div>
 <div id="overlaying-radar-scans-on-maps" class="section level2">
@@ -183,13 +183,13 @@
 <a class="sourceLine" id="cb7-3" title="3">satellite_basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi, <span class="dt">maptype =</span> <span class="st">"satellite"</span>)</a>
 <a class="sourceLine" id="cb7-4" title="4"><span class="co"># then overlay the PPI on the satellite image:</span></a>
 <a class="sourceLine" id="cb7-5" title="5"><span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi, <span class="dt">map =</span> satellite_basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="dv">20</span>, <span class="dv">15</span>))</a></code></pre></div>
-<p><strong>Exercise 4:</strong> Plot the same ppi but now using a cartographic map instead of satellite maps as baselayer. See help of bioRad’s <code><a href="../reference/map.html">map()</a></code> function for available types of basemaps, specifically the argument <code>maptype</code>.</p>
+<p><strong>Exercise 4:</strong> Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. See help of bioRad’s <code><a href="../reference/map.html">map()</a></code> function for available types of basemaps, specifically the argument <code>maptype</code>.</p>
 </div>
 </div>
-<div id="analysis-and-visualisation-of-vertical-bird-profiles" class="section level1">
+<div id="analysis-and-visualization-of-vertical-bird-profiles" class="section level1">
 <h1 class="hasAnchor">
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2: Analysis and visualisation of vertical bird profiles</h1>
-<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cilinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
+<a href="#analysis-and-visualization-of-vertical-bird-profiles" class="anchor"></a>2: Analysis and visualization of vertical bird profiles</h1>
+<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
 <p>See section 3 for information on how to process polar volume data into vertical profiles. To save some time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
 <div id="loading-processed-vertical-profiles" class="section level2">
 <h2 class="hasAnchor">
@@ -291,7 +291,7 @@
 <p><strong>Exercise 9:</strong> What is in this case the bird’s vertically integrated density (VID)? Give your answer in units birds/km<span class="math inline">\(^2\)</span>.</p>
 <p><strong>Exercise 10:</strong> What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour.</p>
 <p><strong>Exercise 11:</strong> How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.</p>
-<p>Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling to make any assumptions on RCS, you can alternively use two closely related quantities that do not depend on RCS:</p>
+<p>Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling to make any assumptions on RCS, you can alternatively use two closely related quantities that do not depend on RCS:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># print the currently assumed radar cross section:</span></a>
 <a class="sourceLine" id="cb16-2" title="2"><span class="kw"><a href="../reference/rcs.html">rcs</a></span>(my_vpi)</a>
 <a class="sourceLine" id="cb16-3" title="3"><span class="co"># instead of VID, you can use vertically integrated reflectivity (VIR):</span></a>
@@ -300,14 +300,14 @@
 <a class="sourceLine" id="cb16-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"rtr"</span>)</a>
 <a class="sourceLine" id="cb16-7" title="7"><span class="co"># instead of MT, you can use the reflectivity traffic (RT):</span></a>
 <a class="sourceLine" id="cb16-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"rt"</span>)</a></code></pre></div>
-<p>VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicalur to the migratory flow per hour.</p>
+<p>VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.</p>
 <p><strong>Exercise 12:</strong> Re-plot the vertically integrated quantities discussed so far using a different radar cross section, and verify which quantities are affected by a change in radar cross section.</p>
 </div>
 <div id="inspecting-precipitation-signals-in-profiles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#inspecting-precipitation-signals-in-profiles" class="anchor"></a>2.6. Inspecting precipitation signals in profiles</h2>
 <p>Precipitation is known to have a major influence on the timing and intensity of migration, therefore it is a useful skill to be able to inspect profiles for presence of precipitation.</p>
-<p>Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algoriths in specific cases. It is therefore important to have the skills to inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.</p>
+<p>Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algorithms in specific cases. It is therefore important to have the skills to inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.</p>
 <p>An easy way of doing that is plotting the vertical profile of total reflectivity (quantity DBZH), which includes everything: birds, insects and precipitation. Precipitation often has higher reflectivities than birds, and also extends to much higher altitudes.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># load a time series for the KBGM radar in Binghamton, NY</span></a>
 <a class="sourceLine" id="cb17-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="st">"KBGM20170527-20170602.RData"</span>)</a>
@@ -337,7 +337,7 @@
 <li>Europe: <a href="http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html">OPERA database</a>
 </li>
 </ul>
-<p>Useful sites for inspecting premade movies of the US composite are <a href="http://birdcast.info/live-migration-maps/" class="uri">http://birdcast.info/live-migration-maps/</a> and <a href="http://www.pauljhurtado.com/US_Composite_Radar/" class="uri">http://www.pauljhurtado.com/US_Composite_Radar/</a>.</p>
+<p>Useful sites for inspecting pre-made movies of the US composite are <a href="http://birdcast.info/live-migration-maps/" class="uri">http://birdcast.info/live-migration-maps/</a> and <a href="http://www.pauljhurtado.com/US_Composite_Radar/" class="uri">http://www.pauljhurtado.com/US_Composite_Radar/</a>.</p>
 </div>
 <div id="processing-a-single-polar-volume-with-the-vol2bird-algorithm" class="section level2">
 <h2 class="hasAnchor">
@@ -403,7 +403,7 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#basic-visualisation-of-radar-scans-in-r">1: Basic visualisation of radar scans in R</a><ul class="nav nav-pills nav-stacked">
+<a href="#basic-visualization-of-radar-scans-in-r">1: Basic visualization of radar scans in R</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#preparation">1.1 Preparation</a></li>
       <li><a href="#the-structure-of-polar-volumes">1.3. The structure of polar volumes</a></li>
       <li><a href="#plotting-radar-scans">1.4. Plotting radar scans</a></li>
@@ -411,7 +411,7 @@
       </ul>
 </li>
       <li>
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles">2: Analysis and visualisation of vertical bird profiles</a><ul class="nav nav-pills nav-stacked">
+<a href="#analysis-and-visualization-of-vertical-bird-profiles">2: Analysis and visualization of vertical bird profiles</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#loading-processed-vertical-profiles">2.1. Loading processed vertical profiles</a></li>
       <li><a href="#inspecting-single-vertical-profiles">2.2. Inspecting single vertical profiles</a></li>
       <li><a href="#plotting-vertical-profile-time-series">2.3. Plotting vertical profile time series</a></li>

@@ -20,7 +20,7 @@ be ignored.}
 \item{directory}{character. Path to local directory where files should be
 downloaded and unzipped.}
 
-\item{overwrite}{logical. TRUE for redownloading and overwriting previously
+\item{overwrite}{logical. TRUE for re-downloading and overwriting previously
 downloaded files of the same names.}
 }
 \description{

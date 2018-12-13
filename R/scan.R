@@ -17,14 +17,14 @@
 #'  \item{\code{datetime}}{nominal time of the volume to which this
 #'    scan belongs [UTC]}
 #'  \item{\code{params}}{a list with scan parameters}
-#'  \item{\code{attributes}}{list with the scans's \code{\\what},
+#'  \item{\code{attributes}}{list with the scan's \code{\\what},
 #'    \code{\\where} and \code{\\how} attributes}
 #'  \item{\code{geo}}{geographic data, a list with:
 #'     \describe{
 #'      \item{\code{lat}}{latitude of the radar [decimal degrees]}
 #'      \item{\code{lon}}{longitude of the radar [decimal degrees]}
 #'      \item{\code{height}}{height of the radar
-#'        antenna [metres above sea level]}
+#'        antenna [meters above sea level]}
 #'      \item{\code{elangle}}{radar beam elevation [degrees]}
 #'      \item{\code{rscale}}{range bin size [m]}
 #'      \item{\code{ascale}}{azimuth bin size [deg]}

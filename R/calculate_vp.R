@@ -37,7 +37,7 @@
 #' @param range_min numeric. Minimum range in km.
 #' @param range_max numeric. Maximum range in km.
 #' @param n_layer numeric. Number of altitude layers in the profile.
-#' @param h_layer numeric. Width of altitude layers in metre.
+#' @param h_layer numeric. Width of altitude layers in meter.
 #' @param nyquist_min numeric. Minimum Nyquist velocity of scans in m/s for
 #' scans to be included in the analysis.
 #' @param dealias logical. Whether to dealias radial velocities; this should
@@ -99,7 +99,7 @@
 #' Using default values of \code{range_min} and \code{range_max} is
 #' recommended. Ranges closer than 5 km tend to be contaminated by ground
 #' clutter, while range gates beyond 25 km become too wide to resolve the
-#' default altitude layer width of 200 metre (see \link{beam_width}).
+#' default altitude layer width of 200 meter (see \link{beam_width}).
 #'
 #' For dealiasing, the torus mapping method by Haase et al. is used.
 #'
@@ -119,7 +119,7 @@
 #'   velocities using a torus mapping. Journal of Atmospheric and Oceanic
 #'   Technology, 21(10), pp.1566-1573.
 #'   \item Bird migration flight altitudes studied by a network of
-#'   operational weather radars, Dokter et al., J. R. Soc. Interace 8 (54),
+#'   operational weather radars, Dokter et al., J. R. Soc. Interface 8 (54),
 #'   pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
 #' }
 #'
