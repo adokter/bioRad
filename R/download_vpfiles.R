@@ -120,7 +120,7 @@ check_radar_codes <- function(radars) {
 #' @param date character. Character representation of a date, e.g.
 #'   \code{"2018-12-13"}.
 #' @param format character. strptime format the date should have, e.g.
-#'   \code{"%Y-%m-%d"}.
+#'   \code{"\%Y-\%m-\%d"}
 #'
 #' @return NULL. Will stop and show error message if date does not have correct
 #'   date format.
