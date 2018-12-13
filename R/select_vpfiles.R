@@ -37,6 +37,10 @@ select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
   # Create series of dates based on date_min/max: 20161001, 20161002, ...
   # or regex for any yyyymmdd date
   if (!is.null(date_min) && !is.null(date_max)) {
+    # Stop if dates are not in YYYY-MM-DD format:
+    check_date_format(date_min, "%Y-%m-%d")
+    check_date_format(date_max, "%Y-%m-%d")
+
     dates <- seq(
       as.Date(date_min, tz = NULL),
       as.Date(date_max, tz = NULL),

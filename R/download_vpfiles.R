@@ -40,10 +40,15 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5),
                        sep = "_")
 
-  # Create series of yyyy/mm based on date_min/max: 2016/10, 2016/11, 2016/12
+  # Stop if dates are not in YYYY-MM-DD format:
+  check_date_format(date_min, "%Y-%m-%d")
+  check_date_format(date_max, "%Y-%m-%d")
+
+  # Set day to 01 and create series of yyyy/mm based on date_min/max:
+  # 2016/10, 2016/11, 2016/12
   dates <- seq(
-    as.Date(date_min, tz = NULL),
-    as.Date(date_max, tz = NULL),
+    as.Date(paste(substring(date_min, 1, 7), "01", sep = "-"), tz = NULL),
+    as.Date(paste(substring(date_max, 1, 7), "01", sep = "-"), tz = NULL),
     by = "months"
   )
   year_months <- format(dates, "%Y/%m")
@@ -105,7 +110,25 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 check_radar_codes <- function(radars) {
   wrong_codes <- radars[nchar(radars) != 5]
   if (length(wrong_codes) > 0) {
-    stop("Radar codes should be exactly 5 characters: ",
+    stop("Radar codes should be 5 characters: ",
          paste(wrong_codes, collapse = ", "))
+  }
+}
+
+#' Check if character date is in specific format
+#'
+#' @param date character. Character representation of a date, e.g.
+#'   \code{"2018-12-13"}.
+#' @param format character. strptime format the date should have, e.g.
+#'   \code{"%Y-%m-%d"}.
+#'
+#' @return NULL. Will stop and show error message if date does not have correct
+#'   date format.
+#'
+#' @keywords internal
+check_date_format <- function(date, format) {
+  parsed_date <- as.Date(date, format = format, tz = NULL)
+  if (is.na(parsed_date)) {
+    stop("Incorrect date format: ", date)
   }
 }
