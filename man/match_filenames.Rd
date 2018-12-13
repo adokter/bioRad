@@ -2,24 +2,24 @@
 % Please edit documentation in R/select_vpfiles.R
 \name{match_filenames}
 \alias{match_filenames}
-\title{Match a set of regex expression to a list of files}
+\title{Match a set of regular expressions to a list of files}
 \usage{
-match_filenames(filelist, regexlist)
+match_filenames(file_list, regex_list)
 }
 \arguments{
-\item{filelist}{Character list of filenames/filepaths.}
+\item{file_list}{character vector. Haystack of filenames/filepaths.}
 
-\item{regexlist}{Character list of regex expressions to which the file names
-should comply.}
+\item{regex_list}{character vector. Needle of regular expressions to which
+filenames should comply.}
 }
 \value{
-Character subset of filenames from the filelist that comply to any
-of the provided regex expressions
+character vector. Subset of filenames from the file_list that comply
+  to the provided regular expressions in regex_list.
 }
 \description{
-Match a set of regex expression to a list of files and return those filenames
-that comply to any of the provided regex expressions. This function basically
-wraps a grep to make it working on vectors by combining the vector of
-regex options as possible options
+Match a set of regular expressions to a list of files and return those
+filenames that comply to any of the provided regular expressions. This
+function basically wraps a grep to make it work on vectors by combining the
+vector of regex options as possible options.
 }
 \keyword{internal}
