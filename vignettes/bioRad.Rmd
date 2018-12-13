@@ -3,7 +3,7 @@ title: "Introduction to bioRad"
 author: Adriaan M. Dokter & Peter Desmet
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{bioRad}
+  %\VignetteIndexEntry{Introduction to bioRad}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
