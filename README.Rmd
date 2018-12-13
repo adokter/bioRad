@@ -54,9 +54,9 @@ Google has [recently changed its API requirements](https://developers.google.com
 
 You only need to install Docker to:
 
+* Process radar data into vertical profiles of biological targets with `calculate_vp()`.
 * Read [NEXRAD radar data](https://www.ncdc.noaa.gov/data-access/radar-data) with `read_pvolfile()`. Docker is not required for reading ODIM radar data.
 * Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
-* Process radar data into vertical profiles of biological targets with `calculate_vp()`.
 
 Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation.
 <details>
