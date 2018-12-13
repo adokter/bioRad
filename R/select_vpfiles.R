@@ -53,7 +53,8 @@ select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
 
   # Expand to series of radar_vp_yyyymmdd: bejab_vp_20161001, bejab_vp_20161002
   radar_dates <- apply(expand.grid(radars, "_vp_", dates), 1, paste,
-                       collapse = "")
+    collapse = ""
+  )
 
   # Create list of all files in target directory
   all_files <- dir(directory, recursive = TRUE)

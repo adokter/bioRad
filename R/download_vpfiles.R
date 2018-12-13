@@ -37,8 +37,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   check_radar_codes(radars)
 
   # Split 5 letter radar codes into format be_jab
-  ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5),
-                       sep = "_")
+  ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5), sep = "_")
 
   # Stop if dates are not in YYYY-MM-DD format:
   check_date_format(date_min, "%Y-%m-%d")
@@ -55,7 +54,8 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 
   # Expand to series of radar/yyyy/mm: be_jab/2016/10, be_wid/2016/10, ...
   radar_year_months <- apply(expand.grid(ra_dars, year_months), 1, paste,
-                             collapse = "/")
+    collapse = "/"
+  )
 
   # Set base url of data repository
   base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
@@ -69,10 +69,15 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
     # Create filepath of format directory/bejab201610.zip
     file_path <- file.path(directory, file_name)
     # Create url of format base_url/be/jab/2016/bejab201610.zip (removing month)
-    url <- paste(base_url, gsub("_", "/",
-                substring(radar_year_month, 1, nchar(radar_year_month) - 3)),
-                file_name,
-                sep = "/")
+    url <- paste(
+      base_url,
+      gsub(
+        "_", "/",
+        substring(radar_year_month, 1, nchar(radar_year_month) - 3)
+      ),
+      file_name,
+      sep = "/"
+    )
     # Create local unzip directory of format directory/bejab/2016/10
     unzip_dir <- gsub("_", "", radar_year_month)
 
@@ -110,8 +115,10 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 check_radar_codes <- function(radars) {
   wrong_codes <- radars[nchar(radars) != 5]
   if (length(wrong_codes) > 0) {
-    stop("Radar codes should be 5 characters: ",
-         paste(wrong_codes, collapse = ", "))
+    stop(
+      "Radar codes should be 5 characters: ",
+      paste(wrong_codes, collapse = ", ")
+    )
   }
 }
 

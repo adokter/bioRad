@@ -73,7 +73,7 @@ If you did **not** manage to install Docker, you will not be able to load NEXRAD
 ```{r, eval=FALSE}
 # the bioRad package comes with an example radar volume file, that we will inspect first
 # first locate this example file on our computer:
-my_filename <- system.file("extdata", "volume.h5", package="bioRad")
+my_filename <- system.file("extdata", "volume.h5", package = "bioRad")
 # print the local path of the volume file:
 my_filename
 # load the file into R:
@@ -106,7 +106,7 @@ my_ppi
 # from the radar up to where to plot data (argument range_max))
 #
 # Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:
-plot(my_ppi, param="DBZH")
+plot(my_ppi, param = "DBZH")
 ```
 
 **Exercise 2:** This case contains convective precipitation, characterised by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitive areas differs from the areas with biological scattering.
@@ -120,7 +120,7 @@ plot(my_ppi, param="DBZH")
 # first download the background image:
 satellite_basemap <- download_basemap(my_ppi, maptype = "satellite")
 # then overlay the PPI on the satellite image:
-map(my_ppi,map = satellite_basemap, param = "DBZH", zlim = c(-20,15))
+map(my_ppi, map = satellite_basemap, param = "DBZH", zlim = c(-20, 15))
 ```
 
 **Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as baselayer. See help of bioRad's `map()` function for available types of basemaps, specifically the argument `maptype`.
@@ -139,7 +139,7 @@ See section 3 for information on how to process polar volume data into vertical 
 # my_vplist contains after running the command a list of vertical profile (vp) objects
 # To save time, we load these data directly from file
 load("KBRO20170514.RData")
-# print some information on the vplist object. It should contain 95 profiles 
+# print some information on the vplist object. It should contain 95 profiles
 my_vplist
 ```
 
@@ -248,7 +248,7 @@ my_vpi <- integrate_profile(my_vpts)
 plot(my_vpi)
 # you can also plot vertically integrated densities (VID):
 plot(my_vpi, quantity = "vid")
-# the gray and white shading indicates day and night, which is calculated 
+# the gray and white shading indicates day and night, which is calculated
 # from the date and the radar position. You can also turn this off:
 plot(my_vpi, night_shade = FALSE)
 # plot the cumulative number of birds passing the radar, i.e. migration traffic (mt):
@@ -341,7 +341,7 @@ my_file <- system.file("extdata", "volume.h5", package = "bioRad")
 my_vp <- calculate_vp(my_file, autoconf = TRUE)
 # vp is now a 'vp' profile object, that you can examine as in the previous exercises
 # alternatively, you may also store the profile as a hdf5 file, which is what we will do next:
-calculate_vp(my_file, "my_vpfile.h5" , autoconf = TRUE)
+calculate_vp(my_file, "my_vpfile.h5", autoconf = TRUE)
 # your work directory should now contain a new file 'my_vpfile.h5'
 # check that we can read this file, and retrieve the vertical profile from it:
 vp <- read_vpfiles("my_vpfile.h5")
@@ -360,7 +360,7 @@ my_files
 outputdir <- "~/processed_data"
 dir.create(outputdir)
 # let's loop over the files and generate profiles
-for(file_in in my_files) {
+for (file_in in my_files) {
   # generate the output filename for the input file
   file_out <- paste(outputdir, "/", basename(file_in), "_vp.h5", sep = "")
   # generate the profile, and write it as a hdf5 file (for later reference)

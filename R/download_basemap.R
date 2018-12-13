@@ -11,7 +11,7 @@
 #' @param verbose Logical, whether to print information to console.
 #' @param source String identifying which map service should be used: "google", "osm" or "stamen"
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
-#' for selection of different types of basemaps.s
+#' for selection of different types of basemaps.
 #'
 #' @export
 #'
@@ -36,14 +36,13 @@
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", ...) {
   stopifnot(inherits(x, "ppi"))
 
-  if(compareVersion(as.character(packageVersion("ggmap")),"2.7.904")<0) stop("version of package ggmap should be >= 2.7.904, visit https://github.com/dkahle/ggmap for upgrade instructions")
+  if (compareVersion(as.character(packageVersion("ggmap")), "2.7.904") < 0) stop("version of package ggmap should be >= 2.7.904, visit https://github.com/dkahle/ggmap for upgrade instructions")
 
   if (source != "google") {
     location <- c(left = x$geo$bbox["lon", "min"], bottom = x$geo$bbox["lat", "min"], right = x$geo$bbox["lon", "max"], top = x$geo$bbox["lat", "max"])
   } else {
     location <- c(lon = mean(x$geo$bbox["lon", ]), lat = mean(x$geo$bbox["lat", ]))
   }
-
 
   if (!missing(zoom)) {
     if (!is.numeric(zoom)) {

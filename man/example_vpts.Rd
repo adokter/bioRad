@@ -19,7 +19,7 @@ summary(example_vpts)
 # example_vpts was created with:
 \dontrun{
 vptsfile <- system.file("extdata", "vpts.txt.zip", package = "bioRad")
-unzip(vptsfile, exdir=(dirname(vptsfile)), junkpaths = T)
+unzip(vptsfile, exdir = (dirname(vptsfile)), junkpaths = T)
 vptsfile <- substr(vptsfile, 1, nchar(vptsfile) - 4)
 example_vpts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 rcs(example_vpts) <- 11
