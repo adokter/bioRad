@@ -10,7 +10,7 @@ regularize_vpts(ts, interval = "auto", date_min = ts$daterange[1],
   verbose = TRUE)
 }
 \arguments{
-\item{ts}{An object inhereting from class \code{vpts}, see
+\item{ts}{An object inheriting from class \code{vpts}, see
 \code{\link[=summary.vpts]{vpts}} for details.}
 
 \item{interval}{Time interval grid to project on. When '\code{auto}' the
@@ -26,7 +26,7 @@ Taken from \code{ts} when '\code{auto}'.}
 'hours','days', 'weeks'. Defaults to 'mins'.}
 
 \item{fill}{Logical, whether to fill missing timesteps with the values of
-the closest neighbouring profile.}
+the closest neighboring profile.}
 
 \item{verbose}{Logical, when \code{TRUE} prints text to console.}
 }

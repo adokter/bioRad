@@ -5,7 +5,7 @@
 #' @param x 1 class object inheriting from class \code{vpi}, typically a
 #' call to \link[bioRad]{integrate_profile}.
 #' @param quantity Character string with the quantity to plot, one of
-#' '\code{vid}' (vertically integrated denstiy),
+#' '\code{vid}' (vertically integrated density),
 #' '\code{vir}' (vertically integrated reflectivity),
 #' '\code{mtr}' (migration traffic rate),
 #' '\code{rtr}' (reflectivity traffic rate),
@@ -35,7 +35,7 @@
 #' @export
 #'
 #' @details
-#' The integatated profiles can be visualised in various related quantities, as specified by
+#' The integrated profiles can be visualized in various related quantities, as specified by
 #' argument \code{quantity}:
 #' \describe{
 #'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface

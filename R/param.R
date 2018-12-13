@@ -18,7 +18,7 @@
 #'      scan belongs [UTC]}
 #'    \item{\code{lat}}{latitude of the radar [decimal degrees]}
 #'    \item{\code{lon}}{longitude of the radar [decimal degrees]}
-#'    \item{\code{height}}{height of the radar antenna [metres above sea level]}
+#'    \item{\code{height}}{height of the radar antenna [meters above sea level]}
 #'    \item{\code{get_elevation_angles}}{radar beam elevation [degrees]}
 #'    \item{\code{param}}{string with the name of the polar scan parameter}
 #' }

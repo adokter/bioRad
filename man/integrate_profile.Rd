@@ -117,7 +117,7 @@ position of the radar for the full period of the time series within the
 specified altitude band.
 
 Reflectivity traffic is calculated by time-integration of
-refletivity traffic rates. Reflectivity traffic gives the total cross-sectional area
+reflectivity traffic rates. Reflectivity traffic gives the total cross-sectional area
 that has passed per km perpendicular to the migratory direction at the
 position of the radar for the full period of the time series within the
 specified altitude band.

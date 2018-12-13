@@ -12,7 +12,7 @@
 #'   (e.g. "bejab") of radars to include in file selection.
 #' @param directory character. Path to local directory where files should be
 #'   downloaded and unzipped.
-#' @param overwrite logical. TRUE for redownloading and overwriting previously
+#' @param overwrite logical. TRUE for re-downloading and overwriting previously
 #'   downloaded files of the same names.
 #'
 #' @export

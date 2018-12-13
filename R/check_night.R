@@ -6,7 +6,7 @@
 #' bioRad object directly.
 #'
 #' @param x \code{pvol}, \code{vp} or \code{vpts},
-#' or a date inhereting from class \code{POSIXct} or a string
+#' or a date inheriting from class \code{POSIXct} or a string
 #' interpretable by \link[base]{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.

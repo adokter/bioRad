@@ -23,7 +23,7 @@
 #'      \item{\code{lat}}{latitude of the radar [decimal degrees]}
 #'      \item{\code{lon}}{longitude of the radar [decimal degrees]}
 #'      \item{\code{height}}{height of the radar
-#'        antenna [metres above sea level]}
+#'        antenna [meters above sea level]}
 #'   }
 #'  }
 #' }

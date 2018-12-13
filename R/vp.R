@@ -110,7 +110,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @param elev Sun elevation in degrees, see \link{sunrise}/\link{sunset}.
 #' @param lat Radar latitude in decimal degrees. When set, overrides the
 #' latitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations
-#' @param lon Radar longitude in decimal degrees. When set, ove.rrides the
+#' @param lon Radar longitude in decimal degrees. When set, overrides the
 #' longitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations.
 #' @param suntime Logical, when \code{TRUE}, adds sunrise/sunset and day/night
 #' information to each row.

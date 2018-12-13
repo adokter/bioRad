@@ -2,7 +2,7 @@
 
 #' Calculate sunrise or sunset for a time and place
 #'
-#' @param date Date inhereting from class \code{POSIXt} or a string
+#' @param date Date inheriting from class \code{POSIXt} or a string
 #' interpretable by \link[base]{as.Date}.
 #' @param lon Longitude in decimal degrees.
 #' @param lat Latitude in decimal degrees.
