@@ -129,7 +129,7 @@ my_vpi %>%
   last()
 ```
 
-For more exercises, see [this tutorial](https://adokter.github.io/bioRad/articles/functionality_overview.html).
+For more exercises, see [this tutorial](https://adokter.github.io/bioRad/articles/rad_aero_18.html).
 
 ## Meta
 
