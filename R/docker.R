@@ -7,23 +7,25 @@
 #' @export
 #' @return 0 upon success, otherwise an error code.
 check_docker <- function(verbose = TRUE) {
+  docker_command_rm = "docker rm -f hello-world"
+  docker_command_run = "docker run --name hello-world hello-world"
   if (.Platform$OS.type == "unix") {
-    system("docker rm -f hello-world",
+    system(docker_command_rm,
       ignore.stderr = TRUE,
       ignore.stdout = TRUE
     )
-    result <- system("docker run --name hello-world hello-world",
+    result <- system(docker_command_run,
       ignore.stderr = !verbose, ignore.stdout = !verbose
     )
   } else {
     suppressWarnings(
-      system("docker rm -f hello-world",
+      system(docker_command_rm,
         ignore.stderr = TRUE,
         ignore.stdout = TRUE, show.output.on.console = FALSE
       )
     )
     result <- suppressWarnings(
-      system("docker run --name hello-world hello-world",
+      system(docker_command_run,
         ignore.stderr = !verbose, ignore.stdout = !verbose,
         show.output.on.console = TRUE
       )
