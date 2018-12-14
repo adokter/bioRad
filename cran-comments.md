@@ -20,6 +20,12 @@ large and we have already reduced the size of these files
 (inst/extdata/volume.h5, data/example_scan.rda, data/example_vpts.rda)
 as much as possible.
 
+## comments after reject by CRAN auto-check service after initial submission
+All issues fixed, except this one:
+On first submission the system detected the following (possible) invalid URL:
+https://doi.org/10.1111/ecog.04028
+Ignoring as this link is available.
+
 ## r-hub builder
 Building bioRad with r-hub (using `check_rhub()` fails because gdal is
 not available on the r-hub build system. The rgdal package is a
