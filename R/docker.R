@@ -10,12 +10,16 @@ check_docker <- function(verbose = TRUE) {
   docker_command_rm = "docker rm -f hello-world"
   docker_command_run = "docker run --name hello-world hello-world"
   if (.Platform$OS.type == "unix") {
-    system(docker_command_rm,
-      ignore.stderr = TRUE,
-      ignore.stdout = TRUE
+    suppressWarnings(
+      system(docker_command_rm,
+        ignore.stderr = TRUE,
+        ignore.stdout = TRUE
+      )
     )
-    result <- system(docker_command_run,
-      ignore.stderr = !verbose, ignore.stdout = !verbose
+    result <- suppressWarnings(
+        system(docker_command_run,
+        ignore.stderr = !verbose, ignore.stdout = !verbose
+      )
     )
   } else {
     suppressWarnings(
