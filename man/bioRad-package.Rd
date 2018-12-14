@@ -4,16 +4,12 @@
 \name{bioRad-package}
 \alias{bioRad}
 \alias{bioRad-package}
-\title{bioRad: Biological analysis and visualization of weather radar data}
+\title{bioRad: Biological Analysis and Visualization of Weather Radar Data}
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}
 
-bioRad aims to provide standardized methods for extracting and 
-    reporting biological signals from weather radars. It includes functionality 
-    to inspect low‐level radar data, process these data into meaningful 
-    biological information on animal speeds and directions at different 
-    altitudes in the atmosphere, visualize these biological extractions, and 
-    calculate further summary statistics.
+Extract, visualize and summarize aerial movements of birds and
+    insects from weather radar data.
 }
 \details{
 To get started, see:
