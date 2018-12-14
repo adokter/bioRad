@@ -1,12 +1,8 @@
 Package: bioRad
-Title: Biological analysis and visualization of weather radar data
+Title: Biological Analysis and Visualization of Weather Radar Data
 Version: 0.4.0
-Description: bioRad aims to provide standardized methods for extracting and 
-    reporting biological signals from weather radars. It includes functionality 
-    to inspect low‐level radar data, process these data into meaningful 
-    biological information on animal speeds and directions at different 
-    altitudes in the atmosphere, visualize these biological extractions, and 
-    calculate further summary statistics.
+Description: Extract, visualize and summarize aerial movements of birds and
+    insects from weather radar data.
 Authors@R: c(
     person("Adriaan M.", "Dokter", role = c("aut", "cre"), email = "amd427@cornell.edu", comment = c(ORCID = "0000-0001-6573-066X")),
     person("Peter", "Desmet", role = "aut", email = "peter.desmet@inbo.be", comment = c(ORCID = "0000-0002-8442-8025")),
