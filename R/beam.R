@@ -47,3 +47,107 @@ earth_radius <- function(a, b, lat) {
 beam_width <- function(range, beam_angle = 1) {
   range * 1000 * sin(beam_angle * pi / 180)
 }
+
+#' Gaussian beam profile as a function of height relative to ground level
+#'
+#' Normalized altitudinal pattern of radiated energy as a function of
+#' altitude at a given distance from the radar, assuming the beam is emitted at surface level.
+#'
+#' @param height numeric. Height above ground level in meter. TODO: make units similar to beam_height()
+#' @param range numeric. Range (distance from the radar antenna) in meter.
+#' @param elev numeric. Beam elevation in degrees.
+#' @param k Standard refraction coefficient.
+#' @param lat Geodetic latitude in degrees.
+#' @param re Earth equatorial radius in km.
+#' @param rp Earth polar radius in km.
+#'
+#' @return numeric.
+#'
+#' @details Beam profile is calculated using \link{beam_height} and \link{beam_width}.
+#' 
+#' @keywords internal
+#' @examples
+#' # plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:
+#' plot(single_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
+single_beam_profile=function(height,range,elev,k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height/1000,mean=beam_height(range=range/1000,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range/1000)/(2000*sqrt(2*log(2))))
+
+#' Calculate vertical radiation profile
+#'
+#' Calculate for a set of beam elevations elev
+#' the altitudinal normalized distribution of radiated energy by those beams.
+#' @param height numeric. Height(s) above ground level in meter. TODO: make units similar to beam_height()
+#' @param range Distance from the radar (over ground level) for which to calculate the altitudinal beam profile
+#' @param elev Radar beam elevation(s)
+#' @param k Standard refraction coefficient.
+#' @param lat Geodetic latitude in degrees.
+#' @param re Earth equatorial radius in km.
+#' @param rp Earth polar radius in km.
+#' @return numeric vector. Normalized radiated energy at each of the specified heights.
+#'
+#' @export
+#'
+#' @details Beam profile is calculated using \link{beam_height} and \link{beam_width}.
+#' Returns a beam profile as a function of height relative to ground level.
+#'
+#' Returns the normalized altitudinal pattern of radiated energy as a function of
+#' altitude at a given distance from the radar, assuming the beams are emitted at surface level.
+#'
+#' @examples
+#' plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; range: 35 km")
+beam_profile = function(height, range, elev, k=4/3, lat=35, re = 6378, rp = 6357){
+  # calculate radiation pattern
+  rowSums(do.call(cbind,lapply(elev,function(x) single_beam_profile(height,range,x,lat=lat,k=k, re = re, rp = rp))))/length(elev)
+}
+
+# helper function for beam_profile_overlap()
+beam_profile_overlap_help = function(vol, vp, range, ylim=c(0,4000), steps=500,quantity="dens", normalize=TRUE){
+  # define altitude grid
+  height=seq(ylim[1],ylim[2],length.out=steps)
+  # calculate altitudinal radiation pattern of all radar beams combined
+  beamprof=beam_profile(height=height,range=range,elev=get_elevation_angles(vol),lat=vol$geo$lat)
+  # normalize the distribution
+  step=(ylim[2]-ylim[1])/(steps-1)
+  if(normalize) beamprof=beamprof/sum(beamprof*step)
+  # output as data.frame
+  beamprof=data.frame(height=height,radiation=beamprof)
+  # linearly interpolate the density of the vertical profile at the same grid as beamprof above
+  beamprof$vpr=approxfun(vp$data$HGHT+vp$attributes$where$interval/2,vp$data[[quantity]])(height)
+  # normalize the vertical profile density
+  step=(ylim[2]-ylim[1])/(steps-1)
+  beamprof$vpr=beamprof$vpr/sum(step*beamprof$vpr,na.rm=T)
+  # calculate the Bhattacharyya coefficient of the density profile and radiation coverage pattern
+  sum(step*sqrt(beamprof$radiation*beamprof$vpr),na.rm=T)
+}
+
+#' Calculate overlap between a vertical profile and the radiation coverage pattern
+#'
+#' Calculates the distribution overlap between a vertical profile
+#' and the radiation coverage pattern
+#' @param vol a polar volume of class pvol
+#' @param vp a vertical profile of class vp
+#' @param range the distance(s) from the radar for which to calculate the overlap
+#' @param ylim altitude range in meter, given as a numeric vector of length two.
+#' @param step altitude grid size used for numeric integrations
+#' @param quantity profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.
+#' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by ylim
+#' @return A data.frame with columns range and overlap. Overlap is calculated as the
+#' Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) vertical profile vp
+#' and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
+#'
+#' @export
+#'
+#' @details to be written
+#'
+#' @examples to be written
+beam_profile_overlap = function(vol, vp, range, ylim=c(0,4000), steps=500, quantity="dens",normalize=T){
+  if(!is.pvol(vol)) stop("'vol' should be an object of class vol")
+  if(!is.vp(vp)) stop("'vp' should be an object of class vp")
+  if(!is.numeric(range) | min(range)<0) stop("'range' should be a positive numeric value or vector")
+  if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be a numeric vector of length two")
+  if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
+  if(length(step)!=1 & !is.numeric(step)) stop("'step' should be a numeric value")
+  if(!(quantity %in% c("dens","eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
+  overlap=sapply(range, function(x) beam_profile_overlap_help(vol,vp, x, ylim=ylim, steps=steps, quantity=quantity,normalize=normalize))
+  data.frame(range=range,overlap=overlap)
+}
+
