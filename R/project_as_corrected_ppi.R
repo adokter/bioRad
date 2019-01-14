@@ -1,6 +1,12 @@
-# calculates expected eta, vectorizing over height for better performance
+# this is not working, checkout why
+#eta_expected=function(vp,range,elev){
+#  beamshapes=t(beam_profile(vp$data$HGHT+vp$attributes$where$interval/2,range,elev))
+#  rcs(vp)*colSums(beamshapes*vp$data$dens,na.rm=T)/colSums(beamshapes,na.rm=T)
+#}
+
+# helper function to calculate expected eta, vectorizing over height for better performance
 eta_expected=function(vp,range,elev){
-  beamshapes=t(beam_profile(vp$data$HGHT+vp$attributes$where$interval/2,range,elev))
+  beamshapes=t(sapply(vp$data$HGHT+vp$attributes$where$interval/2,function(x) beam_profile(x,range,elev)))
   rcs(vp)*colSums(beamshapes*vp$data$dens,na.rm=T)/colSums(beamshapes,na.rm=T)
 }
 
@@ -26,7 +32,9 @@ rasterize_scan <- function(scan,nx,ny,xlim,ylim,quantity="DBZH",crs="+proj=longl
 #' project the pixels of a scan in polar coordinates into WGS84 (lat,lon) coordinates
 #'
 #' @param scan a scan (sweep) of class scan
+#'
 #' @keywords internal
+#'
 #' @return a SpatialPointsDataFrame
 #' TODO XXX BEAM CURVATURE NOT ACCOUNTED FOR when calculating range_ground_level ...
 georeference_scan <- function(scan) {
@@ -62,6 +70,7 @@ georeference_scan <- function(scan) {
 #' @return a SpatialPointsDataFrame
 #'
 #' @keywords internal
+#'
 #' @details to be written
 range_correction_scan = function(scan,vp,nx,ny,xlim,ylim,param="DBZH",crs="+proj=longlat +datum=WGS84",resolution=NA){
   if(!is.scan(scan)) stop("'scan' should be an object of class scan")
