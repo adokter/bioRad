@@ -143,6 +143,12 @@ dim.vpts <- function(x) {
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
+  # check if we are dealing with a deprecated vpts class structure
+  if(!is.null(x$dates)){
+    warning("obsolete vtps object generated with bioRad version < 0.4.0.
+    vpts objects should contain a list element 'datetime' (instead of obsolete 'dates')")
+    x$datetime=x$dates
+  }
   cat(
     "                  ",
     if (x$regular) {
