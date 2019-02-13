@@ -295,8 +295,8 @@ mtr <- function(x, alt.min = 0, alt.max = Inf, alpha = NA) {
 #' @section cmt:
 #' \code{\link{cmt}} is deprecated as a separate function. Cumulative migration
 #' traffic is now included in the output of \code{\link{integrate_profile}} as
-#' column \code{mt}, which can be summed to get the cumulative migration
-#' traffic.
+#' column \code{mt}, which gives the cumulative migration
+#' traffic from the start of the vertical profile time series.
 #'
 #' \strong{Deprecated description}
 #'
