@@ -84,13 +84,16 @@ read_vpts <- function(file, radar, wavelength = "C") {
   data$new_profile_starts=NULL
   data$Date <- NULL
   data$Time <- NULL
+
   # sort
   data <- data[with(data, order(datetime,profile_index, HGHT)), ]
-  # remove duplicates
-  data <- unique(data)
+
+  data[1:400,c("datetime","profile_index")]
+
   # split into profiles
   data <- split(data, data$profile_index)
   names(data) <- NULL
+
   # verify that profiles can be flattened
   datadim <- sapply(1:length(data), function(x) dim(data[[x]]))
 
@@ -108,6 +111,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
     ))
     data <- data[datadim[1, ] == mostFrequentNBins]
   }
+
   # strip the datetime field
   datetime <- .POSIXct(sapply(
     1:length(data),
@@ -121,16 +125,24 @@ read_vpts <- function(file, radar, wavelength = "C") {
     data,
     function(x) {
       x["datetime"] <- NULL
+      x["profile_index"] <- NULL
       x
     }
   )
+
+  # sort again, since split() changes ordering
+  data=data[order(datetime)]
+  datetime=sort(datetime)
+
   # check whether the time series is regular
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
+  difftimes
   if (length(unique(difftimes)) == 1) {
     regular <- TRUE
   } else {
     regular <- FALSE
   }
+
   # flatten the profiles
   profile.quantities <- names(data[[1]])
   vpsFlat <- lapply(
@@ -160,5 +172,12 @@ read_vpts <- function(file, radar, wavelength = "C") {
     attributes = attributes, regular = regular
   )
   class(output) <- "vpts"
+
+  duplicate_timestamps=which(output$timesteps==0)
+  if(length(duplicate_timestamps)>0){
+    warning(paste("removed",length(duplicate_timestamps),"profiles with duplicate timestamps."))
+    output=output[-duplicate_timestamps]
+  }
+
   output
 }
