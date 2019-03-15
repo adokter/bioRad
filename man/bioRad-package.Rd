@@ -9,7 +9,8 @@
 \if{html}{\figure{logo.png}{options: align='right'}}
 
 Extract, visualize and summarize aerial movements of birds and
-    insects from weather radar data.
+    insects from weather radar data. See https://doi.org/10.1111/ecog.04028
+    for a software paper describing package and methodologies.
 }
 \details{
 To get started, see:

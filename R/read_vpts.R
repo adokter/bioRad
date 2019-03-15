@@ -74,14 +74,22 @@ read_vpts <- function(file, radar, wavelength = "C") {
   format = "%Y%m%d%H%M",
   tz = "UTC"
   )
+
+  # add profile_index to identify consecutive profiles
+  data$new_profile_starts=c(T,(data$HGHT[-1]-data$HGHT[-length(data$HGHT)])<0)
+  data$profile_index=NA
+  data[which(data$new_profile_starts),"profile_index"]=1:length(which(data$new_profile_starts))
+  data = tidyr::fill(data, profile_index)
+
+  data$new_profile_starts=NULL
   data$Date <- NULL
   data$Time <- NULL
   # sort
-  data <- data[with(data, order(datetime, HGHT)), ]
+  data <- data[with(data, order(datetime,profile_index, HGHT)), ]
   # remove duplicates
   data <- unique(data)
   # split into profiles
-  data <- split(data, data$datetime)
+  data <- split(data, data$profile_index)
   names(data) <- NULL
   # verify that profiles can be flattened
   datadim <- sapply(1:length(data), function(x) dim(data[[x]]))
@@ -133,6 +141,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
   )
   names(vpsFlat) <- profile.quantities
   vpsFlat$HGHT <- NULL
+  vpsFlat$profile_index <- NULL
   # prepare output
   heights <- data[[1]]$"HGHT"
   interval <- unique(heights[-1] - heights[-length(heights)])
