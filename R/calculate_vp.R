@@ -34,8 +34,8 @@
 #' @param elev_max numeric. Maximum scan elevation in degrees.
 #' @param azim_min numeric. Minimum azimuth in degrees clockwise from north.
 #' @param azim_max numeric. Maximum azimuth in degrees clockwise from north.
-#' @param range_min numeric. Minimum range in km.
-#' @param range_max numeric. Maximum range in km.
+#' @param range_min numeric. Minimum range in m.
+#' @param range_max numeric. Maximum range in m.
 #' @param n_layer numeric. Number of altitude layers in the profile.
 #' @param h_layer numeric. Width of altitude layers in meter.
 #' @param nyquist_min numeric. Minimum Nyquist velocity of scans in m/s for
