@@ -3,14 +3,14 @@
 #' Calculates the height of a radar beam as a function of elevation and range,
 #' assuming the beam is emitted at surface level.
 #'
-#' @param range numeric. Range (distance from the radar antenna) in km.
+#' @param range numeric. Range (distance from the radar antenna) in m.
 #' @param elev numeric. Elevation in degrees.
 #' @param k Standard refraction coefficient.
 #' @param lat Geodetic latitude in degrees.
 #' @param re Earth equatorial radius in km.
 #' @param rp Earth polar radius in km.
 #'
-#' @return numeric. Beam height in km.
+#' @return numeric. Beam height in m.
 #'
 #' @export
 #'
@@ -36,14 +36,14 @@ beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) 
 
 earth_radius <- function(a, b, lat) {
   lat <- lat * pi / 180
-  sqrt(((a^2 * cos(lat))^2 + (b^2 * sin(lat))^2) / ((a * cos(lat))^2 + (b * sin(lat))^2))
+  1000*sqrt(((a^2 * cos(lat))^2 + (b^2 * sin(lat))^2) / ((a * cos(lat))^2 + (b * sin(lat))^2))
 }
 
 #' Calculate radar beam width
 #'
 #' Calculates the width of a radar beam as a function of range and beam angle.
 #'
-#' @param range numeric. Range (distance from the radar antenna) in km.
+#' @param range numeric. Range (distance from the radar antenna) in m.
 #' @param beam_angle numeric. Beam opening angle in degrees, typically the
 #' the angle between the half-power (-3 dB) points of the main lobe
 #'
@@ -53,7 +53,7 @@ earth_radius <- function(a, b, lat) {
 beam_width <- function(range, beam_angle = 1) {
   assert_that(is.numeric(range))
   assert_that(is.number(beam_angle))
-  range * 1000 * sin(beam_angle * pi / 180)
+  range * sin(beam_angle * pi / 180)
 }
 
 #' Gaussian beam profile as a function of height relative to ground level
@@ -77,7 +77,7 @@ beam_width <- function(range, beam_angle = 1) {
 #' @examples
 #' # plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:
 #' plot(single_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
-single_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height/1000,mean=beam_height(range=range/1000,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range/1000, beam_angle = beam_angle)/(2000*sqrt(2*log(2))))
+single_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height,mean=beam_height(range=range,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range, beam_angle = beam_angle)/(2*sqrt(2*log(2))))
 
 #' Calculate vertical radiation profile
 #'
