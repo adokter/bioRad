@@ -24,6 +24,12 @@
 #' latitude only a small correction. Using default values assumes an average
 #' earth's radius of 6371 km.
 beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
+  assert_that(is.numeric(range))
+  assert_that(is.numeric(elev))
+  assert_that(is.number(k))
+  assert_that(is.number(lat))
+  assert_that(is.number(re))
+  assert_that(is.number(rp))
   sqrt(range^2 + (k * earth_radius(re, rp, lat))^2 +
     2 * range * (k * earth_radius(re, rp, lat)) * sin(elev * pi / 180)) - k * earth_radius(re, rp, lat)
 }
@@ -45,6 +51,8 @@ earth_radius <- function(a, b, lat) {
 #'
 #' @export
 beam_width <- function(range, beam_angle = 1) {
+  assert_that(is.numeric(range))
+  assert_that(is.number(beam_angle))
   range * 1000 * sin(beam_angle * pi / 180)
 }
 
@@ -76,7 +84,7 @@ single_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re =
 #' Calculate for a set of beam elevations elev
 #' the altitudinal normalized distribution of radiated energy by those beams.
 #' @param height numeric. Height(s) above ground level in meter. TODO: make units similar to beam_height()
-#' @param range Distance from the radar (over ground level) for which to calculate the altitudinal beam profile
+#' @param range Distance from the radar (over ground level) for which to calculate the altitudinal beam profile in m.
 #' @param elev numeric vector of radar beam elevation(s) in degrees.
 #' @param beam_angle numeric. Beam opening angle in degrees, typically the
 #' the angle between the half-power (-3 dB) points of the main lobe
@@ -129,15 +137,15 @@ beam_profile_overlap_help = function(vol, vp, range, ylim=c(0,4000), steps=500,q
   sum(step*sqrt(beamprof$radiation*beamprof$vpr),na.rm=T)
 }
 
-#' Calculate overlap between a vertical profile and the radiation coverage pattern
+#' Calculate overlap between a vertical profile ('vp') and the vertical radiation profile
 #'
-#' Calculates the distribution overlap between a vertical profile
-#' and the radiation coverage pattern
+#' Calculates the distribution overlap between a vertical profile ('vp')
+#' and the vertical radiation profile as calculate with \link[beam_profile].
 #' @param vol a polar volume of class pvol
 #' @param vp a vertical profile of class vp
-#' @param range the distance(s) from the radar for which to calculate the overlap
+#' @param range the distance(s) from the radar for which to calculate the overlap in m.
 #' @param ylim altitude range in meter, given as a numeric vector of length two.
-#' @param step altitude grid size used for numeric integrations
+#' @param steps altitude grid size used for numeric integrations
 #' @param quantity profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.
 #' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by ylim
 #' @return A data.frame with columns range and overlap. Overlap is calculated as the
@@ -155,7 +163,7 @@ beam_profile_overlap = function(vol, vp, range, ylim=c(0,4000), steps=500, quant
   if(!is.numeric(range) | min(range)<0) stop("'range' should be a positive numeric value or vector")
   if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be a numeric vector of length two")
   if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
-  if(length(step)!=1 & !is.numeric(step)) stop("'step' should be a numeric value")
+  if(length(steps)!=1 & !is.numeric(steps)) stop("'step' should be a numeric value")
   if(!(quantity %in% c("dens","eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
   overlap=sapply(range, function(x) beam_profile_overlap_help(vol,vp, x, ylim=ylim, steps=steps, quantity=quantity,normalize=normalize))
   data.frame(range=range,overlap=overlap)
