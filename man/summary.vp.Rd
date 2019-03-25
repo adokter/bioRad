@@ -65,4 +65,20 @@ A \code{vp} object is a list containing
  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what},
  \code{\\where} and \code{\\how} attributes}
 }
+
+\subsection{Conventions}{
+  \itemize{
+    \item \code{NA} Maps to 'nodata' in the ODIM convention: value to denote areas void of data
+     (never radiated)
+    \item \code{NaN} Maps to 'undetect' in the ODIM convention: denote areas below the measurement
+    detection threshold (radiated but nothing detected). The value is also used when there are too
+    few datapoints to calculate a quantity.
+    \item \code{0} Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
+     value of zero (radiated and value zero detected or inferred).
+  }
+  It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
+  an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
+  is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
+  in case of undetects.
+}
 }
