@@ -64,12 +64,12 @@ beam_width <- function(range, beam_angle = 1) {
 #' @return numeric.
 #'
 #' @details Beam profile is calculated using \link{beam_height} and \link{beam_width}.
-#' 
+#'
 #' @keywords internal
 #' @examples
 #' # plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:
 #' plot(single_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
-single_beam_profile=function(height,range,elev,k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height/1000,mean=beam_height(range=range/1000,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range/1000)/(2000*sqrt(2*log(2))))
+single_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height/1000,mean=beam_height(range=range/1000,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range/1000, beam_angle = beam_angle)/(2000*sqrt(2*log(2))))
 
 #' Calculate vertical radiation profile
 #'
@@ -77,7 +77,9 @@ single_beam_profile=function(height,range,elev,k=4/3, lat=35, re = 6378, rp = 63
 #' the altitudinal normalized distribution of radiated energy by those beams.
 #' @param height numeric. Height(s) above ground level in meter. TODO: make units similar to beam_height()
 #' @param range Distance from the radar (over ground level) for which to calculate the altitudinal beam profile
-#' @param elev Radar beam elevation(s)
+#' @param elev numeric vector of radar beam elevation(s) in degrees.
+#' @param beam_angle numeric. Beam opening angle in degrees, typically the
+#' the angle between the half-power (-3 dB) points of the main lobe
 #' @param k Standard refraction coefficient.
 #' @param lat Geodetic latitude in degrees.
 #' @param re Earth equatorial radius in km.
@@ -94,9 +96,17 @@ single_beam_profile=function(height,range,elev,k=4/3, lat=35, re = 6378, rp = 63
 #'
 #' @examples
 #' plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; range: 35 km")
-beam_profile = function(height, range, elev, k=4/3, lat=35, re = 6378, rp = 6357){
+beam_profile = function(height, range, elev, beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357){
+  assert_that(is.numeric(height))
+  assert_that(is.numeric(range))
+  assert_that(is.numeric(elev))
+  assert_that(is.number(beam_angle))
+  assert_that(is.number(k))
+  assert_that(is.number(lat))
+  assert_that(is.number(rp))
+  assert_that(is.number(re))
   # calculate radiation pattern
-  rowSums(do.call(cbind,lapply(elev,function(x) single_beam_profile(height,range,x,lat=lat,k=k, re = re, rp = rp))))/length(elev)
+  rowSums(do.call(cbind,lapply(elev,function(x) single_beam_profile(height,range,x,beam_angle=beam_angle, lat=lat,k=k, re = re, rp = rp))))/length(elev)
 }
 
 # helper function for beam_profile_overlap()

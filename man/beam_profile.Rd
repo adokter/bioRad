@@ -4,8 +4,8 @@
 \alias{beam_profile}
 \title{Calculate vertical radiation profile}
 \usage{
-beam_profile(height, range, elev, k = 4/3, lat = 35, re = 6378,
-  rp = 6357)
+beam_profile(height, range, elev, beam_angle = 1, k = 4/3, lat = 35,
+  re = 6378, rp = 6357)
 }
 \arguments{
 \item{height}{numeric. Height(s) above ground level in meter. TODO: make units similar to beam_height()}
@@ -13,6 +13,9 @@ beam_profile(height, range, elev, k = 4/3, lat = 35, re = 6378,
 \item{range}{Distance from the radar (over ground level) for which to calculate the altitudinal beam profile}
 
 \item{elev}{Radar beam elevation(s)}
+
+\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
+the angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 

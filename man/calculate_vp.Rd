@@ -8,7 +8,7 @@ calculate_vp(pvolfile, vpfile = "", pvolfile_out = "",
   autoconf = FALSE, verbose = FALSE, mount = dirname(pvolfile),
   sd_vvp_threshold = 2, rcs = 11, dual_pol = FALSE, rho_hv = 0.95,
   elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
-  range_min = 5000, range_max = 25000, n_layer = 20L,
+  range_min = 5000, range_max = 35000, n_layer = 20L,
   h_layer = 200, dealias = TRUE, nyquist_min = if (dealias) 5 else
   25, dbz_quantity = "DBZH")
 }
@@ -58,9 +58,9 @@ filter meteorological scattering.}
 
 \item{azim_max}{numeric. Maximum azimuth in degrees clockwise from north.}
 
-\item{range_min}{numeric. Minimum range in km.}
+\item{range_min}{numeric. Minimum range in m.}
 
-\item{range_max}{numeric. Maximum range in km.}
+\item{range_max}{numeric. Maximum range in m.}
 
 \item{n_layer}{numeric. Number of altitude layers in the profile.}
 
@@ -131,7 +131,7 @@ the bird's mass.
 
 Using default values of \code{range_min} and \code{range_max} is
 recommended. Ranges closer than 5 km tend to be contaminated by ground
-clutter, while range gates beyond 25 km become too wide to resolve the
+clutter, while range gates beyond 35 km become too wide to resolve the
 default altitude layer width of 200 meter (see \link{beam_width}).
 
 For dealiasing, the torus mapping method by Haase et al. is used.

@@ -22,6 +22,7 @@
 #' @import rgdal
 #' @import sp
 #' @import utils
+#' @import assertthat
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom raster rasterize

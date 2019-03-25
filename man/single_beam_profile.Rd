@@ -4,8 +4,8 @@
 \alias{single_beam_profile}
 \title{Gaussian beam profile as a function of height relative to ground level}
 \usage{
-single_beam_profile(height, range, elev, k = 4/3, lat = 35,
-  re = 6378, rp = 6357)
+single_beam_profile(height, range, elev, beam_angle = 1, k = 4/3,
+  lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
 \item{height}{numeric. Height above ground level in meter. TODO: make units similar to beam_height()}
