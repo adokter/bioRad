@@ -10,9 +10,9 @@ beam_profile(height, range, elev, beam_angle = 1, k = 4/3, lat = 35,
 \arguments{
 \item{height}{numeric. Height(s) above ground level in meter. TODO: make units similar to beam_height()}
 
-\item{range}{Distance from the radar (over ground level) for which to calculate the altitudinal beam profile}
+\item{range}{Distance from the radar (over ground level) for which to calculate the altitudinal beam profile in m.}
 
-\item{elev}{Radar beam elevation(s)}
+\item{elev}{numeric vector of radar beam elevation(s) in degrees.}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 the angle between the half-power (-3 dB) points of the main lobe}

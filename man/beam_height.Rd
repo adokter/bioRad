@@ -7,7 +7,7 @@
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{numeric. Range (distance from the radar antenna) in km.}
+\item{range}{numeric. Range (distance from the radar antenna) in m.}
 
 \item{elev}{numeric. Elevation in degrees.}
 
@@ -20,7 +20,7 @@ beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 \item{rp}{Earth polar radius in km.}
 }
 \value{
-numeric. Beam height in km.
+numeric. Beam height in m.
 }
 \description{
 Calculates the height of a radar beam as a function of elevation and range,

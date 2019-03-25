@@ -76,8 +76,8 @@ beam_width <- function(range, beam_angle = 1) {
 #' @keywords internal
 #' @examples
 #' # plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:
-#' plot(single_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
-single_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height,mean=beam_height(range=range,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range, beam_angle = beam_angle)/(2*sqrt(2*log(2))))
+#' plot(gaussian_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
+gaussian_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357) dnorm(height,mean=beam_height(range=range,elev=elev,k=k,lat=lat,re=re,rp=rp),sd=beam_width(range=range, beam_angle = beam_angle)/(2*sqrt(2*log(2))))
 
 #' Calculate vertical radiation profile
 #'
@@ -114,15 +114,15 @@ beam_profile = function(height, range, elev, beam_angle=1, k=4/3, lat=35, re = 6
   assert_that(is.number(rp))
   assert_that(is.number(re))
   # calculate radiation pattern
-  rowSums(do.call(cbind,lapply(elev,function(x) single_beam_profile(height,range,x,beam_angle=beam_angle, lat=lat,k=k, re = re, rp = rp))))/length(elev)
+  rowSums(do.call(cbind,lapply(elev,function(x) gaussian_beam_profile(height,range,x,beam_angle=beam_angle, lat=lat,k=k, re = re, rp = rp))))/length(elev)
 }
 
 # helper function for beam_profile_overlap()
-beam_profile_overlap_help = function(vol, vp, range, ylim=c(0,4000), steps=500,quantity="dens", normalize=TRUE){
+beam_profile_overlap_help = function(pvol, vp, range, ylim=c(0,4000), steps=500,quantity="dens", normalize=TRUE){
   # define altitude grid
   height=seq(ylim[1],ylim[2],length.out=steps)
   # calculate altitudinal radiation pattern of all radar beams combined
-  beamprof=beam_profile(height=height,range=range,elev=get_elevation_angles(vol),lat=vol$geo$lat)
+  beamprof=beam_profile(height=height,range=range,elev=get_elevation_angles(pvol),lat=pvol$geo$lat)
   # normalize the distribution
   step=(ylim[2]-ylim[1])/(steps-1)
   if(normalize) beamprof=beamprof/sum(beamprof*step)
@@ -141,11 +141,11 @@ beam_profile_overlap_help = function(vol, vp, range, ylim=c(0,4000), steps=500,q
 #'
 #' Calculates the distribution overlap between a vertical profile ('vp')
 #' and the vertical radiation profile as calculate with \link[beam_profile].
-#' @param vol a polar volume of class pvol
+#' @param pvol a polar volume of class pvol
 #' @param vp a vertical profile of class vp
 #' @param range the distance(s) from the radar for which to calculate the overlap in m.
 #' @param ylim altitude range in meter, given as a numeric vector of length two.
-#' @param steps altitude grid size used for numeric integrations
+#' @param steps number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations
 #' @param quantity profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.
 #' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by ylim
 #' @return A data.frame with columns range and overlap. Overlap is calculated as the
@@ -156,16 +156,27 @@ beam_profile_overlap_help = function(vol, vp, range, ylim=c(0,4000), steps=500,q
 #'
 #' @details to be written
 #'
-#' @examples to be written
-beam_profile_overlap = function(vol, vp, range, ylim=c(0,4000), steps=500, quantity="dens",normalize=T){
-  if(!is.pvol(vol)) stop("'vol' should be an object of class vol")
+#' @examples
+#' # locate example volume file:
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#' # load the example polar volume file:
+#' pvol <- read_pvolfile(pvolfile)
+#' # let us use this example vertical profile:
+#' example_vp
+#' # calculate overlap between vertical profile of birds
+#' # and the vertical radiation profile emitted by the radar:
+#' bpo=beam_profile_overlap(pvol, example_vp, seq(0,100000,1000))
+#' # plot the calculated overlap:
+#' plot(bpo)
+beam_profile_overlap = function(pvol, vp, range, ylim=c(0,4000), steps=500, quantity="dens",normalize=T){
+  if(!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if(!is.vp(vp)) stop("'vp' should be an object of class vp")
   if(!is.numeric(range) | min(range)<0) stop("'range' should be a positive numeric value or vector")
   if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be a numeric vector of length two")
   if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
   if(length(steps)!=1 & !is.numeric(steps)) stop("'step' should be a numeric value")
   if(!(quantity %in% c("dens","eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
-  overlap=sapply(range, function(x) beam_profile_overlap_help(vol,vp, x, ylim=ylim, steps=steps, quantity=quantity,normalize=normalize))
+  overlap=sapply(range, function(x) beam_profile_overlap_help(pvol,vp, x, ylim=ylim, steps=steps, quantity=quantity,normalize=normalize))
   data.frame(range=range,overlap=overlap)
 }
 

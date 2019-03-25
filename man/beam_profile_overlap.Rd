@@ -2,25 +2,25 @@
 % Please edit documentation in R/beam.R
 \name{beam_profile_overlap}
 \alias{beam_profile_overlap}
-\title{Calculate overlap between a vertical profile and the radiation coverage pattern}
+\title{Calculate overlap between a vertical profile ('vp') and the vertical radiation profile}
 \usage{
-beam_profile_overlap(vol, vp, range, ylim = c(0, 4000), steps = 500,
+beam_profile_overlap(pvol, vp, range, ylim = c(0, 4000), steps = 500,
   quantity = "dens", normalize = T)
 }
 \arguments{
-\item{vol}{a polar volume of class pvol}
+\item{pvol}{a polar volume of class pvol}
 
 \item{vp}{a vertical profile of class vp}
 
-\item{range}{the distance(s) from the radar for which to calculate the overlap}
+\item{range}{the distance(s) from the radar for which to calculate the overlap in m.}
 
 \item{ylim}{altitude range in meter, given as a numeric vector of length two.}
+
+\item{steps}{number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations}
 
 \item{quantity}{profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.}
 
 \item{normalize}{Whether to normalize the radiation coverage pattern over the altitude range specified by ylim}
-
-\item{step}{altitude grid size used for numeric integrations}
 }
 \value{
 A data.frame with columns range and overlap. Overlap is calculated as the
@@ -28,12 +28,22 @@ Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) v
 and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
 }
 \description{
-Calculates the distribution overlap between a vertical profile
-and the radiation coverage pattern
+Calculates the distribution overlap between a vertical profile ('vp')
+and the vertical radiation profile as calculate with \link[beam_profile].
 }
 \details{
 to be written
 }
 \examples{
-to be written
+# locate example volume file:
+pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+# load the example polar volume file:
+pvol <- read_pvolfile(pvolfile)
+# let us use this example vertical profile:
+example_vp
+# calculate overlap between vertical profile of birds
+# and the vertical radiation profile emitted by the radar:
+bpo=beam_profile_overlap(pvol, example_vp, seq(0,100000,1000))
+# plot the calculated overlap:
+plot(bpo)
 }
