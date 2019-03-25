@@ -61,7 +61,7 @@ beam_width <- function(range, beam_angle = 1) {
 #' Normalized altitudinal pattern of radiated energy as a function of
 #' altitude at a given distance from the radar, assuming the beam is emitted at surface level.
 #'
-#' @param height numeric. Height above ground level in meter. TODO: make units similar to beam_height()
+#' @param height numeric. Height above ground level in meter.
 #' @param range numeric. Range (distance from the radar antenna) in meter.
 #' @param elev numeric. Beam elevation in degrees.
 #' @param k Standard refraction coefficient.
@@ -83,11 +83,15 @@ gaussian_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re
 #'
 #' Calculate for a set of beam elevations elev
 #' the altitudinal normalized distribution of radiated energy by those beams.
-#' @param height numeric. Height(s) above ground level in meter. TODO: make units similar to beam_height()
+#' @param height numeric. Height(s) above ground level in meter.
 #' @param range Distance from the radar (over ground level) for which to calculate the altitudinal beam profile in m.
 #' @param elev numeric vector of radar beam elevation(s) in degrees.
 #' @param beam_angle numeric. Beam opening angle in degrees, typically the
 #' the angle between the half-power (-3 dB) points of the main lobe
+#' @param NEZH The total system noise expressed as the horizontally-polarized reflectivity factor (dBZ)
+#'  it would represent at one km distance from the radar. (not implemented yet)
+#' @param LOG Security distance above mean noise level (dB) threshold value, i.e. the dB above noise
+#'  for the signal processor to report a valid reflectivity value. (not implemented yet)
 #' @param k Standard refraction coefficient.
 #' @param lat Geodetic latitude in degrees.
 #' @param re Earth equatorial radius in km.
@@ -104,7 +108,7 @@ gaussian_beam_profile=function(height,range,elev,beam_angle=1, k=4/3, lat=35, re
 #'
 #' @examples
 #' plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; range: 35 km")
-beam_profile = function(height, range, elev, beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357){
+beam_profile = function(height, range, elev, beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357, NEZH = NA, LOG = NA){
   assert_that(is.numeric(height))
   assert_that(is.numeric(range))
   assert_that(is.numeric(elev))
