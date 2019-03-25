@@ -173,6 +173,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
   )
   class(output) <- "vpts"
 
+  # remove duplicate profiles
   duplicate_timestamps=which(output$timesteps==0)
   if(length(duplicate_timestamps)>0){
     warning(paste("removed",length(duplicate_timestamps),"profiles with duplicate timestamps."))
