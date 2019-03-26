@@ -7,11 +7,11 @@
 nyquist_velocity(wavelength, prf1, prf2 = NA)
 }
 \arguments{
-\item{wavelength}{Radar wavelength in cm}
+\item{wavelength}{radar wavelength in cm}
 
-\item{prf1}{pulse repetition frequency in Hz}
+\item{prf1}{radar pulse repetition frequency in Hz}
 
-\item{prf2}{pulse repetition frequency in Hz}
+\item{prf2}{alternate radar pulse repetition frequency in Hz (for a radar opering in dual-PRF mode)}
 }
 \value{
 Nyquist velocity in m/s.
