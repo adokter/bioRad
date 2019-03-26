@@ -6,12 +6,19 @@
 \usage{
 nyquist_velocity(wavelength, prf1, prf2 = NA)
 }
+\arguments{
+\item{wavelength}{Radar wavelength in cm}
+
+\item{prf1}{pulse repetition frequency in Hz}
+
+\item{prf2}{pulse repetition frequency in Hz}
+}
 \value{
 Nyquist velocity in m/s.
 }
 \description{
-Calculates the Nyquist velocity for a given pulse repetition frequency (PRF)
-and wavelength of the radar. When specifying two PRFs, the extended Nyquist
+Calculates the Nyquist velocity given a radar's pulse repetition frequency (PRF)
+and wavelength. When specifying two PRFs, the extended Nyquist
 velocity is given for a radar using the dual-PRF technique.
 }
 \examples{

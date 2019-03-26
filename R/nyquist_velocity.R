@@ -1,8 +1,12 @@
 #' Nyquist velocity for a given pulse repetition frequency (PRF)
 #'
-#' Calculates the Nyquist velocity for a given pulse repetition frequency (PRF)
-#' and wavelength of the radar. When specifying two PRFs, the extended Nyquist
+#' Calculates the Nyquist velocity given a radar's pulse repetition frequency (PRF)
+#' and wavelength. When specifying two PRFs, the extended Nyquist
 #' velocity is given for a radar using the dual-PRF technique.
+#'
+#' @param wavelength Radar wavelength in cm
+#' @param prf1 pulse repetition frequency in Hz
+#' @param prf2 pulse repetition frequency in Hz
 #'
 #' @return Nyquist velocity in m/s.
 #'
