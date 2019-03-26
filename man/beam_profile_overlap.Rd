@@ -4,8 +4,8 @@
 \alias{beam_profile_overlap}
 \title{Calculate overlap between a vertical profile ('vp') and the vertical radiation profile}
 \usage{
-beam_profile_overlap(pvol, vp, range, ylim = c(0, 4000), steps = 500,
-  quantity = "dens", normalize = T)
+beam_profile_overlap(pvol, vp, range, ylim = c(0, 4000), NEZH = -50,
+  LOG = 1, steps = 500, quantity = "dens", normalize = T)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}
@@ -15,6 +15,13 @@ beam_profile_overlap(pvol, vp, range, ylim = c(0, 4000), steps = 500,
 \item{range}{the distance(s) from the radar for which to calculate the overlap in m.}
 
 \item{ylim}{altitude range in meter, given as a numeric vector of length two.}
+
+\item{NEZH}{The total system noise expressed as the horizontally-polarized reflectivity factor (dBZ)
+it would represent at one km distance from the radar. (not implemented yet)}
+
+\item{LOG}{Security distance above mean noise level (dB) threshold value,
+a.k.a. the log receiver signal-to-noise ratio,
+a.k.a. the dB above noise for the signal processor to report a valid reflectivity value. (not implemented yet)}
 
 \item{steps}{number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations}
 
@@ -29,7 +36,7 @@ and the (normalized) radiation coverage pattern as calculated by \link{beam_prof
 }
 \description{
 Calculates the distribution overlap between a vertical profile ('vp')
-and the vertical radiation profile as calculate with \link[beam_profile].
+and the vertical radiation profile as calculate with \link{beam_profile}.
 }
 \details{
 to be written
