@@ -40,6 +40,8 @@ and the vertical radiation profile as calculate with \link{beam_profile}.
 }
 \details{
 to be written
+Need to evaluate beam by beam the returned signal relative to a uniform beam filling of at least NEZH + LOG
+If returned signal is lower, the gate is below noise level.
 }
 \examples{
 # locate example volume file:

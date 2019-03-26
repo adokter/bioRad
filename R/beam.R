@@ -148,6 +148,8 @@ beam_profile_overlap_help = function(pvol, vp, range, ylim=c(0,4000), steps=500,
 #' @export
 #'
 #' @details to be written
+#' Need to evaluate beam by beam the returned signal relative to a uniform beam filling of at least NEZH + LOG
+#' If returned signal is lower, the gate is below noise level.
 #'
 #' @examples
 #' # locate example volume file:
