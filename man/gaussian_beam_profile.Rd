@@ -2,24 +2,26 @@
 % Please edit documentation in R/beam.R
 \name{gaussian_beam_profile}
 \alias{gaussian_beam_profile}
-\title{Gaussian beam profile as a function of height relative to ground level}
+\title{Gaussian beam profile as a function of height}
 \usage{
-gaussian_beam_profile(height, range, elev, beam_angle = 1, k = 4/3,
-  lat = 35, re = 6378, rp = 6357)
+gaussian_beam_profile(height, range, elev, antenna = 0, beam_angle = 1,
+  k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{height}{numeric. Height above ground level in meter.}
+\item{height}{numeric. Height in meter.}
 
 \item{range}{numeric. Range (distance from the radar antenna) in m.}
 
-\item{elev}{numeric. Elevation in degrees.}
+\item{elev}{numeric. Beam elevation in degrees.}
+
+\item{antenna}{numeric. Height of the centre of the radar antenna in meters}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 the angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude in degrees.}
+\item{lat}{Geodetic latitude of the radar in degrees.}
 
 \item{re}{Earth equatorial radius in km.}
 
@@ -30,10 +32,11 @@ numeric.
 }
 \description{
 Normalized altitudinal pattern of radiated energy as a function of
-altitude at a given distance from the radar, assuming the beam is emitted at surface level.
+altitude at a given distance from the radar.
 }
 \details{
-Beam profile is calculated using \link{beam_height} and \link{beam_width}.
+Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code{height} and
+\code{antenna} should be given in reference to the same reference plane (e.g. ground level or sea level)
 }
 \examples{
 # plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:

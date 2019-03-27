@@ -4,8 +4,10 @@
 \alias{beam_profile_overlap}
 \title{Calculate overlap between a vertical profile ('vp') and the vertical radiation profile}
 \usage{
-beam_profile_overlap(pvol, vp, range, ylim = c(0, 4000), NEZH = -50,
-  LOG = 1, steps = 500, quantity = "dens", normalize = T)
+beam_profile_overlap(pvol, vp, range, antenna = NA, ylim = c(0, 4000),
+  noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
+  quantity = "dens", normalize = T, beam_angle = 1, k = 4/3,
+  lat = NA, re = re, rp = rp)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}
@@ -14,20 +16,28 @@ beam_profile_overlap(pvol, vp, range, ylim = c(0, 4000), NEZH = -50,
 
 \item{range}{the distance(s) from the radar for which to calculate the overlap in m.}
 
+\item{antenna}{radar antenna height. If \code{NA} taken from \code{pvol}}
+
 \item{ylim}{altitude range in meter, given as a numeric vector of length two.}
 
-\item{NEZH}{The total system noise expressed as the horizontally-polarized reflectivity factor (dBZ)
-it would represent at one km distance from the radar. (not implemented yet)}
+\item{noise_floor}{The system noise floor in dBZ. The total system noise expressed as the reflectivity factor
+it would represent at a distance \code{noise_floor_ref_range} from the radar.}
 
-\item{LOG}{Security distance above mean noise level (dB) threshold value,
-a.k.a. the log receiver signal-to-noise ratio,
-a.k.a. the dB above noise for the signal processor to report a valid reflectivity value. (not implemented yet)}
+\item{noise_floor_ref_range}{the reference distance from the radar at which \code{noise_floor} is expressed}
 
 \item{steps}{number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations}
 
 \item{quantity}{profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.}
 
 \item{normalize}{Whether to normalize the radiation coverage pattern over the altitude range specified by ylim}
+
+\item{k}{Standard refraction coefficient.}
+
+\item{lat}{radar latitude. If NA taken from \code{pvol}}
+
+\item{re}{Earth equatorial radius in km.}
+
+\item{rp}{Earth polar radius in km.}
 }
 \value{
 A data.frame with columns range and overlap. Overlap is calculated as the
@@ -40,6 +50,15 @@ and the vertical radiation profile as calculate with \link{beam_profile}.
 }
 \details{
 to be written
+
+In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor.
+In addition, the attribute \code{/how/LOG} gives "security distance above mean noise level (dB) threshold value".
+This is equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the noise floor for the signal processor
+to report a valid reflectivity value. We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this
+is the effective noise floor of the system below which no data will be reported by the radar signal processor.
+
+Typical values are \code{NEZH} = -45 to -50 dBZ at 1 km from the radar. \code{LOG} is typically around 1 dB.
+
 Need to evaluate beam by beam the returned signal relative to a uniform beam filling of at least NEZH + LOG
 If returned signal is lower, the gate is below noise level.
 }

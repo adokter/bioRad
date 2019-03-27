@@ -9,11 +9,11 @@ beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 \arguments{
 \item{range}{numeric. Range (distance from the radar antenna) in m.}
 
-\item{elev}{numeric. Elevation in degrees.}
+\item{elev}{numeric. Beam elevation in degrees.}
 
 \item{k}{Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude in degrees.}
+\item{lat}{Geodetic latitude of the radar in degrees.}
 
 \item{re}{Earth equatorial radius in km.}
 

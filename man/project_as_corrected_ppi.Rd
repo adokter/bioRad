@@ -6,7 +6,7 @@
 \usage{
 project_as_corrected_ppi(vol, vp, nx, ny, xlim, ylim, quantity = c("vir",
   "vid", "correction_factor", "overlap"),
-  crs = "+proj=longlat +datum=WGS84", resolution = NA)
+  crs = "+proj=longlat +datum=WGS84", res = NA)
 }
 \arguments{
 \item{vol}{a polar volume of class pvol}
