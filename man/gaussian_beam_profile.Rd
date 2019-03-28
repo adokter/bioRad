@@ -10,7 +10,8 @@ gaussian_beam_profile(height, range, elev, antenna = 0, beam_angle = 1,
 \arguments{
 \item{height}{numeric. Height in meter.}
 
-\item{range}{numeric. Range (distance from the radar antenna) in m.}
+\item{range}{numeric. Slant range in m, the length of the skywave path
+between target and the radar antenna.}
 
 \item{elev}{numeric. Beam elevation in degrees.}
 

@@ -1,6 +1,6 @@
-# helper function to calculate expected eta, vectorizing over height for better performance
-eta_expected=function(vp,range,elev, antenna=0, beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357){
-  beamshapes=t(sapply(vp$data$HGHT+vp$attributes$where$interval/2,function(x) beam_profile(x,range,elev, antenna=antenna, beam_angle=beam_angle, k=k, lat=lat, re=re, rp=rp)))
+# helper function to calculate expected eta, vectorizing over range
+eta_expected=function(vp,distance,elev, antenna, beam_angle, k, lat, re, rp){
+  beamshapes=t(sapply(vp$data$HGHT+vp$attributes$where$interval/2,function(x) beam_profile(x,distance,elev, antenna=antenna, beam_angle=beam_angle, k=k, lat=lat, re=re, rp=rp)))
   rcs(vp)*colSums(beamshapes*vp$data$dens,na.rm=T)/colSums(beamshapes,na.rm=T)
 }
 
@@ -16,38 +16,76 @@ eta_expected=function(vp,range,elev, antenna=0, beam_angle=1, k=4/3, lat=35, re 
 #' @keywords internal
 #'
 #' @details to be written
-range_correction_scan = function(scan,vp,nx,ny,xlim,ylim,param="DBZH",crs="+proj=longlat +datum=WGS84",res=NA, antenna=NA, beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357){
-  if(!is.scan(scan)) stop("'scan' should be an object of class scan")
-  if(!is.vp(vp)) stop("'vp' should be an object of class vp")
-  if(!is.numeric(nx)) stop("'nx' should be an integer")
-  if(!is.numeric(ny)) stop("ny' should be an integer")
-  if(length(xlim)!=2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
-  if(is.na(xlim[1]) | is.na(xlim[2]) | xlim[1]>xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
-  if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be an integer vector of length two")
-  if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
-  if(!(param %in% c("DBZH","DBZV","DBZ","TH","TV"))) stop(paste(x,"not one of DBZH, DBZV, DBZ, TH, TV"))
-  if(!(param %in% names(scan$params))) stop(paste(param,"not found in scan"))
+scan_to_raster_range_correction = function(scan,vp,nx=100,ny=100,xlim=NA,ylim=NA,crs="+proj=longlat +datum=WGS84",res=NA, param="DBZH", lat=NA, lon=NA, antenna=NA, beam_angle=1, k=4/3, re = 6378, rp = 6357){
   if(is.null(scan$geo$height) && is.na(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
   # check crs argument as in raster::raster()
   crs=CRS(as.character(projection(crs)))
-  x=scan_to_raster(scan,nx=nx,ny=ny,xlim=xlim,ylim=ylim,crs=crs,res=res)
-  x=as(x,"SpatialGridDataFrame")
-  x@data$eta_expected=eta_expected(vp,x@data$range,scan$geo$elangle,antenna=antenna, beam_angle=beam_angle, k=k, lat=lt, re = re, rp = rp)
-  x@data$eta=dbz_to_eta(x@data$DBZH,wavelength=vp$attributes$how$wavelength)
-  x
+  x=scan_to_raster(scan,nx=nx,ny=ny,xlim=xlim,ylim=ylim,crs=crs,res=res,lat=lat,lon=lon,k=k,re=re,rp=rp)
+  # add eta and eta_expected
+  x$eta=dbz_to_eta(values(x$DBZH),wavelength=vp$attributes$how$wavelength)
+  x$eta_expected=eta_expected(vp,values(x$distance),scan$geo$elangle,antenna=antenna, beam_angle=beam_angle, k=k, lat=lat, re = re, rp = rp)
+
+  as(x,"SpatialGridDataFrame")
 }
 
 #' calculate a range-bias corrected PPI
 #'
 #' calculates a PPI that corrects for range-bias effects due to partial beam overlap with
 #' the layer of migration (overshooting) at larger distances from the radar
-#' @param vol a polar volume of class pvol
+#' @inheritParams beam_height
+#' @inheritParams scan_to_raster
 #' @param vp a vertical profile of class vp
-#' @param nx number of grid pixels in the longitude dimension
-#' @param ny number of grid pixels in the latitude dimension
-#' @param xlim longitude range
-#' @param ylim latitude range
+#' @return an object of class 'scan'
+#'
+#' @keywords internal
+#'
+#' @details to be written
+scan_range_correction = function(scan,vp,param="DBZH", lat=NA, lon=NA, antenna=NA, beam_angle=1, k=4/3, re = 6378, rp = 6357){
+  if(is.null(scan$geo$height) && is.na(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
+  # check crs argument as in raster::raster()
+  crs=CRS(as.character(projection(crs)))
+
+  if(is.null(scan$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
+  if(is.null(scan$geo$lon) && is.na(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
+  if(is.null(scan$geo$height) && is.na(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
+  if(is.number(antenna)) scan$geo$height=antenna
+  if(is.number(lat)) scan$geo$lat=lat
+  if(is.number(lon)) scan$geo$lon=lon
+
+
+  nazim=dim(scan)[3]
+  nrange=dim(scan)[2]
+
+  # reconstruct range and distance from metadata
+  range=(1:nrange)*scan$geo$rscale
+  distance=beam_distance(range,scan$geo$elangle,k=k,lat=scan$geo$lat,re=re,rp=rp)
+
+  # calculate eta from reflectivity factor
+  eta=suppressWarnings(dbz_to_eta(scan$params[[param]], wavelength=vp$attributes$how$wavelength))
+  attributes(eta)$param="eta"
+  scan$params$eta=eta
+
+  # calculate expected_eta from beam overlap with vertical profile
+  eta_expected=eta_expected(vp,distance,scan$geo$elangle,antenna=scan$geo$height, beam_angle=beam_angle, k=k, lat=scan$geo$lat, re = re, rp = rp)
+  eta_expected=matrix(rep(eta_expected,nazim),nrange)
+  attributes(eta_expected)=attributes(eta)
+  attributes(eta_expected)$param="eta_expected"
+  scan$params$eta_expected=eta_expected
+  scan
+}
+
+
+#' calculate a range-bias corrected PPI
+#'
+#' calculates a PPI that corrects for range-bias effects due to partial beam overlap with
+#' the layer of migration (overshooting) at larger distances from the radar
+#' @inheritParams scan_to_raster
+#' @inheritParams beam_width
+#' @param pvol a polar volume of class pvol
+#' @param vp a vertical profile of class vp
 #' @param quantity one or multiple of 'vir','vid','correction_factor', 'overlap'
+#' @param param one of 'DBZH','DBZV','DBZ','TH','TV'
+#' @param lat Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.
 #' @return An object of class '\link[=summary.ppi]{ppi}'.
 #'
 #' @export
@@ -62,23 +100,43 @@ range_correction_scan = function(scan,vp,nx,ny,xlim,ylim,param="DBZH",crs="+proj
 #' # load the vertical profile for this polar volume (pre-calculated)
 #' data(example_vp)
 #' # calculate the range-bias corrected ppi
-#' my_ppi <- calculate_range_corrected_ppi(example_pvol,example_vp,nx=100,ny=100,xlim=c(11,15),ylim=c(55,57))
+#' my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100,xlim=c(11,15),ylim=c(55,57))
 #' TODO: xlim ylim aanpassen naar range
-project_as_corrected_ppi = function(vol,vp,nx,ny,xlim,ylim,quantity=c("vir","vid","correction_factor","overlap"),crs="+proj=longlat +datum=WGS84",res=NA){
-  if(!is.pvol(vol)) stop("'vol' should be an object of class vol")
+project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim=NA,ylim=NA,res=NA, param="DBZH", lat=NA, lon=NA, antenna=NA, beam_angle=1,crs="+proj=longlat +datum=WGS84",quantity=c("vir","vid","correction_factor","overlap"), k=4/3, re = 6378, rp = 6357){
+  if(!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if(!is.vp(vp)) stop("'vp' should be an object of class vp")
-  if(!is.numeric(nx)) stop("'nx' should be an integer")
-  if(!is.numeric(ny)) stop("ny' should be an integer")
-  if(length(xlim)!=2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
-  if(is.na(xlim[1]) | is.na(xlim[2]) | xlim[1]>xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
-  if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be an integer vector of length two")
-  if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
+  if(!is.number(nx) && is.na(res)) stop("'nx' should be an integer")
+  if(!is.number(ny) && is.na(res)) stop("ny' should be an integer")
+  if(!are_equal(xlim,NA)){
+    if(length(xlim)!=2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
+    if(is.na(xlim[1]) | is.na(xlim[2]) | xlim[1]>xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
+  }
+  if(!are_equal(ylim,NA)){
+    if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be an integer vector of length two")
+    if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
+  }
+  if(!are_equal(res,NA)){
+    assert_that(is.numeric(res))
+    assert_that(length(res)<=2)
+  }
+  if(is.null(pvol$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
+  if(is.null(pvol$geo$lon) && is.na(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
+  if(is.null(pvol$geo$height) && is.na(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
+  if(is.number(antenna)) pvol$geo$height=antenna
+  if(is.number(lat)) pvol$geo$lat=lat
+  if(is.number(lon)) pvol$geo$lon=lon
+  # check crs argument as in raster::raster()
+  crs=CRS(as.character(projection(crs)))
   if(FALSE %in% (quantity %in% c("vir","vid","eta_sum","eta_expected_sum","azim","range","correction_factor","overlap"))) stop("unknown quantity")
-  rasters=lapply(vol$scans,function(x) range_correction_scan(x,vp,nx=nx,ny=ny,xlim=xlim,ylim=ylim,crs=crs,res=res))
+  if(!(param %in% c("DBZH","DBZV","DBZ","TH","TV"))) stop(paste(x,"not one of DBZH, DBZV, DBZ, TH, TV"))
+  assert_that(is.number(k))
+  assert_that(is.number(re))
+  assert_that(is.number(rp))
+
+  rasters=lapply(pvol$scans,function(x) scan_to_raster_range_correction(x,vp,nx=nx,ny=ny,xlim=xlim,ylim=ylim,crs=crs,res=res,param=param,lat=pvol$geo$lat,lon=pvol$geo$lon, antenna=pvol$geo$height, beam_angle=beam_angle, k=k, re=re, rp=rp))
   eta_expected_sum=rowSums(do.call(cbind,lapply(1:length(rasters),function(i) (rasters[[i]]$eta_expected))),na.rm=T)
   eta_sum=rowSums(do.call(cbind,lapply(1:length(rasters),function(i) (rasters[[i]]$eta))),na.rm=T)
   output=rasters[[1]]
-  output@data$range=output@data$distance
   output@data$eta_sum_expected=eta_expected_sum
   output@data$eta_sum=eta_sum
   output@data$correction_factor=eta_sum/eta_expected_sum
@@ -86,20 +144,20 @@ project_as_corrected_ppi = function(vol,vp,nx,ny,xlim,ylim,quantity=c("vir","vid
   output@data$vid=integrate_profile(example_vp)$vid*eta_sum/eta_expected_sum
   # calculate the overlap between vp and radiated energy\
   if("overlap" %in% quantity){
-    # calculate overlap first for a range grid:
-    overlap=beam_profile_overlap(vol, vp, seq(0,max(output@data$range,na.rm=T),length.out=500), ylim=c(0,4000), steps=500, quantity="dens")
+    # calculate overlap first for a distance grid:
+    overlap=beam_profile_overlap(pvol, vp, seq(0,max(output@data$distance,na.rm=T),length.out=500), ylim=c(0,4000), steps=500, quantity="dens")
     # align our projected pixels with this range grid:
     overlap_index=sapply(output@data$range,function(x) ifelse(is.na(x),NA,which.min(abs(overlap$range - x))))
     # add the overlap data to the output
     output@data$overlap=overlap$overlap[overlap_index]
   }
   # assemble geometry attributes
-  geo=vol$geo
-  geo$elangle=get_elevation_angles(vol)
+  geo=pvol$geo
+  geo$elangle=get_elevation_angles(pvol)
   geo$bbox=output@bbox
   rownames(geo$bbox)=c("lon","lat")
   geo$merged=TRUE
-  output_ppi=list(radar=vol$radar,datetime=vol$datetime,data=output[quantity],geo=geo)
+  output_ppi=list(radar=pvol$radar,datetime=pvol$datetime,data=output[quantity],geo=geo)
   class(output_ppi)="ppi"
   output_ppi
 }

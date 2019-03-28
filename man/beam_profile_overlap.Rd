@@ -4,17 +4,17 @@
 \alias{beam_profile_overlap}
 \title{Calculate overlap between a vertical profile ('vp') and the vertical radiation profile}
 \usage{
-beam_profile_overlap(pvol, vp, range, antenna = NA, ylim = c(0, 4000),
-  noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
+beam_profile_overlap(pvol, vp, distance, antenna = NA, ylim = c(0,
+  4000), noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
   quantity = "dens", normalize = T, beam_angle = 1, k = 4/3,
-  lat = NA, re = re, rp = rp)
+  lat = NA, re = 6378, rp = 6357)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}
 
 \item{vp}{a vertical profile of class vp}
 
-\item{range}{the distance(s) from the radar for which to calculate the overlap in m.}
+\item{distance}{the distance(s) from the radar along sea level for which to calculate the overlap in m.}
 
 \item{antenna}{radar antenna height. If \code{NA} taken from \code{pvol}}
 

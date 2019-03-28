@@ -5,8 +5,9 @@
 \title{convert a polar scan into a raster}
 \usage{
 scan_to_raster(scan, nx = 100, ny = 100, xlim = NA, ylim = NA,
-  crs = "+proj=longlat +datum=WGS84", res = NA, k = 4/3, lat = NA,
-  lon = NA, re = 6378, rp = 6357)
+  res = NA, param = NA, lat = NA, lon = NA,
+  crs = "+proj=longlat +datum=WGS84", k = 4/3, re = 6378,
+  rp = 6357)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
@@ -19,17 +20,20 @@ scan_to_raster(scan, nx = 100, ny = 100, xlim = NA, ylim = NA,
 
 \item{ylim}{y (latitude) range}
 
-\item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
-By default a WSG84 (lat,lon) projection.}
-
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}}
 
-\item{k}{Standard refraction coefficient.}
+\item{param}{scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
+of scan parameters speeds up evaluation.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
 
 \item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+
+\item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
+By default a WSG84 (lat,lon) projection.}
+
+\item{k}{Standard refraction coefficient.}
 
 \item{re}{Earth equatorial radius in km.}
 
@@ -42,7 +46,8 @@ a RasterBrick
 convert an object of class 'scan' into a raster of class 'RasterBrick'
 }
 \details{
-uses \link{scan_to_spatial} to georeference the scan's pixels.
+uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
+the same raster pixel, the last added pixel is given (see \link[raster]{rasterize} for details).
 }
 \examples{
 # default projects full extent on 100x100 pixel raster:

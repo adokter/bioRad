@@ -7,7 +7,8 @@
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{numeric. Range (distance from the radar antenna) in m.}
+\item{range}{numeric. Slant range in m, the length of the skywave path
+between target and the radar antenna.}
 
 \item{elev}{numeric. Beam elevation in degrees.}
 

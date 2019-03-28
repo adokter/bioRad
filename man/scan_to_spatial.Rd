@@ -4,17 +4,17 @@
 \alias{scan_to_spatial}
 \title{convert a polar scan into a spatial object.}
 \usage{
-scan_to_spatial(scan, k = 4/3, lat = NA, lon = NA, re = 6378,
+scan_to_spatial(scan, lat = NA, lon = NA, k = 4/3, re = 6378,
   rp = 6357)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
 
-\item{k}{Standard refraction coefficient.}
-
 \item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
 
 \item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+
+\item{k}{Standard refraction coefficient.}
 
 \item{re}{Earth equatorial radius in km.}
 
@@ -28,5 +28,5 @@ Georeferences the pixels of a scan into a SpatialPointsDataFrame object.
 }
 \details{
 Beam altitude accounts for the curvature of the earth, using \link{beam_height}.
-Distance from the radar over the earth's surface is calculated as \code{range*cos((beam elevation)*pi/180)}.
+Distance from the radar over the earth's surface is calculated using \link{beam_distance}.
 }

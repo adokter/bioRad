@@ -4,24 +4,47 @@
 \alias{project_as_corrected_ppi}
 \title{calculate a range-bias corrected PPI}
 \usage{
-project_as_corrected_ppi(vol, vp, nx, ny, xlim, ylim, quantity = c("vir",
-  "vid", "correction_factor", "overlap"),
-  crs = "+proj=longlat +datum=WGS84", res = NA)
+project_as_corrected_ppi(pvol, vp, nx = 100, ny = 100, xlim = NA,
+  ylim = NA, res = NA, param = "DBZH", lat = NA, lon = NA,
+  antenna = NA, beam_angle = 1, crs = "+proj=longlat +datum=WGS84",
+  quantity = c("vir", "vid", "correction_factor", "overlap"), k = 4/3,
+  re = 6378, rp = 6357)
 }
 \arguments{
-\item{vol}{a polar volume of class pvol}
+\item{pvol}{a polar volume of class pvol}
 
 \item{vp}{a vertical profile of class vp}
 
-\item{nx}{number of grid pixels in the longitude dimension}
+\item{nx}{number of raster pixels in the x (longitude) dimension}
 
-\item{ny}{number of grid pixels in the latitude dimension}
+\item{ny}{number of raster pixels in the y (latitude) dimension}
 
-\item{xlim}{longitude range}
+\item{xlim}{x (longitude) range}
 
-\item{ylim}{latitude range}
+\item{ylim}{y (latitude) range}
+
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
+If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}}
+
+\item{param}{one of 'DBZH','DBZV','DBZ','TH','TV'}
+
+\item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
+
+\item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+
+\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
+the angle between the half-power (-3 dB) points of the main lobe}
+
+\item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
+By default a WSG84 (lat,lon) projection.}
 
 \item{quantity}{one or multiple of 'vir','vid','correction_factor', 'overlap'}
+
+\item{k}{Standard refraction coefficient.}
+
+\item{re}{Earth equatorial radius in km.}
+
+\item{rp}{Earth polar radius in km.}
 }
 \value{
 An object of class '\link[=summary.ppi]{ppi}'.
@@ -41,6 +64,6 @@ example_pvol <- read_pvolfile(pvolfile)
 # load the vertical profile for this polar volume (pre-calculated)
 data(example_vp)
 # calculate the range-bias corrected ppi
-my_ppi <- calculate_range_corrected_ppi(example_pvol,example_vp,nx=100,ny=100,xlim=c(11,15),ylim=c(55,57))
+my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100,xlim=c(11,15),ylim=c(55,57))
 TODO: xlim ylim aanpassen naar range
 }

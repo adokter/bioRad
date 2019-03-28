@@ -4,13 +4,13 @@
 \alias{beam_profile}
 \title{Calculate vertical radiation profile}
 \usage{
-beam_profile(height, range, elev, antenna = 0, beam_angle = 1,
+beam_profile(height, distance, elev, antenna = 0, beam_angle = 1,
   k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
 \item{height}{numeric. Height in meter.}
 
-\item{range}{numeric. Range (distance from the radar antenna) in m.}
+\item{distance}{numeric. Distance from the radar as measured along sea level (down range)}
 
 \item{elev}{numeric vector. Beam elevation(s) in degrees.}
 
@@ -42,5 +42,5 @@ Returns the normalized altitudinal pattern of radiated energy as a function of
 altitude at a given distance from the radar, assuming the beams are emitted at surface level.
 }
 \examples{
-plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; range: 35 km")
+plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; distance: 35 km")
 }
