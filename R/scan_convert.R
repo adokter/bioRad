@@ -133,8 +133,8 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
   # convert 2D index to 1D index
   index=(index$col-1)*nrang+index$row
   # generate brick for each scan parameter
-  output=raster::brick(r,nl=length(example_scan$params),filename='')
-  names(output)=names(example_scan$params)
+  output=raster::brick(r,nl=length(scan$params),filename='')
+  names(output)=names(scan$params)
   # fill the rasterbrick
   for(name in names(output)){
     # suppress warning 'In readAll(x) : cannot read values; there is no file associated with this RasterBrick

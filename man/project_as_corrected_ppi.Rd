@@ -6,9 +6,9 @@
 \usage{
 project_as_corrected_ppi(pvol, vp, nx = 100, ny = 100, xlim = NA,
   ylim = NA, res = NA, param = "DBZH", lat = NA, lon = NA,
-  antenna = NA, beam_angle = 1, crs = "+proj=longlat +datum=WGS84",
-  quantity = c("vir", "vid", "correction_factor", "overlap"), k = 4/3,
-  re = 6378, rp = 6357)
+  antenna = NA, beam_angle = 1, crs = NA, quantity = c("vir",
+  "vid", "correction_factor", "overlap"), k = 4/3, re = 6378,
+  rp = 6357)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}

@@ -87,7 +87,7 @@ add_expected_eta_to_scan = function(scan,vp,param="DBZH", lat=NA, lon=NA, antenn
 #' data(example_vp)
 #' # calculate the range-bias corrected ppi on a 100x100 pixel raster
 #' my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100)
-project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim=NA,ylim=NA,res=NA, param="DBZH", lat=NA, lon=NA, antenna=NA, beam_angle=1,crs="+proj=longlat +datum=WGS84",quantity=c("vir","vid","correction_factor","overlap"), k=4/3, re = 6378, rp = 6357){
+project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim=NA,ylim=NA,res=NA, param="DBZH", lat=NA, lon=NA, antenna=NA, beam_angle=1,crs=NA,quantity=c("vir","vid","correction_factor","overlap"), k=4/3, re = 6378, rp = 6357){
   if(!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if(!is.vp(vp)) stop("'vp' should be an object of class vp")
   if(!is.number(nx) && is.na(res)) stop("'nx' should be an integer")
@@ -120,7 +120,10 @@ project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim=NA,ylim=NA,res=NA
     pvol$geo$lon=lon
   }
   # check crs argument as in raster::raster()
-  crs=CRS(as.character(projection(crs)))
+  if(!are_equal(crs,NA)){
+    crs=CRS(as.character(projection(crs)))
+  }
+
   if(FALSE %in% (quantity %in% c("vir","vid","eta_sum","eta_expected_sum","azim","range","correction_factor","overlap"))) stop("unknown quantity")
   if(!(param %in% c("DBZH","DBZV","DBZ","TH","TV"))) stop(paste(x,"not one of DBZH, DBZV, DBZ, TH, TV"))
   assert_that(is.number(k))
