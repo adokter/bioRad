@@ -38,7 +38,8 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 the angle between the half-power (-3 dB) points of the main lobe}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
-By default a WSG84 (lat,lon) projection.}
+When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
+To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
 \item{quantity}{one or multiple of 'vir','vid','correction_factor', 'overlap'}
 
@@ -63,8 +64,8 @@ to be written
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 # load polar volume
 example_pvol <- read_pvolfile(pvolfile)
-# load the vertical profile for this polar volume (pre-calculated)
+# load the corresponding vertical profile for this polar volume
 data(example_vp)
-# calculate the range-bias corrected ppi on a 100x100 pixel grid
+# calculate the range-bias corrected ppi on a 100x100 pixel raster
 my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100)
 }

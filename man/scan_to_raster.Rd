@@ -5,9 +5,8 @@
 \title{convert a polar scan into a raster}
 \usage{
 scan_to_raster(scan, nx = 100, ny = 100, xlim = NA, ylim = NA,
-  res = NA, param = NA, lat = NA, lon = NA,
-  crs = "+proj=longlat +datum=WGS84", k = 4/3, re = 6378,
-  rp = 6357)
+  res = NA, param = NA, lat = NA, lon = NA, crs = NA, k = 4/3,
+  re = 6378, rp = 6357)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
@@ -31,7 +30,8 @@ of scan parameters speeds up evaluation.}
 \item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
-By default a WSG84 (lat,lon) projection.}
+When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
+To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
 \item{k}{Standard refraction coefficient.}
 

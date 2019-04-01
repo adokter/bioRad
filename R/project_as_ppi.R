@@ -131,8 +131,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   }
   # define cartesian grid
   gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
-  # if projecting, account for elevation angle - not accounting for
-  # earths curvature
+  # if projecting, account for elevation angle
   if (project) {
     elev <- attributes(param)$geo$elangle * pi / 180
   } else {

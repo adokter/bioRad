@@ -35,7 +35,7 @@ an object of class 'scan'
 }
 \description{
 calculates a PPI that corrects for range-bias effects due to partial beam overlap with
-the layer of migration (overshooting) at larger distances from the radar
+the layer of biological echoes (overshooting) at larger distances from the radar
 }
 \details{
 to be written
