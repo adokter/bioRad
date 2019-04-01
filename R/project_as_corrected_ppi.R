@@ -17,8 +17,6 @@ eta_expected=function(vp,distance,elev, antenna, beam_angle, k, lat, re, rp){
 #' @details to be written
 add_expected_eta_to_scan = function(scan,vp,param="DBZH", lat=NA, lon=NA, antenna=NA, beam_angle=1, k=4/3, re = 6378, rp = 6357){
   if(is.null(scan$geo$height) && is.na(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
-  # check crs argument as in raster::raster()
-  crs=CRS(as.character(projection(crs)))
   if(!(param %in% c("DBZH","DBZV","DBZ","TH","TV"))) stop(paste(x,"not one of DBZH, DBZV, DBZ, TH, TV"))
 
   if(is.null(scan$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
@@ -131,6 +129,8 @@ project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim=NA,ylim=NA,res=NA
   assert_that(is.number(rp))
 
   rasters=lapply(pvol$scans,function(x) as(scan_to_raster(add_expected_eta_to_scan(x,vp,param=param,lat=pvol$geo$lat,lon=pvol$geo$lon,antenna=pvol$geo$height,beam_angle=beam_angle,k=k,re=re,rp=rp),nx=nx,ny=ny,xlim=xlim,ylim=ylim,res=res,param=c("range","distance","eta","eta_expected"),crs=crs, k=k, re=re, rp=rp),"SpatialGridDataFrame"))
+  # BUG here: rasters are not necessarily of identical dimensions when using `res` argument
+  # TO FIX: force rasters are of identical dims for each elevation
   eta_expected_sum=rowSums(do.call(cbind,lapply(1:length(rasters),function(i) (rasters[[i]]$eta_expected))),na.rm=T)
   eta_sum=rowSums(do.call(cbind,lapply(1:length(rasters),function(i) (rasters[[i]]$eta))),na.rm=T)
   output=rasters[[1]]

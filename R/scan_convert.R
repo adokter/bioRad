@@ -80,7 +80,12 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
   }
   if(!are_equal(param,NA)){
     if(FALSE %in% (param %in% c(names(scan$params), "azim","range","distance"))) stop("'param' contains scan parameter not found in scan")
+    param_to_use=param
   }
+  else{
+    param_to_use=names(scan$params)
+  }
+
   if(is.null(scan$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
   if(is.null(scan$geo$lon) && is.na(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
 
@@ -126,20 +131,26 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
     r <- raster(ncols=nx, nrows=ny,ext=raster::extent(c(xlim,ylim)),crs=crs,res=res)
   }
   # convert raster coordinates to polar indices
-  index=polar_to_index(cartesian_to_polar(coordinates(r),k=k, lat=scan$geo$lat, re=re, rp=rp),rangebin=rscale,azimbin=ascale)
+  polar_coords=cartesian_to_polar(coordinates(r),elev=scan$geo$elangle,k=k, lat=scan$geo$lat, re=re, rp=rp)
+  index=polar_to_index(polar_coords,rangebin=rscale,azimbin=ascale)
   # set indices outside the scan's matrix to NA
   index$row[index$row>nrang]=NA
   index$col[index$col>nazim]=NA
   # convert 2D index to 1D index
   index=(index$col-1)*nrang+index$row
+
   # generate brick for each scan parameter
-  output=raster::brick(r,nl=length(scan$params),filename='')
-  names(output)=names(scan$params)
+  param_to_add=setdiff(param_to_use, c("distance","range","azim"))
+  output=raster::brick(r,nl=length(param_to_add),filename='')
+  names(output)=param_to_add
   # fill the rasterbrick
-  for(name in names(output)){
+  for(name in param_to_add){
     # suppress warning 'In readAll(x) : cannot read values; there is no file associated with this RasterBrick
     suppressWarnings({ raster::values(output[[name]]) <- scan$params[[name]][index] })
   }
+  if("distance" %in% param_to_use) output$distance=beam_distance(polar_coords$range,elev=scan$geo$elangle,k=k, lat=scan$geo$lat, re=re, rp=rp)
+  if("range" %in% param_to_use) output$range=polar_coords$range
+  if("azim" %in% param_to_use) output$azim=polar_coords$azim
   output
 }
 
