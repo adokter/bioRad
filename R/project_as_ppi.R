@@ -195,8 +195,8 @@ proj_to_wgs <- function(x, y, proj4string) {
   return(res)
 }
 
-cartesian_to_polar <- function(coords, elev = 0) {
-  range <- sqrt(coords[, 1]^2 + coords[, 2]^2) / cos(elev)
+cartesian_to_polar <- function(coords, elev = 0, k = 4/3, lat = 35, re = 6378, rp = 6357) {
+  range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2),elev,k=k, lat=lat, re=re, rp=rp)
   azim <- (0.5 * pi - atan2(coords[, 2], coords[, 1])) %% (2 * pi)
   data.frame(range = range, azim = azim * 180 / pi)
 }
