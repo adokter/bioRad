@@ -78,7 +78,7 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
     assert_that(length(res)<=2)
   }
   if(!are_equal(param,NA)){
-    if(FALSE %in% (param %in% names(scan$params))) stop("'param' contains scan parameter not found in scan")
+    if(FALSE %in% (param %in% c(names(scan$params), "azim","range","distance"))) stop("'param' contains scan parameter not found in scan")
   }
   if(is.null(scan$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
   if(is.null(scan$geo$lon) && is.na(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")

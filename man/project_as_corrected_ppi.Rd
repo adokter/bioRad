@@ -26,7 +26,9 @@ project_as_corrected_ppi(pvol, vp, nx = 100, ny = 100, xlim = NA,
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}}
 
-\item{param}{one of 'DBZH','DBZV','DBZ','TH','TV'}
+\item{param}{reflectivity factor scan parameter on which to base range bias corrections.
+Typically the same parameter from which animal densities are estimated for object \code{vp}.
+One of 'DBZH','DBZV','DBZ','TH','TV'.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
 
@@ -63,7 +65,6 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
 # load the vertical profile for this polar volume (pre-calculated)
 data(example_vp)
-# calculate the range-bias corrected ppi
-my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100,xlim=c(11,15),ylim=c(55,57))
-TODO: xlim ylim aanpassen naar range
+# calculate the range-bias corrected ppi on a 100x100 pixel grid
+my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100)
 }

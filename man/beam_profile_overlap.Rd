@@ -40,7 +40,7 @@ it would represent at a distance \code{noise_floor_ref_range} from the radar.}
 \item{rp}{Earth polar radius in km.}
 }
 \value{
-A data.frame with columns range and overlap. Overlap is calculated as the
+A data.frame with columns distance and overlap. Overlap is calculated as the
 Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) vertical profile vp
 and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
 }

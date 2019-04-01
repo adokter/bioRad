@@ -161,7 +161,7 @@ beam_profile_overlap_help = function(pvol, vp, distance, antenna=0, ylim=c(0,400
 #' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by ylim
 #' @param antenna radar antenna height. If \code{NA} taken from \code{pvol}
 #' @param lat radar latitude. If NA taken from \code{pvol}
-#' @return A data.frame with columns range and overlap. Overlap is calculated as the
+#' @return A data.frame with columns distance and overlap. Overlap is calculated as the
 #' Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) vertical profile vp
 #' and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
 #'
