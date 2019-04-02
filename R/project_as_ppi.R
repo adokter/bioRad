@@ -98,9 +98,9 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
-    " +lon_0=", attributes(param)$geo$lon,
-    " +units=m",
-    sep = ""
+                           " +lon_0=", attributes(param)$geo$lon,
+                           " +units=m",
+                           sep = ""
   ))
   bboxlatlon <- proj_to_wgs(
     c(-range_max, range_max),
@@ -124,9 +124,9 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
     )
     cells.dim <- c(
       ceiling((max(bbox@coords[, "x"]) -
-        min(bbox@coords[, "x"])) / grid_size),
+                 min(bbox@coords[, "x"])) / grid_size),
       ceiling((max(bbox@coords[, "y"]) -
-        min(bbox@coords[, "y"])) / grid_size)
+                 min(bbox@coords[, "y"])) / grid_size)
     )
   }
   # define cartesian grid
@@ -138,18 +138,29 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
     elev <- 0
   }
   # get scan parameter indices, and extract data
+  # TODO: not all arguments present for cartesion_to_polar
   index <- polar_to_index(
     cartesian_to_polar(coordinates(gridTopo), elev),
     attributes(param)$geo$rscale,
     attributes(param)$geo$ascale
   )
-  data <- data.frame(mapply(
-    function(x, y) {
-      safe_subset(param, x, y)
-    },
-    x = index$row,
-    y = index$col
-  ))
+  # set indices outside the scan's matrix to NA
+  nrang <- dim(param)[1]
+  nazim <- dim(param)[2]
+  index$row[index$row>nrang]=NA
+  index$col[index$col>nazim]=NA
+  # convert 2D index to 1D index
+  index=(index$col-1)*nrang+index$row
+  data=as.data.frame(param[index])
+
+  #  data <- data.frame(mapply(
+  #    function(x, y) {
+  #      safe_subset(param, x, y)
+  #    },
+  #    x = index$row,
+  #    y = index$col
+  #  ))
+
   colnames(data) <- attributes(param)$param
   output <- SpatialGridDataFrame(
     grid = SpatialGrid(
@@ -161,6 +172,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   attributes(output)$bboxlatlon <- bboxlatlon
   output
 }
+
 
 #' A wrapper for \code{\link{spTransform}}.
 #'
