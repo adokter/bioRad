@@ -19,7 +19,7 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
 
-\item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+\item{lon}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 the angle between the half-power (-3 dB) points of the main lobe}

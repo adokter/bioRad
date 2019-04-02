@@ -80,6 +80,8 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
   }
   if(!are_equal(param,NA)){
     if(FALSE %in% (param %in% c(names(scan$params), "azim","range","distance"))) stop("'param' contains scan parameter not found in scan")
+    if(!(FALSE %in% (param %in% c("azim","range","distance")))) stop("'param' should contain the name of one or more scan parameters contained in 'scan'")
+
     param_to_use=param
   }
   else{
@@ -113,17 +115,21 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
   nrang <- dim(scan)[2]
   nazim <- dim(scan)[3]
 
-  # georeference the data
-  spdf=scan_to_spatial(scan, k = k, lat=scan$geo$lat, lon=scan$geo$lon, re=re, rp=rp)
-  # keep only selected scan parameters
-  if(!are_equal(param,NA)) spdf=spdf[param]
-  # transform spatialpoints to coordinate system of the raster
-  if(!are_equal(crs,NA)) spdf=spTransform(spdf,crs)
-  # get extent of the available data
-  spdf_extent=raster::extent(spdf)
-  # prepare a raster matching the data extent (or user-specified extent)
-  if(are_equal(xlim,NA)) xlim=c(spdf_extent@xmin,spdf_extent@xmax)
-  if(are_equal(ylim,NA)) ylim=c(spdf_extent@ymin,spdf_extent@ymax)
+  # extent not fully specified, determine it
+  if(are_equal(xlim,NA) | are_equal(ylim,NA)){
+    # georeference the data
+    spdf=scan_to_spatial(scan, k = k, lat=scan$geo$lat, lon=scan$geo$lon, re=re, rp=rp)
+    # keep only selected scan parameters
+    if(!are_equal(param,NA)) spdf=spdf[param]
+    # transform spatialpoints to coordinate system of the raster
+    if(!are_equal(crs,NA)) spdf=spTransform(spdf,crs)
+    # get extent of the available data
+    spdf_extent=raster::extent(spdf)
+    # prepare a raster matching the data extent (or user-specified extent)
+    if(are_equal(xlim,NA)) xlim=c(spdf_extent@xmin,spdf_extent@xmax)
+    if(are_equal(ylim,NA)) ylim=c(spdf_extent@ymin,spdf_extent@ymax)
+  }
+
   if(is.na(res)){
     r <- raster(ncols=nx, nrows=ny,ext=raster::extent(c(xlim,ylim)),crs=crs)
   }

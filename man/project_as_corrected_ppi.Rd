@@ -32,7 +32,7 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
 
-\item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+\item{lon}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 the angle between the half-power (-3 dB) points of the main lobe}
@@ -58,6 +58,13 @@ the layer of migration (overshooting) at larger distances from the radar
 }
 \details{
 to be written
+If one of \code{lat} or \code{lon} equals \code{NA}, the extent of the PPI is take equal to
+the extent of the data in the first scan of the polar volume.
+
+Overlap between vertical profile and vertical radiation profile is calculated using \link{beam_profile}
+and stored as quantity 'overlap'.
+
+TODO: quantity and param is used in a confusing way, correct.
 }
 \examples{
 # locate example polar volume file:
@@ -68,4 +75,14 @@ example_pvol <- read_pvolfile(pvolfile)
 data(example_vp)
 # calculate the range-bias corrected ppi on a 100x100 pixel raster
 my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100)
+# plot the vertically integrated reflectivity (vir) using a 0-2000 cm^2/km^2 color scale:
+plot(my_ppi,zlim=c(0,2000))
+# calculate the range-bias corrected ppi on finer 1000m x 1000m pixel raster:
+my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,res=1000)
+# plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
+plot(my_ppi,param="vid",zlim=c(0,200))
+# calculate the range-bias corrected ppi on an even finer 500m x 500m pixel raster,
+# cropping the area up to 50000 meter from the radar.
+my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,res=500,xlim=c(-50000,50000),ylim=c(-50000,50000))
+plot(my_ppi,param="vid",zlim=c(0,200))
 }
