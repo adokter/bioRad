@@ -154,8 +154,8 @@ beam_profile_overlap_help = function(pvol, vp, distance, antenna=0, ylim=c(0,400
 #' @param distance the distance(s) from the radar along sea level for which to calculate the overlap in m.
 #' @param ylim altitude range in meter, given as a numeric vector of length two.
 #' @param noise_floor The system noise floor in dBZ. The total system noise expressed as the reflectivity factor
-#'  it would represent at a distance \code{noise_floor_ref_range} from the radar.
-#' @param noise_floor_ref_range the reference distance from the radar at which \code{noise_floor} is expressed
+#'  it would represent at a distance \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED
+#' @param noise_floor_ref_range the reference distance from the radar at which \code{noise_floor} is expressed. NOT YET IMPLEMENTED
 #' @param steps number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations
 #' @param quantity profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.
 #' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by ylim
@@ -169,7 +169,9 @@ beam_profile_overlap_help = function(pvol, vp, distance, antenna=0, ylim=c(0,400
 #'
 #' @details to be written
 #'
-#' In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor.
+#' In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor
+#' (the Noise Equivalent Z or noise equivalent reflectivity factor. the H refers to the horizontal channel
+#' of a dual-polarization radar).
 #' In addition, the attribute \code{/how/LOG} gives "security distance above mean noise level (dB) threshold value".
 #' This is equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the noise floor for the signal processor
 #' to report a valid reflectivity value. We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this

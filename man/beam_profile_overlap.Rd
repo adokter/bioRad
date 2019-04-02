@@ -21,9 +21,9 @@ beam_profile_overlap(pvol, vp, distance, antenna = NA, ylim = c(0,
 \item{ylim}{altitude range in meter, given as a numeric vector of length two.}
 
 \item{noise_floor}{The system noise floor in dBZ. The total system noise expressed as the reflectivity factor
-it would represent at a distance \code{noise_floor_ref_range} from the radar.}
+it would represent at a distance \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED}
 
-\item{noise_floor_ref_range}{the reference distance from the radar at which \code{noise_floor} is expressed}
+\item{noise_floor_ref_range}{the reference distance from the radar at which \code{noise_floor} is expressed. NOT YET IMPLEMENTED}
 
 \item{steps}{number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations}
 
@@ -51,7 +51,9 @@ and the vertical radiation profile as calculate with \link{beam_profile}.
 \details{
 to be written
 
-In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor.
+In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor
+(the Noise Equivalent Z or noise equivalent reflectivity factor. the H refers to the horizontal channel
+of a dual-polarization radar).
 In addition, the attribute \code{/how/LOG} gives "security distance above mean noise level (dB) threshold value".
 This is equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the noise floor for the signal processor
 to report a valid reflectivity value. We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this

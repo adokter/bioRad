@@ -167,15 +167,17 @@ project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim=NA,ylim=NA,res=NA
   output@data$correction_factor=eta_sum/eta_expected_sum
   output@data$vir=integrate_profile(example_vp)$vir*eta_sum/eta_expected_sum
   output@data$vid=integrate_profile(example_vp)$vid*eta_sum/eta_expected_sum
+
   # calculate the overlap between vp and radiated energy
   if("overlap" %in% quantity){
     # calculate overlap first for a distance grid:
     overlap=beam_profile_overlap(pvol, vp, seq(0,max(output@data$distance,na.rm=T),length.out=500), ylim=c(0,4000), steps=500, quantity="dens")
-    # align our projected pixels with this range grid:
-    overlap_index=sapply(output@data$range,function(x) ifelse(is.na(x),NA,which.min(abs(overlap$range - x))))
+    # align our projected pixels with this distance grid:
+    overlap_index=sapply(output@data$distance,function(x) ifelse(is.na(x),NA,which.min(abs(overlap$distance - x))))
     # add the overlap data to the output
     output@data$overlap=overlap$overlap[overlap_index]
   }
+
   # assemble geometry attributes
   geo=pvol$geo
   geo$elangle=get_elevation_angles(pvol)
