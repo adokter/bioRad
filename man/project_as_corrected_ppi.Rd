@@ -4,11 +4,10 @@
 \alias{project_as_corrected_ppi}
 \title{calculate a range-bias corrected PPI}
 \usage{
-project_as_corrected_ppi(pvol, vp, nx = 100, ny = 100, xlim = NA,
-  ylim = NA, res = NA, param = "DBZH", lat = NA, lon = NA,
-  antenna = NA, beam_angle = 1, crs = NA, quantity = c("vir",
-  "vid", "correction_factor", "overlap"), k = 4/3, re = 6378,
-  rp = 6357)
+project_as_corrected_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
+  zlim = c(0, 4000), res, param = "DBZH", lat, lon, antenna,
+  beam_angle = 1, crs, quantity = c("vir", "vid", "correction_factor",
+  "overlap"), k = 4/3, re = 6378, rp = 6357)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}
@@ -23,6 +22,8 @@ project_as_corrected_ppi(pvol, vp, nx = 100, ny = 100, xlim = NA,
 
 \item{ylim}{y (latitude) range}
 
+\item{zlim}{altitude range in meter, given as a numeric vector of length two.}
+
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}}
 
@@ -30,9 +31,11 @@ If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is
 Typically the same parameter from which animal densities are estimated for object \code{vp}.
 One of 'DBZH','DBZV','DBZ','TH','TV'.}
 
-\item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
+\item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
 
-\item{lon}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
+\item{lon}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
+
+\item{antenna}{radar antenna height. If missing taken from \code{vp}}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 the angle between the half-power (-3 dB) points of the main lobe}
@@ -58,7 +61,7 @@ the layer of migration (overshooting) at larger distances from the radar
 }
 \details{
 to be written
-If one of \code{lat} or \code{lon} equals \code{NA}, the extent of the PPI is take equal to
+If one of \code{lat} or \code{lon} is missing, the extent of the PPI is take equal to
 the extent of the data in the first scan of the polar volume.
 
 Overlap between vertical profile and vertical radiation profile is calculated using \link{beam_profile}
@@ -86,6 +89,7 @@ bm = download_basemap(my_ppi)
 map(my_ppi, bm)
 # calculate the range-bias corrected ppi on an even finer 500m x 500m pixel raster,
 # cropping the area up to 50000 meter from the radar.
-my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,res=500,xlim=c(-50000,50000),ylim=c(-50000,50000))
+my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,res=500,
+xlim=c(-50000,50000),ylim=c(-50000,50000))
 plot(my_ppi,param="vid",zlim=c(0,200))
 }

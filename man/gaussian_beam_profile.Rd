@@ -39,8 +39,4 @@ altitude at a given distance from the radar.
 Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code{height} and
 \code{antenna} should be given in reference to the same reference plane (e.g. ground level or sea level)
 }
-\examples{
-# plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:
-plot(gaussian_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
-}
 \keyword{internal}

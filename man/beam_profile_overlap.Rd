@@ -4,36 +4,39 @@
 \alias{beam_profile_overlap}
 \title{Calculate overlap between a vertical profile ('vp') and the vertical radiation profile}
 \usage{
-beam_profile_overlap(pvol, vp, distance, antenna = NA, ylim = c(0,
-  4000), noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
-  quantity = "dens", normalize = T, beam_angle = 1, k = 4/3,
-  lat = NA, re = 6378, rp = 6357)
+beam_profile_overlap(vp, elev, distance, antenna, zlim = c(0, 4000),
+  noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
+  quantity = "dens", normalize = T, beam_angle = 1, k = 4/3, lat,
+  re = 6378, rp = 6357)
 }
 \arguments{
-\item{pvol}{a polar volume of class pvol}
-
 \item{vp}{a vertical profile of class vp}
 
-\item{distance}{the distance(s) from the radar along sea level for which to calculate the overlap in m.}
+\item{elev}{numeric vector. Beam elevation(s) in degrees.}
 
-\item{antenna}{radar antenna height. If \code{NA} taken from \code{pvol}}
+\item{distance}{the distance(s) from the radar along sea level (down range) for which to calculate the overlap in m.}
 
-\item{ylim}{altitude range in meter, given as a numeric vector of length two.}
+\item{antenna}{radar antenna height. If missing taken from \code{vp}}
+
+\item{zlim}{altitude range in meter, given as a numeric vector of length two.}
 
 \item{noise_floor}{The system noise floor in dBZ. The total system noise expressed as the reflectivity factor
 it would represent at a distance \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED}
 
 \item{noise_floor_ref_range}{the reference distance from the radar at which \code{noise_floor} is expressed. NOT YET IMPLEMENTED}
 
-\item{steps}{number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations}
+\item{steps}{number of integration steps over altitude range zlim, defining altitude grid size used for numeric integrations}
 
 \item{quantity}{profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.}
 
-\item{normalize}{Whether to normalize the radiation coverage pattern over the altitude range specified by ylim}
+\item{normalize}{Whether to normalize the radiation coverage pattern over the altitude range specified by zlim}
+
+\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
+the angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 
-\item{lat}{radar latitude. If NA taken from \code{pvol}}
+\item{lat}{radar latitude. If missing taken from \code{vp}}
 
 \item{re}{Earth equatorial radius in km.}
 
@@ -46,7 +49,8 @@ and the (normalized) radiation coverage pattern as calculated by \link{beam_prof
 }
 \description{
 Calculates the distribution overlap between a vertical profile ('vp')
-and the vertical radiation profile as calculate with \link{beam_profile}.
+and the vertical radiation profile of a set of emitted radar beams
+at various elevation angles as calculate with \link{beam_profile}.
 }
 \details{
 to be written
@@ -73,7 +77,7 @@ pvol <- read_pvolfile(pvolfile)
 example_vp
 # calculate overlap between vertical profile of birds
 # and the vertical radiation profile emitted by the radar:
-bpo=beam_profile_overlap(pvol, example_vp, seq(0,100000,1000))
+bpo=beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0,100000,1000))
 # plot the calculated overlap:
 plot(bpo)
 }

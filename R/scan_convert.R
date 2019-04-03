@@ -4,24 +4,26 @@
 #'
 #' @inheritParams beam_height
 #' @param scan a scan (sweep) of class scan
-#' @param lat Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{scan}.
-#' @param lon Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.
+#' @param lat Geodetic latitude of the radar in degrees. If missing taken from \code{scan}.
+#' @param lon Geodetic longitude of the radar in degrees. If missing taken from \code{scan}.
 #' @return a SpatialPointsDataFrame
 #' @export
 #' @details Beam altitude accounts for the curvature of the earth, using \link{beam_height}.
 #' Distance from the radar over the earth's surface is calculated using \link{beam_distance}.
-scan_to_spatial <- function(scan, lat=NA, lon=NA, k = 4 / 3, re = 6378, rp = 6357) {
+scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   assert_that(is.scan(scan))
   assert_that(is.number(k))
   assert_that(is.number(re))
   assert_that(is.number(rp))
-  if(is.null(scan$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
-  if(is.null(scan$geo$lon) && is.na(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
-  if(is.number(lat)) scan$geo$lat=lat
-  if(is.number(lon)) scan$geo$lon=lon
+  if(is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
+  if(is.null(scan$geo$lon) && missing(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
+  if(missing(lat)) lat=scan$geo$lat
+  if(missing(lon)) lon=scan$geo$lon
+  assert_that(is.number(lat))
+  assert_that(is.number(lon))
 
-  proj4string <- CRS(paste("+proj=aeqd +lat_0=", scan$geo$lat,
-                           " +lon_0=", scan$geo$lon,
+  proj4string <- CRS(paste("+proj=aeqd +lat_0=", lat,
+                           " +lon_0=", lon,
                            " +units=m",sep = ""))
 
   rscale=scan$geo$rscale
@@ -30,8 +32,8 @@ scan_to_spatial <- function(scan, lat=NA, lon=NA, k = 4 / 3, re = 6378, rp = 635
 
   data=data.frame(azim=c(t(matrix(rep(seq(0,dim(scan)[3]-1)*ascale,dim(scan)[2]),nrow=dim(scan)[3]))),
                   range=rep(seq(1,dim(scan)[2])*rscale,dim(scan)[3]),
-                  distance=beam_distance(range=rep(seq(1,dim(scan)[2])*rscale,dim(scan)[3]),elev=elev, k=k, lat=scan$geo$lat, re=re, rp=rp))
-  data$HGHT=scan$geo$height + beam_height(data$range,elev,k=k,lat=scan$geo$lat,re=re,rp=rp)
+                  distance=beam_distance(range=rep(seq(1,dim(scan)[2])*rscale,dim(scan)[3]),elev=elev, k=k, lat=lat, re=re, rp=rp))
+  data$HGHT=scan$geo$height + beam_height(data$range,elev,k=k,lat=lat,re=re,rp=rp)
   data=cbind(data,as.data.frame(sapply(scan$params,c)))
   coords=data.frame(x=data$distance*cos(pi/2-data$azim*pi/180),
                     y=data$distance*sin(pi/2-data$azim*pi/180))
@@ -62,23 +64,24 @@ scan_to_spatial <- function(scan, lat=NA, lon=NA, k = 4 / 3, re = 6378, rp = 635
 #' scan_to_raster(example_scan)
 #' # crop the scan and project at a resolution of 0.1 degree:
 #' scan_to_raster(example_scan, ylim=c(55,57),xlim=c(12,13), res=.1)
-scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,lat=NA, lon=NA,crs=NA, k = 4 / 3,  re = 6378, rp = 6357){
+scan_to_raster <- function(scan,nx=100,ny=100,xlim,ylim,res=NA,param,lat,lon,crs=NA, k = 4 / 3,  re = 6378, rp = 6357){
   if(!is.scan(scan)) stop("'scan' should be an object of class scan")
-  if(!is.number(nx) && is.na(res)) stop("'nx' should be an integer")
-  if(!is.number(ny) && is.na(res)) stop("ny' should be an integer")
-  if(!are_equal(xlim,NA)){
+  if(!is.number(nx) && missing(res)) stop("'nx' should be an integer")
+  if(!is.number(ny) && missing(res)) stop("ny' should be an integer")
+
+  if(!missing(xlim)){
     if(length(xlim)!=2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
     if(is.na(xlim[1]) | is.na(xlim[2]) | xlim[1]>xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
   }
-  if(!are_equal(ylim,NA)){
+  if(!missing(ylim)){
     if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be an integer vector of length two")
     if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
   }
-  if(!are_equal(res,NA)){
+  if(!missing(res) && !is.na(res)){
     assert_that(is.numeric(res))
     assert_that(length(res)<=2)
   }
-  if(!are_equal(param,NA)){
+  if(!missing(param)){
     if(FALSE %in% (param %in% c(names(scan$params), "azim","range","distance"))) stop("'param' contains scan parameter not found in scan")
     if(!(FALSE %in% (param %in% c("azim","range","distance")))) stop("'param' should contain the name of one or more scan parameters contained in 'scan'")
 
@@ -88,21 +91,24 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
     param_to_use=names(scan$params)
   }
 
-  if(is.null(scan$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
-  if(is.null(scan$geo$lon) && is.na(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
+  if(is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
+  if(is.null(scan$geo$lon) && missing(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
 
-  if(is.number(lat)) scan$geo$lat=lat
-  if(is.number(lon)) scan$geo$lon=lon
+  if(missing(lat)) lat=scan$geo$lat
+  if(missing(lon)) lon=scan$geo$lon
 
-  if(are_equal(crs,NA)){
-    crs <- CRS(paste("+proj=aeqd +lat_0=", scan$geo$lat,
-                     " +lon_0=", scan$geo$lon,
+  assert_that(is.number(lat))
+  assert_that(is.number(lon))
+
+  if(missing(crs) | is.na(crs)){
+    crs <- CRS(paste("+proj=aeqd +lat_0=", lat,
+                     " +lon_0=", lon,
                      " +units=m",sep = ""))
 
   }
   else{
     # check crs argument as in raster::raster()
-    crs=CRS(as.character(projection(crs)))
+    crs=CRS(as.character(raster::projection(crs)))
   }
 
   assert_that(is.number(k))
@@ -116,28 +122,28 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
   nazim <- dim(scan)[3]
 
   # extent not fully specified, determine it
-  if(are_equal(xlim,NA) | are_equal(ylim,NA)){
+  if(missing(xlim) | missing(ylim)){
     # georeference the data
-    spdf=scan_to_spatial(scan, k = k, lat=scan$geo$lat, lon=scan$geo$lon, re=re, rp=rp)
+    spdf=scan_to_spatial(scan, k = k, lat=lat, lon=lon, re=re, rp=rp)
     # keep only selected scan parameters
-    if(!are_equal(param,NA)) spdf=spdf[param]
+    if(!missing(param)) spdf=spdf[param]
     # transform spatialpoints to coordinate system of the raster
-    if(!are_equal(crs,NA)) spdf=spTransform(spdf,crs)
+    if(!missing(crs)) spdf=spTransform(spdf,crs)
     # get extent of the available data
     spdf_extent=raster::extent(spdf)
     # prepare a raster matching the data extent (or user-specified extent)
-    if(are_equal(xlim,NA)) xlim=c(spdf_extent@xmin,spdf_extent@xmax)
-    if(are_equal(ylim,NA)) ylim=c(spdf_extent@ymin,spdf_extent@ymax)
+    if(missing(xlim)) xlim=c(spdf_extent@xmin,spdf_extent@xmax)
+    if(missing(ylim)) ylim=c(spdf_extent@ymin,spdf_extent@ymax)
   }
 
-  if(is.na(res)){
+  if(missing(res) | is.na(res)){
     r <- raster(ncols=nx, nrows=ny,ext=raster::extent(c(xlim,ylim)),crs=crs)
   }
   else{
     r <- raster(ncols=nx, nrows=ny,ext=raster::extent(c(xlim,ylim)),crs=crs,res=res)
   }
   # convert raster coordinates to polar indices
-  polar_coords=cartesian_to_polar(coordinates(r),elev=scan$geo$elangle,k=k, lat=scan$geo$lat, re=re, rp=rp)
+  polar_coords=cartesian_to_polar(coordinates(r),elev=scan$geo$elangle,k=k, lat=lat, re=re, rp=rp)
   index=polar_to_index(polar_coords,rangebin=rscale,azimbin=ascale)
   # set indices outside the scan's matrix to NA
   index$row[index$row>nrang]=NA
@@ -154,7 +160,7 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim=NA,ylim=NA,res=NA,param=NA,la
     # suppress warning 'In readAll(x) : cannot read values; there is no file associated with this RasterBrick
     suppressWarnings({ raster::values(output[[name]]) <- scan$params[[name]][index] })
   }
-  if("distance" %in% param_to_use) output$distance=beam_distance(polar_coords$range,elev=scan$geo$elangle,k=k, lat=scan$geo$lat, re=re, rp=rp)
+  if("distance" %in% param_to_use) output$distance=beam_distance(polar_coords$range,elev=scan$geo$elangle,k=k, lat=lat, re=re, rp=rp)
   if("range" %in% param_to_use) output$range=polar_coords$range
   if("azim" %in% param_to_use) output$azim=polar_coords$azim
   output

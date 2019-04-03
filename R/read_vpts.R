@@ -78,6 +78,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
   # add profile_index to identify consecutive profiles
   data$new_profile_starts=c(T,(data$HGHT[-1]-data$HGHT[-length(data$HGHT)])<0)
   data$profile_index=NA
+  profile_index=NULL # define profile_index to suppress devtools::check warning in next line
   data[which(data$new_profile_starts),"profile_index"]=1:length(which(data$new_profile_starts))
   data = tidyr::fill(data, profile_index)
 

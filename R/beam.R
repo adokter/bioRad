@@ -73,9 +73,6 @@ beam_width <- function(range, beam_angle = 1) {
 #' \code{antenna} should be given in reference to the same reference plane (e.g. ground level or sea level)
 #'
 #' @keywords internal
-#' @examples
-#' # plot the beam profile of a beam emitted at 2 degrees elevation at 35000 meter from the radar:
-#' plot(gaussian_beam_profile(0:3000,35000,2),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam profile of 2 degree elevation beam at 35 km")
 gaussian_beam_profile=function(height,range,elev,antenna=0,beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357){
   assert_that(is.numeric(height))
   assert_that(is.numeric(range))
@@ -94,8 +91,8 @@ gaussian_beam_profile=function(height,range,elev,antenna=0,beam_angle=1, k=4/3, 
 #' Calculate for a set of beam elevations elev
 #' the altitudinal normalized distribution of radiated energy by those beams.
 #' @inheritParams gaussian_beam_profile
+#' @inheritParams beam_range
 #' @param elev numeric vector. Beam elevation(s) in degrees.
-#' @param distance numeric. Distance from the radar as measured along sea level (down range)
 #' @return numeric vector. Normalized radiated energy at each of the specified heights.
 #'
 #' @export
@@ -107,7 +104,8 @@ gaussian_beam_profile=function(height,range,elev,antenna=0,beam_angle=1, k=4/3, 
 #' altitude at a given distance from the radar, assuming the beams are emitted at surface level.
 #'
 #' @examples
-#' plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; distance: 35 km")
+#' plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",
+#' ylab="altitude [m]",main="beam elevations: 1,2 degrees; distance: 35 km")
 beam_profile = function(height, distance, elev, antenna=0, beam_angle=1, k=4/3, lat=35, re = 6378, rp = 6357){
   assert_that(is.numeric(height))
   assert_that(is.numeric(distance))
@@ -125,20 +123,20 @@ beam_profile = function(height, distance, elev, antenna=0, beam_angle=1, k=4/3, 
 }
 
 # helper function for beam_profile_overlap()
-beam_profile_overlap_help = function(pvol, vp, distance, antenna=0, ylim=c(0,4000), steps=500,quantity="dens", normalize=TRUE, beam_angle=1, k=4/3, re = 6378, rp = 6357){
+beam_profile_overlap_help = function(vp, elev, distance, antenna=0, zlim=c(0,4000), steps=500,quantity="dens", normalize=TRUE, beam_angle=1, k=4/3, lat, re = 6378, rp = 6357){
   # define altitude grid
-  height=seq(ylim[1],ylim[2],length.out=steps)
+  height=seq(zlim[1],zlim[2],length.out=steps)
   # calculate altitudinal radiation pattern of all radar beams combined
-  beamprof=beam_profile(height=height,distance=distance,elev=get_elevation_angles(pvol),antenna=antenna, lat=pvol$geo$lat, beam_angle=beam_angle, k=k, re = re, rp = rp)
+  beamprof=beam_profile(height=height,distance=distance,elev=elev,antenna=antenna, lat=lat, beam_angle=beam_angle, k=k, re = re, rp = rp)
   # normalize the distribution
-  step=(ylim[2]-ylim[1])/(steps-1)
+  step=(zlim[2]-zlim[1])/(steps-1)
   if(normalize) beamprof=beamprof/sum(beamprof*step)
   # output as data.frame
   beamprof=data.frame(height=height,radiation=beamprof)
   # linearly interpolate the density of the vertical profile at the same grid as beamprof above
   beamprof$vpr=approxfun(vp$data$HGHT+vp$attributes$where$interval/2,vp$data[[quantity]])(height)
   # normalize the vertical profile density
-  step=(ylim[2]-ylim[1])/(steps-1)
+  step=(zlim[2]-zlim[1])/(steps-1)
   beamprof$vpr=beamprof$vpr/sum(step*beamprof$vpr,na.rm=T)
   # calculate the Bhattacharyya coefficient of the density profile and radiation coverage pattern
   sum(step*sqrt(beamprof$radiation*beamprof$vpr),na.rm=T)
@@ -147,20 +145,22 @@ beam_profile_overlap_help = function(pvol, vp, distance, antenna=0, ylim=c(0,400
 #' Calculate overlap between a vertical profile ('vp') and the vertical radiation profile
 #'
 #' Calculates the distribution overlap between a vertical profile ('vp')
-#' and the vertical radiation profile as calculate with \link{beam_profile}.
+#' and the vertical radiation profile of a set of emitted radar beams
+#' at various elevation angles as calculate with \link{beam_profile}.
 #' @inheritParams beam_height
-#' @param pvol a polar volume of class pvol
+#' @inheritParams beam_width
 #' @param vp a vertical profile of class vp
-#' @param distance the distance(s) from the radar along sea level for which to calculate the overlap in m.
-#' @param ylim altitude range in meter, given as a numeric vector of length two.
+#' @param elev numeric vector. Beam elevation(s) in degrees.
+#' @param distance the distance(s) from the radar along sea level (down range) for which to calculate the overlap in m.
+#' @param zlim altitude range in meter, given as a numeric vector of length two.
 #' @param noise_floor The system noise floor in dBZ. The total system noise expressed as the reflectivity factor
 #'  it would represent at a distance \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED
 #' @param noise_floor_ref_range the reference distance from the radar at which \code{noise_floor} is expressed. NOT YET IMPLEMENTED
-#' @param steps number of integration steps over altitude range ylim, defining altitude grid size used for numeric integrations
+#' @param steps number of integration steps over altitude range zlim, defining altitude grid size used for numeric integrations
 #' @param quantity profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.
-#' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by ylim
-#' @param antenna radar antenna height. If \code{NA} taken from \code{pvol}
-#' @param lat radar latitude. If NA taken from \code{pvol}
+#' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by zlim
+#' @param antenna radar antenna height. If missing taken from \code{vp}
+#' @param lat radar latitude. If missing taken from \code{vp}
 #' @return A data.frame with columns distance and overlap. Overlap is calculated as the
 #' Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) vertical profile vp
 #' and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
@@ -191,23 +191,26 @@ beam_profile_overlap_help = function(pvol, vp, distance, antenna=0, ylim=c(0,400
 #' example_vp
 #' # calculate overlap between vertical profile of birds
 #' # and the vertical radiation profile emitted by the radar:
-#' bpo=beam_profile_overlap(pvol, example_vp, seq(0,100000,1000))
+#' bpo=beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0,100000,1000))
 #' # plot the calculated overlap:
 #' plot(bpo)
-beam_profile_overlap = function(pvol, vp, distance, antenna=NA, ylim=c(0,4000), noise_floor=-Inf, noise_floor_ref_range=1, steps=500, quantity="dens",normalize=T,beam_angle=1, k=4/3, lat=NA, re=6378, rp=6357){
+beam_profile_overlap = function(vp, elev, distance, antenna, zlim=c(0,4000), noise_floor=-Inf, noise_floor_ref_range=1, steps=500, quantity="dens",normalize=T,beam_angle=1, k=4/3, lat, re=6378, rp=6357){
   #min_detectable_eta <- dbz_to_eta(NEZH,vp$attributes$how$wavelength)*(range/1000)^2
-  if(!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
+
+  if(!is.numeric(elev)) stop("'elev' should be a number or numeric vector with the beam elevation(s)")
   if(!is.vp(vp)) stop("'vp' should be an object of class vp")
+  if(missing(antenna)) antenna=vp$attributes$where$height
+  if(missing(lat)) lat=vp$attributes$where$lat
   if(!is.numeric(distance) | min(distance)<0) stop("'distance' should be a positive numeric value or vector")
-  if(length(ylim)!=2 & !is.numeric(ylim)) stop("'ylim' should be a numeric vector of length two")
-  if(is.na(ylim[1]) | is.na(ylim[2]) | ylim[1]>ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
+  if(length(zlim)!=2 & !is.numeric(zlim)) stop("'zlim' should be a numeric vector of length two")
+  if(is.na(zlim[1]) | is.na(zlim[2]) | zlim[1]>zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
   if(length(steps)!=1 & !is.numeric(steps)) stop("'step' should be a numeric value")
   if(!(quantity %in% c("dens","eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
-  if(is.null(pvol$geo$height) && is.na(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
-  if(is.null(pvol$geo$lat) && is.na(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
-  if(is.number(antenna)) pvol$geo$height=antenna
-  if(is.number(lat)) pvol$geo$lat=lat
-  overlap=sapply(distance, function(x) beam_profile_overlap_help(pvol=pvol,vp=vp, distance=x, antenna=pvol$geo$height, ylim=ylim, steps=steps, quantity=quantity,normalize=normalize, beam_angle=beam_angle, k=k, re=re, rp=rp))
+  if(is.null(vp$attributes$where$height) && missing(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
+  assert_that(is.number(antenna))
+  if(is.null(vp$attributes$where$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
+  assert_that(is.number(lat))
+  overlap=sapply(distance, function(x) beam_profile_overlap_help(vp=vp, elev=elev, distance=x, antenna=antenna, zlim=zlim, steps=steps, quantity=quantity,normalize=normalize, beam_angle=beam_angle, k=k, lat=lat, re=re, rp=rp))
   data.frame(distance=distance,overlap=overlap)
 }
 
@@ -234,6 +237,7 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' (i.e. down range) and beam elevation.
 #'
 #' @inheritParams beam_height
+#' @param distance numeric. Distance from the radar as measured along sea level (down range)
 #' @return numeric. Beam range (slant range) in m.
 #'
 #' @export

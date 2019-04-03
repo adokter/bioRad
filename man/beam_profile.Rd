@@ -42,5 +42,6 @@ Returns the normalized altitudinal pattern of radiated energy as a function of
 altitude at a given distance from the radar, assuming the beams are emitted at surface level.
 }
 \examples{
-plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",ylab="altitude [m]",main="beam elevations: 1,2 degrees; distance: 35 km")
+plot(beam_profile(0:3000,35000,c(1,2)),0:3000,xlab="normalized radiated energy",
+ylab="altitude [m]",main="beam elevations: 1,2 degrees; distance: 35 km")
 }

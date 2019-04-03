@@ -4,7 +4,7 @@
 \alias{nyquist_velocity}
 \title{Nyquist velocity for a given pulse repetition frequency (PRF)}
 \usage{
-nyquist_velocity(wavelength, prf1, prf2 = NA)
+nyquist_velocity(wavelength, prf1, prf2)
 }
 \arguments{
 \item{wavelength}{radar wavelength in cm}

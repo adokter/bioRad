@@ -20,6 +20,7 @@ biocViews:
 Depends:
     R (>= 2.10)
 Imports:
+    assertthat,
     curl,
     fields,
     ggmap,
@@ -31,6 +32,7 @@ Imports:
     rhdf5,
     sp,
     stats,
+    tidyr,
     utils,
     maptools
 Suggests:

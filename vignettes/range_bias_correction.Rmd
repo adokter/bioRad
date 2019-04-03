@@ -1,9 +1,11 @@
 ---
 title: "Range bias correction with bioRad"
-output:
-  pdf_document: default
-  html_document:
-    df_print: paged
+author: Adriaan M. Dokter
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introductory exercises with bioRad}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## 1. preparations
@@ -142,7 +144,7 @@ We can calculate overlap between emitted radiation and the biological profile as
 ```{r}
 # calculate overlap between vertical profile of birds
 # and the vertical radiation profile emitted by the radar:
-bpo=beam_profile_overlap(example_pvol, example_vp, seq(0,100000,1000), quantity='eta')
+bpo=beam_profile_overlap(example_vp, get_elevation_angles(example_pvol),seq(0,100000,1000), quantity='eta')
 # plot the calculated overlap:
 plot(bpo)
 ```

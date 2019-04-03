@@ -4,9 +4,8 @@
 \alias{add_expected_eta_to_scan}
 \title{calculate a range-bias corrected PPI}
 \usage{
-add_expected_eta_to_scan(scan, vp, param = "DBZH", lat = NA,
-  lon = NA, antenna = NA, beam_angle = 1, k = 4/3, re = 6378,
-  rp = 6357)
+add_expected_eta_to_scan(scan, vp, param = "DBZH", lat, lon, antenna,
+  beam_angle = 1, k = 4/3, re = 6378, rp = 6357)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
@@ -17,9 +16,11 @@ add_expected_eta_to_scan(scan, vp, param = "DBZH", lat = NA,
 Typically the same parameter from which animal densities are estimated for object \code{vp}.
 One of 'DBZH','DBZV','DBZ','TH','TV'.}
 
-\item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
+\item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
 
-\item{lon}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{pvol}.}
+\item{lon}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
+
+\item{antenna}{radar antenna height. If missing taken from \code{vp}}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 the angle between the half-power (-3 dB) points of the main lobe}

@@ -4,15 +4,14 @@
 \alias{scan_to_spatial}
 \title{convert a polar scan into a spatial object.}
 \usage{
-scan_to_spatial(scan, lat = NA, lon = NA, k = 4/3, re = 6378,
-  rp = 6357)
+scan_to_spatial(scan, lat, lon, k = 4/3, re = 6378, rp = 6357)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
 
-\item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+\item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{scan}.}
 
-\item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+\item{lon}{Geodetic longitude of the radar in degrees. If missing taken from \code{scan}.}
 
 \item{k}{Standard refraction coefficient.}
 

@@ -4,9 +4,8 @@
 \alias{scan_to_raster}
 \title{convert a polar scan into a raster}
 \usage{
-scan_to_raster(scan, nx = 100, ny = 100, xlim = NA, ylim = NA,
-  res = NA, param = NA, lat = NA, lon = NA, crs = NA, k = 4/3,
-  re = 6378, rp = 6357)
+scan_to_raster(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param,
+  lat, lon, crs = NA, k = 4/3, re = 6378, rp = 6357)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
@@ -25,9 +24,9 @@ If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is
 \item{param}{scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
 of scan parameters speeds up evaluation.}
 
-\item{lat}{Geodetic latitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+\item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{scan}.}
 
-\item{lon}{Geodetic longitude of the radar in degrees. If \code{NA} taken from \code{scan}.}
+\item{lon}{Geodetic longitude of the radar in degrees. If missing taken from \code{scan}.}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
