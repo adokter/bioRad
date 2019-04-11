@@ -4,9 +4,10 @@
 \alias{read_pvolfile}
 \title{Read a polar volume (\code{pvol}) from file}
 \usage{
-read_pvolfile(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
-  "PHIDP", "CELL"), sort = TRUE, lat, lon, height, elev_min = 0,
-  elev_max = 90, verbose = TRUE, mount = dirname(file))
+read_pvolfile(file, param = c("DBZH", "DBZ", "VRADH", "VRAD", "TH", "T",
+  "RHOHV", "ZDR", "PHIDP", "CELL"), sort = TRUE, lat, lon, height,
+  elev_min = 0, elev_max = 90, verbose = TRUE,
+  mount = dirname(file))
 }
 \arguments{
 \item{file}{A string containing the path to a vertical profile generated
@@ -54,6 +55,7 @@ model (ODIM), see Table 16 in the
 Commonly available parameters are:
 \describe{
  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+ \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor [dBZ]}
  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
    velocities towards the radar are negative, while radial velocities away
    from the radar are positive}
