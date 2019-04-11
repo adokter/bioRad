@@ -67,6 +67,8 @@ the extent of the data in the first scan of the polar volume.
 Overlap between vertical profile and vertical radiation profile is calculated using \link{beam_profile}
 and stored as quantity 'overlap'.
 
+scans at 90 degree beam elevation (birdbath scans) are ignored.
+
 TODO: quantity and param is used in a confusing way, correct.
 }
 \examples{
