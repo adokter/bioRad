@@ -144,9 +144,9 @@ read_pvolfile <- function(file, param = c(
     attribs.where <- h5readAttributes(file, "where")
   }
 
-  vol.lat <- attribs.where$lat
-  vol.lon <- attribs.where$lon
-  vol.height <- attribs.where$height
+  vol.lat <- c(attribs.where$lat) # need the c() to convert single element matrix to single element vector
+  vol.lon <- c(attribs.where$lon)
+  vol.height <- c(attribs.where$height)
   if (is.null(vol.lat)) {
     if (missing(lat)) {
       if (cleanup) {
@@ -258,9 +258,9 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   }
 
   # add attributes to geo list
-  geo$elangle <- attribs.where$elangle
-  geo$rscale <- attribs.where$rscale
-  geo$ascale <- 360 / attribs.where$nrays
+  geo$elangle <- c(attribs.where$elangle)
+  geo$rscale <- c(attribs.where$rscale)
+  geo$ascale <- c(360 / attribs.where$nrays)
 
   # read scan parameters
   quantities <- lapply(

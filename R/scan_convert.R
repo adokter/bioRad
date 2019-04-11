@@ -158,6 +158,7 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim,ylim,res=NA,param,lat,lon,crs
   # fill the rasterbrick
   for(name in param_to_add){
     # suppress warning 'In readAll(x) : cannot read values; there is no file associated with this RasterBrick
+    print(paste(print(scan$geo$elangle),name))
     suppressWarnings({ raster::values(output[[name]]) <- scan$params[[name]][index] })
   }
   if("distance" %in% param_to_use) output$distance=beam_distance(polar_coords$range,elev=scan$geo$elangle,k=k, lat=lat, re=re, rp=rp)
