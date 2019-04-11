@@ -1,9 +1,9 @@
 ---
-title: "Range bias correction with bioRad"
+title: "Range bias correction"
 author: Adriaan M. Dokter
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introductory exercises with bioRad}
+  %\VignetteIndexEntry{Range bias correction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

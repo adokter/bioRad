@@ -223,7 +223,7 @@ safe_subset <- function(data, indexx, indexy) {
 }
 
 polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1) {
-  row <- floor(1 + coords_polar$range / rangebin)
-  col <- floor(1 + coords_polar$azim / azimbin)
+  row <- floor(1 + coords_polar$range / c(rangebin))
+  col <- floor(1 + coords_polar$azim / c(azimbin))
   data.frame(row = row, col = col)
 }
