@@ -66,6 +66,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' scan_to_raster(example_scan, ylim=c(55,57),xlim=c(12,13), res=.1)
 scan_to_raster <- function(scan,nx=100,ny=100,xlim,ylim,res=NA,param,lat,lon,crs=NA, k = 4 / 3,  re = 6378, rp = 6357){
   if(!is.scan(scan)) stop("'scan' should be an object of class scan")
+  if(get_elevation_angles(scan)==90) stop("georeferencing of 90 degree birdbath scan not supported")
   if(!is.number(nx) && missing(res)) stop("'nx' should be an integer")
   if(!is.number(ny) && missing(res)) stop("ny' should be an integer")
 
@@ -158,7 +159,6 @@ scan_to_raster <- function(scan,nx=100,ny=100,xlim,ylim,res=NA,param,lat,lon,crs
   # fill the rasterbrick
   for(name in param_to_add){
     # suppress warning 'In readAll(x) : cannot read values; there is no file associated with this RasterBrick
-    print(paste(print(scan$geo$elangle),name))
     suppressWarnings({ raster::values(output[[name]]) <- scan$params[[name]][index] })
   }
   if("distance" %in% param_to_use) output$distance=beam_distance(polar_coords$range,elev=scan$geo$elangle,k=k, lat=lat, re=re, rp=rp)

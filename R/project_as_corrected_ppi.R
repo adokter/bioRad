@@ -139,6 +139,11 @@ project_as_corrected_ppi = function(pvol,vp,nx=100,ny=100,xlim,ylim, zlim=c(0,40
   if(missing(lon)) lon=pvol$geo$lon
   assert_that(is.number(lon))
 
+  if(90 %in% get_elevation_angles(pvol)){
+    warning("ignoring 90 degree birdbath scan")
+    pvol$scans=pvol$scans[which(get_elevation_angles(pvol)!=90)]
+  }
+
   # check crs argument as in raster::raster()
   if(!missing(crs)){
     crs=CRS(as.character(raster::projection(crs)))
