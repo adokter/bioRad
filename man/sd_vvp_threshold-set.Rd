@@ -26,7 +26,17 @@ below this threshold are assumed to have an aerial density of zero
 individuals. This method updates the migration densities
 in \code{x$data$dens}
 }
+\details{
+See also \link{sd_vvp_threshold} for retrieving an objects radial
+velocity standard deviation.
+}
 \examples{
-# change threshold for a single vertical profile:
+# change or set the threshold for a single vertical profile:
 sd_vvp_threshold(example_vp) <- 2
+# change or set the threshold for a vertical profile time series:
+sd_vvp_threshold(example_vp) <- 2
+# retrieve threshold for a single vertical profile:
+sd_vvp_threshold(example_vp)
+# retrieve threshold for a vertical profile time series:
+sd_vvp_threshold(example_vpts)
 }
