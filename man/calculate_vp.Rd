@@ -10,7 +10,7 @@ calculate_vp(pvolfile, vpfile = "", pvolfile_out = "",
   elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
   range_min = 5000, range_max = 35000, n_layer = 20L,
   h_layer = 200, dealias = TRUE, nyquist_min = if (dealias) 5 else
-  25, dbz_quantity = "DBZH")
+  25, dbz_quantity = "DBZH", vol2bird_local_install)
 }
 \arguments{
 \item{pvolfile}{A radar file containing a radar polar volume, either in
@@ -75,6 +75,8 @@ scans to be included in the analysis.}
 
 \item{dbz_quantity}{character. One of the available reflectivity factor
 quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
+
+\item{vol2bird_local_install}{(optional) String with path to local vol2bird installation, see details.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When
@@ -145,6 +147,15 @@ recycled from one call to the next if subsequent calls share the same
 it is advised to choose a mountpoint that is a parent directory of all
 volume files to be processed, such that \code{calculate_vp} calls are as fast
 as possible.
+
+If you have installed the vol2bird algorithm locally (not possible on Windows)
+you can call vol2bird through this local installation (bypassing the Docker container),
+which will be faster. Simply point \code{vol2bird_local_install} to the path
+of your local vol2bird executable. Your local vol2bird executable will be called
+through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
+correctly specified in your .bashrc or .bash_profile file
+and contain all the required shared libraries by vol2bird. See vol2bird installation
+pages on Github for details.
 }
 \examples{
 # locate example polar volume file:

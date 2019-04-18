@@ -45,6 +45,7 @@
 #' velocities (below 25 m/s).
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
+#' @param vol2bird_local_install (optional) String with path to local vol2bird installation, see details.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
 #' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
@@ -113,6 +114,15 @@
 #' volume files to be processed, such that \code{calculate_vp} calls are as fast
 #' as possible.
 #'
+#' If you have installed the vol2bird algorithm locally (not possible on Windows)
+#' you can call vol2bird through this local installation (bypassing the Docker container),
+#' which will be faster. Simply point \code{vol2bird_local_install} to the path
+#' of your local vol2bird executable. Your local vol2bird executable will be called
+#' through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
+#' correctly specified in your .bashrc or .bash_profile file
+#' and contain all the required shared libraries by vol2bird. See vol2bird installation
+#' pages on Github for details.
+#'
 #' @references
 #' \itemize{
 #'   \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
@@ -126,15 +136,15 @@
 #' @examples
 #' # locate example polar volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-#' 
+#'
 #' # copy to a home directory with read/write permissions:
 #' file.copy(pvolfile, "~/volume.h5")
-#' 
+#'
 #' # calculate the profile:
 #' \dontrun{
 #' profile <- calculate_vp("~/volume.h5")
 #' }
-#' 
+#'
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
@@ -145,7 +155,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
                          range_min = 5000, range_max = 35000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
-                         dbz_quantity = "DBZH") {
+                         dbz_quantity = "DBZH", vol2bird_local_install) {
   # check input arguments
   if (!file.exists(pvolfile)) {
     stop("No such file or directory")
@@ -225,6 +235,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   if (!(dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"))) {
     warning(paste("expecting 'dbz_quantity' to be one of DBZ, DBZH, DBZV, TH, TV"))
   }
+
   if (!is.logical(dealias)) {
     stop("invalid 'dealias' argument, should be logical")
   }
@@ -265,8 +276,10 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   if (file.access(filedir, mode = 2) < 0) {
     stop(paste("vol2bird requires write permission in", filedir))
   }
-  if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
-    stop(paste("failed to start vol2bird Docker container"))
+  if(missing(vol2bird_local_install)){
+    if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
+      stop(paste("failed to start vol2bird Docker container"))
+    }
   }
 
   # put options file in place, to be read by vol2bird container
@@ -290,10 +303,15 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
     "option" = opt.names, "is" = rep("=", length(opt.values)),
     "value" = opt.values
   )
-  optfile <- paste(normalizePath(mount, winslash = "/"),
-    "/options.conf",
-    sep = ""
-  )
+  if(missing(vol2bird_local_install)){
+    optfile <- paste(normalizePath(mount, winslash = "/"),
+                     "/options.conf",
+                     sep = ""
+    )
+  }
+  else{
+    optfile <- paste(getwd(),"/options.conf",sep="")
+  }
 
   if (file.exists(optfile)) {
     warning(paste("options.conf file found in directory ", mount,
@@ -330,13 +348,18 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
-    result <- system(paste(
-      "docker exec vol2bird bash -c \"cd data && vol2bird ",
-      pvolfile_docker, profile.tmp.docker,
-      pvolfile_out_docker, "\""
-    ),
-    ignore.stdout = !verbose
-    )
+    if(missing(vol2bird_local_install)){
+      result <- system(paste(
+        "docker exec vol2bird bash -c \"cd data && vol2bird ",
+        pvolfile_docker, profile.tmp.docker,
+        pvolfile_out_docker, "\""
+      ),
+      ignore.stdout = !verbose
+      )
+    }
+    else{
+      result <- system(paste("bash -l -c \"",vol2bird_local_install,pvolfile,profile.tmp,pvolfile_out,"\""), ignore.stdout=!verbose)
+    }
   } else {
     winstring <- paste(
       "docker exec vol2bird bash -c \"cd data && vol2bird ",
@@ -347,7 +370,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   }
   if (result != 0) {
     if (file.exists(optfile)) file.remove(optfile)
-    stop("failed to run vol2bird Docker container")
+    stop("failed to run vol2bird")
   }
 
   # read output into a vp object
