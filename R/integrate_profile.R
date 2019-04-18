@@ -29,9 +29,9 @@
 #'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
 #'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{\code{mt}}{Migration Traffic in individuals/km, calculated from 
+#'    \item{\code{mt}}{Migration Traffic in individuals/km, cumulated from 
 #'       the start of the time series up to \code{datetime}}
-#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, calculated from
+#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
 #'       the start of the time series up to \code{datetime}}
 #'    \item{\code{ff}}{Horizontal ground speed in m/s}
 #'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
