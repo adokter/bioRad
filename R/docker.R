@@ -167,11 +167,11 @@ vol2bird_version <- function(vol2bird_local_install) {
     intern = TRUE, ignore.stderr = TRUE
   ),silent=TRUE))
 
+  # return NA if docker command failed.
+  if(class(creationDate)=="try-error") return(NA)
+
   # this occurs when there is no adokter/vol2bird container, resulting in an error.
   if(length(creationDate)>1) creationDate=creationDate[1]
-
-  # return NA if docker command failed.
-  if(is.null(creationDate)) return(NA)
 
   # docker reports time stamps in Zulu (UTC) time
   creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
