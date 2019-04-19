@@ -5,10 +5,11 @@
 #' @param verbose logical which indicates whether to print test results to
 #' R console. On Windows always TRUE.
 #' @export
-#' @return 0 upon success, otherwise an error code.
+#' @return If \code{verbose} is False: 0 upon success, otherwise an error code.
+#' If \code{verbose} is True, no value is returned.
 check_docker <- function(verbose = TRUE) {
   docker_command_rm = "docker rm -f hello-world"
-  docker_command_run = "docker run --name hello-world hello-world"
+  docker_command_run = "docker run --rm --name hello-world hello-world"
   if (.Platform$OS.type == "unix") {
     suppressWarnings(
       system(docker_command_rm,
@@ -55,30 +56,25 @@ check_docker <- function(verbose = TRUE) {
 #' @return the POSIXct creation date of the installed Docker image
 update_docker <- function() {
   creationDate <- NULL
-  if (.Platform$OS.type == "unix") {
-    result <- system("docker pull adokter/vol2bird:latest")
-    if (result == 0) {
-      creationDate <- system(
-        "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
-        intern = TRUE
-      )
-    }
-  } else {
-    result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
-    if (result == 0) {
-      creationDate <- suppressWarnings(system(
-        "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
-        intern = TRUE
-      ))
-    }
+
+  result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
+  if (result == 0) {
+    creationDate <- system(
+      "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
+      intern = TRUE
+    )
   }
+
   if (!is.null(creationDate)) {
     # docker reports time stamps in Zulu (UTC) time
     creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
   }
   if (result == 0) {
     # to initialize new container.
-    check_docker(verbose = FALSE)
+    if(check_docker(verbose = FALSE) == 0){
+      .pkgenv$vol2bird_version <- vol2bird_version()
+    }
+
   }
   return(creationDate)
 }
@@ -132,4 +128,54 @@ mount_docker_container <- function(mount = "~/") {
     .pkgenv$mount <- mount
   }
   return(result)
+}
+
+#' Check version of the vol2bird algorithm used by bioRad
+#'
+#' Checks that \href{https://www.docker.com/}{Docker} daemon is running
+#' correctly on the local system and returns the version of the
+#' installed vol2bird algorithm in the Docker container.
+#'
+#' @details when argument \code{vol2bird_local_install} is specified with
+#' a path to a local executable of vol2bird, the function will return
+#' the version of this local installation.
+#'
+#' @export
+#' @param vol2bird_local_install (optional) String with path to local
+#' vol2bird installation, see \link{calculate_vp} for details.
+#' @return an object of class \link{numeric_version}
+vol2bird_version <- function(vol2bird_local_install) {
+
+  if(!missing(vol2bird_local_install)){
+    vol2bird_version=suppressWarnings(system(paste("bash -l -c \"",vol2bird_local_install,"--version\""),intern=T))
+    vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
+    return(numeric_version(vol2bird_version))
+  }
+
+  creationDate <- suppressWarnings(system(
+    "docker inspect -f '{{ .Created }}' adokter/vol2bird",
+    intern = TRUE
+  ))
+
+  # docker reports time stamps in Zulu (UTC) time
+  creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
+  if(is.na(creationDate)) return(NA)
+
+  if(as.numeric(format(creationDate,"%Y"))<2019){
+    # vol2bird version generated before 2019, i.e. version < 0.4.0
+    vol2bird_version <- suppressWarnings(system(
+      "docker run --rm adokter/vol2bird bash -c 'vol2bird 2>&1 | grep Version'",
+      intern = TRUE
+    ))
+    vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][2]
+  }
+  else{
+    # vol2bird version >= 0.4.0, supporting --version argument
+    vol2bird_version <- suppressWarnings(system(
+      "docker run --rm adokter/vol2bird bash -c 'vol2bird --version'",
+      intern = TRUE
+    ))
+    vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
+  }
+  return(numeric_version(vol2bird_version))
 }

@@ -4,16 +4,16 @@
 \alias{calculate_vp}
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
-calculate_vp(pvolfile, vpfile = "", pvolfile_out = "",
-  autoconf = FALSE, verbose = FALSE, mount = dirname(pvolfile),
-  sd_vvp_threshold = 2, rcs = 11, dual_pol = FALSE, rho_hv = 0.95,
-  elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
-  range_min = 5000, range_max = 35000, n_layer = 20L,
-  h_layer = 200, dealias = TRUE, nyquist_min = if (dealias) 5 else
-  25, dbz_quantity = "DBZH", vol2bird_local_install)
+calculate_vp(file, vpfile = "", pvolfile_out = "", autoconf = FALSE,
+  verbose = FALSE, mount = dirname(file), sd_vvp_threshold = 2,
+  rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
+  elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
+  range_max = 35000, n_layer = 20L, h_layer = 200, dealias = TRUE,
+  nyquist_min = if (dealias) 5 else 25, dbz_quantity = "DBZH",
+  vol2bird_local_install, pvolfile)
 }
 \arguments{
-\item{pvolfile}{A radar file containing a radar polar volume, either in
+\item{file}{A radar file containing a radar polar volume, either in
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
 \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
@@ -77,6 +77,8 @@ scans to be included in the analysis.}
 quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 
 \item{vol2bird_local_install}{(optional) String with path to local vol2bird installation, see details.}
+
+\item{pvolfile}{deprecated argument renamed to \code{file}.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When
@@ -87,9 +89,10 @@ Calculates a vertical profile of biological scatterers (vp) from a polar volume 
 using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 }
 \details{
-Requires a running \href{https://www.docker.com/}{Docker} daemon.
+Requires a running \href{https://www.docker.com/}{Docker} daemon
+(unless a local installation of vol2bird is specified with \code{vol2bird_local_install}).
 
-Common arguments set by users are \code{pvolfile}, \code{vpfile},
+Common arguments set by users are \code{file}, \code{vpfile},
 \code{autoconf} and \code{mount}.
 
 Turn on \code{autoconf} to automatically select the optimal parameters for a

@@ -9,8 +9,7 @@ read_pvolfile(file, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
   elev_max = 90, verbose = TRUE, mount = dirname(file))
 }
 \arguments{
-\item{file}{A string containing the path to a vertical profile generated
-by \link[bioRad]{calculate_vp}.}
+\item{file}{A string containing the path to a polar volume file}
 
 \item{param}{An atomic vector of character strings, containing the names
 of scan parameters to read. To read all scan parameters use 'all'.}

@@ -3,7 +3,7 @@
 #' Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
 #' using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 #'
-#' @param pvolfile A radar file containing a radar polar volume, either in
+#' @param file A radar file containing a radar polar volume, either in
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in
 #' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
@@ -46,15 +46,17 @@
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param vol2bird_local_install (optional) String with path to local vol2bird installation, see details.
+#' @param pvolfile deprecated argument renamed to \code{file}.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
 #' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
 #'
 #' @export
 #'
-#' @details Requires a running \href{https://www.docker.com/}{Docker} daemon.
+#' @details Requires a running \href{https://www.docker.com/}{Docker} daemon
+#' (unless a local installation of vol2bird is specified with \code{vol2bird_local_install}).
 #'
-#' Common arguments set by users are \code{pvolfile}, \code{vpfile},
+#' Common arguments set by users are \code{file}, \code{vpfile},
 #' \code{autoconf} and \code{mount}.
 #'
 #' Turn on \code{autoconf} to automatically select the optimal parameters for a
@@ -147,17 +149,25 @@
 #'
 #' # clean up:
 #' file.remove("~/volume.h5")
-calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
+calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE,
-                         mount = dirname(pvolfile), sd_vvp_threshold = 2,
+                         mount = dirname(file), sd_vvp_threshold = 2,
                          rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
-                         dbz_quantity = "DBZH", vol2bird_local_install) {
+                         dbz_quantity = "DBZH", vol2bird_local_install, pvolfile) {
+
+  # check for deprecated input argument pvolfile
+  calls <- names(sapply(match.call(), deparse))[-1]
+  if(any("pvolfile" %in% calls)) {
+    warning("argument 'pvolfile' is deprecated, please use 'file'")
+
+  }
+
   # check input arguments
-  if (!file.exists(pvolfile)) {
+  if (!file.exists(file)) {
     stop("No such file or directory")
   }
   if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
@@ -248,7 +258,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
       mount
     ))
   }
-  if (!.pkgenv$docker) {
+  if (!.pkgenv$docker && missing(vol2bird_local_install)) {
     stop(
       "Requires a running Docker daemon.\nTo enable calculate_vp, start ",
       "your local Docker daemon, and run 'check_docker()' in R\n"
@@ -264,11 +274,11 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
     stop(paste("output directory", dirname(vpfile), "not found"))
   }
 
-  filedir <- dirname(normalizePath(pvolfile, winslash = "/"))
+  filedir <- dirname(normalizePath(file, winslash = "/"))
   if (!grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE)) {
     stop(
       "mountpoint 'mount' has to be a parent directory ",
-      "of input file 'pvolfile'"
+      "of input file 'file'"
     )
   }
 
@@ -338,7 +348,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
   if (nchar(prefix) > 0) {
     prefix <- paste(prefix, "/", sep = "")
   }
-  pvolfile_docker <- paste(prefix, basename(pvolfile), sep = "")
+  pvolfile_docker <- paste(prefix, basename(file), sep = "")
   profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
   if (pvolfile_out != "") {
     pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
@@ -358,7 +368,7 @@ calculate_vp <- function(pvolfile, vpfile = "", pvolfile_out = "",
       )
     }
     else{
-      result <- system(paste("bash -l -c \"",vol2bird_local_install,pvolfile,profile.tmp,pvolfile_out,"\""), ignore.stdout=!verbose)
+      result <- system(paste("bash -l -c \"",vol2bird_local_install,file,profile.tmp,pvolfile_out,"\""), ignore.stdout=!verbose)
     }
   } else {
     winstring <- paste(

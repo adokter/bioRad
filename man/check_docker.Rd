@@ -11,7 +11,8 @@ check_docker(verbose = TRUE)
 R console. On Windows always TRUE.}
 }
 \value{
-0 upon success, otherwise an error code.
+If \code{verbose} is False: 0 upon success, otherwise an error code.
+If \code{verbose} is True, no value is returned.
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running

@@ -9,6 +9,12 @@
   .pkgenv[["mounted"]] <- FALSE
   # the current mountpoint of the vol2bird docker container:
   .pkgenv[["mount"]] <- "~/"
+  if(has_docker){
+    .pkgenv[["vol2bird_version"]] <- vol2bird_version()
+  }
+  else{
+    .pkgenv[["vol2bird_version"]] <- NA
+  }
 }
 
 .onAttach <- function(libname, pkgname) {
@@ -23,6 +29,6 @@
     msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)
   } else {
-    packageStartupMessage("Docker daemon running, Docker functionality enabled.")
+    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled (vol2bird version",.pkgenv$vol2bird_version,")",sep=""))
   }
 }
