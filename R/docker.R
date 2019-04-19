@@ -63,19 +63,25 @@ update_docker <- function() {
       "docker inspect -f \"{{ .Created }}\" adokter/vol2bird:latest",
       intern = TRUE
     )
+    # initialize new container.
+    .pkgenv$vol2bird_version <- vol2bird_version()
+    if(is.na(.pkgenv$vol2bird_version)){
+      stop("Failed to initialize newly pulled Docker image")
+    }
+    else{
+      cat("Succesfully installed Docker image with vol2bird version ",.pkgenv$vol2bird_version)
+    }
+
+  }
+  else{
+    stop("Failed to pull Docker image")
   }
 
   if (!is.null(creationDate)) {
     # docker reports time stamps in Zulu (UTC) time
     creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
   }
-  if (result == 0) {
-    # to initialize new container.
-    if(check_docker(verbose = FALSE) == 0){
-      .pkgenv$vol2bird_version <- vol2bird_version()
-    }
 
-  }
   return(creationDate)
 }
 
@@ -156,7 +162,7 @@ vol2bird_version <- function(vol2bird_local_install) {
 
   creationDate <- suppressWarnings(system(
     "docker inspect -f \"{{ .Created }}\" adokter/vol2bird",
-    intern = TRUE
+    intern = TRUE, ignore.stderr = TRUE
   ))
 
   # this occurs when there is no adokter/vol2bird container, resulting in an error.
