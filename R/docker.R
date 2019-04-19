@@ -2,8 +2,9 @@
 #'
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running
 #' correctly on the local system
-#' @param verbose logical which indicates whether to print test results to
-#' R console. On Windows always TRUE.
+#' @param verbose logical. When TRUE test results are printed to
+#' R console (On Windows positive test results are always printed),
+#' when FALSE a numeric error-code is returned.
 #' @export
 #' @return If \code{verbose} is False: 0 upon success, otherwise an error code.
 #' If \code{verbose} is True, no value is returned.
@@ -42,7 +43,7 @@ check_docker <- function(verbose = TRUE) {
     return(result)
   }
   else{
-    if(result!=0) cat("Docker check failed (exit code ", result,")")
+    if(result!=0) cat("Docker check failed: exit code", result)
   }
 }
 
@@ -74,6 +75,7 @@ update_docker <- function() {
       stop("Failed to initialize newly pulled Docker image")
     }
     else{
+      print(.pkgenv$vol2bird_version)
       cat("Succesfully installed Docker image with vol2bird version ",.pkgenv$vol2bird_version)
     }
 

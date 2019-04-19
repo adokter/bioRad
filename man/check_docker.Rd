@@ -7,8 +7,9 @@
 check_docker(verbose = TRUE)
 }
 \arguments{
-\item{verbose}{logical which indicates whether to print test results to
-R console. On Windows always TRUE.}
+\item{verbose}{logical. When TRUE test results are printed to
+R console (On Windows positive test results are always printed),
+when FALSE a numeric error-code is returned.}
 }
 \value{
 If \code{verbose} is False: 0 upon success, otherwise an error code.
