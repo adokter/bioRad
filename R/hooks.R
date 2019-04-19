@@ -2,19 +2,14 @@
 .pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
-  has_docker <- (check_docker(verbose = FALSE) == 0)
+  # attempt to determine available vol2bird version
+  .pkgenv[["vol2bird_version"]] <- vol2bird_version()
   # flag indicating whether docker is running:
-  .pkgenv[["docker"]] <- has_docker
+  .pkgenv[["docker"]] <- !is.na(.pkgenv[["vol2bird_version"]])
   # flag indicating whether vol2bird docker container is mounted:
   .pkgenv[["mounted"]] <- FALSE
   # the current mountpoint of the vol2bird docker container:
   .pkgenv[["mount"]] <- "~/"
-  if(has_docker){
-    .pkgenv[["vol2bird_version"]] <- vol2bird_version()
-  }
-  else{
-    .pkgenv[["vol2bird_version"]] <- NA
-  }
 }
 
 .onAttach <- function(libname, pkgname) {
