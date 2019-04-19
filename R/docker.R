@@ -164,7 +164,7 @@ vol2bird_version <- function(vol2bird_local_install) {
   if(as.numeric(format(creationDate,"%Y"))<2019){
     # vol2bird version generated before 2019, i.e. version < 0.4.0
     vol2bird_version <- suppressWarnings(system(
-      "docker run --rm adokter/vol2bird bash -c 'vol2bird 2>&1 | grep Version'",
+      "docker run --rm adokter/vol2bird bash -c \"vol2bird 2>&1 | grep Version\"",
       intern = TRUE
     ))
     vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][2]
@@ -172,7 +172,7 @@ vol2bird_version <- function(vol2bird_local_install) {
   else{
     # vol2bird version >= 0.4.0, supporting --version argument
     vol2bird_version <- suppressWarnings(system(
-      "docker run --rm adokter/vol2bird bash -c 'vol2bird --version'",
+      "docker run --rm adokter/vol2bird bash -c \"vol2bird --version\"",
       intern = TRUE
     ))
     vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
