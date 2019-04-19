@@ -146,6 +146,8 @@ mount_docker_container <- function(mount = "~/") {
 #' @return an object of class \link{numeric_version}
 vol2bird_version <- function(vol2bird_local_install) {
 
+  creationDate <- NA
+
   if(!missing(vol2bird_local_install)){
     vol2bird_version=suppressWarnings(system(paste("bash -l -c \"",vol2bird_local_install,"--version\""),intern=T))
     vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
@@ -157,8 +159,13 @@ vol2bird_version <- function(vol2bird_local_install) {
     intern = TRUE
   ))
 
+  # this occurs when there is no adokter/vol2bird container, resulting in an error.
+  if(length(creationDate)>1) creationDate=creationDate[1]
+
   # docker reports time stamps in Zulu (UTC) time
   creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
+
+  # return NA if no valid time stamp found, or if docker command failed.
   if(is.na(creationDate)) return(NA)
 
   if(as.numeric(format(creationDate,"%Y"))<2019){
