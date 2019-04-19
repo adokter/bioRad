@@ -65,6 +65,8 @@ update_docker <- function() {
     )
     # initialize new container.
     .pkgenv$vol2bird_version <- vol2bird_version()
+    .pkgenv$docker <- !is.na(.pkgenv$vol2bird_version)
+    .pkgenv$mounted <- FALSE
     if(is.na(.pkgenv$vol2bird_version)){
       stop("Failed to initialize newly pulled Docker image")
     }
@@ -160,10 +162,10 @@ vol2bird_version <- function(vol2bird_local_install) {
     return(numeric_version(vol2bird_version))
   }
 
-  creationDate <- suppressWarnings(system(
+  creationDate <- suppressWarnings(try(system(
     "docker inspect -f \"{{ .Created }}\" adokter/vol2bird",
     intern = TRUE, ignore.stderr = TRUE
-  ))
+  ),silent=TRUE))
 
   # this occurs when there is no adokter/vol2bird container, resulting in an error.
   if(length(creationDate)>1) creationDate=creationDate[1]

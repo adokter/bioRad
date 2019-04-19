@@ -33,7 +33,7 @@ The angular diameter of the sun is about 0.536 degrees,
 therefore the moment of sunrise/sunset corresponds to half that elevation
 at -0.268 degrees.
 
-This is a convenience function mapping to \link[maptools]{crepuscule}.
+This is a convenience function mapping to \link{crepuscule}.
 
 Approximate astronomical formula are used, therefore the moment of
 sunrise / sunset may be off by a few minutes

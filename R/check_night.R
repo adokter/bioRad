@@ -7,7 +7,7 @@
 #'
 #' @param x \code{pvol}, \code{vp} or \code{vpts},
 #' or a date inheriting from class \code{POSIXct} or a string
-#' interpretable by \link[base]{as.POSIXct}.
+#' interpretable by \link{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
 #' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
