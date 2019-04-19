@@ -60,7 +60,7 @@ update_docker <- function() {
   result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
   if (result == 0) {
     creationDate <- system(
-      "docker inspect -f '{{ .Created }}' adokter/vol2bird:latest",
+      "docker inspect -f \"{{ .Created }}\" adokter/vol2bird:latest",
       intern = TRUE
     )
   }
@@ -153,7 +153,7 @@ vol2bird_version <- function(vol2bird_local_install) {
   }
 
   creationDate <- suppressWarnings(system(
-    "docker inspect -f '{{ .Created }}' adokter/vol2bird",
+    "docker inspect -f \"{{ .Created }}\" adokter/vol2bird",
     intern = TRUE
   ))
 

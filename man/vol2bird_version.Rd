@@ -15,8 +15,8 @@ an object of class \link{numeric_version}
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running
-correctly on the local system, and then verifies the version of the
-installed vol2bird algorithm.
+correctly on the local system and returns the version of the
+installed vol2bird algorithm in the Docker container.
 }
 \details{
 when argument \code{vol2bird_local_install} is specified with

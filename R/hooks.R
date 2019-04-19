@@ -29,6 +29,6 @@
     msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)
   } else {
-    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled (vol2bird version",.pkgenv$vol2bird_version,")",sep=""))
+    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled (vol2bird version ",.pkgenv$vol2bird_version,")",sep=""))
   }
 }
