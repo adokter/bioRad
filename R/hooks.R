@@ -2,6 +2,7 @@
 .pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
+  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.3.20")
   # attempt to determine available vol2bird version
   .pkgenv[["vol2bird_version"]] <- vol2bird_version()
   # flag indicating whether docker is running:
@@ -25,5 +26,8 @@
     packageStartupMessage(msg)
   } else {
     packageStartupMessage(paste("Docker daemon running, Docker functionality enabled (vol2bird version ",.pkgenv$vol2bird_version,")",sep=""))
+    if(.pkgenv[["vol2bird_version"]] < .pkgenv[["latest_vol2bird_version"]]){
+      packageStartupMessage("Your Docker image contains an obsolete version of vol2bird. Consider updating with update_docker()")
+    }
   }
 }
