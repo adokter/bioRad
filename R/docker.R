@@ -61,6 +61,8 @@ check_docker <- function(verbose = TRUE) {
 update_docker <- function() {
   creationDate <- NULL
 
+  if(suppressWarnings(system("docker",ignore.stderr = T, ignore.stdout = T)) != 0) stop("Docker daemon not found")
+
   result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
   if (result == 0) {
     creationDate <- system(
@@ -76,7 +78,7 @@ update_docker <- function() {
     }
     else{
       print(.pkgenv$vol2bird_version)
-      cat("Succesfully installed Docker image with vol2bird version ",.pkgenv$vol2bird_version)
+      cat(paste("Succesfully installed Docker image with vol2bird version",.pkgenv$vol2bird_version))
     }
 
   }
