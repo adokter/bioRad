@@ -41,6 +41,9 @@ check_docker <- function(verbose = TRUE) {
   if (!verbose) {
     return(result)
   }
+  else{
+    if(result!=0) cat("Docker check failed (exit code ", result,")")
+  }
 }
 
 #' Update Docker image from Docker hub
