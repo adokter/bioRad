@@ -34,7 +34,7 @@ call to \link[bioRad]{integrate_profile}.}
 \item{night_shade}{Logical, whether to plot night time shading.}
 
 \item{elev}{Numeric, sun elevation to use for day/night transition,
-see \link[bioRad]{sunrise}.}
+see \link{sunrise}.}
 
 \item{lat}{(optional) Latitude in decimal degrees. Overrides the lat
 attribute of \code{x}.}
