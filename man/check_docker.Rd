@@ -11,10 +11,10 @@ check_docker(verbose = TRUE)
 R console.}
 }
 \value{
-0 upon success, otherwise an error code: 1 if Docker image not available,
-2 if Docker daemon not running, 3 if Docker system command not found.
+0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
+2 if Docker daemon not running, 3 if Docker daemon not found.
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running
-correctly on the local system
+correctly on the local system, and that vol2bird Docker image is available.
 }

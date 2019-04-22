@@ -1,12 +1,12 @@
 #' Check if Docker is running
 #'
 #' Checks that \href{https://www.docker.com/}{Docker} daemon is running
-#' correctly on the local system
+#' correctly on the local system, and that vol2bird Docker image is available.
 #' @param verbose logical. When TRUE messages are printed to
 #' R console.
 #' @export
-#' @return 0 upon success, otherwise an error code: 1 if Docker image not available,
-#' 2 if Docker daemon not running, 3 if Docker system command not found.
+#' @return 0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
+#' 2 if Docker daemon not running, 3 if Docker daemon not found.
 check_docker <- function(verbose = TRUE) {
   check=vol2bird_version()
 
