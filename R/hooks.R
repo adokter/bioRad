@@ -18,15 +18,16 @@
   if (!.pkgenv$docker) {
     if(is.nan(.pkgenv[["vol2bird_version"]])){
       packageStartupMessage("Warning: Docker daemon is not running")
+      msg_action="start Docker and run 'check_docker()' in R"
     }
     else{
       # vol2bird_version equals NA:
       packageStartupMessage("Warning: Docker daemon not found")
+      msg_action="first install Docker"
     }
     msg <- paste(
       "Warning:", pkgname, "functionality requiring Docker has been disabled\n\n",
-      "To enable Docker functionality,",
-      "start Docker and run 'check_docker()' in R"
+      "To enable Docker functionality,", msg_action
     )
     msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)

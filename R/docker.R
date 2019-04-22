@@ -26,7 +26,7 @@ check_docker <- function(verbose = TRUE) {
     }
 
     if(is.na(check)){
-      if(verbose) warning("Docker system command not found")
+      if(verbose) warning("Docker daemon not found")
       return(3)
     }
   }
