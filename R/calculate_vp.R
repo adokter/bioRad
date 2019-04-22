@@ -45,7 +45,7 @@
 #' velocities (below 25 m/s).
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
-#' @param vol2bird_local_install (optional) String with path to local vol2bird installation, see details.
+#' @param local_install (optional) String with path to local vol2bird installation, see details.
 #' @param pvolfile deprecated argument renamed to \code{file}.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
@@ -54,7 +54,7 @@
 #' @export
 #'
 #' @details Requires a running \href{https://www.docker.com/}{Docker} daemon
-#' (unless a local installation of vol2bird is specified with \code{vol2bird_local_install}).
+#' (unless a local installation of vol2bird is specified with \code{local_install}).
 #'
 #' Common arguments set by users are \code{file}, \code{vpfile},
 #' \code{autoconf} and \code{mount}.
@@ -118,7 +118,7 @@
 #'
 #' If you have installed the vol2bird algorithm locally (not possible on Windows)
 #' you can call vol2bird through this local installation (bypassing the Docker container),
-#' which will be faster. Simply point \code{vol2bird_local_install} to the path
+#' which will be faster. Simply point \code{local_install} to the path
 #' of your local vol2bird executable. Your local vol2bird executable will be called
 #' through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
 #' correctly specified in your .bashrc or .bash_profile file
@@ -157,7 +157,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          range_min = 5000, range_max = 35000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
-                         dbz_quantity = "DBZH", vol2bird_local_install, pvolfile) {
+                         dbz_quantity = "DBZH", local_install, pvolfile) {
 
   # check for deprecated input argument pvolfile
   calls <- names(sapply(match.call(), deparse))[-1]
@@ -258,7 +258,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       mount
     ))
   }
-  if (!.pkgenv$docker && missing(vol2bird_local_install)) {
+  if (!.pkgenv$docker && missing(local_install)) {
     stop(
       "Requires a running Docker daemon.\nTo enable calculate_vp, start ",
       "your local Docker daemon, and run 'check_docker()' in R\n"
@@ -286,7 +286,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (file.access(filedir, mode = 2) < 0) {
     stop(paste("vol2bird requires write permission in", filedir))
   }
-  if(missing(vol2bird_local_install)){
+  if(missing(local_install)){
     if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
       stop(paste("failed to start vol2bird Docker container"))
     }
@@ -313,7 +313,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     "option" = opt.names, "is" = rep("=", length(opt.values)),
     "value" = opt.values
   )
-  if(missing(vol2bird_local_install)){
+  if(missing(local_install)){
     optfile <- paste(normalizePath(mount, winslash = "/"),
                      "/options.conf",
                      sep = ""
@@ -358,7 +358,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
-    if(missing(vol2bird_local_install)){
+    if(missing(local_install)){
       result <- system(paste(
         "docker exec vol2bird bash -c \"cd data && vol2bird ",
         pvolfile_docker, profile.tmp.docker,
@@ -368,7 +368,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       )
     }
     else{
-      result <- system(paste("bash -l -c \"",vol2bird_local_install,file,profile.tmp,pvolfile_out,"\""), ignore.stdout=!verbose)
+      result <- system(paste("bash -l -c \"",local_install,file,profile.tmp,pvolfile_out,"\""), ignore.stdout=!verbose)
     }
   } else {
     winstring <- paste(

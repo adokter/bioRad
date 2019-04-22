@@ -137,21 +137,21 @@ mount_docker_container <- function(mount = "~/") {
 #' correctly on the local system and returns the version of the
 #' installed vol2bird algorithm in the Docker container.
 #'
-#' @details when argument \code{vol2bird_local_install} is specified with
+#' @details when argument \code{local_install} is specified with
 #' a path to a local executable of vol2bird, the function will return
 #' the version of this local installation.
 #'
 #' @export
-#' @param vol2bird_local_install (optional) String with path to local
+#' @param local_install (optional) String with path to local
 #' vol2bird installation, see \link{calculate_vp} for details.
 #' @return an object of class \link{numeric_version}, NA if docker system command not available,
 #' NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
-vol2bird_version <- function(vol2bird_local_install) {
+vol2bird_version <- function(local_install) {
 
   creationDate <- NA
 
-  if(!missing(vol2bird_local_install)){
-    vol2bird_version=suppressWarnings(system(paste("bash -l -c \"",vol2bird_local_install,"--version\""),intern=T))
+  if(!missing(local_install)){
+    vol2bird_version=suppressWarnings(system(paste("bash -l -c \"",local_install,"--version\""),intern=T))
     vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
     return(numeric_version(vol2bird_version))
   }

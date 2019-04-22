@@ -4,10 +4,10 @@
 \alias{vol2bird_version}
 \title{Check version of the vol2bird algorithm used by bioRad}
 \usage{
-vol2bird_version(vol2bird_local_install)
+vol2bird_version(local_install)
 }
 \arguments{
-\item{vol2bird_local_install}{(optional) String with path to local
+\item{local_install}{(optional) String with path to local
 vol2bird installation, see \link{calculate_vp} for details.}
 }
 \value{
@@ -20,7 +20,7 @@ correctly on the local system and returns the version of the
 installed vol2bird algorithm in the Docker container.
 }
 \details{
-when argument \code{vol2bird_local_install} is specified with
+when argument \code{local_install} is specified with
 a path to a local executable of vol2bird, the function will return
 the version of this local installation.
 }
