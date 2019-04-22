@@ -7,13 +7,12 @@
 check_docker(verbose = TRUE)
 }
 \arguments{
-\item{verbose}{logical. When TRUE test results are printed to
-R console (On Windows positive test results are always printed),
-when FALSE a numeric error-code is returned.}
+\item{verbose}{logical. When TRUE messages are printed to
+R console.}
 }
 \value{
-If \code{verbose} is False: 0 upon success, otherwise an error code.
-If \code{verbose} is True, no value is returned.
+0 upon success, otherwise an error code: 1 if Docker image not available,
+2 if Docker daemon not running, 3 if Docker system command not found.
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running

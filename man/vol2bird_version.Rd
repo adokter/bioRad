@@ -11,7 +11,8 @@ vol2bird_version(vol2bird_local_install)
 vol2bird installation, see \link{calculate_vp} for details.}
 }
 \value{
-an object of class \link{numeric_version}
+an object of class \link{numeric_version}, NA if docker system command not available,
+NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running
