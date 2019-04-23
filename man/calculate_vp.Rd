@@ -5,7 +5,7 @@
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
 calculate_vp(file, vpfile = "", pvolfile_out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(file), sd_vvp_threshold = 2,
+  verbose = FALSE, mount = dirname(file[1]), sd_vvp_threshold = 2,
   rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
   elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
   range_max = 35000, n_layer = 20L, h_layer = 200, dealias = TRUE,
@@ -13,7 +13,7 @@ calculate_vp(file, vpfile = "", pvolfile_out = "", autoconf = FALSE,
   local_install, pvolfile)
 }
 \arguments{
-\item{file}{A radar file containing a radar polar volume, either in
+\item{file}{Radar file(s) for a radar polar volume, either in
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
 \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format

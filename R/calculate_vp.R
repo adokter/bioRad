@@ -3,7 +3,7 @@
 #' Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
 #' using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 #'
-#' @param file A radar file containing a radar polar volume, either in
+#' @param file Radar file(s) for a radar polar volume, either in
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in
 #' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
@@ -151,7 +151,7 @@
 #' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE,
-                         mount = dirname(file), sd_vvp_threshold = 2,
+                         mount = dirname(file[1]), sd_vvp_threshold = 2,
                          rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20L,
@@ -167,9 +167,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   # check input arguments
-  if (!file.exists(file)) {
-    stop("No such file or directory")
+  for(filename in file){
+    if(!file.exists(filename)) {
+      stop(paste("No such file:",filename))
+    }
   }
+
   if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
     stop(
       "invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
@@ -264,6 +267,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       "your local Docker daemon, and run 'check_docker()' in R\n"
     )
   }
+
   if (!length(autoconf) == 1 || !is.logical(autoconf)) {
     stop("autoconf argument should be one of TRUE or FALSE")
   }
@@ -274,13 +278,19 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     stop(paste("output directory", dirname(vpfile), "not found"))
   }
 
-  filedir <- dirname(normalizePath(file, winslash = "/"))
+  filedir <- dirname(normalizePath(file[1], winslash = "/"))
   if (!grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE)) {
     stop(
       "mountpoint 'mount' has to be a parent directory ",
       "of input file 'file'"
     )
   }
+
+  # check whether vol2bird container supports multiple input files
+  multi_file_support = !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version>numeric_version("0.3.20")
+  if(!missing(local_install)) multi_file_support = TRUE
+
+  if(length(file)>1 && !multi_file_support) stop("Current installation does not support multiple input files. Provide a single input file containing a polar volume")
 
   profile.tmp <- tempfile(tmpdir = filedir)
   if (file.access(filedir, mode = 2) < 0) {
@@ -324,11 +334,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   if (file.exists(optfile)) {
+    optfile_save=paste(optfile,".",format(Sys.time(),"%Y%m%d%H%M%S"),sep="")
     warning(paste("options.conf file found in directory ", mount,
-      ". Renamed to options.conf.save to prevent overwrite...",
+      ". Renamed to ",basename(optfile_save)," to prevent overwrite...",
       sep = ""
     ))
-    file.rename(optfile, paste(optfile, ".saved", sep = ""))
+    file.rename(optfile, optfile_save)
   }
 
   # only use user configuration when autoconfiguration is off.
@@ -348,12 +359,26 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (nchar(prefix) > 0) {
     prefix <- paste(prefix, "/", sep = "")
   }
-  pvolfile_docker <- paste(prefix, basename(file), sep = "")
-  profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
-  if (pvolfile_out != "") {
-    pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
-  } else {
-    pvolfile_out_docker <- ""
+
+
+  # we have a valid vol2bird version > 0.3.20, so we can use multiple file inputs
+  if(multi_file_support) {
+    pvolfile_docker <- paste("-i ", prefix, basename(file), sep = "", collapse=" ")
+    profile.tmp.docker <- paste("-o ",prefix, basename(profile.tmp), sep = "")
+    if (pvolfile_out != "") {
+      pvolfile_out_docker <- paste("-p ",prefix, basename(pvolfile_out), sep = "")
+    } else {
+      pvolfile_out_docker <- ""
+    }
+  }
+  else{ # only single polar volume file input supported
+    pvolfile_docker <- paste(prefix, basename(file), sep = "")
+    profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
+    if (pvolfile_out != "") {
+      pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
+    } else {
+      pvolfile_out_docker <- ""
+    }
   }
 
   # run vol2bird container
