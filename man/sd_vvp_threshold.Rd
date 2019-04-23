@@ -25,6 +25,10 @@ threshold for \code{sd_vvp} in m/s.
 Gives the current threshold in VVP-retrieved radial velocity standard
 deviation in m/s.
 }
+\details{
+See also \link{sd_vvp_threshold<-} for setting an objects radial
+velocity standard deviation.
+}
 \section{Methods (by class)}{
 \itemize{
 \item \code{vp}: threshold in VVP-retrieved radial velocity standard
@@ -38,6 +42,12 @@ deviation of a time series of vertical profiles
 }}
 
 \examples{
-# extract threshold for a single vertical profile:
+# retrieve threshold for a single vertical profile:
 sd_vvp_threshold(example_vp)
+# retrieve threshold for a vertical profile time series:
+sd_vvp_threshold(example_vpts)
+# change or set the threshold for a single vertical profile:
+sd_vvp_threshold(example_vp) = 2
+# change or set the threshold for a vertical profile time series:
+sd_vvp_threshold(example_vp) = 2
 }

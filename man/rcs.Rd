@@ -27,6 +27,10 @@ a radar cross section in cm^2
 \description{
 Gives the currently assumed radar cross section in cm^2.
 }
+\details{
+See also \link{rcs<-} for changing or setting the radar cross section
+of an object.
+}
 \section{Methods (by class)}{
 \itemize{
 \item \code{vp}: radar cross section of a vertical profile
@@ -40,6 +44,12 @@ integrated vertical profile(s)
 }}
 
 \examples{
-# extract RCS for a single vertical profile:
+# retrieve RCS for a single vertical profile:
 rcs(example_vp)
+# retrieve RCS for a vertical profile time series:
+rcs(example_vpts)
+# change or set RCS for a single vertical profile:
+rcs(example_vp) <- 11
+# change or set RCS for a vertical profile time series:
+rcs(example_vpts) <- 11
 }

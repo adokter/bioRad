@@ -7,11 +7,21 @@
 #'
 #' @return threshold for \code{sd_vvp} in m/s.
 #'
+#' @details See also \link{sd_vvp_threshold<-} for setting an objects radial
+#' velocity standard deviation.
+
+#'
 #' @export
 #'
 #' @examples
-#' # extract threshold for a single vertical profile:
+#' # retrieve threshold for a single vertical profile:
 #' sd_vvp_threshold(example_vp)
+#' # retrieve threshold for a vertical profile time series:
+#' sd_vvp_threshold(example_vpts)
+#' # change or set the threshold for a single vertical profile:
+#' sd_vvp_threshold(example_vp) = 2
+#' # change or set the threshold for a vertical profile time series:
+#' sd_vvp_threshold(example_vp) = 2
 sd_vvp_threshold <- function(x) {
   UseMethod("sd_vvp_threshold", x)
 }
@@ -58,9 +68,18 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' @export
 #'
+#' @details See also \link{sd_vvp_threshold} for retrieving an objects radial
+#' velocity standard deviation.
+#'
 #' @examples
-#' # change threshold for a single vertical profile:
+#' # change or set the threshold for a single vertical profile:
 #' sd_vvp_threshold(example_vp) <- 2
+#' # change or set the threshold for a vertical profile time series:
+#' sd_vvp_threshold(example_vp) <- 2
+#' # retrieve threshold for a single vertical profile:
+#' sd_vvp_threshold(example_vp)
+#' # retrieve threshold for a vertical profile time series:
+#' sd_vvp_threshold(example_vpts)
 `sd_vvp_threshold<-` <- function(x, value) {
   UseMethod("sd_vvp_threshold<-", x)
 }

@@ -7,13 +7,14 @@
 check_docker(verbose = TRUE)
 }
 \arguments{
-\item{verbose}{logical which indicates whether to print test results to
-R console. On Windows always TRUE.}
+\item{verbose}{logical. When TRUE messages are printed to
+R console.}
 }
 \value{
-0 upon success, otherwise an error code.
+0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
+2 if Docker daemon not running, 3 if Docker daemon not found.
 }
 \description{
 Checks that \href{https://www.docker.com/}{Docker} daemon is running
-correctly on the local system
+correctly on the local system, and that vol2bird Docker image is available.
 }

@@ -27,7 +27,17 @@ rcs(x) <- value
 Sets the assumed radar cross section in cm^2. This method also updates
 the migration densities in \code{x$data$dens}
 }
+\details{
+See also \link{rcs} for retrieving the radar cross section
+of an object.
+}
 \examples{
-# change RCS for a single vertical profile:
-rcs(example_vp) <- 20
+# change or set RCS for a single vertical profile:
+rcs(example_vp) <- 11
+# change or set RCS for a vertical profile time series:
+rcs(example_vpts) <- 11
+# retrieve RCS for a single vertical profile:
+rcs(example_vp)
+# retrieve RCS for a vertical profile time series:
+rcs(example_vpts)
 }
