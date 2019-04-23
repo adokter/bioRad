@@ -89,8 +89,6 @@ read_vpts <- function(file, radar, wavelength = "C") {
   # sort
   data <- data[with(data, order(datetime,profile_index, HGHT)), ]
 
-  data[1:400,c("datetime","profile_index")]
-
   # split into profiles
   data <- split(data, data$profile_index)
   names(data) <- NULL

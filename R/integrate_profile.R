@@ -29,9 +29,9 @@
 #'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
 #'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{\code{mt}}{Migration Traffic in individuals/km, calculated from 
+#'    \item{\code{mt}}{Migration Traffic in individuals/km, cumulated from 
 #'       the start of the time series up to \code{datetime}}
-#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, calculated from
+#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
 #'       the start of the time series up to \code{datetime}}
 #'    \item{\code{ff}}{Horizontal ground speed in m/s}
 #'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
@@ -83,7 +83,7 @@
 #' \code{dens} with \code{eta} in the formula for \code{mtr}.
 #' Reflectivity traffic rate gives the cross-sectional area
 #' passing the radar per km transect perpendicular to the migratory direction per hour.
-#' \code{rtr} values are conditional on settings of \link{rcs}, while \code{mtr} values are not.
+#' \code{mtr} values are conditional on settings of \link{rcs}, while \code{rtr} values are not.
 #' }
 #'
 #' \subsection{Migration traffic (mt) and reflectivity traffic (rt)}{
@@ -99,7 +99,7 @@
 #' position of the radar for the full period of the time series within the
 #' specified altitude band.
 #'
-#' \code{rt} values are conditional on settings of \link{rcs}, while \code{mt} values are not.
+#' \code{mt} values are conditional on settings of \link{rcs}, while \code{rt} values are not.
 #'
 #' Columnns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 #' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp

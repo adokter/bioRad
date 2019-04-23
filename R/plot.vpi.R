@@ -21,7 +21,7 @@
 #' @param main A title for the plot.
 #' @param night_shade Logical, whether to plot night time shading.
 #' @param elev Numeric, sun elevation to use for day/night transition,
-#' see \link[bioRad]{suntime}.
+#' see \link{sunrise}.
 #' @param lat (optional) Latitude in decimal degrees. Overrides the lat
 #' attribute of \code{x}.
 #' @param lon (optional) Longitude in decimal degrees. Overrides the lon

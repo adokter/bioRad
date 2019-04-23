@@ -1,7 +1,6 @@
 #' Read a polar volume (\code{pvol}) from file
 #'
-#' @param file A string containing the path to a vertical profile generated
-#' by \link[bioRad]{calculate_vp}.
+#' @param file A string containing the path to a polar volume file
 #' @param sort A logical value, when \code{TRUE} sort scans ascending
 #' by elevation.
 #' @param param An atomic vector of character strings, containing the names
