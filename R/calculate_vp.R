@@ -3,12 +3,15 @@
 #' Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
 #' using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 #'
-#' @param file Radar file(s) for a radar polar volume, either in
+#' @param file string or a vector of strings with radar file(s) for a radar polar volume.
+#' Provide either a single file containing a polar volume, or multiple files with single scans/sweeps.
+#' Data format should be either
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 #' format, which is the implementation of the OPERA data information model in
 #' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
 #' supported by the
-#' \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.
+#' \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, or Vaisala IRIS (IRIS RAW) format.
+#'
 #' @param vpfile character. Filename for the vertical profile to be
 #' generated in ODIM HDF5 format (optional).
 #' @param pvolfile_out character. Filename for the polar volume to be

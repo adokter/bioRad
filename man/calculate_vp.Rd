@@ -13,12 +13,14 @@ calculate_vp(file, vpfile = "", pvolfile_out = "", autoconf = FALSE,
   local_install, pvolfile)
 }
 \arguments{
-\item{file}{Radar file(s) for a radar polar volume, either in
+\item{file}{string or a vector of strings with radar file(s) for a radar polar volume.
+Provide either a single file containing a polar volume, or multiple files with single scans/sweeps.
+Data format should be either
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
 \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
 supported by the
-\href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}.}
+\href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, or Vaisala IRIS (IRIS RAW) format.}
 
 \item{vpfile}{character. Filename for the vertical profile to be
 generated in ODIM HDF5 format (optional).}
