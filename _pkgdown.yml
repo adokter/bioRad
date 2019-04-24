@@ -89,6 +89,9 @@ reference:
       - eta_to_dbz
       - sunrise_sunset
 
+development:
+  mode: auto
+
 template:
   params:
     bootswatch: yeti
