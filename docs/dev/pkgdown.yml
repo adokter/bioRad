@@ -4,4 +4,7 @@ pkgdown_sha: ~
 articles:
   bioRad: bioRad.html
   rad_aero_18: rad_aero_18.html
+urls:
+  reference: https://adokter.github.io/bioRad/reference
+  article: https://adokter.github.io/bioRad/articles
 

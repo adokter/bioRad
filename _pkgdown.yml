@@ -1,3 +1,15 @@
+url: "https://adokter.github.io/bioRad"
+
+template:
+  params:
+    bootswatch: yeti
+    docsearch:
+      apiKey: 482e77c49caf113078e572738762cf40
+      indexName: biorad
+
+development:
+  mode: auto
+
 authors:
   Adriaan M. Dokter:
     href: "http://adriaandokter.com"
@@ -93,10 +105,3 @@ reference:
       - dbz_to_eta
       - eta_to_dbz
       - sunrise_sunset
-
-development:
-  mode: auto
-
-template:
-  params:
-    bootswatch: yeti
