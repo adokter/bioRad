@@ -4,8 +4,8 @@ template:
   params:
     bootswatch: yeti
     docsearch:
-      apiKey: 482e77c49caf113078e572738762cf40
-      indexName: biorad
+      api_key: 482e77c49caf113078e572738762cf40
+      index_name: biorad
 
 development:
   mode: auto
