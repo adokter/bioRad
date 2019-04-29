@@ -6,6 +6,11 @@ authors:
   Stijn Van Hoey:
     href: "https://twitter.com/SVanHoey"
 
+home:
+  links:
+    - text: Browse latest development docs
+      href: "https://adokter.github.io/bioRad/dev/"
+
 reference:
   - title: "Reading radar data"
     desc: "Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data."
