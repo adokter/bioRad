@@ -40,12 +40,6 @@ Then load the package with:
 
 ```r
 library(bioRad)
-#> Welcome to bioRad version 0.4.0
-#> Warning: no running Docker daemon found Warning: bioRad
-#> functionality requiring Docker has been disabled
-#> 
-#> To enable Docker functionality, start Docker and run
-#> 'check_docker()' in R
 ```
 
 ### _Attention!_ 
