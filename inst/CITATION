@@ -4,9 +4,9 @@ citEntry(entry = "article",
   title = "bioRad: biological analysis and visualization of weather radar data",
   author = c(person(c("Adriaan", "M."), "Dokter"), person("Peter", "Desmet"), person(c("Jurriaan","H."), "Spaaks"), person("Stijn", "Van Hoey"), person("Lourens", "Veen"), person("Liesbeth", "Verlinden"), person("Cecilia","Nilsson"), person("Günther","Haase"), person("Hidde","Leijnse"), person("Andrew","Farnsworth"), person("Willem","Bouten"), person("Judy","Shamoun-Baranes")),
   journal="Ecography",
-  year="2018",
-  volume="",
-  pages="",
+  year="2019",
+  volume="42",
+  pages="852-860",
   doi="10.1111/ecog.04028",
-  textVersion="Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2018) bioRad: biological analysis and visualization of weather radar data. Ecography. https://doi.org/10.1111/ecog.04028"
+  textVersion="Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2019) bioRad: biological analysis and visualization of weather radar data. Ecography 42: 852-860. https://doi.org/10.1111/ecog.04028"
 )

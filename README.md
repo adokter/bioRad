@@ -12,7 +12,7 @@ bioRad provides standardized methods for extracting and reporting biological sig
 
 To get started, see:
 
-* [Dokter et al. (2018)](https://doi.org/10.1111/ecog.04028): a paper describing the package.
+* [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper describing the package.
 * [bioRad vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an introduction to bioRad's main functionalities.
 * [Function reference](https://adokter.github.io/bioRad/reference/index.html): an overview of all bioRad functions.
 * [Introductory exercises](https://adokter.github.io/bioRad/articles/rad_aero_18.html): a tutorial with code examples and exercises.
@@ -40,6 +40,12 @@ Then load the package with:
 
 ```r
 library(bioRad)
+#> Welcome to bioRad version 0.4.0
+#> Warning: no running Docker daemon found Warning: bioRad
+#> functionality requiring Docker has been disabled
+#> 
+#> To enable Docker functionality, start Docker and run
+#> 'check_docker()' in R
 ```
 
 ### _Attention!_ 
