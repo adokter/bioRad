@@ -105,8 +105,14 @@
 #' contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
 #' positive or negative, depending on the definition of alpha.
 #'
+#' Note that \code{mtr} for a given value of \code{alpha} can also be calculated from
+#' the vertically integrated density \code{vid} and the height-integrated velocity
+#' components \code{u} and \code{v} as follows:
+#'
+#' \deqn{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}
+#'
 #' Formula for reflectivity traffic rate \code{rtr} are found by replacing
-#' \code{dens} with \code{eta} in the formula for \code{mtr}.
+#' \code{dens} with \code{eta} and \code{vid} with \code{vir} in the formula for \code{mtr}.
 #' Reflectivity traffic rate gives the cross-sectional area
 #' passing the radar per km transect perpendicular to the migratory direction per hour.
 #' \code{mtr} values are conditional on settings of \link{rcs}, while \code{rtr} values are not.
