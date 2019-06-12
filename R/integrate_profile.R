@@ -29,7 +29,7 @@
 #'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
 #'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
 #'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{\code{mt}}{Migration Traffic in individuals/km, cumulated from 
+#'    \item{\code{mt}}{Migration Traffic in individuals/km, cumulated from
 #'       the start of the time series up to \code{datetime}}
 #'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
 #'       the start of the time series up to \code{datetime}}
@@ -110,10 +110,10 @@
 #' @examples
 #' # MTR for a single vertical profile
 #' integrate_profile(example_vp)
-#' 
+#'
 #' # MTRs for a list of vertical profiles
 #' integrate_profile(c(example_vp, example_vp))
-#' 
+#'
 #' # MTRs for a time series of vertical profiles
 #' # load example data:
 #' data(example_vpts)
@@ -172,7 +172,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   v <- sum(get_quantity(x, "v")[index] * get_quantity(x, "dens")[index],
     na.rm = TRUE
   ) / sum(get_quantity(x, "dens")[index], na.rm = TRUE)
-  ff <- sqrt(u^2 + v^2)
+  ff <- sum(get_quantity(x, "ff")[index] * get_quantity(x, "dens")[index],
+           na.rm = TRUE
+  ) / sum(get_quantity(x, "dens")[index], na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures not defined for a single profile:
   mt <- NA
@@ -267,7 +269,11 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   ) / colSums(get_quantity(x, "dens")[index, ],
     na.rm = TRUE
   )
-  ff <- sqrt(u^2 + v^2)
+  ff <- colSums(get_quantity(x, "ff")[index, ] * get_quantity(x, "dens")[index, ],
+               na.rm = TRUE
+  ) / colSums(get_quantity(x, "dens")[index, ],
+              na.rm = TRUE
+  )
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures:
   dt <- (c(0, x$timesteps) + c(x$timesteps, 0)) / 2
