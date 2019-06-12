@@ -45,6 +45,27 @@
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }
 #'
+#' \subsection{Ground speed (ff) and ground speed components (u,v)}{
+#' The height-averaged ground speed is defined as:
+#'
+#' \deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i / \sum_i dens_i}
+#' with the sum running over all altitude layers between \code{alt_min} and
+#' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+#' altitude layer i.
+#'
+#' the height-averaged u component (west to east) is defined as:
+#'
+#' \deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i dens_i}
+#'
+#' the height-averaged v component (south to north) is defined as:
+#'
+#' \deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i dens_i}
+#' }
+#'
+#' Note that \eqn{ff_i=\sqrt(u_i^2 + v_i^2)}, but the same does not hold for the
+#' height-integrated speeds, i.e. \eqn{ff != \sqrt(u^2 + v^2)} as soon as the
+#' ground speed directions vary with altitude.
+#'
 #' \subsection{Migration traffic rate (mtr) and reflectivity traffic rate (rtr)}{
 #' Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
 #' as the number of targets crossing a unit of transect per hour.
@@ -58,20 +79,25 @@
 #' migratory movement at all times and altitudes. In this case \code{mtr} is
 #' always a positive quantity, defined as:
 #'
-#' \deqn{mtr = \sum_i dens_i ff_i \Delta h}{mtr = \sum_i dens_i ff_i \Delta h}
+#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \Delta h}
 #'
 #' with the sum running over all altitude layers between \code{alt_min} and
 #' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
-#' altitude layer i, and \eqn{\Delta h} the altitude layer width.
+#' altitude layer i, and \eqn{\Delta h} the altitude layer width. The factor 3.6
+#' refers to a unit conversion of speeds \eqn{ff_i} from m/s to km/h.
 #'
 #' If \code{alpha} is given a numeric value, the transect is taken perpendicular
 #' to the direction \code{alpha}, and the number of crossing targets per hour
 #' per km transect is calculated as:
 #'
-#' \deqn{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}{mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h}
+#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}
 #' with \eqn{dd_i} the migratory direction at altitude i.
 #'
 #' Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+#' Also note we can rewrite this equation using trigonemetry as:
+#'
+#' \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}
+#' with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.
 #'
 #' In this definition \code{mtr} is a traditional flux into a direction of
 #' interest. Targets moving into the direction \code{alpha} contribute
