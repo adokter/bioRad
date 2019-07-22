@@ -9,7 +9,7 @@
 #' @param ylim The range of latitudes to include.
 #' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
-#' @param ... Arguments passed to methods.
+#' @inheritParams beam_height
 #'
 #' @return An object of class '\link[=summary.ppi]{ppi}'.
 #'
@@ -33,7 +33,7 @@
 #' # print summary info for this ppi:
 #' ppi
 project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
-                           project = FALSE, ylim = NULL, xlim = NULL) {
+                           project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378, rp = 6357) {
   UseMethod("project_as_ppi", x)
 }
 
@@ -42,10 +42,10 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
-                                 project = FALSE, ylim = NULL, xlim = NULL) {
+                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "param"))
 
-  data <- sample_polar(x, grid_size, range_max, project, ylim, xlim)
+  data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)
   # copy the parameter's attributes
   geo <- attributes(x)$geo
   geo$bbox <- attributes(data)$bboxlatlon
@@ -63,12 +63,12 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
-                                project = FALSE, ylim = NULL, xlim = NULL) {
+                                project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
 
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
-    project, ylim, xlim
+    project, ylim, xlim, k = k, re = re, rp = rp
   )
   # copy the parameter's geo list to attributes
   geo <- x$geo
@@ -80,7 +80,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
       function(param) {
         sample_polar(
           param, grid_size, range_max,
-          project, ylim, xlim
+          project, ylim, xlim, k = k, re = re, rp = rp
         )
       }
     )
@@ -95,7 +95,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 }
 
 
-sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
+sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4/3, re = 6378, rp = 6357) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
                            " +lon_0=", attributes(param)$geo$lon,
@@ -138,9 +138,8 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
     elev <- 0
   }
   # get scan parameter indices, and extract data
-  # TODO: not all arguments present for cartesion_to_polar
   index <- polar_to_index(
-    cartesian_to_polar(coordinates(gridTopo), elev),
+    cartesian_to_polar(coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
     attributes(param)$geo$rscale,
     attributes(param)$geo$ascale
   )
