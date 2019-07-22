@@ -1,3 +1,15 @@
+url: "https://adokter.github.io/bioRad"
+
+template:
+  params:
+    bootswatch: yeti
+    docsearch:
+      api_key: 482e77c49caf113078e572738762cf40
+      index_name: biorad
+
+development:
+  mode: auto
+
 authors:
   Adriaan M. Dokter:
     href: "http://adriaandokter.com"
@@ -5,6 +17,11 @@ authors:
     href: "https://twitter.com/peterdesmet"
   Stijn Van Hoey:
     href: "https://twitter.com/SVanHoey"
+
+home:
+  links:
+    - text: Browse latest development docs
+      href: "https://adokter.github.io/bioRad/dev/"
 
 reference:
   - title: "Reading radar data"
@@ -14,22 +31,22 @@ reference:
       - get_odim_object_type
       - nexrad_to_odim
       - read_pvolfile
-      - is.pvol
+      - summary.pvol # is.pvol
   - title: "Inspecting radar scans"
     desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
     contents:
       - get_elevation_angles
       - get_scan
-      - is.scan
+      - summary.scan # is.scan
       - example_scan
       - plot.scan
       - get_param
-      - is.param
+      - summary.param # is.param
   - title: "Plotting radar scans"
     desc: "Functions to plot a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
     contents:
       - project_as_ppi
-      - is.ppi
+      - summary.ppi # is.ppi
       - plot.ppi
       - map
       - download_basemap
@@ -41,7 +58,7 @@ reference:
       - calculate_vp
       - check_docker
       - update_docker
-      - nexrad_to_odim
+      - nexrad_to_odim # Repeated
   - title: "Reading vertical profile data"
     desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
     contents:
@@ -50,7 +67,7 @@ reference:
       - is.vpfile
       - read_vpfiles
       - read_cajun
-      - is.vp
+      - summary.vp # is.vp
       - example_vp
       - plot.vp
       - as.data.frame.vp
@@ -60,7 +77,7 @@ reference:
       - c.vp
       - bind_into_vpts
       - read_vpts
-      - is.vpts
+      - summary.vpts # is.vpts
       - example_vpts
       - plot.vpts
       - regularize_vpts
@@ -87,8 +104,4 @@ reference:
       - beam_width
       - dbz_to_eta
       - eta_to_dbz
-      - sunrise
-
-template:
-  params:
-    bootswatch: yeti
+      - sunrise_sunset

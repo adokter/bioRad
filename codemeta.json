@@ -1,24 +1,27 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
   "@type": "SoftwareSourceCode",
   "identifier": "bioRad",
   "description": "bioRad aims to provide standardized methods for extracting and \n    reporting biological signals from weather radars. It includes functionality \n    to inspect low‐level radar data, process these data into meaningful \n    biological information on animal speeds and directions at different \n    altitudes in the atmosphere, visualize these biological extractions, and \n    calculate further summary statistics.",
   "name": "bioRad: Biological analysis and visualization of weather radar data",
   "codeRepository": "https://github.com/adokter/bioRad",
-  "relatedLink": "https://adokter.github.io/bioRad",
+  "relatedLink": ["https://adokter.github.io/bioRad", "https://github.com/adokter/bioRad/commit/c159384"],
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
   "version": "0.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.1",
+    "version": "3.5.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.1 (2018-07-02)",
+  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -70,6 +73,8 @@
       "@id": "https://orcid.org/0000-0001-7835-4480"
     }
   ],
+  "copyrightHolder": {},
+  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -241,9 +246,7 @@
       "sameAs": "https://CRAN.R-project.org/package=maptools"
     }
   ],
-  "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
-  "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "fileSize": "5730.265KB",
+  "keywords": ["r", "package", "radar", "aeroecology", "movement-ecology", "enram", "nexrad", "eumetnet-opera", "lifewatch", "wsr-88d", "weather-radar", "oscibio"],
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -323,6 +326,5 @@
         }
       }
     }
-  ],
-  "keywords": ["r", "package", "radar", "aeroecology", "movement-ecology", "enram", "nexrad", "eumetnet-opera", "lifewatchinbo", "lifewatch", "wsr-88d", "weather-radar"]
+  ]
 }
