@@ -2,7 +2,8 @@
 % Please edit documentation in R/beam.R
 \name{beam_profile_overlap}
 \alias{beam_profile_overlap}
-\title{Calculate overlap between a vertical profile ('vp') and the vertical radiation profile}
+\title{Calculate overlap between a vertical profile ('vp') of biological scatterers
+and the vertical radiation profile emitted by the radar}
 \usage{
 beam_profile_overlap(vp, elev, distance, antenna, zlim = c(0, 4000),
   noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
@@ -43,17 +44,20 @@ the angle between the half-power (-3 dB) points of the main lobe}
 \item{rp}{Earth polar radius in km.}
 }
 \value{
-A data.frame with columns distance and overlap. Overlap is calculated as the
-Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) vertical profile vp
-and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
+A data.frame with columns distance and overlap.
 }
 \description{
 Calculates the distribution overlap between a vertical profile ('vp')
 and the vertical radiation profile of a set of emitted radar beams
-at various elevation angles as calculate with \link{beam_profile}.
+at various elevation angles as given by \link{beam_profile}.
 }
 \details{
-to be written
+Overlap is calculated as the  [Bhattacharyya coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
+(i.e. distribution overlap) between the (normalized) vertical profile vp and the (normalized)
+radiation coverage pattern as calculated by \link{beam_profile}.
+
+The current implementation does not (yet) take into account the system noise floor when calculating
+the overlap.
 
 In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor
 (the Noise Equivalent Z or noise equivalent reflectivity factor. the H refers to the horizontal channel

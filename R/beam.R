@@ -142,11 +142,12 @@ beam_profile_overlap_help = function(vp, elev, distance, antenna=0, zlim=c(0,400
   sum(step*sqrt(beamprof$radiation*beamprof$vpr),na.rm=T)
 }
 
-#' Calculate overlap between a vertical profile ('vp') and the vertical radiation profile
+#' Calculate overlap between a vertical profile ('vp') of biological scatterers
+#' and the vertical radiation profile emitted by the radar
 #'
 #' Calculates the distribution overlap between a vertical profile ('vp')
 #' and the vertical radiation profile of a set of emitted radar beams
-#' at various elevation angles as calculate with \link{beam_profile}.
+#' at various elevation angles as given by \link{beam_profile}.
 #' @inheritParams beam_height
 #' @inheritParams beam_width
 #' @param vp a vertical profile of class vp
@@ -161,13 +162,16 @@ beam_profile_overlap_help = function(vp, elev, distance, antenna=0, zlim=c(0,400
 #' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by zlim
 #' @param antenna radar antenna height. If missing taken from \code{vp}
 #' @param lat radar latitude. If missing taken from \code{vp}
-#' @return A data.frame with columns distance and overlap. Overlap is calculated as the
-#' Bhattacharyya coefficient (i.e. distribution overlap) between the (normalized) vertical profile vp
-#' and the (normalized) radiation coverage pattern as calculated by \link{beam_profile}
+#' @return A data.frame with columns distance and overlap.
 #'
 #' @export
 #'
-#' @details to be written
+#' @details  Overlap is calculated as the  [Bhattacharyya coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
+#' (i.e. distribution overlap) between the (normalized) vertical profile vp and the (normalized)
+#' radiation coverage pattern as calculated by \link{beam_profile}.
+#'
+#' The current implementation does not (yet) take into account the system noise floor when calculating
+#' the overlap.
 #'
 #' In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor
 #' (the Noise Equivalent Z or noise equivalent reflectivity factor. the H refers to the horizontal channel
