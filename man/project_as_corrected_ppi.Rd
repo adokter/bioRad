@@ -60,7 +60,8 @@ calculates a PPI that corrects for range-bias effects due to partial beam overla
 the layer of migration (overshooting) at larger distances from the radar
 }
 \details{
-to be written
+TODO: DETAILS TO BE WRITTEN
+
 If one of \code{lat} or \code{lon} is missing, the extent of the PPI is take equal to
 the extent of the data in the first scan of the polar volume.
 
@@ -68,8 +69,6 @@ Overlap between vertical profile and vertical radiation profile is calculated us
 and stored as quantity 'overlap'.
 
 scans at 90 degree beam elevation (birdbath scans) are ignored.
-
-TODO: quantity and param is used in a confusing way, correct.
 }
 \examples{
 # locate example polar volume file:

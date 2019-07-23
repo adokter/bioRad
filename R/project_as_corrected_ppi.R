@@ -73,7 +73,8 @@ add_expected_eta_to_scan = function(scan,vp,param="DBZH", lat, lon, antenna, bea
 #'
 #' @export
 #'
-#' @details to be written
+#' @details TODO: DETAILS TO BE WRITTEN
+#'
 #' If one of \code{lat} or \code{lon} is missing, the extent of the PPI is take equal to
 #' the extent of the data in the first scan of the polar volume.
 #'
@@ -81,8 +82,6 @@ add_expected_eta_to_scan = function(scan,vp,param="DBZH", lat, lon, antenna, bea
 #' and stored as quantity 'overlap'.
 #'
 #' scans at 90 degree beam elevation (birdbath scans) are ignored.
-#'
-#' TODO: quantity and param is used in a confusing way, correct.
 #'
 #' @examples
 #' # locate example polar volume file:
