@@ -81,7 +81,7 @@ pvol <- read_pvolfile(pvolfile)
 example_vp
 # calculate overlap between vertical profile of birds
 # and the vertical radiation profile emitted by the radar:
-bpo=beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0,100000,1000))
+bpo <- beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0, 100000, 1000))
 # plot the calculated overlap:
 plot(bpo)
 }

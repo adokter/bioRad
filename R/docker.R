@@ -8,30 +8,30 @@
 #' @return 0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
 #' 2 if Docker daemon not running, 3 if Docker daemon not found.
 check_docker <- function(verbose = TRUE) {
-  check=vol2bird_version()
+  check <- vol2bird_version()
 
   .pkgenv$vol2bird_version <- check
   .pkgenv$docker <- !is.na(check)
   .pkgenv$mounted <- FALSE
 
-  if(is.null(check)){
-    if(verbose) warning("vol2bird docker container not downloaded, run update_docker()")
+  if (is.null(check)) {
+    if (verbose) warning("vol2bird docker container not downloaded, run update_docker()")
     return(1)
   }
 
-  if(class(check)!="numeric_version"){
-    if(is.nan(check)){
-      if(verbose) warning("Docker daemon not running, please start Docker")
+  if (class(check) != "numeric_version") {
+    if (is.nan(check)) {
+      if (verbose) warning("Docker daemon not running, please start Docker")
       return(2)
     }
 
-    if(is.na(check)){
-      if(verbose) warning("Docker daemon not found")
+    if (is.na(check)) {
+      if (verbose) warning("Docker daemon not found")
       return(3)
     }
   }
 
-  if(verbose) cat(paste("Running docker image with vol2bird version", check,"\n"))
+  if (verbose) cat(paste("Running docker image with vol2bird version", check, "\n"))
   return(0)
 }
 
@@ -49,7 +49,7 @@ check_docker <- function(verbose = TRUE) {
 update_docker <- function() {
   creationDate <- NULL
 
-  if(suppressWarnings(system("docker",ignore.stderr = T, ignore.stdout = T)) != 0) stop("Docker daemon not found")
+  if (suppressWarnings(system("docker", ignore.stderr = T, ignore.stdout = T)) != 0) stop("Docker daemon not found")
 
   result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
   if (result == 0) {
@@ -61,14 +61,14 @@ update_docker <- function() {
     .pkgenv$vol2bird_version <- vol2bird_version()
     .pkgenv$docker <- !is.na(.pkgenv$vol2bird_version)
     .pkgenv$mounted <- FALSE
-    if(is.na(.pkgenv$vol2bird_version)){
+    if (is.na(.pkgenv$vol2bird_version)) {
       stop("Failed to initialize newly pulled Docker image")
     }
-    else{
-      cat(paste("Succesfully installed Docker image with vol2bird version",.pkgenv$vol2bird_version,"\n"))
+    else {
+      cat(paste("Succesfully installed Docker image with vol2bird version", .pkgenv$vol2bird_version, "\n"))
     }
   }
-  else{
+  else {
     stop("Failed to pull Docker image")
   }
 
@@ -147,50 +147,49 @@ mount_docker_container <- function(mount = "~/") {
 #' @return an object of class \link{numeric_version}, NA if docker system command not available,
 #' NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
 vol2bird_version <- function(local_install) {
-
   creationDate <- NA
 
-  if(!missing(local_install)){
-    vol2bird_version=suppressWarnings(system(paste("bash -l -c \"",local_install,"--version\""),intern=T))
-    vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
+  if (!missing(local_install)) {
+    vol2bird_version <- suppressWarnings(system(paste("bash -l -c \"", local_install, "--version\""), intern = T))
+    vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][3]
     return(numeric_version(vol2bird_version))
   }
 
-  containerPresent=suppressWarnings(try(system("docker images -q adokter/vol2bird:latest", intern=TRUE, ignore.stderr=TRUE),silent=TRUE))
+  containerPresent <- suppressWarnings(try(system("docker images -q adokter/vol2bird:latest", intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
 
   # return NA if docker command not found (docker not installed)
-  if(class(containerPresent)=="try-error") return(NA)
+  if (class(containerPresent) == "try-error") return(NA)
 
   # return NaN if docker command executed, but threw an error status
   # this happens when Docker is installed, but when the Docker daemon is not running
-  if("status" %in% names(attributes(containerPresent))) return(NaN)
+  if ("status" %in% names(attributes(containerPresent))) return(NaN)
 
   # return NULL if the container is not available
-  if(length(containerPresent)==0) return(NULL)
+  if (length(containerPresent) == 0) return(NULL)
 
   creationDate <- suppressWarnings(try(system(
     "docker inspect -f \"{{ .Created }}\" adokter/vol2bird",
     intern = TRUE, ignore.stderr = TRUE
-  ),silent=TRUE))
+  ), silent = TRUE))
 
   # docker reports time stamps in Zulu (UTC) time
   creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
 
-  if(as.numeric(format(creationDate,"%Y"))<2019){
+  if (as.numeric(format(creationDate, "%Y")) < 2019) {
     # vol2bird version generated before 2019, i.e. version < 0.4.0
     vol2bird_version <- suppressWarnings(system(
       "docker run --rm adokter/vol2bird bash -c \"vol2bird 2>&1 | grep Version\"",
       intern = TRUE
     ))
-    vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][2]
+    vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][2]
   }
-  else{
+  else {
     # vol2bird version >= 0.4.0, supporting --version argument
     vol2bird_version <- suppressWarnings(system(
       "docker run --rm adokter/vol2bird bash -c \"vol2bird --version\"",
       intern = TRUE
     ))
-    vol2bird_version <- strsplit(trimws(vol2bird_version),split=" ")[[1]][3]
+    vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][3]
   }
   return(numeric_version(vol2bird_version))
 }

@@ -14,14 +14,14 @@
 #'
 #' @examples
 #' nyquist_velocity(5.3, 2000, 1500)
-nyquist_velocity = function(wavelength, prf1, prf2){
+nyquist_velocity <- function(wavelength, prf1, prf2) {
   assert_that(is.number(wavelength))
   assert_that(is.number(prf1))
-  if(missing(prf2)){
+  if (missing(prf2)) {
     return((wavelength / 100) * prf1 / 4)
   }
-  else{
+  else {
     assert_that(is.number(prf2))
-    return(((wavelength / 100) / 4) * prf1*prf2 / abs(prf1 - prf2))
+    return(((wavelength / 100) / 4) * prf1 * prf2 / abs(prf1 - prf2))
   }
 }

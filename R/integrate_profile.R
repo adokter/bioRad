@@ -142,10 +142,10 @@
 #' @examples
 #' # MTR for a single vertical profile
 #' integrate_profile(example_vp)
-#'
+#' 
 #' # MTRs for a list of vertical profiles
 #' integrate_profile(c(example_vp, example_vp))
-#'
+#' 
 #' # MTRs for a time series of vertical profiles
 #' # load example data:
 #' data(example_vpts)
@@ -186,8 +186,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   } else {
     cosfactor <- cos((get_quantity(x, "dd")[index] - alpha) * pi / 180)
   }
-  dens_quantity = get_quantity(x, "dens")[index]
-  dens_quantity[is.na(dens_quantity)] = 0
+  dens_quantity <- get_quantity(x, "dens")[index]
+  dens_quantity[is.na(dens_quantity)] <- 0
 
   # multiply speeds by 3.6 to convert m/s to km/h
   mtr <- sum(dens_quantity * cosfactor *
@@ -196,11 +196,11 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
   vid <- sum(dens_quantity, na.rm = TRUE) * interval / 1000
   vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE) * interval / 1000
-  height <- weighted.mean(get_quantity(x, "HGHT")[index] + x$attributes$where$interval / 2,dens_quantity, na.rm = TRUE)
+  height <- weighted.mean(get_quantity(x, "HGHT")[index] + x$attributes$where$interval / 2, dens_quantity, na.rm = TRUE)
 
-  u <- weighted.mean(get_quantity(x, "u")[index],dens_quantity, na.rm = TRUE)
-  v <- weighted.mean(get_quantity(x, "v")[index],dens_quantity, na.rm = TRUE)
-  ff <- weighted.mean(get_quantity(x, "ff")[index],dens_quantity, na.rm = TRUE)
+  u <- weighted.mean(get_quantity(x, "u")[index], dens_quantity, na.rm = TRUE)
+  v <- weighted.mean(get_quantity(x, "v")[index], dens_quantity, na.rm = TRUE)
+  ff <- weighted.mean(get_quantity(x, "ff")[index], dens_quantity, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures not defined for a single profile:
   mt <- NA
@@ -212,13 +212,13 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     v = v, HGHT = height
   )
 
-  if("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)){
-    airspeed_u = get_quantity(x, "u")[index]-get_quantity(x, "u_wind")[index]
-    airspeed_v = get_quantity(x, "v")[index]-get_quantity(x, "v_wind")[index]
-    output$airspeed=weighted.mean(sqrt(airspeed_u^2+airspeed_v^2), dens_quantity, na.rm = TRUE)
-    output$heading=weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, dens_quantity, na.rm = TRUE)
-    output$airspeed_u=weighted.mean(airspeed_u, dens_quantity, na.rm = TRUE)
-    output$airspeed_v=weighted.mean(airspeed_u, dens_quantity, na.rm = TRUE)
+  if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
+    airspeed_u <- get_quantity(x, "u")[index] - get_quantity(x, "u_wind")[index]
+    airspeed_v <- get_quantity(x, "v")[index] - get_quantity(x, "v_wind")[index]
+    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), dens_quantity, na.rm = TRUE)
+    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, dens_quantity, na.rm = TRUE)
+    output$airspeed_u <- weighted.mean(airspeed_u, dens_quantity, na.rm = TRUE)
+    output$airspeed_v <- weighted.mean(airspeed_u, dens_quantity, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -283,7 +283,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     cosfactor <- cos((get_quantity(x, "dd")[index, ] - alpha) * pi / 180)
   }
 
-  dens_quantity = colSums(get_quantity(x, "dens")[index, ], na.rm = TRUE)
+  dens_quantity <- colSums(get_quantity(x, "dens")[index, ], na.rm = TRUE)
 
   # multiply speeds by 3.6 to convert m/s to km/h
   mtr <- colSums(cosfactor * get_quantity(x, "ff")[index, ] * 3.6 *
@@ -303,7 +303,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     na.rm = TRUE
   ) / dens_quantity
   ff <- colSums(get_quantity(x, "ff")[index, ] * get_quantity(x, "dens")[index, ],
-               na.rm = TRUE
+    na.rm = TRUE
   ) / dens_quantity
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures:
@@ -320,12 +320,12 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     v = v, HGHT = height
   )
 
-  if("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)){
-    airspeed_u = get_quantity(x, "u")[index,]-get_quantity(x, "u_wind")[index,]
-    airspeed_v = get_quantity(x, "v")[index,]-get_quantity(x, "v_wind")[index,]
-    output$airspeed <- colSums(sqrt(airspeed_u^2+airspeed_v^2) * get_quantity(x, "dens")[index, ], na.rm = TRUE) /
+  if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
+    airspeed_u <- get_quantity(x, "u")[index, ] - get_quantity(x, "u_wind")[index, ]
+    airspeed_v <- get_quantity(x, "v")[index, ] - get_quantity(x, "v_wind")[index, ]
+    output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * get_quantity(x, "dens")[index, ], na.rm = TRUE) /
       dens_quantity
-    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * get_quantity(x, "dens")[index, ],na.rm = TRUE) / dens_quantity
+    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * get_quantity(x, "dens")[index, ], na.rm = TRUE) / dens_quantity
     output$airspeed_u <- colSums(airspeed_u * get_quantity(x, "dens")[index, ], na.rm = TRUE) / dens_quantity
     output$airspeed_v <- colSums(airspeed_v * get_quantity(x, "dens")[index, ], na.rm = TRUE) / dens_quantity
   }

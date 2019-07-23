@@ -52,5 +52,5 @@ the same raster pixel, the last added pixel is given (see \link[raster]{rasteriz
 # default projects full extent on 100x100 pixel raster:
 scan_to_raster(example_scan)
 # crop the scan and project at a resolution of 0.1 degree:
-scan_to_raster(example_scan, ylim=c(55,57),xlim=c(12,13), res=.1)
+scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
 }
