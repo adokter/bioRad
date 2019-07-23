@@ -64,7 +64,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   }
 
   if (missing(zlim)) {
-    zlim <- get_zlim(param,zlim)
+    zlim <- get_zlim(param, zlim)
   }
   colorscale <- color_scale_fill(param, zlim)
   # extract the scan parameter

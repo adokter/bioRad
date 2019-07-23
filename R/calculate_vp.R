@@ -141,15 +141,15 @@
 #' @examples
 #' # locate example polar volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-#'
+#' 
 #' # copy to a home directory with read/write permissions:
 #' file.copy(pvolfile, "~/volume.h5")
-#'
+#' 
 #' # calculate the profile:
 #' \dontrun{
 #' profile <- calculate_vp("~/volume.h5")
 #' }
-#'
+#' 
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
@@ -164,15 +164,14 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   # check for deprecated input argument pvolfile
   calls <- names(sapply(match.call(), deparse))[-1]
-  if(any("pvolfile" %in% calls)) {
+  if (any("pvolfile" %in% calls)) {
     warning("argument 'pvolfile' is deprecated, please use 'file'")
-
   }
 
   # check input arguments
-  for(filename in file){
-    if(!file.exists(filename)) {
-      stop(paste("No such file:",filename))
+  for (filename in file) {
+    if (!file.exists(filename)) {
+      stop(paste("No such file:", filename))
     }
   }
 
@@ -290,16 +289,16 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   # check whether vol2bird container supports multiple input files
-  multi_file_support = !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version>numeric_version("0.3.20")
-  if(!missing(local_install)) multi_file_support = TRUE
+  multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
+  if (!missing(local_install)) multi_file_support <- TRUE
 
-  if(length(file)>1 && !multi_file_support) stop("Current installation does not support multiple input files. Provide a single input file containing a polar volume")
+  if (length(file) > 1 && !multi_file_support) stop("Current installation does not support multiple input files. Provide a single input file containing a polar volume")
 
   profile.tmp <- tempfile(tmpdir = filedir)
   if (file.access(filedir, mode = 2) < 0) {
     stop(paste("vol2bird requires write permission in", filedir))
   }
-  if(missing(local_install)){
+  if (missing(local_install)) {
     if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
       stop(paste("failed to start vol2bird Docker container"))
     }
@@ -326,20 +325,20 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     "option" = opt.names, "is" = rep("=", length(opt.values)),
     "value" = opt.values
   )
-  if(missing(local_install)){
+  if (missing(local_install)) {
     optfile <- paste(normalizePath(mount, winslash = "/"),
-                     "/options.conf",
-                     sep = ""
+      "/options.conf",
+      sep = ""
     )
   }
-  else{
-    optfile <- paste(getwd(),"/options.conf",sep="")
+  else {
+    optfile <- paste(getwd(), "/options.conf", sep = "")
   }
 
   if (file.exists(optfile)) {
-    optfile_save=paste(optfile,".",format(Sys.time(),"%Y%m%d%H%M%S"),sep="")
+    optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
     warning(paste("options.conf file found in directory ", mount,
-      ". Renamed to ",basename(optfile_save)," to prevent overwrite...",
+      ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
       sep = ""
     ))
     file.rename(optfile, optfile_save)
@@ -365,16 +364,16 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
 
   # we have a valid vol2bird version > 0.3.20, so we can use multiple file inputs
-  if(multi_file_support) {
-    pvolfile_docker <- paste("-i ", prefix, basename(file), sep = "", collapse=" ")
-    profile.tmp.docker <- paste("-o ",prefix, basename(profile.tmp), sep = "")
+  if (multi_file_support) {
+    pvolfile_docker <- paste("-i ", prefix, basename(file), sep = "", collapse = " ")
+    profile.tmp.docker <- paste("-o ", prefix, basename(profile.tmp), sep = "")
     if (pvolfile_out != "") {
-      pvolfile_out_docker <- paste("-p ",prefix, basename(pvolfile_out), sep = "")
+      pvolfile_out_docker <- paste("-p ", prefix, basename(pvolfile_out), sep = "")
     } else {
       pvolfile_out_docker <- ""
     }
   }
-  else{ # only single polar volume file input supported
+  else { # only single polar volume file input supported
     pvolfile_docker <- paste(prefix, basename(file), sep = "")
     profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
     if (pvolfile_out != "") {
@@ -386,7 +385,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
-    if(missing(local_install)){
+    if (missing(local_install)) {
       result <- system(paste(
         "docker exec vol2bird bash -c \"cd data && vol2bird ",
         pvolfile_docker, profile.tmp.docker,
@@ -395,8 +394,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       ignore.stdout = !verbose
       )
     }
-    else{
-      result <- system(paste("bash -l -c \"",local_install,file,profile.tmp,pvolfile_out,"\""), ignore.stdout=!verbose)
+    else {
+      result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""), ignore.stdout = !verbose)
     }
   } else {
     winstring <- paste(

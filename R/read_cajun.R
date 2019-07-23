@@ -51,7 +51,7 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   data$dbz <- 10 * log10(data$eta)
   data$dens <- data$eta / rcs
   data$n <- NA
-  data$n_dbz <- data$n_dbz_all * (1-data$percent_rain/100)
+  data$n_dbz <- data$n_dbz_all * (1 - data$percent_rain / 100)
   data$n_all <- NA
 
   # remove redundant quantities

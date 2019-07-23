@@ -78,19 +78,21 @@ example_pvol <- read_pvolfile(pvolfile)
 # load the corresponding vertical profile for this polar volume
 data(example_vp)
 # calculate the range-bias corrected ppi on a 100x100 pixel raster
-my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,nx=100,ny=100)
+my_ppi <- project_as_corrected_ppi(example_pvol, example_vp, nx = 100, ny = 100)
 # plot the vertically integrated reflectivity (vir) using a 0-2000 cm^2/km^2 color scale:
-plot(my_ppi,zlim=c(0,2000))
+plot(my_ppi, zlim = c(0, 2000))
 # calculate the range-bias corrected ppi on finer 1000m x 1000m pixel raster:
-my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,res=1000)
+my_ppi <- project_as_corrected_ppi(example_pvol, example_vp, res = 1000)
 # plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
-plot(my_ppi,param="vid",zlim=c(0,200))
+plot(my_ppi, param = "vid", zlim = c(0, 200))
 #' # download a basemap, and map the ppi:
-bm = download_basemap(my_ppi)
+bm <- download_basemap(my_ppi)
 map(my_ppi, bm)
 # calculate the range-bias corrected ppi on an even finer 500m x 500m pixel raster,
 # cropping the area up to 50000 meter from the radar.
-my_ppi <- project_as_corrected_ppi(example_pvol,example_vp,res=500,
-xlim=c(-50000,50000),ylim=c(-50000,50000))
-plot(my_ppi,param="vid",zlim=c(0,200))
+my_ppi <- project_as_corrected_ppi(example_pvol, example_vp,
+  res = 500,
+  xlim = c(-50000, 50000), ylim = c(-50000, 50000)
+)
+plot(my_ppi, param = "vid", zlim = c(0, 200))
 }

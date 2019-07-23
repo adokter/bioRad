@@ -33,7 +33,7 @@
 #' # print summary info for this ppi:
 #' ppi
 project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
-                           project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378, rp = 6357) {
+                           project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   UseMethod("project_as_ppi", x)
 }
 
@@ -42,7 +42,7 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
-                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378, rp = 6357) {
+                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "param"))
 
   data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)
@@ -63,12 +63,13 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
-                                project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378, rp = 6357) {
+                                project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
 
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
-    project, ylim, xlim, k = k, re = re, rp = rp
+    project, ylim, xlim,
+    k = k, re = re, rp = rp
   )
   # copy the parameter's geo list to attributes
   geo <- x$geo
@@ -80,7 +81,8 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
       function(param) {
         sample_polar(
           param, grid_size, range_max,
-          project, ylim, xlim, k = k, re = re, rp = rp
+          project, ylim, xlim,
+          k = k, re = re, rp = rp
         )
       }
     )
@@ -95,12 +97,12 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 }
 
 
-sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4/3, re = 6378, rp = 6357) {
+sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4 / 3, re = 6378, rp = 6357) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
-                           " +lon_0=", attributes(param)$geo$lon,
-                           " +units=m",
-                           sep = ""
+    " +lon_0=", attributes(param)$geo$lon,
+    " +units=m",
+    sep = ""
   ))
   bboxlatlon <- proj_to_wgs(
     c(-range_max, range_max),
@@ -124,9 +126,9 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
     )
     cells.dim <- c(
       ceiling((max(bbox@coords[, "x"]) -
-                 min(bbox@coords[, "x"])) / grid_size),
+        min(bbox@coords[, "x"])) / grid_size),
       ceiling((max(bbox@coords[, "y"]) -
-                 min(bbox@coords[, "y"])) / grid_size)
+        min(bbox@coords[, "y"])) / grid_size)
     )
   }
   # define cartesian grid
@@ -146,11 +148,11 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   # set indices outside the scan's matrix to NA
   nrang <- dim(param)[1]
   nazim <- dim(param)[2]
-  index$row[index$row>nrang]=NA
-  index$col[index$col>nazim]=NA
+  index$row[index$row > nrang] <- NA
+  index$col[index$col > nazim] <- NA
   # convert 2D index to 1D index
-  index=(index$col-1)*nrang+index$row
-  data=as.data.frame(param[index])
+  index <- (index$col - 1) * nrang + index$row
+  data <- as.data.frame(param[index])
 
   #  data <- data.frame(mapply(
   #    function(x, y) {
@@ -205,8 +207,8 @@ proj_to_wgs <- function(x, y, proj4string) {
   return(res)
 }
 
-cartesian_to_polar <- function(coords, elev = 0, k = 4/3, lat = 35, re = 6378, rp = 6357) {
-  range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2),elev,k=k, lat=lat, re=re, rp=rp)
+cartesian_to_polar <- function(coords, elev = 0, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
+  range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2), elev, k = k, lat = lat, re = re, rp = rp)
   azim <- (0.5 * pi - atan2(coords[, 2], coords[, 1])) %% (2 * pi)
   data.frame(range = range, azim = azim * 180 / pi)
 }
