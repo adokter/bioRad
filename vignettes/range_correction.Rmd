@@ -1,20 +1,14 @@
 ---
-title: "Range bias correction"
+title: "Correction for range effects"
 author: Adriaan M. Dokter
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Range bias correction}
+  %\VignetteIndexEntry{Range correction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ## 1. preparations
-First install bioRad from Github from the rangebias branch:
-```{r,eval=FALSE}
-install.packages("devtools")
-library(devtools)
-install_github("adokter/bioRad@rangebias")
-```
 Load bioRad
 ```{r}
 library(bioRad)
@@ -76,8 +70,8 @@ Note that eta is directly related to reflectivity factor (DBZH), i.e. a reflecti
 dbz_to_eta(5,wavelength=5.3)
 ```
 
-## 4. range bias correction
-Range bias correction is implemented as follows:
+## 4. range correction
+Range correction is implemented as follows:
 
 We start with:
 
@@ -96,10 +90,10 @@ For each pixel on the ground, we thus end up with a set of $eta_{expected}$ and 
 To arrive at the final PPI image:
 
 - we calculate the vertically integrated density (`vid`) and vertically integrated reflectivity (`vir`) for the profile, using the function `integrate_profile()`.
-- the spatial range-bias corrected PPI for `vid` is simply the correction_factor image, multiplied by the `vid` calculated for the profile
-- Likewise, the spatial range-bias corrected PPI for vir is simply the `correction_factor` image, multiplied by the `vir` calculated for the profile
+- the spatial range-corrected PPI for `vid` is simply the correction_factor image, multiplied by the `vid` calculated for the profile
+- Likewise, the spatial range-corrected PPI for vir is simply the `correction_factor` image, multiplied by the `vir` calculated for the profile
 
-## 5. range bias correction example
+## 5. range correction example
 Let's first make a PPI plot of the lowest uncorrected scan:
 ```{r}
 # extract the first scan from the polar volume:
@@ -113,7 +107,7 @@ plot(my_ppi)
 Now let's calculate the range-corrected PPI
 ```{r}
 # let's use a 500 metre spatial grid (res), and restrict to 100x100 km area
-my_corrected_ppi <- project_as_corrected_ppi(example_pvol,example_vp, res=500,xlim=c(-100000,100000),ylim=c(-100000,100000))
+my_corrected_ppi <- integrate_to_ppi(example_pvol,example_vp, res=500,xlim=c(-100000,100000),ylim=c(-100000,100000))
 my_corrected_ppi
 ```
 
@@ -135,7 +129,7 @@ map(my_corrected_ppi,bm,param="vir",alpha=.5)
 ```
 
 ## 6. overlap between radiation profile and bird profile
-At large distances from the radar we expect correction for range bias effects to become more difficult:
+At large distances from the radar we expect correction for range effects to become more difficult:
 
 1. radar beams start to overshoot the aerial layers with biology, i.e. the overlap between the vertical profile and the emitted radiation profile decreases
 2. at large distances weak biological echoes may get below the radar's detection level
@@ -153,7 +147,7 @@ The function first normalizes the vertical profile altitudinal distribution. Thi
 
 It then calculates the overlap between the normalized vertical profile, and the normalized radiation profile as calculated with `beam_profile()`, using a metric called the [Bhattacharyya distance](https://en.wikipedia.org/wiki/Bhattacharyya_distance). This metric is zero when there is no overlap, and 1 when the distributions are identical.
 
-The range-bias corrected PPI also contains a field `overlap`, which contains the same metric but then calculated on the grid of the PPI:
+The range-corrected PPI also contains a field `overlap`, which contains the same metric but then calculated on the grid of the PPI:
 ```{r}
 plot(my_corrected_ppi,param="overlap")
 ```
@@ -165,4 +159,3 @@ The overlap metric might be used in the future to show only certain section of t
 - testing of all the functions
 - double-checking all the naming conventions
 - writing more detailed documentation of the functions
-- a more textual description of the method, as basis for a paper.

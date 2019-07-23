@@ -4,11 +4,11 @@ eta_expected <- function(vp, distance, elev, antenna, beam_angle, k, lat, re, rp
   rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
 }
 
-#' calculate a range-bias corrected PPI
+#' calculate a range-corrected PPI
 #'
-#' calculates a PPI that corrects for range-bias effects due to partial beam overlap with
+#' calculates a PPI that corrects for range-effects due to partial beam overlap with
 #' the layer of biological echoes (overshooting) at larger distances from the radar
-#' @inheritParams project_as_corrected_ppi
+#' @inheritParams integrate_to_ppi
 #' @inheritParams scan_to_raster
 #' @return an object of class 'scan'
 #'
@@ -55,16 +55,16 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
 }
 
 
-#' calculate a range-bias corrected PPI
+#' calculate a range-corrected PPI
 #'
-#' calculates a PPI that corrects for range-bias effects due to partial beam overlap with
+#' calculates a PPI that corrects for range-effects due to partial beam overlap with
 #' the layer of migration (overshooting) at larger distances from the radar
 #' @inheritParams scan_to_raster
 #' @inheritParams beam_profile_overlap
 #' @param pvol a polar volume of class pvol
 #' @param vp a vertical profile of class vp
 #' @param quantity one or multiple of 'vir','vid','correction_factor', 'overlap'
-#' @param param reflectivity factor scan parameter on which to base range bias corrections.
+#' @param param reflectivity factor scan parameter on which to base range corrections.
 #' Typically the same parameter from which animal densities are estimated for object \code{vp}.
 #' One of 'DBZH','DBZV','DBZ','TH','TV'.
 #' @param lat Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.
@@ -90,25 +90,25 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
 #' example_pvol <- read_pvolfile(pvolfile)
 #' # load the corresponding vertical profile for this polar volume
 #' data(example_vp)
-#' # calculate the range-bias corrected ppi on a 100x100 pixel raster
-#' my_ppi <- project_as_corrected_ppi(example_pvol, example_vp, nx = 100, ny = 100)
+#' # calculate the range-corrected ppi on a 100x100 pixel raster
+#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 100, ny = 100)
 #' # plot the vertically integrated reflectivity (vir) using a 0-2000 cm^2/km^2 color scale:
 #' plot(my_ppi, zlim = c(0, 2000))
-#' # calculate the range-bias corrected ppi on finer 1000m x 1000m pixel raster:
-#' my_ppi <- project_as_corrected_ppi(example_pvol, example_vp, res = 1000)
+#' # calculate the range-corrected ppi on finer 1000m x 1000m pixel raster:
+#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 1000)
 #' # plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
 #' #' # download a basemap, and map the ppi:
 #' bm <- download_basemap(my_ppi)
 #' map(my_ppi, bm)
-#' # calculate the range-bias corrected ppi on an even finer 500m x 500m pixel raster,
+#' # calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
 #' # cropping the area up to 50000 meter from the radar.
-#' my_ppi <- project_as_corrected_ppi(example_pvol, example_vp,
+#' my_ppi <- integrate_to_ppi(example_pvol, example_vp,
 #'   res = 500,
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
-project_as_corrected_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, param = "DBZH", lat, lon, antenna, beam_angle = 1, crs, quantity = c("vir", "vid", "correction_factor", "overlap"), k = 4 / 3, re = 6378, rp = 6357) {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, param = "DBZH", lat, lon, antenna, beam_angle = 1, crs, quantity = c("vir", "vid", "correction_factor", "overlap"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
