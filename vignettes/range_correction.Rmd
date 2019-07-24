@@ -11,6 +11,7 @@ vignette: >
 ## 1. preparations
 
 Load bioRad
+
 ```{r}
 library(bioRad)
 ```
@@ -26,32 +27,32 @@ The beam height is changing as a result of earth's curvature, and beam refractio
 
 ```{r}
 # define a range grid from 0 to 200 km:
-my_range=seq(0,200000,1000)
+my_range <- seq(0, 200000, 1000)
 # plot the beam height for each range, for a 0.5 degree elevation beam:
-plot(my_range,beam_height(my_range,elev=.5),xlab="range [m]",ylab="beam height [m]")
+plot(my_range, beam_height(my_range, elev = .5), xlab = "range [m]", ylab = "beam height [m]")
 ```
 
 The beam width also broadens with range:
 
 ```{r}
 # plot the beam width, for a beam opening angle of 1 degree (typical for most weather radars):
-plot(my_range,beam_width(my_range, beam_angle=1),xlab="range [m]",ylab="beam width [m]")
+plot(my_range, beam_width(my_range, beam_angle = 1), xlab = "range [m]", ylab = "beam width [m]")
 ```
 
 We can now combine the relations for beam width and beam height, to calculate the beam profile as a function of height, i.e. the altitudinal normalized distribution of radiated energy by the beam. Let's plot the radiation profile for a 0.5 and 2 degree beam elevation at 50 km from the radar (the height axis runs from ground level straight up):
 
 ```{r}
 # plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:
-plot(beam_profile(height=0:4000,50000,0.5),0:4000,xlab="normalized radiated energy",ylab="height [m]", main="beam elevation: 0.5 deg, distance=50km")
+plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000, xlab = "normalized radiated energy", ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km")
 # plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:
-plot(beam_profile(height=0:4000,50000,2),0:4000,xlab="normalized radiated energy",ylab="height [m]", main="beam elevation: 2 deg, distance=50km")
+plot(beam_profile(height = 0:4000, 50000, 2), 0:4000, xlab = "normalized radiated energy", ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km")
 ```
 
 We can also calculate the normalized radiation profile for the two beams combined:
 
 ```{r}
 # plot the combined beam profile for a 0.5 and 2.0 degree elevation beam at 50 km distance from the radar:
-plot(beam_profile(height=0:4000,50000,c(0.5,2)),0:4000,xlab="normalized radiated energy",ylab="height [m]", main="beam elevations: 0.5,2 deg, distance=50km")
+plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000, xlab = "normalized radiated energy", ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km")
 ```
 
 ## 3. vertical profiles and polar volumes
@@ -60,8 +61,8 @@ Let us now assume we have calculated a vertical profile (of birds) for a certain
 
 ```{r}
 # let's load an example polar volume:
-pvolfile=system.file("extdata", "volume.h5", package = "bioRad")
-example_pvol=read_pvolfile(file=pvolfile)
+pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+example_pvol <- read_pvolfile(file = pvolfile)
 # a vertical profile can also be calculated from the polar volume directly, using
 calculate_vp(pvolfile)
 # but for now we will use bioRad's example vertical profile already calculated:
@@ -71,13 +72,13 @@ example_vp
 Let's plot the vertical profile, for the quantity eta (the linear reflectivity):
 
 ```{r}
-plot(example_vp, quantity="eta")
+plot(example_vp, quantity = "eta")
 ```
 
 Note that eta is directly related to reflectivity factor (DBZH), i.e. a reflectivity factor of 5 dBZ amounts to the following eta at a radar wavelength of 5.3 cm:
 
 ```{r}
-dbz_to_eta(5,wavelength=5.3)
+dbz_to_eta(5, wavelength = 5.3)
 ```
 
 ## 4. range correction
@@ -110,9 +111,9 @@ Let's first make a PPI plot of the lowest uncorrected scan:
 
 ```{r}
 # extract the first scan from the polar volume:
-my_scan=example_pvol$scans[[1]]
+my_scan <- example_pvol$scans[[1]]
 # project it as a PPI on the ground:
-my_ppi <- project_as_ppi(my_scan,range_max=100000)
+my_ppi <- project_as_ppi(my_scan, range_max = 100000)
 # plot it
 plot(my_ppi)
 ```
@@ -121,7 +122,7 @@ Now let's calculate the range-corrected PPI
 
 ```{r}
 # let's use a 500 metre spatial grid (res), and restrict to 100x100 km area
-my_corrected_ppi <- integrate_to_ppi(example_pvol,example_vp, res=500,xlim=c(-100000,100000),ylim=c(-100000,100000))
+my_corrected_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 500, xlim = c(-100000, 100000), ylim = c(-100000, 100000))
 my_corrected_ppi
 ```
 
@@ -129,20 +130,20 @@ The range corrected PPI has four parameters: vir, vid, correction_factor, overla
 
 ```{r}
 # plot the correction_factor:
-plot(my_corrected_ppi,param="correction_factor")
+plot(my_corrected_ppi, param = "correction_factor")
 ```
 
 Let's also plot the vertically integrated reflectivity:
 
 ```{r}
-plot(my_corrected_ppi,param="vir")
+plot(my_corrected_ppi, param = "vir")
 ```
 
 Or plot the vertically integrated density on a map:
 
 ```{r}
-bm=download_basemap(my_corrected_ppi)
-map(my_corrected_ppi,bm,param="vir",alpha=.5)
+bm <- download_basemap(my_corrected_ppi)
+map(my_corrected_ppi, bm, param = "vir", alpha = .5)
 ```
 
 ## 6. overlap between radiation profile and bird profile
@@ -157,7 +158,7 @@ We can calculate overlap between emitted radiation and the biological profile as
 ```{r}
 # calculate overlap between vertical profile of birds
 # and the vertical radiation profile emitted by the radar:
-bpo=beam_profile_overlap(example_vp, get_elevation_angles(example_pvol),seq(0,100000,1000), quantity='eta')
+bpo <- beam_profile_overlap(example_vp, get_elevation_angles(example_pvol), seq(0, 100000, 1000), quantity = "eta")
 # plot the calculated overlap:
 plot(bpo)
 ```
@@ -169,7 +170,7 @@ It then calculates the overlap between the normalized vertical profile, and the 
 The range-corrected PPI also contains a field `overlap`, which contains the same metric but then calculated on the grid of the PPI:
 
 ```{r}
-plot(my_corrected_ppi,param="overlap")
+plot(my_corrected_ppi, param = "overlap")
 ```
 
 The overlap metric might be used in the future to show only certain section of the PPI, based on their overlap value.
