@@ -64,7 +64,7 @@ Let us now assume we have calculated a vertical profile (of birds) for a certain
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(file = pvolfile)
 # a vertical profile can also be calculated from the polar volume directly, using
-calculate_vp(pvolfile)
+# calculate_vp(pvolfile)
 # but for now we will use bioRad's example vertical profile already calculated:
 example_vp
 ```
