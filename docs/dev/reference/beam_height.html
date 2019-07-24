@@ -72,7 +72,7 @@ assuming the beam is emitted at surface level." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -99,6 +99,9 @@ assuming the beam is emitted at surface level." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -151,11 +154,12 @@ assuming the beam is emitted at surface level.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>range</th>
-      <td><p>numeric. Range (distance from the radar antenna) in km.</p></td>
+      <td><p>numeric. Slant range in m, the length of the skywave path
+between target and the radar antenna.</p></td>
     </tr>
     <tr>
       <th>elev</th>
-      <td><p>numeric. Elevation in degrees.</p></td>
+      <td><p>numeric. Beam elevation in degrees.</p></td>
     </tr>
     <tr>
       <th>k</th>
@@ -163,7 +167,7 @@ assuming the beam is emitted at surface level.</p>
     </tr>
     <tr>
       <th>lat</th>
-      <td><p>Geodetic latitude in degrees.</p></td>
+      <td><p>Geodetic latitude of the radar in degrees.</p></td>
     </tr>
     <tr>
       <th>re</th>
@@ -177,7 +181,7 @@ assuming the beam is emitted at surface level.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric. Beam height in km.</p>
+    <p>numeric. Beam height in m.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

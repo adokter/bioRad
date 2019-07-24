@@ -73,7 +73,7 @@ position indicator (<code>ppi</code>) — project_as_ppi" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -100,6 +100,9 @@ position indicator (<code>ppi</code>) — project_as_ppi" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -146,15 +149,18 @@ position indicator (<code>ppi</code>)</h1>
     </div>
 
     <pre class="usage"><span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)
 
 <span class='co'># S3 method for param</span>
 <span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)
 
 <span class='co'># S3 method for scan</span>
 <span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,8 +190,16 @@ position indicator (<code>ppi</code>)</h1>
       <td><p>The range of longitudes to include.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed to methods.</p></td>
+      <th>k</th>
+      <td><p>Standard refraction coefficient.</p></td>
+    </tr>
+    <tr>
+      <th>re</th>
+      <td><p>Earth equatorial radius in km.</p></td>
+    </tr>
+    <tr>
+      <th>rp</th>
+      <td><p>Earth polar radius in km.</p></td>
     </tr>
     </table>
     
