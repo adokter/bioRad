@@ -76,18 +76,18 @@ read_vpts <- function(file, radar, wavelength = "C") {
   )
 
   # add profile_index to identify consecutive profiles
-  data$new_profile_starts=c(T,(data$HGHT[-1]-data$HGHT[-length(data$HGHT)])<0)
-  data$profile_index=NA
-  profile_index=1 # this is a dummy, only to suppress no visible binding for global variable ‘profile_index’
-  data[which(data$new_profile_starts),"profile_index"]=1:length(which(data$new_profile_starts))
-  data = tidyr::fill(data, profile_index)
+  data$new_profile_starts <- c(T, (data$HGHT[-1] - data$HGHT[-length(data$HGHT)]) < 0)
+  data$profile_index <- NA
+  profile_index <- NULL # define profile_index to suppress devtools::check warning in next line
+  data[which(data$new_profile_starts), "profile_index"] <- 1:length(which(data$new_profile_starts))
+  data <- tidyr::fill(data, profile_index)
 
-  data$new_profile_starts=NULL
+  data$new_profile_starts <- NULL
   data$Date <- NULL
   data$Time <- NULL
 
   # sort
-  data <- data[with(data, order(datetime,profile_index, HGHT)), ]
+  data <- data[with(data, order(datetime, profile_index, HGHT)), ]
 
   # split into profiles
   data <- split(data, data$profile_index)
@@ -130,8 +130,8 @@ read_vpts <- function(file, radar, wavelength = "C") {
   )
 
   # sort again, since split() changes ordering
-  data=data[order(datetime)]
-  datetime=sort(datetime)
+  data <- data[order(datetime)]
+  datetime <- sort(datetime)
 
   # check whether the time series is regular
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
@@ -173,10 +173,10 @@ read_vpts <- function(file, radar, wavelength = "C") {
   class(output) <- "vpts"
 
   # remove duplicate profiles
-  duplicate_timestamps=which(output$timesteps==0)
-  if(length(duplicate_timestamps)>0){
-    warning(paste("removed",length(duplicate_timestamps),"profiles with duplicate timestamps."))
-    output=output[-duplicate_timestamps]
+  duplicate_timestamps <- which(output$timesteps == 0)
+  if (length(duplicate_timestamps) > 0) {
+    warning(paste("removed", length(duplicate_timestamps), "profiles with duplicate timestamps."))
+    output <- output[-duplicate_timestamps]
   }
 
   output

@@ -20,6 +20,7 @@
 #' by \code{summary(x)}. Commonly available parameters are:
 #' \describe{
 #'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor [dBZ]}
 #'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
 #'  velocities towards the radar are negative, while radial velocities away
 #'  from the radar are positive}
@@ -55,15 +56,15 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
     } else {
       param <- names(x$data)[1]
     }
-  } else if (!is.character(param)) {
+  } else if (!see_if(param %in% names(x$data))) {
     stop(
       "'param' should be a character string with a valid scan",
-      "parameter name"
+      " parameter name"
     )
   }
 
   if (missing(zlim)) {
-    zlim <- get_zlim(param)
+    zlim <- get_zlim(param, zlim)
   }
   colorscale <- color_scale_fill(param, zlim)
   # extract the scan parameter

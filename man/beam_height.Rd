@@ -7,20 +7,21 @@
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{numeric. Range (distance from the radar antenna) in km.}
+\item{range}{numeric. Slant range in m, the length of the skywave path
+between target and the radar antenna.}
 
-\item{elev}{numeric. Elevation in degrees.}
+\item{elev}{numeric. Beam elevation in degrees.}
 
 \item{k}{Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude in degrees.}
+\item{lat}{Geodetic latitude of the radar in degrees.}
 
 \item{re}{Earth equatorial radius in km.}
 
 \item{rp}{Earth polar radius in km.}
 }
 \value{
-numeric. Beam height in km.
+numeric. Beam height in m.
 }
 \description{
 Calculates the height of a radar beam as a function of elevation and range,

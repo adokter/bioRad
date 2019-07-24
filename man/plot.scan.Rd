@@ -29,6 +29,7 @@ Available scan parameters for plotting can by printed to screen
 by \code{summary(x)}. Commonly available parameters are:
 \describe{
  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+ \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor [dBZ]}
  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
    velocities towards the radar are negative, while radial velocities away
    from the radar are positive}

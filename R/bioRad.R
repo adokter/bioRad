@@ -22,8 +22,12 @@
 #' @import rgdal
 #' @import sp
 #' @import utils
+#' @import assertthat
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
+#' @importFrom raster rasterize
+#' @importFrom raster values
+#' @importFrom raster extent
 #' @importFrom curl curl_download
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
