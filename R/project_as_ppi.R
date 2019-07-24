@@ -9,7 +9,7 @@
 #' @param ylim The range of latitudes to include.
 #' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
-#' @param ... Arguments passed to methods.
+#' @inheritParams beam_height
 #'
 #' @return An object of class '\link[=summary.ppi]{ppi}'.
 #'
@@ -33,7 +33,7 @@
 #' # print summary info for this ppi:
 #' ppi
 project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
-                           project = FALSE, ylim = NULL, xlim = NULL) {
+                           project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   UseMethod("project_as_ppi", x)
 }
 
@@ -42,10 +42,10 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
-                                 project = FALSE, ylim = NULL, xlim = NULL) {
+                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "param"))
 
-  data <- sample_polar(x, grid_size, range_max, project, ylim, xlim)
+  data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)
   # copy the parameter's attributes
   geo <- attributes(x)$geo
   geo$bbox <- attributes(data)$bboxlatlon
@@ -63,12 +63,13 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
-                                project = FALSE, ylim = NULL, xlim = NULL) {
+                                project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
 
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
-    project, ylim, xlim
+    project, ylim, xlim,
+    k = k, re = re, rp = rp
   )
   # copy the parameter's geo list to attributes
   geo <- x$geo
@@ -80,7 +81,8 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
       function(param) {
         sample_polar(
           param, grid_size, range_max,
-          project, ylim, xlim
+          project, ylim, xlim,
+          k = k, re = re, rp = rp
         )
       }
     )
@@ -95,7 +97,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 }
 
 
-sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
+sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4 / 3, re = 6378, rp = 6357) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
     " +lon_0=", attributes(param)$geo$lon,
@@ -131,8 +133,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   }
   # define cartesian grid
   gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
-  # if projecting, account for elevation angle - not accounting for
-  # earths curvature
+  # if projecting, account for elevation angle
   if (project) {
     elev <- attributes(param)$geo$elangle * pi / 180
   } else {
@@ -140,17 +141,27 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   }
   # get scan parameter indices, and extract data
   index <- polar_to_index(
-    cartesian_to_polar(coordinates(gridTopo), elev),
+    cartesian_to_polar(coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
     attributes(param)$geo$rscale,
     attributes(param)$geo$ascale
   )
-  data <- data.frame(mapply(
-    function(x, y) {
-      safe_subset(param, x, y)
-    },
-    x = index$row,
-    y = index$col
-  ))
+  # set indices outside the scan's matrix to NA
+  nrang <- dim(param)[1]
+  nazim <- dim(param)[2]
+  index$row[index$row > nrang] <- NA
+  index$col[index$col > nazim] <- NA
+  # convert 2D index to 1D index
+  index <- (index$col - 1) * nrang + index$row
+  data <- as.data.frame(param[index])
+
+  #  data <- data.frame(mapply(
+  #    function(x, y) {
+  #      safe_subset(param, x, y)
+  #    },
+  #    x = index$row,
+  #    y = index$col
+  #  ))
+
   colnames(data) <- attributes(param)$param
   output <- SpatialGridDataFrame(
     grid = SpatialGrid(
@@ -162,6 +173,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim) {
   attributes(output)$bboxlatlon <- bboxlatlon
   output
 }
+
 
 #' A wrapper for \code{\link{spTransform}}.
 #'
@@ -195,8 +207,8 @@ proj_to_wgs <- function(x, y, proj4string) {
   return(res)
 }
 
-cartesian_to_polar <- function(coords, elev = 0) {
-  range <- sqrt(coords[, 1]^2 + coords[, 2]^2) / cos(elev)
+cartesian_to_polar <- function(coords, elev = 0, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
+  range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2), elev, k = k, lat = lat, re = re, rp = rp)
   azim <- (0.5 * pi - atan2(coords[, 2], coords[, 1])) %% (2 * pi)
   data.frame(range = range, azim = azim * 180 / pi)
 }
@@ -212,7 +224,7 @@ safe_subset <- function(data, indexx, indexy) {
 }
 
 polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1) {
-  row <- floor(1 + coords_polar$range / rangebin)
-  col <- floor(1 + coords_polar$azim / azimbin)
+  row <- floor(1 + coords_polar$range / c(rangebin))
+  col <- floor(1 + coords_polar$azim / c(azimbin))
   data.frame(row = row, col = col)
 }

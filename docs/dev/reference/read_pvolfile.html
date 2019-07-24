@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -98,6 +98,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -142,9 +145,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>read_pvolfile</span>(<span class='no'>file</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"DBZH"</span>, <span class='st'>"VRADH"</span>, <span class='st'>"VRAD"</span>, <span class='st'>"RHOHV"</span>, <span class='st'>"ZDR"</span>,
-  <span class='st'>"PHIDP"</span>, <span class='st'>"CELL"</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>lat</span>, <span class='no'>lon</span>, <span class='no'>height</span>, <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>file</span>))</pre>
+    <pre class="usage"><span class='fu'>read_pvolfile</span>(<span class='no'>file</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"DBZH"</span>, <span class='st'>"DBZ"</span>, <span class='st'>"VRADH"</span>, <span class='st'>"VRAD"</span>, <span class='st'>"TH"</span>, <span class='st'>"T"</span>,
+  <span class='st'>"RHOHV"</span>, <span class='st'>"ZDR"</span>, <span class='st'>"PHIDP"</span>, <span class='st'>"CELL"</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>lat</span>, <span class='no'>lon</span>, <span class='no'>height</span>,
+  <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>file</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,6 +217,7 @@ model (ODIM), see Table 16 in the
 <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.
 Commonly available parameters are:</p><dl class='dl-horizontal'>
  <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
+ <dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor [dBZ]</p></dd>
  <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
    velocities towards the radar are negative, while radial velocities away
    from the radar are positive</p></dd>

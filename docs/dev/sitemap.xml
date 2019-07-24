@@ -4,13 +4,28 @@
     <loc>https://adokter.github.io/bioRad/index.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/add_expected_eta_to_scan.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/as.data.frame.vp.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/as.data.frame.vpts.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/beam_distance.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/beam_height.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/beam_profile.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/beam_profile_overlap.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/beam_range.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/beam_width.html</loc>
@@ -67,6 +82,9 @@
     <loc>https://adokter.github.io/bioRad/reference/example_vpts.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/gaussian_beam_profile.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/get_elevation_angles.html</loc>
   </url>
   <url>
@@ -85,6 +103,12 @@
     <loc>https://adokter.github.io/bioRad/reference/integrate_profile.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/integrate_to_ppi.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/is.nan.data.frame.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/is.pvolfile.html</loc>
   </url>
   <url>
@@ -98,6 +122,9 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/nexrad_to_odim.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/nyquist_velocity.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/plot.ppi.html</loc>
@@ -163,6 +190,12 @@
     <loc>https://adokter.github.io/bioRad/reference/regularize_vpts.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/scan_to_raster.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/scan_to_spatial.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/sd_vvp_threshold-set.html</loc>
   </url>
   <url>
@@ -215,5 +248,8 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/articles/rad_aero_18.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/articles/range_correction.html</loc>
   </url>
 </urlset>

@@ -20,7 +20,6 @@
 #' rcs(example_vp) <- 11
 #' # change or set RCS for a vertical profile time series:
 #' rcs(example_vpts) <- 11
-
 rcs <- function(x) {
   UseMethod("rcs", x)
 }

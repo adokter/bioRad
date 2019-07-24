@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -61,6 +61,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -106,7 +109,7 @@
     
 <p>bioRad is an R package for the biological analysis and visualization of weather radar data. The package is described in our paper:</p>
 <blockquote>
-<p>Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2018) bioRad: biological analysis and visualization of weather radar data. Ecography. <a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a></p>
+<p>Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2019) bioRad: biological analysis and visualization of weather radar data. Ecography 42: 852-860. <a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a></p>
 </blockquote>
 <p>The <a href="https://doi.org/10.1111/ecog.04028">paper</a> also defines weather radar equivalents for familiar measures used in the field of migration ecology and is thus a good start if you are new to radar aeroecology. Below we included the sections and figure from the paper describing the package and typical analysis workflow, with links to the functions used.</p>
 <p>In the top navigation, see <a href="https://adokter.github.io/bioRad/reference/index.html"><strong>Reference</strong></a> for an overview of all functions, <a href="https://adokter.github.io/bioRad/articles/index.html"><strong>Articles</strong></a> for course exercises and <a href="https://adokter.github.io/bioRad/news/index.html"><strong>Changelog</strong></a> for package updates.</p>
@@ -127,7 +130,7 @@
 <h2 class="hasAnchor">
 <a href="#figure-2" class="anchor"></a>Figure 2</h2>
 <div class="figure">
-<img src="ecog12354-fig-0002-m.jpg" alt="Figure 2 from Dokter et al. (2018)"><p class="caption"><strong>Figure 2 from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2018)</a></strong></p>
+<img src="ecog12354-fig-0002-m.jpg" alt="Figure 2 from Dokter et al. (2019)"><p class="caption"><strong>Figure 2 from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2019)</a></strong></p>
 </div>
 <p>The figure shows the structure and interrelation of bioRad’s main class objects, functions, and plotting methods. (A) <strong>objects</strong> (rounded box), <strong>functions</strong> (<code>fixed width font</code>) and their <strong>relation</strong> (arrows). (B–K) output of the default plot methods for a European radar (left row, Offenthal radar, Germany, 2016‐10‐04 15:15 UTC–2016‐10‐05 08:45 UTC) and US radar (right row, KBRO radar, Texas, 2017‐05‐14 00:09 UTC–2017‐05‐14 13:25 UTC). The dotted line in (H) and (K) indicates the time slice of (B), (D), (F) and (C), (E), (J) respectively. Grey shading indicates night time (time on the x‐axis is in UTC). Altitudes are relative to mean sea level.</p>
 <ul>

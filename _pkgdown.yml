@@ -43,9 +43,12 @@ reference:
       - get_param
       - summary.param # is.param
   - title: "Plotting radar scans"
-    desc: "Functions to plot a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
+    desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
     contents:
       - project_as_ppi
+      - integrate_to_ppi
+      - scan_to_raster
+      - scan_to_spatial
       - summary.ppi # is.ppi
       - plot.ppi
       - map
@@ -97,11 +100,19 @@ reference:
       - sd_vvp_threshold
       - "`sd_vvp_threshold<-`"
       - check_night
-  - title: "Other functions"
-    desc: "Other useful functions."
+  - title: "Radar beam geometry"
+    desc: "Functions relating the radar beam shape to range, distance and height"
     contents:
       - beam_height
       - beam_width
+      - beam_range
+      - beam_distance
+      - beam_profile
+      - beam_profile_overlap
+  - title: "Other functions"
+    desc: "Other useful functions."
+    contents:
       - dbz_to_eta
       - eta_to_dbz
+      - nyquist_velocity
       - sunrise_sunset

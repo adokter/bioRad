@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -96,6 +96,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -232,7 +235,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-plotting-radar-scans" class="hasAnchor"><a href="#section-plotting-radar-scans" class="anchor"></a>Plotting radar scans</h2>
-          <p class="section-desc"><p>Functions to plot a polar scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi).</p></p>
+          <p class="section-desc"><p>Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi).</p></p>
         </th>
       </tr>
       <tr>
@@ -242,6 +245,24 @@
         </td>
         <td><p>Project a scan (<code>scan</code>) or parameter (<code>param</code>) to a plan
 position indicator (<code>ppi</code>)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code> </p>
+        </td>
+        <td><p>calculate a range-corrected PPI</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scan_to_raster.html">scan_to_raster()</a></code> </p>
+        </td>
+        <td><p>convert a polar scan into a raster</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scan_to_spatial.html">scan_to_spatial()</a></code> </p>
+        </td>
+        <td><p>convert a polar scan into a spatial object.</p></td>
       </tr><tr>
         
         <td>
@@ -505,8 +526,8 @@ integrated profile (<code>vpi</code>)</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
-          <p class="section-desc"><p>Other useful functions.</p></p>
+          <h2 id="section-radar-beam-geometry" class="hasAnchor"><a href="#section-radar-beam-geometry" class="anchor"></a>Radar beam geometry</h2>
+          <p class="section-desc"><p>Functions relating the radar beam shape to range, distance and height</p></p>
         </th>
       </tr>
       <tr>
@@ -524,6 +545,39 @@ integrated profile (<code>vpi</code>)</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="beam_range.html">beam_range()</a></code> </p>
+        </td>
+        <td><p>Calculate radar beam range</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="beam_distance.html">beam_distance()</a></code> </p>
+        </td>
+        <td><p>Calculate radar beam distance</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="beam_profile.html">beam_profile()</a></code> </p>
+        </td>
+        <td><p>Calculate vertical radiation profile</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="beam_profile_overlap.html">beam_profile_overlap()</a></code> </p>
+        </td>
+        <td><p>Calculate overlap between a vertical profile ('vp') of biological scatterers
+and the vertical radiation profile emitted by the radar</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
+          <p class="section-desc"><p>Other useful functions.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
           <p><code><a href="dbz_to_eta.html">dbz_to_eta()</a></code> </p>
         </td>
         <td><p>Convert reflectivity factor to reflectivity</p></td>
@@ -533,6 +587,12 @@ integrated profile (<code>vpi</code>)</p></td>
           <p><code><a href="eta_to_dbz.html">eta_to_dbz()</a></code> </p>
         </td>
         <td><p>Convert reflectivity to reflectivity factor</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="nyquist_velocity.html">nyquist_velocity()</a></code> </p>
+        </td>
+        <td><p>Nyquist velocity for a given pulse repetition frequency (PRF)</p></td>
       </tr><tr>
         
         <td>
@@ -555,6 +615,7 @@ integrated profile (<code>vpi</code>)</p></td>
       <li><a href="#section-combining-vertical-profiles-into-time-series">Combining vertical profiles into time series</a></li>
       <li><a href="#section-integrating-vertical-profiles">Integrating vertical profiles</a></li>
       <li><a href="#section-accessing-vertical-profile-metadata">Accessing vertical profile metadata</a></li>
+      <li><a href="#section-radar-beam-geometry">Radar beam geometry</a></li>
       <li><a href="#section-other-functions">Other functions</a></li>
     </ul>
   </div>

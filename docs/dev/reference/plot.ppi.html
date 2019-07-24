@@ -72,7 +72,7 @@ using ggplot" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -99,6 +99,9 @@ using ggplot" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -140,7 +143,7 @@ using ggplot" />
     <div class="ref-description">
     
     <p>Plot a plan position indicator (PPI) generated with <a href='bioRad-deprecated.html'>ppi</a>
-using <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></p>
+using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></p>
     
     </div>
 
@@ -177,7 +180,7 @@ using <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>gg
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to low level <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> function.</p></td>
+      <td><p>Arguments passed to low level <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> function.</p></td>
     </tr>
     </table>
     
@@ -186,6 +189,7 @@ using <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>gg
     <p>Available scan paramaters for plotting can by printed to screen
 by <code><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary(x)</a></code>. Commonly available parameters are:</p><dl class='dl-horizontal'>
  <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
+ <dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor [dBZ]</p></dd>
  <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
  velocities towards the radar are negative, while radial velocities away
  from the radar are positive</p></dd>

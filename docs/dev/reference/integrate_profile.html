@@ -75,7 +75,7 @@ weighted by density." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -102,6 +102,9 @@ weighted by density." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -209,7 +212,7 @@ quantities:
    <dt><code>vir</code></dt><dd><p>Vertically Integrated Reflectivity in cm^2/km^2</p></dd>
    <dt><code>mtr</code></dt><dd><p>Migration Traffic Rate in individuals/km/h</p></dd>
    <dt><code>rtr</code></dt><dd><p>Reflectivity Traffic Rate in cm^2/km/h</p></dd>
-   <dt><code>mt</code></dt><dd><p>Migration Traffic in individuals/km, cumulated from 
+   <dt><code>mt</code></dt><dd><p>Migration Traffic in individuals/km, cumulated from
       the start of the time series up to <code>datetime</code></p></dd>
    <dt><code>rt</code></dt><dd><p>Reflectivity Traffic in cm^2/km, cumulated from
       the start of the time series up to <code>datetime</code></p></dd>
@@ -223,7 +226,20 @@ Vertically integrated density and reflectivity are related according to
 \(vid=vir/rcs(x)\), with <a href='rcs.html'>rcs</a> the assumed radar cross section per
 individual. Similarly, migration traffic rate and reflectivity traffic rate
 are related according to \(mtr=rtr/rcs(x)\)
-    <h3>Migration traffic rate (mtr) and reflectivity traffic rate (rtr)</h3>
+    <h3>Ground speed (ff) and ground speed components (u,v)</h3>
+    The height-averaged ground speed is defined as:
+    $$ff = \sum_i dens_i ff_i / \sum_i dens_i$$
+with the sum running over all altitude layers between <code>alt_min</code> and
+<code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
+altitude layer i.
+    the height-averaged u component (west to east) is defined as:
+    $$u = \sum_i dens_i u_i / \sum_i dens_i$$
+    the height-averaged v component (south to north) is defined as:
+    $$v = \sum_i dens_i v_i / \sum_i dens_i$$
+    <p>Note that \(ff_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
+height-integrated speeds, i.e. \(ff != \sqrt(u^2 + v^2)\) as soon as the
+ground speed directions vary with altitude.</p>
+<h3>Migration traffic rate (mtr) and reflectivity traffic rate (rtr)</h3>
     Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
 as the number of targets crossing a unit of transect per hour.
     Column mtr of the output dataframe gives migration traffic rates in individuals/km/hour.
@@ -233,23 +249,31 @@ direction. <code>mtr</code> then equals the number of crossing targets per km
 transect per hour, for a transect kept perpendicular to the measured
 migratory movement at all times and altitudes. In this case <code>mtr</code> is
 always a positive quantity, defined as:
-    $$mtr = \sum_i dens_i ff_i \Delta h$$
+    $$mtr = 3.6 \sum_i dens_i ff_i \Delta h$$
     with the sum running over all altitude layers between <code>alt_min</code> and
 <code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
-altitude layer i, and \(\Delta h\) the altitude layer width.
+altitude layer i, and \(\Delta h\) the altitude layer width. The factor 3.6
+refers to a unit conversion of speeds \(ff_i\) from m/s to km/h.
     If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
 to the direction <code>alpha</code>, and the number of crossing targets per hour
 per km transect is calculated as:
-    $$mtr = \sum_i dens_i ff_i \cos(dd_i-alpha) \Delta h$$
+    $$mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h$$
 with \(dd_i\) the migratory direction at altitude i.
     Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
+Also note we can rewrite this equation using trigonemetry as:
+    $$mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h$$
+with \(u_i\) and \(v_i\) the u and v ground speed components at altitude i.
     In this definition <code>mtr</code> is a traditional flux into a direction of
 interest. Targets moving into the direction <code>alpha</code> contribute
 positively to <code>mtr</code>, while targets moving in the opposite direction
 contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be both
 positive or negative, depending on the definition of alpha.
+    Note that <code>mtr</code> for a given value of <code>alpha</code> can also be calculated from
+the vertically integrated density <code>vid</code> and the height-integrated velocity
+components <code>u</code> and <code>v</code> as follows:
+    $$mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid$$
     Formula for reflectivity traffic rate <code>rtr</code> are found by replacing
-<code>dens</code> with <code>eta</code> in the formula for <code>mtr</code>.
+<code>dens</code> with <code>eta</code> and <code>vid</code> with <code>vir</code> in the formula for <code>mtr</code>.
 Reflectivity traffic rate gives the cross-sectional area
 passing the radar per km transect perpendicular to the migratory direction per hour.
 <code>mtr</code> values are conditional on settings of <a href='rcs.html'>rcs</a>, while <code>rtr</code> values are not.
@@ -282,14 +306,14 @@ vertical profiles.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># MTR for a single vertical profile</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt      ff
-#&gt; 1 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.7895
+<span class='fu'>integrate_profile</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt       ff
+#&gt; 1 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.81019
 #&gt;         dd         u         v     HGHT
 #&gt; 1 204.4764 -5.298934 -11.64013 845.6075</div><div class='input'>
 <span class='co'># MTRs for a list of vertical profiles</span>
-<span class='fu'>integrate_profile</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>example_vp</span>, <span class='no'>example_vp</span>))</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt      ff
-#&gt; 1 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.7895
-#&gt; 2 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.7895
+<span class='fu'>integrate_profile</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>example_vp</span>, <span class='no'>example_vp</span>))</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt       ff
+#&gt; 1 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.81019
+#&gt; 2 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.81019
 #&gt;         dd         u         v     HGHT
 #&gt; 1 204.4764 -5.298934 -11.64013 845.6075
 #&gt; 2 204.4764 -5.298934 -11.64013 845.6075</div><div class='input'>

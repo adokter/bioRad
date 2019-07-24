@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -63,6 +63,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -107,7 +110,7 @@
 <p>To get started, see:</p>
 <ul>
 <li>
-<a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2018)</a>: a paper describing the package.</li>
+<a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2019)</a>: a paper describing the package.</li>
 <li>
 <a href="https://adokter.github.io/bioRad/articles/bioRad.html">bioRad vignette</a>: an introduction to bioRad’s main functionalities.</li>
 <li>
@@ -115,6 +118,7 @@
 <li>
 <a href="https://adokter.github.io/bioRad/articles/rad_aero_18.html">Introductory exercises</a>: a tutorial with code examples and exercises.</li>
 </ul>
+<p>More vignettes: * <a href="https://adokter.github.io/bioRad/articles/range_correction.html">Correct radar images for range effects</a></p>
 <p>Documentation for the latest development version can be found <a href="https://adokter.github.io/bioRad/dev">here</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -125,12 +129,9 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</a></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bioRad)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt; Welcome to bioRad version 0.4.0</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; Warning: no running Docker daemon found Warning: bioRad</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; functionality requiring Docker has been disabled</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; To enable Docker functionality, start Docker and run</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; 'check_docker()' in R</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt; Welcome to bioRad version 0.4.0.9238</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.3.18)</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; Your Docker image contains an obsolete version of vol2bird. Consider updating with update_docker()</span></a></code></pre></div>
 <div id="attention" class="section level3">
 <h3 class="hasAnchor">
 <a href="#attention" class="anchor"></a><em>Attention!</em>

@@ -30,6 +30,7 @@
 #' \code{summary(x)}. Commonly available parameters are:
 #' \describe{
 #'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
+#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor [dBZ]}
 #'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
 #'  velocities towards the radar are negative, while radial velocities away
 #'  from the radar are positive}
@@ -119,7 +120,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
     )
   }
   if (missing(zlim)) {
-    zlim <- get_zlim(param)
+    zlim <- get_zlim(param, zlim)
   }
   if (!(param %in% names(x$data))) {
     stop(paste("no scan parameter '", param, "' in this ppi", sep = ""))
@@ -245,10 +246,15 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
 }
 
 
-get_zlim <- function(param) {
+get_zlim <- function(param, zlim) {
   if (param %in% c("DBZH", "DBZV", "DBZ")) return(c(-20, 30))
   if (param %in% c("VRADH", "VRADV", "VRAD")) return(c(-20, 20))
   if (param == "RHOHV") return(c(0.4, 1))
   if (param == "ZDR") return(c(-5, 8))
   if (param == "PHIDP") return(c(-200, 200))
+  if (param == "vid") return(c(0, 200))
+  if (param == "vir") return(c(0, 2000))
+  if (param == "correction_factor") return(c(0, 5))
+  if (param == "overlap") return(c(0, 1))
+  return(zlim)
 }

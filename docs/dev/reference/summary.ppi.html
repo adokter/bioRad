@@ -72,7 +72,7 @@ functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9238</span>
       </span>
     </div>
 
@@ -99,6 +99,9 @@ functions." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -182,6 +185,7 @@ class <code>ppi</code>.</p>
    containing the georeferenced data. Commonly available parameters are:
     <dl class='dl-horizontal'>
      <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
+     <dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor [dBZ]</p></dd>
      <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
        velocities towards the radar are negative, while radial velocities
        away from the radar are positive</p></dd>

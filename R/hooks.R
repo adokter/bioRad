@@ -16,14 +16,14 @@
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage(paste("Welcome to", pkgname, "version", packageVersion(pkgname)))
   if (!.pkgenv$docker) {
-    if(is.nan(.pkgenv[["vol2bird_version"]])){
+    if (is.nan(.pkgenv[["vol2bird_version"]])) {
       packageStartupMessage("Warning: Docker daemon is not running")
-      msg_action="start Docker and run 'check_docker()' in R"
+      msg_action <- "start Docker and run 'check_docker()' in R"
     }
-    else{
+    else {
       # vol2bird_version equals NA:
       packageStartupMessage("Warning: Docker daemon not found")
-      msg_action="first install Docker"
+      msg_action <- "first install Docker"
     }
     msg <- paste(
       "Warning:", pkgname, "functionality requiring Docker has been disabled\n\n",
@@ -32,12 +32,12 @@
     msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)
   } else {
-    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled", ifelse(is.null(.pkgenv$vol2bird_version),"",paste("(vol2bird version ",.pkgenv$vol2bird_version,")",sep=""))))
-    if(is.null(.pkgenv[["vol2bird_version"]])){
+    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled", ifelse(is.null(.pkgenv$vol2bird_version), "", paste("(vol2bird version ", .pkgenv$vol2bird_version, ")", sep = ""))))
+    if (is.null(.pkgenv[["vol2bird_version"]])) {
       packageStartupMessage(paste("No vol2bird Docker image found. Please run update_docker() to download."))
     }
-    else{
-      if(.pkgenv[["vol2bird_version"]] < .pkgenv[["latest_vol2bird_version"]]){
+    else {
+      if (.pkgenv[["vol2bird_version"]] < .pkgenv[["latest_vol2bird_version"]]) {
         packageStartupMessage("Your Docker image contains an obsolete version of vol2bird. Consider updating with update_docker()")
       }
     }
