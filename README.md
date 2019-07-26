@@ -1,7 +1,3 @@
----
-output: github_document
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file and knit -->
 
 
@@ -40,6 +36,8 @@ Then load the package with:
 
 ```r
 library(bioRad)
+#> Welcome to bioRad version 0.4.0
+#> Docker daemon running, Docker functionality enabled.
 ```
 
 ### _Attention!_ 
