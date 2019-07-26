@@ -110,7 +110,7 @@ my_ppi
 plot(my_ppi, param = "DBZH")
 ```
 
-**Exercise 2:** This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.
+**Exercise 2:** This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity (VRADH) and correlation coefficient (RHOHV). Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.
 
 **Exercise 3:** Based on the radial velocity image, are the biological scatterers birds or insects? Why?
 
@@ -119,12 +119,12 @@ plot(my_ppi, param = "DBZH")
 ```{r, eval=FALSE}
 # It is often informative to plot radar data on a base layer, such as google earth maps.
 # first download the background image:
-satellite_basemap <- download_basemap(my_ppi, maptype = "satellite")
-# then overlay the PPI on the satellite image:
+satellite_basemap <- download_basemap(my_ppi)
+# then overlay the PPI on the satellite image, restricting the color scale from -20 to 15 dBZ:
 map(my_ppi, map = satellite_basemap, param = "DBZH", zlim = c(-20, 15))
 ```
 
-**Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. See help of bioRad's `map()` function for available types of basemaps, specifically the argument `maptype`.
+**Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. Hint: Set the `source` argument of `download_basemap()` to "osm" for OpenStreetMap maps.
 
 ## 2 Analysis and visualisation of vertical bird profiles
 
@@ -161,17 +161,15 @@ plot(my_vp, quantity = "dbz")
 plot(my_vp, quantity = "eta")
 ```
 
-These two plots look very different, but they are twice the same data plotted on a different scale.
+`eta` and `dbz` are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear. You can convert one into the other using `eta_to_dbz()` and `dbz_to_eta()` functions, which follow this simple formula:
 
 ```
 eta = (radar-wavelength dependent constant) * 10^(dbz/10)
 ```
 
-So `eta` and `dbz` are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear.
+The reflectivity factor `dBZ` is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at similar reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.
 
-The reflectivity factor `dbz` is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at equal reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.
-
-In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this case the reflectivity `eta` is more similar between S-band and C-band. `eta` is also more directly related to the density of birds, since `eta` can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists reflectivity `eta` is the more conventional unit (instead of reflectivity factor in dBZ).
+In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this limit reflectivity `eta` is more similar between S-band and C-band. `eta` is also more directly related to the density of birds, since `eta` can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists not reflectivity factor `dBZ` but reflectivity `eta` is the more conventional unit.
 
 ```{r, eval=FALSE}
 # plot the vertical profile, in terms of bird density
@@ -182,7 +180,7 @@ rcs(my_vp)
 
 **Exercise 5:** If you change your assumption on the bird's radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?
 
-The assumed radar cross section can be changed as follows:
+The radar cross section you assume can be changed as follows:
 
 ```{r, eval=FALSE}
 # let's change the RCS to 110 cm^2
@@ -228,9 +226,9 @@ my_vpts_night <- my_vpts[index_night]
 plot(my_vpts_night)
 ```
 
-**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC. In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
+**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
 
-**Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speeds (quantity `ff`, see manual for the vp class for full list of available quantities). Check whether your answer to the previous question was approximately correct.
+**Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity `ff`). Hint: use function `filter_datetime()` to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.
 
 ### 2.4 Vertical and time integration of profiles
 
@@ -281,8 +279,6 @@ plot(my_vpi, quantity = "rt")
 
 VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.
 
-**Exercise 12:** Re-plot the vertically integrated quantities discussed so far using a different radar cross section, and verify which quantities are affected by a change in radar cross section.
-
 ### 2.5 Inspecting precipitation signals in profiles
 
 Precipitation is known to have a major influence on the timing and intensity of migration, therefore it is a useful skill to be able to inspect profiles for presence of precipitation.
@@ -302,7 +298,7 @@ plot(my_vpts, quantity = "dens")
 plot(my_vpts, quantity = "DBZH")
 ```
 
-**Exercise 13:** Compare your plots for bird density (quantity `dens`) with a profile plot for total reflectivity (quantity `DBZH`, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.
+**Exercise 12:** Compare your plots for bird density (quantity `dens`) with a profile plot for total reflectivity (quantity `DBZH`, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.
 
 ## 3 Processing polar volume data into profiles
 

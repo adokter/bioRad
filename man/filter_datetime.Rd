@@ -4,17 +4,21 @@
 \alias{filter_datetime}
 \title{Time selection in a time series of vertical profiles ('vpts')}
 \usage{
-filter_datetime(x, min, max)
+filter_datetime(x, min, max, nearest)
 }
 \arguments{
 \item{x}{A \code{vpts} object.}
 
-\item{min}{POSIXct value. Minimum datetime to be included}
+\item{min}{Minimum datetime to be included. POSIXct value or charater string convertable to POSIXct.}
 
-\item{max}{POSIXct value. Maximum datetime to be included}
+\item{max}{Maximum datetime to be included. POSIXct value or charater string convertable to POSIXct.}
+
+\item{nearest}{If specified, \code{min} and \code{max} are ignored and the profile nearest to the
+specified datetime is returned. POSIXct value or charater string convertable to POSIXct.}
 }
 \value{
-An object of class '\link[=summary.vpts]{vpts}'.
+An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
+if argument \code{nearest} is specified.
 }
 \description{
 Time selection in a time series of vertical profiles ('vpts')
@@ -26,5 +30,5 @@ returns profiles for which min <= timestamp profile < max.
 # let us use this example vertical profile time series:
 example_vpts
 # select profiles later than 02-Sep-2016
-filter_datetime(example_vpts, min=as.POSIXct("2016-09-02"))
+filter_datetime(example_vpts, min = as.POSIXct("2016-09-02"))
 }

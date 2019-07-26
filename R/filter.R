@@ -5,7 +5,8 @@
 #' @param max Maximum datetime to be included. POSIXct value or charater string convertable to POSIXct.
 #' @param nearest If specified, \code{min} and \code{max} are ignored and the profile nearest to the
 #' specified datetime is returned. POSIXct value or charater string convertable to POSIXct.
-#' @return An object of class '\link[=summary.vpts]{vpts}'.
+#' @return An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
+#' if argument \code{nearest} is specified.
 #'
 #' @export
 #' @details returns profiles for which min <= timestamp profile < max.
