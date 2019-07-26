@@ -21,7 +21,8 @@ To get started, see:
 * [Introductory exercises](https://adokter.github.io/bioRad/articles/rad_aero_18.html): a tutorial with code examples and exercises.
 
 More vignettes:
-* [Correct radar images for range effects](https://adokter.github.io/bioRad/articles/range_correction.html)
+
+* [Correct radar images for range effects](https://adokter.github.io/bioRad/dev/articles/range_correction.html)
 
 Documentation for the latest development version can be found [here](https://adokter.github.io/bioRad/dev).
 
