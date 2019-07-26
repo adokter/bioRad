@@ -13,38 +13,53 @@
 #' # let us use this example vertical profile time series:
 #' example_vpts
 #' # select profiles later than 02-Sep-2016
-#' filter_datetime(example_vpts, min=as.POSIXct("2016-09-02"))
-filter_datetime = function(x, min, max, nearest){
+#' filter_datetime(example_vpts, min = as.POSIXct("2016-09-02"))
+filter_datetime <- function(x, min, max, nearest) {
   assert_that(is.vpts(x))
-  errorf=function(e){min}
-  if(!missing(min)){
-    if(is.string(min)) min=tryCatch(as.POSIXct(min),errorf=function(e){min})
+  errorf <- function(e) {
+    min
+  }
+  if (!missing(min)) {
+    if (is.string(min)) {
+      min <- tryCatch(as.POSIXct(min), errorf = function(e) {
+        min
+      })
+    }
     assert_that(is.time(min))
     assert_that(length(min) == 1)
-
   }
-  if(!missing(max)){
-    if(is.string(max)) max=tryCatch(as.POSIXct(max),errorf=function(e){max})
+  if (!missing(max)) {
+    if (is.string(max)) {
+      max <- tryCatch(as.POSIXct(max), errorf = function(e) {
+        max
+      })
+    }
     assert_that(is.time(max))
     assert_that(length(max) == 1)
   }
-  if(!missing(nearest)){
-    if(is.string(nearest)) nearest=tryCatch(as.POSIXct(nearest),errorf=function(e){nearest})
+  if (!missing(nearest)) {
+    if (is.string(nearest)) {
+      nearest <- tryCatch(as.POSIXct(nearest), errorf = function(e) {
+        nearest
+      })
+    }
     assert_that(is.time(nearest))
     assert_that(length(nearest) == 1)
-    idx=which.min(abs(difftime(x$datetime,nearest)))
+    idx <- which.min(abs(difftime(x$datetime, nearest)))
     return(x[idx])
   }
-  if(missing(min) & missing(max)) return(x)
-  if(missing(min) & !missing(max)) idx=x$datetime<max
-  if(!missing(min) & missing(max)) idx=x$datetime>=min
-  if(!missing(min) & !missing(max)) idx=(x$datetime>=min & x$datetime<max)
-  no_profiles=length(which(idx))
-  if(no_profiles==0){
+  if (missing(min) & missing(max)) {
+    return(x)
+  }
+  if (missing(min) & !missing(max)) idx <- x$datetime < max
+  if (!missing(min) & missing(max)) idx <- x$datetime >= min
+  if (!missing(min) & !missing(max)) idx <- (x$datetime >= min & x$datetime < max)
+  no_profiles <- length(which(idx))
+  if (no_profiles == 0) {
     warning("no profiles passing datetime filter, returning empty vpts object")
     suppressWarnings(return(x[idx]))
   }
-  if(no_profiles==1){
+  if (no_profiles == 1) {
     warning("only a single profile passed datetime filter")
     return(x[idx])
   }
