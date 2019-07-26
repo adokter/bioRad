@@ -62,6 +62,7 @@ reference:
       - check_docker
       - update_docker
       - nexrad_to_odim # Repeated
+      - vol2bird_version
   - title: "Reading vertical profile data"
     desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
     contents:
@@ -80,6 +81,7 @@ reference:
       - c.vp
       - bind_into_vpts
       - read_vpts
+      - filter_datetime
       - summary.vpts # is.vpts
       - example_vpts
       - plot.vpts

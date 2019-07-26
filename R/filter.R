@@ -7,7 +7,6 @@
 #' specified datetime is returned. POSIXct value or charater string convertable to POSIXct.
 #' @return An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
 #' if argument \code{nearest} is specified.
-#'
 #' @export
 #' @details returns profiles for which min <= timestamp profile < max.
 #' @examples
