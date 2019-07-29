@@ -26,19 +26,17 @@ Execute each of the code examples provided below in [RStudio](https://www.rstudi
 library(bioRad)
 # check the package version
 packageVersion("bioRad")
-# make sure you have the latest version (0.4.0.9238). If you have an older version, download and reinstall as follows:
+# make sure you have the latest version (0.4.0.9241). If you have an older version, download and reinstall as follows:
 library(devtools)
 install_github("adokter/bioRad")
 ```
 
-All the functions of the bioRad package have fairly elaborated manual pages, that you can refer to at any moment:
+All bioRad's functions are documented in an extensive [function refererence](http://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
 
 ```{r, eval=FALSE}
 # bring up the package general help page:
 ?bioRad
 ```
-
-In the help window, you can click on each of the links to pull up help pages of specific functions. Click on the `Index` link at the bottom of each help page to get an overview of all functions and available manual pages.
 
 Start by making a new directory on your local machine that you will use for this practical:
 
@@ -96,6 +94,11 @@ my_pvol <- read_pvolfile("example_pvol.h5")
 my_scan <- my_pvol$scans[[3]]
 # print some information about this scan:
 my_scan
+# let's plot the scan in a range - azimuth coordinate system:
+plot(my_scan)
+```
+Usually it is more intuitive to explore radar scans as a PPI (plan position indicator), which is a projection of the scan on a Cartesian (X,Y) or (lat,lon) grid:
+```{r, eval=FALSE}
 # before we can plot the scan, we need to project it on a Cartesian grid,
 # i.e. we need to make a Plan Position Indicator (PPI)
 my_ppi <- project_as_ppi(my_scan)
@@ -125,6 +128,8 @@ map(my_ppi, map = satellite_basemap, param = "DBZH", zlim = c(-20, 15))
 ```
 
 **Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. Hint: Set the `source` argument of `download_basemap()` to "osm" for OpenStreetMap maps.
+
+bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package `raster` and package `sp`), see `scan_to_raster()` and `scan_to_spatial()`, allowing you to process the radar data further with these spatial analysis toolkits.
 
 ## 2 Analysis and visualisation of vertical bird profiles
 
@@ -264,16 +269,14 @@ The following questions only require pen and paper. Assume a night migration eve
 
 **Exercise 11:** How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.
 
-Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling to make any assumptions on RCS, you can alternatively use two closely related quantities that do not depend on RCS:
+Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling/unable to specify RCS, you can alternatively use two closely related quantities that make no assumptions RCS:
 
 ```{r, eval=FALSE}
-# print the currently assumed radar cross section:
-rcs(my_vpi)
-# instead of VID, you can use vertically integrated reflectivity (VIR):
+# instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):
 plot(my_vpi, quantity = "vir")
-# instead of MTR, you can use the reflectivity traffic rate (RTR):
+# instead of migration traffic rate (MTR), you can use the reflectivity traffic rate (RTR):
 plot(my_vpi, quantity = "rtr")
-# instead of MT, you can use the reflectivity traffic (RT):
+# instead of migration traffic (MT), you can use the reflectivity traffic (RT):
 plot(my_vpi, quantity = "rt")
 ```
 
