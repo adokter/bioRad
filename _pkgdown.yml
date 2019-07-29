@@ -81,7 +81,7 @@ reference:
       - c.vp
       - bind_into_vpts
       - read_vpts
-      - filter_datetime
+      - filter_vpts
       - summary.vpts # is.vpts
       - example_vpts
       - plot.vpts

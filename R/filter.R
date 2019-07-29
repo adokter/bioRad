@@ -13,8 +13,8 @@
 #' # let us use this example vertical profile time series:
 #' example_vpts
 #' # select profiles later than 02-Sep-2016
-#' filter_datetime(example_vpts, min = as.POSIXct("2016-09-02"))
-filter_datetime <- function(x, min, max, nearest) {
+#' filter_vpts(example_vpts, min = as.POSIXct("2016-09-02"))
+filter_vpts <- function(x, min, max, nearest) {
   assert_that(is.vpts(x))
   errorf <- function(e) {
     min
