@@ -29,12 +29,15 @@ vignettes/*.pdf
 /*_cache/
 /cache/
 
+# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
+rsconnect/
+
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
 
-# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
-rsconnect/
+# pkgdown website is not yet built by travis on gh-pages
+# /docs/
 
 # Mac OS X
 .DS_Store
@@ -42,4 +45,3 @@ rsconnect/
 # Data in docs
 /docs/*/*.h5
 /docs/*/*.zip
-.Rproj.user

@@ -8,14 +8,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-_These course materials were developed for the 2nd Radar Aeroecology Training School, Aug 14-17 2018, University of Oklahoma, Norman, OK, USA._
+_These course materials were developed for the 3d Radar Aeroecology Training School, Jul 30 - Aug 2 2019, University of Oklahoma, Norman, OK, USA._
 
 ## 1 Basic visualisation of radar scans in R
 
 ### 1.1 Preparation
 
-Radar data needed for this practical can be downloaded from Dropbox.
-[https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0](https://www.dropbox.com/s/qkm3ll8l5oe2y54/RadAero18.zip?dl=0) 
+Radar data needed for this practical can be downloaded [here](https://www.dropbox.com/sh/hghu27u9zsqljsj/AABZSvoq1gEJ_OSVJpn2jzs9a?dl=0).
+
+Follow bioRad's [install instructions](http://adokter.github.io/bioRad/dev), and install the latest development version to be fully up-to-date.
 
 Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
 
@@ -25,19 +26,17 @@ Execute each of the code examples provided below in [RStudio](https://www.rstudi
 library(bioRad)
 # check the package version
 packageVersion("bioRad")
-# make sure you have the latest version (0.3.0). If you have an older version, download and reinstall as follows:
+# make sure you have the latest version (0.4.0.9241). If you have an older version, download and reinstall as follows:
 library(devtools)
 install_github("adokter/bioRad")
 ```
 
-All the functions of the bioRad package have fairly elaborated manual pages, that you can refer to at any moment:
+All bioRad's functions are documented in an extensive [function refererence](http://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
 
 ```{r, eval=FALSE}
 # bring up the package general help page:
 ?bioRad
 ```
-
-In the help window, you can click on each of the links to pull up help pages of specific functions. Click on the `Index` link at the bottom of each help page to get an overview of all functions and available manual pages.
 
 Start by making a new directory on your local machine that you will use for this practical:
 
@@ -64,9 +63,9 @@ To work with US NEXRAD data, bioRad currently requires a working installation of
 check_docker()
 ```
 
-If you get a "Hello from Docker!" welcome message, everything is working.
+The message "running docker image with vol2bird version 0.4.0" indicates everything is working.
 
-If you did **not** manage to install Docker, you will not be able to load NEXRAD data into R at this time, but you will be able to continue the exercises with radar data that can be loaded without Docker.
+If you did **not** manage to install Docker, you will be able to continue with all of below exercises, but not be able to load NEXRAD data into R at this time.
 
 ### 1.2 The structure of polar volumes
 
@@ -84,7 +83,7 @@ my_pvol
 my_pvol$scans
 ```
 
-**Exercise 1:** Load the polar volume file, `example_pvol.h5` from the zipfile downloaded earlier. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the `read_pvolfile()` function for the nomenclature of various available quantities).
+**Exercise 1:** Load the polar volume file, `example_pvol.h5` from the files downloaded in section 1.1. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the `read_pvolfile()` function for the nomenclature of various available quantities).
 
 ### 1.3 Plotting radar scans
 
@@ -95,6 +94,11 @@ my_pvol <- read_pvolfile("example_pvol.h5")
 my_scan <- my_pvol$scans[[3]]
 # print some information about this scan:
 my_scan
+# let's plot the scan in a range - azimuth coordinate system:
+plot(my_scan)
+```
+Usually it is more intuitive to explore radar scans as a PPI (plan position indicator), which is a projection of the scan on a Cartesian (X,Y) or (lat,lon) grid:
+```{r, eval=FALSE}
 # before we can plot the scan, we need to project it on a Cartesian grid,
 # i.e. we need to make a Plan Position Indicator (PPI)
 my_ppi <- project_as_ppi(my_scan)
@@ -109,7 +113,7 @@ my_ppi
 plot(my_ppi, param = "DBZH")
 ```
 
-**Exercise 2:** This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity and correlation coefficient. Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.
+**Exercise 2:** This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity (VRADH) and correlation coefficient (RHOHV). Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.
 
 **Exercise 3:** Based on the radial velocity image, are the biological scatterers birds or insects? Why?
 
@@ -118,12 +122,14 @@ plot(my_ppi, param = "DBZH")
 ```{r, eval=FALSE}
 # It is often informative to plot radar data on a base layer, such as google earth maps.
 # first download the background image:
-satellite_basemap <- download_basemap(my_ppi, maptype = "satellite")
-# then overlay the PPI on the satellite image:
+satellite_basemap <- download_basemap(my_ppi)
+# then overlay the PPI on the satellite image, restricting the color scale from -20 to 15 dBZ:
 map(my_ppi, map = satellite_basemap, param = "DBZH", zlim = c(-20, 15))
 ```
 
-**Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. See help of bioRad's `map()` function for available types of basemaps, specifically the argument `maptype`.
+**Exercise 4:** Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. Hint: Set the `source` argument of `download_basemap()` to "osm" for OpenStreetMap maps.
+
+bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package `raster` and package `sp`), see `scan_to_raster()` and `scan_to_spatial()`, allowing you to process the radar data further with these spatial analysis toolkits.
 
 ## 2 Analysis and visualisation of vertical bird profiles
 
@@ -160,17 +166,15 @@ plot(my_vp, quantity = "dbz")
 plot(my_vp, quantity = "eta")
 ```
 
-These two plots look very different, but they are twice the same data plotted on a different scale.
+`eta` and `dbz` are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear. You can convert one into the other using `eta_to_dbz()` and `dbz_to_eta()` functions, which follow this simple formula:
 
 ```
 eta = (radar-wavelength dependent constant) * 10^(dbz/10)
 ```
 
-So `eta` and `dbz` are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear.
+The reflectivity factor `dBZ` is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at similar reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.
 
-The reflectivity factor `dbz` is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at equal reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.
-
-In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this case the reflectivity `eta` is more similar between S-band and C-band. `eta` is also more directly related to the density of birds, since `eta` can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists reflectivity `eta` is the more conventional unit (instead of reflectivity factor in dBZ).
+In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this limit reflectivity `eta` is more similar between S-band and C-band. `eta` is also more directly related to the density of birds, since `eta` can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists not reflectivity factor `dBZ` but reflectivity `eta` is the more conventional unit.
 
 ```{r, eval=FALSE}
 # plot the vertical profile, in terms of bird density
@@ -181,7 +185,7 @@ rcs(my_vp)
 
 **Exercise 5:** If you change your assumption on the bird's radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?
 
-The assumed radar cross section can be changed as follows:
+The radar cross section you assume can be changed as follows:
 
 ```{r, eval=FALSE}
 # let's change the RCS to 110 cm^2
@@ -227,9 +231,9 @@ my_vpts_night <- my_vpts[index_night]
 plot(my_vpts_night)
 ```
 
-**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC. In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
+**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
 
-**Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speeds (quantity `ff`, see manual for the vp class for full list of available quantities). Check whether your answer to the previous question was approximately correct.
+**Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity `ff`). Hint: use function `filter_vpts()` to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.
 
 ### 2.4 Vertical and time integration of profiles
 
@@ -265,22 +269,18 @@ The following questions only require pen and paper. Assume a night migration eve
 
 **Exercise 11:** How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.
 
-Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling to make any assumptions on RCS, you can alternatively use two closely related quantities that do not depend on RCS:
+Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling/unable to specify RCS, you can alternatively use two closely related quantities that make no assumptions RCS:
 
 ```{r, eval=FALSE}
-# print the currently assumed radar cross section:
-rcs(my_vpi)
-# instead of VID, you can use vertically integrated reflectivity (VIR):
+# instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):
 plot(my_vpi, quantity = "vir")
-# instead of MTR, you can use the reflectivity traffic rate (RTR):
+# instead of migration traffic rate (MTR), you can use the reflectivity traffic rate (RTR):
 plot(my_vpi, quantity = "rtr")
-# instead of MT, you can use the reflectivity traffic (RT):
+# instead of migration traffic (MT), you can use the reflectivity traffic (RT):
 plot(my_vpi, quantity = "rt")
 ```
 
 VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.
-
-**Exercise 12:** Re-plot the vertically integrated quantities discussed so far using a different radar cross section, and verify which quantities are affected by a change in radar cross section.
 
 ### 2.5 Inspecting precipitation signals in profiles
 
@@ -301,7 +301,7 @@ plot(my_vpts, quantity = "dens")
 plot(my_vpts, quantity = "DBZH")
 ```
 
-**Exercise 13:** Compare your plots for bird density (quantity `dens`) with a profile plot for total reflectivity (quantity `DBZH`, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.
+**Exercise 12:** Compare your plots for bird density (quantity `dens`) with a profile plot for total reflectivity (quantity `DBZH`, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.
 
 ## 3 Processing polar volume data into profiles
 
