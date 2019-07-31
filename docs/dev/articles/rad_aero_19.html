@@ -276,8 +276,9 @@
 <a class="sourceLine" id="cb15-6" title="6">my_vpts_night &lt;-<span class="st"> </span>my_vpts[index_night]</a>
 <a class="sourceLine" id="cb15-7" title="7"><span class="co"># plot this smaller time series:</span></a>
 <a class="sourceLine" id="cb15-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts_night)</a></code></pre></div>
-<p><strong>Exercise 7:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.</p>
+<p><strong>Exercise 7:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1500 meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in this case].</p>
 <p><strong>Exercise 8:</strong> Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity <code>ff</code>). Hint: use function <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">vp_6UTC=<span class="kw"><a href="../reference/filter_vpts.html">filter_vpts</a></span>(my_vpts_night, <span class="dt">nearest=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.POSIXlt">as.POSIXct</a></span>(<span class="st">"2017-05-14 06:00"</span>,<span class="dt">tz=</span><span class="st">"UTC"</span>))</a></code></pre></div>
 </div>
 <div id="vertical-and-time-integration-of-profiles" class="section level3">
 <h3 class="hasAnchor">
@@ -288,31 +289,31 @@
 <li>Note that the VID quantity doesn’t depend on the speed of the migrants. A common measure that reflects both the density and speed of the migration is migration traffic rate (MTR). This is flux measure that gives you how many migrants are passing the radar station per unit of time and per unit of distance perpendicular to the migratory direction (unit individuals/km/hour).</li>
 </ul>
 <p>We will be using bioRad’s <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> function to calculate these quantities:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># Let's continue with the vpts object created in the previous example.</span></a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="co"># The vertically integrated quantities are calculated as follows:</span></a>
-<a class="sourceLine" id="cb16-3" title="3">my_vpi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/integrate_profile.html">integrate_profile</a></span>(my_vpts)</a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="co"># The my_vpi object you created is a vpi class object, which is an acronym for "vertical profile integrated". It has its own plot method, which by default plots migration traffic rate (MTR):</span></a>
-<a class="sourceLine" id="cb16-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi)</a>
-<a class="sourceLine" id="cb16-6" title="6"><span class="co"># you can also plot vertically integrated densities (VID):</span></a>
-<a class="sourceLine" id="cb16-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"vid"</span>)</a>
-<a class="sourceLine" id="cb16-8" title="8"><span class="co"># the gray and white shading indicates day and night, which is calculated</span></a>
-<a class="sourceLine" id="cb16-9" title="9"><span class="co"># from the date and the radar position. You can also turn this off:</span></a>
-<a class="sourceLine" id="cb16-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">night_shade =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb16-11" title="11"><span class="co"># plot the cumulative number of birds passing the radar, i.e. migration traffic (mt):</span></a>
-<a class="sourceLine" id="cb16-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"mt"</span>)</a>
-<a class="sourceLine" id="cb16-13" title="13"><span class="co"># execute `?plot.vpi` to open the help page listing all the options.</span></a>
-<a class="sourceLine" id="cb16-14" title="14">?plot.vpi</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># Let's continue with the vpts object created in the previous example.</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co"># The vertically integrated quantities are calculated as follows:</span></a>
+<a class="sourceLine" id="cb17-3" title="3">my_vpi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/integrate_profile.html">integrate_profile</a></span>(my_vpts)</a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="co"># The my_vpi object you created is a vpi class object, which is an acronym for "vertical profile integrated". It has its own plot method, which by default plots migration traffic rate (MTR):</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi)</a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="co"># you can also plot vertically integrated densities (VID):</span></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"vid"</span>)</a>
+<a class="sourceLine" id="cb17-8" title="8"><span class="co"># the gray and white shading indicates day and night, which is calculated</span></a>
+<a class="sourceLine" id="cb17-9" title="9"><span class="co"># from the date and the radar position. You can also turn this off:</span></a>
+<a class="sourceLine" id="cb17-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">night_shade =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb17-11" title="11"><span class="co"># plot the cumulative number of birds passing the radar, i.e. migration traffic (mt):</span></a>
+<a class="sourceLine" id="cb17-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"mt"</span>)</a>
+<a class="sourceLine" id="cb17-13" title="13"><span class="co"># execute `?plot.vpi` to open the help page listing all the options.</span></a>
+<a class="sourceLine" id="cb17-14" title="14">?plot.vpi</a></code></pre></div>
 <p>The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1000 meter above ground is 200 birds per cubic kilometer, and from 1000-1500 meter 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 meter there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.</p>
 <p><strong>Exercise 9:</strong> What is in this case the bird’s vertically integrated density (VID)? Give your answer in units birds/km<span class="math inline">\(^2\)</span>.</p>
 <p><strong>Exercise 10:</strong> What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour.</p>
 <p><strong>Exercise 11:</strong> How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.</p>
 <p>Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling/unable to specify RCS, you can alternatively use two closely related quantities that make no assumptions RCS:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):</span></a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"vir"</span>)</a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="co"># instead of migration traffic rate (MTR), you can use the reflectivity traffic rate (RTR):</span></a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"rtr"</span>)</a>
-<a class="sourceLine" id="cb17-5" title="5"><span class="co"># instead of migration traffic (MT), you can use the reflectivity traffic (RT):</span></a>
-<a class="sourceLine" id="cb17-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"rt"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):</span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"vir"</span>)</a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="co"># instead of migration traffic rate (MTR), you can use the reflectivity traffic rate (RTR):</span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"rtr"</span>)</a>
+<a class="sourceLine" id="cb18-5" title="5"><span class="co"># instead of migration traffic (MT), you can use the reflectivity traffic (RT):</span></a>
+<a class="sourceLine" id="cb18-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"rt"</span>)</a></code></pre></div>
 <p>VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.</p>
 </div>
 <div id="inspecting-precipitation-signals-in-profiles" class="section level3">
@@ -321,14 +322,14 @@
 <p>Precipitation is known to have a major influence on the timing and intensity of migration, therefore it is a useful skill to be able to inspect profiles for presence of precipitation.</p>
 <p>Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algorithms in specific cases. It is therefore important to have the skills to inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.</p>
 <p>An easy way of doing that is plotting the vertical profile of total reflectivity (quantity DBZH), which includes everything: birds, insects and precipitation. Precipitation often has higher reflectivities than birds, and also extends to much higher altitudes.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># load a time series for the KBGM radar in Binghamton, NY</span></a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="st">"KBGM20170527-20170602.RData"</span>)</a>
-<a class="sourceLine" id="cb18-3" title="3"><span class="co"># print the loaded vpts time series for this radar:</span></a>
-<a class="sourceLine" id="cb18-4" title="4">my_vpts</a>
-<a class="sourceLine" id="cb18-5" title="5"><span class="co"># plot the bird density over time:</span></a>
-<a class="sourceLine" id="cb18-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"dens"</span>)</a>
-<a class="sourceLine" id="cb18-7" title="7"><span class="co"># also show meteorological signals:</span></a>
-<a class="sourceLine" id="cb18-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># load a time series for the KBGM radar in Binghamton, NY</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="st">"KBGM20170527-20170602.RData"</span>)</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="co"># print the loaded vpts time series for this radar:</span></a>
+<a class="sourceLine" id="cb19-4" title="4">my_vpts</a>
+<a class="sourceLine" id="cb19-5" title="5"><span class="co"># plot the bird density over time:</span></a>
+<a class="sourceLine" id="cb19-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"dens"</span>)</a>
+<a class="sourceLine" id="cb19-7" title="7"><span class="co"># also show meteorological signals:</span></a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
 <p><strong>Exercise 12:</strong> Compare your plots for bird density (quantity <code>dens</code>) with a profile plot for total reflectivity (quantity <code>DBZH</code>, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.</p>
 </div>
 </div>
@@ -356,55 +357,55 @@
 <a href="#processing-a-single-polar-volume-with-the-vol2bird-algorithm" class="anchor"></a>3.2 Processing a single polar volume with the vol2bird algorithm</h3>
 <p>The following steps take you through the process applying the vol2bird algorithm yourself. You need a working installation of Docker (Linux/Mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported).</p>
 <p>We will generate vertical profiles with the automated algorithm vol2bird (<a href="https://github.com/adokter/vol2bird" class="uri">https://github.com/adokter/vol2bird</a>), which is included in the bioRad package.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># start your local Docker installation</span></a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="co"># we first test whether R can communicate with Docker:</span></a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="kw"><a href="../reference/check_docker.html">check_docker</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># start your local Docker installation</span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="co"># we first test whether R can communicate with Docker:</span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="kw"><a href="../reference/check_docker.html">check_docker</a></span>()</a></code></pre></div>
 <p>If you get a “Hello from Docker!” welcome message, everything is working and you can start processing.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># download a polar volume file you want to process and put it in your home directory.</span></a>
-<a class="sourceLine" id="cb20-2" title="2">my_file &lt;-<span class="st"> "write_your_file_to_be_processed_here"</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="co"># Alternatively, continue with the polar volume that comes with the package:</span></a>
-<a class="sourceLine" id="cb20-4" title="4">my_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="co"># run vol2bird</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="co"># we set autoconf to TRUE, to let vol2bird figure out the optimal settings by itself</span></a>
-<a class="sourceLine" id="cb20-7" title="7">my_vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb20-8" title="8"><span class="co"># vp is now a 'vp' profile object, that you can examine as in the previous exercises</span></a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="co"># alternatively, you may also store the profile as a hdf5 file, which is what we will do next:</span></a>
-<a class="sourceLine" id="cb20-10" title="10"><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="st">"my_vpfile.h5"</span>, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb20-11" title="11"><span class="co"># your work directory should now contain a new file 'my_vpfile.h5'</span></a>
-<a class="sourceLine" id="cb20-12" title="12"><span class="co"># check that we can read this file, and retrieve the vertical profile from it:</span></a>
-<a class="sourceLine" id="cb20-13" title="13">vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(<span class="st">"my_vpfile.h5"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># download a polar volume file you want to process and put it in your home directory.</span></a>
+<a class="sourceLine" id="cb21-2" title="2">my_file &lt;-<span class="st"> "write_your_file_to_be_processed_here"</span></a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="co"># Alternatively, continue with the polar volume that comes with the package:</span></a>
+<a class="sourceLine" id="cb21-4" title="4">my_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
+<a class="sourceLine" id="cb21-5" title="5"><span class="co"># run vol2bird</span></a>
+<a class="sourceLine" id="cb21-6" title="6"><span class="co"># we set autoconf to TRUE, to let vol2bird figure out the optimal settings by itself</span></a>
+<a class="sourceLine" id="cb21-7" title="7">my_vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb21-8" title="8"><span class="co"># vp is now a 'vp' profile object, that you can examine as in the previous exercises</span></a>
+<a class="sourceLine" id="cb21-9" title="9"><span class="co"># alternatively, you may also store the profile as a hdf5 file, which is what we will do next:</span></a>
+<a class="sourceLine" id="cb21-10" title="10"><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(my_file, <span class="st">"my_vpfile.h5"</span>, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb21-11" title="11"><span class="co"># your work directory should now contain a new file 'my_vpfile.h5'</span></a>
+<a class="sourceLine" id="cb21-12" title="12"><span class="co"># check that we can read this file, and retrieve the vertical profile from it:</span></a>
+<a class="sourceLine" id="cb21-13" title="13">vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(<span class="st">"my_vpfile.h5"</span>)</a></code></pre></div>
 </div>
 <div id="processing-multiple-polar-volumes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#processing-multiple-polar-volumes" class="anchor"></a>3.3 Processing multiple polar volumes</h3>
 <p>This section contains an example for processing a directory of polar volumes into profiles:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># read the filenames of the polar volumes you want to process</span></a>
-<a class="sourceLine" id="cb21-2" title="2">my_files &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(<span class="st">"your/directory/with/volumes/goes/here/"</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb21-3" title="3"><span class="co"># print the filenames</span></a>
-<a class="sourceLine" id="cb21-4" title="4">my_files</a>
-<a class="sourceLine" id="cb21-5" title="5"><span class="co"># create output directory for processed profiles</span></a>
-<a class="sourceLine" id="cb21-6" title="6">outputdir &lt;-<span class="st"> "~/processed_data"</span></a>
-<a class="sourceLine" id="cb21-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files2">dir.create</a></span>(outputdir)</a>
-<a class="sourceLine" id="cb21-8" title="8"><span class="co"># let's loop over the files and generate profiles</span></a>
-<a class="sourceLine" id="cb21-9" title="9"><span class="cf">for</span> (file_in <span class="cf">in</span> my_files) {</a>
-<a class="sourceLine" id="cb21-10" title="10">  <span class="co"># generate the output filename for the input file</span></a>
-<a class="sourceLine" id="cb21-11" title="11">  file_out &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(outputdir, <span class="st">"/"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/basename">basename</a></span>(file_in), <span class="st">"_vp.h5"</span>, <span class="dt">sep =</span> <span class="st">""</span>)</a>
-<a class="sourceLine" id="cb21-12" title="12">  <span class="co"># generate the profile, and write it as a hdf5 file (for later reference)</span></a>
-<a class="sourceLine" id="cb21-13" title="13">  <span class="co"># we turn autoconfiguration on, so vol2bird chooses the optimal settings for the file automatically</span></a>
-<a class="sourceLine" id="cb21-14" title="14">  vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(file_in, file_out, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb21-15" title="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># read the filenames of the polar volumes you want to process</span></a>
+<a class="sourceLine" id="cb22-2" title="2">my_files &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(<span class="st">"your/directory/with/volumes/goes/here/"</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="co"># print the filenames</span></a>
+<a class="sourceLine" id="cb22-4" title="4">my_files</a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="co"># create output directory for processed profiles</span></a>
+<a class="sourceLine" id="cb22-6" title="6">outputdir &lt;-<span class="st"> "~/processed_data"</span></a>
+<a class="sourceLine" id="cb22-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files2">dir.create</a></span>(outputdir)</a>
+<a class="sourceLine" id="cb22-8" title="8"><span class="co"># let's loop over the files and generate profiles</span></a>
+<a class="sourceLine" id="cb22-9" title="9"><span class="cf">for</span> (file_in <span class="cf">in</span> my_files) {</a>
+<a class="sourceLine" id="cb22-10" title="10">  <span class="co"># generate the output filename for the input file</span></a>
+<a class="sourceLine" id="cb22-11" title="11">  file_out &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(outputdir, <span class="st">"/"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/basename">basename</a></span>(file_in), <span class="st">"_vp.h5"</span>, <span class="dt">sep =</span> <span class="st">""</span>)</a>
+<a class="sourceLine" id="cb22-12" title="12">  <span class="co"># generate the profile, and write it as a hdf5 file (for later reference)</span></a>
+<a class="sourceLine" id="cb22-13" title="13">  <span class="co"># we turn autoconfiguration on, so vol2bird chooses the optimal settings for the file automatically</span></a>
+<a class="sourceLine" id="cb22-14" title="14">  vp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/calculate_vp.html">calculate_vp</a></span>(file_in, file_out, <span class="dt">autoconf =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb22-15" title="15">}</a></code></pre></div>
 <p>Having generated the profiles, we can read them into R:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># we assume outputdir contains the path to the directory with processed profiles</span></a>
-<a class="sourceLine" id="cb22-2" title="2">my_vpfiles &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(outputdir, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="co"># print them</span></a>
-<a class="sourceLine" id="cb22-4" title="4">my_vpfiles</a>
-<a class="sourceLine" id="cb22-5" title="5"><span class="co"># read them</span></a>
-<a class="sourceLine" id="cb22-6" title="6">my_vplist &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(my_vpfiles)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># we assume outputdir contains the path to the directory with processed profiles</span></a>
+<a class="sourceLine" id="cb23-2" title="2">my_vpfiles &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(outputdir, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="co"># print them</span></a>
+<a class="sourceLine" id="cb23-4" title="4">my_vpfiles</a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="co"># read them</span></a>
+<a class="sourceLine" id="cb23-6" title="6">my_vplist &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(my_vpfiles)</a></code></pre></div>
 <p>You can now continue with visualizing and post-processing as we did earlier:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># make a time series of profiles:</span></a>
-<a class="sourceLine" id="cb23-2" title="2">my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span>(my_vplist)</a>
-<a class="sourceLine" id="cb23-3" title="3"><span class="co"># plot them between 0 - 3 km altitude:</span></a>
-<a class="sourceLine" id="cb23-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># make a time series of profiles:</span></a>
+<a class="sourceLine" id="cb24-2" title="2">my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span>(my_vplist)</a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="co"># plot them between 0 - 3 km altitude:</span></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a></code></pre></div>
 </div>
 </div>
   </div>

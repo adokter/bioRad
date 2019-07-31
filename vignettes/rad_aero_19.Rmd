@@ -231,9 +231,13 @@ my_vpts_night <- my_vpts[index_night]
 plot(my_vpts_night)
 ```
 
-**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1400 meter at 22 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, each pennant (triangle) 25 m/s.
+**Exercise 7:** Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1500 meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in this case].
 
 **Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity `ff`). Hint: use function `filter_vpts()` to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.
+
+```{r, eval=FALSE}
+vp_6UTC=filter_vpts(my_vpts_night, nearest=as.POSIXct("2017-05-14 06:00",tz="UTC"))
+```
 
 ### 2.4 Vertical and time integration of profiles
 
