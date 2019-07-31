@@ -236,7 +236,7 @@ plot(my_vpts_night)
 **Exercise 8:** Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity `ff`). Hint: use function `filter_vpts()` to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.
 
 ```{r, eval=FALSE}
-vp_6UTC=filter_vpts(my_vpts_night, nearest=as.POSIXct("2017-05-14 06:00",tz="UTC"))
+vp_6UTC=filter_vpts(my_vpts_night, nearest="2017-05-14 06:00")
 ```
 
 ### 2.4 Vertical and time integration of profiles
