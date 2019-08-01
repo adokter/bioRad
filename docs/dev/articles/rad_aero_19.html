@@ -403,6 +403,22 @@
 <a class="sourceLine" id="cb24-3" title="3"><span class="co"># plot them between 0 - 3 km altitude:</span></a>
 <a class="sourceLine" id="cb24-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a></code></pre></div>
 </div>
+<div id="further-analysis" class="section level3">
+<h3 class="hasAnchor">
+<a href="#further-analysis" class="anchor"></a>4. Further analysis</h3>
+<p>In many cases you will want to convert bioRad’s objects into a convenient form for your own further analyses. To convert bioRad objects to a simple <code>data.frame</code>:</p>
+<ul>
+<li>vertical profile (<code>vp</code>): as.data.frame(<code>your_vp_object</code>)</li>
+<li>vertical profile time series (<code>vpts</code>): as.data.frame(<code>your_vpts_object</code>)</li>
+<li>integrated vertical profile time series (<code>vpi</code>): is already a <code>data.frame</code>
+</li>
+</ul>
+<p>Converting polar scans (<code>scan</code> objects) to common spatial formats:</p>
+<ul>
+<li>use <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> to convert to a <code>RasterBrick</code> object (package raster)</li>
+<li>use <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> to convert to a <code>SpatialPointsDataFrame</code> object (package sp)</li>
+</ul>
+</div>
 </div>
   </div>
 

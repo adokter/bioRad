@@ -499,3 +499,15 @@ my_vpts <- bind_into_vpts(my_vplist)
 # plot them between 0 - 3 km altitude:
 plot(my_vpts, ylim = c(0, 3000))
 ```
+
+### 4. Further analysis
+In many cases you will want to convert bioRad's objects into a convenient form for your own further analyses. To convert bioRad objects to a simple `data.frame`:
+
+* vertical profile (`vp`): as.data.frame(`your_vp_object`)
+* vertical profile time series (`vpts`): as.data.frame(`your_vpts_object`)
+* integrated vertical profile time series (`vpi`): is already a `data.frame`
+
+Converting polar scans (`scan` objects) to common spatial formats:
+
+* use `scan_to_raster()` to convert to a `RasterBrick` object (package raster)
+* use `scan_to_spatial()` to convert to a `SpatialPointsDataFrame` object (package sp)
