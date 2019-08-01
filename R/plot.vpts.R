@@ -242,7 +242,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
     barbdata <- barbdata[barbdata$dens > barbs_dens_min, ]
     plot_wind_barbs(barbdata$date, barbdata$height, 180 + barbdata$dd,
-      2 * barbdata$ff,
+      barbdata$ff,
       cex = 0.7
     )
   }
@@ -306,73 +306,74 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
         X2 <- 0
         Y1 <- 0
         Y2 <- 5
-        if (spd >= 5 & spd < 10) {
+
+        if (spd >= 1.25 & spd < 3.75) {
           X1 <- c(X1, 0)
           X2 <- c(X2, 1)
           Y1 <- c(Y1, 5)
           Y2 <- c(Y2, 5)
         }
-        if (spd >= 10 & spd < 15) {
+        if (spd >= 3.75 & spd < 6.25) {
           X1 <- c(X1, 0)
           X2 <- c(X2, 2)
           Y1 <- c(Y1, 5)
           Y2 <- c(Y2, 5)
         }
-        if (spd >= 15 & spd < 20) {
+        if (spd >= 6.25 & spd < 8.75) {
           X1 <- c(X1, 0, 0)
           X2 <- c(X2, 1, 2)
           Y1 <- c(Y1, 4, 5)
           Y2 <- c(Y2, 4, 5)
         }
-        if (spd >= 20 & spd < 25) {
+        if (spd >= 8.75 & spd < 11.25) {
           X1 <- c(X1, 0, 0)
           X2 <- c(X2, 2, 2)
           Y1 <- c(Y1, 4, 5)
           Y2 <- c(Y2, 4, 5)
         }
-        if (spd >= 25 & spd < 30) {
+        if (spd >= 11.25 & spd < 13.75) {
           X1 <- c(X1, 0, 0, 0)
           X2 <- c(X2, 1, 2, 2)
           Y1 <- c(Y1, 3, 4, 5)
           Y2 <- c(Y2, 3, 4, 5)
         }
-        if (spd >= 30 & spd < 35) {
+        if (spd >= 13.75 & spd < 16.25) {
           X1 <- c(X1, 0, 0, 0)
           X2 <- c(X2, 2, 2, 2)
           Y1 <- c(Y1, 3, 4, 5)
           Y2 <- c(Y2, 3, 4, 5)
         }
-        if (spd >= 35 & spd < 40) {
+        if (spd >= 16.25 & spd < 18.75) {
           X1 <- c(X1, 0, 0, 0, 0)
           X2 <- c(X2, 1, 2, 2, 2)
           Y1 <- c(Y1, 2, 3, 4, 5)
           Y2 <- c(Y2, 2, 3, 4, 5)
         }
-        if (spd >= 40 & spd < 45) {
+        if (spd >= 18.75 & spd < 21.25) {
           X1 <- c(X1, 0, 0, 0, 0)
           X2 <- c(X2, 2, 2, 2, 2)
           Y1 <- c(Y1, 2, 3, 4, 5)
           Y2 <- c(Y2, 2, 3, 4, 5)
         }
-        if (spd >= 45 & spd < 50) {
+        if (spd >= 21.25 & spd < 23.75) {
           X1 <- c(X1, 0, 0, 0, 0, 0)
           X2 <- c(X2, 1, 2, 2, 2, 2)
           Y1 <- c(Y1, 1, 2, 3, 4, 5)
           Y2 <- c(Y2, 1, 2, 3, 4, 5)
         }
-        if (spd >= 50 & spd < 55) {
+        if (spd >= 23.75 & spd < 26.25) {
           X1 <- c(X1, 0, 0)
           X2 <- c(X2, 2, 2)
           Y1 <- c(Y1, 4, 5)
           Y2 <- c(Y2, 4.5, 4.5)
         }
-        if (spd >= 55 & spd < 60) {
+        if (spd >= 26.25 & spd < 28.75) {
           X1 <- c(X1, 0, 0, 0)
           X2 <- c(X2, 1, 2, 2)
           Y1 <- c(Y1, 3, 4, 5)
           Y2 <- c(Y2, 3, 4.5, 4.5)
         }
-        if (spd >= 60 & spd < 65) {
+        if (spd >= 28.75 & spd < 31.25) {
           X1 <- c(X1, 0, 0, 0)
           X2 <- c(X2, 2, 2, 2)
           Y1 <- c(Y1, 3, 4, 5)
