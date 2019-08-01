@@ -166,7 +166,7 @@ plot(my_ppi, param = "VRADH")
 ```{r, echo=SHOW_ANSWERS, eval=SHOW_ANSWERS, warning=FALSE}
 # Answer:
 # The radial velocity (VRADH) PPI shows that biological scatterers have
-# a very different direction than the precipitation. This indicates the
+# a higher speed than the precipitation. This indicates the
 # biological scatterers must have a high self-propelled speed, which is
 # typical for birds, not for insects.
 ```
