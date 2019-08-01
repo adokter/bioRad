@@ -121,164 +121,162 @@
 <a class="sourceLine" id="cb1-2" title="2"><span class="co"># load the bioRad package</span></a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bioRad)</a>
 <a class="sourceLine" id="cb1-4" title="4"><span class="co"># check the package version</span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/packageDescription">packageVersion</a></span>(<span class="st">"bioRad"</span>)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co"># make sure you have the latest version (0.4.0.9241). If you have an older version, download and reinstall as follows:</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)</a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/packageDescription">packageVersion</a></span>(<span class="st">"bioRad"</span>)</a></code></pre></div>
+<p>Make sure you have the latest version (0.4.0.9243). If you have an older version, download and reinstall as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</a></code></pre></div>
 <p>All bioRad’s functions are documented in an extensive <a href="http://adriaandokter.com/bioRad/dev/reference/index.html">function refererence</a> online, as well as in manual pages within R:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># bring up the package general help page:</span></a>
-<a class="sourceLine" id="cb2-2" title="2">?bioRad</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># bring up the package general help page:</span></a>
+<a class="sourceLine" id="cb3-2" title="2">?bioRad</a></code></pre></div>
 <p>Start by making a new directory on your local machine that you will use for this practical:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># make a new local directory on your machine where to download data for this practical</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co"># replace the string below with the path of that directory:</span></a>
-<a class="sourceLine" id="cb3-3" title="3">HOME &lt;-<span class="st"> "your/personal/working/directory/"</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co"># check that the directory exists. If the next statement evaluates to FALSE, something went wrong: the directory does not exist or you didn't specify its path correctly</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.exists</a></span>(HOME)</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co"># we will make HOME our work directory, the default folder in which R will look</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co"># for files, and where it will output newly generated files.</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd</a></span>(HOME)</a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co"># Finally, we set the local time zone to UTC, so all plotted time axes will be in UTC</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.setenv">Sys.setenv</a></span>(<span class="dt">TZ =</span> <span class="st">"UTC"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># make a new local directory on your machine where to download data for this practical</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co"># replace the string below with the path of that directory:</span></a>
+<a class="sourceLine" id="cb4-3" title="3">HOME &lt;-<span class="st"> "your/personal/working/directory/"</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co"># check that the directory exists. If the next statement evaluates to FALSE, something went wrong: the directory does not exist or you didn't specify its path correctly</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.exists</a></span>(HOME)</a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co"># we will make HOME our work directory, the default folder in which R will look</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co"># for files, and where it will output newly generated files.</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd</a></span>(HOME)</a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co"># Finally, we set the local time zone to UTC, so all plotted time axes will be in UTC</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.setenv">Sys.setenv</a></span>(<span class="dt">TZ =</span> <span class="st">"UTC"</span>)</a></code></pre></div>
 <p>Your R session is now properly set up.</p>
 <p>To work with US NEXRAD data, bioRad currently requires a working installation of Docker (Linux/Mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). If you managed to successfully install Docker, test whether it works:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># start your local Docker installation</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co"># we first test whether R can communicate with Docker:</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="../reference/check_docker.html">check_docker</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># start your local Docker installation</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co"># we first test whether R can communicate with Docker:</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="../reference/check_docker.html">check_docker</a></span>()</a></code></pre></div>
 <p>The message “running docker image with vol2bird version 0.4.0” indicates everything is working.</p>
 <p>If you did <strong>not</strong> manage to install Docker, you will be able to continue with all of below exercises, but not be able to load NEXRAD data into R at this time.</p>
 </div>
 <div id="the-structure-of-polar-volumes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-structure-of-polar-volumes" class="anchor"></a>1.2 The structure of polar volumes</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># the bioRad package comes with an example radar volume file, that we will inspect first</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="co"># first locate this example file on our computer:</span></a>
-<a class="sourceLine" id="cb5-3" title="3">my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co"># print the local path of the volume file:</span></a>
-<a class="sourceLine" id="cb5-5" title="5">my_filename</a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co"># load the file into R:</span></a>
-<a class="sourceLine" id="cb5-7" title="7">my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(my_filename)</a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">## print some information about the polar volume</span></a>
-<a class="sourceLine" id="cb5-9" title="9">my_pvol</a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co"># print information about the polar scans contained in this polar volume:</span></a>
-<a class="sourceLine" id="cb5-11" title="11">my_pvol<span class="op">$</span>scans</a></code></pre></div>
-<p><strong>Exercise 1:</strong> Load the polar volume file, <code>example_pvol.h5</code> from the files downloaded in section 1.1. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (Check the help file of the <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> function for the nomenclature of various available quantities).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># the bioRad package comes with an example radar volume file, that we will inspect first</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co"># first locate this example file on our computer:</span></a>
+<a class="sourceLine" id="cb6-3" title="3">my_filename &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co"># print the local path of the volume file:</span></a>
+<a class="sourceLine" id="cb6-5" title="5">my_filename</a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co"># load the file into R:</span></a>
+<a class="sourceLine" id="cb6-7" title="7">my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(my_filename)</a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="co">## print some information about the polar volume</span></a>
+<a class="sourceLine" id="cb6-9" title="9">my_pvol</a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co"># print information about the polar scans contained in this polar volume:</span></a>
+<a class="sourceLine" id="cb6-11" title="11">my_pvol<span class="op">$</span>scans</a></code></pre></div>
+<p><strong>Exercise 1:</strong> Load the polar volume file, <code>example_pvol.h5</code> from the files downloaded in section 1.1. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (See manual page of the <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> function for the nomenclature of various available quantities).</p>
 </div>
 <div id="plotting-radar-scans" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotting-radar-scans" class="anchor"></a>1.3 Plotting radar scans</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># (if you haven't done so already) load the polar volume data from the volume.h5 file you just downloaded</span></a>
-<a class="sourceLine" id="cb6-2" title="2">my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="st">"example_pvol.h5"</span>)</a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="co"># let's extract the third scan, which was collected at 1.5 degree elevation:</span></a>
-<a class="sourceLine" id="cb6-4" title="4">my_scan &lt;-<span class="st"> </span>my_pvol<span class="op">$</span>scans[[<span class="dv">3</span>]]</a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co"># print some information about this scan:</span></a>
-<a class="sourceLine" id="cb6-6" title="6">my_scan</a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="co"># let's plot the scan in a range - azimuth coordinate system:</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scan)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># (if you haven't done so already) load the polar volume data from the example_pvol.h5 file you just downloaded</span></a>
+<a class="sourceLine" id="cb7-2" title="2">my_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="st">"example_pvol.h5"</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co"># let's extract the third scan, which was collected at 1.5 degree elevation:</span></a>
+<a class="sourceLine" id="cb7-4" title="4">my_scan &lt;-<span class="st"> </span>my_pvol<span class="op">$</span>scans[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co"># print some information about this scan:</span></a>
+<a class="sourceLine" id="cb7-6" title="6">my_scan</a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co"># let's plot the reflectivity factor parameter of the scan in a range - azimuth coordinate system:</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scan, <span class="dt">param=</span><span class="st">"DBZH"</span>)</a></code></pre></div>
 <p>Usually it is more intuitive to explore radar scans as a PPI (plan position indicator), which is a projection of the scan on a Cartesian (X,Y) or (lat,lon) grid:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># before we can plot the scan, we need to project it on a Cartesian grid,</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="co"># i.e. we need to make a Plan Position Indicator (PPI)</span></a>
-<a class="sourceLine" id="cb7-3" title="3">my_ppi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/project_as_ppi.html">project_as_ppi</a></span>(my_scan)</a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co"># print some information about this ppi:</span></a>
-<a class="sourceLine" id="cb7-5" title="5">my_ppi</a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co"># you can see we projected it on a 500 meter grid</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co"># (check the manual of the project_as_ppi function to see how you can</span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="co"># change the grid size (argument grid_size) and the maximum distance</span></a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co"># from the radar up to where to plot data (argument range_max))</span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">#</span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="co"># Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:</span></a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_ppi, <span class="dt">param =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
-<p><strong>Exercise 2:</strong> This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the radial velocity (VRADH) and correlation coefficient (RHOHV). Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># before we can plot the scan, we need to project it on a Cartesian grid,</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co"># i.e. we need to make a Plan Position Indicator (PPI)</span></a>
+<a class="sourceLine" id="cb8-3" title="3">my_ppi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/project_as_ppi.html">project_as_ppi</a></span>(my_scan)</a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co"># print some information about this ppi:</span></a>
+<a class="sourceLine" id="cb8-5" title="5">my_ppi</a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co"># you can see we projected it on a 500 meter grid</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co"># (check the manual of the project_as_ppi function to see how you can</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co"># change the grid size (argument grid_size) and the maximum distance</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co"># from the radar up to where to plot data (argument range_max))</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#</span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="co"># Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:</span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_ppi, <span class="dt">param =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
+<p><strong>Exercise 2:</strong> This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the correlation coefficient (RHOHV) and radial velocity (VRADH). Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.</p>
 <p><strong>Exercise 3:</strong> Based on the radial velocity image, are the biological scatterers birds or insects? Why?</p>
 </div>
 <div id="overlaying-radar-scans-on-maps" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overlaying-radar-scans-on-maps" class="anchor"></a>1.4 Overlaying radar scans on maps</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># It is often informative to plot radar data on a base layer, such as google earth maps.</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="co"># first download the background image:</span></a>
-<a class="sourceLine" id="cb8-3" title="3">satellite_basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi)</a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="co"># then overlay the PPI on the satellite image, restricting the color scale from -20 to 15 dBZ:</span></a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi, <span class="dt">map =</span> satellite_basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="dv">20</span>, <span class="dv">15</span>))</a></code></pre></div>
-<p><strong>Exercise 4:</strong> Plot the same ppi but now using a cartographic map instead of satellite maps as base layer. Hint: Set the <code>source</code> argument of <code><a href="../reference/download_basemap.html">download_basemap()</a></code> to “osm” for OpenStreetMap maps.</p>
-<p>bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package <code>raster</code> and package <code>sp</code>), see <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> and <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code>, allowing you to process the radar data further with these spatial analysis toolkits.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># It is often informative to plot radar data on a base layer.</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co"># first download the background image:</span></a>
+<a class="sourceLine" id="cb9-3" title="3">basemap &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_ppi)</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co"># then overlay the PPI on the satellite image, restricting the color scale from -20 to 15 dBZ:</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="kw"><a href="../reference/map.html">map</a></span>(my_ppi, <span class="dt">map =</span> basemap, <span class="dt">param =</span> <span class="st">"DBZH"</span>, <span class="dt">zlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="dv">20</span>, <span class="dv">15</span>))</a></code></pre></div>
+<p>bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package <code>raster</code> and package <code>sp</code>), see <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> and <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code>, allowing you to process and overlay the radar data further with these spatial analysis toolkits.</p>
 </div>
 </div>
 <div id="analysis-and-visualisation-of-vertical-bird-profiles" class="section level2">
 <h2 class="hasAnchor">
 <a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2 Analysis and visualisation of vertical bird profiles</h2>
-<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder with a 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
-<p>See section 3 for information on how to process polar volume data into vertical profiles. To save some time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
+<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder of 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
+<p>Section 3 has examples that show how to process polar volume data into vertical profiles. To save time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
 <div id="loading-processed-vertical-profiles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#loading-processed-vertical-profiles" class="anchor"></a>2.1 Loading processed vertical profiles</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Usually we would load processed vertical profiles (vp files) by:</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co"># my_vplist &lt;- read_vpfiles("./your/directory/with/processed/profiles/goes/here")</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="co"># my_vplist contains after running the command a list of vertical profile (vp) objects</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co"># To save time, we load these data directly from file</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="st">"KBRO20170514.RData"</span>)</a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co"># print some information on the vplist object. It should contain 95 profiles</span></a>
-<a class="sourceLine" id="cb9-7" title="7">my_vplist</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># Usually we would load processed vertical profiles (vp files) by:</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="co"># my_vplist &lt;- read_vpfiles("./your/directory/with/processed/profiles/goes/here")</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co"># my_vplist contains after running the command a list of vertical profile (vp) objects</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="co"># To save time, we load these data directly from file</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="st">"KBRO20170514.RData"</span>)</a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="co"># print the length of the vplist object. It should contain 95 profiles</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(my_vplist)</a></code></pre></div>
 </div>
 <div id="inspecting-single-vertical-profiles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#inspecting-single-vertical-profiles" class="anchor"></a>2.2 Inspecting single vertical profiles</h3>
 <p>Now that you have loaded a list of vertical profiles, we can start exploring them. We will start with plotting and inspecting single vertical profiles, i.e. a single profile from the list of vp objects you have just loaded.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># let's extract a profile from the list, in this example the 41st profile:</span></a>
-<a class="sourceLine" id="cb10-2" title="2">my_vp &lt;-<span class="st"> </span>my_vplist[[<span class="dv">41</span>]]</a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="co"># print some info for this profile to the console</span></a>
-<a class="sourceLine" id="cb10-4" title="4">my_vp</a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="co"># test whether this profile was collected at day time:</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="kw"><a href="../reference/check_night.html">check_night</a></span>(my_vp)</a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co"># plot the vertical profile, in terms of reflectivity factor</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vp, <span class="dt">quantity =</span> <span class="st">"dbz"</span>)</a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="co"># plot the vertical profile, in terms of reflectivity</span></a>
-<a class="sourceLine" id="cb10-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vp, <span class="dt">quantity =</span> <span class="st">"eta"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># let's extract a profile from the list, in this example the 41st profile:</span></a>
+<a class="sourceLine" id="cb11-2" title="2">my_vp &lt;-<span class="st"> </span>my_vplist[[<span class="dv">41</span>]]</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co"># print some info for this profile to the console</span></a>
+<a class="sourceLine" id="cb11-4" title="4">my_vp</a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co"># test whether this profile was collected at day time:</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="kw"><a href="../reference/check_night.html">check_night</a></span>(my_vp)</a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="co"># plot the vertical profile, in terms of reflectivity factor</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vp, <span class="dt">quantity =</span> <span class="st">"dbz"</span>)</a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co"># plot the vertical profile, in terms of (linear) reflectivity</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vp, <span class="dt">quantity =</span> <span class="st">"eta"</span>)</a></code></pre></div>
 <p><code>eta</code> and <code>dbz</code> are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear. You can convert one into the other using <code><a href="../reference/eta_to_dbz.html">eta_to_dbz()</a></code> and <code><a href="../reference/dbz_to_eta.html">dbz_to_eta()</a></code> functions, which follow this simple formula:</p>
 <pre><code>eta = (radar-wavelength dependent constant) * 10^(dbz/10)</code></pre>
 <p>The reflectivity factor <code>dBZ</code> is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at similar reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.</p>
 <p>In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this limit reflectivity <code>eta</code> is more similar between S-band and C-band. <code>eta</code> is also more directly related to the density of birds, since <code>eta</code> can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists not reflectivity factor <code>dBZ</code> but reflectivity <code>eta</code> is the more conventional unit.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># plot the vertical profile, in terms of bird density</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vp, <span class="dt">quantity =</span> <span class="st">"dens"</span>)</a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="co"># print the currently assumed radar cross section (RCS) per bird:</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="kw"><a href="../reference/rcs.html">rcs</a></span>(my_vp)</a></code></pre></div>
-<p><strong>Exercise 5:</strong> If you change your assumption on the bird’s radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># let'splot the vertical profile, in terms of bird density</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vp, <span class="dt">quantity =</span> <span class="st">"dens"</span>)</a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co"># print the currently assumed radar cross section (RCS) per bird:</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="kw"><a href="../reference/rcs.html">rcs</a></span>(my_vp)</a></code></pre></div>
+<p><strong>Exercise 4:</strong> If you change your assumption on the bird’s radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?</p>
 <p>The radar cross section you assume can be changed as follows:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># let's change the RCS to 110 cm^2</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="../reference/rcs.html">rcs</a></span>(my_vp) &lt;-<span class="st"> </span><span class="dv">110</span></a></code></pre></div>
-<p><strong>Exercise 6:</strong> Verify your answers on the previous two questions, by re-plotting the vertical profiles for the bird density quantity.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># let's change the RCS to 110 cm^2</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw"><a href="../reference/rcs.html">rcs</a></span>(my_vp) &lt;-<span class="st"> </span><span class="dv">110</span></a></code></pre></div>
+<p><strong>Exercise 5:</strong> Verify your answers on the previous two questions, by re-plotting the vertical profiles for the bird density quantity.</p>
 </div>
 <div id="plotting-vertical-profile-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotting-vertical-profile-time-series" class="anchor"></a>2.3 Plotting vertical profile time series</h3>
 <p>We will now examine multiple vertical profiles at once that are ordered into a time series, e.g. the vertical profiles obtained from a single radar over a full day.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># convert the list of vertical profiles into a time series:</span></a>
-<a class="sourceLine" id="cb14-2" title="2">my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span>(my_vplist)</a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="co"># print summary information</span></a>
-<a class="sourceLine" id="cb14-4" title="4">my_vpts</a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="co"># time series objects can be subsetted, just as you may be used to with vectors</span></a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="co"># here we subset the first 50 timesteps:</span></a>
-<a class="sourceLine" id="cb14-7" title="7">my_vpts[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
-<a class="sourceLine" id="cb14-8" title="8"><span class="co"># here we extract a single timestep, which gives you back a vertical profile class object:</span></a>
-<a class="sourceLine" id="cb14-9" title="9">my_vpts[<span class="dv">100</span>]</a>
-<a class="sourceLine" id="cb14-10" title="10"><span class="co"># to extract all the dates of all profiles in the time series:</span></a>
-<a class="sourceLine" id="cb14-11" title="11">my_vpts<span class="op">$</span>datetime</a>
-<a class="sourceLine" id="cb14-12" title="12"><span class="co"># to plot the full time series:</span></a>
-<a class="sourceLine" id="cb14-13" title="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts)</a>
-<a class="sourceLine" id="cb14-14" title="14"><span class="co"># check the help file for the plotting function of profile time series</span></a>
-<a class="sourceLine" id="cb14-15" title="15"><span class="co"># Because profile timeseries are of class 'vpts', it's associated plotting function</span></a>
-<a class="sourceLine" id="cb14-16" title="16"><span class="co"># is called plot.vpts:</span></a>
-<a class="sourceLine" id="cb14-17" title="17">?plot.vpts</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># convert the list of vertical profiles into a time series:</span></a>
+<a class="sourceLine" id="cb15-2" title="2">my_vpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span>(my_vplist)</a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="co"># print summary information</span></a>
+<a class="sourceLine" id="cb15-4" title="4">my_vpts</a>
+<a class="sourceLine" id="cb15-5" title="5"><span class="co"># time series objects can be subsetted, just as you may be used to with vectors</span></a>
+<a class="sourceLine" id="cb15-6" title="6"><span class="co"># here we subset the first 50 timesteps:</span></a>
+<a class="sourceLine" id="cb15-7" title="7">my_vpts[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
+<a class="sourceLine" id="cb15-8" title="8"><span class="co"># here we extract a single timestep, which gives you back a vertical profile class object:</span></a>
+<a class="sourceLine" id="cb15-9" title="9">my_vpts[<span class="dv">100</span>]</a>
+<a class="sourceLine" id="cb15-10" title="10"><span class="co"># to extract all the dates of all profiles in the time series:</span></a>
+<a class="sourceLine" id="cb15-11" title="11">my_vpts<span class="op">$</span>datetime</a>
+<a class="sourceLine" id="cb15-12" title="12"><span class="co"># to plot the full time series:</span></a>
+<a class="sourceLine" id="cb15-13" title="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts)</a>
+<a class="sourceLine" id="cb15-14" title="14"><span class="co"># check the help file for the plotting function of profile time series</span></a>
+<a class="sourceLine" id="cb15-15" title="15"><span class="co"># Because profile timeseries are of class 'vpts', it's associated plotting function</span></a>
+<a class="sourceLine" id="cb15-16" title="16"><span class="co"># is called plot.vpts:</span></a>
+<a class="sourceLine" id="cb15-17" title="17">?plot.vpts</a></code></pre></div>
 <p>Let’s make a plot for a subselection of the time series:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># make a subselection for night time only</span></a>
-<a class="sourceLine" id="cb15-2" title="2">index_night &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_night.html">check_night</a></span>(my_vpts)</a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="co"># index_night is a logical vector that specifies each profile whether it occurred at night or not:</span></a>
-<a class="sourceLine" id="cb15-4" title="4">index_night</a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co"># now subset our vpts using this selection:</span></a>
-<a class="sourceLine" id="cb15-6" title="6">my_vpts_night &lt;-<span class="st"> </span>my_vpts[index_night]</a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co"># plot this smaller time series:</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts_night)</a></code></pre></div>
-<p><strong>Exercise 7:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1500 meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in this case].</p>
-<p><strong>Exercise 8:</strong> Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity <code>ff</code>). Hint: use function <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">vp_6UTC=<span class="kw"><a href="../reference/filter_vpts.html">filter_vpts</a></span>(my_vpts_night, <span class="dt">nearest=</span><span class="st">"2017-05-14 06:00"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># make a subselection for night time only</span></a>
+<a class="sourceLine" id="cb16-2" title="2">index_night &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_night.html">check_night</a></span>(my_vpts)</a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="co"># index_night is a logical vector that specifies each profile whether it occurred at night or not:</span></a>
+<a class="sourceLine" id="cb16-4" title="4">index_night</a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="co"># now subset our vpts using this selection:</span></a>
+<a class="sourceLine" id="cb16-6" title="6">my_vpts_night &lt;-<span class="st"> </span>my_vpts[index_night]</a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="co"># plot this smaller time series:</span></a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts_night)</a></code></pre></div>
+<p><strong>Exercise 6:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1500 meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in this case].</p>
+<p><strong>Exercise 7:</strong> Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity <code>ff</code>). Hint: use function <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.</p>
 </div>
 <div id="vertical-and-time-integration-of-profiles" class="section level3">
 <h3 class="hasAnchor">
@@ -303,10 +301,10 @@
 <a class="sourceLine" id="cb17-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"mt"</span>)</a>
 <a class="sourceLine" id="cb17-13" title="13"><span class="co"># execute `?plot.vpi` to open the help page listing all the options.</span></a>
 <a class="sourceLine" id="cb17-14" title="14">?plot.vpi</a></code></pre></div>
-<p>The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1000 meter above ground is 200 birds per cubic kilometer, and from 1000-1500 meter 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 meter there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.</p>
-<p><strong>Exercise 9:</strong> What is in this case the bird’s vertically integrated density (VID)? Give your answer in units birds/km<span class="math inline">\(^2\)</span>.</p>
-<p><strong>Exercise 10:</strong> What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour.</p>
-<p><strong>Exercise 11:</strong> How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.</p>
+<p>The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1 km above ground is 200 birds per cubic kilometer, and from 1-1.5 km 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 meter there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.</p>
+<p><strong>Exercise 8:</strong> What is in this case the bird’s vertically integrated density (VID)? Give your answer in units birds/km<span class="math inline">\(^2\)</span>.</p>
+<p><strong>Exercise 9:</strong> What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour.</p>
+<p><strong>Exercise 10:</strong> How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.</p>
 <p>Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling/unable to specify RCS, you can alternatively use two closely related quantities that make no assumptions RCS:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):</span></a>
 <a class="sourceLine" id="cb18-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpi, <span class="dt">quantity =</span> <span class="st">"vir"</span>)</a>
@@ -327,10 +325,8 @@
 <a class="sourceLine" id="cb19-3" title="3"><span class="co"># print the loaded vpts time series for this radar:</span></a>
 <a class="sourceLine" id="cb19-4" title="4">my_vpts</a>
 <a class="sourceLine" id="cb19-5" title="5"><span class="co"># plot the bird density over time:</span></a>
-<a class="sourceLine" id="cb19-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"dens"</span>)</a>
-<a class="sourceLine" id="cb19-7" title="7"><span class="co"># also show meteorological signals:</span></a>
-<a class="sourceLine" id="cb19-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"DBZH"</span>)</a></code></pre></div>
-<p><strong>Exercise 12:</strong> Compare your plots for bird density (quantity <code>dens</code>) with a profile plot for total reflectivity (quantity <code>DBZH</code>, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.</p>
+<a class="sourceLine" id="cb19-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_vpts, <span class="dt">quantity =</span> <span class="st">"dens"</span>)</a></code></pre></div>
+<p><strong>Exercise 11:</strong> Compare the above plot for bird density (quantity <code>dens</code>) with a profile plot for total reflectivity (quantity <code>DBZH</code>, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.</p>
 </div>
 </div>
 <div id="processing-polar-volume-data-into-profiles" class="section level2">
