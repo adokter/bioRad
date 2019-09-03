@@ -139,12 +139,10 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   assert_that(is.number(lat))
   assert_that(is.number(rp))
   assert_that(is.number(re))
-  # convert distance to range
-  range <- beam_range(distance, elev, k = k, lat = lat, re = re, rp = rp)
 
   # calculate radiation pattern
   rowSums(
-    do.call(cbind, lapply(elev, function(x) gaussian_beam_profile(height, range,
+    do.call(cbind, lapply(elev, function(x) gaussian_beam_profile(height, beam_range(distance, x, k = k, lat = lat, re = re, rp = rp),
         x,
         antenna = antenna, beam_angle = beam_angle, lat = lat, k = k, re = re,
         rp = rp
