@@ -63,7 +63,7 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
 #' @inheritParams beam_profile_overlap
 #' @param pvol a polar volume of class pvol
 #' @param vp a vertical profile of class vp
-#' @param quantity one or multiple of 'vir','vid','correction_factor', 'overlap'
+#' @param quantity one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'
 #' @param param reflectivity factor scan parameter on which to base range corrections.
 #' Typically the same parameter from which animal densities are estimated for object \code{vp}.
 #' One of 'DBZH','DBZV','DBZ','TH','TV'.
@@ -157,7 +157,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     crs <- NA
   }
 
-  if (FALSE %in% (quantity %in% c("vir", "vid", "eta_sum", "eta_expected_sum", "azim", "range", "correction_factor", "overlap"))) stop("unknown quantity")
+  if (FALSE %in% (quantity %in% c("vir", "vid", "eta_sum", "eta_sum_expected", "azim", "range", "correction_factor", "overlap"))) stop("unknown quantity")
   if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste("param '", param, "' not one of DBZH, DBZV, DBZ, TH, TV", sep = ""))
   assert_that(is.number(k))
   assert_that(is.number(re))
