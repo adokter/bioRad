@@ -143,11 +143,11 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   range <- distance / cos(elev * pi / 180)
   # calculate radiation pattern
   rowSums(
-    do.call(cbind, lapply(elev, function(x) gaussian_beam_profile(height, range,
-        x,
-        antenna = antenna, beam_angle = beam_angle, lat = lat, k = k, re = re,
-        rp = rp
-      )))
+    mapply(gaussian_beam_profile, elev=elev, range=range, 
+           MoreArgs = list(height=height,
+                           antenna = antenna, beam_angle = beam_angle, lat = lat, k = k, re = re,
+                           rp = rp
+    ))
   ) / length(elev)
 }
 
