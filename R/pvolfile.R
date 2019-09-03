@@ -91,7 +91,7 @@ is.odimfile <- function(file) {
   }
 
   if (!("how" %in% groups)) {
-    output <- FALSE
+    # accepting a missing /how group
     warning(paste("HDF5 file", file, "does not contain a /how group"))
   }
   if (!("where" %in% groups)) {
