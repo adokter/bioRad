@@ -98,9 +98,11 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
 #' my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 1000)
 #' # plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
-#' #' # download a basemap, and map the ppi:
+#' # download a basemap, and map the ppi:
+#' \dontrun{
 #' bm <- download_basemap(my_ppi)
 #' map(my_ppi, bm)
+#' }
 #' # calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
 #' # cropping the area up to 50000 meter from the radar.
 #' my_ppi <- integrate_to_ppi(example_pvol, example_vp,
