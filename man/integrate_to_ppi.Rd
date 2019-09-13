@@ -7,7 +7,8 @@
 integrate_to_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
   zlim = c(0, 4000), res, param = "DBZH", lat, lon, antenna,
   beam_angle = 1, crs, quantity = c("vir", "vid", "correction_factor",
-  "overlap"), k = 4/3, re = 6378, rp = 6357)
+  "overlap", "eta_sum", "eta_sum_expected"), k = 4/3, re = 6378,
+  rp = 6357)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}
@@ -44,7 +45,7 @@ the angle between the half-power (-3 dB) points of the main lobe}
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
-\item{quantity}{one or multiple of 'vir','vid','correction_factor', 'overlap'}
+\item{quantity}{one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'}
 
 \item{k}{Standard refraction coefficient.}
 
@@ -85,9 +86,11 @@ plot(my_ppi, zlim = c(0, 2000))
 my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 1000)
 # plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
 plot(my_ppi, param = "vid", zlim = c(0, 200))
-#' # download a basemap, and map the ppi:
+# download a basemap, and map the ppi:
+\dontrun{
 bm <- download_basemap(my_ppi)
 map(my_ppi, bm)
+}
 # calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
 # cropping the area up to 50000 meter from the radar.
 my_ppi <- integrate_to_ppi(example_pvol, example_vp,
