@@ -2,7 +2,7 @@
 .pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
-  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.4.0")
+  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.4.1")
   # attempt to determine available vol2bird version
   .pkgenv[["vol2bird_version"]] <- vol2bird_version()
   # flag indicating whether docker is running:
