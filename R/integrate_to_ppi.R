@@ -128,8 +128,10 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
   }
   if (!missing(res)) {
-    assert_that(is.numeric(res))
-    assert_that(length(res) <= 2)
+    if(!inherits(res, 'RasterLayer')){
+      assert_that(is.numeric(res))
+      assert_that(length(res) <= 2)
+    }
   } else {
     res <- NA
   }
