@@ -168,21 +168,39 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assert_that(is.number(rp))
 
   # if extent not fully specified, determine it based off the first scan
-  if (missing(xlim) | missing(ylim)) {
-    spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
-    spdf_extent <- raster::extent(spdf)
-    # prepare a raster matching the data extent (or user-specified extent)
-    if (missing(xlim)) xlim <- c(spdf_extent@xmin, spdf_extent@xmax)
-    if (missing(ylim)) ylim <- c(spdf_extent@ymin, spdf_extent@ymax)
-  }
+  if(!inherits(res, 'RasterLayer'))
+    if (missing(xlim) | missing(ylim)) {
+      spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
+      spdf_extent <- raster::extent(spdf)
+      # prepare a raster matching the data extent (or user-specified extent)
+      if (missing(xlim)) xlim <- c(spdf_extent@xmin, spdf_extent@xmax)
+      if (missing(ylim)) ylim <- c(spdf_extent@ymin, spdf_extent@ymax)
+    }
 
   x <- NULL # define x to suppress devtools::check warning in next line
-  rasters <- lapply(pvol$scans, function(x) {
-    as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
-  })
+  if(inherits(res,'RasterLayer')){
+    localCrs<- CRS(paste("+proj=aeqd +lat_0=", lat,
+                       " +lon_0=", lon,
+                       " +units=m",
+                       sep = ""
+    ))
+    values(res)<-1
+    spdf <- (spTransform(rasterToPoints(res,spatial=T), localCrs))
+  	rasters <- lapply(pvol$scans, function(x) {
+    	  scan_to_spdf(
+			      add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
+			       spdf=spdf, param = c("range", "distance", "eta", "eta_expected"),  k = k, re = re, rp = rp)
+    })
+    output<-as(res,'SpatialGridDataFrame')
+    output@data<-rasters[[1]]@data
+  }else{
+  	rasters <- lapply(pvol$scans, function(x) {
+    	  as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+    })
+    output <- rasters[[1]]
+  }
   eta_expected_sum <- rowSums(do.call(cbind, lapply(1:length(rasters), function(i) (rasters[[i]]$eta_expected))), na.rm = T)
   eta_sum <- rowSums(do.call(cbind, lapply(1:length(rasters), function(i) (rasters[[i]]$eta))), na.rm = T)
-  output <- rasters[[1]]
   output@data$eta_sum_expected <- eta_expected_sum
   output@data$eta_sum <- eta_sum
   output@data$correction_factor <- eta_sum / eta_expected_sum

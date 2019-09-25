@@ -19,7 +19,8 @@ scan_to_raster(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param,
 \item{ylim}{y (latitude) range}
 
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}}
+If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
+Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.}
 
 \item{param}{scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
 of scan parameters speeds up evaluation.}
