@@ -17,7 +17,7 @@ beam_profile(height, distance, elev, antenna = 0, beam_angle = 1,
 \item{antenna}{numeric. Height of the centre of the radar antenna in meters}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 

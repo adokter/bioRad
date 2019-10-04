@@ -23,7 +23,7 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 \item{antenna}{radar antenna height. If missing taken from \code{vp}}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 
