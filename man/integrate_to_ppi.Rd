@@ -26,7 +26,7 @@ integrate_to_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
 \item{zlim}{altitude range in meter, given as a numeric vector of length two.}
 
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}. 
+If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
 Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.}
 
 \item{param}{reflectivity factor scan parameter on which to base range corrections.

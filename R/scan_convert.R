@@ -60,8 +60,8 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 #' To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"
 #' @param res numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-#' If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}. 
-#' Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output. 
+#' If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
+#' Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.
 #' @return a RasterBrick
 #' @details uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
 #' the same raster pixel, the last added pixel is given (see \link[raster]{rasterize} for details).
@@ -74,7 +74,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param, lat, lon, crs = NA, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
-  if(!inherits(res,'RasterLayer')){  
+  if(!inherits(res,'RasterLayer')){
     if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
     if (!is.number(ny) && missing(res)) stop("'ny' should be an integer")
   }
@@ -115,7 +115,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
                        sep = ""
   ))
   if (missing(crs) | is.na(crs)) {
-    crs <- localCrs 
+    crs <- localCrs
   }
   else {
     # check crs argument as in raster::raster()
@@ -150,7 +150,6 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   }
   if(inherits(res,'RasterLayer')){
     r <- raster(res)
-    crds <- coordinates(spTransform(rasterToPoints(r,spatial=T), localCrs))
   }else{
     if (missing(res) | is.na(res)) {
       r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs)
@@ -158,8 +157,9 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     else {
       r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs, res = res)
     }
-    crds<-coordinates(r)
   }
+  # convert raster coordinates to local Cartesian CRS
+  crds <- coordinates(spTransform(rasterToPoints(r,spatial=T), localCrs))
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
   index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale)
