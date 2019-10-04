@@ -10,7 +10,7 @@ beam_profile(height, distance, elev, antenna = 0, beam_angle = 1,
 \arguments{
 \item{height}{numeric. Height in meter.}
 
-\item{distance}{numeric. Distance from the radar as measured along sea level (down range)}
+\item{distance}{numeric. Distance from the radar as measured along sea level (down range) in m.}
 
 \item{elev}{numeric vector. Beam elevation(s) in degrees.}
 

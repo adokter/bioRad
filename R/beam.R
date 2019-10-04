@@ -284,7 +284,7 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' (i.e. down range) and beam elevation.
 #'
 #' @inheritParams beam_height
-#' @param distance numeric. Distance from the radar as measured along sea level (down range)
+#' @param distance numeric. Distance from the radar as measured along sea level (down range) in m.
 #' @return numeric. Beam range (slant range) in m.
 #'
 #' @export
