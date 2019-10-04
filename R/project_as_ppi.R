@@ -4,7 +4,7 @@
 #' Make a plan position indicator (ppi)
 #'
 #' @param x An object of class \code{param} or \code{scan}.
-#' @param grid_size Cartesian grid size in m.
+#' @param grid_size Cartesian grid size in m or a RasterLayer defining the full topology.
 #' @param range_max Maximum range in m.
 #' @param ylim The range of latitudes to include.
 #' @param xlim The range of longitudes to include.
@@ -48,7 +48,8 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
   data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)
   # copy the parameter's attributes
   geo <- attributes(x)$geo
-  geo$bbox <- attributes(data)$bboxlatlon
+  if(!inherits(grid_size,'RasterLayer'))
+    geo$bbox <- attributes(data)$bboxlatlon
   geo$merged <- FALSE
   data <- list(
     radar = attributes(x)$radar, datetime = attributes(x)$datetime,
@@ -65,7 +66,16 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
-
+  if(inherits(grid_size,'RasterLayer'))
+  {
+    proj4string <- CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
+                             " +lon_0=", x$geo$lon,
+                             " +units=m",
+                             sep = ""
+    ))
+    ras<-grid_size
+    grid_size<-spTransform(as(as(grid_size,'SpatialGrid'),'SpatialPoints'), proj4string)
+  }
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
     project, ylim, xlim,
@@ -73,7 +83,8 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
   )
   # copy the parameter's geo list to attributes
   geo <- x$geo
-  geo$bbox <- attributes(data)$bboxlatlon
+  if('bboxlatlon'%in%names(attributes(data)))
+    geo$bbox <- attributes(data)$bboxlatlon
   geo$merged <- FALSE
   if (length(x$params) > 1) {
     alldata <- lapply(
@@ -87,6 +98,9 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
       }
     )
     data <- do.call(cbind, alldata)
+  }
+  if(inherits(data,'SpatialPoints')){
+    data<-SpatialGridDataFrame(as(ras,'SpatialGrid'), data@data)
   }
   data <- list(
     radar = x$radar, datetime = x$datetime,
@@ -104,35 +118,45 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
     " +units=m",
     sep = ""
   ))
-  bboxlatlon <- proj_to_wgs(
-    c(-range_max, range_max),
-    c(-range_max, range_max),
-    proj4string
-  )@bbox
-  if (!missing(ylim) & !is.null(ylim)) {
-    bboxlatlon["lat", ] <- ylim
+  if(inherits(grid_size,c('RasterLayer','SpatialPoints'))){
+    if(proj4string(grid_size)!=as.character(proj4string)){
+      gridTopo<-spTransform(as(as(grid_size,'SpatialGrid'),'SpatialPoints'), proj4string)
+    }else if (inherits(grid_size,'RasterLayer')){
+      gridTopo<-as(as(grid_size,'SpatialGrid'), 'SpatialPoints')
+    }else{
+      gridTopo<-as(grid_size, 'SpatialPoints')
+    }
+  }else{
+    bboxlatlon <- proj_to_wgs(
+      c(-range_max, range_max),
+      c(-range_max, range_max),
+      proj4string
+    )@bbox
+    if (!missing(ylim) & !is.null(ylim)) {
+      bboxlatlon["lat", ] <- ylim
+    }
+    if (!missing(xlim) & !is.null(xlim)) {
+      bboxlatlon["lon", ] <- xlim
+    }
+    if (missing(ylim) & missing(xlim)) {
+      cellcentre.offset <- -c(range_max, range_max)
+      cells.dim <- ceiling(rep(2 * range_max / grid_size, 2))
+    } else {
+      bbox <- wgs_to_proj(bboxlatlon["lon", ], bboxlatlon["lat", ], proj4string)
+      cellcentre.offset <- c(
+        min(bbox@coords[, "x"]),
+        min(bbox@coords[, "y"])
+      )
+      cells.dim <- c(
+        ceiling((max(bbox@coords[, "x"]) -
+          min(bbox@coords[, "x"])) / grid_size),
+        ceiling((max(bbox@coords[, "y"]) -
+          min(bbox@coords[, "y"])) / grid_size)
+      )
+    }
+    # define cartesian grid
+    gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   }
-  if (!missing(xlim) & !is.null(xlim)) {
-    bboxlatlon["lon", ] <- xlim
-  }
-  if (missing(ylim) & missing(xlim)) {
-    cellcentre.offset <- -c(range_max, range_max)
-    cells.dim <- ceiling(rep(2 * range_max / grid_size, 2))
-  } else {
-    bbox <- wgs_to_proj(bboxlatlon["lon", ], bboxlatlon["lat", ], proj4string)
-    cellcentre.offset <- c(
-      min(bbox@coords[, "x"]),
-      min(bbox@coords[, "y"])
-    )
-    cells.dim <- c(
-      ceiling((max(bbox@coords[, "x"]) -
-        min(bbox@coords[, "x"])) / grid_size),
-      ceiling((max(bbox@coords[, "y"]) -
-        min(bbox@coords[, "y"])) / grid_size)
-    )
-  }
-  # define cartesian grid
-  gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   # if projecting, account for elevation angle
   if (project) {
     elev <- attributes(param)$geo$elangle * pi / 180
@@ -163,14 +187,20 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   #  ))
 
   colnames(data) <- attributes(param)$param
-  output <- SpatialGridDataFrame(
-    grid = SpatialGrid(
-      grid = gridTopo,
-      proj4string = proj4string
-    ),
-    data = data
-  )
-  attributes(output)$bboxlatlon <- bboxlatlon
+  if(inherits(grid_size, 'RasterLayer')){
+    output<-SpatialGridDataFrame(as(grid_size,'SpatialGrid'),data)
+  }else if(inherits(grid_size, 'SpatialPoints')){
+    output<-SpatialPointsDataFrame(grid_size,data)
+  }else{
+    output <- SpatialGridDataFrame(
+      grid = SpatialGrid(
+        grid = gridTopo,
+        proj4string = proj4string
+      ),
+      data = data
+    )
+    attributes(output)$bboxlatlon <- bboxlatlon
+  }
   output
 }
 
