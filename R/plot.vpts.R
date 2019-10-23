@@ -105,10 +105,20 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       "Use 'regularize_vpts' to make time series regular."
     )
   }
+
   assert_that(is.flag(log))
-  assert_that(is.numeric(zlim),length(zlim)==2,zlim[2]>zlim[1])
-  if(log){
-    assert_that(zlim[1]>0)
+  if(!missing(zlim)){
+    assert_that(is.numeric(zlim),length(zlim)==2,zlim[2]>zlim[1])
+    if(log){
+      assert_that(zlim[1]>0)
+    }
+  }
+
+  # remove profiles with duplicate timestamps:
+  index_duplicates=which(x$timesteps==0)+1
+  if(length(index_duplicates)>0){
+    warning(paste("Dropped",length(index_duplicates),"profiles with duplicate datetime values"))
+    x=x[-index_duplicates]
   }
 
   # prepare zlim, ticks and legendticks
