@@ -105,6 +105,11 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       "Use 'regularize_vpts' to make time series regular."
     )
   }
+  assert_that(is.flag(log))
+  assert_that(is.numeric(zlim),length(zlim)==2,zlim[2]>zlim[1])
+  if(log){
+    assert_that(zlim[1]>0)
+  }
 
   # prepare zlim, ticks and legendticks
   if (missing(zlim)) {
