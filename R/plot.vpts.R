@@ -202,9 +202,9 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   # plotdata[is.na2(plotdata)]=(breaks[1]+breaks[2])/2
   # when calculate_vp stdout also differentiates between NA and NaN:
   plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
-
+  stopifnot(!is.null(interval<- x$attributes$where$interval))
   # plot the image
-  image.plot(x$datetime, x$heights, plotdata,
+  image.plot(x$datetime, x$heights+interval/2, plotdata,
     col = plot_colors, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = zlim, main = main, ...
@@ -220,7 +220,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     if ("ylim" %in% names(args)) {
       h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height)
     } else {
-      h.barbs <- seq(x$heights[1], tail(x$heights, 1), length.out = barbs_height)
+      h.barbs <- seq(x$heights[1], tail(x$heights, 1) + interval, length.out = barbs_height)
     }
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)
     barbdata$indext <- sapply(
@@ -229,7 +229,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
     barbdata$indexh <- sapply(
       barbdata$height,
-      function(y) which.min(abs(x$heights - y))
+      function(y) which.min(abs(x$heights + interval/2 - y))
     )
     barbdata$ff <- mapply(
       function(xx, yy) x$data$ff[xx, yy], barbdata$indexh, barbdata$indext
