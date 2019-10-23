@@ -21,13 +21,28 @@
 #' ts <- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")
 #' ts
 #' }
-read_vpts <- function(file, radar, wavelength = "C") {
+read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
   # input checks
   if (!file.exists(file)) {
     stop(paste("File", file, "doesn't exist."))
   }
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
+  }
+  if (!missing(lat)) {
+    if (!is.numeric(lat) || lat < -90 || lat > 90) {
+      stop("'lat' should be numeric between -90 and 90 degrees")
+    }
+  }
+  if (!missing(lon)) {
+    if (!is.numeric(lon) || lat < -360 || lat > 360) {
+      stop("'lon' should be numeric between -360 and 360 degrees")
+    }
+  }
+  if (!missing(height)) {
+    if (!is.numeric(height) || height < 0) {
+      stop("'height' should be a positive number of meters above sea level")
+    }
   }
   if (missing(radar)) {
     stop("'radar' argument missing. Required to specify a radar identifier.")
@@ -164,6 +179,10 @@ read_vpts <- function(file, radar, wavelength = "C") {
     ),
     how = data.frame(wavelength = wavelength)
   )
+  if (!missing(height)) attributes$where$height=height
+  if (!missing(lon)) attributes$where$lon=lon
+  if (!missing(lat)) attributes$where$lat=lat
+
   output <- list(
     radar = radar, datetime = datetime, heights = heights,
     daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
