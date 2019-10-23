@@ -37,6 +37,9 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
   if (missing(lon)) lon <- scan$geo$lon
   assert_that(is.number(lon))
 
+  # assert that profile contains data
+  if(!(FALSE %in% is.na(vp$data[quantity]))) stop(paste("input profile contains no numeric data for quantity '",quantity,"'.",sep=""))
+
   nazim <- dim(scan)[3]
   nrange <- dim(scan)[2]
 
