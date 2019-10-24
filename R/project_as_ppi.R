@@ -171,6 +171,8 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
     data = data
   )
   attributes(output)$bboxlatlon <- bboxlatlon
+  # if not a true projection, remove coordinate system
+  if(!project) crs(output) <- NULL
   output
 }
 
