@@ -1,3 +1,8 @@
+# bioRad devel
+
+* The plots for both `plot.vpts` and `plot.vp` got shifted up by half the height interval to reflect that `HGHT` refers to the bottom of the height interval
+
+
 # bioRad 0.4.0
 
 First release on CRAN! All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/4?closed=1).
