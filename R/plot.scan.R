@@ -42,7 +42,7 @@
 #' plot(example_scan, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
 #' plot(example_scan, param = "DBZH", zlim = c(-30, 50))
-plot.scan <- function(x, param, xlim = c(0, 100),
+plot.scan <- function(x, param, xlim = c(0, 100000),
                       ylim = c(0, 360), zlim = c(-20, 20), ...) {
   stopifnot(inherits(x, "scan"))
 
@@ -69,11 +69,12 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   class(data) <- "matrix"
   # convert to points
   dimraster <- dim(data)
-  data <- data.frame(rasterToPoints(raster(data)))
-  data$x <- (1 - data$x) * dimraster[2] * c(x$attributes$where$nrays) / 360
-  data$y <- (1 - data$y) * dimraster[1] * c(x$attributes$where$rscale) / 1000
+  ascale=c(x$attributes$where$nrays) / 360
+  rscale=c(x$attributes$where$rscale)
+  data <- data.frame(rasterToPoints(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1])))
   # change the name from "layer" to the parameter names
-  names(data) <- c("azimuth", "range", param)
+  names(data) <- c("range", "azimuth", param)
+
   # bring z-values within plotting range
   index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {
@@ -88,6 +89,5 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   ggplot(data = data, ...) +
     geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
-    xlim(xlim[1], xlim[2]) +
-    ylim(ylim[1], ylim[2])
+    coord_cartesian(xlim=xlim, ylim=ylim)
 }
