@@ -5,7 +5,7 @@
 \title{Plot a scan (\code{scan}) in polar coordinates}
 \usage{
 \method{plot}{scan}(x, param, xlim = c(0, 1e+05), ylim = c(0, 360),
-  zlim = c(-20, 20), ...)
+  zlim = c(-20, 20), na.value = "transparent", ...)
 }
 \arguments{
 \item{x}{An object of class \code{scan}.}
@@ -17,6 +17,8 @@
 \item{ylim}{Range of y (azimuth) values to plot.}
 
 \item{zlim}{The range of parameter values to plot.}
+
+\item{na.value}{\link[ggplot2]{ggplot} argument setting the plot color of NA values}
 
 \item{...}{Arguments passed to low level \link[ggplot2]{ggplot} function.}
 }
