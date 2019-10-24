@@ -180,6 +180,19 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assert_that(is.number(re))
   assert_that(is.number(rp))
 
+  # check that request scan parameter is present in the scans of the polar volume
+  param_present=sapply(pvol$scans, function(x) param %in% names(x$params))
+  if(FALSE %in% param_present){
+    if(TRUE %in% param_present){
+      warning(paste("ignoring scan(s)",paste(which(!param_present), collapse=","),"because they have no scan parameter",param))
+      pvol$scans=pvol$scans[param_present]
+    }
+    else{
+      stop(paste("polar volume contains no scans with scan parameter ","'",param,"'",sep=""))
+    }
+
+  }
+
   # if extent not fully specified, determine it based off the first scan
   if (missing(xlim) | missing(ylim)) {
     spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
