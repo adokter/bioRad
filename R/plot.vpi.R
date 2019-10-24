@@ -55,7 +55,7 @@
 #'  \item{\code{dd}}{Horizontal ground speed direction in degrees}
 #'  \item{\code{u}}{Ground speed component west to east in m/s}
 #'  \item{\code{v}}{Ground speed component north to south in m/s}
-#'  \item{\code{HGHT}}{Height above sea level in m}
+#'  \item{\code{HGHT}}{Mean flight height (HGHT weighted by reflectivity eta) in m above sea level}
 #' }
 #' The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
 #' @examples
@@ -95,7 +95,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     if (quantity == "dd") ylab <- expression("vertically averaged direction [deg]")
     if (quantity == "u") ylab <- expression("vertically averaged u-component ground speed [m/s]")
     if (quantity == "v") ylab <- expression("vertically averaged v-component ground speed [m/s]")
-    if (quantity == "HGHT") ylab <- expression("height above mean sea level [m]")
+    if (quantity == "HGHT") ylab <- expression("vertically averaged flight height above sea level [m]")
   }
   if (missing(main)) {
     if (quantity == "mtr") main <- "MTR"

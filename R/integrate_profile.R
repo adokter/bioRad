@@ -37,7 +37,7 @@
 #'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
 #'    \item{\code{u}}{Ground speed component west to east in m/s}
 #'    \item{\code{v}}{Ground speed component north to south in m/s}
-#'    \item{\code{HGHT}}{Height above sea level in m}
+#'    \item{\code{HGHT}}{Mean flight height (HGHT weighted by eta) in m above sea level}
 #' }
 #' Vertically integrated density and reflectivity are related according to
 #' \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
@@ -142,10 +142,10 @@
 #' @examples
 #' # MTR for a single vertical profile
 #' integrate_profile(example_vp)
-#' 
+#'
 #' # MTRs for a list of vertical profiles
 #' integrate_profile(c(example_vp, example_vp))
-#' 
+#'
 #' # MTRs for a time series of vertical profiles
 #' # load example data:
 #' data(example_vpts)
