@@ -135,7 +135,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   # if projecting, account for elevation angle
   if (project) {
-    elev <- attributes(param)$geo$elangle * pi / 180
+    elev <- attributes(param)$geo$elangle
   } else {
     elev <- 0
   }
