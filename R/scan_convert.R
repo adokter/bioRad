@@ -185,11 +185,23 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   if ("azim" %in% param_to_use) output$azim <- polar_coords$azim
   output
 }
+
+
+#' convert a polar scan into a raster
+#'
+#' convert an object of class 'scan' into a raster of class 'RasterBrick'
+#' @inheritParams scan_to_raster
+#' @param spdf an input object of class SpatialPointsDataFrame
+#' @return an object of class SpatialPointsDataFrame. FIXME: not clear what kind of spdf is expected here
+#' @details FIXME: to be added
+#' @export
+#' @examples
+#' FIXME: to be added
 scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
   if(!inherits(spdf,'SpatialPointsDataFrame')){
-	  stop('spdf should be of class spdf')
+	  stop('spdf should be of class SpatialPointsDataFrame')
   }
   if (!missing(param)) {
     if (FALSE %in% (param %in% c(names(scan$params), "azim", "range", "distance"))) stop("'param' contains scan parameter not found in scan")
