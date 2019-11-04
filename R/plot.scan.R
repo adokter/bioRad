@@ -74,7 +74,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   dimraster <- dim(data)
   ascale=c(x$attributes$where$nrays) / 360
   rscale=c(x$attributes$where$rscale)
-  data <- data.frame(rasterToPoints(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1])))
+  data <- raster::as.data.frame(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1]),xy=T)
   # change the name from "layer" to the parameter names
   names(data) <- c("range", "azimuth", param)
 
@@ -89,8 +89,9 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   }
   # plot
   azimuth <- NULL # dummy asignment to suppress devtools check warning
+  bbox <- coord_cartesian(xlim = xlim, ylim = ylim)
   ggplot(data = data, ...) +
     geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
-    coord_cartesian(xlim=xlim, ylim=ylim)
+    bbox
 }
