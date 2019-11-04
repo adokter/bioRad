@@ -6,7 +6,7 @@
 \usage{
 integrate_to_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
   zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", lat, lon,
-  antenna, beam_angle = 1, crs, quantity_ppi = c("vir", "vid",
+  antenna, beam_angle = 1, crs, param_ppi = c("vir", "vid",
   "correction_factor", "overlap", "eta_sum", "eta_sum_expected"),
   k = 4/3, re = 6378, rp = 6357)
 }
@@ -48,7 +48,7 @@ angle between the half-power (-3 dB) points of the main lobe}
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
-\item{quantity_ppi}{one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'}
+\item{param_ppi}{one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'}
 
 \item{k}{Standard refraction coefficient.}
 

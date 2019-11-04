@@ -70,6 +70,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
 
+  if(hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+
   # deprecate function arguments
   if (!missing(barbs.h)) {
     warning("argument barbs.h is deprecated; please use barbs_height instead.",

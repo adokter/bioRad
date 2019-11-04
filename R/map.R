@@ -107,6 +107,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
 
   stopifnot(inherits(x, "ppi"))
 
+  if(hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {
       param <- "DBZH"

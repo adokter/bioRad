@@ -75,6 +75,8 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     "rt", "ff", "dd", "u", "v", "HGHT"
   ))
 
+  if(hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+
   # deprecate function argument
   if (!missing(nightshade)) {
     warning("argument nightshade is deprecated; please use night_shade instead.",
