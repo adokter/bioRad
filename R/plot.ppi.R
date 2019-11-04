@@ -60,10 +60,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
       param <- names(x$data)[1]
     }
   } else if (!see_if(param %in% names(x$data))) {
-    stop(
-      "'param' should be a character string with a valid scan",
-      " parameter name"
-    )
+    stop(paste("parameter '",param,"' not found in PPI", sep=""))
   }
 
   if (missing(zlim)) {

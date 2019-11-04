@@ -50,16 +50,13 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   if(hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
-    if ("DBZH" %in% names(x$data)) {
+    if ("DBZH" %in% names(x$params)) {
       param <- "DBZH"
     } else {
       param <- names(x$params)[1]
     }
-  } else if (!is.character(param)) {
-    stop(
-      "'param' should be a character string with a valid scan",
-      "parameter name"
-    )
+  } else if (!see_if(param %in% names(x$params))){
+    stop(paste("parameter '",param,"' not found in scan", sep=""))
   }
   if (missing(zlim)) {
     zlim <- get_zlim(param, zlim)
