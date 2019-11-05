@@ -29,7 +29,7 @@
 #'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
 #'  \item{\strong{\code{data}}}{the profile data, a list containing:
 #'    \describe{
-#'        \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
+#'        \item{\code{height}}{height above mean sea level [m]. Alt. bin from height to height+interval)}
 #'        \item{\code{u}}{speed component west to east [m/s]}
 #'        \item{\code{v}}{speed component north to south [m/s]}
 #'        \item{\code{w}}{vertical speed (unreliable!) [m/s]}
@@ -191,8 +191,8 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
   # coerce data to a data frame
   output <- as.data.frame(x$data, optional = optional, ...)
   # add height and datetime as a column
-  output <- cbind(datetime = x$datetime, height = output$HGHT, output)
-  output$HGHT <- NULL
+  output <- cbind(datetime = x$datetime, height = output$height, output)
+  output$height <- NULL
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
   # add location information

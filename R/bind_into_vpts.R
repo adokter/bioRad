@@ -207,10 +207,10 @@ vp_to_vpts_helper <- function(vps) {
   } else {
     regular <- FALSE
   }
-  vpsFlat$HGHT <- NULL
+  vpsFlat$height <- NULL
   output <- list(
     radar = vps[[1]]$radar, datetime = datetime,
-    height = vps[[1]]$data$HGHT,
+    height = vps[[1]]$data$height,
     daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = vpsFlat,
     attributes = vps[[1]]$attributes, regular = regular

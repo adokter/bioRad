@@ -37,7 +37,7 @@
 #'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
 #'    \item{\code{u}}{Ground speed component west to east in m/s}
 #'    \item{\code{v}}{Ground speed component north to south in m/s}
-#'    \item{\code{HGHT}}{Mean flight height (HGHT weighted by eta) in m above sea level}
+#'    \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
 #' }
 #' Vertically integrated density and reflectivity are related according to
 #' \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
@@ -176,11 +176,11 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
-  alt_min <- max(alt_min, min(x$data$HGHT))
-  alt_max <- min(alt_max, max(x$data$HGHT) + interval)
+  alt_min <- max(alt_min, min(x$data$height))
+  alt_max <- min(alt_max, max(x$data$height) + interval)
   if (alt_max - alt_min <= interval) stop(paste("selected altitude range (", alt_min, "-", alt_max, " m) should be wider than the width of a single altitude layer (", interval, " m)", sep = ""))
 
-  index <- which(x$data$HGHT >= alt_min & x$data$HGHT < alt_max)
+  index <- which(x$data$height >= alt_min & x$data$height < alt_max)
   if (is.na(alpha)) {
     cosfactor <- rep(1, length(index))
   } else {
@@ -196,7 +196,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
   vid <- sum(dens_quantity, na.rm = TRUE) * interval / 1000
   vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE) * interval / 1000
-  height <- weighted.mean(get_quantity(x, "HGHT")[index] + x$attributes$where$interval / 2, dens_quantity, na.rm = TRUE)
+  height <- weighted.mean(get_quantity(x, "height")[index] + x$attributes$where$interval / 2, dens_quantity, na.rm = TRUE)
 
   u <- weighted.mean(get_quantity(x, "u")[index], dens_quantity, na.rm = TRUE)
   v <- weighted.mean(get_quantity(x, "v")[index], dens_quantity, na.rm = TRUE)
@@ -209,7 +209,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   output <- data.frame(
     datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
     rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
-    v = v, HGHT = height
+    v = v, height = height
   )
 
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
@@ -317,7 +317,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   output <- data.frame(
     datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
     rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
-    v = v, HGHT = height
+    v = v, height = height
   )
 
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {

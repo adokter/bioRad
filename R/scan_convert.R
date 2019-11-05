@@ -37,7 +37,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
     range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]),
     distance = beam_distance(range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]), elev = elev, k = k, lat = lat, re = re, rp = rp)
   )
-  data$HGHT <- scan$geo$height + beam_height(data$range, elev, k = k, lat = lat, re = re, rp = rp)
+  data$height <- scan$geo$height + beam_height(data$range, elev, k = k, lat = lat, re = re, rp = rp)
   data <- cbind(data, as.data.frame(sapply(scan$params, c)))
   coords <- data.frame(
     x = data$distance * cos(pi / 2 - data$azim * pi / 180),

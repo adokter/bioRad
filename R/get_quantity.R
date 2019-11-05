@@ -3,7 +3,7 @@
 #' @param x A vp or vpts object.
 #' @param quantity A profile quantity, one of:
 #' \itemize{
-#'  \item{\code{"HGHT"}}{}
+#'  \item{\code{"height"}}{}
 #'  \item{\code{"u"}}{}
 #'  \item{\code{"v"}}{}
 #'  \item{\code{"w"}}{}
@@ -37,7 +37,7 @@ get_quantity <- function(x, quantity) {
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
   output <- x$data[quantity][, 1]
-  names(output) <- x$data$HGHT
+  names(output) <- x$data$height
 
   if (quantity == "eta") {
     output[x$data$sd_vvp < sd_vvp_threshold(x)] <- 0

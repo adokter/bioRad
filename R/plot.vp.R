@@ -80,6 +80,6 @@ plot.vp <- function(x, quantity = "dens",
   # extract the data from the time series object
   pdat <- get_quantity(x, quantity)
   stopifnot(!is.null(interval<- x$attributes$where$interval))
-  plot(pdat, (x$data$HGHT+interval/2) / 1000, xlab = xlab, ylab = ylab, ...)
-  points(pdat, (x$data$HGHT+interval/2) / 1000, col = line_col, lwd = line_lwd, type = "l")
+  plot(pdat, (x$data$height+interval/2) / 1000, xlab = xlab, ylab = ylab, ...)
+  points(pdat, (x$data$height+interval/2) / 1000, col = line_col, lwd = line_lwd, type = "l")
 }

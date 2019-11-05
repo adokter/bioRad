@@ -31,6 +31,8 @@ read_vp <- function(file) {
       read_odim_profile_data(file, x)
     }
   ))
+  # rename "height" column to "height"
+  quantities <- gsub("height","height",quantities)
   names(profile) <- quantities
 
   # extract attributes

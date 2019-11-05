@@ -315,7 +315,7 @@ vpts_to_vp <- function(x, i) {
   ))
   names(vpout$data) <- names(x$data)
   vpout$attributes <- x$attributes
-  vpout$data$HGHT <- x$height
+  vpout$data$height <- x$height
   class(vpout) <- "vp"
   vpout
 }

@@ -55,9 +55,9 @@
 #'  \item{\code{dd}}{Horizontal ground speed direction in degrees}
 #'  \item{\code{u}}{Ground speed component west to east in m/s}
 #'  \item{\code{v}}{Ground speed component north to south in m/s}
-#'  \item{\code{HGHT}}{Mean flight height (HGHT weighted by reflectivity eta) in m above sea level}
+#'  \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 #' }
-#' The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
+#' The height-averaged speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 #' @examples
 #' # vertically integrate a vpts object:
 #' vpi <- integrate_profile(example_vpts)
@@ -72,7 +72,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
   stopifnot(inherits(x, "vpi"))
   stopifnot(quantity %in% c(
     "mtr", "vid", "vir", "rtr", "mt",
-    "rt", "ff", "dd", "u", "v", "HGHT"
+    "rt", "ff", "dd", "u", "v", "height"
   ))
 
   if(hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
@@ -97,7 +97,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     if (quantity == "dd") ylab <- expression("vertically averaged direction [deg]")
     if (quantity == "u") ylab <- expression("vertically averaged u-component ground speed [m/s]")
     if (quantity == "v") ylab <- expression("vertically averaged v-component ground speed [m/s]")
-    if (quantity == "HGHT") ylab <- expression("vertically averaged flight height above sea level [m]")
+    if (quantity == "height") ylab <- expression("vertically averaged flight height above sea level [m]")
   }
   if (missing(main)) {
     if (quantity == "mtr") main <- "MTR"
@@ -110,7 +110,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     if (quantity == "dd") main <- "Average ground speed direction"
     if (quantity == "u") main <- "Average ground speed u (east->west)"
     if (quantity == "v") main <- "Average ground speed v (north->south)"
-    if (quantity == "HGHT") main <- "Average flight height above sea level"
+    if (quantity == "height") main <- "Average flight height above sea level"
   }
   if (missing(lat)) lat <- attributes(x)$lat
   if (missing(lon)) lon <- attributes(x)$lon

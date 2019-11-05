@@ -44,7 +44,7 @@ A \code{vp} object is a list containing
  \item{\strong{\code{datetime}}}{the nominal time of the profile}
  \item{\strong{\code{data}}}{the profile data, a list containing:
    \describe{
-       \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
+       \item{\code{height}}{height above mean sea level [m]. Alt. bin from height to height+interval)}
        \item{\code{u}}{speed component west to east [m/s]}
        \item{\code{v}}{speed component north to south [m/s]}
        \item{\code{w}}{vertical speed (unreliable!) [m/s]}
