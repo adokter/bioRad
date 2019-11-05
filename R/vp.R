@@ -99,6 +99,10 @@ dim.vp <- function(x) {
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
+  if (!is.null(x$data$HGHT)) {
+    warning("obsolete vp object generated with bioRad version < 0.5.0.
+    vp objects should contain a list element 'data' containing a data.frame with column 'height' (instead of obsolete 'HGHT)")
+  }
   cat("               Vertical profile (class vp)\n\n")
   cat("       radar: ", x$radar, "\n")
   cat("      source: ", x$attributes$what$source, "\n")
