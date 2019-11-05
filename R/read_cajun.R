@@ -65,13 +65,13 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   radar <- substr(basename(file), 1, 4)
 
   # prepare output
-  heights <- data$HGHT
-  interval <- unique(heights[-1] - heights[-length(heights)])
+  height <- data$HGHT
+  interval <- unique(height[-1] - height[-length(height)])
 
   attributes <- list(
     where = data.frame(
       interval = interval,
-      levels = length(heights)
+      levels = length(height)
     ),
     what = data.frame(source = basename(file), stringsAsFactors = F),
     how = data.frame(wavelength = wavelength, task = "UMASS Cajun")

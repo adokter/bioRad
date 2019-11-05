@@ -37,7 +37,7 @@
 #' \describe{
 #'  \item{\code{radar}}{string containing the radar identifier}
 #'  \item{\code{datetime}}{the \code{N} nominal times of the profiles (named \code{dates} in bioRad versions < 0.4.0)}
-#'  \item{\code{heights}}{the \code{M} heights of the layers in the profile}
+#'  \item{\code{height}}{the \code{M} heights of the layers in the profile}
 #'  \item{\code{daterange}}{the minimum and maximum nominal time of the
 #'    profiles in the list}
 #'  \item{\code{timesteps}}{time differences between the profiles. Element
@@ -233,12 +233,12 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   stopifnot(inherits(x, "vpts"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-      length(x$datetime) * length(x$heights)) {
+      length(x$datetime) * length(x$height)) {
       rownames(output) <- row.names
     } else {
       stop(paste(
         "'row.names' is not a character vector of length",
-        length(x$datetime) * length(x$heights)
+        length(x$datetime) * length(x$height)
       ))
     }
   }
@@ -263,10 +263,10 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   # add height and datetime as a column
   output <- cbind(
     datetime = as.POSIXct(
-      c(t(replicate(length(x$heights), x$datetime))),
+      c(t(replicate(length(x$height), x$datetime))),
       origin = "1970-1-1", tz = "UTC"
     ),
-    height = rep(x$heights, length(x$datetime)), output
+    height = rep(x$height, length(x$datetime)), output
   )
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
@@ -282,16 +282,16 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   # add day
   if (suntime) {
     dayQ <- !check_night(x, elev = elev)
-    dayQ <- c(t(replicate(length(x$heights), dayQ)))
+    dayQ <- c(t(replicate(length(x$height), dayQ)))
     output <- cbind(output, day = dayQ)
     sunrise <- sunrise(x$datetime, lat = lat, lon = lon)
     sunset <- sunset(x$datetime, lat = lat, lon = lon)
     output$sunrise <- as.POSIXct(
-      c(t(replicate(length(x$heights), sunrise))),
+      c(t(replicate(length(x$height), sunrise))),
       origin = "1970-1-1", tz = "UTC"
     )
     output$sunset <- as.POSIXct(
-      c(t(replicate(length(x$heights), sunset))),
+      c(t(replicate(length(x$height), sunset))),
       origin = "1970-1-1", tz = "UTC"
     )
   }
@@ -315,7 +315,7 @@ vpts_to_vp <- function(x, i) {
   ))
   names(vpout$data) <- names(x$data)
   vpout$attributes <- x$attributes
-  vpout$data$HGHT <- x$heights
+  vpout$data$HGHT <- x$height
   class(vpout) <- "vp"
   vpout
 }

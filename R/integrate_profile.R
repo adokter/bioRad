@@ -272,11 +272,11 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
-  alt_min <- max(alt_min, min(x$heights))
-  alt_max <- min(alt_max, max(x$heights) + interval)
+  alt_min <- max(alt_min, min(x$height))
+  alt_max <- min(alt_max, max(x$height) + interval)
   if (alt_max - alt_min <= interval) stop(paste("selected altitude range (", alt_min, "-", alt_max, " m) should be wider than the width of a single altitude layer (", interval, " m)", sep = ""))
 
-  index <- which(x$heights >= alt_min & x$heights < alt_max)
+  index <- which(x$height >= alt_min & x$height < alt_max)
   if (is.na(alpha)) {
     cosfactor <- 1 + 0 * get_quantity(x, "dd")[index, ]
   } else {
@@ -292,7 +292,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     get_quantity(x, "eta")[index, ], na.rm = TRUE) * interval / 1000
   vid <- dens_quantity * interval / 1000
   vir <- colSums(get_quantity(x, "eta")[index, ], na.rm = TRUE) * interval / 1000
-  height <- colSums((x$heights[index] + x$attributes$where$interval / 2) *
+  height <- colSums((x$height[index] + x$attributes$where$interval / 2) *
     get_quantity(x, "dens")[index, ],
   na.rm = TRUE
   ) / dens_quantity

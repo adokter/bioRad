@@ -169,13 +169,13 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
   vpsFlat$HGHT <- NULL
   vpsFlat$profile_index <- NULL
   # prepare output
-  heights <- data[[1]]$"HGHT"
-  interval <- unique(heights[-1] - heights[-length(heights)])
+  height <- data[[1]]$"HGHT"
+  interval <- unique(height[-1] - height[-length(height)])
 
   attributes <- list(
     where = data.frame(
       interval = interval,
-      levels = length(heights)
+      levels = length(height)
     ),
     how = data.frame(wavelength = wavelength)
   )
@@ -184,7 +184,7 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
   if (!missing(lat)) attributes$where$lat=lat
 
   output <- list(
-    radar = radar, datetime = datetime, heights = heights,
+    radar = radar, datetime = datetime, height = height,
     daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = vpsFlat,
     attributes = attributes, regular = regular

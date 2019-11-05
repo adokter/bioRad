@@ -165,12 +165,12 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
   stopifnot(inherits(x, "vp"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-      length(x$datetime) * length(x$heights)) {
+      length(x$datetime) * length(x$height)) {
       rownames(output) <- row.names
     } else {
       stop(paste(
         "'row.names' is not a character vector of length",
-        length(x$datetime) * length(x$heights)
+        length(x$datetime) * length(x$height)
       ))
     }
   }

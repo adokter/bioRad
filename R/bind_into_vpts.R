@@ -86,7 +86,7 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   if (length(radars) > 1) {
     stop("Vertical profiles are not from a single radar")
   }
-  if (length(unique(lapply(vptss, "[[", "heights"))) > 1) {
+  if (length(unique(lapply(vptss, "[[", "height"))) > 1) {
     stop("Vertical profiles have non-aligning altitude layers")
   }
   if (length(unique(lapply(vptss, function(x) names(x$"data")))) > 1) {
@@ -116,7 +116,7 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
     regular <- FALSE
   }
   output <- list(
-    radar = radars, datetime = datetime, heights = vptss[[1]]$heights,
+    radar = radars, datetime = datetime, height = vptss[[1]]$height,
     daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = data,
     attributes = vptss[[attributes_from]]$attributes,
@@ -182,7 +182,7 @@ vp_to_vpts_helper <- function(vps) {
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   profile.quantities <- names(vps[[1]]$data)
 
-  if (length(unique(lapply(vps, "[[", "heights"))) > 1) {
+  if (length(unique(lapply(vps, "[[", "height"))) > 1) {
     stop(paste(
       "Vertical profiles of radar", vps[[1]]$radar,
       "have non-aligning altitude layers."
@@ -210,7 +210,7 @@ vp_to_vpts_helper <- function(vps) {
   vpsFlat$HGHT <- NULL
   output <- list(
     radar = vps[[1]]$radar, datetime = datetime,
-    heights = vps[[1]]$data$HGHT,
+    height = vps[[1]]$data$HGHT,
     daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = vpsFlat,
     attributes = vps[[1]]$attributes, regular = regular
