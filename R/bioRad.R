@@ -27,6 +27,7 @@
 #' @importFrom raster raster
 #' @importFrom raster rasterize
 #' @importFrom raster values
+#' @importFrom raster values<-
 #' @importFrom raster extent
 #' @importFrom raster crs
 #' @importFrom curl curl_download
