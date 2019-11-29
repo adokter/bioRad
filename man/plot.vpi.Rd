@@ -73,9 +73,9 @@ argument \code{quantity}:
  \item{\code{dd}}{Horizontal ground speed direction in degrees}
  \item{\code{u}}{Ground speed component west to east in m/s}
  \item{\code{v}}{Ground speed component north to south in m/s}
- \item{\code{HGHT}}{Height above sea level in m}
+ \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 }
-The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
+The height-averaged speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 }
 \examples{
 # vertically integrate a vpts object:

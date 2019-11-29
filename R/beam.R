@@ -52,7 +52,7 @@ earth_radius <- function(a, b, lat) {
 #'
 #' @param range numeric. Range (distance from the radar antenna) in m.
 #' @param beam_angle numeric. Beam opening angle in degrees, typically the
-#' the angle between the half-power (-3 dB) points of the main lobe
+#' angle between the half-power (-3 dB) points of the main lobe
 #'
 #' @return numeric. Beam width in m.
 #'
@@ -171,7 +171,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
   beamprof <- data.frame(height = height, radiation = beamprof)
   # linearly interpolate the density of the vertical profile at the same grid as beamprof above
   beamprof$vpr <- approxfun(
-    vp$data$HGHT + vp$attributes$where$interval / 2,
+    vp$data$height + vp$attributes$where$interval / 2,
     vp$data[[quantity]]
   )(height)
   # normalize the vertical profile density
@@ -284,7 +284,7 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' (i.e. down range) and beam elevation.
 #'
 #' @inheritParams beam_height
-#' @param distance numeric. Distance from the radar as measured along sea level (down range)
+#' @param distance numeric. Distance from the radar as measured along sea level (down range) in m.
 #' @return numeric. Beam range (slant range) in m.
 #'
 #' @export

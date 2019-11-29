@@ -33,7 +33,7 @@
 #' # print summary info for this ppi:
 #' ppi
 project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
-                           project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
+                           project = TRUE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   UseMethod("project_as_ppi", x)
 }
 
@@ -159,7 +159,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   }
   # if projecting, account for elevation angle
   if (project) {
-    elev <- attributes(param)$geo$elangle * pi / 180
+    elev <- attributes(param)$geo$elangle
   } else {
     elev <- 0
   }
@@ -187,6 +187,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   #  ))
 
   colnames(data) <- attributes(param)$param
+
   if(inherits(grid_size, 'RasterLayer')){
     output<-SpatialGridDataFrame(as(grid_size,'SpatialGrid'),data)
   }else if(inherits(grid_size, 'SpatialPoints')){

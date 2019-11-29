@@ -33,7 +33,7 @@ it would represent at a distance \code{noise_floor_ref_range} from the radar. NO
 \item{normalize}{Whether to normalize the radiation coverage pattern over the altitude range specified by zlim}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 

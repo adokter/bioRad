@@ -1,7 +1,13 @@
 # helper function to calculate expected eta, vectorizing over range
-eta_expected <- function(vp, distance, elev, antenna, beam_angle, k, lat, re, rp) {
-  beamshapes <- t(sapply(vp$data$HGHT + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
-  rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
+eta_expected <- function(vp, quantity, distance, elev, antenna, beam_angle, k, lat, re, rp) {
+  beamshapes <- t(sapply(vp$data$height + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
+  if(quantity == "dens"){
+    output=rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
+  }
+  if(quantity == "eta"){
+    output=colSums(beamshapes * vp$data$eta, na.rm = T) / colSums(beamshapes, na.rm = T)
+  }
+  output
 }
 
 #' calculate a range-corrected PPI
@@ -15,8 +21,9 @@ eta_expected <- function(vp, distance, elev, antenna, beam_angle, k, lat, re, rp
 #' @keywords internal
 #'
 #' @details to be written
-add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna, beam_angle = 1, k = 4 / 3, re = 6378, rp = 6357) {
+add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", lat, lon, antenna, beam_angle = 1, k = 4 / 3, re = 6378, rp = 6357) {
   if (is.null(scan$geo$height) && missing(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
+  if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
   if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste(param, "not one of DBZH, DBZV, DBZ, TH, TV"))
 
   if (is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
@@ -30,6 +37,9 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
   if (missing(lon)) lon <- scan$geo$lon
   assert_that(is.number(lon))
 
+  # assert that profile contains data
+  if(!(FALSE %in% is.na(vp$data[quantity]))) stop(paste("input profile contains no numeric data for quantity '",quantity,"'.",sep=""))
+
   nazim <- dim(scan)[3]
   nrange <- dim(scan)[2]
 
@@ -42,8 +52,9 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
   attributes(eta)$param <- "eta"
   scan$params$eta <- eta
 
-  # calculate expected_eta from beam overlap with vertical profile
-  eta_expected <- eta_expected(vp, distance, scan$geo$elangle, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)
+  # calculate expected_eta from beam overlap with vertical profile, either based off 'eta' or 'dens' quantity
+  # that is, taking into account of thresholding by rcs_vvp_threshold ('dens') or not ('eta')
+  eta_expected <- eta_expected(vp, quantity, distance, scan$geo$elangle, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)
   # since all azimuths are equivalent, replicate nazim times.
   eta_expected <- matrix(rep(eta_expected, nazim), nrange)
   attributes(eta_expected) <- attributes(eta)
@@ -63,7 +74,8 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
 #' @inheritParams beam_profile_overlap
 #' @param pvol a polar volume of class pvol
 #' @param vp a vertical profile of class vp
-#' @param quantity one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'
+#' @param quantity profile quantity on which to base range corrections, 'eta' or 'dens'.
+#' @param param_ppi one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'
 #' @param param reflectivity factor scan parameter on which to base range corrections.
 #' Typically the same parameter from which animal densities are estimated for object \code{vp}.
 #' One of 'DBZH','DBZV','DBZ','TH','TV'.
@@ -110,7 +122,7 @@ add_expected_eta_to_scan <- function(scan, vp, param = "DBZH", lat, lon, antenna
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, param = "DBZH", lat, lon, antenna, beam_angle = 1, crs, quantity = c("vir", "vid", "correction_factor", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity="eta",param = "DBZH", lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("vir", "vid", "correction_factor", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -161,11 +173,25 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     crs <- NA
   }
 
-  if (FALSE %in% (quantity %in% c("vir", "vid", "eta_sum", "eta_sum_expected", "azim", "range", "correction_factor", "overlap"))) stop("unknown quantity")
+  if (FALSE %in% (param_ppi %in% c("vir", "vid", "eta_sum", "eta_sum_expected", "azim", "range", "correction_factor", "overlap"))) stop("unknown param_ppi")
+  if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
   if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste("param '", param, "' not one of DBZH, DBZV, DBZ, TH, TV", sep = ""))
   assert_that(is.number(k))
   assert_that(is.number(re))
   assert_that(is.number(rp))
+
+  # check that request scan parameter is present in the scans of the polar volume
+  param_present=sapply(pvol$scans, function(x) param %in% names(x$params))
+  if(FALSE %in% param_present){
+    if(TRUE %in% param_present){
+      warning(paste("ignoring scan(s)",paste(which(!param_present), collapse=","),"because they have no scan parameter",param))
+      pvol$scans=pvol$scans[param_present]
+    }
+    else{
+      stop(paste("polar volume contains no scans with scan parameter ","'",param,"'",sep=""))
+    }
+
+  }
 
   # if extent not fully specified, determine it based off the first scan
   if(!inherits(res, 'RasterLayer'))
@@ -178,6 +204,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     }
 
   x <- NULL # define x to suppress devtools::check warning in next line
+
   if(inherits(res,'RasterLayer')){
     localCrs<- CRS(paste("+proj=aeqd +lat_0=", lat,
                        " +lon_0=", lon,
@@ -208,9 +235,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output@data$vid <- integrate_profile(vp)$vid * eta_sum / eta_expected_sum
 
   # calculate the overlap between vp and radiated energy
-  if ("overlap" %in% quantity) {
+  if ("overlap" %in% param_ppi) {
     # calculate overlap first for a distance grid:
-    overlap <- beam_profile_overlap(vp, get_elevation_angles(pvol), seq(0, max(output@data$distance, na.rm = T), length.out = 500), antenna = antenna, zlim = zlim, steps = 500, quantity = "dens", normalize = T, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)
+    overlap <- beam_profile_overlap(vp, get_elevation_angles(pvol), seq(0, max(output@data$distance, na.rm = T), length.out = 500), antenna = antenna, zlim = zlim, steps = 500, quantity = quantity, normalize = T, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)
     # align our projected pixels with this distance grid:
     overlap_index <- sapply(output@data$distance, function(x) ifelse(is.na(x), NA, which.min(abs(overlap$distance - x))))
     # add the overlap data to the output
@@ -226,7 +253,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   geo$bbox <- proj_to_wgs(output@bbox[1, ], output@bbox[2, ], proj4string = proj4string(output))@bbox
   rownames(geo$bbox) <- c("lon", "lat")
   geo$merged <- TRUE
-  output_ppi <- list(radar = pvol$radar, datetime = pvol$datetime, data = output[quantity], geo = geo)
+  output_ppi <- list(radar = pvol$radar, datetime = pvol$datetime, data = output[param_ppi], geo = geo)
   class(output_ppi) <- "ppi"
   output_ppi
 }

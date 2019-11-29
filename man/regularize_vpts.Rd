@@ -6,7 +6,7 @@
 regular time grid}
 \usage{
 regularize_vpts(ts, interval = "auto", date_min = ts$daterange[1],
-  date_max = ts$daterange[2], units = "mins", fill = FALSE,
+  date_max = ts$daterange[2], units = "secs", fill = FALSE,
   verbose = TRUE)
 }
 \arguments{
@@ -52,5 +52,5 @@ continues, and temporal data gaps are filled up visually.
 # start form example vpts object:
 ts <- example_vpts
 # regularize the time series on a 5 minute interval grid
-tsRegular <- regularize_vpts(ts, interval = 5)
+tsRegular <- regularize_vpts(ts, interval = 300)
 }

@@ -21,13 +21,28 @@
 #' ts <- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")
 #' ts
 #' }
-read_vpts <- function(file, radar, wavelength = "C") {
+read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
   # input checks
   if (!file.exists(file)) {
     stop(paste("File", file, "doesn't exist."))
   }
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
+  }
+  if (!missing(lat)) {
+    if (!is.numeric(lat) || lat < -90 || lat > 90) {
+      stop("'lat' should be numeric between -90 and 90 degrees")
+    }
+  }
+  if (!missing(lon)) {
+    if (!is.numeric(lon) || lat < -360 || lat > 360) {
+      stop("'lon' should be numeric between -360 and 360 degrees")
+    }
+  }
+  if (!missing(height)) {
+    if (!is.numeric(height) || height < 0) {
+      stop("'height' should be a positive number of meters above sea level")
+    }
   }
   if (missing(radar)) {
     stop("'radar' argument missing. Required to specify a radar identifier.")
@@ -50,12 +65,12 @@ read_vpts <- function(file, radar, wavelength = "C") {
 
   # header of the data file
   header.names.short <- c(
-    "Date", "Time", "HGHT", "u", "v", "w", "ff", "dd",
+    "Date", "Time", "height", "u", "v", "w", "ff", "dd",
     "sd_vvp", "gap", "dbz", "eta", "dens", "DBZH", "n",
     "n_dbz", "n_all", "n_dbz_all"
   )
   header.names.long <- c(
-    "Date", "Time", "HGHT", "u", "v", "w", "ff", "dd",
+    "Date", "Time", "height", "u", "v", "w", "ff", "dd",
     "sd_vvp", "head_bl", "head_ff", "head_dd", "head_sd",
     "gap", "dbz", "eta", "dens", "DBZH", "n", "n_dbz",
     "n_all", "n_dbz_all"
@@ -76,7 +91,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
   )
 
   # add profile_index to identify consecutive profiles
-  data$new_profile_starts <- c(T, (data$HGHT[-1] - data$HGHT[-length(data$HGHT)]) < 0)
+  data$new_profile_starts <- c(T, (data$height[-1] - data$height[-length(data$height)]) < 0)
   data$profile_index <- NA
   profile_index <- NULL # define profile_index to suppress devtools::check warning in next line
   data[which(data$new_profile_starts), "profile_index"] <- 1:length(which(data$new_profile_starts))
@@ -87,7 +102,7 @@ read_vpts <- function(file, radar, wavelength = "C") {
   data$Time <- NULL
 
   # sort
-  data <- data[with(data, order(datetime, profile_index, HGHT)), ]
+  data <- data[with(data, order(datetime, profile_index, height)), ]
 
   # split into profiles
   data <- split(data, data$profile_index)
@@ -151,21 +166,25 @@ read_vpts <- function(file, radar, wavelength = "C") {
     }
   )
   names(vpsFlat) <- profile.quantities
-  vpsFlat$HGHT <- NULL
+  vpsFlat$height <- NULL
   vpsFlat$profile_index <- NULL
   # prepare output
-  heights <- data[[1]]$"HGHT"
-  interval <- unique(heights[-1] - heights[-length(heights)])
+  height <- data[[1]]$"height"
+  interval <- unique(height[-1] - height[-length(height)])
 
   attributes <- list(
     where = data.frame(
       interval = interval,
-      levels = length(heights)
+      levels = length(height)
     ),
     how = data.frame(wavelength = wavelength)
   )
+  if (!missing(height)) attributes$where$height=height
+  if (!missing(lon)) attributes$where$lon=lon
+  if (!missing(lat)) attributes$where$lat=lat
+
   output <- list(
-    radar = radar, datetime = datetime, heights = heights,
+    radar = radar, datetime = datetime, height = height,
     daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
     timesteps = difftimes, data = vpsFlat,
     attributes = attributes, regular = regular

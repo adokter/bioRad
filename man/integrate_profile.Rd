@@ -62,7 +62,7 @@ quantities:
    \item{\code{dd}}{Horizontal ground speed direction in degrees}
    \item{\code{u}}{Ground speed component west to east in m/s}
    \item{\code{v}}{Ground speed component north to south in m/s}
-   \item{\code{HGHT}}{Height above sea level in m}
+   \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
 }
 Vertically integrated density and reflectivity are related according to
 \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per

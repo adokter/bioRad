@@ -7,7 +7,7 @@
 beam_range(distance, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{distance}{numeric. Distance from the radar as measured along sea level (down range)}
+\item{distance}{numeric. Distance from the radar as measured along sea level (down range) in m.}
 
 \item{elev}{numeric. Beam elevation in degrees.}
 

@@ -33,6 +33,8 @@ plot.vp <- function(x, quantity = "dens",
                     line_lwd = 1, line.col = "red", line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
 
+  if(hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+
   # deprecate function argument
   if (!missing(line.col)) {
     warning("argument line.col is deprecated; please use line_col instead.",
@@ -77,6 +79,7 @@ plot.vp <- function(x, quantity = "dens",
   }
   # extract the data from the time series object
   pdat <- get_quantity(x, quantity)
-  plot(pdat, x$data$HGHT / 1000, xlab = xlab, ylab = ylab, ...)
-  points(pdat, x$data$HGHT / 1000, col = line_col, lwd = line_lwd, type = "l")
+  stopifnot(!is.null(interval<- x$attributes$where$interval))
+  plot(pdat, (x$data$height+interval/2) / 1000, xlab = xlab, ylab = ylab, ...)
+  points(pdat, (x$data$height+interval/2) / 1000, col = line_col, lwd = line_lwd, type = "l")
 }

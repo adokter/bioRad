@@ -4,7 +4,7 @@
 \alias{read_vpts}
 \title{Read a time series of vertical profiles (\code{vpts}) from file}
 \usage{
-read_vpts(file, radar, wavelength = "C")
+read_vpts(file, radar, lat, lon, height, wavelength = "C")
 }
 \arguments{
 \item{file}{A text file containing the standard output (stdout) generated
