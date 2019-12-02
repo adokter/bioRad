@@ -1,6 +1,12 @@
 # helper function to calculate expected eta, vectorizing over range
 eta_expected <- function(vp, quantity, distance, elev, antenna, beam_angle, k, lat, re, rp) {
-  beamshapes <- t(sapply(vp$data$height + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
+  if('height' %in% names(vp$data))
+  {
+    height<-vp$data$height
+  }else{
+    height<-vp$data$HGHT
+  }
+  beamshapes <- t(sapply(height + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
   if(quantity == "dens"){
     output=rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
   }

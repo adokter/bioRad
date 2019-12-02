@@ -176,11 +176,17 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
-  alt_min <- max(alt_min, min(x$data$height))
-  alt_max <- min(alt_max, max(x$data$height) + interval)
+  if('height' %in% names(vp$data))
+  {
+    height<-vp$data$height
+  }else{
+    height<-vp$data$HGHT
+  }
+  alt_min <- max(alt_min, min(height))
+  alt_max <- min(alt_max, max(height) + interval)
   if (alt_max - alt_min <= interval) stop(paste("selected altitude range (", alt_min, "-", alt_max, " m) should be wider than the width of a single altitude layer (", interval, " m)", sep = ""))
 
-  index <- which(x$data$height >= alt_min & x$data$height < alt_max)
+  index <- which(height >= alt_min & height < alt_max)
   if (is.na(alpha)) {
     cosfactor <- rep(1, length(index))
   } else {
@@ -196,7 +202,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
   vid <- sum(dens_quantity, na.rm = TRUE) * interval / 1000
   vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE) * interval / 1000
-  height <- weighted.mean(get_quantity(x, "height")[index] + x$attributes$where$interval / 2, dens_quantity, na.rm = TRUE)
+  height <- weighted.mean(get_quantity(x, ifelse('height'%in% names(x$data),"height",'HGHT'))[index] + x$attributes$where$interval / 2, dens_quantity, na.rm = TRUE)
 
   u <- weighted.mean(get_quantity(x, "u")[index], dens_quantity, na.rm = TRUE)
   v <- weighted.mean(get_quantity(x, "v")[index], dens_quantity, na.rm = TRUE)
