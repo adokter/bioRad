@@ -176,11 +176,11 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
-  if('height' %in% names(vp$data))
+  if('height' %in% names(x$data))
   {
-    height<-vp$data$height
+    height<-x$data$height
   }else{
-    height<-vp$data$HGHT
+    height<-x$data$HGHT
   }
   alt_min <- max(alt_min, min(height))
   alt_max <- min(alt_max, max(height) + interval)
