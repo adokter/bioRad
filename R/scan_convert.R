@@ -185,3 +185,66 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   if ("azim" %in% param_to_use) output$azim <- polar_coords$azim
   output
 }
+scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
+  if (!is.scan(scan)) stop("'scan' should be an object of class scan")
+  if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
+  if(!inherits(spdf,'SpatialPointsDataFrame')){
+	  stop('spdf should be of class spdf')
+  }
+  if (!missing(param)) {
+    if (FALSE %in% (param %in% c(names(scan$params), "azim", "range", "distance"))) stop("'param' contains scan parameter not found in scan")
+    if (!(FALSE %in% (param %in% c("azim", "range", "distance")))) stop("'param' should contain the name of one or more scan parameters contained in 'scan'")
+
+    param_to_use <- param
+  }
+  else {
+    param_to_use <- names(scan$params)
+  }
+
+  if (is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
+  if (is.null(scan$geo$lon) && missing(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
+
+  if (missing(lat)) lat <- scan$geo$lat
+  if (missing(lon)) lon <- scan$geo$lon
+
+  assert_that(is.number(lat))
+  assert_that(is.number(lon))
+  localCrs<- CRS(paste("+proj=aeqd +lat_0=", lat,
+                       " +lon_0=", lon,
+                       " +units=m",
+                       sep = ""
+  ))
+  assert_that(is.number(k))
+  assert_that(is.number(re))
+  assert_that(is.number(rp))
+  stopifnot(all.equal(localCrs,CRS(proj4string(spdf))))
+
+  rscale <- scan$geo$rscale
+  ascale <- scan$geo$ascale
+
+  nrang <- dim(scan)[2]
+  nazim <- dim(scan)[3]
+
+  crds<-coordinates(spdf)
+  # convert raster coordinates to polar indices
+  polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
+  index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale)
+  # set indices outside the scan's matrix to NA
+  index$row[index$row > nrang] <- NA
+  index$col[index$col > nazim] <- NA
+  # convert 2D index to 1D index
+  index <- (index$col - 1) * nrang + index$row
+
+  # generate brick for each scan parameter
+  param_to_add <- setdiff(param_to_use, c("distance", "range", "azim"))
+  output <- spdf[,F]
+  # fill the rasterbrick
+  for (name in param_to_add) {
+    # suppress warning 'In readAll(x) : cannot read values; there is no file associated with this RasterBrick
+    output[T,name] <- scan$params[[name]][index]
+  }
+  if ("distance" %in% param_to_use) output$distance <- beam_distance(polar_coords$range, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
+  if ("range" %in% param_to_use) output$range <- polar_coords$range
+  if ("azim" %in% param_to_use) output$azim <- polar_coords$azim
+  output
+}
