@@ -70,7 +70,7 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   # convert to points
   dimraster <- dim(data)
   data <- data.frame(rasterToPoints(raster(data)))
-  data$x <- (data$x / max(data$x)) * dimraster[2] * 360 / c(x$attributes$where$nrays)
+  data$x <- (1 - data$x) * dimraster[2] * c(x$attributes$where$nrays) / 360
   data$y <- (1 - data$y) * dimraster[1] * c(x$attributes$where$rscale) / 1000
   # change the name from "layer" to the parameter names
   names(data) <- c("azimuth", "range", param)
