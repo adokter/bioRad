@@ -21,7 +21,7 @@ project_as_ppi(x, grid_size = 500, range_max = 50000, project = TRUE,
 \arguments{
 \item{x}{An object of class \code{param} or \code{scan}.}
 
-\item{grid_size}{Cartesian grid size in m.}
+\item{grid_size}{Cartesian grid size in m or a RasterLayer defining the full topology.}
 
 \item{range_max}{Maximum range in m.}
 
