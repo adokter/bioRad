@@ -8,6 +8,7 @@
 #' @param xlim Range of x (range, distance from radar) values to plot.
 #' @param ylim Range of y (azimuth) values to plot.
 #' @param zlim The range of parameter values to plot.
+#' @param na.value \link[ggplot2]{ggplot} argument setting the plot color of NA values
 #' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
 #'
 #' @method plot scan
@@ -42,26 +43,25 @@
 #' plot(example_scan, param = "DBZH")
 #' # change the range of reflectivities to plot to -30 to 50 dBZ:
 #' plot(example_scan, param = "DBZH", zlim = c(-30, 50))
-plot.scan <- function(x, param, xlim = c(0, 100),
-                      ylim = c(0, 360), zlim = c(-20, 20), ...) {
+plot.scan <- function(x, param, xlim = c(0, 100000),
+                      ylim = c(0, 360), zlim = c(-20, 20), na.value = "transparent", ...) {
   stopifnot(inherits(x, "scan"))
 
+  if(hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+
   if (missing(param)) {
-    if ("DBZH" %in% names(x$data)) {
+    if ("DBZH" %in% names(x$params)) {
       param <- "DBZH"
     } else {
       param <- names(x$params)[1]
     }
-  } else if (!is.character(param)) {
-    stop(
-      "'param' should be a character string with a valid scan",
-      "parameter name"
-    )
+  } else if (!see_if(param %in% names(x$params))){
+    stop(paste("parameter '",param,"' not found in scan", sep=""))
   }
   if (missing(zlim)) {
     zlim <- get_zlim(param, zlim)
   }
-  colorscale <- color_scale_fill(param, zlim)
+  colorscale <- color_scale_fill(param, zlim, na.value)
   # extract the scan parameter
   y <- NULL # dummy asignment to suppress devtools check warning
   data <- do.call(function(y) x$params[[y]], list(param))
@@ -69,11 +69,12 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   class(data) <- "matrix"
   # convert to points
   dimraster <- dim(data)
-  data <- data.frame(rasterToPoints(raster(data)))
-  data$x <- (data$x / max(data$x)) * dimraster[2] * 360 / c(x$attributes$where$nrays)
-  data$y <- (1 - data$y) * dimraster[1] * c(x$attributes$where$rscale) / 1000
+  ascale=c(x$attributes$where$nrays) / 360
+  rscale=c(x$attributes$where$rscale)
+  data <- raster::as.data.frame(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1]),xy=T)
   # change the name from "layer" to the parameter names
-  names(data) <- c("azimuth", "range", param)
+  names(data) <- c("range", "azimuth", param)
+
   # bring z-values within plotting range
   index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {
@@ -85,9 +86,9 @@ plot.scan <- function(x, param, xlim = c(0, 100),
   }
   # plot
   azimuth <- NULL # dummy asignment to suppress devtools check warning
+  bbox <- coord_cartesian(xlim = xlim, ylim = ylim)
   ggplot(data = data, ...) +
     geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
-    xlim(xlim[1], xlim[2]) +
-    ylim(ylim[1], ylim[2])
+    bbox
 }

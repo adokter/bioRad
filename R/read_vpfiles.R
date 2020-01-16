@@ -31,6 +31,8 @@ read_vp <- function(file) {
       read_odim_profile_data(file, x)
     }
   ))
+  # rename "height" column to "height"
+  quantities <- gsub("HGHT","height",quantities)
   names(profile) <- quantities
 
   # extract attributes
@@ -87,13 +89,13 @@ read_vp <- function(file) {
 #' \dontrun{
 #' read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
 #' }
-#' 
+#'
 #' # locate example profile file:
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
-#' 
+#'
 #' # print the local path of the profile file:
 #' vpfile
-#' 
+#'
 #' # load the file:
 #' read_vpfiles(vpfile)
 read_vpfiles <- function(files) {

@@ -5,10 +5,10 @@
 \title{calculate a range-corrected PPI}
 \usage{
 integrate_to_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
-  zlim = c(0, 4000), res, param = "DBZH", lat, lon, antenna,
-  beam_angle = 1, crs, quantity = c("vir", "vid", "correction_factor",
-  "overlap", "eta_sum", "eta_sum_expected"), k = 4/3, re = 6378,
-  rp = 6357)
+  zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", lat, lon,
+  antenna, beam_angle = 1, crs, param_ppi = c("vir", "vid",
+  "correction_factor", "overlap", "eta_sum", "eta_sum_expected"),
+  k = 4/3, re = 6378, rp = 6357)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}
@@ -26,7 +26,10 @@ integrate_to_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
 \item{zlim}{altitude range in meter, given as a numeric vector of length two.}
 
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}}
+If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
+Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.}
+
+\item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
 
 \item{param}{reflectivity factor scan parameter on which to base range corrections.
 Typically the same parameter from which animal densities are estimated for object \code{vp}.
@@ -39,13 +42,13 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 \item{antenna}{radar antenna height. If missing taken from \code{vp}}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
-\item{quantity}{one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'}
+\item{param_ppi}{one or multiple of 'vir', 'vid', 'correction_factor', 'overlap', 'eta_sum', 'eta_sum_expected'}
 
 \item{k}{Standard refraction coefficient.}
 

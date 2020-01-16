@@ -1,9 +1,9 @@
-color_scale <- function(param, zlim) {
+color_scale <- function(param, zlim, na.value="transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_colour_gradient2(
       low = "blue", high = "red",
       mid = "white", name = param,
-      midpoint = 0, limits = zlim
+      midpoint = 0, limits = zlim, na.value = na.value
     )
   } else {
     colorscale <- scale_colour_gradientn(
@@ -12,18 +12,18 @@ color_scale <- function(param, zlim) {
         "green", "yellow", "red",
         "magenta"
       ),
-      name = param, limits = zlim
+      name = param, limits = zlim, na.value = na.value
     )
   }
   return(colorscale)
 }
 
-color_scale_fill <- function(param, zlim) {
+color_scale_fill <- function(param, zlim, na.value="transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_fill_gradient2(
       low = "blue", high = "red",
       mid = "white", name = param,
-      midpoint = 0, limits = zlim
+      midpoint = 0, limits = zlim, na.value = na.value
     )
   } else {
     colorscale <- scale_fill_gradientn(
@@ -32,7 +32,7 @@ color_scale_fill <- function(param, zlim) {
         "green", "yellow", "red",
         "magenta"
       ),
-      name = param, limits = zlim
+      name = param, limits = zlim, na.value = na.value
     )
   }
   return(colorscale)
