@@ -71,7 +71,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   dimraster <- dim(data)
   ascale=c(x$attributes$where$nrays) / 360
   rscale=c(x$attributes$where$rscale)
-  data <- raster::as.data.frame(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1]),xy=T)
+  data <- raster::as.data.frame(raster::flip(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1]),direction="y"),xy=T)
   # change the name from "layer" to the parameter names
   names(data) <- c("range", "azimuth", param)
 
