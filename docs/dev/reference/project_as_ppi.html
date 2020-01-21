@@ -158,18 +158,43 @@ position indicator (<code>ppi</code>)</h1>
     <p>Make a plan position indicator (ppi)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>, <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)
+    <pre class="usage"><span class='fu'>project_as_ppi</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>,
+  <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>
+)
 
 <span class='co'># S3 method for param</span>
-<span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
-  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)
+<span class='fu'>project_as_ppi</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>,
+  <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>
+)
 
 <span class='co'># S3 method for scan</span>
-<span class='fu'>project_as_ppi</span>(<span class='no'>x</span>, <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
-  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)</pre>
+<span class='fu'>project_as_ppi</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>grid_size</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>,
+  <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

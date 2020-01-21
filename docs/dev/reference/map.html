@@ -160,9 +160,23 @@ layer map using <a href='https://rdrr.io/pkg/ggmap/man/ggmap.html'>ggmap</a></p>
     <pre class="usage"><span class='fu'>map</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ppi</span>
-<span class='fu'>map</span>(<span class='no'>x</span>, <span class='no'>map</span>, <span class='no'>param</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>, <span class='no'>xlim</span>, <span class='no'>ylim</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>20</span>,
-  <span class='fl'>20</span>), <span class='no'>ratio</span>, <span class='kw'>radar_size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>radar_color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>n_color</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>radar.size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>radar.color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>n.color</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>map</span>(
+  <span class='no'>x</span>,
+  <span class='no'>map</span>,
+  <span class='no'>param</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>,
+  <span class='no'>xlim</span>,
+  <span class='no'>ylim</span>,
+  <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>20</span>, <span class='fl'>20</span>),
+  <span class='no'>ratio</span>,
+  <span class='kw'>radar_size</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>radar_color</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>n_color</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>radar.size</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>radar.color</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>n.color</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

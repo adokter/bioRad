@@ -157,13 +157,31 @@ using the algorithm vol2bird (Dokter et al. 2011)." />
 using the algorithm <a href='https://github.com/adokter/vol2bird/'>vol2bird</a> (Dokter et al. 2011).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calculate_vp</span>(<span class='no'>file</span>, <span class='kw'>vpfile</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>pvolfile_out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>[<span class='fl'>1</span>]), <span class='kw'>sd_vvp_threshold</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>azim_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>azim_max</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>range_min</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
-  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>35000</span>, <span class='kw'>n_layer</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>h_layer</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>, <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
-  <span class='no'>local_install</span>, <span class='no'>pvolfile</span>)</pre>
+    <pre class="usage"><span class='fu'>calculate_vp</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>vpfile</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>pvolfile_out</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>[<span class='fl'>1</span>]),
+  <span class='kw'>sd_vvp_threshold</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>,
+  <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
+  <span class='kw'>azim_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>azim_max</span> <span class='kw'>=</span> <span class='fl'>360</span>,
+  <span class='kw'>range_min</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
+  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>35000</span>,
+  <span class='kw'>n_layer</span> <span class='kw'>=</span> <span class='fl'>20L</span>,
+  <span class='kw'>h_layer</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>,
+  <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
+  <span class='no'>local_install</span>,
+  <span class='no'>pvolfile</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

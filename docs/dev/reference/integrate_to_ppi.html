@@ -157,11 +157,28 @@ the layer of migration (overshooting) at larger distances from the radar" />
 the layer of migration (overshooting) at larger distances from the radar</p>
     </div>
 
-    <pre class="usage"><span class='fu'>integrate_to_ppi</span>(<span class='no'>pvol</span>, <span class='no'>vp</span>, <span class='kw'>nx</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>ny</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>xlim</span>, <span class='no'>ylim</span>,
-  <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4000</span>), <span class='no'>res</span>, <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"eta"</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='no'>lat</span>, <span class='no'>lon</span>,
-  <span class='no'>antenna</span>, <span class='kw'>beam_angle</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>crs</span>, <span class='kw'>param_ppi</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"vir"</span>, <span class='st'>"vid"</span>,
-  <span class='st'>"correction_factor"</span>, <span class='st'>"overlap"</span>, <span class='st'>"eta_sum"</span>, <span class='st'>"eta_sum_expected"</span>),
-  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>, <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)</pre>
+    <pre class="usage"><span class='fu'>integrate_to_ppi</span>(
+  <span class='no'>pvol</span>,
+  <span class='no'>vp</span>,
+  <span class='kw'>nx</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>ny</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='no'>xlim</span>,
+  <span class='no'>ylim</span>,
+  <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4000</span>),
+  <span class='no'>res</span>,
+  <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"eta"</span>,
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
+  <span class='no'>lat</span>,
+  <span class='no'>lon</span>,
+  <span class='no'>antenna</span>,
+  <span class='kw'>beam_angle</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>crs</span>,
+  <span class='kw'>param_ppi</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"vir"</span>, <span class='st'>"vid"</span>, <span class='st'>"correction_factor"</span>, <span class='st'>"overlap"</span>, <span class='st'>"eta_sum"</span>,
+    <span class='st'>"eta_sum_expected"</span>),
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>,
+  <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
