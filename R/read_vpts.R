@@ -2,6 +2,9 @@
 #'
 #' @param file A text file containing the standard output (stdout) generated
 #' by vol2bird (or the package function \code{calculate_vp}).
+#' @param lon numeric. Longitude of the radar in decimal degrees.
+#' @param lat numeric. Latitude of the radar in decimal degrees.
+#' @param height numeric. Height above sea level of the radar antenna in meters.
 #' @param radar A string containing a radar identifier.
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
 #' and S-band radar, respectively, in which case C-band wavelength is assumed
