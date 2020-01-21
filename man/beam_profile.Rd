@@ -4,8 +4,17 @@
 \alias{beam_profile}
 \title{Calculate vertical radiation profile}
 \usage{
-beam_profile(height, distance, elev, antenna = 0, beam_angle = 1,
-  k = 4/3, lat = 35, re = 6378, rp = 6357)
+beam_profile(
+  height,
+  distance,
+  elev,
+  antenna = 0,
+  beam_angle = 1,
+  k = 4/3,
+  lat = 35,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{height}{numeric. Height in meter.}

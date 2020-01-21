@@ -10,14 +10,29 @@ integrated profile (\code{vpi})}
 \usage{
 integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
 
-\method{integrate_profile}{vp}(x, alt_min = 0, alt_max = Inf,
-  alpha = NA, interval_max = Inf)
+\method{integrate_profile}{vp}(
+  x,
+  alt_min = 0,
+  alt_max = Inf,
+  alpha = NA,
+  interval_max = Inf
+)
 
-\method{integrate_profile}{list}(x, alt_min = 0, alt_max = Inf,
-  alpha = NA, interval_max = Inf)
+\method{integrate_profile}{list}(
+  x,
+  alt_min = 0,
+  alt_max = Inf,
+  alpha = NA,
+  interval_max = Inf
+)
 
-\method{integrate_profile}{vpts}(x, alt_min = 0, alt_max = Inf,
-  alpha = NA, interval_max = Inf)
+\method{integrate_profile}{vpts}(
+  x,
+  alt_min = 0,
+  alt_max = Inf,
+  alpha = NA,
+  interval_max = Inf
+)
 }
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}

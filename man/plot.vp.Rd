@@ -4,10 +4,17 @@
 \alias{plot.vp}
 \title{Plot a vertical profile (\code{vp})}
 \usage{
-\method{plot}{vp}(x, quantity = "dens",
+\method{plot}{vp}(
+  x,
+  quantity = "dens",
   xlab = expression("volume density [#/km"^3 * "]"),
-  ylab = "height [km]", line_col = "red", line_lwd = 1,
-  line.col = "red", line.lwd = 1, ...)
+  ylab = "height [km]",
+  line_col = "red",
+  line_lwd = 1,
+  line.col = "red",
+  line.lwd = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{vp} class object.}

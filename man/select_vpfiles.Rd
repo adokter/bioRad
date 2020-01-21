@@ -4,8 +4,12 @@
 \alias{select_vpfiles}
 \title{Select vertical profile (\code{vp}) files from computer}
 \usage{
-select_vpfiles(date_min = NULL, date_max = NULL, radars = NULL,
-  directory = ".")
+select_vpfiles(
+  date_min = NULL,
+  date_max = NULL,
+  radars = NULL,
+  directory = "."
+)
 }
 \arguments{
 \item{date_min}{character. YYYY-MM-DD start date of file selection.}

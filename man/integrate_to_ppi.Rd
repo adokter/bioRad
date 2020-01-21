@@ -4,11 +4,28 @@
 \alias{integrate_to_ppi}
 \title{calculate a range-corrected PPI}
 \usage{
-integrate_to_ppi(pvol, vp, nx = 100, ny = 100, xlim, ylim,
-  zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", lat, lon,
-  antenna, beam_angle = 1, crs, param_ppi = c("vir", "vid",
-  "correction_factor", "overlap", "eta_sum", "eta_sum_expected"),
-  k = 4/3, re = 6378, rp = 6357)
+integrate_to_ppi(
+  pvol,
+  vp,
+  nx = 100,
+  ny = 100,
+  xlim,
+  ylim,
+  zlim = c(0, 4000),
+  res,
+  quantity = "eta",
+  param = "DBZH",
+  lat,
+  lon,
+  antenna,
+  beam_angle = 1,
+  crs,
+  param_ppi = c("vir", "vid", "correction_factor", "overlap", "eta_sum",
+    "eta_sum_expected"),
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{pvol}{a polar volume of class pvol}

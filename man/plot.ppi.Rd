@@ -4,8 +4,16 @@
 \alias{plot.ppi}
 \title{Plot a plan position indicator (\code{ppi})}
 \usage{
-\method{plot}{ppi}(x, param, xlim, ylim, zlim = c(-20, 20), ratio = 1,
-  na.value = "transparent", ...)
+\method{plot}{ppi}(
+  x,
+  param,
+  xlim,
+  ylim,
+  zlim = c(-20, 20),
+  ratio = 1,
+  na.value = "transparent",
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}

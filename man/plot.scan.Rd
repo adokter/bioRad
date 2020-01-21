@@ -4,8 +4,15 @@
 \alias{plot.scan}
 \title{Plot a scan (\code{scan}) in polar coordinates}
 \usage{
-\method{plot}{scan}(x, param, xlim = c(0, 1e+05), ylim = c(0, 360),
-  zlim = c(-20, 20), na.value = "transparent", ...)
+\method{plot}{scan}(
+  x,
+  param,
+  xlim = c(0, 1e+05),
+  ylim = c(0, 360),
+  zlim = c(-20, 20),
+  na.value = "transparent",
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{scan}.}

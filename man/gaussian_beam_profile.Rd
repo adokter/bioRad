@@ -4,8 +4,17 @@
 \alias{gaussian_beam_profile}
 \title{Gaussian beam profile as a function of height}
 \usage{
-gaussian_beam_profile(height, range, elev, antenna = 0, beam_angle = 1,
-  k = 4/3, lat = 35, re = 6378, rp = 6357)
+gaussian_beam_profile(
+  height,
+  range,
+  elev,
+  antenna = 0,
+  beam_angle = 1,
+  k = 4/3,
+  lat = 35,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{height}{numeric. Height in meter.}

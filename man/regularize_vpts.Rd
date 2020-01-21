@@ -5,9 +5,15 @@
 \title{Regularize a time series of vertical profiles (\code{vpts}) on a
 regular time grid}
 \usage{
-regularize_vpts(ts, interval = "auto", date_min = ts$daterange[1],
-  date_max = ts$daterange[2], units = "secs", fill = FALSE,
-  verbose = TRUE)
+regularize_vpts(
+  ts,
+  interval = "auto",
+  date_min = ts$daterange[1],
+  date_max = ts$daterange[2],
+  units = "secs",
+  fill = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{ts}{An object inheriting from class \code{vpts}, see

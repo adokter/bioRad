@@ -4,8 +4,21 @@
 \alias{scan_to_raster}
 \title{convert a polar scan into a raster}
 \usage{
-scan_to_raster(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param,
-  lat, lon, crs = NA, k = 4/3, re = 6378, rp = 6357)
+scan_to_raster(
+  scan,
+  nx = 100,
+  ny = 100,
+  xlim,
+  ylim,
+  res = NA,
+  param,
+  lat,
+  lon,
+  crs = NA,
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}

@@ -4,9 +4,18 @@
 \alias{as.data.frame.vpts}
 \title{Convert a time series of vertical profiles (\code{vpts}) to a data frame}
 \usage{
-\method{as.data.frame}{vpts}(x, row.names = NULL, optional = FALSE,
-  quantities = names(x$data), suntime = TRUE, geo = TRUE,
-  elev = -0.268, lat = NULL, lon = NULL, ...)
+\method{as.data.frame}{vpts}(
+  x,
+  row.names = NULL,
+  optional = FALSE,
+  quantities = names(x$data),
+  suntime = TRUE,
+  geo = TRUE,
+  elev = -0.268,
+  lat = NULL,
+  lon = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{vpts}.}

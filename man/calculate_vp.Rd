@@ -4,13 +4,31 @@
 \alias{calculate_vp}
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
-calculate_vp(file, vpfile = "", pvolfile_out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(file[1]), sd_vvp_threshold = 2,
-  rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
-  elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
-  range_max = 35000, n_layer = 20L, h_layer = 200, dealias = TRUE,
-  nyquist_min = if (dealias) 5 else 25, dbz_quantity = "DBZH",
-  local_install, pvolfile)
+calculate_vp(
+  file,
+  vpfile = "",
+  pvolfile_out = "",
+  autoconf = FALSE,
+  verbose = FALSE,
+  mount = dirname(file[1]),
+  sd_vvp_threshold = 2,
+  rcs = 11,
+  dual_pol = FALSE,
+  rho_hv = 0.95,
+  elev_min = 0,
+  elev_max = 90,
+  azim_min = 0,
+  azim_max = 360,
+  range_min = 5000,
+  range_max = 35000,
+  n_layer = 20L,
+  h_layer = 200,
+  dealias = TRUE,
+  nyquist_min = if (dealias) 5 else 25,
+  dbz_quantity = "DBZH",
+  local_install,
+  pvolfile
+)
 }
 \arguments{
 \item{file}{string or a vector of strings with radar file(s) for a radar polar volume.
