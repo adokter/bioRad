@@ -4,13 +4,26 @@
 \alias{add_expected_eta_to_scan}
 \title{calculate a range-corrected PPI}
 \usage{
-add_expected_eta_to_scan(scan, vp, param = "DBZH", lat, lon, antenna,
-  beam_angle = 1, k = 4/3, re = 6378, rp = 6357)
+add_expected_eta_to_scan(
+  scan,
+  vp,
+  quantity = "dens",
+  param = "DBZH",
+  lat,
+  lon,
+  antenna,
+  beam_angle = 1,
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
 
 \item{vp}{a vertical profile of class vp}
+
+\item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
 
 \item{param}{reflectivity factor scan parameter on which to base range corrections.
 Typically the same parameter from which animal densities are estimated for object \code{vp}.
@@ -23,7 +36,7 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 \item{antenna}{radar antenna height. If missing taken from \code{vp}}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 

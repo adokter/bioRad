@@ -6,9 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to bioRad • bioRad</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Introduction to bioRad">
@@ -34,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9261</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
       </span>
     </div>
 
@@ -42,7 +49,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -74,12 +81,12 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/adokter/bioRad">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right" role="search">
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
@@ -93,6 +100,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -130,7 +138,7 @@
 <h2 class="hasAnchor">
 <a href="#figure-2" class="anchor"></a>Figure 2</h2>
 <div class="figure">
-<img src="ecog12354-fig-0002-m.jpg" alt="Figure 2 from Dokter et al. (2019)"><p class="caption"><strong>Figure 2 from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2019)</a></strong></p>
+<img src="ecog12354-fig-0002-m.jpg" alt="Figure 2 from Dokter et al. (2019)"><p class="caption"><strong>Figure 2 from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2019)</a></strong></p>
 </div>
 <p>The figure shows the structure and interrelation of bioRad’s main class objects, functions, and plotting methods. (A) <strong>objects</strong> (rounded box), <strong>functions</strong> (<code>fixed width font</code>) and their <strong>relation</strong> (arrows). (B–K) output of the default plot methods for a European radar (left row, Offenthal radar, Germany, 2016‐10‐04 15:15 UTC–2016‐10‐05 08:45 UTC) and US radar (right row, KBRO radar, Texas, 2017‐05‐14 00:09 UTC–2017‐05‐14 13:25 UTC). The dotted line in (H) and (K) indicates the time slice of (B), (D), (F) and (C), (E), (J) respectively. Grey shading indicates night time (time on the x‐axis is in UTC). Altitudes are relative to mean sea level.</p>
 <ul>
@@ -162,7 +170,7 @@
 <li>
 <code>layers</code>, <code>layer_height</code>: sets the number of altitude layers and their thickness, respectively. Altitudes are defined relative to mean sea level, taking into account the antenna height as stored in the original polar volume file. We recommend a thickness of 200 m. Profiles with narrower altitude bin spacings can be extracted (<a href="https://doi.org/10.1109/TGRS.2009.2014463">Buler and Diehl 2009</a>), but the finite size of the radar beam precludes resolving altitudinal features smaller than approximately 100–200 m. Profile quantities are estimated based on resolution samples centered within the altitudinal spacing of each layer.</li>
 <li>
-<code>dual_pol</code>, <code>rho_hv</code>: the logical <code>dual_pol</code> enables polarimetric filtering of precipitation, which discards contiguous areas with correlation coefficient (ρ<sub>HV</sub>) above a threshold <code>rho_hv</code>. We recommend <code>rho_hv</code> = 0.95, since precipitation typically has higher correlation coefficient values (<a href="https://doi.org/10.1002/ecs2.1539">Stepanian et al. 2016</a>) (but note that lower ρ<sub>HV</sub> is possible in mixed precipitation, like a combination of snow and rain, cf. <a href="https://doi.org/10.1175/1520-0450(1998)037%3C1228:DBRASW%3E2.0.CO;2">Ryzhkov and Zrnic 1998</a>). Single polarization mode is currently only available for C‐band radars.</li>
+<code>dual_pol</code>, <code>rho_hv</code>: the logical <code>dual_pol</code> enables polarimetric filtering of precipitation, which discards contiguous areas with correlation coefficient (ρ<sub>HV</sub>) above a threshold <code>rho_hv</code>. We recommend <code>rho_hv</code> = 0.95, since precipitation typically has higher correlation coefficient values (<a href="https://doi.org/10.1002/ecs2.1539">Stepanian et al. 2016</a>) (but note that lower ρ<sub>HV</sub> is possible in mixed precipitation, like a combination of snow and rain, cf. <a href="https://doi.org/10.1175/1520-0450(1998)037%3C1228:DBRASW%3E2.0.CO;2">Ryzhkov and Zrnic 1998</a>). Single polarization mode is currently only available for C‐band radars.</li>
 <li>
 <code>dealias</code>, <code>nyquist_min</code>: the logical <code>dealias</code> enables radial velocity dealiasing following the method by <a href="https://doi.org/10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2">Haase and Landelius (2004)</a> when scans are present with a Nyquist velocity smaller than threshold <code>nyquist_min</code> (default 25 m s<sup>–1</sup>). The Nyquist velocity is stored in the <code>attributes$how$NI</code> slot of scan class objects. Some radars dealias velocities at acquisition time, e.g. using the dual‐PRF technique (<a href="https://doi.org/10.1175/JTECH1781.1">Holleman 2005</a>). For such radars we recommend no dealiasing for scans on which this is applied. For data acquired with a single PRF we recommend dealiasing when the Nyquist velocity of a scan is below 25 m s<sup>–1</sup>, i.e. if there is a high probability that animal movements will be faster than the Nyquist velocity.</li>
 <li>
@@ -175,14 +183,14 @@
 <div id="step-3-visualizing-and-interpreting-individual-profiles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step-3-visualizing-and-interpreting-individual-profiles" class="anchor"></a>Step 3: visualizing and interpreting individual profiles</h3>
-<p>The various quantities in a <strong>vertical profile</strong> (e.g. <code>dens</code>: animal density, <code>ff</code>: ground speed, <code>dd</code>: ground speed direction, <code>eta</code>: reflectivity) can be visualized with <code><a href="../reference/plot.vp.html">plot.vp()</a></code>, as shown in <a href="#figure-2">Fig. 2F and 2G</a> for density. These profile plots and <a href="#figure-2">Fig. 2D and 2E</a> are for the same moment in time. Note that both profiles show layering of birds: a density concentration at high altitude (here at approx. 1.5 km) (cf. <a href="https://doi.org/10.1371/journal.pone.0052300">Dokter et al. 2013</a>). These layers show up as concentric rings in <a href="#figure-2">Fig. 2D and 2E</a>. These rings appear because at an increasing distance from the radar, measurements are made at higher altitudes, because of the positive beam elevation and the curvature of the earth.</p>
+<p>The various quantities in a <strong>vertical profile</strong> (e.g. <code>dens</code>: animal density, <code>ff</code>: ground speed, <code>dd</code>: ground speed direction, <code>eta</code>: reflectivity) can be visualized with <code><a href="../reference/plot.vp.html">plot.vp()</a></code>, as shown in <a href="#figure-2">Fig. 2F and 2G</a> for density. These profile plots and <a href="#figure-2">Fig. 2D and 2E</a> are for the same moment in time. Note that both profiles show layering of birds: a density concentration at high altitude (here at approx. 1.5 km) (cf. <a href="https://doi.org/10.1371/journal.pone.0052300">Dokter et al. 2013</a>). These layers show up as concentric rings in <a href="#figure-2">Fig. 2D and 2E</a>. These rings appear because at an increasing distance from the radar, measurements are made at higher altitudes, because of the positive beam elevation and the curvature of the earth.</p>
 <p>Also note that the peak densities of the two cases are similar, on the order of 100 individuals km<sup>–3</sup> (assuming RCS = 11 cm<sup>2</sup>) (<a href="#figure-2">Fig. 2H and 2I</a>). The reflectivity factors (in dBZ scale, not to be confused with reflectivity η (<a href="https://doi.org/10.1098/rsif.2010.0116">Dokter et al. 2011</a>, <a href="https://doi.org/10.1890/ES12-00027.1">Chilson et al. 2012b</a>) are however much higher for the US case than the European case. This is related to the difference in radar wavelength (<a href="https://doi.org/10.1098/rsif.2010.0116">Dokter et al. 2011</a>), with NEXRAD radars in the US being S‐band and European radars being mostly C‐band.</p>
 </div>
 <div id="step-4-analyzing-and-visualizing-vertical-profiles-as-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step-4-analyzing-and-visualizing-vertical-profiles-as-time-series" class="anchor"></a>Step 4: analyzing and visualizing vertical profiles as time series</h3>
 <p>After processing volume data into profiles, the profile data of consecutive volume scans of a radar can be organized into a <strong>time series of vertical profiles</strong>. The function <code><a href="../reference/bind_into_vpts.html">bind_into_vpts()</a></code> binds vertical profile objects (class <code>vp</code>) into time series object (class <code>vpts</code>), for which the default plot is shown in <a href="#figure-2">figure 2H and 2I</a>. The dotted line indicates the time slice of <a href="#figure-2">Fig. 2B–G</a>.</p>
-<p>The <code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> method overlays one of the reflectivity‐based quantities (e.g. <code>dens</code>, <code>eta</code> or <code>dbz</code>) with a barb indicating the animals ground speed and direction. This follows meteorological conventions for graphically displaying wind speed and direction (with north being up). The number of barb flags indicate the speed (<code>ff</code>) while its tip points into the direction where animals are moving (<code>dd</code>).</p>
+<p>The <code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> method overlays one of the reflectivity‐based quantities (e.g. <code>dens</code>, <code>eta</code> or <code>dbz</code>) with a barb indicating the animals ground speed and direction. This follows meteorological conventions for graphically displaying wind speed and direction (with north being up). The number of barb flags indicate the speed (<code>ff</code>) while its tip points into the direction where animals are moving (<code>dd</code>).</p>
 <p>Another useful profile quantity to inspect as time series is DBZH. This is the reflectivity factor for all scatterers, including meteorological targets like precipitation. Time periods with rain are often clearly visible as high DBZH values over the full altitude column. We recommend making plots of DBZH as a way of screening for precipitation contaminations and quality control, which is often a useful way to check remarkable altitude patterns in the biological data (e.g. the layering of birds at 1.5 km can also be seen in <a href="#figure-2">Fig. 2I</a>) or short spikes with high values that might be due to rain contamination.</p>
 <p>bioRad provides multiple functions to further aggregate and summarize time series data. We can integrate over the altitude dimension using <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>, which outputs a specially classed <code>data.frame</code> (class <code>vpi</code>) containing altitudinally integrated or averaged quantities. <a href="#figure-2">Figure 2J and 2K</a> show plots of migration traffic rate, both MTR (variable transect angle, Eq. 1) and MTR<sub>0</sub> and MTR<sub>90</sub> (fixed transect angle, Eq. 2). We note that MTR is always positive, but MTR<sub>α</sub> definitions can become negative depending on the migratory direction in relation to α. For example, the northward spring migration (US case, <a href="#figure-2">Fig. 2K</a>) result in a positive MTR<sub>0</sub>, while the southward autumn migration (European case, <a href="#figure-2">Fig. 2J</a>) is negative. For the US case, migration is directed mostly northward, therefore MTR<sub>0</sub> is much larger than MTR<sub>90</sub>, while in the European case, migration is mostly westward, therefore (in absolute value) MTR<sub>0</sub> is smaller than MTR<sub>90</sub>.</p>
 <p><strong>Vertically‐integrated time series</strong> can be further accumulated in time into measures summarizing migration traffic having passed the radar station during a time period, like MT (migration traffic) or RT (reflectivity traffic) (cf. output columns <code>mt</code> and <code>rt</code> of <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>). For example, for the European case we find MT = 55 × 10<sup>3</sup>, MT<sub>0</sub> = –28 × 10<sup>3</sup> and MT<sub>90</sub> = –45 × 10<sup>3</sup> for the time night‐time period. This means that – assuming a radar cross section (RCS) per individual of 11 cm<sup>2</sup> – 55 thousand birds per 1 km transect flew over the radar station in this night (irrespective of direction). Decomposing the migration traffic into two perpendicularly oriented components, we find a net 28 thousand birds flew southward per km over a west‐to‐east transect (MT<sub>0</sub>), and a net 45 thousand birds per km flew westward per km over a north‐to‐south transect (MT<sub>90</sub>). For these specific definitions, MT ≤ √(MT<sub>0</sub><sup>2</sup> + MT<sub>90</sub><sup>2</sup>), with the left‐ and right‐hand side being equal when migration directions <code>dd</code> all point into a sector of at most 180 degrees wide, as is usually the case for periods confined to a single spring or fall.</p>
@@ -202,18 +210,18 @@
 <code><a href="../reference/example_vpts.html">bioRad::example_vpts</a></code>: example object of class <code>vpts</code>.</li>
 <li>
 <p><code>volume.h5</code>: example hdf5 file containing a polar volume. Read using:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">pvol_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(pvol_file)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">pvol_file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(pvol_file)</a></code></pre></div>
 </li>
 <li>
 <p><code>profile.h5</code>: example hdf5 file containing a vertical profile generated by <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>. Read using:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">vp_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"profile.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(vp_file)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">vp_file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"profile.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span>(vp_file)</a></code></pre></div>
 </li>
 <li>
 <p><code>vpts.txt.zip</code>: example standard output of <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> piped to a text file (and zipped). Read using:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">vpts_file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/unzip">unzip</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"vpts.txt.zip"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>))</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/read_vpts.html">read_vpts</a></span>(vpts_file, <span class="dt">radar =</span> <span class="st">"KBGM"</span>, <span class="dt">wavelength =</span> <span class="st">"S"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vpts_file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/unzip.html">unzip</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"vpts.txt.zip"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>))</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="../reference/read_vpts.html">read_vpts</a></span>(vpts_file, <span class="dt">radar =</span> <span class="st">"KBGM"</span>, <span class="dt">wavelength =</span> <span class="st">"S"</span>)</a></code></pre></div>
 </li>
 </ul>
 <p>Conventions in data files:</p>
@@ -230,6 +238,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -245,13 +254,15 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="http://adriaandokter.com">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 

@@ -29,7 +29,7 @@
 #'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
 #'  \item{\strong{\code{data}}}{the profile data, a list containing:
 #'    \describe{
-#'        \item{\code{HGHT}}{height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)}
+#'        \item{\code{height}}{height above mean sea level [m]. Alt. bin from height to height+interval)}
 #'        \item{\code{u}}{speed component west to east [m/s]}
 #'        \item{\code{v}}{speed component north to south [m/s]}
 #'        \item{\code{w}}{vertical speed (unreliable!) [m/s]}
@@ -99,6 +99,10 @@ dim.vp <- function(x) {
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
+  if (!is.null(x$data$HGHT)) {
+    warning("obsolete vp object generated with bioRad version < 0.5.0.
+    vp objects should contain a list element 'data' containing a data.frame with column 'height' (instead of obsolete 'HGHT)")
+  }
   cat("               Vertical profile (class vp)\n\n")
   cat("       radar: ", x$radar, "\n")
   cat("      source: ", x$attributes$what$source, "\n")
@@ -165,12 +169,12 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
   stopifnot(inherits(x, "vp"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-      length(x$datetime) * length(x$heights)) {
+      length(x$datetime) * length(x$height)) {
       rownames(output) <- row.names
     } else {
       stop(paste(
         "'row.names' is not a character vector of length",
-        length(x$datetime) * length(x$heights)
+        length(x$datetime) * length(x$height)
       ))
     }
   }
@@ -191,8 +195,8 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
   # coerce data to a data frame
   output <- as.data.frame(x$data, optional = optional, ...)
   # add height and datetime as a column
-  output <- cbind(datetime = x$datetime, height = output$HGHT, output)
-  output$HGHT <- NULL
+  output <- cbind(datetime = x$datetime, height = output$height, output)
+  output$height <- NULL
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
   # add location information

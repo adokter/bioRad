@@ -4,10 +4,20 @@
 \alias{plot.vpi}
 \title{Plot an integrated profile (\code{vpi})}
 \usage{
-\method{plot}{vpi}(x, quantity = "mtr", xlab = "time",
-  ylab = "migration traffic rate [#/km/h]", main = "MTR",
-  night_shade = TRUE, elev = -0.268, lat = NULL, lon = NULL,
-  ylim = NULL, nightshade = TRUE, ...)
+\method{plot}{vpi}(
+  x,
+  quantity = "mtr",
+  xlab = "time",
+  ylab = "migration traffic rate [#/km/h]",
+  main = "MTR",
+  night_shade = TRUE,
+  elev = -0.268,
+  lat = NULL,
+  lon = NULL,
+  ylim = NULL,
+  nightshade = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{1 class object inheriting from class \code{vpi}, typically a
@@ -73,9 +83,9 @@ argument \code{quantity}:
  \item{\code{dd}}{Horizontal ground speed direction in degrees}
  \item{\code{u}}{Ground speed component west to east in m/s}
  \item{\code{v}}{Ground speed component north to south in m/s}
- \item{\code{HGHT}}{Height above sea level in m}
+ \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 }
-The height-averaged speed quantities (ff,dd,u,v) and HGHT are weighted averages by reflectivity eta.
+The height-averaged speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 }
 \examples{
 # vertically integrate a vpts object:

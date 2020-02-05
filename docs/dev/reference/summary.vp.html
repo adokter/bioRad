@@ -8,21 +8,32 @@
 
 <title>Class <code>vp</code>: a vertical profile of birds — summary.vp • bioRad</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,13 +47,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Class <code>vp</code>: a vertical profile of birds — summary.vp" />
 
+<meta property="og:title" content="Class <code>vp</code>: a vertical profile of birds — summary.vp" />
 <meta property="og:description" content="Class vp for a vertical profile of birds, and its associated R base
 functions." />
-
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -54,6 +65,7 @@ functions." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -72,7 +84,7 @@ functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9261</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
       </span>
     </div>
 
@@ -80,7 +92,7 @@ functions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,17 +121,16 @@ functions." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/adokter/bioRad">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -130,6 +141,7 @@ functions." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -141,20 +153,18 @@ functions." />
     </div>
 
     <div class="ref-description">
-    
     <p>Class <code>vp</code> for a vertical profile of birds, and its associated R base
 functions.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for vp</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='fu'>is.vp</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for vp</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='no'>x</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>x</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -171,12 +181,11 @@ functions.</p>
       <td><p>An object of class <code>vp</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>For <code>is.vp</code>: <code>TRUE</code> if its argument is of class <code>vp</code>.</p>
 <p>For <code>dim.vp</code>: dimensions of the profile data.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>An object of class <code>vp</code> contains a vertical profile. A vertical profile
@@ -191,7 +200,7 @@ spaced altitudinal layers.</p>
  <dt><strong><code>datetime</code></strong></dt><dd><p>the nominal time of the profile</p></dd>
  <dt><strong><code>data</code></strong></dt><dd><p>the profile data, a list containing:
    <dl class='dl-horizontal'>
-       <dt><code>HGHT</code></dt><dd><p>height above mean sea level [m]. Alt. bin from HGHT to HGHT+interval)</p></dd>
+       <dt><code>height</code></dt><dd><p>height above mean sea level [m]. Alt. bin from height to height+interval)</p></dd>
        <dt><code>u</code></dt><dd><p>speed component west to east [m/s]</p></dd>
        <dt><code>v</code></dt><dd><p>speed component north to south [m/s]</p></dd>
        <dt><code>w</code></dt><dd><p>vertical speed (unreliable!) [m/s]</p></dd>
@@ -206,13 +215,14 @@ spaced altitudinal layers.</p>
        <dt><code>n</code></dt><dd><p>number of points VVP bird velocity analysis (u,v,w,ff,dd)</p></dd>
        <dt><code>n_all</code></dt><dd><p>number of points VVP st.dev. estimate (sd_vvp)</p></dd>
        <dt><code>n_dbz</code></dt><dd><p>number of points bird density estimate (dbz,eta,dens)</p></dd>
-       <dt><code>n_dbz_all</code></dt><dd><p>number of points total reflectivity estimate (DBZH)</p></dd>
-   </dl></p></dd>
+       <dt><code>n_dbz_all</code></dt><dd><p>number of points total reflectivity estimate (DBZH)</p></dd></dl></p></dd>
  <dt><strong><code>attributes</code></strong></dt><dd><p>list with the profile's <code>\what</code>,
  <code>\where</code> and <code>\how</code> attributes</p></dd>
+
 </dl>
-    <h3>Conventions</h3>
-    <ul>
+
+<h3>Conventions</h3>
+<p></p><ul>
 <li><p><code>NA</code> Maps to 'nodata' in the ODIM convention: value to denote areas void of data
      (never radiated)</p></li>
 <li><p><code>NaN</code> Maps to 'undetect' in the ODIM convention: denote areas below the measurement
@@ -220,26 +230,24 @@ spaced altitudinal layers.</p>
     few datapoints to calculate a quantity.</p></li>
 <li><p><code>0</code> Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
      value of zero (radiated and value zero detected or inferred).</p></li>
-</ul>
-  It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
+</ul><p>It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
   an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
   is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
-  in case of undetects.
-    
+  in case of undetects.</p>
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -247,8 +255,9 @@ spaced altitudinal layers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
@@ -271,6 +280,8 @@ spaced altitudinal layers.</p>
 </script>
 
 
+
   </body>
 </html>
+
 

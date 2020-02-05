@@ -4,20 +4,29 @@
 \alias{beam_profile}
 \title{Calculate vertical radiation profile}
 \usage{
-beam_profile(height, distance, elev, antenna = 0, beam_angle = 1,
-  k = 4/3, lat = 35, re = 6378, rp = 6357)
+beam_profile(
+  height,
+  distance,
+  elev,
+  antenna = 0,
+  beam_angle = 1,
+  k = 4/3,
+  lat = 35,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{height}{numeric. Height in meter.}
 
-\item{distance}{numeric. Distance from the radar as measured along sea level (down range)}
+\item{distance}{numeric. Distance from the radar as measured along sea level (down range) in m.}
 
 \item{elev}{numeric vector. Beam elevation(s) in degrees.}
 
 \item{antenna}{numeric. Height of the centre of the radar antenna in meters}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 

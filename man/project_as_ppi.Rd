@@ -7,22 +7,46 @@
 \title{Project a scan (\code{scan}) or parameter (\code{param}) to a plan
 position indicator (\code{ppi})}
 \usage{
-project_as_ppi(x, grid_size = 500, range_max = 50000,
-  project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378,
-  rp = 6357)
+project_as_ppi(
+  x,
+  grid_size = 500,
+  range_max = 50000,
+  project = TRUE,
+  ylim = NULL,
+  xlim = NULL,
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 
-\method{project_as_ppi}{param}(x, grid_size = 500, range_max = 50000,
-  project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378,
-  rp = 6357)
+\method{project_as_ppi}{param}(
+  x,
+  grid_size = 500,
+  range_max = 50000,
+  project = FALSE,
+  ylim = NULL,
+  xlim = NULL,
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 
-\method{project_as_ppi}{scan}(x, grid_size = 500, range_max = 50000,
-  project = FALSE, ylim = NULL, xlim = NULL, k = 4/3, re = 6378,
-  rp = 6357)
+\method{project_as_ppi}{scan}(
+  x,
+  grid_size = 500,
+  range_max = 50000,
+  project = FALSE,
+  ylim = NULL,
+  xlim = NULL,
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{x}{An object of class \code{param} or \code{scan}.}
 
-\item{grid_size}{Cartesian grid size in m.}
+\item{grid_size}{Cartesian grid size in m or a RasterLayer defining the full topology.}
 
 \item{range_max}{Maximum range in m.}
 

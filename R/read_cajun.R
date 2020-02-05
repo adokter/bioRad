@@ -30,13 +30,13 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
 
   # header of the data file
   header.names.sorted <- c(
-    "HGHT", "u", "v", "w", "ff", "dd",
+    "height", "u", "v", "w", "ff", "dd",
     "sd_vvp", "gap", "dbz", "eta", "dens", "DBZH", "n",
     "n_dbz", "n_all", "n_dbz_all",
     "elev1", "nvolumes_gr35_e1", "elev2", "nvolumes_gr35_e2", "vcp", "percent_rain"
   )
   header.names.cajun <- c("bin_lower", "height", "linear_eta", "nbins", "direction", "speed", "u", "v", "rmse", "elev1", "nvolumes_gr35_e1", "elev2", "nvolumes_gr35_e2", "vcp", "linear_eta_unfiltered", "percent_rain")
-  header.names.biorad <- c("HGHT", "height", "eta", "n_dbz_all", "dd", "ff", "u", "v", "sd_vvp", "elev1", "nvolumes_gr35_e1", "elev2", "nvolumes_gr35_e2", "vcp", "linear_eta_unfiltered", "percent_rain")
+  header.names.biorad <- c("height", "height_mean", "eta", "n_dbz_all", "dd", "ff", "u", "v", "sd_vvp", "elev1", "nvolumes_gr35_e1", "elev2", "nvolumes_gr35_e2", "vcp", "linear_eta_unfiltered", "percent_rain")
 
   # read the data
   data <- read.table(file = file, header = TRUE, sep = ",")
@@ -65,13 +65,13 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   radar <- substr(basename(file), 1, 4)
 
   # prepare output
-  heights <- data$HGHT
-  interval <- unique(heights[-1] - heights[-length(heights)])
+  height <- data$height
+  interval <- unique(height[-1] - height[-length(height)])
 
   attributes <- list(
     where = data.frame(
       interval = interval,
-      levels = length(heights)
+      levels = length(height)
     ),
     what = data.frame(source = basename(file), stringsAsFactors = F),
     how = data.frame(wavelength = wavelength, task = "UMASS Cajun")

@@ -8,12 +8,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
 _These course materials were developed for the 3d Radar Aeroecology Training School, Jul 30 - Aug 2 2019, University of Oklahoma, Norman, OK, USA._
 
 ```{r setup, echo=FALSE, message=FALSE}
 SHOW_ANSWERS=FALSE
-knitr::opts_knit$set(root.dir = normalizePath("/Users/amd427/Dropbox/RadAero19"))
+if(Sys.info()['sysname']=="Linux") prefix="/home/adriaan" else prefix="/Users/amd427"
+knitr::opts_knit$set(root.dir = normalizePath(paste(prefix,"/Dropbox/RadAero19/bioRad practical/data",sep="")))
 #knitr::opts_chunk$set(eval=FALSE)
 Sys.setenv(TZ = "UTC")
 library(bioRad)

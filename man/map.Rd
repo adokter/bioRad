@@ -7,9 +7,23 @@
 \usage{
 map(x, ...)
 
-\method{map}{ppi}(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20,
-  20), ratio, radar_size = 3, radar_color = "red", n_color = 1000,
-  radar.size = 3, radar.color = "red", n.color = 1000, ...)
+\method{map}{ppi}(
+  x,
+  map,
+  param,
+  alpha = 0.7,
+  xlim,
+  ylim,
+  zlim = c(-20, 20),
+  ratio,
+  radar_size = 3,
+  radar_color = "red",
+  n_color = 1000,
+  radar.size = 3,
+  radar.color = "red",
+  n.color = 1000,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}

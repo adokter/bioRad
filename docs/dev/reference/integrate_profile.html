@@ -9,21 +9,32 @@
 <title>Vertically integrate profiles (<code>vp</code> or <code>vpts</code>) to an
 integrated profile (<code>vpi</code>) — integrate_profile • bioRad</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,15 +48,15 @@ integrated profile (<code>vpi</code>) — integrate_profile • bioRad</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+
 <meta property="og:title" content="Vertically integrate profiles (<code>vp</code> or <code>vpts</code>) to an
 integrated profile (<code>vpi</code>) — integrate_profile" />
-
 <meta property="og:description" content="Performs a vertical integration of density, reflectivity and migration
 traffic rate, and a vertical averaging of ground speed and direction
 weighted by density." />
-
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -57,6 +68,7 @@ weighted by density." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -75,7 +87,7 @@ weighted by density." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9261</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
       </span>
     </div>
 
@@ -83,7 +95,7 @@ weighted by density." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,17 +124,16 @@ weighted by density." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/adokter/bioRad">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -133,6 +144,7 @@ weighted by density." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -145,27 +157,40 @@ integrated profile (<code>vpi</code>)</h1>
     </div>
 
     <div class="ref-description">
-    
     <p>Performs a vertical integration of density, reflectivity and migration
 traffic rate, and a vertical averaging of ground speed and direction
 weighted by density.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='no'>alt_min</span>, <span class='no'>alt_max</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 <span class='co'># S3 method for vp</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>integrate_profile</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>integrate_profile</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)
 
 <span class='co'># S3 method for vpts</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
-    
+<span class='fu'>integrate_profile</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -193,18 +218,17 @@ profiles can be found within the period <code>t-interval_max/2</code> to
 <code>t+interval_max/2</code>. Ignored for single profiles of class <code>vp</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>an object of class <code>vpi</code>, a data frame with vertically
 integrated profile quantities</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h3>Available quantities</h3>
-    The function generates a specially classed data frame with the following
-quantities:
-<dl class='dl-horizontal'>
+    
+<h3>Available quantities</h3>
+<p>The function generates a specially classed data frame with the following
+quantities:</p><dl class='dl-horizontal'>
    <dt><code>datetime</code></dt><dd><p>POSIXct date of each profile in UTC</p></dd>
    <dt><code>vid</code></dt><dd><p>Vertically Integrated Density in individuals/km^2.
       <code>vid</code> is a surface density, whereas <code>dens</code> in <code>vp</code>
@@ -220,106 +244,109 @@ quantities:
    <dt><code>dd</code></dt><dd><p>Horizontal ground speed direction in degrees</p></dd>
    <dt><code>u</code></dt><dd><p>Ground speed component west to east in m/s</p></dd>
    <dt><code>v</code></dt><dd><p>Ground speed component north to south in m/s</p></dd>
-   <dt><code>HGHT</code></dt><dd><p>Height above sea level in m</p></dd>
-</dl>
-Vertically integrated density and reflectivity are related according to
+   <dt><code>height</code></dt><dd><p>Mean flight height (height weighted by eta) in m above sea level</p></dd>
+
+</dl><p>Vertically integrated density and reflectivity are related according to
 \(vid=vir/rcs(x)\), with <a href='rcs.html'>rcs</a> the assumed radar cross section per
 individual. Similarly, migration traffic rate and reflectivity traffic rate
-are related according to \(mtr=rtr/rcs(x)\)
-    <h3>Ground speed (ff) and ground speed components (u,v)</h3>
-    The height-averaged ground speed is defined as:
-    $$ff = \sum_i dens_i ff_i / \sum_i dens_i$$
+are related according to \(mtr=rtr/rcs(x)\)</p>
+
+<h3>Ground speed (ff) and ground speed components (u,v)</h3>
+<p>The height-averaged ground speed is defined as:</p>
+<p>$$ff = \sum_i dens_i ff_i / \sum_i dens_i$$
 with the sum running over all altitude layers between <code>alt_min</code> and
 <code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
-altitude layer i.
-    the height-averaged u component (west to east) is defined as:
-    $$u = \sum_i dens_i u_i / \sum_i dens_i$$
-    the height-averaged v component (south to north) is defined as:
-    $$v = \sum_i dens_i v_i / \sum_i dens_i$$
-    <p>Note that \(ff_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
+altitude layer i.</p>
+<p>the height-averaged u component (west to east) is defined as:</p>
+<p>$$u = \sum_i dens_i u_i / \sum_i dens_i$$</p>
+<p>the height-averaged v component (south to north) is defined as:</p>
+<p>$$v = \sum_i dens_i v_i / \sum_i dens_i$$</p>
+
+<p>Note that \(ff_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
 height-integrated speeds, i.e. \(ff != \sqrt(u^2 + v^2)\) as soon as the
 ground speed directions vary with altitude.</p>
 <h3>Migration traffic rate (mtr) and reflectivity traffic rate (rtr)</h3>
-    Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
-as the number of targets crossing a unit of transect per hour.
-    Column mtr of the output dataframe gives migration traffic rates in individuals/km/hour.
-    The transect direction is set by the angle <code>alpha</code>. When
+<p>Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
+as the number of targets crossing a unit of transect per hour.</p>
+<p>Column mtr of the output dataframe gives migration traffic rates in individuals/km/hour.</p>
+<p>The transect direction is set by the angle <code>alpha</code>. When
 <code>alpha=NA</code>, the transect runs perpendicular to the measured migratory
 direction. <code>mtr</code> then equals the number of crossing targets per km
 transect per hour, for a transect kept perpendicular to the measured
 migratory movement at all times and altitudes. In this case <code>mtr</code> is
-always a positive quantity, defined as:
-    $$mtr = 3.6 \sum_i dens_i ff_i \Delta h$$
-    with the sum running over all altitude layers between <code>alt_min</code> and
+always a positive quantity, defined as:</p>
+<p>$$mtr = 3.6 \sum_i dens_i ff_i \Delta h$$</p>
+<p>with the sum running over all altitude layers between <code>alt_min</code> and
 <code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
 altitude layer i, and \(\Delta h\) the altitude layer width. The factor 3.6
-refers to a unit conversion of speeds \(ff_i\) from m/s to km/h.
-    If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
+refers to a unit conversion of speeds \(ff_i\) from m/s to km/h.</p>
+<p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
 to the direction <code>alpha</code>, and the number of crossing targets per hour
-per km transect is calculated as:
-    $$mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h$$
-with \(dd_i\) the migratory direction at altitude i.
-    Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
-Also note we can rewrite this equation using trigonemetry as:
-    $$mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h$$
-with \(u_i\) and \(v_i\) the u and v ground speed components at altitude i.
-    In this definition <code>mtr</code> is a traditional flux into a direction of
+per km transect is calculated as:</p>
+<p>$$mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h$$
+with \(dd_i\) the migratory direction at altitude i.</p>
+<p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
+Also note we can rewrite this equation using trigonemetry as:</p>
+<p>$$mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h$$
+with \(u_i\) and \(v_i\) the u and v ground speed components at altitude i.</p>
+<p>In this definition <code>mtr</code> is a traditional flux into a direction of
 interest. Targets moving into the direction <code>alpha</code> contribute
 positively to <code>mtr</code>, while targets moving in the opposite direction
 contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be both
-positive or negative, depending on the definition of alpha.
-    Note that <code>mtr</code> for a given value of <code>alpha</code> can also be calculated from
+positive or negative, depending on the definition of alpha.</p>
+<p>Note that <code>mtr</code> for a given value of <code>alpha</code> can also be calculated from
 the vertically integrated density <code>vid</code> and the height-integrated velocity
-components <code>u</code> and <code>v</code> as follows:
-    $$mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid$$
-    Formula for reflectivity traffic rate <code>rtr</code> are found by replacing
+components <code>u</code> and <code>v</code> as follows:</p>
+<p>$$mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid$$</p>
+<p>Formula for reflectivity traffic rate <code>rtr</code> are found by replacing
 <code>dens</code> with <code>eta</code> and <code>vid</code> with <code>vir</code> in the formula for <code>mtr</code>.
 Reflectivity traffic rate gives the cross-sectional area
 passing the radar per km transect perpendicular to the migratory direction per hour.
-<code>mtr</code> values are conditional on settings of <a href='rcs.html'>rcs</a>, while <code>rtr</code> values are not.
-    <h3>Migration traffic (mt) and reflectivity traffic (rt)</h3>
-    Migration traffic is calculated by time-integration of
+<code>mtr</code> values are conditional on settings of <a href='rcs.html'>rcs</a>, while <code>rtr</code> values are not.</p>
+
+<h3>Migration traffic (mt) and reflectivity traffic (rt)</h3>
+<p>Migration traffic is calculated by time-integration of
 migration traffic rates. Migration traffic gives the number of individuals
 that have passed per km perpendicular to the migratory direction at the
 position of the radar for the full period of the time series within the
-specified altitude band.
-    Reflectivity traffic is calculated by time-integration of
+specified altitude band.</p>
+<p>Reflectivity traffic is calculated by time-integration of
 reflectivity traffic rates. Reflectivity traffic gives the total cross-sectional area
 that has passed per km perpendicular to the migratory direction at the
 position of the radar for the full period of the time series within the
-specified altitude band.
-    <code>mt</code> values are conditional on settings of <a href='rcs.html'>rcs</a>, while <code>rt</code> values are not.
-    Columnns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
+specified altitude band.</p>
+<p><code>mt</code> values are conditional on settings of <a href='rcs.html'>rcs</a>, while <code>rt</code> values are not.</p>
+<p>Columnns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
-of the respective row.
-    
+of the respective row.</p>
+
     <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
-    <ul>
+    
+<ul>
 <li><p><code>vp</code>: Vertically integrate a vertical profile.</p></li>
 <li><p><code>list</code>: Vertically integrate a list of
 vertical profiles.</p></li>
 <li><p><code>vpts</code>: Vertically integrate a time series of
 vertical profiles.</p></li>
 </ul>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># MTR for a single vertical profile</span>
 <span class='fu'>integrate_profile</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt       ff
 #&gt; 1 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.81019
-#&gt;         dd         u         v     HGHT
+#&gt;         dd         u         v   height
 #&gt; 1 204.4764 -5.298934 -11.64013 845.6075</div><div class='input'>
 <span class='co'># MTRs for a list of vertical profiles</span>
-<span class='fu'>integrate_profile</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>example_vp</span>, <span class='no'>example_vp</span>))</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt       ff
+<span class='fu'>integrate_profile</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>example_vp</span>, <span class='no'>example_vp</span>))</div><div class='output co'>#&gt;              datetime      mtr      vid      vir      rtr mt rt       ff
 #&gt; 1 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.81019
 #&gt; 2 2015-10-18 18:00:00 4108.289 89.08468 983.9208 45191.18 NA NA 12.81019
-#&gt;         dd         u         v     HGHT
+#&gt;         dd         u         v   height
 #&gt; 1 204.4764 -5.298934 -11.64013 845.6075
 #&gt; 2 204.4764 -5.298934 -11.64013 845.6075</div><div class='input'>
 <span class='co'># MTRs for a time series of vertical profiles</span>
 <span class='co'># load example data:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>example_vpts</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
 <span class='no'>example_vpts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
 #&gt; 
 #&gt;            radar:  KBGM 
@@ -328,26 +355,23 @@ vertical profiles.</p></li>
 #&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'><span class='co'># print migration traffic rates</span>
 <span class='no'>vpi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>)
 <span class='co'># plot migration traffic rates for the full air column</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='integrate_profile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot migration traffic rates for altitudes &gt; 1 km above sea level</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>1000</span>))</div><div class='img'><img src='integrate_profile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the (cumulative) migration traffic</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mt"</span>)</div><div class='img'><img src='integrate_profile-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='integrate_profile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot migration traffic rates for altitudes &gt; 1 km above sea level</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>1000</span>))</div><div class='img'><img src='integrate_profile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the (cumulative) migration traffic</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>integrate_profile</span>(<span class='no'>example_vpts</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mt"</span>)</div><div class='img'><img src='integrate_profile-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#methods-by-class-">Methods (by class)</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -355,8 +379,9 @@ vertical profiles.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
@@ -379,6 +404,8 @@ vertical profiles.</p></li>
 </script>
 
 
+
   </body>
 </html>
+
 

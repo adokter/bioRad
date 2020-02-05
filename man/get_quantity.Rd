@@ -20,7 +20,7 @@ get_quantity(x, quantity)
 
 \item{quantity}{A profile quantity, one of:
 \itemize{
- \item{\code{"HGHT"}}{}
+ \item{\code{"height"}}{}
  \item{\code{"u"}}{}
  \item{\code{"v"}}{}
  \item{\code{"w"}}{}

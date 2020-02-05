@@ -4,8 +4,17 @@
 \alias{gaussian_beam_profile}
 \title{Gaussian beam profile as a function of height}
 \usage{
-gaussian_beam_profile(height, range, elev, antenna = 0, beam_angle = 1,
-  k = 4/3, lat = 35, re = 6378, rp = 6357)
+gaussian_beam_profile(
+  height,
+  range,
+  elev,
+  antenna = 0,
+  beam_angle = 1,
+  k = 4/3,
+  lat = 35,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{height}{numeric. Height in meter.}
@@ -18,7 +27,7 @@ between target and the radar antenna.}
 \item{antenna}{numeric. Height of the centre of the radar antenna in meters}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-the angle between the half-power (-3 dB) points of the main lobe}
+angle between the half-power (-3 dB) points of the main lobe}
 
 \item{k}{Standard refraction coefficient.}
 

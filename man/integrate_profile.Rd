@@ -10,14 +10,29 @@ integrated profile (\code{vpi})}
 \usage{
 integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
 
-\method{integrate_profile}{vp}(x, alt_min = 0, alt_max = Inf,
-  alpha = NA, interval_max = Inf)
+\method{integrate_profile}{vp}(
+  x,
+  alt_min = 0,
+  alt_max = Inf,
+  alpha = NA,
+  interval_max = Inf
+)
 
-\method{integrate_profile}{list}(x, alt_min = 0, alt_max = Inf,
-  alpha = NA, interval_max = Inf)
+\method{integrate_profile}{list}(
+  x,
+  alt_min = 0,
+  alt_max = Inf,
+  alpha = NA,
+  interval_max = Inf
+)
 
-\method{integrate_profile}{vpts}(x, alt_min = 0, alt_max = Inf,
-  alpha = NA, interval_max = Inf)
+\method{integrate_profile}{vpts}(
+  x,
+  alt_min = 0,
+  alt_max = Inf,
+  alpha = NA,
+  interval_max = Inf
+)
 }
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}
@@ -62,7 +77,7 @@ quantities:
    \item{\code{dd}}{Horizontal ground speed direction in degrees}
    \item{\code{u}}{Ground speed component west to east in m/s}
    \item{\code{v}}{Ground speed component north to south in m/s}
-   \item{\code{HGHT}}{Height above sea level in m}
+   \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
 }
 Vertically integrated density and reflectivity are related according to
 \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per

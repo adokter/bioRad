@@ -4,8 +4,13 @@
 \alias{download_vpfiles}
 \title{Download vertical profile (\code{vp}) files from the ENRAM data repository}
 \usage{
-download_vpfiles(date_min, date_max, radars, directory = ".",
-  overwrite = FALSE)
+download_vpfiles(
+  date_min,
+  date_max,
+  radars,
+  directory = ".",
+  overwrite = FALSE
+)
 }
 \arguments{
 \item{date_min}{character. YYYY-MM-DD start date of file selection. Days will

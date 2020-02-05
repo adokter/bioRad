@@ -4,8 +4,16 @@
 \alias{plot.ppi}
 \title{Plot a plan position indicator (\code{ppi})}
 \usage{
-\method{plot}{ppi}(x, param, xlim, ylim, zlim = c(-20, 20), ratio = 1,
-  ...)
+\method{plot}{ppi}(
+  x,
+  param,
+  xlim,
+  ylim,
+  zlim = c(-20, 20),
+  ratio = 1,
+  na.value = "transparent",
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}
@@ -19,6 +27,8 @@
 \item{zlim}{The range of parameter values to plot.}
 
 \item{ratio}{Aspect ratio between x and y scale.}
+
+\item{na.value}{\link[ggplot2]{ggplot} argument setting the plot color of NA values}
 
 \item{...}{Arguments passed to low level \link[ggplot2]{ggplot} function.}
 }

@@ -4,11 +4,25 @@
 \alias{plot.vpts}
 \title{Plot a time series of vertical profiles (\code{vpts})}
 \usage{
-\method{plot}{vpts}(x, xlab = "time", ylab = "height [m]",
-  quantity = "dens", log = TRUE, barbs = TRUE, barbs_height = 10,
-  barbs_time = 20, barbs_dens_min = 5, zlim, legend_ticks,
-  legend.ticks, main, barbs.h = 10, barbs.t = 20, barbs.dens = 5,
-  ...)
+\method{plot}{vpts}(
+  x,
+  xlab = "time",
+  ylab = "height [m]",
+  quantity = "dens",
+  log = TRUE,
+  barbs = TRUE,
+  barbs_height = 10,
+  barbs_time = 20,
+  barbs_dens_min = 5,
+  zlim,
+  legend_ticks,
+  legend.ticks,
+  main,
+  barbs.h = 10,
+  barbs.t = 20,
+  barbs.dens = 5,
+  ...
+)
 }
 \arguments{
 \item{x}{A vp class object inheriting from class \code{vpts}.}
