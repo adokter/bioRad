@@ -71,6 +71,9 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' scan_to_raster(example_scan)
 #' # crop the scan and project at a resolution of 0.1 degree:
 #' scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
+#' # using a template raster
+#' template_raster<-raster::raster(raster::extent(12,13,56,58), crs=sp::CRS('+proj=longlat'))
+#' scan_to_raster(example_scan, res=template_raster) 
 scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param, lat, lon, crs = NA, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
