@@ -61,7 +61,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"
 #' @param res numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
 #' If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
-#' Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.
+#' Alternatively a RasterLayer with a CRS can be specified, in this case this raster topology is used for the output.
 #' @return a RasterBrick
 #' @details uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
 #' the same raster pixel, the last added pixel is given (see \link[raster]{rasterize} for details).
@@ -71,6 +71,9 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' scan_to_raster(example_scan)
 #' # crop the scan and project at a resolution of 0.1 degree:
 #' scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
+#' # using a template raster
+#' template_raster<-raster::raster(raster::extent(12,13,56,58), crs=sp::CRS('+proj=longlat'))
+#' scan_to_raster(example_scan, res=template_raster)
 scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param, lat, lon, crs = NA, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
