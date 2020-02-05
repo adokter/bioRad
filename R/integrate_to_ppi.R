@@ -102,14 +102,18 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #' example_pvol <- read_pvolfile(pvolfile)
 #' # load the corresponding vertical profile for this polar volume
 #' data(example_vp)
-#' # calculate the range-corrected ppi on a 100x100 pixel raster
-#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 100, ny = 100)
+#' # calculate the range-corrected ppi on a 50x50 pixel raster
+#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 50, ny = 50)
 #' # plot the vertically integrated reflectivity (vir) using a 0-2000 cm^2/km^2 color scale:
 #' plot(my_ppi, zlim = c(0, 2000))
-#' # calculate the range-corrected ppi on finer 1000m x 1000m pixel raster:
-#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 1000)
+#' # calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:
+#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 2000)
 #' # plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
+#' # when working with rasters the following approach can be used:
+#' template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
+#' my_ppi<-integrate_to_ppi(example_pvol, example_vp, res=template_raster) 
+#' raster::brick(my_ppi$data)
 #' # download a basemap, and map the ppi:
 #' \dontrun{
 #' bm <- download_basemap(my_ppi)
