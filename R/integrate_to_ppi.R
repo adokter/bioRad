@@ -110,10 +110,14 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #' my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 2000)
 #' # plot the vertically integrated density (vid) using a 0-200 birds/km^2 color scale:
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
-#' # when working with rasters the following approach can be used:
+#' # the ppi can also be projected on a user-defined raster, as follows:
+#' # first define the raster:
 #' template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
-#' my_ppi<-integrate_to_ppi(example_pvol, example_vp, res=template_raster) 
+#' # project the ppi on the defined raster:
+#' my_ppi<-integrate_to_ppi(example_pvol, example_vp, res=template_raster)
+#' # extract the raster data from the ppi object:
 #' raster::brick(my_ppi$data)
+#' # to overlay ppi objects on a background map, first
 #' # download a basemap, and map the ppi:
 #' \dontrun{
 #' bm <- download_basemap(my_ppi)
