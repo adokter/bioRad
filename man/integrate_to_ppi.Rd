@@ -44,7 +44,7 @@ integrate_to_ppi(
 
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
-Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.}
+Alternatively a RasterLayer with a CRS can be specified, in this case this raster topology is used for the output.}
 
 \item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
 
