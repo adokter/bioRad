@@ -29,6 +29,12 @@ More vignettes:
 Documentation for the latest development version can be found [here](https://adokter.github.io/bioRad/dev).
 
 ## Installation
+bioRad depends on packages from both the [CRAN](https://CRAN.R-project.org) and
+[Bioconductor](https://www.bioconductor.org/) repositories. Enable both with:
+
+```{r eval = FALSE}
+setRepositories(ind=1:2)
+```
 
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
