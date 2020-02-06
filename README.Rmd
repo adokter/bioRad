@@ -36,6 +36,19 @@ bioRad depends on packages from both the [CRAN](https://CRAN.R-project.org) and
 setRepositories(ind=1:2)
 ```
 
+<details>
+<summary><strong>Required system libraries on Linux (Ubuntu)</strong></summary>
+
+These system libraries are required before installing bioRad:
+
+In terminal run:
+```
+sudo apt install libcurl4-openssl-dev
+sudo apt install libssl-dev
+sudo apt install libgdal-dev
+```
+</details>
+
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
@@ -81,6 +94,7 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
 5. In R do `check_docker()`.
 6. You can now use the bioRad functionality that requires Docker.
 </details>
+
 
 <details>
 <summary><strong>Known issues with Docker</strong></summary>
