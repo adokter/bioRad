@@ -11,7 +11,7 @@ calculate_vp(
   autoconf = FALSE,
   verbose = FALSE,
   mount = dirname(file[1]),
-  sd_vvp_threshold = 2,
+  sd_vvp_threshold,
   rcs = 11,
   dual_pol = FALSE,
   rho_hv = 0.95,
@@ -58,7 +58,8 @@ the Docker container.}
 
 \item{sd_vvp_threshold}{numeric. Lower threshold in radial velocity standard
 deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
-\code{sd_vvp} < \code{sd_vvp_threshold} are set to zero.}
+\code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s
+for C-band radars and 1 m/s for S-band radars if not specified.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
@@ -141,7 +142,8 @@ value below the threshold \code{sd_vvp_threshold}, the bird density \code{dens} 
 to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold
 might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter
-for most weather radars.
+for most C-band weather radars, which is used as the C-band default. For S-band,
+the default threshold is 1 m/s.
 The algorithm has been tested and developed for altitude layers with
 \code{h_layer} = 200 m. Smaller widths are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,

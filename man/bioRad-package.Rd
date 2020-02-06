@@ -44,6 +44,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Bart Kranstauber \email{b.kranstauber@uva.nl} (\href{https://orcid.org/0000-0001-8303-780X}{ORCID}) [contributor]
   \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
   \item Lourens Veen \email{l.veen@esciencecenter.nl} [contributor]
   \item Liesbeth Verlinden \email{l.verlinden@uva.nl} (\href{https://orcid.org/0000-0003-1744-9325}{ORCID}) [contributor]
