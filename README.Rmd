@@ -101,7 +101,7 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
 
 1. Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.
 1. For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/128)
-
+1. For permission issues when running docker, specifically the error `Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock`, see [this](https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) solution. Running `sudo usermod -a -G docker $USER` in a terminal will fix this problem.
 </details>
 
 ## Usage
