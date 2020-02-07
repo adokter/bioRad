@@ -81,9 +81,11 @@ Note that eta is directly related to reflectivity factor (DBZH), i.e. a reflecti
 dbz_to_eta(5, wavelength = 5.3)
 ```
 
-## 4. range correction
+## 4. Spatial estimates of vertically integrated density (VID)
 
-Range correction is implemented as follows:
+Our goal is to estimate a spatial image of vertically integrated density (VID) based on
+all elevation scans of the radar, while accounting for the changing overlap between the radar beams
+as a function of range.
 
 We start with:
 
@@ -97,15 +99,15 @@ For each scan within the polar volume we:
 - calculate the reflectivity we expect at that pixel ($eta_{expected}$), given the vertical profile (of birds) and the part of the profile radiated by the beam. This $eta_{expected}$ is simply the average of (linear) eta in the profile (as plotted in paragraph 3 above), weighted by the vertical radiation profile (as plotted in paragraph 2).
 - we also calculated the observed eta at this pixel, which is simply given by `dbz_to_eta(DBZH)` (see paragraph 3), with DBZH the reflectivity factor measured at the pixel's distance from the radar.
 
-For each pixel on the ground, we thus end up with a set of $eta_{expected}$ and a set of $eta_{observed}$. From those we can calculate a correction factor at that pixel, as $correction\_factor=\sum{eta_{observed}}/\sum{eta_{expected}}$, with the sum running over scans.
+For each pixel on the ground, we thus end up with a set of $eta_{expected}$ and a set of $eta_{observed}$. From those we can calculate a correction factor at that pixel, as $R=\sum{eta_{observed}}/\sum{eta_{expected}}$, with the sum running over scans.
 
 To arrive at the final PPI image:
 
 - we calculate the vertically integrated density (`vid`) and vertically integrated reflectivity (`vir`) for the profile, using the function `integrate_profile()`.
-- the spatial range-corrected PPI for `vid` is simply the correction_factor image, multiplied by the `vid` calculated for the profile
-- Likewise, the spatial range-corrected PPI for vir is simply the `correction_factor` image, multiplied by the `vir` calculated for the profile
+- the spatial range-corrected PPI for `VID` is simply the adjustment factor image (`R`), multiplied by the `vid` calculated for the profile
+- Likewise, the spatial range-corrected PPI for `VIR` is simply the `R` image, multiplied by the `vir` calculated for the profile
 
-## 5. range correction example
+## 5. example: estimating a VID image
 
 Let's first make a PPI plot of the lowest uncorrected scan:
 
@@ -126,24 +128,24 @@ my_corrected_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 500, xlim =
 my_corrected_ppi
 ```
 
-The range corrected PPI has four parameters: vir, vid, correction_factor, overlap. Let's plot the correction factor:
+The range corrected PPI has four parameters: VIR, VID, R, overlap. Let's plot the adjustment factor R:
 
 ```{r}
-# plot the correction_factor:
-plot(my_corrected_ppi, param = "correction_factor")
+# plot the adjustment factor R:
+plot(my_corrected_ppi, param = "R")
 ```
 
 Let's also plot the vertically integrated reflectivity:
 
 ```{r}
-plot(my_corrected_ppi, param = "vir")
+plot(my_corrected_ppi, param = "VIR")
 ```
 
 Or plot the vertically integrated density on a map:
 
 ```{r}
 bm <- download_basemap(my_corrected_ppi)
-map(my_corrected_ppi, bm, param = "vir", alpha = .5)
+map(my_corrected_ppi, bm, param = "VIR", alpha = .5)
 ```
 
 ## 6. overlap between radiation profile and bird profile

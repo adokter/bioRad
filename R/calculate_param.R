@@ -2,8 +2,8 @@
 #'
 #' Calculates a new scan parameter from a combination of existing scan parameters. Useful
 #' for calculating quantities that are defined in terms of other basic radar moments, like
-#' depolarization ratio (Kilambi et al. 2018), or for applying clutter corrections (CCORH) to uncorrected reflectivity
-#' moments (TH), as in TH+CCORH
+#' linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for applying
+#' clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH
 #' @param x an object of class \code{pvol} or class \code{scan}
 #' @param ... an expression defining the new scan parameter in terms of existing scan parameters
 #' @return an object of the same class as \code{x}, either class \code{pvol} or class \code{scan}
@@ -13,6 +13,8 @@
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' # load the file:
 #' pvol <- read_pvolfile(pvolfile)
+#' calculate linear reflectivity ETA from reflectivity factor DBZH:
+#' pvol <- calculate_param(example_pvol,ETA=dbz_to_eta(DBZH,example_pvol$attributes$how$wavelength))
 #' # add depolarization ratio (DR) as a scan parameter (see Kilambi 2018):
 #' pvol <- calculate_param(pvol, DR=10*log10((ZDR+1-2*ZDR^0.5*RHOHV)/(ZDR+1+2*ZDR^0.5*RHOHV)))
 #' # calculate_param operates on both pvol and scan objects:

@@ -203,7 +203,8 @@ file.remove("~/volume.h5")
   velocities using a torus mapping. Journal of Atmospheric and Oceanic
   Technology, 21(10), pp.1566-1573.
   \item Bird migration flight altitudes studied by a network of
-  operational weather radars, Dokter et al., J. R. Soc. Interface 8 (54),
-  pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
+  operational weather radars, Adriaan M. Dokter, Felix Liechti,
+  Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman,
+  J. R. Soc. Interface 8 (54), pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
 }
 }
