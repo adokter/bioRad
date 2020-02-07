@@ -12,6 +12,7 @@ scan_to_raster(
   ylim,
   res = NA,
   param,
+  raster = NA,
   lat,
   lon,
   crs = NA,
@@ -32,11 +33,13 @@ scan_to_raster(
 \item{ylim}{y (latitude) range}
 
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
-Alternatively a RasterLayer with a CRS can be specified, in this case this raster topology is used for the output.}
+If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{param}{scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
 of scan parameters speeds up evaluation.}
+
+\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
+arguments are ignored.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{scan}.}
 
@@ -69,5 +72,5 @@ scan_to_raster(example_scan)
 scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
 # using a template raster
 template_raster<-raster::raster(raster::extent(12,13,56,58), crs=sp::CRS('+proj=longlat'))
-scan_to_raster(example_scan, res=template_raster)
+scan_to_raster(example_scan, raster=template_raster)
 }

@@ -114,7 +114,7 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #' # first define the raster:
 #' template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
 #' # project the ppi on the defined raster:
-#' my_ppi<-integrate_to_ppi(example_pvol, example_vp, res=template_raster)
+#' my_ppi<-integrate_to_ppi(example_pvol, example_vp, raster=template_raster)
 #' # extract the raster data from the ppi object:
 #' raster::brick(my_ppi$data)
 #' # to overlay ppi objects on a background map, first
@@ -130,7 +130,7 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(my_ppi, param = "vid", zlim = c(0, 200))
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity="eta",param = "DBZH", lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("vir", "vid", "correction_factor", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity="eta",param = "DBZH", raster=NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("vir", "vid", "correction_factor", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -148,12 +148,13 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
   }
   if (!missing(res)) {
-    if(!inherits(res, 'RasterLayer')){
       assert_that(is.numeric(res))
       assert_that(length(res) <= 2)
-    }
   } else {
     res <- NA
+  }
+  if (!are_equal(raster,NA)) {
+      assert_that(inherits(raster, 'RasterLayer'))
   }
   if (is.null(pvol$geo$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
   if (is.null(pvol$geo$lon) && missing(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
@@ -202,7 +203,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   }
 
   # if extent not fully specified, determine it based off the first scan
-  if(!inherits(res, 'RasterLayer'))
+  if(are_equal(raster,NA))
     if (missing(xlim) | missing(ylim)) {
       spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
       spdf_extent <- raster::extent(spdf)
@@ -213,24 +214,24 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
 
   x <- NULL # define x to suppress devtools::check warning in next line
 
-  if(inherits(res,'RasterLayer')){
+  if(!are_equal(raster,NA)){
     localCrs<- CRS(paste("+proj=aeqd +lat_0=", lat,
                        " +lon_0=", lon,
                        " +units=m",
                        sep = ""
     ))
-    values(res)<-1
-    spdf <- (spTransform(rasterToPoints(res,spatial=T), localCrs))
+    values(raster)<-1
+    spdf <- (spTransform(rasterToPoints(raster,spatial=T), localCrs))
   	rasters <- lapply(pvol$scans, function(x) {
     	  scan_to_spdf(
 			      add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
 			       spdf=spdf, param = c("range", "distance", "eta", "eta_expected"),  k = k, re = re, rp = rp)
     })
-    output<-as(res,'SpatialGridDataFrame')
+    output<-as(raster,'SpatialGridDataFrame')
     output@data<-rasters[[1]]@data
   }else{
   	rasters <- lapply(pvol$scans, function(x) {
-    	  as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+    	  as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }

@@ -15,6 +15,7 @@ integrate_to_ppi(
   res,
   quantity = "eta",
   param = "DBZH",
+  raster = NA,
   lat,
   lon,
   antenna,
@@ -43,14 +44,16 @@ integrate_to_ppi(
 \item{zlim}{altitude range in meter, given as a numeric vector of length two.}
 
 \item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
-Alternatively a RasterLayer with a CRS can be specified, in this case this raster topology is used for the output.}
+If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
 
 \item{param}{reflectivity factor scan parameter on which to base range corrections.
 Typically the same parameter from which animal densities are estimated for object \code{vp}.
 One of 'DBZH','DBZV','DBZ','TH','TV'.}
+
+\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
+arguments are ignored.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
 
@@ -110,7 +113,7 @@ plot(my_ppi, param = "vid", zlim = c(0, 200))
 # first define the raster:
 template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
 # project the ppi on the defined raster:
-my_ppi<-integrate_to_ppi(example_pvol, example_vp, res=template_raster)
+my_ppi<-integrate_to_ppi(example_pvol, example_vp, raster=template_raster)
 # extract the raster data from the ppi object:
 raster::brick(my_ppi$data)
 # to overlay ppi objects on a background map, first

@@ -17,8 +17,8 @@ an object of the same class as \code{x}, either class \code{pvol} or class \code
 \description{
 Calculates a new scan parameter from a combination of existing scan parameters. Useful
 for calculating quantities that are defined in terms of other basic radar moments, like
-depolarization ratio, or for applying clutter corrections (CCORH) to uncorrected reflectivity
-moments (TH), as in CCORH + TH
+depolarization ratio (Kilambi et al. 2018), or for applying clutter corrections (CCORH) to uncorrected reflectivity
+moments (TH), as in TH+CCORH
 }
 \examples{
 # locate example volume file:
