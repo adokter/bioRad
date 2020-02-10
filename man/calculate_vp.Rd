@@ -26,6 +26,7 @@ calculate_vp(
   dealias = TRUE,
   nyquist_min = if (dealias) 5 else 25,
   dbz_quantity = "DBZH",
+  mistnet = FALSE,
   local_install,
   pvolfile
 )
@@ -96,6 +97,8 @@ scans to be included in the analysis.}
 
 \item{dbz_quantity}{character. One of the available reflectivity factor
 quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
+
+\item{mistnet}{logical. Whether to use MistNet segmentation model.}
 
 \item{local_install}{(optional) String with path to local vol2bird installation, see details.}
 
@@ -181,6 +184,8 @@ through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) s
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.
+
+When using MistNet, please also cite Lin et al. 2019 in publications.
 }
 \examples{
 # locate example polar volume file:
@@ -201,10 +206,20 @@ file.remove("~/volume.h5")
 \itemize{
   \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
   velocities using a torus mapping. Journal of Atmospheric and Oceanic
-  Technology, 21(10), pp.1566-1573.
-  \item Bird migration flight altitudes studied by a network of
-  operational weather radars, Adriaan M. Dokter, Felix Liechti,
-  Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman,
-  J. R. Soc. Interface 8 (54), pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
+  Technology, 21(10), pp.1566--1573.
+  \url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
+  \item Adriaan M. Dokter, Felix Liechti,
+  Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman, 2011.
+  Bird migration flight altitudes studied by a network of
+  operational weather radars,
+  Journal of the Royal Society Interface 8 (54), pp. 30--43.
+  \url{https://doi.org/10.1098/rsif.2010.0116}
+  \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
+  Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
+  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon.
+  MistNet: Measuring historical bird migration in the US
+  using archived weather radar data and convolutional neural networks
+  Methods in Ecology and Evolution 10 (11), pp. 1908--22.
+  \url{https://doi.org/10.1111/2041-210X.13280}
 }
 }

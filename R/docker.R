@@ -109,7 +109,7 @@ mount_docker_container <- function(mount = "~/") {
     result <- system(
       paste("docker run -v ",
         system(paste("/bin/bash -c",shQuote(paste("printf %q", shQuote(normalizePath(mount))))), intern = T),
-        ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
+        ":/data -d --name vol2bird adokter/vol2bird", ifelse(.pkgenv$mistnet,"-mistnet",""), " sleep infinity",
         sep = ""
       ),
       ignore.stdout = TRUE
@@ -118,7 +118,7 @@ mount_docker_container <- function(mount = "~/") {
     result <- suppressWarnings(system(
       paste("docker run -v ",
         shQuote(normalizePath(mount, winslash = "/")),
-        ":/data -d --name vol2bird adokter/vol2bird sleep infinity",
+        ":/data -d --name vol2bird adokter/vol2bird", ifelse(.pkgenv$mistnet,"-mistnet",""), " sleep infinity",
         sep = ""
       ),
       ignore.stdout = TRUE, show.output.on.console = FALSE
