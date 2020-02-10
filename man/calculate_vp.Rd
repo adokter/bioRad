@@ -216,7 +216,7 @@ file.remove("~/volume.h5")
   \url{https://doi.org/10.1098/rsif.2010.0116}
   \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
   Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
-  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon.
+  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
   MistNet: Measuring historical bird migration in the US
   using archived weather radar data and convolutional neural networks
   Methods in Ecology and Evolution 10 (11), pp. 1908--22.

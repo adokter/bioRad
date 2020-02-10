@@ -61,7 +61,7 @@
 #' scan
 read_pvolfile <- function(file, param = c(
                             "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
-                            "ZDR", "PHIDP", "CELL"
+                            "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
                           ),
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
@@ -80,7 +80,7 @@ read_pvolfile <- function(file, param = c(
 # for open hdf5 files
 read_pvolfile_body <- function(file, param = c(
                             "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
-                            "ZDR", "PHIDP", "CELL"
+                            "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
                           ),
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,

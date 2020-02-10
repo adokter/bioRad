@@ -24,8 +24,8 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 # load the file:
-pvol <- read_pvolfile(pvolfile)
-calculate linear reflectivity ETA from reflectivity factor DBZH:
+example_pvol <- read_pvolfile(pvolfile)
+# calculate linear reflectivity ETA from reflectivity factor DBZH:
 pvol <- calculate_param(example_pvol,ETA=dbz_to_eta(DBZH,example_pvol$attributes$how$wavelength))
 # add depolarization ratio (DR) as a scan parameter (see Kilambi 2018):
 pvol <- calculate_param(pvol, DR=10*log10((ZDR+1-2*ZDR^0.5*RHOHV)/(ZDR+1+2*ZDR^0.5*RHOHV)))

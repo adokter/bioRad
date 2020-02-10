@@ -65,6 +65,8 @@ ppi <- project_as_ppi(example_scan)
 plot(ppi)
 # plot the reflectivity parameter:
 plot(ppi, param = "DBZH")
-# change the range of reflectivities to plot to -30 to 50 dBZ:
-plot(ppi, param = "DBZH", zlim = c(-30, 50))
+# change the range of reflectivities to plot, from -10 to 10 dBZ:
+plot(ppi, param = "DBZH", zlim=c(-10,10))
+# change the scale name and colour scheme, using viridis colors:
+plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name="dBZ")
 }

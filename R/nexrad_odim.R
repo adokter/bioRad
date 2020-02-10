@@ -17,8 +17,8 @@ nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
   if (file.access(dirname(pvolfile_odim), 2) == -1) {
     stop(paste("No write permission in directory", dirname(pvolfile_odim)))
   }
-  vol_tmp <- nexrad_to_odim_tempfile(pvolfile_nexrad, verbose, mount)
-  file.rename(vol_tmp, pvolfile_odim)
+  pvol_tmp <- nexrad_to_odim_tempfile(pvolfile_nexrad, verbose, mount)
+  file.rename(pvol_tmp, pvolfile_odim)
 }
 
 nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
@@ -52,7 +52,7 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
       "input file 'pvolfile'"
     )
   }
-  vol_tmp <- tempfile(tmpdir = filedir)
+  pvol_tmp <- tempfile(tmpdir = filedir)
   if (file.access(filedir, mode = 2) < 0) {
     stop(paste("vol2bird requires write permission in", filedir))
   }
@@ -70,14 +70,14 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
     prefix <- paste(prefix, "/", sep = "")
   }
   pvolfile_docker <- paste(prefix, basename(pvolfile), sep = "")
-  vol_tmp_docker <- paste(prefix, basename(vol_tmp), sep = "")
+  pvol_tmp_docker <- paste(prefix, basename(pvol_tmp), sep = "")
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
     result <- system(
       paste(
         "docker exec vol2bird bash -c 'cd data && rsl2odim ",
-        pvolfile_docker, vol_tmp_docker, "'"
+        pvolfile_docker, pvol_tmp_docker, "'"
       ),
       ignore.stdout = !verbose
     )
@@ -85,7 +85,7 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
     result <- suppressWarnings(system(
       paste(
         "docker exec vol2bird bash -c \"cd data && rsl2odim ",
-        pvolfile_docker, vol_tmp_docker, "\""
+        pvolfile_docker, pvol_tmp_docker, "\""
       ),
       ignore.stdout = !verbose,
       show.output.on.console = TRUE
@@ -93,9 +93,9 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
   }
 
   if (result != 0) {
-    stop("Failed to run nexrad_to_odim (rsl2odim) in Docker container.")
+    stop("Failed to complete conversion in Docker container.")
   }
 
   # return filename of generated temporary file
-  return(vol_tmp)
+  return(pvol_tmp)
 }

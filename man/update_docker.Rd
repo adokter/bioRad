@@ -4,12 +4,12 @@
 \alias{update_docker}
 \title{Update Docker image from Docker hub}
 \usage{
-update_docker(mistnet = F)
+update_docker(mistnet = FALSE)
 }
 \arguments{
 \item{mistnet}{logical. When True, installs MistNet segmentation model,
-downloading an additional 1Gb image containing MistNet segmentation mode
-(see \link{calculate_vp} for details).}
+downloading an additional 1Gb Docker image
+(see \link{apply_mistnet} for details).}
 }
 \value{
 the POSIXct creation date of the installed Docker image
@@ -23,4 +23,7 @@ This command pulls the latest
 from \href{https://hub.docker.com}{Docker hub}.
 Run this command to ensure all Docker functionality (e.g. the
 \link{calculate_vp} function) runs at the latest available version.
+
+To install the MistNet segmentation model into bioRad,
+run \code{update_docker(mistnet = TRUE)}
 }

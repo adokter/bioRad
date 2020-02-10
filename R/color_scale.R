@@ -5,6 +5,8 @@ color_scale <- function(param, zlim, na.value="transparent") {
       mid = "white", name = param,
       midpoint = 0, limits = zlim, na.value = na.value
     )
+  } else if (param %in% c("overlap","BACKGROUND","WEATHER","BIOLOGY", "CELL")){
+    colorscale <- viridis::scale_colour_viridis(na.value=na.value, name=param)
   } else {
     colorscale <- scale_colour_gradientn(
       colours = c(
@@ -15,6 +17,7 @@ color_scale <- function(param, zlim, na.value="transparent") {
       name = param, limits = zlim, na.value = na.value
     )
   }
+
   return(colorscale)
 }
 
@@ -25,6 +28,8 @@ color_scale_fill <- function(param, zlim, na.value="transparent") {
       mid = "white", name = param,
       midpoint = 0, limits = zlim, na.value = na.value
     )
+  } else if (param %in% c("overlap","BACKGROUND","WEATHER","BIOLOGY", "CELL")){
+    colorscale <- viridis::scale_fill_viridis(na.value=na.value, name=param)
   } else {
     colorscale <- scale_fill_gradientn(
       colours = c(
@@ -35,6 +40,7 @@ color_scale_fill <- function(param, zlim, na.value="transparent") {
       name = param, limits = zlim, na.value = na.value
     )
   }
+
   return(colorscale)
 }
 
@@ -83,3 +89,21 @@ c(200, approx(
 )$y),
 maxColorValue = 255
 )
+
+get_zlim <- function(param, zlim) {
+  if (param %in% c("DBZH", "DBZV", "DBZ")) return(c(-20, 30))
+  if (param %in% c("VRADH", "VRADV", "VRAD")) return(c(-20, 20))
+  if (param == "RHOHV") return(c(0.4, 1))
+  if (param == "ZDR") return(c(-5, 8))
+  if (param == "PHIDP") return(c(-200, 200))
+  if (param %in% c("vid","VID")) return(c(0, 200))
+  if (param %in% c("vir","VIR")) return(c(0, 2000))
+  if (param == "R") return(c(0, 5))
+  if (param %in% c("eta_sum","eta_sum_expected")) return(c(0, 2000))
+  if (param == "overlap") return(c(0, 1))
+  if (param == "CELL") return(c(0, 2))
+  if (param == "BACKGROUND") return(c(0, 1))
+  if (param == "WEATHER") return(c(0, 1))
+  if (param == "BIOLOGY") return(c(0, 1))
+  return(zlim)
+}

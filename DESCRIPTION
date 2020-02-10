@@ -35,6 +35,7 @@ Imports:
     stats,
     tidyr,
     utils,
+    viridis,
     maptools
 Suggests:
     knitr,

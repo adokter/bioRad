@@ -38,18 +38,21 @@ check_docker <- function(verbose = TRUE) {
 #' Update Docker image from Docker hub
 #'
 #' Pulls and installs the latest Docker image used by bioRad from Docker hub
+#' @param mistnet logical. When True, installs MistNet segmentation model,
+#' downloading an additional 1Gb Docker image
+#' (see \link{apply_mistnet} for details).
 #' @details
 #' This command pulls the latest
 #' \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image
 #' from \href{https://hub.docker.com}{Docker hub}.
 #' Run this command to ensure all Docker functionality (e.g. the
 #' \link{calculate_vp} function) runs at the latest available version.
+#'
+#' To install the MistNet segmentation model into bioRad,
+#' run \code{update_docker(mistnet = TRUE)}
 #' @export
-#' @param mistnet logical. When True, installs MistNet segmentation model,
-#' downloading an additional 1Gb image containing MistNet segmentation mode
-#' (see \link{calculate_vp} for details).
 #' @return the POSIXct creation date of the installed Docker image
-update_docker <- function(mistnet = F) {
+update_docker <- function(mistnet = FALSE) {
   creationDate <- NULL
 
   if (suppressWarnings(system("docker", ignore.stderr = T, ignore.stdout = T)) != 0) stop("Docker daemon not found")
