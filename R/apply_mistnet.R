@@ -91,6 +91,10 @@ apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
 
   assert_that(file.exists(file))
 
+  if(!.pkgenv$mistnet){
+    stop("MistNet has not been installed, see update_docker() for install instructions")
+  }
+
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
 
