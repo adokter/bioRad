@@ -42,11 +42,16 @@ Apply MistNet segmentation model to a polar volume file on disk, and load the
 resultant segmentation as a polar volume (pvol) object.
 }
 \details{
-MistNet is a deep convolutional neural network that has been trained using
-unsupervised learning on a collection of S-band NEXRAD radar data.
+MistNet is a deep convolutional neural network that has been trained
+using labels derived from S-band dual-polarization data across the US
+NEXRAD network.
 
 It's purpose is to screen out areas of precipitation in weather radar data,
 primarily legacy data for which dual-polarization data are not available.
+
+Because the network has been trained on S-band data, it may not
+perform as well on C-band.
+
 MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
 radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
 elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
@@ -72,6 +77,8 @@ that are located within 5 km distance of a weather pixels}
 A pixel is classified as weather if the class probability \code{WEATHER} > 0.45
 or when the average class probability for rain across all five MistNet elevation
 scans at that spatial location > 0.45
+
+MistNet may run more slowly on Windows than on Linux or Mac OSX.
 
 See Lin et al. 2019 for details.
 }

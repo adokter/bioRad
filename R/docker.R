@@ -106,7 +106,8 @@ update_docker <- function(mistnet = FALSE) {
 }
 
 docker_image_id <- function(image_name){
-  image_id <- system(paste("docker inspect -f \"{{ .Id }}\" ",image_name,":latest",sep=""))
+  docker_image <- system(paste("docker images ",image_name,":latest",sep=""),intern=T)
+  image_id <- read.table(textConnection(docker_image), stringsAsFactors = F, header=T)$TAG
   return(image_id)
 }
 
