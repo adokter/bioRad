@@ -66,8 +66,8 @@ update_docker <- function(mistnet = FALSE) {
     # mistnet image obsolete. Therefore remove if existing
     image_id_mistnet <- docker_image_id("adokter/vol2bird-mistnet")
     if(length(image_id_mistnet)>0){
-      system("docker rmi adokter/vol2bird-mistnet:latest")
-      warning("Obsolete mistnet installation removed. If required, reinstall with update_docker(mistnet=TRUE)")
+      system("docker rmi -f adokter/vol2bird-mistnet:latest")
+      warning("Obsolete MistNet installation removed. To use MistNet, reinstall with update_docker(mistnet=TRUE)")
     }
   }
 
