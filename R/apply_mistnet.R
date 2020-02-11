@@ -49,7 +49,7 @@
 #'   Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
 #'   Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
 #'   MistNet: Measuring historical bird migration in the US
-#'   using archived weather radar data and convolutional neural networks
+#'   using archived weather radar data and convolutional neural networks.
 #'   Methods in Ecology and Evolution 10 (11), pp. 1908--22.
 #'   \url{https://doi.org/10.1111/2041-210X.13280}
 #' }
