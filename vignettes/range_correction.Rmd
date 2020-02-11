@@ -180,6 +180,3 @@ The overlap metric might be used in the future to show only certain section of t
 ## 7. To do
 
 - implementation of a `noise_floor` parameter, by which one can determine at which distance birds are expected to be below noise level, given their vertical profile. Affects function `beam_profile_overlap()`.
-- testing of all the functions
-- double-checking all the naming conventions
-- writing more detailed documentation of the functions
