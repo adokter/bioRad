@@ -62,6 +62,10 @@ update_docker <- function(mistnet = FALSE) {
   if (result == 0 && mistnet) result <- suppressWarnings(system("docker pull adokter/vol2bird-mistnet:latest"))
 
   if (result == 0) {
+
+    # clean up dangling images
+    system("docker image prune -f")
+
     creationDate <- system(
       paste("docker inspect -f \"{{ .Created }}\" adokter/vol2bird",ifelse(mistnet,"-mistnet",""),":latest",sep=""),
       intern = TRUE
