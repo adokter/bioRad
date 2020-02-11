@@ -3,7 +3,7 @@
 
 .onLoad <- function(libname, pkgname) {
   # latest available vol2bird release
-  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.4.1")
+  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.5.0")
   # availability of mistnet
   .pkgenv[["mistnet"]] <- FALSE
   # attempt to determine available vol2bird version
