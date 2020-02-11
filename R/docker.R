@@ -57,7 +57,19 @@ update_docker <- function(mistnet = FALSE) {
 
   if (suppressWarnings(system("docker", ignore.stderr = T, ignore.stdout = T)) != 0) stop("Docker daemon not found")
 
+  image_id <- docker_image_id("adokter/vol2bird")
   result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
+  image_id_new <- docker_image_id("adokter/vol2bird")
+
+  if (result == 0 && !mistnet && !identical(image_id,image_id_new)){
+    # a new image has been installed, which makes the installed
+    # mistnet image obsolete. Therefore remove if existing
+    image_id_mistnet <- docker_image_id("adokter/vol2bird-mistnet")
+    if(length(image_id_mistnet)>0){
+      system("docker rmi adokter/vol2bird-mistnet:latest")
+      warning("Obsolete mistnet installation removed. If required, reinstall with update_docker(mistnet=TRUE)")
+    }
+  }
 
   if (result == 0 && mistnet) result <- suppressWarnings(system("docker pull adokter/vol2bird-mistnet:latest"))
 
@@ -91,6 +103,11 @@ update_docker <- function(mistnet = FALSE) {
   }
 
   return(creationDate)
+}
+
+docker_image_id <- function(image_name){
+  image_id <- system(paste("docker inspect -f \"{{ .Id }}\" ",image_name,":latest",sep=""))
+  return(image_id)
 }
 
 mount_docker_container <- function(mount = "~/") {
@@ -183,6 +200,7 @@ vol2bird_version <- function(local_install) {
 
   if (length(imagePresentMistnet) == 0){
     image_name = "vol2bird"
+    .pkgenv$mistnet = FALSE
   }
   else{
     image_name = "vol2bird-mistnet"
