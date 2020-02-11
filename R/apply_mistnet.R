@@ -20,6 +20,18 @@
 #' @export
 #'
 #' @details
+#' MistNet is a deep convolutional neural network that has been trained using
+#' unsupervised learning on a collection of S-band NEXRAD radar data.
+#'
+#' It's purpose is to screen out areas of precipitation in weather radar data,
+#' primarily legacy data for which dual-polarization data are not available.
+
+#' MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
+#' radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
+#' elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
+#' it can estimate a segmentation mask that identifies pixels with weather
+#' that should be removed when interested only in biological data.
+#'
 #' MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
 #' to a 100% probability) as additional scan parameters to the polar volume:
 #' \describe{
