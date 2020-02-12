@@ -72,25 +72,29 @@
 #'   \url{https://doi.org/10.1111/2041-210X.13280}
 #' }
 #' @examples
-#' # locate example polar volume file:
-#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-#'
-#' # copy to a home directory with read/write permissions:
-#' file.copy(pvolfile, "~/volume.h5")
-#'
-#' # calculate MistNet segmentation:
 #' \dontrun{
-#' example_pvol <- apply_mistnet("~/volume.h5")
-#' # plot the MistNet class probability [0-1] for biology, for the first elevation scan:
-#' plot(example_pvol$scans[[1]], param="BIOLOGY")
+#' # download a NEXRAD file, save as KBGM_example
+#' download.file("https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06", "~/KBGM_example")
+#' # calculate MistNet segmentation:
+#' mistnet_pvol <- apply_mistnet("~/KBGM_example")
+#' # print summary info for the segmented elevation scan at 0.5 degree,
+#' # verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added:
+#' my_scan <- get_scan(mistnet_pvol,0.5)
+#' # project the scan as a ppi:
+#' my_ppi <- project_as_ppi(my_scan, range_max = 100000)
+#' # plot the reflectivity parameter:
+#' plot(my_ppi, param="DBZH")
+#' # plot the MistNet class probability [0-1] for weather
+#' plot(my_ppi, param="WEATHER")
+#' # plot the MistNet class probability [0-1] for biology
+#' plot(my_ppi, param="BIOLOGY")
 #' # plot the final segmentation result, with values >1 indicating
 #' # areas classified as weather, and value 1 pixels that fall within an
 #' # additional 5 km fringe around weather areas.
-#' plot(example_pvol$scans[[1]], param="CELL")
+#' plot(my_ppi, param="CELL")
 #' }
-#'
 #' # clean up:
-#' file.remove("~/volume.h5")
+#' file.remove("~/KBGM_example")
 apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
                           mount = dirname(file), load=TRUE,
                           mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5)){

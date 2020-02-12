@@ -83,13 +83,6 @@ read_vp <- function(file) {
 #' @return A single \code{vp} object or a list of \code{vp} objects.
 #'
 #' @examples
-#' \dontrun{
-#' read_vpfiles("my/path/profile1.h5")
-#' }
-#' \dontrun{
-#' read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
-#' }
-#'
 #' # locate example profile file:
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 #'
@@ -98,6 +91,13 @@ read_vp <- function(file) {
 #'
 #' # load the file:
 #' read_vpfiles(vpfile)
+#'
+#' # load multiple files at once:
+#' \dontrun{
+#' # read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
+#' }
+#'
+
 read_vpfiles <- function(files) {
   if (length(files) == 1) {
     return(read_vp(files))

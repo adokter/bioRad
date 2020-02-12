@@ -11,11 +11,13 @@
 #' @export
 #' @examples
 #' # locate example volume file:
-#' pvol <- system.file("extdata", "volume.h5", package = "bioRad")
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' # load the file:
-#' vol <- read_pvolfile(pvol)
+#' example_pvol <- read_pvolfile(pvolfile)
 #' # extract the scan at 3 degree elevation:
-#' myscan <- get_scan(vol, 3)
+#' scan <- get_scan(example_pvol, 3)
+#' # print summary info for this scan:
+#' scan
 get_scan <- function(x, elev) {
   stopifnot(inherits(x, "pvol"))
   x$scans[[which.min(abs(get_elevation_angles(x) - elev))]]

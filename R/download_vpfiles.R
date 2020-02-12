@@ -24,12 +24,14 @@
 #' # but show 404 error for 2016-11 files (as these are not available).
 #' \dontrun{
 #' download_vpfiles(
-#'   date_min = "2016-10-01",
-#'   date_max = "2016-11-30",
-#'   radar = c("bejab", "bewid"),
-#'   directory = "my_data",
+#'   date_min = "2019-10-01",
+#'   date_max = "2019-10-30",
+#'   radar = c("bejab"),
+#'   directory = "~/",
 #'   overwrite = TRUE
 #' )
+#' # clean up the just downloaded zip file:
+#' file.remove("~/bewid201910.zip")
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {

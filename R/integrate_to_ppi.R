@@ -152,6 +152,12 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #' my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 2000)
 #' # plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:
 #' plot(my_ppi, param = "VID", zlim = c(0, 200))
+#' # to overlay ppi objects on a background map, first
+#' # download a basemap, and map the ppi:
+#' \dontrun{
+#' bm <- download_basemap(my_ppi)
+#' map(my_ppi, bm)
+#' }
 #' # the ppi can also be projected on a user-defined raster, as follows:
 #' # first define the raster:
 #' template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
@@ -159,12 +165,6 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #' my_ppi<-integrate_to_ppi(example_pvol, example_vp, raster=template_raster)
 #' # extract the raster data from the ppi object:
 #' raster::brick(my_ppi$data)
-#' # to overlay ppi objects on a background map, first
-#' # download a basemap, and map the ppi:
-#' \dontrun{
-#' bm <- download_basemap(my_ppi)
-#' map(my_ppi, bm)
-#' }
 #' # calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
 #' # cropping the area up to 50000 meter from the radar.
 #' my_ppi <- integrate_to_ppi(example_pvol, example_vp,

@@ -46,17 +46,17 @@
 #'
 #' @examples
 #' # locate example volume file:
-#' pvol <- system.file("extdata", "volume.h5", package = "bioRad")
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' # print the local path of the volume file:
-#' pvol
+#' pvolfile
 #' # load the file:
-#' vol <- read_pvolfile(pvol)
+#' example_pvol <- read_pvolfile(pvolfile)
 #' # print summary info for the loaded polar volume:
-#' vol
+#' example_pvol
 #' # print summary info for the scans in the polar volume:
-#' vol$scans
+#' example_pvol$scans
 #' # copy the first scan to a new object 'scan'
-#' scan <- vol$scans[[1]]
+#' scan <- example_pvol$scans[[1]]
 #' # print summary info for the new object:
 #' scan
 read_pvolfile <- function(file, param = c(

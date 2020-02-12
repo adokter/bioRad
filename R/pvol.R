@@ -34,13 +34,17 @@
 #' # print the local path of the volume file:
 #' pvolfile
 #' # load the file:
-#' pvol <- read_pvolfile(pvolfile)
+#' example_pvol <- read_pvolfile(pvolfile)
 #' # print summary info for the loaded polar volume:
-#' pvol
+#' example_pvol
+#' # verify that this is a pvol object:
+#' is.pvol(example_pvol)
 #' # print summary info for the scans in the polar volume:
-#' pvol$scans
+#' example_pvol$scans
 #' # copy the first scan to a new object 'scan'
-#' scan <- pvol$scans[[1]]
+#' scan <- example_pvol$scans[[1]]
+#' # print summary info for the scan
+#' scan
 summary.pvol <- function(object, ...) {
   print.pvol(object)
 }

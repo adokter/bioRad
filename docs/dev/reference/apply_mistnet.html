@@ -260,15 +260,13 @@ scans at that spatial location &gt; 0.45</p>
 <span class='co'># copy to a home directory with read/write permissions:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># calculate MistNet segmentation:</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/volume.h5"</span>)
 <span class='co'># plot the MistNet class probability [0-1] for biology, for the first elevation scan:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"BIOLOGY"</span>)
-<span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
 <span class='co'># areas classified as weather, and value 1 pixels that fall within an</span>
 <span class='co'># additional 5 km fringe around weather areas.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"CELL"</span>)
-}
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># clean up:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>

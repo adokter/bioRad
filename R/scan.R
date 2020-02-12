@@ -37,10 +37,14 @@
 #' @examples
 #' # load example scan object
 #' data(example_scan)
+#' # verify this object is of class scan:
+#' is.scan(example_scan)
 #' # print the scan parameters contained in the scan:
 #' example_scan$params
-#' # extract the first scan parameter:
-#' param <- example_scan$params[1]
+#' # extract the VRADH scan parameter:
+#' param <- get_param(example_scan,"VRADH")
+#' # print summary info for this scan parameter:
+#' param
 summary.scan <- function(object, ...) {
   print.scan(object)
 }

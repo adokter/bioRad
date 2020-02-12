@@ -27,3 +27,9 @@ Run this command to ensure all Docker functionality (e.g. the
 To install the MistNet segmentation model into bioRad,
 run \code{update_docker(mistnet = TRUE)}
 }
+\examples{
+# update the vol2bird docker image:
+\dontrun{
+update_docker()
+}
+}

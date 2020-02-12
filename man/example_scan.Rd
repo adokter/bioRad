@@ -21,7 +21,7 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 example_scan <- pvol$scans[[1]]
 \dontrun{
-save(example_scan, file = "data/example_scan.rda")
+#save(example_scan, file = "data/example_scan.rda")
 }
 }
 \keyword{datasets}

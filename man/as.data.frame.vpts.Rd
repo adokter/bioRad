@@ -64,6 +64,7 @@ thresholded by \link{sd_vvp_threshold}.
 \examples{
 # load an example vertical profile time series object
 data(example_vpts)
+example_vpts
 
 # convert the object to a data.frame
 df <- as.data.frame(example_vpts)
@@ -74,4 +75,7 @@ df <- as.data.frame(example_vpts, suntime = FALSE)
 # override the latitude/longitude information stored in the object
 # when calculating sunrise / sunset
 df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
+
+# print data.frame to console:
+df
 }

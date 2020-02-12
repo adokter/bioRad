@@ -197,6 +197,10 @@ file.copy(pvolfile, "~/volume.h5")
 # calculate the profile:
 \dontrun{
 profile <- calculate_vp("~/volume.h5")
+# print some summary info:
+profile
+# convert profile to a data.frame:
+as.data.frame(profile)
 }
 
 # clean up:

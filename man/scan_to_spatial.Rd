@@ -29,3 +29,9 @@ Georeferences the pixels of a scan into a SpatialPointsDataFrame object.
 Beam altitude accounts for the curvature of the earth, using \link{beam_height}.
 Distance from the radar over the earth's surface is calculated using \link{beam_distance}.
 }
+\examples{
+# load example scan:
+data(example_scan)
+# convert to a SpatialPointsDataFrame:
+scan_to_spatial(example_scan)
+}

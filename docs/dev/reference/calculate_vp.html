@@ -404,9 +404,9 @@ pages on Github for details.</p>
 <span class='co'># copy to a home directory with read/write permissions:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># calculate the profile:</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='no'>profile</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_vp</span>(<span class='st'>"~/volume.h5"</span>)
-}
+<span class='co'># }</span>
 
 <span class='co'># clean up:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>

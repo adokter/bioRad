@@ -24,3 +24,9 @@ when argument \code{local_install} is specified with
 a path to a local executable of vol2bird, the function will return
 the version of this local installation.
 }
+\examples{
+# check installed vol2bird version:
+\dontrun{
+vol2bird_version()
+}
+}
