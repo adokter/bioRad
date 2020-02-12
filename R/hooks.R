@@ -35,7 +35,7 @@
     msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)
   } else {
-    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled", ifelse(is.null(.pkgenv$vol2bird_version), "", paste("(vol2bird version ", .pkgenv$vol2bird_version, ifelse(.pkgenv$mistnet, ", MistNet available",""), ")", sep = ""))))
+    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled", ifelse(is.null(.pkgenv$vol2bird_version), "", paste("(vol2bird version ", .pkgenv$vol2bird_version, ifelse(.pkgenv$mistnet, ", MistNet available", ""), ")", sep = ""))))
     if (is.null(.pkgenv[["vol2bird_version"]])) {
       packageStartupMessage(paste("No vol2bird Docker image found. Please run update_docker() to download."))
     }

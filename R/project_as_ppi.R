@@ -48,8 +48,9 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
   data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)
   # copy the parameter's attributes
   geo <- attributes(x)$geo
-  if(!inherits(grid_size,'RasterLayer'))
+  if (!inherits(grid_size, "RasterLayer")) {
     geo$bbox <- attributes(data)$bboxlatlon
+  }
   geo$merged <- FALSE
   data <- list(
     radar = attributes(x)$radar, datetime = attributes(x)$datetime,
@@ -66,15 +67,14 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
-  if(inherits(grid_size,'RasterLayer'))
-  {
+  if (inherits(grid_size, "RasterLayer")) {
     proj4string <- CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
-                             " +lon_0=", x$geo$lon,
-                             " +units=m",
-                             sep = ""
+      " +lon_0=", x$geo$lon,
+      " +units=m",
+      sep = ""
     ))
-    ras<-grid_size
-    grid_size<-spTransform(as(as(grid_size,'SpatialGrid'),'SpatialPoints'), proj4string)
+    ras <- grid_size
+    grid_size <- spTransform(as(as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
   }
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
@@ -83,8 +83,9 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
   )
   # copy the parameter's geo list to attributes
   geo <- x$geo
-  if('bboxlatlon'%in%names(attributes(data)))
+  if ("bboxlatlon" %in% names(attributes(data))) {
     geo$bbox <- attributes(data)$bboxlatlon
+  }
   geo$merged <- FALSE
   if (length(x$params) > 1) {
     alldata <- lapply(
@@ -99,8 +100,8 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
     )
     data <- do.call(cbind, alldata)
   }
-  if(inherits(data,'SpatialPoints')){
-    data<-SpatialGridDataFrame(as(ras,'SpatialGrid'), data@data)
+  if (inherits(data, "SpatialPoints")) {
+    data <- SpatialGridDataFrame(as(ras, "SpatialGrid"), data@data)
   }
   data <- list(
     radar = x$radar, datetime = x$datetime,
@@ -118,15 +119,15 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
     " +units=m",
     sep = ""
   ))
-  if(inherits(grid_size,c('RasterLayer','SpatialPoints'))){
-    if(proj4string(grid_size)!=as.character(proj4string)){
-      gridTopo<-spTransform(as(as(grid_size,'SpatialGrid'),'SpatialPoints'), proj4string)
-    }else if (inherits(grid_size,'RasterLayer')){
-      gridTopo<-as(as(grid_size,'SpatialGrid'), 'SpatialPoints')
-    }else{
-      gridTopo<-as(grid_size, 'SpatialPoints')
+  if (inherits(grid_size, c("RasterLayer", "SpatialPoints"))) {
+    if (proj4string(grid_size) != as.character(proj4string)) {
+      gridTopo <- spTransform(as(as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
+    } else if (inherits(grid_size, "RasterLayer")) {
+      gridTopo <- as(as(grid_size, "SpatialGrid"), "SpatialPoints")
+    } else {
+      gridTopo <- as(grid_size, "SpatialPoints")
     }
-  }else{
+  } else {
     bboxlatlon <- proj_to_wgs(
       c(-range_max, range_max),
       c(-range_max, range_max),
@@ -188,11 +189,11 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
 
   colnames(data) <- attributes(param)$param
 
-  if(inherits(grid_size, 'RasterLayer')){
-    output<-SpatialGridDataFrame(as(grid_size,'SpatialGrid'),data)
-  }else if(inherits(grid_size, 'SpatialPoints')){
-    output<-SpatialPointsDataFrame(grid_size,data)
-  }else{
+  if (inherits(grid_size, "RasterLayer")) {
+    output <- SpatialGridDataFrame(as(grid_size, "SpatialGrid"), data)
+  } else if (inherits(grid_size, "SpatialPoints")) {
+    output <- SpatialPointsDataFrame(grid_size, data)
+  } else {
     output <- SpatialGridDataFrame(
       grid = SpatialGrid(
         grid = gridTopo,

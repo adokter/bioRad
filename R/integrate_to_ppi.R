@@ -1,11 +1,11 @@
 # helper function to calculate expected eta, vectorizing over range
 eta_expected <- function(vp, quantity, distance, elev, antenna, beam_angle, k, lat, re, rp) {
   beamshapes <- t(sapply(vp$data$height + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
-  if(quantity == "dens"){
-    output=rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
+  if (quantity == "dens") {
+    output <- rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
   }
-  if(quantity == "eta"){
-    output=colSums(beamshapes * vp$data$eta, na.rm = T) / colSums(beamshapes, na.rm = T)
+  if (quantity == "eta") {
+    output <- colSums(beamshapes * vp$data$eta, na.rm = T) / colSums(beamshapes, na.rm = T)
   }
   output
 }
@@ -18,7 +18,7 @@ eta_expected <- function(vp, quantity, distance, elev, antenna, beam_angle, k, l
 #' @keywords internal
 #'
 #' @details to be written
-add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", lat, lon, antenna, beam_angle = 1, k = 4 / 3, re = 6378, rp = 6357) {
+add_expected_eta_to_scan <- function(scan, vp, quantity = "dens", param = "DBZH", lat, lon, antenna, beam_angle = 1, k = 4 / 3, re = 6378, rp = 6357) {
   if (is.null(scan$geo$height) && missing(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
   if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
   if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste(param, "not one of DBZH, DBZV, DBZ, TH, TV"))
@@ -35,7 +35,7 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
   assert_that(is.number(lon))
 
   # assert that profile contains data
-  if(!(FALSE %in% is.na(vp$data[quantity]))) stop(paste("input profile contains no numeric data for quantity '",quantity,"'.",sep=""))
+  if (!(FALSE %in% is.na(vp$data[quantity]))) stop(paste("input profile contains no numeric data for quantity '", quantity, "'.", sep = ""))
 
   nazim <- dim(scan)[3]
   nrange <- dim(scan)[2]
@@ -154,9 +154,9 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #' plot(my_ppi, param = "VID", zlim = c(0, 200))
 #' # the ppi can also be projected on a user-defined raster, as follows:
 #' # first define the raster:
-#' template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
+#' template_raster <- raster::raster(raster::extent(12, 13, 56, 57), crs = sp::CRS("+proj=longlat"))
 #' # project the ppi on the defined raster:
-#' my_ppi<-integrate_to_ppi(example_pvol, example_vp, raster=template_raster)
+#' my_ppi <- integrate_to_ppi(example_pvol, example_vp, raster = template_raster)
 #' # extract the raster data from the ppi object:
 #' raster::brick(my_ppi$data)
 #' # to overlay ppi objects on a background map, first
@@ -182,7 +182,7 @@ add_expected_eta_to_scan <- function(scan, vp, quantity="dens", param = "DBZH", 
 #'   Judy Z. Shamoun-Baranes , Adriaan M. Dokter.  High-Resolution Spatial Distribution of
 #'   Bird Movements Estimated from a Weather Radar Network. Remote Sensing (2020), in press.
 #' }
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity="eta",param = "DBZH", raster=NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -200,13 +200,13 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
   }
   if (!missing(res)) {
-      assert_that(is.numeric(res))
-      assert_that(length(res) <= 2)
+    assert_that(is.numeric(res))
+    assert_that(length(res) <= 2)
   } else {
     res <- NA
   }
-  if (!are_equal(raster,NA)) {
-      assert_that(inherits(raster, 'RasterLayer'))
+  if (!are_equal(raster, NA)) {
+    assert_that(inherits(raster, "RasterLayer"))
   }
   if (is.null(pvol$geo$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
   if (is.null(pvol$geo$lon) && missing(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
@@ -242,20 +242,19 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assert_that(is.number(rp))
 
   # check that request scan parameter is present in the scans of the polar volume
-  param_present=sapply(pvol$scans, function(x) param %in% names(x$params))
-  if(FALSE %in% param_present){
-    if(TRUE %in% param_present){
-      warning(paste("ignoring scan(s)",paste(which(!param_present), collapse=","),"because they have no scan parameter",param))
-      pvol$scans=pvol$scans[param_present]
+  param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
+  if (FALSE %in% param_present) {
+    if (TRUE %in% param_present) {
+      warning(paste("ignoring scan(s)", paste(which(!param_present), collapse = ","), "because they have no scan parameter", param))
+      pvol$scans <- pvol$scans[param_present]
     }
-    else{
-      stop(paste("polar volume contains no scans with scan parameter ","'",param,"'",sep=""))
+    else {
+      stop(paste("polar volume contains no scans with scan parameter ", "'", param, "'", sep = ""))
     }
-
   }
 
   # if extent not fully specified, determine it based off the first scan
-  if(are_equal(raster,NA))
+  if (are_equal(raster, NA)) {
     if (missing(xlim) | missing(ylim)) {
       spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
       spdf_extent <- raster::extent(spdf)
@@ -263,27 +262,29 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       if (missing(xlim)) xlim <- c(spdf_extent@xmin, spdf_extent@xmax)
       if (missing(ylim)) ylim <- c(spdf_extent@ymin, spdf_extent@ymax)
     }
+  }
 
   x <- NULL # define x to suppress devtools::check warning in next line
 
-  if(!are_equal(raster,NA)){
-    localCrs<- CRS(paste("+proj=aeqd +lat_0=", lat,
-                       " +lon_0=", lon,
-                       " +units=m",
-                       sep = ""
+  if (!are_equal(raster, NA)) {
+    localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
+      " +lon_0=", lon,
+      " +units=m",
+      sep = ""
     ))
-    values(raster)<-1
-    spdf <- (spTransform(rasterToPoints(raster,spatial=T), localCrs))
-  	rasters <- lapply(pvol$scans, function(x) {
-    	  scan_to_spdf(
-			      add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
-			       spdf=spdf, param = c("range", "distance", "eta", "eta_expected"),  k = k, re = re, rp = rp)
+    values(raster) <- 1
+    spdf <- (spTransform(rasterToPoints(raster, spatial = T), localCrs))
+    rasters <- lapply(pvol$scans, function(x) {
+      scan_to_spdf(
+        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
+        spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
+      )
     })
-    output<-as(raster,'SpatialGridDataFrame')
-    output@data<-rasters[[1]]@data
-  }else{
-  	rasters <- lapply(pvol$scans, function(x) {
-    	  as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+    output <- as(raster, "SpatialGridDataFrame")
+    output@data <- rasters[[1]]@data
+  } else {
+    rasters <- lapply(pvol$scans, function(x) {
+      as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }

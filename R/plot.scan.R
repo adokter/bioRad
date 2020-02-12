@@ -42,14 +42,14 @@
 #' # plot the reflectivity param:
 #' plot(example_scan, param = "DBZH")
 #' # change the range of reflectivities to plot, from -10 to 10 dBZ:
-#' plot(example_scan, param = "DBZH", zlim=c(-10,10))
+#' plot(example_scan, param = "DBZH", zlim = c(-10, 10))
 #' # change the scale name and colour scheme, using viridis colors:
-#' plot(example_scan, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name="dBZ")
+#' plot(example_scan, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
 plot.scan <- function(x, param, xlim = c(0, 100000),
                       ylim = c(0, 360), zlim = c(-20, 20), na.value = "transparent", ...) {
   stopifnot(inherits(x, "scan"))
 
-  if(hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$params)) {
@@ -57,8 +57,8 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
     } else {
       param <- names(x$params)[1]
     }
-  } else if (!see_if(param %in% names(x$params))){
-    stop(paste("parameter '",param,"' not found in scan", sep=""))
+  } else if (!see_if(param %in% names(x$params))) {
+    stop(paste("parameter '", param, "' not found in scan", sep = ""))
   }
   if (missing(zlim)) {
     zlim <- get_zlim(param, zlim)
@@ -71,9 +71,9 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   class(data) <- "matrix"
   # convert to points
   dimraster <- dim(data)
-  ascale=c(x$attributes$where$nrays) / 360
-  rscale=c(x$attributes$where$rscale)
-  data <- raster::as.data.frame(raster::flip(raster(t(data), ymn=0,ymx=360, xmn=0, xmx=rscale*dimraster[1]),direction="y"),xy=T)
+  ascale <- c(x$attributes$where$nrays) / 360
+  rscale <- c(x$attributes$where$rscale)
+  data <- raster::as.data.frame(raster::flip(raster(t(data), ymn = 0, ymx = 360, xmn = 0, xmx = rscale * dimraster[1]), direction = "y"), xy = T)
   # change the name from "layer" to the parameter names
   names(data) <- c("range", "azimuth", param)
 

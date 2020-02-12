@@ -16,7 +16,7 @@ calculate further summary statistics.
 
 To get started, see:
 
-  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
+  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
     describing the package.
   - [bioRad
     vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an
@@ -46,7 +46,7 @@ bioRad depends on packages from both the
 with:
 
 ``` r
-setRepositories(ind=1:2)
+setRepositories(ind = 1:2)
 ```
 
 You can install the released version of bioRad from
@@ -79,7 +79,6 @@ Linux systems. In terminal, install these with:
     sudo apt install libcurl4-openssl-dev
     sudo apt install libssl-dev
     sudo apt install libgdal-dev
-
 
 ### Docker (optional)
 

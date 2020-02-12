@@ -152,13 +152,13 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @examples
 #' # load an example vertical profile time series object
 #' data(example_vp)
-#' 
+#'
 #' # convert the object to a data.frame
 #' df <- as.data.frame(example_vp)
-#' 
+#'
 #' # do not compute sunrise/sunset information
 #' df <- as.data.frame(example_vp, suntime = FALSE)
-#' 
+#'
 #' # override the latitude/longitude information stored in the object
 #' # when calculating sunrise / sunset
 #' df <- as.data.frame(example_vp, suntime = TRUE, lat = 50, lon = 4)

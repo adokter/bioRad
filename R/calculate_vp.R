@@ -192,7 +192,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     }
   }
 
-  if(!missing(sd_vvp_threshold)){
+  if (!missing(sd_vvp_threshold)) {
     if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
       stop(
         "invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
@@ -274,7 +274,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (!is.logical(mistnet)) {
     stop("invalid 'mistnet' argument, should be logical")
   }
-  if(mistnet && !.pkgenv$mistnet){
+  if (mistnet && !.pkgenv$mistnet) {
     stop("MistNet has not been installed, see update_docker() for install instructions")
   }
   if (!is.logical(dealias)) {
@@ -348,14 +348,14 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     "DEALIAS_VRAD"
   )
 
-  if(!missing(sd_vvp_threshold)){
-    opt.values=c(as.character(sd_vvp_threshold),opt.values)
-    opt.names=c("STDEV_BIRD",opt.names)
+  if (!missing(sd_vvp_threshold)) {
+    opt.values <- c(as.character(sd_vvp_threshold), opt.values)
+    opt.names <- c("STDEV_BIRD", opt.names)
   }
 
-  if(mistnet){
-    opt.values=c(opt.values,"TRUE")
-    opt.names=c(opt.names,"USE_MISTNET")
+  if (mistnet) {
+    opt.values <- c(opt.values, "TRUE")
+    opt.names <- c(opt.names, "USE_MISTNET")
   }
 
   opt <- data.frame(
