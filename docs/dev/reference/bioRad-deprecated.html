@@ -85,7 +85,7 @@ functionality are mentioned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -197,12 +197,27 @@ functionality are mentioned.</p>
 
 <span class='fu'>night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
 
-<span class='fu'>ppi</span>(<span class='no'>x</span>, <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>ppi</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>cellsize</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+  <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>50000</span>,
+  <span class='kw'>project</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>latlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>lonlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>read.pvol</span>(<span class='no'>filename</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"DBZH"</span>, <span class='st'>"VRADH"</span>, <span class='st'>"VRAD"</span>, <span class='st'>"RHOHV"</span>, <span class='st'>"ZDR"</span>,
-  <span class='st'>"PHIDP"</span>, <span class='st'>"CELL"</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>lat</span>, <span class='no'>lon</span>, <span class='no'>height</span>, <span class='kw'>elangle.min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>elangle.max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>filename</span>))
+<span class='fu'>read.pvol</span>(
+  <span class='no'>filename</span>,
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"DBZH"</span>, <span class='st'>"VRADH"</span>, <span class='st'>"VRAD"</span>, <span class='st'>"RHOHV"</span>, <span class='st'>"ZDR"</span>, <span class='st'>"PHIDP"</span>, <span class='st'>"CELL"</span>),
+  <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>lat</span>,
+  <span class='no'>lon</span>,
+  <span class='no'>height</span>,
+  <span class='kw'>elangle.min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>elangle.max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>filename</span>)
+)
 
 <span class='fu'>readvp</span>(<span class='no'>...</span>)
 
@@ -210,12 +225,17 @@ functionality are mentioned.</p>
 
 <span class='fu'>readvp.table</span>(<span class='no'>...</span>)
 
-<span class='fu'>regularize</span>(<span class='no'>ts</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>t.min</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>1</span>],
-  <span class='kw'>t.max</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>2</span>], <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"mins"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>regularize</span>(
+  <span class='no'>ts</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+  <span class='kw'>t.min</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>1</span>],
+  <span class='kw'>t.max</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>2</span>],
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"mins"</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>retrieve_vp_paths</span>(<span class='no'>path</span>, <span class='no'>start_date</span>, <span class='no'>end_date</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>radar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>retrieve_vp_paths</span>(<span class='no'>path</span>, <span class='no'>start_date</span>, <span class='no'>end_date</span>, <span class='kw'>country</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>rsl2odim</span>(<span class='no'>vol.in</span>, <span class='no'>vol.out</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>vol.in</span>))
 
@@ -227,12 +247,29 @@ functionality are mentioned.</p>
 
 <span class='fu'>vintegrate</span>(<span class='no'>...</span>)
 
-<span class='fu'>vol2bird</span>(<span class='no'>vol.in</span>, <span class='kw'>vp.out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>vol.out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>vol.in</span>), <span class='kw'>sd_vvp_threshold</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>dualpol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rhohv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>elev.min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>elev.max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>azim.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>azim.max</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>range.min</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
-  <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>25000</span>, <span class='kw'>nlayer</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>hlayer</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>nyquist.min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>, <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)
+<span class='fu'>vol2bird</span>(
+  <span class='no'>vol.in</span>,
+  <span class='kw'>vp.out</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>vol.out</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>vol.in</span>),
+  <span class='kw'>sd_vvp_threshold</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>,
+  <span class='kw'>dualpol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>rhohv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>elev.min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>elev.max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
+  <span class='kw'>azim.min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>azim.max</span> <span class='kw'>=</span> <span class='fl'>360</span>,
+  <span class='kw'>range.min</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
+  <span class='kw'>range.max</span> <span class='kw'>=</span> <span class='fl'>25000</span>,
+  <span class='kw'>nlayer</span> <span class='kw'>=</span> <span class='fl'>20L</span>,
+  <span class='kw'>hlayer</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>nyquist.min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>,
+  <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>
+)
 
 <span class='fu'>vpts</span>(<span class='no'>...</span>)</pre>
 

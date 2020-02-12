@@ -5,10 +5,23 @@
 \title{Calculate overlap between a vertical profile ('vp') of biological scatterers
 and the vertical radiation profile emitted by the radar}
 \usage{
-beam_profile_overlap(vp, elev, distance, antenna, zlim = c(0, 4000),
-  noise_floor = -Inf, noise_floor_ref_range = 1, steps = 500,
-  quantity = "dens", normalize = T, beam_angle = 1, k = 4/3, lat,
-  re = 6378, rp = 6357)
+beam_profile_overlap(
+  vp,
+  elev,
+  distance,
+  antenna,
+  zlim = c(0, 4000),
+  noise_floor = -Inf,
+  noise_floor_ref_range = 1,
+  steps = 500,
+  quantity = "dens",
+  normalize = T,
+  beam_angle = 1,
+  k = 4/3,
+  lat,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{vp}{a vertical profile of class vp}

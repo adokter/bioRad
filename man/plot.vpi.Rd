@@ -4,10 +4,20 @@
 \alias{plot.vpi}
 \title{Plot an integrated profile (\code{vpi})}
 \usage{
-\method{plot}{vpi}(x, quantity = "mtr", xlab = "time",
-  ylab = "migration traffic rate [#/km/h]", main = "MTR",
-  night_shade = TRUE, elev = -0.268, lat = NULL, lon = NULL,
-  ylim = NULL, nightshade = TRUE, ...)
+\method{plot}{vpi}(
+  x,
+  quantity = "mtr",
+  xlab = "time",
+  ylab = "migration traffic rate [#/km/h]",
+  main = "MTR",
+  night_shade = TRUE,
+  elev = -0.268,
+  lat = NULL,
+  lon = NULL,
+  ylim = NULL,
+  nightshade = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{1 class object inheriting from class \code{vpi}, typically a

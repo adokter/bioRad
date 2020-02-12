@@ -4,8 +4,12 @@
 \alias{nexrad_to_odim}
 \title{Convert a NEXRAD polar volume file to an ODIM polar volume file}
 \usage{
-nexrad_to_odim(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
-  mount = dirname(pvolfile_nexrad))
+nexrad_to_odim(
+  pvolfile_nexrad,
+  pvolfile_odim,
+  verbose = FALSE,
+  mount = dirname(pvolfile_nexrad)
+)
 }
 \arguments{
 \item{pvolfile_nexrad}{Polar volume input file in RSL format.}

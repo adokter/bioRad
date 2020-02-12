@@ -85,7 +85,7 @@ regular time grid — regularize_vpts" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -158,9 +158,15 @@ regular time grid</h1>
     <p>Projects objects of class <code>vpts</code> on a regular time grid</p>
     </div>
 
-    <pre class="usage"><span class='fu'>regularize_vpts</span>(<span class='no'>ts</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>date_min</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>1</span>],
-  <span class='kw'>date_max</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>2</span>], <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"secs"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>regularize_vpts</span>(
+  <span class='no'>ts</span>,
+  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+  <span class='kw'>date_min</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>1</span>],
+  <span class='kw'>date_max</span> <span class='kw'>=</span> <span class='no'>ts</span>$<span class='no'>daterange</span>[<span class='fl'>2</span>],
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"secs"</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

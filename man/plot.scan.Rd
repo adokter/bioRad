@@ -4,8 +4,15 @@
 \alias{plot.scan}
 \title{Plot a scan (\code{scan}) in polar coordinates}
 \usage{
-\method{plot}{scan}(x, param, xlim = c(0, 1e+05), ylim = c(0, 360),
-  zlim = c(-20, 20), na.value = "transparent", ...)
+\method{plot}{scan}(
+  x,
+  param,
+  xlim = c(0, 1e+05),
+  ylim = c(0, 360),
+  zlim = c(-20, 20),
+  na.value = "transparent",
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{scan}.}
@@ -53,6 +60,8 @@ summary(example_scan)
 # make ppi for the scan
 # plot the reflectivity param:
 plot(example_scan, param = "DBZH")
-# change the range of reflectivities to plot to -30 to 50 dBZ:
-plot(example_scan, param = "DBZH", zlim = c(-30, 50))
+# change the range of reflectivities to plot, from -10 to 10 dBZ:
+plot(example_scan, param = "DBZH", zlim=c(-10,10))
+# change the scale name and colour scheme, using viridis colors:
+plot(example_scan, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name="dBZ")
 }

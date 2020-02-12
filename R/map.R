@@ -249,17 +249,3 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   )
   suppressWarnings(mymap)
 }
-
-
-get_zlim <- function(param, zlim) {
-  if (param %in% c("DBZH", "DBZV", "DBZ")) return(c(-20, 30))
-  if (param %in% c("VRADH", "VRADV", "VRAD")) return(c(-20, 20))
-  if (param == "RHOHV") return(c(0.4, 1))
-  if (param == "ZDR") return(c(-5, 8))
-  if (param == "PHIDP") return(c(-200, 200))
-  if (param == "vid") return(c(0, 200))
-  if (param == "vir") return(c(0, 2000))
-  if (param == "correction_factor") return(c(0, 5))
-  if (param == "overlap") return(c(0, 1))
-  return(zlim)
-}

@@ -1,6 +1,6 @@
 Package: bioRad
 Title: Biological Analysis and Visualization of Weather Radar Data
-Version: 0.5.0.9289
+Version: 0.5.0.9297
 Description: Extract, visualize and summarize aerial movements of birds and
     insects from weather radar data. See https://doi.org/10.1111/ecog.04028
     for a software paper describing package and methodologies.
@@ -8,6 +8,7 @@ Authors@R: c(
     person("Adriaan M.", "Dokter", role = c("aut", "cre"), email = "amd427@cornell.edu", comment = c(ORCID = "0000-0001-6573-066X")),
     person("Peter", "Desmet", role = "aut", email = "peter.desmet@inbo.be", comment = c(ORCID = "0000-0002-8442-8025")),
     person("Stijn", "Van Hoey", role = "aut", email = "stijnvanhoey@gmail.com", comment = c(ORCID = "0000-0001-6413-3185")),
+    person("Bart", "Kranstauber", role = "ctb", email = "b.kranstauber@uva.nl", comment = c(ORCID = "0000-0001-8303-780X")),
     person("Jurriaan", "Spaaks", role = "ctb", email = "j.spaaks@esciencecenter.nl"),
     person("Lourens", "Veen", role = "ctb", email = "l.veen@esciencecenter.nl"),
     person("Liesbeth", "Verlinden", role = "ctb", email = "l.verlinden@uva.nl", comment = c(ORCID = "0000-0003-1744-9325")),
@@ -18,7 +19,7 @@ URL: https://github.com/adokter/bioRad, https://adokter.github.io/bioRad
 BugReports: https://github.com/adokter/bioRad/issues
 biocViews:
 Depends:
-    R (>= 2.10)
+    R (>= 3.5.0)
 Imports:
     assertthat,
     curl,
@@ -34,6 +35,7 @@ Imports:
     stats,
     tidyr,
     utils,
+    viridis,
     maptools
 Suggests:
     knitr,
@@ -41,4 +43,4 @@ Suggests:
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

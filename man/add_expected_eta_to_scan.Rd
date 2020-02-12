@@ -2,10 +2,21 @@
 % Please edit documentation in R/integrate_to_ppi.R
 \name{add_expected_eta_to_scan}
 \alias{add_expected_eta_to_scan}
-\title{calculate a range-corrected PPI}
+\title{adds expected eta to a scan}
 \usage{
-add_expected_eta_to_scan(scan, vp, quantity = "dens", param = "DBZH",
-  lat, lon, antenna, beam_angle = 1, k = 4/3, re = 6378, rp = 6357)
+add_expected_eta_to_scan(
+  scan,
+  vp,
+  quantity = "dens",
+  param = "DBZH",
+  lat,
+  lon,
+  antenna,
+  beam_angle = 1,
+  k = 4/3,
+  re = 6378,
+  rp = 6357
+)
 }
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
@@ -37,8 +48,7 @@ angle between the half-power (-3 dB) points of the main lobe}
 an object of class 'scan'
 }
 \description{
-calculates a PPI that corrects for range-effects due to partial beam overlap with
-the layer of biological echoes (overshooting) at larger distances from the radar
+adds expected eta to a scan
 }
 \details{
 to be written

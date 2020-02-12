@@ -84,7 +84,7 @@ using the algorithm vol2bird (Dokter et al. 2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -157,13 +157,32 @@ using the algorithm vol2bird (Dokter et al. 2011)." />
 using the algorithm <a href='https://github.com/adokter/vol2bird/'>vol2bird</a> (Dokter et al. 2011).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calculate_vp</span>(<span class='no'>file</span>, <span class='kw'>vpfile</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>pvolfile_out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>[<span class='fl'>1</span>]), <span class='kw'>sd_vvp_threshold</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>azim_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>azim_max</span> <span class='kw'>=</span> <span class='fl'>360</span>, <span class='kw'>range_min</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
-  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>35000</span>, <span class='kw'>n_layer</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>h_layer</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>, <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
-  <span class='no'>local_install</span>, <span class='no'>pvolfile</span>)</pre>
+    <pre class="usage"><span class='fu'>calculate_vp</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>vpfile</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>pvolfile_out</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>autoconf</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>[<span class='fl'>1</span>]),
+  <span class='no'>sd_vvp_threshold</span>,
+  <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>,
+  <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
+  <span class='kw'>azim_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>azim_max</span> <span class='kw'>=</span> <span class='fl'>360</span>,
+  <span class='kw'>range_min</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
+  <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>35000</span>,
+  <span class='kw'>n_layer</span> <span class='kw'>=</span> <span class='fl'>20L</span>,
+  <span class='kw'>h_layer</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>dealias</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>,
+  <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
+  <span class='kw'>mistnet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>local_install</span>,
+  <span class='no'>pvolfile</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,7 +228,8 @@ the Docker container.</p></td>
       <th>sd_vvp_threshold</th>
       <td><p>numeric. Lower threshold in radial velocity standard
 deviation (profile quantity <code>sd_vvp</code>) in m/s. Biological signals with
-<code>sd_vvp</code> &lt; <code>sd_vvp_threshold</code> are set to zero.</p></td>
+<code>sd_vvp</code> &lt; <code>sd_vvp_threshold</code> are set to zero. Defaults to 2 m/s
+for C-band radars and 1 m/s for S-band radars if not specified.</p></td>
     </tr>
     <tr>
       <th>rcs</th>
@@ -276,6 +296,10 @@ scans to be included in the analysis.</p></td>
 quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.</p></td>
     </tr>
     <tr>
+      <th>mistnet</th>
+      <td><p>logical. Whether to use MistNet segmentation model.</p></td>
+    </tr>
+    <tr>
       <th>local_install</th>
       <td><p>(optional) String with path to local vol2bird installation, see details.</p></td>
     </tr>
@@ -315,7 +339,8 @@ value below the threshold <code>sd_vvp_threshold</code>, the bird density <code>
 to zero (see vertical profile <a href='summary.vp.html'>vp</a> class). This threshold
 might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter
-for most weather radars.
+for most C-band weather radars, which is used as the C-band default. For S-band,
+the default threshold is 1 m/s.
 The algorithm has been tested and developed for altitude layers with
 <code>h_layer</code> = 200 m. Smaller widths are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,
@@ -347,16 +372,28 @@ through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) s
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.</p>
+<p>When using MistNet, please also cite Lin et al. 2019 in publications.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
 <ul>
 <li><p>Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
   velocities using a torus mapping. Journal of Atmospheric and Oceanic
-  Technology, 21(10), pp.1566-1573.</p></li>
-<li><p>Bird migration flight altitudes studied by a network of
-  operational weather radars, Dokter et al., J. R. Soc. Interface 8 (54),
-  pp. 30--43, 2011. <a href='https://doi.org/10.1098/rsif.2010.0116'>https://doi.org/10.1098/rsif.2010.0116</a></p></li>
+  Technology, 21(10), pp.1566--1573.
+  <a href='https://doi.org/10.1175/1520-0426(2004)021&lt;1566:DODRVU&gt;2.0.CO;2'>https://doi.org/10.1175/1520-0426(2004)021&lt;1566:DODRVU&gt;2.0.CO;2</a></p></li>
+<li><p>Adriaan M. Dokter, Felix Liechti,
+  Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman, 2011.
+  Bird migration flight altitudes studied by a network of
+  operational weather radars,
+  Journal of the Royal Society Interface 8 (54), pp. 30--43.
+  <a href='https://doi.org/10.1098/rsif.2010.0116'>https://doi.org/10.1098/rsif.2010.0116</a></p></li>
+<li><p>Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
+  Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
+  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
+  MistNet: Measuring historical bird migration in the US
+  using archived weather radar data and convolutional neural networks
+  Methods in Ecology and Evolution 10 (11), pp. 1908--22.
+  <a href='https://doi.org/10.1111/2041-210X.13280'>https://doi.org/10.1111/2041-210X.13280</a></p></li>
 </ul>
 
 

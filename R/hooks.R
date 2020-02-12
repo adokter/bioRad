@@ -2,7 +2,10 @@
 .pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
-  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.4.1")
+  # latest available vol2bird release
+  .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.5.0")
+  # availability of mistnet
+  .pkgenv[["mistnet"]] <- FALSE
   # attempt to determine available vol2bird version
   .pkgenv[["vol2bird_version"]] <- vol2bird_version()
   # flag indicating whether docker is running:
@@ -32,7 +35,7 @@
     msg <- paste(strwrap(msg), collapse = "\n")
     packageStartupMessage(msg)
   } else {
-    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled", ifelse(is.null(.pkgenv$vol2bird_version), "", paste("(vol2bird version ", .pkgenv$vol2bird_version, ")", sep = ""))))
+    packageStartupMessage(paste("Docker daemon running, Docker functionality enabled", ifelse(is.null(.pkgenv$vol2bird_version), "", paste("(vol2bird version ", .pkgenv$vol2bird_version, ifelse(.pkgenv$mistnet, ", MistNet available",""), ")", sep = ""))))
     if (is.null(.pkgenv[["vol2bird_version"]])) {
       packageStartupMessage(paste("No vol2bird Docker image found. Please run update_docker() to download."))
     }

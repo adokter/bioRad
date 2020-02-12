@@ -78,12 +78,27 @@ cmt(x, alt.min = 0, alt.max = Inf, alpha = NA, interval.max = Inf)
 
 night(x, ..., elev = -0.268)
 
-ppi(x, cellsize = 500, range.max = 50000, project = FALSE,
-  latlim = NULL, lonlim = NULL)
+ppi(
+  x,
+  cellsize = 500,
+  range.max = 50000,
+  project = FALSE,
+  latlim = NULL,
+  lonlim = NULL
+)
 
-read.pvol(filename, param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR",
-  "PHIDP", "CELL"), sort = TRUE, lat, lon, height, elangle.min = 0,
-  elangle.max = 90, verbose = TRUE, mount = dirname(filename))
+read.pvol(
+  filename,
+  param = c("DBZH", "VRADH", "VRAD", "RHOHV", "ZDR", "PHIDP", "CELL"),
+  sort = TRUE,
+  lat,
+  lon,
+  height,
+  elangle.min = 0,
+  elangle.max = 90,
+  verbose = TRUE,
+  mount = dirname(filename)
+)
 
 readvp(...)
 
@@ -91,12 +106,17 @@ readvp.list(...)
 
 readvp.table(...)
 
-regularize(ts, interval = "auto", t.min = ts$daterange[1],
-  t.max = ts$daterange[2], units = "mins", fill = FALSE,
-  verbose = TRUE)
+regularize(
+  ts,
+  interval = "auto",
+  t.min = ts$daterange[1],
+  t.max = ts$daterange[2],
+  units = "mins",
+  fill = FALSE,
+  verbose = TRUE
+)
 
-retrieve_vp_paths(path, start_date, end_date, country = NULL,
-  radar = NULL)
+retrieve_vp_paths(path, start_date, end_date, country = NULL, radar = NULL)
 
 rsl2odim(vol.in, vol.out, verbose = FALSE, mount = dirname(vol.in))
 
@@ -108,12 +128,29 @@ updateDocker(...)
 
 vintegrate(...)
 
-vol2bird(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(vol.in), sd_vvp_threshold = 2,
-  rcs = 11, dualpol = FALSE, rhohv = 0.95, elev.min = 0,
-  elev.max = 90, azim.min = 0, azim.max = 360, range.min = 5000,
-  range.max = 25000, nlayer = 20L, hlayer = 200, dealias = TRUE,
-  nyquist.min = if (dealias) 5 else 25, dbz_quantity = "DBZH")
+vol2bird(
+  vol.in,
+  vp.out = "",
+  vol.out = "",
+  autoconf = FALSE,
+  verbose = FALSE,
+  mount = dirname(vol.in),
+  sd_vvp_threshold = 2,
+  rcs = 11,
+  dualpol = FALSE,
+  rhohv = 0.95,
+  elev.min = 0,
+  elev.max = 90,
+  azim.min = 0,
+  azim.max = 360,
+  range.min = 5000,
+  range.max = 25000,
+  nlayer = 20L,
+  hlayer = 200,
+  dealias = TRUE,
+  nyquist.min = if (dealias) 5 else 25,
+  dbz_quantity = "DBZH"
+)
 
 vpts(...)
 }

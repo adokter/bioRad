@@ -7,6 +7,9 @@
     <loc>https://adokter.github.io/bioRad/reference/add_expected_eta_to_scan.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/apply_mistnet.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/as.data.frame.vp.html</loc>
   </url>
   <url>
@@ -41,6 +44,9 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/c.vp.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/calculate_param.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/calculate_vp.html</loc>

@@ -4,13 +4,32 @@
 \alias{calculate_vp}
 \title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
 \usage{
-calculate_vp(file, vpfile = "", pvolfile_out = "", autoconf = FALSE,
-  verbose = FALSE, mount = dirname(file[1]), sd_vvp_threshold = 2,
-  rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
-  elev_max = 90, azim_min = 0, azim_max = 360, range_min = 5000,
-  range_max = 35000, n_layer = 20L, h_layer = 200, dealias = TRUE,
-  nyquist_min = if (dealias) 5 else 25, dbz_quantity = "DBZH",
-  local_install, pvolfile)
+calculate_vp(
+  file,
+  vpfile = "",
+  pvolfile_out = "",
+  autoconf = FALSE,
+  verbose = FALSE,
+  mount = dirname(file[1]),
+  sd_vvp_threshold,
+  rcs = 11,
+  dual_pol = FALSE,
+  rho_hv = 0.95,
+  elev_min = 0,
+  elev_max = 90,
+  azim_min = 0,
+  azim_max = 360,
+  range_min = 5000,
+  range_max = 35000,
+  n_layer = 20L,
+  h_layer = 200,
+  dealias = TRUE,
+  nyquist_min = if (dealias) 5 else 25,
+  dbz_quantity = "DBZH",
+  mistnet = FALSE,
+  local_install,
+  pvolfile
+)
 }
 \arguments{
 \item{file}{string or a vector of strings with radar file(s) for a radar polar volume.
@@ -40,7 +59,8 @@ the Docker container.}
 
 \item{sd_vvp_threshold}{numeric. Lower threshold in radial velocity standard
 deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
-\code{sd_vvp} < \code{sd_vvp_threshold} are set to zero.}
+\code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s
+for C-band radars and 1 m/s for S-band radars if not specified.}
 
 \item{rcs}{numeric. Radar cross section per bird in cm^2.}
 
@@ -77,6 +97,8 @@ scans to be included in the analysis.}
 
 \item{dbz_quantity}{character. One of the available reflectivity factor
 quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
+
+\item{mistnet}{logical. Whether to use MistNet segmentation model.}
 
 \item{local_install}{(optional) String with path to local vol2bird installation, see details.}
 
@@ -123,7 +145,8 @@ value below the threshold \code{sd_vvp_threshold}, the bird density \code{dens} 
 to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold
 might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter
-for most weather radars.
+for most C-band weather radars, which is used as the C-band default. For S-band,
+the default threshold is 1 m/s.
 The algorithm has been tested and developed for altitude layers with
 \code{h_layer} = 200 m. Smaller widths are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,
@@ -161,6 +184,8 @@ through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) s
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.
+
+When using MistNet, please also cite Lin et al. 2019 in publications.
 }
 \examples{
 # locate example polar volume file:
@@ -181,9 +206,20 @@ file.remove("~/volume.h5")
 \itemize{
   \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
   velocities using a torus mapping. Journal of Atmospheric and Oceanic
-  Technology, 21(10), pp.1566-1573.
-  \item Bird migration flight altitudes studied by a network of
-  operational weather radars, Dokter et al., J. R. Soc. Interface 8 (54),
-  pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
+  Technology, 21(10), pp.1566--1573.
+  \url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
+  \item Adriaan M. Dokter, Felix Liechti,
+  Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman, 2011.
+  Bird migration flight altitudes studied by a network of
+  operational weather radars,
+  Journal of the Royal Society Interface 8 (54), pp. 30--43.
+  \url{https://doi.org/10.1098/rsif.2010.0116}
+  \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
+  Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
+  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
+  MistNet: Measuring historical bird migration in the US
+  using archived weather radar data and convolutional neural networks
+  Methods in Ecology and Evolution 10 (11), pp. 1908--22.
+  \url{https://doi.org/10.1111/2041-210X.13280}
 }
 }

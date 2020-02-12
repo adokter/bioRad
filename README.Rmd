@@ -1,3 +1,7 @@
+---
+output: github_document
+---
+
 <!-- README.md is generated from README.Rmd. Please edit that file and knit -->
 
 ```{r setup, include = FALSE}
@@ -24,11 +28,17 @@ To get started, see:
 
 More vignettes:
 
-* [Correct radar images for range effects](https://adokter.github.io/bioRad/dev/articles/range_correction.html)
+* [Range correction](https://adokter.github.io/bioRad/dev/articles/range_correction.html): estimate spatial images of vertically integrated density corrected for range effects.
 
 Documentation for the latest development version can be found [here](https://adokter.github.io/bioRad/dev).
 
 ## Installation
+bioRad depends on packages from both the [CRAN](https://CRAN.R-project.org) and
+[Bioconductor](https://www.bioconductor.org/) repositories. Enable both with:
+
+```{r eval = FALSE}
+setRepositories(ind=1:2)
+```
 
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
@@ -47,7 +57,19 @@ Then load the package with:
 ```{r load_bioRad}
 library(bioRad)
 ```
+  
 
+#### Required system libraries on Linux (Ubuntu)
+
+These system libraries are required before installing bioRad on Linux systems:
+
+In terminal run:
+```
+sudo apt install libcurl4-openssl-dev
+sudo apt install libssl-dev
+sudo apt install libgdal-dev
+```
+  
 ### _Attention!_ 
 
 Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing), and [**ggmap**](https://github.com/dkahle/ggmap) - the package used by bioRad to overlay radar scans on maps - now requires users to provide an API key _and_ enable billing in order to use Google imagery. bioRad switched to using [stamen](http://maps.stamen.com/) maps by default, which do not require special credentials.
@@ -56,15 +78,16 @@ Google has [recently changed its API requirements](https://developers.google.com
 
 ### Docker (optional)
 
-You only need to install Docker to:
+You need to install Docker to:
 
 * Process radar data into vertical profiles of biological targets with `calculate_vp()`.
-* Read [NEXRAD radar data](https://www.ncdc.noaa.gov/data-access/radar-data) with `read_pvolfile()`. Docker is not required for reading ODIM radar data.
+* Read [NEXRAD radar data](https://www.ncdc.noaa.gov/data-access/radar-data) or [IRIS RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf) data with `read_pvolfile()`. Docker is not required for reading ODIM radar data.
 * Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
+* Use the [MistNet](https://doi.org/10.1111/2041-210X.13280) neural network with `calculate_vp()` or `apply_mistnet()`
 
 Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation.
-<details>
-<summary><strong>Installing Docker</strong></summary>
+
+#### Installing Docker
 
 1. Go to [Docker Desktop](https://www.docker.com/products/docker-desktop).
 2. Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit: installing Docker _Toolbox_ for previous Windows versions will not work.
@@ -74,15 +97,12 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
     * On Mac: click the Docker icon > `Preferences` > `File sharing` > Add the drive(s) where you will be processing radar files > Click `Apply & Restart`.
 5. In R do `check_docker()`.
 6. You can now use the bioRad functionality that requires Docker.
-</details>
 
-<details>
-<summary><strong>Known issues with Docker</strong></summary>
+#### Known issues with Docker
 
 1. Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.
-1. For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/128)
-
-</details>
+2. For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/128)
+3. For permission issues when running docker, specifically the error `Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock`, see [this](https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) solution. Running `sudo usermod -a -G docker $USER` in a terminal will fix this problem.
 
 ## Usage
 

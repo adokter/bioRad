@@ -25,7 +25,8 @@
 #' the Docker container.
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
 #' deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
-#' \code{sd_vvp} < \code{sd_vvp_threshold} are set to zero.
+#' \code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s
+#' for C-band radars and 1 m/s for S-band radars if not specified.
 #' @param rcs numeric. Radar cross section per bird in cm^2.
 #' @param dual_pol logical. When \code{TRUE} use dual-pol mode, in which
 #' meteorological echoes are filtered using the correlation coefficient
@@ -48,6 +49,7 @@
 #' velocities (below 25 m/s).
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
+#' @param mistnet logical. Whether to use MistNet segmentation model.
 #' @param local_install (optional) String with path to local vol2bird installation, see details.
 #' @param pvolfile deprecated argument renamed to \code{file}.
 #'
@@ -88,7 +90,8 @@
 #' to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold
 #' might be dependent on radar processing settings. Results from validation
 #' campaigns so far indicate that 2 m/s is the best choice for this parameter
-#' for most weather radars.
+#' for most C-band weather radars, which is used as the C-band default. For S-band,
+#' the default threshold is 1 m/s.
 
 #' The algorithm has been tested and developed for altitude layers with
 #' \code{h_layer} = 200 m. Smaller widths are not recommended as they may cause
@@ -128,39 +131,53 @@
 #' and contain all the required shared libraries by vol2bird. See vol2bird installation
 #' pages on Github for details.
 #'
+#' When using MistNet, please also cite Lin et al. 2019 in publications.
+#'
 #' @references
 #' \itemize{
 #'   \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
 #'   velocities using a torus mapping. Journal of Atmospheric and Oceanic
-#'   Technology, 21(10), pp.1566-1573.
-#'   \item Bird migration flight altitudes studied by a network of
-#'   operational weather radars, Dokter et al., J. R. Soc. Interface 8 (54),
-#'   pp. 30--43, 2011. \url{https://doi.org/10.1098/rsif.2010.0116}
+#'   Technology, 21(10), pp.1566--1573.
+#'   \url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
+#'   \item Adriaan M. Dokter, Felix Liechti,
+#'   Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman, 2011.
+#'   Bird migration flight altitudes studied by a network of
+#'   operational weather radars,
+#'   Journal of the Royal Society Interface 8 (54), pp. 30--43.
+#'   \url{https://doi.org/10.1098/rsif.2010.0116}
+#'   \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
+#'   Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
+#'   Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
+#'   MistNet: Measuring historical bird migration in the US
+#'   using archived weather radar data and convolutional neural networks
+#'   Methods in Ecology and Evolution 10 (11), pp. 1908--22.
+#'   \url{https://doi.org/10.1111/2041-210X.13280}
 #' }
 #'
 #' @examples
 #' # locate example polar volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-#' 
+#'
 #' # copy to a home directory with read/write permissions:
 #' file.copy(pvolfile, "~/volume.h5")
-#' 
+#'
 #' # calculate the profile:
 #' \dontrun{
 #' profile <- calculate_vp("~/volume.h5")
 #' }
-#' 
+#'
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE,
-                         mount = dirname(file[1]), sd_vvp_threshold = 2,
+                         mount = dirname(file[1]), sd_vvp_threshold,
                          rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
-                         dbz_quantity = "DBZH", local_install, pvolfile) {
+                         dbz_quantity = "DBZH", mistnet = FALSE,
+                         local_install, pvolfile) {
 
   # check for deprecated input argument pvolfile
   calls <- names(sapply(match.call(), deparse))[-1]
@@ -175,12 +192,15 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     }
   }
 
-  if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
-    stop(
-      "invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
-      "threshold should be a positive numeric value"
-    )
+  if(!missing(sd_vvp_threshold)){
+    if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
+      stop(
+        "invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
+        "threshold should be a positive numeric value"
+      )
+    }
   }
+
   if (!is.numeric(rcs) || rcs <= 0) {
     stop(
       "invalid 'rcs' argument, radar cross section should be a ",
@@ -251,6 +271,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     warning(paste("expecting 'dbz_quantity' to be one of DBZ, DBZH, DBZV, TH, TV"))
   }
 
+  if (!is.logical(mistnet)) {
+    stop("invalid 'mistnet' argument, should be logical")
+  }
+  if(mistnet && !.pkgenv$mistnet){
+    stop("MistNet has not been installed, see update_docker() for install instructions")
+  }
   if (!is.logical(dealias)) {
     stop("invalid 'dealias' argument, should be logical")
   }
@@ -307,7 +333,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   # put options file in place, to be read by vol2bird container
   opt.values <- c(
     as.character(c(
-      sd_vvp_threshold, rcs, rho_hv, elev_min, elev_max,
+      rcs, rho_hv, elev_min, elev_max,
       azim_min, azim_max, range_min, range_max,
       n_layer, h_layer, nyquist_min, dbz_quantity
     )),
@@ -316,11 +342,22 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
 
   opt.names <- c(
-    "STDEV_BIRD", "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
+    "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
     "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
     "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
     "DEALIAS_VRAD"
   )
+
+  if(!missing(sd_vvp_threshold)){
+    opt.values=c(as.character(sd_vvp_threshold),opt.values)
+    opt.names=c("STDEV_BIRD",opt.names)
+  }
+
+  if(mistnet){
+    opt.values=c(opt.values,"TRUE")
+    opt.names=c(opt.names,"USE_MISTNET")
+  }
+
   opt <- data.frame(
     "option" = opt.names, "is" = rep("=", length(opt.values)),
     "value" = opt.values

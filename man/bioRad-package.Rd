@@ -6,7 +6,7 @@
 \alias{bioRad-package}
 \title{bioRad: Biological Analysis and Visualization of Weather Radar Data}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Extract, visualize and summarize aerial movements of birds and
     insects from weather radar data. See https://doi.org/10.1111/ecog.04028
@@ -34,20 +34,21 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Adriaan M. Dokter \email{amd427@cornell.edu} (0000-0001-6573-066X)
+\strong{Maintainer}: Adriaan M. Dokter \email{amd427@cornell.edu} (\href{https://orcid.org/0000-0001-6573-066X}{ORCID})
 
 Authors:
 \itemize{
-  \item Peter Desmet \email{peter.desmet@inbo.be} (0000-0002-8442-8025)
-  \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (0000-0001-6413-3185)
+  \item Peter Desmet \email{peter.desmet@inbo.be} (\href{https://orcid.org/0000-0002-8442-8025}{ORCID})
+  \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (\href{https://orcid.org/0000-0001-6413-3185}{ORCID})
 }
 
 Other contributors:
 \itemize{
+  \item Bart Kranstauber \email{b.kranstauber@uva.nl} (\href{https://orcid.org/0000-0001-8303-780X}{ORCID}) [contributor]
   \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
   \item Lourens Veen \email{l.veen@esciencecenter.nl} [contributor]
-  \item Liesbeth Verlinden \email{l.verlinden@uva.nl} (0000-0003-1744-9325) [contributor]
-  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} (0000-0001-7835-4480) [contributor]
+  \item Liesbeth Verlinden \email{l.verlinden@uva.nl} (\href{https://orcid.org/0000-0003-1744-9325}{ORCID}) [contributor]
+  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} (\href{https://orcid.org/0000-0001-7835-4480}{ORCID}) [contributor]
 }
 
 }

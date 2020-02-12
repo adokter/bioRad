@@ -87,7 +87,7 @@ at various elevation angles as given by beam_profile." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -162,10 +162,23 @@ and the vertical radiation profile of a set of emitted radar beams
 at various elevation angles as given by <a href='beam_profile.html'>beam_profile</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>beam_profile_overlap</span>(<span class='no'>vp</span>, <span class='no'>elev</span>, <span class='no'>distance</span>, <span class='no'>antenna</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4000</span>),
-  <span class='kw'>noise_floor</span> <span class='kw'>=</span> -<span class='fl'>Inf</span>, <span class='kw'>noise_floor_ref_range</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"dens"</span>, <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>beam_angle</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>, <span class='no'>lat</span>,
-  <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>, <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>)</pre>
+    <pre class="usage"><span class='fu'>beam_profile_overlap</span>(
+  <span class='no'>vp</span>,
+  <span class='no'>elev</span>,
+  <span class='no'>distance</span>,
+  <span class='no'>antenna</span>,
+  <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4000</span>),
+  <span class='kw'>noise_floor</span> <span class='kw'>=</span> -<span class='fl'>Inf</span>,
+  <span class='kw'>noise_floor_ref_range</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+  <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"dens"</span>,
+  <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='no'>T</span>,
+  <span class='kw'>beam_angle</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>3</span>,
+  <span class='no'>lat</span>,
+  <span class='kw'>re</span> <span class='kw'>=</span> <span class='fl'>6378</span>,
+  <span class='kw'>rp</span> <span class='kw'>=</span> <span class='fl'>6357</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

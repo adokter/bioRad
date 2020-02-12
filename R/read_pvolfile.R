@@ -61,12 +61,30 @@
 #' scan
 read_pvolfile <- function(file, param = c(
                             "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
-                            "ZDR", "PHIDP", "CELL"
+                            "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
                           ),
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file)) {
+  tryCatch(read_pvolfile_body(file, param, sort, lat, lon,
+                              height, elev_min, elev_max,
+                              verbose, mount),
+                                 error = function(err) {
+                                    rhdf5::h5closeAll()
+                                    stop(err)
+                                 }
+          )
+}
 
+# this is the actual function read_pvolfile, without error handling that checks
+# for open hdf5 files
+read_pvolfile_body <- function(file, param = c(
+                            "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
+                            "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
+                          ),
+                          sort = TRUE, lat, lon, height, elev_min = 0,
+                          elev_max = 90, verbose = TRUE,
+                          mount = dirname(file)) {
   # input checks
   if (!is.logical(sort)) {
     stop("'sort' should be logical")
@@ -153,9 +171,10 @@ read_pvolfile <- function(file, param = c(
         file.remove(file)
       }
       stop("latitude not found in file, provide 'lat' argument")
-    } else {
-      vol.lat <- lat
     }
+  }
+  if(!missing(lat)){
+    vol.lat <- lat
   }
 
   if (is.null(vol.lon)) {
@@ -164,9 +183,10 @@ read_pvolfile <- function(file, param = c(
         file.remove(file)
       }
       stop("longitude not found in file, provide 'lon' argument")
-    } else {
-      vol.lon <- lon
     }
+  }
+  if(!missing(lon)){
+    vol.lon <- lon
   }
 
   if (is.null(vol.height)) {
@@ -175,10 +195,12 @@ read_pvolfile <- function(file, param = c(
         file.remove(file)
       }
       stop("antenna height not found in file, provide 'height' argument")
-    } else {
-      vol.height <- height
     }
   }
+  if(!missing(height)){
+    vol.height <- height
+  }
+
   geo <- list(lat = vol.lat, lon = vol.lon, height = vol.height)
 
   # convert some useful metadata
@@ -187,6 +209,11 @@ read_pvolfile <- function(file, param = c(
   )
   sources <- strsplit(attribs.what$source, ",")[[1]]
   radar <- gsub("RAD:", "", sources[which(grepl("RAD:", sources))])
+
+  # write height, lat, lon attributes (update with potential user-defined values)
+  attribs.where$height = vol.height
+  attribs.where$lat = vol.lat
+  attribs.where$lon = vol.lon
 
   # read scan groups
   data <- lapply(

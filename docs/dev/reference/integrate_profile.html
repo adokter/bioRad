@@ -87,7 +87,7 @@ weighted by density." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -165,16 +165,31 @@ weighted by density.</p>
     <pre class="usage"><span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='no'>alt_min</span>, <span class='no'>alt_max</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 <span class='co'># S3 method for vp</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>integrate_profile</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
+<span class='fu'>integrate_profile</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)
 
 <span class='co'># S3 method for vpts</span>
-<span class='fu'>integrate_profile</span>(<span class='no'>x</span>, <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)</pre>
+<span class='fu'>integrate_profile</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>alt_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>interval_max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
