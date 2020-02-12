@@ -1,74 +1,12 @@
-# helper function to calculate expected eta, vectorizing over range
-eta_expected <- function(vp, quantity, distance, elev, antenna, beam_angle, k, lat, re, rp) {
-  beamshapes <- t(sapply(vp$data$height + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
-  if (quantity == "dens") {
-    output <- rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
-  }
-  if (quantity == "eta") {
-    output <- colSums(beamshapes * vp$data$eta, na.rm = T) / colSums(beamshapes, na.rm = T)
-  }
-  output
-}
-
-#' adds expected eta to a scan
-#' @inheritParams integrate_to_ppi
-#' @inheritParams scan_to_raster
-#' @return an object of class 'scan'
-#'
-#' @keywords internal
-#'
-#' @details to be written
-add_expected_eta_to_scan <- function(scan, vp, quantity = "dens", param = "DBZH", lat, lon, antenna, beam_angle = 1, k = 4 / 3, re = 6378, rp = 6357) {
-  if (is.null(scan$geo$height) && missing(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
-  if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
-  if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste(param, "not one of DBZH, DBZV, DBZ, TH, TV"))
-
-  if (is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
-  if (is.null(scan$geo$lon) && missing(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
-  if (is.null(scan$geo$height) && missing(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
-
-  if (missing(antenna)) antenna <- scan$geo$height
-  assert_that(is.number(antenna))
-  if (missing(lat)) lat <- scan$geo$lat
-  assert_that(is.number(lat))
-  if (missing(lon)) lon <- scan$geo$lon
-  assert_that(is.number(lon))
-
-  # assert that profile contains data
-  if (!(FALSE %in% is.na(vp$data[quantity]))) stop(paste("input profile contains no numeric data for quantity '", quantity, "'.", sep = ""))
-
-  nazim <- dim(scan)[3]
-  nrange <- dim(scan)[2]
-
-  # reconstruct range and distance from metadata
-  range <- (1:nrange) * scan$geo$rscale
-  distance <- beam_distance(range, scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
-
-  # calculate eta from reflectivity factor
-  eta <- suppressWarnings(dbz_to_eta(scan$params[[param]], wavelength = vp$attributes$how$wavelength))
-  attributes(eta)$param <- "eta"
-  scan$params$eta <- eta
-
-  # calculate expected_eta from beam overlap with vertical profile, either based off 'eta' or 'dens' quantity
-  # that is, taking into account of thresholding by rcs_vvp_threshold ('dens') or not ('eta')
-  eta_expected <- eta_expected(vp, quantity, distance, scan$geo$elangle, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)
-  # since all azimuths are equivalent, replicate nazim times.
-  eta_expected <- matrix(rep(eta_expected, nazim), nrange)
-  attributes(eta_expected) <- attributes(eta)
-  attributes(eta_expected)$param <- "eta_expected"
-  scan$params$eta_expected <- eta_expected
-
-  # return the scan with added scan parameters 'eta' and 'eta_expected'
-  scan
-}
-
 #' calculate an image (PPI) of vertically integrated density adjusted for range effects
 #'
-#' This function estimates a spatial image (PPI object) of vertically integrated density (\code{VID}) based on
-#' all elevation scans of the radar, while accounting for the changing overlap between the radar beams
-#' as a function of range. The resulting PPI is a vertical integration over the layer of biological scatterers
-#' based on all available elevation scans, corrected for range effects due to partial beam overlap with
-#' the layer of biological echoes (overshooting) at larger distances from the radar. The methodology is
+#' This function estimates a spatial image (PPI object) of vertically integrated
+#' density (\code{VID}) based on all elevation scans of the radar, while
+#' accounting for the changing overlap between the radar beams as a function of
+#' range. The resulting PPI is a vertical integration over the layer of
+#' biological scatterers based on all available elevation scans, corrected for
+#' range effects due to partial beam overlap with the layer of biological echoes
+#' (overshooting) at larger distances from the radar. The methodology is
 #' described in detail in Kranstauber et al. (2020).
 #' @inheritParams scan_to_raster
 #' @inheritParams beam_profile_overlap
@@ -318,4 +256,68 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output_ppi <- list(radar = pvol$radar, datetime = pvol$datetime, data = output[param_ppi], geo = geo)
   class(output_ppi) <- "ppi"
   output_ppi
+}
+
+# helper function to calculate expected eta, vectorizing over range
+eta_expected <- function(vp, quantity, distance, elev, antenna, beam_angle, k, lat, re, rp) {
+  beamshapes <- t(sapply(vp$data$height + vp$attributes$where$interval / 2, function(x) beam_profile(x, distance, elev, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)))
+  if (quantity == "dens") {
+    output <- rcs(vp) * colSums(beamshapes * vp$data$dens, na.rm = T) / colSums(beamshapes, na.rm = T)
+  }
+  if (quantity == "eta") {
+    output <- colSums(beamshapes * vp$data$eta, na.rm = T) / colSums(beamshapes, na.rm = T)
+  }
+  output
+}
+
+#' adds expected eta to a scan
+#' @inheritParams integrate_to_ppi
+#' @inheritParams scan_to_raster
+#' @return an object of class 'scan'
+#'
+#' @keywords internal
+#'
+#' @details to be written
+add_expected_eta_to_scan <- function(scan, vp, quantity = "dens", param = "DBZH", lat, lon, antenna, beam_angle = 1, k = 4 / 3, re = 6378, rp = 6357) {
+  if (is.null(scan$geo$height) && missing(antenna)) stop("antenna height cannot be found in scan, specify antenna height using 'antenna' argument")
+  if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
+  if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste(param, "not one of DBZH, DBZV, DBZ, TH, TV"))
+
+  if (is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
+  if (is.null(scan$geo$lon) && missing(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
+  if (is.null(scan$geo$height) && missing(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
+
+  if (missing(antenna)) antenna <- scan$geo$height
+  assert_that(is.number(antenna))
+  if (missing(lat)) lat <- scan$geo$lat
+  assert_that(is.number(lat))
+  if (missing(lon)) lon <- scan$geo$lon
+  assert_that(is.number(lon))
+
+  # assert that profile contains data
+  if (!(FALSE %in% is.na(vp$data[quantity]))) stop(paste("input profile contains no numeric data for quantity '", quantity, "'.", sep = ""))
+
+  nazim <- dim(scan)[3]
+  nrange <- dim(scan)[2]
+
+  # reconstruct range and distance from metadata
+  range <- (1:nrange) * scan$geo$rscale
+  distance <- beam_distance(range, scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
+
+  # calculate eta from reflectivity factor
+  eta <- suppressWarnings(dbz_to_eta(scan$params[[param]], wavelength = vp$attributes$how$wavelength))
+  attributes(eta)$param <- "eta"
+  scan$params$eta <- eta
+
+  # calculate expected_eta from beam overlap with vertical profile, either based off 'eta' or 'dens' quantity
+  # that is, taking into account of thresholding by rcs_vvp_threshold ('dens') or not ('eta')
+  eta_expected <- eta_expected(vp, quantity, distance, scan$geo$elangle, antenna = antenna, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp)
+  # since all azimuths are equivalent, replicate nazim times.
+  eta_expected <- matrix(rep(eta_expected, nazim), nrange)
+  attributes(eta_expected) <- attributes(eta)
+  attributes(eta_expected)$param <- "eta_expected"
+  scan$params$eta_expected <- eta_expected
+
+  # return the scan with added scan parameters 'eta' and 'eta_expected'
+  scan
 }
