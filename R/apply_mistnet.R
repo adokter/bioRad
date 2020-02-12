@@ -37,7 +37,7 @@
 #' that should be removed when interested only in biological data.
 #'
 #' MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
-#' to a 100% probability) as additional scan parameters to the polar volume:
+#' to a 100\% probability) as additional scan parameters to the polar volume:
 #' \describe{
 #' \item{"\code{BACKGROUND}"}{class probability that no signal was detected above the noise level of the radar}
 #' \item{"\code{WEATHER}"}{class probability that weather was detected}
@@ -54,7 +54,7 @@
 #'
 #' A pixel is classified as weather if the class probability \code{WEATHER} > 0.45
 #' or when the average class probability for rain across all five MistNet elevation
-#' scans at that spatial location > 0.45
+#' scans at that spatial location > 0.45.
 #'
 #' MistNet may run more slowly on Windows than on Linux or Mac OSX.
 #'
