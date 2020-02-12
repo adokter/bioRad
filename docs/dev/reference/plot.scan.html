@@ -84,7 +84,7 @@ see ppi" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -230,8 +230,10 @@ model (ODIM), see Table 16 in the
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make ppi for the scan</span>
 <span class='co'># plot the reflectivity param:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.scan-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># change the range of reflectivities to plot to -30 to 50 dBZ:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>30</span>, <span class='fl'>50</span>))</div><div class='img'><img src='plot.scan-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.scan-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># change the range of reflectivities to plot, from -10 to 10 dBZ:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>,<span class='fl'>10</span>))</div><div class='img'><img src='plot.scan-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># change the scale name and colour scheme, using viridis colors:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>10</span>)) + <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/viridis/man/scale_viridis.html'>scale_fill_viridis</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='st'>"dBZ"</span>)</div><div class='output co'>#&gt; <span class='message'>Scale for 'fill' is already present. Adding another scale for 'fill', which</span>
+#&gt; <span class='message'>will replace the existing scale.</span></div><div class='img'><img src='plot.scan-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -247,6 +247,32 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-manipulating-radar-scans" class="hasAnchor"><a href="#section-manipulating-radar-scans" class="anchor"></a>Manipulating radar scans</h2>
+          <p class="section-desc"><p>Functions to manipulate radar images (scan, param, ppi) and to identify precipitation</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code> </p>
+        </td>
+        <td><p>calculate an image (PPI) of vertically integrated density adjusted for range effects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calculate_param.html">calculate_param()</a></code> </p>
+        </td>
+        <td><p>Calculate a new scan parameter</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="apply_mistnet.html">apply_mistnet()</a></code> </p>
+        </td>
+        <td><p>Apply MistNet segmentation to a polar volume</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-plotting-radar-scans" class="hasAnchor"><a href="#section-plotting-radar-scans" class="anchor"></a>Plotting radar scans</h2>
           <p class="section-desc"><p>Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi).</p></p>
         </th>
@@ -263,7 +289,7 @@ position indicator (<code>ppi</code>)</p></td>
         <td>
           <p><code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code> </p>
         </td>
-        <td><p>calculate a range-corrected PPI</p></td>
+        <td><p>calculate an image (PPI) of vertically integrated density adjusted for range effects</p></td>
       </tr><tr>
         
         <td>
@@ -634,6 +660,7 @@ and the vertical radiation profile emitted by the radar</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-reading-radar-data">Reading radar data</a></li>
       <li><a href="#section-inspecting-radar-scans">Inspecting radar scans</a></li>
+      <li><a href="#section-manipulating-radar-scans">Manipulating radar scans</a></li>
       <li><a href="#section-plotting-radar-scans">Plotting radar scans</a></li>
       <li><a href="#section-creating-vertical-profiles-of-biological-targets">Creating vertical profiles of biological targets</a></li>
       <li><a href="#section-reading-vertical-profile-data">Reading vertical profile data</a></li>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a time series of vertical profiles (<code>vpts</code>) from file — read_vpts • bioRad</title>
+<title>Apply MistNet segmentation to a polar volume — apply_mistnet • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,9 @@
 
 
 
-<meta property="og:title" content="Read a time series of vertical profiles (<code>vpts</code>) from file — read_vpts" />
-<meta property="og:description" content="Read a time series of vertical profiles (vpts) from file" />
+<meta property="og:title" content="Apply MistNet segmentation to a polar volume — apply_mistnet" />
+<meta property="og:description" content="Apply MistNet segmentation model to a polar volume file on disk, and load the
+resultant segmentation as a polar volume (pvol) object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -146,69 +147,139 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read a time series of vertical profiles (<code>vpts</code>) from file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/read_vpts.R'><code>R/read_vpts.R</code></a></small>
-    <div class="hidden name"><code>read_vpts.Rd</code></div>
+    <h1>Apply MistNet segmentation to a polar volume</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/apply_mistnet.R'><code>R/apply_mistnet.R</code></a></small>
+    <div class="hidden name"><code>apply_mistnet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read a time series of vertical profiles (<code>vpts</code>) from file</p>
+    <p>Apply MistNet segmentation model to a polar volume file on disk, and load the
+resultant segmentation as a polar volume (pvol) object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_vpts</span>(<span class='no'>file</span>, <span class='no'>radar</span>, <span class='no'>lat</span>, <span class='no'>lon</span>, <span class='no'>height</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"C"</span>)</pre>
+    <pre class="usage"><span class='fu'>apply_mistnet</span>(
+  <span class='no'>file</span>,
+  <span class='no'>pvolfile_out</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>),
+  <span class='kw'>load</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>A text file containing the standard output (stdout) generated
-by vol2bird (or the package function <code>calculate_vp</code>).</p></td>
+      <td><p>character. File path for a radar polar volume.</p></td>
     </tr>
     <tr>
-      <th>radar</th>
-      <td><p>A string containing a radar identifier.</p></td>
+      <th>pvolfile_out</th>
+      <td><p>character. Filename for the polar volume to be
+stored, including the MistNet segmentation results</p></td>
     </tr>
     <tr>
-      <th>lat</th>
-      <td><p>numeric. Latitude of the radar in decimal degrees.</p></td>
+      <th>verbose</th>
+      <td><p>logical. When TRUE, pipe Docker stdout to R console. On
+Windows always TRUE.</p></td>
     </tr>
     <tr>
-      <th>lon</th>
-      <td><p>numeric. Longitude of the radar in decimal degrees.</p></td>
+      <th>mount</th>
+      <td><p>character. String with the mount point (a directory path) for
+the Docker container.</p></td>
     </tr>
     <tr>
-      <th>height</th>
-      <td><p>numeric. Height above sea level of the radar antenna in meters.</p></td>
+      <th>load</th>
+      <td><p>on completion load the data</p></td>
     </tr>
     <tr>
-      <th>wavelength</th>
-      <td><p>Radar wavelength in cm, or one of 'C' or 'S' for C-band
-and S-band radar, respectively, in which case C-band wavelength is assumed
-to be 5.3 cm and S-band wavelength 10.6 cm</p></td>
+      <th>mistnet_elevations</th>
+      <td><p>numeric vector of length 5.
+Elevation angles to feed to the MistNet
+segmentation model, which expects exactly 5 elevation scans
+at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
+elevation angles may compromise segmentation results.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object inheriting from class <code>vpts</code>, see
-<code><a href='summary.vpts.html'>vpts</a></code> for details.</p>
+    <p>If parameter <code>load</code> is TRUE an object of class <code>pvol</code> on success.
+If parameter <code>load</code> is FALSE, <code>TRUE</code> on success.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>MistNet is a deep convolutional neural network that has been trained
+using labels derived from S-band dual-polarization data across the US
+NEXRAD network.</p>
+<p>It's purpose is to screen out areas of precipitation in weather radar data,
+primarily legacy data for which dual-polarization data are not available.</p>
+<p>Because the network has been trained on S-band data, it may not
+perform as well on C-band.</p>
+<p>MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
+radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
+elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
+it can estimate a segmentation mask that identifies pixels with weather
+that should be removed when interested only in biological data.</p>
+<p>MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
+to a 100<!-- % probability) as additional scan parameters to the polar volume: --></p><dl class='dl-horizontal'>
+<dt>"<code>BACKGROUND</code>"</dt><dd><p>class probability that no signal was detected above the noise level of the radar</p></dd>
+<dt>"<code>WEATHER</code>"</dt><dd><p>class probability that weather was detected</p></dd>
+<dt>"<code>BIOLOGY</code>"</dt><dd><p>class probability that biological scatterers were detected</p></dd>
+
+</dl><p>These class probabilities are only available for the 5 input elevations used
+as input for the MistNet model. Based on all the class probabilities a final weather segmentation map calculated,
+stored as scan parameter <code>CELL</code>, which is available for all elevation scans.</p><dl class='dl-horizontal'>
+<dt>"<code>CELL</code>"</dt><dd><p>Final weather segmentation, with values &gt; 1 indicating pixels
+classified as weather, and values equal to 1 indicating pixels
+that are located within 5 km distance of a weather pixels</p></dd>
+
+</dl>
+
+<p>A pixel is classified as weather if the class probability <code>WEATHER</code> &gt; 0.45
+or when the average class probability for rain across all five MistNet elevation
+scans at that spatial location &gt; 0.45</p>
+<p>MistNet may run more slowly on Windows than on Linux or Mac OSX.</p>
+<p>See Lin et al. 2019 for details.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Please also cite this publication when using MistNet:</p><ul>
+<li><p>Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
+  Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
+  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
+  MistNet: Measuring historical bird migration in the US
+  using archived weather radar data and convolutional neural networks.
+  Methods in Ecology and Evolution 10 (11), pp. 1908--22.
+  <a href='https://doi.org/10.1111/2041-210X.13280'>https://doi.org/10.1111/2041-210X.13280</a></p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
-<span class='no'>vptszipfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+    <pre class="examples"><div class='input'><span class='co'># locate example polar volume file:</span>
+<span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+
+<span class='co'># copy to a home directory with read/write permissions:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># calculate MistNet segmentation:</span>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='no'>vptszipfile</span>, <span class='st'>"your/directory/and/file/name.txt"</span>)
-<span class='co'># load time series:</span>
-<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'>read_vpts</span>(<span class='st'>"your/directory/and/file/name.txt"</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
-<span class='no'>ts</span>
-}</div></pre>
+<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/volume.h5"</span>)
+<span class='co'># plot the MistNet class probability [0-1] for biology, for the first elevation scan:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"BIOLOGY"</span>)
+<span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
+<span class='co'># areas classified as weather, and value 1 pixels that fall within an</span>
+<span class='co'># additional 5 km fringe around weather areas.</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"CELL"</span>)
+}
+
+<span class='co'># clean up:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -157,7 +157,8 @@
 
     <pre class="usage"><span class='fu'>read_pvolfile</span>(
   <span class='no'>file</span>,
-  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"DBZH"</span>, <span class='st'>"DBZ"</span>, <span class='st'>"VRADH"</span>, <span class='st'>"VRAD"</span>, <span class='st'>"TH"</span>, <span class='st'>"T"</span>, <span class='st'>"RHOHV"</span>, <span class='st'>"ZDR"</span>, <span class='st'>"PHIDP"</span>, <span class='st'>"CELL"</span>),
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"DBZH"</span>, <span class='st'>"DBZ"</span>, <span class='st'>"VRADH"</span>, <span class='st'>"VRAD"</span>, <span class='st'>"TH"</span>, <span class='st'>"T"</span>, <span class='st'>"RHOHV"</span>, <span class='st'>"ZDR"</span>, <span class='st'>"PHIDP"</span>, <span class='st'>"CELL"</span>,
+    <span class='st'>"BIOLOGY"</span>, <span class='st'>"WEATHER"</span>, <span class='st'>"BACKGROUND"</span>),
   <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>lat</span>,
   <span class='no'>lon</span>,
@@ -251,7 +252,7 @@ Commonly available parameters are:</p><dl class='dl-horizontal'>
     <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
 <span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='co'># print the local path of the volume file:</span>
-<span class='no'>pvol</span></div><div class='output co'>#&gt; [1] "/tmp/Rtmp3fQC7M/temp_libpath23f913425d77/bioRad/extdata/volume.h5"</div><div class='input'><span class='co'># load the file:</span>
+<span class='no'>pvol</span></div><div class='output co'>#&gt; [1] "/tmp/RtmpgXAM8k/temp_libpath483033b7fa50/bioRad/extdata/volume.h5"</div><div class='input'><span class='co'># load the file:</span>
 <span class='no'>vol</span> <span class='kw'>&lt;-</span> <span class='fu'>read_pvolfile</span>(<span class='no'>pvol</span>)
 <span class='co'># print summary info for the loaded polar volume:</span>
 <span class='no'>vol</span></div><div class='output co'>#&gt;                Polar volume (class pvol)

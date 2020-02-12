@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a time series of vertical profiles (<code>vpts</code>) from file — read_vpts • bioRad</title>
+<title>Calculate a new scan parameter — calculate_param • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,11 @@
 
 
 
-<meta property="og:title" content="Read a time series of vertical profiles (<code>vpts</code>) from file — read_vpts" />
-<meta property="og:description" content="Read a time series of vertical profiles (vpts) from file" />
+<meta property="og:title" content="Calculate a new scan parameter — calculate_param" />
+<meta property="og:description" content="Calculates a new scan parameter from a combination of existing scan parameters. Useful
+for calculating quantities that are defined in terms of other basic radar moments, like
+linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for applying
+clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH" />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -146,69 +149,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read a time series of vertical profiles (<code>vpts</code>) from file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/read_vpts.R'><code>R/read_vpts.R</code></a></small>
-    <div class="hidden name"><code>read_vpts.Rd</code></div>
+    <h1>Calculate a new scan parameter</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/calculate_param.R'><code>R/calculate_param.R</code></a></small>
+    <div class="hidden name"><code>calculate_param.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read a time series of vertical profiles (<code>vpts</code>) from file</p>
+    <p>Calculates a new scan parameter from a combination of existing scan parameters. Useful
+for calculating quantities that are defined in terms of other basic radar moments, like
+linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for applying
+clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_vpts</span>(<span class='no'>file</span>, <span class='no'>radar</span>, <span class='no'>lat</span>, <span class='no'>lon</span>, <span class='no'>height</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"C"</span>)</pre>
+    <pre class="usage"><span class='fu'>calculate_param</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>A text file containing the standard output (stdout) generated
-by vol2bird (or the package function <code>calculate_vp</code>).</p></td>
+      <th>x</th>
+      <td><p>an object of class <code>pvol</code> or class <code>scan</code></p></td>
     </tr>
     <tr>
-      <th>radar</th>
-      <td><p>A string containing a radar identifier.</p></td>
-    </tr>
-    <tr>
-      <th>lat</th>
-      <td><p>numeric. Latitude of the radar in decimal degrees.</p></td>
-    </tr>
-    <tr>
-      <th>lon</th>
-      <td><p>numeric. Longitude of the radar in decimal degrees.</p></td>
-    </tr>
-    <tr>
-      <th>height</th>
-      <td><p>numeric. Height above sea level of the radar antenna in meters.</p></td>
-    </tr>
-    <tr>
-      <th>wavelength</th>
-      <td><p>Radar wavelength in cm, or one of 'C' or 'S' for C-band
-and S-band radar, respectively, in which case C-band wavelength is assumed
-to be 5.3 cm and S-band wavelength 10.6 cm</p></td>
+      <th>...</th>
+      <td><p>an expression defining the new scan parameter in terms of existing scan parameters</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object inheriting from class <code>vpts</code>, see
-<code><a href='summary.vpts.html'>vpts</a></code> for details.</p>
+    <p>an object of the same class as <code>x</code>, either class <code>pvol</code> or class <code>scan</code></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Kilambi, A., Fabry, F., and Meunier, V., 2018. A simple and effective method
+  for separating meteorological from nonmeteorological targets using dual‐polarization
+  data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
+  <a href='https://doi.org/10.1175/JTECH-D-17-0175.1'>https://doi.org/10.1175/JTECH-D-17-0175.1</a></p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
-<span class='no'>vptszipfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='no'>vptszipfile</span>, <span class='st'>"your/directory/and/file/name.txt"</span>)
-<span class='co'># load time series:</span>
-<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'>read_vpts</span>(<span class='st'>"your/directory/and/file/name.txt"</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
-<span class='no'>ts</span>
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
+<span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+<span class='co'># load the file:</span>
+<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
+<span class='co'># calculate linear reflectivity ETA from reflectivity factor DBZH:</span>
+<span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_param</span>(<span class='no'>example_pvol</span>,<span class='kw'>ETA</span><span class='kw'>=</span><span class='fu'><a href='dbz_to_eta.html'>dbz_to_eta</a></span>(<span class='no'>DBZH</span>,<span class='no'>example_pvol</span>$<span class='no'>attributes</span>$<span class='no'>how</span>$<span class='no'>wavelength</span>))</div><div class='output co'>#&gt; <span class='error'>Error in dbz_to_eta(DBZH, example_pvol$attributes$how$wavelength): object 'example_pvol' not found</span></div><div class='input'><span class='co'># add depolarization ratio (DR) as a scan parameter (see Kilambi 2018):</span>
+<span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_param</span>(<span class='no'>pvol</span>, <span class='kw'>DR</span><span class='kw'>=</span><span class='fl'>10</span>*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>((<span class='no'>ZDR</span>+<span class='fl'>1</span>-<span class='fl'>2</span>*<span class='no'>ZDR</span>^<span class='fl'>0.5</span>*<span class='no'>RHOHV</span>)/(<span class='no'>ZDR</span>+<span class='fl'>1</span>+<span class='fl'>2</span>*<span class='no'>ZDR</span>^<span class='fl'>0.5</span>*<span class='no'>RHOHV</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in calculate_param(pvol, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 *     RHOHV)/(ZDR + 1 + 2 * ZDR^0.5 * RHOHV))): object 'pvol' not found</span></div><div class='input'><span class='co'># calculate_param operates on both pvol and scan objects:</span>
+<span class='fu'>calculate_param</span>(<span class='no'>example_scan</span>, <span class='kw'>DR</span><span class='kw'>=</span><span class='fl'>10</span>*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>((<span class='no'>ZDR</span>+<span class='fl'>1</span>-<span class='fl'>2</span>*<span class='no'>ZDR</span>^<span class='fl'>0.5</span>*<span class='no'>RHOHV</span>)/(<span class='no'>ZDR</span>+<span class='fl'>1</span>+<span class='fl'>2</span>*<span class='no'>ZDR</span>^<span class='fl'>0.5</span>*<span class='no'>RHOHV</span>)))</div><div class='output co'>#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP DR 
+#&gt; elevation angle:  0.5 deg
+#&gt;            dims:  480 bins x 360 rays</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

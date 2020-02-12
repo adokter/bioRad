@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9289</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
       </span>
     </div>
 
@@ -163,6 +163,7 @@
   <span class='no'>ylim</span>,
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='no'>param</span>,
+  <span class='kw'>raster</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='no'>lat</span>,
   <span class='no'>lon</span>,
   <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
@@ -197,13 +198,17 @@
     <tr>
       <th>res</th>
       <td><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href='https://rdrr.io/pkg/raster/man/resolution.html'>res</a>).
-If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.
-Alternatively a RasterLayer can be specified, in this case this raster topology is used for the output.</p></td>
+If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></td>
     </tr>
     <tr>
       <th>param</th>
       <td><p>scan parameters to include. If <code>NA</code> include all scan parameters. Reducing the number
 of scan parameters speeds up evaluation.</p></td>
+    </tr>
+    <tr>
+      <th>raster</th>
+      <td><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
+arguments are ignored.</p></td>
     </tr>
     <tr>
       <th>lat</th>
@@ -262,6 +267,17 @@ the same raster pixel, the last added pixel is given (see <a href='https://rdrr.
 #&gt; names      :        VRADH,         DBZH,          ZDR,        RHOHV,        PHIDP 
 #&gt; min values :   -0.1880389,           NA,   -0.7529409,    0.9254000, -103.7647040 
 #&gt; max values :    0.3760777,           NA,    0.6588239,    0.9951000,  -27.5294080 
+#&gt; </div><div class='input'><span class='co'># using a template raster</span>
+<span class='no'>template_raster</span><span class='kw'>&lt;-</span><span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extent.html'>extent</a></span>(<span class='fl'>12</span>,<span class='fl'>13</span>,<span class='fl'>56</span>,<span class='fl'>58</span>), <span class='kw'>crs</span><span class='kw'>=</span><span class='kw pkg'>sp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span>(<span class='st'>'+proj=longlat'</span>))
+<span class='fu'>scan_to_raster</span>(<span class='no'>example_scan</span>, <span class='kw'>raster</span><span class='kw'>=</span><span class='no'>template_raster</span>)</div><div class='output co'>#&gt; class      : RasterBrick 
+#&gt; dimensions : 10, 10, 100, 5  (nrow, ncol, ncell, nlayers)
+#&gt; resolution : 0.1, 0.2  (x, y)
+#&gt; extent     : 12, 13, 56, 58  (xmin, xmax, ymin, ymax)
+#&gt; crs        : +proj=longlat +ellps=WGS84 
+#&gt; source     : memory
+#&gt; names      :       VRADH,        DBZH,         ZDR,       RHOHV,       PHIDP 
+#&gt; min values :  -20.684274,   -8.000000,   -9.882353,    0.078400, -161.647058 
+#&gt; max values :   14.478992,   18.000000,    7.905883,    0.952100,  147.529420 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -42,11 +42,17 @@ reference:
       - plot.scan
       - get_param
       - summary.param # is.param
+  - title: "Manipulating radar scans"
+    desc: "Functions to manipulate radar images (scan, param, ppi) and to identify precipitation"
+    contents:
+      - integrate_to_ppi
+      - calculate_param
+      - apply_mistnet
   - title: "Plotting radar scans"
     desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
     contents:
       - project_as_ppi
-      - integrate_to_ppi
+      - integrate_to_ppi # Repeated
       - scan_to_raster
       - scan_to_spatial
       - summary.ppi # is.ppi
