@@ -1,7 +1,7 @@
 #' Map a plan position indicator (\code{ppi})
 #'
-#' Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
-#' layer map using \link[ggmap]{ggmap}
+#' Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
+#' layer map using \link[ggmap]{ggmap}.
 #'
 #' @param x An object of class \code{ppi}.
 #' @param map  The basemap to use, result of a call to \link{download_basemap}.

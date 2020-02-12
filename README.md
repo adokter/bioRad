@@ -82,20 +82,6 @@ In terminal run:
     sudo apt install libssl-dev
     sudo apt install libgdal-dev
 
-### *Attention\!*
-
-Google has [recently changed its API
-requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing),
-and [**ggmap**](https://github.com/dkahle/ggmap) - the package used by
-bioRad to overlay radar scans on maps - now requires users to provide an
-API key *and* enable billing in order to use Google imagery. bioRad
-switched to using [stamen](http://maps.stamen.com/) maps by default,
-which do not require special credentials.
-
-**ggmap** itself is outdated on CRAN; its developers hope to have the
-new version up on CRAN soon, but until then, see [ggmap Github
-page](https://github.com/dkahle/ggmap/) for how to install the latest
-development version.
 
 ### Docker (optional)
 
