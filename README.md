@@ -73,10 +73,8 @@ library(bioRad)
 
 #### Required system libraries on Linux (Ubuntu)
 
-These system libraries are required before installing bioRad on Linux
-systems:
-
-In terminal run:
+The following system libraries are required before installing bioRad on
+Linux systems. In terminal, install these with:
 
     sudo apt install libcurl4-openssl-dev
     sudo apt install libssl-dev
