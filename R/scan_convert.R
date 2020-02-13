@@ -13,6 +13,7 @@
 #' @examples
 #' # load example scan:
 #' data(example_scan)
+#'
 #' # convert to a SpatialPointsDataFrame:
 #' scan_to_spatial(example_scan)
 scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
@@ -75,8 +76,10 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' @examples
 #' # default projects full extent on 100x100 pixel raster:
 #' scan_to_raster(example_scan)
+#'
 #' # crop the scan and project at a resolution of 0.1 degree:
 #' scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
+#'
 #' # using a template raster
 #' template_raster <- raster::raster(raster::extent(12, 13, 56, 58), crs = sp::CRS("+proj=longlat"))
 #' scan_to_raster(example_scan, raster = template_raster)

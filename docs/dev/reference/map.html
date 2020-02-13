@@ -49,8 +49,8 @@
 
 
 <meta property="og:title" content="Map a plan position indicator (<code>ppi</code>) — map" />
-<meta property="og:description" content="Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
-layer map using ggmap" />
+<meta property="og:description" content="Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
+layer map using ggmap." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -153,8 +153,8 @@ layer map using ggmap" />
     </div>
 
     <div class="ref-description">
-    <p>Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
-layer map using <a href='https://rdrr.io/pkg/ggmap/man/ggmap.html'>ggmap</a></p>
+    <p>Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
+layer map using <a href='https://rdrr.io/pkg/ggmap/man/ggmap.html'>ggmap</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>map</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -279,23 +279,15 @@ model (ODIM), see Table 16 in the
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
 <span class='co'># make ppi's for all scan parameters in the scan</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
+<span class='co'># \dontrun{</span>
 <span class='co'># grab a basemap that matches the extent of the ppi:</span>
-<span class='co'># \dontrun{</span>
-<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='co'># }</span>
-<span class='co'># map the radial velocity scan parameter onto the basemap:</span>
-<span class='co'># \dontrun{</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='img'><img src='map-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># extend the plotting range of velocities, from -50 to 50 m/s:</span>
-<span class='co'># \dontrun{</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50</span>, <span class='fl'>50</span>))</div><div class='img'><img src='map-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># give the data less transparency:</span>
-<span class='co'># \dontrun{</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)</div><div class='img'><img src='map-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># change the appearance of the symbol indicating the radar location:</span>
-<span class='co'># \dontrun{</span>
-<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>radar_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>radar_color</span> <span class='kw'>=</span> <span class='st'>"green"</span>)</div><div class='img'><img src='map-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># crop the map:</span>
-<span class='co'># \dontrun{</span>
+<span class='co'># using a gray-scale basemap:</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"toner-light"</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='error'>Error: invalid stamen maptype, see ?get_stamenmap</span></div><div class='input'><span class='co'># map the radial velocity scan parameter onto the basemap:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in !attributes(map)$ppi: invalid argument type</span></div><div class='input'><span class='co'># map on a terrain basemap:</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"terrain"</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='img'><img src='map-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># extend the plotting range of velocities, from -50 to 50 m/s:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50</span>, <span class='fl'>50</span>))</div><div class='img'><img src='map-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># give the data less transparency:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)</div><div class='img'><img src='map-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># change the appearance of the symbol indicating the radar location:</span>
+<span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>radar_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>radar_color</span> <span class='kw'>=</span> <span class='st'>"green"</span>)</div><div class='img'><img src='map-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># crop the map:</span>
 <span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>12.4</span>, <span class='fl'>13.2</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>56</span>, <span class='fl'>56.5</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-5.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>

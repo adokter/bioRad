@@ -196,9 +196,9 @@ the Docker container.</p></td>
 <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"https://noaa-nexrad-level2.s3.amazonaws.com/"</span>,
 <span class='st'>"2019/10/01/KBGM/KBGM20191001_000542_V06"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>), <span class='st'>"~/KBGM_example"</span>)
 <span class='co'># convert to ODIM format</span>
-<span class='fu'>nexrad_to_odim</span>(<span class='st'>"~/KBGM_example"</span>, <span class='st'>"KBGM_example.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'># verify that we have generated a polar volume in ODIM hdf5 format</span>
-<span class='fu'><a href='get_odim_object_type.html'>get_odim_object_type</a></span>(<span class='st'>"KBGM_example.h5"</span>)</div><div class='output co'>#&gt; [1] "PVOL"</div><div class='input'><span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"KBGM_example"</span>, <span class='st'>"KBGM_example.h5"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot remove file 'KBGM_example', reason 'No such file or directory'</span></div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'># }
+<span class='fu'>nexrad_to_odim</span>(<span class='st'>"~/KBGM_example"</span>, <span class='st'>"~/KBGM_example.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'># verify that we have generated a polar volume in ODIM hdf5 format</span>
+<span class='fu'><a href='get_odim_object_type.html'>get_odim_object_type</a></span>(<span class='st'>"~/KBGM_example.h5"</span>)</div><div class='output co'>#&gt; [1] "PVOL"</div><div class='input'><span class='co'># clean up</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>, <span class='st'>"~/KBGM_example.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -18,24 +18,32 @@
 #' @details The returned PPI is in Azimuthal Equidistant Projection.
 #'
 #' @examples
-#' # load a polar scan example object
+#' # load a polar scan example object:
 #' data(example_scan)
 #' example_scan
-#' # plot the scanL
+#'
+#' # plot the scan:
 #' plot(example_scan)
+#'
 #' # make PPIs for all scan parameters in the scan:
-#' ppi <- project_as_ppi(example_scan)
+#' ppi <- project_as_ppi(example_scan):
+#'
 #' # print summary info for the ppi:
 #' ppi
+#'
 #' # plot the ppi:
 #' plot(ppi)
+#'
 #' # extract the DBZH scan parameter of the volume to a new
 #' # object 'param':
 #' param <- get_param(example_scan,"VRADH")
+#'
 #' # make a ppi for the new 'param' object:
 #' ppi <- project_as_ppi(param)
+#'
 #' # print summary info for this ppi:
 #' ppi
+#'
 #' # plot the ppi:
 #' plot(ppi)
 project_as_ppi <- function(x, grid_size = 500, range_max = 50000,

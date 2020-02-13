@@ -117,7 +117,7 @@
     
 <div id="preparations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#preparations" class="anchor"></a>1. preparations</h2>
+<a href="#preparations" class="anchor"></a>1 Preparations</h2>
 <p>Load bioRad</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bioRad)</span></code></pre></div>
 <pre><code>## Welcome to bioRad version 0.5.0.9297</code></pre>
@@ -125,7 +125,7 @@
 </div>
 <div id="beam-propagation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#beam-propagation" class="anchor"></a>2. beam propagation</h2>
+<a href="#beam-propagation" class="anchor"></a>2 Beam propagation</h2>
 <p>We start with the changing properties of the radar beam as it propagates through the atmosphere. We define:</p>
 <ul>
 <li>
@@ -158,7 +158,7 @@
 </div>
 <div id="vertical-profiles-and-polar-volumes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vertical-profiles-and-polar-volumes" class="anchor"></a>3. vertical profiles and polar volumes</h2>
+<a href="#vertical-profiles-and-polar-volumes" class="anchor"></a>3 Vertical profiles and polar volumes</h2>
 <p>Let us now assume we have calculated a vertical profile (of birds) for a certain polar volume file. Let’s load an example</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># let's load an example polar volume:</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>pvolfile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</span>
@@ -182,7 +182,7 @@
 </div>
 <div id="spatial-estimates-of-vertically-integrated-density-vid" class="section level2">
 <h2 class="hasAnchor">
-<a href="#spatial-estimates-of-vertically-integrated-density-vid" class="anchor"></a>4. Spatial estimates of vertically integrated density (VID)</h2>
+<a href="#spatial-estimates-of-vertically-integrated-density-vid" class="anchor"></a>4 Spatial estimates of vertically integrated density (VID)</h2>
 <p>Our goal is to estimate a spatial image of vertically integrated density (VID) based on all elevation scans of the radar, while accounting for the changing overlap between the radar beams as a function of range.</p>
 <p>We start with:</p>
 <ul>
@@ -206,7 +206,7 @@
 </div>
 <div id="example-estimating-a-vid-image" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-estimating-a-vid-image" class="anchor"></a>5. example: estimating a VID image</h2>
+<a href="#example-estimating-a-vid-image" class="anchor"></a>5 Example: estimating a VID image</h2>
 <p>Let’s first make a PPI plot of the lowest uncorrected scan:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># extract the first scan from the polar volume:</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>my_scan &lt;-<span class="st"> </span>example_pvol<span class="op">$</span>scans[[<span class="dv">1</span>]]</span>
@@ -239,7 +239,7 @@
 </div>
 <div id="overlap-between-radiation-profile-and-bird-profile" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overlap-between-radiation-profile-and-bird-profile" class="anchor"></a>6. overlap between radiation profile and bird profile</h2>
+<a href="#overlap-between-radiation-profile-and-bird-profile" class="anchor"></a>6 Overlap between radiation profile and bird profile</h2>
 <p>At large distances from the radar we expect correction for range effects to become more difficult:</p>
 <ol style="list-style-type: decimal">
 <li>radar beams start to overshoot the aerial layers with biology, i.e. the overlap between the vertical profile and the emitted radiation profile decreases</li>
@@ -261,7 +261,7 @@
 </div>
 <div id="to-do" class="section level2">
 <h2 class="hasAnchor">
-<a href="#to-do" class="anchor"></a>7. To do</h2>
+<a href="#to-do" class="anchor"></a>7 To do</h2>
 <ul>
 <li>implementation of a <code>noise_floor</code> parameter, by which one can determine at which distance birds are expected to be below noise level, given their vertical profile. Affects function <code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code>.</li>
 </ul>
@@ -274,13 +274,13 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#preparations">1. preparations</a></li>
-      <li><a href="#beam-propagation">2. beam propagation</a></li>
-      <li><a href="#vertical-profiles-and-polar-volumes">3. vertical profiles and polar volumes</a></li>
-      <li><a href="#spatial-estimates-of-vertically-integrated-density-vid">4. Spatial estimates of vertically integrated density (VID)</a></li>
-      <li><a href="#example-estimating-a-vid-image">5. example: estimating a VID image</a></li>
-      <li><a href="#overlap-between-radiation-profile-and-bird-profile">6. overlap between radiation profile and bird profile</a></li>
-      <li><a href="#to-do">7. To do</a></li>
+<li><a href="#preparations">1 Preparations</a></li>
+      <li><a href="#beam-propagation">2 Beam propagation</a></li>
+      <li><a href="#vertical-profiles-and-polar-volumes">3 Vertical profiles and polar volumes</a></li>
+      <li><a href="#spatial-estimates-of-vertically-integrated-density-vid">4 Spatial estimates of vertically integrated density (VID)</a></li>
+      <li><a href="#example-estimating-a-vid-image">5 Example: estimating a VID image</a></li>
+      <li><a href="#overlap-between-radiation-profile-and-bird-profile">6 Overlap between radiation profile and bird profile</a></li>
+      <li><a href="#to-do">7 To do</a></li>
       </ul>
 </div>
       </div>

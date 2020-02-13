@@ -66,6 +66,16 @@
 #'   is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
 #'   in case of undetects.
 #' }
+#' @examples
+#' # load example vp object
+#' data(example_vp)
+#' example_vp
+#'
+#' # check that the object is a vp object:
+#' is.vp(example_vp)
+#'
+#' # dimensions of the vp object:
+#' dim(vp)
 summary.vp <- function(object, ...) {
   print.vp(object)
 }

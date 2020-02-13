@@ -16,7 +16,10 @@
 #' IRIS RAW polar volume files.
 #'
 #' @examples
-#' volume <- system.file("extdata", "volume.h5", package = "bioRad")
+#' # locate example file:
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#'
+#' # check that the file is an ODIM hdf5 polar volume:
 #' is.pvolfile(volume) # > TRUE
 is.pvolfile <- function(file, filename = NULL) {
 
@@ -48,9 +51,11 @@ is.pvolfile <- function(file, filename = NULL) {
 #' @export
 #'
 #' @examples
-#' # locate a polar volume file
-#' pvol <- system.file("extdata", "volume.h5", package = "bioRad")
-#' get_odim_object_type(pvol) # > "pvol"
+#' # locate a polar volume file:
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#'
+#' # check the data type:
+#' get_odim_object_type(pvolfile) # > "PVOL"
 get_odim_object_type <- function(file) {
   if (!file.exists(file)) {
     warning(paste(file, "does not exist"))

@@ -45,18 +45,24 @@
 #' @examples
 #' # load an example scan:
 #' data(example_scan)
+#'
 #' # print summary info for the scan:
 #' example_scan
+#'
 #' # make ppi for the scan
 #' ppi <- project_as_ppi(example_scan)
+#'
 #' # grab a basemap that matches the extent of the ppi:
 #' \dontrun{
 #' basemap <- download_basemap(ppi)
+#'
 #' # map the reflectivity quantity of the ppi onto the basemap:
 #' map(ppi, map = basemap, param = "DBZH")
+#'
 #' # download a different type of basemap, e.g. a gray-scale image:
 #' # see get_map() in ggmap library for full documentation of options
 #' basemap <- download_basemap(ppi, maptype = "toner-lite")
+#'
 #' # map the radial velocities onto the line image:
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
