@@ -10,8 +10,8 @@
 #' @param alpha Transparency of the basemap (0-1).
 #' @param verbose Logical, whether to print information to console.
 #' @param source String identifying which map service should be used: "google", "osm" or "stamen"
-#' @param ... Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
-#' for selection of different types of basemaps.
+#' @param maptype Type of basemap to plot, see \link[ggmap]{get_map} for options
+#' @param ... Arguments to pass to \link[ggmap]{get_map} function.
 #'
 #' @export
 #'
@@ -27,13 +27,13 @@
 #' basemap <- download_basemap(ppi)
 #' # map the reflectivity quantity of the ppi onto the basemap:
 #' map(ppi, map = basemap, param = "DBZH")
-#' # download a different type of basemap, e.g. a line map:
+#' # download a different type of basemap, e.g. a gray-scale image:
 #' # see get_map() in ggmap library for full documentation of options
-#' basemap <- download_basemap(ppi, maptype = "toner")
-#' # map the radial velocities onto the satellite imagery:
+#' basemap <- download_basemap(ppi, maptype = "toner-lite")
+#' # map the radial velocities onto the line image:
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
-download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", ...) {
+download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", maptype = "terrain", ...) {
   stopifnot(inherits(x, "ppi"))
 
   if(is.na(raster::crs(x$data))){
@@ -67,6 +67,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
     location = location,
     zoom = use_zoom,
     source = source,
+    maptype = maptype,
     ...
   )
   bboxmap <- attributes(map)$bb
@@ -83,6 +84,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
         location = location,
         zoom = use_zoom - 1,
         source = source,
+        maptype = maptype,
         ...
       )
       bboxmap <- attributes(map)$bb
@@ -97,6 +99,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
           location = location,
           zoom = use_zoom - 2,
           source = source,
+          maptype = maptype,
           ...
         )
       }

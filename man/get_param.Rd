@@ -21,5 +21,6 @@ Get a scan parameter (\code{param}) from a scan (\code{scan})
 # we will extract a scan parameter from the example scan object:
 example_scan
 # extract the VRADH scan parameter
-myparam <- get_param(example_scan, "VRADH")
+my_param <- get_param(example_scan, "VRADH")
+my_param
 }

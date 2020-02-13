@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -353,7 +353,11 @@ and stored as quantity <code>overlap</code>.</p>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2000</span>))</div><div class='img'><img src='integrate_to_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>2000</span>)
 <span class='co'># plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># to overlay ppi objects on a background map, first</span>
+<span class='co'># download a basemap, and map the ppi:</span>
+<span class='co'># \dontrun{</span>
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 7 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
 <span class='co'># first define the raster:</span>
 <span class='no'>template_raster</span><span class='kw'>&lt;-</span><span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extent.html'>extent</a></span>(<span class='fl'>12</span>,<span class='fl'>13</span>,<span class='fl'>56</span>,<span class='fl'>57</span>), <span class='kw'>crs</span><span class='kw'>=</span><span class='kw pkg'>sp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span>(<span class='st'>'+proj=longlat'</span>))
 <span class='co'># project the ppi on the defined raster:</span>
@@ -368,11 +372,7 @@ and stored as quantity <code>overlap</code>.</p>
 #&gt; names      :          VIR,          VID,            R,      overlap,      eta_sum, eta_sum_expected 
 #&gt; min values :   0.00000000,   0.00000000,   0.00000000,   0.06252018,   0.00000000,     406.96716161 
 #&gt; max values : 6.052578e+04, 5.480034e+03, 6.151489e+01, 9.070487e-01, 6.468812e+04,     3.196694e+03 
-#&gt; </div><div class='input'><span class='co'># to overlay ppi objects on a background map, first</span>
-<span class='co'># download a basemap, and map the ppi:</span>
-<span class='co'># \dontrun{</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 10 ...</div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/546/313.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/547/313.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/548/313.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/546/314.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/547/314.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/548/314.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/546/315.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/547/315.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/548/315.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/546/316.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/547/316.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/548/316.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/546/317.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/547/317.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/548/317.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/546/318.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/547/318.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/10/548/318.png</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span>
+#&gt; </div><div class='input'><span class='co'># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span>
 <span class='co'># cropping the area up to 50000 meter from the radar.</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>,
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>500</span>,
@@ -380,7 +380,7 @@ and stored as quantity <code>overlap</code>.</p>
 )
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -400,7 +400,7 @@ and stored as quantity <code>overlap</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

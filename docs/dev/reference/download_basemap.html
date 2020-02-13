@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -157,7 +157,15 @@ layer map using get_map." />
 layer map using <a href='https://rdrr.io/pkg/ggmap/man/get_map.html'>get_map</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>download_basemap</span>(<span class='no'>x</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>zoom</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"stamen"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>download_basemap</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>zoom</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"stamen"</span>,
+  <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"terrain"</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,9 +193,12 @@ ppi extent is selected automatically.</p></td>
       <td><p>String identifying which map service should be used: "google", "osm" or "stamen"</p></td>
     </tr>
     <tr>
+      <th>maptype</th>
+      <td><p>Type of basemap to plot, see <a href='https://rdrr.io/pkg/ggmap/man/get_map.html'>get_map</a> for options</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Arguments to pass to <a href='https://rdrr.io/pkg/ggmap/man/get_map.html'>get_map</a> function. Note arguments <code>maptype</code> and <code>source</code>
-for selection of different types of basemaps.</p></td>
+      <td><p>Arguments to pass to <a href='https://rdrr.io/pkg/ggmap/man/get_map.html'>get_map</a> function.</p></td>
     </tr>
     </table>
 
@@ -204,14 +215,14 @@ for selection of different types of basemaps.</p></td>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
 <span class='co'># grab a basemap that matches the extent of the ppi:</span>
 <span class='co'># \dontrun{</span>
-<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/273/157.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/274/157.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/275/157.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/273/158.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/274/158.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/275/158.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/273/159.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/274/159.png</span></div><div class='output co'>#&gt; <span class='message'>Source : http://tile.stamen.com/terrain/9/275/159.png</span></div><div class='input'><span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='download_basemap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># download a different type of basemap, e.g. satellite imagery:</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='download_basemap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># download a different type of basemap, e.g. a line image:</span>
 <span class='co'># see get_map() in ggmap library for full documentation of options</span>
-<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"satellite"</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='error'>Error: invalid stamen maptype, see ?get_stamenmap</span></div><div class='input'><span class='co'># map the radial velocities onto the satellite imagery:</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"toner"</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='co'># map the radial velocities onto the line image:</span>
 <span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='img'><img src='download_basemap-2.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -228,7 +239,7 @@ for selection of different types of basemaps.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

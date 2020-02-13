@@ -4,7 +4,15 @@
 \alias{download_basemap}
 \title{Download a basemap for \code{map(ppi)}}
 \usage{
-download_basemap(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", ...)
+download_basemap(
+  x,
+  verbose = TRUE,
+  zoom,
+  alpha = 1,
+  source = "stamen",
+  maptype = "terrain",
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{ppi}.}
@@ -19,8 +27,9 @@ ppi extent is selected automatically.}
 
 \item{source}{String identifying which map service should be used: "google", "osm" or "stamen"}
 
-\item{...}{Arguments to pass to \link[ggmap]{get_map} function. Note arguments \code{maptype} and \code{source}
-for selection of different types of basemaps.}
+\item{maptype}{Type of basemap to plot, see \link[ggmap]{get_map} for options}
+
+\item{...}{Arguments to pass to \link[ggmap]{get_map} function.}
 }
 \description{
 Downloads a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
@@ -38,10 +47,10 @@ ppi <- project_as_ppi(example_scan)
 basemap <- download_basemap(ppi)
 # map the reflectivity quantity of the ppi onto the basemap:
 map(ppi, map = basemap, param = "DBZH")
-# download a different type of basemap, e.g. a line map:
+# download a different type of basemap, e.g. a line image:
 # see get_map() in ggmap library for full documentation of options
 basemap <- download_basemap(ppi, maptype = "toner")
-# map the radial velocities onto the satellite imagery:
+# map the radial velocities onto the line image:
 map(ppi, map = basemap, param = "VRADH")
 }
 }

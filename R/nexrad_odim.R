@@ -12,13 +12,14 @@
 #' @examples
 #' \dontrun{
 #' # download a NEXRAD file, save as KBGM_example
-#' download.file("https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06", "~/KBGM_example")
+#' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
+#' "2019/10/01/KBGM/KBGM20191001_000542_V06",sep=""), "~/KBGM_example")
 #' # convert to ODIM format
-#' nexrad_to_odim("KBGM_example", "KBGM_example.h5")
+#' nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")
 #' # verify that we have generated a polar volume in ODIM hdf5 format
-#' get_odim_object_type("KBGM_example.h5")
+#' get_odim_object_type("~/KBGM_example.h5")
 #' # clean up
-#' file.remove("KBGM_example", "KBGM_example.h5")
+#' file.remove("~/KBGM_example", "~/KBGM_example.h5")
 #' }
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
                            mount = dirname(pvolfile_nexrad)) {

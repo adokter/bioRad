@@ -74,7 +74,8 @@
 #' @examples
 #' \dontrun{
 #' # download a NEXRAD file, save as KBGM_example
-#' download.file("https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06", "~/KBGM_example")
+#' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
+#' "2019/10/01/KBGM/KBGM20191001_000542_V06",sep=""), "~/KBGM_example")
 #' # calculate MistNet segmentation:
 #' mistnet_pvol <- apply_mistnet("~/KBGM_example")
 #' # print summary info for the segmented elevation scan at 0.5 degree,

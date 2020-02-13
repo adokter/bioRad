@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -281,7 +281,7 @@ model (ODIM), see Table 16 in the
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
 <span class='co'># grab a basemap that matches the extent of the ppi:</span>
 <span class='co'># \dontrun{</span>
-<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='input'><span class='co'># }</span>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='co'># }</span>
 <span class='co'># map the radial velocity scan parameter onto the basemap:</span>
 <span class='co'># \dontrun{</span>
 <span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='img'><img src='map-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -299,7 +299,7 @@ model (ODIM), see Table 16 in the
 <span class='fu'>map</span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>12.4</span>, <span class='fl'>13.2</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>56</span>, <span class='fl'>56.5</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_rect).</span></div><div class='img'><img src='map-5.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -319,7 +319,7 @@ model (ODIM), see Table 16 in the
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

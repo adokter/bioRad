@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -254,24 +254,28 @@ scans at that spatial location &gt; 0.45</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example polar volume file:</span>
-<span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-
-<span class='co'># copy to a home directory with read/write permissions:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
+<span class='co'># download a NEXRAD file, save as KBGM_example</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"https://noaa-nexrad-level2.s3.amazonaws.com/"</span>,
+<span class='st'>"2019/10/01/KBGM/KBGM20191001_000542_V06"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>), <span class='st'>"~/KBGM_example"</span>)
 <span class='co'># calculate MistNet segmentation:</span>
-<span class='co'># \dontrun{</span>
-<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/volume.h5"</span>)
-<span class='co'># plot the MistNet class probability [0-1] for biology, for the first elevation scan:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
+<span class='no'>mistnet_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/KBGM_example"</span>)
+<span class='co'># print summary info for the segmented elevation scan at 0.5 degree,</span>
+<span class='co'># verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added:</span>
+<span class='no'>my_scan</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_scan.html'>get_scan</a></span>(<span class='no'>mistnet_pvol</span>,<span class='fl'>0.5</span>)
+<span class='co'># project the scan as a ppi:</span>
+<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>my_scan</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>100000</span>)
+<span class='co'># plot the reflectivity parameter:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"DBZH"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the MistNet class probability [0-1] for weather</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"WEATHER"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the MistNet class probability [0-1] for biology</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
 <span class='co'># areas classified as weather, and value 1 pixels that fall within an</span>
 <span class='co'># additional 5 km fringe around weather areas.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span><span class='kw'>=</span><span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># clean up:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -291,7 +295,7 @@ scans at that spatial location &gt; 0.45</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -181,10 +181,10 @@ vertical profiles) with name <code>example_vpts</code>.</p>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Threshold for sd_vvp not set, defaulting to 2 m/s</span></div><div class='input'><span class='fu'><a href='sd_vvp_threshold.html'>sd_vvp_threshold</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>2</span>
 <span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lat</span> <span class='kw'>&lt;-</span> <span class='fl'>42.2</span>
 <span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lon</span> <span class='kw'>&lt;-</span> -<span class='fl'>75.98</span>
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>example_vpts</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_vpts.rda"</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='st'>"xz"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open compressed file 'data/example_vpts.rda', probable reason 'No such file or directory'</span></div><div class='output co'>#&gt; <span class='error'>Error in xzfile(file, "wb", compression = 9): cannot open the connection</span></div><div class='input'># }
-</div></pre>
+<span class='co'>#save(example_vpts, file = "data/example_vpts.rda", compress = "xz")</span>
+<span class='co'># }</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#format">Format</a></li>
@@ -201,7 +201,7 @@ vertical profiles) with name <code>example_vpts</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
