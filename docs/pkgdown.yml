@@ -1,7 +1,11 @@
-pandoc: '2.5'
-pkgdown: 1.3.0
-pkgdown_sha: ~
+pandoc: '2.9'
+pkgdown: 1.4.1.9000
+pkgdown_sha: 48e12e0fc836ec8ca423b44656b97f719cd856c7
 articles:
   bioRad: bioRad.html
-  rad_aero_18: rad_aero_18.html
+  rad_aero_19: rad_aero_19.html
+  range_correction: range_correction.html
+urls:
+  reference: https://adokter.github.io/bioRad/reference
+  article: https://adokter.github.io/bioRad/articles
 

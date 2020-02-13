@@ -23,7 +23,7 @@ beam_profile(
 
 \item{elev}{numeric vector. Beam elevation(s) in degrees.}
 
-\item{antenna}{numeric. Height of the centre of the radar antenna in meters}
+\item{antenna}{numeric. Height of the center of the radar antenna in meters}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 angle between the half-power (-3 dB) points of the main lobe}
@@ -54,8 +54,22 @@ Beam profile is calculated using \link{beam_height} and
   emitted at antenna level.
 }
 \examples{
-plot(beam_profile(0:3000, 35000, c(1, 2)), 0:3000,
+# plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:
+plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000,
   xlab = "normalized radiated energy",
-  ylab = "altitude [m]", main = "beam elevations: 1,2 degrees; distance: 35 km"
+  ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km"
+)
+
+# plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:
+plot(beam_profile(height = 0:4000, 50000, 2), 0:4000,
+  xlab = "normalized radiated energy",
+  ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km"
+)
+
+# plot the combined beam profile for a 0.5 and 2.0 degree elevation beam
+# at 50 km distance from the radar:
+plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
+  xlab = "normalized radiated energy",
+  ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
 )
 }

@@ -44,12 +44,19 @@ integrated vertical profile(s)
 }}
 
 \examples{
+# load example data:
+data(example_vp)
+data(example_vpts)
+
 # retrieve RCS for a single vertical profile:
 rcs(example_vp)
+
 # retrieve RCS for a vertical profile time series:
 rcs(example_vpts)
+
 # change or set RCS for a single vertical profile:
 rcs(example_vp) <- 11
+
 # change or set RCS for a vertical profile time series:
 rcs(example_vpts) <- 11
 }

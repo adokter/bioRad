@@ -44,15 +44,26 @@ An object of class \code{pvol} is a list containing:
 \examples{
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+
 # print the local path of the volume file:
 pvolfile
+
 # load the file:
-pvol <- read_pvolfile(pvolfile)
+example_pvol <- read_pvolfile(pvolfile)
+
 # print summary info for the loaded polar volume:
-pvol
+example_pvol
+
+# verify that this is a pvol object:
+is.pvol(example_pvol)
+
 # print summary info for the scans in the polar volume:
-pvol$scans
-# copy the first scan to a new object 'scan'
-scan <- pvol$scans[[1]]
+example_pvol$scans
+
+# copy the first scan to a new object 'scan':
+scan <- example_pvol$scans[[1]]
+
+# print summary info for the scan:
+scan
 is.pvol("this is not a polar volume but a string") # > FALSE
 }

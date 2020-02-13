@@ -17,11 +17,13 @@ Select quantities by index from a \code{ppi}
 \examples{
 # make a ppi:
 my_ppi <- project_as_ppi(example_scan)
+
 # this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):
 my_ppi
-#
+
 # This ppi only contains the first quantity (VRADH):
 my_ppi[1]
+
 # This ppi contains the first three quantities (VRADH, DBZH, ZDR):
 my_ppi[1:3]
 }

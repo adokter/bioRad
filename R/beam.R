@@ -24,6 +24,18 @@
 #' large, making oblateness of the earth and the dependence of earth radius with
 #' latitude only a small correction. Using default values assumes an average
 #' earth's radius of 6371 km.
+#' @examples
+#' # beam height in meters at 10 km range for a 1 degree elevation beam:
+#' beam_height(10000, 1)
+#'
+#' # beam height in meters at 10 km range for a 3 and 5 degree elevation beam:
+#' beam_height(10000, c(3, 5))
+#'
+#' # define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
+#' range <- seq(0, 100000, 100)
+#'
+#' # plot the beam height of the 0.5 degree elevation beam:
+#' plot(range, beam_height(range, 0.5), ylab = "beam height [m]", xlab = "range [m]")
 beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
                         rp = 6357) {
   assert_that(is.numeric(range))
@@ -57,6 +69,15 @@ earth_radius <- function(a, b, lat) {
 #' @return numeric. Beam width in m.
 #'
 #' @export
+#' @examples
+#' #' # beam width in meters at 10 km range:
+#' beam_width(10000)
+#'
+#' # define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
+#' range <- seq(0, 100000, 100)
+#'
+#' # plot the beam width as a function of range:
+#' plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
 beam_width <- function(range, beam_angle = 1) {
   assert_that(is.numeric(range))
   assert_that(is.number(beam_angle))
@@ -70,7 +91,7 @@ beam_width <- function(range, beam_angle = 1) {
 #'
 #' @inheritParams beam_height
 #' @inheritParams beam_width
-#' @param antenna numeric. Height of the centre of the radar antenna in meters
+#' @param antenna numeric. Height of the center of the radar antenna in meters
 #' @param height numeric. Height in meter.
 #'
 #' @return numeric.
@@ -124,9 +145,23 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
 #'   emitted at antenna level.
 #'
 #' @examples
-#' plot(beam_profile(0:3000, 35000, c(1, 2)), 0:3000,
+#' # plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:
+#' plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000,
 #'   xlab = "normalized radiated energy",
-#'   ylab = "altitude [m]", main = "beam elevations: 1,2 degrees; distance: 35 km"
+#'   ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km"
+#' )
+#'
+#' # plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:
+#' plot(beam_profile(height = 0:4000, 50000, 2), 0:4000,
+#'   xlab = "normalized radiated energy",
+#'   ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km"
+#' )
+#'
+#' # plot the combined beam profile for a 0.5 and 2.0 degree elevation beam
+#' # at 50 km distance from the radar:
+#' plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
+#'   xlab = "normalized radiated energy",
+#'   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
 #' )
 beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
                          k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
@@ -189,6 +224,8 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' Calculates the distribution overlap between a vertical profile ('vp')
 #' and the vertical radiation profile of a set of emitted radar beams
 #' at various elevation angles as given by \link{beam_profile}.
+#'
+#' This function also calculates the \code{overlap} quantity in the output of \link{integrate_to_ppi}.
 #' @inheritParams beam_height
 #' @inheritParams beam_width
 #' @param vp a vertical profile of class vp
@@ -230,13 +267,18 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @examples
 #' # locate example volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#'
 #' # load the example polar volume file:
 #' pvol <- read_pvolfile(pvolfile)
+#'
 #' # let us use this example vertical profile:
+#' data(example_vp)
 #' example_vp
+#'
 #' # calculate overlap between vertical profile of birds
 #' # and the vertical radiation profile emitted by the radar:
 #' bpo <- beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0, 100000, 1000))
+#'
 #' # plot the calculated overlap:
 #' plot(bpo)
 beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
@@ -274,6 +316,9 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #' @export
 #'
 #' @details depends on \link{beam_height} to calculate beam height.
+#' @examples
+#' # down range of the 5 degree elevation beam at a slant range of 100 km:
+#' beam_distance(100000, 5)
 beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   er <- earth_radius(re, rp, lat)
   bh <- beam_height(range = range, elev = elev, k = k, lat = lat, re = re, rp = rp)
@@ -292,6 +337,9 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' @export
 #'
 #' @details depends on \link{beam_height} to calculate beam height.
+#' @examples
+#' # slant range of the 5 degree elevation beam at a down range of 100 km:
+#' beam_range(100000, 5)
 beam_range <- function(distance, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   er <- earth_radius(re, rp, lat)
   # to do: simplify trigonometry below

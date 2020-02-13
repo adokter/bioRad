@@ -19,10 +19,10 @@
 #' # locate example file:
 #' vptszipfile <- system.file("extdata", "vpts.txt.zip", package = "bioRad")
 #' \dontrun{
-#' unzip(vptszipfile, "your/directory/and/file/name.txt")
+#' # unzip(vptszipfile, "your/directory/and/file/name.txt")
 #' # load time series:
-#' ts <- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")
-#' ts
+#' # ts <- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")
+#' # ts
 #' }
 read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
   # input checks

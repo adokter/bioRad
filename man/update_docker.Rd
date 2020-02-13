@@ -8,7 +8,7 @@ update_docker(mistnet = FALSE)
 }
 \arguments{
 \item{mistnet}{logical. When True, installs MistNet segmentation model,
-downloading an additional 1Gb Docker image
+downloading an additional 1GB Docker image
 (see \link{apply_mistnet} for details).}
 }
 \value{
@@ -26,4 +26,10 @@ Run this command to ensure all Docker functionality (e.g. the
 
 To install the MistNet segmentation model into bioRad,
 run \code{update_docker(mistnet = TRUE)}
+}
+\examples{
+\dontrun{
+# update the vol2bird docker image:
+update_docker()
+}
 }

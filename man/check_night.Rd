@@ -64,5 +64,6 @@ check_night("2016-01-01 00:00", 5, 53)
 
 # check on bioRad objects directly:
 check_night(example_vp)
+
 check_night(example_vpts)
 }

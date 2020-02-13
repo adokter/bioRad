@@ -36,12 +36,15 @@ polar volume
 
 \examples{
 # load a polar volume
-pvol <- system.file("extdata", "volume.h5", package = "bioRad")
-vol <- read_pvolfile(pvol)
+pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+example_pvol <- read_pvolfile(pvolfile)
+
 # elevations for the scans in the volume
-get_elevation_angles(vol)
+get_elevation_angles(example_pvol)
+
 # extract the first scan:
-scan <- vol$scans[[1]]
+scan <- example_pvol$scans[[1]]
+
 # elevation angle of the scan:
 get_elevation_angles(scan)
 }

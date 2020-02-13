@@ -13,8 +13,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="range_correction_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Correction for range effects</h1>
@@ -117,15 +117,15 @@
     
 <div id="preparations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#preparations" class="anchor"></a>1. preparations</h2>
+<a href="#preparations" class="anchor"></a>1 Preparations</h2>
 <p>Load bioRad</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bioRad)</a></code></pre></div>
-<pre><code>## Welcome to bioRad version 0.5.0.9297</code></pre>
-<pre><code>## Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bioRad)</span></code></pre></div>
+<pre><code>## Welcome to bioRad version 0.5.0.9000</code></pre>
+<pre><code>## Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)</code></pre>
 </div>
 <div id="beam-propagation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#beam-propagation" class="anchor"></a>2. beam propagation</h2>
+<a href="#beam-propagation" class="anchor"></a>2 Beam propagation</h2>
 <p>We start with the changing properties of the radar beam as it propagates through the atmosphere. We define:</p>
 <ul>
 <li>
@@ -135,38 +135,38 @@
 <strong>distance</strong>: the distance of the target from the radar as measured along the earth’s surface, also known as <em>down range</em>.</li>
 </ul>
 <p>The beam height is changing as a result of earth’s curvature, and beam refraction:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># define a range grid from 0 to 200 km:</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">my_range &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>, <span class="dv">200000</span>, <span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># plot the beam height for each range, for a 0.5 degree elevation beam:</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_range, <span class="kw"><a href="../reference/beam_height.html">beam_height</a></span>(my_range, <span class="dt">elev =</span> <span class="fl">.5</span>), <span class="dt">xlab =</span> <span class="st">"range [m]"</span>, <span class="dt">ylab =</span> <span class="st">"beam height [m]"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># define a range grid from 0 to 200 km:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>my_range &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>, <span class="dv">200000</span>, <span class="dv">1000</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># plot the beam height for each range, for a 0.5 degree elevation beam:</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_range, <span class="kw"><a href="../reference/beam_height.html">beam_height</a></span>(my_range, <span class="dt">elev =</span> <span class="fl">.5</span>), <span class="dt">xlab =</span> <span class="st">"range [m]"</span>, <span class="dt">ylab =</span> <span class="st">"beam height [m]"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>The beam width also broadens with range:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># plot the beam width, for a beam opening angle of 1 degree (typical for most weather radars):</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_range, <span class="kw"><a href="../reference/beam_width.html">beam_width</a></span>(my_range, <span class="dt">beam_angle =</span> <span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">"range [m]"</span>, <span class="dt">ylab =</span> <span class="st">"beam width [m]"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># plot the beam width, for a beam opening angle of 1 degree (typical for most weather radars):</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_range, <span class="kw"><a href="../reference/beam_width.html">beam_width</a></span>(my_range, <span class="dt">beam_angle =</span> <span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">"range [m]"</span>, <span class="dt">ylab =</span> <span class="st">"beam width [m]"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>We can now combine the relations for beam width and beam height, to calculate the beam profile as a function of height, i.e. the altitudinal normalized distribution of radiated energy by the beam. Let’s plot the radiation profile for a 0.5 and 2 degree beam elevation at 50 km from the radar (the height axis runs from ground level straight up):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="../reference/beam_profile.html">beam_profile</a></span>(<span class="dt">height =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dv">50000</span>, <span class="fl">0.5</span>), <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dt">xlab =</span> <span class="st">"normalized radiated energy"</span>, <span class="dt">ylab =</span> <span class="st">"height [m]"</span>, <span class="dt">main =</span> <span class="st">"beam elevation: 0.5 deg, distance=50km"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="../reference/beam_profile.html">beam_profile</a></span>(<span class="dt">height =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dv">50000</span>, <span class="fl">0.5</span>), <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dt">xlab =</span> <span class="st">"normalized radiated energy"</span>, <span class="dt">ylab =</span> <span class="st">"height [m]"</span>, <span class="dt">main =</span> <span class="st">"beam elevation: 0.5 deg, distance=50km"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="../reference/beam_profile.html">beam_profile</a></span>(<span class="dt">height =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dv">50000</span>, <span class="dv">2</span>), <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dt">xlab =</span> <span class="st">"normalized radiated energy"</span>, <span class="dt">ylab =</span> <span class="st">"height [m]"</span>, <span class="dt">main =</span> <span class="st">"beam elevation: 2 deg, distance=50km"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="../reference/beam_profile.html">beam_profile</a></span>(<span class="dt">height =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dv">50000</span>, <span class="dv">2</span>), <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dt">xlab =</span> <span class="st">"normalized radiated energy"</span>, <span class="dt">ylab =</span> <span class="st">"height [m]"</span>, <span class="dt">main =</span> <span class="st">"beam elevation: 2 deg, distance=50km"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
 <p>We can also calculate the normalized radiation profile for the two beams combined:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># plot the combined beam profile for a 0.5 and 2.0 degree elevation beam at 50 km distance from the radar:</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="../reference/beam_profile.html">beam_profile</a></span>(<span class="dt">height =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dv">50000</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>, <span class="dv">2</span>)), <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dt">xlab =</span> <span class="st">"normalized radiated energy"</span>, <span class="dt">ylab =</span> <span class="st">"height [m]"</span>, <span class="dt">main =</span> <span class="st">"beam elevations: 0.5,2 deg, distance=50km"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># plot the combined beam profile for a 0.5 and 2.0 degree elevation beam at 50 km distance from the radar:</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="../reference/beam_profile.html">beam_profile</a></span>(<span class="dt">height =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dv">50000</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.5</span>, <span class="dv">2</span>)), <span class="dv">0</span><span class="op">:</span><span class="dv">4000</span>, <span class="dt">xlab =</span> <span class="st">"normalized radiated energy"</span>, <span class="dt">ylab =</span> <span class="st">"height [m]"</span>, <span class="dt">main =</span> <span class="st">"beam elevations: 0.5,2 deg, distance=50km"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="vertical-profiles-and-polar-volumes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vertical-profiles-and-polar-volumes" class="anchor"></a>3. vertical profiles and polar volumes</h2>
+<a href="#vertical-profiles-and-polar-volumes" class="anchor"></a>3 Vertical profiles and polar volumes</h2>
 <p>Let us now assume we have calculated a vertical profile (of birds) for a certain polar volume file. Let’s load an example</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># let's load an example polar volume:</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">pvolfile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">example_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="dt">file =</span> pvolfile)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co"># a vertical profile can also be calculated from the polar volume directly, using</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># calculate_vp(pvolfile)</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co"># but for now we will use bioRad's example vertical profile already calculated:</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">example_vp</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># let's load an example polar volume:</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>pvolfile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="dt">package =</span> <span class="st">"bioRad"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>example_pvol &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pvolfile.html">read_pvolfile</a></span>(<span class="dt">file =</span> pvolfile)</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># a vertical profile can also be calculated from the polar volume directly, using</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># calculate_vp(pvolfile)</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># but for now we will use bioRad's example vertical profile already calculated:</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>example_vp</span></code></pre></div>
 <pre><code>##                Vertical profile (class vp)
 ## 
 ##        radar:  seang 
@@ -174,15 +174,15 @@
 ## nominal time:  2015-10-18 18:00:00 
 ## generated by:  vol2bird 0.3.17</code></pre>
 <p>Let’s plot the vertical profile, for the quantity eta (the linear reflectivity):</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(example_vp, <span class="dt">quantity =</span> <span class="st">"eta"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(example_vp, <span class="dt">quantity =</span> <span class="st">"eta"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>Note that eta is directly related to reflectivity factor (DBZH), i.e. a reflectivity factor of 5 dBZ amounts to the following eta at a radar wavelength of 5.3 cm:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/dbz_to_eta.html">dbz_to_eta</a></span>(<span class="dv">5</span>, <span class="dt">wavelength =</span> <span class="fl">5.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="../reference/dbz_to_eta.html">dbz_to_eta</a></span>(<span class="dv">5</span>, <span class="dt">wavelength =</span> <span class="fl">5.3</span>)</span></code></pre></div>
 <pre><code>## [1] 1060.747</code></pre>
 </div>
 <div id="spatial-estimates-of-vertically-integrated-density-vid" class="section level2">
 <h2 class="hasAnchor">
-<a href="#spatial-estimates-of-vertically-integrated-density-vid" class="anchor"></a>4. Spatial estimates of vertically integrated density (VID)</h2>
+<a href="#spatial-estimates-of-vertically-integrated-density-vid" class="anchor"></a>4 Spatial estimates of vertically integrated density (VID)</h2>
 <p>Our goal is to estimate a spatial image of vertically integrated density (VID) based on all elevation scans of the radar, while accounting for the changing overlap between the radar beams as a function of range.</p>
 <p>We start with:</p>
 <ul>
@@ -206,89 +206,81 @@
 </div>
 <div id="example-estimating-a-vid-image" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-estimating-a-vid-image" class="anchor"></a>5. example: estimating a VID image</h2>
+<a href="#example-estimating-a-vid-image" class="anchor"></a>5 Example: estimating a VID image</h2>
 <p>Let’s first make a PPI plot of the lowest uncorrected scan:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># extract the first scan from the polar volume:</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">my_scan &lt;-<span class="st"> </span>example_pvol<span class="op">$</span>scans[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># project it as a PPI on the ground:</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">my_ppi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/project_as_ppi.html">project_as_ppi</a></span>(my_scan, <span class="dt">range_max =</span> <span class="dv">100000</span>)</a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co"># plot it</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_ppi)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># extract the first scan from the polar volume:</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>my_scan &lt;-<span class="st"> </span>example_pvol<span class="op">$</span>scans[[<span class="dv">1</span>]]</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># project it as a PPI on the ground:</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>my_ppi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/project_as_ppi.html">project_as_ppi</a></span>(my_scan, <span class="dt">range_max =</span> <span class="dv">100000</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co"># plot it</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_ppi)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>Now let’s calculate the range-corrected PPI</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># let's use a 500 metre spatial grid (res), and restrict to 100x100 km area</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">my_corrected_ppi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/integrate_to_ppi.html">integrate_to_ppi</a></span>(example_pvol, example_vp, <span class="dt">res =</span> <span class="dv">500</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">100000</span>, <span class="dv">100000</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">100000</span>, <span class="dv">100000</span>))</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">my_corrected_ppi</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># let's use a 500 metre spatial grid (res), and restrict to 100x100 km area</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>my_corrected_ppi &lt;-<span class="st"> </span><span class="kw"><a href="../reference/integrate_to_ppi.html">integrate_to_ppi</a></span>(example_pvol, example_vp, <span class="dt">res =</span> <span class="dv">500</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">100000</span>, <span class="dv">100000</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">100000</span>, <span class="dv">100000</span>))</span>
+<span id="cb15-3"><a href="#cb15-3"></a>my_corrected_ppi</span></code></pre></div>
 <pre><code>##                Plan position indicator (class ppi)
 ## 
 ##   quantities:  VIR VID R overlap eta_sum eta_sum_expected 
 ##         dims:  400 x 400 pixels</code></pre>
 <p>The range corrected PPI has four parameters: VIR, VID, R, overlap. Let’s plot the adjustment factor R:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># plot the adjustment factor R:</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_corrected_ppi, <span class="dt">param =</span> <span class="st">"R"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># plot the adjustment factor R:</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_corrected_ppi, <span class="dt">param =</span> <span class="st">"R"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>Let’s also plot the vertically integrated reflectivity:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_corrected_ppi, <span class="dt">param =</span> <span class="st">"VIR"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_corrected_ppi, <span class="dt">param =</span> <span class="st">"VIR"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>Or plot the vertically integrated density on a map:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">bm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_corrected_ppi)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>bm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/download_basemap.html">download_basemap</a></span>(my_corrected_ppi)</span></code></pre></div>
 <pre><code>## Downloading zoom = 8 ...</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/136/78.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/137/78.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/138/78.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/136/79.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/137/79.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/138/79.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/136/80.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/137/80.png</code></pre>
-<pre><code>## Source : http://tile.stamen.com/terrain/8/138/80.png</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw"><a href="../reference/map.html">map</a></span>(my_corrected_ppi, bm, <span class="dt">param =</span> <span class="st">"VIR"</span>, <span class="dt">alpha =</span> <span class="fl">.5</span>)</a></code></pre></div>
+<pre><code>## Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw"><a href="../reference/map.html">map</a></span>(my_corrected_ppi, bm, <span class="dt">param =</span> <span class="st">"VIR"</span>, <span class="dt">alpha =</span> <span class="fl">.5</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div id="overlap-between-radiation-profile-and-bird-profile" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overlap-between-radiation-profile-and-bird-profile" class="anchor"></a>6. overlap between radiation profile and bird profile</h2>
+<a href="#overlap-between-radiation-profile-and-bird-profile" class="anchor"></a>6 Overlap between radiation profile and bird profile</h2>
 <p>At large distances from the radar we expect correction for range effects to become more difficult:</p>
 <ol style="list-style-type: decimal">
 <li>radar beams start to overshoot the aerial layers with biology, i.e. the overlap between the vertical profile and the emitted radiation profile decreases</li>
 <li>at large distances weak biological echoes may get below the radar’s detection level</li>
 </ol>
 <p>We can calculate overlap between emitted radiation and the biological profile as follows:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># calculate overlap between vertical profile of birds</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co"># and the vertical radiation profile emitted by the radar:</span></a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">bpo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/beam_profile_overlap.html">beam_profile_overlap</a></span>(example_vp, <span class="kw"><a href="../reference/get_elevation_angles.html">get_elevation_angles</a></span>(example_pvol), <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>, <span class="dv">100000</span>, <span class="dv">1000</span>), <span class="dt">quantity =</span> <span class="st">"eta"</span>)</a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="co"># plot the calculated overlap:</span></a>
-<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bpo)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># calculate overlap between vertical profile of birds</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># and the vertical radiation profile emitted by the radar:</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>bpo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/beam_profile_overlap.html">beam_profile_overlap</a></span>(example_vp, <span class="kw"><a href="../reference/get_elevation_angles.html">get_elevation_angles</a></span>(example_pvol), <span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>, <span class="dv">100000</span>, <span class="dv">1000</span>), <span class="dt">quantity =</span> <span class="st">"eta"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co"># plot the calculated overlap:</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(bpo)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <p>The function first normalizes the vertical profile altitudinal distribution. This can be either using profile quantity eta or dens, whichever is preferred (note that dens, the density, is sometimes thresholded to zero based on radial velocity standard deviation, see <code><a href="../reference/sd_vvp_threshold.html">sd_vvp_threshold()</a></code>, while eta is not)</p>
 <p>It then calculates the overlap between the normalized vertical profile, and the normalized radiation profile as calculated with <code><a href="../reference/beam_profile.html">beam_profile()</a></code>, using a metric called the <a href="https://en.wikipedia.org/wiki/Bhattacharyya_distance">Bhattacharyya distance</a>. This metric is zero when there is no overlap, and 1 when the distributions are identical.</p>
 <p>The range-corrected PPI also contains a field <code>overlap</code>, which contains the same metric but then calculated on the grid of the PPI:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_corrected_ppi, <span class="dt">param =</span> <span class="st">"overlap"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(my_corrected_ppi, <span class="dt">param =</span> <span class="st">"overlap"</span>)</span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>The overlap metric might be used in the future to show only certain section of the PPI, based on their overlap value.</p>
 </div>
 <div id="to-do" class="section level2">
 <h2 class="hasAnchor">
-<a href="#to-do" class="anchor"></a>7. To do</h2>
+<a href="#to-do" class="anchor"></a>7 To do</h2>
 <ul>
 <li>implementation of a <code>noise_floor</code> parameter, by which one can determine at which distance birds are expected to be below noise level, given their vertical profile. Affects function <code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code>.</li>
 </ul>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#preparations">1. preparations</a></li>
-      <li><a href="#beam-propagation">2. beam propagation</a></li>
-      <li><a href="#vertical-profiles-and-polar-volumes">3. vertical profiles and polar volumes</a></li>
-      <li><a href="#spatial-estimates-of-vertically-integrated-density-vid">4. Spatial estimates of vertically integrated density (VID)</a></li>
-      <li><a href="#example-estimating-a-vid-image">5. example: estimating a VID image</a></li>
-      <li><a href="#overlap-between-radiation-profile-and-bird-profile">6. overlap between radiation profile and bird profile</a></li>
-      <li><a href="#to-do">7. To do</a></li>
+<li><a href="#preparations">1 Preparations</a></li>
+      <li><a href="#beam-propagation">2 Beam propagation</a></li>
+      <li><a href="#vertical-profiles-and-polar-volumes">3 Vertical profiles and polar volumes</a></li>
+      <li><a href="#spatial-estimates-of-vertically-integrated-density-vid">4 Spatial estimates of vertically integrated density (VID)</a></li>
+      <li><a href="#example-estimating-a-vid-image">5 Example: estimating a VID image</a></li>
+      <li><a href="#overlap-between-radiation-profile-and-bird-profile">6 Overlap between radiation profile and bird profile</a></li>
+      <li><a href="#to-do">7 To do</a></li>
       </ul>
 </div>
       </div>
@@ -302,7 +294,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

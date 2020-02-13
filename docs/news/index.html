@@ -8,32 +8,50 @@
 
 <title>Changelog • bioRad</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 
 <meta property="og:title" content="Changelog" />
-
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -45,6 +63,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -63,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -71,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +108,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rad_aero_18.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+    </li>
+    <li>
+      <a href="../articles/range_correction.html">Correction for range effects</a>
     </li>
   </ul>
 </li>
@@ -97,21 +119,27 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/adokter/bioRad">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -121,9 +149,63 @@
       <small>Source: <a href='https://github.com/adokter/bioRad/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="biorad-050" class="section level1">
+<h1 class="page-header">
+<a href="#biorad-050" class="anchor"></a>bioRad 0.5.0<small> Unreleased </small>
+</h1>
+<p>New CRAN release. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/6?closed=1">here</a>.</p>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an <code>ppi</code> image showing the density of animals on the earth’s surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See Kranstauber et al. (2020, in press) for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this vignette</a> for examples.</p></li>
+<li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is a new function to apply the convolution neural network “MistNet” on pvolfiles to separate biological and meteorological signals (see <a href="https://doi.org/10.1111/2041-210X.13280">Lin et al. 2019</a>). Results can be readily visualized with <code><a href="../reference/plot.ppi.html">plot.ppi()</a></code> and <code><a href="../reference/plot.scan.html">plot.scan()</a></code>. MistNet is now also a segmentation option in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href='https://github.com/adokter/bioRad/issues/262'>#262</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> now reads Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (<a href='https://github.com/adokter/bioRad/issues/222'>#222</a>). bioRad now also reads files containing single elevation scans and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> can calculate profiles from multiple files containing single elevation scans (<a href='https://github.com/adokter/bioRad/issues/221'>#221</a>).</p></li>
+</ul>
+<div id="newerfaster-conversions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#newerfaster-conversions" class="anchor"></a>Newer/faster conversions</h3>
+<ul>
+<li><p><code><a href="../reference/calculate_param.html">calculate_param()</a></code> is a new function to calculate parameters from existing parameters, e.g. reflectivity <code>eta</code> from reflectivity factor <code>DBZH</code> (<a href='https://github.com/adokter/bioRad/issues/287'>#287</a>).</p></li>
+<li><p><code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> is a new function to convert a <code>scan</code> into a <code>RasterBrick</code> compatible with package <a href="https://cran.r-project.org/package=raster">raster</a> (<a href='https://github.com/adokter/bioRad/issues/238'>#238</a>).</p></li>
+<li><p><code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> is a new function to convert a <code>scan</code> into a <code>SpatialPointsDataFrame</code> compatible with package <a href="https://cran.r-project.org/package=sp">sp</a> (<a href='https://github.com/adokter/bioRad/issues/238'>#238</a>).</p></li>
+<li><p><code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> is now much faster (<a href="https://github.com/adokter/bioRad/commit/e420e5d">e420e5d</a>) and accounts for earth’s curvature (<a href="https://github.com/adokter/bioRad/commit/820e85f">820e85f</a>).</p></li>
+</ul>
+</div>
+<div id="new-functions-describing-the-radar-beam-geometry" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-functions-describing-the-radar-beam-geometry" class="anchor"></a>New functions describing the radar beam geometry</h3>
+<ul>
+<li><p><code><a href="../reference/beam_distance.html">beam_distance()</a></code> and <code><a href="../reference/beam_range.html">beam_range()</a></code> are new functions to relate range (i.e. slant range), distance (i.e. down range) and height of the radar beam.</p></li>
+<li><p><code><a href="../reference/beam_profile.html">beam_profile()</a></code> is a new function to calculate for a set of beam elevations the altitudinal normalized distribution of radiated energy by those beams.</p></li>
+<li><p><code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code> is a new function to calculate the distribution overlap (in terms of Bhattacharyya distance) between a vertical profile (<code>vp</code>) and the vertical radiation profile of a set of emitted radar beams (given by <code><a href="../reference/beam_profile.html">beam_profile()</a></code>).</p></li>
+</ul>
+</div>
+<div id="additional-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#additional-features" class="anchor"></a>Additional features</h3>
+<ul>
+<li><p><code><a href="../reference/nyquist_velocity.html">nyquist_velocity()</a></code> is a new function to calculate the unambiguous velocity of Doppler radar from its pulse repetition frequency/frequencies (<a href='https://github.com/adokter/bioRad/issues/208'>#208</a>).</p></li>
+<li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> is a new function simplifying the selection of time ranges and instances in vertical profile time series (<code>vpts</code>) (<a href='https://github.com/adokter/bioRad/issues/241'>#241</a>).</p></li>
+<li><p>The definition of height-integrated velocity is now corrected (<a href='https://github.com/adokter/bioRad/issues/232'>#232</a>, <a href='https://github.com/adokter/bioRad/issues/233'>#233</a>, <a href="https://github.com/adokter/bioRad/commit/72be6d1">72be6d1</a>).</p></li>
+<li><p>Improved documentation of how mtr can be calculated from vid, u, v (<a href="https://github.com/adokter/bioRad/commit/6dce625">6dce625</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> now also reads quantities DBZ, TH, T, because these often occur in European data and are relevant for biological analysis (note that DBZ and T are not ODIM-compliant names) (<a href="https://github.com/adokter/bioRad/commit/5db08bd">5db08bd</a>).</p></li>
+<li><p><code><a href="../reference/plot.scan.html">plot.scan()</a></code> now has correct ordering of rays (<a href='https://github.com/adokter/bioRad/issues/285'>#285</a>).</p></li>
+<li><p><code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> now has correctly positioned and rounded speed barbs (<a href='https://github.com/adokter/bioRad/issues/277'>#277</a>, <a href='https://github.com/adokter/bioRad/issues/244'>#244</a>).</p></li>
+<li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>’s default unit of interval argument has been changed to seconds (<a href='https://github.com/adokter/bioRad/issues/234'>#234</a>).</p></li>
+<li><p><code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code>’s default projection is now on earth’s surface (<a href='https://github.com/adokter/bioRad/issues/280'>#280</a>).</p></li>
+<li><p><code>height</code> is now the default quantity denoting height above mean sea level. <code>HGHT</code> is deprecated (<a href='https://github.com/adokter/bioRad/issues/273'>#273</a>).</p></li>
+<li><p><code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> and <code><a href="../reference/plot.vp.html">plot.vp()</a></code> plots are shifted up by half the height interval to reflect that height refers to the bottom of the height interval (<a href='https://github.com/adokter/bioRad/issues/277'>#277</a>, <a href='https://github.com/adokter/bioRad/issues/198'>#198</a>).</p></li>
+<li><p><code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>’s default <code>sd_vvp_threshold</code> parameter value at S-band is now 1 m/s (<a href='https://github.com/adokter/bioRad/issues/93'>#93</a>).</p></li>
+<li><p>And many small bug fixes and documentation improvements.</p></li>
+</ul>
+</div>
+</div>
+</div>
     <div id="biorad-040" class="section level1">
 <h1 class="page-header">
-<a href="#biorad-040" class="anchor"></a>bioRad 0.4.0</h1>
+<a href="#biorad-040" class="anchor"></a>bioRad 0.4.0<small> 2018-12-14 </small>
+</h1>
 <p>First release on CRAN! All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/4?closed=1">here</a>.</p>
 <ul>
 <li><p><code><a href="../reference/get_param.html">get_param()</a></code> added as new function to get parameters from scan (<a href='https://github.com/adokter/bioRad/issues/132'>#132</a>).</p></li>
@@ -139,12 +221,13 @@
 </div>
     <div id="biorad-030" class="section level1">
 <h1 class="page-header">
-<a href="#biorad-030" class="anchor"></a>bioRad 0.3.0</h1>
+<a href="#biorad-030" class="anchor"></a>bioRad 0.3.0<small> Unreleased </small>
+</h1>
 <p>Release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1?closed=1">here</a>.</p>
 <ul>
 <li><p>Functions (<a href='https://github.com/adokter/bioRad/issues/84'>#84</a>), arguments (<a href='https://github.com/adokter/bioRad/issues/112'>#112</a>) and objects (<a href='https://github.com/adokter/bioRad/issues/80'>#80</a>) have been renamed to be consistent (<a href='https://github.com/adokter/bioRad/issues/51'>#51</a>). Deprecated functions will remain functional for now, but we will trigger a warning: <strong>we advise to use the new functions names</strong>. See the lists for <a href="../reference/">current functions</a> and <a href="../reference/bioRad-deprecated.html">deprecated functions</a>.</p></li>
 <li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> replaces the functionality of <code><a href="../reference/bioRad-deprecated.html">cmt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/75'>#75</a>) and <code><a href="../reference/bioRad-deprecated.html">mt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/76'>#76</a>).</p></li>
-<li><p><code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> can now be used for scans (<a href='https://github.com/adokter/bioRad/issues/71'>#71</a>), e.g. <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(example_scan)</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> can now be used for scans (<a href='https://github.com/adokter/bioRad/issues/71'>#71</a>), e.g. <code><a href="https://rdrr.io/r/graphics/plot.html">plot(example_scan)</a></code>.</p></li>
 <li><p>Functions are <a href="../reference/">organized in sections</a> on the website (<a href='https://github.com/adokter/bioRad/issues/110'>#110</a>).</p></li>
 <li><p>Changelog section (this page) has been added to website (<a href='https://github.com/adokter/bioRad/issues/144'>#144</a>).</p></li>
 <li><p>Package R code is reorganized as one function = one file for easier maintenance (<a href='https://github.com/adokter/bioRad/issues/50'>#50</a>).</p></li>
@@ -155,10 +238,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#biorad-050">0.5.0</a></li>
         <li><a href="#biorad-040">0.4.0</a></li>
         <li><a href="#biorad-030">0.3.0</a></li>
       </ul>
@@ -167,19 +251,40 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='http://adriaandokter.com'>Adriaan M. Dokter</a>, <a href='https://twitter.com/peterdesmet'>Peter Desmet</a>, <a href='https://twitter.com/SVanHoey'>Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '482e77c49caf113078e572738762cf40',
+    indexName: 'biorad',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
+
 
   </body>
 </html>
+
 

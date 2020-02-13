@@ -37,6 +37,18 @@
 #'  \item{"\code{PHIDP}"}{Differential phase [degrees]}
 #'  \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
 #' }
+#' @examples
+#' # load example scan object
+#' data(example_scan)
+#'
+#' # extract the DBZH scan parameter:
+#' param <- get_param(example_scan, "DBZH")
+#'
+#' # verify this is an object of class param:
+#' is.param(param)
+#'
+#' # print summary info for this scan parameter:
+#' param
 summary.param <- function(object, ...) {
   print.param(object)
 }

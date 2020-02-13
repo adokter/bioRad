@@ -59,7 +59,7 @@ it can estimate a segmentation mask that identifies pixels with weather
 that should be removed when interested only in biological data.
 
 MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
-to a 100% probability) as additional scan parameters to the polar volume:
+to a 100\% probability) as additional scan parameters to the polar volume:
 \describe{
 \item{"\code{BACKGROUND}"}{class probability that no signal was detected above the noise level of the radar}
 \item{"\code{WEATHER}"}{class probability that weather was detected}
@@ -76,32 +76,47 @@ that are located within 5 km distance of a weather pixels}
 
 A pixel is classified as weather if the class probability \code{WEATHER} > 0.45
 or when the average class probability for rain across all five MistNet elevation
-scans at that spatial location > 0.45
+scans at that spatial location > 0.45.
 
 MistNet may run more slowly on Windows than on Linux or Mac OSX.
 
 See Lin et al. 2019 for details.
 }
 \examples{
-# locate example polar volume file:
-pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-
-# copy to a home directory with read/write permissions:
-file.copy(pvolfile, "~/volume.h5")
+\dontrun{
+# download a NEXRAD file, save as KBGM_example
+download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
+  "2019/10/01/KBGM/KBGM20191001_000542_V06",
+  sep = ""
+), "~/KBGM_example")
 
 # calculate MistNet segmentation:
-\dontrun{
-example_pvol <- apply_mistnet("~/volume.h5")
-# plot the MistNet class probability [0-1] for biology, for the first elevation scan:
-plot(example_pvol$scans[[1]], param = "BIOLOGY")
+mistnet_pvol <- apply_mistnet("~/KBGM_example")
+
+# print summary info for the segmented elevation scan at 0.5 degree,
+# verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added:
+my_scan <- get_scan(mistnet_pvol, 0.5)
+
+# project the scan as a ppi:
+my_ppi <- project_as_ppi(my_scan, range_max = 100000)
+
+# plot the reflectivity parameter:
+plot(my_ppi, param = "DBZH")
+
+# plot the MistNet class probability [0-1] for weather
+plot(my_ppi, param = "WEATHER")
+
+# plot the MistNet class probability [0-1] for biology
+plot(my_ppi, param = "BIOLOGY")
+
 # plot the final segmentation result, with values >1 indicating
 # areas classified as weather, and value 1 pixels that fall within an
 # additional 5 km fringe around weather areas.
-plot(example_pvol$scans[[1]], param = "CELL")
-}
+plot(my_ppi, param = "CELL")
 
 # clean up:
-file.remove("~/volume.h5")
+file.remove("~/KBGM_example")
+}
 }
 \references{
 Please also cite this publication when using MistNet:

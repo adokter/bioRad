@@ -1,6 +1,6 @@
 #' Identify \code{NaN} in a dataframe.
 #'
-#' Identify cells with \code{NaN} in a data frame. Improve on the defeault
+#' Identify cells with \code{NaN} in a data frame. Improve on the default
 #' \code{is.nan()} function, which only works on vectors, by allowing
 #' data frames as input.
 #'

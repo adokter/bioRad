@@ -128,7 +128,7 @@ using the function \link{integrate_profile}.
 factor image (\code{R}), multiplied by the \code{vid}
 calculated for the profile
 \item the spatial range-corrected PPI for \code{VIR}, defined as the
-adjusmtent factor \code{R}, multiplied by the \code{vir} calculated for the profile.
+adjustment factor \code{R}, multiplied by the \code{vir} calculated for the profile.
 }
 
 If one of \code{lat} or \code{lon} is missing, the extent of the PPI is taken equal to
@@ -143,31 +143,42 @@ scans at 90 degree beam elevation (birdbath scans) are ignored.
 \examples{
 # locate example polar volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+
 # load polar volume
 example_pvol <- read_pvolfile(pvolfile)
+
 # load the corresponding vertical profile for this polar volume
 data(example_vp)
+
 # calculate the range-corrected ppi on a 50x50 pixel raster
 my_ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 50, ny = 50)
+
 # plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:
 plot(my_ppi, zlim = c(0, 2000))
+
 # calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:
 my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 2000)
+
 # plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:
 plot(my_ppi, param = "VID", zlim = c(0, 200))
-# the ppi can also be projected on a user-defined raster, as follows:
-# first define the raster:
-template_raster <- raster::raster(raster::extent(12, 13, 56, 57), crs = sp::CRS("+proj=longlat"))
-# project the ppi on the defined raster:
-my_ppi <- integrate_to_ppi(example_pvol, example_vp, raster = template_raster)
-# extract the raster data from the ppi object:
-raster::brick(my_ppi$data)
+
 # to overlay ppi objects on a background map, first
 # download a basemap, and map the ppi:
 \dontrun{
 bm <- download_basemap(my_ppi)
 map(my_ppi, bm)
 }
+
+# the ppi can also be projected on a user-defined raster, as follows:
+# first define the raster:
+template_raster <- raster::raster(raster::extent(12, 13, 56, 57), crs = sp::CRS("+proj=longlat"))
+
+# project the ppi on the defined raster:
+my_ppi <- integrate_to_ppi(example_pvol, example_vp, raster = template_raster)
+
+# extract the raster data from the ppi object:
+raster::brick(my_ppi$data)
+
 # calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
 # cropping the area up to 50000 meter from the radar.
 my_ppi <- integrate_to_ppi(example_pvol, example_vp,
@@ -178,12 +189,13 @@ plot(my_ppi, param = "VID", zlim = c(0, 200))
 }
 \references{
 \itemize{
+  \item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
+  Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
+  Bird Movements Estimated from a Weather Radar Network. Remote Sensing, in
+  press.
   \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
   stopover using weather surveillance radar. IEEE Transactions on Geoscience
   and Remote Sensing 47: 2741-2751.
   \url{https://doi.org/10.1109/TGRS.2009.2014463}
-\item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
-Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
-Bird Movements Estimated from a Weather Radar Network. Remote Sensing, in
-press. }
+}
 }

@@ -32,12 +32,19 @@ See also \link{rcs} for retrieving the radar cross section
 of an object.
 }
 \examples{
+# load example data
+data(example_vp)
+data(example_vpts)
+
 # change or set RCS for a single vertical profile:
 rcs(example_vp) <- 11
+
 # change or set RCS for a vertical profile time series:
 rcs(example_vpts) <- 11
+
 # retrieve RCS for a single vertical profile:
 rcs(example_vp)
+
 # retrieve RCS for a vertical profile time series:
 rcs(example_vpts)
 }

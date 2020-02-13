@@ -30,3 +30,7 @@ for a given beam elevation and slant range.
 \details{
 depends on \link{beam_height} to calculate beam height.
 }
+\examples{
+# down range of the 5 degree elevation beam at a slant range of 100 km:
+beam_distance(100000, 5)
+}

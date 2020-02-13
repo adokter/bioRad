@@ -7,6 +7,11 @@
 #' @export
 #' @return 0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
 #' 2 if Docker daemon not running, 3 if Docker daemon not found.
+#' @examples
+#' \dontrun{
+#' # check if Docker is running and vol2bird image is available:
+#' check_docker()
+#' }
 check_docker <- function(verbose = TRUE) {
   check <- vol2bird_version() # note: the vol2bird_version() call also sets .pkgenv$mistnet
 
@@ -39,7 +44,7 @@ check_docker <- function(verbose = TRUE) {
 #'
 #' Pulls and installs the latest Docker image used by bioRad from Docker hub
 #' @param mistnet logical. When True, installs MistNet segmentation model,
-#' downloading an additional 1Gb Docker image
+#' downloading an additional 1GB Docker image
 #' (see \link{apply_mistnet} for details).
 #' @details
 #' This command pulls the latest
@@ -52,6 +57,11 @@ check_docker <- function(verbose = TRUE) {
 #' run \code{update_docker(mistnet = TRUE)}
 #' @export
 #' @return the POSIXct creation date of the installed Docker image
+#' @examples
+#' \dontrun{
+#' # update the vol2bird docker image:
+#' update_docker()
+#' }
 update_docker <- function(mistnet = FALSE) {
   creationDate <- NULL
 
@@ -177,6 +187,11 @@ mount_docker_container <- function(mount = "~/") {
 #' vol2bird installation, see \link{calculate_vp} for details.
 #' @return an object of class \link{numeric_version}, NA if docker system command not available,
 #' NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
+#' @examples
+#' \dontrun{
+#' # check installed vol2bird version:
+#' vol2bird_version()
+#' }
 vol2bird_version <- function(local_install) {
   creationDate <- NA
 

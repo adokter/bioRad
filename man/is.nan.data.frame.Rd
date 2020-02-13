@@ -15,7 +15,7 @@ for whether each cell in the original data frame is a number or not.
 \code{NaN} means 'Not a Number'.
 }
 \description{
-Identify cells with \code{NaN} in a data frame. Improve on the defeault
+Identify cells with \code{NaN} in a data frame. Improve on the default
 \code{is.nan()} function, which only works on vectors, by allowing
 data frames as input.
 }

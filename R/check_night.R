@@ -36,6 +36,7 @@
 #'
 #' # check on bioRad objects directly:
 #' check_night(example_vp)
+#'
 #' check_night(example_vpts)
 check_night <- function(x, ..., elev = -0.268) {
   UseMethod("check_night", x)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>calculate an image (PPI) of vertically integrated density adjusted for range effects — integrate_to_ppi • bioRad</title>
+<title>Calculate a plan position indicator (<code>ppi</code>) of vertically integrated density adjusted for range effects — integrate_to_ppi • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -48,12 +48,14 @@
 
 
 
-<meta property="og:title" content="calculate an image (PPI) of vertically integrated density adjusted for range effects — integrate_to_ppi" />
-<meta property="og:description" content="This function estimates a spatial image (PPI object) of vertically integrated density (VID) based on
-all elevation scans of the radar, while accounting for the changing overlap between the radar beams
-as a function of range. The resulting PPI is a vertical integration over the layer of biological scatterers
-based on all available elevation scans, corrected for range effects due to partial beam overlap with
-the layer of biological echoes (overshooting) at larger distances from the radar. The methodology is
+<meta property="og:title" content="Calculate a plan position indicator (<code>ppi</code>) of vertically integrated density adjusted for range effects — integrate_to_ppi" />
+<meta property="og:description" content="This function estimates a spatial image (PPI object) of vertically integrated
+density (VID) based on all elevation scans of the radar, while
+accounting for the changing overlap between the radar beams as a function of
+range. The resulting PPI is a vertical integration over the layer of
+biological scatterers based on all available elevation scans, corrected for
+range effects due to partial beam overlap with the layer of biological echoes
+(overshooting) at larger distances from the radar. The methodology is
 described in detail in Kranstauber et al. (2020)." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -88,7 +90,7 @@ described in detail in Kranstauber et al. (2020)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -151,17 +153,19 @@ described in detail in Kranstauber et al. (2020)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>calculate an image (PPI) of vertically integrated density adjusted for range effects</h1>
+    <h1>Calculate a plan position indicator (<code>ppi</code>) of vertically integrated density adjusted for range effects</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/integrate_to_ppi.R'><code>R/integrate_to_ppi.R</code></a></small>
     <div class="hidden name"><code>integrate_to_ppi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function estimates a spatial image (PPI object) of vertically integrated density (<code>VID</code>) based on
-all elevation scans of the radar, while accounting for the changing overlap between the radar beams
-as a function of range. The resulting PPI is a vertical integration over the layer of biological scatterers
-based on all available elevation scans, corrected for range effects due to partial beam overlap with
-the layer of biological echoes (overshooting) at larger distances from the radar. The methodology is
+    <p>This function estimates a spatial image (PPI object) of vertically integrated
+density (<code>VID</code>) based on all elevation scans of the radar, while
+accounting for the changing overlap between the radar beams as a function of
+range. The resulting PPI is a vertical integration over the layer of
+biological scatterers based on all available elevation scans, corrected for
+range effects due to partial beam overlap with the layer of biological echoes
+(overshooting) at larger distances from the radar. The methodology is
 described in detail in Kranstauber et al. (2020).</p>
     </div>
 
@@ -317,7 +321,7 @@ using the function <a href='integrate_profile.html'>integrate_profile</a>.</p></
 factor image (<code>R</code>), multiplied by the <code>vid</code>
 calculated for the profile</p></li>
 <li><p>the spatial range-corrected PPI for <code>VIR</code>, defined as the
-adjusmtent factor <code>R</code>, multiplied by the <code>vir</code> calculated for the profile.</p></li>
+adjustment factor <code>R</code>, multiplied by the <code>vir</code> calculated for the profile.</p></li>
 </ul>
 
 <p>If one of <code>lat</code> or <code>lon</code> is missing, the extent of the PPI is taken equal to
@@ -330,34 +334,49 @@ and stored as quantity <code>overlap</code>.</p>
 
     
 <ul>
-<li><p>Jefrey J. Buler and Robert H. Diehl. Quantifying bird density during
-  migratory stopover using weather surveillance radar. IEEE Transactions on Geoscience
-  and Remote Sensing 47 (2009): 2741-2751.
+<li><p>Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
+  Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
+  Bird Movements Estimated from a Weather Radar Network. Remote Sensing, in
+  press.</p></li>
+<li><p>Buler JJ &amp; Diehl RH (2009) Quantifying bird density during migratory
+  stopover using weather surveillance radar. IEEE Transactions on Geoscience
+  and Remote Sensing 47: 2741-2751.
   <a href='https://doi.org/10.1109/TGRS.2009.2014463'>https://doi.org/10.1109/TGRS.2009.2014463</a></p></li>
-<li><p>Bart Kranstauber, Willem Bouten, Hidde Leijnse, Berend Wijers, Liesbeth Verlinden,
-  Judy Z. Shamoun-Baranes , Adriaan M. Dokter.  High-Resolution Spatial Distribution of
-  Bird Movements Estimated from a Weather Radar Network. Remote Sensing (2020), in press.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># locate example polar volume file:</span>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+
 <span class='co'># load polar volume</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
+
 <span class='co'># load the corresponding vertical profile for this polar volume</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vp</span>)
+
 <span class='co'># calculate the range-corrected ppi on a 50x50 pixel raster</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>nx</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>ny</span> <span class='kw'>=</span> <span class='fl'>50</span>)
+
 <span class='co'># plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2000</span>))</div><div class='img'><img src='integrate_to_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2000</span>))</div><div class='img'><img src='integrate_to_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>2000</span>)
+
 <span class='co'># plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># to overlay ppi objects on a background map, first</span>
+<span class='co'># download a basemap, and map the ppi:</span>
+<span class='co'># \dontrun{</span>
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 7 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+
+<span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
 <span class='co'># first define the raster:</span>
-<span class='no'>template_raster</span><span class='kw'>&lt;-</span><span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extent.html'>extent</a></span>(<span class='fl'>12</span>,<span class='fl'>13</span>,<span class='fl'>56</span>,<span class='fl'>57</span>), <span class='kw'>crs</span><span class='kw'>=</span><span class='kw pkg'>sp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span>(<span class='st'>'+proj=longlat'</span>))
+<span class='no'>template_raster</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extent.html'>extent</a></span>(<span class='fl'>12</span>, <span class='fl'>13</span>, <span class='fl'>56</span>, <span class='fl'>57</span>), <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw pkg'>sp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span>(<span class='st'>"+proj=longlat"</span>))
+
 <span class='co'># project the ppi on the defined raster:</span>
-<span class='no'>my_ppi</span><span class='kw'>&lt;-</span><span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>raster</span><span class='kw'>=</span><span class='no'>template_raster</span>)
+<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>raster</span> <span class='kw'>=</span> <span class='no'>template_raster</span>)
+
 <span class='co'># extract the raster data from the ppi object:</span>
 <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span>(<span class='no'>my_ppi</span>$<span class='no'>data</span>)</div><div class='output co'>#&gt; class      : RasterBrick 
 #&gt; dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)
@@ -368,21 +387,16 @@ and stored as quantity <code>overlap</code>.</p>
 #&gt; names      :          VIR,          VID,            R,      overlap,      eta_sum, eta_sum_expected 
 #&gt; min values :   0.00000000,   0.00000000,   0.00000000,   0.06252018,   0.00000000,     406.96716161 
 #&gt; max values : 6.052578e+04, 5.480034e+03, 6.151489e+01, 9.070487e-01, 6.468812e+04,     3.196694e+03 
-#&gt; </div><div class='input'><span class='co'># to overlay ppi objects on a background map, first</span>
-<span class='co'># download a basemap, and map the ppi:</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)
-}
+#&gt; </div><div class='input'>
 <span class='co'># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span>
 <span class='co'># cropping the area up to 50000 meter from the radar.</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>,
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>500</span>,
   <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>)
 )
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -402,7 +416,7 @@ and stored as quantity <code>overlap</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

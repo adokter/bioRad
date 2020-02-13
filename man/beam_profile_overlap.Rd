@@ -65,7 +65,9 @@ and the vertical radiation profile of a set of emitted radar beams
 at various elevation angles as given by \link{beam_profile}.
 }
 \details{
-Overlap is calculated as the  [Bhattacharyya coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
+This function also calculates the \code{overlap} quantity in the output of \link{integrate_to_ppi}.
+
+ Overlap is calculated as the  [Bhattacharyya coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
 (i.e. distribution overlap) between the (normalized) vertical profile vp and the (normalized)
 radiation coverage pattern as calculated by \link{beam_profile}.
 
@@ -88,13 +90,18 @@ If returned signal is lower, the gate is below noise level.
 \examples{
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+
 # load the example polar volume file:
 pvol <- read_pvolfile(pvolfile)
+
 # let us use this example vertical profile:
+data(example_vp)
 example_vp
+
 # calculate overlap between vertical profile of birds
 # and the vertical radiation profile emitted by the radar:
 bpo <- beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0, 100000, 1000))
+
 # plot the calculated overlap:
 plot(bpo)
 }

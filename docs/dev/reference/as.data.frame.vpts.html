@@ -25,8 +25,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -85,7 +85,7 @@ and derived quantities like migration traffic rates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -240,7 +240,12 @@ thresholded by <a href='sd_vvp_threshold.html'>sd_vvp_threshold</a>.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load an example vertical profile time series object</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
-
+<span class='no'>example_vpts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  1934 
+#&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 
+#&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'>
 <span class='co'># convert the object to a data.frame</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>example_vpts</span>)
 
@@ -249,9 +254,44 @@ thresholded by <a href='sd_vvp_threshold.html'>sd_vvp_threshold</a>.</p>
 
 <span class='co'># override the latitude/longitude information stored in the object</span>
 <span class='co'># when calculating sunrise / sunset</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>example_vpts</span>, <span class='kw'>suntime</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div></pre>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>example_vpts</span>, <span class='kw'>suntime</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+
+<span class='co'># print first then rows of data.frame to console:</span>
+<span class='no'>df</span>[<span class='fl'>1</span>:<span class='fl'>10</span>, ]</div><div class='output co'>#&gt;    radar            datetime height    u     v     w   ff    dd sd_vvp   gap
+#&gt; 1   KBGM 2016-09-01 00:02:00      0  NaN   NaN   NaN  NaN   NaN    NaN  TRUE
+#&gt; 2   KBGM 2016-09-01 00:02:00    200  NaN   NaN   NaN  NaN   NaN    NaN  TRUE
+#&gt; 3   KBGM 2016-09-01 00:02:00    400  NaN   NaN   NaN  NaN   NaN   2.81  TRUE
+#&gt; 4   KBGM 2016-09-01 00:02:00    600 4.14  3.84 12.17 5.65  47.2   2.80 FALSE
+#&gt; 5   KBGM 2016-09-01 00:02:00    800 5.06  0.24 15.17 5.07  87.2   2.42 FALSE
+#&gt; 6   KBGM 2016-09-01 00:02:00   1000 4.74 -2.69 18.48 5.45 119.6   2.38 FALSE
+#&gt; 7   KBGM 2016-09-01 00:02:00   1200 4.41 -4.09 -2.49 6.02 132.9   2.29 FALSE
+#&gt; 8   KBGM 2016-09-01 00:02:00   1400 4.78 -3.55 -2.96 5.96 126.6   2.34 FALSE
+#&gt; 9   KBGM 2016-09-01 00:02:00   1600 3.75 -3.03 -7.32 4.82 128.9   2.62 FALSE
+#&gt; 10  KBGM 2016-09-01 00:02:00   1800 4.14 -2.03 -5.69 4.61 116.1   3.06 FALSE
+#&gt;       dbz  eta        dens   DBZH    n n_dbz n_all n_dbz_all lat lon
+#&gt; 1     NaN  NaN         NaN    NaN    0     0     0         0  50   4
+#&gt; 2     NaN  NaN         NaN    NaN    0     0     0         0  50   4
+#&gt; 3    1.54 30.8 2.800000000   3.77  326   356 22485     28416  50   4
+#&gt; 4    3.36 46.9 4.263636364   0.50 9006 13442 65947    104455  50   4
+#&gt; 5   -7.89  3.5 0.318181818 -10.33 2313 11145 21321     63542  50   4
+#&gt; 6  -16.17  0.5 0.045454545 -15.58  652  8851 11789     38006  50   4
+#&gt; 7  -19.61  0.2 0.018181818 -16.93  990  8026  8434     25583  50   4
+#&gt; 8  -22.72  0.1 0.009090909 -19.60  407  9945  2718     20376  50   4
+#&gt; 9  -24.65  0.1 0.009090909 -24.28  247 11786   442     14716  50   4
+#&gt; 10 -25.29  0.1 0.009090909 -25.38  154 10878   163     11482  50   4
+#&gt;    height_antenna   day             sunrise              sunset
+#&gt; 1             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 2             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 3             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 4             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 5             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 6             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 7             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 8             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 9             519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38
+#&gt; 10            519 FALSE 2016-09-01 05:03:05 2016-09-01 18:23:38</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -270,7 +310,7 @@ thresholded by <a href='sd_vvp_threshold.html'>sd_vvp_threshold</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

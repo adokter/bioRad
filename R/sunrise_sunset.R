@@ -23,8 +23,10 @@
 #' @examples
 #' # sunrise in the Netherlands
 #' sunrise("2016-01-01", 5, 53)
+#'
 #' # sunset in the Netherlands
 #' sunset("2016-01-01", 5, 53)
+#'
 #' # civil twilight in Ithaca, NY, today
 #' sunrise(Sys.time(), -76.5, 42.4, elev = -6)
 #' @name sunrise_sunset

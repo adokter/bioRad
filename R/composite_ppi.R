@@ -12,7 +12,11 @@
 #'
 #' @export
 #'
-#' @details The latitude/longitude of the returned \code{ppi} use the WGS84
+#' @details
+#' This function is a prototype, wait for the next bioRad release
+#' for more documentation and functionality.
+#'
+#' The latitude/longitude of the returned \code{ppi} use the WGS84
 #' datum.
 #'
 #' @examples

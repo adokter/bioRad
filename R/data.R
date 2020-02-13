@@ -14,7 +14,7 @@
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' example_vp <- read_vpfiles(vpfile)
 #' \dontrun{
-#' save(example_vp, file = "data/example_vp.rda")
+#' # save(example_vp, file = "data/example_vp.rda")
 #' }
 "example_vp"
 
@@ -34,7 +34,7 @@
 #' pvol <- read_pvolfile(pvolfile)
 #' example_scan <- pvol$scans[[1]]
 #' \dontrun{
-#' save(example_scan, file = "data/example_scan.rda")
+#' # save(example_scan, file = "data/example_scan.rda")
 #' }
 "example_scan"
 
@@ -59,6 +59,6 @@
 #' sd_vvp_threshold(example_vpts) <- 2
 #' example_vpts$attributes$where$lat <- 42.2
 #' example_vpts$attributes$where$lon <- -75.98
-#' save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
+#' # save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
 #' }
 "example_vpts"

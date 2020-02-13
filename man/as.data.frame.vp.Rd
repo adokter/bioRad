@@ -65,8 +65,14 @@ all thresholded by \link{sd_vvp_threshold}
 # load an example vertical profile time series object
 data(example_vp)
 
+# print some summary information
+example_vp
+
 # convert the object to a data.frame
 df <- as.data.frame(example_vp)
+
+# print the data.frame to console
+df
 
 # do not compute sunrise/sunset information
 df <- as.data.frame(example_vp, suntime = FALSE)

@@ -26,8 +26,8 @@ position indicator (<code>ppi</code>) — project_as_ppi • bioRad</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -85,7 +85,7 @@ position indicator (<code>ppi</code>) — project_as_ppi" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -253,32 +253,43 @@ parameters in a scan</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load a polar scan example object</span>
+    <pre class="examples"><div class='input'><span class='co'># load a polar scan example object:</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
 <span class='no'>example_scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make PPIs for all scan parameters in the scan:</span>
+#&gt;            dims:  480 bins x 360 rays</div><div class='input'>
+<span class='co'># plot the scan:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>)</div><div class='img'><img src='project_as_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># make PPIs for all scan parameters in the scan:</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>project_as_ppi</span>(<span class='no'>example_scan</span>)
+
 <span class='co'># print summary info for the ppi:</span>
 <span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt;         dims:  200 x 200 pixels
-#&gt; </div><div class='input'><span class='co'># copy the first scan parameter of the first scan in the volume to a new</span>
+#&gt; </div><div class='input'>
+<span class='co'># plot the ppi:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='project_as_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># extract the DBZH scan parameter of the volume to a new</span>
 <span class='co'># object 'param':</span>
-<span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='no'>example_scan</span>$<span class='no'>params</span><span class='kw'>[[</span><span class='fl'>1</span>]]
+<span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_param.html'>get_param</a></span>(<span class='no'>example_scan</span>, <span class='st'>"VRADH"</span>)
+
 <span class='co'># make a ppi for the new 'param' object:</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>project_as_ppi</span>(<span class='no'>param</span>)
+
 <span class='co'># print summary info for this ppi:</span>
 <span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH 
 #&gt;         dims:  200 x 200 pixels
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+<span class='co'># plot the ppi:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='project_as_ppi-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -298,7 +309,7 @@ parameters in a scan</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
