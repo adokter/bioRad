@@ -1,7 +1,8 @@
 #' Apply MistNet segmentation to a polar volume
 #'
 #' Apply MistNet segmentation model to a polar volume file on disk, and load the
-#' resultant segmentation as a polar volume (pvol) object.
+#' resultant segmentation as a polar volume (\code{pvol}) object.
+#'
 #' @param file character. File path for a radar polar volume.
 #' @param pvolfile_out character. Filename for the polar volume to be
 #' stored, including the MistNet segmentation results
@@ -63,13 +64,11 @@
 #' @references
 #' Please also cite this publication when using MistNet:
 #' \itemize{
-#'   \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
-#'   Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
-#'   Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
-#'   MistNet: Measuring historical bird migration in the US
-#'   using archived weather radar data and convolutional neural networks.
-#'   Methods in Ecology and Evolution 10 (11), pp. 1908--22.
-#'   \url{https://doi.org/10.1111/2041-210X.13280}
+#'   \item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
+#'   Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
+#'   MistNet: Measuring historical bird migration in the US using archived
+#'   weather radar data and convolutional neural networks. Methods in Ecology
+#'   and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
 #' }
 #' @examples
 #' # locate example polar volume file:
