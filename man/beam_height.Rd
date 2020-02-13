@@ -38,3 +38,16 @@ large, making oblateness of the earth and the dependence of earth radius with
 latitude only a small correction. Using default values assumes an average
 earth's radius of 6371 km.
 }
+\examples{
+# beam height in meters at 10 km range for a 1 degree elevation beam:
+beam_height(10000,1)
+
+# beam height in meters at 10 km range for a 3 and 5 degree elevation beam:
+beam_height(10000,c(3,5))
+
+# define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
+range <- seq(0,100000,100)
+
+# plot the beam height of the 0.5 degree elevation beam:
+plot(range, beam_height(range,0.5), ylab = "beam height [m]", xlab="range [m]")
+}

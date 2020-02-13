@@ -25,6 +25,9 @@ in ODIM hdf5 format. The function currently evaluates to FALSE for NEXRAD and
 IRIS RAW polar volume files.
 }
 \examples{
-volume <- system.file("extdata", "volume.h5", package = "bioRad")
-is.pvolfile(volume) # > TRUE
+# locate example file:
+pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+
+# check that the file is an ODIM hdf5 polar volume:
+is.pvolfile(pvolfile) # > TRUE
 }

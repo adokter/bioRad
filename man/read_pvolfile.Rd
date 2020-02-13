@@ -77,16 +77,22 @@ Commonly available parameters are:
 \examples{
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+
 # print the local path of the volume file:
 pvolfile
+
 # load the file:
 example_pvol <- read_pvolfile(pvolfile)
+
 # print summary info for the loaded polar volume:
 example_pvol
+
 # print summary info for the scans in the polar volume:
 example_pvol$scans
+
 # copy the first scan to a new object 'scan'
 scan <- example_pvol$scans[[1]]
+
 # print summary info for the new object:
 scan
 }

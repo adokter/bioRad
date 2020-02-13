@@ -1,6 +1,6 @@
 #' Download a basemap for \code{map(ppi)}
 #'
-#' Downloads a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base layer
+#' Downloads a Stamen Maps or Google Maps base layer
 #' map using \link[ggmap]{get_map}.
 #'
 #' To use Google Maps as \code{source}, you will have to register with Google,

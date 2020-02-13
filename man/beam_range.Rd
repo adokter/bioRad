@@ -29,3 +29,7 @@ Calculates the range (i.e. slant range) given a distance measured along the eart
 \details{
 depends on \link{beam_height} to calculate beam height.
 }
+\examples{
+# slant range of the 5 degree elevation beam at a down range of 100 km:
+beam_range(100000, 5)
+}

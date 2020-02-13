@@ -42,12 +42,19 @@ deviation of a time series of vertical profiles
 }}
 
 \examples{
+# load example data:
+data(example_vp)
+data(example_vpts)
+
 # retrieve threshold for a single vertical profile:
 sd_vvp_threshold(example_vp)
+
 # retrieve threshold for a vertical profile time series:
 sd_vvp_threshold(example_vpts)
+
 # change or set the threshold for a single vertical profile:
 sd_vvp_threshold(example_vp) <- 2
+
 # change or set the threshold for a vertical profile time series:
 sd_vvp_threshold(example_vp) <- 2
 }

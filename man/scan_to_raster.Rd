@@ -68,8 +68,10 @@ the same raster pixel, the last added pixel is given (see \link[raster]{rasteriz
 \examples{
 # default projects full extent on 100x100 pixel raster:
 scan_to_raster(example_scan)
+
 # crop the scan and project at a resolution of 0.1 degree:
 scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
+
 # using a template raster
 template_raster <- raster::raster(raster::extent(12, 13, 56, 58), crs = sp::CRS("+proj=longlat"))
 scan_to_raster(example_scan, raster = template_raster)

@@ -76,6 +76,6 @@ df <- as.data.frame(example_vpts, suntime = FALSE)
 # when calculating sunrise / sunset
 df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
 
-# print data.frame to console:
-df
+# print first then rows of data.frame to console:
+df[1:10,]
 }

@@ -18,3 +18,13 @@ numeric. Beam width in m.
 \description{
 Calculates the width of a radar beam as a function of range and beam angle.
 }
+\examples{
+#' # beam width in meters at 10 km range:
+beam_width(10000)
+
+# define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
+range <- seq(0,100000,100)
+
+# plot the beam width as a function of range:
+plot(range, beam_width(range), ylab = "beam width [m]", xlab="range [m]")
+}

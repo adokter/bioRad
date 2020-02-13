@@ -28,8 +28,8 @@ To install the MistNet segmentation model into bioRad,
 run \code{update_docker(mistnet = TRUE)}
 }
 \examples{
-# update the vol2bird docker image:
 \dontrun{
+# update the vol2bird docker image:
 update_docker()
 }
 }

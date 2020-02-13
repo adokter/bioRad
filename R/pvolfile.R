@@ -20,7 +20,7 @@
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
 #' # check that the file is an ODIM hdf5 polar volume:
-#' is.pvolfile(volume) # > TRUE
+#' is.pvolfile(pvolfile) # > TRUE
 is.pvolfile <- function(file, filename = NULL) {
 
   # deprecate function arguments

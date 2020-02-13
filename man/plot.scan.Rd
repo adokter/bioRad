@@ -55,13 +55,17 @@ model (ODIM), see Table 16 in the
 \examples{
 # load an example scan:
 data(example_scan)
+
 # print to screen the available scan parameters
 summary(example_scan)
+
 # make ppi for the scan
 # plot the reflectivity param:
 plot(example_scan, param = "DBZH")
+
 # change the range of reflectivities to plot, from -10 to 10 dBZ:
 plot(example_scan, param = "DBZH", zlim = c(-10, 10))
+
 # change the scale name and colour scheme, using viridis colors:
 plot(example_scan, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
 }

@@ -98,18 +98,24 @@ ppi <- project_as_ppi(example_scan)
 \dontrun{
 # grab a basemap that matches the extent of the ppi:
 # using a gray-scale basemap:
-basemap <- download_basemap(ppi, maptype = "toner-light")
+basemap <- download_basemap(ppi, maptype = "toner-lite")
+
 # map the radial velocity scan parameter onto the basemap:
 map(ppi, map = basemap, param = "VRADH")
-# map on a terrain basemap:
-basemap <- download_basemap(ppi, maptype = "terrain")
-map(ppi, map = basemap, param = "VRADH")
+
 # extend the plotting range of velocities, from -50 to 50 m/s:
 map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
+
+# map the reflectivity on a terrain basemap:
+basemap <- download_basemap(ppi, maptype = "terrain")
+map(ppi, map = basemap, param = "DBZH")
+
 # give the data less transparency:
-map(ppi, map = basemap, alpha = 0.9)
+map(ppi, map = basemap, param = "DBZH", alpha = 0.9)
+
 # change the appearance of the symbol indicating the radar location:
-map(ppi, map = basemap, radar_size = 5, radar_color = "green")
+map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
+
 # crop the map:
 map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }

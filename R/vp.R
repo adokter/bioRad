@@ -75,7 +75,7 @@
 #' is.vp(example_vp)
 #'
 #' # dimensions of the vp object:
-#' dim(vp)
+#' dim(example_vp)
 summary.vp <- function(object, ...) {
   print.vp(object)
 }

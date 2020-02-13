@@ -56,3 +56,10 @@ This function grabs any of the data quantities stored in
 documentation of the vertical profile \link[=summary.vp]{vp} class for a
 description of each of these quantities.
 }
+\examples{
+# load example profile
+data(example_vp)
+
+# extract the animal density ("dens") quantity:
+get_quantity(example_vp, "dens")
+}

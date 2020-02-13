@@ -27,6 +27,12 @@
 #' description of each of these quantities.
 #'
 #' @export
+#' @examples
+#' # load example profile
+#' data(example_vp)
+#'
+#' # extract the animal density ("dens") quantity:
+#' get_quantity(example_vp, "dens")
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)
 }

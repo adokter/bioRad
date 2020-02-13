@@ -71,3 +71,14 @@ An object of class \code{vpts} is a list containing
    regular or not}
 }
 }
+\examples{
+# load example vertical profile time series:
+data(example_vpts)
+example_vpts
+
+# verify this is a vpts object
+is.vpts(example_vpts)
+
+# dimensions of the vpts object
+dim(example_vpts)
+}

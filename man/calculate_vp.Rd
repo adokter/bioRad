@@ -184,8 +184,6 @@ through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) s
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.
-
-When using MistNet, please also cite Lin et al. 2019 in publications.
 }
 \examples{
 # locate example polar volume file:
@@ -207,17 +205,21 @@ as.data.frame(profile)
 file.remove("~/volume.h5")
 }
 \references{
+Dokter et al. (2011) is the main reference for the profiling algorithm
+(vol2bird) underlying this function. When using the \code{mistnet} option,
+please also cite Lin et al. 2019. When de-aliasing data, please also cite Haase et al. 2004.
+
 \itemize{
-  \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
-  velocities using a torus mapping. Journal of Atmospheric and Oceanic
-  Technology, 21(10), pp.1566--1573.
-  \url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
   \item Adriaan M. Dokter, Felix Liechti,
   Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman, 2011.
   Bird migration flight altitudes studied by a network of
   operational weather radars,
   Journal of the Royal Society Interface 8 (54), pp. 30--43.
   \url{https://doi.org/10.1098/rsif.2010.0116}
+  \item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
+  velocities using a torus mapping. Journal of Atmospheric and Oceanic
+  Technology, 21(10), pp.1566--1573.
+  \url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
   \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
   Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
   Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.

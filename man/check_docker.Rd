@@ -19,8 +19,8 @@ Checks that \href{https://www.docker.com/}{Docker} daemon is running
 correctly on the local system, and that vol2bird Docker image is available.
 }
 \examples{
-# check if Docker is running and vol2bird image is available:
 \dontrun{
+# check if Docker is running and vol2bird image is available:
 check_docker()
 }
 }

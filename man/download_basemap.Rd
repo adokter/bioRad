@@ -36,19 +36,18 @@ Maps: "terrain", "satellite", "roadmap", "hybrid"}
 \item{...}{Arguments to pass to \link[ggmap]{get_map} function.}
 }
 \description{
-Downloads a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base layer
+Downloads a Stamen Maps or Google Maps base layer
 map using \link[ggmap]{get_map}.
 }
 \details{
 To use Google Maps as \code{source}, you will have to register with Google,
-enable billing and provide an API key to ggmap (see the
-\href{https://github.com/dkahle/ggmap#attention}{ggmap README}). This
-is due to Google changing its API requirements.
+enable billing and provide an API key to ggmap. See the ggmap
+\href{https://github.com/dkahle/ggmap}{README} for details.
 
 
-\link{download_basemap} depends on package \link[ggmap]{ggmap-package}.
+\link{download_basemap} depends on the \link[ggmap]{ggmap-package}.
 Its latest development version includes important bugfixes that are not
-yet available on CRAN, therefore see the \href{https://github.com/dkahle/ggmap#attention}{ggmap README}
+yet available on CRAN, therefore see the ggmap \href{https://github.com/dkahle/ggmap}{README}
 for install instructions of the development version.
 
 Google has \href{https://developers.google.com/maps/documentation/geocoding/usage-and-billing}{recently changed its API requirements},
@@ -62,26 +61,30 @@ with map request costing $0.002. This amounts to 100,000 free map downloads per 
 3. Inside R, after loading the new version of ggmap, you’ll need provide
 ggmap with your API key with \link[ggmap]{register_google}
 
-See \link[ggmap]{get_googlemaps} and \href{https://github.com/dkahle/ggmap}{ggmap README} for details.
-
 Your API key is _private_ and unique to you, so be careful not to share it online,
 for example in a GitHub issue or saving it in a shared R script file.
 }
 \examples{
 # load an example scan:
 data(example_scan)
+
 # print summary info for the scan:
 example_scan
+
 # make ppi for the scan
 ppi <- project_as_ppi(example_scan)
+
 # grab a basemap that matches the extent of the ppi:
 \dontrun{
 basemap <- download_basemap(ppi)
+
 # map the reflectivity quantity of the ppi onto the basemap:
 map(ppi, map = basemap, param = "DBZH")
+
 # download a different type of basemap, e.g. a gray-scale image:
 # see get_map() in ggmap library for full documentation of options
 basemap <- download_basemap(ppi, maptype = "toner-lite")
+
 # map the radial velocities onto the line image:
 map(ppi, map = basemap, param = "VRADH")
 }

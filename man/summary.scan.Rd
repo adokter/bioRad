@@ -55,12 +55,16 @@ A object of class \code{scan} is a list containing:
 \examples{
 # load example scan object
 data(example_scan)
+
 # verify this object is of class scan:
 is.scan(example_scan)
+
 # print the scan parameters contained in the scan:
 example_scan$params
+
 # extract the VRADH scan parameter:
 param <- get_param(example_scan,"VRADH")
+
 # print summary info for this scan parameter:
 param
 is.scan("this is not a polar scan but a string") # > FALSE

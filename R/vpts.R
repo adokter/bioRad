@@ -52,6 +52,16 @@
 #'  \item{\code{regular}}{logical indicating whether the time series is
 #'    regular or not}
 #' }
+#' @examples
+#' # load example vertical profile time series:
+#' data(example_vpts)
+#' example_vpts
+#'
+#' # verify this is a vpts object
+#' is.vpts(example_vpts)
+#'
+#' # dimensions of the vpts object
+#' dim(example_vpts)
 summary.vpts <- function(object, ...) {
   print.vpts(object)
 }
@@ -88,9 +98,12 @@ dim.vpts <- function(x) {
 #' @export
 #' @examples
 #' # we start with the example vertical profile time series:
+#' data(example_vpts)
 #' example_vpts
+#'
 #' # extract the 10th profile in the time series (returns a vp object)
 #' example_vpts[10]
+#'
 #' # extract the 20th to 100th profile form the time series (returns a vpts object)
 #' example_vpts[20:100]
 `[.vpts` <- function(x, i) {
@@ -232,8 +245,8 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' # when calculating sunrise / sunset
 #' df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
 #'
-#' # print data.frame to console:
-#' df
+#' # print first then rows of data.frame to console:
+#' df[1:10,]
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
                                quantities = names(x$data), suntime = TRUE,
                                geo = TRUE, elev = -0.268, lat = NULL,

@@ -32,6 +32,7 @@ Distance from the radar over the earth's surface is calculated using \link{beam_
 \examples{
 # load example scan:
 data(example_scan)
+
 # convert to a SpatialPointsDataFrame:
 scan_to_spatial(example_scan)
 }

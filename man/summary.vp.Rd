@@ -82,3 +82,14 @@ A \code{vp} object is a list containing
   in case of undetects.
 }
 }
+\examples{
+# load example vp object
+data(example_vp)
+example_vp
+
+# check that the object is a vp object:
+is.vp(example_vp)
+
+# dimensions of the vp object:
+dim(example_vp)
+}

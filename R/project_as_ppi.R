@@ -26,7 +26,7 @@
 #' plot(example_scan)
 #'
 #' # make PPIs for all scan parameters in the scan:
-#' ppi <- project_as_ppi(example_scan):
+#' ppi <- project_as_ppi(example_scan)
 #'
 #' # print summary info for the ppi:
 #' ppi

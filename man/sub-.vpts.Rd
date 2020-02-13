@@ -17,9 +17,12 @@ Select a vertical profile (\code{vp}) or a time series of vertical profiles
 }
 \examples{
 # we start with the example vertical profile time series:
+data(example_vpts)
 example_vpts
+
 # extract the 10th profile in the time series (returns a vp object)
 example_vpts[10]
+
 # extract the 20th to 100th profile form the time series (returns a vpts object)
 example_vpts[20:100]
 }
