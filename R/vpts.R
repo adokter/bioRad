@@ -220,12 +220,8 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @examples
 #' # load an example vertical profile time series object
 #' data(example_vpts)
-<<<<<<< HEAD
 #' example_vpts
-#' 
-=======
 #'
->>>>>>> master
 #' # convert the object to a data.frame
 #' df <- as.data.frame(example_vpts)
 #'

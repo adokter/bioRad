@@ -72,7 +72,6 @@
 #' }
 #' @examples
 #' \dontrun{
-<<<<<<< HEAD
 #' # download a NEXRAD file, save as KBGM_example
 #' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
 #' "2019/10/01/KBGM/KBGM20191001_000542_V06",sep=""), "~/KBGM_example")
@@ -93,15 +92,6 @@
 #' # areas classified as weather, and value 1 pixels that fall within an
 #' # additional 5 km fringe around weather areas.
 #' plot(my_ppi, param="CELL")
-=======
-#' example_pvol <- apply_mistnet("~/volume.h5")
-#' # plot the MistNet class probability [0-1] for biology, for the first elevation scan:
-#' plot(example_pvol$scans[[1]], param = "BIOLOGY")
-#' # plot the final segmentation result, with values >1 indicating
-#' # areas classified as weather, and value 1 pixels that fall within an
-#' # additional 5 km fringe around weather areas.
-#' plot(example_pvol$scans[[1]], param = "CELL")
->>>>>>> master
 #' }
 #' # clean up:
 #' file.remove("~/KBGM_example")
