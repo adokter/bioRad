@@ -25,7 +25,11 @@ ppi extent is selected automatically.}
 
 \item{alpha}{Transparency of the basemap (0-1).}
 
+<<<<<<< HEAD
 \item{source}{String identifying which map service should be used: "stamen" or "google".}
+=======
+\item{source}{String identifying which map service should be used: "stamen", "osm" or "google"}
+>>>>>>> master
 
 \item{maptype}{Type of basemap to plot. For Stamen Maps: "terrain",
 "terrain-background", "terrain-labels", "terrain-lines", "toner",
@@ -37,8 +41,14 @@ Maps: "terrain", "satellite", "roadmap", "hybrid"
 \item{...}{Arguments to pass to \link[ggmap]{get_map} function.}
 }
 \description{
-Downloads a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
-layer map using \link[ggmap]{get_map}.
+Downloads a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base layer
+map using \link[ggmap]{get_map}.
+}
+\details{
+To use Google Maps as \code{source}, you will have to register with Google,
+enable billing and provide an API key to ggmap (see the
+\href{https://github.com/dkahle/ggmap#attention}{ggmap README}). This
+is due to Google changing its API requirements.
 }
 \details{
 \link{download_basemap} depends on package \link[ggmap](https://github.com/dkahle/ggmap).

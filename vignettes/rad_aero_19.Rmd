@@ -11,10 +11,10 @@ vignette: >
 _These course materials were developed for the 3d Radar Aeroecology Training School, Jul 30 - Aug 2 2019, University of Oklahoma, Norman, OK, USA._
 
 ```{r setup, echo=FALSE, message=FALSE}
-SHOW_ANSWERS=FALSE
-if(Sys.info()['sysname']=="Linux") prefix="/home/adriaan" else prefix="/Users/amd427"
-if(SHOW_ANSWERS) knitr::opts_knit$set(root.dir = normalizePath(paste(prefix,"/Dropbox/RadAero19/bioRad practical/data",sep="")))
-#knitr::opts_chunk$set(eval=FALSE)
+SHOW_ANSWERS <- FALSE
+if (Sys.info()["sysname"] == "Linux") prefix <- "/home/adriaan" else prefix <- "/Users/amd427"
+if (SHOW_ANSWERS) knitr::opts_knit$set(root.dir = normalizePath(paste(prefix, "/Dropbox/RadAero19/bioRad practical/data", sep = "")))
+# knitr::opts_chunk$set(eval=FALSE)
 Sys.setenv(TZ = "UTC")
 library(bioRad)
 ```
@@ -122,7 +122,7 @@ my_scan <- my_pvol$scans[[3]]
 # print some information about this scan:
 my_scan
 # let's plot the reflectivity factor parameter of the scan in a range - azimuth coordinate system:
-plot(my_scan, param="DBZH")
+plot(my_scan, param = "DBZH")
 ```
 
 Usually it is more intuitive to explore radar scans as a PPI (plan position indicator), which is a projection of the scan on a Cartesian (X,Y) or (lat,lon) grid:
@@ -307,7 +307,7 @@ plot(my_vpts_night)
 
 ```{r, echo=SHOW_ANSWERS, eval=SHOW_ANSWERS, warning=FALSE}
 # First extract the profile at 6 UTC:
-vp_6UTC <- filter_vpts(my_vpts_night, nearest="2017-05-14 06:00")
+vp_6UTC <- filter_vpts(my_vpts_night, nearest = "2017-05-14 06:00")
 plot(vp_6UTC, quantity = "ff")
 ```
 

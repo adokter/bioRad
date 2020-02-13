@@ -36,8 +36,9 @@ rsconnect/
 *.utf8.md
 *.knit.md
 
-# pkgdown website is not yet built by travis on gh-pages
-# /docs/
+# pkgdown website
+# /docs/ # is not yet built by travis on gh-pages
+pkgdown/*
 
 # Mac OS X
 .DS_Store

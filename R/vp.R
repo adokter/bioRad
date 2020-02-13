@@ -153,6 +153,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' # load an example vertical profile time series object
 #' data(example_vp)
 #'
+<<<<<<< HEAD
 #' # print some summary information
 #' example_vp
 #'
@@ -162,6 +163,11 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' # print the data.frame to console
 #' df
 #'
+=======
+#' # convert the object to a data.frame
+#' df <- as.data.frame(example_vp)
+#'
+>>>>>>> master
 #' # do not compute sunrise/sunset information
 #' df <- as.data.frame(example_vp, suntime = FALSE)
 #'

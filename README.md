@@ -16,7 +16,7 @@ calculate further summary statistics.
 
 To get started, see:
 
-  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
+  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
     describing the package.
   - [bioRad
     vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an
@@ -46,7 +46,7 @@ bioRad depends on packages from both the
 with:
 
 ``` r
-setRepositories(ind=1:2)
+setRepositories(ind = 1:2)
 ```
 
 You can install the released version of bioRad from
@@ -73,29 +73,12 @@ library(bioRad)
 
 #### Required system libraries on Linux (Ubuntu)
 
-These system libraries are required before installing bioRad on Linux
-systems:
-
-In terminal run:
+The following system libraries are required before installing bioRad on
+Linux systems. In terminal, install these with:
 
     sudo apt install libcurl4-openssl-dev
     sudo apt install libssl-dev
     sudo apt install libgdal-dev
-
-### *Attention\!*
-
-Google has [recently changed its API
-requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing),
-and [**ggmap**](https://github.com/dkahle/ggmap) - the package used by
-bioRad to overlay radar scans on maps - now requires users to provide an
-API key *and* enable billing in order to use Google imagery. bioRad
-switched to using [stamen](http://maps.stamen.com/) maps by default,
-which do not require special credentials.
-
-**ggmap** itself is outdated on CRAN; its developers hope to have the
-new version up on CRAN soon, but until then, see [ggmap Github
-page](https://github.com/dkahle/ggmap/) for how to install the latest
-development version.
 
 ### Docker (optional)
 

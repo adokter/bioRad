@@ -70,7 +70,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
 
-  if(hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function arguments
   if (!missing(barbs.h)) {
@@ -109,18 +109,18 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   }
 
   assert_that(is.flag(log))
-  if(!missing(zlim)){
-    assert_that(is.numeric(zlim),length(zlim)==2,zlim[2]>zlim[1])
-    if(log){
-      assert_that(zlim[1]>0)
+  if (!missing(zlim)) {
+    assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
+    if (log) {
+      assert_that(zlim[1] > 0)
     }
   }
 
   # remove profiles with duplicate timestamps:
-  index_duplicates=which(x$timesteps==0)+1
-  if(length(index_duplicates)>0){
-    warning(paste("Dropped",length(index_duplicates),"profiles with duplicate datetime values"))
-    x=x[-index_duplicates]
+  index_duplicates <- which(x$timesteps == 0) + 1
+  if (length(index_duplicates) > 0) {
+    warning(paste("Dropped", length(index_duplicates), "profiles with duplicate datetime values"))
+    x <- x[-index_duplicates]
   }
 
   # prepare zlim, ticks and legendticks
@@ -219,9 +219,9 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   # plotdata[is.na2(plotdata)]=(breaks[1]+breaks[2])/2
   # when calculate_vp stdout also differentiates between NA and NaN:
   plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
-  stopifnot(!is.null(interval<- x$attributes$where$interval))
+  stopifnot(!is.null(interval <- x$attributes$where$interval))
   # plot the image
-  image.plot(x$datetime, x$height+interval/2, plotdata,
+  image.plot(x$datetime, x$height + interval / 2, plotdata,
     col = plot_colors, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = zlim, main = main, ...
@@ -235,11 +235,11 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       t.barbs <- seq(x$datetime[1], tail(x$datetime, 1), length.out = barbs_time)
     }
     if ("ylim" %in% names(args)) {
-      h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height+1)
+      h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height + 1)
     } else {
-      h.barbs <- seq(x$height[1], tail(x$height, 1) + interval, length.out = barbs_height+1)
+      h.barbs <- seq(x$height[1], tail(x$height, 1) + interval, length.out = barbs_height + 1)
     }
-    h.barbs<-h.barbs[-length(h.barbs)] + diff(h.barbs) / 2
+    h.barbs <- h.barbs[-length(h.barbs)] + diff(h.barbs) / 2
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)
     barbdata$indext <- sapply(
       barbdata$date,
@@ -247,7 +247,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
     barbdata$indexh <- sapply(
       barbdata$height,
-      function(y) which.min(abs(x$height + interval/2 - y))
+      function(y) which.min(abs(x$height + interval / 2 - y))
     )
     barbdata$ff <- mapply(
       function(xx, yy) x$data$ff[xx, yy], barbdata$indexh, barbdata$indext

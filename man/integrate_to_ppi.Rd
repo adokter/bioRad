@@ -2,7 +2,7 @@
 % Please edit documentation in R/integrate_to_ppi.R
 \name{integrate_to_ppi}
 \alias{integrate_to_ppi}
-\title{calculate an image (PPI) of vertically integrated density adjusted for range effects}
+\title{Calculate a plan position indicator (\code{ppi}) of vertically integrated density adjusted for range effects}
 \usage{
 integrate_to_ppi(
   pvol,
@@ -79,11 +79,13 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 An object of class '\link[=summary.ppi]{ppi}'.
 }
 \description{
-This function estimates a spatial image (PPI object) of vertically integrated density (\code{VID}) based on
-all elevation scans of the radar, while accounting for the changing overlap between the radar beams
-as a function of range. The resulting PPI is a vertical integration over the layer of biological scatterers
-based on all available elevation scans, corrected for range effects due to partial beam overlap with
-the layer of biological echoes (overshooting) at larger distances from the radar. The methodology is
+This function estimates a spatial image (PPI object) of vertically integrated
+density (\code{VID}) based on all elevation scans of the radar, while
+accounting for the changing overlap between the radar beams as a function of
+range. The resulting PPI is a vertical integration over the layer of
+biological scatterers based on all available elevation scans, corrected for
+range effects due to partial beam overlap with the layer of biological echoes
+(overshooting) at larger distances from the radar. The methodology is
 described in detail in Kranstauber et al. (2020).
 }
 \details{
@@ -161,9 +163,9 @@ map(my_ppi, bm)
 }
 # the ppi can also be projected on a user-defined raster, as follows:
 # first define the raster:
-template_raster<-raster::raster(raster::extent(12,13,56,57), crs=sp::CRS('+proj=longlat'))
+template_raster <- raster::raster(raster::extent(12, 13, 56, 57), crs = sp::CRS("+proj=longlat"))
 # project the ppi on the defined raster:
-my_ppi<-integrate_to_ppi(example_pvol, example_vp, raster=template_raster)
+my_ppi <- integrate_to_ppi(example_pvol, example_vp, raster = template_raster)
 # extract the raster data from the ppi object:
 raster::brick(my_ppi$data)
 # calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
@@ -176,12 +178,12 @@ plot(my_ppi, param = "VID", zlim = c(0, 200))
 }
 \references{
 \itemize{
-  \item Jefrey J. Buler and Robert H. Diehl. Quantifying bird density during
-  migratory stopover using weather surveillance radar. IEEE Transactions on Geoscience
-  and Remote Sensing 47 (2009): 2741-2751.
+  \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
+  stopover using weather surveillance radar. IEEE Transactions on Geoscience
+  and Remote Sensing 47: 2741-2751.
   \url{https://doi.org/10.1109/TGRS.2009.2014463}
-  \item Bart Kranstauber, Willem Bouten, Hidde Leijnse, Berend Wijers, Liesbeth Verlinden,
-  Judy Z. Shamoun-Baranes , Adriaan M. Dokter.  High-Resolution Spatial Distribution of
-  Bird Movements Estimated from a Weather Radar Network. Remote Sensing (2020), in press.
-}
+\item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
+Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
+Bird Movements Estimated from a Weather Radar Network. Remote Sensing, in
+press. }
 }

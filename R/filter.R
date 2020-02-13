@@ -21,7 +21,7 @@ filter_vpts <- function(x, min, max, nearest) {
   }
   if (!missing(min)) {
     if (is.string(min)) {
-      min <- tryCatch(as.POSIXct(min, tz="UTC"), errorf = function(e) {
+      min <- tryCatch(as.POSIXct(min, tz = "UTC"), errorf = function(e) {
         min
       })
     }
@@ -30,7 +30,7 @@ filter_vpts <- function(x, min, max, nearest) {
   }
   if (!missing(max)) {
     if (is.string(max)) {
-      max <- tryCatch(as.POSIXct(max, tz="UTC"), errorf = function(e) {
+      max <- tryCatch(as.POSIXct(max, tz = "UTC"), errorf = function(e) {
         max
       })
     }
@@ -39,7 +39,7 @@ filter_vpts <- function(x, min, max, nearest) {
   }
   if (!missing(nearest)) {
     if (is.string(nearest)) {
-      nearest <- tryCatch(as.POSIXct(nearest, tz="UTC"), errorf = function(e) {
+      nearest <- tryCatch(as.POSIXct(nearest, tz = "UTC"), errorf = function(e) {
         nearest
       })
     }

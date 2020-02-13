@@ -13,7 +13,7 @@
 #' check_docker()
 #' }
 check_docker <- function(verbose = TRUE) {
-  check <- vol2bird_version()  # note: the vol2bird_version() call also sets .pkgenv$mistnet
+  check <- vol2bird_version() # note: the vol2bird_version() call also sets .pkgenv$mistnet
 
   .pkgenv$vol2bird_version <- check
   .pkgenv$docker <- !is.na(check)
@@ -36,7 +36,7 @@ check_docker <- function(verbose = TRUE) {
     }
   }
 
-  if (verbose) cat(paste("Running docker image with vol2bird version", check, ifelse(.pkgenv$mistnet, " (MistNet available)",""), "\n"))
+  if (verbose) cat(paste("Running docker image with vol2bird version", check, ifelse(.pkgenv$mistnet, " (MistNet available)", ""), "\n"))
   return(0)
 }
 
@@ -71,11 +71,11 @@ update_docker <- function(mistnet = FALSE) {
   result <- suppressWarnings(system("docker pull adokter/vol2bird:latest"))
   image_id_new <- docker_image_id("adokter/vol2bird")
 
-  if (result == 0 && !mistnet && !identical(image_id,image_id_new)){
+  if (result == 0 && !mistnet && !identical(image_id, image_id_new)) {
     # a new image has been installed, which makes the installed
     # mistnet image obsolete. Therefore remove if existing
     image_id_mistnet <- docker_image_id("adokter/vol2bird-mistnet")
-    if(length(image_id_mistnet)>0){
+    if (length(image_id_mistnet) > 0) {
       system("docker rmi -f adokter/vol2bird-mistnet:latest")
       warning("Obsolete MistNet installation removed. To use MistNet, reinstall with update_docker(mistnet=TRUE)")
     }
@@ -89,7 +89,7 @@ update_docker <- function(mistnet = FALSE) {
     system("docker image prune -f")
 
     creationDate <- system(
-      paste("docker inspect -f \"{{ .Created }}\" adokter/vol2bird",ifelse(mistnet,"-mistnet",""),":latest",sep=""),
+      paste("docker inspect -f \"{{ .Created }}\" adokter/vol2bird", ifelse(mistnet, "-mistnet", ""), ":latest", sep = ""),
       intern = TRUE
     )
     # initialize new container.
@@ -115,9 +115,9 @@ update_docker <- function(mistnet = FALSE) {
   return(creationDate)
 }
 
-docker_image_id <- function(image_name){
-  docker_image <- system(paste("docker images ",image_name,":latest",sep=""),intern=T)
-  image_id <- read.table(textConnection(docker_image), stringsAsFactors = F, header=T)$TAG
+docker_image_id <- function(image_name) {
+  docker_image <- system(paste("docker images ", image_name, ":latest", sep = ""), intern = T)
+  image_id <- read.table(textConnection(docker_image), stringsAsFactors = F, header = T)$TAG
   return(image_id)
 }
 
@@ -143,8 +143,8 @@ mount_docker_container <- function(mount = "~/") {
   if (.Platform$OS.type == "unix") {
     result <- system(
       paste("docker run -v ",
-        system(paste("/bin/bash -c",shQuote(paste("printf %q", shQuote(normalizePath(mount))))), intern = T),
-        ":/data -d --name vol2bird adokter/vol2bird", ifelse(.pkgenv$mistnet,"-mistnet",""), " sleep infinity",
+        system(paste("/bin/bash -c", shQuote(paste("printf %q", shQuote(normalizePath(mount))))), intern = T),
+        ":/data -d --name vol2bird adokter/vol2bird", ifelse(.pkgenv$mistnet, "-mistnet", ""), " sleep infinity",
         sep = ""
       ),
       ignore.stdout = TRUE
@@ -153,7 +153,7 @@ mount_docker_container <- function(mount = "~/") {
     result <- suppressWarnings(system(
       paste("docker run -v ",
         shQuote(normalizePath(mount, winslash = "/")),
-        ":/data -d --name vol2bird adokter/vol2bird", ifelse(.pkgenv$mistnet,"-mistnet",""), " sleep infinity",
+        ":/data -d --name vol2bird adokter/vol2bird", ifelse(.pkgenv$mistnet, "-mistnet", ""), " sleep infinity",
         sep = ""
       ),
       ignore.stdout = TRUE, show.output.on.console = FALSE
@@ -201,30 +201,36 @@ vol2bird_version <- function(local_install) {
     return(numeric_version(vol2bird_version))
   }
 
-  imagePresent <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird:latest",sep=""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
-  imagePresentMistnet <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird-mistnet:latest",sep=""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
+  imagePresent <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird:latest", sep = ""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
+  imagePresentMistnet <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird-mistnet:latest", sep = ""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
 
   # return NA if docker command not found (docker not installed)
-  if (class(imagePresent) == "try-error") return(NA)
+  if (class(imagePresent) == "try-error") {
+    return(NA)
+  }
 
   # return NaN if docker command executed, but threw an error status
   # this happens when Docker is installed, but when the Docker daemon is not running
-  if ("status" %in% names(attributes(imagePresent))) return(NaN)
+  if ("status" %in% names(attributes(imagePresent))) {
+    return(NaN)
+  }
 
   # return NULL if the container is not available
-  if (length(imagePresent) == 0) return(NULL)
-
-  if (length(imagePresentMistnet) == 0){
-    image_name = "vol2bird"
-    .pkgenv$mistnet = FALSE
+  if (length(imagePresent) == 0) {
+    return(NULL)
   }
-  else{
-    image_name = "vol2bird-mistnet"
-    .pkgenv$mistnet = TRUE
+
+  if (length(imagePresentMistnet) == 0) {
+    image_name <- "vol2bird"
+    .pkgenv$mistnet <- FALSE
+  }
+  else {
+    image_name <- "vol2bird-mistnet"
+    .pkgenv$mistnet <- TRUE
   }
 
   creationDate <- suppressWarnings(try(system(
-    paste("docker inspect -f \"{{ .Created }}\" adokter/",image_name,sep=""),
+    paste("docker inspect -f \"{{ .Created }}\" adokter/", image_name, sep = ""),
     intern = TRUE, ignore.stderr = TRUE
   ), silent = TRUE))
 
@@ -234,7 +240,7 @@ vol2bird_version <- function(local_install) {
   if (as.numeric(format(creationDate, "%Y")) < 2019) {
     # vol2bird version generated before 2019, i.e. version < 0.4.0
     vol2bird_version <- suppressWarnings(system(
-      paste("docker run --rm adokter/", image_name, " bash -c \"vol2bird 2>&1 | grep Version\"",sep=""),
+      paste("docker run --rm adokter/", image_name, " bash -c \"vol2bird 2>&1 | grep Version\"", sep = ""),
       intern = TRUE
     ))
     vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][2]
@@ -242,7 +248,7 @@ vol2bird_version <- function(local_install) {
   else {
     # vol2bird version >= 0.4.0, supporting --version argument
     vol2bird_version <- suppressWarnings(system(
-      paste("docker run --rm adokter/", image_name, " bash -c \"vol2bird --version\"",sep=""),
+      paste("docker run --rm adokter/", image_name, " bash -c \"vol2bird --version\"", sep = ""),
       intern = TRUE
     ))
     vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][3]
