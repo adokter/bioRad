@@ -9,12 +9,21 @@
 #'   ppi extent is selected automatically.
 #' @param alpha Transparency of the basemap (0-1).
 #' @param verbose Logical, whether to print information to console.
-#' @param source String identifying which map service should be used: "google", "osm" or "stamen"
-#' @param maptype Type of basemap to plot, see \link[ggmap]{get_map} for options
+#' @param source String identifying which map service should be used: "stamen" or "google".
+#' @param maptype Type of basemap to plot. For Stamen Maps: "terrain",
+#' "terrain-background", "terrain-labels", "terrain-lines", "toner",
+#' "toner-2010", "toner-2011", "toner-background", "toner-hybrid",
+#' "toner-labels", "toner-lines", "toner-lite", "watercolor". For Google
+#' Maps: "terrain", "satellite", "roadmap", "hybrid"
+#'   see \link[ggmap]{get_map} for options
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function.
 #'
 #' @export
-#'
+#' @details
+#' Use of Google Maps requires registration of an API key. Google
+#' provides a free $200 credit each month, with map request costing
+#' $0.002. This amounts to 100,000 free map downloads per month.
+#' See \link[ggmap]{get_googlemaps} for details.
 #' @examples
 #' # load an example scan:
 #' data(example_scan)
