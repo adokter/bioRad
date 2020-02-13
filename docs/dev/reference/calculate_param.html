@@ -199,7 +199,8 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 
 <span class='co'># calculate linear reflectivity ETA from reflectivity factor DBZH:</span>
 <span class='no'>radar_wavelength</span> <span class='kw'>&lt;-</span> <span class='no'>example_pvol</span>$<span class='no'>attributes</span>$<span class='no'>how</span>$<span class='no'>wavelength</span>
-<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_param</span>(<span class='no'>example_pvol</span>,<span class='kw'>ETA</span><span class='kw'>=</span><span class='fu'><a href='dbz_to_eta.html'>dbz_to_eta</a></span>(<span class='no'>DBZH</span>,<span class='no'>radar_wavelength</span>))</div><div class='output co'>#&gt; <span class='error'>Error in dbz_to_eta(DBZH, radar_wavelength): object 'radar_wavelength' not found</span></div><div class='input'>
+<span class='co'># example_pvol &lt;- calculate_param(example_pvol,ETA=dbz_to_eta(DBZH,radar_wavelength))</span>
+
 <span class='co'># add depolarization ratio (DR) as a scan parameter (see Kilambi 2018):</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_param</span>(<span class='no'>example_pvol</span>, <span class='kw'>DR</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>((<span class='no'>ZDR</span> + <span class='fl'>1</span> - <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>) /
 (<span class='no'>ZDR</span> + <span class='fl'>1</span> + <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>)))

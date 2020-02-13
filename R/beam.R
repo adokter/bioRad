@@ -216,7 +216,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' and the vertical radiation profile emitted by the radar
 #'
 #' Calculates the distribution overlap between a vertical profile ('vp')
-#' and the vertical radiation profile of a set of emitted radar beams.
+#' and the vertical radiation profile of a set of emitted radar beams
 #' at various elevation angles as given by \link{beam_profile}.
 #'
 #' This function also calculates the \code{overlap} quantity in the output of \link{integrate_to_ppi}.

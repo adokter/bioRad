@@ -198,66 +198,11 @@ to be 5.3 cm and S-band wavelength 10.6 cm</p></td>
     <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
 <span class='no'>vptszipfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='no'>vptszipfile</span>, <span class='st'>"your/directory/and/file/name.txt"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: requested file not found in the zip file</span></div><div class='input'><span class='co'># load time series:</span>
-<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'>read_vpts</span>(<span class='st'>"your/directory/and/file/name.txt"</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in read_vpts("your/directory/and/file/name.txt", radar = "KBGM",     wavelength = "S"): File your/directory/and/file/name.txt doesn't exist.</span></div><div class='input'><span class='no'>ts</span></div><div class='output co'>#&gt; function (data = NA, start = 1, end = numeric(), frequency = 1, 
-#&gt;     deltat = 1, ts.eps = getOption("ts.eps"), class = if (nseries &gt; 
-#&gt;         1) c("mts", "ts", "matrix") else "ts", names = if (!is.null(dimnames(data))) colnames(data) else paste("Series", 
-#&gt;         seq(nseries))) 
-#&gt; {
-#&gt;     if (is.data.frame(data)) 
-#&gt;         data &lt;- data.matrix(data)
-#&gt;     if (is.matrix(data)) {
-#&gt;         nseries &lt;- ncol(data)
-#&gt;         ndata &lt;- nrow(data)
-#&gt;         dimnames(data) &lt;- list(NULL, names)
-#&gt;     }
-#&gt;     else {
-#&gt;         nseries &lt;- 1
-#&gt;         ndata &lt;- length(data)
-#&gt;     }
-#&gt;     if (ndata == 0) 
-#&gt;         stop("'ts' object must have one or more observations")
-#&gt;     if (missing(frequency)) 
-#&gt;         frequency &lt;- 1/deltat
-#&gt;     else if (missing(deltat)) 
-#&gt;         deltat &lt;- 1/frequency
-#&gt;     if (frequency &gt; 1 &amp;&amp; abs(frequency - round(frequency)) &lt; 
-#&gt;         ts.eps) 
-#&gt;         frequency &lt;- round(frequency)
-#&gt;     if (length(start) &gt; 1L) {
-#&gt;         start &lt;- start[1L] + (start[2L] - 1)/frequency
-#&gt;     }
-#&gt;     if (length(end) &gt; 1L) {
-#&gt;         end &lt;- end[1L] + (end[2L] - 1)/frequency
-#&gt;     }
-#&gt;     if (missing(end)) 
-#&gt;         end &lt;- start + (ndata - 1)/frequency
-#&gt;     else if (missing(start)) 
-#&gt;         start &lt;- end - (ndata - 1)/frequency
-#&gt;     if (start &gt; end) 
-#&gt;         stop("'start' cannot be after 'end'")
-#&gt;     nobs &lt;- floor((end - start) * frequency + 1.01)
-#&gt;     if (nobs != ndata) 
-#&gt;         data &lt;- if (NCOL(data) == 1) {
-#&gt;             if (ndata &lt; nobs) 
-#&gt;                 rep_len(data, nobs)
-#&gt;             else if (ndata &gt; nobs) 
-#&gt;                 data[1L:nobs]
-#&gt;         }
-#&gt;         else {
-#&gt;             if (ndata &lt; nobs) 
-#&gt;                 data[rep_len(1L:ndata, nobs), ]
-#&gt;             else if (ndata &gt; nobs) 
-#&gt;                 data[1L:nobs, ]
-#&gt;         }
-#&gt;     attr(data, "tsp") &lt;- c(start, end, frequency)
-#&gt;     if (!is.null(class) &amp;&amp; class[[1]] != "none") 
-#&gt;         attr(data, "class") &lt;- class
-#&gt;     data
-#&gt; }
-#&gt; &lt;bytecode: 0x7fd5900b82a8&gt;
-#&gt; &lt;environment: namespace:stats&gt;</div><div class='input'># }
-</div></pre>
+<span class='co'># unzip(vptszipfile, "your/directory/and/file/name.txt")</span>
+<span class='co'># load time series:</span>
+<span class='co'># ts &lt;- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")</span>
+<span class='co'># ts</span>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

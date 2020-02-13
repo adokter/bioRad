@@ -46,7 +46,6 @@ enable billing and provide an API key to ggmap. See the ggmap
 
 To use \code{maptype}, install the development version of ggmap (>3.0.0) with
 \code{devtools::install_github("dkahle/ggmap")}.
->>>>>>> b6b78e0e904c180b30acb44a7f868977fee8b740
 }
 \examples{
 # load an example scan:

@@ -183,7 +183,11 @@ velocity is given for a radar using the dual-PRF technique.</p>
     <p>Nyquist velocity in m/s.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>nyquist_velocity</span>(<span class='fl'>5.3</span>, <span class='fl'>2000</span>, <span class='fl'>1500</span>)</div><div class='output co'>#&gt; [1] 79.5</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># at C-band (5.3 cm wavelength) and a PRF of 2000 Hz</span>
+<span class='fu'>nyquist_velocity</span>(<span class='fl'>5.3</span>, <span class='fl'>2000</span>)</div><div class='output co'>#&gt; [1] 26.5</div><div class='input'>
+<span class='co'># extended Nyquist velocity in a dual-PRF scheme</span>
+<span class='co'># using 2000 Hz and 1500 Hz PRFs:</span>
+<span class='fu'>nyquist_velocity</span>(<span class='fl'>5.3</span>, <span class='fl'>2000</span>, <span class='fl'>1500</span>)</div><div class='output co'>#&gt; [1] 79.5</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

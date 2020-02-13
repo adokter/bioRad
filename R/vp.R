@@ -1,7 +1,6 @@
-#' Class \code{vp}: a vertical profile of birds
+#' Class \code{vp}: a vertical profile of animals
 #'
-#' Class \code{vp} for a vertical profile of birds, and its associated R base
-#' functions.
+#' Class \code{vp} for a vertical profile of animals
 #'
 #' @rdname summary.vp
 #'
@@ -37,13 +36,13 @@
 #'        \item{\code{dd}}{direction [degrees, clockwise from north]}
 #'        \item{\code{sd_vvp}}{VVP radial velocity standard deviation [m/s]}
 #'        \item{\code{gap}}{Angular data gap detected [T/F]}
-#'        \item{\code{dbz}}{Bird reflectivity factor [dBZ]}
-#'        \item{\code{eta}}{Bird reflectivity [cm^2/km^3]}
-#'        \item{\code{dens}}{Bird density [birds/km^3]}
+#'        \item{\code{dbz}}{Animal reflectivity factor [dBZ]}
+#'        \item{\code{eta}}{Animal reflectivity [cm^2/km^3]}
+#'        \item{\code{dens}}{Animal density [animals/km^3]}
 #'        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) [dBZ]}
-#'        \item{\code{n}}{number of points VVP bird velocity analysis (u,v,w,ff,dd)}
+#'        \item{\code{n}}{number of points VVPvelocity analysis (u,v,w,ff,dd)}
 #'        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-#'        \item{\code{n_dbz}}{number of points bird density estimate (dbz,eta,dens)}
+#'        \item{\code{n_dbz}}{number of points density estimate (dbz,eta,dens)}
 #'        \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
 #'    }
 #'  }
