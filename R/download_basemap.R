@@ -5,7 +5,10 @@
 #'
 #' To use Google Maps as \code{source}, you will have to register with Google,
 #' enable billing and provide an API key to ggmap. See the ggmap
-#' \href{https://github.com/dkahle/ggmap}{README} for details.
+#' \href{https://github.com/dkahle/ggmap#attention}{README} for details.
+#'
+#' To use \code{maptype}, install the development version of ggmap (>3.0.0) with
+#' \code{devtools::install_github("dkahle/ggmap")}.
 #'
 #' @param x An object of class \code{ppi}.
 #' @param zoom Zoom level (optional), see \link[ggmap]{get_map}. An integer
@@ -22,25 +25,6 @@
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function.
 #'
 #' @export
-#' @details
-#' \link{download_basemap} depends on the \link[ggmap]{ggmap-package}.
-#' Its latest development version includes important bugfixes that are not
-#' yet available on CRAN, therefore see the ggmap \href{https://github.com/dkahle/ggmap}{README}
-#' for install instructions of the development version.
-#'
-#' Google has \href{https://developers.google.com/maps/documentation/geocoding/usage-and-billing}{recently changed its API requirements},
-#' and ggmap users are now required to register with Google.
-#'
-#' 1. Users must register with Google. You can do this at https://cloud.google.com/maps-platform/.
-#' There is a fair bit of free use before you incur charges, and even then the charges
-#'  are modest for light use. When checked in Feb 2020, Google provides a free $200 credit each month,
-#' with map request costing $0.002. This amounts to 100,000 free map downloads per month.
-#' 2. Users must enable the APIs they intend to use with Google
-#' 3. Inside R, after loading the new version of ggmap, you’ll need provide
-#' ggmap with your API key with \link[ggmap]{register_google}
-#'
-#' Your API key is _private_ and unique to you, so be careful not to share it online,
-#' for example in a GitHub issue or saving it in a shared R script file.
 #'
 #' @examples
 #' # load an example scan:

@@ -31,7 +31,7 @@ To get started, see:
 More vignettes:
 
   - [Range
-    correction](https://adokter.github.io/bioRad/dev/articles/range_correction.html):
+    correction](https://adokter.github.io/bioRad/articles/range_correction.html):
     estimate spatial images of vertically integrated density corrected
     for range effects.
 
@@ -68,7 +68,7 @@ Then load the package with:
 ``` r
 library(bioRad)
 #> Welcome to bioRad version 0.5.0.9297
-#> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0)
+#> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)
 ```
 
 #### Required system libraries on Linux (Ubuntu)
