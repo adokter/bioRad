@@ -32,7 +32,7 @@
 #'   overwrite = TRUE
 #' )
 #' # clean up:
-#' unlink("~/bioRad_tmp_files, recursive=T)
+#' unlink("~/bioRad_tmp_files", recursive=T)
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {

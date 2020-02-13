@@ -44,20 +44,19 @@
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 #'
 #' @export
-#'
 #' @examples
 #' # load an example scan:
 #' data(example_scan)
 #' # make ppi's for all scan parameters in the scan
 #' ppi <- project_as_ppi(example_scan)
-#' # grab a basemap that matches the extent of the ppi:
 #' \dontrun{
-#' # download a gray-scale basemap:
+#' # grab a basemap that matches the extent of the ppi:
+#' # using a gray-scale basemap:
 #' basemap <- download_basemap(ppi, maptype = "toner-light")
 #' # map the radial velocity scan parameter onto the basemap:
 #' map(ppi, map = basemap, param = "VRADH")
 #' # map on a terrain basemap:
-#' basemap <- download_basemap(ppi, maptype = "terrain)
+#' basemap <- download_basemap(ppi, maptype = "terrain")
 #' map(ppi, map = basemap, param = "VRADH")
 #' # extend the plotting range of velocities, from -50 to 50 m/s:
 #' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
