@@ -28,7 +28,7 @@ To get started, see:
 
 More vignettes:
 
-* [Range correction](https://adokter.github.io/bioRad/dev/articles/range_correction.html): estimate spatial images of vertically integrated density corrected for range effects.
+* [Range correction](https://adokter.github.io/bioRad/articles/range_correction.html): estimate spatial images of vertically integrated density corrected for range effects.
 
 Documentation for the latest development version can be found [here](https://adokter.github.io/bioRad/dev).
 
