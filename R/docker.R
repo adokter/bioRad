@@ -8,8 +8,8 @@
 #' @return 0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
 #' 2 if Docker daemon not running, 3 if Docker daemon not found.
 #' @examples
-#' # check if Docker is running and vol2bird image is available:
 #' \dontrun{
+#' # check if Docker is running and vol2bird image is available:
 #' check_docker()
 #' }
 check_docker <- function(verbose = TRUE) {
@@ -58,8 +58,8 @@ check_docker <- function(verbose = TRUE) {
 #' @export
 #' @return the POSIXct creation date of the installed Docker image
 #' @examples
-#' # update the vol2bird docker image:
 #' \dontrun{
+#' # update the vol2bird docker image:
 #' update_docker()
 #' }
 update_docker <- function(mistnet = FALSE) {
@@ -188,8 +188,8 @@ mount_docker_container <- function(mount = "~/") {
 #' @return an object of class \link{numeric_version}, NA if docker system command not available,
 #' NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
 #' @examples
-#' # check installed vol2bird version:
 #' \dontrun{
+#' # check installed vol2bird version:
 #' vol2bird_version()
 #' }
 vol2bird_version <- function(local_install) {

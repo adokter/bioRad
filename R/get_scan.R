@@ -12,10 +12,13 @@
 #' @examples
 #' # locate example volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#'
 #' # load the file:
 #' example_pvol <- read_pvolfile(pvolfile)
+#'
 #' # extract the scan at 3 degree elevation:
 #' scan <- get_scan(example_pvol, 3)
+#'
 #' # print summary info for this scan:
 #' scan
 get_scan <- function(x, elev) {

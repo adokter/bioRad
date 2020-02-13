@@ -34,7 +34,9 @@
 #'
 #' @examples
 #' # start form example vpts object:
+#' data(example_vpts)
 #' ts <- example_vpts
+#'
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
 regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
