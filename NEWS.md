@@ -8,7 +8,7 @@ New CRAN release. All issues included in this release can be found [here](https:
 
 * `apply_mistnet()` is a new function to apply the convolution neural network "MistNet" on pvolfiles to separate biological and meteorological signals (see [Lin et al. 2019](https://doi.org/10.1111/2041-210X.13280)). Results can be readily visualized with `plot.ppi()` and `plot.scan()`. MistNet is now also a segmentation option in `calculate_vp()` (#262).
 
-* `read_pvolfile()` now reads Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (#222). bioRad now also reads files containing single elevation scans and `calculate_vp()` can calculate profiles from multiple files containing single elevation scans (#221).
+* `read_pvolfile()` and `calculate_vp()` now read Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (#222). bioRad now also reads files containing single elevation scans and `calculate_vp()` can calculate profiles from multiple files containing single elevation scans (#221).
 
 ### Newer/faster conversions
 
