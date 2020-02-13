@@ -1,4 +1,4 @@
-#' calculate an image (PPI) of vertically integrated density adjusted for range effects
+#' Calculate a plan position indicator (\code{ppi}) of vertically integrated density adjusted for range effects
 #'
 #' This function estimates a spatial image (PPI object) of vertically integrated
 #' density (\code{VID}) based on all elevation scans of the radar, while
@@ -8,6 +8,7 @@
 #' range effects due to partial beam overlap with the layer of biological echoes
 #' (overshooting) at larger distances from the radar. The methodology is
 #' described in detail in Kranstauber et al. (2020).
+#'
 #' @inheritParams scan_to_raster
 #' @inheritParams beam_profile_overlap
 #' @param pvol a polar volume of class pvol
