@@ -4,9 +4,8 @@
 #' map using \link[ggmap]{get_map}.
 #'
 #' To use Google Maps as \code{source}, you will have to register with Google,
-#' enable billing and provide an API key to ggmap (see the
-#' \href{https://github.com/dkahle/ggmap#attention}{ggmap README}). This
-#' is due to Google changing its API requirements.
+#' enable billing and provide an API key to ggmap. See the ggmap
+#' \href{https://github.com/dkahle/ggmap}{README} for details.
 #'
 #' @param x An object of class \code{ppi}.
 #' @param zoom Zoom level (optional), see \link[ggmap]{get_map}. An integer
@@ -20,18 +19,17 @@
 #' "toner-2010", "toner-2011", "toner-background", "toner-hybrid",
 #' "toner-labels", "toner-lines", "toner-lite", "watercolor". For Google
 #' Maps: "terrain", "satellite", "roadmap", "hybrid"
-#'   see \link[ggmap]{get_map} for options
 #' @param ... Arguments to pass to \link[ggmap]{get_map} function.
 #'
 #' @export
 #' @details
-#' \link{download_basemap} depends on package \link[ggmap](https://github.com/dkahle/ggmap).
-#' The latest development version includes important bugfixes that are not
-#' yet available on CRAN, see the \href{https://github.com/dkahle/ggmap}{ggmap}
-#' page for install instructions.
+#' \link{download_basemap} depends on the \link[ggmap]{ggmap-package}.
+#' Its latest development version includes important bugfixes that are not
+#' yet available on CRAN, therefore see the ggmap \href{https://github.com/dkahle/ggmap}{README}
+#' for install instructions of the development version.
 #'
-#' Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing),
-#' and __ggmap__ users are now required to register with Google.
+#' Google has \href{https://developers.google.com/maps/documentation/geocoding/usage-and-billing}{recently changed its API requirements},
+#' and ggmap users are now required to register with Google.
 #'
 #' 1. Users must register with Google. You can do this at https://cloud.google.com/maps-platform/.
 #' There is a fair bit of free use before you incur charges, and even then the charges
@@ -40,8 +38,6 @@
 #' 2. Users must enable the APIs they intend to use with Google
 #' 3. Inside R, after loading the new version of ggmap, you’ll need provide
 #' ggmap with your API key with \link[ggmap]{register_google}
-#'
-#' See \link[ggmap]{get_googlemaps} and \href{https://github.com/dkahle/ggmap}{ggmap} pages for details.
 #'
 #' Your API key is _private_ and unique to you, so be careful not to share it online,
 #' for example in a GitHub issue or saving it in a shared R script file.
