@@ -28,17 +28,17 @@
 #' data(example_vp)
 #'
 #' # plot the animal density:
-#' plot(example_vp, quantity="dens")
+#' plot(example_vp, quantity = "dens")
 #'
 #' # change the line color:
 #' plot(example_vp, line_col = "blue")
 #'
 #' # plot the ground speed:
-#' plot(example_vp, quantity="ff")
+#' plot(example_vp, quantity = "ff")
 #'
 #' # plot the reflectivity factor of
 #' # all scatterers (including precipitation):
-#' plot(example_vp, quantity="DBZH")
+#' plot(example_vp, quantity = "DBZH")
 plot.vp <- function(x, quantity = "dens",
                     xlab = expression("volume density [#/km"^3 * "]"),
                     ylab = "height [km]", line_col = "red",

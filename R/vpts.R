@@ -246,7 +246,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
 #'
 #' # print first then rows of data.frame to console:
-#' df[1:10,]
+#' df[1:10, ]
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
                                quantities = names(x$data), suntime = TRUE,
                                geo = TRUE, elev = -0.268, lat = NULL,

@@ -26,16 +26,16 @@
 #' earth's radius of 6371 km.
 #' @examples
 #' # beam height in meters at 10 km range for a 1 degree elevation beam:
-#' beam_height(10000,1)
+#' beam_height(10000, 1)
 #'
 #' # beam height in meters at 10 km range for a 3 and 5 degree elevation beam:
-#' beam_height(10000,c(3,5))
+#' beam_height(10000, c(3, 5))
 #'
 #' # define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
-#' range <- seq(0,100000,100)
+#' range <- seq(0, 100000, 100)
 #'
 #' # plot the beam height of the 0.5 degree elevation beam:
-#' plot(range, beam_height(range,0.5), ylab = "beam height [m]", xlab="range [m]")
+#' plot(range, beam_height(range, 0.5), ylab = "beam height [m]", xlab = "range [m]")
 beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
                         rp = 6357) {
   assert_that(is.numeric(range))
@@ -74,10 +74,10 @@ earth_radius <- function(a, b, lat) {
 #' beam_width(10000)
 #'
 #' # define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
-#' range <- seq(0,100000,100)
+#' range <- seq(0, 100000, 100)
 #'
 #' # plot the beam width as a function of range:
-#' plot(range, beam_width(range), ylab = "beam width [m]", xlab="range [m]")
+#' plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
 beam_width <- function(range, beam_angle = 1) {
   assert_that(is.numeric(range))
   assert_that(is.number(beam_angle))
@@ -146,17 +146,23 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
 #'
 #' @examples
 #' # plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:
-#' plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000, xlab = "normalized radiated energy",
-#' ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km")
+#' plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000,
+#'   xlab = "normalized radiated energy",
+#'   ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km"
+#' )
 #'
 #' # plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:
-#' plot(beam_profile(height = 0:4000, 50000, 2), 0:4000, xlab = "normalized radiated energy",
-#' ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km")
+#' plot(beam_profile(height = 0:4000, 50000, 2), 0:4000,
+#'   xlab = "normalized radiated energy",
+#'   ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km"
+#' )
 #'
 #' # plot the combined beam profile for a 0.5 and 2.0 degree elevation beam
 #' # at 50 km distance from the radar:
-#' plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000, xlab = "normalized radiated energy",
-#'  ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km")
+#' plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
+#'   xlab = "normalized radiated energy",
+#'   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
+#' )
 beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
                          k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   assert_that(is.numeric(height))

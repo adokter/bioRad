@@ -42,7 +42,7 @@
 #' data(example_scan)
 #'
 #' # extract the DBZH scan parameter:
-#' param <- get_param(example_scan,"DBZH")
+#' param <- get_param(example_scan, "DBZH")
 #'
 #' # verify this is an object of class param:
 #' is.param(param)

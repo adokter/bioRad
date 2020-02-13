@@ -35,7 +35,6 @@
 #'
 #' # make ppi for the scan
 #' ppi <- project_as_ppi(example_scan)
-#'
 #' \dontrun{
 #' # grab a basemap that matches the extent of the ppi:
 #' basemap <- download_basemap(ppi)
@@ -44,7 +43,7 @@
 #' map(ppi, map = basemap, param = "DBZH")
 #'
 #' # increase the transparancy of the basemap:
-#' basemap <- download_basemap(ppi, alpha=0.3)
+#' basemap <- download_basemap(ppi, alpha = 0.3)
 #' map(ppi, map = basemap, param = "DBZH")
 #'
 #' # download a different type of basemap, e.g. a gray-scale image:

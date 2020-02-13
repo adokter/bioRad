@@ -27,12 +27,12 @@
 #' download_vpfiles(
 #'   date_min = "2016-10-01",
 #'   date_max = "2016-11-30",
-#'   radar = c("bejab","bewid"),
+#'   radar = c("bejab", "bewid"),
 #'   directory = "~/bioRad_tmp_files",
 #'   overwrite = TRUE
 #' )
 #' # clean up:
-#' unlink("~/bioRad_tmp_files", recursive=T)
+#' unlink("~/bioRad_tmp_files", recursive = T)
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {

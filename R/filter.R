@@ -18,10 +18,10 @@
 #' filter_vpts(example_vpts, min = "2016-09-02")
 #'
 #' # select the profile nearest to 2016-09-01 03:00 UTC:
-#' filter_vpts(example_vpts, nearest="2016-09-01 03:00")
+#' filter_vpts(example_vpts, nearest = "2016-09-01 03:00")
 #'
 #' # select profiles between than 1 and 3 UTC on 02-Sep-2016:
-#' filter_vpts(example_vpts, min="2016-09-02 01:00", max="2016-09-02 03:00")
+#' filter_vpts(example_vpts, min = "2016-09-02 01:00", max = "2016-09-02 03:00")
 filter_vpts <- function(x, min, max, nearest) {
   assert_that(is.vpts(x))
   errorf <- function(e) {
