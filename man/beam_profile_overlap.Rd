@@ -61,7 +61,7 @@ A data.frame with columns distance and overlap.
 }
 \description{
 Calculates the distribution overlap between a vertical profile ('vp')
-and the vertical radiation profile of a set of emitted radar beams.
+and the vertical radiation profile of a set of emitted radar beams
 at various elevation angles as given by \link{beam_profile}.
 }
 \details{

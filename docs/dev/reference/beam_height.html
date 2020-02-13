@@ -84,7 +84,7 @@ assuming the beam is emitted at surface level." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -205,14 +205,14 @@ earth's radius of 6371 km.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># beam height in meters at 10 km range for a 1 degree elevation beam:</span>
-<span class='fu'>beam_height</span>(<span class='fl'>10000</span>,<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 180.4081</div><div class='input'>
+<span class='fu'>beam_height</span>(<span class='fl'>10000</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 180.4081</div><div class='input'>
 <span class='co'># beam height in meters at 10 km range for a 3 and 5 degree elevation beam:</span>
-<span class='fu'>beam_height</span>(<span class='fl'>10000</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] 529.229 877.398</div><div class='input'>
+<span class='fu'>beam_height</span>(<span class='fl'>10000</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] 529.229 877.398</div><div class='input'>
 <span class='co'># define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:</span>
-<span class='no'>range</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>100000</span>,<span class='fl'>100</span>)
+<span class='no'>range</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>100000</span>, <span class='fl'>100</span>)
 
 <span class='co'># plot the beam height of the 0.5 degree elevation beam:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>range</span>, <span class='fu'>beam_height</span>(<span class='no'>range</span>,<span class='fl'>0.5</span>), <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"beam height [m]"</span>, <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"range [m]"</span>)</div><div class='img'><img src='beam_height-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>range</span>, <span class='fu'>beam_height</span>(<span class='no'>range</span>, <span class='fl'>0.5</span>), <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"beam height [m]"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"range [m]"</span>)</div><div class='img'><img src='beam_height-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

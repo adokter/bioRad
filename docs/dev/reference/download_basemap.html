@@ -84,7 +84,7 @@ map using get_map." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -212,8 +212,7 @@ Maps: "terrain", "satellite", "roadmap", "hybrid"</p></td>
 enable billing and provide an API key to ggmap. See the ggmap
 <a href='https://github.com/dkahle/ggmap#attention'>README</a> for details.</p>
 <p>To use <code>maptype</code>, install the development version of ggmap (&gt;3.0.0) with
-<code><a href='https://rdrr.io/pkg/devtools/man/remote-reexports.html'>devtools::install_github("dkahle/ggmap")</a></code>.
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; b6b78e0e904c180b30acb44a7f868977fee8b740</p>
+<code><a href='https://rdrr.io/pkg/devtools/man/remote-reexports.html'>devtools::install_github("dkahle/ggmap")</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load an example scan:</span>
@@ -227,14 +226,13 @@ enable billing and provide an API key to ggmap. See the ggmap
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
 <span class='co'># make ppi for the scan</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
-
 <span class='co'># \dontrun{</span>
 <span class='co'># grab a basemap that matches the extent of the ppi:</span>
 <span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'>
 <span class='co'># map the reflectivity quantity of the ppi onto the basemap:</span>
 <span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='download_basemap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># increase the transparancy of the basemap:</span>
-<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='download_basemap-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>ppi</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>basemap</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='download_basemap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># download a different type of basemap, e.g. a gray-scale image:</span>
 <span class='co'># see get_map() in ggmap library for full documentation of options</span>
 <span class='no'>basemap</span> <span class='kw'>&lt;-</span> <span class='fu'>download_basemap</span>(<span class='no'>ppi</span>, <span class='kw'>maptype</span> <span class='kw'>=</span> <span class='st'>"toner-lite"</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'>

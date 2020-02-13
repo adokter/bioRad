@@ -98,7 +98,7 @@ plot(ppi)
 
 # extract the DBZH scan parameter of the volume to a new
 # object 'param':
-param <- get_param(example_scan,"VRADH")
+param <- get_param(example_scan, "VRADH")
 
 # make a ppi for the new 'param' object:
 ppi <- project_as_ppi(param)

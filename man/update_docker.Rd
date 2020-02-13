@@ -8,7 +8,7 @@ update_docker(mistnet = FALSE)
 }
 \arguments{
 \item{mistnet}{logical. When True, installs MistNet segmentation model,
-downloading an additional 1Gb Docker image
+downloading an additional 1GB Docker image
 (see \link{apply_mistnet} for details).}
 }
 \value{

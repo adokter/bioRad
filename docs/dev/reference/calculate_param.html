@@ -86,7 +86,7 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -203,11 +203,11 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 
 <span class='co'># add depolarization ratio (DR) as a scan parameter (see Kilambi 2018):</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_param</span>(<span class='no'>example_pvol</span>, <span class='kw'>DR</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>((<span class='no'>ZDR</span> + <span class='fl'>1</span> - <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>) /
-(<span class='no'>ZDR</span> + <span class='fl'>1</span> + <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>)))
+  (<span class='no'>ZDR</span> + <span class='fl'>1</span> + <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>)))
 
 <span class='co'># calculate_param operates on both pvol and scan objects:</span>
 <span class='fu'>calculate_param</span>(<span class='no'>example_scan</span>, <span class='kw'>DR</span> <span class='kw'>=</span> <span class='fl'>10</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>((<span class='no'>ZDR</span> + <span class='fl'>1</span> - <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>) /
-(<span class='no'>ZDR</span> + <span class='fl'>1</span> + <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>)))</div><div class='output co'>#&gt;                   Polar scan (class scan)
+  (<span class='no'>ZDR</span> + <span class='fl'>1</span> + <span class='fl'>2</span> * <span class='no'>ZDR</span>^<span class='fl'>0.5</span> * <span class='no'>RHOHV</span>)))</div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP DR 
 #&gt; elevation angle:  0.5 deg

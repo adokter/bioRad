@@ -85,7 +85,7 @@ these are stored as monthly zips per radar." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9297</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -207,11 +207,11 @@ downloaded files of the same names.</p></td>
 <span class='fu'>download_vpfiles</span>(
   <span class='kw'>date_min</span> <span class='kw'>=</span> <span class='st'>"2016-10-01"</span>,
   <span class='kw'>date_max</span> <span class='kw'>=</span> <span class='st'>"2016-11-30"</span>,
-  <span class='kw'>radar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bejab"</span>,<span class='st'>"bewid"</span>),
+  <span class='kw'>radar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bejab"</span>, <span class='st'>"bewid"</span>),
   <span class='kw'>directory</span> <span class='kw'>=</span> <span class='st'>"~/bioRad_tmp_files"</span>,
   <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</div><div class='output co'>#&gt; <span class='message'>Downloading data from https://lw-enram.s3-eu-west-1.amazonaws.com</span></div><div class='output co'>#&gt; <span class='message'>bejab201610.zip: successfully downloaded</span></div><div class='output co'>#&gt; <span class='message'>bewid201610.zip: successfully downloaded</span></div><div class='output co'>#&gt; <span class='message'>bejab201611.zip: http error 404</span></div><div class='output co'>#&gt; <span class='message'>bewid201611.zip: http error 404</span></div><div class='input'><span class='co'># clean up:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='st'>"~/bioRad_tmp_files"</span>, <span class='kw'>recursive</span><span class='kw'>=</span><span class='no'>T</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='st'>"~/bioRad_tmp_files"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='no'>T</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

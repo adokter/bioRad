@@ -33,7 +33,9 @@ Convert a NEXRAD polar volume file to an ODIM polar volume file
 \dontrun{
 # download a NEXRAD file, save as KBGM_example
 download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
-"2019/10/01/KBGM/KBGM20191001_000542_V06",sep=""), "~/KBGM_example")
+  "2019/10/01/KBGM/KBGM20191001_000542_V06",
+  sep = ""
+), "~/KBGM_example")
 
 # convert to ODIM format
 nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")

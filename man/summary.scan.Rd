@@ -63,7 +63,7 @@ is.scan(example_scan)
 example_scan$params
 
 # extract the VRADH scan parameter:
-param <- get_param(example_scan,"VRADH")
+param <- get_param(example_scan, "VRADH")
 
 # print summary info for this scan parameter:
 param

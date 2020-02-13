@@ -24,7 +24,7 @@ between target and the radar antenna.}
 
 \item{elev}{numeric. Beam elevation in degrees.}
 
-\item{antenna}{numeric. Height of the centre of the radar antenna in meters}
+\item{antenna}{numeric. Height of the center of the radar antenna in meters}
 
 \item{beam_angle}{numeric. Beam opening angle in degrees, typically the
 angle between the half-power (-3 dB) points of the main lobe}

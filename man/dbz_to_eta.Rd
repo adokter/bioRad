@@ -29,6 +29,6 @@ dbz_to_eta(7, 10)
 # calculate animal density for a 5 dBZ reflectivity
 # factor at C-band and S-band, assuming a
 # 11 cm^2 radar cross section per animal:
-dbz_to_eta(7, 5)/11  # C-band
-dbz_to_eta(7, 10)/11 # S-band
+dbz_to_eta(7, 5) / 11 # C-band
+dbz_to_eta(7, 10) / 11 # S-band
 }

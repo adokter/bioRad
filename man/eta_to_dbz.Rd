@@ -30,6 +30,6 @@ eta_to_dbz(10000, 10)
 # animal density of 1000 individuals/km^3
 # and a radar cross section of 11 cm^2 per individual:
 # at C-band and S-band:
-eta_to_dbz(1000*11, 5)  # C-band
-eta_to_dbz(1000*11, 10) # S-band
+eta_to_dbz(1000 * 11, 5) # C-band
+eta_to_dbz(1000 * 11, 10) # S-band
 }

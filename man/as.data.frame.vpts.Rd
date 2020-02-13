@@ -77,5 +77,5 @@ df <- as.data.frame(example_vpts, suntime = FALSE)
 df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
 
 # print first then rows of data.frame to console:
-df[1:10,]
+df[1:10, ]
 }
