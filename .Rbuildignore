@@ -6,6 +6,7 @@
 ^README-.*\.png$
 ^docs$
 ^_pkgdown\.yml$
+^pkgdown$
 .gitignore
 .github
 ^codemeta\.json$
