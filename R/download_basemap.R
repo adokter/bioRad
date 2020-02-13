@@ -20,10 +20,27 @@
 #'
 #' @export
 #' @details
-#' Use of Google Maps requires registration of an API key. Google
-#' provides a free $200 credit each month, with map request costing
-#' $0.002. This amounts to 100,000 free map downloads per month.
-#' See \link[ggmap]{get_googlemaps} for details.
+#' \link{download_basemap} depends on package \link[ggmap](https://github.com/dkahle/ggmap).
+#' The latest development version includes important bugfixes that are not
+#' yet available on CRAN, see the \href{https://github.com/dkahle/ggmap}{ggmap}
+#' page for install instructions.
+#'
+#' Google has [recently changed its API requirements](https://developers.google.com/maps/documentation/geocoding/usage-and-billing),
+#' and __ggmap__ users are now required to register with Google.
+#'
+#' 1. Users must register with Google. You can do this at https://cloud.google.com/maps-platform/.
+#' There is a fair bit of free use before you incur charges, and even then the charges
+#'  are modest for light use. When checked in Feb 2020, Google provides a free $200 credit each month,
+#' with map request costing $0.002. This amounts to 100,000 free map downloads per month.
+#' 2. Users must enable the APIs they intend to use with Google
+#' 3. Inside R, after loading the new version of ggmap, you’ll need provide
+#' ggmap with your API key with \link[ggmap]{register_google}
+#'
+#' See \link[ggmap]{get_googlemaps} and \href{https://github.com/dkahle/ggmap}{ggmap} pages for details.
+#'
+#' Your API key is _private_ and unique to you, so be careful not to share it online,
+#' for example in a GitHub issue or saving it in a shared R script file.
+#'
 #' @examples
 #' # load an example scan:
 #' data(example_scan)
