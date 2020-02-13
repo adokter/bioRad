@@ -64,8 +64,8 @@ A ggmap object (a classed raster object with a bounding
 box attribute).
 }
 \description{
-Plot a ppi on a Google Maps, OpenStreetMap, Stamen Maps or Naver Map base
-layer map using \link[ggmap]{ggmap}
+Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
+layer map using \link[ggmap]{ggmap}.
 }
 \details{
 Available scan parameters for mapping can by printed to screen by

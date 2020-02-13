@@ -43,7 +43,7 @@ reference:
       - get_param
       - summary.param # is.param
   - title: "Manipulating radar scans"
-    desc: "Functions to manipulate radar images (scan, param, ppi) and to identify precipitation"
+    desc: "Functions to manipulate radar images (scan, param, ppi) and to identify precipitation."
     contents:
       - integrate_to_ppi
       - calculate_param

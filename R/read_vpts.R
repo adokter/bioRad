@@ -182,9 +182,9 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
     ),
     how = data.frame(wavelength = wavelength)
   )
-  if (!missing(height)) attributes$where$height=height[1]
-  if (!missing(lon)) attributes$where$lon=lon
-  if (!missing(lat)) attributes$where$lat=lat
+  if (!missing(height)) attributes$where$height <- height[1]
+  if (!missing(lon)) attributes$where$lon <- lon
+  if (!missing(lat)) attributes$where$lat <- lat
 
   output <- list(
     radar = radar, datetime = datetime, height = height,

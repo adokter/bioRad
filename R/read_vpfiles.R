@@ -32,7 +32,7 @@ read_vp <- function(file) {
     }
   ))
   # rename "height" column to "height"
-  quantities <- gsub("HGHT","height",quantities)
+  quantities <- gsub("HGHT", "height", quantities)
   names(profile) <- quantities
 
   # extract attributes

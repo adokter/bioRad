@@ -16,25 +16,25 @@
 #' @examples
 #' # load example time series of vertical profiles:
 #' data(example_vpts)
-#' 
+#'
 #' # split the vpts into two separate time series, one containing profile 1-10,
 #' # and a second containing profile 11-20:
 #' vpts1 <- example_vpts[1:10]
 #' vpts2 <- example_vpts[11:20]
-#' 
+#'
 #' # use bind_into_vpts to bind the two together:
 #' vpts1and2 <- bind_into_vpts(vpts1, vpts2)
-#' 
+#'
 #' # verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from
 #' # vpts2:
 #' summary(vpts1and2)
-#' 
+#'
 #' # extract two profiles:
 #' vp1 <- example_vpts[1]
 #' vp1
 #' vp2 <- example_vpts[2]
 #' vp2
-#' 
+#'
 #' # bind the two profiles back into a vpts:
 #' bind_into_vpts(vp1, vp2)
 bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
