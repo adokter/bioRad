@@ -91,7 +91,7 @@ beam_width <- function(range, beam_angle = 1) {
 #'
 #' @inheritParams beam_height
 #' @inheritParams beam_width
-#' @param antenna numeric. Height of the centre of the radar antenna in meters
+#' @param antenna numeric. Height of the center of the radar antenna in meters
 #' @param height numeric. Height in meter.
 #'
 #' @return numeric.

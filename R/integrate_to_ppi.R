@@ -64,7 +64,7 @@
 #' factor image (\code{R}), multiplied by the \code{vid}
 #' calculated for the profile
 #' \item the spatial range-corrected PPI for \code{VIR}, defined as the
-#' adjusmtent factor \code{R}, multiplied by the \code{vir} calculated for the profile.
+#' adjustment factor \code{R}, multiplied by the \code{vir} calculated for the profile.
 #' }
 #'
 #' If one of \code{lat} or \code{lon} is missing, the extent of the PPI is taken equal to

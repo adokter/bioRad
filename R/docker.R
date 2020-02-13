@@ -44,7 +44,7 @@ check_docker <- function(verbose = TRUE) {
 #'
 #' Pulls and installs the latest Docker image used by bioRad from Docker hub
 #' @param mistnet logical. When True, installs MistNet segmentation model,
-#' downloading an additional 1Gb Docker image
+#' downloading an additional 1GB Docker image
 #' (see \link{apply_mistnet} for details).
 #' @details
 #' This command pulls the latest

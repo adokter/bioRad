@@ -38,7 +38,7 @@ New CRAN release. All issues included in this release can be found [here](https:
 
 *  Improved documentation of how mtr can be calculated from vid, u, v ([6dce625](https://github.com/adokter/bioRad/commit/6dce625)).
  
-* `read_pvolfile()` now also reads quantities DBZ, TH, T, because these often occur in European data and are relevant for biological analysis (note that DBZ and T are not ODIM-complient names) ([5db08bd](https://github.com/adokter/bioRad/commit/5db08bd)).
+* `read_pvolfile()` now also reads quantities DBZ, TH, T, because these often occur in European data and are relevant for biological analysis (note that DBZ and T are not ODIM-compliant names) ([5db08bd](https://github.com/adokter/bioRad/commit/5db08bd)).
 
 * `plot.scan()` now has correct ordering of rays (#285).
 
