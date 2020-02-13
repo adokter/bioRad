@@ -39,7 +39,7 @@ If parameter \code{load} is FALSE, \code{TRUE} on success.
 }
 \description{
 Apply MistNet segmentation model to a polar volume file on disk, and load the
-resultant segmentation as a polar volume (pvol) object.
+resultant segmentation as a polar volume (\code{pvol}) object.
 }
 \details{
 MistNet is a deep convolutional neural network that has been trained
@@ -93,11 +93,11 @@ file.copy(pvolfile, "~/volume.h5")
 \dontrun{
 example_pvol <- apply_mistnet("~/volume.h5")
 # plot the MistNet class probability [0-1] for biology, for the first elevation scan:
-plot(example_pvol$scans[[1]], param="BIOLOGY")
+plot(example_pvol$scans[[1]], param = "BIOLOGY")
 # plot the final segmentation result, with values >1 indicating
 # areas classified as weather, and value 1 pixels that fall within an
 # additional 5 km fringe around weather areas.
-plot(example_pvol$scans[[1]], param="CELL")
+plot(example_pvol$scans[[1]], param = "CELL")
 }
 
 # clean up:
@@ -106,12 +106,10 @@ file.remove("~/volume.h5")
 \references{
 Please also cite this publication when using MistNet:
 \itemize{
-  \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
-  Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
-  Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
-  MistNet: Measuring historical bird migration in the US
-  using archived weather radar data and convolutional neural networks.
-  Methods in Ecology and Evolution 10 (11), pp. 1908--22.
-  \url{https://doi.org/10.1111/2041-210X.13280}
+  \item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
+  Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
+  MistNet: Measuring historical bird migration in the US using archived
+  weather radar data and convolutional neural networks. Methods in Ecology
+  and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
 }
 }
