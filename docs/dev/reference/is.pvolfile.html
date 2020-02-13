@@ -183,8 +183,11 @@ in ODIM hdf5 format. The function currently evaluates to FALSE for NEXRAD and
 IRIS RAW polar volume files.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>volume</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-<span class='fu'>is.pvolfile</span>(<span class='no'>volume</span>) <span class='co'># &gt; TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
+<span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+
+<span class='co'># check that the file is an ODIM hdf5 polar volume:</span>
+<span class='fu'>is.pvolfile</span>(<span class='no'>pvolfile</span>) <span class='co'># &gt; TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

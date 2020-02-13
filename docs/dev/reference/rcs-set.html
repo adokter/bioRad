@@ -190,12 +190,19 @@ the migration densities in <code>x$data$dens</code></p>
 of an object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># change or set RCS for a single vertical profile:</span>
+    <pre class="examples"><div class='input'><span class='co'># load example data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vp</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
+
+<span class='co'># change or set RCS for a single vertical profile:</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
+
 <span class='co'># change or set RCS for a vertical profile time series:</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
+
 <span class='co'># retrieve RCS for a single vertical profile:</span>
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'><span class='co'># retrieve RCS for a vertical profile time series:</span>
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'>
+<span class='co'># retrieve RCS for a vertical profile time series:</span>
 <span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; [1] 11</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

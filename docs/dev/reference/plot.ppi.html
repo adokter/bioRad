@@ -227,17 +227,23 @@ model (ODIM), see Table 16 in the
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load an example scan:</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
+
 <span class='co'># print to screen the available scan parameters:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>example_scan</span>)</div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># make ppi for the scan</span>
+#&gt;            dims:  480 bins x 360 rays</div><div class='input'>
+<span class='co'># make ppi for the scan</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
+
 <span class='co'># plot the first scan parameter, which in this case is "VRADH":</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the reflectivity parameter:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.ppi-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># change the range of reflectivities to plot, from -10 to 10 dBZ:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>10</span>))</div><div class='img'><img src='plot.ppi-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># change the scale name and colour scheme, using viridis colors:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot the reflectivity parameter:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># change the range of reflectivities to plot, from -10 to 10 dBZ:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>10</span>))</div><div class='img'><img src='plot.ppi-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># change the scale name and colour scheme, using viridis colors:</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>10</span>)) + <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/viridis/man/scale_viridis.html'>scale_fill_viridis</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"dBZ"</span>)</div><div class='output co'>#&gt; <span class='message'>Scale for 'fill' is already present. Adding another scale for 'fill', which</span>
 #&gt; <span class='message'>will replace the existing scale.</span></div><div class='img'><img src='plot.ppi-4.png' alt='' width='700' height='433' /></div></pre>
   </div>

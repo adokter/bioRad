@@ -224,7 +224,9 @@ continues, and temporal data gaps are filled up visually.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># start form example vpts object:</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
 <span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+
 <span class='co'># regularize the time series on a 5 minute interval grid</span>
 <span class='no'>tsRegular</span> <span class='kw'>&lt;-</span> <span class='fu'>regularize_vpts</span>(<span class='no'>ts</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>300</span>)</div></pre>
   </div>

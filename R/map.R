@@ -64,8 +64,8 @@
 #' basemap <- download_basemap(ppi, maptype = "terrain")
 #' map(ppi, map = basemap, param = "DBZH")
 #'
-#' # give the data less transparency:
-#' map(ppi, map = basemap, param = "DBZH", alpha = 0.9)
+#' # give the data more transparency:
+#' map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 #'
 #' # change the appearance of the symbol indicating the radar location:
 #' map(ppi, map = basemap, radar_size = 5, radar_color = "blue")

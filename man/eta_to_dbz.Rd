@@ -19,3 +19,17 @@ reflectivity factor in dBZ
 \description{
 Convert reflectivity to reflectivity factor
 }
+\examples{
+# reflectivity factor (dBZ) at C-band for a reflectivity eta=10000 cm^2/km^3:
+eta_to_dbz(10000, 5)
+
+# reflectivity factor (dBZ) at S-band for a reflectivity eta=10000 cm^2/km^3:
+eta_to_dbz(10000, 10)
+
+# expected reflectivity factor (dBZ) for an
+# animal density of 1000 individuals/km^3
+# and a radar cross section of 11 cm^2 per individual:
+# at C-band and S-band:
+eta_to_dbz(1000*11, 5)  # C-band
+eta_to_dbz(1000*11, 10) # S-band
+}

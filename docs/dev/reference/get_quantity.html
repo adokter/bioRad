@@ -210,6 +210,21 @@ requested quantity.</p>
 documentation of the vertical profile <a href='summary.vp.html'>vp</a> class for a
 description of each of these quantities.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># load example profile</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vp</span>)
+
+<span class='co'># extract the animal density ("dens") quantity:</span>
+<span class='fu'>get_quantity</span>(<span class='no'>example_vp</span>, <span class='st'>"dens"</span>)</div><div class='output co'>#&gt;           0         200         400         600         800        1000 
+#&gt;          NA  85.0995178 110.4298782  91.7822418  34.5677528  20.5497875 
+#&gt;        1200        1400        1600        1800        2000        2200 
+#&gt;  22.9609985  19.7929668  19.7772617  17.3985100  11.9922190   7.2263165 
+#&gt;        2400        2600        2800        3000        3200        3400 
+#&gt;   3.0735207   0.0000000   0.7724188   0.0000000   0.0000000   0.0000000 
+#&gt;        3600        3800        4000        4200        4400        4600 
+#&gt;   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000 
+#&gt;        4800 
+#&gt;   0.0000000 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
@@ -217,6 +232,7 @@ description of each of these quantities.</p>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

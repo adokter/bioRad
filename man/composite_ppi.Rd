@@ -22,6 +22,9 @@ Combines multiple plan position indicators (\code{ppi}) into a single
 radars.
 }
 \details{
+This function is a prototype, wait for the next bioRad release
+for more documentation and functionality.
+
 The latitude/longitude of the returned \code{ppi} use the WGS84
 datum.
 }

@@ -175,12 +175,21 @@ angle between the half-power (-3 dB) points of the main lobe</p></td>
 
     <p>numeric. Beam width in m.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>#' # beam width in meters at 10 km range:</span>
+<span class='fu'>beam_width</span>(<span class='fl'>10000</span>)</div><div class='output co'>#&gt; [1] 174.5241</div><div class='input'>
+<span class='co'># define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:</span>
+<span class='no'>range</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>100000</span>,<span class='fl'>100</span>)
+
+<span class='co'># plot the beam width as a function of range:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>range</span>, <span class='fu'>beam_width</span>(<span class='no'>range</span>), <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"beam width [m]"</span>, <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"range [m]"</span>)</div><div class='img'><img src='beam_width-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

@@ -66,3 +66,19 @@ An object of class \code{ppi} is a list containing:
   }
 }
 }
+\examples{
+# load example scan object
+data(example_scan)
+
+# calculate ppi object
+example_ppi <- project_as_ppi(example_scan)
+
+# print summary info:
+example_ppi
+
+# verify exampl_ppi is a ppi object:
+is.ppi(example_ppi)
+
+# ppi object dimensions:
+dim(example_ppi)
+}

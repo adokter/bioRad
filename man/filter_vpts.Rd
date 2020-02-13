@@ -27,8 +27,16 @@ Time selection in a time series of vertical profiles ('vpts')
 returns profiles for which min <= timestamp profile < max.
 }
 \examples{
-# let us use this example vertical profile time series:
+# load example vertical profile time series:
+data(example_vpts)
 example_vpts
+
 # select profiles later than 02-Sep-2016
 filter_vpts(example_vpts, min = "2016-09-02")
+
+# select the profile nearest to 2016-09-01 03:00 UTC:
+filter_vpts(example_vpts, nearest="2016-09-01 03:00")
+
+# select profiles between than 1 and 3 UTC on 02-Sep-2016:
+filter_vpts(example_vpts, min="2016-09-02 01:00", max="2016-09-02 03:00")
 }

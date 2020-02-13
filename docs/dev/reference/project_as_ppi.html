@@ -253,32 +253,40 @@ parameters in a scan</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load a polar scan example object</span>
+    <pre class="examples"><div class='input'><span class='co'># load a polar scan example object:</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
 <span class='no'>example_scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='co'># plot the scanL</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>)</div><div class='img'><img src='project_as_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># make PPIs for all scan parameters in the scan:</span>
+#&gt;            dims:  480 bins x 360 rays</div><div class='input'>
+<span class='co'># plot the scan:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>example_scan</span>)</div><div class='img'><img src='project_as_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># make PPIs for all scan parameters in the scan:</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>project_as_ppi</span>(<span class='no'>example_scan</span>)
+
 <span class='co'># print summary info for the ppi:</span>
 <span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt;         dims:  200 x 200 pixels
-#&gt; </div><div class='input'><span class='co'># plot the ppi:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='project_as_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># extract the DBZH scan parameter of the volume to a new</span>
+#&gt; </div><div class='input'>
+<span class='co'># plot the ppi:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='project_as_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># extract the DBZH scan parameter of the volume to a new</span>
 <span class='co'># object 'param':</span>
 <span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_param.html'>get_param</a></span>(<span class='no'>example_scan</span>,<span class='st'>"VRADH"</span>)
+
 <span class='co'># make a ppi for the new 'param' object:</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>project_as_ppi</span>(<span class='no'>param</span>)
+
 <span class='co'># print summary info for this ppi:</span>
 <span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH 
 #&gt;         dims:  200 x 200 pixels
-#&gt; </div><div class='input'><span class='co'># plot the ppi:</span>
+#&gt; </div><div class='input'>
+<span class='co'># plot the ppi:</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='project_as_ppi-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

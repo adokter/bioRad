@@ -175,18 +175,20 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># make a ppi:</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
+
 <span class='co'># this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):</span>
 <span class='no'>my_ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt;         dims:  200 x 200 pixels
-#&gt; </div><div class='input'><span class='co'>#</span>
+#&gt; </div><div class='input'>
 <span class='co'># This ppi only contains the first quantity (VRADH):</span>
 <span class='no'>my_ppi</span>[<span class='fl'>1</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH 
 #&gt;         dims:  200 x 200 pixels
-#&gt; </div><div class='input'><span class='co'># This ppi contains the first three quantities (VRADH, DBZH, ZDR):</span>
+#&gt; </div><div class='input'>
+<span class='co'># This ppi contains the first three quantities (VRADH, DBZH, ZDR):</span>
 <span class='no'>my_ppi</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   quantities:  VRADH DBZH ZDR 

@@ -189,7 +189,10 @@ class <code>ppi</code>.</p>
 <p>For <code>dim.ppi</code>: dimensions of the ppi.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An object of class <code>ppi</code> is a list containing:</p><dl class='dl-horizontal'>
+    <p><code>ppi</code> objects are generated from elevation scans (<code>scan</code> objects)
+with <a href='project_as_ppi.html'>project_as_ppi</a> or from polar volumes with <a href='integrate_to_ppi.html'>integrate_to_ppi</a>,
+producing projections of the radar data onto the earth's surface.</p>
+<p>An object of class <code>ppi</code> is a list containing:</p><dl class='dl-horizontal'>
  <dt><code>data</code></dt><dd><p>an object of class <a href='https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html'>SpatialGridDataFrame</a>
    containing the georeferenced data. Commonly available parameters are:
     <dl class='dl-horizontal'>
