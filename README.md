@@ -16,7 +16,7 @@ calculate further summary statistics.
 
 To get started, see:
 
-  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
+  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
     describing the package.
   - [bioRad
     vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an
@@ -67,7 +67,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.5.0.9297
+#> Welcome to bioRad version 0.5.0
 #> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)
 ```
 
