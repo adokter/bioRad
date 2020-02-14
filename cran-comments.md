@@ -1,6 +1,7 @@
 ## Test environments
-* local OS X install, R 3.5.1
-* local Ubuntu 16.04 LTS, R 3.4.4
+* local OS X install, R 3.6.2
+* local Ubuntu 18.04 LTS, R 3.6.2
+* local Windows 10 Enterprise, R 3.6.2
 
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
@@ -20,12 +21,6 @@ large and we have already reduced the size of these files
 (inst/extdata/volume.h5, data/example_scan.rda, data/example_vpts.rda)
 as much as possible.
 
-## comments after reject by CRAN auto-check service after initial submission
-All issues fixed, except this one:
-On first submission the system detected the following (possible) invalid URL:
-https://doi.org/10.1111/ecog.04028
-Ignoring as this link is available.
-
 ## r-hub builder
 Building bioRad with r-hub (using `check_rhub()` fails because gdal is
 not available on the r-hub build system. The rgdal package is a
@@ -35,21 +30,18 @@ rgdal issue than a bioRad issue.
 
 Resulting PREPERROR:
 ```
-* installing *source* package ‘rgdal’ ...
-** package ‘rgdal’ successfully unpacked and MD5 sums checked
-configure: R_HOME: /opt/R-devel/lib64/R
-configure: CC: /usr/bin/clang
-configure: CXX: /usr/bin/clang++
-configure: C++11 support available
-configure: rgdal: 1.3-6
-checking for /usr/bin/svnversion... yes
-configure: svn revision: 773
-checking for gdal-config... no
-no
-configure: error: gdal-config not found or not executable.
-ERROR: configuration failed for package ‘rgdal’
-* removing ‘/home/docker/R/rgdal’
+#> configure: GDAL: 1.11.3
+#> checking GDAL version >= 1.11.4... no
+#> configure: error: upgrade GDAL to 1.11.4 or later
+#> ERROR: configuration failed for package ‘rgdal’
+#> * removing ‘/home/docker/R/rgdal’
 ```
+
+Additional NOTES:
+Examples with CPU (user + system) or elapsed time > 5s
+                  user system elapsed
+integrate_to_ppi 13.73   0.10   13.83
+plot.scan         6.48   0.06    6.55
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
