@@ -15,7 +15,9 @@ knitr::opts_chunk$set(
 
 # bioRad <img src="man/figures/logo.png" align="right" alt="" width="120">
 
+<!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
+<!-- badges: end -->
 
 bioRad provides standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low-level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.
 
@@ -50,6 +52,7 @@ install.packages("bioRad")
 Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
 
 ```{r eval = FALSE}
+# install.packages("devtools")
 devtools::install_github("adokter/bioRad")
 ```
 

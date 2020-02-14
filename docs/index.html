@@ -108,6 +108,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#biorad-" class="anchor"></a>bioRad <img src="reference/figures/logo.png" align="right" alt="" width="120">
 </h1></div>
+<!-- badges: start -->
 
 <p>bioRad provides standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low-level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.</p>
 <p>To get started, see:</p>
@@ -135,7 +136,8 @@
 <p>You can install the released version of bioRad from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"bioRad"</span>)</span></code></pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad">GitHub</a> with:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb3-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</a></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bioRad)</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; Welcome to bioRad version 0.5.0</span></span>
@@ -169,7 +171,7 @@
 <li>Open the Docker application. The Docker (whale) icon will appear in your menu or task bar and indicate if it is running correctly.</li>
 <li>Make local drive(s) available for Docker containers:
 <ul>
-<li>On Windows: right click the Docker icon &gt; <code>Settings</code> &gt; <code>Shared     drives</code> &gt; Select the drive(s) where you will be processing radar files &gt; Click <code>Apply</code>.</li>
+<li>On Windows: right click the Docker icon &gt; <code>Settings</code> &gt; <code>Shared drives</code> &gt; Select the drive(s) where you will be processing radar files &gt; Click <code>Apply</code>.</li>
 <li>On Mac: click the Docker icon &gt; <code>Preferences</code> &gt; <code>File sharing</code> &gt; Add the drive(s) where you will be processing radar files &gt; Click <code>Apply &amp; Restart</code>.</li>
 </ul>
 </li>
@@ -184,7 +186,7 @@
 <li>Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.</li>
 <li>For firewall issues on Windows, see <a href="https://github.com/adokter/bioRad/issues/128">this issue</a>
 </li>
-<li>For permission issues when running docker, specifically the error <code>Got permission denied while trying to connect to the Docker daemon     socket at unix:///var/run/docker.sock</code>, see <a href="https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/">this</a> solution. Running <code>sudo usermod -a -G docker $USER</code> in a terminal will fix this problem.</li>
+<li>For permission issues when running docker, specifically the error <code>Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock</code>, see <a href="https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/">this</a> solution. Running <code>sudo usermod -a -G docker $USER</code> in a terminal will fix this problem.</li>
 </ol>
 </div>
 </div>
@@ -291,7 +293,14 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=bioRad"><img src="https://www.r-pkg.org/badges/version/bioRad" alt="CRAN status"></a></li>
+<li><a href="https://doi.org/10.5281/zenodo.3370004"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg" alt="DOI"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

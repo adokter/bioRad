@@ -3,9 +3,12 @@
 
 # bioRad <img src="man/figures/logo.png" align="right" alt="" width="120">
 
+<!-- badges: start -->
+
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
+<!-- badges: end -->
 
 bioRad provides standardized methods for extracting and reporting
 biological signals from weather radars. It includes functionality to
@@ -16,7 +19,7 @@ calculate further summary statistics.
 
 To get started, see:
 
-  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
+  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
     describing the package.
   - [bioRad
     vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an
@@ -60,6 +63,7 @@ Alternatively, you can install the latest development version from
 [GitHub](https://github.com/adokter/bioRad) with:
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("adokter/bioRad")
 ```
 
