@@ -147,7 +147,7 @@
 #'   velocities using a torus mapping. Journal of Atmospheric and Oceanic
 #'   Technology, 21(10), pp.1566--1573.
 #'   \url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
-#'   \item Tsung‐Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
+#'   \item Tsung-Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
 #'   Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
 #'   Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
 #'   MistNet: Measuring historical bird migration in the US
