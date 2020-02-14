@@ -126,8 +126,8 @@
 #' \itemize{
 #'   \item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
 #'   Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
-#'   Bird Movements Estimated from a Weather Radar Network. Remote Sensing, in
-#'   press.
+#'   Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
+#'   \url{https://www.mdpi.com/2072-4292/12/4/635}
 #'   \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
