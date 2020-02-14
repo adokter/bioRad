@@ -1,21 +1,28 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "bioRad",
-  "description": "bioRad aims to provide standardized methods for extracting and \n    reporting biological signals from weather radars. It includes functionality \n    to inspect low‐level radar data, process these data into meaningful \n    biological information on animal speeds and directions at different \n    altitudes in the atmosphere, visualize these biological extractions, and \n    calculate further summary statistics.",
-  "name": "bioRad: Biological analysis and visualization of weather radar data",
+  "description": "Extract, visualize and summarize aerial movements of birds and\n    insects from weather radar data. See <https://doi.org/10.1111/ecog.04028>\n    for a software paper describing package and methodologies.",
+  "name": "bioRad: Biological Analysis and Visualization of Weather Radar Data",
   "codeRepository": "https://github.com/adokter/bioRad",
-  "relatedLink": ["https://adokter.github.io/bioRad", "https://github.com/adokter/bioRad/commit/c159384"],
+  "relatedLink": [
+    "https://adokter.github.io/bioRad",
+    "https://github.com/adokter/bioRad/commit/c159384",
+    "https://CRAN.R-project.org/package=bioRad"
+  ],
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.2",
+    "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
+  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -41,11 +48,18 @@
       "@type": "Person",
       "givenName": "Stijn",
       "familyName": "Van Hoey",
-      "email": "stijn.vanhoey@inbo.be",
+      "email": "stijnvanhoey@gmail.com",
       "@id": "https://orcid.org/0000-0001-6413-3185"
     }
   ],
   "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Bart",
+      "familyName": "Kranstauber",
+      "email": "b.kranstauber@uva.nl",
+      "@id": "https://orcid.org/0000-0001-8303-780X"
+    },
     {
       "@type": "Person",
       "givenName": "Jurriaan",
@@ -115,7 +129,19 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 2.10"
+      "version": ">= 3.5.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "assertthat",
+      "name": "assertthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=assertthat"
     },
     {
       "@type": "SoftwareApplication",
@@ -230,8 +256,32 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "viridis",
+      "name": "viridis",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=viridis"
     },
     {
       "@type": "SoftwareApplication",
@@ -246,11 +296,24 @@
       "sameAs": "https://CRAN.R-project.org/package=maptools"
     }
   ],
-  "keywords": ["r", "package", "radar", "aeroecology", "movement-ecology", "enram", "nexrad", "eumetnet-opera", "lifewatch", "wsr-88d", "weather-radar", "oscibio"],
+  "keywords": [
+    "r",
+    "package",
+    "radar",
+    "aeroecology",
+    "movement-ecology",
+    "enram",
+    "nexrad",
+    "eumetnet-opera",
+    "lifewatch",
+    "wsr-88d",
+    "weather-radar",
+    "oscibio"
+  ],
   "citation": [
     {
       "@type": "ScholarlyArticle",
-      "datePublished": "2018",
+      "datePublished": "2019",
       "author": [
         {
           "@type": "Person",
@@ -315,16 +378,21 @@
       ],
       "name": "bioRad: biological analysis and visualization of weather radar data",
       "identifier": "10.1111/ecog.04028",
+      "paginiation": "852-860",
       "@id": "https://doi.org/10.1111/ecog.04028",
       "sameAs": "https://doi.org/10.1111/ecog.04028",
       "isPartOf": {
         "@type": "PublicationIssue",
-        "datePublished": "2018",
+        "datePublished": "2019",
         "isPartOf": {
           "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "42",
           "name": "Ecography"
         }
       }
     }
-  ]
+  ],
+  "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
+  "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
+  "fileSize": "5887.639KB"
 }
