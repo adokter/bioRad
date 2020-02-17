@@ -167,7 +167,6 @@ plot(my_ppi, param = "VID", zlim = c(0, 200))
 \dontrun{
 bm <- download_basemap(my_ppi)
 map(my_ppi, bm)
-}
 
 # the ppi can also be projected on a user-defined raster, as follows:
 # first define the raster:
@@ -186,6 +185,7 @@ my_ppi <- integrate_to_ppi(example_pvol, example_vp,
   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 )
 plot(my_ppi, param = "VID", zlim = c(0, 200))
+}
 }
 \references{
 \itemize{
