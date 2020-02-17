@@ -37,11 +37,5 @@ Resulting PREPERROR:
 #> * removing ‘/home/docker/R/rgdal’
 ```
 
-Additional NOTES:
-Examples with CPU (user + system) or elapsed time > 5s
-                  user system elapsed
-integrate_to_ppi 13.73   0.10   13.83
-plot.scan         6.48   0.06    6.55
-
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
