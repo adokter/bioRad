@@ -215,7 +215,7 @@ my_vpi %>%
 ```
 
 For more exercises, see [this
-tutorial](https://adokter.github.io/bioRad/articles/rad_aero_18.html).
+tutorial](https://adokter.github.io/bioRad/articles/rad_aero_19.html).
 
 ## Meta
 

@@ -367,8 +367,10 @@ and stored as quantity <code>overlap</code>.</p>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># to overlay ppi objects on a background map, first</span>
 <span class='co'># download a basemap, and map the ppi:</span>
-<span class='co'># \dontrun{</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 7 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)
+}
 
 <span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
 <span class='co'># first define the raster:</span>
@@ -394,7 +396,7 @@ and stored as quantity <code>overlap</code>.</p>
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>500</span>,
   <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>)
 )
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
