@@ -219,11 +219,11 @@ tutorial](https://adokter.github.io/bioRad/articles/rad_aero_19.html).
 
 ## Meta
 
-  - We welcome [contributions](.github/CONTRIBUTING.md) including bug
+  - We welcome [contributions](./.github/CONTRIBUTING.md) including bug
     reports.
   - License: MIT
   - Get citation information for `bioRad` in R doing
     `citation("bioRad")`.
   - Please note that this project is released with a [Contributor Code
-    of Conduct](.github/CODE_OF_CONDUCT.md). By participating in this
+    of Conduct](./.github/CODE_OF_CONDUCT.md). By participating in this
     project you agree to abide by its terms.

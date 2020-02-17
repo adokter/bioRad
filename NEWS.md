@@ -82,13 +82,13 @@ First release on CRAN! All issues included in this release can be found [here](h
 
 Release consistent with and in preparation of the bioRad methods paper (https://doi.org/10.1111/ecog.04028). All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/1?closed=1).
 
-* Functions (#84), arguments (#112) and objects (#80) have been renamed to be consistent (#51). Deprecated functions will remain functional for now, but we will trigger a warning: **we advise to use the new functions names**. See the lists for [current functions](../reference/) and [deprecated functions](../reference/bioRad-deprecated.html).
+* Functions (#84), arguments (#112) and objects (#80) have been renamed to be consistent (#51). Deprecated functions will remain functional for now, but we will trigger a warning: **we advise to use the new functions names**. See the lists for [current functions](../reference/) and [deprecated functions](https://adokter.github.io/bioRad/reference/bioRad-deprecated.html).
 
 * `integrate_profile()` replaces the functionality of `cmt()` (#75) and `mt()` (#76).
 
 * `plot()` can now be used for scans (#71), e.g. `plot(example_scan)`.
 
-* Functions are [organized in sections](../reference/) on the website (#110).
+* Functions are [organized in sections](https://adokter.github.io/bioRad/reference/) on the website (#110).
 
 * Changelog section (this page) has been added to website (#144).
 
