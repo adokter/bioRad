@@ -197,12 +197,12 @@ to be 5.3 cm and S-band wavelength 10.6 cm</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
 <span class='no'>vptszipfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-<span class='co'># \dontrun{</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># unzip(vptszipfile, "your/directory/and/file/name.txt")</span>
 <span class='co'># load time series:</span>
 <span class='co'># ts &lt;- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")</span>
 <span class='co'># ts</span>
-<span class='co'># }</span></div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
