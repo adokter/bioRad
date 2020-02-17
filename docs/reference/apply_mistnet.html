@@ -252,7 +252,7 @@ scans at that spatial location &gt; 0.45.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># download a NEXRAD file, save as KBGM_example</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"https://noaa-nexrad-level2.s3.amazonaws.com/"</span>,
   <span class='st'>"2019/10/01/KBGM/KBGM20191001_000542_V06"</span>,
@@ -270,22 +270,18 @@ scans at that spatial location &gt; 0.45.</p>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>my_scan</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>100000</span>)
 
 <span class='co'># plot the reflectivity parameter:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the MistNet class probability [0-1] for weather</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"WEATHER"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"WEATHER"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the MistNet class probability [0-1] for biology</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"BIOLOGY"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
 <span class='co'># areas classified as weather, and value 1 pixels that fall within an</span>
 <span class='co'># additional 5 km fringe around weather areas.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"CELL"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># clean up:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

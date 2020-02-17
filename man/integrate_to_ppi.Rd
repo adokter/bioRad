@@ -156,6 +156,7 @@ my_ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 50, ny = 50)
 # plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:
 plot(my_ppi, zlim = c(0, 2000))
 
+\dontrun{
 # calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:
 my_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 2000)
 
@@ -164,7 +165,6 @@ plot(my_ppi, param = "VID", zlim = c(0, 200))
 
 # to overlay ppi objects on a background map, first
 # download a basemap, and map the ppi:
-\dontrun{
 bm <- download_basemap(my_ppi)
 map(my_ppi, bm)
 
