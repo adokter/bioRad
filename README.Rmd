@@ -150,7 +150,7 @@ For more exercises, see [this tutorial](https://adokter.github.io/bioRad/article
 
 ## Meta
 
-* We welcome [contributions](/.github/CONTRIBUTING.md) including bug reports.
+* We welcome [contributions](https://adokter.github.io/bioRad/CONTRIBUTING.html) including bug reports.
 * License: MIT
 * Get citation information for `bioRad` in R doing `citation("bioRad")`.
-* Please note that this project is released with a [Contributor Code of Conduct](/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+* Please note that this project is released with a [Contributor Code of Conduct](https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.
