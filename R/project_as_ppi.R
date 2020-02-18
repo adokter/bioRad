@@ -56,7 +56,7 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
-                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
+                                 project = TRUE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "param"))
 
   data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)
@@ -79,7 +79,7 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
-                                project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
+                                project = TRUE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
   if (inherits(grid_size, "RasterLayer")) {
     proj4string <- CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
