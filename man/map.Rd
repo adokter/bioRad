@@ -22,6 +22,7 @@ map(x, ...)
   radar.size = 3,
   radar.color = "red",
   n.color = 1000,
+  palette = NA,
   ...
 )
 }
@@ -58,6 +59,9 @@ vector of length 2.}
 \item{radar.color}{Deprecated argument, use radar_color instead.}
 
 \item{n.color}{Deprecated argument, use n_color instead.}
+
+\item{palette}{(Optional) character vector of hexidecimal color values defining
+the plot color scale, e.g. output from \link[viridisLite]{viridis}}
 }
 \value{
 A ggmap object (a classed raster object with a bounding
@@ -109,6 +113,9 @@ map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 # map the reflectivity on a terrain basemap:
 basemap <- download_basemap(ppi, maptype = "terrain")
 map(ppi, map = basemap, param = "DBZH")
+
+# change the color palette, e.g. Viridis colors:
+map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
 
 # give the data more transparency:
 map(ppi, map = basemap, param = "DBZH", alpha = 0.3)

@@ -2,9 +2,15 @@
 % Please edit documentation in R/calculate_param.R
 \name{calculate_param}
 \alias{calculate_param}
+\alias{calculate_param.pvol}
+\alias{calculate_param.scan}
 \title{Calculate a new scan parameter}
 \usage{
 calculate_param(x, ...)
+
+\method{calculate_param}{pvol}(x, ...)
+
+\method{calculate_param}{scan}(x, ...)
 }
 \arguments{
 \item{x}{an object of class \code{pvol} or class \code{scan}}
@@ -20,6 +26,13 @@ for calculating quantities that are defined in terms of other basic radar moment
 linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for applying
 clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{pvol}: Calculate a new scan parameter for all scans in a polar volume.
+
+\item \code{scan}: Calculate a new scan parameter for a scan
+}}
+
 \examples{
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

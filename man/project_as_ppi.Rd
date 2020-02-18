@@ -14,6 +14,7 @@ project_as_ppi(
   project = TRUE,
   ylim = NULL,
   xlim = NULL,
+  raster = NA,
   k = 4/3,
   re = 6378,
   rp = 6357
@@ -26,6 +27,7 @@ project_as_ppi(
   project = TRUE,
   ylim = NULL,
   xlim = NULL,
+  raster = NA,
   k = 4/3,
   re = 6378,
   rp = 6357
@@ -38,6 +40,7 @@ project_as_ppi(
   project = TRUE,
   ylim = NULL,
   xlim = NULL,
+  raster = NA,
   k = 4/3,
   re = 6378,
   rp = 6357
@@ -46,7 +49,7 @@ project_as_ppi(
 \arguments{
 \item{x}{An object of class \code{param} or \code{scan}.}
 
-\item{grid_size}{Cartesian grid size in m or a RasterLayer defining the full topology.}
+\item{grid_size}{Cartesian grid size in m.}
 
 \item{range_max}{Maximum range in m.}
 
@@ -55,6 +58,9 @@ project_as_ppi(
 \item{ylim}{The range of latitudes to include.}
 
 \item{xlim}{The range of longitudes to include.}
+
+\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
+and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
 
 \item{k}{Standard refraction coefficient.}
 
