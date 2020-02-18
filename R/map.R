@@ -10,6 +10,8 @@
 #' @param radar_size Size of the symbol indicating the radar position.
 #' @param radar_color Color of the symbol indicating the radar position.
 #' @param n_color The number of colors (>=1) to be in the palette.
+#' @param palette (Optional) character vector of hexidecimal color values defining
+#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.
 #' @param ylim Range of y values to plot (degrees latitude), as an atomic
@@ -64,6 +66,9 @@
 #' basemap <- download_basemap(ppi, maptype = "terrain")
 #' map(ppi, map = basemap, param = "DBZH")
 #'
+#' # change the color palette, e.g. Viridis colors:
+#' map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
+#'
 #' # give the data more transparency:
 #' map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 #'
@@ -82,7 +87,8 @@ map <- function(x, ...) {
 map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
                     zlim = c(-20, 20), ratio, radar_size = 3,
                     radar_color = "red", n_color = 1000,
-                    radar.size = 3, radar.color = "red", n.color = 1000, ...) {
+                    radar.size = 3, radar.color = "red",
+                    n.color = 1000, palette = NA, ...) {
 
   # deprecate function arguments
   if (!missing(radar.size)) {
@@ -137,6 +143,17 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
     stop("Not a basemap for this radar location.")
   }
 
+  # set color scales and palettes
+  if (!are_equal(palette, NA)) {
+    if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
+    n_color = length(palette)
+    colorscale <- color_palette_to_scale(param, zlim, palette, na.value = "transparent")
+  }
+  else{
+    palette <- color_palette(param = param, n_color = n_color, alpha = alpha)
+    colorscale <- color_scale(param, zlim)
+  }
+
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
   wgs84 <- CRS("+proj=longlat +datum=WGS84")
@@ -180,42 +197,22 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # rasterize data on the raster, if there is valid data
   if(FALSE %in% is.na(data[,1])){
     r <- raster::rasterize(data[, 2:3], r, data[, 1])
-  }
-  else{
+  } else{
     raster::values(r) <- NA
   }
 
-  # assign colors
-  if (param %in% c("VRADH", "VRADV", "VRAD")) {
-    cols <- add_color_transparency(
-      colorRampPalette(
-        colors = c("blue", "white", "red"),
-        alpha = TRUE
-      )(n_color),
-      alpha = alpha
-    )
-  } else {
-    cols <- add_color_transparency(
-      colorRampPalette(
-        colors = c(
-          "lightblue", "darkblue", "green",
-          "yellow", "red", "magenta"
-        ),
-        alpha = TRUE
-      )(n_color),
-      alpha = alpha
-    )
-  }
-
+  # function to convert values to hex color strings
   col_func <- function(value, lim) {
     output <- rep(0, length(value))
     output <- round((value - lim[1]) / (lim[2] - lim[1]) * n_color)
     output[output > n_color] <- n_color
     output[output < 1] <- 1
-    return(cols[output])
+    return(palette[output])
   }
 
+  # convert data values to hex color string values.
   r@data@values <- col_func(r@data@values, zlim)
+
   # these declarations prevent generation of NOTE "no visible binding for
   # global variable" during package Check
   lon <- lat <- y <- z <- NA
@@ -235,8 +232,6 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
     size = radar_size,
     data = data.frame(lon = x$geo$lon, lat = x$geo$lat)
   )
-  # colorscale
-  colorscale <- color_scale(param, zlim)
   # bounding box
   bboxlatlon <- attributes(map)$geo$bbox
   # remove dimnames, otherwise ggmap will give a warning message below:

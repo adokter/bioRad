@@ -49,7 +49,7 @@
 #' # plot the ppi:
 #' plot(ppi)
 project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
-                           project = TRUE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
+                           project = TRUE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
   UseMethod("project_as_ppi", x)
 }
 
@@ -58,7 +58,10 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
-                                 project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
+                                 project = FALSE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
+  # note: raster argument not used currently, as the raster is parsed through the
+  # grid_size argument. May need to be refactored
+
   stopifnot(inherits(x, "param"))
 
   data <- sample_polar(x, grid_size, range_max, project, ylim, xlim, k = k, re = re, rp = rp)

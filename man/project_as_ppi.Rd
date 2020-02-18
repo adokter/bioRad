@@ -14,6 +14,7 @@ project_as_ppi(
   project = TRUE,
   ylim = NULL,
   xlim = NULL,
+  raster = NA,
   k = 4/3,
   re = 6378,
   rp = 6357
@@ -26,6 +27,7 @@ project_as_ppi(
   project = FALSE,
   ylim = NULL,
   xlim = NULL,
+  raster = NA,
   k = 4/3,
   re = 6378,
   rp = 6357
@@ -57,14 +59,14 @@ project_as_ppi(
 
 \item{xlim}{The range of longitudes to include.}
 
+\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
+and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
+
 \item{k}{Standard refraction coefficient.}
 
 \item{re}{Earth equatorial radius in km.}
 
 \item{rp}{Earth polar radius in km.}
-
-\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
-and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
 }
 \value{
 An object of class '\link[=summary.ppi]{ppi}'.
