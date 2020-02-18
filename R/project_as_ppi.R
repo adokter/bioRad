@@ -4,11 +4,13 @@
 #' Make a plan position indicator (ppi)
 #'
 #' @param x An object of class \code{param} or \code{scan}.
-#' @param grid_size Cartesian grid size in m or a RasterLayer defining the full topology.
+#' @param grid_size Cartesian grid size in m.
 #' @param range_max Maximum range in m.
 #' @param ylim The range of latitudes to include.
 #' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
+#' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
+#' and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.
 #' @inheritParams beam_height
 #'
 #' @return An object of class '\link[=summary.ppi]{ppi}'.
@@ -79,16 +81,20 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 #'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
-                                project = FALSE, ylim = NULL, xlim = NULL, k = 4 / 3, re = 6378, rp = 6357) {
+                                project = FALSE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
-  if (inherits(grid_size, "RasterLayer")) {
+
+  if (!are_equal(raster, NA)) {
+    assert_that(inherits(raster, "RasterLayer"))
+  }
+
+  if (inherits(raster, "RasterLayer")) {
     proj4string <- CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
       " +lon_0=", x$geo$lon,
       " +units=m",
       sep = ""
     ))
-    ras <- grid_size
-    grid_size <- spTransform(as(as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
+    grid_size <- spTransform(as(as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
   }
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
@@ -115,7 +121,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
     data <- do.call(cbind, alldata)
   }
   if (inherits(data, "SpatialPoints")) {
-    data <- SpatialGridDataFrame(as(ras, "SpatialGrid"), data@data)
+    data <- SpatialGridDataFrame(as(raster, "SpatialGrid"), data@data)
   }
   data <- list(
     radar = x$radar, datetime = x$datetime,
