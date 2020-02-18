@@ -177,8 +177,14 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
     data[index, ]$z <- zlim[2]
   }
 
-  # rasterize
-  r <- raster::rasterize(data[, 2:3], r, data[, 1])
+  # rasterize data on the raster, if there is valid data
+  if(FALSE %in% is.na(data[,1])){
+    r <- raster::rasterize(data[, 2:3], r, data[, 1])
+  }
+  else{
+    raster::values(r) <- NA
+  }
+
   # assign colors
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
