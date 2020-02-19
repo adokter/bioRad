@@ -27,7 +27,7 @@ color_scale_fill <- function(param, zlim, na.value = "transparent") {
   } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
     colorscale <- viridis::scale_fill_viridis(na.value = na.value, name = param)
   } else {
-    colorscale <- color_palette_to_scale(param, zlim, colors_dbz, na.value = "transparent")
+    colorscale <- color_palette_to_scale_fill(param, zlim, colors_dbz, na.value = "transparent")
   }
   return(colorscale)
 }
@@ -55,9 +55,18 @@ color_palette <- function(param, n_color, alpha){
   return(cols)
 }
 
-# convert a vector of colors to a ScaleContinuous color scale object
-color_palette_to_scale <- function(param, zlim, colors, na.value = "transparent"){
+# convert a vector of colors to a ScaleContinuous (fill) color scale object
+color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transparent"){
   ggplot2::scale_fill_gradientn(
+    colours = colors,
+    name = param,
+    limits = zlim,
+    na.value = na.value)
+}
+
+# convert a vector of colors to a ScaleContinuous (colour) color scale object
+color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "transparent"){
+  ggplot2::scale_colour_gradientn(
     colours = colors,
     name = param,
     limits = zlim,

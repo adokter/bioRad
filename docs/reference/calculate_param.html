@@ -161,7 +161,13 @@ linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for appl
 clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calculate_param</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>calculate_param</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for pvol</span>
+<span class='fu'>calculate_param</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for scan</span>
+<span class='fu'>calculate_param</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,6 +185,13 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>an object of the same class as <code>x</code>, either class <code>pvol</code> or class <code>scan</code></p>
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    
+<ul>
+<li><p><code>pvol</code>: Calculate a new scan parameter for all scans in a polar volume.</p></li>
+<li><p><code>scan</code>: Calculate a new scan parameter for a scan</p></li>
+</ul>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -218,6 +231,7 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

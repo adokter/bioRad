@@ -30,6 +30,8 @@ New CRAN release. All issues included in this release can be found [here](https:
 
 ### Additional features
 
+* custom color scales in `map()` and `plot.ppi` (#318)
+
 * `nyquist_velocity()` is a new function to calculate the unambiguous velocity of Doppler radar from its pulse repetition frequency/frequencies (#208).
 
 * `filter_vpts()` is a new function simplifying the selection of time ranges and instances in vertical profile time series (`vpts`) (#241).
