@@ -57,7 +57,7 @@ color_palette <- function(param, n_color, alpha){
 
 # convert a vector of colors to a ScaleContinuous color scale object
 color_palette_to_scale <- function(param, zlim, colors, na.value = "transparent"){
-  ggplot2::scale_colour_gradientn(
+  ggplot2::scale_fill_gradientn(
     colours = colors,
     name = param,
     limits = zlim,
