@@ -9,17 +9,13 @@ There were no ERRORs or WARNINGs.
 There was 1 NOTE:
 
 * checking installed package size ... NOTE
-  installed size is  6.2Mb
+  installed size is  5.7Mb
   sub-directories of 1Mb or more:
     data      1.6Mb
-    extdata   2.6Mb
+    doc       1.3Mb
+    extdata   1.7Mb
 
-We slightly exceed the recommended maximum package size of 5Mb
-because of the inclusion of example radar data that are used
-in various code examples. Weather radar data is notoriously 
-large and we have already reduced the size of these files
-(inst/extdata/volume.h5, data/example_scan.rda, data/example_vpts.rda)
-as much as possible.
+The tarball is however below the required 5 Mb
 
 ## r-hub builder
 Building bioRad with r-hub (using `check_rhub()` fails because gdal is

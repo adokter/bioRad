@@ -196,13 +196,15 @@ to be 5.3 cm and S-band wavelength 10.6 cm</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># locate example file:</span>
-<span class='no'>vptszipfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
-<span class='co'># \dontrun{</span>
-<span class='co'># unzip(vptszipfile, "your/directory/and/file/name.txt")</span>
+<span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example_vpts.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='co'># load time series:</span>
-<span class='co'># ts &lt;- read_vpts("your/directory/and/file/name.txt", radar = "KBGM", wavelength = "S")</span>
-<span class='co'># ts</span>
-<span class='co'># }</span></div></pre>
+<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'>read_vpts</span>(<span class='no'>vptsfile</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
+<span class='no'>ts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  11 
+#&gt; time range (UTC):  2016-09-02 00:16:00 - 2016-09-02 01:52:00 
+#&gt;    time step (s):  min: 540     max:  600 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

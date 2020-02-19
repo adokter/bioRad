@@ -151,16 +151,16 @@
 
     <div id="biorad-050" class="section level1">
 <h1 class="page-header">
-<a href="#biorad-050" class="anchor"></a>bioRad 0.5.0<small> Unreleased </small>
+<a href="#biorad-050" class="anchor"></a>bioRad 0.5.0<small> 2020-02-19 </small>
 </h1>
 <p>New CRAN release. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/6?closed=1">here</a>.</p>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an <code>ppi</code> image showing the density of animals on the earth’s surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See Kranstauber et al. (2020, in press) for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this vignette</a> for examples.</p></li>
+<li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an <code>ppi</code> image showing the density of animals on the earth’s surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See <a href="https://www.mdpi.com/2072-4292/12/4/635">Kranstauber et al. 2020</a> for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this vignette</a> for examples.</p></li>
 <li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is a new function to apply the convolution neural network “MistNet” on pvolfiles to separate biological and meteorological signals (see <a href="https://doi.org/10.1111/2041-210X.13280">Lin et al. 2019</a>). Results can be readily visualized with <code><a href="../reference/plot.ppi.html">plot.ppi()</a></code> and <code><a href="../reference/plot.scan.html">plot.scan()</a></code>. MistNet is now also a segmentation option in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href='https://github.com/adokter/bioRad/issues/262'>#262</a>).</p></li>
-<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> now reads Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (<a href='https://github.com/adokter/bioRad/issues/222'>#222</a>). bioRad now also reads files containing single elevation scans and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> can calculate profiles from multiple files containing single elevation scans (<a href='https://github.com/adokter/bioRad/issues/221'>#221</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> now read Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (<a href='https://github.com/adokter/bioRad/issues/222'>#222</a>). bioRad now also reads files containing single elevation scans and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> can calculate profiles from multiple files containing single elevation scans (<a href='https://github.com/adokter/bioRad/issues/221'>#221</a>).</p></li>
 </ul>
 <div id="newerfaster-conversions" class="section level3">
 <h3 class="hasAnchor">
@@ -185,6 +185,7 @@
 <h3 class="hasAnchor">
 <a href="#additional-features" class="anchor"></a>Additional features</h3>
 <ul>
+<li><p>custom color scales in <code><a href="../reference/map.html">map()</a></code> and <code>plot.ppi</code> (<a href='https://github.com/adokter/bioRad/issues/318'>#318</a>)</p></li>
 <li><p><code><a href="../reference/nyquist_velocity.html">nyquist_velocity()</a></code> is a new function to calculate the unambiguous velocity of Doppler radar from its pulse repetition frequency/frequencies (<a href='https://github.com/adokter/bioRad/issues/208'>#208</a>).</p></li>
 <li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> is a new function simplifying the selection of time ranges and instances in vertical profile time series (<code>vpts</code>) (<a href='https://github.com/adokter/bioRad/issues/241'>#241</a>).</p></li>
 <li><p>The definition of height-integrated velocity is now corrected (<a href='https://github.com/adokter/bioRad/issues/232'>#232</a>, <a href='https://github.com/adokter/bioRad/issues/233'>#233</a>, <a href="https://github.com/adokter/bioRad/commit/72be6d1">72be6d1</a>).</p></li>
@@ -215,7 +216,7 @@
 <li><p>Details for deprecated functions <code><a href="../reference/bioRad-deprecated.html">mt()</a></code>, <code><a href="../reference/bioRad-deprecated.html">mtr()</a></code>, <code><a href="../reference/bioRad-deprecated.html">cmt()</a></code> are now displayed with function (<a href='https://github.com/adokter/bioRad/issues/166'>#166</a>).</p></li>
 <li><p><a href="https://adokter.github.io/bioRad">README</a> reviewed for easier installation and usage (<a href='https://github.com/adokter/bioRad/issues/155'>#155</a>).</p></li>
 <li><p><a href="https://adokter.github.io/bioRad/articles/bioRad.html">Get started vignette</a> is now based on figure and workflow from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al.</a> (<a href='https://github.com/adokter/bioRad/issues/168'>#168</a>).</p></li>
-<li><p><a href="https://adokter.github.io/bioRad/articles/rad_aero_18.html">Introductory exercises vignette</a> renamed to <code>rad_aero_18.Rmd</code> since it is based on the 2nd Radar Aeroecology Training School.</p></li>
+<li><p><a href="https://adokter.github.io/bioRad/articles/rad_aero_19.html">Introductory exercises vignette</a> renamed to <code>rad_aero_19.Rmd</code> since it is based on the 3d Radar Aeroecology Training School.</p></li>
 <li><p>bioRad now has a <a href="https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html">code of conduct</a> and <a href="https://adokter.github.io/bioRad/CONTRIBUTING.html">contributing guidelines</a> (<a href='https://github.com/adokter/bioRad/issues/145'>#145</a>).</p></li>
 </ul>
 </div>
@@ -225,10 +226,10 @@
 </h1>
 <p>Release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028" class="uri">https://doi.org/10.1111/ecog.04028</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1?closed=1">here</a>.</p>
 <ul>
-<li><p>Functions (<a href='https://github.com/adokter/bioRad/issues/84'>#84</a>), arguments (<a href='https://github.com/adokter/bioRad/issues/112'>#112</a>) and objects (<a href='https://github.com/adokter/bioRad/issues/80'>#80</a>) have been renamed to be consistent (<a href='https://github.com/adokter/bioRad/issues/51'>#51</a>). Deprecated functions will remain functional for now, but we will trigger a warning: <strong>we advise to use the new functions names</strong>. See the lists for <a href="../reference/">current functions</a> and <a href="../reference/bioRad-deprecated.html">deprecated functions</a>.</p></li>
+<li><p>Functions (<a href='https://github.com/adokter/bioRad/issues/84'>#84</a>), arguments (<a href='https://github.com/adokter/bioRad/issues/112'>#112</a>) and objects (<a href='https://github.com/adokter/bioRad/issues/80'>#80</a>) have been renamed to be consistent (<a href='https://github.com/adokter/bioRad/issues/51'>#51</a>). Deprecated functions will remain functional for now, but we will trigger a warning: <strong>we advise to use the new functions names</strong>. See the lists for <a href="https://adokter.github.io/bioRad/reference/">current functions</a> and <a href="https://adokter.github.io/bioRad/reference/bioRad-deprecated.html">deprecated functions</a>.</p></li>
 <li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> replaces the functionality of <code><a href="../reference/bioRad-deprecated.html">cmt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/75'>#75</a>) and <code><a href="../reference/bioRad-deprecated.html">mt()</a></code> (<a href='https://github.com/adokter/bioRad/issues/76'>#76</a>).</p></li>
 <li><p><code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> can now be used for scans (<a href='https://github.com/adokter/bioRad/issues/71'>#71</a>), e.g. <code><a href="https://rdrr.io/r/graphics/plot.html">plot(example_scan)</a></code>.</p></li>
-<li><p>Functions are <a href="../reference/">organized in sections</a> on the website (<a href='https://github.com/adokter/bioRad/issues/110'>#110</a>).</p></li>
+<li><p>Functions are <a href="https://adokter.github.io/bioRad/reference/">organized in sections</a> on the website (<a href='https://github.com/adokter/bioRad/issues/110'>#110</a>).</p></li>
 <li><p>Changelog section (this page) has been added to website (<a href='https://github.com/adokter/bioRad/issues/144'>#144</a>).</p></li>
 <li><p>Package R code is reorganized as one function = one file for easier maintenance (<a href='https://github.com/adokter/bioRad/issues/50'>#50</a>).</p></li>
 <li><p>First tests are included for some functions.</p></li>
