@@ -34,11 +34,21 @@
 #'   \url{https://doi.org/10.1175/JTECH-D-17-0175.1}
 #' }
 calculate_param <- function(x, ...) {
-  if (class(x) == "pvol") {
-    x$scans <- do.call(lapply, list(x$scans, calculate_param, substitute(list(...))))
-    return(x)
-  }
-  stopifnot(class(x) == "scan")
+  UseMethod("calculate_param", x)
+}
+
+#' @describeIn calculate_param Calculate a new scan parameter for all scans in a polar volume.
+#' @export
+calculate_param.pvol <- function(x, ...) {
+  assert_that(class(x) == "pvol")
+  x$scans <- do.call(lapply, list(x$scans, calculate_param.scan, substitute(list(...))))
+  return(x)
+}
+
+#' @describeIn calculate_param Calculate a new scan parameter for a scan
+#' @export
+calculate_param.scan <- function(x, ...) {
+  assert_that(class(x) == "scan")
   if (as.character(as.list(substitute(...))[[1L]]) == "list") {
     calc <- as.list(substitute(...))[-1L]
   } else {

@@ -1,47 +1,76 @@
 color_scale <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_colour_gradient2(
-      low = "blue", high = "red",
-      mid = "white", name = param,
+      low = colors_vrad[1], high = colors_vrad[3],
+      mid = colors_vrad[2], name = param,
       midpoint = 0, limits = zlim, na.value = na.value
     )
   } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
     colorscale <- viridis::scale_colour_viridis(na.value = na.value, name = param)
   } else {
     colorscale <- scale_colour_gradientn(
-      colours = c(
-        "lightblue", "darkblue",
-        "green", "yellow", "red",
-        "magenta"
-      ),
+      colours = colors_dbz,
       name = param, limits = zlim, na.value = na.value
     )
   }
-
   return(colorscale)
 }
+
 
 color_scale_fill <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_fill_gradient2(
-      low = "blue", high = "red",
-      mid = "white", name = param,
+      low = colors_vrad[1], high = colors_vrad[3],
+      mid = colors_vrad[2], name = param,
       midpoint = 0, limits = zlim, na.value = na.value
     )
   } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
     colorscale <- viridis::scale_fill_viridis(na.value = na.value, name = param)
   } else {
-    colorscale <- scale_fill_gradientn(
-      colours = c(
-        "lightblue", "darkblue",
-        "green", "yellow", "red",
-        "magenta"
-      ),
-      name = param, limits = zlim, na.value = na.value
+    colorscale <- color_palette_to_scale_fill(param, zlim, colors_dbz, na.value = "transparent")
+  }
+  return(colorscale)
+}
+
+color_palette <- function(param, n_color, alpha){
+  if (param %in% c("VRADH", "VRADV", "VRAD")) {
+    cols <- add_color_transparency(
+      colorRampPalette(
+        colors = colors_vrad,
+        alpha = TRUE
+      )(n_color),
+      alpha = alpha
+    )
+  } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
+    cols <- viridisLite::viridis(n=n_color, alpha=alpha)
+  } else {
+    cols <- add_color_transparency(
+      colorRampPalette(
+        colors = colors_dbz,
+        alpha = TRUE
+      )(n_color),
+      alpha = alpha
     )
   }
+  return(cols)
+}
 
-  return(colorscale)
+# convert a vector of colors to a ScaleContinuous (fill) color scale object
+color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transparent"){
+  ggplot2::scale_fill_gradientn(
+    colours = colors,
+    name = param,
+    limits = zlim,
+    na.value = na.value)
+}
+
+# convert a vector of colors to a ScaleContinuous (colour) color scale object
+color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "transparent"){
+  ggplot2::scale_colour_gradientn(
+    colours = colors,
+    name = param,
+    limits = zlim,
+    na.value = na.value)
 }
 
 # helper function to add transparency
@@ -67,6 +96,14 @@ add_color_transparency <- function(color, alpha = 1) {
     # apply(sapply(color, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha=alpha))
   }
 }
+
+# color scale used in map plots:
+colors_dbz <- c(
+  "lightblue", "darkblue",
+  "green", "yellow", "red",
+  "magenta"
+)
+colors_vrad <- c("blue", "white", "red")
 
 # color scale used in vertical profile plots:
 r_points <- c(1, 63, 82, 94, 146, 177, 192, 209, 256)
