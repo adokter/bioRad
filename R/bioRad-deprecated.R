@@ -65,7 +65,7 @@ checkDocker <- function(...) {
 #' @export
 composite <- function(x, param = "DBZH", cells.dim = c(100, 100)) {
   .Deprecated("composite_ppi")
-  composite_ppi(x, param, dim = cells.dim)
+  composite_ppi(x, param, nx = cells.dim[1], ny = cells.dim[2])
 }
 
 #' @section day:
