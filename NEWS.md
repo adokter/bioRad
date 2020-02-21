@@ -1,3 +1,9 @@
+# bioRad 0.5.0.9xxx
+
+* extend the functionality of composite_ppi() and improve its documentation (partial fix of #59)
+
+* fix a bug in the color legend of map() when providing a custom color scale with palette argument (#324)
+
 # bioRad 0.5.0
 
 New CRAN release. All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/6?closed=1).
