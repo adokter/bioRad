@@ -85,7 +85,7 @@ radars." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.0.9325</span>
       </span>
     </div>
 
@@ -159,22 +159,77 @@ radars." />
 radars.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>composite_ppi</span>(<span class='no'>x</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>100</span>))</pre>
+    <pre class="usage"><span class='fu'>composite_ppi</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
+  <span class='kw'>nx</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>ny</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='no'>xlim</span>,
+  <span class='no'>ylim</span>,
+  <span class='no'>res</span>,
+  <span class='no'>crs</span>,
+  <span class='kw'>raster</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"max"</span>,
+  <span class='kw'>idp</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>idw_max_distance</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A list of <code>ppi</code>.</p></td>
+      <td><p>A list of <code>ppi</code> objects.</p></td>
     </tr>
     <tr>
       <th>param</th>
       <td><p>Scan parameter to composite.</p></td>
     </tr>
     <tr>
-      <th>dim</th>
-      <td><p>integer. Vector with number of cells in each spatial dimension.</p></td>
+      <th>nx</th>
+      <td><p>number of raster pixels in the x (longitude) dimension</p></td>
+    </tr>
+    <tr>
+      <th>ny</th>
+      <td><p>number of raster pixels in the y (latitude) dimension</p></td>
+    </tr>
+    <tr>
+      <th>xlim</th>
+      <td><p>x (longitude) range</p></td>
+    </tr>
+    <tr>
+      <th>ylim</th>
+      <td><p>y (latitude) range</p></td>
+    </tr>
+    <tr>
+      <th>res</th>
+      <td><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href='https://rdrr.io/pkg/raster/man/resolution.html'>res</a>).
+If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
+When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
+To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></td>
+    </tr>
+    <tr>
+      <th>raster</th>
+      <td><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
+arguments are ignored.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>string. Compositing method, one of "mean", "min", "max" or "idw"</p></td>
+    </tr>
+    <tr>
+      <th>idp</th>
+      <td><p>numeric. inverse distance weighting power</p></td>
+    </tr>
+    <tr>
+      <th>idw_max_distance</th>
+      <td><p>numeric. Maximum distance from the radar to consider in
+inverse distance weighting. Measuruments beyond this distance will have a
+weighting factor of zero.</p></td>
     </tr>
     </table>
 
@@ -183,15 +238,47 @@ radars.</p>
     <p>A <code><a href='summary.ppi.html'>ppi</a></code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is a prototype, wait for the next bioRad release
-for more documentation and functionality.</p>
-<p>The latitude/longitude of the returned <code>ppi</code> use the WGS84
-datum.</p>
+    <p>This function composites multiple ppi objects into a ppi object that
+combines all data.</p>
+<p>Either multiple ppi's of different scan elevation of the same radar may be combined,
+or ppi's of different radars can be composited.</p>
+<p>Argument <code>method</code> determines how values of different ppi's at the same
+geographic location are combined.</p><dl class='dl-horizontal'>
+<dt><code>"mean"</code></dt><dd><p>Compute the average value</p></dd>
+<dt><code>"max"</code></dt><dd><p>Compute the maximum value. If ppi's are of the same radar
+and the same polar volume, this computes a max product, showing the maximum
+detected signal at that geographic location.</p></dd>
+<dt><code>"min"</code></dt><dd><p>Compute the minimum value</p></dd>
+<dt><code>"idw"</code></dt><dd><p>This option is useful primarily when compositing ppi's of
+multiple radars. Performs an inverse distance weighting, where values are
+weighted according to 1/(distance from the radar)^<code>idp</code></p></dd>
+
+</dl>
+
+<p>The coordinates system of the returned <code>ppi</code> is a WGS84
+(lat,lon) datum.</p>
+<p>This function is a prototype and under active development</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load the example polar scan:</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
-<span class='co'># to be written ...</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
+<span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+
+<span class='co'># load the file:</span>
+<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
+
+<span class='co'># calculate a ppi for each elevation scan</span>
+<span class='no'>my_ppis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>example_pvol</span>$<span class='no'>scans</span>, <span class='no'>project_as_ppi</span>)
+
+<span class='co'># overlay the ppi's, calculating the maximum value observed</span>
+<span class='co'># across the available scans at each geographic location</span>
+<span class='no'>my_composite</span> <span class='kw'>&lt;-</span> <span class='fu'>composite_ppi</span>(<span class='no'>my_ppis</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"max"</span>)
+
+<span class='co'># \dontrun{</span>
+<span class='co'># download basemap</span>
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_composite</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'>
+<span class='co'># plot the calculated max product on the basemap</span>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_composite</span>, <span class='no'>bm</span>)</div><div class='img'><img src='composite_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>

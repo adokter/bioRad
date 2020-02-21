@@ -147,7 +147,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   if (!are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
     n_color = length(palette)
-    colorscale <- color_palette_to_scale_fill(param, zlim, palette, na.value = "transparent")
+    colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
   else{
     palette <- color_palette(param = param, n_color = n_color, alpha = alpha)
