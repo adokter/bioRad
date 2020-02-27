@@ -329,6 +329,9 @@ read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo) {
   data <- replace(data, data == as.numeric(attr$nodata), NA)
   data <- replace(data, data == as.numeric(attr$undetect), NaN)
   data <- as.numeric(attr$offset) + as.numeric(attr$gain) * data
+  if(attr$quantity == "RHOHV"){
+    data <- replace(data, data > 10, NaN)
+  }
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime
