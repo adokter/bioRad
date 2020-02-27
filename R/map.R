@@ -216,21 +216,23 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # these declarations prevent generation of NOTE "no visible binding for
   # global variable" during package Check
   lon <- lat <- y <- z <- NA
+  # extract unique radar locations
+  latlon_radar <- unique(data.frame(lat=c(x$geo$lat), lon=c(x$geo$lon)))
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
   dummy <- geom_point(aes(x = lon, y = lat, colour = z),
     size = 0,
     data = data.frame(
-      lon = x$geo$lon,
-      lat = x$geo$lat,
+      lon = latlon_radar$lon,
+      lat = latlon_radar$lat,
       z = 0
     )
   )
   radarpoint <- geom_point(aes(x = lon, y = lat),
     colour = radar_color,
     size = radar_size,
-    data = data.frame(lon = x$geo$lon, lat = x$geo$lat)
+    data = data.frame(lon = latlon_radar$lon, lat = latlon_radar$lat)
   )
   # bounding box
   bboxlatlon <- attributes(map)$geo$bbox
@@ -248,4 +250,5 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       scale_y_continuous(limits = ylim, expand = c(0, 0))
   )
   suppressWarnings(mymap)
+
 }
