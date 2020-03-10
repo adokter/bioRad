@@ -55,7 +55,7 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   data$n_all <- NA
 
   # remove redundant quantities
-  data$height <- NULL
+  data$height_mean <- NULL
 
   # sort into bioRad order
   data <- data[, header.names.sorted]
