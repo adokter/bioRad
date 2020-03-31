@@ -16,6 +16,8 @@
 #' @param fill Logical, whether to fill missing timesteps with the values of
 #' the closest neighboring profile.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
+#' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps,
+#' and do not update to values of the regularized time grid.
 #'
 #' @return An object of class \code{vpts} with regular time steps.
 #'
@@ -41,7 +43,7 @@
 #' tsRegular <- regularize_vpts(ts, interval = 300)
 regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
                             date_max = ts$daterange[2], units = "secs",
-                            fill = FALSE, verbose = TRUE) {
+                            fill = FALSE, verbose = TRUE, keep_datetime = FALSE) {
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(date_min, "POSIXct"))
   stopifnot(inherits(date_max, "POSIXct"))
@@ -99,8 +101,10 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
     }
   }
   names(ts$data) <- quantity.names
-  ts$datetime <- grid
-  ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
+  if(!keep_datetime){
+    ts$datetime <- grid
+    ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
+  }
   ts$regular <- TRUE
   return(ts)
 }
