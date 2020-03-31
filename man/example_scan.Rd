@@ -4,7 +4,9 @@
 \name{example_scan}
 \alias{example_scan}
 \title{Example object of class \code{scan}}
-\format{An object of class \code{scan} of dimension 5 x 480 x 360.}
+\format{
+An object of class \code{scan} of dimension 5 x 480 x 360.
+}
 \usage{
 example_scan
 }
