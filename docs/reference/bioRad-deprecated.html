@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -53,7 +57,6 @@
 defunct in the near future. When possible, alternative functions with similar
 functionality are mentioned." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -71,7 +74,7 @@ functionality are mentioned." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -85,7 +88,7 @@ functionality are mentioned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -124,7 +127,7 @@ functionality are mentioned." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/adokter/bioRad">
+  <a href="https://github.com/adokter/bioRad/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -365,14 +368,13 @@ position of the radar for the full period of the time series within the
 specified altitude band.</p>
 <p><strong>Deprecated examples</strong></p>
 <pre>
-# get example time series of vertical profiles:
-data(example_vpts)
-example_vpts
-# total migration traffic in full altitude band:
-mt(example_vpts)
-# total migration traffic in 0-1000 meter band:
-mt(example_vpts, alt.min = 0, alt.max = 1000)
-</pre>
+<span class='co'># get example time series of vertical profiles:</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
+<span class='no'>example_vpts</span>
+<span class='co'># total migration traffic in full altitude band:</span>
+<span class='fu'>mt</span>(<span class='no'>example_vpts</span>)
+<span class='co'># total migration traffic in 0-1000 meter band:</span>
+<span class='fu'>mt</span>(<span class='no'>example_vpts</span>, <span class='kw'>alt.min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alt.max</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
 
     <h2 class="hasAnchor" id="mtr"><a class="anchor" href="#mtr"></a>mtr</h2>
 
@@ -412,15 +414,14 @@ contribute negatively to <code>mtr</code>. Therefore <code>mtr</code> can be bot
 positive or negative, depending on the definition of alpha.</p>
 <p><strong>Deprecated examples</strong></p>
 <pre>
-# MTR for a single vertical profile:
-mtr(example_vp)
-# MTRs for a time series of vertical profiles:
-data(example_vpts)
-# print migration traffic rates:
-mtr(example_vpts)
-# to plot migration traffic rate data, use integrate_profile:
-plot(integrate_profile(example_vpts), quantity = "mtr")
-</pre>
+<span class='co'># MTR for a single vertical profile:</span>
+<span class='fu'>mtr</span>(<span class='no'>example_vp</span>)
+<span class='co'># MTRs for a time series of vertical profiles:</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
+<span class='co'># print migration traffic rates:</span>
+<span class='fu'>mtr</span>(<span class='no'>example_vpts</span>)
+<span class='co'># to plot migration traffic rate data, use integrate_profile:</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mtr"</span>)</pre>
 
     <h2 class="hasAnchor" id="cmt"><a class="anchor" href="#cmt"></a>cmt</h2>
 
@@ -439,12 +440,11 @@ function of time from the start of time series within the specified altitude
 band.</p>
 <p><strong>Deprecated examples</strong></p>
 <pre>
-# get example time series of vertical profiles:
-data(example_vpts)
+<span class='co'># get example time series of vertical profiles:</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
 
-# print cumulative migration traffic to console:
-cmt(example_vpts)
-</pre>
+<span class='co'># print cumulative migration traffic to console:</span>
+<span class='fu'>cmt</span>(<span class='no'>example_vpts</span>)</pre>
 
     <h2 class="hasAnchor" id="night"><a class="anchor" href="#night"></a>night</h2>
 
@@ -539,46 +539,9 @@ cmt(example_vpts)
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#basemap">basemap</a></li>
-      <li><a href="#beamheight">beamheight</a></li>
-      <li><a href="#beamwidth">beamwidth</a></li>
-      <li><a href="#bind">bind</a></li>
-      <li><a href="#checkdocker">checkDocker</a></li>
-      <li><a href="#composite">composite</a></li>
-      <li><a href="#day">day</a></li>
-      <li><a href="#dbz-eta">dbz2eta</a></li>
-      <li><a href="#download-vp">download_vp</a></li>
-      <li><a href="#elangle">elangle</a></li>
-      <li><a href="#eta-dbz">eta2dbz</a></li>
-      <li><a href="#fetch">fetch</a></li>
-      <li><a href="#getscan">getscan</a></li>
-      <li><a href="#h-odimobject">h5ODIMobject</a></li>
-      <li><a href="#is-vplist">is.vplist</a></li>
-      <li><a href="#mt">mt</a></li>
-      <li><a href="#mtr">mtr</a></li>
-      <li><a href="#cmt">cmt</a></li>
-      <li><a href="#night">night</a></li>
-      <li><a href="#ppi">ppi</a></li>
-      <li><a href="#read-pvol">read.pvol</a></li>
-      <li><a href="#readvp">readvp</a></li>
-      <li><a href="#readvp-list">readvp.list</a></li>
-      <li><a href="#readvp-table">readvp.table</a></li>
-      <li><a href="#regularize">regularize</a></li>
-      <li><a href="#retrieve-vp-paths">retrieve_vp_paths</a></li>
-      <li><a href="#rsl-odim">rsl2odim</a></li>
-      <li><a href="#sd-vvp">sd_vvp</a></li>
-      <li><a href="#suntime">suntime</a></li>
-      <li><a href="#updatedocker">updateDocker</a></li>
-      <li><a href="#vintegrate">vintegrate</a></li>
-      <li><a href="#vol-bird">vol2bird</a></li>
-      <li><a href="#vpts">vpts</a></li>
-      <li><a href="#vp"><code>VP</code></a></li>
-      <li><a href="#vpts"><code>VPTS</code></a></li>
-      <li><a href="#scan"><code>SCAN</code></a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -589,7 +552,7 @@ cmt(example_vpts)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
