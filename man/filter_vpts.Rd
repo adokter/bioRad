@@ -9,9 +9,9 @@ filter_vpts(x, min, max, nearest)
 \arguments{
 \item{x}{A \code{vpts} object.}
 
-\item{min}{Minimum datetime to be included. POSIXct value or charater string convertable to POSIXct.}
+\item{min}{Minimum datetime to be included. POSIXct value or character string convertable to POSIXct.}
 
-\item{max}{Maximum datetime to be included. POSIXct value or charater string convertable to POSIXct.}
+\item{max}{Maximum datetime to be included. POSIXct value or character string convertable to POSIXct.}
 
 \item{nearest}{If specified, \code{min} and \code{max} are ignored and the profile nearest to the
 specified datetime is returned. POSIXct value or charater string convertable to POSIXct.}

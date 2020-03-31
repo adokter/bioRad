@@ -16,8 +16,6 @@
 #' @param fill Logical, whether to fill missing timesteps with the values of
 #' the closest neighboring profile.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
-#' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps,
-#' and do not update to values of the regularized time grid.
 #'
 #' @return An object of class \code{vpts} with regular time steps.
 #'
@@ -43,10 +41,14 @@
 #' tsRegular <- regularize_vpts(ts, interval = 300)
 regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
                             date_max = ts$daterange[2], units = "secs",
-                            fill = FALSE, verbose = TRUE, keep_datetime = FALSE) {
+                            fill = FALSE, verbose = TRUE) {
   stopifnot(inherits(ts, "vpts"))
   stopifnot(inherits(date_min, "POSIXct"))
   stopifnot(inherits(date_max, "POSIXct"))
+
+  # @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps,
+  # and do not update to values of the regularized time grid.
+  keep_datetime <- FALSE # option under development
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -87,6 +89,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
       ts$data[[x]][, index]
     }
   )
+  index2 <- integer(0)
   if (!fill) {
     index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs"))
     if (length(index2) > 0) {
@@ -104,6 +107,10 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
   if(!keep_datetime){
     ts$datetime <- grid
     ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
+  } else{
+    ts$datetime <- ts$datetime[index]
+    ts$timesteps <- difftime(ts$datetime[-1], ts$datetime[-length(ts$datetime)], units = "secs")
+    ts$timesteps[index2] <- dt
   }
   ts$regular <- TRUE
   return(ts)
