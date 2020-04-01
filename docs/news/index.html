@@ -154,13 +154,18 @@
 
     <div id="biorad-051" class="section level1">
 <h1 class="page-header" data-toc-text="0.5.1">
-<a href="#biorad-051" class="anchor"></a>bioRad 0.5.1<small> Unreleased </small>
+<a href="#biorad-051" class="anchor"></a>bioRad 0.5.1<small> 2020-04-01 </small>
 </h1>
-<p>Minor bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/pull/334">here</a></p>
+<p>Minor bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/pull/334">here</a>. This release primarily fixes a bug that will become effective once R version 4.0 is released.</p>
 <ul>
-<li><p>extend the functionality of composite_ppi() and improve its documentation (partial fix of <a href='https://github.com/adokter/bioRad/issues/59'>#59</a>)</p></li>
-<li><p>fix a bug in the color legend of map() when providing a custom color scale with palette argument (<a href='https://github.com/adokter/bioRad/issues/324'>#324</a>)</p></li>
-<li><p>resolve a conflict with upcoming R 0.4 release</p></li>
+<li><p>fixes a conflict due to new raw data format introduced in R version 4.0 (<a href='https://github.com/adokter/bioRad/issues/331'>#331</a>)</p></li>
+<li><p>corrects incorrect values in reading of correlation coefficient values RHOHV (<a href='https://github.com/adokter/bioRad/issues/328'>#328</a>)</p></li>
+<li><p>bugfix in <code><a href="../reference/read_cajun.html">read_cajun()</a></code> which introduced incorrect height column during refactoring in bioRad 0.5.0 release (<a href="https://github.com/adokter/bioRad/commit/93ad0a4">93ad0a4</a>)</p></li>
+<li>bugfix that fixes the mapping by <code><a href="../reference/map.html">map()</a></code> of composites of composites (ppi’s produced after repeated application of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code>) (<a href="https://github.com/adokter/bioRad/commit/a5c9048">a5c9048</a>, <a href="https://github.com/adokter/bioRad/commit/043aa73">043aa73</a>)</li>
+<li><p>minor bug fixes, and addressing conflicts with CRAN depencies</p></li>
+<li><p>extend the functionality of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> and improve its documentation (partial fix of <a href='https://github.com/adokter/bioRad/issues/59'>#59</a>)</p></li>
+<li><p>fix a bug in the color legend of <code><a href="../reference/map.html">map()</a></code> when providing a custom color scale with palette argument (<a href='https://github.com/adokter/bioRad/issues/324'>#324</a>)</p></li>
+<li><p>minor documentation improvements</p></li>
 </ul>
 </div>
     <div id="biorad-050" class="section level1">
