@@ -23,7 +23,7 @@ New CRAN release. All issues included in this release can be found [here](https:
 
 ## New features
 
-* `integrate_to_ppi()` is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an `ppi` image showing the density of animals on the earth's surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See [Kranstauber et al. 2020](https://www.mdpi.com/2072-4292/12/4/635) for methodology and [this vignette](https://adokter.github.io/bioRad/articles/range_correction.html) for examples.
+* `integrate_to_ppi()` is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an `ppi` image showing the density of animals on the earth's surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See [Kranstauber et al. 2020](https://doi.org/10.3390/rs12040635) for methodology and [this vignette](https://adokter.github.io/bioRad/articles/range_correction.html) for examples.
 
 * `apply_mistnet()` is a new function to apply the convolution neural network "MistNet" on pvolfiles to separate biological and meteorological signals (see [Lin et al. 2019](https://doi.org/10.1111/2041-210X.13280)). Results can be readily visualized with `plot.ppi()` and `plot.scan()`. MistNet is now also a segmentation option in `calculate_vp()` (#262).
 
