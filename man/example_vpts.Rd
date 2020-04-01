@@ -4,7 +4,9 @@
 \name{example_vpts}
 \alias{example_vpts}
 \title{Example object of class \code{vpts}}
-\format{An object of class \code{vpts} of dimension 25 x 1934 x 15.}
+\format{
+An object of class \code{vpts} of dimension 25 x 1934 x 15.
+}
 \usage{
 example_vpts
 }

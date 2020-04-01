@@ -187,7 +187,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   } else {
     stepMin <- stepMax <- NA
   }
-  if (x$regular) {
+  if (x$regular & stepMin == stepMax) {
     cat("   time step (s): ", stepMin, "\n")
   } else {
     cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")

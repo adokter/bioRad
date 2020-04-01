@@ -325,10 +325,15 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
 
 read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo) {
   data <- h5read(file, quantity)$data
+  # convert storage mode from raw to numeric:
+  storage.mode(data) <- "numeric"
   attr <- h5readAttributes(file, paste(quantity, "/what", sep = ""))
   data <- replace(data, data == as.numeric(attr$nodata), NA)
   data <- replace(data, data == as.numeric(attr$undetect), NaN)
   data <- as.numeric(attr$offset) + as.numeric(attr$gain) * data
+  if(attr$quantity == "RHOHV"){
+    data <- replace(data, data > 10, NaN)
+  }
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime

@@ -144,7 +144,8 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
     #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), coordinates(raster(spGrid)),lonlat=T)
     for(i in 1:length(projs)){
       brick_data <- raster::setValues(brick_data, projs[[i]], layer=i)
-      weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar))[i,], coordinates(raster(spGrid)),lonlat=T)
+      latlon.radar <- unique(data.frame(lat=c(lats.radar), lon=c(lons.radar)))
+      weights<-raster::pointDistance(as.matrix(data.frame(x=latlon.radar$lon,y=latlon.radar$lat))[i,], coordinates(raster(spGrid)),lonlat=T)
       if(!is.na(idw_max_distance)) weights[weights>idw_max_distance]=NA
       weights = 1/(weights^idp)
 

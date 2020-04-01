@@ -4,7 +4,9 @@
 \name{example_vp}
 \alias{example_vp}
 \title{Example object of class \code{vp}}
-\format{An object of class \code{vp} with 25 rows and 16 columns.}
+\format{
+An object of class \code{vp} with 25 rows and 16 columns.
+}
 \usage{
 example_vp
 }

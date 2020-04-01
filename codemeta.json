@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "bioRad",
-  "description": "Extract, visualize and summarize aerial movements of birds and\n    insects from weather radar data. See <https://doi.org/10.1111/ecog.04028>\n    for a software paper describing package and methodologies.",
+  "description": "Extract, visualize and summarize aerial movements of birds and\n    insects from weather radar data. See <doi:10.1111/ecog.04028>\n    for a software paper describing package and methodologies.",
   "name": "bioRad: Biological Analysis and Visualization of Weather Radar Data",
   "codeRepository": "https://github.com/adokter/bioRad",
   "relatedLink": [
@@ -15,14 +15,14 @@
   ],
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
+  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -273,6 +273,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "viridisLite",
+      "name": "viridisLite",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=viridisLite"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "viridis",
       "name": "viridis",
       "provider": {
@@ -394,5 +406,5 @@
   ],
   "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "fileSize": "5887.639KB"
+  "fileSize": "4947.408KB"
 }

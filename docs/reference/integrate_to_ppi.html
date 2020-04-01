@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -58,7 +62,6 @@ range effects due to partial beam overlap with the layer of biological echoes
 (overshooting) at larger distances from the radar. The methodology is
 described in detail in Kranstauber et al. (2020)." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -76,7 +79,7 @@ described in detail in Kranstauber et al. (2020)." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -90,7 +93,7 @@ described in detail in Kranstauber et al. (2020)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -129,7 +132,7 @@ described in detail in Kranstauber et al. (2020)." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/adokter/bioRad">
+  <a href="https://github.com/adokter/bioRad/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -337,7 +340,7 @@ and stored as quantity <code>overlap</code>.</p>
 <li><p>Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
   Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
   Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-  <a href='https://www.mdpi.com/2072-4292/12/4/635'>https://www.mdpi.com/2072-4292/12/4/635</a></p></li>
+  <a href='https://doi.org/10.3390/rs12040635'>https://doi.org/10.3390/rs12040635</a></p></li>
 <li><p>Buler JJ &amp; Diehl RH (2009) Quantifying bird density during migratory
   stopover using weather surveillance radar. IEEE Transactions on Geoscience
   and Remote Sensing 47: 2741-2751.
@@ -360,15 +363,18 @@ and stored as quantity <code>overlap</code>.</p>
 
 <span class='co'># plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2000</span>))</div><div class='img'><img src='integrate_to_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># \dontrun{</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>2000</span>)
 
 <span class='co'># plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))
+
 <span class='co'># to overlay ppi objects on a background map, first</span>
 <span class='co'># download a basemap, and map the ppi:</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 7 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)
+
 <span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
 <span class='co'># first define the raster:</span>
 <span class='no'>template_raster</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extent.html'>extent</a></span>(<span class='fl'>12</span>, <span class='fl'>13</span>, <span class='fl'>56</span>, <span class='fl'>57</span>), <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw pkg'>sp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span>(<span class='st'>"+proj=longlat"</span>))
@@ -377,35 +383,21 @@ and stored as quantity <code>overlap</code>.</p>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>raster</span> <span class='kw'>=</span> <span class='no'>template_raster</span>)
 
 <span class='co'># extract the raster data from the ppi object:</span>
-<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span>(<span class='no'>my_ppi</span>$<span class='no'>data</span>)</div><div class='output co'>#&gt; class      : RasterBrick 
-#&gt; dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)
-#&gt; resolution : 0.1, 0.1  (x, y)
-#&gt; extent     : 12, 13, 56, 57  (xmin, xmax, ymin, ymax)
-#&gt; crs        : +proj=longlat +ellps=WGS84 
-#&gt; source     : memory
-#&gt; names      :          VIR,          VID,            R,      overlap,      eta_sum, eta_sum_expected 
-#&gt; min values :   0.00000000,   0.00000000,   0.00000000,   0.06252018,   0.00000000,     406.96716161 
-#&gt; max values : 6.052578e+04, 5.480034e+03, 6.151489e+01, 9.070487e-01, 6.468812e+04,     3.196694e+03 
-#&gt; </div><div class='input'>
+<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span>(<span class='no'>my_ppi</span>$<span class='no'>data</span>)
+
 <span class='co'># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span>
 <span class='co'># cropping the area up to 50000 meter from the radar.</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>,
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>500</span>,
   <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>)
 )
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-4.png' alt='' width='700' height='433' /></div><div class='input'># }
-</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -416,7 +408,7 @@ and stored as quantity <code>overlap</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
