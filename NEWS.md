@@ -1,12 +1,22 @@
 # bioRad 0.5.1
 
-Minor bugfixes. All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/334)
+Minor bugfixes. All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/334). This release primarily fixes a bug that will become effective once R version 4.0 is released.
 
-* extend the functionality of composite_ppi() and improve its documentation (partial fix of #59)
+* fixes a conflict due to new raw data format introduced in R version 4.0 (#331)
 
-* fix a bug in the color legend of map() when providing a custom color scale with palette argument (#324)
+* corrects incorrect values in reading of correlation coefficient values RHOHV (#328)
 
-* resolve a conflict with upcoming R 0.4 release
+* bugfix in `read_cajun()` which introduced incorrect height column during refactoring in bioRad 0.5.0 release (93ad0a4)
+
+* bugfix that fixes the mapping by `map()` of composites of composites (ppi's produced after repeated application of `composite_ppi()`) (a5c9048, 043aa73)
+* minor bug fixes, and addressing conflicts with CRAN depencies
+
+* extend the functionality of `composite_ppi()` and improve its documentation (partial fix of #59)
+
+* fix a bug in the color legend of `map()` when providing a custom color scale with palette argument (#324)
+
+* minor documentation improvements
+
 
 # bioRad 0.5.0
 
