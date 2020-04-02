@@ -39,12 +39,9 @@
 #'
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
-regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
-                            date_max = ts$daterange[2], units = "secs",
-                            fill = FALSE, verbose = TRUE) {
+regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
+                            units = "secs", fill = FALSE, verbose = TRUE) {
   stopifnot(inherits(ts, "vpts"))
-  stopifnot(inherits(date_min, "POSIXct"))
-  stopifnot(inherits(date_max, "POSIXct"))
 
   # @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps,
   # and do not update to values of the regularized time grid.
@@ -74,14 +71,20 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
   } else {
     dt <- as.difftime(interval, units = units)
   }
+
+  rounding_dt = lubridate::make_difftime(as.numeric(dt,units="secs"))
+
+  if(missing(date_min)) date_min <- tryCatch(lubridate::floor_date(ts$daterange[1],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[1]})
+  if(missing(date_max)) date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[2]})
+
+  stopifnot(inherits(date_min, "POSIXct"))
+  stopifnot(inherits(date_max, "POSIXct"))
+
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
-  index <- sapply(
-    grid,
-    function(x) {
-      which.min(abs(ts$datetime - x))
-    }
-  )
+
+  index <- data.table::setDT(data.frame(datetime=ts$datetime))[data.frame(grid), roll = "nearest", which = TRUE, on = "datetime==grid"]
+
   quantity.names <- names(ts$data)
   ts$data <- lapply(
     1:length(ts$data),
@@ -104,6 +107,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min = ts$daterange[1],
     }
   }
   names(ts$data) <- quantity.names
+  ts$daterange <- daterange
   if(!keep_datetime){
     ts$datetime <- grid
     ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)

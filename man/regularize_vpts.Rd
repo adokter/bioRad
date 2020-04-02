@@ -8,8 +8,8 @@ regular time grid}
 regularize_vpts(
   ts,
   interval = "auto",
-  date_min = ts$daterange[1],
-  date_max = ts$daterange[2],
+  date_min,
+  date_max,
   units = "secs",
   fill = FALSE,
   verbose = TRUE

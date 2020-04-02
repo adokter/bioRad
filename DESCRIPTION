@@ -23,10 +23,12 @@ Depends:
 Imports:
     assertthat,
     curl,
+    data.table,
     fields,
     ggmap,
     ggplot2,
     graphics,
+    lubridate,
     methods,
     raster,
     rgdal,

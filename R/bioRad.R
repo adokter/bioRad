@@ -23,6 +23,7 @@
 #' @import sp
 #' @import utils
 #' @import assertthat
+#' @import data.table
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom raster rasterize
