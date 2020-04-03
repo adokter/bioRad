@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9335</span>
       </span>
     </div>
 
@@ -152,6 +152,15 @@
       <small>Source: <a href='https://github.com/adokter/bioRad/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="biorad-0519xxx" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.1.9">
+<a href="#biorad-0519xxx" class="anchor"></a>bioRad 0.5.1.9xxx<small> Unreleased </small>
+</h1>
+<ul>
+<li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (<a href='https://github.com/adokter/bioRad/issues/332'>#332</a>)</p></li>
+<li><p>new option <code>keep_timestamp</code> in <code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code>, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid</p></li>
+</ul>
+</div>
     <div id="biorad-051" class="section level1">
 <h1 class="page-header" data-toc-text="0.5.1">
 <a href="#biorad-051" class="anchor"></a>bioRad 0.5.1<small> 2020-04-01 </small>
@@ -177,7 +186,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an <code>ppi</code> image showing the density of animals on the earth’s surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See <a href="https://www.mdpi.com/2072-4292/12/4/635">Kranstauber et al. 2020</a> for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this vignette</a> for examples.</p></li>
+<li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an <code>ppi</code> image showing the density of animals on the earth’s surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See <a href="https://doi.org/10.3390/rs12040635">Kranstauber et al. 2020</a> for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this vignette</a> for examples.</p></li>
 <li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is a new function to apply the convolution neural network “MistNet” on pvolfiles to separate biological and meteorological signals (see <a href="https://doi.org/10.1111/2041-210X.13280">Lin et al. 2019</a>). Results can be readily visualized with <code><a href="../reference/plot.ppi.html">plot.ppi()</a></code> and <code><a href="../reference/plot.scan.html">plot.scan()</a></code>. MistNet is now also a segmentation option in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href='https://github.com/adokter/bioRad/issues/262'>#262</a>).</p></li>
 <li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> now read Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (<a href='https://github.com/adokter/bioRad/issues/222'>#222</a>). bioRad now also reads files containing single elevation scans and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> can calculate profiles from multiple files containing single elevation scans (<a href='https://github.com/adokter/bioRad/issues/221'>#221</a>).</p></li>
 </ul>

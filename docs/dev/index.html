@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9335</span>
       </span>
     </div>
 
@@ -109,6 +109,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#biorad-" class="anchor"></a>bioRad <img src="reference/figures/logo.png" align="right" alt="" width="120">
 </h1></div>
+<!-- badges: start -->
 
 <p>bioRad provides standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low-level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.</p>
 <p>To get started, see:</p>
@@ -136,11 +137,12 @@
 <p>You can install the released version of bioRad from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"bioRad"</span>)</pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad">GitHub</a> with:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># install.packages("devtools")</span>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bioRad</span>)
-<span class="co">#&gt; Welcome to bioRad version 0.5.1.9000</span>
-<span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)</span></pre></div>
+<span class="co">#&gt; Welcome to bioRad version 0.5.1</span>
+<span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.5.1, MistNet available)</span></pre></div>
 <div id="required-system-libraries-on-linux-ubuntu" class="section level4">
 <h4 class="hasAnchor">
 <a href="#required-system-libraries-on-linux-ubuntu" class="anchor"></a>Required system libraries on Linux (Ubuntu)</h4>

@@ -178,8 +178,8 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("           radar: ", x$radar, "\n")
   cat("      # profiles: ", length(x$datetime), "\n")
   cat(
-    "time range (UTC): ", as.character(x$daterange[1]),
-    "-", as.character(x$daterange[2]), "\n"
+    "time range (UTC): ", format(x$daterange[1],"%Y-%m-%d %H:%M:%S"),
+    "-", format(x$daterange[2],"%Y-%m-%d %H:%M:%S"), "\n"
   )
   if (length(x$timesteps) > 0) {
     stepMin <- min(x$timesteps)

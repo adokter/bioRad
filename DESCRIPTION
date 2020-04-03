@@ -1,6 +1,6 @@
 Package: bioRad
 Title: Biological Analysis and Visualization of Weather Radar Data
-Version: 0.5.1
+Version: 0.5.1.9335
 Description: Extract, visualize and summarize aerial movements of birds and
     insects from weather radar data. See <doi:10.1111/ecog.04028>
     for a software paper describing package and methodologies.
@@ -23,10 +23,12 @@ Depends:
 Imports:
     assertthat,
     curl,
+    data.table,
     fields,
     ggmap,
     ggplot2,
     graphics,
+    lubridate,
     methods,
     raster,
     rgdal,
