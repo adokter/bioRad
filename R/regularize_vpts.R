@@ -16,6 +16,7 @@
 #' @param fill Logical, whether to fill missing timesteps with the values of
 #' the closest neighboring profile.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
+#' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps.
 #'
 #' @return An object of class \code{vpts} with regular time steps.
 #'
@@ -40,12 +41,8 @@
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
-                            units = "secs", fill = FALSE, verbose = TRUE) {
+                            units = "secs", fill = FALSE, verbose = TRUE, keep_datetime = FALSE) {
   stopifnot(inherits(ts, "vpts"))
-
-  # @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps,
-  # and do not update to values of the regularized time grid.
-  keep_datetime <- FALSE # option under development
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -108,13 +105,11 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   }
   names(ts$data) <- quantity.names
   ts$daterange <- daterange
+  ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
   if(!keep_datetime){
     ts$datetime <- grid
-    ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
   } else{
     ts$datetime <- ts$datetime[index]
-    ts$timesteps <- difftime(ts$datetime[-1], ts$datetime[-length(ts$datetime)], units = "secs")
-    ts$timesteps[index2] <- dt
   }
   ts$regular <- TRUE
   return(ts)

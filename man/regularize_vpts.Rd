@@ -12,7 +12,8 @@ regularize_vpts(
   date_max,
   units = "secs",
   fill = FALSE,
-  verbose = TRUE
+  verbose = TRUE,
+  keep_datetime = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ Taken from \code{ts} when '\code{auto}'.}
 the closest neighboring profile.}
 
 \item{verbose}{Logical, when \code{TRUE} prints text to console.}
+
+\item{keep_datetime}{Logical, when \code{TRUE} keep original radar acquisition timestamps.}
 }
 \value{
 An object of class \code{vpts} with regular time steps.
