@@ -23,7 +23,8 @@ interpretable by \link[base]{as.Date}.}
 \item{tz}{output time zone. Ignored if \code{date} has an associated time zone already}
 }
 \value{
-The moment of sunrise or sunset in UTC time.
+The moment of sunrise or sunset in the same time zone as specified
+(by \code{date} or \code{tz}) or in UTC if not specified.
 }
 \description{
 Calculate sunrise or sunset for a time and place

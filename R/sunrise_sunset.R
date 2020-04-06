@@ -9,7 +9,8 @@
 #' @param elev Sun elevation in degrees.
 #' @param tz output time zone. Ignored if \code{date} has an associated time zone already
 #'
-#' @return The moment of sunrise or sunset in UTC time.
+#' @return The moment of sunrise or sunset in the same time zone as specified
+#' (by \code{date} or \code{tz}) or in UTC if not specified.
 #'
 #' @details The angular diameter of the sun is about 0.536 degrees,
 #' therefore the moment of sunrise/sunset corresponds to half that elevation
