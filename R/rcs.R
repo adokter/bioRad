@@ -12,10 +12,6 @@
 #' @export
 #'
 #' @examples
-#' # load example data:
-#' data(example_vp)
-#' data(example_vpts)
-#'
 #' # retrieve RCS for a single vertical profile:
 #' rcs(example_vp)
 #'
@@ -81,10 +77,6 @@ rcs.vpi <- function(x) {
 #' of an object.
 #'
 #' @examples
-#' # load example data
-#' data(example_vp)
-#' data(example_vpts)
-#'
 #' # change or set RCS for a single vertical profile:
 #' rcs(example_vp) <- 11
 #'
