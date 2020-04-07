@@ -49,7 +49,8 @@ Approximate astronomical formula are used, therefore the moment of
 sunrise / sunset may be off by a few minutes
 
 If \code{force_tz} is \code{TRUE}, the input date is converted to the timezone
-set by \code{tz} prior to calculating the sunrise/sunset time, resulting in a shift by +/-1 day
+set by \code{tz} prior to calculating the sunrise/sunset time, possibly resulting
+in an additional day shift in the output by +/-1 day
 }
 \examples{
 # sunrise in the Netherlands
