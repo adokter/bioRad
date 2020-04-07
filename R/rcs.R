@@ -4,7 +4,7 @@
 #'
 #' @param x A \code{vp}, list of \code{vp} or \code{vpts} object.
 #'
-#' @return a radar cross section in cm^2
+#' @return A radar cross section in cm^2.
 #'
 #' @details See also \link{rcs<-} for changing or setting the radar cross section
 #' of an object.
@@ -73,7 +73,7 @@ rcs.vpi <- function(x) {
 #' the migration densities in \code{x$data$dens}
 #'
 #' @param x a \code{vp}, list of \code{vp} or \code{vpts} object
-#' @param value the cross section value to assign
+#' @param value The cross section value to assign.
 #'
 #' @export
 #'
