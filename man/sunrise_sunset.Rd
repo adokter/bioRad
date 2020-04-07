@@ -22,7 +22,7 @@ interpretable by \link[base]{as.Date}.}
 
 \item{tz}{output time zone. Ignored if \code{date} has an associated time zone already}
 
-\item{force_tz}{whether to convert input and output datetimes to timezone \code{tz}. Default \code{FALSE}.}
+\item{force_tz}{whether to convert output to timezone \code{tz}. Default \code{FALSE}.}
 }
 \value{
 The moment of sunrise or sunset for the date set by \code{date}and time zone as specified
@@ -48,9 +48,8 @@ This is a convenience function mapping to \link{crepuscule}.
 Approximate astronomical formula are used, therefore the moment of
 sunrise / sunset may be off by a few minutes
 
-If \code{force_tz} is \code{TRUE}, the input date is converted to the timezone
-set by \code{tz} prior to calculating the sunrise/sunset time, possibly resulting
-in an additional day shift in the output by +/-1 day
+If \code{force_tz} is \code{TRUE}, the output is converted to the timezone
+set by \code{tz}
 }
 \examples{
 # sunrise in the Netherlands
@@ -85,10 +84,4 @@ sunset(as_datetime("2016-06-06",tz="America/Chicago"), -98, 45, force_tz=T)
 sunrise("2016-11-01", 100, 45)
 sunrise("2016-11-01", 102, 45)
 
-# sunrise date can even be two days earlier in specific cases:
-# e.g. "2016-10-31 00:00" in Asia/Ulaanbaatar time zone is converted to
-# 2016-10-30 16:00 UTC when force_tz=TRUE. Solar noon on 2016-10-30 at this
-location in Mongolia is at 04:55 UTC, and the first sunrise prior to this
-is on 2016-10-29:
-sunrise(as_datetime("2016-10-31",tz="Asia/Ulaanbaatar"), 120, 45, tz="UTC", force_tz=T)
 }

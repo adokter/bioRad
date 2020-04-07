@@ -8,7 +8,7 @@
 #' @param lat Latitude in decimal degrees.
 #' @param elev Sun elevation in degrees.
 #' @param tz output time zone. Ignored if \code{date} has an associated time zone already
-#' @param force_tz whether to convert input and output datetimes to timezone \code{tz}. Default \code{FALSE}.
+#' @param force_tz whether to convert output to timezone \code{tz}. Default \code{FALSE}.
 #'
 #' @return The moment of sunrise or sunset for the date set by \code{date}and time zone as specified
 #' (by \code{date} and \code{tz}) or in UTC if not specified.
@@ -30,9 +30,8 @@
 #' Approximate astronomical formula are used, therefore the moment of
 #' sunrise / sunset may be off by a few minutes
 #'
-#' If \code{force_tz} is \code{TRUE}, the input date is converted to the timezone
-#' set by \code{tz} prior to calculating the sunrise/sunset time, possibly resulting
-#' in an additional day shift in the output by +/-1 day
+#' If \code{force_tz} is \code{TRUE}, the output is converted to the timezone
+#' set by \code{tz}
 #'
 #' @examples
 #' # sunrise in the Netherlands
@@ -67,12 +66,6 @@
 #' sunrise("2016-11-01", 100, 45)
 #' sunrise("2016-11-01", 102, 45)
 #'
-#' # sunrise date can even be two days earlier in specific cases:
-#' # e.g. "2016-10-31 00:00" in Asia/Ulaanbaatar time zone is converted to
-#' # 2016-10-30 16:00 UTC when force_tz=TRUE. Solar noon on 2016-10-30 at this
-#' location in Mongolia is at 04:55 UTC, and the first sunrise prior to this
-#' is on 2016-10-29:
-#' sunrise(as_datetime("2016-10-31",tz="Asia/Ulaanbaatar"), 120, 45, tz="UTC", force_tz=T)
 #' @name sunrise_sunset
 NULL
 
@@ -83,8 +76,8 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
   locations <- data.frame(lon = lon, lat = lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
-  if(force_tz) datetime <- as_datetime(datetime, tz=tz)
   suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
+  if(force_tz) suntimes$time <- as_datetime(suntimes$time, tz=tz)
   suntimes$time
 }
 
@@ -95,7 +88,7 @@ sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) 
   locations <- data.frame(lon = lon, lat = lat)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
-  if(force_tz) datetime <- as_datetime(datetime, tz=tz)
   suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
+  if(force_tz) suntimes$time <- as_datetime(suntimes$time, tz=tz)
   suntimes$time
 }
