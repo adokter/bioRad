@@ -22,7 +22,7 @@ interpretable by \link[base]{as.Date}.}
 
 \item{tz}{output time zone. Ignored if \code{date} has an associated time zone already}
 
-\item{force_tz}{whether to convert input time to timezone \code{tz}. Default \code{FALSE}.}
+\item{force_tz}{whether to convert input and output datetimes to timezone \code{tz}. Default \code{FALSE}.}
 }
 \value{
 The moment of sunrise or sunset for the date set by \code{date}and time zone as specified

@@ -8,7 +8,7 @@
 #' @param lat Latitude in decimal degrees.
 #' @param elev Sun elevation in degrees.
 #' @param tz output time zone. Ignored if \code{date} has an associated time zone already
-#' @param force_tz whether to convert input time to timezone \code{tz}. Default \code{FALSE}.
+#' @param force_tz whether to convert input and output datetimes to timezone \code{tz}. Default \code{FALSE}.
 #'
 #' @return The moment of sunrise or sunset for the date set by \code{date}and time zone as specified
 #' (by \code{date} and \code{tz}) or in UTC if not specified.
