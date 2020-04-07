@@ -4,6 +4,8 @@
 
 * new option `keep_timestamp` in `regularize_vpts()`, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid
 
+* improved documentation of sunrise/sunset functions (#180) and new option `force_tz` (4968019)
+
 # bioRad 0.5.1
 
 Minor bugfixes. All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/334). This release primarily fixes a bug that will become effective once R version 4.0 is released.
