@@ -41,7 +41,7 @@ rcs.vp <- function(x) {
 rcs.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("requires list of vp objects as input")
+    stop("Input must be list of vp objects.")
   }
   output <- sapply(x, `rcs.vp`)
   output
@@ -66,7 +66,7 @@ rcs.vpi <- function(x) {
 #' Set radar cross section
 #'
 #' Sets the assumed radar cross section in cm^2. This method also updates
-#' the migration densities in \code{x$data$dens}
+#' the migration densities in `x$data$dens`.
 #'
 #' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
 #' @param value The cross section value to assign.
@@ -102,7 +102,7 @@ rcs.vpi <- function(x) {
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
-    warning("threshold for sd_vvp not set, defaulting to 2 m/s")
+    warning("Threshold for sd_vvp not set, defaulting to 2 m/s.")
     x$attributes$how$sd_vvp_thresh <- 2
     x$data$dens[x$data$sd_vvp < 2] <- 0
   }
@@ -115,7 +115,7 @@ rcs.vpi <- function(x) {
 `rcs<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("requires list of vp objects as input")
+    stop("Input must be list of vp objects.")
   }
   output <- lapply(x, `rcs<-.vp`, value = value)
   class(output) <- c("list")
@@ -132,7 +132,7 @@ rcs.vpi <- function(x) {
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
-    warning("Threshold for sd_vvp not set, defaulting to 2 m/s")
+    warning("Threshold for sd_vvp not set, defaulting to 2 m/s.")
     x$attributes$how$sd_vvp_thresh <- 2
     x$data$dens[x$data$sd_vvp < 2] <- 0
   }
