@@ -55,12 +55,12 @@
 #' sunset("2016-10-6", -98, 45)
 #'
 #' # working in local time zones typically avoids such ambiguities:
-#' sunset(as_datetime("2016-06-05",tz="America/Chicago"), -98, 45)
-#' sunset(as_datetime("2016-06-06",tz="America/Chicago"), -98, 45)
+#' sunset(lubridate::as_datetime("2016-06-05",tz="America/Chicago"), -98, 45)
+#' sunset(lubridate::as_datetime("2016-06-06",tz="America/Chicago"), -98, 45)
 #'
 #' # use force_tz to force output to a specific time zone, by default UTC:
-#' sunset(as_datetime("2016-06-05",tz="America/Chicago"), -98, 45, force_tz=T)
-#' sunset(as_datetime("2016-06-06",tz="America/Chicago"), -98, 45, force_tz=T)
+#' sunset(lubridate::as_datetime("2016-06-05",tz="America/Chicago"), -98, 45, force_tz=TRUE)
+#' sunset(lubridate::as_datetime("2016-06-06",tz="America/Chicago"), -98, 45, force_tz=TRUE)
 #'
 #' # Also beware of jumps in sunrise and sunset date with longitude:
 #' sunrise("2016-11-01", 100, 45)
@@ -77,7 +77,7 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
   suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
-  if(force_tz) suntimes$time <- as_datetime(suntimes$time, tz=tz)
+  if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz=tz)
   suntimes$time
 }
 
@@ -89,6 +89,6 @@ sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) 
   locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
   datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
   suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
-  if(force_tz) suntimes$time <- as_datetime(suntimes$time, tz=tz)
+  if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz=tz)
   suntimes$time
 }
