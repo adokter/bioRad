@@ -11,11 +11,8 @@ test_that("Test parameters", {
 test_that("Test output type", {
   expect_type(rcs(vp), "double")
   expect_type(rcs(vp_list), "double")
-  expect_length(rcs(vp_list), 2)
+  expect_length(rcs(vp_list), 2) # vector of 2
   expect_type(rcs(vpts), "double")
-
-  # Testing that object is of same class after rcs()<- assignment seemed
-  # excessive
 })
 
 test_that("Test output value", {
