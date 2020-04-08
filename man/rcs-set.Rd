@@ -21,7 +21,7 @@ rcs(x) <- value
 \arguments{
 \item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
 
-\item{value}{the cross section value to assign}
+\item{value}{The cross section value to assign.}
 }
 \description{
 Sets the assumed radar cross section in cm^2. This method also updates
@@ -32,10 +32,6 @@ See also \link{rcs} for retrieving the radar cross section
 of an object.
 }
 \examples{
-# load example data
-data(example_vp)
-data(example_vpts)
-
 # change or set RCS for a single vertical profile:
 rcs(example_vp) <- 11
 

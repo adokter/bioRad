@@ -22,7 +22,7 @@ rcs(x)
 \item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 }
 \value{
-a radar cross section in cm^2
+A radar cross section in cm^2.
 }
 \description{
 Gives the currently assumed radar cross section in cm^2.
@@ -44,10 +44,6 @@ integrated vertical profile(s)
 }}
 
 \examples{
-# load example data:
-data(example_vp)
-data(example_vpts)
-
 # retrieve RCS for a single vertical profile:
 rcs(example_vp)
 
