@@ -55,4 +55,8 @@ rcs(example_vp) <- 11
 
 # change or set RCS for a vertical profile time series:
 rcs(example_vpts) <- 11
+
+# change RCS for a vertically integrated vertical profile time series:
+example_vpi <- integrate_profile(example_vpts)
+rcs(example_vpi) <- 11
 }

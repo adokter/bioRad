@@ -25,7 +25,7 @@ rcs(x) <- value
 }
 \description{
 Sets the assumed radar cross section in cm^2. This method also updates
-the migration densities in \code{x$data$dens}.
+the migration densities in `x$data$dens`.
 }
 \details{
 See also \link{rcs} for retrieving the radar cross section

@@ -42,6 +42,16 @@ test_that("rcs assignment works", {
   expect_equal(rcs(vp_list), c(5.5, 5.5))
   expect_equal(rcs(vpts), 5.5)
   expect_equal(rcs(vpi), 5.5)
+
+  expect_error(rcs(vp) <- "garbage")
+  expect_error(rcs(vp_list) <- "garbage")
+  expect_error(rcs(vpts) <- "garbage")
+  expect_error(rcs(vpi) <- "garbage")
+
+  expect_error(rcs(vp) <- c(2,2))
+  expect_error(rcs(vp_list) <- c(2,2))
+  expect_error(rcs(vpts) <- c(2,2))
+  expect_error(rcs(vpi) <- c(2,2))
 })
 
 test_that("rcs assignments updates density", {
