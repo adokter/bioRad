@@ -6,7 +6,7 @@ suppressWarnings(
 vpts <- example_vpts
 vpi <- integrate_profile(example_vpts)
 
-test_that("Test parameters", {
+test_that("returns errors on incorrect parameters", {
   expect_error(rcs("not_a_vp"))
   expect_error(rcs(vp_list_mixed), "Input must be list of vp objects.")
 
@@ -16,7 +16,7 @@ test_that("Test parameters", {
   # expect_error(rcs(vp) <- -11) # Should not allow negative
 })
 
-test_that("Test output type", {
+test_that("returns double", {
   expect_type(rcs(vp), "double")
   expect_type(rcs(vp_list), "double")
   expect_length(rcs(vp_list), 2) # vector of 2
@@ -24,7 +24,7 @@ test_that("Test output type", {
   expect_type(rcs(vpi), "double")
 })
 
-test_that("Test output value", {
+test_that("returns 11 by default", {
   expect_equal(rcs(vp), 11)
   expect_equal(rcs(vp_list), c(11, 11))
   expect_equal(rcs(vpts), 11)
