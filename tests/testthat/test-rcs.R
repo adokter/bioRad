@@ -62,7 +62,7 @@ test_that("rcs assignments updates density", {
     vp$data$dens[vp$data$sd_vvp >= 3], vp$data$eta[vp$data$sd_vvp >= 3] / 6
   )
   expect_equal(
-    vpts$data$dens[vpts$data$sd_vvp >= 2], vpts$data$eta[vpts$data$sd_vvp >= 3] / 6
+    vpts$data$dens[vpts$data$sd_vvp >= 3], vpts$data$eta[vpts$data$sd_vvp >= 3] / 6
   )
   # dens = 0 when below sd_vvp_threshold and not NA
   expect_true(all(vp$data$dens[vp$data$sd_vvp < 3] == 0, na.rm = TRUE))
