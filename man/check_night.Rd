@@ -75,4 +75,9 @@ check_night("2016-01-01 00:00", 5, 53)
 check_night(example_vp)
 
 check_night(example_vpts)
+
+# select nighttime profiles that are between 3 hours after sunset
+# and 2 hours before sunrise:
+index <- check_night(example_vpts, offset=c(3,-2)*3600)
+example_vpts[index]
 }
