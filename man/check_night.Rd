@@ -9,17 +9,17 @@
 \alias{check_night.pvol}
 \title{Check if it is night at a given time and place}
 \usage{
-check_night(x, ..., elev = -0.268)
+check_night(x, ..., elev = -0.268, offset = 0)
 
-\method{check_night}{default}(x, lon, lat, ..., tz = "UTC", elev = -0.268)
+\method{check_night}{default}(x, lon, lat, ..., tz = "UTC", elev = -0.268, offset = 0)
 
-\method{check_night}{vp}(x, ..., elev = -0.268)
+\method{check_night}{vp}(x, ..., elev = -0.268, offset = 0)
 
-\method{check_night}{list}(x, ..., elev = -0.268)
+\method{check_night}{list}(x, ..., elev = -0.268, offset = 0)
 
-\method{check_night}{vpts}(x, ..., elev = -0.268)
+\method{check_night}{vpts}(x, ..., elev = -0.268, offset = 0)
 
-\method{check_night}{pvol}(x, ..., elev = -0.268)
+\method{check_night}{pvol}(x, ..., elev = -0.268, offset = 0)
 }
 \arguments{
 \item{x}{\code{pvol}, \code{vp} or \code{vpts},
@@ -28,7 +28,12 @@ interpretable by \link{as.POSIXct}.}
 
 \item{...}{optional lat,lon arguments.}
 
-\item{elev}{numeric. Sun elevation in degrees.}
+\item{elev}{numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
+length two, with first element giving sunset elevation, and second element sunrise elevation.}
+
+\item{offset}{numeric. Time duration in seconds by which the shift the start and end
+of night time. May also be a numeric vector of length two, with first element added to moment
+of sunset and second element added to moment of sunrise.}
 
 \item{lon}{numeric. Longitude in decimal degrees.}
 
@@ -57,6 +62,10 @@ elevation than parameter \code{elev}, otherwise \code{TRUE}.
 
 Approximate astronomical formula are used, therefore the day/night
 transition may be off by a few minutes.
+
+\code{offset} can be used to shift the moment of sunset and sunrise by a
+temporal offset, for example, \code{offset=c(600,-600)} will assume nighttime
+starts 600 seconds after sunset (as defined by \code{elev}) and stops 600 seconds before sunrise.
 }
 \examples{
 # check if it is night at UTC midnight in the Netherlands on January 1st:

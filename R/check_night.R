@@ -11,7 +11,11 @@
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
 #' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
-#' @param elev numeric. Sun elevation in degrees.
+#' @param elev numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
+#' length two, with first element giving sunset elevation, and second element sunrise elevation.
+#' @param offset numeric. Time duration in seconds by which the shift the start and end
+#' of night time. May also be a numeric vector of length two, with first element added to moment
+#' of sunset and second element added to moment of sunrise.
 #' @param ... optional lat,lon arguments.
 #'
 #' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
@@ -30,6 +34,10 @@
 #' Approximate astronomical formula are used, therefore the day/night
 #' transition may be off by a few minutes.
 #'
+#' \code{offset} can be used to shift the moment of sunset and sunrise by a
+#' temporal offset, for example, \code{offset=c(600,-600)} will assume nighttime
+#' starts 600 seconds after sunset (as defined by \code{elev}) and stops 600 seconds before sunrise.
+#'
 #' @examples
 #' # check if it is night at UTC midnight in the Netherlands on January 1st:
 #' check_night("2016-01-01 00:00", 5, 53)
@@ -38,80 +46,108 @@
 #' check_night(example_vp)
 #'
 #' check_night(example_vpts)
-check_night <- function(x, ..., elev = -0.268) {
+check_night <- function(x, ..., elev = -0.268, offset = 0) {
   UseMethod("check_night", x)
 }
 
 #' @rdname check_night
 #'
 #' @export
-check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268) {
+check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268, offset = 0) {
+  # input checks
+  assert_that(is.numeric(elev))
+  assert_that(length(elev)<=2)
+  assert_that(is.numeric(offset))
+  assert_that(length(offset)<=2)
+  assert_that(is.numeric(lon))
+  assert_that(is.numeric(lat))
+  #
   x <- as.POSIXct(x, tz = tz)
+  #
+  elev_sunset = ifelse(length(elev) == 2,elev[1],elev)
+  elev_sunrise = ifelse(length(elev) == 2,elev[2],elev)
   # calculate sunrises
-  trise <- sunrise(x, lon, lat, tz = tz, elev = elev)
+  trise <- sunrise(x, lon, lat, tz = tz, elev = elev_sunrise)
   # calculate sunsets
-  tset <- sunset(x, lon, lat, tz = tz, elev = elev)
-  # for returned rise times on a different day, recalculate for the current day
-  dt <- as.numeric(difftime(as.Date(trise), as.Date(x), units = "days"))
-  change <- which(dt != 0)
-  if (length(change) > 0) {
-    trise[change] <- sunrise(x[change] - dt[change] * 24 * 3600, lon, lat,
-      tz = tz, elev = elev
-    )
-  }
+  tset <- sunset(x, lon, lat, tz = tz, elev = elev_sunset)
 
-  dt <- as.numeric(difftime(as.Date(tset), as.Date(x), units = "days"))
-  change <- which(dt != 0)
-  if (length(change) > 0) {
-    tset[change] <- sunset(x[change] - dt[change] * 24 * 3600, lon, lat,
-      tz = tz, elev = elev
-    )
-  }
+  # make sure the observation is always in between
+  # two subsequent sunrise/sunset events:
+  trise_ordered = trise
+  tset_ordered = tset
+  # sunrise -1 day
+  idx <- which(x < tset  & trise > tset)
+  if(length(idx)>0) trise_ordered[idx] = sunrise(x[idx]-24*3600, lon, lat, tz = tz, elev = elev_sunrise)
+  # sunrise +1 day
+  idx <- which(x > tset  & trise < tset)
+  if(length(idx)>0) trise_ordered[idx] = sunrise(x[idx]+24*3600, lon, lat, tz = tz, elev = elev_sunrise)
+  # sunset -1 day
+  idx <- which(x < trise & trise < tset)
+  if(length(idx)>0) tset_ordered[idx] = sunset(x[idx]-24*3600, lon, lat, tz = tz, elev = elev_sunset)
+  # sunset +1 day
+  idx <- which(x > trise & trise > tset)
+  if(length(idx)>0) tset_ordered[idx] = sunset(x[idx]+24*3600, lon, lat, tz = tz, elev = elev_sunset)
+  # store in original variable
+  trise <- trise_ordered
+  tset <- tset_ordered
+
+  # add offset shifts
+  offset_sunset = ifelse(length(offset) == 2,offset[1],offset)
+  offset_sunrise = ifelse(length(offset) == 2,offset[2],offset)
 
   # prepare output
   output <- rep(NA, length(x))
-  itsday <- (x > trise & x < tset)
+
+  # cases trise < tset
+  itsday <- (x > trise + offset_sunrise & x < tset + offset_sunset)
   output[trise < tset] <- itsday[trise < tset]
-  itsday <- (x < tset | x > trise)
+  # if order of sunrise and sunset switches due to offsets, daytime length is zero
+  output[trise < tset  & (tset + offset_sunset) - (trise + offset_sunrise) <= 0] <- FALSE
+
+  # cases trise >= tset
+  itsday <- (x < tset + offset_sunset | x > trise + offset_sunrise)
   output[trise >= tset] <- itsday[trise >= tset]
+  # if order of sunrise and sunset switches due to offsets, nighttime length is zero
+  output[trise >= tset & (trise + offset_sunrise) - (tset + offset_sunset) <= 0] <- TRUE
+
   !output
 }
 
 #' @rdname check_night
 #'
 #' @export
-check_night.vp <- function(x, ..., elev = -0.268) {
+check_night.vp <- function(x, ..., elev = -0.268, offset = 0) {
   stopifnot(inherits(x, "vp"))
   check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
-    elev = elev
+    elev = elev, offset = offset
   )
 }
 
 #' @rdname check_night
 #'
 #' @export
-check_night.list <- function(x, ..., elev = -0.268) {
+check_night.list <- function(x, ..., elev = -0.268, offset = 0) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  sapply(x, check_night.vp, elev = elev)
+  sapply(x, check_night.vp, elev = elev, offset = offset)
 }
 
 #' @rdname check_night
 #'
 #' @export
-check_night.vpts <- function(x, ..., elev = -0.268) {
+check_night.vpts <- function(x, ..., elev = -0.268, offset = 0) {
   stopifnot(inherits(x, "vpts"))
   check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
-    elev = elev
+    elev = elev, offset = offset
   )
 }
 
 #' @rdname check_night
 #'
 #' @export
-check_night.pvol <- function(x, ..., elev = -0.268) {
+check_night.pvol <- function(x, ..., elev = -0.268, offset = 0) {
   stopifnot(inherits(x, "pvol"))
-  check_night(x$datetime, x$geo$lon, x$geo$lat, elev = elev)
+  check_night(x$datetime, x$geo$lon, x$geo$lat, elev = elev, offset = offset)
 }
