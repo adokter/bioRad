@@ -2,9 +2,11 @@
 
 * `regularize_vpts()` is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (#332)
 
-* new option `keep_timestamp` in `regularize_vpts()`, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid
+* new option `keep_timestamp` in `regularize_vpts()`, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.
 
-* improved documentation of sunrise/sunset functions (#180) and new option `force_tz` (4968019)
+* improved documentation of sunrise/sunset functions (#180) and new option `force_tz` (4968019).
+
+* new option `offset` in `check_night()`, which allows day/night transition to be shifted by a temporal offset (#338). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.
 
 # bioRad 0.5.1
 
