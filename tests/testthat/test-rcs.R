@@ -30,15 +30,20 @@ test_that("returns 11 by default", {
   expect_equal(rcs(vp_list), c(11, 11))
   expect_equal(rcs(vpts), 11)
   expect_equal(rcs(vpi), 11)
+})
 
-  # Assign rcs()<-
-  rcs(vp) <- 5.1
-  rcs(vp_list) <- 5.1
-  rcs(vpts) <- 5.1
-  rcs(vpi) <- 5.1
+test_that("rcs assignment works", {
+  rcs(vp) <- 5.5
+  rcs(vp_list) <- 5.5
+  rcs(vpts) <- 5.5
+  rcs(vpi) <- 5.5
 
-  expect_equal(rcs(vp), 5.1)
-  expect_equal(rcs(vp_list), c(5.1, 5.1))
-  expect_equal(rcs(vpts), 5.1)
-  expect_equal(rcs(vpi), 5.1)
+  expect_equal(rcs(vp), 5.5)
+  expect_equal(rcs(vp_list), c(5.5, 5.5))
+  expect_equal(rcs(vpts), 5.5)
+  expect_equal(rcs(vpi), 5.5)
+})
+
+
+
 })
