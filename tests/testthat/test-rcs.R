@@ -3,8 +3,9 @@ vp_list <- c(example_vp, example_vp)
 vpts <- example_vpts
 
 test_that("Test parameters", {
-  expect_error(rcs("incorrect_data_type"))
-  expect_error(rcs(vp) <- "incorrect_data_type")
+  expect_error(rcs("not_a_vp"))
+  expect_error(rcs(vp) <- "not_a_double")
+  expect_error(rcs("not_a_vp") <- 5.1)
   # expect_error(rcs(vp) <- -11) # Should not allow negative
 })
 
