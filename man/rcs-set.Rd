@@ -19,7 +19,7 @@ rcs(x) <- value
 \method{rcs}{vpi}(x) <- value
 }
 \arguments{
-\item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
+\item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 
 \item{value}{The cross section value to assign.}
 }

@@ -2,7 +2,7 @@
 #'
 #' Gives the currently assumed radar cross section in cm^2.
 #'
-#' @param x A \code{vp}, list of \code{vp} or \code{vpts} object.
+#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
 #'
 #' @return A radar cross section in cm^2.
 #'
@@ -68,7 +68,7 @@ rcs.vpi <- function(x) {
 #' Sets the assumed radar cross section in cm^2. This method also updates
 #' the migration densities in \code{x$data$dens}
 #'
-#' @param x a \code{vp}, list of \code{vp} or \code{vpts} object
+#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
 #' @param value The cross section value to assign.
 #'
 #' @export

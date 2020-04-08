@@ -19,7 +19,7 @@ rcs(x)
 \method{rcs}{vpi}(x)
 }
 \arguments{
-\item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
+\item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 }
 \value{
 A radar cross section in cm^2.

@@ -1,6 +1,7 @@
 vp <- example_vp
 vp_list <- c(example_vp, example_vp)
 vpts <- example_vpts
+vpi <- integrate_profile(example_vpts)
 
 test_that("Test parameters", {
   expect_error(rcs("not_a_vp"))
@@ -14,19 +15,23 @@ test_that("Test output type", {
   expect_type(rcs(vp_list), "double")
   expect_length(rcs(vp_list), 2) # vector of 2
   expect_type(rcs(vpts), "double")
+  expect_type(rcs(vpi), "double")
 })
 
 test_that("Test output value", {
   expect_equal(rcs(vp), 11)
   expect_equal(rcs(vp_list), c(11, 11))
   expect_equal(rcs(vpts), 11)
+  expect_equal(rcs(vpi), 11)
 
   # Assign rcs()<-
   rcs(vp) <- 5.1
   rcs(vp_list) <- 5.1
   rcs(vpts) <- 5.1
+  rcs(vpi) <- 5.1
 
   expect_equal(rcs(vp), 5.1)
   expect_equal(rcs(vp_list), c(5.1, 5.1))
   expect_equal(rcs(vpts), 5.1)
+  expect_equal(rcs(vpi), 5.1)
 })
