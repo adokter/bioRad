@@ -30,10 +30,10 @@ call to \link[bioRad]{integrate_profile}.}
 '\code{rtr}' (reflectivity traffic rate),
 '\code{mt}' ((cumulative) migration traffic),
 '\code{rt}' ((cumulative) reflectivity traffic),
-\verb{\code{ff}}, (height-averaged speed)
-\verb{\code{dd}}, (height-averaged direction)
-\verb{\code{u}}, (height-averaged u-component of speed),
-\verb{\code{v}}, (height-averaged v-component of speed).}
+'\code{ff}' (height-averaged speed)
+'\code{dd}' (height-averaged direction)
+'\code{u}' (height-averaged u-component of speed),
+'\code{v}' (height-averaged v-component of speed).}
 
 \item{xlab}{A title for the x-axis.}
 

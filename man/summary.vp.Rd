@@ -43,18 +43,18 @@ A \code{vp} object is a list containing
 \item{\strong{\code{datetime}}}{the nominal time of the profile}
 \item{\strong{\code{data}}}{the profile data, a list containing:
 \describe{
-\item{\code{height}}{height above mean sea level \link{m}. Alt. bin from height to height+interval)}
-\item{\code{u}}{speed component west to east \link{m/s}}
-\item{\code{v}}{speed component north to south \link{m/s}}
-\item{\code{w}}{vertical speed (unreliable!) \link{m/s}}
-\item{\code{ff}}{horizontal speed \link{m/s}}
-\item{\code{dd}}{direction \link{degrees, clockwise from north}}
-\item{\code{sd_vvp}}{VVP radial velocity standard deviation \link{m/s}}
-\item{\code{gap}}{Angular data gap detected \link{T/F}}
-\item{\code{dbz}}{Animal reflectivity factor \link{dBZ}}
-\item{\code{eta}}{Animal reflectivity \link{cm^2/km^3}}
-\item{\code{dens}}{Animal density \link{animals/km^3}}
-\item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) \link{dBZ}}
+\item{\code{height}}{height above mean sea level (m). Alt. bin from height to height+interval)}
+\item{\code{u}}{speed component west to east (m/s)}
+\item{\code{v}}{speed component north to south (m/s)}
+\item{\code{w}}{vertical speed (unreliable!) (m/s)}
+\item{\code{ff}}{horizontal speed (m/s)}
+\item{\code{dd}}{direction (degrees, clockwise from north)}
+\item{\code{sd_vvp}}{VVP radial velocity standard deviation (m/s)}
+\item{\code{gap}}{Angular data gap detected (T/F)}
+\item{\code{dbz}}{Animal reflectivity factor (dBZ)}
+\item{\code{eta}}{Animal reflectivity (cm^2/km^3)}
+\item{\code{dens}}{Animal density (animals/km^3)}
+\item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) (dBZ)}
 \item{\code{n}}{number of points VVPvelocity analysis (u,v,w,ff,dd)}
 \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
 \item{\code{n_dbz}}{number of points density estimate (dbz,eta,dens)}

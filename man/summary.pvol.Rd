@@ -27,16 +27,16 @@ Class \code{pvol} for a polar volume, and its associated R base functions.
 An object of class \code{pvol} is a list containing:
 \describe{
 \item{\code{radar}}{character string with the radar identifier}
-\item{\code{datetime}}{nominal time of the volume \link{UTC}}
+\item{\code{datetime}}{nominal time of the volume (UTC)}
 \item{\code{scans}}{a list with scan objects of class 'scan'}
 \item{\code{attributes}}{list with the volume's \code{\\what},
 \code{\\where} and \code{\\how} attributes}
 \item{\code{geo}}{geographic data, a list with:
 \describe{
-\item{\code{lat}}{latitude of the radar \link{decimal degrees}}
-\item{\code{lon}}{longitude of the radar \link{decimal degrees}}
+\item{\code{lat}}{latitude of the radar (decimal degrees)}
+\item{\code{lon}}{longitude of the radar (decimal degrees)}
 \item{\code{height}}{height of the radar
-antenna \link{meters above sea level}}
+antenna (meters above sea level)}
 }
 }
 }
