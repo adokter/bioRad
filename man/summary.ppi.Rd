@@ -36,34 +36,34 @@ producing projections of the radar data onto the earth's surface.
 
 An object of class \code{ppi} is a list containing:
 \describe{
- \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame}
-   containing the georeferenced data. Commonly available parameters are:
-    \describe{
-     \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
-     \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor [dBZ]}
-     \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
-       velocities towards the radar are negative, while radial velocities
-       away from the radar are positive}
-     \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation
-       between vertically polarized and horizontally polarized reflectivity
-       factor}
-     \item{"\code{PHIDP}"}{Differential phase [degrees]}
-     \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
-       }
- }
- \item{\code{geo}}{geographic data, a list with:
-    \describe{
-     \item{\code{lat}}{latitude of the radar [decimal degrees]}
-     \item{\code{lon}}{longitude of the radar [decimal degrees]}
-     \item{\code{height}}{height of the radar
-       antenna [meters above sea level]}
-     \item{\code{elangle}}{radar beam elevation [degrees]}
-     \item{\code{rscale}}{range bin size [m]}
-     \item{\code{ascale}}{azimuth bin size [deg]}
-    }
-    The \code{geo} element of a 'scan' object is a copy of the \code{geo}
-    element of its parent scan or scan parameter.
-  }
+\item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame}
+containing the georeferenced data. Commonly available parameters are:
+\describe{
+\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor \link{dBZ}}
+\item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor \link{dBZ}}
+\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity \link{m/s}. Radial
+velocities towards the radar are negative, while radial velocities
+away from the radar are positive}
+\item{"\code{RHOHV}"}{Correlation coefficient \link{unitless}. Correlation
+between vertically polarized and horizontally polarized reflectivity
+factor}
+\item{"\code{PHIDP}"}{Differential phase \link{degrees}}
+\item{"\code{ZDR}"}{(Logged) differential reflectivity \link{dB}}
+}
+}
+\item{\code{geo}}{geographic data, a list with:
+\describe{
+\item{\code{lat}}{latitude of the radar \link{decimal degrees}}
+\item{\code{lon}}{longitude of the radar \link{decimal degrees}}
+\item{\code{height}}{height of the radar
+antenna \link{meters above sea level}}
+\item{\code{elangle}}{radar beam elevation \link{degrees}}
+\item{\code{rscale}}{range bin size \link{m}}
+\item{\code{ascale}}{azimuth bin size \link{deg}}
+}
+The \code{geo} element of a 'scan' object is a copy of the \code{geo}
+element of its parent scan or scan parameter.
+}
 }
 }
 \examples{

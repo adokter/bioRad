@@ -14,7 +14,7 @@ filenames should comply.}
 }
 \value{
 character vector. Subset of filenames from the file_list that comply
-  to the provided regular expressions in regex_list.
+to the provided regular expressions in regex_list.
 }
 \description{
 Match a set of regular expressions to a list of files and return those

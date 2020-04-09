@@ -67,7 +67,7 @@ at various elevation angles as given by \link{beam_profile}.
 \details{
 This function also calculates the \code{overlap} quantity in the output of \link{integrate_to_ppi}.
 
- Overlap is calculated as the  [Bhattacharyya coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
+Overlap is calculated as the  \href{https://en.wikipedia.org/wiki/Bhattacharyya_distance}{Bhattacharyya coefficient}
 (i.e. distribution overlap) between the (normalized) vertical profile vp and the (normalized)
 radiation coverage pattern as calculated by \link{beam_profile}.
 

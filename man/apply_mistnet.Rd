@@ -59,7 +59,7 @@ it can estimate a segmentation mask that identifies pixels with weather
 that should be removed when interested only in biological data.
 
 MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
-to a 100\% probability) as additional scan parameters to the polar volume:
+to a 100\\% probability) as additional scan parameters to the polar volume:
 \describe{
 \item{"\code{BACKGROUND}"}{class probability that no signal was detected above the noise level of the radar}
 \item{"\code{WEATHER}"}{class probability that weather was detected}
@@ -121,10 +121,10 @@ file.remove("~/KBGM_example")
 \references{
 Please also cite this publication when using MistNet:
 \itemize{
-  \item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
-  Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
-  MistNet: Measuring historical bird migration in the US using archived
-  weather radar data and convolutional neural networks. Methods in Ecology
-  and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
+\item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
+Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
+MistNet: Measuring historical bird migration in the US using archived
+weather radar data and convolutional neural networks. Methods in Ecology
+and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
 }
 }
