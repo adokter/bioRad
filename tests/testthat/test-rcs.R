@@ -61,8 +61,8 @@ test_that("rcs assignments updates density", {
   # This is not the case for sd_vvp_threshold = 2, which is why it is set to 3
   vp$attributes$how$sd_vvp_thresh <- 3
   vpts$attributes$how$sd_vvp_thresh <- 3
-  expect_true(any(vp$data$dens[vp$data$sd_vvp < 3] >= 0, na.rm = TRUE))
-  expect_true(any(vpts$data$dens[vpts$data$sd_vvp < 3] >= 0, na.rm = TRUE))
+  expect_true(any(vp$data$dens[vp$data$sd_vvp < 3] > 0, na.rm = TRUE))
+  expect_true(any(vpts$data$dens[vpts$data$sd_vvp < 3] > 0, na.rm = TRUE))
 
   rcs(vp) <- 6
   rcs(vpts) <- 6
