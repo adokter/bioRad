@@ -28,29 +28,29 @@ associated R base functions.
 An object of class \code{scan} is a simple matrix, with the following
 specific attributes:
 \describe{
-   \item{\code{radar}}{character string with the radar identifier}
-   \item{\code{datetime}}{nominal time of the volume to which this
-     scan belongs [UTC]}
-   \item{\code{lat}}{latitude of the radar [decimal degrees]}
-   \item{\code{lon}}{longitude of the radar [decimal degrees]}
-   \item{\code{height}}{height of the radar antenna [meters above sea level]}
-   \item{\code{get_elevation_angles}}{radar beam elevation [degrees]}
-   \item{\code{param}}{string with the name of the polar scan parameter}
+\item{\code{radar}}{character string with the radar identifier}
+\item{\code{datetime}}{nominal time of the volume to which this
+scan belongs (UTC)}
+\item{\code{lat}}{latitude of the radar (decimal degrees)}
+\item{\code{lon}}{longitude of the radar (decimal degrees)}
+\item{\code{height}}{height of the radar antenna (meters above sea level)}
+\item{\code{get_elevation_angles}}{radar beam elevation (degrees)}
+\item{\code{param}}{string with the name of the polar scan parameter}
 }
 Scan parameters are named according to the OPERA data information model
 (ODIM), see Table 16 in the
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 Commonly available parameters are:
 \describe{
- \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor [dBZ]}
- \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity [m/s]. Radial
-   velocities towards the radar are negative, while radial velocities away
-   from the radar are positive}
- \item{"\code{RHOHV}"}{Correlation coefficient [unitless]. Correlation
-   between vertically polarized and horizontally polarized
-   reflectivity factor}
- \item{"\code{PHIDP}"}{Differential phase [degrees]}
- \item{"\code{ZDR}"}{(Logged) differential reflectivity [dB]}
+\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
+\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
+velocities towards the radar are negative, while radial velocities away
+from the radar are positive}
+\item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
+between vertically polarized and horizontally polarized
+reflectivity factor}
+\item{"\code{PHIDP}"}{Differential phase (degrees)}
+\item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
 }
 }
 \examples{

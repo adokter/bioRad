@@ -74,19 +74,19 @@ Plot a time series of vertical profiles  of class \code{vpts}.
 Profile can be visualized in three related quantities, as specified
 by argument \code{quantity}:
 \describe{
- \item{"\code{dens}"}{the aerial density of individuals. This quantity is
-   dependent on the assumed radar cross section (RCS) in the
-   \code{x$attributes$how$rcs_bird} attribute}
- \item{"\code{eta}"}{reflectivity. This quantity is independent of the
-   value of the \code{rcs_bird} attribute}
- \item{"\code{dbz}"}{reflectivity factor. This quantity is independent
-   of the value of the \code{rcs_bird} attribute, and corresponds to the
-   dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
-   tends to occur at much higher reflectivity factors at S-band
-   than at C-band}
- \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
-   reflectivity factor of all scatterers (biological and meteorological
-   scattering combined)}
+\item{"\code{dens}"}{the aerial density of individuals. This quantity is
+dependent on the assumed radar cross section (RCS) in the
+\code{x$attributes$how$rcs_bird} attribute}
+\item{"\code{eta}"}{reflectivity. This quantity is independent of the
+value of the \code{rcs_bird} attribute}
+\item{"\code{dbz}"}{reflectivity factor. This quantity is independent
+of the value of the \code{rcs_bird} attribute, and corresponds to the
+dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
+tends to occur at much higher reflectivity factors at S-band
+than at C-band}
+\item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
+reflectivity factor of all scatterers (biological and meteorological
+scattering combined)}
 }
 In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
 each pennant (triangle) 25 m/s

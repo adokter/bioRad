@@ -11,10 +11,10 @@
 #' '\code{rtr}' (reflectivity traffic rate),
 #' '\code{mt}' ((cumulative) migration traffic),
 #' '\code{rt}' ((cumulative) reflectivity traffic),
-#' `\code{ff}`, (height-averaged speed)
-#' `\code{dd}`, (height-averaged direction)
-#' `\code{u}`, (height-averaged u-component of speed),
-#' `\code{v}`, (height-averaged v-component of speed).
+#' '\code{ff}' (height-averaged speed)
+#' '\code{dd}' (height-averaged direction)
+#' '\code{u}' (height-averaged u-component of speed),
+#' '\code{v}' (height-averaged v-component of speed).
 #' @param ylim y-axis plot range, numeric atomic vector of length 2.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.

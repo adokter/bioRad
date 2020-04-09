@@ -15,7 +15,7 @@ check_date_format(date, format)
 }
 \value{
 NULL. Will stop and show error message if date does not have correct
-  date format.
+date format.
 }
 \description{
 Check if character date is in specific format
