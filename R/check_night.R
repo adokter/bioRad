@@ -35,8 +35,8 @@
 #' transition may be off by a few minutes.
 #'
 #' \code{offset} can be used to shift the moment of sunset and sunrise by a
-#' temporal offset, for example, \code{offset=c(600,-600)} will assume nighttime
-#' starts 600 seconds after sunset (as defined by \code{elev}) and stops 600 seconds before sunrise.
+#' temporal offset, for example, \code{offset=c(600,-900)} will assume nighttime
+#' starts 600 seconds after sunset (as defined by \code{elev}) and stops 900 seconds before sunrise.
 #'
 #' @examples
 #' # check if it is night at UTC midnight in the Netherlands on January 1st:
