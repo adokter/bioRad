@@ -87,7 +87,7 @@ associated R base functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -190,28 +190,28 @@ class "<code>param</code>"</p>
 
     <p>An object of class <code>scan</code> is a simple matrix, with the following
 specific attributes:</p><dl'>
-   <dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
-   <dt><code>datetime</code></dt><dd><p>nominal time of the volume to which this
-     scan belongs [UTC]</p></dd>
-   <dt><code>lat</code></dt><dd><p>latitude of the radar [decimal degrees]</p></dd>
-   <dt><code>lon</code></dt><dd><p>longitude of the radar [decimal degrees]</p></dd>
-   <dt><code>height</code></dt><dd><p>height of the radar antenna [meters above sea level]</p></dd>
-   <dt><code>get_elevation_angles</code></dt><dd><p>radar beam elevation [degrees]</p></dd>
-   <dt><code>param</code></dt><dd><p>string with the name of the polar scan parameter</p></dd>
+<dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
+<dt><code>datetime</code></dt><dd><p>nominal time of the volume to which this
+scan belongs (UTC)</p></dd>
+<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
+<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
+<dt><code>height</code></dt><dd><p>height of the radar antenna (meters above sea level)</p></dd>
+<dt><code>get_elevation_angles</code></dt><dd><p>radar beam elevation (degrees)</p></dd>
+<dt><code>param</code></dt><dd><p>string with the name of the polar scan parameter</p></dd>
 
 </dl><p>Scan parameters are named according to the OPERA data information model
 (ODIM), see Table 16 in the
 <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.
 Commonly available parameters are:</p><dl'>
- <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
- <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
-   velocities towards the radar are negative, while radial velocities away
-   from the radar are positive</p></dd>
- <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation
-   between vertically polarized and horizontally polarized
-   reflectivity factor</p></dd>
- <dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase [degrees]</p></dd>
- <dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity [dB]</p></dd>
+<dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor (dBZ)</p></dd>
+<dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity (m/s). Radial
+velocities towards the radar are negative, while radial velocities away
+from the radar are positive</p></dd>
+<dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient (unitless). Correlation
+between vertically polarized and horizontally polarized
+reflectivity factor</p></dd>
+<dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase (degrees)</p></dd>
+<dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity (dB)</p></dd>
 
 </dl>
 

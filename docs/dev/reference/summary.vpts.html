@@ -87,7 +87,7 @@ R base functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -208,22 +208,22 @@ multiple radars.</p>
 <a href='get_quantity.html'>get_quantity</a> function. Information stored under <code>attributes</code>
 (see below) can be accessed directly.</p>
 <p>An object of class <code>vpts</code> is a list containing</p><dl'>
- <dt><code>radar</code></dt><dd><p>string containing the radar identifier</p></dd>
- <dt><code>datetime</code></dt><dd><p>the <code>N</code> nominal times of the profiles (named <code>dates</code> in bioRad versions &lt; 0.4.0)</p></dd>
- <dt><code>height</code></dt><dd><p>the <code>M</code> heights of the layers in the profile</p></dd>
- <dt><code>daterange</code></dt><dd><p>the minimum and maximum nominal time of the
-   profiles in the list</p></dd>
- <dt><code>timesteps</code></dt><dd><p>time differences between the profiles. Element
-   <code>i</code> gives the time difference between profile <code>i</code> and
-   <code>i+1</code></p></dd>
- <dt><code>data</code></dt><dd><p>list of <code>N</code> by <code>M</code> matrices containing the
-   vertical profiles for each quantity. For a description of available
-   quantities, see the <code>data</code> element of the <code>vp</code> class in
-   <a href='summary.vp.html'>read_vpfiles</a></p></dd>
- <dt><code>attributes</code></dt><dd><p>profile attributes, copied from the first profile
-   contained in <code>x</code></p></dd>
- <dt><code>regular</code></dt><dd><p>logical indicating whether the time series is
-   regular or not</p></dd>
+<dt><code>radar</code></dt><dd><p>string containing the radar identifier</p></dd>
+<dt><code>datetime</code></dt><dd><p>the <code>N</code> nominal times of the profiles (named <code>dates</code> in bioRad versions &lt; 0.4.0)</p></dd>
+<dt><code>height</code></dt><dd><p>the <code>M</code> heights of the layers in the profile</p></dd>
+<dt><code>daterange</code></dt><dd><p>the minimum and maximum nominal time of the
+profiles in the list</p></dd>
+<dt><code>timesteps</code></dt><dd><p>time differences between the profiles. Element
+<code>i</code> gives the time difference between profile <code>i</code> and
+<code>i+1</code></p></dd>
+<dt><code>data</code></dt><dd><p>list of <code>N</code> by <code>M</code> matrices containing the
+vertical profiles for each quantity. For a description of available
+quantities, see the <code>data</code> element of the <code>vp</code> class in
+<a href='summary.vp.html'>read_vpfiles</a></p></dd>
+<dt><code>attributes</code></dt><dd><p>profile attributes, copied from the first profile
+contained in <code>x</code></p></dd>
+<dt><code>regular</code></dt><dd><p>logical indicating whether the time series is
+regular or not</p></dd>
 
 </dl>
 

@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -187,17 +187,17 @@ class <code>pvol</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>An object of class <code>pvol</code> is a list containing:</p><dl'>
- <dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
- <dt><code>datetime</code></dt><dd><p>nominal time of the volume [UTC]</p></dd>
- <dt><code>scans</code></dt><dd><p>a list with scan objects of class 'scan'</p></dd>
- <dt><code>attributes</code></dt><dd><p>list with the volume's <code>\what</code>,
-   <code>\where</code> and <code>\how</code> attributes</p></dd>
- <dt><code>geo</code></dt><dd><p>geographic data, a list with:
-  <dl'>
-     <dt><code>lat</code></dt><dd><p>latitude of the radar [decimal degrees]</p></dd>
-     <dt><code>lon</code></dt><dd><p>longitude of the radar [decimal degrees]</p></dd>
-     <dt><code>height</code></dt><dd><p>height of the radar
-       antenna [meters above sea level]</p></dd></dl></p></dd>
+<dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
+<dt><code>datetime</code></dt><dd><p>nominal time of the volume (UTC)</p></dd>
+<dt><code>scans</code></dt><dd><p>a list with scan objects of class 'scan'</p></dd>
+<dt><code>attributes</code></dt><dd><p>list with the volume's <code>\what</code>,
+<code>\where</code> and <code>\how</code> attributes</p></dd>
+<dt><code>geo</code></dt><dd><p>geographic data, a list with:
+<dl'>
+<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
+<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
+<dt><code>height</code></dt><dd><p>height of the radar
+antenna (meters above sea level)</p></dd></dl></p></dd>
 
 </dl>
 
@@ -207,7 +207,7 @@ class <code>pvol</code></p>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 
 <span class='co'># print the local path of the volume file:</span>
-<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpWgvpZq/temp_libpath411e3243605e/bioRad/extdata/volume.h5"</div><div class='input'>
+<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpCaqkHR/temp_libpath751d48bcfe8c/bioRad/extdata/volume.h5"</div><div class='input'>
 <span class='co'># load the file:</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
 

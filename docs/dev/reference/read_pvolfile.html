@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -237,16 +237,16 @@ containing polar scans, i.e. objects of class <code>scan</code></p>
 model (ODIM), see Table 16 in the
 <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.
 Commonly available parameters are:</p><dl'>
- <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
- <dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor [dBZ]</p></dd>
- <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
-   velocities towards the radar are negative, while radial velocities away
-   from the radar are positive</p></dd>
- <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation
-   between vertically polarized and horizontally polarized reflectivity
-   factor</p></dd>
- <dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase [degrees]</p></dd>
- <dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity [dB]</p></dd>
+<dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor (dBZ)</p></dd>
+<dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor (dBZ)</p></dd>
+<dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity (m/s). Radial
+velocities towards the radar are negative, while radial velocities away
+from the radar are positive</p></dd>
+<dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient (unitless). Correlation
+between vertically polarized and horizontally polarized reflectivity
+factor</p></dd>
+<dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase (degrees)</p></dd>
+<dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity (dB)</p></dd>
 
 </dl>
 
@@ -256,7 +256,7 @@ Commonly available parameters are:</p><dl'>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 
 <span class='co'># print the local path of the volume file:</span>
-<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpWgvpZq/temp_libpath411e3243605e/bioRad/extdata/volume.h5"</div><div class='input'>
+<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpCaqkHR/temp_libpath751d48bcfe8c/bioRad/extdata/volume.h5"</div><div class='input'>
 <span class='co'># load the file:</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>read_pvolfile</span>(<span class='no'>pvolfile</span>)
 

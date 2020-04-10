@@ -87,7 +87,7 @@ functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -196,30 +196,30 @@ class <code>ppi</code>.</p>
 with <a href='project_as_ppi.html'>project_as_ppi</a> or from polar volumes with <a href='integrate_to_ppi.html'>integrate_to_ppi</a>,
 producing projections of the radar data onto the earth's surface.</p>
 <p>An object of class <code>ppi</code> is a list containing:</p><dl'>
- <dt><code>data</code></dt><dd><p>an object of class <a href='https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html'>SpatialGridDataFrame</a>
-   containing the georeferenced data. Commonly available parameters are:
-    <dl'>
-     <dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor [dBZ]</p></dd>
-     <dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor [dBZ]</p></dd>
-     <dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity [m/s]. Radial
-       velocities towards the radar are negative, while radial velocities
-       away from the radar are positive</p></dd>
-     <dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient [unitless]. Correlation
-       between vertically polarized and horizontally polarized reflectivity
-       factor</p></dd>
-     <dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase [degrees]</p></dd>
-     <dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity [dB]</p></dd></dl></p></dd>
- <dt><code>geo</code></dt><dd><p>geographic data, a list with:
-    <dl'>
-     <dt><code>lat</code></dt><dd><p>latitude of the radar [decimal degrees]</p></dd>
-     <dt><code>lon</code></dt><dd><p>longitude of the radar [decimal degrees]</p></dd>
-     <dt><code>height</code></dt><dd><p>height of the radar
-       antenna [meters above sea level]</p></dd>
-     <dt><code>elangle</code></dt><dd><p>radar beam elevation [degrees]</p></dd>
-     <dt><code>rscale</code></dt><dd><p>range bin size [m]</p></dd>
-     <dt><code>ascale</code></dt><dd><p>azimuth bin size [deg]</p></dd></dl>
-    The <code>geo</code> element of a 'scan' object is a copy of the <code>geo</code>
-    element of its parent scan or scan parameter.</p></dd>
+<dt><code>data</code></dt><dd><p>an object of class <a href='https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html'>SpatialGridDataFrame</a>
+containing the georeferenced data. Commonly available parameters are:
+<dl'>
+<dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor (dBZ)</p></dd>
+<dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor (dBZ)</p></dd>
+<dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity (m/s). Radial
+velocities towards the radar are negative, while radial velocities
+away from the radar are positive</p></dd>
+<dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient (unitless). Correlation
+between vertically polarized and horizontally polarized reflectivity
+factor</p></dd>
+<dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase (degrees)</p></dd>
+<dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity (dB)</p></dd></dl></p></dd>
+<dt><code>geo</code></dt><dd><p>geographic data, a list with:
+<dl'>
+<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
+<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
+<dt><code>height</code></dt><dd><p>height of the radar
+antenna (meters above sea level)</p></dd>
+<dt><code>elangle</code></dt><dd><p>radar beam elevation (degrees)</p></dd>
+<dt><code>rscale</code></dt><dd><p>range bin size (m)</p></dd>
+<dt><code>ascale</code></dt><dd><p>azimuth bin size (deg)</p></dd></dl>
+The <code>geo</code> element of a 'scan' object is a copy of the <code>geo</code>
+element of its parent scan or scan parameter.</p></dd>
 
 </dl>
 
