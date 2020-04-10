@@ -152,6 +152,8 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vpi` <- function(x, value) {
   stopifnot(inherits(x, "vpi"))
+  assert_that(is.numeric(value))
+  assert_that(value > 0)
   attributes(x)$rcs <- value
   x$mtr <- x$rtr / value
   x$vid <- x$vir / value
