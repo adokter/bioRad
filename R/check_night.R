@@ -158,7 +158,7 @@ check_night.vpi <- function(x, ..., elev = -0.268, offset = 0) {
               elev = elev, offset = offset
   )
 }
-?
+
 #' @rdname check_night
 #'
 #' @export

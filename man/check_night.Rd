@@ -7,6 +7,7 @@
 \alias{check_night.list}
 \alias{check_night.vpts}
 \alias{check_night.vpi}
+\alias{check_night.pvol}
 \title{Check if it is night at a given time and place}
 \usage{
 check_night(x, ..., elev = -0.268, offset = 0)
@@ -20,6 +21,8 @@ check_night(x, ..., elev = -0.268, offset = 0)
 \method{check_night}{vpts}(x, ..., elev = -0.268, offset = 0)
 
 \method{check_night}{vpi}(x, ..., elev = -0.268, offset = 0)
+
+\method{check_night}{pvol}(x, ..., elev = -0.268, offset = 0)
 }
 \arguments{
 \item{x}{\code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
