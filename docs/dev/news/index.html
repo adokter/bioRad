@@ -159,8 +159,10 @@
 <ul>
 <li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (<a href='https://github.com/adokter/bioRad/issues/332'>#332</a>)</p></li>
 <li><p>new option <code>keep_timestamp</code> in <code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code>, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.</p></li>
-<li><p>improved documentation of sunrise/sunset functions (<a href='https://github.com/adokter/bioRad/issues/180'>#180</a>) and new option <code>force_tz</code> (4968019).</p></li>
+<li><p>improved documentation of sunrise/sunset functions (<a href='https://github.com/adokter/bioRad/issues/180'>#180</a>) and new option <code>force_tz</code> <a href="https://github.com/adokter/bioRad/commit/4968019">4968019</a>.</p></li>
 <li><p>new option <code>offset</code> in <code><a href="../reference/check_night.html">check_night()</a></code>, which allows day/night transition to be shifted by a temporal offset (<a href='https://github.com/adokter/bioRad/issues/338'>#338</a>). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.</p></li>
+<li><p>selection for day and night in vpts in <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code>, using <code><a href="../reference/check_night.html">check_night()</a></code> (<a href='https://github.com/adokter/bioRad/issues/345'>#345</a>)</p></li>
+<li><p><code><a href="../reference/check_night.html">check_night()</a></code> method for vpi objects <a href="https://github.com/adokter/bioRad/commit/23def64">23def64</a></p></li>
 </ul>
 </div>
     <div id="biorad-051" class="section level1">

@@ -4,9 +4,13 @@
 
 * new option `keep_timestamp` in `regularize_vpts()`, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.
 
-* improved documentation of sunrise/sunset functions (#180) and new option `force_tz` (4968019).
+* improved documentation of sunrise/sunset functions (#180) and new option `force_tz` [4968019](https://github.com/adokter/bioRad/commit/4968019).
 
 * new option `offset` in `check_night()`, which allows day/night transition to be shifted by a temporal offset (#338). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.
+
+* selection for day and night in vpts in `filter_vpts()`, using `check_night()` (#345)
+
+* `check_night()` method for vpi objects [23def64](https://github.com/adokter/bioRad/commit/23def64)
 
 # bioRad 0.5.1
 
