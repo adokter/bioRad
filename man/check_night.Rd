@@ -6,7 +6,7 @@
 \alias{check_night.vp}
 \alias{check_night.list}
 \alias{check_night.vpts}
-\alias{check_night.pvol}
+\alias{check_night.vpi}
 \title{Check if it is night at a given time and place}
 \usage{
 check_night(x, ..., elev = -0.268, offset = 0)
@@ -19,10 +19,10 @@ check_night(x, ..., elev = -0.268, offset = 0)
 
 \method{check_night}{vpts}(x, ..., elev = -0.268, offset = 0)
 
-\method{check_night}{pvol}(x, ..., elev = -0.268, offset = 0)
+\method{check_night}{vpi}(x, ..., elev = -0.268, offset = 0)
 }
 \arguments{
-\item{x}{\code{pvol}, \code{vp} or \code{vpts},
+\item{x}{\code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
 or a date inheriting from class \code{POSIXct} or a string
 interpretable by \link{as.POSIXct}.}
 
@@ -49,7 +49,7 @@ vector of \code{TRUE}/\code{FALSE} values is returned.
 \description{
 Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
 latitude, longitude, date and sun elevation. When used on a bioRad object
-(\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
+(\code{pvol}, \code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the
 bioRad object directly.
 }
 \details{

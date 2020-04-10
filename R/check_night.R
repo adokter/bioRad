@@ -2,10 +2,10 @@
 #'
 #' Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
 #' latitude, longitude, date and sun elevation. When used on a bioRad object
-#' (\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
+#' (\code{pvol}, \code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the
 #' bioRad object directly.
 #'
-#' @param x \code{pvol}, \code{vp} or \code{vpts},
+#' @param x \code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
 #' or a date inheriting from class \code{POSIXct} or a string
 #' interpretable by \link{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
@@ -149,6 +149,16 @@ check_night.vpts <- function(x, ..., elev = -0.268, offset = 0) {
   )
 }
 
+#' @rdname check_night
+#'
+#' @export
+check_night.vpi <- function(x, ..., elev = -0.268, offset = 0) {
+  stopifnot(inherits(x, "vpi"))
+  check_night(x$datetime, attributes(x)$lon, attributes(x)$lat,
+              elev = elev, offset = offset
+  )
+}
+?
 #' @rdname check_night
 #'
 #' @export
