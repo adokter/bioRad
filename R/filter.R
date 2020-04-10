@@ -1,14 +1,22 @@
-#' Time selection in a time series of vertical profiles ('vpts')
+#' Time and night/day selection in a time series of vertical profiles ('vpts')
 #'
 #' @param x A \code{vpts} object.
+#' @inheritParams check_night
 #' @param min Minimum datetime to be included. POSIXct value or character string convertable to POSIXct.
 #' @param max Maximum datetime to be included. POSIXct value or character string convertable to POSIXct.
 #' @param nearest If specified, \code{min} and \code{max} are ignored and the profile nearest to the
-#' specified datetime is returned. POSIXct value or charater string convertable to POSIXct.
+#' specified datetime is returned that matches the day/night selection criteria.
+#' POSIXct value or character string convertable to POSIXct.
+#' @param night When TRUE select only night time profiles, when FALSE select only day time profiles,
+#' as classified by \link{check_night}.
+#' @param offset numeric. Time duration in seconds by which to shift the start and end
+#' of night time. May also be a numeric vector of length two, with first element added to moment
+#' of sunset and second element added to moment of sunrise. See \link{check_night} for details.
 #' @return An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
 #' if argument \code{nearest} is specified.
 #' @export
-#' @details returns profiles for which min <= timestamp profile < max.
+#' @details Returns profiles for which min <= timestamp profile < max. Selection for night and day
+#' occurs by \link{check_night}.
 #' @examples
 #' # load example vertical profile time series:
 #' data(example_vpts)
@@ -22,11 +30,25 @@
 #'
 #' # select profiles between than 1 and 3 UTC on 02-Sep-2016:
 #' filter_vpts(example_vpts, min = "2016-09-02 01:00", max = "2016-09-02 03:00")
-filter_vpts <- function(x, min, max, nearest) {
+#'
+#' # select day time profiles (day time periods from sunrise to sunset)
+#' filter_vpts(example_vpts, night=FALSE)
+#'
+#' # select night time profiles, with nights starting starting and ending at civil twilight
+#' # (when the sun is 6 degrees below the horizon):
+#' filter_vpts(example_vpts, night=TRUE, elev = -6)
+#'
+#' # select night time profiles from 3 hours after sunset to 2 hours before sunrise
+#' filter_vpts(example_vpts, night=TRUE, offset=c(3,-2)*3600)
+#'
+filter_vpts <- function(x, min, max, nearest, night, elev = -0.268, offset = 0) {
   assert_that(is.vpts(x))
   errorf <- function(e) {
     min
   }
+
+  if(!missing(night)) assert_that(is.logical(night))
+
   if (!missing(min)) {
     if (is.string(min)) {
       min <- tryCatch(as.POSIXct(min, tz = "UTC"), errorf = function(e) {
@@ -45,6 +67,19 @@ filter_vpts <- function(x, min, max, nearest) {
     assert_that(is.time(max))
     assert_that(length(max) == 1)
   }
+
+  # filter by day/night if requested
+  if(!missing(night)){
+    idx <- check_night(x, elev=elev, offset=offset)
+    if(!night) idx <- !idx
+    if(!(TRUE %in% idx)){
+      warning("no profiles pass filtering by day/night, returning empty vpts object")
+      suppressWarnings(return(x[idx]))
+    }
+    # keep profiles passing day/night filter
+    x <- x[idx]
+  }
+
   if (!missing(nearest)) {
     if (is.string(nearest)) {
       nearest <- tryCatch(as.POSIXct(nearest, tz = "UTC"), errorf = function(e) {
@@ -68,7 +103,7 @@ filter_vpts <- function(x, min, max, nearest) {
     suppressWarnings(return(x[idx]))
   }
   if (no_profiles == 1) {
-    warning("only a single profile passed datetime filter")
+    warning("only a single profile passed datetime filter, returning a vp object")
     return(x[idx])
   }
   return(x[idx])

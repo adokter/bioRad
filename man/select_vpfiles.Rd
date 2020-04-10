@@ -24,7 +24,7 @@ looked for.}
 }
 \value{
 Character vector of file paths that comply to the given date and
-  radar range.
+radar range.
 }
 \description{
 Create a list of vertical profile (\code{vp}) files from a local directory

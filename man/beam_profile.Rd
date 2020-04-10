@@ -38,7 +38,7 @@ angle between the half-power (-3 dB) points of the main lobe}
 }
 \value{
 numeric vector. Normalized radiated energy at each of the specified
-  heights.
+heights.
 }
 \description{
 Calculate for a set of beam elevations elev
@@ -46,12 +46,12 @@ the altitudinal normalized distribution of radiated energy by those beams.
 }
 \details{
 Beam profile is calculated using \link{beam_height} and
-  \link{beam_width}. Returns a beam profile as a function of height relative
-  to ground level.
+\link{beam_width}. Returns a beam profile as a function of height relative
+to ground level.
 
-  Returns the normalized altitudinal pattern of radiated energy as a function
-  of altitude at a given distance from the radar, assuming the beams are
-  emitted at antenna level.
+Returns the normalized altitudinal pattern of radiated energy as a function
+of altitude at a given distance from the radar, assuming the beams are
+emitted at antenna level.
 }
 \examples{
 # plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:

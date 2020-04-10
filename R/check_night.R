@@ -2,10 +2,10 @@
 #'
 #' Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
 #' latitude, longitude, date and sun elevation. When used on a bioRad object
-#' (\code{pvol}, \code{vp}, \code{vpts}) this information is extracted from the
+#' (\code{pvol}, \code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the
 #' bioRad object directly.
 #'
-#' @param x \code{pvol}, \code{vp} or \code{vpts},
+#' @param x \code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
 #' or a date inheriting from class \code{POSIXct} or a string
 #' interpretable by \link{as.POSIXct}.
 #' @param lon numeric. Longitude in decimal degrees.
@@ -13,7 +13,7 @@
 #' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
 #' @param elev numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
 #' length two, with first element giving sunset elevation, and second element sunrise elevation.
-#' @param offset numeric. Time duration in seconds by which the shift the start and end
+#' @param offset numeric. Time duration in seconds by which to shift the start and end
 #' of night time. May also be a numeric vector of length two, with first element added to moment
 #' of sunset and second element added to moment of sunrise.
 #' @param ... optional lat,lon arguments.
@@ -35,8 +35,8 @@
 #' transition may be off by a few minutes.
 #'
 #' \code{offset} can be used to shift the moment of sunset and sunrise by a
-#' temporal offset, for example, \code{offset=c(600,-600)} will assume nighttime
-#' starts 600 seconds after sunset (as defined by \code{elev}) and stops 600 seconds before sunrise.
+#' temporal offset, for example, \code{offset=c(600,-900)} will assume nighttime
+#' starts 600 seconds after sunset (as defined by \code{elev}) and stops 900 seconds before sunrise.
 #'
 #' @examples
 #' # check if it is night at UTC midnight in the Netherlands on January 1st:
@@ -146,6 +146,16 @@ check_night.vpts <- function(x, ..., elev = -0.268, offset = 0) {
   stopifnot(inherits(x, "vpts"))
   check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
     elev = elev, offset = offset
+  )
+}
+
+#' @rdname check_night
+#'
+#' @export
+check_night.vpi <- function(x, ..., elev = -0.268, offset = 0) {
+  stopifnot(inherits(x, "vpi"))
+  check_night(x$datetime, attributes(x)$lon, attributes(x)$lat,
+              elev = elev, offset = offset
   )
 }
 

@@ -221,48 +221,62 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' Calculate overlap between a vertical profile ('vp') of biological scatterers
 #' and the vertical radiation profile emitted by the radar
 #'
-#' Calculates the distribution overlap between a vertical profile ('vp')
-#' and the vertical radiation profile of a set of emitted radar beams
-#' at various elevation angles as given by \link{beam_profile}.
+#' Calculates the distribution overlap between a vertical profile ('vp') and the
+#' vertical radiation profile of a set of emitted radar beams at various
+#' elevation angles as given by \link{beam_profile}.
 #'
-#' This function also calculates the \code{overlap} quantity in the output of \link{integrate_to_ppi}.
+#' This function also calculates the \code{overlap} quantity in the output of
+#' \link{integrate_to_ppi}.
 #' @inheritParams beam_height
 #' @inheritParams beam_width
 #' @param vp a vertical profile of class vp
 #' @param elev numeric vector. Beam elevation(s) in degrees.
-#' @param distance the distance(s) from the radar along sea level (down range) for which to calculate the overlap in m.
+#' @param distance the distance(s) from the radar along sea level (down range)
+#'   for which to calculate the overlap in m.
 #' @param zlim altitude range in meter, given as a numeric vector of length two.
-#' @param noise_floor The system noise floor in dBZ. The total system noise expressed as the reflectivity factor
-#'  it would represent at a distance \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED
-#' @param noise_floor_ref_range the reference distance from the radar at which \code{noise_floor} is expressed. NOT YET IMPLEMENTED
-#' @param steps number of integration steps over altitude range zlim, defining altitude grid size used for numeric integrations
-#' @param quantity profile quantity to use for the altitude distribution, one of 'dens' or 'eta'.
-#' @param normalize Whether to normalize the radiation coverage pattern over the altitude range specified by zlim
+#' @param noise_floor The system noise floor in dBZ. The total system noise
+#'   expressed as the reflectivity factor it would represent at a distance
+#'   \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED
+#' @param noise_floor_ref_range the reference distance from the radar at which
+#'   \code{noise_floor} is expressed. NOT YET IMPLEMENTED
+#' @param steps number of integration steps over altitude range zlim, defining
+#'   altitude grid size used for numeric integrations
+#' @param quantity profile quantity to use for the altitude distribution, one of
+#'   'dens' or 'eta'.
+#' @param normalize Whether to normalize the radiation coverage pattern over the
+#'   altitude range specified by zlim
 #' @param antenna radar antenna height. If missing taken from \code{vp}
 #' @param lat radar latitude. If missing taken from \code{vp}
 #' @return A data.frame with columns distance and overlap.
 #'
 #' @export
 #'
-#' @details  Overlap is calculated as the  [Bhattacharyya coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance)
-#' (i.e. distribution overlap) between the (normalized) vertical profile vp and the (normalized)
-#' radiation coverage pattern as calculated by \link{beam_profile}.
+#' @details Overlap is calculated as the [Bhattacharyya
+#'   coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
+#'   distribution overlap) between the (normalized) vertical profile vp and the
+#'   (normalized) radiation coverage pattern as calculated by
+#'   \link{beam_profile}.
 #'
-#' The current implementation does not (yet) take into account the system noise floor when calculating
-#' the overlap.
+#'   The current implementation does not (yet) take into account the system
+#'   noise floor when calculating the overlap.
 #'
-#' In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH} specifies the system noise floor
-#' (the Noise Equivalent Z or noise equivalent reflectivity factor. the H refers to the horizontal channel
-#' of a dual-polarization radar).
-#' In addition, the attribute \code{/how/LOG} gives "security distance above mean noise level (dB) threshold value".
-#' This is equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the noise floor for the signal processor
-#' to report a valid reflectivity value. We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this
-#' is the effective noise floor of the system below which no data will be reported by the radar signal processor.
+#'   In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH}
+#'   specifies the system noise floor (the Noise Equivalent Z or noise
+#'   equivalent reflectivity factor. the H refers to the horizontal channel of a
+#'   dual-polarization radar). In addition, the attribute \code{/how/LOG} gives
+#'   "security distance above mean noise level (dB) threshold value". This is
+#'   equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the
+#'   noise floor for the signal processor to report a valid reflectivity value.
+#'   We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this
+#'   is the effective noise floor of the system below which no data will be
+#'   reported by the radar signal processor.
 #'
-#' Typical values are \code{NEZH} = -45 to -50 dBZ at 1 km from the radar. \code{LOG} is typically around 1 dB.
+#'   Typical values are \code{NEZH} = -45 to -50 dBZ at 1 km from the radar.
+#'   \code{LOG} is typically around 1 dB.
 #'
-#' Need to evaluate beam by beam the returned signal relative to a uniform beam filling of at least NEZH + LOG
-#' If returned signal is lower, the gate is below noise level.
+#'   Need to evaluate beam by beam the returned signal relative to a uniform
+#'   beam filling of at least NEZH + LOG If returned signal is lower, the gate
+#'   is below noise level.
 #'
 #' @examples
 #' # locate example volume file:

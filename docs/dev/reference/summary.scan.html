@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -191,23 +191,23 @@ class <code>scan</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A object of class <code>scan</code> is a list containing:</p><dl'>
- <dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
- <dt><code>datetime</code></dt><dd><p>nominal time of the volume to which this
-   scan belongs [UTC]</p></dd>
- <dt><code>params</code></dt><dd><p>a list with scan parameters</p></dd>
- <dt><code>attributes</code></dt><dd><p>list with the scan's <code>\what</code>,
-   <code>\where</code> and <code>\how</code> attributes</p></dd>
- <dt><code>geo</code></dt><dd><p>geographic data, a list with:
-    <dl'>
-     <dt><code>lat</code></dt><dd><p>latitude of the radar [decimal degrees]</p></dd>
-     <dt><code>lon</code></dt><dd><p>longitude of the radar [decimal degrees]</p></dd>
-     <dt><code>height</code></dt><dd><p>height of the radar
-       antenna [meters above sea level]</p></dd>
-     <dt><code>elangle</code></dt><dd><p>radar beam elevation [degrees]</p></dd>
-     <dt><code>rscale</code></dt><dd><p>range bin size [m]</p></dd>
-     <dt><code>ascale</code></dt><dd><p>azimuth bin size [deg]</p></dd></dl>
-    The <code>geo</code> element of a <code>scan</code> object is a copy of the
-    <code>geo</code> element of its parent polar volume of class <code>pvol</code>.</p></dd>
+<dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
+<dt><code>datetime</code></dt><dd><p>nominal time of the volume to which this
+scan belongs (UTC)</p></dd>
+<dt><code>params</code></dt><dd><p>a list with scan parameters</p></dd>
+<dt><code>attributes</code></dt><dd><p>list with the scan's <code>\what</code>,
+<code>\where</code> and <code>\how</code> attributes</p></dd>
+<dt><code>geo</code></dt><dd><p>geographic data, a list with:
+<dl'>
+<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
+<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
+<dt><code>height</code></dt><dd><p>height of the radar
+antenna (meters above sea level)</p></dd>
+<dt><code>elangle</code></dt><dd><p>radar beam elevation (degrees)</p></dd>
+<dt><code>rscale</code></dt><dd><p>range bin size (m)</p></dd>
+<dt><code>ascale</code></dt><dd><p>azimuth bin size (deg)</p></dd></dl>
+The <code>geo</code> element of a <code>scan</code> object is a copy of the
+<code>geo</code> element of its parent polar volume of class <code>pvol</code>.</p></dd>
 
 </dl>
 

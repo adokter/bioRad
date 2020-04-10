@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -197,44 +197,45 @@ spaced altitudinal layers.</p>
 <a href='get_quantity.html'>get_quantity</a> function. Information stored under <code>attributes</code>
 (see below) can be accessed directly.</p>
 <p>A <code>vp</code> object is a list containing</p><dl'>
- <dt><strong><code>radar</code></strong></dt><dd><p>the radar identifier</p></dd>
- <dt><strong><code>datetime</code></strong></dt><dd><p>the nominal time of the profile</p></dd>
- <dt><strong><code>data</code></strong></dt><dd><p>the profile data, a list containing:
-   <dl'>
-       <dt><code>height</code></dt><dd><p>height above mean sea level [m]. Alt. bin from height to height+interval)</p></dd>
-       <dt><code>u</code></dt><dd><p>speed component west to east [m/s]</p></dd>
-       <dt><code>v</code></dt><dd><p>speed component north to south [m/s]</p></dd>
-       <dt><code>w</code></dt><dd><p>vertical speed (unreliable!) [m/s]</p></dd>
-       <dt><code>ff</code></dt><dd><p>horizontal speed [m/s]</p></dd>
-       <dt><code>dd</code></dt><dd><p>direction [degrees, clockwise from north]</p></dd>
-       <dt><code>sd_vvp</code></dt><dd><p>VVP radial velocity standard deviation [m/s]</p></dd>
-       <dt><code>gap</code></dt><dd><p>Angular data gap detected [T/F]</p></dd>
-       <dt><code>dbz</code></dt><dd><p>Animal reflectivity factor [dBZ]</p></dd>
-       <dt><code>eta</code></dt><dd><p>Animal reflectivity [cm^2/km^3]</p></dd>
-       <dt><code>dens</code></dt><dd><p>Animal density [animals/km^3]</p></dd>
-       <dt><code>DBZH</code></dt><dd><p>Total reflectivity factor (bio+meteo scattering) [dBZ]</p></dd>
-       <dt><code>n</code></dt><dd><p>number of points VVPvelocity analysis (u,v,w,ff,dd)</p></dd>
-       <dt><code>n_all</code></dt><dd><p>number of points VVP st.dev. estimate (sd_vvp)</p></dd>
-       <dt><code>n_dbz</code></dt><dd><p>number of points density estimate (dbz,eta,dens)</p></dd>
-       <dt><code>n_dbz_all</code></dt><dd><p>number of points total reflectivity estimate (DBZH)</p></dd></dl></p></dd>
- <dt><strong><code>attributes</code></strong></dt><dd><p>list with the profile's <code>\what</code>,
- <code>\where</code> and <code>\how</code> attributes</p></dd>
+<dt><strong><code>radar</code></strong></dt><dd><p>the radar identifier</p></dd>
+<dt><strong><code>datetime</code></strong></dt><dd><p>the nominal time of the profile</p></dd>
+<dt><strong><code>data</code></strong></dt><dd><p>the profile data, a list containing:
+<dl'>
+<dt><code>height</code></dt><dd><p>height above mean sea level (m). Alt. bin from height to height+interval)</p></dd>
+<dt><code>u</code></dt><dd><p>speed component west to east (m/s)</p></dd>
+<dt><code>v</code></dt><dd><p>speed component north to south (m/s)</p></dd>
+<dt><code>w</code></dt><dd><p>vertical speed (unreliable!) (m/s)</p></dd>
+<dt><code>ff</code></dt><dd><p>horizontal speed (m/s)</p></dd>
+<dt><code>dd</code></dt><dd><p>direction (degrees, clockwise from north)</p></dd>
+<dt><code>sd_vvp</code></dt><dd><p>VVP radial velocity standard deviation (m/s)</p></dd>
+<dt><code>gap</code></dt><dd><p>Angular data gap detected (T/F)</p></dd>
+<dt><code>dbz</code></dt><dd><p>Animal reflectivity factor (dBZ)</p></dd>
+<dt><code>eta</code></dt><dd><p>Animal reflectivity (cm^2/km^3)</p></dd>
+<dt><code>dens</code></dt><dd><p>Animal density (animals/km^3)</p></dd>
+<dt><code>DBZH</code></dt><dd><p>Total reflectivity factor (bio+meteo scattering) (dBZ)</p></dd>
+<dt><code>n</code></dt><dd><p>number of points VVPvelocity analysis (u,v,w,ff,dd)</p></dd>
+<dt><code>n_all</code></dt><dd><p>number of points VVP st.dev. estimate (sd_vvp)</p></dd>
+<dt><code>n_dbz</code></dt><dd><p>number of points density estimate (dbz,eta,dens)</p></dd>
+<dt><code>n_dbz_all</code></dt><dd><p>number of points total reflectivity estimate (DBZH)</p></dd></dl></p></dd>
+<dt><strong><code>attributes</code></strong></dt><dd><p>list with the profile's <code>\what</code>,
+<code>\where</code> and <code>\how</code> attributes</p></dd>
 
 </dl>
 
 <h3>Conventions</h3>
-<p></p><ul>
+
+<ul>
 <li><p><code>NA</code> Maps to 'nodata' in the ODIM convention: value to denote areas void of data
-     (never radiated)</p></li>
+(never radiated)</p></li>
 <li><p><code>NaN</code> Maps to 'undetect' in the ODIM convention: denote areas below the measurement
-    detection threshold (radiated but nothing detected). The value is also used when there are too
-    few datapoints to calculate a quantity.</p></li>
+detection threshold (radiated but nothing detected). The value is also used when there are too
+few datapoints to calculate a quantity.</p></li>
 <li><p><code>0</code> Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
-     value of zero (radiated and value zero detected or inferred).</p></li>
+value of zero (radiated and value zero detected or inferred).</p></li>
 </ul><p>It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
-  an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
-  is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
-  in case of undetects.</p>
+an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
+is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
+in case of undetects.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

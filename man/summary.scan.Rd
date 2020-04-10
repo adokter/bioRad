@@ -31,25 +31,25 @@ Class \code{scan} for a scan of a polar volume, and its associated R base functi
 \details{
 A object of class \code{scan} is a list containing:
 \describe{
- \item{\code{radar}}{character string with the radar identifier}
- \item{\code{datetime}}{nominal time of the volume to which this
-   scan belongs [UTC]}
- \item{\code{params}}{a list with scan parameters}
- \item{\code{attributes}}{list with the scan's \code{\\what},
-   \code{\\where} and \code{\\how} attributes}
- \item{\code{geo}}{geographic data, a list with:
-    \describe{
-     \item{\code{lat}}{latitude of the radar [decimal degrees]}
-     \item{\code{lon}}{longitude of the radar [decimal degrees]}
-     \item{\code{height}}{height of the radar
-       antenna [meters above sea level]}
-     \item{\code{elangle}}{radar beam elevation [degrees]}
-     \item{\code{rscale}}{range bin size [m]}
-     \item{\code{ascale}}{azimuth bin size [deg]}
-    }
-    The \code{geo} element of a \code{scan} object is a copy of the
-    \code{geo} element of its parent polar volume of class \code{pvol}.
-  }
+\item{\code{radar}}{character string with the radar identifier}
+\item{\code{datetime}}{nominal time of the volume to which this
+scan belongs (UTC)}
+\item{\code{params}}{a list with scan parameters}
+\item{\code{attributes}}{list with the scan's \code{\\what},
+\code{\\where} and \code{\\how} attributes}
+\item{\code{geo}}{geographic data, a list with:
+\describe{
+\item{\code{lat}}{latitude of the radar (decimal degrees)}
+\item{\code{lon}}{longitude of the radar (decimal degrees)}
+\item{\code{height}}{height of the radar
+antenna (meters above sea level)}
+\item{\code{elangle}}{radar beam elevation (degrees)}
+\item{\code{rscale}}{range bin size (m)}
+\item{\code{ascale}}{azimuth bin size (deg)}
+}
+The \code{geo} element of a \code{scan} object is a copy of the
+\code{geo} element of its parent polar volume of class \code{pvol}.
+}
 }
 }
 \examples{

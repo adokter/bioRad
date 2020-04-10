@@ -12,7 +12,7 @@ check_radar_codes(radars)
 }
 \value{
 NULL. Will stop and show error message if at least one of the
-  provided radar codes is not exactly 5 characters.
+provided radar codes is not exactly 5 characters.
 }
 \description{
 Check if radar codes are exactly 5 characters

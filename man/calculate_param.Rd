@@ -54,9 +54,9 @@ calculate_param(example_scan, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
 }
 \references{
 \itemize{
-  \item Kilambi, A., Fabry, F., and Meunier, V., 2018. A simple and effective method
-  for separating meteorological from nonmeteorological targets using dual-polarization
-  data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
-  \url{https://doi.org/10.1175/JTECH-D-17-0175.1}
+\item Kilambi, A., Fabry, F., and Meunier, V., 2018. A simple and effective method
+for separating meteorological from nonmeteorological targets using dual-polarization
+data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
+\url{https://doi.org/10.1175/JTECH-D-17-0175.1}
 }
 }

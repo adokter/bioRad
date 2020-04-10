@@ -2,9 +2,9 @@
 #'
 #' Gives the currently assumed radar cross section in cm^2.
 #'
-#' @param x A \code{vp}, list of \code{vp} or \code{vpts} object.
+#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
 #'
-#' @return a radar cross section in cm^2
+#' @return A radar cross section in cm^2.
 #'
 #' @details See also \link{rcs<-} for changing or setting the radar cross section
 #' of an object.
@@ -12,10 +12,6 @@
 #' @export
 #'
 #' @examples
-#' # load example data:
-#' data(example_vp)
-#' data(example_vpts)
-#'
 #' # retrieve RCS for a single vertical profile:
 #' rcs(example_vp)
 #'
@@ -27,6 +23,10 @@
 #'
 #' # change or set RCS for a vertical profile time series:
 #' rcs(example_vpts) <- 11
+#'
+#' # change RCS for a vertically integrated vertical profile time series:
+#' example_vpi <- integrate_profile(example_vpts)
+#' rcs(example_vpi) <- 11
 rcs <- function(x) {
   UseMethod("rcs", x)
 }
@@ -45,7 +45,7 @@ rcs.vp <- function(x) {
 rcs.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("requires list of vp objects as input")
+    stop("Input must be list of vp objects.")
   }
   output <- sapply(x, `rcs.vp`)
   output
@@ -70,10 +70,10 @@ rcs.vpi <- function(x) {
 #' Set radar cross section
 #'
 #' Sets the assumed radar cross section in cm^2. This method also updates
-#' the migration densities in \code{x$data$dens}
+#' the migration densities in `x$data$dens`.
 #'
-#' @param x a \code{vp}, list of \code{vp} or \code{vpts} object
-#' @param value the cross section value to assign
+#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
+#' @param value The cross section value to assign.
 #'
 #' @export
 #'
@@ -81,10 +81,6 @@ rcs.vpi <- function(x) {
 #' of an object.
 #'
 #' @examples
-#' # load example data
-#' data(example_vp)
-#' data(example_vpts)
-#'
 #' # change or set RCS for a single vertical profile:
 #' rcs(example_vp) <- 11
 #'
@@ -105,12 +101,14 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
+  assert_that(is.numeric(value))
+  assert_that(value > 0)
   x$attributes$how$rcs_bird <- value
   x$data$dens <- x$data$eta / value
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
-    warning("threshold for sd_vvp not set, defaulting to 2 m/s")
+    warning("Threshold for sd_vvp not set, defaulting to 2 m/s.")
     x$attributes$how$sd_vvp_thresh <- 2
     x$data$dens[x$data$sd_vvp < 2] <- 0
   }
@@ -123,7 +121,7 @@ rcs.vpi <- function(x) {
 `rcs<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("requires list of vp objects as input")
+    stop("Input must be list of vp objects.")
   }
   output <- lapply(x, `rcs<-.vp`, value = value)
   class(output) <- c("list")
@@ -135,12 +133,14 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
+  assert_that(is.numeric(value))
+  assert_that(value > 0)
   x$attributes$how$rcs_bird <- value
   x$data$dens <- x$data$eta / value
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
-    warning("Threshold for sd_vvp not set, defaulting to 2 m/s")
+    warning("Threshold for sd_vvp not set, defaulting to 2 m/s.")
     x$attributes$how$sd_vvp_thresh <- 2
     x$data$dens[x$data$sd_vvp < 2] <- 0
   }
@@ -152,6 +152,8 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vpi` <- function(x, value) {
   stopifnot(inherits(x, "vpi"))
+  assert_that(is.numeric(value))
+  assert_that(value > 0)
   attributes(x)$rcs <- value
   x$mtr <- x$rtr / value
   x$vid <- x$vir / value

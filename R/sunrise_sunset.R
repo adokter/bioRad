@@ -1,5 +1,3 @@
-# function obtained via Hidde Leijnse, source unknown
-
 #' Calculate sunrise or sunset for a time and place
 #'
 #' @param date Date inheriting from class \code{POSIXt} or a string

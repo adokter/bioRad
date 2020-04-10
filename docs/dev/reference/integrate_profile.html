@@ -90,7 +90,7 @@ weighted by density." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9340</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
       </span>
     </div>
 
@@ -232,22 +232,22 @@ integrated profile quantities</p>
 <h3>Available quantities</h3>
 <p>The function generates a specially classed data frame with the following
 quantities:</p><dl'>
-   <dt><code>datetime</code></dt><dd><p>POSIXct date of each profile in UTC</p></dd>
-   <dt><code>vid</code></dt><dd><p>Vertically Integrated Density in individuals/km^2.
-      <code>vid</code> is a surface density, whereas <code>dens</code> in <code>vp</code>
-      objects is a volume density.</p></dd>
-   <dt><code>vir</code></dt><dd><p>Vertically Integrated Reflectivity in cm^2/km^2</p></dd>
-   <dt><code>mtr</code></dt><dd><p>Migration Traffic Rate in individuals/km/h</p></dd>
-   <dt><code>rtr</code></dt><dd><p>Reflectivity Traffic Rate in cm^2/km/h</p></dd>
-   <dt><code>mt</code></dt><dd><p>Migration Traffic in individuals/km, cumulated from
-      the start of the time series up to <code>datetime</code></p></dd>
-   <dt><code>rt</code></dt><dd><p>Reflectivity Traffic in cm^2/km, cumulated from
-      the start of the time series up to <code>datetime</code></p></dd>
-   <dt><code>ff</code></dt><dd><p>Horizontal ground speed in m/s</p></dd>
-   <dt><code>dd</code></dt><dd><p>Horizontal ground speed direction in degrees</p></dd>
-   <dt><code>u</code></dt><dd><p>Ground speed component west to east in m/s</p></dd>
-   <dt><code>v</code></dt><dd><p>Ground speed component north to south in m/s</p></dd>
-   <dt><code>height</code></dt><dd><p>Mean flight height (height weighted by eta) in m above sea level</p></dd>
+<dt><code>datetime</code></dt><dd><p>POSIXct date of each profile in UTC</p></dd>
+<dt><code>vid</code></dt><dd><p>Vertically Integrated Density in individuals/km^2.
+<code>vid</code> is a surface density, whereas <code>dens</code> in <code>vp</code>
+objects is a volume density.</p></dd>
+<dt><code>vir</code></dt><dd><p>Vertically Integrated Reflectivity in cm^2/km^2</p></dd>
+<dt><code>mtr</code></dt><dd><p>Migration Traffic Rate in individuals/km/h</p></dd>
+<dt><code>rtr</code></dt><dd><p>Reflectivity Traffic Rate in cm^2/km/h</p></dd>
+<dt><code>mt</code></dt><dd><p>Migration Traffic in individuals/km, cumulated from
+the start of the time series up to <code>datetime</code></p></dd>
+<dt><code>rt</code></dt><dd><p>Reflectivity Traffic in cm^2/km, cumulated from
+the start of the time series up to <code>datetime</code></p></dd>
+<dt><code>ff</code></dt><dd><p>Horizontal ground speed in m/s</p></dd>
+<dt><code>dd</code></dt><dd><p>Horizontal ground speed direction in degrees</p></dd>
+<dt><code>u</code></dt><dd><p>Ground speed component west to east in m/s</p></dd>
+<dt><code>v</code></dt><dd><p>Ground speed component north to south in m/s</p></dd>
+<dt><code>height</code></dt><dd><p>Mean flight height (height weighted by eta) in m above sea level</p></dd>
 
 </dl><p>Vertically integrated density and reflectivity are related according to
 \(vid=vir/rcs(x)\), with <a href='rcs.html'>rcs</a> the assumed radar cross section per
