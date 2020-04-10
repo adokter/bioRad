@@ -2,9 +2,9 @@
 % Please edit documentation in R/filter.R
 \name{filter_vpts}
 \alias{filter_vpts}
-\title{Time selection in a time series of vertical profiles ('vpts')}
+\title{Time and night/day selection in a time series of vertical profiles ('vpts')}
 \usage{
-filter_vpts(x, min, max, nearest)
+filter_vpts(x, min, max, nearest, night, elev = -0.268, offset = 0)
 }
 \arguments{
 \item{x}{A \code{vpts} object.}
@@ -14,17 +14,29 @@ filter_vpts(x, min, max, nearest)
 \item{max}{Maximum datetime to be included. POSIXct value or character string convertable to POSIXct.}
 
 \item{nearest}{If specified, \code{min} and \code{max} are ignored and the profile nearest to the
-specified datetime is returned. POSIXct value or charater string convertable to POSIXct.}
+specified datetime is returned that matches the day/night selection criteria.
+POSIXct value or character string convertable to POSIXct.}
+
+\item{night}{When TRUE select only night time profiles, when FALSE select only day time profiles,
+as classified by \link{check_night}.}
+
+\item{elev}{numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
+length two, with first element giving sunset elevation, and second element sunrise elevation.}
+
+\item{offset}{numeric. Time duration in seconds by which to shift the start and end
+of night time. May also be a numeric vector of length two, with first element added to moment
+of sunset and second element added to moment of sunrise. See \link{check_night} for details.}
 }
 \value{
 An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
 if argument \code{nearest} is specified.
 }
 \description{
-Time selection in a time series of vertical profiles ('vpts')
+Time and night/day selection in a time series of vertical profiles ('vpts')
 }
 \details{
-returns profiles for which min <= timestamp profile < max.
+Returns profiles for which min <= timestamp profile < max. Selection for night and day
+occurs by \link{check_night}.
 }
 \examples{
 # load example vertical profile time series:
@@ -39,4 +51,15 @@ filter_vpts(example_vpts, nearest = "2016-09-01 03:00")
 
 # select profiles between than 1 and 3 UTC on 02-Sep-2016:
 filter_vpts(example_vpts, min = "2016-09-02 01:00", max = "2016-09-02 03:00")
+
+# select day time profiles (day time periods from sunrise to sunset)
+filter_vpts(example_vpts, night=FALSE)
+
+# select night time profiles, with nights starting starting and ending at civil twilight
+# (when the sun is 6 degrees below the horizon):
+filter_vpts(example_vpts, night=TRUE, elev = -6)
+
+# select night time profiles from 3 hours after sunset to 2 hours before sunrise
+filter_vpts(example_vpts, night=TRUE, offset=c(3,-2)*3600)
+
 }
