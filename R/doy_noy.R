@@ -1,6 +1,6 @@
 #' look up day of year (doy) or night of year (noy)
 #'
-#' Look up the day of year (\code{doy}) or night of year (\code{doy}) for datetimes and various bioRad objects.
+#' Look up the day of year (\code{doy}) or night of year (\code{noy}) for datetimes and various bioRad objects.
 #' @param x \code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
 #' or a date inheriting from class \code{POSIXct} or a string
 #' interpretable by \link{as.POSIXct}.

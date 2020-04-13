@@ -54,7 +54,7 @@ interpretable by \link{as.POSIXct}.}
 \item{lat}{numeric. Latitude in decimal degrees.}
 }
 \description{
-Look up the day of year (\code{doy}) or night of year (\code{doy}) for datetimes and various bioRad objects.
+Look up the day of year (\code{doy}) or night of year (\code{noy}) for datetimes and various bioRad objects.
 }
 \details{
 First night of the year is the night with datetime Jan 01 00:00:00 in the local time zone,
