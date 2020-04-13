@@ -12,6 +12,8 @@
 
 * `check_night()` method for vpi objects ([23def64](https://github.com/adokter/bioRad/commit/23def64))
 
+* new functions `noy()` and `doy()` to determine which night or day of the year a profile belongs to.
+
 # bioRad 0.5.1
 
 Minor bugfixes. All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/334). This release primarily fixes a bug that will become effective once R version 4.0 is released.
