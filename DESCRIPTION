@@ -29,6 +29,7 @@ Imports:
     ggplot2,
     graphics,
     lubridate,
+    lutz,
     methods,
     raster,
     rgdal,

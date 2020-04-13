@@ -12,7 +12,7 @@
 
 * `check_night()` method for vpi objects ([23def64](https://github.com/adokter/bioRad/commit/23def64))
 
-* new functions `noy()` and `doy()` to determine which night or day of the year a profile belongs to.
+* new functions `noy()` and `doy()` to determine which night or day of the year a profile belongs to (#346).
 
 # bioRad 0.5.1
 

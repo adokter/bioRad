@@ -20,30 +20,32 @@ doy(x, ..., method = "fast")
 
 noy(x, ..., method = "fast")
 
-\method{doy}{default}(x, lon, lat, method = "fast")
+\method{doy}{default}(x, lon, lat, ..., method = "fast")
 
-\method{noy}{default}(x, lon, lat, method = "fast")
+\method{noy}{default}(x, lon, lat, ..., method = "fast")
 
-\method{doy}{vp}(x, method = "fast")
+\method{doy}{vp}(x, ..., method = "fast")
 
-\method{noy}{vp}(x, method = "fast")
+\method{noy}{vp}(x, ..., method = "fast")
 
-\method{doy}{vpts}(x, method = "fast")
+\method{doy}{vpts}(x, ..., method = "fast")
 
-\method{noy}{vpts}(x, method = "fast")
+\method{noy}{vpts}(x, ..., method = "fast")
 
-\method{doy}{vpi}(x, method = "fast")
+\method{doy}{vpi}(x, ..., method = "fast")
 
-\method{noy}{vpi}(x, method = "fast")
+\method{noy}{vpi}(x, ..., method = "fast")
 
-\method{doy}{pvol}(x, method = "fast")
+\method{doy}{pvol}(x, ..., method = "fast")
 
-\method{noy}{pvol}(x, method = "fast")
+\method{noy}{pvol}(x, ..., method = "fast")
 }
 \arguments{
 \item{x}{\code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
 or a date inheriting from class \code{POSIXct} or a string
 interpretable by \link{as.POSIXct}.}
+
+\item{...}{optional lat,lon arguments.}
 
 \item{method}{method by which to do the time zone lookup. Either \code{"fast"} (default) or \code{"accurate"}, see \link[lutz]{tz_lookup_coords}.}
 
@@ -58,4 +60,14 @@ Look up the day of year (\code{doy}) or night of year (\code{doy}) for datetimes
 First night of the year is the night with datetime Jan 01 00:00:00 in the local time zone,
 i.e. sunset on Jan 1 occurs on the second night of the year, and New Years Eve on Dec 31
 occurs on the first night of the new year.
+}
+\examples{
+# night of year of a profile (vp object):
+noy(example_vp)
+
+# day of year of a profile (vp object):
+noy(example_vp)
+
+# night of year of a vertial profile time series (vpts object):
+noy(example_vpts)
 }
