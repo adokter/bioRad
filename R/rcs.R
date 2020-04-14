@@ -2,36 +2,30 @@
 #'
 #' Gives the currently assumed radar cross section in cm^2.
 #'
-#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
+#' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
 #'
 #' @return A radar cross section in cm^2.
 #'
-#' @details See also \link{rcs<-} for changing or setting the radar cross section
-#' of an object.
+#' @seealso [rcs()<-] for changing or setting the radar cross section of an
+#'   object.
 #'
 #' @export
 #'
 #' @examples
-#' # retrieve RCS for a single vertical profile:
+#' # Retrieve radar cross section for a vp:
 #' rcs(example_vp)
 #'
-#' # retrieve RCS for a vertical profile time series:
+#' # Retrieve radar cross section for a vpts:
 #' rcs(example_vpts)
 #'
-#' # change or set RCS for a single vertical profile:
-#' rcs(example_vp) <- 11
-#'
-#' # change or set RCS for a vertical profile time series:
-#' rcs(example_vpts) <- 11
-#'
-#' # change RCS for a vertically integrated vertical profile time series:
+#' # Retrieve radar cross section for a vpi:
 #' example_vpi <- integrate_profile(example_vpts)
-#' rcs(example_vpi) <- 11
+#' rcs(example_vpi)
 rcs <- function(x) {
   UseMethod("rcs", x)
 }
 
-#' @describeIn rcs radar cross section of a vertical profile
+#' @rdname rcs
 #'
 #' @export
 rcs.vp <- function(x) {
@@ -39,7 +33,7 @@ rcs.vp <- function(x) {
   x$attributes$how$rcs_bird
 }
 
-#' @describeIn rcs radar cross sections for a list of vertical profiles
+#' @rdname rcs
 #'
 #' @export
 rcs.list <- function(x) {
@@ -51,15 +45,15 @@ rcs.list <- function(x) {
   output
 }
 
-#' @describeIn rcs radar cross section of a time series of vertical profile
+#' @describeIn rcs Get radar cross section of a time series of vertical profile
+#'   (`vpts`).
 #' @export
 rcs.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
   x$attributes$how$rcs_bird
 }
 
-#' @describeIn rcs radar cross section of a time series of vertically
-#' integrated vertical profile(s)
+#' @rdname rcs
 #'
 #' @export
 rcs.vpi <- function(x) {
@@ -67,31 +61,28 @@ rcs.vpi <- function(x) {
   attributes(x)$rcs
 }
 
-#' Set radar cross section
+#' Change or set radar cross section
 #'
-#' Sets the assumed radar cross section in cm^2. This method also updates
-#' the migration densities in `x$data$dens`.
+#' Changes or sets the assumed radar cross section in cm^2. This method also
+#' updates the migration densities in `x$data$dens`.
 #'
-#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
-#' @param value The cross section value to assign.
+#' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
+#' @param value Double. The radar cross section value to assign (cm^2).
 #'
 #' @export
 #'
-#' @details See also \link{rcs} for retrieving the radar cross section
-#' of an object.
+#' @seealso [rcs()] for retrieving the radar cross section of an object.
 #'
 #' @examples
-#' # change or set RCS for a single vertical profile:
+#' # Change or set radar cross section for a vp:
 #' rcs(example_vp) <- 11
 #'
-#' # change or set RCS for a vertical profile time series:
+#' # Change or set radar cross section for a vpts:
 #' rcs(example_vpts) <- 11
 #'
-#' # retrieve RCS for a single vertical profile:
-#' rcs(example_vp)
-#'
-#' # retrieve RCS for a vertical profile time series:
-#' rcs(example_vpts)
+#' # Change or set radar cross section for a vpi:
+#' example_vpi <- integrate_profile(example_vpts)
+#' rcs(example_vpi) <- 11
 `rcs<-` <- function(x, value) {
   UseMethod("rcs<-", x)
 }
@@ -152,8 +143,6 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vpi` <- function(x, value) {
   stopifnot(inherits(x, "vpi"))
-  assert_that(is.numeric(value))
-  assert_that(value > 0)
   attributes(x)$rcs <- value
   x$mtr <- x$rtr / value
   x$vid <- x$vir / value

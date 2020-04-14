@@ -6,7 +6,7 @@
 \alias{rcs<-.list}
 \alias{rcs<-.vpts}
 \alias{rcs<-.vpi}
-\title{Set radar cross section}
+\title{Change or set radar cross section}
 \usage{
 rcs(x) <- value
 
@@ -21,26 +21,23 @@ rcs(x) <- value
 \arguments{
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 
-\item{value}{The cross section value to assign.}
+\item{value}{Double. The radar cross section value to assign (cm^2).}
 }
 \description{
-Sets the assumed radar cross section in cm^2. This method also updates
-the migration densities in \code{x$data$dens}.
-}
-\details{
-See also \link{rcs} for retrieving the radar cross section
-of an object.
+Changes or sets the assumed radar cross section in cm^2. This method also
+updates the migration densities in \code{x$data$dens}.
 }
 \examples{
-# change or set RCS for a single vertical profile:
+# Change or set radar cross section for a vp:
 rcs(example_vp) <- 11
 
-# change or set RCS for a vertical profile time series:
+# Change or set radar cross section for a vpts:
 rcs(example_vpts) <- 11
 
-# retrieve RCS for a single vertical profile:
-rcs(example_vp)
-
-# retrieve RCS for a vertical profile time series:
-rcs(example_vpts)
+# Change or set radar cross section for a vpi:
+example_vpi <- integrate_profile(example_vpts)
+rcs(example_vpi) <- 11
+}
+\seealso{
+\code{\link[=rcs]{rcs()}} for retrieving the radar cross section of an object.
 }
