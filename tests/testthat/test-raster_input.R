@@ -1,4 +1,3 @@
-context("test-raster_input.R")
 test_that("scan to raster produces simular output", {
   data(example_vpts)
   expect_s4_class(b <- scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1), "RasterBrick")
