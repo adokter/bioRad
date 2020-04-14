@@ -108,6 +108,7 @@ reference:
       - sd_vvp_threshold
       - "`sd_vvp_threshold<-`"
       - check_night
+      - doy_noy
   - title: "Radar beam geometry"
     desc: "Functions relating the radar beam shape to range, distance and height"
     contents:
