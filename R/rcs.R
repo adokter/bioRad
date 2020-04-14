@@ -6,7 +6,7 @@
 #'
 #' @return A radar cross section in cm^2.
 #'
-#' @seealso [rcs()<-] for changing or setting the radar cross section of an
+#' @seealso [`rcs()<-`] for changing or setting the radar cross section of an
 #'   object.
 #'
 #' @export
