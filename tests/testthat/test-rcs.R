@@ -6,7 +6,7 @@ suppressWarnings(
 vpts <- example_vpts
 vpi <- integrate_profile(example_vpts)
 
-test_that("returns errors on incorrect parameters", {
+test_that("returns error on incorrect parameters", {
   expect_error(rcs("not_a_vp"))
   expect_error(rcs(vp_list_mixed), "Input must be list of vp objects.")
 

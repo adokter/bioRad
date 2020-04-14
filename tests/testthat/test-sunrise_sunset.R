@@ -1,4 +1,6 @@
-context("test-sunrise_sunset.R")
+test_that("returns error on incorrect parameters", {
+
+})
 
 test_that("sunrise in the Netherlands", {
   # deprecated sunrise-suntime function

@@ -1,4 +1,6 @@
-context("test-read_vpfiles.R")
+test_that("returns error on incorrect parameters", {
+
+})
 
 test_that("Read a vertical profile", {
   vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
