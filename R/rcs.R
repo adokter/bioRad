@@ -1,24 +1,23 @@
 #' Get radar cross section
 #'
-#' Gives the currently assumed radar cross section in cm^2.
+#' Gives the currently assumed radar cross section of an object in cm^2.
 #'
 #' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
 #'
-#' @return A radar cross section in cm^2.
-#'
-#' @seealso [`rcs()<-`] for changing or setting the radar cross section of an
-#'   object.
+#' @return The object's radar cross section (cm^2).
 #'
 #' @export
 #'
+#' @seealso [`rcs()<-`] for setting the radar cross section of an object.
+#'
 #' @examples
-#' # Retrieve radar cross section for a vp:
+#' # Get the radar cross section for a vp:
 #' rcs(example_vp)
 #'
-#' # Retrieve radar cross section for a vpts:
+#' # Get the radar cross section for a vpts:
 #' rcs(example_vpts)
 #'
-#' # Retrieve radar cross section for a vpi:
+#' # Get the radar cross section for a vpi:
 #' example_vpi <- integrate_profile(example_vpts)
 #' rcs(example_vpi)
 rcs <- function(x) {
@@ -45,8 +44,8 @@ rcs.list <- function(x) {
   output
 }
 
-#' @describeIn rcs Get radar cross section of a time series of vertical profile
-#'   (`vpts`).
+#' @rdname rcs
+#'
 #' @export
 rcs.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
@@ -61,26 +60,26 @@ rcs.vpi <- function(x) {
   attributes(x)$rcs
 }
 
-#' Change or set radar cross section
+#' Set radar cross section
 #'
-#' Changes or sets the assumed radar cross section in cm^2. This method also
+#' Sets the assumed radar cross section in cm^2 of an object. This method also
 #' updates the migration densities in `x$data$dens`.
 #'
-#' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
+#' @inheritParams rcs
 #' @param value Double. The radar cross section value to assign (cm^2).
 #'
 #' @export
 #'
-#' @seealso [rcs()] for retrieving the radar cross section of an object.
+#' @seealso [rcs()] for getting the radar cross section of an object.
 #'
 #' @examples
-#' # Change or set radar cross section for a vp:
+#' # Set the radar cross section for a vp:
 #' rcs(example_vp) <- 11
 #'
-#' # Change or set radar cross section for a vpts:
+#' # Set the radar cross section for a vpts:
 #' rcs(example_vpts) <- 11
 #'
-#' # Change or set radar cross section for a vpi:
+#' # Set the radar cross section for a vpi:
 #' example_vpi <- integrate_profile(example_vpts)
 #' rcs(example_vpi) <- 11
 `rcs<-` <- function(x, value) {

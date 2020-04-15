@@ -1,33 +1,23 @@
-#' Get threshold of the VVP-retrieved radial velocity standard deviation
+#' Get threshold of the radial velocity standard deviation
 #'
-#' Gives the current threshold in VVP-retrieved radial velocity standard
-#' deviation in m/s.
+#' Gives the current threshold of the radial velocity standard deviation
+#' (`sd_vvp`) in m/s, retrieved by velocity volume processing (VVP).
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #'
-#' @return Threshold for `sd_vvp`` in m/s.
-#'
-#' @seealso [`sd_vvp_threshold()<-`] for setting an objects radial velocity
-#'   standard deviation.
+#' @return The object's `sd_vvp` threshold (m/s).
 #'
 #' @export
 #'
-#' @examples
-#' # load example data:
-#' data(example_vp)
-#' data(example_vpts)
+#' @seealso [`sd_vvp_threshold()<-`] for setting the `sd_vvp` threshold of an
+#'   object.
 #'
-#' # retrieve threshold for a single vertical profile:
+#' @examples
+#' # Get the sd_vvp threshold for a vp:
 #' sd_vvp_threshold(example_vp)
 #'
-#' # retrieve threshold for a vertical profile time series:
+#' # Get the sd_vvp threshold for a vpts:
 #' sd_vvp_threshold(example_vpts)
-#'
-#' # change or set the threshold for a single vertical profile:
-#' sd_vvp_threshold(example_vp) <- 2
-#'
-#' # change or set the threshold for a vertical profile time series:
-#' sd_vvp_threshold(example_vp) <- 2
 sd_vvp_threshold <- function(x) {
   UseMethod("sd_vvp_threshold", x)
 }
@@ -60,44 +50,32 @@ sd_vvp_threshold.vpts <- function(x) {
   x$attributes$how$sd_vvp_thresh
 }
 
-#' Set threshold of the VVP-retrieved radial velocity standard deviation
+#' Set threshold of the radial velocity standard deviation
 #'
-#' Sets the threshold for `sd_vvp`. Altitude layers with `sd_vvp`
-#' below this threshold are assumed to have an aerial density of zero
-#' individuals. This method updates the migration densities
-#' in `x$data$dens`.
+#' Sets the threshold of radial velocity standard deviation (`sd_vvp`) of an
+#' object in m/s. Altitude layers with `sd_vvp` below this threshold are assumed
+#' to have an aerial density of zero individuals. This method also updates the
+#' migration densities in `x$data$dens`.
 #'
-#' @param x a `vp`, list of `vp` or `vpts` object
-#' @param value The value to assign.
+#' @inheritParams sd_vvp_threshold
+#' @param value Double. The `sd_vvp` threshold value to assign (m/s).
 #'
 #' @export
 #'
-#' @seealso [`sd_vvp_threshold()`] for retrieving an objects radial
-#' velocity standard deviation.
+#' @seealso [`sd_vvp_threshold()`] for getting the `sd_vvp` threshold of an
+#'   object.
 #'
 #' @examples
-#' # load example data:
-#' data(example_vp)
-#' data(example_vpts)
-#'
-#' # change or set the threshold for a single vertical profile:
+#' # Set the sd_vvp threshold for a vp:
 #' sd_vvp_threshold(example_vp) <- 2
 #'
-#' # change or set the threshold for a vertical profile time series:
+#' # Set the sd_vvp threshold for a vpts:
 #' sd_vvp_threshold(example_vp) <- 2
-#'
-#' # retrieve threshold for a single vertical profile:
-#' sd_vvp_threshold(example_vp)
-#'
-#' # retrieve threshold for a vertical profile time series:
-#' sd_vvp_threshold(example_vpts)
 `sd_vvp_threshold<-` <- function(x, value) {
   UseMethod("sd_vvp_threshold<-", x)
 }
 
 #' @rdname sd_vvp_threshold-set
-#'
-#' @method sd_vvp_threshold<- vp
 #'
 #' @export
 `sd_vvp_threshold<-.vp` <- function(x, value) {
@@ -109,7 +87,7 @@ sd_vvp_threshold.vpts <- function(x) {
     x$data$dens <- x$data$eta / x$attributes$how$rcs_bird
     x$data$dens[x$data$sd_vvp < value] <- 0
   } else {
-    warning("Radar cross section not set, defaulting to 11 cm^2 ...")
+    warning("Radar cross section not set, defaulting to 11 cm^2.")
     x$data$dens <- x$data$eta / 11
     x$attributes$how$rcs_bird <- 11
     x$data$dens[x$data$sd_vvp < value] <- 0
@@ -142,7 +120,7 @@ sd_vvp_threshold.vpts <- function(x) {
     x$data$dens <- x$data$eta / x$attributes$how$rcs_bird
     x$data$dens[x$data$sd_vvp < value] <- 0
   } else {
-    warning("Radar cross section not set, defaulting to 11 cm^2 ...")
+    warning("Radar cross section not set, defaulting to 11 cm^2.")
     x$data$dens <- x$data$eta / 11
     x$attributes$how$rcs_bird <- 11
     x$data$dens[x$data$sd_vvp < value] <- 0
