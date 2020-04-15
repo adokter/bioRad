@@ -5,7 +5,8 @@
 \alias{get_elevation_angles.pvol}
 \alias{get_elevation_angles.scan}
 \alias{get_elevation_angles.param}
-\title{Get elevation angles of a polar volume (\code{pvol}) or scan (\code{scan})}
+\title{Get elevation angles of a polar volume (\code{pvol}), scan (\code{scan}) or parameter
+(\code{param})}
 \usage{
 get_elevation_angles(x)
 
@@ -16,26 +17,26 @@ get_elevation_angles(x)
 \method{get_elevation_angles}{param}(x)
 }
 \arguments{
-\item{x}{A \code{pvol}, \code{scan} or \verb{scan parameter}.}
+\item{x}{A \code{pvol}, \code{scan} or \code{param} object.}
 }
 \value{
-Elevation in degrees.
+Elevation angle(s) in degrees.
 }
 \description{
-Gives the elevation angle of a single scan, or the elevation angles of all scans within a
-polar volume
+Gives the elevation angles of all scans within a polar volume (\code{pvol}) or the
+elevation angle of a single scan (\code{scan}) or scan parameter (\code{param}).
 }
 \examples{
-# load a polar volume
+# Locate and read the polar volume example file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
 
-# elevations for the scans in the volume
+# Get the elevations angles of the scans in the pvol:
 get_elevation_angles(example_pvol)
 
-# extract the first scan:
+# Extract the first scan:
 scan <- example_pvol$scans[[1]]
 
-# elevation angle of the scan:
+# Get the elevation angle of that scan:
 get_elevation_angles(scan)
 }
