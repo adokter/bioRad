@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' # Locate example polar volume file:
+#' # Locate the polar volume example file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
 #' # Check that the file is an ODIM hdf5 polar volume:
@@ -49,7 +49,7 @@ is.pvolfile <- function(file, filename = NULL) {
 #' @export
 #'
 #' @examples
-#' # Locate example polar volume file:
+#' # Locate the polar volume example file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
 #' # Check the data type:

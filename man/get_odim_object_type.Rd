@@ -17,7 +17,7 @@ vertical profile, otherwise \code{NA}.
 Checks which data class is contained in ODIM HDF5 file.
 }
 \examples{
-# Locate example polar volume file:
+# Locate the polar volume example file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
 # Check the data type:
