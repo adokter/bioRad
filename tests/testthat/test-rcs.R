@@ -15,7 +15,7 @@ test_that("returns error on incorrect parameters", {
   expect_error(rcs(vp) <- c(2,2))
   expect_error(rcs("not_a_vp") <- 5)
   expect_error(rcs(vp_list_mixed) <- 5, "Input must be list of vp objects.")
-  # expect_error(rcs(vp) <- -11) # Should not allow negative
+  expect_error(rcs(vp) <- -11)
 })
 
 test_that("returns double", {
@@ -39,10 +39,10 @@ test_that("rcs assignment works", {
   rcs(vpts) <- 5.5
   rcs(vpi) <- 5.5
 
-  expect_equal(rcs(vp), 5.5)
-  expect_equal(rcs(vp_list), c(5.5, 5.5))
-  expect_equal(rcs(vpts), 5.5)
-  expect_equal(rcs(vpi), 5.5)
+  expect_equal(vp$attributes$how$rcs_bird, 5.5)
+  expect_equal(c(vp$attributes$how$rcs_bird,vp$attributes$how$rcs_bird), c(5.5, 5.5))
+  expect_equal(vpts$attributes$how$rcs_bird, 5.5)
+  expect_equal(attributes(vpi)$rcs, 5.5)
 })
 
 test_that("rcs assignments updates density", {
