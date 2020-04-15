@@ -7,17 +7,17 @@
 get_odim_object_type(file)
 }
 \arguments{
-\item{file}{String. Name of the file to check.}
+\item{file}{Character. Name of the file to check.}
 }
 \value{
-String. \code{PVOL} for polar volume, \code{VP} for
+Character. \code{PVOL} for polar volume, \code{VP} for
 vertical profile, otherwise \code{NA}.
 }
 \description{
 Checks which data class is contained in ODIM HDF5 file.
 }
 \examples{
-# locate a polar volume file:
+# Locate example polar volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
 # Check the data type:

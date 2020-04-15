@@ -7,7 +7,7 @@
 is.pvolfile(file, filename = NULL)
 }
 \arguments{
-\item{file}{String. Name of the file to check.}
+\item{file}{Character. Name of the file to check.}
 
 \item{filename}{Deprecated, use \code{file} instead.}
 }
@@ -21,7 +21,7 @@ with bioRad. Currently evaluates to \code{FALSE} for NEXRAD and IRIS RAW polar
 volume files.
 }
 \examples{
-# locate a polar volume file:
+# Locate example polar volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
 # Check that the file is an ODIM hdf5 polar volume:

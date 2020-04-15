@@ -4,7 +4,7 @@
 #' with bioRad. Currently evaluates to `FALSE` for NEXRAD and IRIS RAW polar
 #' volume files.
 #'
-#' @param file String. Name of the file to check.
+#' @param file Character. Name of the file to check.
 #' @param filename Deprecated, use `file` instead.
 #'
 #' @return `TRUE` when the file is a polar volume in readable format, otherwise
@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' # locate a polar volume file:
+#' # Locate example polar volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
 #' # Check that the file is an ODIM hdf5 polar volume:
@@ -41,15 +41,15 @@ is.pvolfile <- function(file, filename = NULL) {
 #'
 #' Checks which data class is contained in ODIM HDF5 file.
 #'
-#' @param file String. Name of the file to check.
+#' @param file Character. Name of the file to check.
 #'
-#' @return String. `PVOL` for polar volume, `VP` for
+#' @return Character. `PVOL` for polar volume, `VP` for
 #' vertical profile, otherwise `NA`.
 #'
 #' @export
 #'
 #' @examples
-#' # locate a polar volume file:
+#' # Locate example polar volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
 #' # Check the data type:
