@@ -6,7 +6,7 @@
 \alias{rcs<-.list}
 \alias{rcs<-.vpts}
 \alias{rcs<-.vpi}
-\title{Change or set radar cross section}
+\title{Set radar cross section}
 \usage{
 rcs(x) <- value
 
@@ -24,20 +24,20 @@ rcs(x) <- value
 \item{value}{Double. The radar cross section value to assign (cm^2).}
 }
 \description{
-Changes or sets the assumed radar cross section in cm^2. This method also
+Sets the assumed radar cross section in cm^2 of an object. This method also
 updates the migration densities in \code{x$data$dens}.
 }
 \examples{
-# Change or set radar cross section for a vp:
+# Set the radar cross section for a vp:
 rcs(example_vp) <- 11
 
-# Change or set radar cross section for a vpts:
+# Set the radar cross section for a vpts:
 rcs(example_vpts) <- 11
 
-# Change or set radar cross section for a vpi:
+# Set the radar cross section for a vpi:
 example_vpi <- integrate_profile(example_vpts)
 rcs(example_vpi) <- 11
 }
 \seealso{
-\code{\link[=rcs]{rcs()}} for retrieving the radar cross section of an object.
+\code{\link[=rcs]{rcs()}} for getting the radar cross section of an object.
 }

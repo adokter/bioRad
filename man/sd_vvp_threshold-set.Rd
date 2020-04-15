@@ -5,7 +5,7 @@
 \alias{sd_vvp_threshold<-.vp}
 \alias{sd_vvp_threshold<-.list}
 \alias{sd_vvp_threshold<-.vpts}
-\title{Set threshold of the VVP-retrieved radial velocity standard deviation}
+\title{Set threshold of the radial velocity standard deviation}
 \usage{
 sd_vvp_threshold(x) <- value
 
@@ -16,34 +16,24 @@ sd_vvp_threshold(x) <- value
 \method{sd_vvp_threshold}{vpts}(x) <- value
 }
 \arguments{
-\item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
+\item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 
-\item{value}{the value to assign}
+\item{value}{Double. The \code{sd_vvp} threshold value to assign (m/s).}
 }
 \description{
-Sets the threshold for \code{sd_vvp}. Altitude layers with \code{sd_vvp}
-below this threshold are assumed to have an aerial density of zero
-individuals. This method updates the migration densities
-in \code{x$data$dens}
-}
-\details{
-See also \link{sd_vvp_threshold} for retrieving an objects radial
-velocity standard deviation.
+Sets the threshold of radial velocity standard deviation (\code{sd_vvp}) of an
+object in m/s. Altitude layers with \code{sd_vvp} below this threshold are assumed
+to have an aerial density of zero individuals. This method also updates the
+migration densities in \code{x$data$dens}.
 }
 \examples{
-# load example data:
-data(example_vp)
-data(example_vpts)
-
-# change or set the threshold for a single vertical profile:
+# Set the sd_vvp threshold for a vp:
 sd_vvp_threshold(example_vp) <- 2
 
-# change or set the threshold for a vertical profile time series:
+# Set the sd_vvp threshold for a vpts:
 sd_vvp_threshold(example_vp) <- 2
-
-# retrieve threshold for a single vertical profile:
-sd_vvp_threshold(example_vp)
-
-# retrieve threshold for a vertical profile time series:
-sd_vvp_threshold(example_vpts)
+}
+\seealso{
+\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}} for getting the \code{sd_vvp} threshold of an
+object.
 }

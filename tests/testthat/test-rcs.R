@@ -12,40 +12,32 @@ test_that("returns error on incorrect parameters", {
 
   expect_error(rcs(vp) <- "not_a_double")
   expect_error(rcs(vp) <- NULL)
-  expect_error(rcs(vp) <- c(2,2))
+  expect_error(rcs(vp) <- c(2, 2))
   expect_error(rcs("not_a_vp") <- 5)
   expect_error(rcs(vp_list_mixed) <- 5, "Input must be list of vp objects.")
-  # expect_error(rcs(vp) <- -11) # Should not allow negative
+  expect_error(rcs(vp) <- -11)
 })
 
-test_that("returns double", {
-  expect_type(rcs(vp), "double")
-  expect_type(rcs(vp_list), "double")
-  expect_length(rcs(vp_list), 2) # vector of 2
-  expect_type(rcs(vpts), "double")
-  expect_type(rcs(vpi), "double")
+test_that("rcs() returns the correct rcs", {
+  expect_equal(rcs(vp), vp$attributes$how$rcs)
+  expect_equal(rcs(vp_list), c(vp$attributes$how$rcs, vp$attributes$how$rcs))
+  expect_equal(rcs(vpts), vpts$attributes$how$rcs)
+  expect_equal(rcs(vpi), attributes(vpi)$rcs)
 })
 
-test_that("returns 11 by default", {
-  expect_equal(rcs(vp), 11)
-  expect_equal(rcs(vp_list), c(11, 11))
-  expect_equal(rcs(vpts), 11)
-  expect_equal(rcs(vpi), 11)
-})
-
-test_that("rcs assignment works", {
+test_that("rcs()<- updates rcs", {
   rcs(vp) <- 5.5
   rcs(vp_list) <- 5.5
   rcs(vpts) <- 5.5
   rcs(vpi) <- 5.5
 
-  expect_equal(rcs(vp), 5.5)
-  expect_equal(rcs(vp_list), c(5.5, 5.5))
-  expect_equal(rcs(vpts), 5.5)
-  expect_equal(rcs(vpi), 5.5)
+  expect_equal(vp$attributes$how$rcs_bird, 5.5)
+  expect_equal(c(vp$attributes$how$rcs_bird,vp$attributes$how$rcs_bird), c(5.5, 5.5))
+  expect_equal(vpts$attributes$how$rcs_bird, 5.5)
+  expect_equal(attributes(vpi)$rcs, 5.5)
 })
 
-test_that("rcs assignments updates density", {
+test_that("rcs()<- updates density", {
   # Not tested for vp_list as that is a repetition of vp method
 
   # Precondition: at least some of the dens > 0 below sd_vvp_threshold
@@ -70,7 +62,7 @@ test_that("rcs assignments updates density", {
   expect_true(all(vpts$data$dens[vpts$data$sd_vvp < 3] == 0, na.rm = TRUE))
 })
 
-test_that("rcs assignment sets sd_vvp_threshold to 2 when NULL", {
+test_that("rcs()<- sets sd_vvp_threshold to 2 when NULL", {
   # Not tested for vp_list as that is a repetition of vp method
 
   vp$attributes$how$sd_vvp_thresh <- NULL
@@ -81,7 +73,7 @@ test_that("rcs assignment sets sd_vvp_threshold to 2 when NULL", {
   expect_equal(sd_vvp_threshold(vpts), 2)
 })
 
-test_that("rcs assignment updates mtr and vid in vpi", {
+test_that("rcs()<- updates mtr and vid in vpi", {
   rcs(vpi) <- 5.5
   expect_equal(vpi$mtr, vpi$rtr / 5.5)
   expect_equal(vpi$vid, vpi$vir / 5.5)
