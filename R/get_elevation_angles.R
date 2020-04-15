@@ -1,11 +1,11 @@
-#' Get elevation angles of a polar volume (\code{pvol}) or scan (\code{scan})
+#' Get elevation angles of a polar volume (`pvol`) or scan (`scan`)
 #'
 #' Gives the elevation angle of a single scan, or the elevation angles of all scans within a
 #' polar volume
 #'
-#' @param x A \code{pvol} or \code{scan} object.
+#' @param x A `pvol`, `scan` or `scan parameter`.
 #'
-#' @return elevation in degrees
+#' @return Elevation in degrees.
 #'
 #' @export
 #' @examples
@@ -25,21 +25,21 @@ get_elevation_angles <- function(x) {
   UseMethod("get_elevation_angles", x)
 }
 
-#' @describeIn get_elevation_angles Elevation angles of all scans in a polar volume.
+#' @rdname get_elevation_angles
 #' @export
 get_elevation_angles.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))
   sapply(x$scans, get_elevation_angles.scan)
 }
 
-#' @describeIn get_elevation_angles Elevation angle of a scan.
+#' @rdname get_elevation_angles
 #' @export
 get_elevation_angles.scan <- function(x) {
   stopifnot(inherits(x, "scan"))
   x$attributes$where$elangle
 }
 
-#' @describeIn get_elevation_angles Elevation angle of a scan parameter.
+#' @rdname get_elevation_angles
 #' @export
 get_elevation_angles.param <- function(x) {
   stopifnot(inherits(x, "param"))

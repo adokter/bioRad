@@ -16,24 +16,15 @@ get_elevation_angles(x)
 \method{get_elevation_angles}{param}(x)
 }
 \arguments{
-\item{x}{A \code{pvol} or \code{scan} object.}
+\item{x}{A \code{pvol}, \code{scan} or \verb{scan parameter}.}
 }
 \value{
-elevation in degrees
+Elevation in degrees.
 }
 \description{
 Gives the elevation angle of a single scan, or the elevation angles of all scans within a
 polar volume
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{pvol}: Elevation angles of all scans in a polar volume.
-
-\item \code{scan}: Elevation angle of a scan.
-
-\item \code{param}: Elevation angle of a scan parameter.
-}}
-
 \examples{
 # load a polar volume
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
