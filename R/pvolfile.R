@@ -33,6 +33,7 @@ is.pvolfile <- function(file, filename = NULL) {
 
   type <- get_odim_object_type(file)
   if (is.na(type)) {
+        warning("is.pvolfile() expects hdf5 file (polar volume files in other data formats not yet recognized)")
     return(FALSE)
   } else {
     return(type == "PVOL")
@@ -45,7 +46,7 @@ is.pvolfile <- function(file, filename = NULL) {
 #'
 #' @param file A string containing a file name.
 #'
-#' @return character string \code{pvol} for polar volume, \code{vp} for
+#' @return character string \code{PVOL} for polar volume, \code{VP} for
 #' vertical profile, otherwise \code{NA}
 #'
 #' @export

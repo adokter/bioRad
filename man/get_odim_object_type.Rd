@@ -10,7 +10,7 @@ get_odim_object_type(file)
 \item{file}{A string containing a file name.}
 }
 \value{
-character string \code{pvol} for polar volume, \code{vp} for
+character string \code{PVOL} for polar volume, \code{VP} for
 vertical profile, otherwise \code{NA}
 }
 \description{
