@@ -18,17 +18,13 @@ sd_vvp_threshold(x) <- value
 \arguments{
 \item{x}{a \code{vp}, list of \code{vp} or \code{vpts} object}
 
-\item{value}{the value to assign}
+\item{value}{The value to assign.}
 }
 \description{
 Sets the threshold for \code{sd_vvp}. Altitude layers with \code{sd_vvp}
 below this threshold are assumed to have an aerial density of zero
 individuals. This method updates the migration densities
-in \code{x$data$dens}
-}
-\details{
-See also \link{sd_vvp_threshold} for retrieving an objects radial
-velocity standard deviation.
+in \code{x$data$dens}.
 }
 \examples{
 # load example data:
@@ -46,4 +42,8 @@ sd_vvp_threshold(example_vp)
 
 # retrieve threshold for a vertical profile time series:
 sd_vvp_threshold(example_vpts)
+}
+\seealso{
+\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}} for retrieving an objects radial
+velocity standard deviation.
 }
