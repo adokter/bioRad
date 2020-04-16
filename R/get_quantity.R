@@ -2,24 +2,21 @@
 #'
 #' @param x A vp or vpts object.
 #' @param quantity A profile quantity, one of:
-#' \itemize{
-#'  \item{\code{"height"}}{}
-#'  \item{\code{"u"}}{}
-#'  \item{\code{"v"}}{}
-#'  \item{\code{"w"}}{}
-#'  \item{\code{"ff"}}{}
-#'  \item{\code{"dd"}}{}
-#'  \item{\code{"sd_vvp"}}{}
-#'  \item{\code{"gap"}}{}
-#'  \item{\code{"dbz"}}{}
-#'  \item{\code{"eta"}}{}
-#'  \item{\code{"dens"}}{}
-#'  \item{\code{"DBZH"}}{}
-#'  \item{\code{"n"}}{}
-#'  \item{\code{"n_all"}}{}
-#'  \item{\code{"n_dbz"}}{}
-#'  \item{\code{"n_dbz_all"}}{}
-#' }
+#'   * `u`
+#'   * `v`
+#'   * `w`
+#'   * `ff`
+#'   * `dd`
+#'   * `sd_vvp`
+#'   * `gap`
+#'   * `dbz`
+#'   * `eta`
+#'   * `dens`
+#'   * `DBZH`
+#'   * `n`
+#'   * `n_all`
+#'   * `n_dbz`
+#'   * `n_dbz_all`
 #'
 #' @details This function grabs any of the data quantities stored in
 #' \link[=summary.vp]{vp} or \link[=summary.vpts]{vpts} objects. See the
