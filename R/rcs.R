@@ -11,13 +11,13 @@
 #' @seealso [`rcs()<-`] for setting the radar cross section of an object.
 #'
 #' @examples
-#' # Get the radar cross section for a vp:
+#' # Get the radar cross section for a vp
 #' rcs(example_vp)
 #'
-#' # Get the radar cross section for a vpts:
+#' # Get the radar cross section for a vpts
 #' rcs(example_vpts)
 #'
-#' # Get the radar cross section for a vpi:
+#' # Get the radar cross section for a vpi
 #' example_vpi <- integrate_profile(example_vpts)
 #' rcs(example_vpi)
 rcs <- function(x) {
@@ -73,13 +73,13 @@ rcs.vpi <- function(x) {
 #' @seealso [rcs()] for getting the radar cross section of an object.
 #'
 #' @examples
-#' # Set the radar cross section for a vp:
+#' # Set the radar cross section for a vp
 #' rcs(example_vp) <- 11
 #'
-#' # Set the radar cross section for a vpts:
+#' # Set the radar cross section for a vpts
 #' rcs(example_vpts) <- 11
 #'
-#' # Set the radar cross section for a vpi:
+#' # Set the radar cross section for a vpi
 #' example_vpi <- integrate_profile(example_vpts)
 #' rcs(example_vpi) <- 11
 `rcs<-` <- function(x, value) {

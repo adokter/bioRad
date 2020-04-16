@@ -26,10 +26,10 @@ Gives the current threshold of the radial velocity standard deviation
 (\code{sd_vvp}) of an object in m/s, retrieved by velocity volume processing (VVP).
 }
 \examples{
-# Get the sd_vvp threshold for a vp:
+# Get the sd_vvp threshold for a vp
 sd_vvp_threshold(example_vp)
 
-# Get the sd_vvp threshold for a vpts:
+# Get the sd_vvp threshold for a vpts
 sd_vvp_threshold(example_vpts)
 }
 \seealso{

@@ -29,17 +29,17 @@
 #' * [get_scan()]
 #'
 #' @examples
-#' # Locate and read the polar volume example file:
+#' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' example_pvol <- read_pvolfile(pvolfile)
 #'
-#' # Verify that is an object of class pvol:
+#' # Verify that is an object of class pvol
 #' is.pvol(example_pvol)
 #'
-#' # Get summary info:
+#' # Get summary info
 #' example_pvol # Same as summary(example_pvol) or print(example_pvol)
 #'
-#' # Get summary info for the scans in the polar volume:
+#' # Get summary info for the scans in the polar volume
 #' example_pvol$scans
 summary.pvol <- function(x, ...) {
   print.pvol(x)

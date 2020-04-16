@@ -27,10 +27,10 @@ to have an aerial density of zero individuals. This method also updates the
 migration densities in \code{x$data$dens}.
 }
 \examples{
-# Set the sd_vvp threshold for a vp:
+# Set the sd_vvp threshold for a vp
 sd_vvp_threshold(example_vp) <- 2
 
-# Set the sd_vvp threshold for a vpts:
+# Set the sd_vvp threshold for a vpts
 sd_vvp_threshold(example_vp) <- 2
 }
 \seealso{

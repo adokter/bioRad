@@ -13,10 +13,10 @@
 #'   object.
 #'
 #' @examples
-#' # Get the sd_vvp threshold for a vp:
+#' # Get the sd_vvp threshold for a vp
 #' sd_vvp_threshold(example_vp)
 #'
-#' # Get the sd_vvp threshold for a vpts:
+#' # Get the sd_vvp threshold for a vpts
 #' sd_vvp_threshold(example_vpts)
 sd_vvp_threshold <- function(x) {
   UseMethod("sd_vvp_threshold", x)
@@ -66,10 +66,10 @@ sd_vvp_threshold.vpts <- function(x) {
 #'   object.
 #'
 #' @examples
-#' # Set the sd_vvp threshold for a vp:
+#' # Set the sd_vvp threshold for a vp
 #' sd_vvp_threshold(example_vp) <- 2
 #'
-#' # Set the sd_vvp threshold for a vpts:
+#' # Set the sd_vvp threshold for a vpts
 #' sd_vvp_threshold(example_vp) <- 2
 `sd_vvp_threshold<-` <- function(x, value) {
   UseMethod("sd_vvp_threshold<-", x)

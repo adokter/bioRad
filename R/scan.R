@@ -37,16 +37,16 @@
 #' # Load example scan
 #' data(example_scan)
 #'
-#' # Verify that is an object of class scan:
+#' # Verify that is an object of class scan
 #' is.scan(example_scan)
 #'
-#' # Get summary info:
+#' # Get summary info
 #' example_scan # Same as summary(example_scan) or print(example_scan)
 #'
-#' # Get dimensions:
+#' # Get dimensions
 #' dim(example_scan)
 #'
-#' # Get summary info for the parameters in the scan:
+#' # Get summary info for the parameters in the scan
 #' example_scan$params
 summary.scan <- function(x, ...) {
   print.scan(x)
