@@ -33,6 +33,6 @@ sd_vvp_threshold(example_vp)
 sd_vvp_threshold(example_vpts)
 }
 \seealso{
-\code{\link{sd_vvp_threshold()<-}} for setting the \code{sd_vvp} threshold of an
-object.
+\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}} for setting the
+\code{sd_vvp} threshold of an object.
 }

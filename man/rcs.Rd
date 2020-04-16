@@ -39,5 +39,5 @@ example_vpi <- integrate_profile(example_vpts)
 rcs(example_vpi)
 }
 \seealso{
-\code{\link{rcs()<-}} for setting the radar cross section of an object.
+\code{\link[=rcs<-]{rcs()<-}} for setting the radar cross section of an object.
 }

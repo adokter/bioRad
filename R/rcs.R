@@ -8,7 +8,7 @@
 #'
 #' @export
 #'
-#' @seealso [`rcs()<-`] for setting the radar cross section of an object.
+#' @seealso [`rcs()<-`][rcs<-] for setting the radar cross section of an object.
 #'
 #' @examples
 #' # Get the radar cross section for a vp

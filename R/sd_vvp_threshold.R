@@ -9,8 +9,8 @@
 #'
 #' @export
 #'
-#' @seealso [`sd_vvp_threshold()<-`] for setting the `sd_vvp` threshold of an
-#'   object.
+#' @seealso [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the
+#'   `sd_vvp` threshold of an object.
 #'
 #' @examples
 #' # Get the sd_vvp threshold for a vp
@@ -62,7 +62,7 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' @export
 #'
-#' @seealso [`sd_vvp_threshold()`] for getting the `sd_vvp` threshold of an
+#' @seealso [sd_vvp_threshold()] for getting the `sd_vvp` threshold of an
 #'   object.
 #'
 #' @examples
