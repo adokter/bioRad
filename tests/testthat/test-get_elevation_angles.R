@@ -11,7 +11,7 @@ test_that("returns error on incorrect parameters", {
 
 test_that("get_elevation_angles() returns the correct elangle", {
   pvol_elangles <- c()
-  for (scan in example_pvol$scans) {
+  for (scan in pvol$scans) {
     pvol_elangles <- c(pvol_elangles, scan$attributes$where$elangle)
   }
 
