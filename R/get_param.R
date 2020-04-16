@@ -14,7 +14,7 @@
 #' my_param <- get_param(example_scan, "VRADH")
 #' my_param
 get_param <- function(x, param) {
-  stopifnot(inherits(x, "scan"))
-  if (!(param %in% names(x$params))) stop(paste("scan parameter", param, "not found"))
+  assert_that(class(x) == "scan", msg = "`x` must be a scan object.")
+  if (!(param %in% names(x$params))) stop(paste("Scan parameter", param, "not found in `x`."))
   x$params[[param]]
 }
