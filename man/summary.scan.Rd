@@ -31,9 +31,8 @@ R base functions for inspecting a scan (\code{scan}) object.
 }
 \details{
 A scan (or sweep) is made by the radar at a certain elevation angle. The
-resulting parameter data (\code{param}) are organized along distance from radar
-(bins) and rotation point (rays). A scan (\code{scan}) object is a list
-containing:
+resulting parameter data (\code{param}) are organized along radar range (bins) and
+azimuth (rays). A scan (\code{scan}) object is a list containing:
 \itemize{
 \item \code{radar}: Radar identifier.
 \item \code{datetime}: Nominal time of the volume to which the scan belongs in UTC.
@@ -46,8 +45,10 @@ attributes.
 \item \code{lon}: Longitude of the radar in decimal degrees.
 \item \code{height}: Height of the radar antenna in meters above sea level.
 \item \code{elange}: Elevation angle of the radar beam for that scan in degrees.
-\item \code{rscale}: Bin size in m.
-\item \code{ascale}: Azimuth bin size in degrees (e.g. 1 degree equals 360 rays).
+\item \code{rscale}: Range bin size for that scan in m (e.g. 500 m * 480 bins equals
+240 km range).
+\item \code{ascale}: Azimuth bin size for that scan in degrees (e.g. 1 degree * 360
+rays equals full circle).
 }
 }
 }

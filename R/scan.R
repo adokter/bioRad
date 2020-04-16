@@ -11,9 +11,8 @@
 #'
 #' @details
 #' A scan (or sweep) is made by the radar at a certain elevation angle. The
-#' resulting parameter data (`param`) are organized along distance from radar
-#' (bins) and rotation point (rays). A scan (`scan`) object is a list
-#' containing:
+#' resulting parameter data (`param`) are organized along radar range (bins) and
+#' azimuth (rays). A scan (`scan`) object is a list containing:
 #' * `radar`: Radar identifier.
 #' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
 #' * `params`: List of scan parameters (`param`).
@@ -24,8 +23,10 @@
 #'   * `lon`: Longitude of the radar in decimal degrees.
 #'   * `height`: Height of the radar antenna in meters above sea level.
 #'   * `elange`: Elevation angle of the radar beam for that scan in degrees.
-#'   * `rscale`: Bin size in m.
-#'   * `ascale`: Azimuth bin size in degrees (e.g. 1 degree equals 360 rays).
+#'   * `rscale`: Range bin size for that scan in m (e.g. 500 m * 480 bins equals
+#'   240 km range).
+#'   * `ascale`: Azimuth bin size for that scan in degrees (e.g. 1 degree * 360
+#'   rays equals full circle).
 #'
 #' @seealso
 #' * [get_scan()]
