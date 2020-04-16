@@ -28,13 +28,13 @@
 #' @seealso [get_param()]
 #'
 #' @examples
-#' # Load example scan
+#' # Load the example scan
 #' data(example_scan)
 #'
 #' # Extract the DBZH scan parameter
 #' example_param <- get_param(example_scan, "DBZH")
 #'
-#' # Verify that is an object of class param
+#' # Verify that it is an object of class param
 #' is.param(example_param)
 #'
 #' # Get summary info for this parameter

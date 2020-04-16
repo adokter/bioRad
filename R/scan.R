@@ -34,10 +34,10 @@
 #' * [get_param()]
 #'
 #' @examples
-#' # Load example scan
+#' # Load the example scan
 #' data(example_scan)
 #'
-#' # Verify that is an object of class scan
+#' # Verify that it is an object of class scan
 #' is.scan(example_scan)
 #'
 #' # Get summary info
@@ -86,7 +86,8 @@ is.scan <- function(x) {
 
 #' Get dimensions for an object of class `scan`
 #'
-#' @return For [dim.scan()]: number of parameters, bins and rays in a scan.
+#' @return For [dim.scan()]: number of parameters (`param`), bins and rays in a
+#'   scan (`scan`).
 #'
 #' @rdname summary.scan
 #'

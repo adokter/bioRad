@@ -24,7 +24,8 @@ is.scan(x)
 For \code{\link[=is.scan]{is.scan()}}: \code{TRUE} for an object of class \code{scan}, otherwise
 \code{FALSE}.
 
-For \code{\link[=dim.scan]{dim.scan()}}: number of parameters, bins and rays in a scan.
+For \code{\link[=dim.scan]{dim.scan()}}: number of parameters (\code{param}), bins and rays in a
+scan (\code{scan}).
 }
 \description{
 R base functions for inspecting a scan (\code{scan}) object.
@@ -53,10 +54,10 @@ rays equals full circle).
 }
 }
 \examples{
-# Load example scan
+# Load the example scan
 data(example_scan)
 
-# Verify that is an object of class scan
+# Verify that it is an object of class scan
 is.scan(example_scan)
 
 # Get summary info

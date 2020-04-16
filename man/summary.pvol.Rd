@@ -47,7 +47,7 @@ attributes.
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
 
-# Verify that is an object of class pvol
+# Verify that it is an object of class pvol
 is.pvol(example_pvol)
 
 # Get summary info
