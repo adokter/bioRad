@@ -1,9 +1,8 @@
-#' Class \code{scan}: a scan of a polar volume
+#' Inspect a scan (`scan`)
 #'
-#' Class \code{scan} for a scan of a polar volume, and its associated R base functions.
+#' R base functions for inspecting a scan (`scan`) object.
 #'
-#' @param object Object of class \code{scan}
-#' @param x Object of class \code{scan}
+#' @param x A `scan` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary scan
@@ -11,64 +10,66 @@
 #' @export
 #'
 #' @details
-#' A object of class \code{scan} is a list containing:
-#' \describe{
-#'  \item{\code{radar}}{character string with the radar identifier}
-#'  \item{\code{datetime}}{nominal time of the volume to which this
-#'    scan belongs (UTC)}
-#'  \item{\code{params}}{a list with scan parameters}
-#'  \item{\code{attributes}}{list with the scan's \code{\\what},
-#'    \code{\\where} and \code{\\how} attributes}
-#'  \item{\code{geo}}{geographic data, a list with:
-#'     \describe{
-#'      \item{\code{lat}}{latitude of the radar (decimal degrees)}
-#'      \item{\code{lon}}{longitude of the radar (decimal degrees)}
-#'      \item{\code{height}}{height of the radar
-#'        antenna (meters above sea level)}
-#'      \item{\code{elangle}}{radar beam elevation (degrees)}
-#'      \item{\code{rscale}}{range bin size (m)}
-#'      \item{\code{ascale}}{azimuth bin size (deg)}
-#'     }
-#'     The \code{geo} element of a \code{scan} object is a copy of the
-#'     \code{geo} element of its parent polar volume of class \code{pvol}.
-#'   }
-#' }
+#' A scan (or sweep) is made by the radar at a certain elevation angle. The
+#' resulting parameter data (`param`) are organized along distance from radar
+#' (bins) and rotation point (rays). A scan (`scan`) object is a list
+#' containing:
+#' * `radar`: Radar identifier.
+#' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
+#' * `params`: List of scan parameters (`param`).
+#' * `attributes`: List of the scan's `what`, `where` and `how`
+#' attributes.
+#' * `geo`: List of the scan's geographic properties:
+#'   * `lat`: Latitude of the radar in decimal degrees.
+#'   * `lon`: Longitude of the radar in decimal degrees.
+#'   * `height`: Height of the radar antenna in meters above sea level.
+#'   * `elange`: Elevation angle of the radar beam for that scan in degrees.
+#'   * `rscale`: Bin size in m.
+#'   * `ascale`: Azimuth bin size in degrees (e.g. 1 degree equals 360 rays).
+#'
+#' @seealso
+#' * [get_scan()]
+#' * [`example_scan`]
+#' * [get_param()]
 #'
 #' @examples
-#' # load example scan object
+#' # Load example scan
 #' data(example_scan)
 #'
-#' # verify this object is of class scan:
+#' # Verify that is an object of class scan:
 #' is.scan(example_scan)
 #'
-#' # print the scan parameters contained in the scan:
+#' # Get summary info:
+#' example_scan # Same as summary(example_scan) or print(example_scan)
+#'
+#' # Get dimensions:
+#' dim(example_scan)
+#'
+#' # Get summary info for the parameters in the scan:
 #' example_scan$params
-#'
-#' # extract the VRADH scan parameter:
-#' param <- get_param(example_scan, "VRADH")
-#'
-#' # print summary info for this scan parameter:
-#' param
-summary.scan <- function(object, ...) {
-  print.scan(object)
+summary.scan <- function(x, ...) {
+  print.scan(x)
 }
 
+#' Verify if an object is of class `scan`
+#'
+#' @inheritParams summary.scan
+#'
+#' @return For [is.scan()]: `TRUE` for an object of class `scan`, otherwise
+#'   `FALSE`.
+#'
 #' @rdname summary.scan
 #'
-#' @return For \code{is.scan}: \code{TRUE} if its argument is of
-#' class \code{scan}.
-#'
 #' @export
-#'
-#' @examples
-#' is.scan("this is not a polar scan but a string") # > FALSE
 is.scan <- function(x) {
   inherits(x, "scan")
 }
 
-#' @rdname summary.scan
+#' Get dimensions for an object of class `scan`
 #'
-#' @return For \code{dim.scan}: dimensions of the scan.
+#' @return For [dim.scan()]: number of parameters, bins and rays in a scan.
+#'
+#' @rdname summary.scan
 #'
 #' @export
 dim.scan <- function(x) {
@@ -76,11 +77,11 @@ dim.scan <- function(x) {
   c(length(x$params), x$attributes$where$nbins, x$attributes$where$nrays)
 }
 
-#' Print method for class \code{scan}
+#' Print summary for an object of class `scan`
 #'
-#' @param x An object of class \code{scan}, a polar scan.
+#' @inheritParams summary.scan
 #'
-#' @keywords internal
+#' @rdname summary.scan
 #'
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
