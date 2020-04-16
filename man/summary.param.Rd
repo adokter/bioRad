@@ -2,15 +2,15 @@
 % Please edit documentation in R/param.R
 \name{summary.param}
 \alias{summary.param}
-\alias{is.param}
 \alias{print.param}
+\alias{is.param}
 \title{Inspect a parameter (\code{param})}
 \usage{
 \method{summary}{param}(x, ...)
 
-is.param(x)
-
 \method{print}{param}(x, digits = max(3L, getOption("digits") - 3L), ...)
+
+is.param(x)
 }
 \arguments{
 \item{x}{A \code{param} object.}

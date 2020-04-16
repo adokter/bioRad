@@ -79,25 +79,6 @@ summary.vp <- function(object, ...) {
   print.vp(object)
 }
 
-#' @rdname summary.vp
-#'
-#' @export
-#'
-#' @return For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
-is.vp <- function(x) {
-  inherits(x, "vp")
-}
-
-#' @rdname summary.vp
-#'
-#' @export
-#'
-#' @return For \code{dim.vp}: dimensions of the profile data.
-dim.vp <- function(x) {
-  stopifnot(inherits(x, "vp"))
-  dim(x$data)
-}
-
 #' Print method for class \code{vp}
 #'
 #' @param x An object of class \code{vp}, like the result of a call to
@@ -120,6 +101,25 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
     x$attributes$how$task,
     x$attributes$how$task_version
   ), "\n")
+}
+
+#' @rdname summary.vp
+#'
+#' @export
+#'
+#' @return For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
+is.vp <- function(x) {
+  inherits(x, "vp")
+}
+
+#' @rdname summary.vp
+#'
+#' @export
+#'
+#' @return For \code{dim.vp}: dimensions of the profile data.
+dim.vp <- function(x) {
+  stopifnot(inherits(x, "vp"))
+  dim(x$data)
 }
 
 #' Convert a vertical profile (\code{vp}) to a Data Frame

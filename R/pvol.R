@@ -45,20 +45,6 @@ summary.pvol <- function(x, ...) {
   print.pvol(x)
 }
 
-#' Verify if an object is of class `pvol`
-#'
-#' @inheritParams summary.pvol
-#'
-#' @return For [is.pvol()]: `TRUE` for an object of class `pvol`, otherwise
-#'   `FALSE`.
-#'
-#' @rdname summary.pvol
-#'
-#' @export
-is.pvol <- function(x) {
-  inherits(x, "pvol")
-}
-
 #' Print summary for an object of class `pvol`
 #'
 #' @inheritParams summary.pvol
@@ -73,4 +59,18 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("       radar: ", x$radar, "\n")
   cat("      source: ", x$attributes$what$source, "\n")
   cat("nominal time: ", as.character(x$datetime), "\n\n")
+}
+
+#' Verify if an object is of class `pvol`
+#'
+#' @inheritParams summary.pvol
+#'
+#' @return For [is.pvol()]: `TRUE` for an object of class `pvol`, otherwise
+#'   `FALSE`.
+#'
+#' @rdname summary.pvol
+#'
+#' @export
+is.pvol <- function(x) {
+  inherits(x, "pvol")
 }

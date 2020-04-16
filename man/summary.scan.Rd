@@ -2,18 +2,18 @@
 % Please edit documentation in R/scan.R
 \name{summary.scan}
 \alias{summary.scan}
+\alias{print.scan}
 \alias{is.scan}
 \alias{dim.scan}
-\alias{print.scan}
 \title{Inspect a scan (\code{scan})}
 \usage{
 \method{summary}{scan}(x, ...)
 
+\method{print}{scan}(x, digits = max(3L, getOption("digits") - 3L), ...)
+
 is.scan(x)
 
 \method{dim}{scan}(x)
-
-\method{print}{scan}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
 \item{x}{A \code{scan} object.}

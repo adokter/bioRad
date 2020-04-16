@@ -52,6 +52,24 @@ summary.scan <- function(x, ...) {
   print.scan(x)
 }
 
+#' Print summary for an object of class `scan`
+#'
+#' @inheritParams summary.scan
+#'
+#' @rdname summary.scan
+#'
+#' @export
+print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+  stopifnot(inherits(x, "scan"))
+  cat("                  Polar scan (class scan)\n\n")
+  cat("     parameters: ", names(x$params), "\n")
+  cat("elevation angle: ", x$attributes$where$elangle, "deg\n")
+  cat(
+    "           dims: ", x$attributes$where$nbins, "bins x",
+    x$attributes$where$nrays, "rays\n"
+  )
+}
+
 #' Verify if an object is of class `scan`
 #'
 #' @inheritParams summary.scan
@@ -76,22 +94,4 @@ is.scan <- function(x) {
 dim.scan <- function(x) {
   stopifnot(inherits(x, "scan"))
   c(length(x$params), x$attributes$where$nbins, x$attributes$where$nrays)
-}
-
-#' Print summary for an object of class `scan`
-#'
-#' @inheritParams summary.scan
-#'
-#' @rdname summary.scan
-#'
-#' @export
-print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
-  stopifnot(inherits(x, "scan"))
-  cat("                  Polar scan (class scan)\n\n")
-  cat("     parameters: ", names(x$params), "\n")
-  cat("elevation angle: ", x$attributes$where$elangle, "deg\n")
-  cat(
-    "           dims: ", x$attributes$where$nbins, "bins x",
-    x$attributes$where$nrays, "rays\n"
-  )
 }

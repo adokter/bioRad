@@ -66,6 +66,54 @@ summary.vpts <- function(object, ...) {
   print.vpts(object)
 }
 
+#' Print method for class \code{vpts}
+#'
+#' @param x An object of class \code{vpts}, usually a result of a call
+#' to \code{\link{bind_into_vpts}}.
+#'
+#' @keywords internal
+#'
+#' @export
+print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+  stopifnot(inherits(x, "vpts"))
+  # check if we are dealing with a deprecated vpts class structure
+  if (!is.null(x$heights)) {
+    warning("obsolete vtps object generated with bioRad version < 0.5.0.
+    vpts objects should contain a list element 'height' (instead of obsolete 'heights')")
+  }
+  if (!is.null(x$dates)) {
+    warning("obsolete vtps object generated with bioRad version < 0.4.0.
+    vpts objects should contain a list element 'datetime' (instead of obsolete 'dates')")
+    x$datetime <- x$dates
+  }
+  cat(
+    "                  ",
+    if (x$regular) {
+      "Regular"
+    } else {
+      "Irregular"
+    },
+    "time series of vertical profiles (class vpts)\n\n"
+  )
+  cat("           radar: ", x$radar, "\n")
+  cat("      # profiles: ", length(x$datetime), "\n")
+  cat(
+    "time range (UTC): ", format(x$daterange[1],"%Y-%m-%d %H:%M:%S"),
+    "-", format(x$daterange[2],"%Y-%m-%d %H:%M:%S"), "\n"
+  )
+  if (length(x$timesteps) > 0) {
+    stepMin <- min(x$timesteps)
+    stepMax <- max(x$timesteps)
+  } else {
+    stepMin <- stepMax <- NA
+  }
+  if (x$regular & stepMin == stepMax) {
+    cat("   time step (s): ", stepMin, "\n")
+  } else {
+    cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")
+  }
+}
+
 #' @rdname summary.vpts
 #'
 #' @export
@@ -128,7 +176,7 @@ dim.vpts <- function(x) {
   x$datetime <- x$datetime[i]
   x$daterange <- .POSIXct(c(min(x$datetime), max(x$datetime)), tz = "UTC")
   x$timesteps <- difftime(x$datetime[-1], x$datetime[-length(x$datetime)],
-    units = "secs"
+                          units = "secs"
   )
   if (length(unique(x$timesteps)) == 1) {
     x$regular <- TRUE
@@ -144,54 +192,6 @@ dim.vpts <- function(x) {
   )
   names(x$data) <- quantity.names
   return(x)
-}
-
-#' Print method for class \code{vpts}
-#'
-#' @param x An object of class \code{vpts}, usually a result of a call
-#' to \code{\link{bind_into_vpts}}.
-#'
-#' @keywords internal
-#'
-#' @export
-print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
-  stopifnot(inherits(x, "vpts"))
-  # check if we are dealing with a deprecated vpts class structure
-  if (!is.null(x$heights)) {
-    warning("obsolete vtps object generated with bioRad version < 0.5.0.
-    vpts objects should contain a list element 'height' (instead of obsolete 'heights')")
-  }
-  if (!is.null(x$dates)) {
-    warning("obsolete vtps object generated with bioRad version < 0.4.0.
-    vpts objects should contain a list element 'datetime' (instead of obsolete 'dates')")
-    x$datetime <- x$dates
-  }
-  cat(
-    "                  ",
-    if (x$regular) {
-      "Regular"
-    } else {
-      "Irregular"
-    },
-    "time series of vertical profiles (class vpts)\n\n"
-  )
-  cat("           radar: ", x$radar, "\n")
-  cat("      # profiles: ", length(x$datetime), "\n")
-  cat(
-    "time range (UTC): ", format(x$daterange[1],"%Y-%m-%d %H:%M:%S"),
-    "-", format(x$daterange[2],"%Y-%m-%d %H:%M:%S"), "\n"
-  )
-  if (length(x$timesteps) > 0) {
-    stepMin <- min(x$timesteps)
-    stepMax <- max(x$timesteps)
-  } else {
-    stepMin <- stepMax <- NA
-  }
-  if (x$regular & stepMin == stepMax) {
-    cat("   time step (s): ", stepMin, "\n")
-  } else {
-    cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")
-  }
 }
 
 #' Convert a time series of vertical profiles (\code{vpts}) to a data frame

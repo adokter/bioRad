@@ -43,20 +43,6 @@ summary.param <- function(x, ...) {
   print.param(x)
 }
 
-#' Verify if an object is of class `param`
-#'
-#' @inheritParams summary.param
-#'
-#' @return For [is.param()]: `TRUE` for an object of class `param`, otherwise
-#'   `FALSE`.
-#'
-#' @rdname summary.param
-#'
-#' @export
-is.param <- function(x) {
-  inherits(x, "param")
-}
-
 #' Print summary for an object of class `param`
 #'
 #' @inheritParams summary.param
@@ -69,4 +55,18 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("               Polar scan parameter (class param)\n\n")
   cat("    quantity: ", attributes(x)$param, "\n")
   cat("        dims: ", dim(x)[1], "bins x", dim(x)[2], "rays\n")
+}
+
+#' Verify if an object is of class `param`
+#'
+#' @inheritParams summary.param
+#'
+#' @return For [is.param()]: `TRUE` for an object of class `param`, otherwise
+#'   `FALSE`.
+#'
+#' @rdname summary.param
+#'
+#' @export
+is.param <- function(x) {
+  inherits(x, "param")
 }

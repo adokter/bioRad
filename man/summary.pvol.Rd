@@ -2,15 +2,15 @@
 % Please edit documentation in R/pvol.R
 \name{summary.pvol}
 \alias{summary.pvol}
-\alias{is.pvol}
 \alias{print.pvol}
+\alias{is.pvol}
 \title{Inspect a polar volume (\code{pvol})}
 \usage{
 \method{summary}{pvol}(x, ...)
 
-is.pvol(x)
-
 \method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), ...)
+
+is.pvol(x)
 }
 \arguments{
 \item{x}{A \code{pvol} object.}

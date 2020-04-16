@@ -62,8 +62,25 @@
 #'
 #' # ppi object dimensions:
 #' dim(example_ppi)
-summary.ppi <- function(object, ...) {
-  print.ppi(object)
+summary.ppi <- function(x, ...) {
+  print.ppi(x)
+}
+
+#' Print method for class \code{ppi}
+#'
+#' @param x An object of class \code{ppi}.
+#'
+#' @keywords internal
+#'
+#' @export
+print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+  stopifnot(inherits(x, "ppi"))
+  cat("               Plan position indicator (class ppi)\n\n")
+  cat("  quantities: ", names(x$data), "\n")
+  cat(
+    "        dims: ", x$data@grid@cells.dim[1], "x",
+    x$data@grid@cells.dim[2], "pixels\n\n"
+  )
 }
 
 #' @rdname summary.ppi
@@ -114,19 +131,3 @@ dim.ppi <- function(x) {
   return(myppi)
 }
 
-#' Print method for class \code{ppi}
-#'
-#' @param x An object of class \code{ppi}.
-#'
-#' @keywords internal
-#'
-#' @export
-print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
-  stopifnot(inherits(x, "ppi"))
-  cat("               Plan position indicator (class ppi)\n\n")
-  cat("  quantities: ", names(x$data), "\n")
-  cat(
-    "        dims: ", x$data@grid@cells.dim[1], "x",
-    x$data@grid@cells.dim[2], "pixels\n\n"
-  )
-}
