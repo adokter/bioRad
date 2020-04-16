@@ -97,33 +97,38 @@ dim.ppi <- function(x) {
   c(dim(x$data)[2], x$data@grid@cells.dim)
 }
 
-#' Subset a plan position indicator (\code{ppi})
+#' Subset a plan position indicator (`ppi`)
 #'
-#' Select quantities by index from a \code{ppi}
+#' Select parameters (`param`) or derived quantities from a plan position
+#' indicator (`ppi`) by index.
 #'
-#' @param x An object of class \code{param} or \code{scan}.
-#' @param i Indices specifying elements to extract.
+#' @param x A `ppi` object.
+#' @param i Integer. Index/indices specifying which parameters (`param`) or
+#'   derived quantities to extract.
 #'
 #' @export
+#'
 #' @examples
-#' # make a ppi:
-#' my_ppi <- project_as_ppi(example_scan)
+#' # Load the example scan
+#' data(example_scan)
 #'
-#' # this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):
-#' my_ppi
+#' # Project scan as ppi
+#' example_ppi <- project_as_ppi(example_scan)
 #'
-#' # This ppi only contains the first quantity (VRADH):
-#' my_ppi[1]
+#' # This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)
+#' example_ppi
 #'
-#' # This ppi contains the first three quantities (VRADH, DBZH, ZDR):
-#' my_ppi[1:3]
+#' # Subset ppi to one containing only the first parameter (VRADH)
+#' example_ppi[1]
+#'
+#' # Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
+#' example_ppi[1:3]
 `[.ppi` <- function(x, i) {
   stopifnot(inherits(x, "ppi"))
-  myppi <- list(
+  my_ppi <- list(
     radar = x$radar, datetime = x$datetime,
     data = x$data[i], geo = x$geo
   )
-  class(myppi) <- "ppi"
-  return(myppi)
+  class(my_ppi) <- "ppi"
+  return(my_ppi)
 }
-

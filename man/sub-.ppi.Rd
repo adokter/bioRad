@@ -7,23 +7,28 @@
 \method{[}{ppi}(x, i)
 }
 \arguments{
-\item{x}{An object of class \code{param} or \code{scan}.}
+\item{x}{A \code{ppi} object.}
 
-\item{i}{Indices specifying elements to extract.}
+\item{i}{Integer. Index/indices specifying which parameters (\code{param}) or
+derived quantities to extract.}
 }
 \description{
-Select quantities by index from a \code{ppi}
+Select parameters (\code{param}) or derived quantities from a plan position
+indicator (\code{ppi}) by index.
 }
 \examples{
-# make a ppi:
-my_ppi <- project_as_ppi(example_scan)
+# Load the example scan
+data(example_scan)
 
-# this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):
-my_ppi
+# Project scan as ppi
+example_ppi <- project_as_ppi(example_scan)
 
-# This ppi only contains the first quantity (VRADH):
-my_ppi[1]
+# This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)
+example_ppi
 
-# This ppi contains the first three quantities (VRADH, DBZH, ZDR):
-my_ppi[1:3]
+# Subset ppi to one containing only the first parameter (VRADH)
+example_ppi[1]
+
+# Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
+example_ppi[1:3]
 }
