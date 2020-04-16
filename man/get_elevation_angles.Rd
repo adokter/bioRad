@@ -20,11 +20,12 @@ get_elevation_angles(x)
 \item{x}{A \code{pvol}, \code{scan} or \code{param} object.}
 }
 \value{
-Elevation angle(s) in degrees.
+The elevation angle(s) in degrees.
 }
 \description{
 Gives the elevation angles of all scans within a polar volume (\code{pvol}) or the
-elevation angle of a single scan (\code{scan}) or scan parameter (\code{param}).
+elevation angle of a single scan (\code{scan}) or scan parameter (\code{param}) in
+degrees.
 }
 \examples{
 # Locate and read the polar volume example file:

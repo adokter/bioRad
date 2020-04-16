@@ -1,11 +1,11 @@
 #' Get threshold of the radial velocity standard deviation
 #'
 #' Gives the current threshold of the radial velocity standard deviation
-#' (`sd_vvp`) in m/s, retrieved by velocity volume processing (VVP).
+#' (`sd_vvp`) of an object in m/s, retrieved by velocity volume processing (VVP).
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #'
-#' @return The object's `sd_vvp` threshold (m/s).
+#' @return The `sd_vvp` threshold in m/s.
 #'
 #' @export
 #'
@@ -58,7 +58,7 @@ sd_vvp_threshold.vpts <- function(x) {
 #' migration densities in `x$data$dens`.
 #'
 #' @inheritParams sd_vvp_threshold
-#' @param value Double. The `sd_vvp` threshold value to assign (m/s).
+#' @param value Double. The `sd_vvp` threshold value to assign in m/s.
 #'
 #' @export
 #'

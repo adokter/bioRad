@@ -4,7 +4,7 @@
 #'
 #' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
 #'
-#' @return The object's radar cross section (cm^2).
+#' @return The radar cross section in cm^2.
 #'
 #' @export
 #'
@@ -62,11 +62,11 @@ rcs.vpi <- function(x) {
 
 #' Set radar cross section
 #'
-#' Sets the assumed radar cross section in cm^2 of an object. This method also
+#' Sets the assumed radar cross section of an object in cm^2. This method also
 #' updates the migration densities in `x$data$dens`.
 #'
 #' @inheritParams rcs
-#' @param value Double. The radar cross section value to assign (cm^2).
+#' @param value Double. The radar cross section value to assign in cm^2.
 #'
 #' @export
 #'

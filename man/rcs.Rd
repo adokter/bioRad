@@ -22,7 +22,7 @@ rcs(x)
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 }
 \value{
-The object's radar cross section (cm^2).
+The radar cross section in cm^2.
 }
 \description{
 Gives the currently assumed radar cross section of an object in cm^2.

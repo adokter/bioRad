@@ -2,11 +2,12 @@
 #' (`param`)
 #'
 #' Gives the elevation angles of all scans within a polar volume (`pvol`) or the
-#' elevation angle of a single scan (`scan`) or scan parameter (`param`).
+#' elevation angle of a single scan (`scan`) or scan parameter (`param`) in
+#' degrees.
 #'
 #' @param x A `pvol`, `scan` or `param` object.
 #'
-#' @return Elevation angle(s) in degrees.
+#' @return The elevation angle(s) in degrees.
 #'
 #' @export
 #'

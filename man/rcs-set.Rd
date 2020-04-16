@@ -21,10 +21,10 @@ rcs(x) <- value
 \arguments{
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 
-\item{value}{Double. The radar cross section value to assign (cm^2).}
+\item{value}{Double. The radar cross section value to assign in cm^2.}
 }
 \description{
-Sets the assumed radar cross section in cm^2 of an object. This method also
+Sets the assumed radar cross section of an object in cm^2. This method also
 updates the migration densities in \code{x$data$dens}.
 }
 \examples{

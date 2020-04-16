@@ -19,11 +19,11 @@ sd_vvp_threshold(x)
 \item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 }
 \value{
-The object's \code{sd_vvp} threshold (m/s).
+The \code{sd_vvp} threshold in m/s.
 }
 \description{
 Gives the current threshold of the radial velocity standard deviation
-(\code{sd_vvp}) in m/s, retrieved by velocity volume processing (VVP).
+(\code{sd_vvp}) of an object in m/s, retrieved by velocity volume processing (VVP).
 }
 \examples{
 # Get the sd_vvp threshold for a vp:
