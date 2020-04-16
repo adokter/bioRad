@@ -1,9 +1,9 @@
-#' Get a scan parameter (\code{param}) from a scan (\code{scan})
+#' Get a scan parameter `param` from a scan `scan`
 #'
-#' @param x An object of class \code{scan}.
-#' @param param a scan parameter
+#' @param x An object of class `scan`.
+#' @param param A scan parameter.
 #'
-#' @return An object of class '\link[=summary.param]{param}'.
+#' @return An object of class [param][summary.param].
 #'
 #' @export
 #' @examples

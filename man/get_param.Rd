@@ -2,20 +2,20 @@
 % Please edit documentation in R/get_param.R
 \name{get_param}
 \alias{get_param}
-\title{Get a scan parameter (\code{param}) from a scan (\code{scan})}
+\title{Get a scan parameter \code{param} from a scan \code{scan}}
 \usage{
 get_param(x, param)
 }
 \arguments{
 \item{x}{An object of class \code{scan}.}
 
-\item{param}{a scan parameter}
+\item{param}{A scan parameter.}
 }
 \value{
-An object of class '\link[=summary.param]{param}'.
+An object of class \link[=summary.param]{param}.
 }
 \description{
-Get a scan parameter (\code{param}) from a scan (\code{scan})
+Get a scan parameter \code{param} from a scan \code{scan}
 }
 \examples{
 # we will extract a scan parameter from the example scan object:
