@@ -73,6 +73,7 @@ example_scan$params
 \itemize{
 \item \code{\link[=get_scan]{get_scan()}}
 \item \code{\link{example_scan}}
+\item \code{\link[=plot.scan]{plot.scan()}}
 \item \code{\link[=get_param]{get_param()}}
 }
 }

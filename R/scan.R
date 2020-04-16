@@ -31,6 +31,7 @@
 #' @seealso
 #' * [get_scan()]
 #' * [`example_scan`]
+#' * [plot.scan()]
 #' * [get_param()]
 #'
 #' @examples
