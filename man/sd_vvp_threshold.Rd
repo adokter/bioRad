@@ -5,7 +5,7 @@
 \alias{sd_vvp_threshold.vp}
 \alias{sd_vvp_threshold.list}
 \alias{sd_vvp_threshold.vpts}
-\title{Get threshold of the VVP-retrieved radial velocity standard deviation}
+\title{Get threshold of the radial velocity standard deviation}
 \usage{
 sd_vvp_threshold(x)
 
@@ -19,42 +19,20 @@ sd_vvp_threshold(x)
 \item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 }
 \value{
-threshold for \code{sd_vvp} in m/s.
+The \code{sd_vvp} threshold in m/s.
 }
 \description{
-Gives the current threshold in VVP-retrieved radial velocity standard
-deviation in m/s.
+Gives the current threshold of the radial velocity standard deviation
+(\code{sd_vvp}) of an object in m/s, retrieved by velocity volume processing (VVP).
 }
-\details{
-See also \link{sd_vvp_threshold<-} for setting an objects radial
-velocity standard deviation.
-}
-\section{Methods (by class)}{
-\itemize{
-\item \code{vp}: threshold in VVP-retrieved radial velocity standard
-deviation of a vertical profile
-
-\item \code{list}: threshold in VVP-retrieved radial velocity standard
-deviation of a list of vertical profiles
-
-\item \code{vpts}: threshold in VVP-retrieved radial velocity standard
-deviation of a time series of vertical profiles
-}}
-
 \examples{
-# load example data:
-data(example_vp)
-data(example_vpts)
-
-# retrieve threshold for a single vertical profile:
+# Get the sd_vvp threshold for a vp:
 sd_vvp_threshold(example_vp)
 
-# retrieve threshold for a vertical profile time series:
+# Get the sd_vvp threshold for a vpts:
 sd_vvp_threshold(example_vpts)
-
-# change or set the threshold for a single vertical profile:
-sd_vvp_threshold(example_vp) <- 2
-
-# change or set the threshold for a vertical profile time series:
-sd_vvp_threshold(example_vp) <- 2
+}
+\seealso{
+\code{\link{sd_vvp_threshold()<-}} for setting the \code{sd_vvp} threshold of an
+object.
 }
