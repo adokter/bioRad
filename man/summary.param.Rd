@@ -33,6 +33,7 @@ see Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OP
 Commonly available parameters are:
 \itemize{
 \item \code{DBZH}, \code{DBZ}: (Logged) reflectivity factor in dBZ.
+\item \code{TH}, \code{T}: (Logged) uncorrected reflectivity factor in dBZ.
 \item \code{VRADH}, \code{VRAD}: Radial velocity in m/s. Radial velocities towards the
 radar are negative, while radial velocities away from the radar are positive.
 \item \code{RHOHV}: Correlation coefficient (unitless). Correlation between the

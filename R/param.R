@@ -18,6 +18,7 @@
 #'
 #' Commonly available parameters are:
 #' * `DBZH`, `DBZ`: (Logged) reflectivity factor in dBZ.
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor in dBZ.
 #' * `VRADH`, `VRAD`: Radial velocity in m/s. Radial velocities towards the
 #' radar are negative, while radial velocities away from the radar are positive.
 #' * `RHOHV`: Correlation coefficient (unitless). Correlation between the
