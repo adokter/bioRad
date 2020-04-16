@@ -18,53 +18,48 @@ is.pvol(x)
 \item{...}{Additional arguments affecting the summary produced.}
 }
 \value{
-For \code{is.pvol(x)}: \code{TRUE} if \code{x} is an object of class \code{pvol},
-otherwise \code{FALSE}.
+For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise
+\code{FALSE}.
 }
 \description{
 R base functions for inspecting a polar volume (\code{pvol}) object.
 }
 \details{
-A polar volume (\code{pvol}) object is a list containing:
+A polar volume consists of a number of scans (or sweeps) made by the radar at
+different elevation angles. A polar volume (\code{pvol}) object is a list
+containing:
 \itemize{
 \item \code{radar}: Radar identifier.
-\item \code{datetime}: Nominal time of the volume (UTC).
+\item \code{datetime}: Nominal time of the volume in UTC.
 \item \code{scans}: List of scans (\code{scan}) at different elevation angles.
-\item \code{attributes}: List of the the volume's \code{what}, \code{where} and \code{how}
+\item \code{attributes}: List of the volume's \code{what}, \code{where} and \code{how}
 attributes.
 \item \code{geo}: List of the volume's geographic properties:
 \itemize{
-\item \code{lat}: Latitude of the radar (decimal degrees).
-\item \code{lon}: Longitude of the radar (decimal degrees).
-\item \code{height}: Height of the radar antenna (meters above sea level).
+\item \code{lat}: Latitude of the radar in decimal degrees.
+\item \code{lon}: Longitude of the radar in decimal degrees.
+\item \code{height}: Height of the radar antenna in meters above sea level.
 }
 }
 }
 \examples{
-# Locate the polar volume example file:
+# Locate and read the polar volume example file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-
-# Read the file:
 example_pvol <- read_pvolfile(pvolfile)
 
-# Verify that it is a pvol object:
+# Verify that is an object of class pvol:
 is.pvol(example_pvol)
 
-# Print summary info:
+# Get summary info:
 example_pvol # Same as summary(example_pvol) or print(example_pvol)
 
-# Print summary info for the scans in the polar volume:
+# Get summary info for the scans in the polar volume:
 example_pvol$scans
-
-# Copy the first scan to a new object `scan`:
-scan <- example_pvol$scans[[1]]
-
-# Print summary info for the scan:
-scan # Same as summary(scan) or print(scan)
 }
 \seealso{
 \itemize{
-\item \code{\link[=read_pvolfile]{read_pvolfile()}} to read polar volume files.
-\item \code{\link[=summary.scan]{summary.scan()}} to inspect scans.
+\item \code{\link[=read_pvolfile]{read_pvolfile()}}
+\item \code{\link[=get_elevation_angles]{get_elevation_angles()}}
+\item \code{\link[=get_scan]{get_scan()}}
 }
 }
