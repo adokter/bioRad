@@ -156,7 +156,20 @@ test_that("as.data.frame(): if we manually set lat/lon, those are the value that
   expect_equal(unique(df[["lon"]]), 4.3603)
 })
 
+test_that("as.data.frame(): users can manually choose included quantities", {
+  data("example_vp")
+
+  df <- as.data.frame(example_vp, quantities = c("dens"))
+  expect_is(df$dens, "numeric")
+
+  # FIXME: If we only request "dens", shouldn't "dd" be missing?
+  # expect_null(df$dd)
+
+  # We get a proper error message if requesting a nonexistent quantity
+  expected_message <- "azertyuiop not an available quantity, select one or more of ff,dbz,dens,u,v,gap,w,n_dbz,dd,n,DBZH,height,n_dbz_all,eta,sd_vvp,n_all"
+  expect_error(as.data.frame(example_vp, quantities = c("azertyuiop")), expected_message)
+})
+
 # TODO: test explicit row names (with row.names)
-# TODO: test explicitly selecting quantities (also requesting a non-existent quantity)
 # TODO: test "optional" argument
 
