@@ -1,11 +1,9 @@
-#' Class \code{vp}: a vertical profile of animals
+#' Inspect a vertical profile (`vp`)
 #'
-#' Class \code{vp} for a vertical profile of animals
+#' R base functions for inspecting a vertical profile of biological targets
+#' (`vp`) object.
 #'
-#' @rdname summary.vp
-#'
-#' @param object  An object of class \code{vp}.
-#' @param x An object of class \code{vp}.
+#' @param x A `vp` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vp
@@ -13,85 +11,85 @@
 #' @export
 #'
 #' @details
-#' An object of class \code{vp} contains a vertical profile. A vertical profile
-#' contains a collection of quantities, with each quantity having values at
-#' different altitude layers above the earth's surface, typically equally
-#' spaced altitudinal layers.
+#' A vertical profile of biological targets contains a collection of quantities,
+#' organized in different (typically equally spaced) altitude layers above the
+#' earth's surface. A vertical profile (`vp`) object is a list containing:
+#' * `radar`: Radar identifier.
+#' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
+#' * `data`: A data.frame with the profile's quantities. Use [get_quantity()] to
+#' access these:
+#'   * `u`: Speed component west to east in m/s.
+#'   * `v`: Speed component north to south in m/s.
+#'   * `w`: Vertical speed (unreliable!) in m/s.
+#'   * `ff`: Horizontal speed in m/s.
+#'   * `dd`: Direction in degrees clockwise from north.
+#'   * `sd_vvp`: VVP radial velocity standard deviation in m/s.
+#'   * `gap`: Angular data gap detected in T/F.
+#'   * `dbz`: Animal reflectivity factor in dBZ.
+#'   * `eta`: Animal reflectivity in cm^2/km^3.
+#'   * `dens`: Animal density in animals/km^3.
+#'   * `DBZH`: Total reflectivity factor (bio + meteo scattering) in dBZ.
+#'   * `n`: Number of points VVPvelocity analysis (`u`, `v`, `w`, `ff`, `dd`).
+#'   * `n_all`: Number of points VVP st.dev. estimate (`sd_vvp`).
+#'   * `n_dbz`: Number of points density estimate (`dbz`, `eta`, `dens`).
+#'   * `n_dbz_all`: Number of points total reflectivity estimate in DBZH.
+#' * `attributes`: List of the vertical profile's `what`, `where` and `how`
+#' attributes.
 #'
-#' Data contained in this class object should be accessed with the
-#' \link{get_quantity} function. Information stored under \code{attributes}
-#' (see below) can be accessed directly.
+#' @section Conventions:
+#' * `NA`: Maps to `nodata` in the ODIM convention: value to denote areas void
+#' of data (never radiated).
+#' * `NaN`: Maps to `undetect` in the ODIM convention: denote areas below the
+#' measurement detection threshold (radiated but nothing detected). The value is
+#' also used when there are too few datapoints to calculate a quantity.
+#' * `0`: Maps to `0` in the ODIM convention: denote areas where the quantity
+#' has a measured value of zero (radiated and value zero detected or inferred).
 #'
-#' A \code{vp} object is a list containing
-#' \describe{
-#'  \item{\strong{\code{radar}}}{the radar identifier}
-#'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
-#'  \item{\strong{\code{data}}}{the profile data, a list containing:
-#'    \describe{
-#'        \item{\code{height}}{height above mean sea level (m). Alt. bin from height to height+interval)}
-#'        \item{\code{u}}{speed component west to east (m/s)}
-#'        \item{\code{v}}{speed component north to south (m/s)}
-#'        \item{\code{w}}{vertical speed (unreliable!) (m/s)}
-#'        \item{\code{ff}}{horizontal speed (m/s)}
-#'        \item{\code{dd}}{direction (degrees, clockwise from north)}
-#'        \item{\code{sd_vvp}}{VVP radial velocity standard deviation (m/s)}
-#'        \item{\code{gap}}{Angular data gap detected (T/F)}
-#'        \item{\code{dbz}}{Animal reflectivity factor (dBZ)}
-#'        \item{\code{eta}}{Animal reflectivity (cm^2/km^3)}
-#'        \item{\code{dens}}{Animal density (animals/km^3)}
-#'        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) (dBZ)}
-#'        \item{\code{n}}{number of points VVPvelocity analysis (u,v,w,ff,dd)}
-#'        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-#'        \item{\code{n_dbz}}{number of points density estimate (dbz,eta,dens)}
-#'        \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
-#'    }
-#'  }
-#'  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what},
-#'  \code{\\where} and \code{\\how} attributes}
-#' }
+#' It depends on a radar's detection threshold or signal to noise ratio whether
+#' it safe to assume an `undetect` is equivalent to zero. When dealing with
+#' close range data only (within 35 km), it is typically safe to assume aerial
+#' densities (`dens`) and reflectivities (`eta`) are in fact zero in case of
+#' undetects.
 #'
-#' \subsection{Conventions}{
-#'   \itemize{
-#'     \item \code{NA} Maps to 'nodata' in the ODIM convention: value to denote areas void of data
-#'      (never radiated)
-#'     \item \code{NaN} Maps to 'undetect' in the ODIM convention: denote areas below the measurement
-#'     detection threshold (radiated but nothing detected). The value is also used when there are too
-#'     few datapoints to calculate a quantity.
-#'     \item \code{0} Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
-#'      value of zero (radiated and value zero detected or inferred).
-#'   }
-#'   It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
-#'   an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
-#'   is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
-#'   in case of undetects.
-#' }
+#' @seealso
+#' * [calculate_vp()]
+#' * [read_vpfiles()]
+#' * [`example_vp`]
+#' * [get_quantity()]
+#' * [plot.vp()]
+#' * [as.data.frame.vp()]
+#' * [bind_into_vpts()]
+#'
 #' @examples
-#' # load example vp object
+#' # Load the example vp
 #' data(example_vp)
-#' example_vp
 #'
-#' # check that the object is a vp object:
+#' # Verify that it is an object of class vp
 #' is.vp(example_vp)
 #'
-#' # dimensions of the vp object:
+#' # Get summary info
+#' example_vp # Same as summary(example_vp) or print(example_vp)
+#'
+#' # Get dimensions
 #' dim(example_vp)
-summary.vp <- function(object, ...) {
-  print.vp(object)
+summary.vp <- function(x, ...) {
+  print.vp(x)
 }
 
-#' Print method for class \code{vp}
+#' Print summary for an object of class `vp`
 #'
-#' @param x An object of class \code{vp}, like the result of a call to
-#' \link[=summary.vp]{read_vpfiles}.
+#' @inheritParams summary.vp
 #'
-#' @keywords internal
+#' @rdname summary.vp
 #'
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
   if (!is.null(x$data$HGHT)) {
-    warning("obsolete vp object generated with bioRad version < 0.5.0.
-    vp objects should contain a list element 'data' containing a data.frame with column 'height' (instead of obsolete 'HGHT)")
+    warning("vp object is an obsolete one generated with bioRad version < 0.5.0.
+      vp objects should contain a column `height` (rather than `HGHT`) in the
+      `data` element."
+    )
   }
   cat("               Vertical profile (class vp)\n\n")
   cat("       radar: ", x$radar, "\n")
@@ -103,20 +101,28 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   ), "\n")
 }
 
+#' Verify if an object is of class `vp`
+#'
+#' @inheritParams summary.vp
+#'
+#' @return For [is.vp()]: `TRUE` for an object of class `vp`, otherwise
+#'   `FALSE`.
+#'
 #' @rdname summary.vp
 #'
 #' @export
-#'
-#' @return For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
 is.vp <- function(x) {
   inherits(x, "vp")
 }
 
+#' Get dimensions for an object of class `vp`
+#'
+#' @return For [dim.vp()]: number of heights and quantities in a vertical
+#'   profile (`vp`).
+#'
 #' @rdname summary.vp
 #'
 #' @export
-#'
-#' @return For \code{dim.vp}: dimensions of the profile data.
 dim.vp <- function(x) {
   stopifnot(inherits(x, "vp"))
   dim(x$data)
