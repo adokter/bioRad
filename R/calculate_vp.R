@@ -201,12 +201,9 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     assert_that(sd_vvp_threshold >= 0)
   }
 
-  if (!is.numeric(rcs) || rcs <= 0) {
-    stop(
-      "invalid 'rcs' argument, radar cross section should be a ",
-      "positive numeric value"
-    )
-  }
+  assert_that(is.number(rcs))
+  assert_that(rcs>0)
+
   assert_that(is.flag(dual_pol))
 
   assert_that(is.number(rho_hv))
