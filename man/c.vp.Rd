@@ -7,11 +7,15 @@
 \method{c}{vp}(...)
 }
 \arguments{
-\item{...}{objects of class \code{vp}}
+\item{...}{\code{vp} objects.}
 }
 \value{
-an object of class \code{list}
+A list of \code{vp} objects.
 }
 \description{
-Concatenate vertical profiles (\code{vp}) into a list of vertical profiles
+Concatenates vertical profiles (\code{vp}) into a list of vertical profiles
+(\code{c(vp, vp, vp)}) and warns if they are not from a single radar.
+}
+\seealso{
+\code{\link[=bind_into_vpts]{bind_into_vpts()}}
 }

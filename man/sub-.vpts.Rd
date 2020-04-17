@@ -7,22 +7,25 @@
 \method{[}{vpts}(x, i)
 }
 \arguments{
-\item{x}{Object of class \code{vpts}.}
+\item{x}{A \code{vpts} object.}
 
-\item{i}{Indices specifying elements to extract.}
+\item{i}{Integer. Index/indices specifying which range of vertical profiles
+to extract.}
 }
 \description{
 Select a vertical profile (\code{vp}) or a time series of vertical profiles
-(\code{vpts}) by index from a \code{vpts}
+(\code{vpts}) by index from a \code{vpts}.
 }
 \examples{
-# we start with the example vertical profile time series:
+# Load the example time series of vertical profiles
 data(example_vpts)
-example_vpts
 
-# extract the 10th profile in the time series (returns a vp object)
+# This vpts contains 1934 profiles (i.e. datetimes)
+dim(example_vpts)
+
+# Subset vpts to extract 10th profile (returns a vp object)
 example_vpts[10]
 
-# extract the 20th to 100th profile form the time series (returns a vpts object)
+# Subset vpts to extract the 20th to 100th profile (returns a vpts object)
 example_vpts[20:100]
 }

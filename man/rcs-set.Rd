@@ -28,13 +28,13 @@ Sets the assumed radar cross section of an object in cm^2. This method also
 updates the migration densities in \code{x$data$dens}.
 }
 \examples{
-# Set the radar cross section for a vp:
+# Set the radar cross section for a vp
 rcs(example_vp) <- 11
 
-# Set the radar cross section for a vpts:
+# Set the radar cross section for a vpts
 rcs(example_vpts) <- 11
 
-# Set the radar cross section for a vpi:
+# Set the radar cross section for a vpi
 example_vpi <- integrate_profile(example_vpts)
 rcs(example_vpi) <- 11
 }
