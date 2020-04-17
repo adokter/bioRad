@@ -65,6 +65,34 @@ test_that("If suntime is (explicitly) TRUE, suntime information is added to each
   expect_is(df$day, "logical")
 })
 
+test_that("values in suntime/sunset/day cols are correct", {
+  data("example_vp")
+
+  df <- as.data.frame(example_vp, suntime = TRUE)
+
+  # 1. With lat/lon coming from example_vp: 56.3675, 12.8517 (date: 2015-10-18)
+  # Manual data check on: https://www.suncalc.org/#/56.3675,12.8517,12/2015.10.18/09:06/1/3
+  # According to the website above, sunrise is at 7:45:26 (UTC+2) and sunset at 18:01:13 (UTC+2)
+  expected_sunrise <- with_tz(as.POSIXlt("2015-10-18 07:45:26", tz="Europe/Stockholm"), 'UTC')
+  expected_sunset <- with_tz(as.POSIXlt("2015-10-18 18:01:13", tz="Europe/Stockholm"), 'UTC')
+
+  expect_equal(as.POSIXlt(df$sunrise[1]), expected_sunrise, tolerance = 5) # Apparently, tolerance is expressed in minutes
+  expect_equal(as.POSIXlt(df$sunset[1]), expected_sunset, tolerance = 5)
+  expect_false(df$day[1]) # it should therefore be night at 18:00 local time
+
+  # 2. We force lat/lon to other values and check if it's still correct
+  df <- as.data.frame(example_vp, lat = 50.6472, lon = 4.3603)
+  expected_sunrise <- with_tz(as.POSIXlt("2015-10-18 08:09:09", tz="Europe/Brussels"), 'UTC')
+  expected_sunset <- with_tz(as.POSIXlt("2015-10-18 18:45:35", tz="Europe/Brussels"), 'UTC')
+  expect_equal(as.POSIXlt(df$sunrise[1]), expected_sunrise, tolerance = 5) # Apparently, tolerance is expressed in minutes
+  expect_equal(as.POSIXlt(df$sunset[1]), expected_sunset, tolerance = 5)
+  expect_false(df$day[1])
+
+  # 3. Let's go to Antartica, it should be day there
+  df <- as.data.frame(example_vp, lat = -74.2486, lon = -1.2497)
+  expect_true(df$day[1])
+})
+
 test_that("If suntime is FALSE, suntime information is *not* added to each row", {
   data("example_vp")
 
@@ -118,8 +146,17 @@ test_that("If geo is FALSE, lat/lon/antenna height is added to each row", {
   expect_null(df$height_antenna)
 })
 
+test_that("If we manually set lat/lon, those are the value that should appear in the df", {
+  data("example_vp")
+
+  df <- as.data.frame(example_vp, geo = TRUE, lat = 50.6472, lon = 4.3603)
+
+  # three colulmns are present:
+  expect_equal(unique(df[["lat"]]), 50.6472)
+  expect_equal(unique(df[["lon"]]), 4.3603)
+})
+
 # TODO: test explicit row names (with row.names)
 # TODO: test explicitly selecting quantities (also requensting a non-existent quantity)
 # TODO: test "optional" argument
-# TODO: test explicit lat/lon/elev (values overriden in lat/lon, but also correct sunrise/sunset calculation)
 # TODO: replace "stopifnot" in vp.R?? Or is that out of scope
