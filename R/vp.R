@@ -248,26 +248,27 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
   output
 }
 
-#' Concatenate vertical profiles (\code{vp}) into a list of vertical profiles
+#' Concatenate vertical profiles (`vp`) into a list of vertical profiles
 #'
-#' @param ... objects of class \code{vp}
+#' Concatenates vertical profiles (`vp`) into a list of vertical profiles
+#' (`c(vp, vp, vp)`) and warns if they are not from a single radar.
 #'
-#' @return an object of class \code{list}
+#' @param ... `vp` objects.
+#'
+#' @return A list of `vp` objects.
 #'
 #' @export
+#'
+#' @seealso [bind_into_vpts()]
 c.vp <- function(...) {
-  vps <- list(...)
-  vptest <- sapply(vps, function(x) is(x, "vp"))
-  if (FALSE %in% vptest) {
-    warning("Non-vp objects found!")
-    return(vps)
-  }
+  vp_list <- list(...)
+  is_vp <- sapply(vp_list, function(x) is(x, "vp"))
+  assert_that(all(is_vp), msg = "Each element must be a vp object.")
   # extract radar identifiers
-  radars <- unique(sapply(vps, "[[", "radar"))
+  radars <- unique(sapply(vp_list, "[[", "radar"))
   if (length(radars) > 1) {
-    warning("Vertical profiles are not from a single radar!")
+    warning("Vertical profiles are not from a single radar.")
   }
-  output <- vps
-  class(output) <- c("list")
-  output
+  class(vp_list) <- c("list")
+  vp_list
 }
