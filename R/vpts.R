@@ -143,6 +143,9 @@ dim.vpts <- function(x) {
 #' @param i Integer. Index/indices specifying which range of vertical profiles
 #'   to extract.
 #'
+#' @return A `vpts` object containing a subset of vertical profiles (`vp`) or a
+#'   `vp` object when subsetting a single vertical profile (`vp`).
+#'
 #' @export
 #'
 #' @examples

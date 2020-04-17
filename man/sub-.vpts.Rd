@@ -12,6 +12,10 @@
 \item{i}{Integer. Index/indices specifying which range of vertical profiles
 to extract.}
 }
+\value{
+A \code{vpts} object containing a subset of vertical profiles (\code{vp}) or a
+\code{vp} object when subsetting a single vertical profile (\code{vp}).
+}
 \description{
 Select a vertical profile (\code{vp}) or a time series of vertical profiles
 (\code{vpts}) by index from a \code{vpts}.

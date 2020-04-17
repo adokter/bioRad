@@ -106,6 +106,8 @@ dim.ppi <- function(x) {
 #' @param i Integer. Index/indices specifying which parameters (`param`) or
 #'   derived quantities to extract.
 #'
+#' @return A `ppi` object containing a subset of parameters (`param`).
+#'
 #' @export
 #'
 #' @examples

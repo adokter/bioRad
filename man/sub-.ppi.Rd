@@ -12,6 +12,9 @@
 \item{i}{Integer. Index/indices specifying which parameters (\code{param}) or
 derived quantities to extract.}
 }
+\value{
+A \code{ppi} object containing a subset of parameters (\code{param}).
+}
 \description{
 Select parameters (\code{param}) or derived quantities by index from a plan
 position indicator (\code{ppi}).
