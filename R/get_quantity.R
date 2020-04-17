@@ -46,6 +46,9 @@ get_quantity <- function(x, quantity) {
 #' @return class `vp`: a named vector for the requested quantity.
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
+  available <- names(x$data)
+  available <-available[available != "height"]
+  assert_that(quantity %in% available, msg = paste0("Can't find quantity `", quantity, "` in vp."))
   output <- x$data[quantity][, 1]
   names(output) <- x$data$height
 
@@ -83,6 +86,7 @@ get_quantity.list <- function(x, quantity = "dens") {
 get_quantity.vpts <- function(x, quantity = "dens") {
   ## this function should checkout both the gap and sd_vvp flags
   stopifnot(inherits(x, "vpts"))
+  assert_that(quantity %in% names(x$data), msg = paste0("Can't find quantity `", quantity, "` in vpts."))
   output <- x$data[quantity][[1]]
   rownames(output) <- x$height
   colnames(output) <- as.character(x$datetime)
