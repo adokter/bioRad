@@ -22,6 +22,6 @@
 #' # print summary info for this scan:
 #' scan
 get_scan <- function(x, elev) {
-  assert_that(class(x) == class(pvol), msg = "`x` must be a pvol object.")
+  assert_that(class(x) == "pvol", msg = "`x` must be a pvol object.")
   x$scans[[which.min(abs(get_elevation_angles(x) - elev))]]
 }
