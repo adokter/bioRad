@@ -193,18 +193,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   # check input arguments
   for (filename in file) {
-    if (!file.exists(filename)) {
-      stop(paste("No such file:", filename))
-    }
+    assert_that(file.exists(filename), msg=paste("No such file:", filename))
   }
 
   if (!missing(sd_vvp_threshold)) {
-    if (!is.numeric(sd_vvp_threshold) || sd_vvp_threshold <= 0) {
-      stop(
-        "invalid 'sd_vvp_threshold' argument, radial velocity standard deviation ",
-        "threshold should be a positive numeric value"
-      )
-    }
+    assert_that(is.number(sd_vvp_threshold))
+    assert_that(sd_vvp_threshold >= 0)
   }
 
   if (!is.numeric(rcs) || rcs <= 0) {
@@ -213,127 +207,81 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       "positive numeric value"
     )
   }
-  if (!is.logical(dual_pol)) {
-    stop("invalid 'dual_pol' argument, should be logical")
-  }
-  if (!is.numeric(rho_hv) || rho_hv <= 0 || rho_hv > 1) {
-    stop(
-      "invalid 'rho_hv' argument, correlation coefficient treshold ",
-      "should be a numeric value between 0 and 1"
-    )
-  }
-  if (!is.numeric(elev_min) || elev_min < -90 || elev_min > 90) {
-    stop(
-      "invalid 'elev_min' argument, elevation should be between ",
-      "-90 and 90 degrees"
-    )
-  }
-  if (!is.numeric(elev_max) || elev_max < -90 || elev_max > 90) {
-    stop(
-      "invalid 'elev_max' argument, elevation should be between ",
-      "-90 and 90 degrees"
-    )
-  }
-  if (elev_max < elev_min) {
-    stop("'elev_max' cannot be larger than 'elev_min'")
-  }
-  if (!is.numeric(azim_min) || azim_min < 0 || azim_min > 360) {
-    stop(
-      "invalid 'azim_min' argument, azimuth should be between ",
-      "0 and 360 degrees"
-    )
-  }
-  if (!is.numeric(azim_max) || azim_max < 0 || azim_max > 360) {
-    stop(
-      "invalid 'azim_max' argument, azimuth should be between ",
-      "0 and 360 degrees"
-    )
-  }
-  if (!is.numeric(range_min) || range_min < 0) {
-    stop(
-      "invalid 'range_min' argument, range should be a positive ",
-      "numeric value"
-    )
-  }
-  if (!is.numeric(range_max) || range_max < 0) {
-    stop(
-      "invalid 'range_max' argument, range should be a positive ",
-      "numeric value"
-    )
-  }
-  if (range_max < range_min) {
-    stop("'rang.max' cannot be larger than 'rang.min'")
-  }
-  if (!is.integer(n_layer) & n_layer <= 0) {
-    stop("'n_layer' should be a positive integer")
-  }
-  if (!is.numeric(h_layer) || h_layer < 0) {
-    stop("invalid 'h_layer' argument, should be a positive numeric value")
-  }
-  if (!is.numeric(nyquist_min) || nyquist_min < 0) {
-    stop("invalid 'nyquist_min' argument, should be a positive numeric value")
-  }
-  if (!(dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"))) {
-    warning(paste("expecting 'dbz_quantity' to be one of DBZ, DBZH, DBZV, TH, TV"))
-  }
+  assert_that(is.flag(dual_pol))
 
-  if (!is.logical(mistnet)) {
-    stop("invalid 'mistnet' argument, should be logical")
-  }
-  if (mistnet && !.pkgenv$mistnet) {
-    stop("MistNet has not been installed, see update_docker() for install instructions")
-  }
-  if (!is.logical(dealias)) {
-    stop("invalid 'dealias' argument, should be logical")
-  }
-  if (file.access(mount, 0) == -1) {
-    stop("invalid 'mount' argument. Directory not found")
-  }
-  if (file.access(mount, 2) == -1) {
-    stop(paste(
-      "invalid 'mount' argument. No write permission in directory",
-      mount
-    ))
-  }
-  if (!.pkgenv$docker && missing(local_install)) {
-    stop(
-      "Requires a running Docker daemon.\nTo enable calculate_vp, start ",
-      "your local Docker daemon, and run 'check_docker()' in R\n"
-    )
-  }
+  assert_that(is.number(rho_hv))
+  assert_that(rho_hv >= 0 & rho_hv <= 1, msg = "rho_hv should be a number between 0 and 1")
 
-  if (!length(autoconf) == 1 || !is.logical(autoconf)) {
-    stop("autoconf argument should be one of TRUE or FALSE")
-  }
-  if (!length(verbose) == 1 || !is.logical(verbose)) {
-    stop("verbose argument should be one of TRUE or FALSE")
-  }
-  if (vpfile != "" && !file.exists(dirname(vpfile))) {
-    stop(paste("output directory", dirname(vpfile), "not found"))
-  }
+  assert_that(is.number(elev_min))
+  assert_that(elev_min > -90 & elev_min < 90, msg = "elev_min is not a number between -90 and 90")
+
+  assert_that(is.number(elev_max))
+  assert_that(elev_max > -90 & elev_max < 90, msg = "elev_max is not a number between -90 and 90")
+
+  assert_that(elev_max > elev_min, msg = "elev_max is not larger than elev_min")
+
+  assert_that(is.number(azim_min))
+  assert_that(azim_min > -90 & azim_min < 90, msg = "azim_min is not a number between 0 and 360")
+
+  assert_that(is.number(azim_max))
+  assert_that(azim_max > -90 & azim_max < 90, msg = "azim_max is not a number between 0 and 360")
+
+  assert_that(is.number(range_min))
+  assert_that(range_min > 0, msg = "range_min is not a positive number")
+
+  assert_that(is.number(range_max))
+  assert_that(range_max > 0, msg = "range_max is not a positive number")
+
+  assert_that(range_max > range_min, msg = "range_max is not larger than range_min")
+
+  assert_that(is.count(n_layer))
+
+  assert_that(is.number(h_layer))
+  assert_that(h_layer > 0, msg = "h_layer is not a positive number")
+
+  assert_that(is.number(nyquist_min))
+  assert_that(nyquist_min > 0, msg = "nyquist_min is not a positive number")
+
+  assert_that(dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"), msg = "dbz_quantity is not one of DBZ, DBZH, DBZV, TH, TV")
+
+  assert_that(is.flag(mistnet))
+
+  assert_that(!(mistnet && !.pkgenv$mistnet), msg = "MistNet installation not found, see update_docker() for install instructions")
+
+  assert_that(is.flag(dealias))
+
+  assert_that(is.dir(mount), msg = paste("Path '",mount,"' does not exist", sep=""))
+  assert_that(file.access(mount, 2) != -1, msg = paste("Path '",mount,"' has no write permission", sep=""))
+
+  assert_that(!.pkgenv$docker && missing(local_install),
+      msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
+      "your local Docker daemon, and run 'check_docker()' in R\n"))
+
+  assert_that(is.flag(autoconf))
+
+  assert_that(is.flag(verbose))
+
+  assert_that(!(vpfile != "" && !file.exists(dirname(vpfile))), msg = paste("vpfile output directory", dirname(vpfile), "not found"))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
-  if (!grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE)) {
-    stop(
-      "mountpoint 'mount' has to be a parent directory ",
-      "of input file 'file'"
-    )
-  }
+
+  assert_that(grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
+      msg = paste("mountpoint 'mount' has to be a parent directory",
+      "of input file 'file'"))
 
   # check whether vol2bird container supports multiple input files
   multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
   if (!missing(local_install)) multi_file_support <- TRUE
-
-  if (length(file) > 1 && !multi_file_support) stop("Current installation does not support multiple input files. Provide a single input file containing a polar volume")
+  assert_that(!(length(file) > 1 && !multi_file_support),
+              msg = paste("Current vol2bird installation does not support multiple input files.",
+              "Provide a single input file containing a polar volume, or run update_docker() to update"))
 
   profile.tmp <- tempfile(tmpdir = filedir)
-  if (file.access(filedir, mode = 2) < 0) {
-    stop(paste("vol2bird requires write permission in", filedir))
-  }
+  assert_that(file.access(filedir, mode = 2) >= 0, msg = paste("Path '",filedir,"' has no write permission", sep=""))
+
   if (missing(local_install)) {
-    if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
-      stop(paste("failed to start vol2bird Docker container"))
-    }
+    assert_that(mount_docker_container(normalizePath(mount, winslash = "/")) == 0,
+                msg = "failed to start vol2bird Docker container, see check_docker()")
   }
 
   # put options file in place, to be read by vol2bird container
