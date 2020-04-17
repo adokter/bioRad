@@ -21,6 +21,7 @@
 #' are selected automatically, and other user settings are ignored.
 #' @param verbose logical. When TRUE, pipe Docker stdout to R console. On
 #' Windows always TRUE.
+#' @param warnings logical. When TRUE, pipe vol2bird warnings to R console.
 #' @param mount character. String with the mount point (a directory path) for
 #' the Docker container.
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
@@ -175,7 +176,7 @@
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
-                         autoconf = FALSE, verbose = FALSE,
+                         autoconf = FALSE, verbose = FALSE, warnings = TRUE,
                          mount = dirname(file[1]), sd_vvp_threshold,
                          rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
@@ -192,6 +193,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   # check input arguments
+  assert_that(is.character(file), msg = "argument file is not a path to a file (or a vector of paths to files)")
   for (filename in file) {
     assert_that(file.exists(filename))
   }
@@ -205,8 +207,17 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   assert_that(is.flag(autoconf))
+  # check if any options specified when autoconf=TRUE)
+  if(autoconf){
+    ignored_arguments <- calls[!(calls %in% c("file","vpfile","pvolfile_out","local_install", "pvolfile", "autoconf", "warnings"))]
+    if(length(ignored_arguments)>0){
+      warning(paste("autoconf is TRUE, ignoring argument(s)",paste(ignored_arguments, collapse = ", ")))
+    }
+  }
 
   assert_that(is.flag(verbose))
+
+  assert_that(is.flag(warnings))
 
   assert_that(is.writeable(mount))
 
@@ -224,18 +235,18 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(rho_hv >= 0 & rho_hv <= 1, msg = "rho_hv should be a number between 0 and 1")
 
   assert_that(is.number(elev_min))
-  assert_that(elev_min > -90 & elev_min < 90, msg = "elev_min is not a number between -90 and 90")
+  assert_that(elev_min >= -90 & elev_min <= 90, msg = "elev_min is not a number between -90 and 90")
 
   assert_that(is.number(elev_max))
-  assert_that(elev_max > -90 & elev_max < 90, msg = "elev_max is not a number between -90 and 90")
+  assert_that(elev_max >= -90 & elev_max <= 90, msg = "elev_max is not a number between -90 and 90")
 
   assert_that(elev_max > elev_min, msg = "elev_max is not larger than elev_min")
 
   assert_that(is.number(azim_min))
-  assert_that(azim_min > 0 & azim_min < 360, msg = "azim_min is not a number between 0 and 360")
+  assert_that(azim_min >= 0 & azim_min <= 360, msg = "azim_min is not a number between 0 and 360")
 
   assert_that(is.number(azim_max))
-  assert_that(azim_max > 0 & azim_max < 360, msg = "azim_max is not a number between 0 and 360")
+  assert_that(azim_max >= 0 & azim_max <= 360, msg = "azim_max is not a number between 0 and 360")
 
   assert_that(is.number(range_min))
   assert_that(range_min > 0, msg = "range_min is not a positive number")
@@ -261,7 +272,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   assert_that(is.flag(dealias))
 
-  assert_that(!.pkgenv$docker && missing(local_install),
+  assert_that(.pkgenv$docker | !missing(local_install),
       msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
       "your local Docker daemon, and run 'check_docker()' in R\n"))
 
@@ -387,12 +398,13 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     # on mac and linux:
     if (missing(local_install)) {
       result <- system(docker_command,
-      ignore.stdout = !verbose
+      ignore.stdout = !verbose, ignore.stderr = !warnings
       )
     }
     else {
       # using a local install of vol2bird:
-      result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""), ignore.stdout = !verbose)
+      result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""),
+                       ignore.stdout = !verbose, ignore.stderr = !warnings)
     }
   } else {
     # on Windows platforms:
