@@ -2,7 +2,7 @@ test_that("returns error on incorrect parameters", {
 
 })
 
-#context("check raster input for project_as_ppi")
+# context("check raster input for project_as_ppi")
 test_that("sample_polar works", {
   data("example_scan")
   a <- example_scan$params[[3]]

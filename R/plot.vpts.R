@@ -207,7 +207,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
 
   # if a regular time series, use the regular timegrid for plotting
   # (in case keep_datetime = TRUE option is used in regularize_vpts())
-  if(x$regular) x$datetime <- seq(from = x$daterange[1], to = x$daterange[2], by = x$timesteps[1])
+  if (x$regular) x$datetime <- seq(from = x$daterange[1], to = x$daterange[2], by = x$timesteps[1])
 
   # move points out of zlim range into valid color range
   plotdata[plotdata < (breaks[2] + breaks[3]) / 2] <- (breaks[2] + breaks[3]) / 2

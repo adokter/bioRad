@@ -45,7 +45,7 @@ noy <- function(x, ..., method = "fast") {
 #'
 #' @export
 doy.default <- function(x, lon, lat, ..., method = "fast") {
-  tzone = lutz::tz_lookup_coords(lat, lon, method = method, warn = FALSE)
+  tzone <- lutz::tz_lookup_coords(lat, lon, method = method, warn = FALSE)
   yday(lubridate::with_tz(x, tzone = tzone))
 }
 
@@ -53,7 +53,7 @@ doy.default <- function(x, lon, lat, ..., method = "fast") {
 #'
 #' @export
 noy.default <- function(x, lon, lat, ..., method = "fast") {
-  doy.default(x + 12 *3600, lon, lat, method = method)
+  doy.default(x + 12 * 3600, lon, lat, method = method)
 }
 
 #' @rdname doy_noy
@@ -115,7 +115,7 @@ doy.pvol <- function(x, ..., method = "fast") {
 #' @rdname doy_noy
 #'
 #' @export
-noy.pvol <- function(x, ...,  method = "fast") {
+noy.pvol <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "pvol"))
   noy(x$datetime, x$attributes$where$lon, x$attributes$where$lat, method = method)
 }

@@ -32,7 +32,7 @@ test_that("rcs()<- updates rcs", {
   rcs(vpi) <- 5.5
 
   expect_equal(vp$attributes$how$rcs_bird, 5.5)
-  expect_equal(c(vp$attributes$how$rcs_bird,vp$attributes$how$rcs_bird), c(5.5, 5.5))
+  expect_equal(c(vp$attributes$how$rcs_bird, vp$attributes$how$rcs_bird), c(5.5, 5.5))
   expect_equal(vpts$attributes$how$rcs_bird, 5.5)
   expect_equal(attributes(vpi)$rcs, 5.5)
 })

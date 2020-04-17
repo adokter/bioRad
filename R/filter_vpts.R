@@ -32,22 +32,21 @@
 #' filter_vpts(example_vpts, min = "2016-09-02 01:00", max = "2016-09-02 03:00")
 #'
 #' # select day time profiles (day time periods from sunrise to sunset)
-#' filter_vpts(example_vpts, night=FALSE)
+#' filter_vpts(example_vpts, night = FALSE)
 #'
 #' # select night time profiles, with nights starting starting and ending at civil twilight
 #' # (when the sun is 6 degrees below the horizon):
-#' filter_vpts(example_vpts, night=TRUE, elev = -6)
+#' filter_vpts(example_vpts, night = TRUE, elev = -6)
 #'
 #' # select night time profiles from 3 hours after sunset to 2 hours before sunrise
-#' filter_vpts(example_vpts, night=TRUE, offset=c(3,-2)*3600)
-#'
+#' filter_vpts(example_vpts, night = TRUE, offset = c(3, -2) * 3600)
 filter_vpts <- function(x, min, max, nearest, night, elev = -0.268, offset = 0) {
   assert_that(is.vpts(x))
   errorf <- function(e) {
     min
   }
 
-  if(!missing(night)) assert_that(is.logical(night))
+  if (!missing(night)) assert_that(is.logical(night))
 
   if (!missing(min)) {
     if (is.string(min)) {
@@ -69,10 +68,10 @@ filter_vpts <- function(x, min, max, nearest, night, elev = -0.268, offset = 0) 
   }
 
   # filter by day/night if requested
-  if(!missing(night)){
-    idx <- check_night(x, elev=elev, offset=offset)
-    if(!night) idx <- !idx
-    if(!(TRUE %in% idx)){
+  if (!missing(night)) {
+    idx <- check_night(x, elev = elev, offset = offset)
+    if (!night) idx <- !idx
+    if (!(TRUE %in% idx)) {
       warning("no profiles pass filtering by day/night, returning empty vpts object")
       suppressWarnings(return(x[idx]))
     }

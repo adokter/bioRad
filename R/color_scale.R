@@ -32,7 +32,7 @@ color_scale_fill <- function(param, zlim, na.value = "transparent") {
   return(colorscale)
 }
 
-color_palette <- function(param, n_color, alpha){
+color_palette <- function(param, n_color, alpha) {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
       colorRampPalette(
@@ -42,7 +42,7 @@ color_palette <- function(param, n_color, alpha){
       alpha = alpha
     )
   } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
-    cols <- viridisLite::viridis(n=n_color, alpha=alpha)
+    cols <- viridisLite::viridis(n = n_color, alpha = alpha)
   } else {
     cols <- add_color_transparency(
       colorRampPalette(
@@ -56,21 +56,23 @@ color_palette <- function(param, n_color, alpha){
 }
 
 # convert a vector of colors to a ScaleContinuous (fill) color scale object
-color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transparent"){
+color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transparent") {
   ggplot2::scale_fill_gradientn(
     colours = colors,
     name = param,
     limits = zlim,
-    na.value = na.value)
+    na.value = na.value
+  )
 }
 
 # convert a vector of colors to a ScaleContinuous (colour) color scale object
-color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "transparent"){
+color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "transparent") {
   ggplot2::scale_colour_gradientn(
     colours = colors,
     name = param,
     limits = zlim,
-    na.value = na.value)
+    na.value = na.value
+  )
 }
 
 # helper function to add transparency

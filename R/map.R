@@ -67,7 +67,7 @@
 #' map(ppi, map = basemap, param = "DBZH")
 #'
 #' # change the color palette, e.g. Viridis colors:
-#' map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
+#' map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim = c(-10, 10))
 #'
 #' # give the data more transparency:
 #' map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
@@ -145,11 +145,11 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
 
   # set color scales and palettes
   if (!are_equal(palette, NA)) {
-    if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
-    n_color = length(palette)
+    if (!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
+    n_color <- length(palette)
     colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
-  else{
+  else {
     palette <- color_palette(param = param, n_color = n_color, alpha = alpha)
     colorscale <- color_scale(param, zlim)
   }
@@ -195,9 +195,9 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   }
 
   # rasterize data on the raster, if there is valid data
-  if(FALSE %in% is.na(data[,1])){
+  if (FALSE %in% is.na(data[, 1])) {
     r <- raster::rasterize(data[, 2:3], r, data[, 1])
-  } else{
+  } else {
     raster::values(r) <- NA
   }
 
@@ -217,7 +217,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # global variable" during package Check
   lon <- lat <- y <- z <- NA
   # extract unique radar locations
-  latlon_radar <- unique(data.frame(lat=c(x$geo$lat), lon=c(x$geo$lon)))
+  latlon_radar <- unique(data.frame(lat = c(x$geo$lat), lon = c(x$geo$lon)))
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
@@ -250,5 +250,4 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       scale_y_continuous(limits = ylim, expand = c(0, 0))
   )
   suppressWarnings(mymap)
-
 }

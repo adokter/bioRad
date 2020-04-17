@@ -69,10 +69,18 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     dt <- as.difftime(interval, units = units)
   }
 
-  rounding_dt = lubridate::make_difftime(as.numeric(dt,units="secs"))
+  rounding_dt <- lubridate::make_difftime(as.numeric(dt, units = "secs"))
 
-  if(missing(date_min)) date_min <- tryCatch(lubridate::floor_date(ts$daterange[1],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[1]})
-  if(missing(date_max)) date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[2]})
+  if (missing(date_min)) {
+    date_min <- tryCatch(lubridate::floor_date(ts$daterange[1], paste(rounding_dt, attr(rounding_dt, "units"))), error = function(e) {
+      ts$daterange[1]
+    })
+  }
+  if (missing(date_max)) {
+    date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2], paste(rounding_dt, attr(rounding_dt, "units"))), error = function(e) {
+      ts$daterange[2]
+    })
+  }
 
   stopifnot(inherits(date_min, "POSIXct"))
   stopifnot(inherits(date_max, "POSIXct"))
@@ -80,7 +88,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
 
-  index <- data.table::setDT(data.frame(datetime=ts$datetime))[data.frame(grid), roll = "nearest", which = TRUE, on = "datetime==grid"]
+  index <- data.table::setDT(data.frame(datetime = ts$datetime))[data.frame(grid), roll = "nearest", which = TRUE, on = "datetime==grid"]
 
   quantity.names <- names(ts$data)
   ts$data <- lapply(
@@ -106,9 +114,9 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   names(ts$data) <- quantity.names
   ts$daterange <- daterange
   ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
-  if(!keep_datetime){
+  if (!keep_datetime) {
     ts$datetime <- grid
-  } else{
+  } else {
     ts$datetime <- ts$datetime[index]
   }
   ts$regular <- TRUE
