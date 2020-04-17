@@ -5,7 +5,8 @@
 \alias{get_quantity.vp}
 \alias{get_quantity.list}
 \alias{get_quantity.vpts}
-\title{Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})}
+\title{Get a quantity from a vertical profile (\code{vp}) or time series of vertical
+profiles (\code{vpts})}
 \usage{
 get_quantity(x, quantity)
 
@@ -16,26 +17,25 @@ get_quantity(x, quantity)
 \method{get_quantity}{vpts}(x, quantity = "dens")
 }
 \arguments{
-\item{x}{A vp or vpts object.}
+\item{x}{A \code{vp}, a list of \code{vp}s or a \code{vpts} object.}
 
 \item{quantity}{A profile quantity, one of:
 \itemize{
-\item{\code{"height"}}{}
-\item{\code{"u"}}{}
-\item{\code{"v"}}{}
-\item{\code{"w"}}{}
-\item{\code{"ff"}}{}
-\item{\code{"dd"}}{}
-\item{\code{"sd_vvp"}}{}
-\item{\code{"gap"}}{}
-\item{\code{"dbz"}}{}
-\item{\code{"eta"}}{}
-\item{\code{"dens"}}{}
-\item{\code{"DBZH"}}{}
-\item{\code{"n"}}{}
-\item{\code{"n_all"}}{}
-\item{\code{"n_dbz"}}{}
-\item{\code{"n_dbz_all"}}{}
+\item \code{u}
+\item \code{v}
+\item \code{w}
+\item \code{ff}
+\item \code{dd}
+\item \code{sd_vvp}
+\item \code{gap}
+\item \code{dbz}
+\item \code{eta}
+\item \code{dens}
+\item \code{DBZH}
+\item \code{n}
+\item \code{n_all}
+\item \code{n_dbz}
+\item \code{n_dbz_all}
 }}
 }
 \value{
@@ -48,7 +48,11 @@ class \code{vpts}: a (height x time) matrix of the
 requested quantity.
 }
 \description{
-Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})
+Outputs the requested quantity per height bin in a named vector (\code{vp}), a list of
+named vectors (list of \code{vp}s) or a height bin x time matrix (\code{vpts}). Default
+quanitity is density. Output for quanities "eta", "dbz", "ff", "u", "v", "w"
+and "dd" are set to 0, -inf or NaN if sd_vvp is larger than
+\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}.
 }
 \details{
 This function grabs any of the data quantities stored in
@@ -60,6 +64,6 @@ description of each of these quantities.
 # load example profile
 data(example_vp)
 
-# extract the animal density ("dens") quantity:
+# extract the animal density ("dens") quantity
 get_quantity(example_vp, "dens")
 }
