@@ -247,8 +247,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   assert_that(is.flag(dealias))
 
-  assert_that(is.dir(mount), msg = paste("Path '",mount,"' does not exist", sep=""))
-  assert_that(file.access(mount, 2) != -1, msg = paste("Path '",mount,"' has no write permission", sep=""))
+  assert_that(is.writeable(mount))
 
   assert_that(!.pkgenv$docker && missing(local_install),
       msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
@@ -261,6 +260,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(!(vpfile != "" && !file.exists(dirname(vpfile))), msg = paste("vpfile output directory", dirname(vpfile), "not found"))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
+  assert_that(is.writeable(filedir))
 
   assert_that(grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
       msg = paste("mountpoint 'mount' has to be a parent directory",
@@ -274,7 +274,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
               "Provide a single input file containing a polar volume, or run update_docker() to update"))
 
   profile.tmp <- tempfile(tmpdir = filedir)
-  assert_that(file.access(filedir, mode = 2) >= 0, msg = paste("Path '",filedir,"' has no write permission", sep=""))
 
   if (missing(local_install)) {
     assert_that(mount_docker_container(normalizePath(mount, winslash = "/")) == 0,
