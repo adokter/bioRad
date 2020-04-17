@@ -193,8 +193,22 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   # check input arguments
   for (filename in file) {
-    assert_that(file.exists(filename), msg=paste("No such file:", filename))
+    assert_that(file.exists(filename))
   }
+
+  if(!are_equal(vpfile,"")){
+    assert_that(is.writeable(dirname(vpfile)))
+  }
+
+  if(!are_equal(pvolfile_out,"")){
+    assert_that(is.writeable(dirname(pvolfile_out)))
+  }
+
+  assert_that(is.flag(autoconf))
+
+  assert_that(is.flag(verbose))
+
+  assert_that(is.writeable(mount))
 
   if (!missing(sd_vvp_threshold)) {
     assert_that(is.number(sd_vvp_threshold))
@@ -218,10 +232,10 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(elev_max > elev_min, msg = "elev_max is not larger than elev_min")
 
   assert_that(is.number(azim_min))
-  assert_that(azim_min > -90 & azim_min < 90, msg = "azim_min is not a number between 0 and 360")
+  assert_that(azim_min > 0 & azim_min < 360, msg = "azim_min is not a number between 0 and 360")
 
   assert_that(is.number(azim_max))
-  assert_that(azim_max > -90 & azim_max < 90, msg = "azim_max is not a number between 0 and 360")
+  assert_that(azim_max > 0 & azim_max < 360, msg = "azim_max is not a number between 0 and 360")
 
   assert_that(is.number(range_min))
   assert_that(range_min > 0, msg = "range_min is not a positive number")
@@ -247,17 +261,9 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   assert_that(is.flag(dealias))
 
-  assert_that(is.writeable(mount))
-
   assert_that(!.pkgenv$docker && missing(local_install),
       msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
       "your local Docker daemon, and run 'check_docker()' in R\n"))
-
-  assert_that(is.flag(autoconf))
-
-  assert_that(is.flag(verbose))
-
-  assert_that(!(vpfile != "" && !file.exists(dirname(vpfile))), msg = paste("vpfile output directory", dirname(vpfile), "not found"))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assert_that(is.writeable(filedir))
