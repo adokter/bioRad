@@ -33,7 +33,7 @@ calculate_vp(
 )
 }
 \arguments{
-\item{file}{string or a vector of strings with radar file(s) for a radar polar volume.
+\item{file}{character. String or a vector of strings with path(s) to radar file(s) for a radar polar volume.
 Provide either a single file containing a polar volume, or multiple files with single scans/sweeps.
 Data format should be either
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
@@ -103,9 +103,9 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 
 \item{mistnet}{logical. Whether to use MistNet segmentation model.}
 
-\item{local_install}{(optional) String with path to local vol2bird installation, see details.}
+\item{local_install}{character. (optional) String with path to local vol2bird installation, see details.}
 
-\item{pvolfile}{deprecated argument renamed to \code{file}.}
+\item{pvolfile}{character. Deprecated argument renamed to \code{file}.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When

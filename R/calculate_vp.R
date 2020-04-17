@@ -3,7 +3,7 @@
 #' Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
 #' using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
 #'
-#' @param file string or a vector of strings with radar file(s) for a radar polar volume.
+#' @param file character. String or a vector of strings with path(s) to radar file(s) for a radar polar volume.
 #' Provide either a single file containing a polar volume, or multiple files with single scans/sweeps.
 #' Data format should be either
 #' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
@@ -51,8 +51,8 @@
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param mistnet logical. Whether to use MistNet segmentation model.
-#' @param local_install (optional) String with path to local vol2bird installation, see details.
-#' @param pvolfile deprecated argument renamed to \code{file}.
+#' @param local_install character. (optional) String with path to local vol2bird installation, see details.
+#' @param pvolfile character. Deprecated argument renamed to \code{file}.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
 #' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
