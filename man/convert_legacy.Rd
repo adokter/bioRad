@@ -4,7 +4,7 @@
 \alias{convert_legacy}
 \alias{convert_legacy.vp}
 \alias{convert_legacy.vpts}
-\title{Convert legacy bioRad objects to latest version}
+\title{Convert legacy bioRad objects to current version}
 \usage{
 convert_legacy(x)
 
@@ -16,16 +16,16 @@ convert_legacy(x)
 \item{x}{A \code{vp}, or \code{vpts} object.}
 }
 \value{
-An updated object of the same class as the input
+An updated object of the same class as the input.
 }
 \description{
 Convert legacy bioRad objects (vp, vpts) that have become
-obsolete and make them compatible with latest bioRad version
+obsolete and make them compatible with the current bioRad version.
 }
 \examples{
 # convert a vp object:
 convert_legacy(example_vp)
 
-# convert a vpts object
+# convert a vpts object:
 convert_legacy(example_vpts)
 }
