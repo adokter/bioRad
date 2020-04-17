@@ -99,8 +99,8 @@ dim.ppi <- function(x) {
 
 #' Subset a plan position indicator (`ppi`)
 #'
-#' Select parameters (`param`) or derived quantities from a plan position
-#' indicator (`ppi`) by index.
+#' Select parameters (`param`) or derived quantities by index from a plan
+#' position indicator (`ppi`).
 #'
 #' @param x A `ppi` object.
 #' @param i Integer. Index/indices specifying which parameters (`param`) or

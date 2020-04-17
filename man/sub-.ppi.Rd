@@ -13,8 +13,8 @@
 derived quantities to extract.}
 }
 \description{
-Select parameters (\code{param}) or derived quantities from a plan position
-indicator (\code{ppi}) by index.
+Select parameters (\code{param}) or derived quantities by index from a plan
+position indicator (\code{ppi}).
 }
 \examples{
 # Load the example scan

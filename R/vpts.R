@@ -134,24 +134,28 @@ dim.vpts <- function(x) {
   c(data.dim, length(x$data))
 }
 
-#' Subset a time series of vertical profiles (\code{vpts})
+#' Subset a time series of vertical profiles (`vpts`)
 #'
-#' Select a vertical profile (\code{vp}) or a time series of vertical profiles
-#' (\code{vpts}) by index from a \code{vpts}
+#' Select a vertical profile (`vp`) or a time series of vertical profiles
+#' (`vpts`) by index from a `vpts`.
 #'
-#' @param x Object of class \code{vpts}.
-#' @param i Indices specifying elements to extract.
+#' @param x A `vpts` object.
+#' @param i Integer. Index/indices specifying which range of vertical profiles
+#'   to extract.
 #'
 #' @export
-#' @examples
-#' # we start with the example vertical profile time series:
-#' data(example_vpts)
-#' example_vpts
 #'
-#' # extract the 10th profile in the time series (returns a vp object)
+#' @examples
+#' # Load the example time series of vertical profiles
+#' data(example_vpts)
+#'
+#' # This vpts contains 1934 profiles (i.e. datetimes)
+#' dim(example_vpts)
+#'
+#' # Subset vpts to extract 10th profile (returns a vp object)
 #' example_vpts[10]
 #'
-#' # extract the 20th to 100th profile form the time series (returns a vpts object)
+#' # Subset vpts to extract the 20th to 100th profile (returns a vpts object)
 #' example_vpts[20:100]
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
@@ -175,7 +179,7 @@ dim.vpts <- function(x) {
   x$datetime <- x$datetime[i]
   x$daterange <- .POSIXct(c(min(x$datetime), max(x$datetime)), tz = "UTC")
   x$timesteps <- difftime(x$datetime[-1], x$datetime[-length(x$datetime)],
-                          units = "secs"
+    units = "secs"
   )
   if (length(unique(x$timesteps)) == 1) {
     x$regular <- TRUE
