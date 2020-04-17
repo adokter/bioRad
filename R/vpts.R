@@ -14,21 +14,21 @@
 #' A time series of vertical profiles contains time-ordered vertical profiles
 #' (`vp)` of a single radar. This time series can be **regular** (`vp` are
 #' equally spaced in time) or **irregular** (time steps between `vp` are of
-#' unequal length) and is indicated in the field `regular`. Irregular time
-#' series can be projected onto a regular time grid with [regularize_vpts()]. A
-#' time series of vertical profile (`vp`) object is a list containing:
+#' unequal length), indicated in the field `regular`. Irregular time series can
+#' be projected onto a regular time grid with [regularize_vpts()]. A time series
+#' of vertical profile (`vp`) object is a list containing:
 #' * `radar`: Radar identifier.
 #' * `datetime`: Nominal times of the profiles (named `dates` in biorad <
 #' 0.4.0) in UTC.
-#' * `height`: Heights of the layers in the profiles in m.
+#' * `height`: Lowest height of the height bins in the profiles in m.
 #' * `daterange`: Minimum and maximum nominal time of the profiles in UTC.
 #' * `timesteps`: Time differences between the profiles. Element `i` gives the
 #' difference between profile `i` and `i+1`.
 #' * `data`: A list of quantities, each containing a `datetime` by `height`
 #' matrix with the values. Use [get_quantity()] to access these and see
-#' [summary.vp()] for a description of available quantities. * `attributes`:
-#' List of the vertical profile's `where` and `how` attributes, copied from the
-#' first profile.
+#' [summary.vp()] for a description of available quantities.
+#' * `attributes`: List of the vertical profile's `where` and `how` attributes,
+#' copied from the first profile.
 #' * `regular`: Logical indicating whether the time series is regular or not.
 #'
 #' @seealso

@@ -33,13 +33,14 @@ R base functions for inspecting a vertical profile of biological targets
 }
 \details{
 A vertical profile of biological targets contains a collection of quantities,
-organized in different (typically equally spaced) altitude layers above the
-earth's surface. A vertical profile (\code{vp}) object is a list containing:
+organized in different (typically equally spaced) altitude layers (height
+bins) above the earth's surface. A vertical profile (\code{vp}) object is a list
+containing:
 \itemize{
 \item \code{radar}: Radar identifier.
 \item \code{datetime}: Nominal time of the volume to which the scan belongs in UTC.
-\item \code{data}: A data.frame with the profile's quantities. Use \code{\link[=get_quantity]{get_quantity()}} to
-access these:
+\item \code{data}: A data.frame with the profile's quantities organized per height
+bin. Use \code{\link[=get_quantity]{get_quantity()}} to access these:
 \itemize{
 \item \code{u}: Speed component west to east in m/s.
 \item \code{v}: Speed component north to south in m/s.

@@ -35,22 +35,22 @@ object.
 A time series of vertical profiles contains time-ordered vertical profiles
 (\verb{vp)} of a single radar. This time series can be \strong{regular} (\code{vp} are
 equally spaced in time) or \strong{irregular} (time steps between \code{vp} are of
-unequal length) and is indicated in the field \code{regular}. Irregular time
-series can be projected onto a regular time grid with \code{\link[=regularize_vpts]{regularize_vpts()}}. A
-time series of vertical profile (\code{vp}) object is a list containing:
+unequal length), indicated in the field \code{regular}. Irregular time series can
+be projected onto a regular time grid with \code{\link[=regularize_vpts]{regularize_vpts()}}. A time series
+of vertical profile (\code{vp}) object is a list containing:
 \itemize{
 \item \code{radar}: Radar identifier.
 \item \code{datetime}: Nominal times of the profiles (named \code{dates} in biorad <
 0.4.0) in UTC.
-\item \code{height}: Heights of the layers in the profiles in m.
+\item \code{height}: Lowest height of the height bins in the profiles in m.
 \item \code{daterange}: Minimum and maximum nominal time of the profiles in UTC.
 \item \code{timesteps}: Time differences between the profiles. Element \code{i} gives the
 difference between profile \code{i} and \code{i+1}.
 \item \code{data}: A list of quantities, each containing a \code{datetime} by \code{height}
 matrix with the values. Use \code{\link[=get_quantity]{get_quantity()}} to access these and see
-\code{\link[=summary.vp]{summary.vp()}} for a description of available quantities. * \code{attributes}:
-List of the vertical profile's \code{where} and \code{how} attributes, copied from the
-first profile.
+\code{\link[=summary.vp]{summary.vp()}} for a description of available quantities.
+\item \code{attributes}: List of the vertical profile's \code{where} and \code{how} attributes,
+copied from the first profile.
 \item \code{regular}: Logical indicating whether the time series is regular or not.
 }
 }

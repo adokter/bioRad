@@ -12,12 +12,13 @@
 #'
 #' @details
 #' A vertical profile of biological targets contains a collection of quantities,
-#' organized in different (typically equally spaced) altitude layers above the
-#' earth's surface. A vertical profile (`vp`) object is a list containing:
+#' organized in different (typically equally spaced) altitude layers (height
+#' bins) above the earth's surface. A vertical profile (`vp`) object is a list
+#' containing:
 #' * `radar`: Radar identifier.
 #' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
-#' * `data`: A data.frame with the profile's quantities. Use [get_quantity()] to
-#' access these:
+#' * `data`: A data.frame with the profile's quantities organized per height
+#' bin. Use [get_quantity()] to access these:
 #'   * `u`: Speed component west to east in m/s.
 #'   * `v`: Speed component north to south in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
