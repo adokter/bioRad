@@ -53,10 +53,14 @@ bin. Use \code{\link[=get_quantity]{get_quantity()}} to access these:
 \item \code{eta}: Animal reflectivity in cm^2/km^3.
 \item \code{dens}: Animal density in animals/km^3.
 \item \code{DBZH}: Total reflectivity factor (bio + meteo scattering) in dBZ.
-\item \code{n}: Number of points VVPvelocity analysis (\code{u}, \code{v}, \code{w}, \code{ff}, \code{dd}).
-\item \code{n_all}: Number of points VVP st.dev. estimate (\code{sd_vvp}).
-\item \code{n_dbz}: Number of points density estimate (\code{dbz}, \code{eta}, \code{dens}).
-\item \code{n_dbz_all}: Number of points total reflectivity estimate in DBZH.
+\item \code{n}: Number of data points used for the ground speed estimates
+(quantities \code{u}, \code{v}, \code{w}, \code{ff}, \code{dd}).
+\item \code{n_all}: Number of data points used for the radial velocity standard
+deviation estimate (quantity \code{sd_vvp}).
+\item \code{n_dbz}: Number of data points used for reflectivity-based estimates
+(quantities \code{dbz}, \code{eta}, \code{dens}).
+\item \code{n_dbz_all}: Number of data points used for the total reflectivity
+estimate (quantity \code{DBZH}).
 }
 \item \code{attributes}: List of the vertical profile's \code{what}, \code{where} and \code{how}
 attributes.

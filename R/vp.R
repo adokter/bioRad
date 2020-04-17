@@ -30,10 +30,14 @@
 #'   * `eta`: Animal reflectivity in cm^2/km^3.
 #'   * `dens`: Animal density in animals/km^3.
 #'   * `DBZH`: Total reflectivity factor (bio + meteo scattering) in dBZ.
-#'   * `n`: Number of points VVPvelocity analysis (`u`, `v`, `w`, `ff`, `dd`).
-#'   * `n_all`: Number of points VVP st.dev. estimate (`sd_vvp`).
-#'   * `n_dbz`: Number of points density estimate (`dbz`, `eta`, `dens`).
-#'   * `n_dbz_all`: Number of points total reflectivity estimate in DBZH.
+#'   * `n`: Number of data points used for the ground speed estimates
+#'   (quantities `u`, `v`, `w`, `ff`, `dd`).
+#'   * `n_all`: Number of data points used for the radial velocity standard
+#'   deviation estimate (quantity `sd_vvp`).
+#'   * `n_dbz`: Number of data points used for reflectivity-based estimates
+#'   (quantities `dbz`, `eta`, `dens`).
+#'   * `n_dbz_all`: Number of data points used for the total reflectivity
+#'   estimate (quantity `DBZH`).
 #' * `attributes`: List of the vertical profile's `what`, `where` and `how`
 #' attributes.
 #'
