@@ -43,7 +43,7 @@ test_that("as.data.frame() returns the correct data", {
   expect_equal(df$sd_vvp[13], 2.994742, tolerance = 0.001)
 })
 
-test_that("By default, suntime is TRUE and suntime information is added to each row", {
+test_that("as.data.frame(): by default, suntime is TRUE and suntime information is added to each row", {
   data("example_vp")
 
   df <- as.data.frame(example_vp)
@@ -54,7 +54,7 @@ test_that("By default, suntime is TRUE and suntime information is added to each 
   expect_is(df$day, "logical")
 })
 
-test_that("If suntime is (explicitly) TRUE, suntime information is added to each row", {
+test_that("as.data.frame(): if suntime is (explicitly) TRUE, suntime information is added to each row", {
   data("example_vp")
 
   df <- as.data.frame(example_vp, suntime = TRUE)
@@ -65,7 +65,7 @@ test_that("If suntime is (explicitly) TRUE, suntime information is added to each
   expect_is(df$day, "logical")
 })
 
-test_that("values in suntime/sunset/day cols are correct", {
+test_that("as.data.frame(): values in suntime/sunset/day cols are correct", {
   data("example_vp")
 
   df <- as.data.frame(example_vp, suntime = TRUE)
@@ -93,7 +93,7 @@ test_that("values in suntime/sunset/day cols are correct", {
   expect_true(df$day[1])
 })
 
-test_that("If suntime is FALSE, suntime information is *not* added to each row", {
+test_that("as.data.frame(): if suntime is FALSE, suntime information is *not* added to each row", {
   data("example_vp")
 
   df <- as.data.frame(example_vp, suntime = FALSE)
@@ -104,7 +104,7 @@ test_that("If suntime is FALSE, suntime information is *not* added to each row",
   expect_null(df$day)
 })
 
-test_that("By default, geo is TRUE and lat/lon/antenna height is added to each row", {
+test_that("as.data.frame(): by default, geo is TRUE and lat/lon/antenna height is added to each row", {
   data("example_vp")
 
   df <- as.data.frame(example_vp)
@@ -115,7 +115,7 @@ test_that("By default, geo is TRUE and lat/lon/antenna height is added to each r
   expect_is(df$height_antenna, "numeric")
 })
 
-test_that("If geo is (explicitly) TRUE, lat/lon/antenna height is added to each row", {
+test_that("as.data.frame(): if geo is (explicitly) TRUE, lat/lon/antenna height is added to each row", {
   data("example_vp")
 
   df <- as.data.frame(example_vp, geo = TRUE)
@@ -135,7 +135,7 @@ test_that("If geo is (explicitly) TRUE, lat/lon/antenna height is added to each 
   expect_equal(unique(df[["height_antenna"]]), height_from_metadata)
 })
 
-test_that("If geo is FALSE, lat/lon/antenna height is added to each row", {
+test_that("as.data.frame(): if geo is FALSE, lat/lon/antenna height is added to each row", {
   data("example_vp")
 
   df <- as.data.frame(example_vp, geo = FALSE)
@@ -146,7 +146,7 @@ test_that("If geo is FALSE, lat/lon/antenna height is added to each row", {
   expect_null(df$height_antenna)
 })
 
-test_that("If we manually set lat/lon, those are the value that should appear in the df", {
+test_that("as.data.frame(): if we manually set lat/lon, those are the value that should appear in the df", {
   data("example_vp")
 
   df <- as.data.frame(example_vp, geo = TRUE, lat = 50.6472, lon = 4.3603)
@@ -157,6 +157,6 @@ test_that("If we manually set lat/lon, those are the value that should appear in
 })
 
 # TODO: test explicit row names (with row.names)
-# TODO: test explicitly selecting quantities (also requensting a non-existent quantity)
+# TODO: test explicitly selecting quantities (also requesting a non-existent quantity)
 # TODO: test "optional" argument
-# TODO: replace "stopifnot" in vp.R?? Or is that out of scope
+
