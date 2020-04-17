@@ -81,7 +81,7 @@ undetects.
 }
 
 \examples{
-# Load the example vp
+# Load the example vertical profile
 data(example_vp)
 
 # Verify that it is an object of class vp
