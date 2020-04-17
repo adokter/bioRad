@@ -376,27 +376,27 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     }
   }
 
+  docker_command <- paste(
+    "docker exec vol2bird bash -c \"cd data && vol2bird ",
+    pvolfile_docker, profile.tmp.docker,
+    pvolfile_out_docker, "\""
+  )
+
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
+    # on mac and linux:
     if (missing(local_install)) {
-      result <- system(paste(
-        "docker exec vol2bird bash -c \"cd data && vol2bird ",
-        pvolfile_docker, profile.tmp.docker,
-        pvolfile_out_docker, "\""
-      ),
+      result <- system(docker_command,
       ignore.stdout = !verbose
       )
     }
     else {
+      # using a local install of vol2bird:
       result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""), ignore.stdout = !verbose)
     }
   } else {
-    winstring <- paste(
-      "docker exec vol2bird bash -c \"cd data && vol2bird ",
-      pvolfile_docker, profile.tmp.docker,
-      pvolfile_out_docker, "\""
-    )
-    result <- suppressWarnings(system(winstring))
+    # on Windows platforms:
+    result <- suppressWarnings(system(docker_command))
   }
   if (result != 0) {
     if (file.exists(optfile)) file.remove(optfile)
