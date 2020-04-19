@@ -38,26 +38,26 @@ test_that("rcs()<- updates rcs", {
 test_that("rcs()<- updates density", {
   # Not tested for vp_list as that is a repetition of vp method
 
-  # Precondition: at least some of the dens > 0 below sd_vvp_threshold
-  # This is not the case for sd_vvp_threshold = 2, which is why it is set to 3
-  vp$attributes$how$sd_vvp_thresh <- 3
-  vpts$attributes$how$sd_vvp_thresh <- 3
-  expect_true(any(vp$data$dens[vp$data$sd_vvp < 3] > 0, na.rm = TRUE))
-  expect_true(any(vpts$data$dens[vpts$data$sd_vvp < 3] > 0, na.rm = TRUE))
+  # rcs()<- should set none-NA densities to 0 if below sd_vvp_threshold.
+  # In the example_vp, all densities are NA below its sd_vvp_threshold of 2, so
+  # we set a higher sd_vvp_threshold to have some none-NA values:
+  vp$attributes$how$sd_vvp_thresh <- 4
+  vpts$attributes$how$sd_vvp_thresh <- 4
 
+  # Set rcs
   rcs(vp) <- 6
   rcs(vpts) <- 6
 
-  # dens = eta/rcs when above sd_vvp_threshold
+  # If above sd_vvp_threshold: dens = eta/rcs
   expect_equal(
-    vp$data$dens[vp$data$sd_vvp >= 3], vp$data$eta[vp$data$sd_vvp >= 3] / 6
+    vp$data$dens[vp$data$sd_vvp >= 4], vp$data$eta[vp$data$sd_vvp >= 4] / 6
   )
   expect_equal(
-    vpts$data$dens[vpts$data$sd_vvp >= 3], vpts$data$eta[vpts$data$sd_vvp >= 3] / 6
+    vpts$data$dens[vpts$data$sd_vvp >= 4], vpts$data$eta[vpts$data$sd_vvp >= 4] / 6
   )
-  # dens = 0 when below sd_vvp_threshold and not NA
-  expect_true(all(vp$data$dens[vp$data$sd_vvp < 3] == 0, na.rm = TRUE))
-  expect_true(all(vpts$data$dens[vpts$data$sd_vvp < 3] == 0, na.rm = TRUE))
+  # If below sd_vvp_threshold and not NA: dens = 0
+  expect_true(all(vp$data$dens[vp$data$sd_vvp < 4] == 0, na.rm = TRUE))
+  expect_true(all(vpts$data$dens[vpts$data$sd_vvp < 4] == 0, na.rm = TRUE))
 })
 
 test_that("rcs()<- sets sd_vvp_threshold to 2 when NULL", {

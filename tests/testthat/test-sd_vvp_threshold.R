@@ -36,11 +36,30 @@ test_that("sd_vvp_threshold()<- updates sd_vvp_thresh", {
 test_that("sd_vvp_threshold()<- updates density", {
   # Not tested for vp_list as that is a repetition of vp method
 
-  # Precondition: at least some of the dens > 0 below sd_vvp_threshold
-  # This is not the case for sd_vvp_threshold = 2, which is why it is set to 3
-  sd_vvp_threshold(vp) <- 3
-  sd_vvp_threshold(vpts) <- 3
+  # Set a sd_vvp_threshold
+  sd_vvp_threshold(vp) <- 4
+  sd_vvp_threshold(vpts) <- 4
 
-  expect_true(any(vp$data$dens[vp$data$sd_vvp < 3] == 0, na.rm = TRUE))
-  expect_true(any(vpts$data$dens[vpts$data$sd_vvp < 3] == 0, na.rm = TRUE))
+  # If above sd_vvp_threshold: dens = eta/rcs
+  expect_equal(
+    vp$data$dens[vp$data$sd_vvp >= 4], vp$data$eta[vp$data$sd_vvp >= 4] / vp$attributes$how$rcs_bird
+  )
+  expect_equal(
+    vpts$data$dens[vpts$data$sd_vvp >= 4], vpts$data$eta[vpts$data$sd_vvp >= 4] / vpts$attributes$how$rcs_bird
+  )
+
+  # If below sd_vvp_threshold and not NA: dens = 0
+  expect_true(any(vp$data$dens[vp$data$sd_vvp < 4] == 0, na.rm = TRUE))
+  expect_true(any(vpts$data$dens[vpts$data$sd_vvp < 4] == 0, na.rm = TRUE))
+})
+
+test_that("sd_vvp_threshold()<- sets rcs to 11 when NULL", {
+  # Not tested for vp_list as that is a repetition of vp method
+
+  vp$attributes$how$rcs_bird <- NULL
+  vpts$attributes$how$rcs_bird <- NULL
+  expect_warning(sd_vvp_threshold(vp) <- 4, "Radar cross section not set, defaulting to 11 cm^2.", fixed = TRUE)
+  expect_warning(sd_vvp_threshold(vpts) <- 4, "Radar cross section not set, defaulting to 11 cm^2.", fixed = TRUE)
+  expect_equal(rcs(vp), 11)
+  expect_equal(rcs(vpts), 11)
 })
