@@ -23,8 +23,9 @@ sd_vvp_threshold(x) <- value
 \description{
 Sets the threshold of radial velocity standard deviation (\code{sd_vvp}) of an
 object in m/s. Altitude layers with \code{sd_vvp} below this threshold are assumed
-to have an aerial density of zero individuals. This method also updates the
-migration densities in \code{x$data$dens}.
+to have an aerial density of zero individuals. This function also updates the
+migration densities in \code{x$data$dens} to \code{eta}/\code{rcs} when above
+\code{sd_vvp_threshold} and \code{0} if below.
 }
 \examples{
 # Set the sd_vvp threshold for a vp
@@ -34,6 +35,8 @@ sd_vvp_threshold(example_vp) <- 2
 sd_vvp_threshold(example_vp) <- 2
 }
 \seealso{
-\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}} for getting the \code{sd_vvp} threshold of an
-object.
+\itemize{
+\item \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}} for getting the \code{sd_vvp} threshold of an object.
+\item \code{\link[=rcs<-]{rcs()<-}}
+}
 }

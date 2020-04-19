@@ -9,8 +9,10 @@
 #'
 #' @export
 #'
-#' @seealso [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the
-#'   `sd_vvp` threshold of an object.
+#' @seealso
+#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
+#' threshold of an object.
+#' * [rcs()]
 #'
 #' @examples
 #' # Get the sd_vvp threshold for a vp
@@ -54,16 +56,18 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' Sets the threshold of radial velocity standard deviation (`sd_vvp`) of an
 #' object in m/s. Altitude layers with `sd_vvp` below this threshold are assumed
-#' to have an aerial density of zero individuals. This method also updates the
-#' migration densities in `x$data$dens`.
+#' to have an aerial density of zero individuals. This function also updates the
+#' migration densities in `x$data$dens` to `eta`/`rcs` when above
+#' `sd_vvp_threshold` and `0` if below.
 #'
 #' @inheritParams sd_vvp_threshold
 #' @param value Double. The `sd_vvp` threshold value to assign in m/s.
 #'
 #' @export
 #'
-#' @seealso [sd_vvp_threshold()] for getting the `sd_vvp` threshold of an
-#'   object.
+#' @seealso
+#' * [sd_vvp_threshold()] for getting the `sd_vvp` threshold of an object.
+#' * [`rcs()<-`][rcs<-]
 #'
 #' @examples
 #' # Set the sd_vvp threshold for a vp
