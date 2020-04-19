@@ -24,8 +24,9 @@ rcs(x) <- value
 \item{value}{Double. The radar cross section value to assign in cm^2.}
 }
 \description{
-Sets the assumed radar cross section of an object in cm^2. This method also
-updates the migration densities in \code{x$data$dens}.
+Sets the assumed radar cross section of an object in cm^2. This function also
+updates the migration densities in \code{x$data$dens} to \code{eta}/\code{rcs} when above
+\code{sd_vvp_threshold} and \code{0} if below.
 }
 \examples{
 # Set the radar cross section for a vp
@@ -39,5 +40,8 @@ example_vpi <- integrate_profile(example_vpts)
 rcs(example_vpi) <- 11
 }
 \seealso{
-\code{\link[=rcs]{rcs()}} for getting the radar cross section of an object.
+\itemize{
+\item \code{\link[=rcs]{rcs()}} for getting the radar cross section of an object.
+\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}}
+}
 }

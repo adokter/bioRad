@@ -8,7 +8,9 @@
 #'
 #' @export
 #'
-#' @seealso [`rcs()<-`][rcs<-] for setting the radar cross section of an object.
+#' @seealso
+#' * [`rcs()<-`][rcs<-] for setting the radar cross section of an object.
+#' * [sd_vvp_threshold()]
 #'
 #' @examples
 #' # Get the radar cross section for a vp
@@ -62,15 +64,18 @@ rcs.vpi <- function(x) {
 
 #' Set radar cross section
 #'
-#' Sets the assumed radar cross section of an object in cm^2. This method also
-#' updates the migration densities in `x$data$dens`.
+#' Sets the assumed radar cross section of an object in cm^2. This function also
+#' updates the migration densities in `x$data$dens` to `eta`/`rcs` when above
+#' `sd_vvp_threshold` and `0` if below.
 #'
 #' @inheritParams rcs
 #' @param value Double. The radar cross section value to assign in cm^2.
 #'
 #' @export
 #'
-#' @seealso [rcs()] for getting the radar cross section of an object.
+#' @seealso
+#' * [rcs()] for getting the radar cross section of an object.
+#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-]
 #'
 #' @examples
 #' # Set the radar cross section for a vp
