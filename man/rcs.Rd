@@ -29,14 +29,16 @@ Gives the currently assumed radar cross section of an object in cm^2.
 }
 \examples{
 # Get the radar cross section for a vp
-rcs(example_vp)
+vp <- example_vp
+rcs(vp)
 
 # Get the radar cross section for a vpts
-rcs(example_vpts)
+vpts <- example_vpts
+rcs(vpts)
 
 # Get the radar cross section for a vpi
-example_vpi <- integrate_profile(example_vpts)
-rcs(example_vpi)
+vpi <- integrate_profile(example_vpts)
+rcs(vpi)
 }
 \seealso{
 \itemize{

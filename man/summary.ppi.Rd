@@ -52,20 +52,17 @@ or \code{\link[=composite_ppi]{composite_ppi()}}.
 }
 }
 \examples{
-# Load the example scan
-data(example_scan)
-
-# Project scan as ppi
-example_ppi <- project_as_ppi(example_scan)
+# Project the example scan as a ppi
+ppi <- project_as_ppi(example_scan)
 
 # Verify that it is an object of class ppi
-is.ppi(example_ppi)
+is.ppi(ppi)
 
 # Get summary info
-example_ppi # Same as summary(example_ppi) or print(example_ppi)
+ppi # Same as summary(ppi) or print(ppi)
 
 # Get dimensions
-dim(example_ppi)
+dim(ppi)
 }
 \seealso{
 \itemize{

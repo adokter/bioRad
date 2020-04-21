@@ -44,17 +44,16 @@
 #'
 #' @examples
 #' # Load the example time series of vertical profiles
-#' data(example_vpts)
-#' example_vpts
+#' vpts <- example_vpts
 #'
 #' # Verify that it is an object of class vpts
-#' is.vpts(example_vpts)
+#' is.vpts(vpts)
 #'
 #' # Get summary info
-#' example_vpts # Same as summary(example_vpts) or print(example_vpts)
+#' vpts # Same as summary(vpts) or print(vpts)
 #'
 #' # Get dimensions
-#' dim(example_vpts)
+#' dim(vpts)
 summary.vpts <- function(x, ...) {
   print.vpts(x)
 }
@@ -150,16 +149,16 @@ dim.vpts <- function(x) {
 #'
 #' @examples
 #' # Load the example time series of vertical profiles
-#' data(example_vpts)
+#' vpts <- example_vpts
 #'
 #' # This vpts contains 1934 profiles (i.e. datetimes)
-#' dim(example_vpts)
+#' dim(vpts)
 #'
 #' # Subset vpts to extract 10th profile (returns a vp object)
-#' example_vpts[10]
+#' vpts[10]
 #'
 #' # Subset vpts to extract the 20th to 100th profile (returns a vpts object)
-#' example_vpts[20:100]
+#' vpts[20:100]
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
   if (length(i) < 1) {
@@ -237,22 +236,21 @@ dim.vpts <- function(x) {
 #' thresholded by \link{sd_vvp_threshold}.
 #'
 #' @examples
-#' # load an example vertical profile time series object
-#' data(example_vpts)
-#' example_vpts
+#' # Load the example time series of vertical profiles
+#' vpts <- example_vpts
 #'
-#' # convert the object to a data.frame
-#' df <- as.data.frame(example_vpts)
+#' # Convert to a data.frame
+#' vpts_df <- as.data.frame(vpts)
 #'
-#' # do not compute sunrise/sunset information
-#' df <- as.data.frame(example_vpts, suntime = FALSE)
+#' # Print the first 10 rows of the data.frame
+#' vpts_df[1:10, ]
 #'
-#' # override the latitude/longitude information stored in the object
-#' # when calculating sunrise / sunset
-#' df <- as.data.frame(example_vpts, suntime = TRUE, lat = 50, lon = 4)
+#' # Do not compute sunrise/sunset information
+#' vpts_df <- as.data.frame(vpts, suntime = FALSE)
 #'
-#' # print first then rows of data.frame to console:
-#' df[1:10, ]
+#' # Override the latitude/longitude information stored in the object when
+#' # calculating sunrise/sunset information
+#' vpts_df <- as.data.frame(vpts, suntime = TRUE, lat = 50, lon = 4)
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
                                quantities = names(x$data), suntime = TRUE,
                                geo = TRUE, elev = -0.268, lat = NULL,

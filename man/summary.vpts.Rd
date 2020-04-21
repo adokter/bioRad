@@ -56,17 +56,16 @@ copied from the first profile.
 }
 \examples{
 # Load the example time series of vertical profiles
-data(example_vpts)
-example_vpts
+vpts <- example_vpts
 
 # Verify that it is an object of class vpts
-is.vpts(example_vpts)
+is.vpts(vpts)
 
 # Get summary info
-example_vpts # Same as summary(example_vpts) or print(example_vpts)
+vpts # Same as summary(vpts) or print(vpts)
 
 # Get dimensions
-dim(example_vpts)
+dim(vpts)
 }
 \seealso{
 \itemize{

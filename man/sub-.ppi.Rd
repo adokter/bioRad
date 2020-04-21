@@ -20,18 +20,15 @@ Select parameters (\code{param}) or derived quantities by index from a plan
 position indicator (\code{ppi}).
 }
 \examples{
-# Load the example scan
-data(example_scan)
-
-# Project scan as ppi
-example_ppi <- project_as_ppi(example_scan)
+# Project the example scan as a ppi
+ppi <- project_as_ppi(example_scan)
 
 # This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)
-example_ppi
+ppi
 
 # Subset ppi to one containing only the first parameter (VRADH)
-example_ppi[1]
+ppi[1]
 
 # Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
-example_ppi[1:3]
+ppi[1:3]
 }
