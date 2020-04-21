@@ -1,12 +1,12 @@
-#' Get a scan (\code{scan}) from a polar volume (\code{pvol})
+#' Get a scan (`scan`) from a polar volume (`pvol`)
 #'
-#' @param x An object of class \code{pvol}.
+#' Returns the scan with elevation angle closest
+#' to `elev`.
+#'
+#' @param x An object of class `pvol`.
 #' @param elev Elevation angle.
 #'
-#' @return An object of class '\link[=summary.scan]{scan}'.
-#'
-#' @details The function returns the scan with elevation angle closest
-#' to \code{elev}.
+#' @return An object of class [scan][summary.scan].
 #'
 #' @export
 #' @examples
@@ -22,6 +22,6 @@
 #' # print summary info for this scan:
 #' scan
 get_scan <- function(x, elev) {
-  stopifnot(inherits(x, "pvol"))
+  assert_that(class(x) == "pvol", msg = "`x` must be a pvol object.")
   x$scans[[which.min(abs(get_elevation_angles(x) - elev))]]
 }

@@ -12,13 +12,10 @@ get_scan(x, elev)
 \item{elev}{Elevation angle.}
 }
 \value{
-An object of class '\link[=summary.scan]{scan}'.
+An object of class \link[=summary.scan]{scan}.
 }
 \description{
-Get a scan (\code{scan}) from a polar volume (\code{pvol})
-}
-\details{
-The function returns the scan with elevation angle closest
+Returns the scan with elevation angle closest
 to \code{elev}.
 }
 \examples{
