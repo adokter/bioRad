@@ -2,83 +2,82 @@
 % Please edit documentation in R/vpts.R
 \name{summary.vpts}
 \alias{summary.vpts}
+\alias{print.vpts}
 \alias{is.vpts}
 \alias{dim.vpts}
-\title{Class \code{vpts}: a time series of vertical profiles}
+\title{Inspect a time series of vertical profiles (\code{vpts})}
 \usage{
-\method{summary}{vpts}(object, ...)
+\method{summary}{vpts}(x, ...)
+
+\method{print}{vpts}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.vpts(x)
 
 \method{dim}{vpts}(x)
 }
 \arguments{
-\item{object}{An object of class \code{vpts}.}
+\item{x}{A \code{vpts} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
-
-\item{x}{An object of class \code{vpts}.}
 }
 \value{
-For \code{is.vpts}: \code{TRUE} if its argument is of
-class \code{vpts}.
+For \code{\link[=is.vpts]{is.vpts()}}: \code{TRUE} for an object of class \code{vpts}, otherwise
+\code{FALSE}.
 
-For \code{dim.vpts}: dimensions of the time series.
+For \code{\link[=dim.vpts]{dim.vpts()}}: number of heights, datetimes and quantities in a
+time series of vertical profiles (\code{vpts}).
 }
 \description{
-Class \code{vpts} for a time series of vertical profiles, and its associated
-R base functions.
+R base functions for inspecting a time series of vertical profiles (\code{vp})
+object.
 }
 \details{
-An object of class \code{vpts} contains time-ordered profiles of a single
-radar station.
-
-The time series can be regular or irregular, indicated by the \code{regular}
-field
-
-In a regular \code{vpts} object the profiles are equally spaced in time. In
-an irregular \code{vpts} object the time steps between profiles are of
-unequal length.
-
-Irregular time series can be projected onto a regular time grid using
-the \link{regularize_vpts} function.
-
-By contrast, \link[=summary.vp]{vp} objects can be concatenated in a list
-to combine profiles without time ordering, and profiles of
-multiple radars.
-
-Data contained in this class object should be accessed with the
-\link{get_quantity} function. Information stored under \code{attributes}
-(see below) can be accessed directly.
-
-An object of class \code{vpts} is a list containing
-\describe{
-\item{\code{radar}}{string containing the radar identifier}
-\item{\code{datetime}}{the \code{N} nominal times of the profiles (named \code{dates} in bioRad versions < 0.4.0)}
-\item{\code{height}}{the \code{M} heights of the layers in the profile}
-\item{\code{daterange}}{the minimum and maximum nominal time of the
-profiles in the list}
-\item{\code{timesteps}}{time differences between the profiles. Element
-\code{i} gives the time difference between profile \code{i} and
-\code{i+1}}
-\item{\code{data}}{list of \code{N} by \code{M} matrices containing the
-vertical profiles for each quantity. For a description of available
-quantities, see the \code{data} element of the \code{vp} class in
-\link[=summary.vp]{read_vpfiles}}
-\item{\code{attributes}}{profile attributes, copied from the first profile
-contained in \code{x}}
-\item{\code{regular}}{logical indicating whether the time series is
-regular or not}
+A time series of vertical profiles contains time-ordered vertical profiles
+(\verb{vp)} of a single radar. This time series can be \strong{regular} (\code{vp} are
+equally spaced in time) or \strong{irregular} (time steps between \code{vp} are of
+unequal length), indicated in the field \code{regular}. Irregular time series can
+be projected onto a regular time grid with \code{\link[=regularize_vpts]{regularize_vpts()}}. A time series
+of vertical profile (\code{vp}) object is a list containing:
+\itemize{
+\item \code{radar}: Radar identifier.
+\item \code{datetime}: Nominal times of the profiles (named \code{dates} in biorad <
+0.4.0) in UTC.
+\item \code{height}: Lowest height of the height bins in the profiles in m.
+\item \code{daterange}: Minimum and maximum nominal time of the profiles in UTC.
+\item \code{timesteps}: Time differences between the profiles. Element \code{i} gives the
+difference between profile \code{i} and \code{i+1}.
+\item \code{data}: A list of quantities, each containing a \code{datetime} by \code{height}
+matrix with the values. Use \code{\link[=get_quantity]{get_quantity()}} to access these and see
+\code{\link[=summary.vp]{summary.vp()}} for a description of available quantities.
+\item \code{attributes}: List of the vertical profile's \code{where} and \code{how} attributes,
+copied from the first profile.
+\item \code{regular}: Logical indicating whether the time series is regular or not.
 }
 }
 \examples{
-# load example vertical profile time series:
+# Load the example time series of vertical profiles
 data(example_vpts)
 example_vpts
 
-# verify this is a vpts object
+# Verify that it is an object of class vpts
 is.vpts(example_vpts)
 
-# dimensions of the vpts object
+# Get summary info
+example_vpts # Same as summary(example_vpts) or print(example_vpts)
+
+# Get dimensions
 dim(example_vpts)
+}
+\seealso{
+\itemize{
+\item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
+\item \code{\link[=read_vpts]{read_vpts()}}
+\item \code{\link[=filter_vpts]{filter_vpts()}}
+\item \code{\link[=regularize_vpts]{regularize_vpts()}}
+\item \code{\link{example_vpts}}
+\item \code{\link[=get_quantity]{get_quantity()}}
+\item \code{\link[=plot.vp]{plot.vp()}}
+\item \code{\link[=as.data.frame.vpts]{as.data.frame.vpts()}}
+\item \code{\link[=[.vpts]{[vpts()}}
+}
 }

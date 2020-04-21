@@ -1,10 +1,9 @@
-#' Class \code{vpts}: a time series of vertical profiles
+#' Inspect a time series of vertical profiles (`vpts`)
 #'
-#' Class \code{vpts} for a time series of vertical profiles, and its associated
-#' R base functions.
+#' R base functions for inspecting a time series of vertical profiles (`vp`)
+#' object.
 #'
-#' @param object An object of class \code{vpts}.
-#' @param x An object of class \code{vpts}.
+#' @param x A `vpts` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vpts
@@ -12,99 +11,154 @@
 #' @export
 #'
 #' @details
-#' An object of class \code{vpts} contains time-ordered profiles of a single
-#' radar station.
+#' A time series of vertical profiles contains time-ordered vertical profiles
+#' (`vp)` of a single radar. This time series can be **regular** (`vp` are
+#' equally spaced in time) or **irregular** (time steps between `vp` are of
+#' unequal length), indicated in the field `regular`. Irregular time series can
+#' be projected onto a regular time grid with [regularize_vpts()]. A time series
+#' of vertical profile (`vp`) object is a list containing:
+#' * `radar`: Radar identifier.
+#' * `datetime`: Nominal times of the profiles (named `dates` in biorad <
+#' 0.4.0) in UTC.
+#' * `height`: Lowest height of the height bins in the profiles in m.
+#' * `daterange`: Minimum and maximum nominal time of the profiles in UTC.
+#' * `timesteps`: Time differences between the profiles. Element `i` gives the
+#' difference between profile `i` and `i+1`.
+#' * `data`: A list of quantities, each containing a `datetime` by `height`
+#' matrix with the values. Use [get_quantity()] to access these and see
+#' [summary.vp()] for a description of available quantities.
+#' * `attributes`: List of the vertical profile's `where` and `how` attributes,
+#' copied from the first profile.
+#' * `regular`: Logical indicating whether the time series is regular or not.
 #'
-#' The time series can be regular or irregular, indicated by the \code{regular}
-#' field
+#' @seealso
+#' * [bind_into_vpts()]
+#' * [read_vpts()]
+#' * [filter_vpts()]
+#' * [regularize_vpts()]
+#' * [`example_vpts`]
+#' * [get_quantity()]
+#' * [plot.vp()]
+#' * [as.data.frame.vpts()]
+#' * \code{\link[=[.vpts]{[vpts()}}
 #'
-#' In a regular \code{vpts} object the profiles are equally spaced in time. In
-#' an irregular \code{vpts} object the time steps between profiles are of
-#' unequal length.
-#'
-#' Irregular time series can be projected onto a regular time grid using
-#' the \link{regularize_vpts} function.
-#'
-#' By contrast, \link[=summary.vp]{vp} objects can be concatenated in a list
-#' to combine profiles without time ordering, and profiles of
-#' multiple radars.
-#'
-#' Data contained in this class object should be accessed with the
-#' \link{get_quantity} function. Information stored under \code{attributes}
-#' (see below) can be accessed directly.
-#'
-#' An object of class \code{vpts} is a list containing
-#' \describe{
-#'  \item{\code{radar}}{string containing the radar identifier}
-#'  \item{\code{datetime}}{the \code{N} nominal times of the profiles (named \code{dates} in bioRad versions < 0.4.0)}
-#'  \item{\code{height}}{the \code{M} heights of the layers in the profile}
-#'  \item{\code{daterange}}{the minimum and maximum nominal time of the
-#'    profiles in the list}
-#'  \item{\code{timesteps}}{time differences between the profiles. Element
-#'    \code{i} gives the time difference between profile \code{i} and
-#'    \code{i+1}}
-#'  \item{\code{data}}{list of \code{N} by \code{M} matrices containing the
-#'    vertical profiles for each quantity. For a description of available
-#'    quantities, see the \code{data} element of the \code{vp} class in
-#'    \link[=summary.vp]{read_vpfiles}}
-#'  \item{\code{attributes}}{profile attributes, copied from the first profile
-#'    contained in \code{x}}
-#'  \item{\code{regular}}{logical indicating whether the time series is
-#'    regular or not}
-#' }
 #' @examples
-#' # load example vertical profile time series:
+#' # Load the example time series of vertical profiles
 #' data(example_vpts)
 #' example_vpts
 #'
-#' # verify this is a vpts object
+#' # Verify that it is an object of class vpts
 #' is.vpts(example_vpts)
 #'
-#' # dimensions of the vpts object
+#' # Get summary info
+#' example_vpts # Same as summary(example_vpts) or print(example_vpts)
+#'
+#' # Get dimensions
 #' dim(example_vpts)
-summary.vpts <- function(object, ...) {
-  print.vpts(object)
+summary.vpts <- function(x, ...) {
+  print.vpts(x)
 }
 
+#' Print summary for an object of class `vpts`
+#'
+#' @inheritParams summary.vpts
+#'
 #' @rdname summary.vpts
 #'
 #' @export
+print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+  stopifnot(inherits(x, "vpts"))
+  # check if we are dealing with a deprecated vpts class structure
+  if (!is.null(x$heights)) {
+    warning("obsolete vtps object generated with bioRad version < 0.5.0.
+    vpts objects should contain a list element 'height' (instead of obsolete 'heights')")
+  }
+  if (!is.null(x$dates)) {
+    warning("obsolete vtps object generated with bioRad version < 0.4.0.
+    vpts objects should contain a list element 'datetime' (instead of obsolete 'dates')")
+    x$datetime <- x$dates
+  }
+  cat(
+    "                  ",
+    if (x$regular) {
+      "Regular"
+    } else {
+      "Irregular"
+    },
+    "time series of vertical profiles (class vpts)\n\n"
+  )
+  cat("           radar: ", x$radar, "\n")
+  cat("      # profiles: ", length(x$datetime), "\n")
+  cat(
+    "time range (UTC): ", format(x$daterange[1], "%Y-%m-%d %H:%M:%S"),
+    "-", format(x$daterange[2], "%Y-%m-%d %H:%M:%S"), "\n"
+  )
+  if (length(x$timesteps) > 0) {
+    stepMin <- min(x$timesteps)
+    stepMax <- max(x$timesteps)
+  } else {
+    stepMin <- stepMax <- NA
+  }
+  if (x$regular & stepMin == stepMax) {
+    cat("   time step (s): ", stepMin, "\n")
+  } else {
+    cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")
+  }
+}
+
+#' Verify if an object is of class `vpts`
 #'
-#' @return For \code{is.vpts}: \code{TRUE} if its argument is of
-#' class \code{vpts}.
+#' @inheritParams summary.vpts
+#'
+#' @return For [is.vpts()]: `TRUE` for an object of class `vpts`, otherwise
+#'   `FALSE`.
+#'
+#' @rdname summary.vpts
+#'
+#' @export
 is.vpts <- function(x) {
   inherits(x, "vpts")
 }
 
+#' Get dimensions for an object of class `vpts`
+#'
+#' @return For [dim.vpts()]: number of heights, datetimes and quantities in a
+#'   time series of vertical profiles (`vpts`).
+#'
 #' @rdname summary.vpts
 #'
 #' @export
-#'
-#' @return For \code{dim.vpts}: dimensions of the time series.
 dim.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
   data.dim <- dim(x$data[[1]])
   c(data.dim, length(x$data))
 }
 
-#' Subset a time series of vertical profiles (\code{vpts})
+#' Subset a time series of vertical profiles (`vpts`)
 #'
-#' Select a vertical profile (\code{vp}) or a time series of vertical profiles
-#' (\code{vpts}) by index from a \code{vpts}
+#' Select a vertical profile (`vp`) or a time series of vertical profiles
+#' (`vpts`) by index from a `vpts`.
 #'
-#' @param x Object of class \code{vpts}.
-#' @param i Indices specifying elements to extract.
+#' @param x A `vpts` object.
+#' @param i Integer. Index/indices specifying which range of vertical profiles
+#'   to extract.
+#'
+#' @return A `vpts` object containing a subset of vertical profiles (`vp`) or a
+#'   `vp` object when subsetting a single vertical profile (`vp`).
 #'
 #' @export
-#' @examples
-#' # we start with the example vertical profile time series:
-#' data(example_vpts)
-#' example_vpts
 #'
-#' # extract the 10th profile in the time series (returns a vp object)
+#' @examples
+#' # Load the example time series of vertical profiles
+#' data(example_vpts)
+#'
+#' # This vpts contains 1934 profiles (i.e. datetimes)
+#' dim(example_vpts)
+#'
+#' # Subset vpts to extract 10th profile (returns a vp object)
 #' example_vpts[10]
 #'
-#' # extract the 20th to 100th profile form the time series (returns a vpts object)
+#' # Subset vpts to extract the 20th to 100th profile (returns a vpts object)
 #' example_vpts[20:100]
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
@@ -144,54 +198,6 @@ dim.vpts <- function(x) {
   )
   names(x$data) <- quantity.names
   return(x)
-}
-
-#' Print method for class \code{vpts}
-#'
-#' @param x An object of class \code{vpts}, usually a result of a call
-#' to \code{\link{bind_into_vpts}}.
-#'
-#' @keywords internal
-#'
-#' @export
-print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
-  stopifnot(inherits(x, "vpts"))
-  # check if we are dealing with a deprecated vpts class structure
-  if (!is.null(x$heights)) {
-    warning("obsolete vtps object generated with bioRad version < 0.5.0.
-    vpts objects should contain a list element 'height' (instead of obsolete 'heights')")
-  }
-  if (!is.null(x$dates)) {
-    warning("obsolete vtps object generated with bioRad version < 0.4.0.
-    vpts objects should contain a list element 'datetime' (instead of obsolete 'dates')")
-    x$datetime <- x$dates
-  }
-  cat(
-    "                  ",
-    if (x$regular) {
-      "Regular"
-    } else {
-      "Irregular"
-    },
-    "time series of vertical profiles (class vpts)\n\n"
-  )
-  cat("           radar: ", x$radar, "\n")
-  cat("      # profiles: ", length(x$datetime), "\n")
-  cat(
-    "time range (UTC): ", format(x$daterange[1],"%Y-%m-%d %H:%M:%S"),
-    "-", format(x$daterange[2],"%Y-%m-%d %H:%M:%S"), "\n"
-  )
-  if (length(x$timesteps) > 0) {
-    stepMin <- min(x$timesteps)
-    stepMax <- max(x$timesteps)
-  } else {
-    stepMin <- stepMax <- NA
-  }
-  if (x$regular & stepMin == stepMax) {
-    cat("   time step (s): ", stepMin, "\n")
-  } else {
-    cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")
-  }
 }
 
 #' Convert a time series of vertical profiles (\code{vpts}) to a data frame

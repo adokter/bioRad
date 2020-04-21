@@ -1,22 +1,24 @@
 #' Get threshold of the radial velocity standard deviation
 #'
 #' Gives the current threshold of the radial velocity standard deviation
-#' (`sd_vvp`) in m/s, retrieved by velocity volume processing (VVP).
+#' (`sd_vvp`) of an object in m/s, retrieved by velocity volume processing (VVP).
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #'
-#' @return The object's `sd_vvp` threshold (m/s).
+#' @return The `sd_vvp` threshold in m/s.
 #'
 #' @export
 #'
-#' @seealso [`sd_vvp_threshold()<-`] for setting the `sd_vvp` threshold of an
-#'   object.
+#' @seealso
+#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
+#' threshold of an object.
+#' * [rcs()]
 #'
 #' @examples
-#' # Get the sd_vvp threshold for a vp:
+#' # Get the sd_vvp threshold for a vp
 #' sd_vvp_threshold(example_vp)
 #'
-#' # Get the sd_vvp threshold for a vpts:
+#' # Get the sd_vvp threshold for a vpts
 #' sd_vvp_threshold(example_vpts)
 sd_vvp_threshold <- function(x) {
   UseMethod("sd_vvp_threshold", x)
@@ -54,22 +56,24 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' Sets the threshold of radial velocity standard deviation (`sd_vvp`) of an
 #' object in m/s. Altitude layers with `sd_vvp` below this threshold are assumed
-#' to have an aerial density of zero individuals. This method also updates the
-#' migration densities in `x$data$dens`.
+#' to have an aerial density of zero individuals. This function also updates the
+#' migration densities in `x$data$dens` to `eta`/`rcs` when above
+#' `sd_vvp_threshold` and `0` if below.
 #'
 #' @inheritParams sd_vvp_threshold
-#' @param value Double. The `sd_vvp` threshold value to assign (m/s).
+#' @param value Double. The `sd_vvp` threshold value to assign in m/s.
 #'
 #' @export
 #'
-#' @seealso [`sd_vvp_threshold()`] for getting the `sd_vvp` threshold of an
-#'   object.
+#' @seealso
+#' * [sd_vvp_threshold()] for getting the `sd_vvp` threshold of an object.
+#' * [`rcs()<-`][rcs<-]
 #'
 #' @examples
-#' # Set the sd_vvp threshold for a vp:
+#' # Set the sd_vvp threshold for a vp
 #' sd_vvp_threshold(example_vp) <- 2
 #'
-#' # Set the sd_vvp threshold for a vpts:
+#' # Set the sd_vvp threshold for a vpts
 #' sd_vvp_threshold(example_vp) <- 2
 `sd_vvp_threshold<-` <- function(x, value) {
   UseMethod("sd_vvp_threshold<-", x)
@@ -81,7 +85,7 @@ sd_vvp_threshold.vpts <- function(x) {
 `sd_vvp_threshold<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
   assert_that(is.numeric(value))
-  assert_that(value > 0)
+  assert_that(value >= 0)
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
     x$data$dens <- x$data$eta / x$attributes$how$rcs_bird
@@ -114,7 +118,7 @@ sd_vvp_threshold.vpts <- function(x) {
 `sd_vvp_threshold<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
   assert_that(is.numeric(value))
-  assert_that(value > 0)
+  assert_that(value >= 0)
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
     x$data$dens <- x$data$eta / x$attributes$how$rcs_bird

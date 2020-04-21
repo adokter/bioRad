@@ -1,73 +1,54 @@
-#' Class \code{param}: a parameter of a scan of a polar volume
+#' Inspect a parameter (`param`)
 #'
-#' Class \code{param} for a parameter of a scan of a polar volume, and its
-#' associated R base functions.
+#' R base functions for inspecting a parameter (`param`) object.
 #'
-#' @param object Object of class \code{param}.
-#' @param x Object of class \code{param}.
+#' @param x A `param` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary param
 #'
+#' @export
+#'
 #' @details
-#' An object of class \code{scan} is a simple matrix, with the following
-#' specific attributes:
-#' \describe{
-#'    \item{\code{radar}}{character string with the radar identifier}
-#'    \item{\code{datetime}}{nominal time of the volume to which this
-#'      scan belongs (UTC)}
-#'    \item{\code{lat}}{latitude of the radar (decimal degrees)}
-#'    \item{\code{lon}}{longitude of the radar (decimal degrees)}
-#'    \item{\code{height}}{height of the radar antenna (meters above sea level)}
-#'    \item{\code{get_elevation_angles}}{radar beam elevation (degrees)}
-#'    \item{\code{param}}{string with the name of the polar scan parameter}
-#' }
-#' Scan parameters are named according to the OPERA data information model
-#' (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' A parameter is a quantity/variable measured by the radar during a scan (or
+#' sweep). These are organized along radar range (bins) and azimuth (rays). Scan
+#' parameters are named according to the OPERA data information model (ODIM),
+#' see Table 16 in the [ODIM
+#' specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
+#'
 #' Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-#'    velocities towards the radar are negative, while radial velocities away
-#'    from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-#'    between vertically polarized and horizontally polarized
-#'    reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
+#' * `DBZH`, `DBZ`: (Logged) reflectivity factor in dBZ.
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor in dBZ.
+#' * `VRADH`, `VRAD`: Radial velocity in m/s. Radial velocities towards the
+#' radar are negative, while radial velocities away from the radar are positive.
+#' * `RHOHV`: Correlation coefficient (unitless). Correlation between the
+#' vertically and horizontally polarized reflectivity factor.
+#' * `PHIDP`: Differential phase in degrees.
+#' * `ZDR`: (Logged) differential reflectivity in dB.
+#'
+#' @seealso [get_param()]
+#'
 #' @examples
-#' # load example scan object
+#' # Load the example scan
 #' data(example_scan)
 #'
-#' # extract the DBZH scan parameter:
-#' param <- get_param(example_scan, "DBZH")
+#' # Extract the DBZH scan parameter
+#' example_param <- get_param(example_scan, "DBZH")
 #'
-#' # verify this is an object of class param:
-#' is.param(param)
+#' # Verify that it is an object of class param
+#' is.param(example_param)
 #'
-#' # print summary info for this scan parameter:
-#' param
-summary.param <- function(object, ...) {
-  print.param(object)
+#' # Get summary info for this parameter
+#' example_param # Same as summary(example_param) or print(example_param)
+summary.param <- function(x, ...) {
+  print.param(x)
 }
 
+#' Print summary for an object of class `param`
+#'
+#' @inheritParams summary.param
+#'
 #' @rdname summary.param
-#'
-#' @return for \code{is.scan}: \code{TRUE} if its argument is of
-#' class "\code{param}"
-#'
-#' @export
-is.param <- function(x) {
-  inherits(x, "param")
-}
-
-#' Print method for class \code{param}
-#'
-#' @param x An object of class \code{param}, a polar scan parameter.
-#'
-#' @keywords internal
 #'
 #' @export
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -75,4 +56,18 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("               Polar scan parameter (class param)\n\n")
   cat("    quantity: ", attributes(x)$param, "\n")
   cat("        dims: ", dim(x)[1], "bins x", dim(x)[2], "rays\n")
+}
+
+#' Verify if an object is of class `param`
+#'
+#' @inheritParams summary.param
+#'
+#' @return For [is.param()]: `TRUE` for an object of class `param`, otherwise
+#'   `FALSE`.
+#'
+#' @rdname summary.param
+#'
+#' @export
+is.param <- function(x) {
+  inherits(x, "param")
 }

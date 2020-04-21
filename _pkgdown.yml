@@ -125,3 +125,4 @@ reference:
       - eta_to_dbz
       - nyquist_velocity
       - sunrise_sunset
+      - convert_legacy

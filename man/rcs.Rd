@@ -22,22 +22,25 @@ rcs(x)
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 }
 \value{
-The object's radar cross section (cm^2).
+The radar cross section in cm^2.
 }
 \description{
 Gives the currently assumed radar cross section of an object in cm^2.
 }
 \examples{
-# Get the radar cross section for a vp:
+# Get the radar cross section for a vp
 rcs(example_vp)
 
-# Get the radar cross section for a vpts:
+# Get the radar cross section for a vpts
 rcs(example_vpts)
 
-# Get the radar cross section for a vpi:
+# Get the radar cross section for a vpi
 example_vpi <- integrate_profile(example_vpts)
 rcs(example_vpi)
 }
 \seealso{
-\code{\link{rcs()<-}} for setting the radar cross section of an object.
+\itemize{
+\item \code{\link[=rcs<-]{rcs()<-}} for setting the radar cross section of an object.
+\item \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}
+}
 }

@@ -2,93 +2,110 @@
 % Please edit documentation in R/vp.R
 \name{summary.vp}
 \alias{summary.vp}
+\alias{print.vp}
 \alias{is.vp}
 \alias{dim.vp}
-\title{Class \code{vp}: a vertical profile of animals}
+\title{Inspect a vertical profile (\code{vp})}
 \usage{
-\method{summary}{vp}(object, ...)
+\method{summary}{vp}(x, ...)
+
+\method{print}{vp}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.vp(x)
 
 \method{dim}{vp}(x)
 }
 \arguments{
-\item{object}{An object of class \code{vp}.}
+\item{x}{A \code{vp} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
-
-\item{x}{An object of class \code{vp}.}
 }
 \value{
-For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
+For \code{\link[=is.vp]{is.vp()}}: \code{TRUE} for an object of class \code{vp}, otherwise
+\code{FALSE}.
 
-For \code{dim.vp}: dimensions of the profile data.
+For \code{\link[=dim.vp]{dim.vp()}}: number of heights and quantities in a vertical
+profile (\code{vp}).
 }
 \description{
-Class \code{vp} for a vertical profile of animals
+R base functions for inspecting a vertical profile of biological targets
+(\code{vp}) object.
 }
 \details{
-An object of class \code{vp} contains a vertical profile. A vertical profile
-contains a collection of quantities, with each quantity having values at
-different altitude layers above the earth's surface, typically equally
-spaced altitudinal layers.
-
-Data contained in this class object should be accessed with the
-\link{get_quantity} function. Information stored under \code{attributes}
-(see below) can be accessed directly.
-
-A \code{vp} object is a list containing
-\describe{
-\item{\strong{\code{radar}}}{the radar identifier}
-\item{\strong{\code{datetime}}}{the nominal time of the profile}
-\item{\strong{\code{data}}}{the profile data, a list containing:
-\describe{
-\item{\code{height}}{height above mean sea level (m). Alt. bin from height to height+interval)}
-\item{\code{u}}{speed component west to east (m/s)}
-\item{\code{v}}{speed component north to south (m/s)}
-\item{\code{w}}{vertical speed (unreliable!) (m/s)}
-\item{\code{ff}}{horizontal speed (m/s)}
-\item{\code{dd}}{direction (degrees, clockwise from north)}
-\item{\code{sd_vvp}}{VVP radial velocity standard deviation (m/s)}
-\item{\code{gap}}{Angular data gap detected (T/F)}
-\item{\code{dbz}}{Animal reflectivity factor (dBZ)}
-\item{\code{eta}}{Animal reflectivity (cm^2/km^3)}
-\item{\code{dens}}{Animal density (animals/km^3)}
-\item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) (dBZ)}
-\item{\code{n}}{number of points VVPvelocity analysis (u,v,w,ff,dd)}
-\item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-\item{\code{n_dbz}}{number of points density estimate (dbz,eta,dens)}
-\item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
-}
-}
-\item{\strong{\code{attributes}}}{list with the profile's \code{\\what},
-\code{\\where} and \code{\\how} attributes}
-}
-
-\subsection{Conventions}{
+A vertical profile of biological targets contains a collection of quantities,
+organized in different (typically equally spaced) altitude layers (height
+bins) above the earth's surface. A vertical profile (\code{vp}) object is a list
+containing:
 \itemize{
-\item \code{NA} Maps to 'nodata' in the ODIM convention: value to denote areas void of data
-(never radiated)
-\item \code{NaN} Maps to 'undetect' in the ODIM convention: denote areas below the measurement
-detection threshold (radiated but nothing detected). The value is also used when there are too
-few datapoints to calculate a quantity.
-\item \code{0} Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
-value of zero (radiated and value zero detected or inferred).
+\item \code{radar}: Radar identifier.
+\item \code{datetime}: Nominal time of the volume to which the scan belongs in UTC.
+\item \code{data}: A data.frame with the profile's quantities organized per height
+bin. Use \code{\link[=get_quantity]{get_quantity()}} to access these:
+\itemize{
+\item \code{u}: Speed component west to east in m/s.
+\item \code{v}: Speed component north to south in m/s.
+\item \code{w}: Vertical speed (unreliable!) in m/s.
+\item \code{ff}: Horizontal speed in m/s.
+\item \code{dd}: Direction in degrees clockwise from north.
+\item \code{sd_vvp}: VVP radial velocity standard deviation in m/s.
+\item \code{gap}: Angular data gap detected in T/F.
+\item \code{dbz}: Animal reflectivity factor in dBZ.
+\item \code{eta}: Animal reflectivity in cm^2/km^3.
+\item \code{dens}: Animal density in animals/km^3.
+\item \code{DBZH}: Total reflectivity factor (bio + meteo scattering) in dBZ.
+\item \code{n}: Number of data points used for the ground speed estimates
+(quantities \code{u}, \code{v}, \code{w}, \code{ff}, \code{dd}).
+\item \code{n_all}: Number of data points used for the radial velocity standard
+deviation estimate (quantity \code{sd_vvp}).
+\item \code{n_dbz}: Number of data points used for reflectivity-based estimates
+(quantities \code{dbz}, \code{eta}, \code{dens}).
+\item \code{n_dbz_all}: Number of data points used for the total reflectivity
+estimate (quantity \code{DBZH}).
 }
-It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
-an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
-is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
-in case of undetects.
+\item \code{attributes}: List of the vertical profile's \code{what}, \code{where} and \code{how}
+attributes.
 }
 }
-\examples{
-# load example vp object
-data(example_vp)
-example_vp
+\section{Conventions}{
 
-# check that the object is a vp object:
+\itemize{
+\item \code{NA}: Maps to \code{nodata} in the ODIM convention: value to denote areas void
+of data (never radiated).
+\item \code{NaN}: Maps to \code{undetect} in the ODIM convention: denote areas below the
+measurement detection threshold (radiated but nothing detected). The value is
+also used when there are too few datapoints to calculate a quantity.
+\item \code{0}: Maps to \code{0} in the ODIM convention: denote areas where the quantity
+has a measured value of zero (radiated and value zero detected or inferred).
+}
+
+It depends on a radar's detection threshold or signal to noise ratio whether
+it safe to assume an \code{undetect} is equivalent to zero. When dealing with
+close range data only (within 35 km), it is typically safe to assume aerial
+densities (\code{dens}) and reflectivities (\code{eta}) are in fact zero in case of
+undetects.
+}
+
+\examples{
+# Load the example vertical profile
+data(example_vp)
+
+# Verify that it is an object of class vp
 is.vp(example_vp)
 
-# dimensions of the vp object:
+# Get summary info
+example_vp # Same as summary(example_vp) or print(example_vp)
+
+# Get dimensions
 dim(example_vp)
+}
+\seealso{
+\itemize{
+\item \code{\link[=calculate_vp]{calculate_vp()}}
+\item \code{\link[=read_vpfiles]{read_vpfiles()}}
+\item \code{\link{example_vp}}
+\item \code{\link[=get_quantity]{get_quantity()}}
+\item \code{\link[=plot.vp]{plot.vp()}}
+\item \code{\link[=as.data.frame.vp]{as.data.frame.vp()}}
+\item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
+}
 }
