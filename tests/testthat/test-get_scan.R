@@ -11,9 +11,10 @@ test_that("get_scan() returns a object of class scan", {
 })
 
 test_that("get_scan() returns the scan closest to elev parameter", {
-  scan_2 <- get_scan(pvol, 2)
-  all_angels <- get_elevation_angles(pvol)
-
-  expect_equal(scan2$geo$elangle,
-               angels[which.min(abs(get_elevation_angles(pvol)-2))])
+  # Elevation angles for example pvol are 0.5 1.5 2.5
+  expect_equal(get_scan(pvol, 1.5)$geo$elangle, 1.5)
+  expect_equal(get_scan(pvol, 1.9)$geo$elangle, 1.5)
+  expect_equal(get_scan(pvol, 2)$geo$elangle, 1.5) # Lowest elangle is chosen if equal
+  expect_equal(get_scan(pvol, 2.1)$geo$elangle, 2.5)
+  expect_equal(get_scan(pvol, 40)$geo$elangle, 2.5)
 })
