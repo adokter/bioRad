@@ -6,13 +6,13 @@ vpi <- integrate_profile(example_vpts)
 
 test_that("returns error on incorrect parameters", {
   expect_error(rcs("not_a_vp"))
-  expect_error(rcs(vp_list_mixed), "Input must be list of vp objects.")
+  expect_error(rcs(vp_list_mixed), "`x` must be list of vp objects.")
 
   expect_error(rcs(vp) <- "not_a_double")
   expect_error(rcs(vp) <- NULL)
   expect_error(rcs(vp) <- c(2, 2))
   expect_error(rcs("not_a_vp") <- 5)
-  expect_error(rcs(vp_list_mixed) <- 5, "Input must be list of vp objects.")
+  expect_error(rcs(vp_list_mixed) <- 5, "`x` must be list of vp objects.")
   expect_error(rcs(vp) <- -11)
 })
 
