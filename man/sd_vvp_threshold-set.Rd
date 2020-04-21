@@ -29,10 +29,12 @@ migration densities in \code{x$data$dens} to \code{eta}/\code{rcs} when above
 }
 \examples{
 # Set the sd_vvp threshold for a vp
-sd_vvp_threshold(example_vp) <- 2
+vp <- example_vp
+sd_vvp_threshold(vp) <- 2
 
 # Set the sd_vvp threshold for a vpts
-sd_vvp_threshold(example_vp) <- 2
+vpts <- example_vpts
+sd_vvp_threshold(vpts) <- 2
 }
 \seealso{
 \itemize{

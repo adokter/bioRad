@@ -55,19 +55,18 @@ rays equals full circle).
 }
 \examples{
 # Load the example scan
-data(example_scan)
 
 # Verify that it is an object of class scan
-is.scan(example_scan)
+is.scan(scan)
 
 # Get summary info
-example_scan # Same as summary(example_scan) or print(example_scan)
+scan # Same as summary(scan) or print(scan)
 
 # Get dimensions
-dim(example_scan)
+dim(scan)
 
 # Get summary info for the parameters in the scan
-example_scan$params
+scan$params
 }
 \seealso{
 \itemize{

@@ -5,13 +5,13 @@ vpts <- example_vpts
 
 test_that("returns error on incorrect parameters", {
   expect_error(sd_vvp_threshold("not_a_vp"))
-  expect_error(sd_vvp_threshold(vp_list_mixed), "Input must be list of vp objects.")
+  expect_error(sd_vvp_threshold(vp_list_mixed), "`x` must be list of vp objects.")
 
   expect_error(sd_vvp_threshold(vp) <- "not_a_double")
   expect_error(sd_vvp_threshold(vp) <- NULL)
   expect_error(sd_vvp_threshold(vp) <- c(2, 2))
   expect_error(sd_vvp_threshold("not_a_vp") <- 2)
-  expect_error(sd_vvp_threshold(vp_list_mixed) <- 2, "Input must be list of vp objects.")
+  expect_error(sd_vvp_threshold(vp_list_mixed) <- 2, "`x` must be list of vp objects.")
 })
 
 test_that("sd_vvp_threshold() returns the correct sd_vvp_thresh", {

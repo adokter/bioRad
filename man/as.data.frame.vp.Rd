@@ -62,22 +62,19 @@ functions, where quantities "eta", "dbz", "ff", "u", "v", "w", "dd" are
 all thresholded by \link{sd_vvp_threshold}
 }
 \examples{
-# load an example vertical profile time series object
-data(example_vp)
+# Load the example vertical profile
+vp <- example_vp
 
-# print some summary information
-example_vp
+# Convert to a data.frame
+vp_df <- as.data.frame(vp)
 
-# convert the object to a data.frame
-df <- as.data.frame(example_vp)
+# Print data.frame
+vp_df
 
-# print the data.frame to console
-df
+# Do not compute sunrise/sunset information
+vp_df <- as.data.frame(vp, suntime = FALSE)
 
-# do not compute sunrise/sunset information
-df <- as.data.frame(example_vp, suntime = FALSE)
-
-# override the latitude/longitude information stored in the object
-# when calculating sunrise / sunset
-df <- as.data.frame(example_vp, suntime = TRUE, lat = 50, lon = 4)
+# Override the latitude/longitude information stored in the object when
+# calculating sunrise/sunset information
+vp_df <- as.data.frame(vp, suntime = TRUE, lat = 50, lon = 4)
 }

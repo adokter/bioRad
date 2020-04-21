@@ -22,14 +22,14 @@ Select a vertical profile (\code{vp}) or a time series of vertical profiles
 }
 \examples{
 # Load the example time series of vertical profiles
-data(example_vpts)
+vpts <- example_vpts
 
 # This vpts contains 1934 profiles (i.e. datetimes)
-dim(example_vpts)
+dim(vpts)
 
 # Subset vpts to extract 10th profile (returns a vp object)
-example_vpts[10]
+vpts[10]
 
 # Subset vpts to extract the 20th to 100th profile (returns a vpts object)
-example_vpts[20:100]
+vpts[20:100]
 }

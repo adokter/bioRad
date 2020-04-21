@@ -27,10 +27,12 @@ Gives the current threshold of the radial velocity standard deviation
 }
 \examples{
 # Get the sd_vvp threshold for a vp
-sd_vvp_threshold(example_vp)
+vp <- example_vp
+sd_vvp_threshold(vp)
 
 # Get the sd_vvp threshold for a vpts
-sd_vvp_threshold(example_vpts)
+vpts <- example_vpts
+sd_vvp_threshold(vpts)
 }
 \seealso{
 \itemize{

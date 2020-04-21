@@ -87,16 +87,16 @@ undetects.
 
 \examples{
 # Load the example vertical profile
-data(example_vp)
+vp <- example_vp
 
 # Verify that it is an object of class vp
-is.vp(example_vp)
+is.vp(vp)
 
 # Get summary info
-example_vp # Same as summary(example_vp) or print(example_vp)
+vp # Same as summary(vp) or print(vp)
 
 # Get dimensions
-dim(example_vp)
+dim(vp)
 }
 \seealso{
 \itemize{

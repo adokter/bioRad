@@ -35,20 +35,17 @@
 #' * \code{\link[=[.ppi]{[ppi()}}
 #'
 #' @examples
-#' # Load the example scan
-#' data(example_scan)
-#'
-#' # Project scan as ppi
-#' example_ppi <- project_as_ppi(example_scan)
+#' # Project the example scan as a ppi
+#' ppi <- project_as_ppi(example_scan)
 #'
 #' # Verify that it is an object of class ppi
-#' is.ppi(example_ppi)
+#' is.ppi(ppi)
 #'
 #' # Get summary info
-#' example_ppi # Same as summary(example_ppi) or print(example_ppi)
+#' ppi # Same as summary(ppi) or print(ppi)
 #'
 #' # Get dimensions
-#' dim(example_ppi)
+#' dim(ppi)
 summary.ppi <- function(x, ...) {
   print.ppi(x)
 }
@@ -111,20 +108,17 @@ dim.ppi <- function(x) {
 #' @export
 #'
 #' @examples
-#' # Load the example scan
-#' data(example_scan)
-#'
-#' # Project scan as ppi
-#' example_ppi <- project_as_ppi(example_scan)
+#' # Project the example scan as a ppi
+#' ppi <- project_as_ppi(example_scan)
 #'
 #' # This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)
-#' example_ppi
+#' ppi
 #'
 #' # Subset ppi to one containing only the first parameter (VRADH)
-#' example_ppi[1]
+#' ppi[1]
 #'
 #' # Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
-#' example_ppi[1:3]
+#' ppi[1:3]
 `[.ppi` <- function(x, i) {
   stopifnot(inherits(x, "ppi"))
   my_ppi <- list(

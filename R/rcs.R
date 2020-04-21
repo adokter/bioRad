@@ -14,14 +14,16 @@
 #'
 #' @examples
 #' # Get the radar cross section for a vp
-#' rcs(example_vp)
+#' vp <- example_vp
+#' rcs(vp)
 #'
 #' # Get the radar cross section for a vpts
-#' rcs(example_vpts)
+#' vpts <- example_vpts
+#' rcs(vpts)
 #'
 #' # Get the radar cross section for a vpi
-#' example_vpi <- integrate_profile(example_vpts)
-#' rcs(example_vpi)
+#' vpi <- integrate_profile(example_vpts)
+#' rcs(vpi)
 rcs <- function(x) {
   UseMethod("rcs", x)
 }
@@ -40,7 +42,7 @@ rcs.vp <- function(x) {
 rcs.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Input must be list of vp objects.")
+    stop("`x` must be list of vp objects.")
   }
   output <- sapply(x, `rcs.vp`)
   output
@@ -79,14 +81,16 @@ rcs.vpi <- function(x) {
 #'
 #' @examples
 #' # Set the radar cross section for a vp
-#' rcs(example_vp) <- 11
+#' vp <- example_vp
+#' rcs(vp) <- 11
 #'
 #' # Set the radar cross section for a vpts
-#' rcs(example_vpts) <- 11
+#' vpts <- example_vpts
+#' rcs(vpts) <- 11
 #'
 #' # Set the radar cross section for a vpi
-#' example_vpi <- integrate_profile(example_vpts)
-#' rcs(example_vpi) <- 11
+#' vpi <- integrate_profile(example_vpts)
+#' rcs(vpi) <- 11
 `rcs<-` <- function(x, value) {
   UseMethod("rcs<-", x)
 }
@@ -116,7 +120,7 @@ rcs.vpi <- function(x) {
 `rcs<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Input must be list of vp objects.")
+    stop("`x` must be list of vp objects.")
   }
   output <- lapply(x, `rcs<-.vp`, value = value)
   class(output) <- c("list")

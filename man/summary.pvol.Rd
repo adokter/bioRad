@@ -45,16 +45,16 @@ attributes.
 \examples{
 # Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-example_pvol <- read_pvolfile(pvolfile)
+pvol <- read_pvolfile(pvolfile)
 
 # Verify that it is an object of class pvol
-is.pvol(example_pvol)
+is.pvol(pvol)
 
 # Get summary info
-example_pvol # Same as summary(example_pvol) or print(example_pvol)
+pvol # Same as summary(pvol) or print(pvol)
 
 # Get summary info for the scans in the polar volume
-example_pvol$scans
+pvol$scans
 }
 \seealso{
 \itemize{

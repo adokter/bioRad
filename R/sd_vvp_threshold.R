@@ -16,10 +16,12 @@
 #'
 #' @examples
 #' # Get the sd_vvp threshold for a vp
-#' sd_vvp_threshold(example_vp)
+#' vp <- example_vp
+#' sd_vvp_threshold(vp)
 #'
 #' # Get the sd_vvp threshold for a vpts
-#' sd_vvp_threshold(example_vpts)
+#' vpts <- example_vpts
+#' sd_vvp_threshold(vpts)
 sd_vvp_threshold <- function(x) {
   UseMethod("sd_vvp_threshold", x)
 }
@@ -38,7 +40,7 @@ sd_vvp_threshold.vp <- function(x) {
 sd_vvp_threshold.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Input must be list of vp objects.")
+    stop("`x` must be list of vp objects.")
   }
   output <- sapply(x, `sd_vvp_threshold.vp`)
   output
@@ -71,10 +73,12 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' @examples
 #' # Set the sd_vvp threshold for a vp
-#' sd_vvp_threshold(example_vp) <- 2
+#' vp <- example_vp
+#' sd_vvp_threshold(vp) <- 2
 #'
 #' # Set the sd_vvp threshold for a vpts
-#' sd_vvp_threshold(example_vp) <- 2
+#' vpts <- example_vpts
+#' sd_vvp_threshold(vpts) <- 2
 `sd_vvp_threshold<-` <- function(x, value) {
   UseMethod("sd_vvp_threshold<-", x)
 }
@@ -105,7 +109,7 @@ sd_vvp_threshold.vpts <- function(x) {
 `sd_vvp_threshold<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Input must be list of vp objects.")
+    stop("`x` must be list of vp objects.")
   }
   output <- lapply(x, `sd_vvp_threshold<-.vp`, value = value)
   class(output) <- c("list")

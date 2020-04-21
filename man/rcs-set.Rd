@@ -30,14 +30,16 @@ updates the migration densities in \code{x$data$dens} to \code{eta}/\code{rcs} w
 }
 \examples{
 # Set the radar cross section for a vp
-rcs(example_vp) <- 11
+vp <- example_vp
+rcs(vp) <- 11
 
 # Set the radar cross section for a vpts
-rcs(example_vpts) <- 11
+vpts <- example_vpts
+rcs(vpts) <- 11
 
 # Set the radar cross section for a vpi
-example_vpi <- integrate_profile(example_vpts)
-rcs(example_vpi) <- 11
+vpi <- integrate_profile(example_vpts)
+rcs(vpi) <- 11
 }
 \seealso{
 \itemize{
