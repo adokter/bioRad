@@ -1,3 +1,3 @@
-test_that("returns error on incorrect parameters", {
+test_that("get_quantity() returns error on incorrect parameters", {
 
 })

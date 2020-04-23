@@ -1,3 +1,3 @@
-test_that("returns error on incorrect parameters", {
+test_that("read_vpts() returns error on incorrect parameters", {
 
 })

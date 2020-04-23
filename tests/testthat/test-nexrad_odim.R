@@ -1,3 +1,3 @@
-test_that("returns error on incorrect parameters", {
+test_that("nexrad_to_odim() returns error on incorrect parameters", {
 
 })
