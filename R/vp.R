@@ -130,7 +130,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'
 #' @param x An object of class \code{vp}.
 #' @param row.names \code{NULL} or a character vector giving the row names for
-#' the data frame. Missing values are not allowed.
+#' the data frame. Missing values are not allowed. See [base::as.data.frame()].
 #' @param optional If \code{FALSE} then the names of the variables in the data
 #' frame are checked to ensure that they are syntactically valid variable names
 #' and are not duplicated.
@@ -188,7 +188,7 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
       rownames(output) <- row.names
     } else {
       stop(paste(
-        "'row.names' is not a character vector of length",
+        "`row.names` is not a character vector of length",
         length(x$datetime) * length(x$height)
       ))
     }
