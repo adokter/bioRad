@@ -1,7 +1,7 @@
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 
-test_that("returns error on incorrect parameters", {
+test_that("get_scan() returns error on incorrect parameters", {
   expect_error(get_scan("not_a_pvol", 5), "`x` must be a pvol object.")
   expect_error(get_scan(pvol, "not_a_double"), "`elev` must be numeric.")
 })
