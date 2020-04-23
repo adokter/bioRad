@@ -2,6 +2,7 @@
 #'
 #' R base functions for inspecting a polar volume (`pvol`) object.
 #'
+#' @param object A `pvol` object.
 #' @param x A `pvol` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
@@ -41,8 +42,8 @@
 #'
 #' # Get summary info for the scans in the polar volume
 #' pvol$scans
-summary.pvol <- function(x, ...) {
-  print.pvol(x)
+summary.pvol <- function(object, ...) {
+  print.pvol(object)
 }
 
 #' Print summary for an object of class `pvol`
@@ -50,6 +51,8 @@ summary.pvol <- function(x, ...) {
 #' @inheritParams summary.pvol
 #'
 #' @rdname summary.pvol
+#'
+#' @keywords internal
 #'
 #' @export
 print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {

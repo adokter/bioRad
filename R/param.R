@@ -2,6 +2,7 @@
 #'
 #' R base functions for inspecting a parameter (`param`) object.
 #'
+#' @param object A `param` object.
 #' @param x A `param` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
@@ -37,8 +38,8 @@
 #'
 #' # Get summary info for this parameter
 #' param # Same as summary(param) or print(param)
-summary.param <- function(x, ...) {
-  print.param(x)
+summary.param <- function(object, ...) {
+  print.param(object)
 }
 
 #' Print summary for an object of class `param`
@@ -63,6 +64,8 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.param
+#'
+#' @keywords internal
 #'
 #' @export
 is.param <- function(x) {

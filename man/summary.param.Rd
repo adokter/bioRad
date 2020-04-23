@@ -6,16 +6,18 @@
 \alias{is.param}
 \title{Inspect a parameter (\code{param})}
 \usage{
-\method{summary}{param}(x, ...)
+\method{summary}{param}(object, ...)
 
 \method{print}{param}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.param(x)
 }
 \arguments{
-\item{x}{A \code{param} object.}
+\item{object}{A \code{param} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
+
+\item{x}{A \code{param} object.}
 }
 \value{
 For \code{\link[=is.param]{is.param()}}: \code{TRUE} for an object of class \code{param}, otherwise
@@ -55,3 +57,4 @@ param # Same as summary(param) or print(param)
 \seealso{
 \code{\link[=get_param]{get_param()}}
 }
+\keyword{internal}

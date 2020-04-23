@@ -6,16 +6,18 @@
 \alias{is.pvol}
 \title{Inspect a polar volume (\code{pvol})}
 \usage{
-\method{summary}{pvol}(x, ...)
+\method{summary}{pvol}(object, ...)
 
 \method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.pvol(x)
 }
 \arguments{
-\item{x}{A \code{pvol} object.}
+\item{object}{A \code{pvol} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
+
+\item{x}{A \code{pvol} object.}
 }
 \value{
 For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise
@@ -63,3 +65,4 @@ pvol$scans
 \item \code{\link[=get_scan]{get_scan()}}
 }
 }
+\keyword{internal}

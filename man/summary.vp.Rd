@@ -7,7 +7,7 @@
 \alias{dim.vp}
 \title{Inspect a vertical profile (\code{vp})}
 \usage{
-\method{summary}{vp}(x, ...)
+\method{summary}{vp}(object, ...)
 
 \method{print}{vp}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
@@ -16,9 +16,11 @@ is.vp(x)
 \method{dim}{vp}(x)
 }
 \arguments{
-\item{x}{A \code{vp} object.}
+\item{object}{A \code{vp} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
+
+\item{x}{A \code{vp} object.}
 }
 \value{
 For \code{\link[=is.vp]{is.vp()}}: \code{TRUE} for an object of class \code{vp}, otherwise
@@ -109,3 +111,4 @@ dim(vp)
 \item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
 }
 }
+\keyword{internal}

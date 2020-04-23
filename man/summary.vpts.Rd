@@ -7,7 +7,7 @@
 \alias{dim.vpts}
 \title{Inspect a time series of vertical profiles (\code{vpts})}
 \usage{
-\method{summary}{vpts}(x, ...)
+\method{summary}{vpts}(object, ...)
 
 \method{print}{vpts}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
@@ -16,9 +16,11 @@ is.vpts(x)
 \method{dim}{vpts}(x)
 }
 \arguments{
-\item{x}{A \code{vpts} object.}
+\item{object}{A \code{vpts} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
+
+\item{x}{A \code{vpts} object.}
 }
 \value{
 For \code{\link[=is.vpts]{is.vpts()}}: \code{TRUE} for an object of class \code{vpts}, otherwise
@@ -80,3 +82,4 @@ dim(vpts)
 \item \code{\link[=[.vpts]{[vpts()}}
 }
 }
+\keyword{internal}

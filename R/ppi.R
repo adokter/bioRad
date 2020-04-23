@@ -2,6 +2,7 @@
 #'
 #' R base functions for inspecting a plan position indicator (`ppi`) object.
 #'
+#' @param object A `ppi` object.
 #' @param x A `ppi` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
@@ -46,8 +47,8 @@
 #'
 #' # Get dimensions
 #' dim(ppi)
-summary.ppi <- function(x, ...) {
-  print.ppi(x)
+summary.ppi <- function(object, ...) {
+  print.ppi(object)
 }
 
 #' Print summary for an object of class `ppi`
@@ -55,6 +56,8 @@ summary.ppi <- function(x, ...) {
 #' @inheritParams summary.ppi
 #'
 #' @rdname summary.ppi
+#'
+#' @keywords internal
 #'
 #' @export
 print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {

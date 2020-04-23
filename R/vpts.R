@@ -3,6 +3,7 @@
 #' R base functions for inspecting a time series of vertical profiles (`vp`)
 #' object.
 #'
+#' @param object A `vpts` object.
 #' @param x A `vpts` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
@@ -54,8 +55,8 @@
 #'
 #' # Get dimensions
 #' dim(vpts)
-summary.vpts <- function(x, ...) {
-  print.vpts(x)
+summary.vpts <- function(object, ...) {
+  print.vpts(object)
 }
 
 #' Print summary for an object of class `vpts`
@@ -63,6 +64,8 @@ summary.vpts <- function(x, ...) {
 #' @inheritParams summary.vpts
 #'
 #' @rdname summary.vpts
+#'
+#' @keywords internal
 #'
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {

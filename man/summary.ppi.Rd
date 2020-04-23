@@ -7,7 +7,7 @@
 \alias{dim.ppi}
 \title{Inspect a plan position indicator (\code{ppi})}
 \usage{
-\method{summary}{ppi}(x, ...)
+\method{summary}{ppi}(object, ...)
 
 \method{print}{ppi}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
@@ -16,9 +16,11 @@ is.ppi(x)
 \method{dim}{ppi}(x)
 }
 \arguments{
-\item{x}{A \code{ppi} object.}
+\item{object}{A \code{ppi} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
+
+\item{x}{A \code{ppi} object.}
 }
 \value{
 For \code{\link[=is.ppi]{is.ppi()}}: \code{TRUE} for an object of class \code{ppi}, otherwise
@@ -74,3 +76,4 @@ dim(ppi)
 \item \code{\link[=[.ppi]{[ppi()}}
 }
 }
+\keyword{internal}

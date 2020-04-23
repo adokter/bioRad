@@ -7,7 +7,7 @@
 \alias{dim.scan}
 \title{Inspect a scan (\code{scan})}
 \usage{
-\method{summary}{scan}(x, ...)
+\method{summary}{scan}(object, ...)
 
 \method{print}{scan}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
@@ -16,9 +16,11 @@ is.scan(x)
 \method{dim}{scan}(x)
 }
 \arguments{
-\item{x}{A \code{scan} object.}
+\item{object}{A \code{scan} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
+
+\item{x}{A \code{scan} object.}
 }
 \value{
 For \code{\link[=is.scan]{is.scan()}}: \code{TRUE} for an object of class \code{scan}, otherwise
@@ -55,6 +57,7 @@ rays equals full circle).
 }
 \examples{
 # Load the example scan
+scan <- example_scan
 
 # Verify that it is an object of class scan
 is.scan(scan)
@@ -76,3 +79,4 @@ scan$params
 \item \code{\link[=get_param]{get_param()}}
 }
 }
+\keyword{internal}

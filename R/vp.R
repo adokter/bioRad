@@ -3,6 +3,7 @@
 #' R base functions for inspecting a vertical profile of biological targets
 #' (`vp`) object.
 #'
+#' @param object A `vp` object.
 #' @param x A `vp` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
@@ -77,8 +78,8 @@
 #'
 #' # Get dimensions
 #' dim(vp)
-summary.vp <- function(x, ...) {
-  print.vp(x)
+summary.vp <- function(object, ...) {
+  print.vp(object)
 }
 
 #' Print summary for an object of class `vp`
@@ -86,6 +87,8 @@ summary.vp <- function(x, ...) {
 #' @inheritParams summary.vp
 #'
 #' @rdname summary.vp
+#'
+#' @keywords internal
 #'
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
