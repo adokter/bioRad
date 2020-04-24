@@ -48,6 +48,8 @@ summary.param <- function(object, ...) {
 #'
 #' @rdname summary.param
 #'
+#' @keywords internal
+#'
 #' @export
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
@@ -64,8 +66,6 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.param
-#'
-#' @keywords internal
 #'
 #' @export
 is.param <- function(x) {
