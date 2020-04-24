@@ -71,7 +71,7 @@ rcs.vpi <- function(x) {
 #' `sd_vvp_threshold` and `0` if below.
 #'
 #' @inheritParams rcs
-#' @param value Double. The radar cross section value to assign in cm^2.
+#' @param value Numeric. The radar cross section value to assign in cm^2.
 #'
 #' @export
 #'

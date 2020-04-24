@@ -21,7 +21,7 @@ rcs(x) <- value
 \arguments{
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 
-\item{value}{Double. The radar cross section value to assign in cm^2.}
+\item{value}{Numeric. The radar cross section value to assign in cm^2.}
 }
 \description{
 Sets the assumed radar cross section of an object in cm^2. This function also

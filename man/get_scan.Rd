@@ -9,7 +9,7 @@ get_scan(x, elev)
 \arguments{
 \item{x}{A \code{pvol} object.}
 
-\item{elev}{Elevation angle.}
+\item{elev}{Numeric. Elevation angle.}
 }
 \value{
 A \code{scan} object.

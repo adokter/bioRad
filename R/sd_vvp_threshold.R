@@ -63,7 +63,7 @@ sd_vvp_threshold.vpts <- function(x) {
 #' `sd_vvp_threshold` and `0` if below.
 #'
 #' @inheritParams sd_vvp_threshold
-#' @param value Double. The `sd_vvp` threshold value to assign in m/s.
+#' @param value Numeric. The `sd_vvp` threshold value to assign in m/s.
 #'
 #' @export
 #'

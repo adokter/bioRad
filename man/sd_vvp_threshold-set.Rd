@@ -18,7 +18,7 @@ sd_vvp_threshold(x) <- value
 \arguments{
 \item{x}{A \code{vp}, list of \code{vp} or \code{vpts} object.}
 
-\item{value}{Double. The \code{sd_vvp} threshold value to assign in m/s.}
+\item{value}{Numeric. The \code{sd_vvp} threshold value to assign in m/s.}
 }
 \description{
 Sets the threshold of radial velocity standard deviation (\code{sd_vvp}) of an

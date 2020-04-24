@@ -3,7 +3,7 @@
 #' Returns the scan with elevation angle closest to `elev`.
 #'
 #' @param x A `pvol` object.
-#' @param elev Elevation angle.
+#' @param elev Numeric. Elevation angle.
 #'
 #' @return A `scan` object.
 #'

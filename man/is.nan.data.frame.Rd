@@ -7,7 +7,7 @@
 \method{is.nan}{data.frame}(x)
 }
 \arguments{
-\item{x}{A data.frame.}
+\item{x}{A \code{data.frame} object.}
 }
 \value{
 A matrix of the same dimension as \code{x}, with \code{TRUE}/\code{FALSE} values
