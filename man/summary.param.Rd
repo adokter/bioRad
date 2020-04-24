@@ -2,13 +2,10 @@
 % Please edit documentation in R/param.R
 \name{summary.param}
 \alias{summary.param}
-\alias{print.param}
 \alias{is.param}
 \title{Inspect a parameter (\code{param})}
 \usage{
 \method{summary}{param}(object, ...)
-
-\method{print}{param}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.param(x)
 }
@@ -57,4 +54,3 @@ param # Same as summary(param) or print(param)
 \seealso{
 \code{\link[=get_param]{get_param()}}
 }
-\keyword{internal}

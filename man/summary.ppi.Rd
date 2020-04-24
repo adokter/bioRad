@@ -2,14 +2,11 @@
 % Please edit documentation in R/ppi.R
 \name{summary.ppi}
 \alias{summary.ppi}
-\alias{print.ppi}
 \alias{is.ppi}
 \alias{dim.ppi}
 \title{Inspect a plan position indicator (\code{ppi})}
 \usage{
 \method{summary}{ppi}(object, ...)
-
-\method{print}{ppi}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.ppi(x)
 
@@ -76,4 +73,3 @@ dim(ppi)
 \item \code{\link[=[.ppi]{[ppi()}}
 }
 }
-\keyword{internal}

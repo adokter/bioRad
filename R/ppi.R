@@ -3,7 +3,6 @@
 #' R base functions for inspecting a plan position indicator (`ppi`) object.
 #'
 #' @param object A `ppi` object.
-#' @param x A `ppi` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary ppi
@@ -53,11 +52,7 @@ summary.ppi <- function(object, ...) {
 
 #' Print summary for an object of class `ppi`
 #'
-#' @inheritParams summary.ppi
-#'
-#' @rdname summary.ppi
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -72,7 +67,7 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Verify if an object is of class `ppi`
 #'
-#' @inheritParams summary.ppi
+#' @param x A `ppi` object.
 #'
 #' @return For [is.ppi()]: `TRUE` for an object of class `ppi`, otherwise
 #'   `FALSE`.

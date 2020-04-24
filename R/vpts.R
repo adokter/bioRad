@@ -4,7 +4,6 @@
 #' object.
 #'
 #' @param object A `vpts` object.
-#' @param x A `vpts` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vpts
@@ -61,11 +60,7 @@ summary.vpts <- function(object, ...) {
 
 #' Print summary for an object of class `vpts`
 #'
-#' @inheritParams summary.vpts
-#'
-#' @rdname summary.vpts
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -110,7 +105,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Verify if an object is of class `vpts`
 #'
-#' @inheritParams summary.vpts
+#' @param x A `vpts` object.
 #'
 #' @return For [is.vpts()]: `TRUE` for an object of class `vpts`, otherwise
 #'   `FALSE`.

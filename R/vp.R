@@ -4,7 +4,6 @@
 #' (`vp`) object.
 #'
 #' @param object A `vp` object.
-#' @param x A `vp` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vp
@@ -84,11 +83,7 @@ summary.vp <- function(object, ...) {
 
 #' Print summary for an object of class `vp`
 #'
-#' @inheritParams summary.vp
-#'
-#' @rdname summary.vp
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -111,7 +106,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Verify if an object is of class `vp`
 #'
-#' @inheritParams summary.vp
+#' @param x A `vp` object.
 #'
 #' @return For [is.vp()]: `TRUE` for an object of class `vp`, otherwise
 #'   `FALSE`.

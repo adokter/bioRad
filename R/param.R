@@ -3,7 +3,6 @@
 #' R base functions for inspecting a parameter (`param`) object.
 #'
 #' @param object A `param` object.
-#' @param x A `param` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary param
@@ -44,11 +43,7 @@ summary.param <- function(object, ...) {
 
 #' Print summary for an object of class `param`
 #'
-#' @inheritParams summary.param
-#'
-#' @rdname summary.param
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -60,7 +55,7 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Verify if an object is of class `param`
 #'
-#' @inheritParams summary.param
+#' @param x A `param` object.
 #'
 #' @return For [is.param()]: `TRUE` for an object of class `param`, otherwise
 #'   `FALSE`.

@@ -2,13 +2,10 @@
 % Please edit documentation in R/pvol.R
 \name{summary.pvol}
 \alias{summary.pvol}
-\alias{print.pvol}
 \alias{is.pvol}
 \title{Inspect a polar volume (\code{pvol})}
 \usage{
 \method{summary}{pvol}(object, ...)
-
-\method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.pvol(x)
 }
@@ -65,4 +62,3 @@ pvol$scans
 \item \code{\link[=get_scan]{get_scan()}}
 }
 }
-\keyword{internal}

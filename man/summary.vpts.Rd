@@ -2,14 +2,11 @@
 % Please edit documentation in R/vpts.R
 \name{summary.vpts}
 \alias{summary.vpts}
-\alias{print.vpts}
 \alias{is.vpts}
 \alias{dim.vpts}
 \title{Inspect a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{summary}{vpts}(object, ...)
-
-\method{print}{vpts}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.vpts(x)
 
@@ -82,4 +79,3 @@ dim(vpts)
 \item \code{\link[=[.vpts]{[vpts()}}
 }
 }
-\keyword{internal}

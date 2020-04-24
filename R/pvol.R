@@ -3,7 +3,6 @@
 #' R base functions for inspecting a polar volume (`pvol`) object.
 #'
 #' @param object A `pvol` object.
-#' @param x A `pvol` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary pvol
@@ -48,11 +47,7 @@ summary.pvol <- function(object, ...) {
 
 #' Print summary for an object of class `pvol`
 #'
-#' @inheritParams summary.pvol
-#'
-#' @rdname summary.pvol
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -66,7 +61,7 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Verify if an object is of class `pvol`
 #'
-#' @inheritParams summary.pvol
+#' @param x A `pvol` object.
 #'
 #' @return For [is.pvol()]: `TRUE` for an object of class `pvol`, otherwise
 #'   `FALSE`.

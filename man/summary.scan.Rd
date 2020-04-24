@@ -2,14 +2,11 @@
 % Please edit documentation in R/scan.R
 \name{summary.scan}
 \alias{summary.scan}
-\alias{print.scan}
 \alias{is.scan}
 \alias{dim.scan}
 \title{Inspect a scan (\code{scan})}
 \usage{
 \method{summary}{scan}(object, ...)
-
-\method{print}{scan}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.scan(x)
 
@@ -79,4 +76,3 @@ scan$params
 \item \code{\link[=get_param]{get_param()}}
 }
 }
-\keyword{internal}

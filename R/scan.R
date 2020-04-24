@@ -3,7 +3,6 @@
 #' R base functions for inspecting a scan (`scan`) object.
 #'
 #' @param object A `scan` object.
-#' @param x A `scan` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary scan
@@ -56,11 +55,7 @@ summary.scan <- function(object, ...) {
 
 #' Print summary for an object of class `scan`
 #'
-#' @inheritParams summary.scan
-#'
-#' @rdname summary.scan
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -76,7 +71,7 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Verify if an object is of class `scan`
 #'
-#' @inheritParams summary.scan
+#' @param x A `scan` object.
 #'
 #' @return For [is.scan()]: `TRUE` for an object of class `scan`, otherwise
 #'   `FALSE`.

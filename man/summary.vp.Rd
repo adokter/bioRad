@@ -2,14 +2,11 @@
 % Please edit documentation in R/vp.R
 \name{summary.vp}
 \alias{summary.vp}
-\alias{print.vp}
 \alias{is.vp}
 \alias{dim.vp}
 \title{Inspect a vertical profile (\code{vp})}
 \usage{
 \method{summary}{vp}(object, ...)
-
-\method{print}{vp}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.vp(x)
 
@@ -111,4 +108,3 @@ dim(vp)
 \item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
 }
 }
-\keyword{internal}
