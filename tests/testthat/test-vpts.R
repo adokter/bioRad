@@ -13,6 +13,9 @@ test_that("summary.vpts() prints metadata to the console", {
   expect_output(summary(vpts), "# profiles:", fixed = TRUE)
   expect_output(summary(vpts), "time range (UTC):", fixed = TRUE)
   expect_output(summary(vpts), "time step (s):", fixed = TRUE)
+
+  regular_vpts <- regularize_vpts(vpts)
+  expect_output(summary(regular_vpts), "Regular time series of vertical profiles (class vpts)", fixed = TRUE)
 })
 
 test_that("summary.vpts() warns for legacy objects", {
@@ -37,5 +40,5 @@ test_that("dim.vpts() returns dimensions", {
 test_that("[.vpts subsets by profiles and returns a vp object for single selection", {
   expect_s3_class(vpts[10], "vp") # Done with internal function vpts_to_vp()
   expect_s3_class(vpts[10:20], "vpts")
-  expect_equal(dim(vpts[10:20]), c(25, 11, 15)) # 11 datetimes selected
+  expect_equal(length(vpts[10:20]$datetime), 11) # 11 selected
 })
