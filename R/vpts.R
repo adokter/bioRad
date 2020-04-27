@@ -117,7 +117,7 @@ is.vpts <- function(x) {
 
 #' Get dimensions for an object of class `vpts`
 #'
-#' @return For [dim.vpts()]: number of heights, datetimes and quantities in a
+#' @return For [dim.vpts()]: number of datetimes, heights and quantities in a
 #'   time series of vertical profiles (`vpts`).
 #'
 #' @rdname summary.vpts
@@ -125,8 +125,9 @@ is.vpts <- function(x) {
 #' @export
 dim.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
-  data.dim <- dim(x$data[[1]])
-  c(data.dim, length(x$data))
+  heights <- nrow(x$data[[1]])
+  datetimes <- ncol(x$data[[1]])
+  c(datetimes, heights, length(x$data))
 }
 
 #' Subset a time series of vertical profiles (`vpts`)

@@ -32,9 +32,9 @@ test_that("is.vpts() returns TRUE/FALSE correctly", {
   expect_false(is.vpts(vp))
 })
 
-test_that("dim.vpts() returns dimensions", {
+test_that("dim.vpts() returns number of datetimes, heights, quantities", {
   expect_vector(dim(vpts))
-  expect_equal(dim(vpts), c(25, 1934, 15)) # 25 heights, 1934 datetimes, 15 quantities
+  expect_equal(dim(vpts), c(1934, 25, 15)) # 1934 datetimes, 25 heights, 15 quantities
 })
 
 test_that("[.vpts subsets by profiles and returns a vp object for single selection", {
