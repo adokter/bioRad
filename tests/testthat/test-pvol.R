@@ -3,7 +3,7 @@ pvol <- read_pvolfile(pvolfile)
 vp <- example_vp
 
 # No tests for error on incorrect parameters:
-# summary(), print() are generic and work for every input
+# summary(), print(), dim() are generic and work for every input
 # is.pvol() returns TRUE/FALSE and works for every input
 
 test_that("summary.pvol() prints metadata to the console", {
@@ -19,4 +19,9 @@ test_that("is.pvol() returns TRUE/FALSE correctly", {
   expect_true(is.pvol(pvol))
   expect_false(is.pvol("not_a_pvol"))
   expect_false(is.pvol(vp))
+})
+
+test_that("dim.pvol() returns number of scans", {
+  expect_vector(dim(pvol))
+  expect_equal(dim(pvol), c(3)) # 3 scans in example_pvol
 })
