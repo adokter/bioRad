@@ -195,6 +195,9 @@ dim.vpts <- function(x) {
   return(x)
 }
 
+#' Helper function to convert a vpts[i] to a vp object
+#'
+#' @noRd
 vpts_to_vp <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
   nvp <- dim(x)[2]
