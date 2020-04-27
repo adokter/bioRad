@@ -22,9 +22,9 @@ test_that("is.ppi() returns TRUE/FALSE correctly", {
   expect_false(is.ppi(vp))
 })
 
-test_that("dim.ppi() returns dimensions", {
+test_that("dim.ppi() returns number of params, x, y", {
   expect_vector(dim(ppi))
-  expect_equal(dim(ppi), c(5, 200, 200)) # 5 param, 200 x pixels, 200 y pixels for default range_max
+  expect_equal(dim(ppi), c(5, 200, 200)) # 5 param, 200 x, 200 y
 })
 
 test_that("[.ppi subsets by param", {

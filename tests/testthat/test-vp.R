@@ -29,7 +29,7 @@ test_that("is.vp() returns TRUE/FALSE correctly", {
   expect_false(is.vp(scan))
 })
 
-test_that("dim.vp() returns dimensions", {
+test_that("dim.vp() returns number of heights, quantities", {
   expect_vector(dim(vp))
   expect_equal(dim(vp), c(25, 16)) # 25 heights, 17 quantities in example_vp
 })

@@ -19,7 +19,7 @@ test_that("is.scan() returns TRUE/FALSE correctly", {
   expect_false(is.scan(vp))
 })
 
-test_that("dim.scan() returns dimensions", {
+test_that("dim.scan() returns number of params, bins, rays", {
   expect_vector(dim(scan))
   expect_equal(dim(scan), c(5, 480, 360)) # 5 param, 480 bins, 360 rays in example_scan
 })
