@@ -65,15 +65,13 @@ summary.vpts <- function(object, ...) {
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
-  # check if we are dealing with a deprecated vpts class structure
-  if (!is.null(x$heights)) {
-    warning("obsolete vtps object generated with bioRad version < 0.5.0.
-    vpts objects should contain a list element 'height' (instead of obsolete 'heights')")
+  if (is.null(x[["height"]])) {
+    warning("`x` is a legacy vpts object without a column `height`. Use convert_legacy() to avoid errors.")
+    x <- convert_legacy(x)
   }
-  if (!is.null(x$dates)) {
-    warning("obsolete vtps object generated with bioRad version < 0.4.0.
-    vpts objects should contain a list element 'datetime' (instead of obsolete 'dates')")
-    x$datetime <- x$dates
+  if (is.null(x[["datetime"]])) {
+    warning("`x` is a legacy vpts object without a column `datetime`. Use convert_legacy() to avoid errors.")
+    x <- convert_legacy(x)
   }
   cat(
     "                  ",
@@ -119,7 +117,7 @@ is.vpts <- function(x) {
 
 #' Get dimensions for an object of class `vpts`
 #'
-#' @return For [dim.vpts()]: number of heights, datetimes and quantities in a
+#' @return For [dim.vpts()]: number of datetimes, heights and quantities in a
 #'   time series of vertical profiles (`vpts`).
 #'
 #' @rdname summary.vpts
@@ -127,8 +125,9 @@ is.vpts <- function(x) {
 #' @export
 dim.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
-  data.dim <- dim(x$data[[1]])
-  c(data.dim, length(x$data))
+  heights <- nrow(x$data[[1]])
+  datetimes <- ncol(x$data[[1]])
+  c(datetimes, heights, length(x$data))
 }
 
 #' Subset a time series of vertical profiles (`vpts`)
@@ -159,9 +158,6 @@ dim.vpts <- function(x) {
 #' vpts[20:100]
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
-  if (length(i) < 1) {
-    stop("Time series should contain more than one profile.")
-  }
   if (length(i) == 1) {
     if (i > 0) {
       return(vpts_to_vp(x, i))
@@ -197,6 +193,9 @@ dim.vpts <- function(x) {
   return(x)
 }
 
+#' Helper function to convert a vpts[i] to a vp object
+#'
+#' @noRd
 vpts_to_vp <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
   nvp <- dim(x)[2]

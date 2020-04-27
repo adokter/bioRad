@@ -39,6 +39,9 @@
 #' # Get summary info
 #' pvol # Same as summary(pvol) or print(pvol)
 #'
+#' # Get dimensions
+#' dim(pvol)
+#'
 #' # Get summary info for the scans in the polar volume
 #' pvol$scans
 summary.pvol <- function(object, ...) {
@@ -71,4 +74,17 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @export
 is.pvol <- function(x) {
   inherits(x, "pvol")
+}
+
+#' Get dimensions for an object of class `pvol`
+#'
+#' @return For [dim.pvol()]: number of scans (`scan`) in a polar volume
+#'   (`pvol`).
+#'
+#' @rdname summary.pvol
+#'
+#' @export
+dim.pvol <- function(x) {
+  stopifnot(inherits(x, "pvol"))
+  c(length(x$scans))
 }

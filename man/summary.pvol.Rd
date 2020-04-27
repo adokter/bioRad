@@ -3,11 +3,14 @@
 \name{summary.pvol}
 \alias{summary.pvol}
 \alias{is.pvol}
+\alias{dim.pvol}
 \title{Inspect a polar volume (\code{pvol})}
 \usage{
 \method{summary}{pvol}(object, ...)
 
 is.pvol(x)
+
+\method{dim}{pvol}(x)
 }
 \arguments{
 \item{object}{A \code{pvol} object.}
@@ -19,6 +22,9 @@ is.pvol(x)
 \value{
 For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise
 \code{FALSE}.
+
+For \code{\link[=dim.pvol]{dim.pvol()}}: number of scans (\code{scan}) in a polar volume
+(\code{pvol}).
 }
 \description{
 R base functions for inspecting a polar volume (\code{pvol}) object.
@@ -51,6 +57,9 @@ is.pvol(pvol)
 
 # Get summary info
 pvol # Same as summary(pvol) or print(pvol)
+
+# Get dimensions
+dim(pvol)
 
 # Get summary info for the scans in the polar volume
 pvol$scans
