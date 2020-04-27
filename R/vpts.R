@@ -65,11 +65,11 @@ summary.vpts <- function(object, ...) {
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
-  if (is.null(x$height)) {
+  if (is.null(x[["height"]])) {
     warning("`x` is a legacy vpts object without a column `height`. Use convert_legacy() to avoid errors.")
     x <- convert_legacy(x)
   }
-  if (is.null(x$datetime)) {
+  if (is.null(x[["datetime"]])) {
     warning("`x` is a legacy vpts object without a column `datetime`. Use convert_legacy() to avoid errors.")
     x <- convert_legacy(x)
   }

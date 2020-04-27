@@ -88,7 +88,7 @@ summary.vp <- function(object, ...) {
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
-  if (is.null(x$data$height)) {
+  if (is.null(x$data[["height"]])) {
     warning("`x` is a legacy vp object without a column `height`. Use convert_legacy() to avoid errors.")
     x <- convert_legacy(x)
   }
