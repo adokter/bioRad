@@ -11,7 +11,6 @@ test_that("summary.scan() prints metadata to the console", {
   expect_output(summary(scan), "parameters:", fixed = TRUE)
   expect_output(summary(scan), "elevation angle:", fixed = TRUE)
   expect_output(summary(scan), "dims:", fixed = TRUE)
-
 })
 
 test_that("is.scan() returns TRUE/FALSE correctly", {

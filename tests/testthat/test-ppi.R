@@ -5,6 +5,10 @@ vp <- example_vp
 # summary(), print(), dim() are generic and work for every input
 # is.ppi() returns TRUE/FALSE and works for every input
 
+test_that("[.ppi returns error on incorrect parameters", {
+  expect_error(ppi["not_numeric"])
+})
+
 test_that("summary.ppi() prints metadata to the console", {
   # print.ppi() is not tested as it is the same as and called from summary.ppi()
   expect_output(summary(ppi), "Plan position indicator (class ppi)", fixed = TRUE)

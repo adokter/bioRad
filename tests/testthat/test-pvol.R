@@ -13,7 +13,6 @@ test_that("summary.pvol() prints metadata to the console", {
   expect_output(summary(pvol), "radar:", fixed = TRUE)
   expect_output(summary(pvol), "source:", fixed = TRUE)
   expect_output(summary(pvol), "nominal time:", fixed = TRUE)
-
 })
 
 test_that("is.pvol() returns TRUE/FALSE correctly", {
