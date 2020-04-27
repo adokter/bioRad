@@ -6,9 +6,8 @@ vp <- example_vp
 # summary(), print() are generic and work for every input
 # is.pvol() returns TRUE/FALSE and works for every input
 
-# print.pvol() is not tested as it is the same as and called from summary.pvol()
-
 test_that("summary.pvol() prints metadata to the console", {
+  # print.pvol() is not tested as it is the same as and called from summary.pvol()
   expect_output(summary(pvol), "Polar volume (class pvol)", fixed = TRUE)
   expect_output(summary(pvol), "# scans:", fixed = TRUE)
   expect_output(summary(pvol), "radar:", fixed = TRUE)
