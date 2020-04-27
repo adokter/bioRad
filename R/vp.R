@@ -88,11 +88,9 @@ summary.vp <- function(object, ...) {
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
-  if (!is.null(x$data$HGHT)) {
-    warning("vp object is an obsolete one generated with bioRad version < 0.5.0.
-      vp objects should contain a column `height` (rather than `HGHT`) in the
-      `data` element."
-    )
+  if (is.null(x$data$height)) {
+    warning("`x` is a legacy vp object without a column `height`. Use convert_legacy() to avoid errors.")
+    x <- convert_legacy(x)
   }
   cat("               Vertical profile (class vp)\n\n")
   cat("       radar: ", x$radar, "\n")
