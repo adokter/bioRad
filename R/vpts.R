@@ -157,9 +157,6 @@ dim.vpts <- function(x) {
 #' vpts[20:100]
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
-  if (length(i) < 1) {
-    stop("Time series should contain more than one profile.")
-  }
   if (length(i) == 1) {
     if (i > 0) {
       return(vpts_to_vp(x, i))
