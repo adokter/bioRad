@@ -1,26 +1,3 @@
-#' Vertical profile (`vp`) example
-#'
-#' Example object of class [`vp`][summary.vp()] with name `example_vp`.
-#'
-#' @rdname example_vp
-#'
-#' @seealso [summary.vp]
-#'
-#' @examples
-#' # Reload example_vp from package (e.g. in case it was altered)
-#' data(example_vp)
-#'
-#' # Get summary info
-#' example_vp
-#'
-#' # example_vp was created with
-#' \dontrun{
-#' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
-#' example_vp <- read_vpfiles(vpfile)
-#' save(example_vp, file = "data/example_vp.rda")
-#' }
-"example_vp"
-
 #' Scan (`scan`) example
 #'
 #' Example object of class [`scan`][summary.scan()] with name `example_scan`.
@@ -44,6 +21,27 @@
 #' save(example_scan, file = "data/example_scan.rda")
 #' }
 "example_scan"
+
+#' Vertical profile (`vp`) example
+#'
+#' Example object of class [`vp`][summary.vp()] with name `example_vp`.
+#'
+#' @rdname example_vp
+#'
+#' @examples
+#' # Reload example_vp from package (e.g. in case it was altered)
+#' data(example_vp)
+#'
+#' # Get summary info
+#' example_vp
+#'
+#' # example_vp was created with
+#' \dontrun{
+#' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+#' example_vp <- read_vpfiles(vpfile)
+#' save(example_vp, file = "data/example_vp.rda")
+#' }
+"example_vp"
 
 #' Time series of vertical profiles (`vpts`) example
 #'
