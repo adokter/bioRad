@@ -1,4 +1,4 @@
-#' Get a parameter `param` from a scan (`scan`)
+#' Get a parameter (`param`) from a scan (`scan`)
 #'
 #' Returns the selected parameter (`param`) from a scan (`scan`).
 #'

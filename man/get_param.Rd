@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_param.R
 \name{get_param}
 \alias{get_param}
-\title{Get a parameter \code{param} from a scan (\code{scan})}
+\title{Get a parameter (\code{param}) from a scan (\code{scan})}
 \usage{
 get_param(x, param)
 }
