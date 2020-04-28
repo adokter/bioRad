@@ -1,4 +1,4 @@
-test_that("returns error on incorrect parameters", {
+test_that("check_night() returns error on incorrect parameters", {
 
 })
 

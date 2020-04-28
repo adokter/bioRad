@@ -1,8 +1,7 @@
 vp <- example_vp
 vpts <- example_vpts
 
-test_that("returns error on incorrect parameters", {
-
+test_that("get_quantity() returns error on incorrect parameters", {
   expect_error(get_quantity("not_a_vp"))
   expect_error(get_quantity(NULL))
   expect_error(get_quantity(vpi))
@@ -12,11 +11,9 @@ test_that("returns error on incorrect parameters", {
   expect_error(get_quantity(vpts, "not_a_quantity"))
   expect_error(get_quantity(vpts, "height"))
   expect_error(get_quantity(vp, "height"))
-
 })
 
 test_that("get_quantity returns correct quantities from vp", {
-
   dens <- vp$data$dens
   names(dens) <- vp$data$height # Add heights to make named vector
   expect_equal(get_quantity(vp, "dens"), dens)
@@ -35,11 +32,9 @@ test_that("get_quantity returns correct quantities from vp", {
   ff[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- NaN # Set ff to NaN when below sd_vvp_threshold
   names(ff) <- vp$data$height # Add heights to make named vector
   expect_equal(get_quantity(vp, "ff"), ff)
-
 })
 
 test_that("get_quantity returns correct quantities from vpts", {
-
   dens <- vpts$data$dens
   rownames(dens) <- vpts$height
   colnames(dens) <- as.character(vpts$datetime)
@@ -62,7 +57,6 @@ test_that("get_quantity returns correct quantities from vpts", {
   colnames(ff) <- as.character(vpts$datetime)
   ff[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- NaN # Set ff to NaN when below sd_vvp_threshold
   expect_equal(get_quantity(vpts, "ff"), ff)
-
 })
 
 test_that("get_quantity returns vectors for all quantities, vp", {
@@ -83,7 +77,6 @@ test_that("get_quantity returns vectors for all quantities, vp", {
   expect_vector(get_quantity(vp, "n_all"))
   expect_vector(get_quantity(vp, "n_dbz"))
   expect_vector(get_quantity(vp, "n_dbz_all"))
-
 })
 
 test_that("get_quantity returns vectors for all quantities, vpts", {
@@ -104,5 +97,4 @@ test_that("get_quantity returns vectors for all quantities, vpts", {
   expect_vector(get_quantity(vpts, "n_all"))
   expect_vector(get_quantity(vpts, "n_dbz"))
   expect_vector(get_quantity(vpts, "n_dbz_all"))
-
 })

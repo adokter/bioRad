@@ -4,7 +4,7 @@
 \alias{summary.scan}
 \alias{is.scan}
 \alias{dim.scan}
-\title{Class \code{scan}: a scan of a polar volume}
+\title{Inspect a scan (\code{scan})}
 \usage{
 \method{summary}{scan}(object, ...)
 
@@ -13,59 +13,66 @@ is.scan(x)
 \method{dim}{scan}(x)
 }
 \arguments{
-\item{object}{Object of class \code{scan}}
+\item{object}{A \code{scan} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{Object of class \code{scan}}
+\item{x}{A \code{scan} object.}
 }
 \value{
-For \code{is.scan}: \code{TRUE} if its argument is of
-class \code{scan}.
+For \code{\link[=is.scan]{is.scan()}}: \code{TRUE} for an object of class \code{scan}, otherwise
+\code{FALSE}.
 
-For \code{dim.scan}: dimensions of the scan.
+For \code{\link[=dim.scan]{dim.scan()}}: number of parameters (\code{param}), bins and rays in a
+scan (\code{scan}).
 }
 \description{
-Class \code{scan} for a scan of a polar volume, and its associated R base functions.
+R base functions for inspecting a scan (\code{scan}) object.
 }
 \details{
-A object of class \code{scan} is a list containing:
-\describe{
-\item{\code{radar}}{character string with the radar identifier}
-\item{\code{datetime}}{nominal time of the volume to which this
-scan belongs (UTC)}
-\item{\code{params}}{a list with scan parameters}
-\item{\code{attributes}}{list with the scan's \code{\\what},
-\code{\\where} and \code{\\how} attributes}
-\item{\code{geo}}{geographic data, a list with:
-\describe{
-\item{\code{lat}}{latitude of the radar (decimal degrees)}
-\item{\code{lon}}{longitude of the radar (decimal degrees)}
-\item{\code{height}}{height of the radar
-antenna (meters above sea level)}
-\item{\code{elangle}}{radar beam elevation (degrees)}
-\item{\code{rscale}}{range bin size (m)}
-\item{\code{ascale}}{azimuth bin size (deg)}
-}
-The \code{geo} element of a \code{scan} object is a copy of the
-\code{geo} element of its parent polar volume of class \code{pvol}.
+A scan (or sweep) is made by the radar at a certain elevation angle. The
+resulting parameter data (\code{param}) are organized along radar range (bins) and
+azimuth (rays). A scan (\code{scan}) object is a list containing:
+\itemize{
+\item \code{radar}: Radar identifier.
+\item \code{datetime}: Nominal time of the volume to which the scan belongs in UTC.
+\item \code{params}: List of scan parameters (\code{param}).
+\item \code{attributes}: List of the scan's \code{what}, \code{where} and \code{how}
+attributes.
+\item \code{geo}: List of the scan's geographic properties:
+\itemize{
+\item \code{lat}: Latitude of the radar in decimal degrees.
+\item \code{lon}: Longitude of the radar in decimal degrees.
+\item \code{height}: Height of the radar antenna in meters above sea level.
+\item \code{elange}: Elevation angle of the radar beam for that scan in degrees.
+\item \code{rscale}: Range bin size for that scan in m (e.g. 500 m * 480 bins equals
+240 km range).
+\item \code{ascale}: Azimuth bin size for that scan in degrees (e.g. 1 degree * 360
+rays equals full circle).
 }
 }
 }
 \examples{
-# load example scan object
-data(example_scan)
+# Load the example scan
+scan <- example_scan
 
-# verify this object is of class scan:
-is.scan(example_scan)
+# Verify that it is an object of class scan
+is.scan(scan)
 
-# print the scan parameters contained in the scan:
-example_scan$params
+# Get summary info
+scan # Same as summary(scan) or print(scan)
 
-# extract the VRADH scan parameter:
-param <- get_param(example_scan, "VRADH")
+# Get dimensions
+dim(scan)
 
-# print summary info for this scan parameter:
-param
-is.scan("this is not a polar scan but a string") # > FALSE
+# Get summary info for the parameters in the scan
+scan$params
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_scan]{get_scan()}}
+\item \code{\link{example_scan}}
+\item \code{\link[=plot.scan]{plot.scan()}}
+\item \code{\link[=get_param]{get_param()}}
+}
 }

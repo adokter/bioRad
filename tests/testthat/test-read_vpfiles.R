@@ -1,4 +1,4 @@
-test_that("returns error on incorrect parameters", {
+test_that("read_vpfiles() returns error on incorrect parameters", {
 
 })
 

@@ -3,67 +3,71 @@
 \name{summary.pvol}
 \alias{summary.pvol}
 \alias{is.pvol}
-\title{Class \code{pvol}: a polar volume}
+\alias{dim.pvol}
+\title{Inspect a polar volume (\code{pvol})}
 \usage{
 \method{summary}{pvol}(object, ...)
 
 is.pvol(x)
+
+\method{dim}{pvol}(x)
 }
 \arguments{
-\item{object}{Object of class \code{pvol}.}
+\item{object}{A \code{pvol} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{Object of class \code{pvol}.}
+\item{x}{A \code{pvol} object.}
 }
 \value{
-for \code{is.pvol}: \code{TRUE} if its argument is of
-class \code{pvol}
+For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise
+\code{FALSE}.
+
+For \code{\link[=dim.pvol]{dim.pvol()}}: number of scans (\code{scan}) in a polar volume
+(\code{pvol}).
 }
 \description{
-Class \code{pvol} for a polar volume, and its associated R base functions.
+R base functions for inspecting a polar volume (\code{pvol}) object.
 }
 \details{
-An object of class \code{pvol} is a list containing:
-\describe{
-\item{\code{radar}}{character string with the radar identifier}
-\item{\code{datetime}}{nominal time of the volume (UTC)}
-\item{\code{scans}}{a list with scan objects of class 'scan'}
-\item{\code{attributes}}{list with the volume's \code{\\what},
-\code{\\where} and \code{\\how} attributes}
-\item{\code{geo}}{geographic data, a list with:
-\describe{
-\item{\code{lat}}{latitude of the radar (decimal degrees)}
-\item{\code{lon}}{longitude of the radar (decimal degrees)}
-\item{\code{height}}{height of the radar
-antenna (meters above sea level)}
-}
+A polar volume consists of a number of scans (or sweeps) made by the radar at
+different elevation angles. A polar volume (\code{pvol}) object is a list
+containing:
+\itemize{
+\item \code{radar}: Radar identifier.
+\item \code{datetime}: Nominal time of the volume in UTC.
+\item \code{scans}: List of scans (\code{scan}) at different elevation angles.
+\item \code{attributes}: List of the volume's \code{what}, \code{where} and \code{how}
+attributes.
+\item \code{geo}: List of the volume's geographic properties:
+\itemize{
+\item \code{lat}: Latitude of the radar in decimal degrees.
+\item \code{lon}: Longitude of the radar in decimal degrees.
+\item \code{height}: Height of the radar antenna in meters above sea level.
 }
 }
 }
 \examples{
-# locate example volume file:
+# Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+pvol <- read_pvolfile(pvolfile)
 
-# print the local path of the volume file:
-pvolfile
+# Verify that it is an object of class pvol
+is.pvol(pvol)
 
-# load the file:
-example_pvol <- read_pvolfile(pvolfile)
+# Get summary info
+pvol # Same as summary(pvol) or print(pvol)
 
-# print summary info for the loaded polar volume:
-example_pvol
+# Get dimensions
+dim(pvol)
 
-# verify that this is a pvol object:
-is.pvol(example_pvol)
-
-# print summary info for the scans in the polar volume:
-example_pvol$scans
-
-# copy the first scan to a new object 'scan':
-scan <- example_pvol$scans[[1]]
-
-# print summary info for the scan:
-scan
-is.pvol("this is not a polar volume but a string") # > FALSE
+# Get summary info for the scans in the polar volume
+pvol$scans
+}
+\seealso{
+\itemize{
+\item \code{\link[=read_pvolfile]{read_pvolfile()}}
+\item \code{\link[=get_elevation_angles]{get_elevation_angles()}}
+\item \code{\link[=get_scan]{get_scan()}}
+}
 }

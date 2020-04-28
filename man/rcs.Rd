@@ -28,16 +28,21 @@ The radar cross section in cm^2.
 Gives the currently assumed radar cross section of an object in cm^2.
 }
 \examples{
-# Get the radar cross section for a vp:
-rcs(example_vp)
+# Get the radar cross section for a vp
+vp <- example_vp
+rcs(vp)
 
-# Get the radar cross section for a vpts:
-rcs(example_vpts)
+# Get the radar cross section for a vpts
+vpts <- example_vpts
+rcs(vpts)
 
-# Get the radar cross section for a vpi:
-example_vpi <- integrate_profile(example_vpts)
-rcs(example_vpi)
+# Get the radar cross section for a vpi
+vpi <- integrate_profile(example_vpts)
+rcs(vpi)
 }
 \seealso{
-\code{\link{rcs()<-}} for setting the radar cross section of an object.
+\itemize{
+\item \code{\link[=rcs<-]{rcs()<-}} for setting the radar cross section of an object.
+\item \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}
+}
 }

@@ -1,3 +1,3 @@
-test_that("returns error on incorrect parameters", {
+test_that("color_scale() returns error on incorrect parameters", {
 
 })

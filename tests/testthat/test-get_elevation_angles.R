@@ -1,12 +1,10 @@
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
-scan <- pvol$scans[[1]]
-param <- scan$params$DBZH
+scan <- get_scan(pvol, 0.5)
+param <- get_param(scan, "DBZH")
 
-test_that("returns error on incorrect parameters", {
+test_that("get_elevation_angles() returns error on incorrect parameters", {
   expect_error(get_elevation_angles("not_a_vp"))
-  expect_error(get_elevation_angles(1))
-  expect_error(get_elevation_angles(NULL))
 })
 
 test_that("get_elevation_angles() returns the correct elangle", {

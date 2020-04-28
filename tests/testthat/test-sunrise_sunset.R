@@ -1,4 +1,8 @@
-test_that("returns error on incorrect parameters", {
+test_that("sunrise() returns error on incorrect parameters", {
+
+})
+
+test_that("sunset() returns error on incorrect parameters", {
 
 })
 
