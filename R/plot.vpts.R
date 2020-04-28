@@ -316,7 +316,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
       }
       if (fill[i] > 0) {
         lim <- c(51, 101, 151, 200)
-        polygon(c(x, X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
+        polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
           density = -1, col = col
         )
       }
