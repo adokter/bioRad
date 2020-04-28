@@ -4,8 +4,6 @@
 #'
 #' @rdname example_scan
 #'
-#' @seealso [summary.scan]
-#'
 #' @examples
 #' # Reload example_scan from package (e.g. in case it was altered)
 #' data(example_scan)
@@ -45,11 +43,9 @@
 
 #' Time series of vertical profiles (`vpts`) example
 #'
-#' Example object of class [`vpts`](summary.vpts()] with name `example_vpts`.
+#' Example object of class [`vpts`][summary.vpts()] with name `example_vpts`.
 #'
 #' @rdname example_vpts
-#'
-#' @seealso [summary.vpts]
 #'
 #' @examples
 #' # Reload example_vpts from package (e.g. in case it was altered)

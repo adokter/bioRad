@@ -28,7 +28,4 @@ example_scan <- pvol$scans[[1]]
 save(example_scan, file = "data/example_scan.rda")
 }
 }
-\seealso{
-\link{summary.scan}
-}
 \keyword{datasets}
