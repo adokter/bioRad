@@ -2,26 +2,27 @@
 #' (`param`)
 #'
 #' Gives the elevation angles of all scans within a polar volume (`pvol`) or the
-#' elevation angle of a single scan (`scan`) or scan parameter (`param`).
+#' elevation angle of a single scan (`scan`) or scan parameter (`param`) in
+#' degrees.
 #'
 #' @param x A `pvol`, `scan` or `param` object.
 #'
-#' @return Elevation angle(s) in degrees.
+#' @return The elevation angle(s) in degrees.
 #'
 #' @export
 #'
 #' @examples
-#' # Locate and read the polar volume example file:
+#' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' example_pvol <- read_pvolfile(pvolfile)
 #'
-#' # Get the elevations angles of the scans in the pvol:
+#' # Get the elevations angles of the scans in the pvol
 #' get_elevation_angles(example_pvol)
 #'
-#' # Extract the first scan:
+#' # Extract the first scan
 #' scan <- example_pvol$scans[[1]]
 #'
-#' # Get the elevation angle of that scan:
+#' # Get the elevation angle of that scan
 #' get_elevation_angles(scan)
 get_elevation_angles <- function(x) {
   UseMethod("get_elevation_angles", x)

@@ -1,6 +1,7 @@
-test_that("returns error on incorrect parameters", {
+test_that("integrate_to_ppi() returns error on incorrect parameters", {
 
 })
+
 test_that("integrate_to_ppi() raster argument produces expected output", {
   data(example_vp)
   expect_true(file.exists(pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")))
@@ -11,7 +12,8 @@ test_that("integrate_to_ppi() raster argument produces expected output", {
     raster(my_ppi$data)
   )
 })
-test_that("integrate to ppi produces simular output when limits are set", {
+
+test_that("integrate_to_ppi() produces simular output when limits are set", {
   data(example_vp)
   expect_true(file.exists(pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")))
   expect_s3_class(example_pvol <- read_pvolfile(pvolfile), "pvol")
@@ -24,7 +26,8 @@ test_that("integrate to ppi produces simular output when limits are set", {
     raster(my_ppi$data)
   )
 })
-test_that("integrate to ppi produces same values on cropped raster", {
+
+test_that("integrate_to_ppi() produces same values on cropped raster", {
   data(example_vp)
   expect_true(file.exists(pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")))
   expect_s3_class(example_pvol <- read_pvolfile(pvolfile), "pvol")
@@ -39,6 +42,7 @@ test_that("integrate to ppi produces same values on cropped raster", {
     values(raster::crop(raster(my_ppi$data), extent(0, 3000, 1000, 5000)))
   )
 })
+
 test_that("check if other projection gives same result", {
   data(example_vp)
   expect_true(file.exists(pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")))

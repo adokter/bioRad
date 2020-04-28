@@ -1,10 +1,8 @@
-#' Class \code{ppi}: a plan position indicator
+#' Inspect a plan position indicator (`ppi`)
 #'
-#' Class \code{ppi} for a plan position indicator, and its associated R base
-#' functions.
+#' R base functions for inspecting a plan position indicator (`ppi`) object.
 #'
-#' @param object Object of class \code{ppi}.
-#' @param x Object of class \code{ppi}.
+#' @param object A `ppi` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary ppi
@@ -12,121 +10,122 @@
 #' @export
 #'
 #' @details
-#' \code{ppi} objects are generated from elevation scans (\code{scan} objects)
-#' with \link{project_as_ppi} or from polar volumes with \link{integrate_to_ppi},
-#' producing projections of the radar data onto the earth's surface.
+#' A plan position indicator is a projection of radar data onto the earth's
+#' surface, generated from a single scan (`scan`) with [project_as_ppi()], a
+#' polar volume (`pvol`) with [integrate_to_ppi()] or multiple plan position
+#' indicators (`ppi`) with [composite_ppi()]. A plan position indicator (`ppi`)
+#' object is a list containing:
+#' * `radar`: Radar identifier.
+#' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
+#' * `data`: A [`sp::SpatialGridDataFrame`] containing the georeferenced data.
+#' See [summary.param()] for commonly available parameters, such as `DBZH`.
+#' * `geo`: List of the scan's geographic properties (see the `geo` element in
+#' [summary.scan()]), with two additional properties:
+#'   * `bbox`: Bounding box for the plan position indicator in decimal degrees.
+#'   * `merged`: Logical. Flag to indicate if a plan position indicator is a
+#'   composite of multiple scans. `TRUE` if generated with [integrate_to_ppi()]
+#'   or [composite_ppi()].
 #'
-#' An object of class \code{ppi} is a list containing:
-#' \describe{
-#'  \item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame}
-#'    containing the georeferenced data. Commonly available parameters are:
-#'     \describe{
-#'      \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'      \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'      \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-#'        velocities towards the radar are negative, while radial velocities
-#'        away from the radar are positive}
-#'      \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-#'        between vertically polarized and horizontally polarized reflectivity
-#'        factor}
-#'      \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'      \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#'        }
-#'  }
-#'  \item{\code{geo}}{geographic data, a list with:
-#'     \describe{
-#'      \item{\code{lat}}{latitude of the radar (decimal degrees)}
-#'      \item{\code{lon}}{longitude of the radar (decimal degrees)}
-#'      \item{\code{height}}{height of the radar
-#'        antenna (meters above sea level)}
-#'      \item{\code{elangle}}{radar beam elevation (degrees)}
-#'      \item{\code{rscale}}{range bin size (m)}
-#'      \item{\code{ascale}}{azimuth bin size (deg)}
-#'     }
-#'     The \code{geo} element of a 'scan' object is a copy of the \code{geo}
-#'     element of its parent scan or scan parameter.
-#'   }
-#' }
+#' @seealso
+#' * [project_as_ppi()]
+#' * [integrate_to_ppi()]
+#' * [plot.ppi()]
+#' * [map()]
+#' * [composite_ppi()]
+#' * \code{\link[=[.ppi]{[ppi()}}
+#'
 #' @examples
-#' # load example scan object
-#' data(example_scan)
+#' # Project the example scan as a ppi
+#' ppi <- project_as_ppi(example_scan)
 #'
-#' # calculate ppi object
-#' example_ppi <- project_as_ppi(example_scan)
+#' # Verify that it is an object of class ppi
+#' is.ppi(ppi)
 #'
-#' # print summary info:
-#' example_ppi
+#' # Get summary info
+#' ppi # Same as summary(ppi) or print(ppi)
 #'
-#' # verify exampl_ppi is a ppi object:
-#' is.ppi(example_ppi)
-#'
-#' # ppi object dimensions:
-#' dim(example_ppi)
+#' # Get dimensions
+#' dim(ppi)
 summary.ppi <- function(object, ...) {
   print.ppi(object)
 }
 
-#' @rdname summary.ppi
+#' Print summary for an object of class `ppi`
 #'
-#' @export
-#'
-#' @return For \code{is.ppi}: \code{TRUE} if its argument is of
-#' class \code{ppi}.
-is.ppi <- function(x) inherits(x, "ppi")
-
-#' @rdname summary.ppi
-#'
-#' @export
-#'
-#' @return For \code{dim.ppi}: dimensions of the ppi.
-dim.ppi <- function(x) {
-  stopifnot(inherits(x, "ppi"))
-  c(dim(x$data)[2], x$data@grid@cells.dim)
-}
-
-#' Subset a plan position indicator (\code{ppi})
-#'
-#' Select quantities by index from a \code{ppi}
-#'
-#' @param x An object of class \code{param} or \code{scan}.
-#' @param i Indices specifying elements to extract.
-#'
-#' @export
-#' @examples
-#' # make a ppi:
-#' my_ppi <- project_as_ppi(example_scan)
-#'
-#' # this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):
-#' my_ppi
-#'
-#' # This ppi only contains the first quantity (VRADH):
-#' my_ppi[1]
-#'
-#' # This ppi contains the first three quantities (VRADH, DBZH, ZDR):
-#' my_ppi[1:3]
-`[.ppi` <- function(x, i) {
-  stopifnot(inherits(x, "ppi"))
-  myppi <- list(
-    radar = x$radar, datetime = x$datetime,
-    data = x$data[i], geo = x$geo
-  )
-  class(myppi) <- "ppi"
-  return(myppi)
-}
-
-#' Print method for class \code{ppi}
-#'
-#' @param x An object of class \code{ppi}.
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "ppi"))
   cat("               Plan position indicator (class ppi)\n\n")
-  cat("  quantities: ", names(x$data), "\n")
+  cat("  parameters: ", names(x$data), "\n")
   cat(
     "        dims: ", x$data@grid@cells.dim[1], "x",
     x$data@grid@cells.dim[2], "pixels\n\n"
   )
+}
+
+#' Verify if an object is of class `ppi`
+#'
+#' @param x A `ppi` object.
+#'
+#' @return For [is.ppi()]: `TRUE` for an object of class `ppi`, otherwise
+#'   `FALSE`.
+#'
+#' @rdname summary.ppi
+#'
+#' @export
+is.ppi <- function(x) {
+  inherits(x, "ppi")
+}
+
+#' Get dimensions for an object of class `ppi`
+#'
+#' @return For [dim.ppi()]: number of parameters (`param`), x and y pixels in a
+#'   plan position indicator (`ppi`).
+#'
+#' @rdname summary.ppi
+#'
+#' @export
+dim.ppi <- function(x) {
+  stopifnot(inherits(x, "ppi"))
+  c(dim(x$data)[2], x$data@grid@cells.dim)
+}
+
+#' Subset a plan position indicator (`ppi`)
+#'
+#' Select parameters (`param`) or derived quantities by index from a plan
+#' position indicator (`ppi`).
+#'
+#' @param x A `ppi` object.
+#' @param i Integer. Index/indices specifying which parameters (`param`) or
+#'   derived quantities to extract.
+#'
+#' @return A `ppi` object containing a subset of parameters (`param`).
+#'
+#' @export
+#'
+#' @examples
+#' # Project the example scan as a ppi
+#' ppi <- project_as_ppi(example_scan)
+#'
+#' # This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)
+#' ppi
+#'
+#' # Subset ppi to one containing only the first parameter (VRADH)
+#' ppi[1]
+#'
+#' # Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
+#' ppi[1:3]
+#'
+#' # Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)
+#' ppi[-1:-2]
+`[.ppi` <- function(x, i) {
+  stopifnot(inherits(x, "ppi"))
+  my_ppi <- list(
+    radar = x$radar, datetime = x$datetime,
+    data = x$data[i], geo = x$geo
+  )
+  class(my_ppi) <- "ppi"
+  return(my_ppi)
 }

@@ -1,4 +1,4 @@
-test_that("returns error on incorrect parameters", {
+test_that("s... returns error on incorrect parameters", {
 
 })
 test_that("scan_to_raster() raster argument produces expected raster output", {

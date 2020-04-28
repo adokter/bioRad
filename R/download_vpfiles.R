@@ -18,6 +18,8 @@
 #' @export
 #' @importFrom curl curl_fetch_disk
 #'
+#' @seealso select_vpfiles
+#'
 #' @examples
 #' # Download data from radars "bejab" and "bewid", even if previously
 #' # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,

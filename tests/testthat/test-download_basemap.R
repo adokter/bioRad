@@ -1,3 +1,3 @@
-test_that("returns error on incorrect parameters", {
+test_that("download_basemap() returns error on incorrect parameters", {
 
 })

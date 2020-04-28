@@ -4,7 +4,7 @@
 \alias{summary.ppi}
 \alias{is.ppi}
 \alias{dim.ppi}
-\title{Class \code{ppi}: a plan position indicator}
+\title{Inspect a plan position indicator (\code{ppi})}
 \usage{
 \method{summary}{ppi}(object, ...)
 
@@ -13,72 +13,63 @@ is.ppi(x)
 \method{dim}{ppi}(x)
 }
 \arguments{
-\item{object}{Object of class \code{ppi}.}
+\item{object}{A \code{ppi} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{Object of class \code{ppi}.}
+\item{x}{A \code{ppi} object.}
 }
 \value{
-For \code{is.ppi}: \code{TRUE} if its argument is of
-class \code{ppi}.
+For \code{\link[=is.ppi]{is.ppi()}}: \code{TRUE} for an object of class \code{ppi}, otherwise
+\code{FALSE}.
 
-For \code{dim.ppi}: dimensions of the ppi.
+For \code{\link[=dim.ppi]{dim.ppi()}}: number of parameters (\code{param}), x and y pixels in a
+plan position indicator (\code{ppi}).
 }
 \description{
-Class \code{ppi} for a plan position indicator, and its associated R base
-functions.
+R base functions for inspecting a plan position indicator (\code{ppi}) object.
 }
 \details{
-\code{ppi} objects are generated from elevation scans (\code{scan} objects)
-with \link{project_as_ppi} or from polar volumes with \link{integrate_to_ppi},
-producing projections of the radar data onto the earth's surface.
-
-An object of class \code{ppi} is a list containing:
-\describe{
-\item{\code{data}}{an object of class \link[sp]{SpatialGridDataFrame}
-containing the georeferenced data. Commonly available parameters are:
-\describe{
-\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-\item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities
-away from the radar are positive}
-\item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-between vertically polarized and horizontally polarized reflectivity
-factor}
-\item{"\code{PHIDP}"}{Differential phase (degrees)}
-\item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-}
-}
-\item{\code{geo}}{geographic data, a list with:
-\describe{
-\item{\code{lat}}{latitude of the radar (decimal degrees)}
-\item{\code{lon}}{longitude of the radar (decimal degrees)}
-\item{\code{height}}{height of the radar
-antenna (meters above sea level)}
-\item{\code{elangle}}{radar beam elevation (degrees)}
-\item{\code{rscale}}{range bin size (m)}
-\item{\code{ascale}}{azimuth bin size (deg)}
-}
-The \code{geo} element of a 'scan' object is a copy of the \code{geo}
-element of its parent scan or scan parameter.
+A plan position indicator is a projection of radar data onto the earth's
+surface, generated from a single scan (\code{scan}) with \code{\link[=project_as_ppi]{project_as_ppi()}}, a
+polar volume (\code{pvol}) with \code{\link[=integrate_to_ppi]{integrate_to_ppi()}} or multiple plan position
+indicators (\code{ppi}) with \code{\link[=composite_ppi]{composite_ppi()}}. A plan position indicator (\code{ppi})
+object is a list containing:
+\itemize{
+\item \code{radar}: Radar identifier.
+\item \code{datetime}: Nominal time of the volume to which the scan belongs in UTC.
+\item \code{data}: A \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}} containing the georeferenced data.
+See \code{\link[=summary.param]{summary.param()}} for commonly available parameters, such as \code{DBZH}.
+\item \code{geo}: List of the scan's geographic properties (see the \code{geo} element in
+\code{\link[=summary.scan]{summary.scan()}}), with two additional properties:
+\itemize{
+\item \code{bbox}: Bounding box for the plan position indicator in decimal degrees.
+\item \code{merged}: Logical. Flag to indicate if a plan position indicator is a
+composite of multiple scans. \code{TRUE} if generated with \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
+or \code{\link[=composite_ppi]{composite_ppi()}}.
 }
 }
 }
 \examples{
-# load example scan object
-data(example_scan)
+# Project the example scan as a ppi
+ppi <- project_as_ppi(example_scan)
 
-# calculate ppi object
-example_ppi <- project_as_ppi(example_scan)
+# Verify that it is an object of class ppi
+is.ppi(ppi)
 
-# print summary info:
-example_ppi
+# Get summary info
+ppi # Same as summary(ppi) or print(ppi)
 
-# verify exampl_ppi is a ppi object:
-is.ppi(example_ppi)
-
-# ppi object dimensions:
-dim(example_ppi)
+# Get dimensions
+dim(ppi)
+}
+\seealso{
+\itemize{
+\item \code{\link[=project_as_ppi]{project_as_ppi()}}
+\item \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
+\item \code{\link[=plot.ppi]{plot.ppi()}}
+\item \code{\link[=map]{map()}}
+\item \code{\link[=composite_ppi]{composite_ppi()}}
+\item \code{\link[=[.ppi]{[ppi()}}
+}
 }

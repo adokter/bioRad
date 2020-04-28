@@ -3,7 +3,7 @@ pvol <- read_pvolfile(pvolfile)
 scan <- pvol$scans[[1]]
 param <- scan$params$DBZH
 
-test_that("returns error on incorrect parameters", {
+test_that("get_elevation_angles() returns error on incorrect parameters", {
   expect_error(get_elevation_angles("not_a_vp"))
   expect_error(get_elevation_angles(1))
   expect_error(get_elevation_angles(NULL))
@@ -11,7 +11,7 @@ test_that("returns error on incorrect parameters", {
 
 test_that("get_elevation_angles() returns the correct elangle", {
   pvol_elangles <- c()
-  for (scan in example_pvol$scans) {
+  for (scan in pvol$scans) {
     pvol_elangles <- c(pvol_elangles, scan$attributes$where$elangle)
   }
 
