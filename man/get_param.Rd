@@ -2,26 +2,35 @@
 % Please edit documentation in R/get_param.R
 \name{get_param}
 \alias{get_param}
-\title{Get a scan parameter \code{param} from a scan \code{scan}}
+\title{Get a parameter \code{param} from a scan (\code{scan})}
 \usage{
 get_param(x, param)
 }
 \arguments{
-\item{x}{An object of class \code{scan}.}
+\item{x}{A \code{scan} object.}
 
-\item{param}{A scan parameter.}
+\item{param}{Character. A scan parameter, such as \code{DBZH} or \code{VRADH}. See
+\code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
 }
 \value{
-An object of class \link[=summary.param]{param}.
+A \code{param} object.
 }
 \description{
-Get a scan parameter \code{param} from a scan \code{scan}
+Returns the selected parameter (\code{param}) from a scan (\code{scan}).
 }
 \examples{
-# we will extract a scan parameter from the example scan object:
-example_scan
+# Load the example scan
+scan <- example_scan
 
-# extract the VRADH scan parameter
-my_param <- get_param(example_scan, "VRADH")
-my_param
+# Get summary info (including parameters)
+scan
+
+# Extact the VRADH scan parameter
+param <- get_param(scan, "VRADH")
+
+# Get summary info for this parameter
+param
+}
+\seealso{
+\code{\link[=summary.param]{summary.param()}}
 }
