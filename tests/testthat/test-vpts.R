@@ -37,8 +37,17 @@ test_that("dim.vpts() returns number of datetimes, heights, quantities", {
   expect_equal(dim(vpts), c(1934, 25, 15)) # 1934 datetimes, 25 heights, 15 quantities
 })
 
-test_that("[.vpts subsets by profiles and returns a vp object for single selection", {
-  expect_s3_class(vpts[10], "vp") # Done with internal function vpts_to_vp()
+test_that("[.vpts subsets by profiles", {
+  # 1934 profiles in total
+  expect_equal(length(vpts[10]$datetime), 1) # Select 10th => 1 profile
+  expect_equal(length(vpts[10:20]$datetime), 11) # Select 10:20 => 11 profiles
+  expect_equal(length(vpts[-1:-1900]$datetime), 34) # Remove 1:1900 => 34 profiles left
+})
+
+test_that("[.vpts returns a vp object for single selection", {
   expect_s3_class(vpts[10:20], "vpts")
-  expect_equal(length(vpts[10:20]$datetime), 11) # 11 selected
+  expect_s3_class(vpts[10], "vp") # Select 10th => 1 profile
+  vpts_of_2 <- vpts[1:2]
+  expect_s3_class(vpts_of_2[-1], "vp") # Remove 1st => 1 profile left
+  expect_s3_class(vpts_of_2[-2], "vp") # Remove 2nd => 1 profile left
 })

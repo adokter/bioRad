@@ -31,4 +31,5 @@ test_that("[.ppi subsets by param", {
   # parameters:  VRADH DBZH ZDR RHOHV PHIDP
   expect_equal(names(ppi[1]$data), c("VRADH"))
   expect_equal(names(ppi[2:4]$data), c("DBZH", "ZDR", "RHOHV"))
+  expect_equal(names(ppi[-2:-4]$data), c("VRADH", "PHIDP")) # All except 2 to 4
 })

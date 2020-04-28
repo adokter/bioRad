@@ -151,11 +151,14 @@ dim.vpts <- function(x) {
 #' # This vpts contains 1934 profiles (i.e. datetimes)
 #' dim(vpts)
 #'
-#' # Subset vpts to extract 10th profile (returns a vp object)
-#' vpts[10]
+#' # Subset vpts to extract 10th profile
+#' vpts[10] # A vp object
 #'
-#' # Subset vpts to extract the 20th to 100th profile (returns a vpts object)
-#' vpts[20:100]
+#' # Subset vpts to extract the 20th to 100th profile
+#' vpts[20:100] # A vpts object with 81 profiles
+#'
+#' # Subset vpts to remove the first 10 profiles
+#' vpts[-1:-10] # A vpts object with 10 less profiles
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
   if (length(i) == 1) {
