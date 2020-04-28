@@ -6,7 +6,7 @@ scan <- example_scan
 # is.vp() returns TRUE/FALSE and works for every input
 
 test_that("c.vp() returns error on incorrect parameters", {
-  expect_error(c(vp, "not_a_vp"), "Each element must be a vp object.")
+  expect_error(c(vp, "not_a_vp"), "Each element must be a vp object.", fixed = TRUE)
 })
 
 test_that("summary.vp() prints metadata to the console", {
