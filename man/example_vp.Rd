@@ -3,7 +3,7 @@
 \docType{data}
 \name{example_vp}
 \alias{example_vp}
-\title{Example object of class \code{vp}}
+\title{Vertical profile (\code{vp}) example}
 \format{
 An object of class \code{vp} with 25 rows and 16 columns.
 }
@@ -11,19 +11,23 @@ An object of class \code{vp} with 25 rows and 16 columns.
 example_vp
 }
 \description{
-Example of a \code{\link[=summary.vp]{vp}} object with name
-\code{example_vp}. Can be created with \code{\link{calculate_vp}} or read
-from file with \code{\link{read_vpfiles}}.
+Example object of class \code{\link[=summary.vp]{vp}} with name \code{example_vp}.
 }
 \examples{
-# get summary of example vp:
-summary(example_vp)
+# Reload example_vp from package (e.g. in case it was altered)
+data(example_vp)
 
-# example_vp was created with:
+# Get summary info
+example_vp
+
+# example_vp was created with
+\dontrun{
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 example_vp <- read_vpfiles(vpfile)
-\dontrun{
-# save(example_vp, file = "data/example_vp.rda")
+save(example_vp, file = "data/example_vp.rda")
 }
+}
+\seealso{
+\link{summary.vp}
 }
 \keyword{datasets}

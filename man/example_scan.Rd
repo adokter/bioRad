@@ -3,7 +3,7 @@
 \docType{data}
 \name{example_scan}
 \alias{example_scan}
-\title{Example object of class \code{scan}}
+\title{Scan (\code{scan}) example}
 \format{
 An object of class \code{scan} of dimension 5 x 480 x 360.
 }
@@ -11,19 +11,24 @@ An object of class \code{scan} of dimension 5 x 480 x 360.
 example_scan
 }
 \description{
-Example of a \code{\link[=summary.scan]{scan}} object with name
-\code{example_scan}.
+Example object of class \code{\link[=summary.scan]{scan}} with name \code{example_scan}.
 }
 \examples{
-# get summary of example scan:
-summary(example_scan)
+# Reload example_scan from package (e.g. in case it was altered)
+data(example_scan)
 
-# example_scan was created with:
+# Get summary info
+example_scan
+
+# example_scan was created with
+\dontrun{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 example_scan <- pvol$scans[[1]]
-\dontrun{
-# save(example_scan, file = "data/example_scan.rda")
+save(example_scan, file = "data/example_scan.rda")
 }
+}
+\seealso{
+\link{summary.scan}
 }
 \keyword{datasets}
