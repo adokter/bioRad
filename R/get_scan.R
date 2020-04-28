@@ -1,6 +1,7 @@
 #' Get a scan (`scan`) from a polar volume (`pvol`)
 #'
-#' Returns the scan with elevation angle closest to `elev`.
+#' Returns the scan (`scan`) from a polar volume (`pvol`) with elevation angle
+#' closest to `elev`.
 #'
 #' @param x A `pvol` object.
 #' @param elev Numeric. Elevation angle.
