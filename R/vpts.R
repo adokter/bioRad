@@ -161,20 +161,7 @@ dim.vpts <- function(x) {
 #' vpts[-1:-10] # A vpts object with 10 less profiles
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
-  if (length(i) == 1) {
-    if (i > 0) {
-      return(vpts_to_vp(x, i))
-    } else {
-      if (dim(x)[1] == 2) {
-        if (i == -1) {
-          return(vpts_to_vp(x, 2))
-        }
-        if (i == -2) {
-          return(vpts_to_vp(x, 1))
-        }
-      }
-    }
-  }
+  
   x$datetime <- x$datetime[i]
   x$daterange <- .POSIXct(c(min(x$datetime), max(x$datetime)), tz = "UTC")
   x$timesteps <- difftime(x$datetime[-1], x$datetime[-length(x$datetime)],
@@ -193,25 +180,29 @@ dim.vpts <- function(x) {
     }
   )
   names(x$data) <- quantity.names
+
+  # Convert to vp if only 1 profile
+  if(length(x$datetime) == 1) {
+    x <- vpts_to_vp(x)
+  }
+
   return(x)
 }
 
-#' Helper function to convert a vpts[i] to a vp object
+#' Helper function to convert a vpts[1] to a vp object
 #'
 #' @noRd
-vpts_to_vp <- function(x, i) {
+vpts_to_vp <- function(x) {
   stopifnot(inherits(x, "vpts"))
-  nvp <- dim(x)[1]
-  if (i < 1 || i > nvp) {
-    return(NA)
-  }
+  stopifnot(length(x$datetime) == 1)
+
   vpout <- list()
   vpout$radar <- x$radar
-  vpout$datetime <- x$datetime[i]
+  vpout$datetime <- x$datetime[1]
   vpout$data <- as.data.frame(lapply(
     names(x$data),
     function(y) {
-      x$data[y][[1]][, i]
+      x$data[y][[1]]
     }
   ))
   names(vpout$data) <- names(x$data)

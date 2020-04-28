@@ -47,6 +47,7 @@ test_that("[.vpts subsets by profiles", {
 test_that("[.vpts returns a vp object for single selection", {
   expect_s3_class(vpts[10:20], "vpts")
   expect_s3_class(vpts[10], "vp") # Select 10th => 1 profile
+  expect_s3_class(vpts[-1:-1933], "vp") # Remove 1933 => 1 profile left
   vpts_of_2 <- vpts[1:2]
   expect_s3_class(vpts_of_2[-1], "vp") # Remove 1st => 1 profile left
   expect_s3_class(vpts_of_2[-2], "vp") # Remove 2nd => 1 profile left
