@@ -161,7 +161,7 @@ dim.vpts <- function(x) {
 #' vpts[-1:-10] # A vpts object with 10 less profiles
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
-
+  
   x$datetime <- x$datetime[i]
   x$daterange <- .POSIXct(c(min(x$datetime), max(x$datetime)), tz = "UTC")
   x$timesteps <- difftime(x$datetime[-1], x$datetime[-length(x$datetime)],
