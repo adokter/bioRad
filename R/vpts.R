@@ -165,7 +165,7 @@ dim.vpts <- function(x) {
     if (i > 0) {
       return(vpts_to_vp(x, i))
     } else {
-      if (dim(x)[2] == 2) {
+      if (dim(x)[1] == 2) {
         if (i == -1) {
           return(vpts_to_vp(x, 2))
         }
@@ -201,7 +201,7 @@ dim.vpts <- function(x) {
 #' @noRd
 vpts_to_vp <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
-  nvp <- dim(x)[2]
+  nvp <- dim(x)[1]
   if (i < 1 || i > nvp) {
     return(NA)
   }
