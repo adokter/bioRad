@@ -408,8 +408,8 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
         S2 <- rbind(X2, Y2)
         S1 <- rot %*% S1
         S2 <- rot %*% S2
-        S1 <- S1 * c(scalex, scaley) + c(x, y)
-        S2 <- S2 * c(scalex, scaley) + c(x, y)
+        S1 <- S1 * c(scalex, scaley) + c(as.numeric(x), y)
+        S2 <- S2 * c(scalex, scaley) + c(as.numeric(x), y)
       }
       if (spd > 0) {
         segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
