@@ -23,7 +23,7 @@ is.vpts(x)
 For \code{\link[=is.vpts]{is.vpts()}}: \code{TRUE} for an object of class \code{vpts}, otherwise
 \code{FALSE}.
 
-For \code{\link[=dim.vpts]{dim.vpts()}}: number of heights, datetimes and quantities in a
+For \code{\link[=dim.vpts]{dim.vpts()}}: number of datetimes, heights and quantities in a
 time series of vertical profiles (\code{vpts}).
 }
 \description{

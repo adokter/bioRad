@@ -13,19 +13,19 @@ convert_legacy(x)
 \method{convert_legacy}{vpts}(x)
 }
 \arguments{
-\item{x}{A \code{vp}, or \code{vpts} object.}
+\item{x}{A \code{vp} or \code{vpts} object.}
 }
 \value{
 An updated object of the same class as the input.
 }
 \description{
-Convert legacy bioRad objects (vp, vpts) that have become
-obsolete and make them compatible with the current bioRad version.
+Convert legacy bioRad objects (\code{vp}, \code{vpts}) that have become obsolete
+compatible with the current bioRad version.
 }
 \examples{
-# convert a vp object:
+# Convert a vp object
 convert_legacy(example_vp)
 
-# convert a vpts object:
+# Convert a vpts object
 convert_legacy(example_vpts)
 }

@@ -15,7 +15,8 @@ get_scan(x, elev)
 A \code{scan} object.
 }
 \description{
-Returns the scan with elevation angle closest to \code{elev}.
+Returns the scan (\code{scan}) from a polar volume (\code{pvol}) with elevation angle
+closest to \code{elev}.
 }
 \examples{
 # Locate and read the polar volume example file

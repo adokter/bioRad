@@ -60,6 +60,13 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     stop("Fill argument should be a logical value.")
   }
 
+  # remove profiles with duplicate timestamps:
+  index_duplicates <- which(ts$timesteps == 0) + 1
+  if (length(index_duplicates) > 0) {
+    warning(paste("Dropped", length(index_duplicates), "profiles with duplicate datetime values"))
+    ts <- ts[-index_duplicates]
+  }
+
   if (interval == "auto") {
     dt <- as.difftime(median(ts$timesteps), units = "secs")
     if (verbose) {

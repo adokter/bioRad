@@ -31,4 +31,7 @@ ppi[1]
 
 # Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
 ppi[1:3]
+
+# Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)
+ppi[-1:-2]
 }

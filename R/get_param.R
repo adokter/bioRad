@@ -1,20 +1,31 @@
-#' Get a scan parameter (\code{param}) from a scan (\code{scan})
+#' Get a parameter (`param`) from a scan (`scan`)
 #'
-#' @param x An object of class \code{scan}.
-#' @param param a scan parameter
+#' Returns the selected parameter (`param`) from a scan (`scan`).
 #'
-#' @return An object of class '\link[=summary.param]{param}'.
+#' @param x A `scan` object.
+#' @param param Character. A scan parameter, such as `DBZH` or `VRADH`. See
+#'   [summary.param()] for commonly available parameters.
+#'
+#' @return A `param` object.
 #'
 #' @export
-#' @examples
-#' # we will extract a scan parameter from the example scan object:
-#' example_scan
 #'
-#' # extract the VRADH scan parameter
-#' my_param <- get_param(example_scan, "VRADH")
-#' my_param
+#' @seealso [summary.param()]
+#'
+#' @examples
+#' # Load the example scan
+#' scan <- example_scan
+#'
+#' # Get summary info (including parameters)
+#' scan
+#'
+#' # Extact the VRADH scan parameter
+#' param <- get_param(scan, "VRADH")
+#'
+#' # Get summary info for this parameter
+#' param
 get_param <- function(x, param) {
-  stopifnot(inherits(x, "scan"))
-  if (!(param %in% names(x$params))) stop(paste("scan parameter", param, "not found"))
+  assert_that(class(x) == "scan", msg = "`x` must be a scan object.")
+  if (!(param %in% names(x$params))) stop(paste0("Can't find parameter `", param, "` in `x`."))
   x$params[[param]]
 }
