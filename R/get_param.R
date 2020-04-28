@@ -26,6 +26,6 @@
 #' param
 get_param <- function(x, param) {
   assert_that(class(x) == "scan", msg = "`x` must be a scan object.")
-  if (!(param %in% names(x$params))) stop(paste("Scan parameter", param, "not found in `x`."))
+  if (!(param %in% names(x$params))) stop(paste0("Can't find parameter `", param, "` in `x`."))
   x$params[[param]]
 }
