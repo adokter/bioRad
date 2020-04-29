@@ -8,10 +8,6 @@ test_that("get_quantity() returns error on incorrect parameters", {
   expect_error(get_quantity(vp, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
   expect_error(get_quantity(vpts, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
 
-  # Height is not a quantity
-  expect_error(get_quantity(vp, "height"))
-  expect_error(get_quantity(vpts, "height"))
-
   # Quantities are case sensitive
   expect_error(get_quantity(vp, "dbzh"))
   expect_error(get_quantity(vp, "DENS"))
