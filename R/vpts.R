@@ -20,14 +20,14 @@
 #' * `radar`: Radar identifier.
 #' * `datetime`: Nominal times of the profiles (named `dates` in biorad <
 #' 0.4.0) in UTC.
-#' * `height`: Lowest height of the height bins in the profiles in m.
+#' * `height`: Lowest height of the height bins in the profiles in m above sea level.
 #' * `daterange`: Minimum and maximum nominal time of the profiles in UTC.
 #' * `timesteps`: Time differences between the profiles. Element `i` gives the
 #' difference between profile `i` and `i+1`.
 #' * `data`: A list of quantities, each containing a `datetime` by `height`
 #' matrix with the values. Use [get_quantity()] to access these and see
 #' [summary.vp()] for a description of available quantities.
-#' * `attributes`: List of the vertical profile's `where` and `how` attributes,
+#' * `attributes`: List of the vertical profile's `what`, `where`, and `how` attributes,
 #' copied from the first profile.
 #' * `regular`: Logical indicating whether the time series is regular or not.
 #'
