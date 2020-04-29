@@ -1,16 +1,20 @@
 vp <- example_vp
+vp_list_mixed <- list(example_vp, "not_a_vp")
 vpts <- example_vpts
 
 test_that("get_quantity() returns error on incorrect parameters", {
-  expect_error(get_quantity("not_a_vp"))
-  expect_error(get_quantity(NULL))
-  expect_error(get_quantity(vpi))
-  expect_error(get_quantity(33))
-  expect_error(get_quantity(c(3,3)))
-  expect_error(get_quantity(vp, "not_a_quantity"))
-  expect_error(get_quantity(vpts, "not_a_quantity"))
-  expect_error(get_quantity(vpts, "height"))
+  expect_error(get_quantity("not_a_vp", "dens"))
+  expect_error(get_quantity(vp_list_mixed, "dens"), "`x` must be list of vp objects.", fixed = TRUE)
+  expect_error(get_quantity(vp, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
+  expect_error(get_quantity(vpts, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
+
+  # Height is not a quantity
   expect_error(get_quantity(vp, "height"))
+  expect_error(get_quantity(vpts, "height"))
+
+  # Quantities are case sensitive
+  expect_error(get_quantity(vp, "dbzh"))
+  expect_error(get_quantity(vp, "DENS"))
 })
 
 test_that("get_quantity returns correct quantities from vp", {
