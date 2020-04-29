@@ -50,3 +50,6 @@ download_vpfiles(
 unlink("~/bioRad_tmp_files", recursive = T)
 }
 }
+\seealso{
+select_vpfiles
+}

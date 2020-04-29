@@ -230,6 +230,15 @@ read_pvolfile_body <- function(file, param = c(
       read_pvolfile_scan(file, x, param, radar, datetime, geo)
     }
   )
+
+  # filter out NULL output from read_pvolfile_scan
+  valid_scans <- which(!sapply(data, is.null))
+  assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
+  if(length(valid_scans) < length(scans)){
+    warning(paste("ignoring",length(scans)-length(valid_scans),"scan(s) in file",file,"because requested scan parameter(s) are missing."))
+  }
+  data <- data[valid_scans]
+
   # order by elevation
   if (sort) {
     data <- data[order(sapply(data, get_elevation_angles))]
@@ -276,7 +285,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
     )
     groups <- groups[quantityNames %in% param]
     if (length(groups) == 0) {
-      stop(paste("none of the requested scan parameters present in", file))
+      return(NULL)
     }
   }
 

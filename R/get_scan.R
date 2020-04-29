@@ -1,27 +1,34 @@
-#' Get a scan (\code{scan}) from a polar volume (\code{pvol})
+#' Get a scan (`scan`) from a polar volume (`pvol`)
 #'
-#' @param x An object of class \code{pvol}.
-#' @param elev Elevation angle.
+#' Returns the scan (`scan`) from a polar volume (`pvol`) with elevation angle
+#' closest to `elev`.
 #'
-#' @return An object of class '\link[=summary.scan]{scan}'.
+#' @param x A `pvol` object.
+#' @param elev Numeric. Elevation angle.
 #'
-#' @details The function returns the scan with elevation angle closest
-#' to \code{elev}.
+#' @return A `scan` object.
 #'
 #' @export
+#'
+#' @seealso
+#' * [summary.scan()]
+#' * [get_elevation_angles()]
+#'
 #' @examples
-#' # locate example volume file:
+#' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#' pvol <- read_pvolfile(pvolfile)
 #'
-#' # load the file:
-#' example_pvol <- read_pvolfile(pvolfile)
+#' # Get elevation angles
+#' get_elevation_angles(pvol)
 #'
-#' # extract the scan at 3 degree elevation:
-#' scan <- get_scan(example_pvol, 3)
+#' # Extract the scan closest to 3 degrees elevation (= 2.5)
+#' scan <- get_scan(pvol, 3)
 #'
-#' # print summary info for this scan:
+#' # Get summary info
 #' scan
 get_scan <- function(x, elev) {
-  stopifnot(inherits(x, "pvol"))
+  assert_that(class(x) == "pvol", msg = "`x` must be a pvol object.")
+  assert_that(class(elev) == "numeric", msg = "`elev` must be numeric.")
   x$scans[[which.min(abs(get_elevation_angles(x) - elev))]]
 }
