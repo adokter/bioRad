@@ -3,66 +3,54 @@
 \name{summary.param}
 \alias{summary.param}
 \alias{is.param}
-\title{Class \code{param}: a parameter of a scan of a polar volume}
+\title{Inspect a parameter (\code{param})}
 \usage{
 \method{summary}{param}(object, ...)
 
 is.param(x)
 }
 \arguments{
-\item{object}{Object of class \code{param}.}
+\item{object}{A \code{param} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
 
-\item{x}{Object of class \code{param}.}
+\item{x}{A \code{param} object.}
 }
 \value{
-for \code{is.scan}: \code{TRUE} if its argument is of
-class "\code{param}"
+For \code{\link[=is.param]{is.param()}}: \code{TRUE} for an object of class \code{param}, otherwise
+\code{FALSE}.
 }
 \description{
-Class \code{param} for a parameter of a scan of a polar volume, and its
-associated R base functions.
+R base functions for inspecting a parameter (\code{param}) object.
 }
 \details{
-An object of class \code{scan} is a simple matrix, with the following
-specific attributes:
-\describe{
-\item{\code{radar}}{character string with the radar identifier}
-\item{\code{datetime}}{nominal time of the volume to which this
-scan belongs (UTC)}
-\item{\code{lat}}{latitude of the radar (decimal degrees)}
-\item{\code{lon}}{longitude of the radar (decimal degrees)}
-\item{\code{height}}{height of the radar antenna (meters above sea level)}
-\item{\code{get_elevation_angles}}{radar beam elevation (degrees)}
-\item{\code{param}}{string with the name of the polar scan parameter}
-}
-Scan parameters are named according to the OPERA data information model
-(ODIM), see Table 16 in the
-\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+A parameter is a quantity/variable measured by the radar during a scan (or
+sweep). These are organized along radar range (bins) and azimuth (rays). Scan
+parameters are named according to the OPERA data information model (ODIM),
+see Table 16 in the \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+
 Commonly available parameters are:
-\describe{
-\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities away
-from the radar are positive}
-\item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-between vertically polarized and horizontally polarized
-reflectivity factor}
-\item{"\code{PHIDP}"}{Differential phase (degrees)}
-\item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
+\itemize{
+\item \code{DBZH}, \code{DBZ}: (Logged) reflectivity factor in dBZ.
+\item \code{TH}, \code{T}: (Logged) uncorrected reflectivity factor in dBZ.
+\item \code{VRADH}, \code{VRAD}: Radial velocity in m/s. Radial velocities towards the
+radar are negative, while radial velocities away from the radar are positive.
+\item \code{RHOHV}: Correlation coefficient (unitless). Correlation between the
+vertically and horizontally polarized reflectivity factor.
+\item \code{PHIDP}: Differential phase in degrees.
+\item \code{ZDR}: (Logged) differential reflectivity in dB.
 }
 }
 \examples{
-# load example scan object
-data(example_scan)
-
-# extract the DBZH scan parameter:
+# Extract the DBZH scan parameter from the example scan
 param <- get_param(example_scan, "DBZH")
 
-# verify this is an object of class param:
+# Verify that it is an object of class param
 is.param(param)
 
-# print summary info for this scan parameter:
-param
+# Get summary info for this parameter
+param # Same as summary(param) or print(param)
+}
+\seealso{
+\code{\link[=get_param]{get_param()}}
 }

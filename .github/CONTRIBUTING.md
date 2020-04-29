@@ -73,9 +73,9 @@ Care to fix bugs or implement new functionality for bioRad? Awesome! 👏 Have a
 We try to follow the [GitHub flow](https://guides.github.com/introduction/flow/) for development.
 
 1. Fork [this repo][repo] and clone it to your computer. To learn more about this process, see [this guide](https://guides.github.com/activities/forking/).
-2. If you have forked and cloned the project before and it has been a while since you worked on it, [pull changes from the original repo](https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/) to your clone by using `git pull upstream master`.
+2. If you have forked and cloned the project before and it has been a while since you worked on it, [pull changes from the original repo](https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/) to your clone by using `git pull upstream develop` (the branch we use for developing).
 3. Open the RStudio project file (`.Rproj`).
-5. Make your changes:
+4. Make your changes:
     * Write your code.
     * Test your code (bonus points for adding unit tests).
     * Document your code (see function documentation above).

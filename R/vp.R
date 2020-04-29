@@ -1,11 +1,9 @@
-#' Class \code{vp}: a vertical profile of animals
+#' Inspect a vertical profile (`vp`)
 #'
-#' Class \code{vp} for a vertical profile of animals
+#' R base functions for inspecting a vertical profile of biological targets
+#' (`vp`) object.
 #'
-#' @rdname summary.vp
-#'
-#' @param object  An object of class \code{vp}.
-#' @param x An object of class \code{vp}.
+#' @param object A `vp` object.
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vp
@@ -13,104 +11,86 @@
 #' @export
 #'
 #' @details
-#' An object of class \code{vp} contains a vertical profile. A vertical profile
-#' contains a collection of quantities, with each quantity having values at
-#' different altitude layers above the earth's surface, typically equally
-#' spaced altitudinal layers.
+#' A vertical profile of biological targets contains a collection of quantities,
+#' organized in different (typically equally spaced) altitude layers (height
+#' bins) above the earth's surface. A vertical profile (`vp`) object is a list
+#' containing:
+#' * `radar`: Radar identifier.
+#' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
+#' * `data`: A data.frame with the profile's quantities organized per height
+#' bin. Use [get_quantity()] to access these:
+#'   * `u`: Speed component west to east in m/s.
+#'   * `v`: Speed component north to south in m/s.
+#'   * `w`: Vertical speed (unreliable!) in m/s.
+#'   * `ff`: Horizontal speed in m/s.
+#'   * `dd`: Direction in degrees clockwise from north.
+#'   * `sd_vvp`: VVP radial velocity standard deviation in m/s.
+#'   * `gap`: Angular data gap detected in T/F.
+#'   * `dbz`: Animal reflectivity factor in dBZ.
+#'   * `eta`: Animal reflectivity in cm^2/km^3.
+#'   * `dens`: Animal density in animals/km^3.
+#'   * `DBZH`: Total reflectivity factor (bio + meteo scattering) in dBZ.
+#'   * `n`: Number of data points used for the ground speed estimates
+#'   (quantities `u`, `v`, `w`, `ff`, `dd`).
+#'   * `n_all`: Number of data points used for the radial velocity standard
+#'   deviation estimate (quantity `sd_vvp`).
+#'   * `n_dbz`: Number of data points used for reflectivity-based estimates
+#'   (quantities `dbz`, `eta`, `dens`).
+#'   * `n_dbz_all`: Number of data points used for the total reflectivity
+#'   estimate (quantity `DBZH`).
+#' * `attributes`: List of the vertical profile's `what`, `where` and `how`
+#' attributes.
 #'
-#' Data contained in this class object should be accessed with the
-#' \link{get_quantity} function. Information stored under \code{attributes}
-#' (see below) can be accessed directly.
+#' @section Conventions:
+#' * `NA`: Maps to `nodata` in the ODIM convention: value to denote areas void
+#' of data (never radiated).
+#' * `NaN`: Maps to `undetect` in the ODIM convention: denote areas below the
+#' measurement detection threshold (radiated but nothing detected). The value is
+#' also used when there are too few datapoints to calculate a quantity.
+#' * `0`: Maps to `0` in the ODIM convention: denote areas where the quantity
+#' has a measured value of zero (radiated and value zero detected or inferred).
 #'
-#' A \code{vp} object is a list containing
-#' \describe{
-#'  \item{\strong{\code{radar}}}{the radar identifier}
-#'  \item{\strong{\code{datetime}}}{the nominal time of the profile}
-#'  \item{\strong{\code{data}}}{the profile data, a list containing:
-#'    \describe{
-#'        \item{\code{height}}{height above mean sea level (m). Alt. bin from height to height+interval)}
-#'        \item{\code{u}}{speed component west to east (m/s)}
-#'        \item{\code{v}}{speed component north to south (m/s)}
-#'        \item{\code{w}}{vertical speed (unreliable!) (m/s)}
-#'        \item{\code{ff}}{horizontal speed (m/s)}
-#'        \item{\code{dd}}{direction (degrees, clockwise from north)}
-#'        \item{\code{sd_vvp}}{VVP radial velocity standard deviation (m/s)}
-#'        \item{\code{gap}}{Angular data gap detected (T/F)}
-#'        \item{\code{dbz}}{Animal reflectivity factor (dBZ)}
-#'        \item{\code{eta}}{Animal reflectivity (cm^2/km^3)}
-#'        \item{\code{dens}}{Animal density (animals/km^3)}
-#'        \item{\code{DBZH}}{Total reflectivity factor (bio+meteo scattering) (dBZ)}
-#'        \item{\code{n}}{number of points VVPvelocity analysis (u,v,w,ff,dd)}
-#'        \item{\code{n_all}}{number of points VVP st.dev. estimate (sd_vvp)}
-#'        \item{\code{n_dbz}}{number of points density estimate (dbz,eta,dens)}
-#'        \item{\code{n_dbz_all}}{number of points total reflectivity estimate (DBZH)}
-#'    }
-#'  }
-#'  \item{\strong{\code{attributes}}}{list with the profile's \code{\\what},
-#'  \code{\\where} and \code{\\how} attributes}
-#' }
+#' It depends on a radar's detection threshold or signal to noise ratio whether
+#' it safe to assume an `undetect` is equivalent to zero. When dealing with
+#' close range data only (within 35 km), it is typically safe to assume aerial
+#' densities (`dens`) and reflectivities (`eta`) are in fact zero in case of
+#' undetects.
 #'
-#' \subsection{Conventions}{
-#'   \itemize{
-#'     \item \code{NA} Maps to 'nodata' in the ODIM convention: value to denote areas void of data
-#'      (never radiated)
-#'     \item \code{NaN} Maps to 'undetect' in the ODIM convention: denote areas below the measurement
-#'     detection threshold (radiated but nothing detected). The value is also used when there are too
-#'     few datapoints to calculate a quantity.
-#'     \item \code{0} Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
-#'      value of zero (radiated and value zero detected or inferred).
-#'   }
-#'   It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
-#'   an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
-#'   is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
-#'   in case of undetects.
-#' }
+#' @seealso
+#' * [calculate_vp()]
+#' * [read_vpfiles()]
+#' * [`example_vp`]
+#' * [get_quantity()]
+#' * [plot.vp()]
+#' * [as.data.frame.vp()]
+#' * [bind_into_vpts()]
+#'
 #' @examples
-#' # load example vp object
-#' data(example_vp)
-#' example_vp
+#' # Load the example vertical profile
+#' vp <- example_vp
 #'
-#' # check that the object is a vp object:
-#' is.vp(example_vp)
+#' # Verify that it is an object of class vp
+#' is.vp(vp)
 #'
-#' # dimensions of the vp object:
-#' dim(example_vp)
+#' # Get summary info
+#' vp # Same as summary(vp) or print(vp)
+#'
+#' # Get dimensions
+#' dim(vp)
 summary.vp <- function(object, ...) {
   print.vp(object)
 }
 
-#' @rdname summary.vp
+#' Print summary for an object of class `vp`
 #'
-#' @export
-#'
-#' @return For \code{is.vp}: \code{TRUE} if its argument is of class \code{vp}.
-is.vp <- function(x) {
-  inherits(x, "vp")
-}
-
-#' @rdname summary.vp
-#'
-#' @export
-#'
-#' @return For \code{dim.vp}: dimensions of the profile data.
-dim.vp <- function(x) {
-  stopifnot(inherits(x, "vp"))
-  dim(x$data)
-}
-
-#' Print method for class \code{vp}
-#'
-#' @param x An object of class \code{vp}, like the result of a call to
-#' \link[=summary.vp]{read_vpfiles}.
-#'
-#' @keywords internal
+#' @noRd
 #'
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
-  if (!is.null(x$data$HGHT)) {
-    warning("obsolete vp object generated with bioRad version < 0.5.0.
-    vp objects should contain a list element 'data' containing a data.frame with column 'height' (instead of obsolete 'HGHT)")
+  if (is.null(x$data[["height"]])) {
+    warning("`x` is a legacy vp object without a column `height`. Use convert_legacy() to avoid errors.")
+    x <- convert_legacy(x)
   }
   cat("               Vertical profile (class vp)\n\n")
   cat("       radar: ", x$radar, "\n")
@@ -122,146 +102,54 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   ), "\n")
 }
 
-#' Convert a vertical profile (\code{vp}) to a Data Frame
+#' Verify if an object is of class `vp`
 #'
-#' Converts a vertical profile to a Data Frame, and optionally adds information
-#' on sunrise/sunset, day/night and derived quantities like migration
-#' traffic rates.
+#' @param x A `vp` object.
 #'
-#' @param x An object of class \code{vp}.
-#' @param row.names \code{NULL} or a character vector giving the row names for
-#' the data frame. Missing values are not allowed.
-#' @param optional If \code{FALSE} then the names of the variables in the data
-#' frame are checked to ensure that they are syntactically valid variable names
-#' and are not duplicated.
-#' @param quantities An optional character vector with the names of the
-#' quantities to include as columns in the data frame.
-#' @param elev Sun elevation in degrees, see \link{sunrise}/\link{sunset}.
-#' @param lat Radar latitude in decimal degrees. When set, overrides the
-#' latitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations
-#' @param lon Radar longitude in decimal degrees. When set, overrides the
-#' longitude stored in \code{x} in \link{sunrise}/\link{sunset} calculations.
-#' @param suntime Logical, when \code{TRUE}, adds sunrise/sunset and day/night
-#' information to each row.
-#' @param geo Logical, when \code{TRUE}, adds latitude, longitude and antenna
-#' height of the radar to each row.
-#' @param ... Additional arguments to be passed to or from methods.
+#' @return For [is.vp()]: `TRUE` for an object of class `vp`, otherwise
+#'   `FALSE`.
 #'
-#' @return An object of class \code{data.frame}.
+#' @rdname summary.vp
 #'
 #' @export
-#'
-#' @details
-#' Note that only the "dens" quantity is thresholded for radial velocity
-#' standard deviation by \link{sd_vvp_threshold}. Note that this is different from the
-#' default \link{plot.vp}, \link{plot.vpts} and \link{get_quantity.vp}
-#' functions, where quantities "eta", "dbz", "ff", "u", "v", "w", "dd" are
-#' all thresholded by \link{sd_vvp_threshold}
-#'
-#' @examples
-#' # load an example vertical profile time series object
-#' data(example_vp)
-#'
-#' # print some summary information
-#' example_vp
-#'
-#' # convert the object to a data.frame
-#' df <- as.data.frame(example_vp)
-#'
-#' # print the data.frame to console
-#' df
-#'
-#' # do not compute sunrise/sunset information
-#' df <- as.data.frame(example_vp, suntime = FALSE)
-#'
-#' # override the latitude/longitude information stored in the object
-#' # when calculating sunrise / sunset
-#' df <- as.data.frame(example_vp, suntime = TRUE, lat = 50, lon = 4)
-as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
-                             quantities = names(x$data), suntime = TRUE,
-                             geo = TRUE, elev = -0.268, lat = NULL,
-                             lon = NULL, ...) {
-  stopifnot(inherits(x, "vp"))
-  if (!is.null(row.names)) {
-    if (is.character(row.names) & length(row.names) ==
-      length(x$datetime) * length(x$height)) {
-      rownames(output) <- row.names
-    } else {
-      stop(paste(
-        "'row.names' is not a character vector of length",
-        length(x$datetime) * length(x$height)
-      ))
-    }
-  }
-  if (is.null(lat)) {
-    lat <- x$attributes$where$lat
-  }
-  if (is.null(lon)) {
-    lon <- x$attributes$where$lon
-  }
-  missing <- which(!(quantities %in% names(x$data)))
-  if (length(missing) > 0) {
-    stop(paste(
-      paste(quantities[missing], collapse = " "),
-      "not an available quantity, select one or more of",
-      paste(names(x$data), collapse = ",")
-    ))
-  }
-  # coerce data to a data frame
-  output <- as.data.frame(x$data, optional = optional, ...)
-  # add height and datetime as a column
-  output <- cbind(datetime = x$datetime, height = output$height, output)
-  output$height <- NULL
-  # add radar name
-  output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
-  # add location information
-  if (geo) {
-    output$lat <- lat
-    output$lon <- lon
-    output$height_antenna <- x$attributes$where$height
-  }
-  # override the lat,lon attributes in case of user-provided values
-  x$attributes$where$lat <- lat
-  x$attributes$where$lon <- lon
-  # add day
-  if (suntime) {
-    dayQ <- !check_night(x, elev = elev)
-    dayQ <- c(t(replicate(nrow(x), dayQ)))
-    output <- cbind(output, day = dayQ)
-    sunrise <- sunrise(x$datetime, lat = lat, lon = lon)
-    sunset <- sunset(x$datetime, lat = lat, lon = lon)
-    output$sunrise <- as.POSIXct(
-      c(t(replicate(nrow(x), sunrise))),
-      origin = "1970-1-1", tz = "UTC"
-    )
-    output$sunset <- as.POSIXct(
-      c(t(replicate(nrow(x), sunset))),
-      origin = "1970-1-1", tz = "UTC"
-    )
-  }
-  output
+is.vp <- function(x) {
+  inherits(x, "vp")
 }
 
-#' Concatenate vertical profiles (\code{vp}) into a list of vertical profiles
+#' Get dimensions for an object of class `vp`
 #'
-#' @param ... objects of class \code{vp}
+#' @return For [dim.vp()]: number of heights and quantities in a vertical
+#'   profile (`vp`).
 #'
-#' @return an object of class \code{list}
+#' @rdname summary.vp
 #'
 #' @export
+dim.vp <- function(x) {
+  stopifnot(inherits(x, "vp"))
+  dim(x$data)
+}
+
+#' Concatenate vertical profiles (`vp`) into a list of vertical profiles
+#'
+#' Concatenates vertical profiles (`vp`) into a list of vertical profiles
+#' (`c(vp, vp, vp)`) and warns if they are not from a single radar.
+#'
+#' @param ... `vp` objects.
+#'
+#' @return A list of `vp` objects.
+#'
+#' @export
+#'
+#' @seealso [bind_into_vpts()]
 c.vp <- function(...) {
-  vps <- list(...)
-  vptest <- sapply(vps, function(x) is(x, "vp"))
-  if (FALSE %in% vptest) {
-    warning("Non-vp objects found!")
-    return(vps)
-  }
+  vp_list <- list(...)
+  is_vp <- sapply(vp_list, function(x) is(x, "vp"))
+  assert_that(all(is_vp), msg = "Each element must be a vp object.")
   # extract radar identifiers
-  radars <- unique(sapply(vps, "[[", "radar"))
+  radars <- unique(sapply(vp_list, "[[", "radar"))
   if (length(radars) > 1) {
-    warning("Vertical profiles are not from a single radar!")
+    warning("Vertical profiles are not from a single radar.")
   }
-  output <- vps
-  class(output) <- c("list")
-  output
+  class(vp_list) <- c("list")
+  vp_list
 }

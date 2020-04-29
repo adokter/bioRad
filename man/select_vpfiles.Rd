@@ -40,3 +40,6 @@ select_vpfiles(
   directory = "my_data"
 )
 }
+\seealso{
+download_vpfiles
+}

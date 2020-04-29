@@ -22,17 +22,22 @@ sd_vvp_threshold(x)
 The \code{sd_vvp} threshold in m/s.
 }
 \description{
-Gives the current threshold of the radial velocity standard deviation
+Returns the current threshold of the radial velocity standard deviation
 (\code{sd_vvp}) of an object in m/s, retrieved by velocity volume processing (VVP).
 }
 \examples{
-# Get the sd_vvp threshold for a vp:
-sd_vvp_threshold(example_vp)
+# Get the sd_vvp threshold for a vp
+vp <- example_vp
+sd_vvp_threshold(vp)
 
-# Get the sd_vvp threshold for a vpts:
-sd_vvp_threshold(example_vpts)
+# Get the sd_vvp threshold for a vpts
+vpts <- example_vpts
+sd_vvp_threshold(vpts)
 }
 \seealso{
-\code{\link{sd_vvp_threshold()<-}} for setting the \code{sd_vvp} threshold of an
-object.
+\itemize{
+\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}} for setting the \code{sd_vvp}
+threshold of an object.
+\item \code{\link[=rcs]{rcs()}}
+}
 }
