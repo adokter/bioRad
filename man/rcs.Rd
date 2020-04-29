@@ -25,7 +25,7 @@ rcs(x)
 The radar cross section in cm^2.
 }
 \description{
-Gives the currently assumed radar cross section of an object in cm^2.
+Returns the currently assumed radar cross section of an object in cm^2.
 }
 \examples{
 # Get the radar cross section for a vp

@@ -1,6 +1,6 @@
 #' Get radar cross section
 #'
-#' Gives the currently assumed radar cross section of an object in cm^2.
+#' Returns the currently assumed radar cross section of an object in cm^2.
 #'
 #' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
 #'

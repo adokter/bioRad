@@ -1,6 +1,6 @@
 #' Get threshold of the radial velocity standard deviation
 #'
-#' Gives the current threshold of the radial velocity standard deviation
+#' Returns the current threshold of the radial velocity standard deviation
 #' (`sd_vvp`) of an object in m/s, retrieved by velocity volume processing (VVP).
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
