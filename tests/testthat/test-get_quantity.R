@@ -21,6 +21,11 @@ test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff w
   names(dens) <- vp$data$height # Add heights to make named vector
   expect_equal(get_quantity(vp, "dens"), dens)
 
+  # height is returned as is
+  height <- vp$data$height
+  names(height) <- vp$data$height # Add heights to make named vector
+  expect_equal(get_quantity(vp, "height"), height)
+
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vp$data$eta
   eta[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- 0
@@ -41,11 +46,18 @@ test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff w
 })
 
 test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff when below sd_vvp_threshold", {
+
   # dens is returned as is
   dens <- vpts$data$dens
   rownames(dens) <- vpts$height
   colnames(dens) <- as.character(vpts$datetime)
   expect_equal(get_quantity(vpts, "dens"), dens)
+
+  # height is returned as a matrix repetition of vpts$height
+  height <- matrix(rep(as.numeric(vpts$height),dim(vpts)[1]), ncol=dim(vpts)[1])
+  rownames(height) <- vpts$height
+  colnames(height) <- as.character(vpts$datetime)
+  expect_equal(get_quantity(vpts, "dens"), height)
 
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vpts$data$eta
