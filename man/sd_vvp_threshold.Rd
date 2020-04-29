@@ -22,7 +22,7 @@ sd_vvp_threshold(x)
 The \code{sd_vvp} threshold in m/s.
 }
 \description{
-Gives the current threshold of the radial velocity standard deviation
+Returns the current threshold of the radial velocity standard deviation
 (\code{sd_vvp}) of an object in m/s, retrieved by velocity volume processing (VVP).
 }
 \examples{

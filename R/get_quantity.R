@@ -1,47 +1,70 @@
-#' Get a quantity of a vertical profile (\code{vp}) or time series of vertical profiles (\code{vpts})
+#' Get a quantity from a vertical profile (`vp`) or time series of vertical
+#' profiles (`vpts`)
 #'
-#' @param x A vp or vpts object.
-#' @param quantity A profile quantity, one of:
-#' \itemize{
-#'  \item{\code{"height"}}{}
-#'  \item{\code{"u"}}{}
-#'  \item{\code{"v"}}{}
-#'  \item{\code{"w"}}{}
-#'  \item{\code{"ff"}}{}
-#'  \item{\code{"dd"}}{}
-#'  \item{\code{"sd_vvp"}}{}
-#'  \item{\code{"gap"}}{}
-#'  \item{\code{"dbz"}}{}
-#'  \item{\code{"eta"}}{}
-#'  \item{\code{"dens"}}{}
-#'  \item{\code{"DBZH"}}{}
-#'  \item{\code{"n"}}{}
-#'  \item{\code{"n_all"}}{}
-#'  \item{\code{"n_dbz"}}{}
-#'  \item{\code{"n_dbz_all"}}{}
-#' }
+#' Returns values for the selected quantity from a vertical profile (`vp`),
+#' list, or time series of vertical profiles (`vpts`). Values are organized per
+#' height bin. Values for `eta` are set to `0`, `dbz` to `-Inf` and `ff`, `u`,
+#' `v`, `w`, `dd` to `NaN` when the `sd_vvp` for that height bin is below the
+#' [sd_vvp_threshold()].
 #'
-#' @details This function grabs any of the data quantities stored in
-#' \link[=summary.vp]{vp} or \link[=summary.vpts]{vpts} objects. See the
-#' documentation of the vertical profile \link[=summary.vp]{vp} class for a
-#' description of each of these quantities.
+#' @param x A `vp`, list of `vp` or `vpts` object.
+#' @param quantity Character. A (case sensitive) profile quantity, one of:
+#'   * `u`: Speed component west to east in m/s.
+#'   * `v`: Speed component north to south in m/s.
+#'   * `w`: Vertical speed (unreliable!) in m/s.
+#'   * `ff`: Horizontal speed in m/s.
+#'   * `dd`: Direction in degrees clockwise from north.
+#'   * `sd_vvp`: VVP radial velocity standard deviation in m/s.
+#'   * `gap`: Angular data gap detected in T/F.
+#'   * `dbz`: Animal reflectivity factor in dBZ.
+#'   * `eta`: Animal reflectivity in cm^2/km^3.
+#'   * `dens`: Animal density in animals/km^3.
+#'   * `DBZH`: Total reflectivity factor (bio + meteo scattering) in dBZ.
+#'   * `n`: Number of data points used for the ground speed estimates
+#'   (quantities `u`, `v`, `w`, `ff`, `dd`).
+#'   * `n_all`: Number of data points used for the radial velocity standard
+#'   deviation estimate (quantity `sd_vvp`).
+#'   * `n_dbz`: Number of data points used for reflectivity-based estimates
+#'   (quantities `dbz`, `eta`, `dens`).
+#'   * `n_dbz_all`: Number of data points used for the total reflectivity
+#'   estimate (quantity `DBZH`).
+#' * `attributes`: List of the vertical profile's `what`, `where` and `how`
+#' attributes.
 #'
 #' @export
-#' @examples
-#' # load example profile
-#' data(example_vp)
 #'
-#' # extract the animal density ("dens") quantity:
-#' get_quantity(example_vp, "dens")
+#' @seealso
+#' * [summary.vp()]
+#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
+#' threshold of an object.
+#'
+#' @examples
+#' # Load the example vertical profile
+#' vp <- example_vp
+#'
+#' # Extract the quantity animal density (dens)
+#' get_quantity(vp, "dens")
+#'
+#' # Load the example time series of vertical profiles
+#' vpts <- example_vpts
+#'
+#' # Extract the quantity horizontal speed (ff) and show the first two datetimes
+#' get_quantity(vpts, "ff")[,1:2]
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)
 }
 
 #' @rdname get_quantity
+#'
 #' @export
-#' @return class \code{vp}: a named vector for the requested quantity.
+#'
+#' @return For a `vp` object: a named (height bin) vector with values for the
+#'   selected quantity.
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
+  available <- names(x$data)
+  available <-available[available != "height"]
+  assert_that(quantity %in% available, msg = paste0("Can't find quantity `", quantity, "` in `x`."))
   output <- x$data[quantity][, 1]
   names(output) <- x$data$height
 
@@ -61,27 +84,33 @@ get_quantity.vp <- function(x, quantity = "dens") {
 }
 
 #' @rdname get_quantity
+#'
 #' @export
-#' @return class \code{list}: a list of a named vectors for the requested
-#' quantity.
+#'
+#' @return For a `list` object: a list of named (height bin) vectors with values
+#'   for the selected quantity.
 get_quantity.list <- function(x, quantity = "dens") {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Requires list of vp objects as input.")
+    stop("`x` must be list of vp objects.")
   }
   lapply(x, get_quantity.vp, quantity = quantity)
 }
 
 #' @rdname get_quantity
+#'
 #' @export
-#' @return class \code{vpts}: a (height x time) matrix of the
-#' requested quantity.
+#'
+#' @return For a `vpts` object: a (height bin * datetime) matrix with values for
+#'   the selected quantity.
 get_quantity.vpts <- function(x, quantity = "dens") {
   ## this function should checkout both the gap and sd_vvp flags
   stopifnot(inherits(x, "vpts"))
+  assert_that(quantity %in% names(x$data), msg = paste0("Can't find quantity `", quantity, "` in `x`."))
   output <- x$data[quantity][[1]]
   rownames(output) <- x$height
   colnames(output) <- as.character(x$datetime)
+
   if (quantity == "eta") {
     output[x$data$sd_vvp < sd_vvp_threshold(x)] <- 0
     return(output)
