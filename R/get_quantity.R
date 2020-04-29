@@ -63,7 +63,6 @@ get_quantity <- function(x, quantity) {
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
   available <- names(x$data)
-  available <-available[available != "height"]
   assert_that(quantity %in% available, msg = paste0("Can't find quantity `", quantity, "` in `x`."))
   output <- x$data[quantity][, 1]
   names(output) <- x$data$height
