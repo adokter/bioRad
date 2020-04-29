@@ -57,7 +57,7 @@ test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff
   height <- matrix(rep(as.numeric(vpts$height),dim(vpts)[1]), ncol=dim(vpts)[1])
   rownames(height) <- vpts$height
   colnames(height) <- as.character(vpts$datetime)
-  expect_equal(get_quantity(vpts, "dens"), height)
+  expect_equal(get_quantity(vpts, "height"), height)
 
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vpts$data$eta
