@@ -32,6 +32,7 @@ get_quantity(x, quantity)
 \item \code{eta}: Animal reflectivity in cm^2/km^3.
 \item \code{dens}: Animal density in animals/km^3.
 \item \code{DBZH}: Total reflectivity factor (bio + meteo scattering) in dBZ.
+\item \code{height}: Lowest height of the height bins in the profiles in m above sea level.
 \item \code{n}: Number of data points used for the ground speed estimates
 (quantities \code{u}, \code{v}, \code{w}, \code{ff}, \code{dd}).
 \item \code{n_all}: Number of data points used for the radial velocity standard

@@ -41,14 +41,14 @@ of vertical profile (\code{vp}) object is a list containing:
 \item \code{radar}: Radar identifier.
 \item \code{datetime}: Nominal times of the profiles (named \code{dates} in biorad <
 0.4.0) in UTC.
-\item \code{height}: Lowest height of the height bins in the profiles in m.
+\item \code{height}: Lowest height of the height bins in the profiles in m above sea level.
 \item \code{daterange}: Minimum and maximum nominal time of the profiles in UTC.
 \item \code{timesteps}: Time differences between the profiles. Element \code{i} gives the
 difference between profile \code{i} and \code{i+1}.
 \item \code{data}: A list of quantities, each containing a \code{datetime} by \code{height}
 matrix with the values. Use \code{\link[=get_quantity]{get_quantity()}} to access these and see
 \code{\link[=summary.vp]{summary.vp()}} for a description of available quantities.
-\item \code{attributes}: List of the vertical profile's \code{where} and \code{how} attributes,
+\item \code{attributes}: List of the vertical profile's \code{what}, \code{where}, and \code{how} attributes,
 copied from the first profile.
 \item \code{regular}: Logical indicating whether the time series is regular or not.
 }
