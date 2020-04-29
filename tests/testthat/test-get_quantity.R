@@ -17,49 +17,59 @@ test_that("get_quantity() returns error on incorrect parameters", {
   expect_error(get_quantity(vp, "DENS"))
 })
 
-test_that("get_quantity returns correct quantities from vp", {
+test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff when below sd_vvp_threshold", {
+  # Not tested for vp_list as that is a repetition of vp method
+
+  # dens is returned as is
   dens <- vp$data$dens
   names(dens) <- vp$data$height # Add heights to make named vector
   expect_equal(get_quantity(vp, "dens"), dens)
 
+  # eta is set to 0 when below sd_vvp_threshold
   eta <- vp$data$eta
-  eta[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- 0 # Set eta to 0 when below sd_vvp_threshold
-  names(eta) <- vp$data$height # Add heights to make named vector
+  eta[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- 0
+  names(eta) <- vp$data$height
   expect_equal(get_quantity(vp, "eta"), eta)
 
+  # dbz is set to -Inf when below sd_vvp_threshold
   dbz <- vp$data$dbz
-  dbz[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- -Inf # Set dbz to -Inf when below sd_vvp_threshold
-  names(dbz) <- vp$data$height # Add heights to make named vector
+  dbz[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- -Inf
+  names(dbz) <- vp$data$height
   expect_equal(get_quantity(vp, "dbz"), dbz)
 
+  # ff (not tested for u, v, w, dd is set to NaN when below sd_vvp_threshold
   ff <- vp$data$ff
-  ff[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- NaN # Set ff to NaN when below sd_vvp_threshold
-  names(ff) <- vp$data$height # Add heights to make named vector
+  ff[vp$data$sd_vvp < sd_vvp_threshold(vp)] <- NaN
+  names(ff) <- vp$data$height
   expect_equal(get_quantity(vp, "ff"), ff)
 })
 
-test_that("get_quantity returns correct quantities from vpts", {
+test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff when below sd_vvp_threshold", {
+  # dens is returned as is
   dens <- vpts$data$dens
   rownames(dens) <- vpts$height
   colnames(dens) <- as.character(vpts$datetime)
   expect_equal(get_quantity(vpts, "dens"), dens)
 
+  # eta is set to 0 when below sd_vvp_threshold
   eta <- vpts$data$eta
   rownames(eta) <- vpts$height
   colnames(eta) <- as.character(vpts$datetime)
-  eta[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- 0 # Set eta to 0 when below sd_vvp_threshold
+  eta[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- 0
   expect_equal(get_quantity(vpts, "eta"), eta)
 
+  # dbz is set to -Inf when below sd_vvp_threshold
   dbz <- vpts$data$dbz
   rownames(dbz) <- vpts$height
   colnames(dbz) <- as.character(vpts$datetime)
-  dbz[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- -Inf # Set dbz to -Inf when below sd_vvp_threshold
+  dbz[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- -Inf
   expect_equal(get_quantity(vpts, "dbz"), dbz)
 
+  # ff (not tested for u, v, w, dd is set to NaN when below sd_vvp_threshold
   ff <- vpts$data$ff
   rownames(ff) <- vpts$height
   colnames(ff) <- as.character(vpts$datetime)
-  ff[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- NaN # Set ff to NaN when below sd_vvp_threshold
+  ff[vpts$data$sd_vvp < sd_vvp_threshold(vpts)] <- NaN
   expect_equal(get_quantity(vpts, "ff"), ff)
 })
 
