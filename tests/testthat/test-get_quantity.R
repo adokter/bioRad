@@ -73,8 +73,7 @@ test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff
   expect_equal(get_quantity(vpts, "ff"), ff)
 })
 
-test_that("get_quantity returns vectors for all quantities, vp", {
-
+test_that("get_quantity.vp() returns vectors for all 16 quantities", {
   expect_vector(get_quantity(vp, "dens"))
   expect_vector(get_quantity(vp, "u"))
   expect_vector(get_quantity(vp, "v"))
@@ -93,22 +92,21 @@ test_that("get_quantity returns vectors for all quantities, vp", {
   expect_vector(get_quantity(vp, "n_dbz_all"))
 })
 
-test_that("get_quantity returns vectors for all quantities, vpts", {
-
-  expect_vector(get_quantity(vpts, "dens"))
-  expect_vector(get_quantity(vpts, "u"))
-  expect_vector(get_quantity(vpts, "v"))
-  expect_vector(get_quantity(vpts, "w"))
-  expect_vector(get_quantity(vpts, "ff"))
-  expect_vector(get_quantity(vpts, "dd"))
-  expect_vector(get_quantity(vpts, "sd_vvp"))
-  expect_vector(get_quantity(vpts, "gap"))
-  expect_vector(get_quantity(vpts, "dbz"))
-  expect_vector(get_quantity(vpts, "eta"))
-  expect_vector(get_quantity(vpts, "dens"))
-  expect_vector(get_quantity(vpts, "DBZH"))
-  expect_vector(get_quantity(vpts, "n"))
-  expect_vector(get_quantity(vpts, "n_all"))
-  expect_vector(get_quantity(vpts, "n_dbz"))
-  expect_vector(get_quantity(vpts, "n_dbz_all"))
+test_that("get_quantity.vpts() return a matrix for all 16 quantities", {
+  expect_equal(class(get_quantity(vpts, "dens")), "matrix")
+  expect_equal(class(get_quantity(vpts, "u")), "matrix")
+  expect_equal(class(get_quantity(vpts, "v")), "matrix")
+  expect_equal(class(get_quantity(vpts, "w")), "matrix")
+  expect_equal(class(get_quantity(vpts, "ff")), "matrix")
+  expect_equal(class(get_quantity(vpts, "dd")), "matrix")
+  expect_equal(class(get_quantity(vpts, "sd_vvp")), "matrix")
+  expect_equal(class(get_quantity(vpts, "gap")), "matrix")
+  expect_equal(class(get_quantity(vpts, "dbz")), "matrix")
+  expect_equal(class(get_quantity(vpts, "eta")), "matrix")
+  expect_equal(class(get_quantity(vpts, "dens")), "matrix")
+  expect_equal(class(get_quantity(vpts, "DBZH")), "matrix")
+  expect_equal(class(get_quantity(vpts, "n")), "matrix")
+  expect_equal(class(get_quantity(vpts, "n_all")), "matrix")
+  expect_equal(class(get_quantity(vpts, "n_dbz")), "matrix")
+  expect_equal(class(get_quantity(vpts, "n_dbz_all")), "matrix")
 })
