@@ -30,6 +30,7 @@
 #'   * `eta`: Animal reflectivity in cm^2/km^3.
 #'   * `dens`: Animal density in animals/km^3.
 #'   * `DBZH`: Total reflectivity factor (bio + meteo scattering) in dBZ.
+#'   * `height`: Lowest height of the height bins in the profiles in m above sea level.
 #'   * `n`: Number of data points used for the ground speed estimates
 #'   (quantities `u`, `v`, `w`, `ff`, `dd`).
 #'   * `n_all`: Number of data points used for the radial velocity standard
