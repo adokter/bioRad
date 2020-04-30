@@ -8,10 +8,6 @@ test_that("get_quantity() returns error on incorrect parameters", {
   expect_error(get_quantity(vp, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
   expect_error(get_quantity(vpts, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
 
-  # Height is not a quantity
-  expect_error(get_quantity(vp, "height"))
-  expect_error(get_quantity(vpts, "height"))
-
   # Quantities are case sensitive
   expect_error(get_quantity(vp, "dbzh"))
   expect_error(get_quantity(vp, "DENS"))
@@ -24,6 +20,11 @@ test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff w
   dens <- vp$data$dens
   names(dens) <- vp$data$height # Add heights to make named vector
   expect_equal(get_quantity(vp, "dens"), dens)
+
+  # height is returned as is
+  height <- vp$data$height
+  names(height) <- vp$data$height # Add heights to make named vector
+  expect_equal(get_quantity(vp, "height"), height)
 
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vp$data$eta
@@ -45,11 +46,18 @@ test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff w
 })
 
 test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff when below sd_vvp_threshold", {
+
   # dens is returned as is
   dens <- vpts$data$dens
   rownames(dens) <- vpts$height
   colnames(dens) <- as.character(vpts$datetime)
   expect_equal(get_quantity(vpts, "dens"), dens)
+
+  # height is returned as a matrix repetition of vpts$height
+  height <- matrix(rep(as.numeric(vpts$height),dim(vpts)[1]), ncol=dim(vpts)[1])
+  rownames(height) <- vpts$height
+  colnames(height) <- as.character(vpts$datetime)
+  expect_equal(get_quantity(vpts, "height"), height)
 
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vpts$data$eta

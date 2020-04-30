@@ -19,6 +19,7 @@
 #' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
 #' * `data`: A data.frame with the profile's quantities organized per height
 #' bin. Use [get_quantity()] to access these:
+#'   * `height`: Height bin (lower bound) in m above sea level.
 #'   * `u`: Speed component west to east in m/s.
 #'   * `v`: Speed component north to south in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.

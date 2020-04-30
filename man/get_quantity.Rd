@@ -21,6 +21,7 @@ get_quantity(x, quantity)
 
 \item{quantity}{Character. A (case sensitive) profile quantity, one of:
 \itemize{
+\item \code{height}: Height bin (lower bound) in m above sea level.
 \item \code{u}: Speed component west to east in m/s.
 \item \code{v}: Speed component north to south in m/s.
 \item \code{w}: Vertical speed (unreliable!) in m/s.

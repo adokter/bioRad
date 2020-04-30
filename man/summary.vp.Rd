@@ -41,6 +41,7 @@ containing:
 \item \code{data}: A data.frame with the profile's quantities organized per height
 bin. Use \code{\link[=get_quantity]{get_quantity()}} to access these:
 \itemize{
+\item \code{height}: Height bin (lower bound) in m above sea level.
 \item \code{u}: Speed component west to east in m/s.
 \item \code{v}: Speed component north to south in m/s.
 \item \code{w}: Vertical speed (unreliable!) in m/s.

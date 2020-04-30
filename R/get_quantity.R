@@ -9,6 +9,7 @@
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #' @param quantity Character. A (case sensitive) profile quantity, one of:
+#'   * `height`: Height bin (lower bound) in m above sea level.
 #'   * `u`: Speed component west to east in m/s.
 #'   * `v`: Speed component north to south in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
@@ -63,7 +64,6 @@ get_quantity <- function(x, quantity) {
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
   available <- names(x$data)
-  available <-available[available != "height"]
   assert_that(quantity %in% available, msg = paste0("Can't find quantity `", quantity, "` in `x`."))
   output <- x$data[quantity][, 1]
   names(output) <- x$data$height
@@ -106,8 +106,12 @@ get_quantity.list <- function(x, quantity = "dens") {
 get_quantity.vpts <- function(x, quantity = "dens") {
   ## this function should checkout both the gap and sd_vvp flags
   stopifnot(inherits(x, "vpts"))
-  assert_that(quantity %in% names(x$data), msg = paste0("Can't find quantity `", quantity, "` in `x`."))
-  output <- x$data[quantity][[1]]
+  assert_that(quantity %in% c(names(x$data),"height"), msg = paste0("Can't find quantity `", quantity, "` in `x`."))
+  if(quantity == "height"){
+    output <- matrix(rep(as.numeric(x$height),dim(x)[1]), ncol=dim(x)[1])
+  } else{
+    output <- x$data[quantity][[1]]
+  }
   rownames(output) <- x$height
   colnames(output) <- as.character(x$datetime)
 
