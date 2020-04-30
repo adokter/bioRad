@@ -2,7 +2,7 @@
 % Please edit documentation in R/vcp.R
 \name{vcp}
 \alias{vcp}
-\title{Extract a volume coverage pattern table}
+\title{Extract a volume coverage pattern dataframe}
 \usage{
 vcp(
   x,
@@ -15,18 +15,20 @@ vcp(
 \arguments{
 \item{x}{Either a pvol or scan for which the VCP should be created.}
 
-\item{add_params}{A logical wether a column with parameters be added.}
+\item{add_params}{A logical wether a column with with the parameters present is to be added.}
 
-\item{select}{A charcter vector which the column names that should be returned when NULL all attributes are returned}
+\item{select}{A charcter vector which the column names that should be returned when NULL all attributes are to be returned}
 
 \item{...}{Currently not used
 
-This function tabulates the attributes of one scan or all scans of a pvol. Attributes that have a length longer then one are presented as a list column.
-By default the function returns a limited set of column to keep the output clear.
-It is important to note thad attributes of the polar volume can contain additional information on processing that is not included in the resulting table.}
+This function tabulates the attributes of one scan or all scans of a pvol.
+Attributes that have a length longer then one are presented as a list column.
+By default the function returns a limited set of columns to keep the output clear.
+It is important to note that attributes of the full polar volume can contain additional information on processing that is not included in the resulting table.
+This function only tabulates attributes of the scans.}
 }
 \description{
-Extract a volume coverage pattern table
+Extract a volume coverage pattern dataframe
 }
 \examples{
 data(example_scan)
