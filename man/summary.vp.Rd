@@ -41,6 +41,7 @@ containing:
 \item \code{data}: A data.frame with the profile's quantities organized per height
 bin. Use \code{\link[=get_quantity]{get_quantity()}} to access these:
 \itemize{
+\item \code{height}: Height bin (lower bound) in m above sea level.
 \item \code{u}: Speed component west to east in m/s.
 \item \code{v}: Speed component north to south in m/s.
 \item \code{w}: Vertical speed (unreliable!) in m/s.
@@ -52,7 +53,6 @@ bin. Use \code{\link[=get_quantity]{get_quantity()}} to access these:
 \item \code{eta}: Animal reflectivity in cm^2/km^3.
 \item \code{dens}: Animal density in animals/km^3.
 \item \code{DBZH}: Total reflectivity factor (bio + meteo scattering) in dBZ.
-\item \code{height}: Lowest height of the height bins in the profiles in m above sea level.
 \item \code{n}: Number of data points used for the ground speed estimates
 (quantities \code{u}, \code{v}, \code{w}, \code{ff}, \code{dd}).
 \item \code{n_all}: Number of data points used for the radial velocity standard
