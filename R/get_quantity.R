@@ -127,7 +127,5 @@ get_quantity.vpts <- function(x, quantity = "dens") {
     output[x$data$sd_vvp < sd_vvp_threshold(x)] <- NaN
     return(output)
   }
-
-
   return(output)
 }
