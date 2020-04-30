@@ -18,7 +18,7 @@
 #' vcp(example_scan)
 #'
 #' pvolfilepath <- system.file("extdata", "volume.h5", package = "bioRad")
-#' example_pvol <- read_pvolfile(pvolfilepaht)
+#' example_pvol <- read_pvolfile(pvolfilepath)
 #' vcp(example_pvol)
 vcp <-
   function(x,
