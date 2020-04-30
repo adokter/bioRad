@@ -11,10 +11,12 @@
 #'
 #' @examples
 #' # Convert a vp object
-#' convert_legacy(example_vp)
+#' vp <- example_vp
+#' vp <- convert_legacy(vp)
 #'
 #' # Convert a vpts object
-#' convert_legacy(example_vpts)
+#' vpts <- example_vpts
+#' vpts <- convert_legacy(vpts)
 convert_legacy <- function(x) {
   UseMethod("convert_legacy", x)
 }
