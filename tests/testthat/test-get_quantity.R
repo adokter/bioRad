@@ -81,7 +81,8 @@ test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff
   expect_equal(get_quantity(vpts, "ff"), ff)
 })
 
-test_that("get_quantity.vp() returns vectors for all 16 quantities", {
+test_that("get_quantity.vp() returns vectors for all 17 quantities", {
+  expect_vector(get_quantity(vp, "height"))
   expect_vector(get_quantity(vp, "dens"))
   expect_vector(get_quantity(vp, "u"))
   expect_vector(get_quantity(vp, "v"))
@@ -100,7 +101,8 @@ test_that("get_quantity.vp() returns vectors for all 16 quantities", {
   expect_vector(get_quantity(vp, "n_dbz_all"))
 })
 
-test_that("get_quantity.vpts() return a matrix for all 16 quantities", {
+test_that("get_quantity.vpts() return a matrix for all 17 quantities", {
+  expect_equal(class(get_quantity(vpts, "height")), "matrix")
   expect_equal(class(get_quantity(vpts, "dens")), "matrix")
   expect_equal(class(get_quantity(vpts, "u")), "matrix")
   expect_equal(class(get_quantity(vpts, "v")), "matrix")
