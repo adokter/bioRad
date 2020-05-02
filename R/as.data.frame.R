@@ -12,8 +12,6 @@
 #' @param optional Logical. If `FALSE` then the names of the variables in the data
 #' frame are checked to ensure that they are syntactically valid variable names
 #' and are not duplicated. See [base::as.data.frame()].
-#' @param quantities An optional character vector with the names of the
-#' quantities to include as columns in the data frame.
 #' @param elev Numeric. Sun elevation in degrees, used for
 #'   [sunrise()]/[sunset()] calculations.
 #' @param lat Numeric. Radar latitude in decimal degrees. When set, overrides
@@ -63,7 +61,7 @@
 #' # calculating sunrise/sunset information
 #' vpts_df <- as.data.frame(vpts, suntime = TRUE, lat = 50, lon = 4)
 as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
-                          quantities = names(x$data), geo = TRUE,
+                          geo = TRUE,
                           suntime = TRUE, elev = -0.268, lat = NULL,
                           lon = NULL, ...) {
   stopifnot(inherits(x, "vp"))
@@ -84,14 +82,6 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
   if (is.null(lon)) {
     lon <- x$attributes$where$lon
   }
-  missing <- which(!(quantities %in% names(x$data)))
-  if (length(missing) > 0) {
-    stop(paste(
-      paste(quantities[missing], collapse = " "),
-      "not an available quantity, select one or more of",
-      paste(names(x$data), collapse = ",")
-    ))
-  }
   # coerce data to a data frame
   output <- as.data.frame(x$data, optional = optional, ...)
   # add height and datetime as a column
@@ -105,7 +95,7 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
     output$lon <- lon
     output$height_antenna <- x$attributes$where$height
   }
-  # override the lat,lon attributes in case of user-provided values
+  # override the lat, lon attributes in case of user-provided values
   x$attributes$where$lat <- lat
   x$attributes$where$lon <- lon
   # add day
@@ -131,7 +121,7 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
 #'
 #' @export
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
-                               quantities = names(x$data), suntime = TRUE,
+                               suntime = TRUE,
                                geo = TRUE, elev = -0.268, lat = NULL,
                                lon = NULL, ...) {
   stopifnot(inherits(x, "vpts"))
@@ -152,16 +142,8 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   if (is.null(lon)) {
     lon <- x$attributes$where$lon
   }
-  missing <- which(!(quantities %in% names(x$data)))
-  if (length(missing) > 0) {
-    stop(paste(
-      paste(quantities[missing], collapse = " "),
-      "not an available quantity, select one or more of",
-      paste(names(x$data), collapse = ",")
-    ))
-  }
   # coerce data to a data frame
-  output <- as.data.frame(lapply(x$data[quantities], c),
+  output <- as.data.frame(lapply(x$data, c),
                           optional = optional, ...
   )
   # add height and datetime as a column
@@ -180,7 +162,7 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
     output$lon <- lon
     output$height_antenna <- x$attributes$where$height
   }
-  # override the lat,lon attributes in case of user-provided values
+  # override the lat, lon attributes in case of user-provided values
   x$attributes$where$lat <- lat
   x$attributes$where$lon <- lon
   # add day

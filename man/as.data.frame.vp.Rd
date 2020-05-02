@@ -10,7 +10,6 @@
   x,
   row.names = NULL,
   optional = FALSE,
-  quantities = names(x$data),
   geo = TRUE,
   suntime = TRUE,
   elev = -0.268,
@@ -23,7 +22,6 @@
   x,
   row.names = NULL,
   optional = FALSE,
-  quantities = names(x$data),
   suntime = TRUE,
   geo = TRUE,
   elev = -0.268,
@@ -41,9 +39,6 @@ the data frame. Missing values are not allowed. See \code{\link[base:as.data.fra
 \item{optional}{Logical. If \code{FALSE} then the names of the variables in the data
 frame are checked to ensure that they are syntactically valid variable names
 and are not duplicated. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
-
-\item{quantities}{An optional character vector with the names of the
-quantities to include as columns in the data frame.}
 
 \item{geo}{Logical. When \code{TRUE}, adds latitude, longitude and antenna
 height of the radar to each row.}

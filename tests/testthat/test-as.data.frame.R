@@ -2,10 +2,6 @@ vp <- example_vp
 
 test_that("as.data.frame() returns error on incorrect parameters", {
   expect_error(as.data.frame(vp, row.names = "not_a_vector"))
-  expect_error(
-    as.data.frame(vp, quantities = c("not_a_quantity")),
-    "select one or more of ff,dbz" # Full message is a list of all quantities
-  )
   expect_error(as.data.frame(vp, suntime = "not_a_logical"))
   expect_error(as.data.frame(vp, geo = "not_a_logical"))
   expect_error(as.data.frame(vp, elev = "not_a_double"))
@@ -110,18 +106,6 @@ test_that("as.data.frame() values in suntime/sunset/day cols are correct and upd
   # 3. Let's go to Antartica, it should be day there
   df <- as.data.frame(example_vp, lat = -74.2486, lon = -1.2497)
   expect_true(df$day[1])
-})
-
-test_that("as.data.frame() allows to select quantities", {
-  df <- as.data.frame(example_vp, quantities = c("dens", "ff"))
-  expect_is(df$dens, "numeric")
-  expect_is(df$ff, "numeric")
-
-  # FIXME: If we only request "dens", shouldn't "dd" be missing?
-  # expect_null(df$dd)
-
-  # We get a proper error message if requesting a nonexistent quantity
-
 })
 
 # TODO: test "row.names" parameter
