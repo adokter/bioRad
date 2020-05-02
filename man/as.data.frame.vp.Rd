@@ -3,7 +3,7 @@
 \name{as.data.frame.vp}
 \alias{as.data.frame.vp}
 \alias{as.data.frame.vpts}
-\title{Convert a vertical profile (\code{vp}) or time series of vertical profile(s)
+\title{Convert a vertical profile (\code{vp}) or time series of vertical profiles
 (\code{vpts}) to a data frame}
 \usage{
 \method{as.data.frame}{vp}(
@@ -12,9 +12,9 @@
   optional = FALSE,
   geo = TRUE,
   suntime = TRUE,
-  elev = -0.268,
   lat = NULL,
   lon = NULL,
+  elev = -0.268,
   ...
 )
 
@@ -22,11 +22,11 @@
   x,
   row.names = NULL,
   optional = FALSE,
-  suntime = TRUE,
   geo = TRUE,
-  elev = -0.268,
+  suntime = TRUE,
   lat = NULL,
   lon = NULL,
+  elev = -0.268,
   ...
 )
 }
@@ -40,20 +40,20 @@ the data frame. Missing values are not allowed. See \code{\link[base:as.data.fra
 frame are checked to ensure that they are syntactically valid variable names
 and are not duplicated. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
 
-\item{geo}{Logical. When \code{TRUE}, adds latitude, longitude and antenna
-height of the radar to each row.}
+\item{geo}{Logical. When \code{TRUE}, adds latitude (\code{lat}), longitude (\code{lon}) and
+antenna height of the radar (\code{height_antenna}) to each row.}
 
-\item{suntime}{Logical. When \code{TRUE} (default), adds day \code{TRUE}/\code{FALSE} and
-sunrise/sunset datetime to each row.}
-
-\item{elev}{Numeric. Sun elevation in degrees, used for
-\code{\link[=sunrise]{sunrise()}}/\code{\link[=sunset]{sunset()}} calculations.}
+\item{suntime}{Logical. When \code{TRUE}, adds whether it is daytime (\code{day}) and
+the datetime of \code{sunrise} and \code{sunset} to each row.}
 
 \item{lat}{Numeric. Radar latitude in decimal degrees. When set, overrides
 the latitude stored in \code{x} for \code{\link[=sunrise]{sunrise()}}/\code{\link[=sunset]{sunset()}} calculations.}
 
 \item{lon}{Numeric. Radar longitude in decimal degrees. When set, overrides
 the longitude stored in \code{x} for \code{\link[=sunrise]{sunrise()}}/\code{\link[=sunset]{sunset()}} calculations.}
+
+\item{elev}{Numeric. Sun elevation in degrees, used for
+\code{\link[=sunrise]{sunrise()}}/\code{\link[=sunset]{sunset()}} calculations.}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }
@@ -68,10 +68,10 @@ and day/sunrise/sunset (parameter \code{suntime}).
 }
 \details{
 Note that only the \code{dens} quantity is thresholded for radial velocity
-standard deviation by \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}. Note that this is different from
-the default \code{\link[=plot.vp]{plot.vp()}}, \code{\link[=plot.vpts]{plot.vpts()}} and \code{\link[=get_quantity.vp]{get_quantity.vp()}} functions,
-where quantities \code{eta}, \code{dbz}, \code{ff}, \code{u}, \code{v}, \code{w}, \code{dd} are all thresholded
-by \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}.
+standard deviation by \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}. This is different from the
+default \code{\link[=plot.vp]{plot.vp()}}, \code{\link[=plot.vpts]{plot.vpts()}} and \code{\link[=get_quantity]{get_quantity()}} functions, where
+quantities \code{eta}, \code{dbz}, \code{ff}, \code{u}, \code{v}, \code{w}, \code{dd} are all thresholded by
+\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}.
 }
 \examples{
 # Load the example vertical profile
@@ -92,10 +92,13 @@ vpts_df <- as.data.frame(vpts)
 # Print the first 5 rows of the data.frame
 vpts_df[1:5, ]
 
-# Do not compute sunrise/sunset information
+# Do not add lat/lon/height_antenna information
+vpts_df <- as.data.frame(vpts, geo = FALSE)
+
+# Do not add day/sunrise/sunset information
 vpts_df <- as.data.frame(vpts, suntime = FALSE)
 
 # Override the latitude/longitude information stored in the object when
 # calculating sunrise/sunset information
-vpts_df <- as.data.frame(vpts, suntime = TRUE, lat = 50, lon = 4)
+vpts_df <- as.data.frame(vpts, lat = 50, lon = 4)
 }

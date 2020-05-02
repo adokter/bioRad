@@ -1,4 +1,4 @@
-#' Convert a vertical profile (`vp`) or time series of vertical profile(s)
+#' Convert a vertical profile (`vp`) or time series of vertical profiles
 #' (`vpts`) to a data frame
 #'
 #' Converts a vertical profile (`vp`) or a time series of vertical profiles
@@ -12,16 +12,16 @@
 #' @param optional Logical. If `FALSE` then the names of the variables in the data
 #' frame are checked to ensure that they are syntactically valid variable names
 #' and are not duplicated. See [base::as.data.frame()].
-#' @param elev Numeric. Sun elevation in degrees, used for
-#'   [sunrise()]/[sunset()] calculations.
+#' @param geo Logical. When `TRUE`, adds latitude (`lat`), longitude (`lon`) and
+#'   antenna height of the radar (`height_antenna`) to each row.
+#' @param suntime Logical. When `TRUE`, adds whether it is daytime (`day`) and
+#'   the datetime of `sunrise` and `sunset` to each row.
 #' @param lat Numeric. Radar latitude in decimal degrees. When set, overrides
 #'   the latitude stored in `x` for [sunrise()]/[sunset()] calculations.
 #' @param lon Numeric. Radar longitude in decimal degrees. When set, overrides
 #'   the longitude stored in `x` for [sunrise()]/[sunset()] calculations.
-#' @param suntime Logical. When `TRUE` (default), adds day `TRUE`/`FALSE` and
-#'   sunrise/sunset datetime to each row.
-#' @param geo Logical. When `TRUE`, adds latitude, longitude and antenna
-#' height of the radar to each row.
+#' @param elev Numeric. Sun elevation in degrees, used for
+#'   [sunrise()]/[sunset()] calculations.
 #' @param ... Additional arguments to be passed to or from methods.
 #'
 #' @return A `data.frame` object.
@@ -30,10 +30,10 @@
 #'
 #' @details
 #' Note that only the `dens` quantity is thresholded for radial velocity
-#' standard deviation by [sd_vvp_threshold()]. Note that this is different from
-#' the default [plot.vp()], [plot.vpts()] and [get_quantity.vp()] functions,
-#' where quantities `eta`, `dbz`, `ff`, `u`, `v`, `w`, `dd` are all thresholded
-#' by [sd_vvp_threshold()].
+#' standard deviation by [sd_vvp_threshold()]. This is different from the
+#' default [plot.vp()], [plot.vpts()] and [get_quantity()] functions, where
+#' quantities `eta`, `dbz`, `ff`, `u`, `v`, `w`, `dd` are all thresholded by
+#' [sd_vvp_threshold()].
 #'
 #' @examples
 #' # Load the example vertical profile
@@ -54,16 +54,18 @@
 #' # Print the first 5 rows of the data.frame
 #' vpts_df[1:5, ]
 #'
-#' # Do not compute sunrise/sunset information
+#' # Do not add lat/lon/height_antenna information
+#' vpts_df <- as.data.frame(vpts, geo = FALSE)
+#'
+#' # Do not add day/sunrise/sunset information
 #' vpts_df <- as.data.frame(vpts, suntime = FALSE)
 #'
 #' # Override the latitude/longitude information stored in the object when
 #' # calculating sunrise/sunset information
-#' vpts_df <- as.data.frame(vpts, suntime = TRUE, lat = 50, lon = 4)
-as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
-                          geo = TRUE,
-                          suntime = TRUE, elev = -0.268, lat = NULL,
-                          lon = NULL, ...) {
+#' vpts_df <- as.data.frame(vpts, lat = 50, lon = 4)
+as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
+                             suntime = TRUE, lat = NULL, lon = NULL,
+                             elev = -0.268, ...) {
   stopifnot(inherits(x, "vp"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
@@ -120,10 +122,9 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE,
 #' @rdname as.data.frame.vp
 #'
 #' @export
-as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
-                               suntime = TRUE,
-                               geo = TRUE, elev = -0.268, lat = NULL,
-                               lon = NULL, ...) {
+as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
+                               suntime = TRUE, lat = NULL, lon = NULL,
+                               elev = -0.268, ...) {
   stopifnot(inherits(x, "vpts"))
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
