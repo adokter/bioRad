@@ -24,7 +24,10 @@
 #'   [sunrise()]/[sunset()] calculations.
 #' @param ... Additional arguments to be passed to or from methods.
 #'
-#' @return A `data.frame` object.
+#' @return A `data.frame` object, containing radar, datetime and height as rows
+#'   and all profile quantities as columns, complemented with some oft-used
+#'   additional information (columns `lat`, `lon`, `height_antenna`, `day`,
+#'   `sunrise`, `sunset`).
 #'
 #' @export
 #'

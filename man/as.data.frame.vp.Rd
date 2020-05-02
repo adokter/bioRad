@@ -58,7 +58,10 @@ the longitude stored in \code{x} for \code{\link[=sunrise]{sunrise()}}/\code{\li
 \item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
-A \code{data.frame} object.
+A \code{data.frame} object, containing radar, datetime and height as rows
+and all profile quantities as columns, complemented with some oft-used
+additional information (columns \code{lat}, \code{lon}, \code{height_antenna}, \code{day},
+\code{sunrise}, \code{sunset}).
 }
 \description{
 Converts a vertical profile (\code{vp}) or a time series of vertical profiles
