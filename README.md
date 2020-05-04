@@ -65,7 +65,7 @@ Linux systems. In terminal, install these with:
 
 </details>
 
-You can install the released version of bioRad from
+<br> You can install the released version of bioRad from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -84,7 +84,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.5.1
+#> Welcome to bioRad version 0.5.1.9344
 #> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)
 ```
 
@@ -242,5 +242,5 @@ tutorial](https://adokter.github.io/bioRad/articles/rad_aero_19.html).
   - Get citation information for `bioRad` in R doing
     `citation("bioRad")`.
   - Please note that this project is released with a [Contributor Code
-    of Conduct](https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html). By participating in this
-    project you agree to abide by its terms.
+    of Conduct](https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html).
+    By participating in this project you agree to abide by its terms.

@@ -54,7 +54,7 @@ sudo apt install libssl-dev
 sudo apt install libgdal-dev
 ```
 </details>
-
+<br>
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
