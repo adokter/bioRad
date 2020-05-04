@@ -43,6 +43,18 @@ bioRad depends on packages from both the [CRAN](https://CRAN.R-project.org) and
 setRepositories(ind = 1:2)
 ```
 
+<details>
+<summary>Required system libraries on Linux (Ubuntu)</summary>
+
+The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:
+
+```
+sudo apt install libcurl4-openssl-dev
+sudo apt install libssl-dev
+sudo apt install libgdal-dev
+```
+</details>
+
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
@@ -62,16 +74,6 @@ Then load the package with:
 library(bioRad)
 ```
 
-#### Required system libraries on Linux (Ubuntu)
-
-The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:
-
-```
-sudo apt install libcurl4-openssl-dev
-sudo apt install libssl-dev
-sudo apt install libgdal-dev
-```
-
 ### Docker (optional)
 
 You need to install Docker to:
@@ -83,7 +85,8 @@ You need to install Docker to:
 
 Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com/adokter/vol2bird) algorithm through [Docker](https://www.docker.com/) to do the above. All other bioRad functions will work without a Docker installation.
 
-#### Installing Docker
+<details>
+<summary>Installing Docker</summary>
 
 1. Go to [Docker Desktop](https://www.docker.com/products/docker-desktop).
 2. Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit: installing Docker _Toolbox_ for previous Windows versions will not work.
@@ -93,12 +96,15 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
     * On Mac: click the Docker icon > `Preferences` > `File sharing` > Add the drive(s) where you will be processing radar files > Click `Apply & Restart`.
 5. In R do `check_docker()`.
 6. You can now use the bioRad functionality that requires Docker.
+</details>
 
-#### Known issues with Docker
+<details>
+<summary>Known issues with Docker</summary>
 
 1. Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.
 2. For firewall issues on Windows, see [this issue](https://github.com/adokter/bioRad/issues/128)
 3. For permission issues when running docker, specifically the error `Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock`, see [this](https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/) solution. Running `sudo usermod -a -G docker $USER` in a terminal will fix this problem.
+</details>
 
 ## Usage
 
