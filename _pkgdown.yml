@@ -24,93 +24,114 @@ home:
       href: "https://adokter.github.io/bioRad/dev/"
 
 reference:
-  - title: "Reading radar data"
-    desc: "Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data."
+  - title: "Read radar data"
+    desc: >
+      Functions to read and inspect polar volume (`pvol`) weather radar data.
+      Requires a locally running Docker daemon for NEXRAD data.
     contents:
       - is.pvolfile
       - get_odim_object_type
       - nexrad_to_odim
+      - apply_mistnet
       - read_pvolfile
-      - summary.pvol # is.pvol
-  - title: "Inspecting radar scans"
-    desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
+      - summary.pvol
+
+  - title: "Inspect scans and parameters"
+    desc: >
+      Functions to extract and inspect a polar volume scan/sweep (`scan`) and
+      its parameters (`param`).
     contents:
       - get_elevation_angles
       - get_scan
-      - summary.scan # is.scan
-      - example_scan
+      - summary.scan
       - plot.scan
+      - example_scan
       - get_param
-      - summary.param # is.param
-  - title: "Manipulating radar scans"
-    desc: "Functions to manipulate radar images (scan, param, ppi) and to identify precipitation."
-    contents:
-      - integrate_to_ppi
       - calculate_param
-      - apply_mistnet
-  - title: "Plotting radar scans"
-    desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
+      - summary.param
+
+  - title: "Project scans and parameters"
+    desc: >
+      Functions to project a scan (`scan`) and its parameters (`param`) on the
+      earth's surface as a plan position indicator (`ppi`).
     contents:
       - project_as_ppi
-      - integrate_to_ppi # Repeated
-      - scan_to_raster
-      - scan_to_spatial
-      - summary.ppi # is.ppi
+      - summary.ppi
+      - "`[.ppi`"
       - plot.ppi
       - map
       - download_basemap
       - composite_ppi
-      - "`[.ppi`"
-  - title: "Creating vertical profiles of biological targets"
-    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon."
+      - scan_to_raster
+      - scan_to_spatial
+
+  - title: "Create vertical profiles of biological targets"
+    desc: >
+      Functions to process polar volume (`pvol`) weather radar data into
+      vertical profiles (`vp`) of biological targets. Requires a locally running
+      Docker daemon."
     contents:
       - calculate_vp
+      - vol2bird_version
       - check_docker
       - update_docker
-      - nexrad_to_odim # Repeated
-      - vol2bird_version
-  - title: "Reading vertical profile data"
-    desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
+
+  - title: "Read vertical profile data"
+    desc: >
+      Functions to download and read vertical profile (`vp`) or time series of
+      vertical profiles (`vpts`) data.
     contents:
       - download_vpfiles
       - select_vpfiles
       - is.vpfile
       - read_vpfiles
       - read_cajun
-      - summary.vp # is.vp
-      - example_vp
+      - read_vpts
+
+  - title: "Inspect vertical profiles"
+    desc: >
+      Functions to inspect vertical profiles (`vp`) and time series of vertical
+      profiles (`vpts`).
+    contents:
+      - summary.vp
       - plot.vp
       - as.data.frame.vp
-  - title: "Combining vertical profiles into time series"
-    desc: "Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these."
-    contents:
       - c.vp
+      - example_vp
       - bind_into_vpts
-      - read_vpts
       - filter_vpts
-      - summary.vpts # is.vpts
-      - example_vpts
-      - plot.vpts
       - regularize_vpts
-      - as.data.frame.vp
+      - summary.vpts
       - "`[.vpts`"
-      - get_quantity
-  - title: "Integrating vertical profiles"
-    desc: "Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi)."
+      - plot.vpts
+      - as.data.frame.vp
+      - example_vpts
+
+  - title: "Integrate vertical profiles"
+    desc: >
+      Functions to calculate e.g. migration traffic rate (MTR) by integrating
+      the heights of vertical profiles (`vp` or `vpts`) to an integrated profile
+      (`vpi`).
     contents:
       - integrate_profile
       - plot.vpi
-  - title: "Accessing vertical profile metadata"
-    desc: "Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi)."
+      - integrate_to_ppi
+
+  - title: "Access vertical profile metadata"
+    desc: >
+      Access vertical profile  (`vp`, `vpts`, or `vpi`) quantities and metadata.
     contents:
+      - get_quantity
       - rcs
       - "`rcs<-`"
       - sd_vvp_threshold
       - "`sd_vvp_threshold<-`"
       - check_night
       - doy_noy
-  - title: "Radar beam geometry"
-    desc: "Functions relating the radar beam shape to range, distance and height"
+
+  - title: "Calculate radar beam properties"
+    desc: >
+      Functions to calculate radar beam properties.
     contents:
       - beam_height
       - beam_width
@@ -118,8 +139,10 @@ reference:
       - beam_distance
       - beam_profile
       - beam_profile_overlap
+
   - title: "Other functions"
-    desc: "Other useful functions."
+    desc: >
+      Functions to calculate or convert attributes and objects.
     contents:
       - dbz_to_eta
       - eta_to_dbz
