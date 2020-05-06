@@ -1,22 +1,42 @@
 vp <- example_vp
+vpts <- example_vpts
 
-test_that("as.data.frame() returns error on incorrect parameters", {
-  expect_error(as.data.frame(vp, row.names = "not_a_vector"))
-  expect_error(as.data.frame(vp, suntime = "not_a_logical"))
+# No tests for error on incorrect parameters:
+# as.data.frame() is generic and work for every input
+# TODO: test why parameter "optional" allows not_a_logical
+# TODO: test if "elev" parameter is passed correctly
+
+test_that("as.data.frame().vp returns error on incorrect parameters", {
+  expect_error(as.data.frame(vp, row.names = "not_a_logical"), "`row.names` is not a character vector of length")
+  # expect_error(as.data.frame(vp, optional = "not_a_logical"))
   expect_error(as.data.frame(vp, geo = "not_a_logical"))
-  expect_error(as.data.frame(vp, elev = "not_a_double"))
+  expect_error(as.data.frame(vp, suntime = "not_a_logical"))
   expect_error(as.data.frame(vp, lat = "not_a_double"))
   expect_error(as.data.frame(vp, lon = "not_a_double"))
+  expect_error(as.data.frame(vp, elev = "not_a_double"))
+
+  expect_error(as.data.frame(vpts, row.names = "not_a_vector"), "`row.names` is not a character vector of length")
+  # expect_error(as.data.frame(vpts, optional = "not_a_logical"))
+  expect_error(as.data.frame(vpts, geo = "not_a_logical"))
+  expect_error(as.data.frame(vpts, suntime = "not_a_logical"))
+  expect_error(as.data.frame(vpts, lat = "not_a_double"))
+  expect_error(as.data.frame(vpts, lon = "not_a_double"))
+  expect_error(as.data.frame(vpts, elev = "not_a_double"))
 })
 
 test_that("as.data.frame() returns a data frame", {
   expect_is(as.data.frame(vp), "data.frame")
+  expect_is(as.data.frame(vpts), "data.frame")
 })
 
 test_that("as.data.frame() returns correct number of rows/cols", {
-  df <- as.data.frame(vp)
-  expect_equal(nrow(df), 25) # 25 rows in nrow(vp$data)
-  expect_gte(ncol(df), 16) # 16 cols in ncol(vp$data), but extra added by bioRad
+  vp_df <- as.data.frame(vp, geo = FALSE, suntime = FALSE)
+  expect_equal(nrow(vp_df), 25) # 25 rows in nrow(vp$data)
+  expect_equal(ncol(vp_df), 18) # radar, datetime + 16 quantities
+
+  vpts_df <- as.data.frame(vpts, geo = FALSE, suntime = FALSE)
+  expect_equal(nrow(vpts_df), 25 * 1934) # 25 rows * 1934 datetimes
+  expect_equal(ncol(vpts_df), 18) # radar, datetime + 16 quantities
 })
 
 test_that("as.data.frame() returns the expected column names", {
@@ -26,88 +46,118 @@ test_that("as.data.frame() returns the expected column names", {
     "lon", "height_antenna", "day", "sunrise", "sunset"
   )
   expect_equal(names(as.data.frame(vp)), expected_col_names)
+  # expect_equal(names(as.data.frame(vpts)), expected_col_names) # See #382
 })
 
 test_that("as.data.frame() returns the correct data", {
-  df <- as.data.frame(example_vp)
+  vp_df <- as.data.frame(vp)
+  expect_equal(unique(vp_df[["radar"]]), "seang") # One unique radar
+  expect_equal(as.character(unique(vp_df[["datetime"]])), "2015-10-18 18:00:00") # One unique timestamp
+  # Check a few randomly selected values (coming directly from the source data)
+  expect_equal(vp_df$height[1], 0)
+  expect_equal(vp_df$height[8], 1400)
+  expect_equal(vp_df$ff[4], 13.77482, tolerance = 0.001)
+  expect_equal(vp_df$dens[10], 17.3985100, tolerance = 0.001)
+  expect_equal(is.na(vp_df$sd_vvp[1]), TRUE)
+  expect_equal(vp_df$sd_vvp[13], 2.994742, tolerance = 0.001)
 
-  expect_equal(unique(df[["radar"]]), "seang") # One unique radar
-  expect_equal(as.character(unique(df[["datetime"]])), "2015-10-18 18:00:00") # One unique timestamp
-
-  # Check a few randomly selected values (coming directly from the source data):
-  expect_equal(df$height[1], 0)
-  expect_equal(df$height[8], 1400)
-  expect_equal(df$ff[4], 13.77482, tolerance = 0.001)
-  expect_equal(df$dens[10], 17.3985100, tolerance = 0.001)
-  expect_equal(is.na(df$sd_vvp[1]), TRUE)
-  expect_equal(df$sd_vvp[13], 2.994742, tolerance = 0.001)
+  vpts_df <- as.data.frame(vpts)
+  expect_equal(unique(vpts_df[["radar"]]), "KBGM") # One unique radar
+  expect_equal(length(unique(vpts_df[["datetime"]])), 1934) # 1934 unique timestamps
+  # No check for randomly selected values for vpts
 })
 
-test_that("as.data.frame() includes lat/lon/height_antenna and can be assigned, unless geo = FALSE", {
+test_that("as.data.frame() allows to assign row.names", {
+  vp_neg_rownames <- as.character(-1:-25) # c("-1", "-2", ..., "-25")
+  vpts_neg_rownames <- as.character(-1:-48350) # c("-1", "-2", ..., "-48350")
+  expect_equal(rownames(as.data.frame(vp, row.names = vp_neg_rownames)), vp_neg_rownames)
+  expect_equal(rownames(as.data.frame(vpts, row.names = vpts_neg_rownames)), vpts_neg_rownames)
+})
+
+test_that("as.data.frame() includes lat/lon/height_antenna cols and can be assigned, unless geo = FALSE", {
   # lat/lon/height_antenna columns are added by default and taken from metadata
-  df <- as.data.frame(example_vp)
-  expect_equal(unique(df[["lat"]]), example_vp$attributes$where$lat)
-  expect_equal(unique(df[["lon"]]), example_vp$attributes$where$lon)
-  expect_equal(unique(df[["height_antenna"]]), example_vp$attributes$where$height)
+  vp_df <- as.data.frame(vp)
+  expect_equal(unique(vp_df[["lat"]]), vp$attributes$where$lat)
+  expect_equal(unique(vp_df[["lon"]]), vp$attributes$where$lon)
+  expect_equal(unique(vp_df[["height_antenna"]]), vp$attributes$where$height)
+
+  vpts_df <- as.data.frame(vpts)
+  expect_equal(unique(vpts_df[["lat"]]), vpts$attributes$where$lat)
+  expect_equal(unique(vpts_df[["lon"]]), vpts$attributes$where$lon)
+  expect_equal(unique(vpts_df[["height_antenna"]]), vpts$attributes$where$height)
 
   # lat/lon/height_antenna columns are missing if geo = FALSE
-  df_geo_false <- as.data.frame(example_vp, geo = FALSE)
-  expect_null(df_geo_false$lat)
-  expect_null(df_geo_false$lon)
-  expect_null(df_geo_false$height_antenna)
+  vp_df_geo_false <- as.data.frame(vp, geo = FALSE)
+  expect_null(vp_df_geo_false$lat)
+  expect_null(vp_df_geo_false$lon)
+  expect_null(vp_df_geo_false$height_antenna)
+
+  vpts_df_geo_false <- as.data.frame(vpts, geo = FALSE)
+  expect_null(vpts_df_geo_false$lat)
+  expect_null(vpts_df_geo_false$lon)
+  expect_null(vpts_df_geo_false$height_antenna)
 
   # lat/lon can be set explicitly
-  df_latlong <- as.data.frame(example_vp, lat = 50.6472, lon = 4.3603)
-  expect_equal(unique(df_latlong[["lat"]]), 50.6472)
-  expect_equal(unique(df_latlong[["lon"]]), 4.3603)
-})
+  vp_df_latlong <- as.data.frame(vp, lat = 50.6, lon = 4.3)
+  expect_equal(unique(vp_df_latlong[["lat"]]), 50.6)
+  expect_equal(unique(vp_df_latlong[["lon"]]), 4.3)
 
+  vpts_df_latlong <- as.data.frame(vpts, lat = 50.6, lon = 4.3)
+  expect_equal(unique(vpts_df_latlong[["lat"]]), 50.6)
+  expect_equal(unique(vpts_df_latlong[["lon"]]), 4.3)
+})
 
 test_that("as.data.frame() includes sunset/sunrise/day cols, unless suntime = FALSE", {
     # sunset/sunrise/day columns are added by default
-    df <- as.data.frame(example_vp)
-    expect_is(df$sunset, "POSIXct")
-    expect_is(df$sunrise, "POSIXct")
-    expect_is(df$day, "logical")
+    vp_df <- as.data.frame(vp)
+    expect_is(vp_df$sunset, "POSIXct")
+    expect_is(vp_df$sunrise, "POSIXct")
+    expect_is(vp_df$day, "logical")
+
+    vpts_df <- as.data.frame(vpts)
+    expect_is(vpts_df$sunset, "POSIXct")
+    expect_is(vpts_df$sunrise, "POSIXct")
+    expect_is(vpts_df$day, "logical")
 
     # sunset/sunrise/day columns are missing if suntime = FALSE
-    df_suntime_false <- as.data.frame(example_vp, suntime = FALSE)
-    expect_null(df_suntime_false$sunset)
-    expect_null(df_suntime_false$sunrise)
-    expect_null(df_suntime_false$day)
+    vp_df_suntime_false <- as.data.frame(vp, suntime = FALSE)
+    expect_null(vp_df_suntime_false$sunset)
+    expect_null(vp_df_suntime_false$sunrise)
+    expect_null(vp_df_suntime_false$day)
+
+    vpts_df_suntime_false <- as.data.frame(vpts, suntime = FALSE)
+    expect_null(vpts_df_suntime_false$sunset)
+    expect_null(vpts_df_suntime_false$sunrise)
+    expect_null(vpts_df_suntime_false$day)
   }
 )
 
-test_that("as.data.frame() values in suntime/sunset/day cols are correct and updated with lat/lon", {
-  # Note: timestamp for example_vp is 2015-10-18 18:00:00 UTC
+test_that("as.data.frame.vp() values in sunrise/sunset/day cols are correct and updated with lat/lon", {
+  # Only tested for vp (not vpts), which has timestamp 2015-10-18 18:00:00 UTC
 
-  # 1. Check for lat/long contained in example_vp: 56.3675, 12.8517
-  df <- as.data.frame(example_vp)
+  # 1. Check for lat/long contained in vp: 56.3675, 12.8517
+  vp_df <- as.data.frame(vp)
 
   # Manual data check on: https://www.suncalc.org/#/56.3675,12.8517,12/2015.10.18/09:00/1/3
   expected_sunrise <- as.POSIXlt("2015-10-18 05:45:26", tz = "UTC") # 07:45:26 UTC+2
   expected_sunset <- as.POSIXlt("2015-10-18 16:01:13", tz = "UTC") # 18:01:13 UTC+2
 
-  expect_equal(as.POSIXlt(df$sunrise[1]), expected_sunrise, tolerance = 5) # Tolerance: minutes
-  expect_equal(as.POSIXlt(df$sunset[1]), expected_sunset, tolerance = 5)
-  expect_false(df$day[1]) # At the 18:00:00 UTC timestamp, it is night
+  expect_equal(as.POSIXlt(vp_df$sunrise[1]), expected_sunrise, tolerance = 5) # Tolerance: minutes
+  expect_equal(as.POSIXlt(vp_df$sunset[1]), expected_sunset, tolerance = 5)
+  expect_false(vp_df$day[1]) # At the 18:00:00 UTC timestamp, it is night
 
   # 2. Set lat/lon to other values and check if it's still correct
-  df <- as.data.frame(example_vp, lat = 50.6472, lon = 4.3603)
+  vp_df <- as.data.frame(vp, lat = 50.6472, lon = 4.3603)
 
   # Manual data check on: https://www.suncalc.org/#/50.6472,4.3603,12/2015.10.18/09:00/1/3
   expected_sunrise <- as.POSIXlt("2015-10-18 06:09:09", tz = "UTC") # 08:09:09 UTC+2
   expected_sunset <- as.POSIXlt("2015-10-18 16:45:35", tz = "UTC") # 18:45:35 UTC+2
 
-  expect_equal(as.POSIXlt(df$sunrise[1]), expected_sunrise, tolerance = 5)
-  expect_equal(as.POSIXlt(df$sunset[1]), expected_sunset, tolerance = 5)
-  expect_false(df$day[1]) # At the 18:00:00 UTC timestamp, it is night
+  expect_equal(as.POSIXlt(vp_df$sunrise[1]), expected_sunrise, tolerance = 5)
+  expect_equal(as.POSIXlt(vp_df$sunset[1]), expected_sunset, tolerance = 5)
+  expect_false(vp_df$day[1]) # At the 18:00:00 UTC timestamp, it is night
 
   # 3. Let's go to Antartica, it should be day there
-  df <- as.data.frame(example_vp, lat = -74.2486, lon = -1.2497)
-  expect_true(df$day[1])
+  vp_df <- as.data.frame(vp, lat = -74.2486, lon = -1.2497)
+  expect_true(vp_df$day[1])
 })
-
-# TODO: test "row.names" parameter
-# TODO: test "optional" parameter
-# TODO: test "elev" parameter
