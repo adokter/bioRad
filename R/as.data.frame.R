@@ -70,17 +70,6 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
                              suntime = TRUE, lat = NULL, lon = NULL,
                              elev = -0.268, ...) {
   stopifnot(inherits(x, "vp"))
-  if (!is.null(row.names)) {
-    if (is.character(row.names) & length(row.names) ==
-        length(x$datetime) * length(x$height)) {
-      rownames(output) <- row.names
-    } else {
-      stop(paste0(
-        "`row.names` is not a character vector of length ",
-        length(x$datetime) * length(x$data$height), "."
-      ))
-    }
-  }
   if (is.null(lat)) {
     lat <- x$attributes$where$lat
   }
@@ -89,6 +78,18 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
   }
   # coerce data to a data frame
   output <- as.data.frame(x$data, optional = optional, ...)
+  # set row.names
+  if (!is.null(row.names)) {
+    if (is.character(row.names) & length(row.names) ==
+        length(x$data$height)) {
+      rownames(output) <- row.names
+    } else {
+      stop(paste0(
+        "`row.names` is not a character vector of length ",
+        length(x$data$height), "."
+      ))
+    }
+  }
   # add height and datetime as a column
   output <- cbind(datetime = x$datetime, height = output$height, output)
   output$height <- NULL
@@ -129,6 +130,15 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE, geo = TRUE
                                suntime = TRUE, lat = NULL, lon = NULL,
                                elev = -0.268, ...) {
   stopifnot(inherits(x, "vpts"))
+  if (is.null(lat)) {
+    lat <- x$attributes$where$lat
+  }
+  if (is.null(lon)) {
+    lon <- x$attributes$where$lon
+  }
+  # coerce data to a data frame
+  output <- as.data.frame(lapply(x$data, c), optional = optional, ...)
+  # set row.names
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
         length(x$datetime) * length(x$height)) {
@@ -140,16 +150,6 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE, geo = TRUE
       ))
     }
   }
-  if (is.null(lat)) {
-    lat <- x$attributes$where$lat
-  }
-  if (is.null(lon)) {
-    lon <- x$attributes$where$lon
-  }
-  # coerce data to a data frame
-  output <- as.data.frame(lapply(x$data, c),
-                          optional = optional, ...
-  )
   # add height and datetime as a column
   output <- cbind(
     datetime = as.POSIXct(
