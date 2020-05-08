@@ -85,7 +85,7 @@ read_pvolfile <- function(file, param = c(
 }
 
 # this is the actual function read_pvolfile, without error handling that checks
-# for open hdf5 files
+# for open HDF5 files
 read_pvolfile_body <- function(file, param = c(
                                  "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
                                  "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
@@ -113,11 +113,11 @@ read_pvolfile_body <- function(file, param = c(
     }
   }
 
-  # check file type. If not ODIM hdf5, try to convert from RSL
+  # check file type. If not ODIM HDF5, try to convert from RSL
   cleanup <- FALSE
   if (H5Fis_hdf5(file)) {
     if (!is.pvolfile(file)) {
-      stop("Failed to read hdf5 file.")
+      stop("Failed to read HDF5 file.")
     }
   } else {
     if (verbose) {

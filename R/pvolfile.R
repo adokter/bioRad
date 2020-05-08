@@ -1,6 +1,6 @@
 #' Check if a local file is a polar volume (\code{pvol})
 #'
-#' Checker whether a file is a polar volume in ODIM hdf5 format that can be read with
+#' Check whether a file is a polar volume in ODIM HDF5 format that can be read with
 #' package \pkg{bioRad}
 #'
 #' @param file A string containing a file name.
@@ -11,15 +11,15 @@
 #'
 #' @export
 #' @details
-#' The function checks whether a hdf5 file provided as input is a polar volume
-#' in ODIM hdf5 format. The function currently evaluates to FALSE for NEXRAD and
+#' The function checks whether a HDF5 file provided as input is a polar volume
+#' in ODIM HDF5 format. The function currently evaluates to FALSE for NEXRAD and
 #' IRIS RAW polar volume files.
 #'
 #' @examples
 #' # locate example file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
-#' # check that the file is an ODIM hdf5 polar volume:
+#' # check that the file is an ODIM HDF5 polar volume:
 #' is.pvolfile(pvolfile) # > TRUE
 is.pvolfile <- function(file, filename = NULL) {
 
@@ -39,17 +39,21 @@ is.pvolfile <- function(file, filename = NULL) {
   }
 }
 
-#' Check the ODIM data class of a polar volume file
+#' Check the data object contained in a ODIM HDF5 file
 #'
-#' Checks which data class is contained in ODIM HDF5 file
+#' Checks which data object is contained in ODIM HDF5 file
 #'
 #' @param file A string containing a file name.
 #'
-#' @return character string \code{pvol} for polar volume, \code{vp} for
-#' vertical profile, otherwise \code{NA}
+#' @return character string \code{PVOL} for polar volume, \code{VP} for
+#' vertical profile. 
 #'
 #' @export
-#'
+#' 
+#' @details
+#' See \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}
+#' Table 2 for a full list of existing ODIM file object types. 
+#' 
 #' @examples
 #' # locate a polar volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

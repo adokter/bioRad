@@ -1,7 +1,7 @@
 #' Convert a NEXRAD polar volume file to an ODIM polar volume file
 #'
 #' @param pvolfile_nexrad Polar volume input file in RSL format.
-#' @param pvolfile_odim Filename for the polar volume in ODIM hdf5 format to be
+#' @param pvolfile_odim Filename for the polar volume in ODIM HDF5 format to be
 #' generated.
 #'
 #' @inheritParams calculate_vp
@@ -20,7 +20,7 @@
 #' # convert to ODIM format
 #' nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")
 #'
-#' # verify that we have generated a polar volume in ODIM hdf5 format
+#' # verify that we have generated a polar volume in ODIM HDF5 format
 #' get_odim_object_type("~/KBGM_example.h5")
 #'
 #' # clean up
