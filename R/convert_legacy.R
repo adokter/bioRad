@@ -1,7 +1,7 @@
 #' Convert legacy bioRad objects to current version
 #'
 #' Convert legacy bioRad objects (`vp`, `vpts`) that have become obsolete
-#' compatible with the current bioRad version.
+#' and make them compatible with the current bioRad version.
 #'
 #' @param x A `vp` or `vpts` object.
 #'
