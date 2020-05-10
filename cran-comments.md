@@ -24,10 +24,25 @@ There was 1 NOTE:
 The tarball is however below the required 5 Mb
 
 ## r-hub builder
-There was one warning:
+There was one NOTE, however the listed URLs are correct and accessible:
 
-* checking package dependencies ... WARNING
-Requires orphaned package: 'ggmap'
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Adriaan M. Dokter <amd427@cornell.edu>’
+
+Found the following (possibly) invalid URLs:
+  URL: https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2
+    From: man/calculate_vp.Rd
+    Status: Error
+    Message: libcurl error code 60:
+      	SSL certificate problem: certificate has expired
+      	(Status without verification: OK)
+  URL: https://doi.org/10.1175/JTECH-D-17-0175.1
+    From: man/calculate_param.Rd
+    Status: Error
+    Message: libcurl error code 60:
+      	SSL certificate problem: certificate has expired
+      	(Status without verification: OK)
+
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
