@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example object of class <code>scan</code> — example_scan • bioRad</title>
+<title>Scan (<code>scan</code>) example — example_scan • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,8 @@
 
 
 
-<meta property="og:title" content="Example object of class <code>scan</code> — example_scan" />
-<meta property="og:description" content="Example of a scan object with name
-example_scan." />
+<meta property="og:title" content="Scan (<code>scan</code>) example — example_scan" />
+<meta property="og:description" content="Example object of class scan with name example_scan." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -87,7 +86,7 @@ example_scan." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -150,14 +149,13 @@ example_scan." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example object of class <code>scan</code></h1>
+    <h1>Scan (<code>scan</code>) example</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/data.R'><code>R/data.R</code></a></small>
     <div class="hidden name"><code>example_scan.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Example of a <code><a href='summary.scan.html'>scan</a></code> object with name
-<code>example_scan</code>.</p>
+    <p>Example object of class <code><a href='summary.scan.html'>scan</a></code> with name <code>example_scan</code>.</p>
     </div>
 
     <pre class="usage"><span class='no'>example_scan</span></pre>
@@ -168,18 +166,21 @@ example_scan." />
     <p>An object of class <code>scan</code> of dimension 5 x 480 x 360.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># get summary of example scan:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>example_scan</span>)</div><div class='output co'>#&gt;                   Polar scan (class scan)
+    <pre class="examples"><div class='input'><span class='co'># Reload example_scan from package (e.g. in case it was altered)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
+
+<span class='co'># Get summary info</span>
+<span class='no'>example_scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
-<span class='co'># example_scan was created with:</span>
+<span class='co'># example_scan was created with</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
 <span class='no'>example_scan</span> <span class='kw'>&lt;-</span> <span class='no'>pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># save(example_scan, file = "data/example_scan.rda")</span>
+<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>example_scan</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_scan.rda"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -196,7 +197,7 @@ example_scan." />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

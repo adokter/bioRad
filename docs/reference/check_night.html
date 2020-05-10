@@ -55,7 +55,7 @@
 <meta property="og:title" content="Check if it is night at a given time and place — check_night" />
 <meta property="og:description" content="Checks if it is night (TRUE/FALSE) for a combination of
 latitude, longitude, date and sun elevation. When used on a bioRad object
-(pvol, vp, vpts) this information is extracted from the
+(pvol, vp, vpts, vpi) this information is extracted from the
 bioRad object directly." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
@@ -89,7 +89,7 @@ bioRad object directly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -160,33 +160,36 @@ bioRad object directly." />
     <div class="ref-description">
     <p>Checks if it is night (<code>TRUE</code>/<code>FALSE</code>) for a combination of
 latitude, longitude, date and sun elevation. When used on a bioRad object
-(<code>pvol</code>, <code>vp</code>, <code>vpts</code>) this information is extracted from the
+(<code>pvol</code>, <code>vp</code>, <code>vpts</code>, <code>vpi</code>) this information is extracted from the
 bioRad object directly.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+    <pre class="usage"><span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>...</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># S3 method for vp</span>
-<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># S3 method for vpts</span>
-<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+
+<span class='co'># S3 method for vpi</span>
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># S3 method for pvol</span>
-<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>)</pre>
+<span class='fu'>check_night</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>pvol</code>, <code>vp</code> or <code>vpts</code>,
+      <td><p><code>pvol</code>, <code>vp</code>, <code>vpts</code>, <code>vpi</code>,
 or a date inheriting from class <code>POSIXct</code> or a string
 interpretable by <a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a>.</p></td>
     </tr>
@@ -196,7 +199,14 @@ interpretable by <a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a>
     </tr>
     <tr>
       <th>elev</th>
-      <td><p>numeric. Sun elevation in degrees.</p></td>
+      <td><p>numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
+length two, with first element giving sunset elevation, and second element sunrise elevation.</p></td>
+    </tr>
+    <tr>
+      <th>offset</th>
+      <td><p>numeric. Time duration in seconds by which to shift the start and end
+of night time. May also be a numeric vector of length two, with first element added to moment
+of sunset and second element added to moment of sunrise.</p></td>
     </tr>
     <tr>
       <th>lon</th>
@@ -226,6 +236,9 @@ the moment of sunrise/sunset corresponds to half that elevation at
 elevation than parameter <code>elev</code>, otherwise <code>TRUE</code>.</p>
 <p>Approximate astronomical formula are used, therefore the day/night
 transition may be off by a few minutes.</p>
+<p><code>offset</code> can be used to shift the moment of sunset and sunrise by a
+temporal offset, for example, <code>offset=c(600,-900)</code> will assume nighttime
+starts 600 seconds after sunset (as defined by <code>elev</code>) and stops 900 seconds before sunrise.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># check if it is night at UTC midnight in the Netherlands on January 1st:</span>
@@ -393,7 +406,16 @@ transition may be off by a few minutes.</p>
 #&gt; [1897]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 #&gt; [1909]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
 #&gt; [1921] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#&gt; [1933] FALSE FALSE</div></pre>
+#&gt; [1933] FALSE FALSE</div><div class='input'>
+<span class='co'># select nighttime profiles that are between 3 hours after sunset</span>
+<span class='co'># and 2 hours before sunrise:</span>
+<span class='no'>index</span> <span class='kw'>&lt;-</span> <span class='fu'>check_night</span>(<span class='no'>example_vpts</span>, <span class='kw'>offset</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,-<span class='fl'>2</span>)*<span class='fl'>3600</span>)
+<span class='no'>example_vpts</span>[<span class='no'>index</span>]</div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  578 
+#&gt; time range (UTC):  2016-09-01 02:39:00 - 2016-09-10 08:41:00 
+#&gt;    time step (s):  min: 180     max:  65460 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -409,7 +431,7 @@ transition may be off by a few minutes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
