@@ -1,4 +1,6 @@
-# bioRad 0.5.1.9xxx
+# bioRad 0.5.2
+
+This release is primarily a hotfix for R version 4.0 (#375). All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/388). New features and improvements include:
 
 * `regularize_vpts()` is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (#332)
 
@@ -8,11 +10,17 @@
 
 * new option `offset` in `check_night()`, which allows day/night transition to be shifted by a temporal offset (#338). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.
 
-* selection for day and night in vpts in `filter_vpts()`, using `check_night()` (#345)
+* selection for day and night in vpts in `filter_vpts()` using new arguments `night`, `elev` and `offset`, based on functionality of `check_night()` (#345)
 
 * `check_night()` method for vpi objects ([23def64](https://github.com/adokter/bioRad/commit/23def64))
 
 * new functions `noy()` and `doy()` to determine which night or day of the year a profile belongs to (#346).
+
+* parameter `quantities` has been deprecated in `as.data.frame.vpts()` (#364)
+
+* changes in `dim()` for pvol and vpts objects (#355)
+
+* bugfixes (#330, #368, #352) and documentation improvements
 
 # bioRad 0.5.1
 
