@@ -1,14 +1,13 @@
-## bioRad 0.5.1
-This version includes a minor bugfix associated with the
-upcoming R 0.4.0 release. I only found out today that our
-package had been removed from CRAN because of this, without
-any notice, is there a way for me to subscribe to a notification
-when my package is pending to be removed?
+## bioRad 0.5.2
+This version includes CRAN-requested bugfix associated with the
+R 4.0 release.
 
 ## Test environments
 * local OS X install, R 3.6.3
 * local Ubuntu 18.04 LTS, R 3.6.3
 * local Windows 10 Enterprise, R 3.6.3
+* remote R-devel https://builder.r-hub.io.
+* remote R-devel Windows https://win-builder.r-project.org/
 
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
@@ -19,7 +18,7 @@ There was 1 NOTE:
   installed size is  5.7Mb
   sub-directories of 1Mb or more:
     data      1.6Mb
-    doc       1.3Mb
+    doc       1.2Mb
     extdata   1.7Mb
 
 The tarball is however below the required 5 Mb

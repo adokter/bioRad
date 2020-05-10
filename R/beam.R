@@ -240,7 +240,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @param noise_floor_ref_range the reference distance from the radar at which
 #'   \code{noise_floor} is expressed. NOT YET IMPLEMENTED
 #' @param steps number of integration steps over altitude range zlim, defining
-#'   altitude grid size used for numeric integrations
+#'   altitude grid size used for numeric integration
 #' @param quantity profile quantity to use for the altitude distribution, one of
 #'   'dens' or 'eta'.
 #' @param normalize Whether to normalize the radiation coverage pattern over the
