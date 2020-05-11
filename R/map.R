@@ -10,7 +10,7 @@
 #' @param radar_size Size of the symbol indicating the radar position.
 #' @param radar_color Color of the symbol indicating the radar position.
 #' @param n_color The number of colors (>=1) to be in the palette.
-#' @param palette (Optional) character vector of hexidecimal color values defining
+#' @param palette (Optional) character vector of hexadecimal color values defining
 #' the plot color scale, e.g. output from \link[viridisLite]{viridis}
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.

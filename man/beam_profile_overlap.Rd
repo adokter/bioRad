@@ -43,7 +43,7 @@ expressed as the reflectivity factor it would represent at a distance
 \code{noise_floor} is expressed. NOT YET IMPLEMENTED}
 
 \item{steps}{number of integration steps over altitude range zlim, defining
-altitude grid size used for numeric integrations}
+altitude grid size used for numeric integration}
 
 \item{quantity}{profile quantity to use for the altitude distribution, one of
 'dens' or 'eta'.}

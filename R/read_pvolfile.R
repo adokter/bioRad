@@ -85,7 +85,7 @@ read_pvolfile <- function(file, param = c(
 }
 
 # this is the actual function read_pvolfile, without error handling that checks
-# for open hdf5 files
+# for open HDF5 files
 read_pvolfile_body <- function(file, param = c(
                                  "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
                                  "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
@@ -113,11 +113,11 @@ read_pvolfile_body <- function(file, param = c(
     }
   }
 
-  # check file type. If not ODIM hdf5, try to convert from RSL
+  # check file type. If not ODIM HDF5, try to convert from RSL
   cleanup <- FALSE
   if (H5Fis_hdf5(file)) {
     if (!is.pvolfile(file)) {
-      stop("Failed to read hdf5 file.")
+      stop("Failed to read HDF5 file.")
     }
   } else {
     if (verbose) {
@@ -230,6 +230,15 @@ read_pvolfile_body <- function(file, param = c(
       read_pvolfile_scan(file, x, param, radar, datetime, geo)
     }
   )
+
+  # filter out NULL output from read_pvolfile_scan
+  valid_scans <- which(!sapply(data, is.null))
+  assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
+  if(length(valid_scans) < length(scans)){
+    warning(paste("ignoring",length(scans)-length(valid_scans),"scan(s) in file",file,"because requested scan parameter(s) are missing."))
+  }
+  data <- data[valid_scans]
+
   # order by elevation
   if (sort) {
     data <- data[order(sapply(data, get_elevation_angles))]
@@ -276,7 +285,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
     )
     groups <- groups[quantityNames %in% param]
     if (length(groups) == 0) {
-      stop(paste("none of the requested scan parameters present in", file))
+      return(NULL)
     }
   }
 

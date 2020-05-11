@@ -92,7 +92,7 @@ reference:
       - example_vpts
       - plot.vpts
       - regularize_vpts
-      - as.data.frame.vpts
+      - as.data.frame.vp
       - "`[.vpts`"
       - get_quantity
   - title: "Integrating vertical profiles"
@@ -108,6 +108,7 @@ reference:
       - sd_vvp_threshold
       - "`sd_vvp_threshold<-`"
       - check_night
+      - doy_noy
   - title: "Radar beam geometry"
     desc: "Functions relating the radar beam shape to range, distance and height"
     contents:
@@ -124,3 +125,4 @@ reference:
       - eta_to_dbz
       - nyquist_velocity
       - sunrise_sunset
+      - convert_legacy

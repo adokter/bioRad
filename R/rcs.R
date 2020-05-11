@@ -1,37 +1,34 @@
 #' Get radar cross section
 #'
-#' Gives the currently assumed radar cross section in cm^2.
+#' Returns the currently assumed radar cross section of an object in cm^2.
 #'
-#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
+#' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
 #'
-#' @return A radar cross section in cm^2.
-#'
-#' @details See also \link{rcs<-} for changing or setting the radar cross section
-#' of an object.
+#' @return The radar cross section in cm^2.
 #'
 #' @export
 #'
+#' @seealso
+#' * [`rcs()<-`][rcs<-] for setting the radar cross section of an object.
+#' * [sd_vvp_threshold()]
+#'
 #' @examples
-#' # retrieve RCS for a single vertical profile:
-#' rcs(example_vp)
+#' # Get the radar cross section for a vp
+#' vp <- example_vp
+#' rcs(vp)
 #'
-#' # retrieve RCS for a vertical profile time series:
-#' rcs(example_vpts)
+#' # Get the radar cross section for a vpts
+#' vpts <- example_vpts
+#' rcs(vpts)
 #'
-#' # change or set RCS for a single vertical profile:
-#' rcs(example_vp) <- 11
-#'
-#' # change or set RCS for a vertical profile time series:
-#' rcs(example_vpts) <- 11
-#'
-#' # change RCS for a vertically integrated vertical profile time series:
-#' example_vpi <- integrate_profile(example_vpts)
-#' rcs(example_vpi) <- 11
+#' # Get the radar cross section for a vpi
+#' vpi <- integrate_profile(example_vpts)
+#' rcs(vpi)
 rcs <- function(x) {
   UseMethod("rcs", x)
 }
 
-#' @describeIn rcs radar cross section of a vertical profile
+#' @rdname rcs
 #'
 #' @export
 rcs.vp <- function(x) {
@@ -39,27 +36,27 @@ rcs.vp <- function(x) {
   x$attributes$how$rcs_bird
 }
 
-#' @describeIn rcs radar cross sections for a list of vertical profiles
+#' @rdname rcs
 #'
 #' @export
 rcs.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Input must be list of vp objects.")
+    stop("`x` must be list of vp objects.")
   }
   output <- sapply(x, `rcs.vp`)
   output
 }
 
-#' @describeIn rcs radar cross section of a time series of vertical profile
+#' @rdname rcs
+#'
 #' @export
 rcs.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
   x$attributes$how$rcs_bird
 }
 
-#' @describeIn rcs radar cross section of a time series of vertically
-#' integrated vertical profile(s)
+#' @rdname rcs
 #'
 #' @export
 rcs.vpi <- function(x) {
@@ -69,29 +66,31 @@ rcs.vpi <- function(x) {
 
 #' Set radar cross section
 #'
-#' Sets the assumed radar cross section in cm^2. This method also updates
-#' the migration densities in `x$data$dens`.
+#' Sets the assumed radar cross section of an object in cm^2. This function also
+#' updates the migration densities in `x$data$dens` to `eta`/`rcs` when above
+#' `sd_vvp_threshold` and `0` if below.
 #'
-#' @param x A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.
-#' @param value The cross section value to assign.
+#' @inheritParams rcs
+#' @param value Numeric. The radar cross section value to assign in cm^2.
 #'
 #' @export
 #'
-#' @details See also \link{rcs} for retrieving the radar cross section
-#' of an object.
+#' @seealso
+#' * [rcs()] for getting the radar cross section of an object.
+#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-]
 #'
 #' @examples
-#' # change or set RCS for a single vertical profile:
-#' rcs(example_vp) <- 11
+#' # Set the radar cross section for a vp
+#' vp <- example_vp
+#' rcs(vp) <- 11
 #'
-#' # change or set RCS for a vertical profile time series:
-#' rcs(example_vpts) <- 11
+#' # Set the radar cross section for a vpts
+#' vpts <- example_vpts
+#' rcs(vpts) <- 11
 #'
-#' # retrieve RCS for a single vertical profile:
-#' rcs(example_vp)
-#'
-#' # retrieve RCS for a vertical profile time series:
-#' rcs(example_vpts)
+#' # Set the radar cross section for a vpi
+#' vpi <- integrate_profile(example_vpts)
+#' rcs(vpi) <- 11
 `rcs<-` <- function(x, value) {
   UseMethod("rcs<-", x)
 }
@@ -121,7 +120,7 @@ rcs.vpi <- function(x) {
 `rcs<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("Input must be list of vp objects.")
+    stop("`x` must be list of vp objects.")
   }
   output <- lapply(x, `rcs<-.vp`, value = value)
   class(output) <- c("list")
@@ -152,8 +151,6 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vpi` <- function(x, value) {
   stopifnot(inherits(x, "vpi"))
-  assert_that(is.numeric(value))
-  assert_that(value > 0)
   attributes(x)$rcs <- value
   x$mtr <- x$rtr / value
   x$vid <- x$vir / value

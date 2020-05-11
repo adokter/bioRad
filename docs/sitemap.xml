@@ -13,9 +13,6 @@
     <loc>https://adokter.github.io/bioRad/reference/as.data.frame.vp.html</loc>
   </url>
   <url>
-    <loc>https://adokter.github.io/bioRad/reference/as.data.frame.vpts.html</loc>
-  </url>
-  <url>
     <loc>https://adokter.github.io/bioRad/reference/beam_distance.html</loc>
   </url>
   <url>
@@ -67,6 +64,9 @@
     <loc>https://adokter.github.io/bioRad/reference/composite_ppi.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/convert_legacy.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/dbz_to_eta.html</loc>
   </url>
   <url>
@@ -74,6 +74,9 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/download_vpfiles.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/doy_noy.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/eta_to_dbz.html</loc>
@@ -149,24 +152,6 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/plot.vpts.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/reference/print.param.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/reference/print.ppi.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/reference/print.pvol.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/reference/print.scan.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/reference/print.vp.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/reference/print.vpts.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/proj_to_wgs.html</loc>

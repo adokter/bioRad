@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a quantity of a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>) — get_quantity • bioRad</title>
+<title>Get a quantity from a vertical profile (<code>vp</code>) or time series of vertical
+profiles (<code>vpts</code>) — get_quantity • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +53,13 @@
 
 
 
-<meta property="og:title" content="Get a quantity of a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>) — get_quantity" />
-<meta property="og:description" content="Get a quantity of a vertical profile (vp) or time series of vertical profiles (vpts)" />
+<meta property="og:title" content="Get a quantity from a vertical profile (<code>vp</code>) or time series of vertical
+profiles (<code>vpts</code>) — get_quantity" />
+<meta property="og:description" content="Returns values for the selected quantity from a vertical profile (vp),
+list, or time series of vertical profiles (vpts). Values are organized per
+height bin. Values for eta are set to 0, dbz to -Inf and ff, u,
+v, w, dd to NaN when the sd_vvp for that height bin is below the
+sd_vvp_threshold()." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -149,13 +155,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a quantity of a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>)</h1>
+    <h1>Get a quantity from a vertical profile (<code>vp</code>) or time series of vertical
+profiles (<code>vpts</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/get_quantity.R'><code>R/get_quantity.R</code></a></small>
     <div class="hidden name"><code>get_quantity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get a quantity of a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>)</p>
+    <p>Returns values for the selected quantity from a vertical profile (<code>vp</code>),
+list, or time series of vertical profiles (<code>vpts</code>). Values are organized per
+height bin. Values for <code>eta</code> are set to <code>0</code>, <code>dbz</code> to <code>-Inf</code> and <code>ff</code>, <code>u</code>,
+<code>v</code>, <code>w</code>, <code>dd</code> to <code>NaN</code> when the <code>sd_vvp</code> for that height bin is below the
+<code><a href='sd_vvp_threshold.html'>sd_vvp_threshold()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_quantity</span>(<span class='no'>x</span>, <span class='no'>quantity</span>)
@@ -174,51 +185,61 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vp or vpts object.</p></td>
+      <td><p>A <code>vp</code>, list of <code>vp</code> or <code>vpts</code> object.</p></td>
     </tr>
     <tr>
       <th>quantity</th>
-      <td><p>A profile quantity, one of:</p><ul>
-<li><p><code>"height"</code></p></li>
-<li><p><code>"u"</code></p></li>
-<li><p><code>"v"</code></p></li>
-<li><p><code>"w"</code></p></li>
-<li><p><code>"ff"</code></p></li>
-<li><p><code>"dd"</code></p></li>
-<li><p><code>"sd_vvp"</code></p></li>
-<li><p><code>"gap"</code></p></li>
-<li><p><code>"dbz"</code></p></li>
-<li><p><code>"eta"</code></p></li>
-<li><p><code>"dens"</code></p></li>
-<li><p><code>"DBZH"</code></p></li>
-<li><p><code>"n"</code></p></li>
-<li><p><code>"n_all"</code></p></li>
-<li><p><code>"n_dbz"</code></p></li>
-<li><p><code>"n_dbz_all"</code></p></li>
+      <td><p>Character. A (case sensitive) profile quantity, one of:</p><ul>
+<li><p><code>height</code>: Height bin (lower bound) in m above sea level.</p></li>
+<li><p><code>u</code>: Speed component west to east in m/s.</p></li>
+<li><p><code>v</code>: Speed component north to south in m/s.</p></li>
+<li><p><code>w</code>: Vertical speed (unreliable!) in m/s.</p></li>
+<li><p><code>ff</code>: Horizontal speed in m/s.</p></li>
+<li><p><code>dd</code>: Direction in degrees clockwise from north.</p></li>
+<li><p><code>sd_vvp</code>: VVP radial velocity standard deviation in m/s.</p></li>
+<li><p><code>gap</code>: Angular data gap detected in T/F.</p></li>
+<li><p><code>dbz</code>: Animal reflectivity factor in dBZ.</p></li>
+<li><p><code>eta</code>: Animal reflectivity in cm^2/km^3.</p></li>
+<li><p><code>dens</code>: Animal density in animals/km^3.</p></li>
+<li><p><code>DBZH</code>: Total reflectivity factor (bio + meteo scattering) in dBZ.</p></li>
+<li><p><code>n</code>: Number of data points used for the ground speed estimates
+(quantities <code>u</code>, <code>v</code>, <code>w</code>, <code>ff</code>, <code>dd</code>).</p></li>
+<li><p><code>n_all</code>: Number of data points used for the radial velocity standard
+deviation estimate (quantity <code>sd_vvp</code>).</p></li>
+<li><p><code>n_dbz</code>: Number of data points used for reflectivity-based estimates
+(quantities <code>dbz</code>, <code>eta</code>, <code>dens</code>).</p></li>
+<li><p><code>n_dbz_all</code>: Number of data points used for the total reflectivity
+estimate (quantity <code>DBZH</code>).</p></li>
+<li><p><code>attributes</code>: List of the vertical profile's <code>what</code>, <code>where</code> and <code>how</code>
+attributes.</p></li>
 </ul></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>class <code>vp</code>: a named vector for the requested quantity.</p>
-<p>class <code>list</code>: a list of a named vectors for the requested
-quantity.</p>
-<p>class <code>vpts</code>: a (height x time) matrix of the
-requested quantity.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>For a <code>vp</code> object: a named (height bin) vector with values for the
+selected quantity.</p>
+<p>For a <code>list</code> object: a list of named (height bin) vectors with values
+for the selected quantity.</p>
+<p>For a <code>vpts</code> object: a (height bin * datetime) matrix with values for
+the selected quantity.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>This function grabs any of the data quantities stored in
-<a href='summary.vp.html'>vp</a> or <a href='summary.vpts.html'>vpts</a> objects. See the
-documentation of the vertical profile <a href='summary.vp.html'>vp</a> class for a
-description of each of these quantities.</p>
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='summary.vp.html'>summary.vp()</a></code></p></li>
+<li><p><code><a href='sd_vvp_threshold-set.html'>sd_vvp_threshold()&lt;-</a></code> for setting the <code>sd_vvp</code>
+threshold of an object.</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example profile</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vp</span>)
+    <pre class="examples"><div class='input'><span class='co'># Load the example vertical profile</span>
+<span class='no'>vp</span> <span class='kw'>&lt;-</span> <span class='no'>example_vp</span>
 
-<span class='co'># extract the animal density ("dens") quantity:</span>
-<span class='fu'>get_quantity</span>(<span class='no'>example_vp</span>, <span class='st'>"dens"</span>)</div><div class='output co'>#&gt;           0         200         400         600         800        1000 
+<span class='co'># Extract the quantity animal density (dens)</span>
+<span class='fu'>get_quantity</span>(<span class='no'>vp</span>, <span class='st'>"dens"</span>)</div><div class='output co'>#&gt;           0         200         400         600         800        1000 
 #&gt;          NA  85.0995178 110.4298782  91.7822418  34.5677528  20.5497875 
 #&gt;        1200        1400        1600        1800        2000        2200 
 #&gt;  22.9609985  19.7929668  19.7772617  17.3985100  11.9922190   7.2263165 
@@ -227,7 +248,37 @@ description of each of these quantities.</p>
 #&gt;        3600        3800        4000        4200        4400        4600 
 #&gt;   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000 
 #&gt;        4800 
-#&gt;   0.0000000 </div></pre>
+#&gt;   0.0000000 </div><div class='input'>
+<span class='co'># Load the example time series of vertical profiles</span>
+<span class='no'>vpts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+
+<span class='co'># Extract the quantity horizontal speed (ff) and show the first two datetimes</span>
+<span class='fu'>get_quantity</span>(<span class='no'>vpts</span>, <span class='st'>"ff"</span>)[,<span class='fl'>1</span>:<span class='fl'>2</span>]</div><div class='output co'>#&gt;      2016-09-01 00:02:00 2016-09-01 00:06:00
+#&gt; 0                    NaN                 NaN
+#&gt; 200                  NaN                 NaN
+#&gt; 400                  NaN                 NaN
+#&gt; 600                 5.65                5.23
+#&gt; 800                 5.07                5.64
+#&gt; 1000                5.45                5.39
+#&gt; 1200                6.02                6.20
+#&gt; 1400                5.96                5.81
+#&gt; 1600                4.82                4.63
+#&gt; 1800                4.61                4.07
+#&gt; 2000                 NaN                2.74
+#&gt; 2200                 NaN                2.28
+#&gt; 2400                 NaN                0.73
+#&gt; 2600                 NaN                0.74
+#&gt; 2800                 NaN                 NaN
+#&gt; 3000                 NaN                 NaN
+#&gt; 3200                 NaN                 NaN
+#&gt; 3400                 NaN                1.11
+#&gt; 3600                 NaN                1.17
+#&gt; 3800                 NaN                 NaN
+#&gt; 4000                 NaN                 NaN
+#&gt; 4200                 NaN                 NaN
+#&gt; 4400                 NaN                 NaN
+#&gt; 4600                 NaN                 NaN
+#&gt; 4800                 NaN                 NaN</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +294,7 @@ description of each of these quantities.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

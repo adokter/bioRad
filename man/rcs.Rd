@@ -22,41 +22,27 @@ rcs(x)
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 }
 \value{
-A radar cross section in cm^2.
+The radar cross section in cm^2.
 }
 \description{
-Gives the currently assumed radar cross section in cm^2.
+Returns the currently assumed radar cross section of an object in cm^2.
 }
-\details{
-See also \link{rcs<-} for changing or setting the radar cross section
-of an object.
-}
-\section{Methods (by class)}{
-\itemize{
-\item \code{vp}: radar cross section of a vertical profile
-
-\item \code{list}: radar cross sections for a list of vertical profiles
-
-\item \code{vpts}: radar cross section of a time series of vertical profile
-
-\item \code{vpi}: radar cross section of a time series of vertically
-integrated vertical profile(s)
-}}
-
 \examples{
-# retrieve RCS for a single vertical profile:
-rcs(example_vp)
+# Get the radar cross section for a vp
+vp <- example_vp
+rcs(vp)
 
-# retrieve RCS for a vertical profile time series:
-rcs(example_vpts)
+# Get the radar cross section for a vpts
+vpts <- example_vpts
+rcs(vpts)
 
-# change or set RCS for a single vertical profile:
-rcs(example_vp) <- 11
-
-# change or set RCS for a vertical profile time series:
-rcs(example_vpts) <- 11
-
-# change RCS for a vertically integrated vertical profile time series:
-example_vpi <- integrate_profile(example_vpts)
-rcs(example_vpi) <- 11
+# Get the radar cross section for a vpi
+vpi <- integrate_profile(example_vpts)
+rcs(vpi)
+}
+\seealso{
+\itemize{
+\item \code{\link[=rcs<-]{rcs()<-}} for setting the radar cross section of an object.
+\item \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}
+}
 }

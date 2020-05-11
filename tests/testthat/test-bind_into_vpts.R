@@ -1,4 +1,6 @@
-context("test-bind_into_vpts.R")
+test_that("bind_into_vpts() returns error on incorrect parameters", {
+
+})
 
 test_that("vpts based on vp, multiple vp or vector of vp", {
   data(example_vpts)

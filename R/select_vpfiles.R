@@ -17,6 +17,8 @@
 #'
 #' @export
 #'
+#' @seealso download_vpfiles
+#'
 #' @examples
 #' select_vpfiles(
 #'   date_min = "2016-10-03",

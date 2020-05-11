@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get threshold of the VVP-retrieved radial velocity standard deviation — sd_vvp_threshold • bioRad</title>
+<title>Get threshold of the radial velocity standard deviation — sd_vvp_threshold • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,9 @@
 
 
 
-<meta property="og:title" content="Get threshold of the VVP-retrieved radial velocity standard deviation — sd_vvp_threshold" />
-<meta property="og:description" content="Gives the current threshold in VVP-retrieved radial velocity standard
-deviation in m/s." />
+<meta property="og:title" content="Get threshold of the radial velocity standard deviation — sd_vvp_threshold" />
+<meta property="og:description" content="Returns the current threshold of the radial velocity standard deviation
+(sd_vvp) of an object in m/s, retrieved by velocity volume processing (VVP)." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -87,7 +87,7 @@ deviation in m/s." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -150,14 +150,14 @@ deviation in m/s." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get threshold of the VVP-retrieved radial velocity standard deviation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/sd_vvp.R'><code>R/sd_vvp.R</code></a></small>
+    <h1>Get threshold of the radial velocity standard deviation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/sd_vvp_threshold.R'><code>R/sd_vvp_threshold.R</code></a></small>
     <div class="hidden name"><code>sd_vvp_threshold.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gives the current threshold in VVP-retrieved radial velocity standard
-deviation in m/s.</p>
+    <p>Returns the current threshold of the radial velocity standard deviation
+(<code>sd_vvp</code>) of an object in m/s, retrieved by velocity volume processing (VVP).</p>
     </div>
 
     <pre class="usage"><span class='fu'>sd_vvp_threshold</span>(<span class='no'>x</span>)
@@ -182,37 +182,24 @@ deviation in m/s.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>threshold for <code>sd_vvp</code> in m/s.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>The <code>sd_vvp</code> threshold in m/s.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See also sd_vvp_threshold&lt;- for setting an objects radial
-velocity standard deviation.</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
-
-    
+    <div class='dont-index'>
 <ul>
-<li><p><code>vp</code>: threshold in VVP-retrieved radial velocity standard
-deviation of a vertical profile</p></li>
-<li><p><code>list</code>: threshold in VVP-retrieved radial velocity standard
-deviation of a list of vertical profiles</p></li>
-<li><p><code>vpts</code>: threshold in VVP-retrieved radial velocity standard
-deviation of a time series of vertical profiles</p></li>
+<li><p><code><a href='sd_vvp_threshold-set.html'>sd_vvp_threshold()&lt;-</a></code> for setting the <code>sd_vvp</code>
+threshold of an object.</p></li>
+<li><p><code><a href='rcs.html'>rcs()</a></code></p></li>
 </ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example data:</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vp</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
-
-<span class='co'># retrieve threshold for a single vertical profile:</span>
-<span class='fu'>sd_vvp_threshold</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-<span class='co'># retrieve threshold for a vertical profile time series:</span>
-<span class='fu'>sd_vvp_threshold</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-<span class='co'># change or set the threshold for a single vertical profile:</span>
-<span class='fu'>sd_vvp_threshold</span>(<span class='no'>example_vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-
-<span class='co'># change or set the threshold for a vertical profile time series:</span>
-<span class='fu'>sd_vvp_threshold</span>(<span class='no'>example_vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>2</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Get the sd_vvp threshold for a vp</span>
+<span class='no'>vp</span> <span class='kw'>&lt;-</span> <span class='no'>example_vp</span>
+<span class='fu'>sd_vvp_threshold</span>(<span class='no'>vp</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
+<span class='co'># Get the sd_vvp threshold for a vpts</span>
+<span class='no'>vpts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+<span class='fu'>sd_vvp_threshold</span>(<span class='no'>vpts</span>)</div><div class='output co'>#&gt; [1] 2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +215,7 @@ deviation of a time series of vertical profiles</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

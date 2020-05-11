@@ -53,8 +53,8 @@
 
 
 <meta property="og:title" content="Identify <code>NaN</code> in a dataframe. — is.nan.data.frame" />
-<meta property="og:description" content="Identify cells with NaN in a data frame. Improve on the default
-is.nan() function, which only works on vectors, by allowing
+<meta property="og:description" content="Identify cells with NaN (not a number) in a data frame. Improves on the
+defaultbase::is.nan() function, which only works on vectors, by allowing
 data frames as input." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
@@ -88,7 +88,7 @@ data frames as input." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -152,13 +152,13 @@ data frames as input." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Identify <code>NaN</code> in a dataframe.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/is.nan.data.frame.R'><code>R/is.nan.data.frame.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/zzz.R'><code>R/zzz.R</code></a></small>
     <div class="hidden name"><code>is.nan.data.frame.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Identify cells with <code>NaN</code> in a data frame. Improve on the default
-<code><a href='https://rdrr.io/r/base/is.finite.html'>is.nan()</a></code> function, which only works on vectors, by allowing
+    <p>Identify cells with <code>NaN</code> (not a number) in a data frame. Improves on the
+default<code><a href='https://rdrr.io/r/base/is.finite.html'>base::is.nan()</a></code> function, which only works on vectors, by allowing
 data frames as input.</p>
     </div>
 
@@ -170,15 +170,14 @@ data frames as input.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A data frame to be tested.</p></td>
+      <td><p>A <code>data.frame</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A matrix of the same dimension as <code>x</code>, with TRUE/FALSE values
-for whether each cell in the original data frame is a number or not.
-<code>NaN</code> means 'Not a Number'.</p>
+    <p>A matrix of the same dimension as <code>x</code>, with <code>TRUE</code>/<code>FALSE</code> values
+for whether each cell in the original data frame is a number or not.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -195,7 +194,7 @@ for whether each cell in the original data frame is a number or not.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

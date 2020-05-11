@@ -1,4 +1,6 @@
-context("test-check_night.R")
+test_that("check_night() returns error on incorrect parameters", {
+
+})
 
 test_that("check_night identifies night with numeric values", {
   expect_false(check_night(as.POSIXct("2016-1-1 12:00", tz = "UTC"), 5, 53))

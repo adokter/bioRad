@@ -21,26 +21,29 @@ rcs(x) <- value
 \arguments{
 \item{x}{A \code{vp}, list of \code{vp}, \code{vpts} or \code{vpi} object.}
 
-\item{value}{The cross section value to assign.}
+\item{value}{Numeric. The radar cross section value to assign in cm^2.}
 }
 \description{
-Sets the assumed radar cross section in cm^2. This method also updates
-the migration densities in \code{x$data$dens}.
-}
-\details{
-See also \link{rcs} for retrieving the radar cross section
-of an object.
+Sets the assumed radar cross section of an object in cm^2. This function also
+updates the migration densities in \code{x$data$dens} to \code{eta}/\code{rcs} when above
+\code{sd_vvp_threshold} and \code{0} if below.
 }
 \examples{
-# change or set RCS for a single vertical profile:
-rcs(example_vp) <- 11
+# Set the radar cross section for a vp
+vp <- example_vp
+rcs(vp) <- 11
 
-# change or set RCS for a vertical profile time series:
-rcs(example_vpts) <- 11
+# Set the radar cross section for a vpts
+vpts <- example_vpts
+rcs(vpts) <- 11
 
-# retrieve RCS for a single vertical profile:
-rcs(example_vp)
-
-# retrieve RCS for a vertical profile time series:
-rcs(example_vpts)
+# Set the radar cross section for a vpi
+vpi <- integrate_profile(example_vpts)
+rcs(vpi) <- 11
+}
+\seealso{
+\itemize{
+\item \code{\link[=rcs]{rcs()}} for getting the radar cross section of an object.
+\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}}
+}
 }

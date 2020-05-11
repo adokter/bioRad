@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@
 <h2 class="hasAnchor">
 <a href="#figure-2" class="anchor"></a>Figure 2</h2>
 <div class="figure">
-<img src="ecog12354-fig-0002-m.jpg" alt="Figure 2 from Dokter et al. (2019)"><p class="caption"><strong>Figure 2 from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2019)</a></strong></p>
+<img src="https://onlinelibrary.wiley.com/cms/asset/5ffef211-85c6-4610-9d4c-0b7063e4b144/ecog12354-fig-0002-m.jpg" alt=""><p class="caption"><strong>Figure 2 from <a href="https://doi.org/10.1111/ecog.04028">Dokter et al. (2019)</a></strong></p>
 </div>
 <p>The figure shows the structure and interrelation of bioRad’s main class objects, functions, and plotting methods. (A) <strong>objects</strong> (rounded box), <strong>functions</strong> (<code>fixed width font</code>) and their <strong>relation</strong> (arrows). (B–K) output of the default plot methods for a European radar (left row, Offenthal radar, Germany, 2016-10-04 15:15 UTC–2016-10-05 08:45 UTC) and US radar (right row, KBRO radar, Texas, 2017-05-14 00:09 UTC–2017-05-14 13:25 UTC). The dotted line in (H) and (K) indicates the time slice of (B), (D), (F) and (C), (E), (J) respectively. Grey shading indicates night time (time on the x-axis is in UTC). Altitudes are relative to mean sea level.</p>
 <ul>
@@ -193,7 +193,7 @@
 <p>Another useful profile quantity to inspect as time series is DBZH. This is the reflectivity factor for all scatterers, including meteorological targets like precipitation. Time periods with rain are often clearly visible as high DBZH values over the full altitude column. We recommend making plots of DBZH as a way of screening for precipitation contaminations and quality control, which is often a useful way to check remarkable altitude patterns in the biological data (e.g. the layering of birds at 1.5 km can also be seen in <a href="#figure-2">Fig. 2I</a>) or short spikes with high values that might be due to rain contamination.</p>
 <p>bioRad provides multiple functions to further aggregate and summarize time series data. We can integrate over the altitude dimension using <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>, which outputs a specially classed <code>data.frame</code> (class <code>vpi</code>) containing altitudinally integrated or averaged quantities. <a href="#figure-2">Figure 2J and 2K</a> show plots of migration traffic rate, both MTR (variable transect angle, Eq. 1) and MTR<sub>0</sub> and MTR<sub>90</sub> (fixed transect angle, Eq. 2). We note that MTR is always positive, but MTR<sub>α</sub> definitions can become negative depending on the migratory direction in relation to α. For example, the northward spring migration (US case, <a href="#figure-2">Fig. 2K</a>) result in a positive MTR<sub>0</sub>, while the southward autumn migration (European case, <a href="#figure-2">Fig. 2J</a>) is negative. For the US case, migration is directed mostly northward, therefore MTR<sub>0</sub> is much larger than MTR<sub>90</sub>, while in the European case, migration is mostly westward, therefore (in absolute value) MTR<sub>0</sub> is smaller than MTR<sub>90</sub>.</p>
 <p><strong>Vertically-integrated time series</strong> can be further accumulated in time into measures summarizing migration traffic having passed the radar station during a time period, like MT (migration traffic) or RT (reflectivity traffic) (cf. output columns <code>mt</code> and <code>rt</code> of <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>). For example, for the European case we find MT = 55 × 10<sup>3</sup>, MT<sub>0</sub> = –28 × 10<sup>3</sup> and MT<sub>90</sub> = –45 × 10<sup>3</sup> for the time night-time period. This means that – assuming a radar cross section (RCS) per individual of 11 cm<sup>2</sup> – 55 thousand birds per 1 km transect flew over the radar station in this night (irrespective of direction). Decomposing the migration traffic into two perpendicularly oriented components, we find a net 28 thousand birds flew southward per km over a west-to-east transect (MT<sub>0</sub>), and a net 45 thousand birds per km flew westward per km over a north-to-south transect (MT<sub>90</sub>). For these specific definitions, MT ≤ √(MT<sub>0</sub><sup>2</sup> + MT<sub>90</sub><sup>2</sup>), with the left- and right-hand side being equal when migration directions <code>dd</code> all point into a sector of at most 180 degrees wide, as is usually the case for periods confined to a single spring or fall.</p>
-<p>Both the <code>vp</code> and <code>vpts</code> class objects can be exported to standard R data frames (using <code><a href="../reference/as.data.frame.vp.html">as.data.frame.vp()</a></code> and <code><a href="../reference/as.data.frame.vpts.html">as.data.frame.vpts()</a></code>) for further analysis outside of bioRad.</p>
+<p>Both the <code>vp</code> and <code>vpts</code> class objects can be exported to standard R data frames (using <code><a href="../reference/as.data.frame.vp.html">as.data.frame.vp()</a></code> and <code><a href="../reference/as.data.frame.vp.html">as.data.frame.vpts()</a></code>) for further analysis outside of bioRad.</p>
 </div>
 </div>
 <div id="example-datasets" class="section level2">
@@ -201,12 +201,9 @@
 <a href="#example-datasets" class="anchor"></a>Example datasets</h2>
 <p>bioRad includes a number of example datasets:</p>
 <ul>
-<li>
-<code><a href="../reference/example_scan.html">bioRad::example_scan</a></code>: example object of class <code>scan</code>.</li>
-<li>
-<code><a href="../reference/example_vp.html">bioRad::example_vp</a></code>: example object of class <code>vp</code> as generated by <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>.</li>
-<li>
-<code><a href="../reference/example_vpts.html">bioRad::example_vpts</a></code>: example object of class <code>vpts</code>.</li>
+<li><p><code><a href="../reference/example_scan.html">bioRad::example_scan</a></code>: example object of class <code>scan</code>.</p></li>
+<li><p><code><a href="../reference/example_vp.html">bioRad::example_vp</a></code>: example object of class <code>vp</code> as generated by <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>.</p></li>
+<li><p><code><a href="../reference/example_vpts.html">bioRad::example_vpts</a></code>: example object of class <code>vpts</code>.</p></li>
 <li>
 <p><code>volume.h5</code>: example hdf5 file containing a polar volume. Read using:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">pvol_file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"bioRad"</span>)
@@ -251,7 +248,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

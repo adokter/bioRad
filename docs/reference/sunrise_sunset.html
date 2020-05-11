@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -158,9 +158,9 @@
     <p>Calculate sunrise or sunset for a time and place</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sunrise</span>(<span class='no'>date</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+    <pre class="usage"><span class='fu'>sunrise</span>(<span class='no'>date</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>force_tz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>sunset</span>(<span class='no'>date</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)</pre>
+<span class='fu'>sunset</span>(<span class='no'>date</span>, <span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>force_tz</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,27 +186,55 @@ interpretable by <a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a>.</p><
       <th>tz</th>
       <td><p>output time zone. Ignored if <code>date</code> has an associated time zone already</p></td>
     </tr>
+    <tr>
+      <th>force_tz</th>
+      <td><p>whether to convert output to timezone <code>tz</code>. Default <code>FALSE</code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The moment of sunrise or sunset in UTC time.</p>
+    <p>The moment of sunrise or sunset for the date set by <code>date</code>and time zone as specified
+(by <code>date</code> and <code>tz</code>) or in UTC if not specified.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The angular diameter of the sun is about 0.536 degrees,
+    <p>The day for which sunrise and sunset are calculated is given by the input date.
+Sunrise and sunset are calculated relative to the moment of solar noon for that date,
+i.e. the first sunrise before the moment of solar noon, and the first sunset after the
+moment of solar noon. Therefore, depending on the timezone provided, it is possible that
+the nearest sunrise prior to solar noon occurs a day earlier than the input date.
+Similarly, sunset may occur a day later than the input date. See examples for details.</p>
+<p>The angular diameter of the sun is about 0.536 degrees,
 therefore the moment of sunrise/sunset corresponds to half that elevation
 at -0.268 degrees.</p>
 <p>This is a convenience function mapping to crepuscule.</p>
 <p>Approximate astronomical formula are used, therefore the moment of
 sunrise / sunset may be off by a few minutes</p>
+<p>If <code>force_tz</code> is <code>TRUE</code>, the output is converted to the timezone
+set by <code>tz</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># sunrise in the Netherlands</span>
 <span class='fu'>sunrise</span>(<span class='st'>"2016-01-01"</span>, <span class='fl'>5</span>, <span class='fl'>53</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 07:58:17 UTC"</div><div class='input'>
 <span class='co'># sunset in the Netherlands</span>
 <span class='fu'>sunset</span>(<span class='st'>"2016-01-01"</span>, <span class='fl'>5</span>, <span class='fl'>53</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 15:28:31 UTC"</div><div class='input'>
-<span class='co'># civil twilight in Ithaca, NY, today</span>
-<span class='fu'>sunrise</span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span>(), -<span class='fl'>76.5</span>, <span class='fl'>42.4</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>6</span>)</div><div class='output co'>#&gt; [1] "2020-04-01 06:19:08 EDT"</div></pre>
+<span class='co'># civil twilight in Ithaca, NY</span>
+<span class='fu'>sunrise</span>(<span class='st'>"2016-01-01"</span>, -<span class='fl'>76.5</span>, <span class='fl'>42.4</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>6</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 12:03:29 UTC"</div><div class='input'>
+<span class='co'># next sunset in South Dakota, USA</span>
+<span class='fu'>sunset</span>(<span class='st'>"2016-11-15"</span>, -<span class='fl'>98</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-11-15 22:58:56 UTC"</div><div class='input'>
+<span class='co'># Beware that some days have two sunsets, or</span>
+<span class='co'># two sunrises! E.g. on 5 Oct (local timezone) at</span>
+<span class='co'># this location  sunset is actually on the 6 Oct</span>
+<span class='co'># in UTC time zone, i.e. the next day</span>
+<span class='fu'>sunset</span>(<span class='st'>"2016-10-5"</span>, -<span class='fl'>98</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-10-06 00:00:46 UTC"</div><div class='input'><span class='co'># One day later, sunset is again on 6 Oct:</span>
+<span class='fu'>sunset</span>(<span class='st'>"2016-10-6"</span>, -<span class='fl'>98</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-10-06 23:58:56 UTC"</div><div class='input'>
+<span class='co'># working in local time zones typically avoids such ambiguities:</span>
+<span class='fu'>sunset</span>(<span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='st'>"2016-06-05"</span>,<span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"America/Chicago"</span>), -<span class='fl'>98</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-06-05 21:11:19 CDT"</div><div class='input'><span class='fu'>sunset</span>(<span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='st'>"2016-06-06"</span>,<span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"America/Chicago"</span>), -<span class='fl'>98</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-06-06 21:12:00 CDT"</div><div class='input'>
+<span class='co'># use force_tz to force output to a specific time zone, by default UTC:</span>
+<span class='fu'>sunset</span>(<span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='st'>"2016-06-05"</span>,<span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"America/Chicago"</span>), -<span class='fl'>98</span>, <span class='fl'>45</span>, <span class='kw'>force_tz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2016-06-06 02:11:19 UTC"</div><div class='input'><span class='fu'>sunset</span>(<span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='st'>"2016-06-06"</span>,<span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"America/Chicago"</span>), -<span class='fl'>98</span>, <span class='fl'>45</span>, <span class='kw'>force_tz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2016-06-07 02:12:00 UTC"</div><div class='input'>
+<span class='co'># Also beware of jumps in sunrise and sunset date with longitude:</span>
+<span class='fu'>sunrise</span>(<span class='st'>"2016-11-01"</span>, <span class='fl'>100</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-11-01 00:01:50 UTC"</div><div class='input'><span class='fu'>sunrise</span>(<span class='st'>"2016-11-01"</span>, <span class='fl'>102</span>, <span class='fl'>45</span>)</div><div class='output co'>#&gt; [1] "2016-10-31 23:53:50 UTC"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -222,7 +250,7 @@ sunrise / sunset may be off by a few minutes</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

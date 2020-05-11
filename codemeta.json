@@ -15,7 +15,7 @@
   ],
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -59,6 +59,13 @@
       "familyName": "Kranstauber",
       "email": "b.kranstauber@uva.nl",
       "@id": "https://orcid.org/0000-0001-8303-780X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Cecilia",
+      "familyName": "Nilsson",
+      "email": "cecilia.nilsson709@gmail.com",
+      "@id": "https://orcid.org/0000-0001-8957-4411"
     },
     {
       "@type": "Person",
@@ -157,6 +164,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "data.table",
+      "name": "data.table",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=data.table"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "fields",
       "name": "fields",
       "provider": {
@@ -195,6 +214,30 @@
       "@type": "SoftwareApplication",
       "identifier": "graphics",
       "name": "graphics"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lubridate",
+      "name": "lubridate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lubridate"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lutz",
+      "name": "lutz",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lutz"
     },
     {
       "@type": "SoftwareApplication",
@@ -406,5 +449,5 @@
   ],
   "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "fileSize": "4947.408KB"
+  "fileSize": "4501.796KB"
 }

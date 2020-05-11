@@ -14,7 +14,7 @@ nexrad_to_odim(
 \arguments{
 \item{pvolfile_nexrad}{Polar volume input file in RSL format.}
 
-\item{pvolfile_odim}{Filename for the polar volume in ODIM hdf5 format to be
+\item{pvolfile_odim}{Filename for the polar volume in ODIM HDF5 format to be
 generated.}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
@@ -40,7 +40,7 @@ download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
 # convert to ODIM format
 nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")
 
-# verify that we have generated a polar volume in ODIM hdf5 format
+# verify that we have generated a polar volume in ODIM HDF5 format
 get_odim_object_type("~/KBGM_example.h5")
 
 # clean up

@@ -7,30 +7,34 @@
 get_scan(x, elev)
 }
 \arguments{
-\item{x}{An object of class \code{pvol}.}
+\item{x}{A \code{pvol} object.}
 
-\item{elev}{Elevation angle.}
+\item{elev}{Numeric. Elevation angle.}
 }
 \value{
-An object of class '\link[=summary.scan]{scan}'.
+A \code{scan} object.
 }
 \description{
-Get a scan (\code{scan}) from a polar volume (\code{pvol})
-}
-\details{
-The function returns the scan with elevation angle closest
-to \code{elev}.
+Returns the scan (\code{scan}) from a polar volume (\code{pvol}) with elevation angle
+closest to \code{elev}.
 }
 \examples{
-# locate example volume file:
+# Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+pvol <- read_pvolfile(pvolfile)
 
-# load the file:
-example_pvol <- read_pvolfile(pvolfile)
+# Get elevation angles
+get_elevation_angles(pvol)
 
-# extract the scan at 3 degree elevation:
-scan <- get_scan(example_pvol, 3)
+# Extract the scan closest to 3 degrees elevation (= 2.5)
+scan <- get_scan(pvol, 3)
 
-# print summary info for this scan:
+# Get summary info
 scan
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.scan]{summary.scan()}}
+\item \code{\link[=get_elevation_angles]{get_elevation_angles()}}
+}
 }

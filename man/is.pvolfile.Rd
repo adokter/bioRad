@@ -16,18 +16,18 @@ TRUE when \code{file} is a polar volume in readable format,
 otherwise FALSE
 }
 \description{
-Checker whether a file is a polar volume in ODIM hdf5 format that can be read with
+Check whether a file is a polar volume in ODIM HDF5 format that can be read with
 package \pkg{bioRad}
 }
 \details{
-The function checks whether a hdf5 file provided as input is a polar volume
-in ODIM hdf5 format. The function currently evaluates to FALSE for NEXRAD and
+The function checks whether a HDF5 file provided as input is a polar volume
+in ODIM HDF5 format. The function currently evaluates to FALSE for NEXRAD and
 IRIS RAW polar volume files.
 }
 \examples{
 # locate example file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
-# check that the file is an ODIM hdf5 polar volume:
+# check that the file is an ODIM HDF5 polar volume:
 is.pvolfile(pvolfile) # > TRUE
 }

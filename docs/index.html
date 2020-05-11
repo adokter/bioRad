@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -133,23 +133,20 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>bioRad depends on packages from both the <a href="https://CRAN.R-project.org">CRAN</a> and <a href="https://www.bioconductor.org/">Bioconductor</a> repositories. Enable both with:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html">setRepositories</a></span>(<span class="kw">ind</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">2</span>)</pre></div>
-<p>You can install the released version of bioRad from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"bioRad"</span>)</pre></div>
+<details><p><summary>Required system libraries on Linux (Ubuntu)</summary></p>
+<p>The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sudo apt install libcurl4<span class="op">-</span>openssl<span class="op">-</span>dev</span>
+<span id="cb2-2"><a href="#cb2-2"></a>sudo apt install libssl<span class="op">-</span>dev</span>
+<span id="cb2-3"><a href="#cb2-3"></a>sudo apt install libgdal<span class="op">-</span>dev</span></code></pre></div>
+</details><p><br> You can install the released version of bioRad from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"bioRad"</span>)</pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad">GitHub</a> with:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># install.packages("devtools")</span>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># install.packages("devtools")</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"adokter/bioRad"</span>)</pre></div>
 <p>Then load the package with:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bioRad</span>)
-<span class="co">#&gt; Welcome to bioRad version 0.5.1</span>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bioRad</span>)
+<span class="co">#&gt; Welcome to bioRad version 0.5.2</span>
 <span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)</span></pre></div>
-<div id="required-system-libraries-on-linux-ubuntu" class="section level4">
-<h4 class="hasAnchor">
-<a href="#required-system-libraries-on-linux-ubuntu" class="anchor"></a>Required system libraries on Linux (Ubuntu)</h4>
-<p>The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">sudo apt install libcurl4<span class="op">-</span>openssl<span class="op">-</span>dev</a>
-<a class="sourceLine" id="cb5-2" title="2">sudo apt install libssl<span class="op">-</span>dev</a>
-<a class="sourceLine" id="cb5-3" title="3">sudo apt install libgdal<span class="op">-</span>dev</a></code></pre></div>
-</div>
 <div id="docker-optional" class="section level3">
 <h3 class="hasAnchor">
 <a href="#docker-optional" class="anchor"></a>Docker (optional)</h3>
@@ -162,9 +159,7 @@
 </li>
 </ul>
 <p>Why? bioRad makes use of a <a href="https://github.com/adokter/vol2bird">C implementation of the vol2bird</a> algorithm through <a href="https://www.docker.com/">Docker</a> to do the above. All other bioRad functions will work without a Docker installation.</p>
-<div id="installing-docker" class="section level4">
-<h4 class="hasAnchor">
-<a href="#installing-docker" class="anchor"></a>Installing Docker</h4>
+<details><p><summary>Installing Docker</summary></p>
 <ol>
 <li>Go to <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</li>
 <li>Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit: installing Docker <em>Toolbox</em> for previous Windows versions will not work.</li>
@@ -177,18 +172,13 @@
 </li>
 <li>In R do <code><a href="reference/check_docker.html">check_docker()</a></code>.</li>
 <li>You can now use the bioRad functionality that requires Docker.</li>
-</ol>
-</div>
-<div id="known-issues-with-docker" class="section level4">
-<h4 class="hasAnchor">
-<a href="#known-issues-with-docker" class="anchor"></a>Known issues with Docker</h4>
+</ol></details><details><p><summary>Known issues with Docker</summary></p>
 <ol>
 <li>Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.</li>
 <li>For firewall issues on Windows, see <a href="https://github.com/adokter/bioRad/issues/128">this issue</a>
 </li>
 <li>For permission issues when running docker, specifically the error <code>Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock</code>, see <a href="https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/">this</a> solution. Running <code>sudo usermod -a -G docker $USER</code> in a terminal will fix this problem.</li>
-</ol>
-</div>
+</ol></details>
 </div>
 </div>
 <div id="usage" class="section level2">
@@ -309,7 +299,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

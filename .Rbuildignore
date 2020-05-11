@@ -7,6 +7,7 @@
 ^docs$
 ^_pkgdown\.yml$
 ^pkgdown$
+pkgdown/
 .gitignore
 .github
 ^codemeta\.json$
