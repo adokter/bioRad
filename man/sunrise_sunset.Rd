@@ -32,7 +32,7 @@ The moment of sunrise or sunset for the date set by \code{date}and time zone as 
 Calculate sunrise or sunset for a time and place
 }
 \details{
-The day for which sunrise and sunset are calcuated is given by the input date.
+The day for which sunrise and sunset are calculated is given by the input date.
 Sunrise and sunset are calculated relative to the moment of solar noon for that date,
 i.e. the first sunrise before the moment of solar noon, and the first sunset after the
 moment of solar noon. Therefore, depending on the timezone provided, it is possible that

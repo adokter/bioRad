@@ -37,7 +37,7 @@ Plot a plan position indicator (PPI) generated with \link{ppi}
 using \link[ggplot2]{ggplot}
 }
 \details{
-Available scan paramaters for plotting can by printed to screen
+Available scan parameters for plotting can by printed to screen
 by \code{summary(x)}. Commonly available parameters are:
 \describe{
 \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
