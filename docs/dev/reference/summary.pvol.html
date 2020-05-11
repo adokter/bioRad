@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>pvol</code>: a polar volume — summary.pvol • bioRad</title>
+<title>Inspect a polar volume (<code>pvol</code>) — summary.pvol • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Class <code>pvol</code>: a polar volume — summary.pvol" />
-<meta property="og:description" content="Class pvol for a polar volume, and its associated R base functions." />
+<meta property="og:title" content="Inspect a polar volume (<code>pvol</code>) — summary.pvol" />
+<meta property="og:description" content="R base functions for inspecting a polar volume (pvol) object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -149,26 +149,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>pvol</code>: a polar volume</h1>
+    <h1>Inspect a polar volume (<code>pvol</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/pvol.R'><code>R/pvol.R</code></a></small>
     <div class="hidden name"><code>summary.pvol.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Class <code>pvol</code> for a polar volume, and its associated R base functions.</p>
+    <p>R base functions for inspecting a polar volume (<code>pvol</code>) object.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for pvol</span>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='fu'>is.pvol</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is.pvol</span>(<span class='no'>x</span>)
+
+<span class='co'># S3 method for pvol</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object of class <code>pvol</code>.</p></td>
+      <td><p>A <code>pvol</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -176,53 +179,62 @@
     </tr>
     <tr>
       <th>x</th>
-      <td><p>Object of class <code>pvol</code>.</p></td>
+      <td><p>A <code>pvol</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>for <code>is.pvol</code>: <code>TRUE</code> if its argument is of
-class <code>pvol</code></p>
+    <p>For <code>is.pvol()</code>: <code>TRUE</code> for an object of class <code>pvol</code>, otherwise
+<code>FALSE</code>.</p>
+<p>For <code>dim.pvol()</code>: number of scans (<code>scan</code>) in a polar volume
+(<code>pvol</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An object of class <code>pvol</code> is a list containing:</p><dl'>
-<dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
-<dt><code>datetime</code></dt><dd><p>nominal time of the volume (UTC)</p></dd>
-<dt><code>scans</code></dt><dd><p>a list with scan objects of class 'scan'</p></dd>
-<dt><code>attributes</code></dt><dd><p>list with the volume's <code>\what</code>,
-<code>\where</code> and <code>\how</code> attributes</p></dd>
-<dt><code>geo</code></dt><dd><p>geographic data, a list with:
-<dl'>
-<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
-<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
-<dt><code>height</code></dt><dd><p>height of the radar
-antenna (meters above sea level)</p></dd></dl></p></dd>
+    <p>A polar volume consists of a number of scans (or sweeps) made by the radar at
+different elevation angles. A polar volume (<code>pvol</code>) object is a list
+containing:</p><ul>
+<li><p><code>radar</code>: Radar identifier.</p></li>
+<li><p><code>datetime</code>: Nominal time of the volume in UTC.</p></li>
+<li><p><code>scans</code>: List of scans (<code>scan</code>) at different elevation angles.</p></li>
+<li><p><code>attributes</code>: List of the volume's <code>what</code>, <code>where</code> and <code>how</code>
+attributes.</p></li>
+<li><p><code>geo</code>: List of the volume's geographic properties:</p><ul>
+<li><p><code>lat</code>: Latitude of the radar in decimal degrees.</p></li>
+<li><p><code>lon</code>: Longitude of the radar in decimal degrees.</p></li>
+<li><p><code>height</code>: Height of the radar antenna in meters above sea level.</p></li>
+</ul></li>
+</ul>
 
-</dl>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='read_pvolfile.html'>read_pvolfile()</a></code></p></li>
+<li><p><code><a href='get_elevation_angles.html'>get_elevation_angles()</a></code></p></li>
+<li><p><code><a href='get_scan.html'>get_scan()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
+    <pre class="examples"><div class='input'><span class='co'># Locate and read the polar volume example file</span>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+<span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
 
-<span class='co'># print the local path of the volume file:</span>
-<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpCaqkHR/temp_libpath751d667c341b/bioRad/extdata/volume.h5"</div><div class='input'>
-<span class='co'># load the file:</span>
-<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
-
-<span class='co'># print summary info for the loaded polar volume:</span>
-<span class='no'>example_pvol</span></div><div class='output co'>#&gt;                Polar volume (class pvol)
+<span class='co'># Verify that it is an object of class pvol</span>
+<span class='fu'>is.pvol</span>(<span class='no'>pvol</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Get summary info</span>
+<span class='no'>pvol</span> <span class='co'># Same as summary(pvol) or print(pvol)</span></div><div class='output co'>#&gt;                Polar volume (class pvol)
 #&gt; 
 #&gt;      # scans:  3 
 #&gt;        radar:  SE50 
 #&gt;       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar 
 #&gt; nominal time:  2015-10-18 18:00:00 
 #&gt; </div><div class='input'>
-<span class='co'># verify that this is a pvol object:</span>
-<span class='fu'>is.pvol</span>(<span class='no'>example_pvol</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># print summary info for the scans in the polar volume:</span>
-<span class='no'>example_pvol</span>$<span class='no'>scans</span></div><div class='output co'>#&gt; [[1]]
+<span class='co'># Get dimensions</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>pvol</span>)</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
+<span class='co'># Get summary info for the scans in the polar volume</span>
+<span class='no'>pvol</span>$<span class='no'>scans</span></div><div class='output co'>#&gt; [[1]]
 #&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
@@ -242,16 +254,7 @@ antenna (meters above sea level)</p></dd></dl></p></dd>
 #&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
 #&gt; elevation angle:  2.5 deg
 #&gt;            dims:  480 bins x 360 rays
-#&gt; </div><div class='input'>
-<span class='co'># copy the first scan to a new object 'scan':</span>
-<span class='no'>scan</span> <span class='kw'>&lt;-</span> <span class='no'>example_pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-
-<span class='co'># print summary info for the scan:</span>
-<span class='no'>scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
-#&gt; 
-#&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
-#&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div><div class='input'><span class='fu'>is.pvol</span>(<span class='st'>"this is not a polar volume but a string"</span>) <span class='co'># &gt; FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,7 +270,7 @@ antenna (meters above sea level)</p></dd></dl></p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

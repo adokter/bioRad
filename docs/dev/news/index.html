@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -152,17 +152,24 @@
       <small>Source: <a href='https://github.com/adokter/bioRad/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="biorad-0519xxx" class="section level1">
-<h1 class="page-header" data-toc-text="0.5.1.9">
-<a href="#biorad-0519xxx" class="anchor"></a>bioRad 0.5.1.9xxx<small> Unreleased </small>
+    <div id="biorad-052" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.2">
+<a href="#biorad-052" class="anchor"></a>bioRad 0.5.2<small> 2020-05-11 </small>
 </h1>
+<p>This release is primarily a hotfix for R version 4.0 (<a href='https://github.com/adokter/bioRad/issues/375'>#375</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/11?closed=1">here</a>. New features and improvements include:</p>
 <ul>
-<li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (<a href='https://github.com/adokter/bioRad/issues/332'>#332</a>)</p></li>
-<li><p>new option <code>keep_timestamp</code> in <code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code>, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.</p></li>
-<li><p>improved documentation of sunrise/sunset functions (<a href='https://github.com/adokter/bioRad/issues/180'>#180</a>) and new option <code>force_tz</code> <a href="https://github.com/adokter/bioRad/commit/4968019">4968019</a>.</p></li>
-<li><p>new option <code>offset</code> in <code><a href="../reference/check_night.html">check_night()</a></code>, which allows day/night transition to be shifted by a temporal offset (<a href='https://github.com/adokter/bioRad/issues/338'>#338</a>). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.</p></li>
-<li><p>selection for day and night in vpts in <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code>, using <code><a href="../reference/check_night.html">check_night()</a></code> (<a href='https://github.com/adokter/bioRad/issues/345'>#345</a>)</p></li>
-<li><p><code><a href="../reference/check_night.html">check_night()</a></code> method for vpi objects <a href="https://github.com/adokter/bioRad/commit/23def64">23def64</a></p></li>
+<li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (<a href='https://github.com/adokter/bioRad/issues/332'>#332</a>).</p></li>
+<li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> has new option <code>keep_timestamp</code>, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.</p></li>
+<li><p><code><a href="../reference/sunrise_sunset.html">sunrise()</a></code>/<code><a href="../reference/sunrise_sunset.html">sunset()</a></code> have improved documentation (<a href='https://github.com/adokter/bioRad/issues/180'>#180</a>) and new option <code>force_tz</code> (<a href="https://github.com/adokter/bioRad/commit/4968019">4968019</a>).</p></li>
+<li><p><code><a href="../reference/check_night.html">check_night()</a></code> has new option <code>offset</code>, which allows day/night transition to be shifted by a temporal offset (<a href='https://github.com/adokter/bioRad/issues/338'>#338</a>). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.</p></li>
+<li><p><code><a href="../reference/check_night.html">check_night()</a></code> now works for vpi objects (<a href="https://github.com/adokter/bioRad/commit/23def64">23def64</a>).</p></li>
+<li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> allows to select for day and night in vpts using new arguments <code>night</code>, <code>elev</code> and <code>offset</code>, based on functionality of <code><a href="../reference/check_night.html">check_night()</a></code> (<a href='https://github.com/adokter/bioRad/issues/345'>#345</a>).</p></li>
+<li><p>New functions <code><a href="../reference/doy_noy.html">noy()</a></code> and <code><a href="../reference/doy_noy.html">doy()</a></code> to determine which night or day of the year a profile belongs to (<a href='https://github.com/adokter/bioRad/issues/346'>#346</a>).</p></li>
+<li><p><code><a href="../reference/as.data.frame.vp.html">as.data.frame.vp()</a></code> now has separate function page and deprecated parameter <code>quantities</code> (<a href='https://github.com/adokter/bioRad/issues/364'>#364</a>).</p></li>
+<li><p><code><a href="../reference/get_quantity.html">get_quantity()</a></code> now has improved documentation and allows to return height (<a href='https://github.com/adokter/bioRad/issues/352'>#352</a>).</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> now returns dimensions in a different, more logical order for pvol and vpts objects (<a href='https://github.com/adokter/bioRad/issues/355'>#355</a>).</p></li>
+<li><p>Improved documentation and unit tests for a number of functions thanks to an online bioRad sprint.</p></li>
+<li><p>Bugfixes (<a href='https://github.com/adokter/bioRad/issues/330'>#330</a>, <a href='https://github.com/adokter/bioRad/issues/368'>#368</a>).</p></li>
 </ul>
 </div>
     <div id="biorad-051" class="section level1">
@@ -171,14 +178,14 @@
 </h1>
 <p>Minor bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/pull/334">here</a>. This release primarily fixes a bug that will become effective once R version 4.0 is released.</p>
 <ul>
-<li><p>fixes a conflict due to new raw data format introduced in R version 4.0 (<a href='https://github.com/adokter/bioRad/issues/331'>#331</a>)</p></li>
-<li><p>corrects incorrect values in reading of correlation coefficient values RHOHV (<a href='https://github.com/adokter/bioRad/issues/328'>#328</a>)</p></li>
-<li><p>bugfix in <code><a href="../reference/read_cajun.html">read_cajun()</a></code> which introduced incorrect height column during refactoring in bioRad 0.5.0 release (<a href="https://github.com/adokter/bioRad/commit/93ad0a4">93ad0a4</a>)</p></li>
-<li>bugfix that fixes the mapping by <code><a href="../reference/map.html">map()</a></code> of composites of composites (ppi’s produced after repeated application of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code>) (<a href="https://github.com/adokter/bioRad/commit/a5c9048">a5c9048</a>, <a href="https://github.com/adokter/bioRad/commit/043aa73">043aa73</a>)</li>
-<li><p>minor bug fixes, and addressing conflicts with CRAN depencies</p></li>
-<li><p>extend the functionality of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> and improve its documentation (partial fix of <a href='https://github.com/adokter/bioRad/issues/59'>#59</a>)</p></li>
-<li><p>fix a bug in the color legend of <code><a href="../reference/map.html">map()</a></code> when providing a custom color scale with palette argument (<a href='https://github.com/adokter/bioRad/issues/324'>#324</a>)</p></li>
-<li><p>minor documentation improvements</p></li>
+<li><p>Fixes a conflict due to new raw data format introduced in R version 4.0 (<a href='https://github.com/adokter/bioRad/issues/331'>#331</a>).</p></li>
+<li><p>Corrects incorrect values in reading of correlation coefficient values RHOHV (<a href='https://github.com/adokter/bioRad/issues/328'>#328</a>).</p></li>
+<li><p>Bugfix in <code><a href="../reference/read_cajun.html">read_cajun()</a></code> which introduced incorrect height column during refactoring in bioRad 0.5.0 release (<a href="https://github.com/adokter/bioRad/commit/93ad0a4">93ad0a4</a>).</p></li>
+<li><p>Bugfix that fixes the mapping by <code><a href="../reference/map.html">map()</a></code> of composites of composites (ppi’s produced after repeated application of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code>, <a href="https://github.com/adokter/bioRad/commit/a5c9048">a5c9048</a>, <a href="https://github.com/adokter/bioRad/commit/043aa73">043aa73</a>).</p></li>
+<li><p>Minor bug fixes, and addressing conflicts with CRAN dependencies.</p></li>
+<li><p>Extend the functionality of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> and improve its documentation (partial fix of <a href='https://github.com/adokter/bioRad/issues/59'>#59</a>).</p></li>
+<li><p>Fix a bug in the color legend of <code><a href="../reference/map.html">map()</a></code> when providing a custom color scale with palette argument (<a href='https://github.com/adokter/bioRad/issues/324'>#324</a>).</p></li>
+<li><p>Minor documentation improvements.</p></li>
 </ul>
 </div>
     <div id="biorad-050" class="section level1">
@@ -217,7 +224,7 @@
 <h3 class="hasAnchor">
 <a href="#additional-features" class="anchor"></a>Additional features</h3>
 <ul>
-<li><p>custom color scales in <code><a href="../reference/map.html">map()</a></code> and <code>plot.ppi</code> (<a href='https://github.com/adokter/bioRad/issues/318'>#318</a>)</p></li>
+<li><p>Custom color scales in <code><a href="../reference/map.html">map()</a></code> and <code>plot.ppi</code> (<a href='https://github.com/adokter/bioRad/issues/318'>#318</a>).</p></li>
 <li><p><code><a href="../reference/nyquist_velocity.html">nyquist_velocity()</a></code> is a new function to calculate the unambiguous velocity of Doppler radar from its pulse repetition frequency/frequencies (<a href='https://github.com/adokter/bioRad/issues/208'>#208</a>).</p></li>
 <li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> is a new function simplifying the selection of time ranges and instances in vertical profile time series (<code>vpts</code>) (<a href='https://github.com/adokter/bioRad/issues/241'>#241</a>).</p></li>
 <li><p>The definition of height-integrated velocity is now corrected (<a href='https://github.com/adokter/bioRad/issues/232'>#232</a>, <a href='https://github.com/adokter/bioRad/issues/233'>#233</a>, <a href="https://github.com/adokter/bioRad/commit/72be6d1">72be6d1</a>).</p></li>
@@ -286,7 +293,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

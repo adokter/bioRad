@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Get radar cross section — rcs" />
-<meta property="og:description" content="Gives the currently assumed radar cross section in cm^2." />
+<meta property="og:description" content="Returns the currently assumed radar cross section of an object in cm^2." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Gives the currently assumed radar cross section in cm^2.</p>
+    <p>Returns the currently assumed radar cross section of an object in cm^2.</p>
     </div>
 
     <pre class="usage"><span class='fu'>rcs</span>(<span class='no'>x</span>)
@@ -183,36 +183,26 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A radar cross section in cm^2.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>The radar cross section in cm^2.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See also rcs&lt;- for changing or setting the radar cross section
-of an object.</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
-
-    
+    <div class='dont-index'>
 <ul>
-<li><p><code>vp</code>: radar cross section of a vertical profile</p></li>
-<li><p><code>list</code>: radar cross sections for a list of vertical profiles</p></li>
-<li><p><code>vpts</code>: radar cross section of a time series of vertical profile</p></li>
-<li><p><code>vpi</code>: radar cross section of a time series of vertically
-integrated vertical profile(s)</p></li>
+<li><p><code><a href='rcs-set.html'>rcs()&lt;-</a></code> for setting the radar cross section of an object.</p></li>
+<li><p><code><a href='sd_vvp_threshold.html'>sd_vvp_threshold()</a></code></p></li>
 </ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># retrieve RCS for a single vertical profile:</span>
-<span class='fu'>rcs</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'>
-<span class='co'># retrieve RCS for a vertical profile time series:</span>
-<span class='fu'>rcs</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'>
-<span class='co'># change or set RCS for a single vertical profile:</span>
-<span class='fu'>rcs</span>(<span class='no'>example_vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
-
-<span class='co'># change or set RCS for a vertical profile time series:</span>
-<span class='fu'>rcs</span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
-
-<span class='co'># change RCS for a vertically integrated vertical profile time series:</span>
-<span class='no'>example_vpi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>)
-<span class='fu'>rcs</span>(<span class='no'>example_vpi</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Get the radar cross section for a vp</span>
+<span class='no'>vp</span> <span class='kw'>&lt;-</span> <span class='no'>example_vp</span>
+<span class='fu'>rcs</span>(<span class='no'>vp</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'>
+<span class='co'># Get the radar cross section for a vpts</span>
+<span class='no'>vpts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+<span class='fu'>rcs</span>(<span class='no'>vpts</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'>
+<span class='co'># Get the radar cross section for a vpi</span>
+<span class='no'>vpi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>)
+<span class='fu'>rcs</span>(<span class='no'>vpi</span>)</div><div class='output co'>#&gt; [1] 11</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +218,7 @@ integrated vertical profile(s)</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
