@@ -96,7 +96,7 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   lons <- sapply(ppis, function(x) x$geo$bbox["lon", ])
   lats <- sapply(ppis, function(x) x$geo$bbox["lat", ])
   if(!missing(xlim)) lons <- xlim
-  if(!missing(ylim)) lat <- ylim
+  if(!missing(ylim)) lats <- ylim
   lons.radar <- sapply(ppis, function(x) x$geo$lon)
   lats.radar <- sapply(ppis, function(x) x$geo$lat)
   elangles <- sapply(ppis, function(x) x$geo$elangle)
