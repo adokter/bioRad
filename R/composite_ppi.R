@@ -92,7 +92,12 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
     crs <- CRS("+proj=longlat +datum=WGS84")
   }
 
-  ppis <- lapply(x, `[.ppi`, i = param)
+  if (length(param) == 1 && param == "all") {
+    ppis <- lapply(x, `[.ppi`)
+  } else {
+    ppis <- lapply(x, `[.ppi`, i = param)
+  }
+
   lons <- sapply(ppis, function(x) x$geo$bbox["lon", ])
   lats <- sapply(ppis, function(x) x$geo$bbox["lat", ])
   if(!missing(xlim)) lons <- xlim
@@ -112,47 +117,58 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
       r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons),max(lons),min(lats),max(lats))), crs = crs)
     }
     else {
-      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons),max(lons),min(lats),max(lats))), crs = crs, resolution = res)
+      r <- raster(ext = raster::extent(c(min(lons),max(lons),min(lats),max(lats))), crs = crs, resolution = res)
     }
   }
 
   # initialize all values of the grid to NA
-  raster::values(r) <- NA
-  spGrid = as(r,'SpatialGridDataFrame')
+  suppressWarnings(r <- raster::setValues(r, NA))
+  spGrid = as(r, 'SpatialGridDataFrame')
   names(spGrid@data) <- names(ppis[[1]]$data)[1]
 
   # merge
-  projs <- suppressWarnings(sapply(
+  projs <- sapply(
     ppis,
     function(x) {
       over(
-        spTransform(
-          spGrid,
-          CRS(proj4string(x$data))
+        suppressWarnings(
+          spTransform(
+            spGrid,
+            CRS(proj4string(x$data))
+          )
         ),
-        x$data
+        x$data[param]
       )
     }
-  ))
+  )
 
-  if(method == "max") spGrid@data[, 1] <- do.call(function(...) pmax(..., na.rm = TRUE), projs)
-  if(method == "min") spGrid@data[, 1] <- do.call(function(...) pmin(..., na.rm = TRUE), projs)
-  if(method == "mean") as.data.frame(projs) %>% rowMeans(na.rm=T) -> spGrid@data[, 1]
-  if(method == "idw"){
-    brick_data = raster::brick(raster::brick(spGrid),nl=length(projs))
-    brick_weights = brick_data
-    #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), coordinates(raster(spGrid)),lonlat=T)
-    for(i in 1:length(projs)){
-      brick_data <- raster::setValues(brick_data, projs[[i]], layer=i)
-      latlon.radar <- unique(data.frame(lat=c(lats.radar), lon=c(lons.radar)))
-      weights<-raster::pointDistance(as.matrix(data.frame(x=latlon.radar$lon,y=latlon.radar$lat))[i,], coordinates(raster(spGrid)),lonlat=T)
-      if(!is.na(idw_max_distance)) weights[weights>idw_max_distance]=NA
-      weights = 1/(weights^idp)
-
-      brick_weights <- raster::setValues(brick_weights, weights, layer=i)
+  for (p in param) {
+    if (length(method) > 1) {
+      param_method <- method[match(p, param)]
+    } else {
+      param_method <- method
     }
-    spGrid <- as(raster::weighted.mean(brick_data, brick_weights, na.rm=T),"SpatialGridDataFrame")
-    names(spGrid@data) <- names(ppis[[1]]$data)[1]
+    if(param_method == "max") spGrid@data[, p] <- do.call(function(...) pmax(..., na.rm = TRUE), projs[p, ])
+    if(param_method == "min") spGrid@data[, p] <- do.call(function(...) pmin(..., na.rm = TRUE), projs[p, ])
+    if(param_method == "mean") as.data.frame(projs[p, ]) %>% rowMeans(na.rm=T) -> spGrid@data[, p]
+
+    # TODO: IDW is broken
+    if(param_method == "idw"){
+      brick_data = raster::brick(raster::brick(spGrid),nl=length(projs[p, ]))
+      brick_weights = brick_data
+      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), coordinates(raster(spGrid)),lonlat=T)
+      for(i in 1:length(projs[p, ])){
+        brick_data <- raster::setValues(brick_data, projs[p, ][[i]], layer=i)
+        latlon.radar <- unique(data.frame(lat=c(lats.radar), lon=c(lons.radar)))
+        weights<-raster::pointDistance(as.matrix(data.frame(x=latlon.radar$lon,y=latlon.radar$lat))[i,], coordinates(raster(spGrid)),lonlat=T)
+        if(!is.na(idw_max_distance)) weights[weights>idw_max_distance]=NA
+        weights = 1/(weights^idp)
+
+        brick_weights <- raster::setValues(brick_weights, weights, layer=i)
+      }
+      spGrid@data[, p] <- as(raster::weighted.mean(brick_data, brick_weights, na.rm=T),"SpatialGridDataFrame")
+      names(spGrid@data) <- names(ppis[[1]]$data)[1]
+    }
   }
 
   ppi.out <- list(data = spGrid, geo = list(
