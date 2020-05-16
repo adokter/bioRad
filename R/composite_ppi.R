@@ -112,7 +112,7 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
       r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons),max(lons),min(lats),max(lats))), crs = crs)
     }
     else {
-      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons),max(lons),min(lats),max(lats))), crs = crs, res = res)
+      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons),max(lons),min(lats),max(lats))), crs = crs, resolution = res)
     }
   }
 
