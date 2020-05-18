@@ -1,4 +1,4 @@
-# bioRad 0.5.2.900
+# bioRad 0.5.2.9XXX
 
 * bugfix ylim argument in `composite_ppi()` (#389)
 
