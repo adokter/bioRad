@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -182,7 +182,7 @@
         <td>
           <p><code><a href="get_odim_object_type.html">get_odim_object_type()</a></code> </p>
         </td>
-        <td><p>Check the ODIM data class of a polar volume file</p></td>
+        <td><p>Check the data object contained in a ODIM HDF5 file</p></td>
       </tr><tr>
         
         <td>
@@ -198,9 +198,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="summary.pvol.html">summary(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="summary.pvol.html">is.pvol()</a></code> </p>
+          <p><code><a href="summary.pvol.html">summary(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="summary.pvol.html">is.pvol()</a></code> <code><a href="summary.pvol.html">dim(<i>&lt;pvol&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Class <code>pvol</code>: a polar volume</p></td>
+        <td><p>Inspect a polar volume (<code>pvol</code>)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -219,7 +219,8 @@
         <td>
           <p><code><a href="get_elevation_angles.html">get_elevation_angles()</a></code> </p>
         </td>
-        <td><p>Get elevation angles of a polar volume (<code>pvol</code>) or scan (<code>scan</code>)</p></td>
+        <td><p>Get elevation angles of a polar volume (<code>pvol</code>), scan (<code>scan</code>) or parameter
+(<code>param</code>)</p></td>
       </tr><tr>
         
         <td>
@@ -231,13 +232,13 @@
         <td>
           <p><code><a href="summary.scan.html">summary(<i>&lt;scan&gt;</i>)</a></code> <code><a href="summary.scan.html">is.scan()</a></code> <code><a href="summary.scan.html">dim(<i>&lt;scan&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Class <code>scan</code>: a scan of a polar volume</p></td>
+        <td><p>Inspect a scan (<code>scan</code>)</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="example_scan.html">example_scan</a></code> </p>
         </td>
-        <td><p>Example object of class <code>scan</code></p></td>
+        <td><p>Scan (<code>scan</code>) example</p></td>
       </tr><tr>
         
         <td>
@@ -249,13 +250,13 @@
         <td>
           <p><code><a href="get_param.html">get_param()</a></code> </p>
         </td>
-        <td><p>Get a scan parameter (<code>param</code>) from a scan (<code>scan</code>)</p></td>
+        <td><p>Get a parameter (<code>param</code>) from a scan (<code>scan</code>)</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="summary.param.html">summary(<i>&lt;param&gt;</i>)</a></code> <code><a href="summary.param.html">is.param()</a></code> </p>
         </td>
-        <td><p>Class <code>param</code>: a parameter of a scan of a polar volume</p></td>
+        <td><p>Inspect a parameter (<code>param</code>)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -330,7 +331,7 @@ position indicator (<code>ppi</code>)</p></td>
         <td>
           <p><code><a href="summary.ppi.html">summary(<i>&lt;ppi&gt;</i>)</a></code> <code><a href="summary.ppi.html">is.ppi()</a></code> <code><a href="summary.ppi.html">dim(<i>&lt;ppi&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Class <code>ppi</code>: a plan position indicator</p></td>
+        <td><p>Inspect a plan position indicator (<code>ppi</code>)</p></td>
       </tr><tr>
         
         <td>
@@ -453,13 +454,13 @@ position indicator (<code>ppi</code>)</p></td>
         <td>
           <p><code><a href="summary.vp.html">summary(<i>&lt;vp&gt;</i>)</a></code> <code><a href="summary.vp.html">is.vp()</a></code> <code><a href="summary.vp.html">dim(<i>&lt;vp&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Class <code>vp</code>: a vertical profile of animals</p></td>
+        <td><p>Inspect a vertical profile (<code>vp</code>)</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="example_vp.html">example_vp</a></code> </p>
         </td>
-        <td><p>Example object of class <code>vp</code></p></td>
+        <td><p>Vertical profile (<code>vp</code>) example</p></td>
       </tr><tr>
         
         <td>
@@ -469,9 +470,10 @@ position indicator (<code>ppi</code>)</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vp&gt;</i>)</a></code> </p>
+          <p><code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vp&gt;</i>)</a></code> <code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vpts&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Convert a vertical profile (<code>vp</code>) to a Data Frame</p></td>
+        <td><p>Convert a vertical profile (<code>vp</code>) or time series of vertical profiles
+(<code>vpts</code>) to a data frame</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -514,13 +516,13 @@ position indicator (<code>ppi</code>)</p></td>
         <td>
           <p><code><a href="summary.vpts.html">summary(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">is.vpts()</a></code> <code><a href="summary.vpts.html">dim(<i>&lt;vpts&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Class <code>vpts</code>: a time series of vertical profiles</p></td>
+        <td><p>Inspect a time series of vertical profiles (<code>vpts</code>)</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="example_vpts.html">example_vpts</a></code> </p>
         </td>
-        <td><p>Example object of class <code>vpts</code></p></td>
+        <td><p>Time series of vertical profiles (<code>vpts</code>) example</p></td>
       </tr><tr>
         
         <td>
@@ -537,9 +539,10 @@ regular time grid</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as.data.frame.vpts.html">as.data.frame(<i>&lt;vpts&gt;</i>)</a></code> </p>
+          <p><code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vp&gt;</i>)</a></code> <code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vpts&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Convert a time series of vertical profiles (<code>vpts</code>) to a data frame</p></td>
+        <td><p>Convert a vertical profile (<code>vp</code>) or time series of vertical profiles
+(<code>vpts</code>) to a data frame</p></td>
       </tr><tr>
         
         <td>
@@ -551,7 +554,8 @@ regular time grid</p></td>
         <td>
           <p><code><a href="get_quantity.html">get_quantity()</a></code> </p>
         </td>
-        <td><p>Get a quantity of a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>)</p></td>
+        <td><p>Get a quantity from a vertical profile (<code>vp</code>) or time series of vertical
+profiles (<code>vpts</code>)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -608,19 +612,25 @@ integrated profile (<code>vpi</code>)</p></td>
         <td>
           <p><code><a href="sd_vvp_threshold.html">sd_vvp_threshold()</a></code> </p>
         </td>
-        <td><p>Get threshold of the VVP-retrieved radial velocity standard deviation</p></td>
+        <td><p>Get threshold of the radial velocity standard deviation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="sd_vvp_threshold-set.html">`sd_vvp_threshold&lt;-`()</a></code> </p>
         </td>
-        <td><p>Set threshold of the VVP-retrieved radial velocity standard deviation</p></td>
+        <td><p>Set threshold of the radial velocity standard deviation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="check_night.html">check_night()</a></code> </p>
         </td>
         <td><p>Check if it is night at a given time and place</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="doy_noy.html">doy()</a></code> <code><a href="doy_noy.html">noy()</a></code> </p>
+        </td>
+        <td><p>look up day of year (doy) or night of year (noy)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -708,6 +718,12 @@ and the vertical radiation profile emitted by the radar</p></td>
           <p><code><a href="sunrise_sunset.html">sunrise()</a></code> <code><a href="sunrise_sunset.html">sunset()</a></code> </p>
         </td>
         <td><p>Calculate sunrise or sunset for a time and place</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_legacy.html">convert_legacy()</a></code> </p>
+        </td>
+        <td><p>Convert legacy bioRad objects to current version</p></td>
       </tr>
     </tbody>
     </table>
@@ -727,7 +743,7 @@ and the vertical radiation profile emitted by the radar</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

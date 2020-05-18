@@ -134,7 +134,7 @@ per km transect is calculated as:
 with \eqn{dd_i} the migratory direction at altitude i.
 
 Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
-Also note we can rewrite this equation using trigonemetry as:
+Also note we can rewrite this equation using trigonometry as:
 
 \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}
 with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.

@@ -60,7 +60,7 @@ vector of length 2.}
 
 \item{n.color}{Deprecated argument, use n_color instead.}
 
-\item{palette}{(Optional) character vector of hexidecimal color values defining
+\item{palette}{(Optional) character vector of hexadecimal color values defining
 the plot color scale, e.g. output from \link[viridisLite]{viridis}}
 }
 \value{

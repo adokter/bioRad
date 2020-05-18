@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Subset a plan position indicator (<code>ppi</code>) — [.ppi" />
-<meta property="og:description" content="Select quantities by index from a ppi" />
+<meta property="og:description" content="Select parameters (param) or derived quantities by index from a plan
+position indicator (ppi)." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -155,7 +156,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Select quantities by index from a <code>ppi</code></p>
+    <p>Select parameters (<code>param</code>) or derived quantities by index from a plan
+position indicator (<code>ppi</code>).</p>
     </div>
 
     <pre class="usage"># S3 method for ppi
@@ -166,35 +168,45 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object of class <code>param</code> or <code>scan</code>.</p></td>
+      <td><p>A <code>ppi</code> object.</p></td>
     </tr>
     <tr>
       <th>i</th>
-      <td><p>Indices specifying elements to extract.</p></td>
+      <td><p>Integer. Index/indices specifying which parameters (<code>param</code>) or
+derived quantities to extract.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>ppi</code> object containing a subset of parameters (<code>param</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># make a ppi:</span>
-<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
+    <pre class="examples"><div class='input'><span class='co'># Project the example scan as a ppi</span>
+<span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
 
-<span class='co'># this ppi contains 5 quantities (VRADH DBZH ZDR RHOHV PHIDP):</span>
-<span class='no'>my_ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
+<span class='co'># This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)</span>
+<span class='no'>ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   quantities:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt;   parameters:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt;         dims:  200 x 200 pixels
 #&gt; </div><div class='input'>
-<span class='co'># This ppi only contains the first quantity (VRADH):</span>
-<span class='no'>my_ppi</span>[<span class='fl'>1</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
+<span class='co'># Subset ppi to one containing only the first parameter (VRADH)</span>
+<span class='no'>ppi</span>[<span class='fl'>1</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   quantities:  VRADH 
+#&gt;   parameters:  VRADH 
 #&gt;         dims:  200 x 200 pixels
 #&gt; </div><div class='input'>
-<span class='co'># This ppi contains the first three quantities (VRADH, DBZH, ZDR):</span>
-<span class='no'>my_ppi</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
+<span class='co'># Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)</span>
+<span class='no'>ppi</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   quantities:  VRADH DBZH ZDR 
+#&gt;   parameters:  VRADH DBZH ZDR 
+#&gt;         dims:  200 x 200 pixels
+#&gt; </div><div class='input'>
+<span class='co'># Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)</span>
+<span class='no'>ppi</span>[-<span class='fl'>1</span>:-<span class='fl'>2</span>]</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
+#&gt; 
+#&gt;   parameters:  ZDR RHOHV PHIDP 
 #&gt;         dims:  200 x 200 pixels
 #&gt; </div></pre>
   </div>
@@ -212,7 +224,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
