@@ -1,3 +1,7 @@
+# bioRad 0.5.2.900
+
+* bugfix ylim argument in `composite_ppi()` (#389)
+
 # bioRad 0.5.2
 
 This release is primarily a hotfix for R version 4.0 (#375). All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/388). New features and improvements include:
