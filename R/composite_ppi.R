@@ -70,11 +70,11 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   if (!is.count(nx) && missing(res)) stop("'nx' should be an integer")
   if (!is.count(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
-    if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be an numeric vector of length two")
+    if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be a numeric vector of length two")
     if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for lower and upper bound respectively")
   }
   if (!missing(ylim)) {
-    if (length(ylim) != 2 & !is.numeric(ylim)) stop("'ylim' should be an numeric vector of length two")
+    if (length(ylim) != 2 & !is.numeric(ylim)) stop("'ylim' should be a numeric vector of length two")
     if (is.na(ylim[1]) | is.na(ylim[2]) | ylim[1] > ylim[2]) stop("'ylim' should be a vector with two numeric values for lower and upper bound respectively")
   }
   if (!missing(res)) {
