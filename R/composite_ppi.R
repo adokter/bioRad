@@ -95,7 +95,11 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   } else {
     t_crs <- NULL
   }
-  if (!method %in% c("max", "min", "mean", "idw")) stop("'method' should be one of 'max', 'mean', 'min' or 'idw'")
+  if (!all(method %in% c("max", "min", "mean", "idw"))) stop("'method' should be one or multiple of 'max', 'mean', 'min' or 'idw'")
+  if (length(method) != length(param) & length(method) != 1) stop("'method' should be of length 1 or length(param)")
+  if (!missing(coverage)) {
+    if (!coverage %in% c("count", "radars")) stop("'coverage' should be 'count' or 'radars'")
+  }
 
   if (length(param) == 1 && param == "all") {
     param <- names(x[[1]]$data)
