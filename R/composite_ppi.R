@@ -13,7 +13,10 @@
 #' @param idw_max_distance numeric. Maximum distance from the radar to consider in
 #' inverse distance weighting. Measurements beyond this distance will have a
 #' weighting factor of zero.
-#' @param idp numeric. inverse distance weighting power
+#' @param idp numeric. inverse distance weighting power.
+#' @param coverage string. Additional radar coverage parameter to be added to the \code{ppi}, one of "count" or
+#' "radars" for the number of radars 'covering' a single \code{ppi} pixel and a list of the the corresponding
+#' ODIM radar IDs respectively.
 #'
 #' @return A \code{\link[=summary.ppi]{ppi}}.
 #'
@@ -68,7 +71,7 @@
 #' # plot the calculated max product on the basemap
 #' map(my_composite, bm)
 #' }
-composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance = NA) {
+composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance = NA, coverage) {
   if (FALSE %in% sapply(x, is.ppi)) {
     stop("'composite' expects objects of class ppi only")
   }
@@ -141,6 +144,11 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   spGrid = as(r, 'SpatialGridDataFrame')
   names(spGrid@data) <- names(ppis[[1]]$data)[1]
 
+  if (!missing(coverage)) {
+    ppis <- lapply(ppis, function(x) {x$data$coverage <- 1; return(x)})
+    param <- c(param, "coverage")
+  }
+
   # merge
   projs <- sapply(ppis,
     function(x) {
@@ -157,6 +165,7 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   )
 
   for (p in param) {
+    if (p == "coverage") next()
     if (length(param) > 1) {
       merged <- projs[p, ]
     } else {
@@ -193,6 +202,17 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
         brick_weights <- raster::setValues(brick_weights, weights, layer=i)
       }
       spGrid@data[, p] <- as.vector(raster::weighted.mean(brick_data, brick_weights, na.rm = TRUE))
+    }
+  }
+
+  if (!missing(coverage)) {
+    colnames(projs) <- lapply(x, function(x) x$radar)
+    cov <- !is.na(do.call("cbind", projs["coverage", ]))
+    if (coverage == "count") {
+      spGrid@data$coverage <- rowSums(cov)
+    } else if (coverage == "radars") {
+      cov <- apply(cov, 1, function(x) colnames(projs)[x])
+      spGrid@data$coverage <- cov
     }
   }
 
