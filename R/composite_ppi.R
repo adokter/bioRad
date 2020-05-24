@@ -6,8 +6,10 @@
 #'
 #' @inheritParams integrate_to_ppi
 #' @param x A list of \code{ppi} objects.
-#' @param param Scan parameter to composite.
-#' @param method string. Compositing method, one of "mean", "min", "max" or "idw"
+#' @param param An atomic vector of character strings, containing the names of \code{ppi} parameters to composite.
+#' To composite all \code{ppi} parameters use 'all'.
+#' @param method string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
+#' names of length(param) to apply different methods to each of the parameters.
 #' @param idw_max_distance numeric. Maximum distance from the radar to consider in
 #' inverse distance weighting. Measurements beyond this distance will have a
 #' weighting factor of zero.
@@ -38,7 +40,10 @@
 #' }
 #'
 #' The coordinates system of the returned \code{ppi} is a WGS84
-#' (lat,lon) datum.
+#' (lat, lon) datum, unless a different \code{crs} is provided. If only
+#' \code{res} is provided, but no \code{crs} is set, \code{res} is in
+#' meter units and the origin of the composite \code{ppi} is set to the
+#' mean (lat, lon) location.
 #'
 #' This function is a prototype and under active development
 #'
