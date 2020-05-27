@@ -363,18 +363,15 @@ and Remote Sensing 47: 2741-2751.
 
 <span class='co'># plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2000</span>))</div><div class='img'><img src='integrate_to_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='co'># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>2000</span>)
 
 <span class='co'># plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))
-
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># to overlay ppi objects on a background map, first</span>
 <span class='co'># download a basemap, and map the ppi:</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)
-
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_ppi</span>)</div><div class='output co'>#&gt; Downloading zoom = 7 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'><span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_ppi</span>, <span class='no'>bm</span>)</div><div class='img'><img src='integrate_to_ppi-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># the ppi can also be projected on a user-defined raster, as follows:</span>
 <span class='co'># first define the raster:</span>
 <span class='no'>template_raster</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/extent.html'>extent</a></span>(<span class='fl'>12</span>, <span class='fl'>13</span>, <span class='fl'>56</span>, <span class='fl'>57</span>), <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw pkg'>sp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sp/man/CRS-class.html'>CRS</a></span>(<span class='st'>"+proj=longlat"</span>))
@@ -383,16 +380,24 @@ and Remote Sensing 47: 2741-2751.
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>, <span class='kw'>raster</span> <span class='kw'>=</span> <span class='no'>template_raster</span>)
 
 <span class='co'># extract the raster data from the ppi object:</span>
-<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span>(<span class='no'>my_ppi</span>$<span class='no'>data</span>)
-
+<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span>(<span class='no'>my_ppi</span>$<span class='no'>data</span>)</div><div class='output co'>#&gt; class      : RasterBrick 
+#&gt; dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)
+#&gt; resolution : 0.1, 0.1  (x, y)
+#&gt; extent     : 12, 13, 56, 57  (xmin, xmax, ymin, ymax)
+#&gt; crs        : +proj=longlat +ellps=WGS84 
+#&gt; source     : memory
+#&gt; names      :          VIR,          VID,            R,      overlap,      eta_sum, eta_sum_expected 
+#&gt; min values :   0.00000000,   0.00000000,   0.00000000,   0.06252018,   0.00000000,     406.96716161 
+#&gt; max values : 6.052578e+04, 5.480034e+03, 6.151489e+01, 9.070487e-01, 6.468812e+04,     3.196694e+03 
+#&gt; </div><div class='input'>
 <span class='co'># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span>
 <span class='co'># cropping the area up to 50000 meter from the radar.</span>
 <span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'>integrate_to_ppi</span>(<span class='no'>example_pvol</span>, <span class='no'>example_vp</span>,
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>500</span>,
   <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>50000</span>, <span class='fl'>50000</span>)
 )
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VID"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>200</span>))</div><div class='img'><img src='integrate_to_ppi-4.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
