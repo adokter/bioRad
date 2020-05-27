@@ -263,8 +263,7 @@ and Evolution 10: 1908– 1922. <a href='https://doi.org/10.1111/2041-210X.13280
 ), <span class='st'>"~/KBGM_example"</span>)
 
 <span class='co'># calculate MistNet segmentation:</span>
-<span class='no'>mistnet_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/KBGM_example"</span>)
-
+<span class='no'>mistnet_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/KBGM_example"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: options.conf file found in directory /Users/amd427. Renamed to options.conf.20200527135855 to prevent overwrite...</span></div><div class='input'>
 <span class='co'># print summary info for the segmented elevation scan at 0.5 degree,</span>
 <span class='co'># verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added:</span>
 <span class='no'>my_scan</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_scan.html'>get_scan</a></span>(<span class='no'>mistnet_pvol</span>, <span class='fl'>0.5</span>)
