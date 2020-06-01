@@ -207,10 +207,14 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
   # output as data.frame
   beamprof <- data.frame(height = height, radiation = beamprof)
   # linearly interpolate the density of the vertical profile at the same grid as beamprof above
-  beamprof$vpr <- approxfun(
-    vp$data$height + vp$attributes$where$interval / 2,
-    vp$data[[quantity]]
-  )(height)
+  if(all(is.na(vp$data[[quantity]]))){
+    beamprof$vpr <- NA
+  } else{
+    beamprof$vpr <- approxfun(
+      vp$data$height + vp$attributes$where$interval / 2,
+      vp$data[[quantity]]
+    )(height)
+  }
   # normalize the vertical profile density
   step <- (zlim[2] - zlim[1]) / (steps - 1)
   beamprof$vpr <- beamprof$vpr / sum(step * beamprof$vpr, na.rm = T)
