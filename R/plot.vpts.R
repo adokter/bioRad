@@ -111,6 +111,9 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   assert_that(is.flag(log))
   if (!missing(zlim)) {
     assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
+    if (log) {
+      assert_that(zlim[1] > 0)
+    }
   }
 
   # remove profiles with duplicate timestamps:
