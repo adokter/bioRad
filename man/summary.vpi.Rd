@@ -5,16 +5,16 @@
 \alias{is.vpi}
 \title{Inspect vertically integrated profiles (\code{vpi})}
 \usage{
-\method{summary}{vpi}(x, digits = max(3L, getOption("digits") - 3L), ...)
+\method{summary}{vpi}(object, ...)
 
 is.vpi(x)
 }
 \arguments{
-\item{x}{A \code{vpi} object.}
+\item{object}{A \code{vpi} object.}
 
 \item{...}{Additional arguments affecting the summary produced.}
 
-\item{object}{A \code{vpi} object.}
+\item{x}{A \code{vpi} object.}
 }
 \value{
 For \code{\link[=is.vpi]{is.vpi()}}: \code{TRUE} for an object of class \code{vpi}, otherwise

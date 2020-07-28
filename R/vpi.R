@@ -46,13 +46,13 @@
 #'
 #' # Get summary info
 #' summary(vpi)
-summary.vpi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
-  stopifnot(inherits(x, "vpi"))
+summary.vpi <- function(object, ...) {
+  stopifnot(inherits(object, "vpi"))
   cat("               Vertically integrated profile(s) (class vpi)\n\n")
-  cat("           radar: ", attributes(x)$radar, "\n")
-  cat("      # profiles: ", length(x$datetime), "\n")
-  cat("time range (UTC): ", format(min(x$datetime), "%Y-%m-%d %H:%M:%S"),
-    "-", format(max(x$datetime), "%Y-%m-%d %H:%M:%S"), "\n"
+  cat("           radar: ", attributes(object)$radar, "\n")
+  cat("      # profiles: ", length(object$datetime), "\n")
+  cat("time range (UTC): ", format(min(object$datetime), "%Y-%m-%d %H:%M:%S"),
+    "-", format(max(object$datetime), "%Y-%m-%d %H:%M:%S"), "\n"
   )
 }
 
