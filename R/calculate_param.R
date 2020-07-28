@@ -61,7 +61,7 @@ calculate_param.scan <- function(x, ...) {
   for (i in seq_along(calc)) {
     newParam <- eval(nn <- (calc[[i]]), x$params)
     if ("" == (name[[i]])) {
-      name[[i]] <- deparse(nn)
+      name[[i]] <- deparse(nn, width.cutoff = 250L)[1]
     }
     attr(newParam, "param") <- name[[i]]
     x$params[[name[[i]]]] <- newParam

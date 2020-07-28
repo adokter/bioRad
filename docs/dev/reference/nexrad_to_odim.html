@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9391</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9406</span>
       </span>
     </div>
 
@@ -162,7 +162,8 @@
   <span class='no'>pvolfile_nexrad</span>,
   <span class='no'>pvolfile_odim</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>pvolfile_nexrad</span>)
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>pvolfile_nexrad</span>),
+  <span class='no'>local_install</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -186,6 +187,10 @@ Windows always TRUE.</p></td>
       <th>mount</th>
       <td><p>character. String with the mount point (a directory path) for
 the Docker container.</p></td>
+    </tr>
+    <tr>
+      <th>local_install</th>
+      <td><p>(optional) String with path to local vol2bird installation, see details.</p></td>
     </tr>
     </table>
 

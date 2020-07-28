@@ -250,6 +250,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
     interval_max = interval_max
   ))
   class(output) <- c("vpi", "data.frame")
+  attributes(output)$radar <- x$radar
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
@@ -332,6 +333,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
+  attributes(output)$radar <- x$radar
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha

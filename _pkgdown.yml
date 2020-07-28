@@ -100,6 +100,7 @@ reference:
     contents:
       - integrate_profile
       - plot.vpi
+      - summary.vpi # is.vpi
   - title: "Accessing vertical profile metadata"
     desc: "Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi)."
     contents:

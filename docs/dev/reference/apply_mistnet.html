@@ -87,7 +87,7 @@ resultant segmentation as a polar volume (pvol) object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9391</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9406</span>
       </span>
     </div>
 
@@ -263,24 +263,24 @@ and Evolution 10: 1908– 1922. <a href='https://doi.org/10.1111/2041-210X.13280
 ), <span class='st'>"~/KBGM_example"</span>)
 
 <span class='co'># calculate MistNet segmentation:</span>
-<span class='no'>mistnet_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/KBGM_example"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: options.conf file found in directory /Users/amd427. Renamed to options.conf.20200527135855 to prevent overwrite...</span></div><div class='input'>
+<span class='no'>mistnet_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>apply_mistnet</span>(<span class='st'>"~/KBGM_example"</span>)
+
 <span class='co'># print summary info for the segmented elevation scan at 0.5 degree,</span>
 <span class='co'># verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added:</span>
 <span class='no'>my_scan</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_scan.html'>get_scan</a></span>(<span class='no'>mistnet_pvol</span>, <span class='fl'>0.5</span>)
 
 <span class='co'># project the scan as a ppi:</span>
-<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>my_scan</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>100000</span>)
-
+<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>my_scan</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>100000</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'>
 <span class='co'># plot the reflectivity parameter:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the MistNet class probability [0-1] for weather</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"WEATHER"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"WEATHER"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the MistNet class probability [0-1] for biology</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
 <span class='co'># areas classified as weather, and value 1 pixels that fall within an</span>
 <span class='co'># additional 5 km fringe around weather areas.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># clean up:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'># }
 </div></pre>
