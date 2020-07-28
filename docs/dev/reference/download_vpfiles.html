@@ -208,7 +208,7 @@ downloaded files of the same names.</p></td>
     <pre class="examples"><div class='input'><span class='co'># Download data from radars "bejab" and "bewid", even if previously</span>
 <span class='co'># downloaded (overwrite = TRUE). Will successfully download 2016-10 files,</span>
 <span class='co'># but show 404 error for 2016-11 files (as these are not available).</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span>(<span class='st'>"~/bioRad_tmp_files"</span>)
 <span class='fu'>download_vpfiles</span>(
   <span class='kw'>date_min</span> <span class='kw'>=</span> <span class='st'>"2016-10-01"</span>,
@@ -216,10 +216,9 @@ downloaded files of the same names.</p></td>
   <span class='kw'>radar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bejab"</span>, <span class='st'>"bewid"</span>),
   <span class='kw'>directory</span> <span class='kw'>=</span> <span class='st'>"~/bioRad_tmp_files"</span>,
   <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
-<span class='co'># clean up:</span>
+)</div><div class='output co'>#&gt; <span class='message'>Downloading data from https://lw-enram.s3-eu-west-1.amazonaws.com</span></div><div class='output co'>#&gt; <span class='message'>bejab201610.zip: successfully downloaded</span></div><div class='output co'>#&gt; <span class='message'>bewid201610.zip: successfully downloaded</span></div><div class='output co'>#&gt; <span class='message'>bejab201611.zip: http error 404</span></div><div class='output co'>#&gt; <span class='message'>bewid201611.zip: http error 404</span></div><div class='input'><span class='co'># clean up:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='st'>"~/bioRad_tmp_files"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='no'>T</span>)
-}</div></pre>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

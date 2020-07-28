@@ -176,12 +176,12 @@
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
 <span class='co'># example_scan was created with</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
 <span class='no'>example_scan</span> <span class='kw'>&lt;-</span> <span class='no'>pvol</span>$<span class='no'>scans</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>example_scan</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_scan.rda"</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>example_scan</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_scan.rda"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open compressed file 'data/example_scan.rda', probable reason 'No such file or directory'</span></div><div class='output co'>#&gt; <span class='error'>Error in gzfile(file, "wb"): cannot open the connection</span></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

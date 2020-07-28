@@ -185,10 +185,9 @@ contains profiles of a single radar. A list of objects of class
 multiple radars, containing <a href='summary.vpts.html'>vpts</a> objects for each radar.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>vps</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_vpfiles.html'>read_vpfiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"my/path/profile1.h5"</span>, <span class='st'>"my/path/profile2.h5"</span>, <span class='no'>...</span>))
-<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bind_into_vpts.html'>bind_into_vpts</a></span>(<span class='no'>vps</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
+<span class='no'>vps</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_vpfiles.html'>read_vpfiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"my/path/profile1.h5"</span>, <span class='st'>"my/path/profile2.h5"</span>, <span class='no'>...</span>))</div><div class='output co'>#&gt; <span class='error'>Error in read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5",     ...)): '...' used in an incorrect context</span></div><div class='input'><span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bind_into_vpts.html'>bind_into_vpts</a></span>(<span class='no'>vps</span>)</div><div class='output co'>#&gt; <span class='error'>Error in bind_into_vpts(vps): object 'vps' not found</span></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

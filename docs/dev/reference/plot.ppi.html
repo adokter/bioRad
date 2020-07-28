@@ -238,8 +238,7 @@ model (ODIM), see Table 16 in the
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
 <span class='co'># make ppi for the scan</span>
-<span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
-
+<span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'>
 <span class='co'># plot the first scan parameter, which in this case is "VRADH":</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the reflectivity parameter:</span>

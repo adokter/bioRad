@@ -177,17 +177,16 @@
 #&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 
 #&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'>
 <span class='co'># example_vpts was created with</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"vpts.txt.zip"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span>(<span class='no'>vptsfile</span>, <span class='kw'>exdir</span> <span class='kw'>=</span> (<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>vptsfile</span>)), <span class='kw'>junkpaths</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>vptsfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='no'>vptsfile</span>, <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span>(<span class='no'>vptsfile</span>) - <span class='fl'>4</span>)
 <span class='no'>example_vpts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_vpts.html'>read_vpts</a></span>(<span class='no'>vptsfile</span>, <span class='kw'>radar</span> <span class='kw'>=</span> <span class='st'>"KBGM"</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='st'>"S"</span>)
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
-<span class='fu'><a href='sd_vvp_threshold.html'>sd_vvp_threshold</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Threshold for sd_vvp not set, defaulting to 2 m/s.</span></div><div class='input'><span class='fu'><a href='sd_vvp_threshold.html'>sd_vvp_threshold</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>2</span>
 <span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lat</span> <span class='kw'>&lt;-</span> <span class='fl'>42.2</span>
 <span class='no'>example_vpts</span>$<span class='no'>attributes</span>$<span class='no'>where</span>$<span class='no'>lon</span> <span class='kw'>&lt;-</span> -<span class='fl'>75.98</span>
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>example_vpts</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_vpts.rda"</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='st'>"xz"</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='no'>example_vpts</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"data/example_vpts.rda"</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='st'>"xz"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open compressed file 'data/example_vpts.rda', probable reason 'No such file or directory'</span></div><div class='output co'>#&gt; <span class='error'>Error in xzfile(file, "wb", compression = 9): cannot open the connection</span></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -121,7 +121,7 @@
 <p>Load bioRad</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bioRad</span>)</pre></body></html></div>
 <pre><code>## Welcome to bioRad version 0.5.2.9406</code></pre>
-<pre><code>## Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0.9148, MistNet available)</code></pre>
+<pre><code>## Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0)</code></pre>
 </div>
 <div id="beam-propagation" class="section level2">
 <h2 class="hasAnchor">
@@ -211,27 +211,29 @@
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># extract the first scan from the polar volume:</span>
 <span class="no">my_scan</span> <span class="kw">&lt;-</span> <span class="no">example_pvol</span>$<span class="no">scans</span><span class="kw">[[</span><span class="fl">1</span>]]
 <span class="co"># project it as a PPI on the ground:</span>
-<span class="no">my_ppi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/project_as_ppi.html">project_as_ppi</a></span>(<span class="no">my_scan</span>, <span class="kw">range_max</span> <span class="kw">=</span> <span class="fl">100000</span>)
-<span class="co"># plot it</span>
+<span class="no">my_ppi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/project_as_ppi.html">project_as_ppi</a></span>(<span class="no">my_scan</span>, <span class="kw">range_max</span> <span class="kw">=</span> <span class="fl">100000</span>)</pre></body></html></div>
+<pre><code>## Warning in proj4string(obj): CRS object has comment, which is lost in output</code></pre>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co"># plot it</span>
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_ppi</span>)</pre></body></html></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>Now let’s calculate the range-corrected PPI</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># let's use a 500 metre spatial grid (res), and restrict to 100x100 km area</span>
-<span class="no">my_corrected_ppi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/integrate_to_ppi.html">integrate_to_ppi</a></span>(<span class="no">example_pvol</span>, <span class="no">example_vp</span>, <span class="kw">res</span> <span class="kw">=</span> <span class="fl">500</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">100000</span>, <span class="fl">100000</span>), <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">100000</span>, <span class="fl">100000</span>))
-<span class="no">my_corrected_ppi</span></pre></body></html></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># let's use a 500 metre spatial grid (res), and restrict to 100x100 km area</span>
+<span class="no">my_corrected_ppi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/integrate_to_ppi.html">integrate_to_ppi</a></span>(<span class="no">example_pvol</span>, <span class="no">example_vp</span>, <span class="kw">res</span> <span class="kw">=</span> <span class="fl">500</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">100000</span>, <span class="fl">100000</span>), <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">100000</span>, <span class="fl">100000</span>))</pre></body></html></div>
+<pre><code>## Warning in proj4string(output): CRS object has comment, which is lost in output</code></pre>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">my_corrected_ppi</span></pre></body></html></div>
 <pre><code>##                Plan position indicator (class ppi)
 ## 
 ##   parameters:  VIR VID R overlap eta_sum eta_sum_expected 
 ##         dims:  400 x 400 pixels</code></pre>
 <p>The range corrected PPI has four parameters: VIR, VID, R, overlap. Let’s plot the adjustment factor R:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># plot the adjustment factor R:</span>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># plot the adjustment factor R:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_corrected_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"R"</span>)</pre></body></html></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>Let’s also plot the vertically integrated reflectivity:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_corrected_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"VIR"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_corrected_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"VIR"</span>)</pre></body></html></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>Or plot the vertically integrated density on a map:</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">bm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/download_basemap.html">download_basemap</a></span>(<span class="no">my_corrected_ppi</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">bm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/download_basemap.html">download_basemap</a></span>(<span class="no">my_corrected_ppi</span>)</pre></body></html></div>
 <pre><code>## Downloading zoom = 8 ...</code></pre>
 <pre><code>## Source : http://tile.stamen.com/terrain/8/136/78.png</code></pre>
 <pre><code>## Source : http://tile.stamen.com/terrain/8/137/78.png</code></pre>
@@ -242,7 +244,18 @@
 <pre><code>## Source : http://tile.stamen.com/terrain/8/136/80.png</code></pre>
 <pre><code>## Source : http://tile.stamen.com/terrain/8/137/80.png</code></pre>
 <pre><code>## Source : http://tile.stamen.com/terrain/8/138/80.png</code></pre>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="../reference/map.html">map</a></span>(<span class="no">my_corrected_ppi</span>, <span class="no">bm</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"VIR"</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">.5</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="fu"><a href="../reference/map.html">map</a></span>(<span class="no">my_corrected_ppi</span>, <span class="no">bm</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"VIR"</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">.5</span>)</pre></body></html></div>
+<pre><code>## Warning in showSRID(uprojargs, format = "PROJ", multiline = "NO"): Discarded
+## ellps WGS 84 in CRS definition: +proj=merc +a=6378137 +b=6378137 +lat_ts=0
+## +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs</code></pre>
+<pre><code>## Warning in showSRID(uprojargs, format = "PROJ", multiline = "NO"): Discarded
+## datum WGS_1984 in CRS definition</code></pre>
+<pre><code>## Warning in proj4string(mybbox): CRS object has comment, which is lost in output</code></pre>
+<pre><code>## Warning in showSRID(uprojargs, format = "PROJ", multiline = "NO"): Discarded
+## ellps WGS 84 in CRS definition: +proj=merc +a=6378137 +b=6378137 +lat_ts=0
+## +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs</code></pre>
+<pre><code>## Warning in showSRID(uprojargs, format = "PROJ", multiline = "NO"): Discarded
+## datum WGS_1984 in CRS definition</code></pre>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div id="overlap-between-radiation-profile-and-bird-profile" class="section level2">
@@ -254,7 +267,7 @@
 <li>at large distances weak biological echoes may get below the radar’s detection level</li>
 </ol>
 <p>We can calculate overlap between emitted radiation and the biological profile as follows:</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="co"># calculate overlap between vertical profile of birds</span>
+<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="co"># calculate overlap between vertical profile of birds</span>
 <span class="co"># and the vertical radiation profile emitted by the radar:</span>
 <span class="no">bpo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/beam_profile_overlap.html">beam_profile_overlap</a></span>(<span class="no">example_vp</span>, <span class="fu"><a href="../reference/get_elevation_angles.html">get_elevation_angles</a></span>(<span class="no">example_pvol</span>), <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">1000</span>), <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"eta"</span>)
 <span class="co"># plot the calculated overlap:</span>
@@ -263,7 +276,7 @@
 <p>The function first normalizes the vertical profile altitudinal distribution. This can be either using profile quantity eta or dens, whichever is preferred (note that dens, the density, is sometimes thresholded to zero based on radial velocity standard deviation, see <code><a href="../reference/sd_vvp_threshold.html">sd_vvp_threshold()</a></code>, while eta is not)</p>
 <p>It then calculates the overlap between the normalized vertical profile, and the normalized radiation profile as calculated with <code><a href="../reference/beam_profile.html">beam_profile()</a></code>, using a metric called the <a href="https://en.wikipedia.org/wiki/Bhattacharyya_distance">Bhattacharyya distance</a>. This metric is zero when there is no overlap, and 1 when the distributions are identical.</p>
 <p>The range-corrected PPI also contains a field <code>overlap</code>, which contains the same metric but then calculated on the grid of the PPI:</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_corrected_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"overlap"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_corrected_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"overlap"</span>)</pre></body></html></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>The overlap metric might be used in the future to show only certain section of the PPI, based on their overlap value.</p>
 </div>
