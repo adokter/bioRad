@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9391</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9406</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@
 <span class="co"># print some information about this scan:</span>
 <span class="no">my_scan</span>
 <span class="co"># let's plot the reflectivity factor parameter of the scan in a range - azimuth coordinate system:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_scan</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"DBZH"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_scan</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"DBZH"</span>)</pre></body></html></div>
 <p>Usually it is more intuitive to explore radar scans as a PPI (plan position indicator), which is a projection of the scan on a Cartesian (X,Y) or (lat,lon) grid:</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># before we can plot the scan, we need to project it on a Cartesian grid,</span>
 <span class="co"># i.e. we need to make a Plan Position Indicator (PPI)</span>
@@ -194,7 +194,7 @@
 <span class="co"># from the radar up to where to plot data (argument range_max))</span>
 <span class="co">#</span>
 <span class="co"># Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"DBZH"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_ppi</span>, <span class="kw">param</span> <span class="kw">=</span> <span class="st">"DBZH"</span>)</pre></body></html></div>
 <p><strong>Exercise 2:</strong> This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the correlation coefficient (RHOHV) and radial velocity (VRADH). Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.</p>
 <p><strong>Exercise 3:</strong> Based on the radial velocity image, are the biological scatterers birds or insects? Why?</p>
 </div>
@@ -236,15 +236,15 @@
 <span class="co"># test whether this profile was collected at day time:</span>
 <span class="fu"><a href="../reference/check_night.html">check_night</a></span>(<span class="no">my_vp</span>)
 <span class="co"># plot the vertical profile, in terms of reflectivity factor</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vp</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"dbz"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vp</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"dbz"</span>)
 <span class="co"># plot the vertical profile, in terms of (linear) reflectivity</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vp</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"eta"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vp</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"eta"</span>)</pre></body></html></div>
 <p><code>eta</code> and <code>dbz</code> are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear. You can convert one into the other using <code><a href="../reference/eta_to_dbz.html">eta_to_dbz()</a></code> and <code><a href="../reference/dbz_to_eta.html">dbz_to_eta()</a></code> functions, which follow this simple formula:</p>
 <pre><code>eta = (radar-wavelength dependent constant) * 10^(dbz/10)</code></pre>
 <p>The reflectivity factor <code>dBZ</code> is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at similar reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.</p>
 <p>In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this limit reflectivity <code>eta</code> is more similar between S-band and C-band. <code>eta</code> is also more directly related to the density of birds, since <code>eta</code> can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists not reflectivity factor <code>dBZ</code> but reflectivity <code>eta</code> is the more conventional unit.</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># let'splot the vertical profile, in terms of bird density</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vp</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"dens"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vp</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"dens"</span>)
 <span class="co"># print the currently assumed radar cross section (RCS) per bird:</span>
 <span class="fu"><a href="../reference/rcs.html">rcs</a></span>(<span class="no">my_vp</span>)</pre></body></html></div>
 <p><strong>Exercise 4:</strong> If you change your assumption on the bird’s radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?</p>
@@ -269,7 +269,7 @@
 <span class="co"># to extract all the dates of all profiles in the time series:</span>
 <span class="no">my_vpts</span>$<span class="no">datetime</span>
 <span class="co"># to plot the full time series:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpts</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpts</span>)
 <span class="co"># check the help file for the plotting function of profile time series</span>
 <span class="co"># Because profile timeseries are of class 'vpts', it's associated plotting function</span>
 <span class="co"># is called plot.vpts:</span>
@@ -282,7 +282,7 @@
 <span class="co"># now subset our vpts using this selection:</span>
 <span class="no">my_vpts_night</span> <span class="kw">&lt;-</span> <span class="no">my_vpts</span>[<span class="no">index_night</span>]
 <span class="co"># plot this smaller time series:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpts_night</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpts_night</span>)</pre></body></html></div>
 <p><strong>Exercise 6:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1500 meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in this case].</p>
 <p><strong>Exercise 7:</strong> Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity <code>ff</code>). Hint: use function <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.</p>
 </div>
@@ -299,14 +299,14 @@
 <span class="co"># The vertically integrated quantities are calculated as follows:</span>
 <span class="no">my_vpi</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/integrate_profile.html">integrate_profile</a></span>(<span class="no">my_vpts</span>)
 <span class="co"># The my_vpi object you created is a vpi class object, which is an acronym for "vertical profile integrated". It has its own plot method, which by default plots migration traffic rate (MTR):</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>)
 <span class="co"># you can also plot vertically integrated densities (VID):</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"vid"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"vid"</span>)
 <span class="co"># the gray and white shading indicates day and night, which is calculated</span>
 <span class="co"># from the date and the radar position. You can also turn this off:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">night_shade</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">night_shade</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="co"># plot the cumulative number of birds passing the radar, i.e. migration traffic (mt):</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"mt"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"mt"</span>)
 <span class="co"># execute `?plot.vpi` to open the help page listing all the options.</span>
 ?<span class="no">plot.vpi</span></pre></body></html></div>
 <p>The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1 km above ground is 200 birds per cubic kilometer, and from 1-1.5 km 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 meter there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.</p>
@@ -315,11 +315,11 @@
 <p><strong>Exercise 10:</strong> How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.</p>
 <p>Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling/unable to specify RCS, you can alternatively use two closely related quantities that make no assumptions RCS:</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="co"># instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"vir"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"vir"</span>)
 <span class="co"># instead of migration traffic rate (MTR), you can use the reflectivity traffic rate (RTR):</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"rtr"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"rtr"</span>)
 <span class="co"># instead of migration traffic (MT), you can use the reflectivity traffic (RT):</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"rt"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpi</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"rt"</span>)</pre></body></html></div>
 <p>VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.</p>
 </div>
 <div id="inspecting-precipitation-signals-in-profiles" class="section level3">
@@ -333,7 +333,7 @@
 <span class="co"># print the loaded vpts time series for this radar:</span>
 <span class="no">my_vpts</span>
 <span class="co"># plot the bird density over time:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpts</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"dens"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpts</span>, <span class="kw">quantity</span> <span class="kw">=</span> <span class="st">"dens"</span>)</pre></body></html></div>
 <p><strong>Exercise 11:</strong> Compare the above plot for bird density (quantity <code>dens</code>) with a profile plot for total reflectivity (quantity <code>DBZH</code>, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.</p>
 </div>
 </div>
@@ -409,7 +409,7 @@
 <div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="co"># make a time series of profiles:</span>
 <span class="no">my_vpts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span>(<span class="no">my_vplist</span>)
 <span class="co"># plot them between 0 - 3 km altitude:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_vpts</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3000</span>))</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">my_vpts</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3000</span>))</pre></body></html></div>
 </div>
 <div id="further-analysis" class="section level3">
 <h3 class="hasAnchor">

@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Regularize a time series of vertical profiles (<code>vpts</code>) on a
-regular time grid — regularize_vpts • bioRad</title>
+<title>Inspect vertically integrated profiles (<code>vpi</code>) — summary.vpi • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -53,9 +52,9 @@ regular time grid — regularize_vpts • bioRad</title>
 
 
 
-<meta property="og:title" content="Regularize a time series of vertical profiles (<code>vpts</code>) on a
-regular time grid — regularize_vpts" />
-<meta property="og:description" content="Projects objects of class vpts on a regular time grid" />
+<meta property="og:title" content="Inspect vertically integrated profiles (<code>vpi</code>) — summary.vpi" />
+<meta property="og:description" content="R base functions for inspecting vertically integrated profiles of biological targets
+(vp) object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -151,92 +150,85 @@ regular time grid — regularize_vpts" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Regularize a time series of vertical profiles (<code>vpts</code>) on a
-regular time grid</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/regularize_vpts.R'><code>R/regularize_vpts.R</code></a></small>
-    <div class="hidden name"><code>regularize_vpts.Rd</code></div>
+    <h1>Inspect vertically integrated profiles (<code>vpi</code>)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/vpi.R'><code>R/vpi.R</code></a></small>
+    <div class="hidden name"><code>summary.vpi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Projects objects of class <code>vpts</code> on a regular time grid</p>
+    <p>R base functions for inspecting vertically integrated profiles of biological targets
+(<code>vp</code>) object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>regularize_vpts</span>(
-  <span class='no'>ts</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='no'>date_min</span>,
-  <span class='no'>date_max</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"secs"</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>keep_datetime</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='co'># S3 method for vpi</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='fu'>is.vpi</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ts</th>
-      <td><p>An object inheriting from class <code>vpts</code>, see
-<code><a href='summary.vpts.html'>vpts</a></code> for details.</p></td>
+      <th>object</th>
+      <td><p>A <code>vpi</code> object.</p></td>
     </tr>
     <tr>
-      <th>interval</th>
-      <td><p>Time interval grid to project on. When '<code>auto</code>' the
-median interval in the time series is used.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments affecting the summary produced.</p></td>
     </tr>
     <tr>
-      <th>date_min</th>
-      <td><p>Start time of the projected time series, as a POSIXct object.
-Taken from <code>ts</code> when '<code>auto</code>'.</p></td>
-    </tr>
-    <tr>
-      <th>date_max</th>
-      <td><p>End time of the projected time series, as a POSIXct object.
-Taken from <code>ts</code> when '<code>auto</code>'.</p></td>
-    </tr>
-    <tr>
-      <th>units</th>
-      <td><p>Optional units of <code>interval</code>, one of 'secs', 'mins',
-'hours','days', 'weeks'. Defaults to 'mins'.</p></td>
-    </tr>
-    <tr>
-      <th>fill</th>
-      <td><p>Logical, whether to fill missing timesteps with the values of
-the closest neighboring profile.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Logical, when <code>TRUE</code> prints text to console.</p></td>
-    </tr>
-    <tr>
-      <th>keep_datetime</th>
-      <td><p>Logical, when <code>TRUE</code> keep original radar acquisition timestamps.</p></td>
+      <th>x</th>
+      <td><p>A <code>vpi</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>vpts</code> with regular time steps.</p>
+    <p>For <code>is.vpi()</code>: <code>TRUE</code> for an object of class <code>vpi</code>, otherwise
+<code>FALSE</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Irregular time series of profiles are typically aligned on a
-regular time grid with the expected time interval at which a radar provides
-data. Empty profiles with only missing data values will be inserted at
-time stamps of the regular time grid that have no matching profile in the
-irregular time series.</p>
-<p>In plots of regular time series (see <code><a href='plot.vpts.html'>plot.vpts</a></code>) temporal gaps of
-missing profiles (e.g. due to radar down time) become visible. In irregular
-time series data points in the plot are carried through until the time series
-continues, and temporal data gaps are filled up visually.</p>
+    <p>A vpi object is a specially classed data frame generated by function <a href='integrate_profile.html'>integrate_profile</a> with the following
+quantities:</p><dl'>
+<dt><code>datetime</code></dt><dd><p>POSIXct date of each profile in UTC</p></dd>
+<dt><code>vid</code></dt><dd><p>Vertically Integrated Density in individuals/km^2.
+<code>vid</code> is a surface density, whereas <code>dens</code> in <code>vp</code>
+objects is a volume density.</p></dd>
+<dt><code>vir</code></dt><dd><p>Vertically Integrated Reflectivity in cm^2/km^2</p></dd>
+<dt><code>mtr</code></dt><dd><p>Migration Traffic Rate in individuals/km/h</p></dd>
+<dt><code>rtr</code></dt><dd><p>Reflectivity Traffic Rate in cm^2/km/h</p></dd>
+<dt><code>mt</code></dt><dd><p>Migration Traffic in individuals/km, cumulated from
+the start of the time series up to <code>datetime</code></p></dd>
+<dt><code>rt</code></dt><dd><p>Reflectivity Traffic in cm^2/km, cumulated from
+the start of the time series up to <code>datetime</code></p></dd>
+<dt><code>ff</code></dt><dd><p>Horizontal ground speed in m/s</p></dd>
+<dt><code>dd</code></dt><dd><p>Horizontal ground speed direction in degrees</p></dd>
+<dt><code>u</code></dt><dd><p>Ground speed component west to east in m/s</p></dd>
+<dt><code>v</code></dt><dd><p>Ground speed component north to south in m/s</p></dd>
+<dt><code>height</code></dt><dd><p>Mean flight height (height weighted by eta) in m above sea level</p></dd>
+
+</dl><p>Class vpi inherits from class data.frame</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='integrate_profile.html'>integrate_profile()</a></code></p></li>
+<li><p><code><a href='plot.vpi.html'>plot.vpi()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># start form example vpts object:</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
-<span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+    <pre class="examples"><div class='input'><span class='co'># Load the example vertical profile time series and integrate to a vpi</span>
+<span class='no'>vpi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>)
 
-<span class='co'># regularize the time series on a 5 minute interval grid</span>
-<span class='no'>tsRegular</span> <span class='kw'>&lt;-</span> <span class='fu'>regularize_vpts</span>(<span class='no'>ts</span>, <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>300</span>)</div></pre>
+<span class='co'># Verify that it is an object of class vpi</span>
+<span class='fu'>is.vpi</span>(<span class='no'>vpi</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Get summary info</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>vpi</span>)</div><div class='output co'>#&gt;                Vertically integrated profile(s) (class vpi)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  1934 
+#&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
