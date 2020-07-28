@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9391</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9406</span>
       </span>
     </div>
 
@@ -159,7 +159,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for vpi</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
   <span class='no'>x</span>,
   <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"mtr"</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"time"</span>,
@@ -238,7 +238,7 @@ attribute of <code>x</code>.</p></td>
     <tr>
       <th>...</th>
       <td><p>Additional arguments to be passed to the low level
-<a href='https://rdrr.io/r/graphics/plot.html'>plot</a> plotting function.</p></td>
+<a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a> plotting function.</p></td>
     </tr>
     </table>
 
@@ -271,8 +271,8 @@ on the assumed radar cross section (RCS)</p></dd>
     <pre class="examples"><div class='input'><span class='co'># vertically integrate a vpts object:</span>
 <span class='no'>vpi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>)
 <span class='co'># plot the migration traffic rates</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>vpi</span>)</div><div class='img'><img src='plot.vpi-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the vertically integrated densities, without night shading:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>vpi</span>, <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"vid"</span>, <span class='kw'>night_shade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot.vpi-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>vpi</span>)</div><div class='img'><img src='plot.vpi-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot the vertically integrated densities, without night shading:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>vpi</span>, <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"vid"</span>, <span class='kw'>night_shade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot.vpi-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

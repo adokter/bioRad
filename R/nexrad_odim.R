@@ -27,19 +27,19 @@
 #' file.remove("~/KBGM_example", "~/KBGM_example.h5")
 #' }
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
-                           mount = dirname(pvolfile_nexrad)) {
+                           mount = dirname(pvolfile_nexrad), local_install) {
   if (!file.exists(dirname(pvolfile_odim))) {
     stop(paste("output directory", dirname(pvolfile_odim), "not found"))
   }
   if (file.access(dirname(pvolfile_odim), 2) == -1) {
     stop(paste("No write permission in directory", dirname(pvolfile_odim)))
   }
-  pvol_tmp <- nexrad_to_odim_tempfile(pvolfile_nexrad, verbose, mount)
+  pvol_tmp <- nexrad_to_odim_tempfile(pvolfile_nexrad, verbose, mount, local_install)
   file.rename(pvol_tmp, pvolfile_odim)
 }
 
 nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
-                                    mount = dirname(pvolfile)) {
+                                    mount = dirname(pvolfile), local_install) {
   # check input arguments
   if (file.access(mount, 0) == -1) {
     stop("Invalid 'mount' argument. Directory not found.")
@@ -50,7 +50,7 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
       mount
     ))
   }
-  if (!.pkgenv$docker) {
+  if (!.pkgenv$docker && missing(local_install)) {
     stop(
       "Requires a running Docker daemon.\nTo enable, start your",
       "local Docker daemon, and run 'check_docker()' in R\n"
@@ -73,8 +73,10 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
   if (file.access(filedir, mode = 2) < 0) {
     stop(paste("vol2bird requires write permission in", filedir))
   }
-  if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
-    stop(paste("Failed to start vol2bird Docker container."))
+  if (missing(local_install)) {
+    if (mount_docker_container(normalizePath(mount, winslash = "/")) != 0) {
+      stop(paste("Failed to start vol2bird Docker container."))
+    }
   }
 
   # prepare docker input filenames relative to mountpoint
@@ -91,13 +93,17 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
 
   # run vol2bird container
   if (.Platform$OS.type == "unix") {
-    result <- system(
-      paste(
-        "docker exec vol2bird bash -c 'cd data && rsl2odim ",
-        pvolfile_docker, pvol_tmp_docker, "'"
-      ),
-      ignore.stdout = !verbose
-    )
+    if (missing(local_install)) {
+      result <- system(
+        paste(
+          "docker exec vol2bird bash -c 'cd data && rsl2odim ",
+          pvolfile_docker, pvol_tmp_docker, "'"
+        ),
+        ignore.stdout = !verbose
+      )
+    } else{
+      result <- system(paste("bash -l -c \"", paste(dirname(local_install),"/rsl2odim",sep=""), pvolfile, pvol_tmp, "\""), ignore.stdout = !verbose)
+    }
   } else {
     result <- suppressWarnings(system(
       paste(
@@ -110,7 +116,7 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
   }
 
   if (result != 0) {
-    stop("Failed to complete conversion in Docker container.")
+    stop("Failed to complete conversion")
   }
 
   # return filename of generated temporary file

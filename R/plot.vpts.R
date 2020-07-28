@@ -111,8 +111,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   assert_that(is.flag(log))
   if (!missing(zlim)) {
     assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
-    if (log) {
-      assert_that(zlim[1] > 0)
+    if (log && !(quantity %in% c("DBZH", "dbz"))) {
+      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' has the (default) value TRUE. Run ?plot.vpts for details.")
     }
   }
 

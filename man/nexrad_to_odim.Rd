@@ -8,7 +8,8 @@ nexrad_to_odim(
   pvolfile_nexrad,
   pvolfile_odim,
   verbose = FALSE,
-  mount = dirname(pvolfile_nexrad)
+  mount = dirname(pvolfile_nexrad),
+  local_install
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Windows always TRUE.}
 
 \item{mount}{character. String with the mount point (a directory path) for
 the Docker container.}
+
+\item{local_install}{(optional) String with path to local vol2bird installation, see details.}
 }
 \value{
 \code{TRUE} on success
