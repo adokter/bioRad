@@ -1,8 +1,8 @@
-#' Extract a volume coverage pattern dataframe
+#' Extract a volume coverage pattern table with all attributes
 #'
-#' @param x Either a pvol or scan for which the VCP should be created.
-#' @param add_params A logical wether a column with with the parameters present is to be added.
-#' @param select A charcter vector which the column names that should be returned when NULL all attributes are to be returned
+#' @param x Either a pvol or scan for which the table should be created.
+#' @param add_params A logical whether a column with with the parameters present is to be added.
+#' @param select A character vector which the column names that should be returned when NULL all attributes are to be returned
 #' @param ... Currently not used
 #'
 #' This function tabulates the attributes of one scan or all scans of a pvol.
@@ -15,12 +15,12 @@
 #'
 #' @examples
 #' data(example_scan)
-#' vcp(example_scan)
+#' attribute_table(example_scan)
 #'
 #' pvolfilepath <- system.file("extdata", "volume.h5", package = "bioRad")
 #' example_pvol <- read_pvolfile(pvolfilepath)
-#' vcp(example_pvol)
-vcp <-
+#' attribute_table(example_pvol)
+attribute_table <-
   function(x,
            add_params = T,
            select = c(
@@ -43,7 +43,7 @@ vcp <-
           "rbind",
           lapply(
             x$scans,
-            vcp,
+            attribute_table,
             add_params = add_params,
             select = select,
             ...
