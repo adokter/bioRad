@@ -135,8 +135,8 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
       by = "days"
     ), tz = "UTC")
 
-    trise <- sunrise(days, lon, lat)
-    tset <- sunset(days, lon, lat)
+    trise <- sunrise(days, lon, lat, elev = elev)
+    tset <- sunset(days, lon, lat, elev=elev)
 
     if (trise[1] < tset[1]) {
       trise <- trise[-1]
