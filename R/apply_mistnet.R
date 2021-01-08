@@ -39,7 +39,7 @@
 #'
 #' MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
 #' radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
-#' elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
+#' elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on these data
 #' it can estimate a segmentation mask that identifies pixels with weather
 #' that should be removed when interested only in biological data.
 #'
