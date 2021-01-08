@@ -28,6 +28,7 @@ reference:
     desc: "Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data."
     contents:
       - is.pvolfile
+      - get_iris_raw_task
       - get_odim_object_type
       - nexrad_to_odim
       - read_pvolfile

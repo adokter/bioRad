@@ -87,7 +87,7 @@ resultant segmentation as a polar volume (pvol) object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9406</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9417</span>
       </span>
     </div>
 
@@ -166,7 +166,9 @@ resultant segmentation as a polar volume (<code>pvol</code>) object.</p>
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>),
   <span class='kw'>load</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>)
+  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>),
+  <span class='no'>local_install</span>,
+  <span class='no'>local_mistnet</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,7 +180,7 @@ resultant segmentation as a polar volume (<code>pvol</code>) object.</p>
     </tr>
     <tr>
       <th>pvolfile_out</th>
-      <td><p>character. Filename for the polar volume to be
+      <td><p>character. (optional) Filename for the polar volume to be
 stored, including the MistNet segmentation results</p></td>
     </tr>
     <tr>
@@ -202,6 +204,18 @@ Elevation angles to feed to the MistNet
 segmentation model, which expects exactly 5 elevation scans
 at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.</p></td>
+    </tr>
+    <tr>
+      <th>local_install</th>
+      <td><p>(optional) String with path to local vol2bird binary
+(e.g. <code>"/your/install_path/vol2bird/bin/vol2bird"</code>),
+to use local installation instead of Docker container</p></td>
+    </tr>
+    <tr>
+      <th>local_mistnet</th>
+      <td><p>(optional) String with path to local mistnet segmentation model
+in PyTorch format (e.g. <code>"/your/path/mistnet_nexrad.pt"</code>),
+to use local installation instead of Docker container.</p></td>
     </tr>
     </table>
 
