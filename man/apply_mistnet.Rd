@@ -10,13 +10,15 @@ apply_mistnet(
   verbose = FALSE,
   mount = dirname(file),
   load = TRUE,
-  mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5)
+  mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
+  local_install,
+  local_mistnet
 )
 }
 \arguments{
 \item{file}{character. File path for a radar polar volume.}
 
-\item{pvolfile_out}{character. Filename for the polar volume to be
+\item{pvolfile_out}{character. (optional) Filename for the polar volume to be
 stored, including the MistNet segmentation results}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
@@ -32,6 +34,14 @@ Elevation angles to feed to the MistNet
 segmentation model, which expects exactly 5 elevation scans
 at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.}
+
+\item{local_install}{(optional) String with path to local vol2bird binary
+(e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
+to use local installation instead of Docker container}
+
+\item{local_mistnet}{(optional) String with path to local mistnet segmentation model
+in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
+to use local installation instead of Docker container.}
 }
 \value{
 If parameter \code{load} is TRUE an object of class \code{pvol} on success.
