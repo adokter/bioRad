@@ -10,7 +10,7 @@
 #' @param mistnet_elevations numeric vector of length 5.
 #' Elevation angles to feed to the MistNet
 #' segmentation model, which expects exactly 5 elevation scans
-#' at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
+#' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 #' elevation angles may compromise segmentation results.
 #' @param local_install (optional) String with path to local vol2bird binary
 #' (e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
