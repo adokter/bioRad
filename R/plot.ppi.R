@@ -44,11 +44,11 @@
 #' # make ppi for the scan
 #' ppi <- project_as_ppi(example_scan)
 #'
-#' # plot the first scan parameter, which in this case is "VRADH":
+#' # plot the default scan parameter, which is reflectivity "DBZH":
 #' plot(ppi)
 #'
-#' # plot the reflectivity parameter:
-#' plot(ppi, param = "DBZH")
+#' # plot the radial velocity parameter:
+#' plot(ppi, param = "VRADH")
 #'
 #' # change the range of reflectivities to plot, from -10 to 10 dBZ:
 #' plot(ppi, param = "DBZH", zlim = c(-10, 10))
