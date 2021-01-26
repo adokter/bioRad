@@ -169,7 +169,7 @@ using the algorithm <a href='https://github.com/adokter/vol2bird/'>vol2bird</a> 
   <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>[<span class='fl'>1</span>]),
   <span class='no'>sd_vvp_threshold</span>,
   <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
   <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
@@ -435,7 +435,7 @@ Methods in Ecology and Evolution 10 (11), pp. 1908--22.
 <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>profile</span>)</div><div class='output co'>#&gt;    radar            datetime       ff        dbz      dens         u          v
 #&gt; 1  seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
 #&gt; 2  seang 2015-10-18 18:00:00      NaN  2.8776991  61.27740       NaN        NaN
-#&gt; 3  seang 2015-10-18 18:00:00 14.88610  5.5255389 112.74165 -6.467583 -13.407694
+#&gt; 3  seang 2015-10-18 18:00:00 14.88610  5.5430236 113.19646 -6.467583 -13.407694
 #&gt; 4  seang 2015-10-18 18:00:00 14.64004  4.6949205  93.11562 -6.711918 -13.010798
 #&gt; 5  seang 2015-10-18 18:00:00 13.30489  0.4530046  35.06153 -6.556170 -11.577423
 #&gt; 6  seang 2015-10-18 18:00:00 10.76581 -1.9438103  20.19061 -5.069613  -9.497456
@@ -456,7 +456,7 @@ Methods in Ecology and Evolution 10 (11), pp. 1908--22.
 #&gt;    gap          w n_dbz       dd    n      DBZH height n_dbz_all       eta
 #&gt; 1    1         NA     0       NA    0        NA      0         0        NA
 #&gt; 2    1        NaN   817      NaN  536  4.873434    200     10602  674.0515
-#&gt; 3    0   6.552267  4231 205.7517 2116  8.229273    400     17421 1240.1581
+#&gt; 3    0   6.552267  4214 205.7517 2116  8.229273    400     17421 1245.1610
 #&gt; 4    0 -17.817648  4085 207.2880 1866  4.437433    600      8098 1024.2719
 #&gt; 5    0 -12.915339  3897 209.5224 1155  1.342218    800      7801  385.6769
 #&gt; 6    0  30.602781  4369 208.0927  744 -0.492405   1000      7829  222.0967
