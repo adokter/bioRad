@@ -27,7 +27,9 @@ calculate_vp(
   nyquist_min = if (dealias) 5 else 25,
   dbz_quantity = "DBZH",
   mistnet = FALSE,
+  mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
   local_install,
+  local_mistnet,
   pvolfile
 )
 }
@@ -100,7 +102,13 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 
 \item{mistnet}{logical. Whether to use MistNet segmentation model.}
 
-\item{local_install}{(optional) String with path to local vol2bird installation, see details.}
+\item{local_install}{(optional) String with path to local vol2bird installation
+(e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
+To use local installation instead of Docker container, see details.}
+
+\item{local_mistnet}{(optional) String with path to local mistnet segmentation model
+in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
+to use local installation instead of Docker container.}
 
 \item{pvolfile}{deprecated argument renamed to \code{file}.}
 }
@@ -179,11 +187,17 @@ as possible.
 If you have installed the vol2bird algorithm locally (not possible on Windows)
 you can call vol2bird through this local installation (bypassing the Docker container),
 which will be faster. Simply point \code{local_install} to the path
-of your local vol2bird executable. Your local vol2bird executable will be called
+of your local vol2bird executable, e.g. {"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}.
+Your local vol2bird executable will be called
 through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.
+
+When using MistNet with a local vol2bird installation, also point parameter \code{local_mistnet}
+to your local download of the MistNet segmentation model in PyTorch format,
+e.g. \code{"/your/path/mistnet_nexrad.pt"}). The MistNet model can be downloaded at
+\url{https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt}.
 }
 \examples{
 # locate example polar volume file:

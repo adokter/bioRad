@@ -32,7 +32,7 @@ the Docker container.}
 \item{mistnet_elevations}{numeric vector of length 5.
 Elevation angles to feed to the MistNet
 segmentation model, which expects exactly 5 elevation scans
-at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
+at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.}
 
 \item{local_install}{(optional) String with path to local vol2bird binary
@@ -64,7 +64,7 @@ perform as well on C-band.
 
 MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
 radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
-elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
+elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on these data
 it can estimate a segmentation mask that identifies pixels with weather
 that should be removed when interested only in biological data.
 
