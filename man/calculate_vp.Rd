@@ -13,7 +13,7 @@ calculate_vp(
   mount = dirname(file[1]),
   sd_vvp_threshold,
   rcs = 11,
-  dual_pol = FALSE,
+  dual_pol = TRUE,
   rho_hv = 0.95,
   elev_min = 0,
   elev_max = 90,
