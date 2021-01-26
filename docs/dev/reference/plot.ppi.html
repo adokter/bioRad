@@ -87,7 +87,7 @@ using ggplot" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9417</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -239,10 +239,10 @@ model (ODIM), see Table 16 in the
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
 <span class='co'># make ppi for the scan</span>
 <span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'>
-<span class='co'># plot the first scan parameter, which in this case is "VRADH":</span>
+<span class='co'># plot the default scan parameter, which is reflectivity "DBZH":</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ppi</span>)</div><div class='img'><img src='plot.ppi-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># plot the reflectivity parameter:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='plot.ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot the radial velocity parameter:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"VRADH"</span>)</div><div class='img'><img src='plot.ppi-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># change the range of reflectivities to plot, from -10 to 10 dBZ:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>10</span>, <span class='fl'>10</span>))</div><div class='img'><img src='plot.ppi-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># change the scale name and colour scheme, using viridis colors:</span>

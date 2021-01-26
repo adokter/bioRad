@@ -87,7 +87,7 @@ using the algorithm vol2bird (Dokter et al. 2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9417</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -183,7 +183,9 @@ using the algorithm <a href='https://github.com/adokter/vol2bird/'>vol2bird</a> 
   <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>,
   <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
   <span class='kw'>mistnet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>),
   <span class='no'>local_install</span>,
+  <span class='no'>local_mistnet</span>,
   <span class='no'>pvolfile</span>
 )</pre>
 
@@ -304,7 +306,15 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.</p></td>
     </tr>
     <tr>
       <th>local_install</th>
-      <td><p>(optional) String with path to local vol2bird installation, see details.</p></td>
+      <td><p>(optional) String with path to local vol2bird installation
+(e.g. <code>"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"</code>).
+To use local installation instead of Docker container, see details.</p></td>
+    </tr>
+    <tr>
+      <th>local_mistnet</th>
+      <td><p>(optional) String with path to local mistnet segmentation model
+in PyTorch format (e.g. <code>"/your/path/mistnet_nexrad.pt"</code>),
+to use local installation instead of Docker container.</p></td>
     </tr>
     <tr>
       <th>pvolfile</th>
@@ -370,11 +380,16 @@ as possible.</p>
 <p>If you have installed the vol2bird algorithm locally (not possible on Windows)
 you can call vol2bird through this local installation (bypassing the Docker container),
 which will be faster. Simply point <code>local_install</code> to the path
-of your local vol2bird executable. Your local vol2bird executable will be called
+of your local vol2bird executable, e.g. "/your/vol2bird_install_directory/vol2bird/bin/vol2bird".
+Your local vol2bird executable will be called
 through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.</p>
+<p>When using MistNet with a local vol2bird installation, also point parameter <code>local_mistnet</code>
+to your local download of the MistNet segmentation model in PyTorch format,
+e.g. <code>"/your/path/mistnet_nexrad.pt"</code>). The MistNet model can be downloaded at
+<a href='https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt'>https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt</a>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dokter et al. (2011) is the main reference for the profiling algorithm
