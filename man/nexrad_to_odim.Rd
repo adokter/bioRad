@@ -24,7 +24,9 @@ Windows always TRUE.}
 \item{mount}{character. String with the mount point (a directory path) for
 the Docker container.}
 
-\item{local_install}{(optional) String with path to local vol2bird installation, see details.}
+\item{local_install}{(optional) String with path to local vol2bird installation
+(e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
+To use local installation instead of Docker container, see details.}
 }
 \value{
 \code{TRUE} on success
