@@ -44,6 +44,7 @@ Imports:
     maptools
 Suggests:
     knitr,
+    rmarkdown,
     testthat
 LazyData: true
 Encoding: UTF-8
