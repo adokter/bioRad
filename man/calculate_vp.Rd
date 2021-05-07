@@ -103,6 +103,7 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 \item{mistnet}{logical. Whether to use MistNet segmentation model.}
 
 \item{local_install}{(optional) String with path to local vol2bird installation
+\item{mistnet_elevations}{numeric vector.}
 (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
 To use local installation instead of Docker container, see details.}
 
