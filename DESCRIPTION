@@ -26,7 +26,6 @@ Imports:
     curl,
     data.table,
     fields,
-    ggmap,
     ggplot2,
     graphics,
     lubridate,
@@ -43,6 +42,7 @@ Imports:
     viridis,
     maptools
 Suggests:
+    ggmap,
     knitr,
     rmarkdown,
     testthat
