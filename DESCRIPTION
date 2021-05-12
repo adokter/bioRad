@@ -26,7 +26,7 @@ Imports:
     curl,
     data.table,
     fields,
-    ggmap,
+    ggmap (>= 3.0.0),
     ggplot2,
     graphics,
     lubridate,
@@ -44,9 +44,10 @@ Imports:
     maptools
 Suggests:
     knitr,
+    rmarkdown,
     testthat
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
