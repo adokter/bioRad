@@ -74,7 +74,7 @@ the start of the time series up to \code{datetime}}
 \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
 the start of the time series up to \code{datetime}}
 \item{\code{ff}}{Horizontal ground speed in m/s}
-\item{\code{dd}}{Horizontal ground speed direction in degrees}
+\item{\code{dd}}{Direction of the horizontal ground speed in degrees}
 \item{\code{u}}{Ground speed component west to east in m/s}
 \item{\code{v}}{Ground speed component south to north in m/s}
 \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
