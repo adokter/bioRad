@@ -16,10 +16,14 @@ vertical profile, otherwise \code{NA}.
 \description{
 Checks which data class is contained in ODIM HDF5 file.
 }
+\details{
+See \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}
+Table 2 for a full list of existing ODIM file object types.
+}
 \examples{
-# Locate the polar volume example file:
+# Locate the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
-# Check the data type:
+# Check the data type
 get_odim_object_type(pvolfile) # > "PVOL"
 }
