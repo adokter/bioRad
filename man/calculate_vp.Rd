@@ -102,15 +102,21 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
 
 \item{mistnet}{logical. Whether to use MistNet segmentation model.}
 
-\item{local_install}{(optional) String with path to local vol2bird installation
+\item{mistnet_elevations}{numeric vector of length 5.
+Elevation angles to feed to the MistNet
+segmentation model, which expects exactly 5 elevation scans
+at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
+elevation angles may compromise segmentation results.}
+
+\item{local_install}{character. String with path to local vol2bird installation
 (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
 To use local installation instead of Docker container, see details.}
 
-\item{local_mistnet}{(optional) String with path to local mistnet segmentation model
+\item{local_mistnet}{character. String with path to local mistnet segmentation model
 in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
 to use local installation instead of Docker container.}
 
-\item{pvolfile}{deprecated argument renamed to \code{file}.}
+\item{pvolfile}{character. Deprecated argument renamed to \code{file}.}
 }
 \value{
 A vertical profile object of class \link[=summary.vp]{vp}. When

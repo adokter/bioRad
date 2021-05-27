@@ -13,3 +13,4 @@ pkgdown/
 ^codemeta\.json$
 cran-comments.md
 inst/extdata/vpts.txt.zip
+^\.github$

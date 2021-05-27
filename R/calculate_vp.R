@@ -50,13 +50,18 @@
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param mistnet logical. Whether to use MistNet segmentation model.
-#' @param local_install (optional) String with path to local vol2bird installation
+#' @param mistnet_elevations numeric vector of length 5.
+#' Elevation angles to feed to the MistNet
+#' segmentation model, which expects exactly 5 elevation scans
+#' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
+#' elevation angles may compromise segmentation results.
+#' @param local_install character. String with path to local vol2bird installation
 #'  (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
 #'  To use local installation instead of Docker container, see details.
-#' @param local_mistnet (optional) String with path to local mistnet segmentation model
+#' @param local_mistnet character. String with path to local mistnet segmentation model
 #' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
 #' to use local installation instead of Docker container.
-#' @param pvolfile deprecated argument renamed to \code{file}.
+#' @param pvolfile character. Deprecated argument renamed to \code{file}.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
 #' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
