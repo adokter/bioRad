@@ -37,12 +37,8 @@ rsconnect/
 *.knit.md
 
 # pkgdown website
-# /docs/ # is not yet built by travis on gh-pages
+docs
 pkgdown/*
 
-# Mac OS X
+# Mac OS
 .DS_Store
-
-# Data in docs
-/docs/*/*.h5
-/docs/*/*.zip
