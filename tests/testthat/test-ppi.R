@@ -24,7 +24,8 @@ test_that("is.ppi() returns TRUE/FALSE correctly", {
 
 test_that("dim.ppi() returns number of params, x, y", {
   expect_vector(dim(ppi))
-  expect_equal(dim(ppi), c(5, 200, 200)) # 5 param, 200 x, 200 y
+  expect_equal(dim(ppi)[1], 5) # 5 param
+  expect_equal(dim(ppi)[2:3], c(200, 200), tolerance = 1) # 200 x, 200 y with tolerance
 })
 
 test_that("[.ppi subsets by param", {

@@ -8,13 +8,14 @@ nexrad_to_odim(
   pvolfile_nexrad,
   pvolfile_odim,
   verbose = FALSE,
-  mount = dirname(pvolfile_nexrad)
+  mount = dirname(pvolfile_nexrad),
+  local_install
 )
 }
 \arguments{
 \item{pvolfile_nexrad}{Polar volume input file in RSL format.}
 
-\item{pvolfile_odim}{Filename for the polar volume in ODIM hdf5 format to be
+\item{pvolfile_odim}{Filename for the polar volume in ODIM HDF5 format to be
 generated.}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
@@ -22,6 +23,10 @@ Windows always TRUE.}
 
 \item{mount}{character. String with the mount point (a directory path) for
 the Docker container.}
+
+\item{local_install}{character. String with path to local vol2bird installation
+(e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
+To use local installation instead of Docker container, see details.}
 }
 \value{
 \code{TRUE} on success
@@ -40,7 +45,7 @@ download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
 # convert to ODIM format
 nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")
 
-# verify that we have generated a polar volume in ODIM hdf5 format
+# verify that we have generated a polar volume in ODIM HDF5 format
 get_odim_object_type("~/KBGM_example.h5")
 
 # clean up

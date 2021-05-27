@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -159,7 +159,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for vpts</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
   <span class='no'>x</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"time"</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"height [m]"</span>,
@@ -286,8 +286,8 @@ each pennant (triangle) 25 m/s</p>
 <span class='no'>ts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
 <span class='co'># plot density of individuals for the first 500 time steps, in the altitude</span>
 <span class='co'># layer 0-3000 m.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='plot.vpts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot total reflectivity factor (rain, birds, insects together):</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='plot.vpts-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='plot.vpts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># plot total reflectivity factor (rain, birds, insects together):</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ts</span>[<span class='fl'>1</span>:<span class='fl'>500</span>], <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>3000</span>), <span class='kw'>quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Irregular time-series: missing profiles will not be visible.Use 'regularize_vpts' to make time series regular.</span></div><div class='img'><img src='plot.vpts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -303,7 +303,7 @@ each pennant (triangle) 25 m/s</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

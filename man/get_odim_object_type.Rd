@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvolfile.R
 \name{get_odim_object_type}
 \alias{get_odim_object_type}
-\title{Check the ODIM data class of a polar volume file}
+\title{Check the data object contained in a ODIM HDF5 file}
 \usage{
 get_odim_object_type(file)
 }

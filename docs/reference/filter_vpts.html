@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Time selection in a time series of vertical profiles ('vpts') — filter_vpts • bioRad</title>
+<title>Time and night/day selection in a time series of vertical profiles ('vpts') — filter_vpts • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Time selection in a time series of vertical profiles ('vpts') — filter_vpts" />
-<meta property="og:description" content="Time selection in a time series of vertical profiles ('vpts')" />
+<meta property="og:title" content="Time and night/day selection in a time series of vertical profiles ('vpts') — filter_vpts" />
+<meta property="og:description" content="Time and night/day selection in a time series of vertical profiles ('vpts')" />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -149,16 +149,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Time selection in a time series of vertical profiles ('vpts')</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
+    <h1>Time and night/day selection in a time series of vertical profiles ('vpts')</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/filter_vpts.R'><code>R/filter_vpts.R</code></a></small>
     <div class="hidden name"><code>filter_vpts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Time selection in a time series of vertical profiles ('vpts')</p>
+    <p>Time and night/day selection in a time series of vertical profiles ('vpts')</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_vpts</span>(<span class='no'>x</span>, <span class='no'>min</span>, <span class='no'>max</span>, <span class='no'>nearest</span>)</pre>
+    <pre class="usage"><span class='fu'>filter_vpts</span>(<span class='no'>x</span>, <span class='no'>min</span>, <span class='no'>max</span>, <span class='no'>nearest</span>, <span class='no'>night</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>0.268</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,7 +178,24 @@
     <tr>
       <th>nearest</th>
       <td><p>If specified, <code>min</code> and <code>max</code> are ignored and the profile nearest to the
-specified datetime is returned. POSIXct value or charater string convertable to POSIXct.</p></td>
+specified datetime is returned that matches the day/night selection criteria.
+POSIXct value or character string convertable to POSIXct.</p></td>
+    </tr>
+    <tr>
+      <th>night</th>
+      <td><p>When TRUE select only night time profiles, when FALSE select only day time profiles,
+as classified by <a href='check_night.html'>check_night</a>.</p></td>
+    </tr>
+    <tr>
+      <th>elev</th>
+      <td><p>numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
+length two, with first element giving sunset elevation, and second element sunrise elevation.</p></td>
+    </tr>
+    <tr>
+      <th>offset</th>
+      <td><p>numeric. Time duration in seconds by which to shift the start and end
+of night time. May also be a numeric vector of length two, with first element added to moment
+of sunset and second element added to moment of sunrise. See <a href='check_night.html'>check_night</a> for details.</p></td>
     </tr>
     </table>
 
@@ -188,7 +205,8 @@ specified datetime is returned. POSIXct value or charater string convertable to 
 if argument <code>nearest</code> is specified.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>returns profiles for which min &lt;= timestamp profile &lt; max.</p>
+    <p>Returns profiles for which min &lt;= timestamp profile &lt; max. Selection for night and day
+occurs by <a href='check_night.html'>check_night</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load example vertical profile time series:</span>
@@ -219,7 +237,30 @@ if argument <code>nearest</code> is specified.</p>
 #&gt;            radar:  KBGM 
 #&gt;       # profiles:  13 
 #&gt; time range (UTC):  2016-09-02 01:04:00 - 2016-09-02 02:59:00 
-#&gt;    time step (s):  min: 540     max:  600 </div></pre>
+#&gt;    time step (s):  min: 540     max:  600 </div><div class='input'>
+<span class='co'># select day time profiles (day time periods from sunrise to sunset)</span>
+<span class='fu'>filter_vpts</span>(<span class='no'>example_vpts</span>, <span class='kw'>night</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  910 
+#&gt; time range (UTC):  2016-09-01 10:35:00 - 2016-09-10 11:56:00 
+#&gt;    time step (s):  min: 180     max:  41460 </div><div class='input'>
+<span class='co'># select night time profiles, with nights starting starting and ending at civil twilight</span>
+<span class='co'># (when the sun is 6 degrees below the horizon):</span>
+<span class='fu'>filter_vpts</span>(<span class='no'>example_vpts</span>, <span class='kw'>night</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>elev</span> <span class='kw'>=</span> -<span class='fl'>6</span>)</div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  938 
+#&gt; time range (UTC):  2016-09-01 00:10:00 - 2016-09-10 10:10:00 
+#&gt;    time step (s):  min: 180     max:  55200 </div><div class='input'>
+<span class='co'># select night time profiles from 3 hours after sunset to 2 hours before sunrise</span>
+<span class='fu'>filter_vpts</span>(<span class='no'>example_vpts</span>, <span class='kw'>night</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>offset</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,-<span class='fl'>2</span>)*<span class='fl'>3600</span>)</div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+#&gt; 
+#&gt;            radar:  KBGM 
+#&gt;       # profiles:  578 
+#&gt; time range (UTC):  2016-09-01 02:39:00 - 2016-09-10 08:41:00 
+#&gt;    time step (s):  min: 180     max:  65460 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -235,7 +276,7 @@ if argument <code>nearest</code> is specified.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

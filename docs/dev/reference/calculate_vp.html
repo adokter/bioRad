@@ -87,7 +87,7 @@ using the algorithm vol2bird (Dokter et al. 2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -169,7 +169,7 @@ using the algorithm <a href='https://github.com/adokter/vol2bird/'>vol2bird</a> 
   <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>[<span class='fl'>1</span>]),
   <span class='no'>sd_vvp_threshold</span>,
   <span class='kw'>rcs</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dual_pol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>rho_hv</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
   <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
@@ -183,7 +183,9 @@ using the algorithm <a href='https://github.com/adokter/vol2bird/'>vol2bird</a> 
   <span class='kw'>nyquist_min</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='no'>dealias</span>) <span class='fl'>5</span> <span class='kw'>else</span> <span class='fl'>25</span>,
   <span class='kw'>dbz_quantity</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>,
   <span class='kw'>mistnet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>),
   <span class='no'>local_install</span>,
+  <span class='no'>local_mistnet</span>,
   <span class='no'>pvolfile</span>
 )</pre>
 
@@ -304,7 +306,15 @@ quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.</p></td>
     </tr>
     <tr>
       <th>local_install</th>
-      <td><p>(optional) String with path to local vol2bird installation, see details.</p></td>
+      <td><p>(optional) String with path to local vol2bird installation
+(e.g. <code>"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"</code>).
+To use local installation instead of Docker container, see details.</p></td>
+    </tr>
+    <tr>
+      <th>local_mistnet</th>
+      <td><p>(optional) String with path to local mistnet segmentation model
+in PyTorch format (e.g. <code>"/your/path/mistnet_nexrad.pt"</code>),
+to use local installation instead of Docker container.</p></td>
     </tr>
     <tr>
       <th>pvolfile</th>
@@ -370,11 +380,16 @@ as possible.</p>
 <p>If you have installed the vol2bird algorithm locally (not possible on Windows)
 you can call vol2bird through this local installation (bypassing the Docker container),
 which will be faster. Simply point <code>local_install</code> to the path
-of your local vol2bird executable. Your local vol2bird executable will be called
+of your local vol2bird executable, e.g. "/your/vol2bird_install_directory/vol2bird/bin/vol2bird".
+Your local vol2bird executable will be called
 through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
 correctly specified in your .bashrc or .bash_profile file
 and contain all the required shared libraries by vol2bird. See vol2bird installation
 pages on Github for details.</p>
+<p>When using MistNet with a local vol2bird installation, also point parameter <code>local_mistnet</code>
+to your local download of the MistNet segmentation model in PyTorch format,
+e.g. <code>"/your/path/mistnet_nexrad.pt"</code>). The MistNet model can be downloaded at
+<a href='https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt'>https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt</a>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dokter et al. (2011) is the main reference for the profiling algorithm
@@ -408,13 +423,99 @@ Methods in Ecology and Evolution 10 (11), pp. 1908--22.
 <span class='co'># copy to a home directory with read/write permissions:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(<span class='no'>pvolfile</span>, <span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># calculate the profile:</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='no'>profile</span> <span class='kw'>&lt;-</span> <span class='fu'>calculate_vp</span>(<span class='st'>"~/volume.h5"</span>)
 <span class='co'># print some summary info:</span>
-<span class='no'>profile</span>
-<span class='co'># convert profile to a data.frame:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>profile</span>)
-}
+<span class='no'>profile</span></div><div class='output co'>#&gt;                Vertical profile (class vp)
+#&gt; 
+#&gt;        radar:  seang 
+#&gt;       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar 
+#&gt; nominal time:  2015-10-18 18:00:00 
+#&gt; generated by:  vol2bird 0.5.0.9167 </div><div class='input'><span class='co'># convert profile to a data.frame:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>profile</span>)</div><div class='output co'>#&gt;    radar            datetime       ff        dbz      dens         u          v
+#&gt; 1  seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 2  seang 2015-10-18 18:00:00      NaN  2.8776991  61.27740       NaN        NaN
+#&gt; 3  seang 2015-10-18 18:00:00 14.88610  5.5430236 113.19646 -6.467583 -13.407694
+#&gt; 4  seang 2015-10-18 18:00:00 14.64004  4.6949205  93.11562 -6.711918 -13.010798
+#&gt; 5  seang 2015-10-18 18:00:00 13.30489  0.4530046  35.06153 -6.556170 -11.577423
+#&gt; 6  seang 2015-10-18 18:00:00 10.76581 -1.9438103  20.19061 -5.069613  -9.497456
+#&gt; 7  seang 2015-10-18 18:00:00 10.33567 -1.8632607  20.56858 -5.671824  -8.640401
+#&gt; 8  seang 2015-10-18 18:00:00 12.07231 -2.2290711  18.90703 -7.580208  -9.395803
+#&gt; 9  seang 2015-10-18 18:00:00 10.28255 -2.5026581  17.75271 -3.064733  -9.815207
+#&gt; 10 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 11 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 12 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 13 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 14 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 15 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 16 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 17 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 18 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 19 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt; 20 seang 2015-10-18 18:00:00       NA         NA        NA        NA         NA
+#&gt;    gap          w n_dbz       dd    n      DBZH height n_dbz_all       eta
+#&gt; 1    1         NA     0       NA    0        NA      0         0        NA
+#&gt; 2    1        NaN   817      NaN  536  4.873434    200     10602  674.0515
+#&gt; 3    0   6.552267  4214 205.7517 2116  8.229273    400     17421 1245.1610
+#&gt; 4    0 -17.817648  4085 207.2880 1866  4.437433    600      8098 1024.2719
+#&gt; 5    0 -12.915339  3897 209.5224 1155  1.342218    800      7801  385.6769
+#&gt; 6    0  30.602781  4369 208.0927  744 -0.492405   1000      7829  222.0967
+#&gt; 7    0  24.725313  2276 213.2821  450 -1.101062   1200      3206  226.2544
+#&gt; 8    0  57.809780  1694 218.8954  198 -1.102251   1400      2851  207.9773
+#&gt; 9    0  36.869717  2045 197.3406  158 10.828478   1600      3213  195.2798
+#&gt; 10   1         NA     0       NA    0        NA   1800         0        NA
+#&gt; 11   1         NA     0       NA    0        NA   2000         0        NA
+#&gt; 12   1         NA     0       NA    0        NA   2200         0        NA
+#&gt; 13   1         NA     0       NA    0        NA   2400         0        NA
+#&gt; 14   1         NA     0       NA    0        NA   2600         0        NA
+#&gt; 15   1         NA     0       NA    0        NA   2800         0        NA
+#&gt; 16   1         NA     0       NA    0        NA   3000         0        NA
+#&gt; 17   1         NA     0       NA    0        NA   3200         0        NA
+#&gt; 18   1         NA     0       NA    0        NA   3400         0        NA
+#&gt; 19   1         NA     0       NA    0        NA   3600         0        NA
+#&gt; 20   1         NA     0       NA    0        NA   3800         0        NA
+#&gt;      sd_vvp n_all     lat     lon height_antenna   day             sunrise
+#&gt; 1        NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 2  3.271695  4351 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 3  3.220699  5304 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 4  3.316308  3144 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 5  3.897997  2043 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 6  4.067675  1380 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 7  4.837257   747 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 8  4.795825   483 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 9  4.506003   315 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 10       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 11       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 12       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 13       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 14       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 15       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 16       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 17       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 18       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 19       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt; 20       NA     0 56.3675 12.8517            209 FALSE 2015-10-18 05:50:07
+#&gt;                 sunset
+#&gt; 1  2015-10-18 15:56:28
+#&gt; 2  2015-10-18 15:56:28
+#&gt; 3  2015-10-18 15:56:28
+#&gt; 4  2015-10-18 15:56:28
+#&gt; 5  2015-10-18 15:56:28
+#&gt; 6  2015-10-18 15:56:28
+#&gt; 7  2015-10-18 15:56:28
+#&gt; 8  2015-10-18 15:56:28
+#&gt; 9  2015-10-18 15:56:28
+#&gt; 10 2015-10-18 15:56:28
+#&gt; 11 2015-10-18 15:56:28
+#&gt; 12 2015-10-18 15:56:28
+#&gt; 13 2015-10-18 15:56:28
+#&gt; 14 2015-10-18 15:56:28
+#&gt; 15 2015-10-18 15:56:28
+#&gt; 16 2015-10-18 15:56:28
+#&gt; 17 2015-10-18 15:56:28
+#&gt; 18 2015-10-18 15:56:28
+#&gt; 19 2015-10-18 15:56:28
+#&gt; 20 2015-10-18 15:56:28</div><div class='input'><span class='co'># }</span>
 
 <span class='co'># clean up:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/volume.h5"</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
@@ -433,7 +534,7 @@ Methods in Ecology and Evolution 10 (11), pp. 1908--22.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

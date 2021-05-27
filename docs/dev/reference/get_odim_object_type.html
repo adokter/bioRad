@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check the ODIM data class of a polar volume file — get_odim_object_type • bioRad</title>
+<title>Check the data object contained in a ODIM HDF5 file — get_odim_object_type • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Check the ODIM data class of a polar volume file — get_odim_object_type" />
-<meta property="og:description" content="Checks which data class is contained in ODIM HDF5 file" />
+<meta property="og:title" content="Check the data object contained in a ODIM HDF5 file — get_odim_object_type" />
+<meta property="og:description" content="Checks which data object is contained in ODIM HDF5 file" />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -149,13 +149,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check the ODIM data class of a polar volume file</h1>
+    <h1>Check the data object contained in a ODIM HDF5 file</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/pvolfile.R'><code>R/pvolfile.R</code></a></small>
     <div class="hidden name"><code>get_odim_object_type.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Checks which data class is contained in ODIM HDF5 file</p>
+    <p>Checks which data object is contained in ODIM HDF5 file</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_odim_object_type</span>(<span class='no'>file</span>)</pre>
@@ -171,8 +171,12 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>character string <code>pvol</code> for polar volume, <code>vp</code> for
-vertical profile, otherwise <code>NA</code></p>
+    <p>character string <code>PVOL</code> for polar volume, <code>VP</code> for
+vertical profile.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>See <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>
+Table 2 for a full list of existing ODIM file object types.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># locate a polar volume file:</span>
@@ -195,7 +199,7 @@ vertical profile, otherwise <code>NA</code></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

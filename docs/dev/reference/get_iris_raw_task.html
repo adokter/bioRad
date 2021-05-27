@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print method for class <code>vpts</code> — print.vpts • bioRad</title>
+<title>Check task of IRIS RAW file — get_iris_raw_task • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,12 +52,12 @@
 
 
 
-<meta property="og:title" content="Print method for class <code>vpts</code> — print.vpts" />
-<meta property="og:description" content="Print method for class vpts" />
+<meta property="og:title" content="Check task of IRIS RAW file — get_iris_raw_task" />
+<meta property="og:description" content="Checks which task (polar volume type) is contained in a IRIS RAW file" />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
-
+<meta name="robots" content="noindex">
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -149,28 +149,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print method for class <code>vpts</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/vpts.R'><code>R/vpts.R</code></a></small>
-    <div class="hidden name"><code>print.vpts.Rd</code></div>
+    <h1>Check task of IRIS RAW file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/iris.R'><code>R/iris.R</code></a></small>
+    <div class="hidden name"><code>get_iris_raw_task.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Print method for class <code>vpts</code></p>
+    <p>Checks which task (polar volume type) is contained in a IRIS RAW file</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for vpts</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fl'>3L</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>) - <span class='fl'>3L</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_iris_raw_task</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>header_size</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>task</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"WIND"</span>, <span class='st'>"SURVEILLANCE"</span>, <span class='st'>"VOL_A"</span>, <span class='st'>"VOL_B"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>An object of class <code>vpts</code>, usually a result of a call
-to <code><a href='bind_into_vpts.html'>bind_into_vpts</a></code>.</p></td>
+      <th>file</th>
+      <td><p>A string containing a file name.</p></td>
+    </tr>
+    <tr>
+      <th>header_size</th>
+      <td><p>Number of header bytes to search</p></td>
+    </tr>
+    <tr>
+      <th>task</th>
+      <td><p>task names to search for in the file header</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>one of the <code>task</code> names found in the header, <code>NA</code> if none of the task names were found.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -187,7 +200,7 @@ to <code><a href='bind_into_vpts.html'>bind_into_vpts</a></code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

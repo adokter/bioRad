@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>vp</code>: a vertical profile of animals — summary.vp • bioRad</title>
+<title>Inspect a vertical profile (<code>vp</code>) — summary.vp • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,9 @@
 
 
 
-<meta property="og:title" content="Class <code>vp</code>: a vertical profile of animals — summary.vp" />
-<meta property="og:description" content="Class vp for a vertical profile of animals" />
+<meta property="og:title" content="Inspect a vertical profile (<code>vp</code>) — summary.vp" />
+<meta property="og:description" content="R base functions for inspecting a vertical profile of biological targets
+(vp) object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -149,13 +150,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>vp</code>: a vertical profile of animals</h1>
+    <h1>Inspect a vertical profile (<code>vp</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/vp.R'><code>R/vp.R</code></a></small>
     <div class="hidden name"><code>summary.vp.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Class <code>vp</code> for a vertical profile of animals</p>
+    <p>R base functions for inspecting a vertical profile of biological targets
+(<code>vp</code>) object.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for vp</span>
@@ -171,7 +173,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class <code>vp</code>.</p></td>
+      <td><p>A <code>vp</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -179,77 +181,99 @@
     </tr>
     <tr>
       <th>x</th>
-      <td><p>An object of class <code>vp</code>.</p></td>
+      <td><p>A <code>vp</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>is.vp</code>: <code>TRUE</code> if its argument is of class <code>vp</code>.</p>
-<p>For <code>dim.vp</code>: dimensions of the profile data.</p>
+    <p>For <code>is.vp()</code>: <code>TRUE</code> for an object of class <code>vp</code>, otherwise
+<code>FALSE</code>.</p>
+<p>For <code>dim.vp()</code>: number of heights and quantities in a vertical
+profile (<code>vp</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An object of class <code>vp</code> contains a vertical profile. A vertical profile
-contains a collection of quantities, with each quantity having values at
-different altitude layers above the earth's surface, typically equally
-spaced altitudinal layers.</p>
-<p>Data contained in this class object should be accessed with the
-<a href='get_quantity.html'>get_quantity</a> function. Information stored under <code>attributes</code>
-(see below) can be accessed directly.</p>
-<p>A <code>vp</code> object is a list containing</p><dl'>
- <dt><strong><code>radar</code></strong></dt><dd><p>the radar identifier</p></dd>
- <dt><strong><code>datetime</code></strong></dt><dd><p>the nominal time of the profile</p></dd>
- <dt><strong><code>data</code></strong></dt><dd><p>the profile data, a list containing:
-   <dl'>
-       <dt><code>height</code></dt><dd><p>height above mean sea level [m]. Alt. bin from height to height+interval)</p></dd>
-       <dt><code>u</code></dt><dd><p>speed component west to east [m/s]</p></dd>
-       <dt><code>v</code></dt><dd><p>speed component north to south [m/s]</p></dd>
-       <dt><code>w</code></dt><dd><p>vertical speed (unreliable!) [m/s]</p></dd>
-       <dt><code>ff</code></dt><dd><p>horizontal speed [m/s]</p></dd>
-       <dt><code>dd</code></dt><dd><p>direction [degrees, clockwise from north]</p></dd>
-       <dt><code>sd_vvp</code></dt><dd><p>VVP radial velocity standard deviation [m/s]</p></dd>
-       <dt><code>gap</code></dt><dd><p>Angular data gap detected [T/F]</p></dd>
-       <dt><code>dbz</code></dt><dd><p>Animal reflectivity factor [dBZ]</p></dd>
-       <dt><code>eta</code></dt><dd><p>Animal reflectivity [cm^2/km^3]</p></dd>
-       <dt><code>dens</code></dt><dd><p>Animal density [animals/km^3]</p></dd>
-       <dt><code>DBZH</code></dt><dd><p>Total reflectivity factor (bio+meteo scattering) [dBZ]</p></dd>
-       <dt><code>n</code></dt><dd><p>number of points VVPvelocity analysis (u,v,w,ff,dd)</p></dd>
-       <dt><code>n_all</code></dt><dd><p>number of points VVP st.dev. estimate (sd_vvp)</p></dd>
-       <dt><code>n_dbz</code></dt><dd><p>number of points density estimate (dbz,eta,dens)</p></dd>
-       <dt><code>n_dbz_all</code></dt><dd><p>number of points total reflectivity estimate (DBZH)</p></dd></dl></p></dd>
- <dt><strong><code>attributes</code></strong></dt><dd><p>list with the profile's <code>\what</code>,
- <code>\where</code> and <code>\how</code> attributes</p></dd>
+    <p>A vertical profile of biological targets contains a collection of quantities,
+organized in different (typically equally spaced) altitude layers (height
+bins) above the earth's surface. A vertical profile (<code>vp</code>) object is a list
+containing:</p><ul>
+<li><p><code>radar</code>: Radar identifier.</p></li>
+<li><p><code>datetime</code>: Nominal time of the volume to which the scan belongs in UTC.</p></li>
+<li><p><code>data</code>: A data.frame with the profile's quantities organized per height
+bin. Use <code><a href='get_quantity.html'>get_quantity()</a></code> to access these:</p><ul>
+<li><p><code>height</code>: Height bin (lower bound) in m above sea level.</p></li>
+<li><p><code>u</code>: Speed component west to east in m/s.</p></li>
+<li><p><code>v</code>: Speed component north to south in m/s.</p></li>
+<li><p><code>w</code>: Vertical speed (unreliable!) in m/s.</p></li>
+<li><p><code>ff</code>: Horizontal speed in m/s.</p></li>
+<li><p><code>dd</code>: Direction in degrees clockwise from north.</p></li>
+<li><p><code>sd_vvp</code>: VVP radial velocity standard deviation in m/s.</p></li>
+<li><p><code>gap</code>: Angular data gap detected in T/F.</p></li>
+<li><p><code>dbz</code>: Animal reflectivity factor in dBZ.</p></li>
+<li><p><code>eta</code>: Animal reflectivity in cm^2/km^3.</p></li>
+<li><p><code>dens</code>: Animal density in animals/km^3.</p></li>
+<li><p><code>DBZH</code>: Total reflectivity factor (bio + meteo scattering) in dBZ.</p></li>
+<li><p><code>n</code>: Number of data points used for the ground speed estimates
+(quantities <code>u</code>, <code>v</code>, <code>w</code>, <code>ff</code>, <code>dd</code>).</p></li>
+<li><p><code>n_all</code>: Number of data points used for the radial velocity standard
+deviation estimate (quantity <code>sd_vvp</code>).</p></li>
+<li><p><code>n_dbz</code>: Number of data points used for reflectivity-based estimates
+(quantities <code>dbz</code>, <code>eta</code>, <code>dens</code>).</p></li>
+<li><p><code>n_dbz_all</code>: Number of data points used for the total reflectivity
+estimate (quantity <code>DBZH</code>).</p></li>
+</ul></li>
+<li><p><code>attributes</code>: List of the vertical profile's <code>what</code>, <code>where</code> and <code>how</code>
+attributes.</p></li>
+</ul>
 
-</dl>
+    <h2 class="hasAnchor" id="conventions"><a class="anchor" href="#conventions"></a>Conventions</h2>
 
-<h3>Conventions</h3>
-<p></p><ul>
-<li><p><code>NA</code> Maps to 'nodata' in the ODIM convention: value to denote areas void of data
-     (never radiated)</p></li>
-<li><p><code>NaN</code> Maps to 'undetect' in the ODIM convention: denote areas below the measurement
-    detection threshold (radiated but nothing detected). The value is also used when there are too
-    few datapoints to calculate a quantity.</p></li>
-<li><p><code>0</code> Maps to 0 in the ODIM convention: denote areas where the quantity has a measured
-     value of zero (radiated and value zero detected or inferred).</p></li>
-</ul><p>It depends on a radar's detection threshold or signal to noise ratio whether it safe to assume
-  an 'undetect' is equivalent to zero. When dealing with close range data only (within 35 km), it
-  is typically safe to assume aerial densities (dens) and reflectivities (eta) are in fact zero
-  in case of undetects.</p>
+    
 
+<ul>
+<li><p><code>NA</code>: Maps to <code>nodata</code> in the ODIM convention: value to denote areas void
+of data (never radiated).</p></li>
+<li><p><code>NaN</code>: Maps to <code>undetect</code> in the ODIM convention: denote areas below the
+measurement detection threshold (radiated but nothing detected). The value is
+also used when there are too few datapoints to calculate a quantity.</p></li>
+<li><p><code>0</code>: Maps to <code>0</code> in the ODIM convention: denote areas where the quantity
+has a measured value of zero (radiated and value zero detected or inferred).</p></li>
+</ul>
+
+<p>It depends on a radar's detection threshold or signal to noise ratio whether
+it safe to assume an <code>undetect</code> is equivalent to zero. When dealing with
+close range data only (within 35 km), it is typically safe to assume aerial
+densities (<code>dens</code>) and reflectivities (<code>eta</code>) are in fact zero in case of
+undetects.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='calculate_vp.html'>calculate_vp()</a></code></p></li>
+<li><p><code><a href='read_vpfiles.html'>read_vpfiles()</a></code></p></li>
+<li><p><code><a href='example_vp.html'>example_vp</a></code></p></li>
+<li><p><code><a href='get_quantity.html'>get_quantity()</a></code></p></li>
+<li><p><code><a href='plot.vp.html'>plot.vp()</a></code></p></li>
+<li><p><code><a href='as.data.frame.vp.html'>as.data.frame.vp()</a></code></p></li>
+<li><p><code><a href='bind_into_vpts.html'>bind_into_vpts()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example vp object</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vp</span>)
-<span class='no'>example_vp</span></div><div class='output co'>#&gt;                Vertical profile (class vp)
+    <pre class="examples"><div class='input'><span class='co'># Load the example vertical profile</span>
+<span class='no'>vp</span> <span class='kw'>&lt;-</span> <span class='no'>example_vp</span>
+
+<span class='co'># Verify that it is an object of class vp</span>
+<span class='fu'>is.vp</span>(<span class='no'>vp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Get summary info</span>
+<span class='no'>vp</span> <span class='co'># Same as summary(vp) or print(vp)</span></div><div class='output co'>#&gt;                Vertical profile (class vp)
 #&gt; 
 #&gt;        radar:  seang 
 #&gt;       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar 
 #&gt; nominal time:  2015-10-18 18:00:00 
 #&gt; generated by:  vol2bird 0.3.17 </div><div class='input'>
-<span class='co'># check that the object is a vp object:</span>
-<span class='fu'>is.vp</span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># dimensions of the vp object:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 25 16</div></pre>
+<span class='co'># Get dimensions</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>vp</span>)</div><div class='output co'>#&gt; [1] 25 16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -265,7 +289,7 @@ spaced altitudinal layers.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

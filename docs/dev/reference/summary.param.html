@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>param</code>: a parameter of a scan of a polar volume — summary.param • bioRad</title>
+<title>Inspect a parameter (<code>param</code>) — summary.param • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,8 @@
 
 
 
-<meta property="og:title" content="Class <code>param</code>: a parameter of a scan of a polar volume — summary.param" />
-<meta property="og:description" content="Class param for a parameter of a scan of a polar volume, and its
-associated R base functions." />
+<meta property="og:title" content="Inspect a parameter (<code>param</code>) — summary.param" />
+<meta property="og:description" content="R base functions for inspecting a parameter (param) object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -87,7 +86,7 @@ associated R base functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -150,14 +149,13 @@ associated R base functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>param</code>: a parameter of a scan of a polar volume</h1>
+    <h1>Inspect a parameter (<code>param</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/param.R'><code>R/param.R</code></a></small>
     <div class="hidden name"><code>summary.param.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Class <code>param</code> for a parameter of a scan of a polar volume, and its
-associated R base functions.</p>
+    <p>R base functions for inspecting a parameter (<code>param</code>) object.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for param</span>
@@ -170,7 +168,7 @@ associated R base functions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object of class <code>param</code>.</p></td>
+      <td><p>A <code>param</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -178,55 +176,43 @@ associated R base functions.</p>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>Object of class <code>param</code>.</p></td>
+      <td><p>A <code>param</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>for <code>is.scan</code>: <code>TRUE</code> if its argument is of
-class "<code>param</code>"</p>
+    <p>For <code>is.param()</code>: <code>TRUE</code> for an object of class <code>param</code>, otherwise
+<code>FALSE</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An object of class <code>scan</code> is a simple matrix, with the following
-specific attributes:</p><dl'>
-<dt><code>radar</code></dt><dd><p>character string with the radar identifier</p></dd>
-<dt><code>datetime</code></dt><dd><p>nominal time of the volume to which this
-scan belongs (UTC)</p></dd>
-<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
-<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
-<dt><code>height</code></dt><dd><p>height of the radar antenna (meters above sea level)</p></dd>
-<dt><code>get_elevation_angles</code></dt><dd><p>radar beam elevation (degrees)</p></dd>
-<dt><code>param</code></dt><dd><p>string with the name of the polar scan parameter</p></dd>
+    <p>A parameter is a quantity/variable measured by the radar during a scan (or
+sweep). These are organized along radar range (bins) and azimuth (rays). Scan
+parameters are named according to the OPERA data information model (ODIM),
+see Table 16 in the <a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.</p>
+<p>Commonly available parameters are:</p><ul>
+<li><p><code>DBZH</code>, <code>DBZ</code>: (Logged) reflectivity factor in dBZ.</p></li>
+<li><p><code>TH</code>, <code>T</code>: (Logged) uncorrected reflectivity factor in dBZ.</p></li>
+<li><p><code>VRADH</code>, <code>VRAD</code>: Radial velocity in m/s. Radial velocities towards the
+radar are negative, while radial velocities away from the radar are positive.</p></li>
+<li><p><code>RHOHV</code>: Correlation coefficient (unitless). Correlation between the
+vertically and horizontally polarized reflectivity factor.</p></li>
+<li><p><code>PHIDP</code>: Differential phase in degrees.</p></li>
+<li><p><code>ZDR</code>: (Logged) differential reflectivity in dB.</p></li>
+</ul>
 
-</dl><p>Scan parameters are named according to the OPERA data information model
-(ODIM), see Table 16 in the
-<a href='https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf'>ODIM specification</a>.
-Commonly available parameters are:</p><dl'>
-<dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor (dBZ)</p></dd>
-<dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities away
-from the radar are positive</p></dd>
-<dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient (unitless). Correlation
-between vertically polarized and horizontally polarized
-reflectivity factor</p></dd>
-<dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase (degrees)</p></dd>
-<dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity (dB)</p></dd>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-</dl>
-
+    <div class='dont-index'><p><code><a href='get_param.html'>get_param()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example scan object</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
-
-<span class='co'># extract the DBZH scan parameter:</span>
+    <pre class="examples"><div class='input'><span class='co'># Extract the DBZH scan parameter from the example scan</span>
 <span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_param.html'>get_param</a></span>(<span class='no'>example_scan</span>, <span class='st'>"DBZH"</span>)
 
-<span class='co'># verify this is an object of class param:</span>
+<span class='co'># Verify that it is an object of class param</span>
 <span class='fu'>is.param</span>(<span class='no'>param</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># print summary info for this scan parameter:</span>
-<span class='no'>param</span></div><div class='output co'>#&gt;                Polar scan parameter (class param)
+<span class='co'># Get summary info for this parameter</span>
+<span class='no'>param</span> <span class='co'># Same as summary(param) or print(param)</span></div><div class='output co'>#&gt;                Polar scan parameter (class param)
 #&gt; 
 #&gt;     quantity:  DBZH 
 #&gt;         dims:  480 bins x 360 rays</div></pre>
@@ -245,7 +231,7 @@ reflectivity factor</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

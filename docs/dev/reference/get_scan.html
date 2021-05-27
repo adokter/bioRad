@@ -53,7 +53,8 @@
 
 
 <meta property="og:title" content="Get a scan (<code>scan</code>) from a polar volume (<code>pvol</code>) — get_scan" />
-<meta property="og:description" content="Get a scan (scan) from a polar volume (pvol)" />
+<meta property="og:description" content="Returns the scan (scan) from a polar volume (pvol) with elevation angle
+closest to elev." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -155,7 +156,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Get a scan (<code>scan</code>) from a polar volume (<code>pvol</code>)</p>
+    <p>Returns the scan (<code>scan</code>) from a polar volume (<code>pvol</code>) with elevation angle
+closest to <code>elev</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_scan</span>(<span class='no'>x</span>, <span class='no'>elev</span>)</pre>
@@ -165,33 +167,37 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object of class <code>pvol</code>.</p></td>
+      <td><p>A <code>pvol</code> object.</p></td>
     </tr>
     <tr>
       <th>elev</th>
-      <td><p>Elevation angle.</p></td>
+      <td><p>Numeric. Elevation angle.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class '<a href='summary.scan.html'>scan</a>'.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>A <code>scan</code> object.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>The function returns the scan with elevation angle closest
-to <code>elev</code>.</p>
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='summary.scan.html'>summary.scan()</a></code></p></li>
+<li><p><code><a href='get_elevation_angles.html'>get_elevation_angles()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># locate example volume file:</span>
+    <pre class="examples"><div class='input'><span class='co'># Locate and read the polar volume example file</span>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
+<span class='no'>pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
 
-<span class='co'># load the file:</span>
-<span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span>(<span class='no'>pvolfile</span>)
+<span class='co'># Get elevation angles</span>
+<span class='fu'><a href='get_elevation_angles.html'>get_elevation_angles</a></span>(<span class='no'>pvol</span>)</div><div class='output co'>#&gt; [1] 0.5 1.5 2.5</div><div class='input'>
+<span class='co'># Extract the scan closest to 3 degrees elevation (= 2.5)</span>
+<span class='no'>scan</span> <span class='kw'>&lt;-</span> <span class='fu'>get_scan</span>(<span class='no'>pvol</span>, <span class='fl'>3</span>)
 
-<span class='co'># extract the scan at 3 degree elevation:</span>
-<span class='no'>scan</span> <span class='kw'>&lt;-</span> <span class='fu'>get_scan</span>(<span class='no'>example_pvol</span>, <span class='fl'>3</span>)
-
-<span class='co'># print summary info for this scan:</span>
+<span class='co'># Get summary info</span>
 <span class='no'>scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
@@ -212,7 +218,7 @@ to <code>elev</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

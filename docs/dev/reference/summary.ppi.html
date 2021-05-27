@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>ppi</code>: a plan position indicator — summary.ppi • bioRad</title>
+<title>Inspect a plan position indicator (<code>ppi</code>) — summary.ppi • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,8 @@
 
 
 
-<meta property="og:title" content="Class <code>ppi</code>: a plan position indicator — summary.ppi" />
-<meta property="og:description" content="Class ppi for a plan position indicator, and its associated R base
-functions." />
+<meta property="og:title" content="Inspect a plan position indicator (<code>ppi</code>) — summary.ppi" />
+<meta property="og:description" content="R base functions for inspecting a plan position indicator (ppi) object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -87,7 +86,7 @@ functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -150,14 +149,13 @@ functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>ppi</code>: a plan position indicator</h1>
+    <h1>Inspect a plan position indicator (<code>ppi</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/ppi.R'><code>R/ppi.R</code></a></small>
     <div class="hidden name"><code>summary.ppi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Class <code>ppi</code> for a plan position indicator, and its associated R base
-functions.</p>
+    <p>R base functions for inspecting a plan position indicator (<code>ppi</code>) object.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ppi</span>
@@ -173,7 +171,7 @@ functions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object of class <code>ppi</code>.</p></td>
+      <td><p>A <code>ppi</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -181,66 +179,62 @@ functions.</p>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>Object of class <code>ppi</code>.</p></td>
+      <td><p>A <code>ppi</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>is.ppi</code>: <code>TRUE</code> if its argument is of
-class <code>ppi</code>.</p>
-<p>For <code>dim.ppi</code>: dimensions of the ppi.</p>
+    <p>For <code>is.ppi()</code>: <code>TRUE</code> for an object of class <code>ppi</code>, otherwise
+<code>FALSE</code>.</p>
+<p>For <code>dim.ppi()</code>: number of parameters (<code>param</code>), x and y pixels in a
+plan position indicator (<code>ppi</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>ppi</code> objects are generated from elevation scans (<code>scan</code> objects)
-with <a href='project_as_ppi.html'>project_as_ppi</a> or from polar volumes with <a href='integrate_to_ppi.html'>integrate_to_ppi</a>,
-producing projections of the radar data onto the earth's surface.</p>
-<p>An object of class <code>ppi</code> is a list containing:</p><dl'>
-<dt><code>data</code></dt><dd><p>an object of class <a href='https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html'>SpatialGridDataFrame</a>
-containing the georeferenced data. Commonly available parameters are:
-<dl'>
-<dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt><dd><p>(Logged) reflectivity factor (dBZ)</p></dd>
-<dt>"<code>TH</code>", "<code>T</code>"</dt><dd><p>(Logged) uncorrected reflectivity factor (dBZ)</p></dd>
-<dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt><dd><p>Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities
-away from the radar are positive</p></dd>
-<dt>"<code>RHOHV</code>"</dt><dd><p>Correlation coefficient (unitless). Correlation
-between vertically polarized and horizontally polarized reflectivity
-factor</p></dd>
-<dt>"<code>PHIDP</code>"</dt><dd><p>Differential phase (degrees)</p></dd>
-<dt>"<code>ZDR</code>"</dt><dd><p>(Logged) differential reflectivity (dB)</p></dd></dl></p></dd>
-<dt><code>geo</code></dt><dd><p>geographic data, a list with:
-<dl'>
-<dt><code>lat</code></dt><dd><p>latitude of the radar (decimal degrees)</p></dd>
-<dt><code>lon</code></dt><dd><p>longitude of the radar (decimal degrees)</p></dd>
-<dt><code>height</code></dt><dd><p>height of the radar
-antenna (meters above sea level)</p></dd>
-<dt><code>elangle</code></dt><dd><p>radar beam elevation (degrees)</p></dd>
-<dt><code>rscale</code></dt><dd><p>range bin size (m)</p></dd>
-<dt><code>ascale</code></dt><dd><p>azimuth bin size (deg)</p></dd></dl>
-The <code>geo</code> element of a 'scan' object is a copy of the <code>geo</code>
-element of its parent scan or scan parameter.</p></dd>
+    <p>A plan position indicator is a projection of radar data onto the earth's
+surface, generated from a single scan (<code>scan</code>) with <code><a href='project_as_ppi.html'>project_as_ppi()</a></code>, a
+polar volume (<code>pvol</code>) with <code><a href='integrate_to_ppi.html'>integrate_to_ppi()</a></code> or multiple plan position
+indicators (<code>ppi</code>) with <code><a href='composite_ppi.html'>composite_ppi()</a></code>. A plan position indicator (<code>ppi</code>)
+object is a list containing:</p><ul>
+<li><p><code>radar</code>: Radar identifier.</p></li>
+<li><p><code>datetime</code>: Nominal time of the volume to which the scan belongs in UTC.</p></li>
+<li><p><code>data</code>: A <code><a href='https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html'>sp::SpatialGridDataFrame</a></code> containing the georeferenced data.
+See <code><a href='summary.param.html'>summary.param()</a></code> for commonly available parameters, such as <code>DBZH</code>.</p></li>
+<li><p><code>geo</code>: List of the scan's geographic properties (see the <code>geo</code> element in
+<code><a href='summary.scan.html'>summary.scan()</a></code>), with two additional properties:</p><ul>
+<li><p><code>bbox</code>: Bounding box for the plan position indicator in decimal degrees.</p></li>
+<li><p><code>merged</code>: Logical. Flag to indicate if a plan position indicator is a
+composite of multiple scans. <code>TRUE</code> if generated with <code><a href='integrate_to_ppi.html'>integrate_to_ppi()</a></code>
+or <code><a href='composite_ppi.html'>composite_ppi()</a></code>.</p></li>
+</ul></li>
+</ul>
 
-</dl>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='project_as_ppi.html'>project_as_ppi()</a></code></p></li>
+<li><p><code><a href='integrate_to_ppi.html'>integrate_to_ppi()</a></code></p></li>
+<li><p><code><a href='plot.ppi.html'>plot.ppi()</a></code></p></li>
+<li><p><code><a href='map.html'>map()</a></code></p></li>
+<li><p><code><a href='composite_ppi.html'>composite_ppi()</a></code></p></li>
+<li><p><code><a href='sub-.ppi.html'>[ppi()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example scan object</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_scan</span>)
-
-<span class='co'># calculate ppi object</span>
-<span class='no'>example_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)
-
-<span class='co'># print summary info:</span>
-<span class='no'>example_ppi</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
+    <pre class="examples"><div class='input'><span class='co'># Project the example scan as a ppi</span>
+<span class='no'>ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>example_scan</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'>
+<span class='co'># Verify that it is an object of class ppi</span>
+<span class='fu'>is.ppi</span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Get summary info</span>
+<span class='no'>ppi</span> <span class='co'># Same as summary(ppi) or print(ppi)</span></div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   quantities:  VRADH DBZH ZDR RHOHV PHIDP 
-#&gt;         dims:  200 x 200 pixels
+#&gt;   parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt;         dims:  201 x 200 pixels
 #&gt; </div><div class='input'>
-<span class='co'># verify exampl_ppi is a ppi object:</span>
-<span class='fu'>is.ppi</span>(<span class='no'>example_ppi</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># ppi object dimensions:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>example_ppi</span>)</div><div class='output co'>#&gt; [1]   5 200 200</div></pre>
+<span class='co'># Get dimensions</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ppi</span>)</div><div class='output co'>#&gt; [1]   5 201 200</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -256,7 +250,7 @@ element of its parent scan or scan parameter.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

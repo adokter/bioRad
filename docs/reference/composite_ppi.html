@@ -88,7 +88,7 @@ radars." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -231,7 +231,7 @@ arguments are ignored.</p></td>
     <tr>
       <th>idw_max_distance</th>
       <td><p>numeric. Maximum distance from the radar to consider in
-inverse distance weighting. Measuruments beyond this distance will have a
+inverse distance weighting. Measurements beyond this distance will have a
 weighting factor of zero.</p></td>
     </tr>
     </table>
@@ -276,13 +276,12 @@ weighted according to 1/(distance from the radar)^<code>idp</code></p></dd>
 <span class='co'># across the available scans at each geographic location</span>
 <span class='no'>my_composite</span> <span class='kw'>&lt;-</span> <span class='fu'>composite_ppi</span>(<span class='no'>my_ppis</span>, <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"max"</span>)
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># \dontrun{</span>
 <span class='co'># download basemap</span>
-<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_composite</span>)
-
+<span class='no'>bm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='download_basemap.html'>download_basemap</a></span>(<span class='no'>my_composite</span>)</div><div class='output co'>#&gt; Downloading zoom = 9 ...</div><div class='output co'>#&gt; <span class='message'>Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span></div><div class='input'>
 <span class='co'># plot the calculated max product on the basemap</span>
-<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_composite</span>, <span class='no'>bm</span>)
-}</div></pre>
+<span class='fu'><a href='map.html'>map</a></span>(<span class='no'>my_composite</span>, <span class='no'>bm</span>)</div><div class='img'><img src='composite_ppi-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -298,7 +297,7 @@ weighted according to 1/(distance from the radar)^<code>idp</code></p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

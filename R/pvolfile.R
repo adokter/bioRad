@@ -37,7 +37,7 @@ is.pvolfile <- function(file, filename = NULL) {
   }
 }
 
-#' Check the ODIM data class of a polar volume file
+#' Check the data object contained in a ODIM HDF5 file
 #'
 #' Checks which data class is contained in ODIM HDF5 file.
 #'
@@ -47,7 +47,11 @@ is.pvolfile <- function(file, filename = NULL) {
 #' vertical profile, otherwise `NA`.
 #'
 #' @export
-#'
+#' 
+#' @details
+#' See \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}
+#' Table 2 for a full list of existing ODIM file object types. 
+#' 
 #' @examples
 #' # Locate the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

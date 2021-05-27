@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>vpts</code>: a time series of vertical profiles — summary.vpts • bioRad</title>
+<title>Inspect a time series of vertical profiles (<code>vpts</code>) — summary.vpts • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,9 @@
 
 
 
-<meta property="og:title" content="Class <code>vpts</code>: a time series of vertical profiles — summary.vpts" />
-<meta property="og:description" content="Class vpts for a time series of vertical profiles, and its associated
-R base functions." />
+<meta property="og:title" content="Inspect a time series of vertical profiles (<code>vpts</code>) — summary.vpts" />
+<meta property="og:description" content="R base functions for inspecting a time series of vertical profiles (vp)
+object." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -87,7 +87,7 @@ R base functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -150,14 +150,14 @@ R base functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Class <code>vpts</code>: a time series of vertical profiles</h1>
+    <h1>Inspect a time series of vertical profiles (<code>vpts</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/vpts.R'><code>R/vpts.R</code></a></small>
     <div class="hidden name"><code>summary.vpts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Class <code>vpts</code> for a time series of vertical profiles, and its associated
-R base functions.</p>
+    <p>R base functions for inspecting a time series of vertical profiles (<code>vp</code>)
+object.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for vpts</span>
@@ -173,7 +173,7 @@ R base functions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object of class <code>vpts</code>.</p></td>
+      <td><p>A <code>vpts</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -181,66 +181,70 @@ R base functions.</p>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>An object of class <code>vpts</code>.</p></td>
+      <td><p>A <code>vpts</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>is.vpts</code>: <code>TRUE</code> if its argument is of
-class <code>vpts</code>.</p>
-<p>For <code>dim.vpts</code>: dimensions of the time series.</p>
+    <p>For <code>is.vpts()</code>: <code>TRUE</code> for an object of class <code>vpts</code>, otherwise
+<code>FALSE</code>.</p>
+<p>For <code>dim.vpts()</code>: number of datetimes, heights and quantities in a
+time series of vertical profiles (<code>vpts</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>An object of class <code>vpts</code> contains time-ordered profiles of a single
-radar station.</p>
-<p>The time series can be regular or irregular, indicated by the <code>regular</code>
-field</p>
-<p>In a regular <code>vpts</code> object the profiles are equally spaced in time. In
-an irregular <code>vpts</code> object the time steps between profiles are of
-unequal length.</p>
-<p>Irregular time series can be projected onto a regular time grid using
-the <a href='regularize_vpts.html'>regularize_vpts</a> function.</p>
-<p>By contrast, <a href='summary.vp.html'>vp</a> objects can be concatenated in a list
-to combine profiles without time ordering, and profiles of
-multiple radars.</p>
-<p>Data contained in this class object should be accessed with the
-<a href='get_quantity.html'>get_quantity</a> function. Information stored under <code>attributes</code>
-(see below) can be accessed directly.</p>
-<p>An object of class <code>vpts</code> is a list containing</p><dl'>
-<dt><code>radar</code></dt><dd><p>string containing the radar identifier</p></dd>
-<dt><code>datetime</code></dt><dd><p>the <code>N</code> nominal times of the profiles (named <code>dates</code> in bioRad versions &lt; 0.4.0)</p></dd>
-<dt><code>height</code></dt><dd><p>the <code>M</code> heights of the layers in the profile</p></dd>
-<dt><code>daterange</code></dt><dd><p>the minimum and maximum nominal time of the
-profiles in the list</p></dd>
-<dt><code>timesteps</code></dt><dd><p>time differences between the profiles. Element
-<code>i</code> gives the time difference between profile <code>i</code> and
-<code>i+1</code></p></dd>
-<dt><code>data</code></dt><dd><p>list of <code>N</code> by <code>M</code> matrices containing the
-vertical profiles for each quantity. For a description of available
-quantities, see the <code>data</code> element of the <code>vp</code> class in
-<a href='summary.vp.html'>read_vpfiles</a></p></dd>
-<dt><code>attributes</code></dt><dd><p>profile attributes, copied from the first profile
-contained in <code>x</code></p></dd>
-<dt><code>regular</code></dt><dd><p>logical indicating whether the time series is
-regular or not</p></dd>
+    <p>A time series of vertical profiles contains time-ordered vertical profiles
+(<code>vp)</code> of a single radar. This time series can be <strong>regular</strong> (<code>vp</code> are
+equally spaced in time) or <strong>irregular</strong> (time steps between <code>vp</code> are of
+unequal length), indicated in the field <code>regular</code>. Irregular time series can
+be projected onto a regular time grid with <code><a href='regularize_vpts.html'>regularize_vpts()</a></code>. A time series
+of vertical profile (<code>vp</code>) object is a list containing:</p><ul>
+<li><p><code>radar</code>: Radar identifier.</p></li>
+<li><p><code>datetime</code>: Nominal times of the profiles (named <code>dates</code> in biorad &lt;
+0.4.0) in UTC.</p></li>
+<li><p><code>height</code>: Lowest height of the height bins in the profiles in m above sea level.</p></li>
+<li><p><code>daterange</code>: Minimum and maximum nominal time of the profiles in UTC.</p></li>
+<li><p><code>timesteps</code>: Time differences between the profiles. Element <code>i</code> gives the
+difference between profile <code>i</code> and <code>i+1</code>.</p></li>
+<li><p><code>data</code>: A list of quantities, each containing a <code>datetime</code> by <code>height</code>
+matrix with the values. Use <code><a href='get_quantity.html'>get_quantity()</a></code> to access these and see
+<code><a href='summary.vp.html'>summary.vp()</a></code> for a description of available quantities.</p></li>
+<li><p><code>attributes</code>: List of the vertical profile's <code>what</code>, <code>where</code>, and <code>how</code> attributes,
+copied from the first profile.</p></li>
+<li><p><code>regular</code>: Logical indicating whether the time series is regular or not.</p></li>
+</ul>
 
-</dl>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='bind_into_vpts.html'>bind_into_vpts()</a></code></p></li>
+<li><p><code><a href='read_vpts.html'>read_vpts()</a></code></p></li>
+<li><p><code><a href='filter_vpts.html'>filter_vpts()</a></code></p></li>
+<li><p><code><a href='regularize_vpts.html'>regularize_vpts()</a></code></p></li>
+<li><p><code><a href='example_vpts.html'>example_vpts</a></code></p></li>
+<li><p><code><a href='get_quantity.html'>get_quantity()</a></code></p></li>
+<li><p><code><a href='plot.vp.html'>plot.vp()</a></code></p></li>
+<li><p><code><a href='as.data.frame.vp.html'>as.data.frame.vpts()</a></code></p></li>
+<li><p><code><a href='sub-.vpts.html'>[vpts()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example vertical profile time series:</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>example_vpts</span>)
-<span class='no'>example_vpts</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
+    <pre class="examples"><div class='input'><span class='co'># Load the example time series of vertical profiles</span>
+<span class='no'>vpts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+
+<span class='co'># Verify that it is an object of class vpts</span>
+<span class='fu'>is.vpts</span>(<span class='no'>vpts</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Get summary info</span>
+<span class='no'>vpts</span> <span class='co'># Same as summary(vpts) or print(vpts)</span></div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
 #&gt; 
 #&gt;            radar:  KBGM 
 #&gt;       # profiles:  1934 
 #&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 
 #&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'>
-<span class='co'># verify this is a vpts object</span>
-<span class='fu'>is.vpts</span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># dimensions of the vpts object</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; [1]   25 1934   15</div></pre>
+<span class='co'># Get dimensions</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>vpts</span>)</div><div class='output co'>#&gt; [1] 1934   25   15</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -256,7 +260,7 @@ regular or not</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

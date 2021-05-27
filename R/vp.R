@@ -21,7 +21,7 @@
 #' bin. Use [get_quantity()] to access these:
 #'   * `height`: Height bin (lower bound) in m above sea level.
 #'   * `u`: Speed component west to east in m/s.
-#'   * `v`: Speed component north to south in m/s.
+#'   * `v`: Speed component south to north in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
 #'   * `ff`: Horizontal speed in m/s.
 #'   * `dd`: Direction in degrees clockwise from north.

@@ -47,7 +47,7 @@ arguments are ignored.}
 \item{idp}{numeric. inverse distance weighting power}
 
 \item{idw_max_distance}{numeric. Maximum distance from the radar to consider in
-inverse distance weighting. Measuruments beyond this distance will have a
+inverse distance weighting. Measurements beyond this distance will have a
 weighting factor of zero.}
 }
 \value{

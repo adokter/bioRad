@@ -87,7 +87,7 @@ resultant segmentation as a polar volume (pvol) object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -166,7 +166,9 @@ resultant segmentation as a polar volume (<code>pvol</code>) object.</p>
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>),
   <span class='kw'>load</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>)
+  <span class='kw'>mistnet_elevations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>2.5</span>, <span class='fl'>3.5</span>, <span class='fl'>4.5</span>),
+  <span class='no'>local_install</span>,
+  <span class='no'>local_mistnet</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,7 +180,7 @@ resultant segmentation as a polar volume (<code>pvol</code>) object.</p>
     </tr>
     <tr>
       <th>pvolfile_out</th>
-      <td><p>character. Filename for the polar volume to be
+      <td><p>character. (optional) Filename for the polar volume to be
 stored, including the MistNet segmentation results</p></td>
     </tr>
     <tr>
@@ -200,8 +202,20 @@ the Docker container.</p></td>
       <td><p>numeric vector of length 5.
 Elevation angles to feed to the MistNet
 segmentation model, which expects exactly 5 elevation scans
-at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
+at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.</p></td>
+    </tr>
+    <tr>
+      <th>local_install</th>
+      <td><p>(optional) String with path to local vol2bird binary
+(e.g. <code>"/your/install_path/vol2bird/bin/vol2bird"</code>),
+to use local installation instead of Docker container</p></td>
+    </tr>
+    <tr>
+      <th>local_mistnet</th>
+      <td><p>(optional) String with path to local mistnet segmentation model
+in PyTorch format (e.g. <code>"/your/path/mistnet_nexrad.pt"</code>),
+to use local installation instead of Docker container.</p></td>
     </tr>
     </table>
 
@@ -220,7 +234,7 @@ primarily legacy data for which dual-polarization data are not available.</p>
 perform as well on C-band.</p>
 <p>MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
 radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
-elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
+elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on these data
 it can estimate a segmentation mask that identifies pixels with weather
 that should be removed when interested only in biological data.</p>
 <p>MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
@@ -255,7 +269,7 @@ and Evolution 10: 1908– 1922. <a href='https://doi.org/10.1111/2041-210X.13280
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># download a NEXRAD file, save as KBGM_example</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"https://noaa-nexrad-level2.s3.amazonaws.com/"</span>,
   <span class='st'>"2019/10/01/KBGM/KBGM20191001_000542_V06"</span>,
@@ -270,25 +284,20 @@ and Evolution 10: 1908– 1922. <a href='https://doi.org/10.1111/2041-210X.13280
 <span class='no'>my_scan</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_scan.html'>get_scan</a></span>(<span class='no'>mistnet_pvol</span>, <span class='fl'>0.5</span>)
 
 <span class='co'># project the scan as a ppi:</span>
-<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>my_scan</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>100000</span>)
-
+<span class='no'>my_ppi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span>(<span class='no'>my_scan</span>, <span class='kw'>range_max</span> <span class='kw'>=</span> <span class='fl'>100000</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'>
 <span class='co'># plot the reflectivity parameter:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"DBZH"</span>)</div><div class='img'><img src='apply_mistnet-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the MistNet class probability [0-1] for weather</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"WEATHER"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"WEATHER"</span>)</div><div class='img'><img src='apply_mistnet-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the MistNet class probability [0-1] for biology</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"BIOLOGY"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"BIOLOGY"</span>)</div><div class='img'><img src='apply_mistnet-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the final segmentation result, with values &gt;1 indicating</span>
 <span class='co'># areas classified as weather, and value 1 pixels that fall within an</span>
 <span class='co'># additional 5 km fringe around weather areas.</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"CELL"</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>my_ppi</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"CELL"</span>)</div><div class='img'><img src='apply_mistnet-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># clean up:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='st'>"~/KBGM_example"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -304,7 +313,7 @@ and Evolution 10: 1908– 1922. <a href='https://doi.org/10.1111/2041-210X.13280
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

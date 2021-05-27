@@ -11,7 +11,7 @@ nyquist_velocity(wavelength, prf1, prf2)
 
 \item{prf1}{radar pulse repetition frequency in Hz}
 
-\item{prf2}{alternate radar pulse repetition frequency in Hz (for a radar opering in dual-PRF mode)}
+\item{prf2}{alternate radar pulse repetition frequency in Hz (for a radar operating in dual-PRF mode)}
 }
 \value{
 Nyquist velocity in m/s.

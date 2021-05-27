@@ -15,7 +15,8 @@ read_pvolfile(
   elev_min = 0,
   elev_max = 90,
   verbose = TRUE,
-  mount = dirname(file)
+  mount = dirname(file),
+  local_install
 )
 }
 \arguments{
@@ -48,6 +49,9 @@ to console.}
 
 \item{mount}{A character string with the mount point (a directory path)
 for the Docker container.}
+
+\item{local_install}{(optional) String with path to local vol2bird installation,
+to use local installation instead of Docker container}
 }
 \value{
 An object of class \link[=summary.pvol]{pvol}, which is a list

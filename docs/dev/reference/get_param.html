@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a scan parameter (<code>param</code>) from a scan (<code>scan</code>) — get_param • bioRad</title>
+<title>Get a parameter (<code>param</code>) from a scan (<code>scan</code>) — get_param • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Get a scan parameter (<code>param</code>) from a scan (<code>scan</code>) — get_param" />
-<meta property="og:description" content="Get a scan parameter (param) from a scan (scan)" />
+<meta property="og:title" content="Get a parameter (<code>param</code>) from a scan (<code>scan</code>) — get_param" />
+<meta property="og:description" content="Returns the selected parameter (param) from a scan (scan)." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -149,13 +149,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a scan parameter (<code>param</code>) from a scan (<code>scan</code>)</h1>
+    <h1>Get a parameter (<code>param</code>) from a scan (<code>scan</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/get_param.R'><code>R/get_param.R</code></a></small>
     <div class="hidden name"><code>get_param.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get a scan parameter (<code>param</code>) from a scan (<code>scan</code>)</p>
+    <p>Returns the selected parameter (<code>param</code>) from a scan (<code>scan</code>).</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_param</span>(<span class='no'>x</span>, <span class='no'>param</span>)</pre>
@@ -165,28 +165,37 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object of class <code>scan</code>.</p></td>
+      <td><p>A <code>scan</code> object.</p></td>
     </tr>
     <tr>
       <th>param</th>
-      <td><p>a scan parameter</p></td>
+      <td><p>Character. A scan parameter, such as <code>DBZH</code> or <code>VRADH</code>. See
+<code><a href='summary.param.html'>summary.param()</a></code> for commonly available parameters.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class '<a href='summary.param.html'>param</a>'.</p>
+    <p>A <code>param</code> object.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='summary.param.html'>summary.param()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># we will extract a scan parameter from the example scan object:</span>
-<span class='no'>example_scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
+    <pre class="examples"><div class='input'><span class='co'># Load the example scan</span>
+<span class='no'>scan</span> <span class='kw'>&lt;-</span> <span class='no'>example_scan</span>
+
+<span class='co'># Get summary info (including parameters)</span>
+<span class='no'>scan</span></div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
-<span class='co'># extract the VRADH scan parameter</span>
-<span class='no'>my_param</span> <span class='kw'>&lt;-</span> <span class='fu'>get_param</span>(<span class='no'>example_scan</span>, <span class='st'>"VRADH"</span>)
-<span class='no'>my_param</span></div><div class='output co'>#&gt;                Polar scan parameter (class param)
+<span class='co'># Extact the VRADH scan parameter</span>
+<span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'>get_param</span>(<span class='no'>scan</span>, <span class='st'>"VRADH"</span>)
+
+<span class='co'># Get summary info for this parameter</span>
+<span class='no'>param</span></div><div class='output co'>#&gt;                Polar scan parameter (class param)
 #&gt; 
 #&gt;     quantity:  VRADH 
 #&gt;         dims:  480 bins x 360 rays</div></pre>
@@ -205,7 +214,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -53,8 +53,9 @@
 
 
 <meta property="og:title" content="Set radar cross section — rcs&lt;-" />
-<meta property="og:description" content="Sets the assumed radar cross section in cm^2. This method also updates
-the migration densities in x$data$dens." />
+<meta property="og:description" content="Sets the assumed radar cross section of an object in cm^2. This function also
+updates the migration densities in x$data$dens to eta/rcs when above
+sd_vvp_threshold and 0 if below." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -87,7 +88,7 @@ the migration densities in x$data$dens." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -156,8 +157,9 @@ the migration densities in x$data$dens." />
     </div>
 
     <div class="ref-description">
-    <p>Sets the assumed radar cross section in cm^2. This method also updates
-the migration densities in <code>x$data$dens</code>.</p>
+    <p>Sets the assumed radar cross section of an object in cm^2. This function also
+updates the migration densities in <code>x$data$dens</code> to <code>eta</code>/<code>rcs</code> when above
+<code>sd_vvp_threshold</code> and <code>0</code> if below.</p>
     </div>
 
     <pre class="usage"><span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
@@ -183,26 +185,31 @@ the migration densities in <code>x$data$dens</code>.</p>
     </tr>
     <tr>
       <th>value</th>
-      <td><p>The cross section value to assign.</p></td>
+      <td><p>Numeric. The radar cross section value to assign in cm^2.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See also <a href='rcs.html'>rcs</a> for retrieving the radar cross section
-of an object.</p>
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='rcs.html'>rcs()</a></code> for getting the radar cross section of an object.</p></li>
+<li><p><code><a href='sd_vvp_threshold-set.html'>sd_vvp_threshold()&lt;-</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># change or set RCS for a single vertical profile:</span>
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
+    <pre class="examples"><div class='input'><span class='co'># Set the radar cross section for a vp</span>
+<span class='no'>vp</span> <span class='kw'>&lt;-</span> <span class='no'>example_vp</span>
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>vp</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
 
-<span class='co'># change or set RCS for a vertical profile time series:</span>
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
+<span class='co'># Set the radar cross section for a vpts</span>
+<span class='no'>vpts</span> <span class='kw'>&lt;-</span> <span class='no'>example_vpts</span>
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>vpts</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span>
 
-<span class='co'># retrieve RCS for a single vertical profile:</span>
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vp</span>)</div><div class='output co'>#&gt; [1] 11</div><div class='input'>
-<span class='co'># retrieve RCS for a vertical profile time series:</span>
-<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>example_vpts</span>)</div><div class='output co'>#&gt; [1] 11</div></pre>
+<span class='co'># Set the radar cross section for a vpi</span>
+<span class='no'>vpi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='integrate_profile.html'>integrate_profile</a></span>(<span class='no'>example_vpts</span>)
+<span class='fu'><a href='rcs.html'>rcs</a></span>(<span class='no'>vpi</span>) <span class='kw'>&lt;-</span> <span class='fl'>11</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -218,7 +225,7 @@ of an object.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

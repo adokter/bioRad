@@ -6,7 +6,7 @@
 #'
 #' @param wavelength radar wavelength in cm
 #' @param prf1 radar pulse repetition frequency in Hz
-#' @param prf2 alternate radar pulse repetition frequency in Hz (for a radar opering in dual-PRF mode)
+#' @param prf2 alternate radar pulse repetition frequency in Hz (for a radar operating in dual-PRF mode)
 #'
 #' @return Nyquist velocity in m/s.
 #'

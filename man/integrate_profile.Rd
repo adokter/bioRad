@@ -74,9 +74,9 @@ the start of the time series up to \code{datetime}}
 \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
 the start of the time series up to \code{datetime}}
 \item{\code{ff}}{Horizontal ground speed in m/s}
-\item{\code{dd}}{Horizontal ground speed direction in degrees}
+\item{\code{dd}}{Direction of the horizontal ground speed in degrees}
 \item{\code{u}}{Ground speed component west to east in m/s}
-\item{\code{v}}{Ground speed component north to south in m/s}
+\item{\code{v}}{Ground speed component south to north in m/s}
 \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
 }
 Vertically integrated density and reflectivity are related according to
@@ -134,7 +134,7 @@ per km transect is calculated as:
 with \eqn{dd_i} the migratory direction at altitude i.
 
 Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
-Also note we can rewrite this equation using trigonemetry as:
+Also note we can rewrite this equation using trigonometry as:
 
 \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}
 with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.

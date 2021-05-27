@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -169,7 +169,8 @@
   <span class='kw'>elev_min</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>elev_max</span> <span class='kw'>=</span> <span class='fl'>90</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>)
+  <span class='kw'>mount</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>),
+  <span class='no'>local_install</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -225,6 +226,11 @@ to console.</p></td>
       <td><p>A character string with the mount point (a directory path)
 for the Docker container.</p></td>
     </tr>
+    <tr>
+      <th>local_install</th>
+      <td><p>(optional) String with path to local vol2bird installation,
+to use local installation instead of Docker container</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -256,7 +262,7 @@ factor</p></dd>
 <span class='no'>pvolfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bioRad"</span>)
 
 <span class='co'># print the local path of the volume file:</span>
-<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpCaqkHR/temp_libpath751d667c341b/bioRad/extdata/volume.h5"</div><div class='input'>
+<span class='no'>pvolfile</span></div><div class='output co'>#&gt; [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpcdQ5Dz/temp_libpath13ac458727f3b/bioRad/extdata/volume.h5"</div><div class='input'>
 <span class='co'># load the file:</span>
 <span class='no'>example_pvol</span> <span class='kw'>&lt;-</span> <span class='fu'>read_pvolfile</span>(<span class='no'>pvolfile</span>)
 
@@ -314,7 +320,7 @@ factor</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

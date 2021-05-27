@@ -87,7 +87,7 @@ the altitudinal normalized distribution of radiated energy by those beams." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.1.9344</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9419</span>
       </span>
     </div>
 
@@ -229,18 +229,18 @@ emitted at antenna level.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>beam_profile</span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>4000</span>, <span class='fl'>50000</span>, <span class='fl'>0.5</span>), <span class='fl'>0</span>:<span class='fl'>4000</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>beam_profile</span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>4000</span>, <span class='fl'>50000</span>, <span class='fl'>0.5</span>), <span class='fl'>0</span>:<span class='fl'>4000</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"normalized radiated energy"</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"height [m]"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"beam elevation: 0.5 deg, distance=50km"</span>
 )</div><div class='img'><img src='beam_profile-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>beam_profile</span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>4000</span>, <span class='fl'>50000</span>, <span class='fl'>2</span>), <span class='fl'>0</span>:<span class='fl'>4000</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>beam_profile</span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>4000</span>, <span class='fl'>50000</span>, <span class='fl'>2</span>), <span class='fl'>0</span>:<span class='fl'>4000</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"normalized radiated energy"</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"height [m]"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"beam elevation: 2 deg, distance=50km"</span>
 )</div><div class='img'><img src='beam_profile-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot the combined beam profile for a 0.5 and 2.0 degree elevation beam</span>
 <span class='co'># at 50 km distance from the radar:</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>beam_profile</span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>4000</span>, <span class='fl'>50000</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>2</span>)), <span class='fl'>0</span>:<span class='fl'>4000</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>beam_profile</span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>4000</span>, <span class='fl'>50000</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>2</span>)), <span class='fl'>0</span>:<span class='fl'>4000</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"normalized radiated energy"</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"height [m]"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"beam elevations: 0.5,2 deg, distance=50km"</span>
 )</div><div class='img'><img src='beam_profile-3.png' alt='' width='700' height='433' /></div></pre>
@@ -259,7 +259,7 @@ emitted at antenna level.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
