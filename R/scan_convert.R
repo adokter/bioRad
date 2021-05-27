@@ -1,6 +1,6 @@
 #' convert a polar scan into a spatial object.
 #'
-#' Georeferences the pixels of a scan into a SpatialPointsDataFrame object.
+#' Georeferences the center of  pixels for a scan into a SpatialPointsDataFrame object.
 #'
 #' @inheritParams beam_height
 #' @param scan a scan (sweep) of class scan
@@ -39,10 +39,10 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   elev <- scan$geo$elangle
 
   data <- data.frame(
-    azim = c(t(matrix(rep(seq(0, dim(scan)[3] - 1) * ascale, dim(scan)[2]), nrow = dim(scan)[3]))),
-    range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]),
-    distance = beam_distance(range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]), elev = elev, k = k, lat = lat, re = re, rp = rp)
+    azim = c(t(matrix(rep(seq(0, dim(scan)[3] - 1) * ascale + ascale / 2, dim(scan)[2]), nrow = dim(scan)[3]))),
+    range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]) - rscale / 2
   )
+  data$distance <- beam_distance(range = data$range, elev = elev, k = k, lat = lat, re = re, rp = rp)
   data$height <- scan$geo$height + beam_height(data$range, elev, k = k, lat = lat, re = re, rp = rp)
   data <- cbind(data, as.data.frame(sapply(scan$params, c)))
   coords <- data.frame(
