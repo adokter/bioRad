@@ -1,14 +1,16 @@
-# Locate polar volume file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 textfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-ghostfile <- paste(tempdir(),"/garbage",sep="")
+ghostfile <- paste(tempdir(), "/garbage", sep = "")
+
+# No tests for error on incorrect parameters:
+# is.pvolfile() returns TRUE/FALSE and works for every input
 
 test_that("is.odimfile() can identify ODIM hdf5 files", {
-  expect_true(bioRad::is.odimfile(pvolfile))
-  expect_true(bioRad::is.odimfile(vpfile))
-  expect_false(suppressWarnings(bioRad::is.odimfile(textfile)))
-  # TODO: test for non-complient ODIM hdf5 files with missing groups/attributes
+  expect_true(is.odimfile(pvolfile))
+  expect_true(is.odimfile(vpfile))
+  expect_warning(is.odimfile(textfile))
+  # TODO: test for non-complaint ODIM hdf5 files with missing groups/attributes
 })
 
 test_that("get_odim_object_type() returns a valid ODIM type", {
