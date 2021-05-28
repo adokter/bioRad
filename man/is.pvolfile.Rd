@@ -14,7 +14,8 @@ is.pvolfile(file)
 otherwise \code{FALSE}.
 }
 \description{
-Checks whether a file is a polar volume (\verb{pvol) in the ODIM hdf5 format that can be read with bioRad. Currently evaluates to }FALSE` for NEXRAD and
+Checks whether a file is a polar volume (\code{pvol}) in the ODIM hdf5 format that
+can be read with bioRad. Currently evaluates to \code{FALSE} for NEXRAD and
 IRIS RAW polar volume files.
 }
 \examples{
