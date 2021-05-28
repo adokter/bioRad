@@ -200,17 +200,18 @@ unequal length), indicated in the field <code>regular</code>. Irregular time ser
 be projected onto a regular time grid with <code><a href='regularize_vpts.html'>regularize_vpts()</a></code>. A time series
 of vertical profile (<code>vp</code>) object is a list containing:</p><ul>
 <li><p><code>radar</code>: Radar identifier.</p></li>
-<li><p><code>datetime</code>: Nominal times of the profiles (named <code>dates</code> in biorad &lt;
+<li><p><code>datetime</code>: Nominal times of the profiles (named <code>dates</code> in bioRad &lt;
 0.4.0) in UTC.</p></li>
-<li><p><code>height</code>: Lowest height of the height bins in the profiles in m above sea level.</p></li>
+<li><p><code>height</code>: Lowest height of the height bins in the profiles in m above sea
+level.</p></li>
 <li><p><code>daterange</code>: Minimum and maximum nominal time of the profiles in UTC.</p></li>
 <li><p><code>timesteps</code>: Time differences between the profiles. Element <code>i</code> gives the
 difference between profile <code>i</code> and <code>i+1</code>.</p></li>
 <li><p><code>data</code>: A list of quantities, each containing a <code>datetime</code> by <code>height</code>
 matrix with the values. Use <code><a href='get_quantity.html'>get_quantity()</a></code> to access these and see
 <code><a href='summary.vp.html'>summary.vp()</a></code> for a description of available quantities.</p></li>
-<li><p><code>attributes</code>: List of the vertical profile's <code>what</code>, <code>where</code>, and <code>how</code> attributes,
-copied from the first profile.</p></li>
+<li><p><code>attributes</code>: List of the vertical profile's <code>what</code>, <code>where</code>, and <code>how</code>
+attributes, copied from the first profile.</p></li>
 <li><p><code>regular</code>: Logical indicating whether the time series is regular or not.</p></li>
 </ul>
 

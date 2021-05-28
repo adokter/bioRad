@@ -116,9 +116,9 @@
     
     
 <p><em>These course materials were developed for the 3d Radar Aeroecology Training School, Jul 30 - Aug 2 2019, University of Oklahoma, Norman, OK, USA.</em></p>
-<div id="basic-visualisation-of-radar-scans-in-r" class="section level2">
+<div id="basic-visualization-of-radar-scans-in-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#basic-visualisation-of-radar-scans-in-r" class="anchor"></a>1 Basic visualisation of radar scans in R</h2>
+<a href="#basic-visualization-of-radar-scans-in-r" class="anchor"></a>1 Basic visualization of radar scans in R</h2>
 <div id="preparation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#preparation" class="anchor"></a>1.1 Preparation</h3>
@@ -135,7 +135,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">devtools</span><span class="op">)</span>
 <span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></code></pre></div>
-<p>All bioRad’s functions are documented in an extensive <a href="http://adriaandokter.com/bioRad/dev/reference/index.html">function refererence</a> online, as well as in manual pages within R:</p>
+<p>All bioRad’s functions are documented in an extensive <a href="http://adriaandokter.com/bioRad/dev/reference/index.html">function reference</a> online, as well as in manual pages within R:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># bring up the package general help page:</span>
 <span class="op">?</span><span class="va">bioRad</span></code></pre></div>
@@ -218,9 +218,9 @@
 <p>bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package <code>raster</code> and package <code>sp</code>), see <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> and <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code>, allowing you to process and overlay the radar data further with these spatial analysis toolkits.</p>
 </div>
 </div>
-<div id="analysis-and-visualisation-of-vertical-bird-profiles" class="section level2">
+<div id="analysis-and-visualization-of-vertical-bird-profiles" class="section level2">
 <h2 class="hasAnchor">
-<a href="#analysis-and-visualisation-of-vertical-bird-profiles" class="anchor"></a>2 Analysis and visualisation of vertical bird profiles</h2>
+<a href="#analysis-and-visualization-of-vertical-bird-profiles" class="anchor"></a>2 Analysis and visualization of vertical bird profiles</h2>
 <p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder of 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
 <p>Section 3 has examples that show how to process polar volume data into vertical profiles. To save time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
 <div id="loading-processed-vertical-profiles" class="section level3">
