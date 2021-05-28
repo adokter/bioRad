@@ -90,7 +90,8 @@ summary.vp <- function(object, ...) {
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
   if (is.null(x$data[["height"]])) {
-    warning("`x` is a legacy vp object without a column `height`. Use convert_legacy() to avoid errors.")
+    warning(paste0("`x` is a legacy vp object without a column `height`.",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   cat("               Vertical profile (class vp)\n\n")

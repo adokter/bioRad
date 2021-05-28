@@ -20,15 +20,16 @@
 #' * `radar`: Radar identifier.
 #' * `datetime`: Nominal times of the profiles (named `dates` in biorad <
 #' 0.4.0) in UTC.
-#' * `height`: Lowest height of the height bins in the profiles in m above sea level.
+#' * `height`: Lowest height of the height bins in the profiles in m above sea
+#' level.
 #' * `daterange`: Minimum and maximum nominal time of the profiles in UTC.
 #' * `timesteps`: Time differences between the profiles. Element `i` gives the
 #' difference between profile `i` and `i+1`.
 #' * `data`: A list of quantities, each containing a `datetime` by `height`
 #' matrix with the values. Use [get_quantity()] to access these and see
 #' [summary.vp()] for a description of available quantities.
-#' * `attributes`: List of the vertical profile's `what`, `where`, and `how` attributes,
-#' copied from the first profile.
+#' * `attributes`: List of the vertical profile's `what`, `where`, and `how`
+#' attributes, copied from the first profile.
 #' * `regular`: Logical indicating whether the time series is regular or not.
 #'
 #' @seealso
@@ -66,11 +67,13 @@ summary.vpts <- function(object, ...) {
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
   if (is.null(x[["height"]])) {
-    warning("`x` is a legacy vpts object without a column `height`. Use convert_legacy() to avoid errors.")
+    warning(paste0("`x` is a legacy vpts object without a column `height`.",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   if (is.null(x[["datetime"]])) {
-    warning("`x` is a legacy vpts object without a column `datetime`. Use convert_legacy() to avoid errors.")
+    warning(paste0("`x` is a legacy vpts object without a column `datetime`.",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   cat(
