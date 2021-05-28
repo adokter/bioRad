@@ -1,16 +1,19 @@
-#' Check if a local file is a polar volume (`pvol`)
+#' Check if a file is a polar volume (`pvol`)
 #'
-#' Checks whether a file is a polar volume in ODIM hdf5 format that can be read
-#' with bioRad. Currently evaluates to `FALSE` for NEXRAD and IRIS RAW polar
-#' volume files.
+#' Checks whether a file is a polar volume (`pvol) in the ODIM hdf5 format that
+#' can be read with bioRad. Currently evaluates to `FALSE` for NEXRAD and
+#' IRIS RAW polar volume files.
 #'
-#' @param file Character. Name of the file to check.
-#' @param filename Deprecated, use `file` instead.
+#' @param file Character. Path of the file to check.
 #'
-#' @return `TRUE` when the file is a polar volume in readable format, otherwise
-#'   `FALSE`.
+#' @return `TRUE` when the file is a polar volume (`pvol`) in readable format,
+#'   otherwise `FALSE`.
 #'
 #' @export
+#'
+#' @seealso
+#' * [read_pvolfile()]
+#' * [pvol()]
 #'
 #' @examples
 #' # Locate the polar volume example file
@@ -18,15 +21,7 @@
 #'
 #' # Check that the file is an ODIM hdf5 polar volume
 #' is.pvolfile(pvolfile) # > TRUE
-is.pvolfile <- function(file, filename = NULL) {
-  # deprecate function arguments
-  if (!missing(filename)) {
-    warning("`filename` is deprecated, please use file instead.",
-      call. = FALSE
-    )
-    file <- filename
-  }
-
+is.pvolfile <- function(file) {
   type <- get_odim_object_type(file)
   if (is.na(type)) {
     warning("is.pvolfile() expects a hdf5 file (polar volume files in other data
@@ -47,11 +42,11 @@ is.pvolfile <- function(file, filename = NULL) {
 #' vertical profile, otherwise `NA`.
 #'
 #' @export
-#' 
+#'
 #' @details
 #' See \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}
-#' Table 2 for a full list of existing ODIM file object types. 
-#' 
+#' Table 2 for a full list of existing ODIM file object types.
+#'
 #' @examples
 #' # Locate the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
