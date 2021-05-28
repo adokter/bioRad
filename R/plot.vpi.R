@@ -70,10 +70,9 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  stopifnot(quantity %in% c(
-    "mtr", "vid", "vir", "rtr", "mt",
-    "rt", "ff", "dd", "u", "v", "height"
-  ))
+  if(!(quantity %in% names(x)[!(names(x) %in% c("datetime", "height"))])){
+    stop(paste("quantity '",quantity,"'not found in vpi object",sep=""))
+  }
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
