@@ -9,9 +9,9 @@
 #' @param x A `vp` or `vpts` object.
 #' @param row.names `NULL` or a character vector giving the row names for
 #' the data frame. Missing values are not allowed. See [base::as.data.frame()].
-#' @param optional Logical. If `FALSE` then the names of the variables in the data
-#' frame are checked to ensure that they are syntactically valid variable names
-#' and are not duplicated. See [base::as.data.frame()].
+#' @param optional Logical. If `FALSE` then the names of the variables in the
+#' data frame are checked to ensure that they are syntactically valid variable
+#' names and are not duplicated. See [base::as.data.frame()].
 #' @param geo Logical. When `TRUE`, adds latitude (`lat`), longitude (`lon`) and
 #'   antenna height of the radar (`height_antenna`) to each row.
 #' @param suntime Logical. When `TRUE`, adds whether it is daytime (`day`) and
@@ -126,9 +126,9 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
 #' @rdname as.data.frame.vp
 #'
 #' @export
-as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
-                               suntime = TRUE, lat = NULL, lon = NULL,
-                               elev = -0.268, ...) {
+as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
+                               geo = TRUE, suntime = TRUE, lat = NULL,
+                               lon = NULL, elev = -0.268, ...) {
   stopifnot(inherits(x, "vpts"))
   if (is.null(lat)) {
     lat <- x$attributes$where$lat

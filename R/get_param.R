@@ -19,13 +19,15 @@
 #' # Get summary info (including parameters)
 #' scan
 #'
-#' # Extact the VRADH scan parameter
+#' # Extract the VRADH scan parameter
 #' param <- get_param(scan, "VRADH")
 #'
 #' # Get summary info for this parameter
 #' param
 get_param <- function(x, param) {
   assert_that(class(x) == "scan", msg = "`x` must be a scan object.")
-  if (!(param %in% names(x$params))) stop(paste0("Can't find parameter `", param, "` in `x`."))
+  if (!(param %in% names(x$params))) stop(
+    paste0("Can't find parameter `", param, "` in `x`.")
+  )
   x$params[[param]]
 }

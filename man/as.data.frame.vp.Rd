@@ -36,9 +36,9 @@
 \item{row.names}{\code{NULL} or a character vector giving the row names for
 the data frame. Missing values are not allowed. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
 
-\item{optional}{Logical. If \code{FALSE} then the names of the variables in the data
-frame are checked to ensure that they are syntactically valid variable names
-and are not duplicated. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
+\item{optional}{Logical. If \code{FALSE} then the names of the variables in the
+data frame are checked to ensure that they are syntactically valid variable
+names and are not duplicated. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
 
 \item{geo}{Logical. When \code{TRUE}, adds latitude (\code{lat}), longitude (\code{lon}) and
 antenna height of the radar (\code{height_antenna}) to each row.}
