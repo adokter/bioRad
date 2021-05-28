@@ -19,7 +19,7 @@
 #' # Get summary info (including parameters)
 #' scan
 #'
-#' # Extact the VRADH scan parameter
+#' # Extract the VRADH scan parameter
 #' param <- get_param(scan, "VRADH")
 #'
 #' # Get summary info for this parameter

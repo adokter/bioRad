@@ -18,7 +18,7 @@
 #' be projected onto a regular time grid with [regularize_vpts()]. A time series
 #' of vertical profile (`vp`) object is a list containing:
 #' * `radar`: Radar identifier.
-#' * `datetime`: Nominal times of the profiles (named `dates` in biorad <
+#' * `datetime`: Nominal times of the profiles (named `dates` in bioRad <
 #' 0.4.0) in UTC.
 #' * `height`: Lowest height of the height bins in the profiles in m above sea
 #' level.

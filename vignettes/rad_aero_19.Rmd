@@ -19,7 +19,7 @@ Sys.setenv(TZ = "UTC")
 library(bioRad)
 ```
 
-## 1 Basic visualisation of radar scans in R
+## 1 Basic visualization of radar scans in R
 
 ### 1.1 Preparation
 
@@ -43,7 +43,7 @@ library(devtools)
 install_github("adokter/bioRad")
 ```
 
-All bioRad's functions are documented in an extensive [function refererence](http://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
+All bioRad's functions are documented in an extensive [function reference](http://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
 
 ```{r, eval=SHOW_ANSWERS}
 # bring up the package general help page:
@@ -183,7 +183,7 @@ map(my_ppi, map = basemap, param = "DBZH", zlim = c(-20, 15))
 
 bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package `raster` and package `sp`), see `scan_to_raster()` and `scan_to_spatial()`, allowing you to process and overlay the radar data further with these spatial analysis toolkits.
 
-## 2 Analysis and visualisation of vertical bird profiles
+## 2 Analysis and visualization of vertical bird profiles
 
 In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder of 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.
 

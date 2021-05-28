@@ -133,7 +133,7 @@
 #'
 #' \code{mt} values are conditional on settings of \link{rcs}, while \code{rt} values are not.
 #'
-#' Columnns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
+#' Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 #' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 #' of the respective row.
 #' }

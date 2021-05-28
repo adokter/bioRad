@@ -2,11 +2,11 @@
 #'
 #' @param x A \code{vpts} object.
 #' @inheritParams check_night
-#' @param min Minimum datetime to be included. POSIXct value or character string convertable to POSIXct.
-#' @param max Maximum datetime to be included. POSIXct value or character string convertable to POSIXct.
+#' @param min Minimum datetime to be included. POSIXct value or character string convertible to POSIXct.
+#' @param max Maximum datetime to be included. POSIXct value or character string convertible to POSIXct.
 #' @param nearest If specified, \code{min} and \code{max} are ignored and the profile nearest to the
 #' specified datetime is returned that matches the day/night selection criteria.
-#' POSIXct value or character string convertable to POSIXct.
+#' POSIXct value or character string convertible to POSIXct.
 #' @param night When TRUE select only night time profiles, when FALSE select only day time profiles,
 #' as classified by \link{check_night}.
 #' @param offset numeric. Time duration in seconds by which to shift the start and end
