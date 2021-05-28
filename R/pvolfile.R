@@ -13,7 +13,7 @@
 #'
 #' @seealso
 #' * [read_pvolfile()]
-#' * [pvol()]
+#' * [is.pvol()]
 #'
 #' @examples
 #' # Locate the polar volume example file
