@@ -307,6 +307,10 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   geo$elangle <- c(attribs.where$elangle)
   geo$rscale <- c(attribs.where$rscale)
   geo$ascale <- c(360 / attribs.where$nrays)
+  geo$astart <- attribs.how$astart
+  # odim stores ranges as Km in package ranges are until now in meters
+  geo$rstart <- attribs.where$rstart * 1000
+
 
   # read scan parameters
   quantities <- lapply(
