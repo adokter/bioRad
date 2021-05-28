@@ -1,6 +1,6 @@
 #' Check if a file is a polar volume (`pvol`)
 #'
-#' Checks whether a file is a polar volume (`pvol) in the ODIM hdf5 format that
+#' Checks whether a file is a polar volume (`pvol`) in the ODIM hdf5 format that
 #' can be read with bioRad. Currently evaluates to `FALSE` for NEXRAD and
 #' IRIS RAW polar volume files.
 #'
