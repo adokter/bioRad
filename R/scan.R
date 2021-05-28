@@ -27,6 +27,8 @@
 #'   240 km range).
 #'   * `ascale`: Azimuth bin size for that scan in degrees (e.g. 1 degree * 360
 #'   rays equals full circle).
+#'   * `rstart`: The range where the first range gate starts in meters (note ODIM stores it as kilometers)
+#'   * `astart`: The start of the first ray.
 #'
 #' @seealso
 #' * [get_scan()]
