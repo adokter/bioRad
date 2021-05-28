@@ -28,6 +28,6 @@ is.pvolfile(pvolfile) # > TRUE
 \seealso{
 \itemize{
 \item \code{\link[=read_pvolfile]{read_pvolfile()}}
-\item \code{\link[=pvol]{pvol()}}
+\item \code{\link[=is.pvol]{is.pvol()}}
 }
 }
