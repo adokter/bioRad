@@ -6,13 +6,6 @@ ghostfile <- paste(tempdir(), "/garbage", sep = "")
 # No tests for error on incorrect parameters:
 # is.pvolfile() returns TRUE/FALSE and works for every input
 
-test_that("is.odimfile() can identify ODIM hdf5 files", {
-  expect_true(bioRad:::is.odimfile(pvolfile))
-  expect_true(bioRad:::is.odimfile(vpfile))
-  expect_warning(bioRad:::is.odimfile(textfile))
-  # TODO: test for non-complaint ODIM hdf5 files with missing groups/attributes
-})
-
 test_that("get_odim_object_type() returns a valid ODIM type", {
   expect_equal(get_odim_object_type(pvolfile), "PVOL")
   expect_equal(get_odim_object_type(vpfile), "VP")
