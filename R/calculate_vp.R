@@ -21,6 +21,7 @@
 #' are selected automatically, and other user settings are ignored.
 #' @param verbose logical. When TRUE, pipe Docker stdout to R console. On
 #' Windows always TRUE.
+#' @param warnings logical. When TRUE, pipe vol2bird warnings to R console.
 #' @param mount character. String with the mount point (a directory path) for
 #' the Docker container.
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
@@ -191,7 +192,7 @@
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
-                         autoconf = FALSE, verbose = FALSE,
+                         autoconf = FALSE, verbose = FALSE, warnings = TRUE,
                          mount = dirname(file[1]), sd_vvp_threshold,
                          rcs = 11, dual_pol = TRUE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
@@ -258,6 +259,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   assert_that(is.flag(verbose))
 
+  assert_that(is.flag(warnings))
+
   assert_that(is.writeable(mount))
 
   if (!missing(sd_vvp_threshold)) {
@@ -312,22 +315,22 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(is.flag(dealias))
 
   assert_that(.pkgenv$docker | !missing(local_install),
-      msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
-      "your local Docker daemon, and run 'check_docker()' in R\n"))
+              msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
+                          "your local Docker daemon, and run 'check_docker()' in R\n"))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assert_that(is.writeable(filedir))
 
   assert_that(grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
-      msg = paste("mountpoint 'mount' has to be a parent directory",
-      "of input file 'file'"))
+              msg = paste("mountpoint 'mount' has to be a parent directory",
+                          "of input file 'file'"))
 
   # check whether vol2bird container supports multiple input files
   multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
   if (!missing(local_install)) multi_file_support <- TRUE
   assert_that(!(length(file) > 1 && !multi_file_support),
               msg = paste("Current vol2bird installation does not support multiple input files.",
-              "Provide a single input file containing a polar volume, or run update_docker() to update"))
+                          "Provide a single input file containing a polar volume, or run update_docker() to update"))
 
   profile.tmp <- tempfile(tmpdir = filedir)
 
@@ -372,8 +375,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   if (missing(local_install)) {
     optfile <- paste(normalizePath(mount, winslash = "/"),
-      "/options.conf",
-      sep = ""
+                     "/options.conf",
+                     sep = ""
     )
   }
   else {
@@ -383,8 +386,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (file.exists(optfile)) {
     optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
     warning(paste("options.conf file found in directory ", mount,
-      ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
-      sep = ""
+                  ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
+                  sep = ""
     ))
     file.rename(optfile, optfile_save)
   }
@@ -392,8 +395,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   # only use user configuration when autoconfiguration is off.
   if (!autoconf) {
     write.table(opt,
-      file = optfile, col.names = FALSE,
-      row.names = FALSE, quote = FALSE
+                file = optfile, col.names = FALSE,
+                row.names = FALSE, quote = FALSE
     )
   }
 
@@ -439,13 +442,13 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     # on mac and linux:
     if (missing(local_install)) {
       result <- system(docker_command,
-      ignore.stdout = !verbose
+                       ignore.stdout = !verbose, ignore.stderr = !warnings
       )
     }
     else {
       # using a local install of vol2bird:
       result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""),
-                       ignore.stdout = !verbose)
+                       ignore.stdout = !verbose, ignore.stderr = !warnings)
     }
   } else {
     # on Windows platforms:

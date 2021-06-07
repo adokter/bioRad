@@ -1,4 +1,5 @@
 # define non-default options for testing
+sd_vvp_thresh <- 3
 rcs <- 200
 dual_pol <- TRUE
 rho_hv <- 0.8
@@ -72,7 +73,8 @@ test_that("input arguments are parsed to vol2bird", {
   skip_if_not(docker_ok)
 
   # run vol2bird with non-default options
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, rcs=rcs, dual_pol=dual_pol,
+  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, sd_vvp_threshold=sd_vvp_thresh,
+               rcs=rcs, dual_pol=dual_pol,
                rho_hv=rho_hv, elev_min=elev_min, elev_max=elev_max,
                azim_min=azim_min,azim_max=azim_max,
                range_min=range_min, range_max=range_max,
@@ -137,9 +139,23 @@ test_that("MistNet is working", {
   expect_true(inherits(scan$params$WEATHER,"param"))
 })
 
-# TODO
+test_that("dealiasing can be suppressed", {
+  skip_if_not(docker_ok)
+
+  # run vol2bird with non-default options
+  vp <- calculate_vp(file=pvolfile, vpfile=vpfile,warnings=FALSE,
+                     dealias=F)
+  expect_equal(vp$attributes$how$dealiased,0)
+  # the dealias attribute is stored at two locations, this one is the duplicate
+  # but including to guarantee overall consistency.
+  expect_equal(task_args(profile)$dealiasVrad,"0")
+})
+
+# TODO / FIXME:
 # * arguments not yet tested:
-#   - dbz_quantity
-#   - local_install
-#   - mount
-# * check autoconf works (auto-selection of dual_pol, rcs, etc)
+#   - mistnet_elevations, because not stored in h5 currently
+#   - dbz_quantity, because test file volume.h5 only has DBZH
+#   - local_install, because difficult to test
+#   - mount, because difficult to test
+# * check if autoconf works (auto-selection of dual_pol, rcs, etc)
+#   - requires multiple pvol test files, left for later
