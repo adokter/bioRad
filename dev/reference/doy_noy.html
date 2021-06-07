@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>look up day of year (doy) or night of year (noy) — doy_noy • bioRad</title>
+<title>Look up day of year (doy) or night of year (noy) — doy_noy • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,9 @@
 
 
 
-<meta property="og:title" content="look up day of year (doy) or night of year (noy) — doy_noy" />
-<meta property="og:description" content="Look up the day of year (doy) or night of year (noy) for datetimes and various bioRad objects." />
+<meta property="og:title" content="Look up day of year (doy) or night of year (noy) — doy_noy" />
+<meta property="og:description" content="Look up the day of year (doy) or night of year (noy) for datetimes and
+various bioRad objects." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -149,13 +150,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>look up day of year (doy) or night of year (noy)</h1>
+    <h1>Look up day of year (doy) or night of year (noy)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/doy_noy.R'><code>R/doy_noy.R</code></a></small>
     <div class="hidden name"><code>doy_noy.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Look up the day of year (<code>doy</code>) or night of year (<code>noy</code>) for datetimes and various bioRad objects.</p>
+    <p>Look up the day of year (<code>doy</code>) or night of year (<code>noy</code>) for datetimes and
+various bioRad objects.</p>
     </div>
 
     <pre class="usage"><span class='fu'>doy</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, method <span class='op'>=</span> <span class='st'>"fast"</span><span class='op'>)</span>
@@ -197,42 +199,43 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>pvol</code>, <code>vp</code>, <code>vpts</code>, <code>vpi</code>,
-or a date inheriting from class <code>POSIXct</code> or a string
-interpretable by <a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a>.</p></td>
+      <td><p>A <code>pvol</code>, <code>vp</code>, <code>vpts</code>, or <code>vpi</code> object, or a or a date inheriting
+from class <code>POSIXct</code> or a string that can be interpreted by
+<a href='https://rdrr.io/r/base/as.POSIXlt.html'>base::as.POSIXct</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>optional lat,lon arguments.</p></td>
+      <td><p>Optional lat, lon arguments.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>method by which to do the time zone lookup. Either <code>"fast"</code> (default) or <code>"accurate"</code>, see <a href='https://andyteucher.ca/lutz/reference/tz_lookup_coords.html'>tz_lookup_coords</a>.</p></td>
+      <td><p>Method by which to do the time zone lookup. Either <code>fast</code>
+(default) or <code>accurate</code>. See <a href='https://andyteucher.ca/lutz/reference/tz_lookup_coords.html'>lutz::tz_lookup_coords</a>].</p></td>
     </tr>
     <tr>
       <th>lon</th>
-      <td><p>numeric. Longitude in decimal degrees.</p></td>
+      <td><p>Numeric. Longitude in decimal degrees.</p></td>
     </tr>
     <tr>
       <th>lat</th>
-      <td><p>numeric. Latitude in decimal degrees.</p></td>
+      <td><p>Numeric. Latitude in decimal degrees.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>First night of the year is the night with datetime Jan 01 00:00:00 in the local time zone,
-i.e. sunset on Jan 1 occurs on the second night of the year, and New Years Eve on Dec 31
-occurs on the first night of the new year.</p>
+    <p>First night of the year is the night with datetime Jan 01 00:00:00 in the
+local time zone, i.e. sunset on Jan 1 occurs on the second night of the year
+and New Years Eve on Dec 31 occurs on the first night of the new year.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># night of year of a profile (vp object):</span>
+    <pre class="examples"><div class='input'><span class='co'># Get day of year of a vp object</span>
 <span class='fu'>noy</span><span class='op'>(</span><span class='va'>example_vp</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 292</div><div class='input'>
-<span class='co'># day of year of a profile (vp object):</span>
+<span class='co'># Get night of year of a vp object</span>
 <span class='fu'>noy</span><span class='op'>(</span><span class='va'>example_vp</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 292</div><div class='input'>
-<span class='co'># night of year of a vertial profile time series (vpts object):</span>
+<span class='co'># Get night of year of a vpts object</span>
 <span class='fu'>noy</span><span class='op'>(</span><span class='va'>example_vpts</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    [1] 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245
 #&gt;   [19] 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245 245
