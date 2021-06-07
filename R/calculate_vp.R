@@ -254,6 +254,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     )
   }
 
+  assert_that(is.flag(autoconf))
+
   assert_that(is.flag(verbose))
 
   assert_that(is.writeable(mount))
