@@ -49,6 +49,13 @@ calculate_param.pvol <- function(x, ...) {
 #' @export
 calculate_param.scan <- function(x, ...) {
   assert_that(class(x) == "scan")
+  # check if all parameters are equal
+  attr_to_check<-c('class','radar','datetime','geo','dim')
+  for(i in attr_to_check){
+    lapply(x$params, function(param, i) assert_that(has_attr(param, i)),i=i)
+    if(length(x$params)!=1)
+      lapply(lapply(x$params[-1], attr, i), function(x,y) assert_that(are_equal(x,y)), y=attr(x$params[[1]], i))
+  }
   if (as.character(as.list(substitute(...))[[1L]]) == "list") {
     calc <- as.list(substitute(...))[-1L]
   } else {
@@ -61,9 +68,15 @@ calculate_param.scan <- function(x, ...) {
   for (i in seq_along(calc)) {
     newParam <- eval(nn <- (calc[[i]]), x$params)
     if ("" == (name[[i]])) {
-      name[[i]] <- deparse(nn)
+      name[[i]] <- deparse(nn, width.cutoff = 250L)[1]
     }
     attr(newParam, "param") <- name[[i]]
+    # reassign attributes if they are lost in operation
+    for(j in attr_to_check) {
+      if(!has_attr(newParam,j)) {
+        attr(newParam,j) <- attr(x$params[[1]], j)
+      }
+    }
     x$params[[name[[i]]]] <- newParam
   }
   return(x)

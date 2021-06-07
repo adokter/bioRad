@@ -54,7 +54,7 @@
 #'  \item{\code{ff}}{Horizontal ground speed in m/s}
 #'  \item{\code{dd}}{Horizontal ground speed direction in degrees}
 #'  \item{\code{u}}{Ground speed component west to east in m/s}
-#'  \item{\code{v}}{Ground speed component north to south in m/s}
+#'  \item{\code{v}}{Ground speed component south to north in m/s}
 #'  \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 #' }
 #' The height-averaged speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
@@ -70,10 +70,9 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  stopifnot(quantity %in% c(
-    "mtr", "vid", "vir", "rtr", "mt",
-    "rt", "ff", "dd", "u", "v", "height"
-  ))
+  if(!(quantity %in% names(x)[!(names(x) %in% c("datetime", "height"))])){
+    stop(paste("quantity '",quantity,"'not found in vpi object",sep=""))
+  }
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
@@ -135,8 +134,8 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
       by = "days"
     ), tz = "UTC")
 
-    trise <- sunrise(days, lon, lat)
-    tset <- sunset(days, lon, lat)
+    trise <- sunrise(days, lon, lat, elev = elev)
+    tset <- sunset(days, lon, lat, elev=elev)
 
     if (trise[1] < tset[1]) {
       trise <- trise[-1]

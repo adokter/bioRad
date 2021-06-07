@@ -190,14 +190,19 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   # get scan parameter indices, and extract data
   index <- polar_to_index(
     cartesian_to_polar(coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
-    attributes(param)$geo$rscale,
-    attributes(param)$geo$ascale
+    rangebin = attributes(param)$geo$rscale,
+    azimbin = attributes(param)$geo$ascale,
+    azimstart = ifelse(is.null(attributes(param)$geo$astart), 0, attributes(param)$geo$astart),
+    rangestart = ifelse(is.null(attributes(param)$geo$rstart), 0, attributes(param)$geo$rstart)
   )
   # set indices outside the scan's matrix to NA
   nrang <- dim(param)[1]
   nazim <- dim(param)[2]
   index$row[index$row > nrang] <- NA
   index$col[index$col > nazim] <- NA
+  # rstart can result in locations outside of the radar scope close to the radar
+  index$row[index$row < 1] <- NA
+  stopifnot(all(index$col >= 1))
   # convert 2D index to 1D index
   index <- (index$col - 1) * nrang + index$row
   data <- as.data.frame(param[index])
@@ -278,8 +283,8 @@ safe_subset <- function(data, indexx, indexy) {
   out
 }
 
-polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1) {
-  row <- floor(1 + coords_polar$range / c(rangebin))
-  col <- floor(1 + coords_polar$azim / c(azimbin))
+polar_to_index <- function(coords_polar, rangebin = 1, azimbin = 1, rangestart = 0, azimstart = 0) {
+  row <- floor(1 + (coords_polar$range - rangestart) / c(rangebin))
+  col <- floor(1 + ((coords_polar$azim - azimstart + 360) %% 360) / c(azimbin))
   data.frame(row = row, col = col)
 }

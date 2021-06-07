@@ -43,7 +43,7 @@ expressed as the reflectivity factor it would represent at a distance
 \code{noise_floor} is expressed. NOT YET IMPLEMENTED}
 
 \item{steps}{number of integration steps over altitude range zlim, defining
-altitude grid size used for numeric integrations}
+altitude grid size used for numeric integration}
 
 \item{quantity}{profile quantity to use for the altitude distribution, one of
 'dens' or 'eta'.}
@@ -77,7 +77,8 @@ This function also calculates the \code{overlap} quantity in the output of
 Overlap is calculated as the \href{https://en.wikipedia.org/wiki/Bhattacharyya_distance}{Bhattacharyya coefficient} (i.e.
 distribution overlap) between the (normalized) vertical profile vp and the
 (normalized) radiation coverage pattern as calculated by
-\link{beam_profile}.
+\link{beam_profile}. In the calculation of this overlap metric, NA and NaN values
+in the profile quantity specified by \code{quantity} are replaced with zeros.
 
 The current implementation does not (yet) take into account the system
 noise floor when calculating the overlap.

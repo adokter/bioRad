@@ -1,37 +1,58 @@
-# bioRad 0.5.1.9xxx
+# bioRad 0.5.2.9XXX
 
-* `regularize_vpts()` is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (#332)
+* bugfix ylim argument in `composite_ppi()` (#389)
 
-* new option `keep_timestamp` in `regularize_vpts()`, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.
+* `scan_to_spatial()` now creates points for cell centers (#430)
 
-* improved documentation of sunrise/sunset functions (#180) and new option `force_tz` ([4968019](https://github.com/adokter/bioRad/commit/4968019)).
+* The package now account for `rstart` and `astart` from the odim specification. (#434)
 
-* new option `offset` in `check_night()`, which allows day/night transition to be shifted by a temporal offset (#338). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.
+# bioRad 0.5.2
 
-* selection for day and night in vpts in `filter_vpts()`, using `check_night()` (#345)
+This release is primarily a hotfix for R version 4.0 (#375). All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/11?closed=1). New features and improvements include:
 
-* `check_night()` method for vpi objects ([23def64](https://github.com/adokter/bioRad/commit/23def64))
+* `regularize_vpts()` is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (#332).
 
-* new functions `noy()` and `doy()` to determine which night or day of the year a profile belongs to (#346).
+* `regularize_vpts()` has new option `keep_timestamp`, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.
+
+* `sunrise()`/`sunset()` have improved documentation (#180) and new option `force_tz` ([4968019](https://github.com/adokter/bioRad/commit/4968019)).
+
+* `check_night()` has new option `offset`, which allows day/night transition to be shifted by a temporal offset (#338). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.
+
+* `check_night()` now works for vpi objects ([23def64](https://github.com/adokter/bioRad/commit/23def64)).
+
+* `filter_vpts()` allows to select for day and night in vpts using new arguments `night`, `elev` and `offset`, based on functionality of `check_night()` (#345).
+
+* New functions `noy()` and `doy()` to determine which night or day of the year a profile belongs to (#346).
+
+* `as.data.frame.vp()` now has separate function page and deprecated parameter `quantities` (#364).
+
+* `get_quantity()` now has improved documentation and allows to return height (#352).
+
+* `dim()` now returns dimensions in a different, more logical order for pvol and vpts objects (#355).
+
+* Improved documentation and unit tests for a number of functions thanks to an online bioRad sprint.
+
+* Bugfixes (#330, #368).
 
 # bioRad 0.5.1
 
 Minor bugfixes. All issues included in this release can be found [here](https://github.com/adokter/bioRad/pull/334). This release primarily fixes a bug that will become effective once R version 4.0 is released.
 
-* fixes a conflict due to new raw data format introduced in R version 4.0 (#331)
+* Fixes a conflict due to new raw data format introduced in R version 4.0 (#331).
 
-* corrects incorrect values in reading of correlation coefficient values RHOHV (#328)
+* Corrects incorrect values in reading of correlation coefficient values RHOHV (#328).
 
-* bugfix in `read_cajun()` which introduced incorrect height column during refactoring in bioRad 0.5.0 release ([93ad0a4](https://github.com/adokter/bioRad/commit/93ad0a4))
+* Bugfix in `read_cajun()` which introduced incorrect height column during refactoring in bioRad 0.5.0 release ([93ad0a4](https://github.com/adokter/bioRad/commit/93ad0a4)).
 
-* bugfix that fixes the mapping by `map()` of composites of composites (ppi's produced after repeated application of `composite_ppi()`) ([a5c9048](https://github.com/adokter/bioRad/commit/a5c9048), [043aa73](https://github.com/adokter/bioRad/commit/043aa73))
-* minor bug fixes, and addressing conflicts with CRAN depencies
+* Bugfix that fixes the mapping by `map()` of composites of composites (ppi's produced after repeated application of `composite_ppi()`, [a5c9048](https://github.com/adokter/bioRad/commit/a5c9048), [043aa73](https://github.com/adokter/bioRad/commit/043aa73)).
 
-* extend the functionality of `composite_ppi()` and improve its documentation (partial fix of #59)
+* Minor bug fixes, and addressing conflicts with CRAN dependencies.
 
-* fix a bug in the color legend of `map()` when providing a custom color scale with palette argument (#324)
+* Extend the functionality of `composite_ppi()` and improve its documentation (partial fix of #59).
 
-* minor documentation improvements
+* Fix a bug in the color legend of `map()` when providing a custom color scale with palette argument (#324).
+
+* Minor documentation improvements.
 
 # bioRad 0.5.0
 
@@ -65,7 +86,7 @@ New CRAN release. All issues included in this release can be found [here](https:
 
 ### Additional features
 
-* custom color scales in `map()` and `plot.ppi` (#318)
+* Custom color scales in `map()` and `plot.ppi` (#318).
 
 * `nyquist_velocity()` is a new function to calculate the unambiguous velocity of Doppler radar from its pulse repetition frequency/frequencies (#208).
 

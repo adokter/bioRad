@@ -9,13 +9,13 @@ filter_vpts(x, min, max, nearest, night, elev = -0.268, offset = 0)
 \arguments{
 \item{x}{A \code{vpts} object.}
 
-\item{min}{Minimum datetime to be included. POSIXct value or character string convertable to POSIXct.}
+\item{min}{Minimum datetime to be included. POSIXct value or character string convertible to POSIXct.}
 
-\item{max}{Maximum datetime to be included. POSIXct value or character string convertable to POSIXct.}
+\item{max}{Maximum datetime to be included. POSIXct value or character string convertible to POSIXct.}
 
 \item{nearest}{If specified, \code{min} and \code{max} are ignored and the profile nearest to the
 specified datetime is returned that matches the day/night selection criteria.
-POSIXct value or character string convertable to POSIXct.}
+POSIXct value or character string convertible to POSIXct.}
 
 \item{night}{When TRUE select only night time profiles, when FALSE select only day time profiles,
 as classified by \link{check_night}.}

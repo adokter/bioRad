@@ -51,7 +51,17 @@
 #' @param dbz_quantity character. One of the available reflectivity factor
 #' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
 #' @param mistnet logical. Whether to use MistNet segmentation model.
-#' @param local_install character. (optional) String with path to local vol2bird installation, see details.
+#' @param mistnet_elevations numeric vector of length 5.
+#' Elevation angles to feed to the MistNet
+#' segmentation model, which expects exactly 5 elevation scans
+#' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
+#' elevation angles may compromise segmentation results.
+#' @param local_install character. String with path to local vol2bird installation
+#'  (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
+#'  To use local installation instead of Docker container, see details.
+#' @param local_mistnet character. String with path to local mistnet segmentation model
+#' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
+#' to use local installation instead of Docker container.
 #' @param pvolfile character. Deprecated argument renamed to \code{file}.
 #'
 #' @return A vertical profile object of class \link[=summary.vp]{vp}. When
@@ -126,11 +136,17 @@
 #' If you have installed the vol2bird algorithm locally (not possible on Windows)
 #' you can call vol2bird through this local installation (bypassing the Docker container),
 #' which will be faster. Simply point \code{local_install} to the path
-#' of your local vol2bird executable. Your local vol2bird executable will be called
+#' of your local vol2bird executable, e.g. {"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}.
+#' Your local vol2bird executable will be called
 #' through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
 #' correctly specified in your .bashrc or .bash_profile file
 #' and contain all the required shared libraries by vol2bird. See vol2bird installation
 #' pages on Github for details.
+#'
+#' When using MistNet with a local vol2bird installation, also point parameter \code{local_mistnet}
+#' to your local download of the MistNet segmentation model in PyTorch format,
+#' e.g. \code{"/your/path/mistnet_nexrad.pt"}). The MistNet model can be downloaded at
+#' \url{https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt}.
 #'
 #' @references
 #' Dokter et al. (2011) is the main reference for the profiling algorithm
@@ -178,13 +194,14 @@
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
                          mount = dirname(file[1]), sd_vvp_threshold,
-                         rcs = 11, dual_pol = FALSE, rho_hv = 0.95, elev_min = 0,
+                         rcs = 11, dual_pol = TRUE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20L,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
                          dbz_quantity = "DBZH", mistnet = FALSE,
-                         local_install, pvolfile) {
+                         mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
+                         local_install, local_mistnet, pvolfile) {
 
   # check for deprecated input argument pvolfile
   calls <- names(sapply(match.call(), deparse))[-1]
@@ -206,13 +223,36 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     assert_that(is.writeable(dirname(pvolfile_out)))
   }
 
-  assert_that(is.flag(autoconf))
-  # check if any options specified when autoconf=TRUE)
-  if(autoconf){
-    ignored_arguments <- calls[!(calls %in% c("file","vpfile","pvolfile_out","local_install", "pvolfile", "autoconf", "warnings"))]
-    if(length(ignored_arguments)>0){
-      warning(paste("autoconf is TRUE, ignoring argument(s)",paste(ignored_arguments, collapse = ", ")))
-    }
+  if (!is.logical(mistnet)) {
+    stop("invalid 'mistnet' argument, should be logical")
+  }
+  if (mistnet && !.pkgenv$mistnet) {
+    stop("MistNet has not been installed, see update_docker() for install instructions")
+  }
+  if (!is.logical(dealias)) {
+    stop("invalid 'dealias' argument, should be logical")
+  }
+  if (file.access(mount, 0) == -1) {
+    stop("invalid 'mount' argument. Directory not found")
+  }
+  if (file.access(mount, 2) == -1) {
+    stop(paste(
+      "invalid 'mount' argument. No write permission in directory",
+      mount
+    ))
+  }
+
+  if((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))){
+    stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
+  }
+  assert_that(is.numeric(mistnet_elevations))
+  assert_that(length(mistnet_elevations) == 5)
+
+  if (!.pkgenv$docker && missing(local_install)) {
+    stop(
+      "Requires a running Docker daemon.\nTo enable calculate_vp, start ",
+      "your local Docker daemon, and run 'check_docker()' in R\n"
+    )
   }
 
   assert_that(is.flag(verbose))
@@ -321,8 +361,10 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   if (mistnet) {
-    opt.values <- c(opt.values, "TRUE")
-    opt.names <- c(opt.names, "USE_MISTNET")
+    opt.values <- c(opt.values, "TRUE",
+                    paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = ""),
+                    ifelse(missing(local_install), "/MistNet/mistnet_nexrad.pt", normalizePath(local_mistnet)))
+    opt.names <- c(opt.names, "USE_MISTNET", "MISTNET_ELEVS", "MISTNET_PATH")
   }
 
   opt <- data.frame(

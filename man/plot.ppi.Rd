@@ -37,7 +37,7 @@ Plot a plan position indicator (PPI) generated with \link{ppi}
 using \link[ggplot2]{ggplot}
 }
 \details{
-Available scan paramaters for plotting can by printed to screen
+Available scan parameters for plotting can by printed to screen
 by \code{summary(x)}. Commonly available parameters are:
 \describe{
 \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
@@ -64,11 +64,11 @@ summary(example_scan)
 # make ppi for the scan
 ppi <- project_as_ppi(example_scan)
 
-# plot the first scan parameter, which in this case is "VRADH":
+# plot the default scan parameter, which is reflectivity "DBZH":
 plot(ppi)
 
-# plot the reflectivity parameter:
-plot(ppi, param = "DBZH")
+# plot the radial velocity parameter:
+plot(ppi, param = "VRADH")
 
 # change the range of reflectivities to plot, from -10 to 10 dBZ:
 plot(ppi, param = "DBZH", zlim = c(-10, 10))

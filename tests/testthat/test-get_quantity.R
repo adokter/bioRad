@@ -8,10 +8,6 @@ test_that("get_quantity() returns error on incorrect parameters", {
   expect_error(get_quantity(vp, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
   expect_error(get_quantity(vpts, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
 
-  # Height is not a quantity
-  expect_error(get_quantity(vp, "height"))
-  expect_error(get_quantity(vpts, "height"))
-
   # Quantities are case sensitive
   expect_error(get_quantity(vp, "dbzh"))
   expect_error(get_quantity(vp, "DENS"))
@@ -24,6 +20,11 @@ test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff w
   dens <- vp$data$dens
   names(dens) <- vp$data$height # Add heights to make named vector
   expect_equal(get_quantity(vp, "dens"), dens)
+
+  # height is returned as is
+  height <- vp$data$height
+  names(height) <- vp$data$height # Add heights to make named vector
+  expect_equal(get_quantity(vp, "height"), height)
 
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vp$data$eta
@@ -45,11 +46,18 @@ test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff w
 })
 
 test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff when below sd_vvp_threshold", {
+
   # dens is returned as is
   dens <- vpts$data$dens
   rownames(dens) <- vpts$height
   colnames(dens) <- as.character(vpts$datetime)
   expect_equal(get_quantity(vpts, "dens"), dens)
+
+  # height is returned as a matrix repetition of vpts$height
+  height <- matrix(rep(as.numeric(vpts$height),dim(vpts)[1]), ncol=dim(vpts)[1])
+  rownames(height) <- vpts$height
+  colnames(height) <- as.character(vpts$datetime)
+  expect_equal(get_quantity(vpts, "height"), height)
 
   # eta is set to 0 when below sd_vvp_threshold
   eta <- vpts$data$eta
@@ -73,7 +81,8 @@ test_that("get_quantity.vpts() returns correct quantity, processing eta, dbz, ff
   expect_equal(get_quantity(vpts, "ff"), ff)
 })
 
-test_that("get_quantity.vp() returns vectors for all 16 quantities", {
+test_that("get_quantity.vp() returns vectors for all 17 quantities", {
+  expect_vector(get_quantity(vp, "height"))
   expect_vector(get_quantity(vp, "dens"))
   expect_vector(get_quantity(vp, "u"))
   expect_vector(get_quantity(vp, "v"))
@@ -92,21 +101,22 @@ test_that("get_quantity.vp() returns vectors for all 16 quantities", {
   expect_vector(get_quantity(vp, "n_dbz_all"))
 })
 
-test_that("get_quantity.vpts() return a matrix for all 16 quantities", {
-  expect_equal(class(get_quantity(vpts, "dens")), "matrix")
-  expect_equal(class(get_quantity(vpts, "u")), "matrix")
-  expect_equal(class(get_quantity(vpts, "v")), "matrix")
-  expect_equal(class(get_quantity(vpts, "w")), "matrix")
-  expect_equal(class(get_quantity(vpts, "ff")), "matrix")
-  expect_equal(class(get_quantity(vpts, "dd")), "matrix")
-  expect_equal(class(get_quantity(vpts, "sd_vvp")), "matrix")
-  expect_equal(class(get_quantity(vpts, "gap")), "matrix")
-  expect_equal(class(get_quantity(vpts, "dbz")), "matrix")
-  expect_equal(class(get_quantity(vpts, "eta")), "matrix")
-  expect_equal(class(get_quantity(vpts, "dens")), "matrix")
-  expect_equal(class(get_quantity(vpts, "DBZH")), "matrix")
-  expect_equal(class(get_quantity(vpts, "n")), "matrix")
-  expect_equal(class(get_quantity(vpts, "n_all")), "matrix")
-  expect_equal(class(get_quantity(vpts, "n_dbz")), "matrix")
-  expect_equal(class(get_quantity(vpts, "n_dbz_all")), "matrix")
+test_that("get_quantity.vpts() return a matrix for all 17 quantities", {
+  expect_true(is(get_quantity(vpts, "height"), "matrix"))
+  expect_true(is(get_quantity(vpts, "dens"), "matrix"))
+  expect_true(is(get_quantity(vpts, "u"), "matrix"))
+  expect_true(is(get_quantity(vpts, "v"), "matrix"))
+  expect_true(is(get_quantity(vpts, "w"), "matrix"))
+  expect_true(is(get_quantity(vpts, "ff"), "matrix"))
+  expect_true(is(get_quantity(vpts, "dd"), "matrix"))
+  expect_true(is(get_quantity(vpts, "sd_vvp"), "matrix"))
+  expect_true(is(get_quantity(vpts, "gap"), "matrix"))
+  expect_true(is(get_quantity(vpts, "dbz"), "matrix"))
+  expect_true(is(get_quantity(vpts, "eta"), "matrix"))
+  expect_true(is(get_quantity(vpts, "dens"), "matrix"))
+  expect_true(is(get_quantity(vpts, "DBZH"), "matrix"))
+  expect_true(is(get_quantity(vpts, "n"), "matrix"))
+  expect_true(is(get_quantity(vpts, "n_all"), "matrix"))
+  expect_true(is(get_quantity(vpts, "n_dbz"), "matrix"))
+  expect_true(is(get_quantity(vpts, "n_dbz_all"), "matrix"))
 })

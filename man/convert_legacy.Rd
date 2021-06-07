@@ -19,13 +19,15 @@ convert_legacy(x)
 An updated object of the same class as the input.
 }
 \description{
-Convert legacy bioRad objects (\code{vp}, \code{vpts}) that have become obsolete
-compatible with the current bioRad version.
+Convert legacy bioRad objects (\code{vp}, \code{vpts}) that have become obsolete and
+make them compatible with the current bioRad version.
 }
 \examples{
 # Convert a vp object
-convert_legacy(example_vp)
+vp <- example_vp
+vp <- convert_legacy(vp)
 
 # Convert a vpts object
-convert_legacy(example_vpts)
+vpts <- example_vpts
+vpts <- convert_legacy(vpts)
 }

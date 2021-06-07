@@ -82,7 +82,7 @@ on the assumed radar cross section (RCS)}
 \item{\code{ff}}{Horizontal ground speed in m/s}
 \item{\code{dd}}{Horizontal ground speed direction in degrees}
 \item{\code{u}}{Ground speed component west to east in m/s}
-\item{\code{v}}{Ground speed component north to south in m/s}
+\item{\code{v}}{Ground speed component south to north in m/s}
 \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 }
 The height-averaged speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.

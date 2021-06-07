@@ -9,7 +9,7 @@
 #' @param param Scan parameter to composite.
 #' @param method string. Compositing method, one of "mean", "min", "max" or "idw"
 #' @param idw_max_distance numeric. Maximum distance from the radar to consider in
-#' inverse distance weighting. Measuruments beyond this distance will have a
+#' inverse distance weighting. Measurements beyond this distance will have a
 #' weighting factor of zero.
 #' @param idp numeric. inverse distance weighting power
 #'
@@ -67,15 +67,15 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   if (FALSE %in% sapply(x, is.ppi)) {
     stop("'composite' expects objects of class ppi only")
   }
-  if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
-  if (!is.number(ny) && missing(res)) stop("ny' should be an integer")
+  if (!is.count(nx) && missing(res)) stop("'nx' should be an integer")
+  if (!is.count(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
-    if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
-    if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
+    if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be a numeric vector of length two")
+    if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for lower and upper bound respectively")
   }
   if (!missing(ylim)) {
-    if (length(ylim) != 2 & !is.numeric(ylim)) stop("'ylim' should be an integer vector of length two")
-    if (is.na(ylim[1]) | is.na(ylim[2]) | ylim[1] > ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
+    if (length(ylim) != 2 & !is.numeric(ylim)) stop("'ylim' should be a numeric vector of length two")
+    if (is.na(ylim[1]) | is.na(ylim[2]) | ylim[1] > ylim[2]) stop("'ylim' should be a vector with two numeric values for lower and upper bound respectively")
   }
   if (!missing(res)) {
     assert_that(is.numeric(res))
@@ -96,7 +96,7 @@ composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res
   lons <- sapply(ppis, function(x) x$geo$bbox["lon", ])
   lats <- sapply(ppis, function(x) x$geo$bbox["lat", ])
   if(!missing(xlim)) lons <- xlim
-  if(!missing(ylim)) lat <- ylim
+  if(!missing(ylim)) lats <- ylim
   lons.radar <- sapply(ppis, function(x) x$geo$lon)
   lats.radar <- sapply(ppis, function(x) x$geo$lat)
   elangles <- sapply(ppis, function(x) x$geo$elangle)

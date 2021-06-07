@@ -45,10 +45,10 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   colnames(data) <- header.names.biorad
 
   # add missing quantities
-  data$DBZH <- 10 * log10(data$linear_eta_unfiltered)
+  data$DBZH <- eta_to_dbz(data$linear_eta_unfiltered, wavelength = wavelength)
   data$w <- NA
   data$gap <- FALSE
-  data$dbz <- 10 * log10(data$eta)
+  data$dbz <- eta_to_dbz(data$eta, wavelength = wavelength)
   data$dens <- data$eta / rcs
   data$n <- NA
   data$n_dbz <- data$n_dbz_all * (1 - data$percent_rain / 100)

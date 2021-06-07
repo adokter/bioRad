@@ -1,7 +1,7 @@
 #' Convert legacy bioRad objects to current version
 #'
-#' Convert legacy bioRad objects (`vp`, `vpts`) that have become obsolete
-#' compatible with the current bioRad version.
+#' Convert legacy bioRad objects (`vp`, `vpts`) that have become obsolete and
+#' make them compatible with the current bioRad version.
 #'
 #' @param x A `vp` or `vpts` object.
 #'
@@ -11,10 +11,12 @@
 #'
 #' @examples
 #' # Convert a vp object
-#' convert_legacy(example_vp)
+#' vp <- example_vp
+#' vp <- convert_legacy(vp)
 #'
 #' # Convert a vpts object
-#' convert_legacy(example_vpts)
+#' vpts <- example_vpts
+#' vpts <- convert_legacy(vpts)
 convert_legacy <- function(x) {
   UseMethod("convert_legacy", x)
 }

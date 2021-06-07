@@ -1,6 +1,6 @@
 #' convert a polar scan into a spatial object.
 #'
-#' Georeferences the pixels of a scan into a SpatialPointsDataFrame object.
+#' Georeferences the center of  pixels for a scan into a SpatialPointsDataFrame object.
 #'
 #' @inheritParams beam_height
 #' @param scan a scan (sweep) of class scan
@@ -37,12 +37,15 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   rscale <- scan$geo$rscale
   ascale <- scan$geo$ascale
   elev <- scan$geo$elangle
+  rstart <- ifelse(is.null(scan$geo$rstart), 0, scan$geo$rstart)
+  astart <- ifelse(is.null(scan$geo$astart), 0, scan$geo$astart)
+
 
   data <- data.frame(
-    azim = c(t(matrix(rep(seq(0, dim(scan)[3] - 1) * ascale, dim(scan)[2]), nrow = dim(scan)[3]))),
-    range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]),
-    distance = beam_distance(range = rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]), elev = elev, k = k, lat = lat, re = re, rp = rp)
+    azim = astart + c(t(matrix(rep(seq(0, dim(scan)[3] - 1) * ascale + ascale / 2, dim(scan)[2]), nrow = dim(scan)[3]))),
+    range = rstart + rep(seq(1, dim(scan)[2]) * rscale, dim(scan)[3]) - rscale / 2
   )
+  data$distance <- beam_distance(range = data$range, elev = elev, k = k, lat = lat, re = re, rp = rp)
   data$height <- scan$geo$height + beam_height(data$range, elev, k = k, lat = lat, re = re, rp = rp)
   data <- cbind(data, as.data.frame(sapply(scan$params, c)))
   coords <- data.frame(
@@ -142,6 +145,9 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
 
   rscale <- scan$geo$rscale
   ascale <- scan$geo$ascale
+  rstart <- ifelse(is.null(scan$geo$rstart), 0, scan$geo$rstart)
+  astart <- ifelse(is.null(scan$geo$astart), 0, scan$geo$astart)
+
 
   nrang <- dim(scan)[2]
   nazim <- dim(scan)[3]
@@ -174,10 +180,14 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   crds <- coordinates(spTransform(rasterToPoints(r, spatial = T), localCrs))
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
-  index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale)
+  index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)
   # set indices outside the scan's matrix to NA
   index$row[index$row > nrang] <- NA
   index$col[index$col > nazim] <- NA
+  # rstart can result in locations outside of the radar scope close to the radar
+  index$row[index$row < 1] <- NA
+  stopifnot(all(index$col >= 1))
+
   # convert 2D index to 1D index
   index <- (index$col - 1) * nrang + index$row
 
@@ -237,6 +247,8 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
 
   rscale <- scan$geo$rscale
   ascale <- scan$geo$ascale
+  rstart <- ifelse(is.null(scan$geo$rstart), 0, scan$geo$rstart)
+  astart <- ifelse(is.null(scan$geo$astart), 0, scan$geo$astart)
 
   nrang <- dim(scan)[2]
   nazim <- dim(scan)[3]
@@ -244,10 +256,13 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
   crds <- coordinates(spdf)
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
-  index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale)
+  index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)
   # set indices outside the scan's matrix to NA
   index$row[index$row > nrang] <- NA
   index$col[index$col > nazim] <- NA
+  # rstart can result in locations outside of the radar scope close to the radar
+  index$row[index$row < 1] <- NA
+  stopifnot(all(index$col >= 1))
   # convert 2D index to 1D index
   index <- (index$col - 1) * nrang + index$row
 

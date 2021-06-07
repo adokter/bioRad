@@ -1,68 +1,65 @@
-#' Check if a local file is a polar volume (\code{pvol})
+#' Check if a file is a polar volume (`pvol`)
 #'
-#' Checker whether a file is a polar volume in ODIM hdf5 format that can be read with
-#' package \pkg{bioRad}
-#'
-#' @param file A string containing a file name.
-#' @param filename Deprecated argument, use file instead.
-#'
-#' @return TRUE when \code{file} is a polar volume in readable format,
-#' otherwise FALSE
-#'
-#' @export
-#' @details
-#' The function checks whether a hdf5 file provided as input is a polar volume
-#' in ODIM hdf5 format. The function currently evaluates to FALSE for NEXRAD and
+#' Checks whether a file is a polar volume (`pvol`) in the ODIM hdf5 format that
+#' can be read with bioRad. Currently evaluates to `FALSE` for NEXRAD and
 #' IRIS RAW polar volume files.
 #'
+#' @param file Character. Path of the file to check.
+#'
+#' @return `TRUE` when the file is a polar volume (`pvol`) in readable format,
+#'   otherwise `FALSE`.
+#'
+#' @export
+#'
+#' @seealso
+#' * [read_pvolfile()]
+#' * [is.pvol()]
+#'
 #' @examples
-#' # locate example file:
+#' # Locate the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
-#' # check that the file is an ODIM hdf5 polar volume:
+#' # Check that the file is an ODIM hdf5 polar volume
 #' is.pvolfile(pvolfile) # > TRUE
-is.pvolfile <- function(file, filename = NULL) {
-
-  # deprecate function arguments
-  if (!missing(filename)) {
-    warning("argument filename is deprecated; please use file instead.",
-      call. = FALSE
-    )
-    file <- filename
-  }
-
+is.pvolfile <- function(file) {
   type <- get_odim_object_type(file)
   if (is.na(type)) {
+    warning("is.pvolfile() expects a hdf5 file (polar volume files in other data
+            formats not yet recognized).")
     return(FALSE)
   } else {
     return(type == "PVOL")
   }
 }
 
-#' Check the ODIM data class of a polar volume file
+#' Check the data object contained in a ODIM HDF5 file
 #'
-#' Checks which data class is contained in ODIM HDF5 file
+#' Checks which data class is contained in ODIM HDF5 file.
 #'
-#' @param file A string containing a file name.
+#' @param file Character. Name of the file to check.
 #'
-#' @return character string \code{pvol} for polar volume, \code{vp} for
-#' vertical profile, otherwise \code{NA}
+#' @return Character. `PVOL` for polar volume, `VP` for
+#' vertical profile, otherwise `NA`.
 #'
 #' @export
 #'
+#' @details
+#' See \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}
+#' Table 2 for a full list of existing ODIM file object types.
+#'
 #' @examples
-#' # locate a polar volume file:
+#' # Locate the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
-#' # check the data type:
+#' # Check the data type
 #' get_odim_object_type(pvolfile) # > "PVOL"
 get_odim_object_type <- function(file) {
   if (!file.exists(file)) {
-    warning(paste(file, "does not exist"))
+    warning(paste(file, "does not exist."))
     return(NA)
   }
   if (!is.odimfile(file)) {
-    warning(paste(file, "is not a ODIM HDF5 file"))
+    warning(paste(file, "is not a ODIM HDF5 file."))
     return(NA)
   }
   object <- h5readAttributes(file, "what")$object
@@ -71,7 +68,7 @@ get_odim_object_type <- function(file) {
 
 is.odimfile <- function(file) {
   if (!H5Fis_hdf5(file)) {
-    warning(paste(file, "is not a HDF5 file"))
+    warning(paste(file, "is not a HDF5 file."))
     return(FALSE)
   }
   output <- TRUE
@@ -80,7 +77,7 @@ is.odimfile <- function(file) {
     output <- FALSE
     warning(paste(
       "HDF5 file", file,
-      "does not contain a /dataset1 group"
+      "does not contain a `/dataset1` group."
     ))
   }
 
@@ -88,24 +85,24 @@ is.odimfile <- function(file) {
     output <- FALSE
     warning(paste(
       "HDF5 file", file,
-      "does not contain a /what group"
+      "does not contain a `/what` group."
     ))
   } else {
     object <- h5readAttributes(file, "what")$object
 
     if (is.null(object)) {
-      warning("'object' attribute not found in /what group")
+      warning("`object` attribute not found in `/what` group.")
       output <- FALSE
     }
   }
 
   if (!("how" %in% groups)) {
     # accepting a missing /how group
-    warning(paste("HDF5 file", file, "does not contain a /how group"))
+    warning(paste("HDF5 file", file, "does not contain a `/how` group."))
   }
   if (!("where" %in% groups)) {
     output <- FALSE
-    warning(paste("HDF5 file", file, "does not contain a /where group"))
+    warning(paste("HDF5 file", file, "does not contain a `/where` group."))
   }
   return(output)
 }

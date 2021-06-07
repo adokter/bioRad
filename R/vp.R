@@ -19,8 +19,9 @@
 #' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
 #' * `data`: A data.frame with the profile's quantities organized per height
 #' bin. Use [get_quantity()] to access these:
+#'   * `height`: Height bin (lower bound) in m above sea level.
 #'   * `u`: Speed component west to east in m/s.
-#'   * `v`: Speed component north to south in m/s.
+#'   * `v`: Speed component south to north in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
 #'   * `ff`: Horizontal speed in m/s.
 #'   * `dd`: Direction in degrees clockwise from north.
@@ -89,7 +90,8 @@ summary.vp <- function(object, ...) {
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
   if (is.null(x$data[["height"]])) {
-    warning("`x` is a legacy vp object without a column `height`. Use convert_legacy() to avoid errors.")
+    warning(paste0("`x` is a legacy vp object without a column `height`.",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   cat("               Vertical profile (class vp)\n\n")

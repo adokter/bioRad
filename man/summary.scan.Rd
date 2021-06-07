@@ -49,6 +49,8 @@ attributes.
 240 km range).
 \item \code{ascale}: Azimuth bin size for that scan in degrees (e.g. 1 degree * 360
 rays equals full circle).
+\item \code{rstart}: The range where the first range gate starts in meters (note ODIM stores it as kilometers)
+\item \code{astart}: The start of the first ray.
 }
 }
 }
