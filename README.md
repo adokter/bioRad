@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file and knit -->
+<!-- README.md is generated from README.Rmd. Please edit that file and knit with devtools::build_readme() -->
 
 # bioRad <img src="man/figures/logo.png" align="right" alt="" width="120">
 
@@ -21,21 +21,21 @@ calculate further summary statistics.
 
 To get started, see:
 
-  - [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
+-   [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
     describing the package.
-  - [bioRad
+-   [bioRad
     vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an
     introduction to bioRad’s main functionalities.
-  - [Function
+-   [Function
     reference](https://adokter.github.io/bioRad/reference/index.html):
     an overview of all bioRad functions.
-  - [Introductory
+-   [Introductory
     exercises](https://adokter.github.io/bioRad/articles/rad_aero_19.html):
     a tutorial with code examples and exercises.
 
 More vignettes:
 
-  - [Range
+-   [Range
     correction](https://adokter.github.io/bioRad/articles/range_correction.html):
     estimate spatial images of vertically integrated density corrected
     for range effects.
@@ -55,8 +55,9 @@ setRepositories(ind = 1:2)
 ```
 
 <details>
-
-<summary>Required system libraries on Linux (Ubuntu)</summary>
+<summary>
+Required system libraries on Linux (Ubuntu)
+</summary>
 
 The following system libraries are required before installing bioRad on
 Linux systems. In terminal, install these with:
@@ -86,7 +87,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.5.2
+#> Welcome to bioRad version 0.5.2.9419
 #> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)
 ```
 
@@ -94,15 +95,15 @@ library(bioRad)
 
 You need to install Docker to:
 
-  - Process radar data into vertical profiles of biological targets with
+-   Process radar data into vertical profiles of biological targets with
     `calculate_vp()`.
-  - Read [NEXRAD radar
+-   Read [NEXRAD radar
     data](https://www.ncdc.noaa.gov/data-access/radar-data) or [IRIS
     RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf)
     data with `read_pvolfile()`. Docker is not required for reading ODIM
     radar data.
-  - Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
-  - Use the [MistNet](https://doi.org/10.1111/2041-210X.13280) neural
+-   Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
+-   Use the [MistNet](https://doi.org/10.1111/2041-210X.13280) neural
     network with `calculate_vp()` or `apply_mistnet()`
 
 Why? bioRad makes use of a [C implementation of the
@@ -111,8 +112,9 @@ vol2bird](https://github.com/adokter/vol2bird) algorithm through
 functions will work without a Docker installation.
 
 <details>
-
-<summary>Installing Docker</summary>
+<summary>
+Installing Docker
+</summary>
 
 1.  Go to [Docker
     Desktop](https://www.docker.com/products/docker-desktop).
@@ -123,20 +125,20 @@ functions will work without a Docker installation.
 3.  Open the Docker application. The Docker (whale) icon will appear in
     your menu or task bar and indicate if it is running correctly.
 4.  Make local drive(s) available for Docker containers:
-      - On Windows: right click the Docker icon \> `Settings` \> `Shared
-        drives` \> Select the drive(s) where you will be processing
-        radar files \> Click `Apply`.
-      - On Mac: click the Docker icon \> `Preferences` \> `File sharing`
-        \> Add the drive(s) where you will be processing radar files \>
-        Click `Apply & Restart`.
+    -   On Windows: right click the Docker icon &gt; `Settings` &gt;
+        `Shared drives` &gt; Select the drive(s) where you will be
+        processing radar files &gt; Click `Apply`.
+    -   On Mac: click the Docker icon &gt; `Preferences` &gt;
+        `File sharing` &gt; Add the drive(s) where you will be
+        processing radar files &gt; Click `Apply & Restart`.
 5.  In R do `check_docker()`.
 6.  You can now use the bioRad functionality that requires Docker.
 
 </details>
-
 <details>
-
-<summary>Known issues with Docker</summary>
+<summary>
+Known issues with Docker
+</summary>
 
 1.  Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V
     enabled, but Hyper-V can not run together with Virtualbox. To use
@@ -145,8 +147,8 @@ functions will work without a Docker installation.
 2.  For firewall issues on Windows, see [this
     issue](https://github.com/adokter/bioRad/issues/128)
 3.  For permission issues when running docker, specifically the error
-    `Got permission denied while trying to connect to the Docker daemon
-    socket at unix:///var/run/docker.sock`, see
+    `Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock`,
+    see
     [this](https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/)
     solution. Running `sudo usermod -a -G docker $USER` in a terminal
     will fix this problem.
@@ -237,12 +239,12 @@ tutorial](https://adokter.github.io/bioRad/articles/rad_aero_19.html).
 
 ## Meta
 
-  - We welcome
+-   We welcome
     [contributions](https://adokter.github.io/bioRad/CONTRIBUTING.html)
     including bug reports.
-  - License: MIT
-  - Get citation information for `bioRad` in R doing
+-   License: MIT
+-   Get citation information for `bioRad` in R doing
     `citation("bioRad")`.
-  - Please note that this project is released with a [Contributor Code
+-   Please note that this project is released with a [Contributor Code
     of Conduct](https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html).
     By participating in this project you agree to abide by its terms.
