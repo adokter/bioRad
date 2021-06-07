@@ -81,12 +81,12 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
   # set row.names
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-        length(x$data$height)) {
+      length(x$data$height)) {
       rownames(output) <- row.names
     } else {
-      stop(paste0(
-        "`row.names` is not a character vector of length ",
-        length(x$data$height), "."
+      stop(glue(
+        "`row.names` must be a character vector of length ",
+        "{length(x$data$height)}."
       ))
     }
   }
@@ -141,12 +141,12 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   # set row.names
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-        length(x$datetime) * length(x$height)) {
+      length(x$datetime) * length(x$height)) {
       rownames(output) <- row.names
     } else {
-      stop(paste0(
-        "`row.names` is not a character vector of length ",
-        length(x$datetime) * length(x$height), "."
+      stop(glue(
+        "`row.names` must be a character vector of length ",
+        "{length(x$datetime) * length(x$height)}."
       ))
     }
   }
