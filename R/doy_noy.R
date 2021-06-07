@@ -3,9 +3,8 @@
 #' Look up the day of year (`doy`) or night of year (`noy`) for datetimes and
 #' various bioRad objects.
 #'
-#' @param x A `pvol`, `vp`, `vpts`, or `vpi` object, or a or a date inheriting
-#'   from class `POSIXct` or a string that can be interpreted by
-#'   [base::as.POSIXct].
+#' @param x A `pvol`, `vp`, `vpts`, or `vpi` object, or a [base::as.POSIXct]
+#'   datetime.
 #' @param lon Numeric. Longitude in decimal degrees.
 #' @param lat Numeric. Latitude in decimal degrees.
 #' @param method Method by which to do the time zone lookup. Either `fast`
@@ -56,7 +55,7 @@ doy.default <- function(x, lon, lat, ..., method = "fast") {
 #'
 #' @export
 noy.default <- function(x, lon, lat, ..., method = "fast") {
-  doy.default(x + 12 *3600, lon, lat, method = method)
+  doy.default(x + 12 * 3600, lon, lat, method = method)
 }
 
 #' @rdname doy_noy
