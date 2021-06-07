@@ -24,5 +24,7 @@ test_that("doy_noy() returns a number", {
 
 test_that("doy_noy() returns correct doy and noy", {
   expect_equal(doy(as.POSIXct("2015-01-01 18:00:00 UTC"), 12.8517, 56.3675), 1)
+  # noy starts with New Years eve night as first night
+  expect_equal(noy(as.POSIXct("2015-01-01 00:00:00 UTC"), 12.8517, 56.3675), 1) 
   expect_equal(noy(as.POSIXct("2015-01-01 18:00:00 UTC"), 12.8517, 56.3675), 2)
 })
