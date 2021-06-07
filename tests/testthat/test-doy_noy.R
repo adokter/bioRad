@@ -11,20 +11,20 @@ test_that("doy_noy() returns error on incorrect parameters", {
 })
 
 test_that("doy_noy() returns a number", {
-  expect_true(is.numeric(doy(vp)))
-  expect_true(is.numeric(doy(vpts)))
-  expect_true(is.numeric(doy(vpi)))
-  expect_true(is.numeric(doy(pvol)))
+  expect_type(doy(vp), "integer")
+  expect_type(doy(vpts), "integer")
+  expect_type(doy(vpi), "integer")
+  expect_type(doy(pvol), "integer")
 
-  expect_true(is.numeric(noy(vp)))
-  expect_true(is.numeric(noy(vpts)))
-  expect_true(is.numeric(noy(vpi)))
-  expect_true(is.numeric(noy(pvol)))
+  expect_type(noy(vp), "integer")
+  expect_type(noy(vpts), "integer")
+  expect_type(noy(vpi), "integer")
+  expect_type(noy(pvol), "integer")
 })
 
 test_that("doy_noy() returns correct doy and noy", {
   expect_equal(doy(as.POSIXct("2015-01-01 18:00:00 UTC"), 12.8517, 56.3675), 1)
   # noy starts with New Years eve night as first night
-  expect_equal(noy(as.POSIXct("2015-01-01 00:00:00 UTC"), 12.8517, 56.3675), 1) 
+  expect_equal(noy(as.POSIXct("2015-01-01 00:00:00 UTC"), 12.8517, 56.3675), 1)
   expect_equal(noy(as.POSIXct("2015-01-01 18:00:00 UTC"), 12.8517, 56.3675), 2)
 })
