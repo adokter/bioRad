@@ -21,7 +21,6 @@
 #' are selected automatically, and other user settings are ignored.
 #' @param verbose logical. When TRUE, pipe Docker stdout to R console. On
 #' Windows always TRUE.
-#' @param warnings logical. When TRUE, pipe vol2bird warnings to R console.
 #' @param mount character. String with the mount point (a directory path) for
 #' the Docker container.
 #' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
@@ -192,7 +191,7 @@
 #' # clean up:
 #' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
-                         autoconf = FALSE, verbose = FALSE, warnings = TRUE,
+                         autoconf = FALSE, verbose = FALSE,
                          mount = dirname(file[1]), sd_vvp_threshold,
                          rcs = 11, dual_pol = TRUE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
@@ -258,8 +257,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(is.flag(autoconf))
 
   assert_that(is.flag(verbose))
-
-  assert_that(is.flag(warnings))
 
   assert_that(is.writeable(mount))
 
@@ -442,13 +439,13 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     # on mac and linux:
     if (missing(local_install)) {
       result <- system(docker_command,
-      ignore.stdout = !verbose, ignore.stderr = !warnings
+      ignore.stdout = !verbose
       )
     }
     else {
       # using a local install of vol2bird:
       result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""),
-                       ignore.stdout = !verbose, ignore.stderr = !warnings)
+                       ignore.stdout = !verbose)
     }
   } else {
     # on Windows platforms:
