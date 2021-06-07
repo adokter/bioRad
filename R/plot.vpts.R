@@ -227,7 +227,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   stopifnot(!is.null(interval <- x$attributes$where$interval))
   # plot the image
   image.plot(x$datetime, x$height + interval / 2, plotdata,
-    col = plot_colors, xlab = xlab,
+    col = vpts_default_palette, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = zlim, main = main, ...
   )

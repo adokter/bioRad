@@ -112,7 +112,7 @@ g_points <- c(1, 65, 80, 111, 143, 256)
 g_values <- c(255, 255, 163, 163, 0, 0)
 b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
 b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
-plot_colors <- rgb(c(200, approx(
+vpts_default_palette <- rgb(c(200, approx(
   r_points, r_values,
   seq(1, 256, length.out = 255)
 )$y),
