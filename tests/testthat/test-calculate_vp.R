@@ -97,12 +97,12 @@ test_that("input arguments are ignored during autoconf", {
   skip_if_not(docker_ok)
 
   # run vol2bird with non-default options
-  expect_warning(calculate_vp(file=pvolfile, vpfile=vpfile, rcs=rcs, dual_pol=dual_pol,
+  expect_true(is.vp(calculate_vp(file=pvolfile, vpfile=vpfile, rcs=rcs, dual_pol=dual_pol,
                rho_hv=rho_hv, elev_min=elev_min, elev_max=elev_max,
                azim_min=azim_min,azim_max=azim_max,
                range_min=range_min, range_max=range_max,
                n_layer=n_layer, h_layer=h_layer, nyquist_min=nyquist_min,
-               autoconf=TRUE, warnings=FALSE))
+               autoconf=TRUE, warnings=FALSE)))
 
   # read generated vp
   vp <- read_vpfiles(vpfile)
@@ -142,13 +142,21 @@ test_that("MistNet is working", {
 test_that("dealiasing can be suppressed", {
   skip_if_not(docker_ok)
 
-  # run vol2bird with non-default options
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile,warnings=FALSE,
-                     dealias=F)
+  # run vol2bird without dealiasing
+  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE,
+                     nyquist_min=nyquist_min, dealias=F)
   expect_equal(vp$attributes$how$dealiased,0)
   # the dealias attribute is stored at two locations, this one is the duplicate
   # but including to guarantee overall consistency.
-  expect_equal(task_args(profile)$dealiasVrad,"0")
+  expect_equal(task_args(vp)$dealiasVrad,"0")
+
+  # run vol2bird with dealiasing
+  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE,
+                     nyquist_min=nyquist_min, dealias=T)
+  expect_equal(vp$attributes$how$dealiased,1)
+  # the dealias attribute is stored at two locations, this one is the duplicate
+  # but including to guarantee overall consistency.
+  expect_equal(task_args(vp)$dealiasVrad,"1")
 })
 
 # TODO / FIXME:
