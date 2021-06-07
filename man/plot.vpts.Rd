@@ -21,6 +21,9 @@
   barbs.h = 10,
   barbs.t = 20,
   barbs.dens = 5,
+  na_color = "#C8C8C8",
+  nan_color = palette[1],
+  palette = bioRad:::vpts_default_palette,
   ...
 )
 }
@@ -63,6 +66,13 @@ color bar.}
 \item{barbs.t}{Deprecated argument, use barbs_time instead.}
 
 \item{barbs.dens}{Deprecated argument, use barbs_dens_min instead.}
+
+\item{na_color}{Color to use for NA values}
+
+\item{nan_color}{Color to use for NaN values}
+
+\item{palette}{(Optional) character vector of hexadecimal color values defining
+the plot color scale, e.g. output from \link[viridisLite]{viridis}}
 
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics]{image} plotting function.}

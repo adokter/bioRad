@@ -21,6 +21,10 @@
 #' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
+#' @param na_color Color to use for NA values
+#' @param nan_color Color to use for NaN values
+#' @param palette (Optional) character vector of hexadecimal color values defining
+#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{image} plotting function.
 #' @param barbs.h Deprecated argument, use barbs_height instead.
@@ -66,6 +70,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       barbs_time = 20, barbs_dens_min = 5,
                       zlim, legend_ticks, legend.ticks, main,
                       barbs.h = 10, barbs.t = 20, barbs.dens = 5,
+                      na_color = "#C8C8C8", nan_color = palette[1],
+                      palette = bioRad:::vpts_default_palette,
                       ...) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
@@ -200,34 +206,32 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     legendticks <- log(ticks)
     zlim <- log(zlim)
   }
-  breaks <- c(
-    zlim[1] - (zlim[2] - zlim[1]) / 1000,
-    seq(zlim[1], zlim[2], length.out = 256)
-  )
+
+
+  # set color scales and palettes
+  if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
+  palette <- c(palette, na_color, nan_color)
+
+  zstep <- (zlim[2] - zlim[1]) / (length(palette)-2);
+  breaks <- seq(zlim[1], zlim[2]+2*zstep, length.out = length(palette)+1)
 
   # if a regular time series, use the regular timegrid for plotting
   # (in case keep_datetime = TRUE option is used in regularize_vpts())
   if(x$regular) x$datetime <- seq(from = x$daterange[1], to = x$daterange[2], by = x$timesteps[1])
 
   # move points out of zlim range into valid color range
-  plotdata[plotdata < (breaks[2] + breaks[3]) / 2] <- (breaks[2] + breaks[3]) / 2
-  plotdata[plotdata > zlim[2]] <- breaks[length(breaks)]
-  plotdata[is.na2(plotdata)] <- (breaks[1] + breaks[2]) / 2
+  plotdata[plotdata < zlim[1]] <- zlim[1]
+  plotdata[plotdata > zlim[2]] <- zlim[2]
+  # set NA and NaN values
+  plotdata[is.na2(plotdata)] <- zlim[2]+zstep
+  plotdata[is.nan(plotdata)] <- zlim[2]+2*zstep
 
-  zlim[1] <- breaks[1]
-  axis.args <- list(at = legendticks, labels = ticks)
-  # FIXME: want to change this to
-  # plotdata[is.nan(plotdata)]=(breaks[2]+breaks[3])/2
-  # when calculate_vp stdout also differentiates between NA and NaN:
-  plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
-  # FIXME: want to change this to
-  # plotdata[is.na2(plotdata)]=(breaks[1]+breaks[2])/2
-  # when calculate_vp stdout also differentiates between NA and NaN:
-  plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
   stopifnot(!is.null(interval <- x$attributes$where$interval))
+  axis.args <- list(at = legendticks, labels = ticks)
+
   # plot the image
   image.plot(x$datetime, x$height + interval / 2, plotdata,
-    col = vpts_default_palette, xlab = xlab,
+    col = palette, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = zlim, main = main, ...
   )
