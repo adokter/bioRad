@@ -28,6 +28,7 @@ Imports:
     fields,
     ggmap (>= 3.0.0),
     ggplot2,
+    glue,
     graphics,
     lubridate,
     lutz,
