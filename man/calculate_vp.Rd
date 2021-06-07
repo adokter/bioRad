@@ -10,7 +10,6 @@ calculate_vp(
   pvolfile_out = "",
   autoconf = FALSE,
   verbose = FALSE,
-  warnings = TRUE,
   mount = dirname(file[1]),
   sd_vvp_threshold,
   rcs = 11,
@@ -56,8 +55,6 @@ are selected automatically, and other user settings are ignored.}
 
 \item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
 Windows always TRUE.}
-
-\item{warnings}{logical. When TRUE, pipe vol2bird warnings to R console.}
 
 \item{mount}{character. String with the mount point (a directory path) for
 the Docker container.}
