@@ -7,11 +7,11 @@
 #' and day/sunrise/sunset (parameter `suntime`).
 #'
 #' @param x A `vp` or `vpts` object.
-#' @param row.names `NULL` or a character vector giving the row names for
-#' the data frame. Missing values are not allowed. See [base::as.data.frame()].
+#' @param row.names `NULL` or a character vector giving the row names for the
+#'   data frame. Missing values are not allowed. See [base::as.data.frame()].
 #' @param optional Logical. If `FALSE` then the names of the variables in the
-#' data frame are checked to ensure that they are syntactically valid variable
-#' names and are not duplicated. See [base::as.data.frame()].
+#'   data frame are checked to ensure that they are syntactically valid variable
+#'   names and are not duplicated. See [base::as.data.frame()].
 #' @param geo Logical. When `TRUE`, adds latitude (`lat`), longitude (`lon`) and
 #'   antenna height of the radar (`height_antenna`) to each row.
 #' @param suntime Logical. When `TRUE`, adds whether it is daytime (`day`) and
