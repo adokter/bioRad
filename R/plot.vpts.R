@@ -21,8 +21,8 @@
 #' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
-#' @param na_color Color to use for NA values
-#' @param nan_color Color to use for NaN values
+#' @param na_color Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param nan_color Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.
 #' @param palette (Optional) character vector of hexadecimal color values defining
 #' the plot color scale, e.g. output from \link[viridisLite]{viridis}
 #' @param ... Additional arguments to be passed to the low level

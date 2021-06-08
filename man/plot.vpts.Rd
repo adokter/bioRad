@@ -67,9 +67,9 @@ color bar.}
 
 \item{barbs.dens}{Deprecated argument, use barbs_dens_min instead.}
 
-\item{na_color}{Color to use for NA values}
+\item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
 
-\item{nan_color}{Color to use for NaN values}
+\item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
 
 \item{palette}{(Optional) character vector of hexadecimal color values defining
 the plot color scale, e.g. output from \link[viridisLite]{viridis}}
