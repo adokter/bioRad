@@ -1,7 +1,10 @@
 #' Look up day of year (doy) or night of year (noy)
 #'
-#' Look up the day of year (`doy`) or night of year (`noy`) for datetimes and
-#' various bioRad objects.
+#' Returns the day of year (`doy`) or night of year (`noy`) number for datetimes
+#' and various bioRad objects. The first night of the year is the night with
+#' datetime Jan 01 00:00:00 in the local time zone, so sunset on Jan 1 occurs
+#' on the second night of the year and New Years Eve on Dec 31 occurs on the
+#' first night of the new year.
 #'
 #' @param x A `pvol`, `vp`, `vpts`, or `vpi` object, or a [base::as.POSIXct]
 #'   datetime.
@@ -12,11 +15,6 @@
 #' @param ... Optional lat, lon arguments.
 #'
 #' @name doy_noy
-#'
-#' @details
-#' First night of the year is the night with datetime Jan 01 00:00:00 in the
-#' local time zone, i.e. sunset on Jan 1 occurs on the second night of the year
-#' and New Years Eve on Dec 31 occurs on the first night of the new year.
 #'
 #' @examples
 #' # Get day of year of a vp object

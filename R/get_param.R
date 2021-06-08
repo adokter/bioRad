@@ -10,7 +10,8 @@
 #'
 #' @export
 #'
-#' @seealso [summary.param()]
+#' @seealso
+#' * [summary.param()]
 #'
 #' @examples
 #' # Load the example scan

@@ -11,7 +11,7 @@ An object of class \code{vpts} of dimension 1934 x 25 x 15.
 example_vpts
 }
 \description{
-Example object of class \code{\link[=summary.vpts]{vpts}} with name \code{example_vpts}.
+Example of a \code{\link[=summary.vpts]{vpts}} object with name \code{example_vpts}.
 }
 \examples{
 # Reload example_vpts from package (e.g. in case it was altered)

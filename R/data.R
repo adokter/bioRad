@@ -1,8 +1,11 @@
 #' Scan (`scan`) example
 #'
-#' Example object of class [`scan`][summary.scan()] with name `example_scan`.
+#' Example of a [`scan`][summary.scan()] object with name `example_scan`.
 #'
 #' @rdname example_scan
+#'
+#' @seealso
+#' * [summary.scan()]
 #'
 #' @examples
 #' # Reload example_scan from package (e.g. in case it was altered)
@@ -22,7 +25,7 @@
 
 #' Vertical profile (`vp`) example
 #'
-#' Example object of class [`vp`][summary.vp()] with name `example_vp`.
+#' Example of a [`vp`][summary.vp()] object with name `example_vp`.
 #'
 #' @rdname example_vp
 #'
@@ -46,9 +49,12 @@
 
 #' Time series of vertical profiles (`vpts`) example
 #'
-#' Example object of class [`vpts`][summary.vpts()] with name `example_vpts`.
+#' Example of a [`vpts`][summary.vpts()] object with name `example_vpts`.
 #'
 #' @rdname example_vpts
+#'
+#' @seealso
+#' * [summary.vpts()]
 #'
 #' @examples
 #' # Reload example_vpts from package (e.g. in case it was altered)

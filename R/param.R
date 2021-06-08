@@ -26,7 +26,8 @@
 #' * `PHIDP`: Differential phase in degrees.
 #' * `ZDR`: (Logged) differential reflectivity in dB.
 #'
-#' @seealso [get_param()]
+#' @seealso
+#' * [get_param()]
 #'
 #' @examples
 #' # Extract the DBZH scan parameter from the example scan

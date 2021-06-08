@@ -11,7 +11,7 @@ An object of class \code{scan} of dimension 5 x 480 x 360.
 example_scan
 }
 \description{
-Example object of class \code{\link[=summary.scan]{scan}} with name \code{example_scan}.
+Example of a \code{\link[=summary.scan]{scan}} object with name \code{example_scan}.
 }
 \examples{
 # Reload example_scan from package (e.g. in case it was altered)
