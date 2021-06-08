@@ -53,8 +53,11 @@
 
 
 <meta property="og:title" content="Look up day of year (doy) or night of year (noy) — doy_noy" />
-<meta property="og:description" content="Look up the day of year (doy) or night of year (noy) for datetimes and
-various bioRad objects." />
+<meta property="og:description" content="Returns the day of year (doy) or night of year (noy) number for datetimes
+and various bioRad objects. The first night of the year is the night with
+datetime Jan 01 00:00:00 in the local time zone, so sunset on Jan 1 occurs
+on the second night of the year and New Years Eve on Dec 31 occurs on the
+first night of the new year." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -156,8 +159,11 @@ various bioRad objects." />
     </div>
 
     <div class="ref-description">
-    <p>Look up the day of year (<code>doy</code>) or night of year (<code>noy</code>) for datetimes and
-various bioRad objects.</p>
+    <p>Returns the day of year (<code>doy</code>) or night of year (<code>noy</code>) number for datetimes
+and various bioRad objects. The first night of the year is the night with
+datetime Jan 01 00:00:00 in the local time zone, so sunset on Jan 1 occurs
+on the second night of the year and New Years Eve on Dec 31 occurs on the
+first night of the new year.</p>
     </div>
 
     <pre class="usage"><span class='fu'>doy</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, method <span class='op'>=</span> <span class='st'>"fast"</span><span class='op'>)</span>
@@ -199,9 +205,8 @@ various bioRad objects.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A <code>pvol</code>, <code>vp</code>, <code>vpts</code>, or <code>vpi</code> object, or a or a date inheriting
-from class <code>POSIXct</code> or a string that can be interpreted by
-<a href='https://rdrr.io/r/base/as.POSIXlt.html'>base::as.POSIXct</a>.</p></td>
+      <td><p>A <code>pvol</code>, <code>vp</code>, <code>vpts</code>, or <code>vpi</code> object, or a <a href='https://rdrr.io/r/base/as.POSIXlt.html'>base::as.POSIXct</a>
+datetime.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -222,11 +227,6 @@ from class <code>POSIXct</code> or a string that can be interpreted by
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>First night of the year is the night with datetime Jan 01 00:00:00 in the
-local time zone, i.e. sunset on Jan 1 occurs on the second night of the year
-and New Years Eve on Dec 31 occurs on the first night of the new year.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Get day of year of a vp object</span>

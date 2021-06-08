@@ -232,14 +232,11 @@ attributes, copied from the first profile.</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Load the example time series of vertical profiles</span>
-<span class='va'>vpts</span> <span class='op'>&lt;-</span> <span class='va'>example_vpts</span>
-
-<span class='co'># Verify that it is an object of class vpts</span>
-<span class='fu'>is.vpts</span><span class='op'>(</span><span class='va'>vpts</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Verify that an object is of class vpts</span>
+<span class='fu'>is.vpts</span><span class='op'>(</span><span class='va'>example_vpts</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Get summary info</span>
-<span class='va'>vpts</span> <span class='co'># Same as summary(vpts) or print(vpts)</span>
+<span class='va'>example_vpts</span> <span class='co'># Same as summary(example_vpts) or print(example_vpts)</span>
 </div><div class='output co'>#&gt;                    Irregular time series of vertical profiles (class vpts)
 #&gt; 
 #&gt;            radar:  KBGM 
@@ -247,7 +244,7 @@ attributes, copied from the first profile.</p></li>
 #&gt; time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 
 #&gt;    time step (s):  min: 180     max:  16320 </div><div class='input'>
 <span class='co'># Get dimensions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>vpts</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>example_vpts</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1934   25   15</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
