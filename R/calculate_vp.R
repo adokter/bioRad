@@ -222,11 +222,11 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     assert_that(file.exists(filename))
   }
 
-  if(!are_equal(vpfile,"")){
+  if (!are_equal(vpfile, "")) {
     assert_that(is.writeable(dirname(vpfile)))
   }
 
-  if(!are_equal(pvolfile_out,"")){
+  if (!are_equal(pvolfile_out, "")) {
     assert_that(is.writeable(dirname(pvolfile_out)))
   }
 
@@ -249,7 +249,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     ))
   }
 
-  if((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))){
+  if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))) {
     stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
   }
   assert_that(is.numeric(mistnet_elevations))
@@ -276,7 +276,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   assert_that(is.number(rcs))
-  assert_that(rcs>0)
+  assert_that(rcs > 0)
 
   assert_that(is.flag(dual_pol))
 
@@ -322,28 +322,38 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(is.flag(dealias))
 
   assert_that(.pkgenv$docker | !missing(local_install),
-              msg = paste("Requires a running Docker daemon.\nTo enable calculate_vp, start",
-                          "your local Docker daemon, and run 'check_docker()' in R\n"))
+    msg = paste(
+      "Requires a running Docker daemon.\nTo enable calculate_vp, start",
+      "your local Docker daemon, and run 'check_docker()' in R\n"
+    )
+  )
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assert_that(is.writeable(filedir))
 
   assert_that(grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
-              msg = paste("mountpoint 'mount' has to be a parent directory",
-                          "of input file 'file'"))
+    msg = paste(
+      "mountpoint 'mount' has to be a parent directory",
+      "of input file 'file'"
+    )
+  )
 
   # check whether vol2bird container supports multiple input files
   multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
   if (!missing(local_install)) multi_file_support <- TRUE
   assert_that(!(length(file) > 1 && !multi_file_support),
-              msg = paste("Current vol2bird installation does not support multiple input files.",
-                          "Provide a single input file containing a polar volume, or run update_docker() to update"))
+    msg = paste(
+      "Current vol2bird installation does not support multiple input files.",
+      "Provide a single input file containing a polar volume, or run update_docker() to update"
+    )
+  )
 
   profile.tmp <- tempfile(tmpdir = filedir)
 
   if (missing(local_install)) {
     assert_that(mount_docker_container(normalizePath(mount, winslash = "/")) == 0,
-                msg = "failed to start vol2bird Docker container, see check_docker()")
+      msg = "failed to start vol2bird Docker container, see check_docker()"
+    )
   }
 
   # put options file in place, to be read by vol2bird container
@@ -370,9 +380,11 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
 
   if (mistnet) {
-    opt.values <- c(opt.values, "TRUE",
-                    paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = ""),
-                    ifelse(missing(local_install), "/MistNet/mistnet_nexrad.pt", normalizePath(local_mistnet)))
+    opt.values <- c(
+      opt.values, "TRUE",
+      paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = ""),
+      ifelse(missing(local_install), "/MistNet/mistnet_nexrad.pt", normalizePath(local_mistnet))
+    )
     opt.names <- c(opt.names, "USE_MISTNET", "MISTNET_ELEVS", "MISTNET_PATH")
   }
 
@@ -382,8 +394,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   if (missing(local_install)) {
     optfile <- paste(normalizePath(mount, winslash = "/"),
-                     "/options.conf",
-                     sep = ""
+      "/options.conf",
+      sep = ""
     )
   }
   else {
@@ -393,8 +405,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (file.exists(optfile)) {
     optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
     warning(paste("options.conf file found in directory ", mount,
-                  ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
-                  sep = ""
+      ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
+      sep = ""
     ))
     file.rename(optfile, optfile_save)
   }
@@ -402,8 +414,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   # only use user configuration when autoconfiguration is off.
   if (!autoconf) {
     write.table(opt,
-                file = optfile, col.names = FALSE,
-                row.names = FALSE, quote = FALSE
+      file = optfile, col.names = FALSE,
+      row.names = FALSE, quote = FALSE
     )
   }
 
@@ -449,13 +461,14 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     # on mac and linux:
     if (missing(local_install)) {
       result <- system(docker_command,
-                       ignore.stdout = !verbose, ignore.stderr = !warnings
+        ignore.stdout = !verbose, ignore.stderr = !warnings
       )
     }
     else {
       # using a local install of vol2bird:
       result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""),
-                       ignore.stdout = !verbose, ignore.stderr = !warnings)
+        ignore.stdout = !verbose, ignore.stderr = !warnings
+      )
     }
   } else {
     # on Windows platforms:
