@@ -66,15 +66,15 @@
 #' # plot total reflectivity factor (rain, birds, insects together):
 #' plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
 plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
-                      log = TRUE, barbs = TRUE, barbs_height = 10,
+                      log = NA, barbs = TRUE, barbs_height = 10,
                       barbs_time = 20, barbs_dens_min = 5,
                       zlim, legend_ticks, legend.ticks, main,
                       barbs.h = 10, barbs.t = 20, barbs.dens = 5,
                       na_color = "#C8C8C8", nan_color = palette[1],
-                      palette = bioRad:::vpts_default_palette,
+                      palette = NA,
                       ...) {
   stopifnot(inherits(x, "vpts"))
-  stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
+  stopifnot(quantity %in% names(x$data))
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
@@ -114,7 +114,16 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
   }
 
+  if(are_equal(log, NA)){
+    if(quantity %in% c("dens","eta","dbz","DBZH")){
+      log = TRUE
+    }
+    else{
+      log = FALSE
+    }
+  }
   assert_that(is.flag(log))
+
   if (!missing(zlim)) {
     assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
     if (log && !(quantity %in% c("DBZH", "dbz"))) {
@@ -131,6 +140,10 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
 
   # prepare zlim, ticks and legendticks
   if (missing(zlim)) {
+    # first define defaults:
+    zlim = c(min(x$data[[quantity]],na.rm = T),max(x$data[[quantity]],na.rm = T))
+    legendticks <- ticks <- seq(zlim[1], zlim[2], length.out = 10)
+    # specific quantities:
     if (quantity == "dens" & log) {
       ticks <- legendticks <- c(1, 2, 5, 10, 25, 50, 100, 200, 500, 1000)
       zlim <- c(.5, 1000)
@@ -166,15 +179,17 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
 
   # set up the plot labels
   if (missing(main)) {
-    if (quantity == "dens") main <- expression("volume density [#/km"^3 * "]")
-    if (quantity == "eta") main <- expression("reflectivity " * eta * " [cm"^2 * "/km"^3 * "]")
-    if (quantity == "dbz") main <- expression("reflectivity factor [dBZ"[e] * "]")
-    if (quantity == "DBZH") main <- expression("total reflectivity factor [dBZ"[e] * "]")
+    main <- switch(quantity,
+                   "dens" = expression("volume density [#/km"^3 * "]"),
+                   "eta" = expression("reflectivity " * eta * " [cm"^2 * "/km"^3 * "]"),
+                   "dbz" = expression("reflectivity factor [dBZ"[e] * "]"),
+                   "DBZH" = expression("total reflectivity factor [dBZ"[e] * "]"),
+                   quantity
+    )
   }
 
   # extract the data from the time series object
-  if (quantity == "dens") plotdata <- t(get_quantity(x, quantity))
-  if (quantity == "eta") plotdata <- t(get_quantity(x, quantity))
+  plotdata <- t(get_quantity(x, quantity))
   if (quantity == "dbz") {
     if (log) {
       if (!missing(log)) {
@@ -209,8 +224,18 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
 
 
   # set color scales and palettes
-  if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
-  palette <- c(palette, na_color, nan_color)
+  if (!are_equal(palette, NA)) {
+    if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
+    palette <- c(palette, na_color, nan_color)
+  }
+  else{
+    if(quantity %in% c("dens","eta","dbz","DBZH")){
+      palette <- c(vpts_default_palette, na_color, nan_color)
+    }
+    else{
+      palette <- c(viridis::magma(1000), na_color, nan_color)
+    }
+  }
 
   zstep <- (zlim[2] - zlim[1]) / (length(palette)-2);
   breaks <- seq(zlim[1], zlim[2]+2*zstep, length.out = length(palette)+1)

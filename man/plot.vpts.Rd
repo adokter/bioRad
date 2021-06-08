@@ -9,7 +9,7 @@
   xlab = "time",
   ylab = "height [m]",
   quantity = "dens",
-  log = TRUE,
+  log = NA,
   barbs = TRUE,
   barbs_height = 10,
   barbs_time = 20,
@@ -23,7 +23,7 @@
   barbs.dens = 5,
   na_color = "#C8C8C8",
   nan_color = palette[1],
-  palette = bioRad:::vpts_default_palette,
+  palette = NA,
   ...
 )
 }
