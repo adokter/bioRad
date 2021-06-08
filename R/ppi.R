@@ -35,7 +35,7 @@
 #' * \code{\link[=[.ppi]{[ppi()}}
 #'
 #' @examples
-#' # Project the example scan as a ppi
+#' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #'
 #' # Verify that it is an object of class ppi
@@ -106,7 +106,7 @@ dim.ppi <- function(x) {
 #' @export
 #'
 #' @examples
-#' # Project the example scan as a ppi
+#' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #'
 #' # This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)

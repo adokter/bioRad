@@ -6,8 +6,8 @@
 #'
 #' @param x A `data.frame` object.
 #'
-#' @return A matrix of the same dimension as `x`, with `TRUE`/`FALSE` values
-#' for whether each cell in the original data frame is a number or not.
+#' @return A matrix of the same dimension as `x`, with `TRUE`/`FALSE` values for
+#'   whether each cell in the original data frame is a number or not.
 #'
 #' @keywords internal
 is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))

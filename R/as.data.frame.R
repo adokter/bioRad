@@ -31,6 +31,9 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [summary.vpts()]
+#'
 #' @details
 #' Note that only the `dens` quantity is thresholded for radial velocity
 #' standard deviation by [sd_vvp_threshold()]. This is different from the

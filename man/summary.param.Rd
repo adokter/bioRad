@@ -42,7 +42,7 @@ vertically and horizontally polarized reflectivity factor.
 }
 }
 \examples{
-# Extract the DBZH scan parameter from the example scan
+# Extract the DBZH parameter from a scan
 param <- get_param(example_scan, "DBZH")
 
 # Verify that it is an object of class param
@@ -52,5 +52,7 @@ is.param(param)
 param # Same as summary(param) or print(param)
 }
 \seealso{
-\code{\link[=get_param]{get_param()}}
+\itemize{
+\item \code{\link[=get_param]{get_param()}}
+}
 }
