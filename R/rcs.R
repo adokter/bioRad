@@ -40,7 +40,7 @@ rcs.vp <- function(x) {
 rcs.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("`x` must be list of vp objects.")
+    stop("`x` must be list of `vp` objects.")
   }
   output <- sapply(x, `rcs.vp`)
   output
@@ -105,7 +105,7 @@ rcs.vpi <- function(x) {
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
-    warning("Threshold for sd_vvp not set, defaulting to 2 m/s.")
+    warning("Threshold for `sd_vvp` not set, defaulting to 2 m/s.")
     x$attributes$how$sd_vvp_thresh <- 2
     x$data$dens[x$data$sd_vvp < 2] <- 0
   }
@@ -118,7 +118,7 @@ rcs.vpi <- function(x) {
 `rcs<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("`x` must be list of vp objects.")
+    stop("`x` must be list of `vp` objects.")
   }
   output <- lapply(x, `rcs<-.vp`, value = value)
   class(output) <- c("list")
@@ -137,7 +137,7 @@ rcs.vpi <- function(x) {
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
     x$data$dens[x$data$sd_vvp < x$attributes$how$sd_vvp_thresh] <- 0
   } else {
-    warning("Threshold for sd_vvp not set, defaulting to 2 m/s.")
+    warning("Threshold for `sd_vvp` not set, defaulting to 2 m/s.")
     x$attributes$how$sd_vvp_thresh <- 2
     x$data$dens[x$data$sd_vvp < 2] <- 0
   }

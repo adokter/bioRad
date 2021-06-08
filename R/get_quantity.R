@@ -90,7 +90,7 @@ get_quantity.vp <- function(x, quantity = "dens") {
 get_quantity.list <- function(x, quantity = "dens") {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("`x` must be list of vp objects.")
+    stop("`x` must be list of `vp` objects.")
   }
   lapply(x, get_quantity.vp, quantity = quantity)
 }
