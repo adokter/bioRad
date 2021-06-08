@@ -127,129 +127,150 @@ A vertical profile object of class \code{vp}. When defined, output files
 }
 \description{
 Calculates a vertical profile of biological scatterers (\code{vp}) from a polar
-volume (\code{pvol}) using the algorithm
-\href{https://github.com/adokter/vol2bird/}{vol2bird} (\href{https://doi.org/10.1098/rsif.2010.0116}{Dokter et al. 2011}).
+volume (\code{pvol}) file using the algorithm
+\href{https://github.com/adokter/vol2bird/}{vol2bird} (\href{https://doi.org/10.1098/rsif.2010.0116}{Dokter et al. 2011}). Requires a running
+\href{https://www.docker.com/}{Docker} daemon, unless a local installation of
+vol2bird is specified with \code{local_install}.
 }
 \details{
-Requires a running \href{https://www.docker.com/}{Docker} daemon
-(unless a local installation of vol2bird is specified with \code{local_install}).
+\subsection{Typical use}{
 
-Common arguments set by users are \code{file}, \code{vpfile},
-\code{autoconf} and \code{mount}.
-
-Turn on \code{autoconf} to automatically select the optimal parameters for a
-given radar file. The default for C-band data is to apply rain-filtering in
-single polarization mode, as well as dual polarization mode when available.
-
-The default for S-band data is to apply precipitation filtering in
-dual-polarization mode.
+Common arguments set by users are \code{file}, \code{vpfile}, \code{autoconf} and \code{mount}.
+Turn on \code{autoconf} to automatically select the optimal parameters for a given
+radar file. The default for C-band data is to apply rain-filtering in single
+polarization mode and dual polarization mode when available. The default for
+S-band data is to apply precipitation filtering in dual-polarization mode
+only.
 
 Arguments that sometimes require non-default values are: \code{rcs},
-\code{sd_vvp_threshold}, \code{range_max}, \code{dual_pol}, \code{dealias}.
+\code{sd_vvp_threshold}, \code{range_max}, \code{dual_pol}, \code{dealias}. Other arguments are
+typically left at their defaults.
+}
 
-Other arguments are typically left at their defaults.
+\subsection{mount}{
 
-\code{azim_min} and \code{azim_max} only affects reflectivity-derived
-estimates in the profile (DBZH,eta,dens), not radial-velocity derived
-estimates (u, v, w, ff, dd, sd_vvp), which are estimated on all azimuths at
-all times. \code{azim_min}, \code{azim_max} may be set to exclude an angular
-sector with high ground clutter.
+On repeated calls of \code{\link[=calculate_vp]{calculate_vp()}}, the Docker container mount can be
+recycled from one call to the next if subsequent calls share the same \code{mount}
+argument. Re-mounting a Docker container takes time, therefore it is advised
+to choose a mount point that is a parent directory of all volume files to be
+processed, such that \code{\link[=calculate_vp]{calculate_vp()}} calls are as fast as possible.
+}
 
-\code{range_max} may be extended up to 40,000 m for volumes with low
-elevations only, in order to extend coverage to higher altitudes.
+\subsection{sd_vvp_threshold}{
 
 For altitude layers with a VVP-retrieved radial velocity standard deviation
 value below the threshold \code{sd_vvp_threshold}, the bird density \code{dens} is set
-to zero (see vertical profile \link[=summary.vp]{vp} class). This threshold
+to zero (see vertical profile \code{\link[=summary.vp]{vp}} class). This threshold
 might be dependent on radar processing settings. Results from validation
 campaigns so far indicate that 2 m/s is the best choice for this parameter
-for most C-band weather radars, which is used as the C-band default. For S-band,
-the default threshold is 1 m/s.
+for most C-band weather radars, which is used as the C-band default. For
+S-band, the default threshold is 1 m/s.
+}
+
+\subsection{rcs}{
+
+The default radar cross section (\code{rcs}) (11 cm^2) corresponds to the average
+value found by Dokter et al. (2011) in a calibration campaign of a full
+migration autumn season in western Europe at C-band. Its value may depend on
+radar wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M} the
+bird's mass.
+}
+
+\subsection{azim_min / azim_max}{
+
+\code{azim_min} and \code{azim_max} only affects reflectivity-derived estimates in the
+profile (\code{DBZH}, \code{eta}, \code{dens}), not radial-velocity derived estimates (\code{u},
+\code{v}, \code{w}, \code{ff}, \code{dd}, \code{sd_vvp}), which are estimated on all azimuths at all
+times. \code{azim_min}, \code{azim_max} may be set to exclude an angular sector with
+high ground clutter.
+}
+
+\subsection{range_min / range_max}{
+
+Using default values of \code{range_min} and \code{range_max} is recommended. Ranges
+closer than 5 km tend to be contaminated by ground clutter, while range gates
+beyond 35 km become too wide to resolve the default altitude layer width of
+200 meter (see \code{\link[=beam_width]{beam_width()}}). \code{range_max} may be extended up to 40 km
+(\code{40000}) for volumes with low elevations only, in order to extend coverage
+to higher altitudes.
+}
+
+\subsection{h_layer}{
+
 The algorithm has been tested and developed for altitude layers with
-\code{h_layer} = 200 m. Smaller widths are not recommended as they may cause
+\code{h_layer = 200}m. Smaller widths are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,
 and effectively lead to pseudo-replicated altitude data, since altitudinal
 patterns smaller than the beam width cannot be resolved.
+}
 
-The default radar cross section (11 cm^2) corresponds to the average value
-found by Dokter et al. in a calibration campaign of a full migration autumn
-season in western Europe at C-band. It's value may depend on radar
-wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M}
-the bird's mass.
+\subsection{dealias}{
 
-Using default values of \code{range_min} and \code{range_max} is
-recommended. Ranges closer than 5 km tend to be contaminated by ground
-clutter, while range gates beyond 35 km become too wide to resolve the
-default altitude layer width of 200 meter (see \link{beam_width}).
+The torus mapping method by Haase et al. (2004) is used for dealiasing. At
+S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol = TRUE} mode is
+recommended.
+}
 
-For dealiasing, the torus mapping method by Haase et al. is used.
+\subsection{Local installation}{
 
-At S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol=TRUE}
-mode is recommended.
+You can bypass the Docker container and speed up processing by installing
+vol2bird locally (not on Windows). Point \code{local_install} to the path of your
+local vol2bird executable, e.g.
+\verb{/your/vol2bird_install_directory/vol2bird/bin/vol2bird}. Your local vol2bird
+executable will be called through a bash login shell. \code{LD_LIBRARY_PATH}
+(Linux) or \code{DYLD_LIBRARY_PATH} (Mac) should be correctly specified in your
+\code{.bashrc} or \code{.bash_profile} file and contain all the required shared
+libraries by vol2bird. See vol2bird installation pages on
+\href{https://github.com/adokter/vol2bird}{GitHub} for details.
 
-On repeated calls of \code{calculate_vp}, the Docker container mount can be
-recycled from one call to the next if subsequent calls share the same
-\code{mount} argument. Re-mounting a Docker container takes time, therefore
-it is advised to choose a mountpoint that is a parent directory of all
-volume files to be processed, such that \code{calculate_vp} calls are as fast
-as possible.
-
-If you have installed the vol2bird algorithm locally (not possible on Windows)
-you can call vol2bird through this local installation (bypassing the Docker container),
-which will be faster. Simply point \code{local_install} to the path
-of your local vol2bird executable, e.g. {"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}.
-Your local vol2bird executable will be called
-through a bash login shell. LD_LIBRARY_PATH (Linux) or DYLD_LIBRARY_PATH (Mac) should be
-correctly specified in your .bashrc or .bash_profile file
-and contain all the required shared libraries by vol2bird. See vol2bird installation
-pages on Github for details.
-
-When using MistNet with a local vol2bird installation, also point parameter \code{local_mistnet}
-to your local download of the MistNet segmentation model in PyTorch format,
-e.g. \code{"/your/path/mistnet_nexrad.pt"}). The MistNet model can be downloaded at
-\url{https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt}.
+When using MistNet with a local vol2bird installation, also point parameter
+\code{local_mistnet} to your local download of the MistNet segmentation model in
+PyTorch format, e.g. \verb{/your/path/mistnet_nexrad.pt}. The MistNet model can
+be downloaded at \link{https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt}.
+}
 }
 \examples{
-# locate example polar volume file:
+# Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
-# copy to a home directory with read/write permissions:
+# Copy the file to a home directory with read/write permissions
 file.copy(pvolfile, "~/volume.h5")
 
-# calculate the profile:
+# Calculate the profile
 \dontrun{
-profile <- calculate_vp("~/volume.h5")
-# print some summary info:
-profile
-# convert profile to a data.frame:
-as.data.frame(profile)
+vp <- calculate_vp("~/volume.h5")
+
+# Get summary info
+vp
 }
 
-# clean up:
+# Clean up
 file.remove("~/volume.h5")
 }
 \references{
 Dokter et al. (2011) is the main reference for the profiling algorithm
-(vol2bird) underlying this function. When using the \code{mistnet} option,
-please also cite Lin et al. 2019. When de-aliasing data, please also cite Haase et al. 2004.
-
+(vol2bird) underlying this function. When using the \code{mistnet} option, please
+also cite Lin et al. (2019). When de-aliasing data, please also cite Haase et
+al. (2004).
 \itemize{
-\item Adriaan M. Dokter, Felix Liechti,
-Herbert Stark, Laurent Delobbe, Pierre Tabary, Iwan Holleman, 2011.
-Bird migration flight altitudes studied by a network of
-operational weather radars,
-Journal of the Royal Society Interface 8 (54), pp. 30--43.
-\url{https://doi.org/10.1098/rsif.2010.0116}
-\item Haase, G. and Landelius, T., 2004. Dealiasing of Doppler radar
-velocities using a torus mapping. Journal of Atmospheric and Oceanic
-Technology, 21(10), pp.1566--1573.
-\url{https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
-\item Tsung-Yu Lin, Kevin Winner, Garrett Bernstein, Abhay Mittal, Adriaan M. Dokter
-Kyle G. Horton, Cecilia Nilsson, Benjamin M. Van Doren, Andrew Farnsworth
-Frank A. La Sorte, Subhransu Maji, Daniel Sheldon, 2019.
-MistNet: Measuring historical bird migration in the US
-using archived weather radar data and convolutional neural networks
-Methods in Ecology and Evolution 10 (11), pp. 1908--22.
-\url{https://doi.org/10.1111/2041-210X.13280}
+\item Dokter AM, Liechti F, Stark H, Delobbe L,Tabary P, Holleman I (2011) Bird
+migration flight altitudes studied by a network of operational weather
+radars, Journal of the Royal Society Interface 8 (54), pp. 30-43.
+\link{https://doi.org/10.1098/rsif.2010.0116}
+\item Haase G & Landelius T (2004)
+Dealiasing of Doppler radar velocities using a torus mapping. Journal of
+Atmospheric and Oceanic Technology 21(10), pp. 1566-1573.
+\link[=https://doi.org/10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2]{https://doi.org/10.1175/1520-0426(2004)021\%3C1566:DODRVU\%3E2.0.CO;2}
+\item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
+Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
+Measuring historical bird migration in the US using archived weather radar
+data and convolutional neural networks. Methods in Ecology and Evolution 10
+(11), pp. 1908-22. \link{https://doi.org/10.1111/2041-210X.13280}
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.pvol]{summary.pvol()}}
+\item \code{\link[=summary.vp]{summary.vp()}}
 }
 }
