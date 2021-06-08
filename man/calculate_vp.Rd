@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_vp.R
 \name{calculate_vp}
 \alias{calculate_vp}
-\title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})}
+\title{Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol}) file}
 \usage{
 calculate_vp(
   file,
@@ -34,25 +34,22 @@ calculate_vp(
 )
 }
 \arguments{
-\item{file}{Character (vector). A path to a single radar polar volume file
-(\code{pvolfile}) containing multiple scans/sweeps or a vector with multiple
-paths to scan files containing a single scan/sweep. The data format should
-be one of the following:
-\itemize{
-\item \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+\item{file}{Character (vector). Either a path to a single radar polar volume
+(\code{pvol}) file containing multiple scans/sweeps, or multiple paths to scan
+files containing a single scan/sweep. Note that \code{pvol} objects are not
+supported. The file data format should be either 1)
+\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
-the \href{https://support.hdfgroup.org/HDF5/}{HDF5} format.
-\item A format supported by the
-\href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}
-\item Vaisala IRIS (IRIS RAW) format.
-}}
+the \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, 2) a format
+supported by the \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library} or 3) Vaisala
+IRIS (IRIS RAW) format.}
 
 \item{vpfile}{Character. File name. When provided, writes a vertical profile
 file (\code{vpfile}) in the ODIM HDF5 format to disk.}
 
 \item{pvolfile_out}{Character. File name. When provided, writes a polar
-volume file (\code{pvolfile}) in the ODIM HDF5 format to disk. Useful for
-converting RSL formats to ODIM.}
+volume (\code{pvol}) file in the ODIM HDF5 format to disk. Useful for converting
+RSL formats to ODIM.}
 
 \item{autoconf}{Logical. When \code{TRUE}, default optimal configuration settings
 are selected automatically and other user settings are ignored.}
@@ -60,7 +57,7 @@ are selected automatically and other user settings are ignored.}
 \item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
 console. Always \code{TRUE} on Windows.}
 
-\item{warnings}{Logical. When \code{TRUE}, \code{vol2bird} warnings are piped to the R
+\item{warnings}{Logical. When \code{TRUE}, vol2bird warnings are piped to the R
 console.}
 
 \item{mount}{Character. Directory path of the mount point for the Docker
@@ -68,7 +65,7 @@ container.}
 
 \item{sd_vvp_threshold}{Numeric. Lower threshold for the radial velocity
 standard deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals
-with \code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s for
+with \code{sd_vvp < sd_vvp_threshold} are set to zero. Defaults to 2 m/s for
 C-band radars and 1 m/s for S-band radars.}
 
 \item{rcs}{Numeric. Radar cross section per bird to use, in cm^2.}
@@ -88,8 +85,8 @@ filtering meteorological scattering.}
 \item{azim_min}{Numeric. Minimum azimuth to include, in degrees clockwise
 from north.}
 
-\item{azim_max}{Numeric. Maximum azimuth to include, in degrees clockwise from
-north.}
+\item{azim_max}{Numeric. Maximum azimuth to include, in degrees clockwise
+from north.}
 
 \item{range_min}{Numeric. Minimum range to include, in m.}
 
@@ -107,6 +104,9 @@ velocities (below 25 m/s).}
 
 \item{nyquist_min}{Numeric. Minimum Nyquist velocity of scans to include, in
 m/s.}
+
+\item{dbz_quantity}{Name of the available reflectivity factor to use if not
+\code{DBZH} (e.g. \code{DBZV}, \code{TH}, \code{TV}).}
 
 \item{mistnet}{Logical. Whether to use the MistNet segmentation model.}
 

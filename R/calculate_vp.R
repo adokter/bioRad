@@ -1,36 +1,38 @@
-#' Calculate a vertical profile (`vp`) from a polar volume (`pvol`)
+#' Calculate a vertical profile (`vp`) from a polar volume (`pvol`) file
 #'
 #' Calculates a vertical profile of biological scatterers (`vp`) from a polar
-#' volume (`pvol`) using the algorithm
+#' volume (`pvol`) file using the algorithm
 #' [vol2bird](https://github.com/adokter/vol2bird/) ([Dokter et al.
-#' 2011](https://doi.org/10.1098/rsif.2010.0116)).
+#' 2011](https://doi.org/10.1098/rsif.2010.0116)). Requires a running
+#' [Docker](https://www.docker.com/) daemon, unless a local installation of
+#' vol2bird is specified with `local_install`.
 #'
-#' @param file Character (vector). A path to a single radar polar volume file
-#'   (`pvolfile`) containing multiple scans/sweeps or a vector with multiple
-#'   paths to scan files containing a single scan/sweep. The data format should
-#'   be one of the following:
-#'   * [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf)
-#'   format, which is the implementation of the OPERA data information model in
-#'   the [HDF5](https://support.hdfgroup.org/HDF5/) format.
-#'   * A format supported by the
-#'   [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/)
-#'   * Vaisala IRIS (IRIS RAW) format.
+#' @param file Character (vector). Either a path to a single radar polar volume
+#'   (`pvol`) file containing multiple scans/sweeps, or multiple paths to scan
+#'   files containing a single scan/sweep. Note that `pvol` objects are not
+#'   supported. The file data format should be either 1)
+#'   [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf)
+#'    format, which is the implementation of the OPERA data information model in
+#'   the [HDF5](https://support.hdfgroup.org/HDF5/) format, 2) a format
+#'   supported by the [RSL
+#'   library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/) or 3) Vaisala
+#'   IRIS (IRIS RAW) format.
 #' @param vpfile Character. File name. When provided, writes a vertical profile
 #'   file (`vpfile`) in the ODIM HDF5 format to disk.
 #' @param pvolfile_out Character. File name. When provided, writes a polar
-#'   volume file (`pvolfile`) in the ODIM HDF5 format to disk. Useful for
-#'   converting RSL formats to ODIM.
+#'   volume (`pvol`) file in the ODIM HDF5 format to disk. Useful for converting
+#'   RSL formats to ODIM.
 #' @param autoconf Logical. When `TRUE`, default optimal configuration settings
 #'   are selected automatically and other user settings are ignored.
 #' @param verbose Logical. When `TRUE`, Docker `stdout` is piped to the R
 #'   console. Always `TRUE` on Windows.
-#' @param warnings Logical. When `TRUE`, `vol2bird` warnings are piped to the R
+#' @param warnings Logical. When `TRUE`, vol2bird warnings are piped to the R
 #'   console.
 #' @param mount Character. Directory path of the mount point for the Docker
 #'   container.
 #' @param sd_vvp_threshold Numeric. Lower threshold for the radial velocity
 #'   standard deviation (profile quantity `sd_vvp`) in m/s. Biological signals
-#'   with `sd_vvp` < `sd_vvp_threshold` are set to zero. Defaults to 2 m/s for
+#'   with `sd_vvp < sd_vvp_threshold` are set to zero. Defaults to 2 m/s for
 #'   C-band radars and 1 m/s for S-band radars.
 #' @param rcs Numeric. Radar cross section per bird to use, in cm^2.
 #' @param dual_pol Logical. When `TRUE`, uses dual-pol mode, in which
@@ -43,8 +45,8 @@
 #' @param elev_max Numeric. Maximum elevation angle to include, in degrees.
 #' @param azim_min Numeric. Minimum azimuth to include, in degrees clockwise
 #'   from north.
-#' @param azim_max Numeric. Maximum azimuth to include, in degrees clockwise from
-#'   north.
+#' @param azim_max Numeric. Maximum azimuth to include, in degrees clockwise
+#'   from north.
 #' @param range_min Numeric. Minimum range to include, in m.
 #' @param range_max Numeric. Maximum range to include, in m.
 #' @param n_layer Numeric. Number of altitude layers to use in generated
@@ -56,8 +58,8 @@
 #' @param dealias Logical. Whether to dealias radial velocities. This should
 #'   typically be done when the scans in the polar volume have low Nyquist
 #'   velocities (below 25 m/s).
-#' @dbz_quantity Character. Name of the available reflectivity factor to use if
-#' not `DBZH` (e.g. `DBZV`, `TH`, `TV`).
+#' @param dbz_quantity Name of the available reflectivity factor to use if not
+#'   `DBZH` (e.g. `DBZV`, `TH`, `TV`).
 #' @param mistnet Logical. Whether to use the MistNet segmentation model.
 #' @param mistnet_elevations Numeric vector of length 5. Elevation angles to
 #'   feed to the MistNet segmentation model, which expects exactly 5 elevation
