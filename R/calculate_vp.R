@@ -115,6 +115,11 @@
 #' radar wavelength. `rcs` will scale approximately \eqn{M^{2/3}} with `M` the
 #' bird's mass.
 #'
+#' ## dual_pol
+#'
+#' For S-band (radar wavelength ~ 10 cm), currently only `dual_pol = TRUE` mode
+#' is recommended.
+#'
 #' ## azim_min / azim_max
 #'
 #' `azim_min` and `azim_max` only affects reflectivity-derived estimates in the
@@ -142,9 +147,7 @@
 #'
 #' ## dealias
 #'
-#' The torus mapping method by Haase et al. (2004) is used for dealiasing. At
-#' S-band (radar wavelength ~ 10 cm), currently only `dual_pol = TRUE` mode is
-#' recommended.
+#' Dealiasing uses the torus mapping method by Haase et al. (2004).
 #'
 #' ## Local installation
 #'
@@ -170,8 +173,8 @@
 #' @references
 #' Dokter et al. (2011) is the main reference for the profiling algorithm
 #' (vol2bird) underlying this function. When using the `mistnet` option, please
-#' also cite Lin et al. (2019). When de-aliasing data, please also cite Haase et
-#' al. (2004).
+#' also cite Lin et al. (2019). When dealiasing data (`dealias`), please also
+#' cite Haase et al. (2004).
 #'
 #' * Dokter AM, Liechti F, Stark H, Delobbe L,Tabary P, Holleman I (2011) Bird
 #' migration flight altitudes studied by a network of operational weather

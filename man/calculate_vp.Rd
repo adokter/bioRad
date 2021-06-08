@@ -176,6 +176,12 @@ radar wavelength. \code{rcs} will scale approximately \eqn{M^{2/3}} with \code{M
 bird's mass.
 }
 
+\subsection{dual_pol}{
+
+For S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol = TRUE} mode
+is recommended.
+}
+
 \subsection{azim_min / azim_max}{
 
 \code{azim_min} and \code{azim_max} only affects reflectivity-derived estimates in the
@@ -206,9 +212,7 @@ patterns smaller than the beam width cannot be resolved.
 
 \subsection{dealias}{
 
-The torus mapping method by Haase et al. (2004) is used for dealiasing. At
-S-band (radar wavelength ~ 10 cm), currently only \code{dual_pol = TRUE} mode is
-recommended.
+Dealiasing uses the torus mapping method by Haase et al. (2004).
 }
 
 \subsection{Local installation}{
@@ -250,8 +254,8 @@ file.remove("~/volume.h5")
 \references{
 Dokter et al. (2011) is the main reference for the profiling algorithm
 (vol2bird) underlying this function. When using the \code{mistnet} option, please
-also cite Lin et al. (2019). When de-aliasing data, please also cite Haase et
-al. (2004).
+also cite Lin et al. (2019). When dealiasing data (\code{dealias}), please also
+cite Haase et al. (2004).
 \itemize{
 \item Dokter AM, Liechti F, Stark H, Delobbe L,Tabary P, Holleman I (2011) Bird
 migration flight altitudes studied by a network of operational weather
