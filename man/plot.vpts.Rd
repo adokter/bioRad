@@ -109,4 +109,20 @@ ts <- example_vpts
 plot(ts[1:500], ylim = c(0, 3000))
 # plot total reflectivity factor (rain, birds, insects together):
 plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
+# regularize the time grid, which includes empty (NA) profiles at
+# time steps without data:
+ts_regular <- regularize_vpts(ts)
+plot(ts_regular)
+# change the color of missing NA data to red
+plot(ts_regular, na_color="red")
+# change the color palette:
+plot(ts_regular[1:1000], ylim = c(0, 3000), palette=viridis::viridis(1000))
+# change and inverse the color palette:
+plot(ts_regular[1:1000], ylim = c(0, 3000), palette=rev(viridis::viridis(1000, option="A")))
+# plot the speed profile:
+plot(ts_regular[1:1000], quantity="ff")
+# plot the northward speed component:
+plot(ts_regular[1:1000], quantity="v")
+# plot speed profile with more legend ticks,
+plot(ts_regular[1:1000], quantity="ff", legend_ticks=seq(0,20,2), zlim=c(0,20))
 }

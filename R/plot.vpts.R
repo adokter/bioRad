@@ -77,8 +77,10 @@
 #' plot(ts_regular[1:1000], ylim = c(0, 3000), palette=rev(viridis::viridis(1000, option="A")))
 #' # plot the speed profile:
 #' plot(ts_regular[1:1000], quantity="ff")
-#' # plot speed profile with better legend ticks,
-#' plot(ts_regular[1:1000], quantity="ff", legend_ticks=c(0,5,10,15,20), zlim=c(0,20))
+#' # plot the northward speed component:
+#' plot(ts_regular[1:1000], quantity="v")
+#' # plot speed profile with more legend ticks,
+#' plot(ts_regular[1:1000], quantity="ff", legend_ticks=seq(0,20,2), zlim=c(0,20))
 plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       log = NA, barbs = TRUE, barbs_height = 10,
                       barbs_time = 20, barbs_dens_min = 5,
@@ -141,7 +143,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   if (!missing(zlim)) {
     assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
     if (log && !(quantity %in% c("DBZH", "dbz"))) {
-      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' has the (default) value TRUE. Run ?plot.vpts for details.")
+      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
     }
   }
 
@@ -184,6 +186,19 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
         zlim <- c(-20, 10)
       }
     }
+    if (quantity %in% c('u','v')) {
+      ticks <- legendticks <- seq(-20, 20, 5)
+      zlim <- c(-20, 20)
+    }
+    if (quantity == "ff" & log) {
+      ticks <- legendticks <- c(1, 2, 5, 10, 20)
+      zlim <- c(1, 20)
+    }
+    if (quantity == "ff" & !log) {
+      ticks <- legendticks <- seq(0, 20, 5)
+      zlim <- c(0, 20)
+    }
+
   } else {
     ticks <- legendticks <- seq(zlim[1], zlim[2], length.out = 10)
   }
@@ -198,35 +213,33 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                    "eta" = expression("reflectivity " * eta * " [cm"^2 * "/km"^3 * "]"),
                    "dbz" = expression("reflectivity factor [dBZ"[e] * "]"),
                    "DBZH" = expression("total reflectivity factor [dBZ"[e] * "]"),
+                   "ff" = expression("ground speed [m/s]"),
+                   "dd" = expression("ground speed direction [deg]"),
+                   "u" = expression("eastward ground speed component u [m/s]"),
+                   "v" = expression("northward ground speed component v [m/s]"),
                    quantity
     )
   }
 
   # extract the data from the time series object
   plotdata <- t(get_quantity(x, quantity))
-  if (quantity == "dbz") {
-    if (log) {
-      if (!missing(log)) {
+
+  # check if we should ignore log argument
+  if (log & quantity %in% c("dbz","DBZH","u","v")) {
+    if (!missing(log)) {
+      if(quantity %in% c("dbz","DBZH")){
         warning(
-          "Reflectivity factor 'dbz' is already logarithmic,",
-          "ignoring 'log' argument..."
+          paste("Reflectivity factor",quantity,"is already logarithmic,",
+                "ignoring 'log' argument...")
+        )
+      } else{
+        warning(
+          paste("Velocity",quantity,"has negative values and can't be plotted on a log scale,",
+                "ignoring 'log' argument...")
         )
       }
-      log <- FALSE
     }
-    plotdata <- t(get_quantity(x, quantity))
-  }
-  if (quantity == "DBZH") {
-    if (log) {
-      if (!missing(log)) {
-        warning(
-          "Total reflectivity factor 'DBZH' is already logarithmic,",
-          "ignoring 'log' argument..."
-        )
-      }
-      log <- FALSE
-    }
-    plotdata <- t(get_quantity(x, quantity))
+    log <- FALSE
   }
 
   # do log-transformations:
@@ -236,7 +249,6 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     zlim <- log(zlim)
   }
 
-
   # set color scales and palettes
   if (!are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
@@ -245,8 +257,9 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   else{
     if(quantity %in% c("dens","eta","dbz","DBZH")){
       palette <- c(vpts_default_palette, na_color, nan_color)
-    }
-    else{
+    } else if(quantity %in% c("u","v")){
+      palette <- c(rev(bioRad:::color_palette("VRADH", n=1000)), na_color, nan_color)
+    } else{
       palette <- c(rev(viridis::magma(1000)), na_color, nan_color)
     }
   }
