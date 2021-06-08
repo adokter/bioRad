@@ -81,7 +81,7 @@ the plot color scale, e.g. output from \link[viridisLite]{viridis}}
 Plot a time series of vertical profiles  of class \code{vpts}.
 }
 \details{
-Profile can be visualized in three related quantities, as specified
+Aerial abundances can be visualized in four related quantities, as specified
 by argument \code{quantity}:
 \describe{
 \item{"\code{dens}"}{the aerial density of individuals. This quantity is
@@ -98,8 +98,33 @@ than at C-band}
 reflectivity factor of all scatterers (biological and meteorological
 scattering combined)}
 }
+
+Aerial velocities can be visualized in three related quantities, as specified
+by argument \code{quantity}:
+\describe{
+\item{"\code{ff}"}{ground speed. The aerial velocity relative to the
+ground surface in m/s.}
+\item{"\code{u}"}{eastward ground speed component in m/s.}
+\item{"\code{v}"}{northward ground speed component in m/s.}
+}
+\subsection{barbs}{
+
 In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
 each pennant (triangle) 25 m/s
+}
+
+\subsection{legend_ticks / zlim}{
+
+Default legend ticks and plotting range are specified based on \code{quantity},
+radar wavelength (S- vs C-band), and value of \code{log}
+}
+
+\subsection{log}{
+
+Quantities \code{u} and \code{v} cannot be plotted on a logarithmic scale, because
+these quantities assume negative values.  For quantities \code{DBZH} and \code{dbz}
+\code{log=TRUE} is ignored, because these quantities are already logarithmic.
+}
 }
 \examples{
 # locate example file:
