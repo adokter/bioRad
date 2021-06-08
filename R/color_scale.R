@@ -114,17 +114,17 @@ b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
 b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
 vpts_default_palette <- rgb(approx(
   r_points, r_values,
-  seq(1, 255, length.out = 255)
+  seq(1, 1000, length.out = 1000)
 )$y,
 approx(
   g_points, g_values,
-  seq(1, 255, length.out = 255)
+  seq(1, 1000, length.out = 1000)
 )$y,
 approx(
   b_points, b_values,
-  seq(1, 255, length.out = 255)
+  seq(1, 1000, length.out = 1000)
 )$y,
-maxColorValue = 255
+maxColorValue = 1000
 )
 
 get_zlim <- function(param, zlim) {
