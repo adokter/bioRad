@@ -30,8 +30,7 @@ calculate_vp(
   mistnet = FALSE,
   mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
   local_install,
-  local_mistnet,
-  pvolfile
+  local_mistnet
 )
 }
 \arguments{
@@ -121,8 +120,6 @@ angles may compromise segmentation results.}
 
 \item{local_mistnet}{Character. Path to local MistNet segmentation model in
 PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}).}
-
-\item{pvolfile}{Character. Deprecated argument renamed to \code{file}.}
 }
 \value{
 A vertical profile object of class \code{vp}. When defined, output files

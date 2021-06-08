@@ -67,7 +67,6 @@
 #'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`).
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
-#' @param pvolfile Character. Deprecated argument renamed to `file`.
 #'
 #' @return A vertical profile object of class `vp`. When defined, output files
 #'   `vpfile` and `pvolfile_out` are saved to disk.
@@ -206,13 +205,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          nyquist_min = if (dealias) 5 else 25,
                          dbz_quantity = "DBZH", mistnet = FALSE,
                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-                         local_install, local_mistnet, pvolfile) {
-
-  # check for deprecated input argument pvolfile
-  calls <- names(sapply(match.call(), deparse))[-1]
-  if (any("pvolfile" %in% calls)) {
-    warning("argument 'pvolfile' is deprecated, please use 'file'")
-  }
+                         local_install, local_mistnet) {
 
   # check input arguments
   assert_that(is.character(file), msg = "argument file is not a path to a file (or a vector of paths to files)")
