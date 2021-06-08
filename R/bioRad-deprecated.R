@@ -512,7 +512,7 @@ vol2bird <- function(vol.in, vp.out = "", vol.out = "", autoconf = FALSE,
                      dbz_quantity = "DBZH") {
   .Deprecated("calculate_vp")
   calculate_vp(
-    pvolfile = vol.in, vpfile = vp.out, pvolfile_out = vol.out,
+    file = vol.in, vpfile = vp.out, pvolfile_out = vol.out,
     autoconf = autoconf, verbose = verbose, mount = mount,
     sd_vvp_threshold = sd_vvp_threshold, rcs = rcs, dual_pol = dualpol,
     rho_hv = rhohv, elev_min = elev.min, elev_max = elev.max,
