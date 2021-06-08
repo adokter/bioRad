@@ -35,99 +35,103 @@ calculate_vp(
 )
 }
 \arguments{
-\item{file}{character. String or a vector of strings with path(s) to radar file(s) for a radar polar volume.
-Provide either a single file containing a polar volume, or multiple files with single scans/sweeps.
-Data format should be either
-\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+\item{file}{Character (vector). A path to a single radar polar volume file
+(\code{pvolfile}) containing multiple scans/sweeps or a vector with multiple
+paths to scan files containing a single scan/sweep. The data format should
+be one of the following:
+\itemize{
+\item \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
-\href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
-supported by the
-\href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, or Vaisala IRIS (IRIS RAW) format.}
+the \href{https://support.hdfgroup.org/HDF5/}{HDF5} format.
+\item A format supported by the
+\href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}
+\item Vaisala IRIS (IRIS RAW) format.
+}}
 
-\item{vpfile}{character. Filename for the vertical profile to be
-generated in ODIM HDF5 format (optional).}
+\item{vpfile}{Character. File name. When provided, writes a vertical profile
+file (\code{vpfile}) in the ODIM HDF5 format to disk.}
 
-\item{pvolfile_out}{character. Filename for the polar volume to be
-generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
-to ODIM).}
+\item{pvolfile_out}{Character. File name. When provided, writes a polar
+volume file (\code{pvolfile}) in the ODIM HDF5 format to disk. Useful for
+converting RSL formats to ODIM.}
 
-\item{autoconf}{logical. When TRUE, default optimal configuration settings
-are selected automatically, and other user settings are ignored.}
+\item{autoconf}{Logical. When \code{TRUE}, default optimal configuration settings
+are selected automatically and other user settings are ignored.}
 
-\item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
-Windows always TRUE.}
+\item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
+console. Always \code{TRUE} on Windows.}
 
-\item{warnings}{logical. When TRUE, pipe vol2bird warnings to R console.}
+\item{warnings}{Logical. When \code{TRUE}, \code{vol2bird} warnings are piped to the R
+console.}
 
-\item{mount}{character. String with the mount point (a directory path) for
-the Docker container.}
+\item{mount}{Character. Directory path of the mount point for the Docker
+container.}
 
-\item{sd_vvp_threshold}{numeric. Lower threshold in radial velocity standard
-deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
-\code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s
-for C-band radars and 1 m/s for S-band radars if not specified.}
+\item{sd_vvp_threshold}{Numeric. Lower threshold for the radial velocity
+standard deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals
+with \code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s for
+C-band radars and 1 m/s for S-band radars.}
 
-\item{rcs}{numeric. Radar cross section per bird in cm^2.}
+\item{rcs}{Numeric. Radar cross section per bird to use, in cm^2.}
 
-\item{dual_pol}{logical. When \code{TRUE} use dual-pol mode, in which
+\item{dual_pol}{Logical. When \code{TRUE}, uses dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
-\code{rho_hv}. When \code{FALSE} use single polarization mode based only
-on reflectivity and radial velocity quantities.}
+\code{rho_hv}. When \code{FALSE}, uses single polarization mode based only on
+reflectivity and radial velocity quantities.}
 
-\item{rho_hv}{numeric. Lower threshold in correlation coefficient used to
-filter meteorological scattering.}
+\item{rho_hv}{Numeric. Lower threshold in correlation coefficient to use for
+filtering meteorological scattering.}
 
-\item{elev_min}{numeric. Minimum scan elevation in degrees.}
+\item{elev_min}{Numeric. Minimum elevation angle to include, in degrees.}
 
-\item{elev_max}{numeric. Maximum scan elevation in degrees.}
+\item{elev_max}{Numeric. Maximum elevation angle to include, in degrees.}
 
-\item{azim_min}{numeric. Minimum azimuth in degrees clockwise from north.}
+\item{azim_min}{Numeric. Minimum azimuth to include, in degrees clockwise
+from north.}
 
-\item{azim_max}{numeric. Maximum azimuth in degrees clockwise from north.}
+\item{azim_max}{Numeric. Maximum azimuth to include, in degrees clockwise from
+north.}
 
-\item{range_min}{numeric. Minimum range in m.}
+\item{range_min}{Numeric. Minimum range to include, in m.}
 
-\item{range_max}{numeric. Maximum range in m.}
+\item{range_max}{Numeric. Maximum range to include, in m.}
 
-\item{n_layer}{numeric. Number of altitude layers in the profile.}
+\item{n_layer}{Numeric. Number of altitude layers to use in generated
+profile.}
 
-\item{h_layer}{numeric. Width of altitude layers in meter.}
+\item{h_layer}{Numeric. Width of altitude layers to use in generated profile,
+in m.}
 
-\item{dealias}{logical. Whether to dealias radial velocities; this should
+\item{dealias}{Logical. Whether to dealias radial velocities. This should
 typically be done when the scans in the polar volume have low Nyquist
 velocities (below 25 m/s).}
 
-\item{nyquist_min}{numeric. Minimum Nyquist velocity of scans in m/s for
-scans to be included in the analysis.}
+\item{nyquist_min}{Numeric. Minimum Nyquist velocity of scans to include, in
+m/s.}
 
-\item{dbz_quantity}{character. One of the available reflectivity factor
-quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.}
+\item{mistnet}{Logical. Whether to use the MistNet segmentation model.}
 
-\item{mistnet}{logical. Whether to use MistNet segmentation model.}
+\item{mistnet_elevations}{Numeric vector of length 5. Elevation angles to
+feed to the MistNet segmentation model, which expects exactly 5 elevation
+scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
+angles may compromise segmentation results.}
 
-\item{mistnet_elevations}{numeric vector of length 5.
-Elevation angles to feed to the MistNet
-segmentation model, which expects exactly 5 elevation scans
-at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
-elevation angles may compromise segmentation results.}
+\item{local_install}{Character. Path to local vol2bird installation (e.g.
+\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird}).}
 
-\item{local_install}{character. String with path to local vol2bird installation
-(e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
-To use local installation instead of Docker container, see details.}
+\item{local_mistnet}{Character. Path to local MistNet segmentation model in
+PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}).}
 
-\item{local_mistnet}{character. String with path to local mistnet segmentation model
-in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
-to use local installation instead of Docker container.}
-
-\item{pvolfile}{character. Deprecated argument renamed to \code{file}.}
+\item{pvolfile}{Character. Deprecated argument renamed to \code{file}.}
 }
 \value{
-A vertical profile object of class \link[=summary.vp]{vp}. When
-defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
+A vertical profile object of class \code{vp}. When defined, output files
+\code{vpfile} and \code{pvolfile_out} are saved to disk.
 }
 \description{
-Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
-using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
+Calculates a vertical profile of biological scatterers (\code{vp}) from a polar
+volume (\code{pvol}) using the algorithm
+\href{https://github.com/adokter/vol2bird/}{vol2bird} (\href{https://doi.org/10.1098/rsif.2010.0116}{Dokter et al. 2011}).
 }
 \details{
 Requires a running \href{https://www.docker.com/}{Docker} daemon

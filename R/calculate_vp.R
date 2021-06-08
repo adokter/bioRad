@@ -1,71 +1,76 @@
-#' Calculate a vertical profile (\code{vp}) from a polar volume (\code{pvol})
+#' Calculate a vertical profile (`vp`) from a polar volume (`pvol`)
 #'
-#' Calculates a vertical profile of biological scatterers (vp) from a polar volume (pvol)
-#' using the algorithm \href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al. 2011).
+#' Calculates a vertical profile of biological scatterers (`vp`) from a polar
+#' volume (`pvol`) using the algorithm
+#' [vol2bird](https://github.com/adokter/vol2bird/) ([Dokter et al.
+#' 2011](https://doi.org/10.1098/rsif.2010.0116)).
 #'
-#' @param file character. String or a vector of strings with path(s) to radar file(s) for a radar polar volume.
-#' Provide either a single file containing a polar volume, or multiple files with single scans/sweeps.
-#' Data format should be either
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
-#' format, which is the implementation of the OPERA data information model in
-#' \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, or a format
-#' supported by the
-#' \href{http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library}, or Vaisala IRIS (IRIS RAW) format.
+#' @param file Character (vector). A path to a single radar polar volume file
+#'   (`pvolfile`) containing multiple scans/sweeps or a vector with multiple
+#'   paths to scan files containing a single scan/sweep. The data format should
+#'   be one of the following:
+#'   * [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf)
+#'   format, which is the implementation of the OPERA data information model in
+#'   the [HDF5](https://support.hdfgroup.org/HDF5/) format.
+#'   * A format supported by the
+#'   [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/)
+#'   * Vaisala IRIS (IRIS RAW) format.
+#' @param vpfile Character. File name. When provided, writes a vertical profile
+#'   file (`vpfile`) in the ODIM HDF5 format to disk.
+#' @param pvolfile_out Character. File name. When provided, writes a polar
+#'   volume file (`pvolfile`) in the ODIM HDF5 format to disk. Useful for
+#'   converting RSL formats to ODIM.
+#' @param autoconf Logical. When `TRUE`, default optimal configuration settings
+#'   are selected automatically and other user settings are ignored.
+#' @param verbose Logical. When `TRUE`, Docker `stdout` is piped to the R
+#'   console. Always `TRUE` on Windows.
+#' @param warnings Logical. When `TRUE`, `vol2bird` warnings are piped to the R
+#'   console.
+#' @param mount Character. Directory path of the mount point for the Docker
+#'   container.
+#' @param sd_vvp_threshold Numeric. Lower threshold for the radial velocity
+#'   standard deviation (profile quantity `sd_vvp`) in m/s. Biological signals
+#'   with `sd_vvp` < `sd_vvp_threshold` are set to zero. Defaults to 2 m/s for
+#'   C-band radars and 1 m/s for S-band radars.
+#' @param rcs Numeric. Radar cross section per bird to use, in cm^2.
+#' @param dual_pol Logical. When `TRUE`, uses dual-pol mode, in which
+#'   meteorological echoes are filtered using the correlation coefficient
+#'   `rho_hv`. When `FALSE`, uses single polarization mode based only on
+#'   reflectivity and radial velocity quantities.
+#' @param rho_hv Numeric. Lower threshold in correlation coefficient to use for
+#'   filtering meteorological scattering.
+#' @param elev_min Numeric. Minimum elevation angle to include, in degrees.
+#' @param elev_max Numeric. Maximum elevation angle to include, in degrees.
+#' @param azim_min Numeric. Minimum azimuth to include, in degrees clockwise
+#'   from north.
+#' @param azim_max Numeric. Maximum azimuth to include, in degrees clockwise from
+#'   north.
+#' @param range_min Numeric. Minimum range to include, in m.
+#' @param range_max Numeric. Maximum range to include, in m.
+#' @param n_layer Numeric. Number of altitude layers to use in generated
+#'   profile.
+#' @param h_layer Numeric. Width of altitude layers to use in generated profile,
+#'   in m.
+#' @param nyquist_min Numeric. Minimum Nyquist velocity of scans to include, in
+#'   m/s.
+#' @param dealias Logical. Whether to dealias radial velocities. This should
+#'   typically be done when the scans in the polar volume have low Nyquist
+#'   velocities (below 25 m/s).
+#' @dbz_quantity Character. Name of the available reflectivity factor to use if
+#' not `DBZH` (e.g. `DBZV`, `TH`, `TV`).
+#' @param mistnet Logical. Whether to use the MistNet segmentation model.
+#' @param mistnet_elevations Numeric vector of length 5. Elevation angles to
+#'   feed to the MistNet segmentation model, which expects exactly 5 elevation
+#'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
+#'   angles may compromise segmentation results.
+#' @param local_install Character. Path to local vol2bird installation (e.g.
+#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`).
+#' @param local_mistnet Character. Path to local MistNet segmentation model in
+#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
+#' @param pvolfile Character. Deprecated argument renamed to `file`.
 #'
-#' @param vpfile character. Filename for the vertical profile to be
-#' generated in ODIM HDF5 format (optional).
-#' @param pvolfile_out character. Filename for the polar volume to be
-#' generated in ODIM HDF5 format (optional, e.g. for converting RSL formats
-#' to ODIM).
-#' @param autoconf logical. When TRUE, default optimal configuration settings
-#' are selected automatically, and other user settings are ignored.
-#' @param verbose logical. When TRUE, pipe Docker stdout to R console. On
-#' Windows always TRUE.
-#' @param warnings logical. When TRUE, pipe vol2bird warnings to R console.
-#' @param mount character. String with the mount point (a directory path) for
-#' the Docker container.
-#' @param sd_vvp_threshold numeric. Lower threshold in radial velocity standard
-#' deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals with
-#' \code{sd_vvp} < \code{sd_vvp_threshold} are set to zero. Defaults to 2 m/s
-#' for C-band radars and 1 m/s for S-band radars if not specified.
-#' @param rcs numeric. Radar cross section per bird in cm^2.
-#' @param dual_pol logical. When \code{TRUE} use dual-pol mode, in which
-#' meteorological echoes are filtered using the correlation coefficient
-#' \code{rho_hv}. When \code{FALSE} use single polarization mode based only
-#' on reflectivity and radial velocity quantities.
-#' @param rho_hv numeric. Lower threshold in correlation coefficient used to
-#' filter meteorological scattering.
-#' @param elev_min numeric. Minimum scan elevation in degrees.
-#' @param elev_max numeric. Maximum scan elevation in degrees.
-#' @param azim_min numeric. Minimum azimuth in degrees clockwise from north.
-#' @param azim_max numeric. Maximum azimuth in degrees clockwise from north.
-#' @param range_min numeric. Minimum range in m.
-#' @param range_max numeric. Maximum range in m.
-#' @param n_layer numeric. Number of altitude layers in the profile.
-#' @param h_layer numeric. Width of altitude layers in meter.
-#' @param nyquist_min numeric. Minimum Nyquist velocity of scans in m/s for
-#' scans to be included in the analysis.
-#' @param dealias logical. Whether to dealias radial velocities; this should
-#' typically be done when the scans in the polar volume have low Nyquist
-#' velocities (below 25 m/s).
-#' @param dbz_quantity character. One of the available reflectivity factor
-#' quantities in the ODIM radar data format, e.g. DBZH, DBZV, TH, TV.
-#' @param mistnet logical. Whether to use MistNet segmentation model.
-#' @param mistnet_elevations numeric vector of length 5.
-#' Elevation angles to feed to the MistNet
-#' segmentation model, which expects exactly 5 elevation scans
-#' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
-#' elevation angles may compromise segmentation results.
-#' @param local_install character. String with path to local vol2bird installation
-#'  (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird"}).
-#'  To use local installation instead of Docker container, see details.
-#' @param local_mistnet character. String with path to local mistnet segmentation model
-#' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
-#' to use local installation instead of Docker container.
-#' @param pvolfile character. Deprecated argument renamed to \code{file}.
-#'
-#' @return A vertical profile object of class \link[=summary.vp]{vp}. When
-#' defined, output files \code{vpfile} and \code{pvolfile_out} are saved to disk.
+#' @return A vertical profile object of class `vp`. When defined, output files
+#'   `vpfile` and `pvolfile_out` are saved to disk.
 #'
 #' @export
 #'
