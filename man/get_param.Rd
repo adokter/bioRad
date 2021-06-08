@@ -32,5 +32,7 @@ param <- get_param(scan, "VRADH")
 param
 }
 \seealso{
-\code{\link[=summary.param]{summary.param()}}
+\itemize{
+\item \code{\link[=summary.param]{summary.param()}}
+}
 }

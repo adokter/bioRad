@@ -31,3 +31,9 @@ vp <- convert_legacy(vp)
 vpts <- example_vpts
 vpts <- convert_legacy(vpts)
 }
+\seealso{
+\itemize{
+\item \code{\link[=summary.vp]{summary.vp()}}
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+}
+}

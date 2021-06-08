@@ -27,4 +27,9 @@ example_vp <- read_vpfiles(vpfile)
 save(example_vp, file = "data/example_vp.rda")
 }
 }
+\seealso{
+\itemize{
+\item \code{\link[=summary.vp]{summary.vp()}}
+}
+}
 \keyword{datasets}

@@ -28,4 +28,9 @@ example_scan <- pvol$scans[[1]]
 save(example_scan, file = "data/example_scan.rda")
 }
 }
+\seealso{
+\itemize{
+\item \code{\link[=summary.scan]{summary.scan()}}
+}
+}
 \keyword{datasets}

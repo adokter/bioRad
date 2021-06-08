@@ -9,6 +9,10 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [summary.vp()]
+#' * [summary.vpts()]
+#'
 #' @examples
 #' # Convert a vp object
 #' vp <- example_vp

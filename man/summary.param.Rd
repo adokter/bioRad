@@ -52,5 +52,7 @@ is.param(param)
 param # Same as summary(param) or print(param)
 }
 \seealso{
-\code{\link[=get_param]{get_param()}}
+\itemize{
+\item \code{\link[=get_param]{get_param()}}
+}
 }

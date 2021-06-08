@@ -26,6 +26,9 @@
 #'
 #' @rdname example_vp
 #'
+#' @seealso
+#' * [summary.vp()]
+#'
 #' @examples
 #' # Reload example_vp from package (e.g. in case it was altered)
 #' data(example_vp)

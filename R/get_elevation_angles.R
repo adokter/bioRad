@@ -11,6 +11,9 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [get_scan()]
+#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

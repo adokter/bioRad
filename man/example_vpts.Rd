@@ -33,4 +33,9 @@ example_vpts$attributes$where$lon <- -75.98
 save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
 }
 }
+\seealso{
+\itemize{
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+}
+}
 \keyword{datasets}
