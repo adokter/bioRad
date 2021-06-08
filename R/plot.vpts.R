@@ -233,7 +233,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       palette <- c(vpts_default_palette, na_color, nan_color)
     }
     else{
-      palette <- c(viridis::magma(1000), na_color, nan_color)
+      palette <- c(rev(viridis::magma(1000)), na_color, nan_color)
     }
   }
 
