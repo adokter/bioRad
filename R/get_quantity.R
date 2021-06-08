@@ -40,17 +40,12 @@
 #' threshold of an object.
 #'
 #' @examples
-#' # Load the example vertical profile
-#' vp <- example_vp
+#' # Extract the animal density (dens) quantity from a vp object
+#' get_quantity(example_vp, "dens")
 #'
-#' # Extract the quantity animal density (dens)
-#' get_quantity(vp, "dens")
-#'
-#' # Load the example time series of vertical profiles
-#' vpts <- example_vpts
-#'
-#' # Extract the quantity horizontal speed (ff) and show the first two datetimes
-#' get_quantity(vpts, "ff")[,1:2]
+#' # Extract the horizontal speed (ff) quantity from a vpts object and show the
+#' # first two datetimes
+#' get_quantity(example_vpts, "ff")[,1:2]
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)
 }

@@ -44,17 +44,14 @@
 #' * \code{\link[=[.vpts]{[vpts()}}
 #'
 #' @examples
-#' # Load the example time series of vertical profiles
-#' vpts <- example_vpts
-#'
-#' # Verify that it is an object of class vpts
-#' is.vpts(vpts)
+#' # Verify that an object is of class vpts
+#' is.vpts(example_vpts)
 #'
 #' # Get summary info
-#' vpts # Same as summary(vpts) or print(vpts)
+#' example_vpts # Same as summary(example_vpts) or print(example_vpts)
 #'
 #' # Get dimensions
-#' dim(vpts)
+#' dim(example_vpts)
 summary.vpts <- function(object, ...) {
   print.vpts(object)
 }

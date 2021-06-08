@@ -14,14 +14,11 @@
 #' * [summary.param()]
 #'
 #' @examples
-#' # Load the example scan
-#' scan <- example_scan
-#'
-#' # Get summary info (including parameters)
-#' scan
+#' # Get summary info for a scan (including parameters)
+#' example_scan
 #'
 #' # Extract the VRADH scan parameter
-#' param <- get_param(scan, "VRADH")
+#' param <- get_param(example_scan, "VRADH")
 #'
 #' # Get summary info for this parameter
 #' param
