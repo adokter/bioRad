@@ -4,12 +4,14 @@
 \alias{get_scan}
 \title{Get a scan (\code{scan}) from a polar volume (\code{pvol})}
 \usage{
-get_scan(x, elev)
+get_scan(x, elev, all = FALSE)
 }
 \arguments{
 \item{x}{A \code{pvol} object.}
 
 \item{elev}{Numeric. Elevation angle.}
+
+\item{all}{Logical. Whether to return all scans with a minimal difference in elevation angle as a list or only the first scan as a scan}
 }
 \value{
 A \code{scan} object.
