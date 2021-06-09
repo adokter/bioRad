@@ -27,21 +27,17 @@ pvolfile <- paste(tmpdir, "volume.h5", sep = "/")
 pvolfile_out <- paste(tmpdir,"volume_out.h5", sep = "/")
 vpfile <- paste(tmpdir, "profile.h5", sep = "/")
 # Copy example pvolfile to tempdir/volume.h5
-pvolfile_copied <- file.copy(
+file.copy(
   system.file("extdata", "volume.h5", package = "bioRad"),
   pvolfile,
   overwrite = TRUE
 )
-docker_ok <- (check_docker(verbose = FALSE) == 0 & pvolfile_copied & is.writeable(tmpdir))
 
 test_that("vol2bird available in Docker container", {
   expect_true(is.number(check_docker()))
 })
 
-test_that("temporary directory for processing pvolfile is writeable", {
-  expect_true(is.writeable(tmpdir))
-  expect_true(pvolfile_copied)
-})
+docker_ok <- (check_docker(verbose = FALSE) == 0)
 
 test_that("calculate_vp produces a vp", {
   skip_if_not(docker_ok)
