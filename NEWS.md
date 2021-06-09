@@ -1,5 +1,7 @@
 # bioRad 0.5.2.9XXX
 
+* Speedup `integrate_to_ppi` and other functions by avoiding duplicate checkking (#358)
+
 * bugfix ylim argument in `composite_ppi()` (#389)
 
 * `scan_to_spatial()` now creates points for cell centers (#430)
