@@ -6,7 +6,6 @@
 \usage{
 attribute_table(
   x,
-  add_params = T,
   select = c("how.lowprf", "how.midprf", "how.highprf", "where.elangle", "where.nbins",
     "where.nrays", "where.rscale", "how.NI"),
   ...
@@ -14,8 +13,6 @@ attribute_table(
 }
 \arguments{
 \item{x}{Either a pvol or scan for which the table should be created.}
-
-\item{add_params}{A logical whether a column with with the parameters present is to be added.}
 
 \item{select}{A character vector which the column names that should be returned when NULL all attributes are to be returned}
 
