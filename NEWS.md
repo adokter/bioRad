@@ -1,6 +1,6 @@
 # bioRad 0.5.2.9XXX
 
-* Warn when multiple scans are equally close to the requested elevation in `get_scan()`, and add option to return all (#414)
+* Warn when multiple scans with the same elevation are equally close to the requested elevation in `get_scan()`, and add option to return all (#414)
 
 * bugfix ylim argument in `composite_ppi()` (#389)
 

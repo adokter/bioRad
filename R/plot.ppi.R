@@ -1,6 +1,6 @@
 #' Plot a plan position indicator (\code{ppi})
 #'
-#' Plot a plan position indicator (PPI) generated with \link{ppi}
+#' Plot a plan position indicator (PPI) generated with \code{project_to_ppi}
 #' using \link[ggplot2]{ggplot}
 #'
 #' @param x An object of class \code{ppi}.
