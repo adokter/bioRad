@@ -1,5 +1,7 @@
 # bioRad 0.5.2.9XXX
 
+* adding `attribute_table()` to quickly tabulate scan attributes
+
 * bugfix ylim argument in `composite_ppi()` (#389)
 
 * `scan_to_spatial()` now creates points for cell centers (#430)
