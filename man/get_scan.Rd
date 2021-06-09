@@ -9,12 +9,14 @@ get_scan(x, elev, all = FALSE)
 \arguments{
 \item{x}{A \code{pvol} object.}
 
-\item{elev}{Numeric. Elevation angle.}
+\item{elev}{Numeric. Elevation angle in degrees.}
 
-\item{all}{Logical. Whether to return all scans with a minimal difference in elevation angle as a list or only the first scan as a scan}
+\item{all}{Logical. Return the first scan in the \code{pvol} object
+closest to the requested elevation (\code{FALSE}), or a list with
+all scans equally close to the requested elevation (\code{TRUE}).}
 }
 \value{
-A \code{scan} object.
+A \code{scan} object when \code{all} equals \code{FALSE} (default), or a list of \code{scan} objects if \code{all} equals \code{TRUE}
 }
 \description{
 Returns the scan (\code{scan}) from a polar volume (\code{pvol}) with elevation angle
@@ -28,11 +30,19 @@ pvol <- read_pvolfile(pvolfile)
 # Get elevation angles
 get_elevation_angles(pvol)
 
-# Extract the scan closest to 3 degrees elevation (= 2.5)
+# Extract the scan closest to 3 degrees elevation (2.5 degree scan)
 scan <- get_scan(pvol, 3)
 
 # Get summary info
 scan
+
+Extract all scans closest to 3 degrees elevation (2.5 degree scan)
+scan_list <- get_scan(pvol, 3)
+scan_list
+
+# Extract all scans closest to 1 degree elevation (0.5 and 1.5 degree scans)
+scan_list <- get_scan(pvol,1, all=T)
+scan_list
 }
 \seealso{
 \itemize{

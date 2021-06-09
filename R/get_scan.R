@@ -4,10 +4,12 @@
 #' closest to `elev`.
 #'
 #' @param x A `pvol` object.
-#' @param elev Numeric. Elevation angle.
-#' @param all Logical. Whether to return all scans with a minimal difference in elevation angle as a list or only the first scan as a scan
+#' @param elev Numeric. Elevation angle in degrees.
+#' @param all Logical. Return the first scan in the `pvol` object
+#' closest to the requested elevation (`FALSE`), or a list with
+#' all scans equally close to the requested elevation (`TRUE`).
 #'
-#' @return A `scan` object.
+#' @return A `scan` object when `all` equals `FALSE` (default), or a list of `scan` objects if `all` equals `TRUE`
 #'
 #' @export
 #'
@@ -23,11 +25,19 @@
 #' # Get elevation angles
 #' get_elevation_angles(pvol)
 #'
-#' # Extract the scan closest to 3 degrees elevation (= 2.5)
+#' # Extract the scan closest to 3 degrees elevation (2.5 degree scan)
 #' scan <- get_scan(pvol, 3)
 #'
 #' # Get summary info
 #' scan
+#'
+#' Extract all scans closest to 3 degrees elevation (2.5 degree scan)
+#' scan_list <- get_scan(pvol, 3)
+#' scan_list
+#'
+#' # Extract all scans closest to 1 degree elevation (0.5 and 1.5 degree scans)
+#' scan_list <- get_scan(pvol,1, all=T)
+#' scan_list
 get_scan <- function(x, elev, all = FALSE) {
   assert_that(class(x) == "pvol", msg = "`x` must be a `pvol` object.")
   assert_that(class(elev) == "numeric", msg = "`elev` must be numeric.")
@@ -36,7 +46,7 @@ get_scan <- function(x, elev, all = FALSE) {
   difference_vector <- abs(get_elevation_angles(x) - elev)
   if(sum(min(difference_vector)==difference_vector)!=1 & !all)
   {
-    warning("There are multiple elevation scans with the same difference to elev therefore the first is taken")
+    warning("Multiple elevation scans are equally close to `elev`, returning the first")
   }
   if(all){
     selection <- which(min(difference_vector)==difference_vector)
