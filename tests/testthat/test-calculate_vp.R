@@ -1,4 +1,4 @@
-# define non-default options for testing
+# Define non-default options for testing
 sd_vvp_thresh <- 3
 rcs <- 200
 dual_pol <- TRUE
@@ -13,27 +13,26 @@ n_layer <- 30
 h_layer <- 150
 nyquist_min <- 6
 
-# check if Docker is running:
-docker_status = check_docker(verbose = FALSE)
-
-# define temp output file locations
-tmpdir <- tempdir()
-pvolfile <- paste(tmpdir,"/volume.h5", sep="")
-pvolfile_out <- paste(tmpdir,"/volume_out.h5", sep="")
-vpfile <- paste(tmpdir,"/profile.h5", sep="")
-
-# extracts the task_args attributes of vol2bird as a list
-task_args <- function(x){
-  task_args_quoted <- paste(gsub(",","',",gsub("=","='",x$attributes$how$task_args)),"'",sep="")
-  eval(parse(text=paste("list(",task_args_quoted,")",sep="")))
+# Create function to extract task_args attributes of vol2bird as a list
+task_args <- function(x) {
+  task_args_quoted <- paste0(
+    gsub(",", "',", gsub("=", "='", x$attributes$how$task_args)), "'"
+  )
+  eval(parse(text= paste0("list(", task_args_quoted, ")")))
 }
 
-# locate example polar volume file:
-pvolfile_pkg <- system.file("extdata", "volume.h5", package = "bioRad")
-# copy example file to temporary directory:
-pvolfile_copied <- file.copy(pvolfile_pkg, pvolfile, overwrite = TRUE)
-# flag that docker is running and pvolfile in place
-docker_ok <- (docker_status == 0 & pvolfile_copied)
+# Prepare test file (paths)
+tmpdir <- tempdir()
+pvolfile <- paste(tmpdir, "volume.h5", sep = "/")
+pvolfile_out <- paste(tmpdir,"volume_out.h5", sep = "/")
+vpfile <- paste(tmpdir, "profile.h5", sep = "/")
+# Copy example pvolfile to tempdir/volume.h5
+pvolfile_copied <- file.copy(
+  system.file("extdata", "volume.h5", package = "bioRad"),
+  pvolfile,
+  overwrite = TRUE
+)
+docker_ok <- (check_docker(verbose = FALSE) == 0 & pvolfile_copied & is.writeable(tmpdir))
 
 test_that("vol2bird available in Docker container", {
   expect_true(is.number(check_docker()))
@@ -41,7 +40,6 @@ test_that("vol2bird available in Docker container", {
 
 test_that("temporary directory for processing pvolfile is writeable", {
   expect_true(is.writeable(tmpdir))
-  # copy volume file to:
   expect_true(pvolfile_copied)
 })
 
