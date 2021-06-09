@@ -46,7 +46,7 @@ get_scan <- function(x, elev, all = FALSE) {
   difference_vector <- abs(get_elevation_angles(x) - elev)
   if(sum(min(difference_vector)==difference_vector)!=1 & !all)
   {
-    warning("Multiple elevation scans are equally close to `elev`, returning the first")
+    warning("multiple elevation scans are equally close to `elev`, returning the first")
   }
   if(all){
     selection <- which(min(difference_vector)==difference_vector)
