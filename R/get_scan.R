@@ -13,6 +13,9 @@
 #'
 #' @export
 #'
+#' @details In cases where `elev` is exactly in between two
+#' scan elevation angles, the lower elevation angle scan is returned.
+#'
 #' @seealso
 #' * [summary.scan()]
 #' * [get_elevation_angles()]
@@ -32,11 +35,9 @@
 #' scan
 #'
 #' # Extract all scans closest to 3 degrees elevation (2.5 degree scan)
+#' # Always returns a list with scan object(s), containing multiple scans
+#' # if the pvol contains multiple scans at the same closest elevation.
 #' scan_list <- get_scan(pvol, 3)
-#' scan_list
-#'
-#' # Extract all scans closest to 1 degree elevation (0.5 and 1.5 degree scans)
-#' scan_list <- get_scan(pvol,1, all=TRUE)
 #' scan_list
 get_scan <- function(x, elev, all = FALSE) {
   assert_that(class(x) == "pvol", msg = "`x` must be a `pvol` object.")
@@ -44,16 +45,18 @@ get_scan <- function(x, elev, all = FALSE) {
   assert_that(is.scalar(elev))
   assert_that(is.flag(all))
   difference_vector <- abs(get_elevation_angles(x) - elev)
-  if(sum(min(difference_vector)==difference_vector)!=1 & !all)
+  # select indices closest to elev:
+  selection <- which(min(difference_vector)==difference_vector)
+  # of those, select the ones at lowest elevation
+  selection <- which(min(get_elevation_angles(x)[selection]) == get_elevation_angles(x))
+
+  if(length(selection)>1 & !all)
   {
-    warning("multiple elevation scans are equally close to `elev`, returning the first")
+    warning("multiple scans at the same elevation, returning the first")
   }
   if(all){
-    selection <- which(min(difference_vector)==difference_vector)
     return(x$scans[selection])
   }else{
-    selection <- which.min(difference_vector)
-    return(  x$scans[[selection]]
-)
+    return(x$scans[[selection[1]]])
   }
 }

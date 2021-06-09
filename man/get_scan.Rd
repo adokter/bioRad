@@ -22,6 +22,10 @@ A \code{scan} object when \code{all} equals \code{FALSE} (default), or a list of
 Returns the scan (\code{scan}) from a polar volume (\code{pvol}) with elevation angle
 closest to \code{elev}.
 }
+\details{
+In cases where \code{elev} is exactly in between two
+scan elevation angles, the lower elevation angle scan is returned.
+}
 \examples{
 # Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -37,11 +41,9 @@ scan <- get_scan(pvol, 3)
 scan
 
 # Extract all scans closest to 3 degrees elevation (2.5 degree scan)
+# Always returns a list with scan object(s), containing multiple scans
+# if the pvol contains multiple scans at the same closest elevation.
 scan_list <- get_scan(pvol, 3)
-scan_list
-
-# Extract all scans closest to 1 degree elevation (0.5 and 1.5 degree scans)
-scan_list <- get_scan(pvol,1, all=TRUE)
 scan_list
 }
 \seealso{
