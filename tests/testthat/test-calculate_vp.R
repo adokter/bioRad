@@ -33,26 +33,22 @@ file.copy(
   overwrite = TRUE
 )
 
-test_that("vol2bird available in Docker container", {
-  expect_true(is.number(check_docker()))
-})
-
 docker_ok <- (check_docker(verbose = FALSE) == 0)
 
 test_that("calculate_vp produces a vp", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
   vp <- calculate_vp(file=pvolfile, warnings=FALSE)
   expect_true(inherits(vp,"vp"))
 })
 
 test_that("calculate_vp writes vpfile hdf5 output", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
   vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE)
   expect_true(inherits(vp,"vp"))
 })
 
 test_that("calculate_vp writes pvol hdf5 output", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
   vp <- calculate_vp(file=pvolfile, pvolfile_out=pvolfile_out, warnings=FALSE)
   pvol <- read_pvolfile(pvolfile_out)
   expect_true(inherits(vp,"vp"))
@@ -64,7 +60,7 @@ test_that("calculate_vp writes pvol hdf5 output", {
 })
 
 test_that("input arguments are parsed to vol2bird", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
 
   # run vol2bird with non-default options
   vp <- calculate_vp(file=pvolfile, vpfile=vpfile, sd_vvp_threshold=sd_vvp_thresh,
@@ -88,7 +84,7 @@ test_that("input arguments are parsed to vol2bird", {
 })
 
 test_that("input arguments are ignored during autoconf", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
 
   # run vol2bird with non-default options
   expect_true(is.vp(calculate_vp(file=pvolfile, vpfile=vpfile, rcs=rcs, dual_pol=dual_pol,
@@ -114,7 +110,7 @@ test_that("input arguments are ignored during autoconf", {
 })
 
 test_that("MistNet is working", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
 
   # run vol2bird with non-default options
   vp <- calculate_vp(file=pvolfile, vpfile=vpfile,warnings=FALSE,
@@ -134,7 +130,7 @@ test_that("MistNet is working", {
 })
 
 test_that("dealiasing can be suppressed", {
-  skip_if_not(docker_ok)
+  skip_if_no_docker()
 
   # run vol2bird without dealiasing
   vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE,
