@@ -1,7 +1,6 @@
 #' Extract a volume coverage pattern table with all attributes
 #'
 #' @param x Either a pvol or scan for which the table should be created.
-#' @param add_params A logical whether a column with with the parameters present is to be added.
 #' @param select A character vector which the column names that should be returned when NULL all attributes are to be returned
 #' @param ... Currently not used
 #'
@@ -22,7 +21,6 @@
 #' attribute_table(example_pvol)
 attribute_table <-
   function(x,
-           add_params = T,
            select = c(
              "how.lowprf",
              "how.midprf",
@@ -35,7 +33,6 @@ attribute_table <-
            ),
            ...) {
     assert_that(inherits(x, "scan") | inherits(x, "pvol"))
-    assert_that(is.flag(add_params))
     assert_that(is.character(select) | is.null(select))
     if (inherits(x, "pvol")) {
       df <-
@@ -44,7 +41,6 @@ attribute_table <-
           lapply(
             x$scans,
             attribute_table,
-            add_params = add_params,
             select = select,
             ...
           )
@@ -59,8 +55,7 @@ attribute_table <-
     if (!is.null(select)) {
       df <- df[, colnames(df) %in% select, drop = F]
     }
-    if (add_params) {
-      df$params <- list(names(x$params))
-    }
+    df$param <- list(names(x$params))
+
     return(df)
   }
