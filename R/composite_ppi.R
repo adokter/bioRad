@@ -5,7 +5,7 @@
 #' radars.
 #'
 #' @inheritParams integrate_to_ppi
-#' @param x A list of \code{ppi} objects.
+#' @param x A list of `ppi` objects.
 #' @param param An atomic vector of character strings, containing the names of \code{ppi} parameters to composite.
 #' To composite all \code{ppi} parameters use 'all'.
 #' @param method string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
