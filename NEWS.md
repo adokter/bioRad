@@ -1,5 +1,7 @@
 # bioRad 0.5.2.9XXX
 
+* Warn when more then one scan could be returned (#414) and provide alternative
+
 * bugfix ylim argument in `composite_ppi()` (#389)
 
 * `scan_to_spatial()` now creates points for cell centers (#430)

@@ -5,6 +5,7 @@
 #'
 #' @param x A `pvol` object.
 #' @param elev Numeric. Elevation angle.
+#' @param all Logical. Whether to return all scans with a minimal difference in elevation angle as a list or only the first scan as a scan
 #'
 #' @return A `scan` object.
 #'
@@ -27,8 +28,22 @@
 #'
 #' # Get summary info
 #' scan
-get_scan <- function(x, elev) {
+get_scan <- function(x, elev, all = FALSE) {
   assert_that(class(x) == "pvol", msg = "`x` must be a `pvol` object.")
   assert_that(class(elev) == "numeric", msg = "`elev` must be numeric.")
-  x$scans[[which.min(abs(get_elevation_angles(x) - elev))]]
+  assert_that(is.scalar(elev))
+  assert_that(is.flag(all))
+  difference_vector <- abs(get_elevation_angles(x) - elev)
+  if(sum(min(difference_vector)==difference_vector)!=1 & !all)
+  {
+    warning("There are multiple elevation scans with the same difference to elev therefore the first is taken")
+  }
+  if(all){
+    selection <- which(min(difference_vector)==difference_vector)
+    return(x$scans[selection])
+  }else{
+    selection <- which.min(difference_vector)
+    return(  x$scans[[selection]]
+)
+  }
 }
