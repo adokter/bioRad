@@ -31,7 +31,7 @@
 #' # Get summary info
 #' scan
 #'
-#' Extract all scans closest to 3 degrees elevation (2.5 degree scan)
+#' # Extract all scans closest to 3 degrees elevation (2.5 degree scan)
 #' scan_list <- get_scan(pvol, 3)
 #' scan_list
 #'
