@@ -18,8 +18,8 @@ test_that("download_vpfiles() returns error on incorrect parameters", {
 
   expect_error(download_vpfiles(date_min, date_max, 'not_radar_code', directory, overwrite), "Radar codes should be 5 characters: not_radar_code", fixed = TRUE)
   expect_error(download_vpfiles(date_min, date_max, c("not_radar_code", "begwid"), directory, overwrite), "Radar codes should be 5 characters: not_radar_code", fixed = TRUE)
-  # How to check that radar code is valid (https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv)
-  # download_vpfiles(date_min, date_max, "abcde", directory, overwrite)
+  expect_error(download_vpfiles(date_min, date_max, "abcde", directory, overwrite), "Radar codes don't exist: abcde", fixed = TRUE)
+
 
   expect_error(download_vpfiles(date_min, date_max, radars, 1, overwrite), "path is not a string (a length one character vector)", fixed = TRUE)
   expect_error(download_vpfiles(date_min, date_max, radars, 'not_a_directory', overwrite), "Path 'not_a_directory' does not exist", fixed = TRUE)

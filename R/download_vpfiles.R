@@ -134,6 +134,15 @@ check_radar_codes <- function(radars) {
       "Radar codes should be 5 characters: ",
       paste(wrong_codes, collapse = ", ")
     )
+  } else {
+    radars.csv <- read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
+    wrong_codes <- radars[!(radars %in% radars.csv$countryradar)]
+    if (length(wrong_codes) > 0) {
+      stop(
+        "Radar codes don't exist: ",
+        paste(wrong_codes, collapse = ", ")
+      )
+    }
   }
 }
 
