@@ -1,7 +1,7 @@
 #' Plot a scan (\code{scan}) in polar coordinates
 #'
 #' Plots a scan in polar coordinates. For plots in Cartesian coordinates,
-#' see \link{project_to_ppi}
+#' see \code{project_to_ppi}
 #'
 #' @param x An object of class \code{scan}.
 #' @param param The scan parameter to plot, see details below.
