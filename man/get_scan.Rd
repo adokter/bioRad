@@ -41,7 +41,7 @@ scan_list <- get_scan(pvol, 3)
 scan_list
 
 # Extract all scans closest to 1 degree elevation (0.5 and 1.5 degree scans)
-scan_list <- get_scan(pvol,1, all=T)
+scan_list <- get_scan(pvol,1, all=TRUE)
 scan_list
 }
 \seealso{
