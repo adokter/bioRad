@@ -160,7 +160,7 @@ closest to elev." />
 closest to <code>elev</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_scan</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>elev</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_scan</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>elev</span>, all <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,13 +171,23 @@ closest to <code>elev</code>.</p>
     </tr>
     <tr>
       <th>elev</th>
-      <td><p>Numeric. Elevation angle.</p></td>
+      <td><p>Numeric. Elevation angle in degrees.</p></td>
+    </tr>
+    <tr>
+      <th>all</th>
+      <td><p>Logical. Return the first scan in the <code>pvol</code> object
+closest to the requested elevation (<code>FALSE</code>), or a list with
+all scans equally close to the requested elevation (<code>TRUE</code>).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>scan</code> object.</p>
+    <p>A <code>scan</code> object when <code>all</code> equals <code>FALSE</code> (default), or a list of <code>scan</code> objects if <code>all</code> equals <code>TRUE</code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>In cases where <code>elev</code> is exactly in between two
+scan elevation angles, the lower elevation angle scan is returned.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -195,11 +205,21 @@ closest to <code>elev</code>.</p>
 <span class='co'># Get elevation angles</span>
 <span class='fu'><a href='get_elevation_angles.html'>get_elevation_angles</a></span><span class='op'>(</span><span class='va'>pvol</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.5 1.5 2.5</div><div class='input'>
-<span class='co'># Extract the scan closest to 3 degrees elevation (= 2.5)</span>
+<span class='co'># Extract the scan closest to 3 degrees elevation (2.5 degree scan)</span>
 <span class='va'>scan</span> <span class='op'>&lt;-</span> <span class='fu'>get_scan</span><span class='op'>(</span><span class='va'>pvol</span>, <span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'># Get summary info</span>
 <span class='va'>scan</span>
+</div><div class='output co'>#&gt;                   Polar scan (class scan)
+#&gt; 
+#&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
+#&gt; elevation angle:  2.5 deg
+#&gt;            dims:  480 bins x 360 rays</div><div class='input'>
+<span class='co'># Extract all scans closest to 3 degrees elevation (2.5 degree scan)</span>
+<span class='co'># Always returns a list with scan object(s), containing multiple scans</span>
+<span class='co'># if the pvol contains multiple scans at the same closest elevation.</span>
+<span class='va'>scan_list</span> <span class='op'>&lt;-</span> <span class='fu'>get_scan</span><span class='op'>(</span><span class='va'>pvol</span>, <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>scan_list</span>
 </div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
 #&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
