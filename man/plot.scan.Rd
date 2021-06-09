@@ -31,7 +31,7 @@
 }
 \description{
 Plots a scan in polar coordinates. For plots in Cartesian coordinates,
-see \link{ppi}
+see \link{project_to_ppi}
 }
 \details{
 Available scan parameters for plotting can by printed to screen

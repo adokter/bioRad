@@ -33,7 +33,7 @@
 \item{...}{Arguments passed to low level \link[ggplot2]{ggplot} function.}
 }
 \description{
-Plot a plan position indicator (PPI) generated with \link{ppi}
+Plot a plan position indicator (PPI) generated with \link{project_to_ppi}
 using \link[ggplot2]{ggplot}
 }
 \details{
