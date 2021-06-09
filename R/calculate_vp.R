@@ -139,8 +139,8 @@
 #'
 #' ## h_layer
 #'
-#' The algorithm has been tested and developed for altitude layers with
-#' `h_layer = 200`m. Smaller widths than 100 m are not recommended as they may cause
+#' The algorithm has been tested and developed for altitude layers with `h_layer
+#' = 200`m. Smaller widths than 100 m are not recommended as they may cause
 #' instabilities of the volume velocity profiling (VVP) and dealiasing routines,
 #' and effectively lead to pseudo-replicated altitude data, since altitudinal
 #' patterns smaller than the beam width cannot be resolved.
@@ -164,7 +164,7 @@
 #' When using MistNet with a local vol2bird installation, also point parameter
 #' `local_mistnet` to your local download of the MistNet segmentation model in
 #' PyTorch format, e.g. `/your/path/mistnet_nexrad.pt`. The MistNet model can
-#' be downloaded at [https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt](https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt).
+#' be downloaded at <https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt>.
 #'
 #' @seealso
 #' * [summary.pvol()]
@@ -220,142 +220,150 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          local_install, local_mistnet) {
 
   # check input arguments
-  assert_that(is.character(file), msg = "argument file is not a path to a file (or a vector of paths to files)")
+  assert_that(
+    is.character(file),
+    msg = "`file` must be a path to a file (or a vector of paths to files)."
+  )
   for (filename in file) {
     assert_that(file.exists(filename))
   }
-
   if (!are_equal(vpfile, "")) {
     assert_that(is.writeable(dirname(vpfile)))
   }
-
   if (!are_equal(pvolfile_out, "")) {
     assert_that(is.writeable(dirname(pvolfile_out)))
   }
-
   if (!is.logical(mistnet)) {
-    stop("invalid 'mistnet' argument, should be logical")
+    stop("`mistnet` must be a logical value.")
   }
   if (mistnet && !.pkgenv$mistnet) {
-    stop("MistNet has not been installed, see update_docker() for install instructions")
+    stop("MistNet has not been installed, see update_docker() for install instructions.")
   }
   if (!is.logical(dealias)) {
-    stop("invalid 'dealias' argument, should be logical")
+    stop("`dealias` must be a logical value.")
   }
   if (file.access(mount, 0) == -1) {
-    stop("invalid 'mount' argument. Directory not found")
+    stop(glue("Can't find `mount` directory: {mount}"))
   }
   if (file.access(mount, 2) == -1) {
-    stop(paste(
-      "invalid 'mount' argument. No write permission in directory",
-      mount
-    ))
+    stop(glue("No write permission to `mount` directory: {mount}"))
   }
-
   if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))) {
-    stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
+    stop("To use local vol2bird and MistNet model, specify both `local_install` and `local_mistnet`.")
   }
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
-
   if (!.pkgenv$docker && missing(local_install)) {
     stop(
-      "Requires a running Docker daemon.\nTo enable calculate_vp, start ",
-      "your local Docker daemon, and run 'check_docker()' in R\n"
+      "Requires a running Docker daemon.\nTo enable calculate_vp(), start ",
+      "your local Docker daemon, and run check_docker() in R."
     )
   }
-
   assert_that(is.flag(autoconf))
-
   assert_that(is.flag(verbose))
-
   assert_that(is.flag(warnings))
-
   assert_that(is.writeable(mount))
-
   if (!missing(sd_vvp_threshold)) {
     assert_that(is.number(sd_vvp_threshold))
     assert_that(sd_vvp_threshold >= 0)
   }
-
   assert_that(is.number(rcs))
   assert_that(rcs > 0)
-
   assert_that(is.flag(dual_pol))
-
   assert_that(is.number(rho_hv))
-  assert_that(rho_hv >= 0 & rho_hv <= 1, msg = "rho_hv should be a number between 0 and 1")
-
+  assert_that(
+    rho_hv >= 0 & rho_hv <= 1,
+    msg = "`rho_hv` must be a number between 0 and 1."
+  )
   assert_that(is.number(elev_min))
-  assert_that(elev_min >= -90 & elev_min <= 90, msg = "elev_min is not a number between -90 and 90")
-
+  assert_that(
+    elev_min >= -90 & elev_min <= 90,
+    msg = "`elev_min` must be a number between -90 and 90."
+  )
   assert_that(is.number(elev_max))
-  assert_that(elev_max >= -90 & elev_max <= 90, msg = "elev_max is not a number between -90 and 90")
-
-  assert_that(elev_max > elev_min, msg = "elev_max is not larger than elev_min")
-
+  assert_that(
+    elev_max >= -90 & elev_max <= 90,
+    msg = "`elev_max` must be a number between -90 and 90."
+  )
+  assert_that(
+    elev_max > elev_min,
+    msg = "`elev_max` must be larger than `elev_min`."
+  )
   assert_that(is.number(azim_min))
-  assert_that(azim_min >= 0 & azim_min <= 360, msg = "azim_min is not a number between 0 and 360")
-
+  assert_that(
+    azim_min >= 0 & azim_min <= 360,
+    msg = "`azim_min` must be a number between 0 and 360."
+  )
   assert_that(is.number(azim_max))
-  assert_that(azim_max >= 0 & azim_max <= 360, msg = "azim_max is not a number between 0 and 360")
-
+  assert_that(
+    azim_max >= 0 & azim_max <= 360,
+    msg = "`azim_max` must be a number between 0 and 360."
+  )
   assert_that(is.number(range_min))
-  assert_that(range_min > 0, msg = "range_min is not a positive number")
-
+  assert_that(
+    range_min > 0,
+    msg = "`range_min` must be a positive number."
+  )
   assert_that(is.number(range_max))
-  assert_that(range_max > 0, msg = "range_max is not a positive number")
-
-  assert_that(range_max > range_min, msg = "range_max is not larger than range_min")
-
+  assert_that(
+    range_max > 0,
+    msg = "`range_max` must be a positive number."
+  )
+  assert_that(
+    range_max > range_min,
+    msg = "`range_max` must be larger than `range_min`."
+  )
   assert_that(is.count(n_layer))
-
   assert_that(is.number(h_layer))
-  assert_that(h_layer > 0, msg = "h_layer is not a positive number")
-
+  assert_that(
+    h_layer > 0,
+    msg = "`h_layer` must be a positive number."
+  )
   assert_that(is.number(nyquist_min))
-  assert_that(nyquist_min > 0, msg = "nyquist_min is not a positive number")
-
-  assert_that(dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"), msg = "dbz_quantity is not one of DBZ, DBZH, DBZV, TH, TV")
-
+  assert_that(
+    nyquist_min > 0,
+    msg = "`nyquist_min` must be a positive number."
+  )
+  assert_that(
+    dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"),
+    msg = "`dbz_quantity` must be either `DBZ`, `DBZH`, `DBZV`, `TH` or `TV`."
+  )
   assert_that(is.flag(mistnet))
-
-  assert_that(!(mistnet && !.pkgenv$mistnet), msg = "MistNet installation not found, see update_docker() for install instructions")
-
+  assert_that(
+    !(mistnet && !.pkgenv$mistnet),
+    msg = "Can't find MistNet installation, see update_docker() for install instructions.")
   assert_that(is.flag(dealias))
-
-  assert_that(.pkgenv$docker | !missing(local_install),
-    msg = paste(
-      "Requires a running Docker daemon.\nTo enable calculate_vp, start",
-      "your local Docker daemon, and run 'check_docker()' in R\n"
+  assert_that(
+    .pkgenv$docker | !missing(local_install),
+    msg = glue(
+      "Requires a running Docker daemon.\nTo enable calculate_vp(), start ",
+      "your local Docker daemon, and run check_docker() in R."
     )
   )
-
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assert_that(is.writeable(filedir))
-
-  assert_that(grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
-    msg = paste(
-      "mountpoint 'mount' has to be a parent directory",
-      "of input file 'file'"
-    )
+  assert_that(
+    grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
+    msg = "Mount point `mount` must be a parent directory of the input `file`."
   )
 
   # check whether vol2bird container supports multiple input files
   multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
   if (!missing(local_install)) multi_file_support <- TRUE
   assert_that(!(length(file) > 1 && !multi_file_support),
-    msg = paste(
-      "Current vol2bird installation does not support multiple input files.",
-      "Provide a single input file containing a polar volume, or run update_docker() to update"
+    msg = glue(
+      "Current vol2bird installation does not support multiple input files. ",
+      "Provide a single input file containing a polar volume, or run ",
+      "update_docker() to update."
     )
   )
 
   profile.tmp <- tempfile(tmpdir = filedir)
 
   if (missing(local_install)) {
-    assert_that(mount_docker_container(normalizePath(mount, winslash = "/")) == 0,
-      msg = "failed to start vol2bird Docker container, see check_docker()"
+    assert_that(
+      mount_docker_container(normalizePath(mount, winslash = "/")) == 0,
+      msg = "Failed to start vol2bird Docker container, see check_docker()."
     )
   }
 
@@ -407,9 +415,9 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   if (file.exists(optfile)) {
     optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
-    warning(paste("options.conf file found in directory ", mount,
-      ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
-      sep = ""
+    warning(glue(
+      "`options.conf` file found in directory {mount}. Renamed to ",
+      "{basename(optfile_save)} to prevent overwrite."
     ))
     file.rename(optfile, optfile_save)
   }
@@ -479,7 +487,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
   if (result != 0) {
     if (file.exists(optfile)) file.remove(optfile)
-    stop("failed to run vol2bird")
+    stop("Failed to run vol2bird.")
   }
 
   # read output into a vp object

@@ -203,8 +203,7 @@ to higher altitudes.
 
 \subsection{h_layer}{
 
-The algorithm has been tested and developed for altitude layers with
-\code{h_layer = 200}m. Smaller widths are not recommended as they may cause
+The algorithm has been tested and developed for altitude layers with \code{h_layer = 200}m. Smaller widths than 100 m are not recommended as they may cause
 instabilities of the volume velocity profiling (VVP) and dealiasing routines,
 and effectively lead to pseudo-replicated altitude data, since altitudinal
 patterns smaller than the beam width cannot be resolved.
