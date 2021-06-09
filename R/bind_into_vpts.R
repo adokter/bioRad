@@ -50,8 +50,6 @@ bind_into_vpts.vp <- function(...) {
   if (FALSE %in% vptest) {
     stop("requires vp objects as input")
   }
-  # extract radar identifiers
-  radars <- unique(sapply(vps, "[[", "radar"))
   vplist_to_vpts(c.vp(...))
 }
 
@@ -91,6 +89,12 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   }
   if (length(unique(lapply(vptss, function(x) names(x$"data")))) > 1) {
     stop("Vertical profiles have different quantities")
+  }
+  if (length(unique(sapply(vptss, function(x) x$attributes$where$interval)))>1){
+    stop("Vertical profiles with different altitude layer widths")
+  }
+  if (length(unique(sapply(vptss, function(x) x$attributes$where$levels)))>1){
+    stop("Vertical profiles with different numbers of altitude layers")
   }
   # extract date-times
   datetime <- .POSIXct(do.call("c", lapply(vptss, "[[", "datetime")), tz = "UTC")
@@ -160,7 +164,6 @@ vplist_to_vpts <- function(x, radar = NA) {
       return(vp_to_vpts_helper(x[which(radars == radar)]))
     }
   }
-  # extract date-times
   if (is.na(radar) & (length(uniqueRadars) == 1)) {
     return(vp_to_vpts_helper(x[which(radars == uniqueRadars)]))
   } else {
@@ -193,6 +196,12 @@ vp_to_vpts_helper <- function(vps) {
       "Vertical profiles of radar", vps[[1]]$radar,
       "contain different quantities."
     ))
+  }
+  if (length(unique(sapply(vps, function(x) x$attributes$where$interval)))>1){
+    stop("Vertical profiles with different altitude layer widths")
+  }
+  if (length(unique(sapply(vps, function(x) x$attributes$where$levels)))>1){
+    stop("Vertical profiles with different numbers of altitude layers")
   }
 
   vpsFlat <- lapply(
