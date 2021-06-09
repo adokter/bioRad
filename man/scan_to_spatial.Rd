@@ -23,7 +23,7 @@ scan_to_spatial(scan, lat, lon, k = 4/3, re = 6378, rp = 6357)
 a SpatialPointsDataFrame
 }
 \description{
-Georeferences the pixels of a scan into a SpatialPointsDataFrame object.
+Georeferences the center of  pixels for a scan into a SpatialPointsDataFrame object.
 }
 \details{
 Beam altitude accounts for the curvature of the earth, using \link{beam_height}.

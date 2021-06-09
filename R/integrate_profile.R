@@ -34,9 +34,9 @@
 #'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
 #'       the start of the time series up to \code{datetime}}
 #'    \item{\code{ff}}{Horizontal ground speed in m/s}
-#'    \item{\code{dd}}{Horizontal ground speed direction in degrees}
+#'    \item{\code{dd}}{Direction of the horizontal ground speed in degrees}
 #'    \item{\code{u}}{Ground speed component west to east in m/s}
-#'    \item{\code{v}}{Ground speed component north to south in m/s}
+#'    \item{\code{v}}{Ground speed component south to north in m/s}
 #'    \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
 #' }
 #' Vertically integrated density and reflectivity are related according to
@@ -133,7 +133,7 @@
 #'
 #' \code{mt} values are conditional on settings of \link{rcs}, while \code{rt} values are not.
 #'
-#' Columnns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
+#' Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 #' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 #' of the respective row.
 #' }
@@ -207,7 +207,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   rt <- NA
   # prepare output
   output <- data.frame(
-    datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
+    radar=x$radar, datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
     rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
     v = v, height = height
   )
@@ -250,6 +250,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
     interval_max = interval_max
   ))
   class(output) <- c("vpi", "data.frame")
+  attributes(output)$radar <- x$radar
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
@@ -315,7 +316,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   rt <- cumsum(dt * rtr)
   # prepare output
   output <- data.frame(
-    datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
+    radar = x$radar, datetime = x$datetime, mtr = mtr, vid = vid, vir = vir,
     rtr = rtr, mt = mt, rt = rt, ff = ff, dd = dd, u = u,
     v = v, height = height
   )
@@ -332,6 +333,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   class(output) <- c("vpi", "data.frame")
   rownames(output) <- NULL
+  attributes(output)$radar <- x$radar
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha

@@ -18,17 +18,18 @@
 #' be projected onto a regular time grid with [regularize_vpts()]. A time series
 #' of vertical profile (`vp`) object is a list containing:
 #' * `radar`: Radar identifier.
-#' * `datetime`: Nominal times of the profiles (named `dates` in biorad <
+#' * `datetime`: Nominal times of the profiles (named `dates` in bioRad <
 #' 0.4.0) in UTC.
-#' * `height`: Lowest height of the height bins in the profiles in m above sea level.
+#' * `height`: Lowest height of the height bins in the profiles in m above sea
+#' level.
 #' * `daterange`: Minimum and maximum nominal time of the profiles in UTC.
 #' * `timesteps`: Time differences between the profiles. Element `i` gives the
 #' difference between profile `i` and `i+1`.
 #' * `data`: A list of quantities, each containing a `datetime` by `height`
 #' matrix with the values. Use [get_quantity()] to access these and see
 #' [summary.vp()] for a description of available quantities.
-#' * `attributes`: List of the vertical profile's `what`, `where`, and `how` attributes,
-#' copied from the first profile.
+#' * `attributes`: List of the vertical profile's `what`, `where`, and `how`
+#' attributes, copied from the first profile.
 #' * `regular`: Logical indicating whether the time series is regular or not.
 #'
 #' @seealso
@@ -43,17 +44,14 @@
 #' * \code{\link[=[.vpts]{[vpts()}}
 #'
 #' @examples
-#' # Load the example time series of vertical profiles
-#' vpts <- example_vpts
-#'
-#' # Verify that it is an object of class vpts
-#' is.vpts(vpts)
+#' # Verify that an object is of class vpts
+#' is.vpts(example_vpts)
 #'
 #' # Get summary info
-#' vpts # Same as summary(vpts) or print(vpts)
+#' example_vpts # Same as summary(example_vpts) or print(example_vpts)
 #'
 #' # Get dimensions
-#' dim(vpts)
+#' dim(example_vpts)
 summary.vpts <- function(object, ...) {
   print.vpts(object)
 }
@@ -66,11 +64,13 @@ summary.vpts <- function(object, ...) {
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
   if (is.null(x[["height"]])) {
-    warning("`x` is a legacy vpts object without a column `height`. Use convert_legacy() to avoid errors.")
+    warning(glue("`x` is a legacy `vpts` object without a column `height`. ",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   if (is.null(x[["datetime"]])) {
-    warning("`x` is a legacy vpts object without a column `datetime`. Use convert_legacy() to avoid errors.")
+    warning(glue("`x` is a legacy `vpts` object without a column `datetime`. ",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   cat(
@@ -145,23 +145,20 @@ dim.vpts <- function(x) {
 #' @export
 #'
 #' @examples
-#' # Load the example time series of vertical profiles
-#' vpts <- example_vpts
-#'
-#' # This vpts contains 1934 profiles (i.e. datetimes)
-#' dim(vpts)
+#' # The example vpts contains 1934 profiles (i.e. datetimes)
+#' dim(example_vpts)
 #'
 #' # Subset vpts to extract 10th profile
-#' vpts[10] # A vp object
+#' example_vpts[10] # A vp object
 #'
 #' # Subset vpts to extract the 20th to 100th profile
-#' vpts[20:100] # A vpts object with 81 profiles
+#' example_vpts[20:100] # A vpts object with 81 profiles
 #'
 #' # Subset vpts to remove the first 10 profiles
-#' vpts[-1:-10] # A vpts object with 10 less profiles
+#' example_vpts[-1:-10] # A vpts object with 10 less profiles
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
-  
+
   x$datetime <- x$datetime[i]
   x$daterange <- .POSIXct(c(min(x$datetime), max(x$datetime)), tz = "UTC")
   x$timesteps <- difftime(x$datetime[-1], x$datetime[-length(x$datetime)],

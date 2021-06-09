@@ -21,7 +21,7 @@
 #' bin. Use [get_quantity()] to access these:
 #'   * `height`: Height bin (lower bound) in m above sea level.
 #'   * `u`: Speed component west to east in m/s.
-#'   * `v`: Speed component north to south in m/s.
+#'   * `v`: Speed component south to north in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
 #'   * `ff`: Horizontal speed in m/s.
 #'   * `dd`: Direction in degrees clockwise from north.
@@ -67,17 +67,14 @@
 #' * [bind_into_vpts()]
 #'
 #' @examples
-#' # Load the example vertical profile
-#' vp <- example_vp
-#'
-#' # Verify that it is an object of class vp
-#' is.vp(vp)
+#' # Verify that an object is of class scan
+#' is.vp(example_vp)
 #'
 #' # Get summary info
-#' vp # Same as summary(vp) or print(vp)
+#' example_vp # Same as summary(example_vp) or print(example_vp)
 #'
 #' # Get dimensions
-#' dim(vp)
+#' dim(example_vp)
 summary.vp <- function(object, ...) {
   print.vp(object)
 }
@@ -90,7 +87,8 @@ summary.vp <- function(object, ...) {
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
   if (is.null(x$data[["height"]])) {
-    warning("`x` is a legacy vp object without a column `height`. Use convert_legacy() to avoid errors.")
+    warning(glue("`x` is a legacy `vp` object without a column `height`. ",
+            "Use convert_legacy() to avoid errors."))
     x <- convert_legacy(x)
   }
   cat("               Vertical profile (class vp)\n\n")
@@ -145,7 +143,7 @@ dim.vp <- function(x) {
 c.vp <- function(...) {
   vp_list <- list(...)
   is_vp <- sapply(vp_list, function(x) is(x, "vp"))
-  assert_that(all(is_vp), msg = "Each element must be a vp object.")
+  assert_that(all(is_vp), msg = "Each element must be a `vp` object.")
   # extract radar identifiers
   radars <- unique(sapply(vp_list, "[[", "radar"))
   if (length(radars) > 1) {

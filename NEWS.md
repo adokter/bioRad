@@ -2,6 +2,10 @@
 
 * bugfix ylim argument in `composite_ppi()` (#389)
 
+* `scan_to_spatial()` now creates points for cell centers (#430)
+
+* The package now account for `rstart` and `astart` from the odim specification. (#434)
+
 # bioRad 0.5.2
 
 This release is primarily a hotfix for R version 4.0 (#375). All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/11?closed=1). New features and improvements include:

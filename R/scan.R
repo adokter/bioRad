@@ -27,6 +27,8 @@
 #'   240 km range).
 #'   * `ascale`: Azimuth bin size for that scan in degrees (e.g. 1 degree * 360
 #'   rays equals full circle).
+#'   * `rstart`: The range where the first range gate starts in meters (note ODIM stores it as kilometers)
+#'   * `astart`: The start of the first ray.
 #'
 #' @seealso
 #' * [get_scan()]
@@ -35,20 +37,17 @@
 #' * [get_param()]
 #'
 #' @examples
-#' # Load the example scan
-#' scan <- example_scan
-#'
-#' # Verify that it is an object of class scan
-#' is.scan(scan)
+#' # Verify that an object is of class scan
+#' is.scan(example_scan)
 #'
 #' # Get summary info
-#' scan # Same as summary(scan) or print(scan)
+#' example_scan # Same as summary(example_scan) or print(example_scan)
 #'
 #' # Get dimensions
-#' dim(scan)
+#' dim(example_scan)
 #'
 #' # Get summary info for the parameters in the scan
-#' scan$params
+#' example_scan$params
 summary.scan <- function(object, ...) {
   print.scan(object)
 }

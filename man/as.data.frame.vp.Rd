@@ -33,12 +33,12 @@
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}
 
-\item{row.names}{\code{NULL} or a character vector giving the row names for
-the data frame. Missing values are not allowed. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
+\item{row.names}{\code{NULL} or a character vector giving the row names for the
+data frame. Missing values are not allowed. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
 
-\item{optional}{Logical. If \code{FALSE} then the names of the variables in the data
-frame are checked to ensure that they are syntactically valid variable names
-and are not duplicated. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
+\item{optional}{Logical. If \code{FALSE} then the names of the variables in the
+data frame are checked to ensure that they are syntactically valid variable
+names and are not duplicated. See \code{\link[base:as.data.frame]{base::as.data.frame()}}.}
 
 \item{geo}{Logical. When \code{TRUE}, adds latitude (\code{lat}), longitude (\code{lon}) and
 antenna height of the radar (\code{height_antenna}) to each row.}
@@ -77,31 +77,30 @@ quantities \code{eta}, \code{dbz}, \code{ff}, \code{u}, \code{v}, \code{w}, \cod
 \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}}.
 }
 \examples{
-# Load the example vertical profile
-vp <- example_vp
-
-# Convert to a data.frame
-vp_df <- as.data.frame(vp)
+# Convert vp object to a data.frame
+vp_df <- as.data.frame(example_vp)
 
 # Print data.frame
 vp_df
 
-# Load the example time series of vertical profiles
-vpts <- example_vpts
-
-# Convert to a data.frame
-vpts_df <- as.data.frame(vpts)
+# Convert vpts object to a data.frame
+vpts_df <- as.data.frame(example_vpts)
 
 # Print the first 5 rows of the data.frame
 vpts_df[1:5, ]
 
 # Do not add lat/lon/height_antenna information
-vpts_df <- as.data.frame(vpts, geo = FALSE)
+vpts_df <- as.data.frame(example_vpts, geo = FALSE)
 
 # Do not add day/sunrise/sunset information
-vpts_df <- as.data.frame(vpts, suntime = FALSE)
+vpts_df <- as.data.frame(example_vpts, suntime = FALSE)
 
 # Override the latitude/longitude information stored in the object when
 # calculating sunrise/sunset information
-vpts_df <- as.data.frame(vpts, lat = 50, lon = 4)
+vpts_df <- as.data.frame(example_vpts, lat = 50, lon = 4)
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+}
 }

@@ -20,6 +20,8 @@
 #' to console.
 #' @param mount A character string with the mount point (a directory path)
 #' for the Docker container.
+#' @param local_install (optional) String with path to local vol2bird installation,
+#' to use local installation instead of Docker container
 #'
 #' @return An object of class \link[=summary.pvol]{pvol}, which is a list
 #' containing polar scans, i.e. objects of class \code{scan}
@@ -71,11 +73,11 @@ read_pvolfile <- function(file, param = c(
                           ),
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
-                          mount = dirname(file)) {
+                          mount = dirname(file), local_install) {
   tryCatch(read_pvolfile_body(
     file, param, sort, lat, lon,
     height, elev_min, elev_max,
-    verbose, mount
+    verbose, mount, local_install
   ),
   error = function(err) {
     rhdf5::h5closeAll()
@@ -92,7 +94,7 @@ read_pvolfile_body <- function(file, param = c(
                                ),
                                sort = TRUE, lat, lon, height, elev_min = 0,
                                elev_max = 90, verbose = TRUE,
-                               mount = dirname(file)) {
+                               mount = dirname(file), local_install) {
   # input checks
   if (!is.logical(sort)) {
     stop("'sort' should be logical")
@@ -120,10 +122,10 @@ read_pvolfile_body <- function(file, param = c(
       stop("Failed to read HDF5 file.")
     }
   } else {
-    if (verbose) {
+    if (verbose && missing(local_install)) {
       cat("Converting using Docker...\n")
     }
-    if (!.pkgenv$docker) {
+    if (!.pkgenv$docker && missing(local_install)) {
       stop(
         "Requires a running Docker daemon.\nTo enable, start your ",
         "local Docker daemon, and run 'check_docker()' in R\n"
@@ -131,7 +133,7 @@ read_pvolfile_body <- function(file, param = c(
     }
     file <- nexrad_to_odim_tempfile(file,
       verbose = verbose,
-      mount = mount
+      mount = mount, local_install
     )
     if (!is.pvolfile(file)) {
       file.remove(file)
@@ -305,6 +307,10 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   geo$elangle <- c(attribs.where$elangle)
   geo$rscale <- c(attribs.where$rscale)
   geo$ascale <- c(360 / attribs.where$nrays)
+  geo$astart <- attribs.how$astart
+  # odim stores ranges as Km in package ranges are until now in meters
+  geo$rstart <- attribs.where$rstart * 1000
+
 
   # read scan parameters
   quantities <- lapply(

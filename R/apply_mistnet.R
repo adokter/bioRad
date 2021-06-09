@@ -4,14 +4,20 @@
 #' resultant segmentation as a polar volume (\code{pvol}) object.
 #'
 #' @param file character. File path for a radar polar volume.
-#' @param pvolfile_out character. Filename for the polar volume to be
+#' @param pvolfile_out character. (optional) Filename for the polar volume to be
 #' stored, including the MistNet segmentation results
 #' @param load on completion load the data
 #' @param mistnet_elevations numeric vector of length 5.
 #' Elevation angles to feed to the MistNet
 #' segmentation model, which expects exactly 5 elevation scans
-#' at 0.5, 1.5, 3.5, 3.5 and 4.5 degrees. Specifying different
+#' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 #' elevation angles may compromise segmentation results.
+#' @param local_install (optional) String with path to local vol2bird binary
+#' (e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
+#' to use local installation instead of Docker container
+#' @param local_mistnet (optional) String with path to local mistnet segmentation model
+#' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
+#' to use local installation instead of Docker container.
 #'
 #' @inheritParams calculate_vp
 #'
@@ -33,7 +39,7 @@
 #'
 #' MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
 #' radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
-#' elevation angles (0.5, 1.5, 3.5, 3.5 and 4.5 degrees). Based on these data
+#' elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on these data
 #' it can estimate a segmentation mask that identifies pixels with weather
 #' that should be removed when interested only in biological data.
 #'
@@ -107,7 +113,21 @@
 #' }
 apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
                           mount = dirname(file), load = TRUE,
-                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5)) {
+                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
+                          local_install, local_mistnet) {
+  tryCatch(apply_mistnet_body(file, pvolfile_out, verbose, mount, load, mistnet_elevations, local_install, local_mistnet),
+           error = function(err) {
+             rhdf5::h5closeAll()
+             stop(err)
+           }
+  )
+}
+
+apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
+                          mount = dirname(file), load = TRUE,
+                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
+                          local_install, local_mistnet) {
+
   assert_that(file.exists(file))
 
   if (!.pkgenv$mistnet) {
@@ -116,6 +136,10 @@ apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
 
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
+
+  if((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))){
+    stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
+  }
 
   if (!missing(pvolfile_out)) {
     if (!file.exists(dirname(pvolfile_out))) {
@@ -126,20 +150,27 @@ apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
     }
   }
 
-  opt.names <- c("USE_MISTNET", "MISTNET_ELEVS")
+  opt.names <- c("USE_MISTNET", "MISTNET_ELEVS", "MISTNET_PATH")
   opt.values <- c(
     "TRUE",
-    paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = "")
+    paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = ""),
+    ifelse(missing(local_install), "/MistNet/mistnet_nexrad.pt", normalizePath(local_mistnet))
   )
 
   opt <- data.frame(
     "option" = opt.names, "is" = rep("=", length(opt.values)),
     "value" = opt.values
   )
-  optfile <- paste(normalizePath(mount, winslash = "/"),
-    "/options.conf",
-    sep = ""
-  )
+
+  if (missing(local_install)) {
+    optfile <- paste(normalizePath(mount, winslash = "/"),
+                     "/options.conf",
+                     sep = ""
+    )
+  }
+  else {
+    optfile <- paste(getwd(), "/options.conf", sep = "")
+  }
 
   if (file.exists(optfile)) {
     optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
@@ -157,7 +188,7 @@ apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
   )
 
   # apply mistnet and generate pvol.
-  pvol_tmp <- nexrad_to_odim_tempfile(file, verbose, mount)
+  pvol_tmp <- nexrad_to_odim_tempfile(file, verbose, mount, local_install)
 
   if (load) output <- read_pvolfile(pvol_tmp) else output <- TRUE
 

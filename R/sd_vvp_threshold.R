@@ -1,7 +1,8 @@
 #' Get threshold of the radial velocity standard deviation
 #'
 #' Returns the current threshold of the radial velocity standard deviation
-#' (`sd_vvp`) of an object in m/s, retrieved by velocity volume processing (VVP).
+#' (`sd_vvp`) of an object in m/s, retrieved by velocity volume processing
+#' (VVP).
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #'
@@ -16,12 +17,10 @@
 #'
 #' @examples
 #' # Get the sd_vvp threshold for a vp
-#' vp <- example_vp
-#' sd_vvp_threshold(vp)
+#' sd_vvp_threshold(example_vp)
 #'
 #' # Get the sd_vvp threshold for a vpts
-#' vpts <- example_vpts
-#' sd_vvp_threshold(vpts)
+#' sd_vvp_threshold(example_vpts)
 sd_vvp_threshold <- function(x) {
   UseMethod("sd_vvp_threshold", x)
 }
@@ -40,7 +39,7 @@ sd_vvp_threshold.vp <- function(x) {
 sd_vvp_threshold.list <- function(x) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("`x` must be list of vp objects.")
+    stop("`x` must be list of `vp` objects.")
   }
   output <- sapply(x, `sd_vvp_threshold.vp`)
   output
@@ -109,7 +108,7 @@ sd_vvp_threshold.vpts <- function(x) {
 `sd_vvp_threshold<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("`x` must be list of vp objects.")
+    stop("`x` must be list of `vp` objects.")
   }
   output <- lapply(x, `sd_vvp_threshold<-.vp`, value = value)
   class(output) <- c("list")

@@ -51,7 +51,7 @@ or \code{\link[=composite_ppi]{composite_ppi()}}.
 }
 }
 \examples{
-# Project the example scan as a ppi
+# Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
 
 # Verify that it is an object of class ppi

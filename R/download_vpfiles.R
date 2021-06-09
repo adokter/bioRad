@@ -38,6 +38,9 @@
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
+  # Ensure directory exists
+  assert_that(is.dir(directory))
+  
   # Stop if radar codes are not exactly 5 characters
   check_radar_codes(radars)
 

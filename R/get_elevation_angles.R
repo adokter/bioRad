@@ -1,15 +1,18 @@
 #' Get elevation angles of a polar volume (`pvol`), scan (`scan`) or parameter
 #' (`param`)
 #'
-#' Gives the elevation angles of all scans within a polar volume (`pvol`) or the
-#' elevation angle of a single scan (`scan`) or scan parameter (`param`) in
-#' degrees.
+#' Returns the elevation angles in degrees of all scans within a polar volume
+#' (`pvol`) or the elevation angle of a single scan (`scan`) or scan parameter
+#' (`param`).
 #'
 #' @param x A `pvol`, `scan` or `param` object.
 #'
 #' @return The elevation angle(s) in degrees.
 #'
 #' @export
+#'
+#' @seealso
+#' * [get_scan()]
 #'
 #' @examples
 #' # Locate and read the polar volume example file
