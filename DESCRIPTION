@@ -39,14 +39,14 @@ Imports:
     sp,
     stats,
     tidyr,
+    testthat,
     utils,
     viridisLite,
     viridis,
     maptools
 Suggests:
     knitr,
-    rmarkdown,
-    testthat
+    rmarkdown
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
