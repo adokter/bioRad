@@ -20,8 +20,9 @@ POSIXct value or character string convertible to POSIXct.}
 \item{night}{When TRUE select only night time profiles, when FALSE select only day time profiles,
 as classified by \link{check_night}.}
 
-\item{elev}{numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
-length two, with first element giving sunset elevation, and second element sunrise elevation.}
+\item{elev}{Numeric (vector). Sun elevation in degrees defining night time.
+May also be a numeric vector of length two, with first element giving
+sunset elevation, and second element sunrise elevation.}
 
 \item{offset}{numeric. Time duration in seconds by which to shift the start and end
 of night time. May also be a numeric vector of length two, with first element added to moment

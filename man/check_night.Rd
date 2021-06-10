@@ -25,62 +25,62 @@ check_night(x, ..., elev = -0.268, offset = 0)
 \method{check_night}{pvol}(x, ..., elev = -0.268, offset = 0)
 }
 \arguments{
-\item{x}{\code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
-or a date inheriting from class \code{POSIXct} or a string
-interpretable by \link{as.POSIXct}.}
+\item{x}{A \code{pvol}, \code{vp}, \code{vpts}, \code{vpi} object, a POSIXct date or a string
+interpretable by \code{\link[base:as.POSIXlt]{base::as.POSIXct()}}.}
 
-\item{...}{optional lat,lon arguments.}
+\item{...}{Optional lat, lon arguments.}
 
-\item{elev}{numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
-length two, with first element giving sunset elevation, and second element sunrise elevation.}
+\item{elev}{Numeric (vector). Sun elevation in degrees defining night time.
+May also be a numeric vector of length two, with first element giving
+sunset elevation, and second element sunrise elevation.}
 
-\item{offset}{numeric. Time duration in seconds by which to shift the start and end
-of night time. May also be a numeric vector of length two, with first element added to moment
-of sunset and second element added to moment of sunrise.}
+\item{offset}{Numeric (vector). Time duration in seconds by which to shift
+the start and end of night time. May also be a numeric vector of length
+two, with first element added to moment of sunset and second element added
+to moment of sunrise.}
 
-\item{lon}{numeric. Longitude in decimal degrees.}
+\item{lon}{Numeric. Longitude, in decimal degrees.}
 
-\item{lat}{numeric. Latitude in decimal degrees.}
+\item{lat}{Numeric. Latitude, in decimal degrees.}
 
-\item{tz}{character. Time zone. Ignored when \code{date} already has an associated time zone}
+\item{tz}{Character. Time zone. Ignored when \code{date} already has an associated
+time zone.}
 }
 \value{
-\code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
-(either datetime or geographic location missing). For \code{vpts} a
-vector of \code{TRUE}/\code{FALSE} values is returned.
+\code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown (because
+datetime datetime or geographic location missing). For \code{vpts} a vector of
+\code{TRUE}/\code{FALSE} values is returned.
 }
 \description{
-Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
-latitude, longitude, date and sun elevation. When used on a bioRad object
-(\code{pvol}, \code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the
-bioRad object directly.
+Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of latitude,
+longitude, date and sun elevation. When used on a bioRad object (\code{pvol},
+\code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the bioRad object
+directly.
 }
 \details{
-The angular diameter of the sun is about 0.536 degrees, therefore
-the moment of sunrise/sunset corresponds to half that elevation at
--0.268 degrees.
-
-\code{check_night()} evaluates to \code{FALSE} when the sun has a higher
+\code{\link[=check_night]{check_night()}} evaluates to \code{FALSE} when the sun has a higher
 elevation than parameter \code{elev}, otherwise \code{TRUE}.
 
-Approximate astronomical formula are used, therefore the day/night
-transition may be off by a few minutes.
+The angular diameter of the sun is about 0.536 degrees, therefore the moment
+of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
+Approximate astronomical formula are used, therefore the day/night transition
+may be off by a few minutes.
 
-\code{offset} can be used to shift the moment of sunset and sunrise by a
-temporal offset, for example, \code{offset=c(600,-900)} will assume nighttime
-starts 600 seconds after sunset (as defined by \code{elev}) and stops 900 seconds before sunrise.
+\code{offset} can be used to shift the moment of sunset and sunrise by a temporal
+offset, for example, \code{offset = c(600,-900)} will assume nighttime starts 600
+seconds after sunset (as defined by \code{elev}) and stops 900 seconds before
+sunrise.
 }
 \examples{
-# check if it is night at UTC midnight in the Netherlands on January 1st:
+# Check if it is night at UTC midnight in the Netherlands on January 1st
 check_night("2016-01-01 00:00", 5, 53)
 
-# check on bioRad objects directly:
+# Check on bioRad objects directly
 check_night(example_vp)
-
 check_night(example_vpts)
 
-# select nighttime profiles that are between 3 hours after sunset
-# and 2 hours before sunrise:
-index <- check_night(example_vpts, offset=c(3,-2)*3600)
+# Select nighttime profiles that are between 3 hours after sunset and 2 hours
+# before sunrise
+index <- check_night(example_vpts, offset = c(3,-2)*3600)
 example_vpts[index]
 }
