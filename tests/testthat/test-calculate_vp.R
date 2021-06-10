@@ -103,42 +103,27 @@ test_that("calculate_vp() ignores input arguments if autoconf", {
   expect_false(nyquist_min == as.numeric(task_args$minNyquist))
 })
 
-test_that("MistNet is working", {
+test_that("MistNet adds param WEATHER", {
   skip_if_no_docker()
+  vp <- calculate_vp(file = pvolfile, pvolfile_out = pvolfile_out, warnings = FALSE, mistnet = TRUE)
+  pvol_from_file <- read_pvolfile(pvolfile_out)
 
-  # run vol2bird with non-default options
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile,warnings=FALSE,
-                     mistnet = TRUE, pvolfile_out = pvolfile_out)
-
-  pvol <- read_pvolfile(pvolfile_out)
-
-  # get one of the mistnet elevations (1.5 degree)
-  scan <- get_scan(pvol, 0.5)
-
-  expect_true(inherits(vp,"vp"))
-  expect_true(inherits(scan,"scan"))
-  expect_true(inherits(pvol,"pvol"))
-
-  # check that mistnet param WEATHER is added
-  expect_true(inherits(scan$params$WEATHER,"param"))
+  # Check that the MistNet param "WEATHER" is added for a MistNet elevation
+  scan <- get_scan(pvol_from_file, 0.5)
+  expect_s3_class(scan$params$WEATHER, "param")
 })
 
-test_that("dealiasing can be suppressed", {
+test_that("Dealiasing can be toggled", {
   skip_if_no_docker()
 
-  # run vol2bird without dealiasing
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE,
-                     nyquist_min=nyquist_min, dealias=F)
-  expect_equal(vp$attributes$how$dealiased,0)
-  # the dealias attribute is stored at two locations, this one is the duplicate
-  # but including to guarantee overall consistency.
-  expect_equal(task_args(vp)$dealiasVrad,"0")
+  # run without dealiasing
+  vp <- calculate_vp(file = pvolfile, warnings = FALSE, nyquist_min = nyquist_min, dealias = FALSE)
+  # Dealias attribute is stored in two locations
+  expect_equal(vp$attributes$how$dealiased, 0)
+  expect_equal(task_args(vp)$dealiasVrad, "0")
 
-  # run vol2bird with dealiasing
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE,
-                     nyquist_min=nyquist_min, dealias=T)
-  expect_equal(vp$attributes$how$dealiased,1)
-  # the dealias attribute is stored at two locations, this one is the duplicate
-  # but including to guarantee overall consistency.
+  # run with dealiasing
+  vp <- calculate_vp(file = pvolfile, warnings = FALSE, nyquist_min = nyquist_min, dealias = TRUE)
+  expect_equal(vp$attributes$how$dealiased, 1)
   expect_equal(task_args(vp)$dealiasVrad,"1")
 })
