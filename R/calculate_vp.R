@@ -301,7 +301,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assert_that(is.number(range_min))
   assert_that(
-    range_min > 0,
+    range_min >= 0,
     msg = "`range_min` must be a positive number."
   )
   assert_that(is.number(range_max))
