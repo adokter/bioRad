@@ -6,8 +6,9 @@
 #'
 #' @inheritParams integrate_to_ppi
 #' @param x A list of `ppi` objects.
-#' @param param An atomic vector of character strings, containing the names of \code{ppi} parameters to composite.
-#' To composite all \code{ppi} parameters use 'all'.
+#' @param param The scan parameter name(s) to composite. An atomic vector of character strings
+#' can be provided to composite multiple scan parameters at once. To composite all available
+#' scan parameters use 'all' (default).
 #' @param method string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
 #' names of length(param) to apply different methods to each of the parameters.
 #' @param idw_max_distance numeric. Maximum distance from the radar to consider in
@@ -71,7 +72,7 @@
 #' # plot the calculated max product on the basemap
 #' map(my_composite, bm)
 #' }
-composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance = NA, coverage) {
+composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance = NA, coverage) {
   if (FALSE %in% sapply(x, is.ppi)) {
     stop("'composite' expects objects of class ppi only")
   }
