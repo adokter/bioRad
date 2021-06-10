@@ -46,7 +46,7 @@ bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 #' @export
 bind_into_vpts.vp <- function(...) {
   vps <- list(...)
-  vptest <- sapply(vps, function(x) is(x, "vp"))
+  vptest <- sapply(vps, is.vp)
   if (FALSE %in% vptest) {
     stop("requires vp objects as input")
   }
@@ -77,7 +77,7 @@ bind_into_vpts.list <- function(x, ...) {
 #' @export
 bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   vptss <- list(...)
-  vptstest <- sapply(vptss, function(x) is(x, "vpts"))
+  vptstest <- sapply(vptss, is.vpts)
   if (FALSE %in% vptstest) {
     stop("requires vpts objects as input")
   }
@@ -181,8 +181,7 @@ vp_to_vpts_helper <- function(vps) {
   datetime <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   profile.quantities <- names(vps[[1]]$data)
-
-  if (length(unique(lapply(vps, "[[", "height"))) > 1) {
+  if (length(unique(lapply(vps, function(x) x$data$height))) > 1) {
     stop(paste(
       "Vertical profiles of radar", vps[[1]]$radar,
       "have non-aligning altitude layers."
