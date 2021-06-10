@@ -6,7 +6,7 @@
 \usage{
 composite_ppi(
   x,
-  param = "DBZH",
+  param = "all",
   nx = 100,
   ny = 100,
   xlim,
@@ -23,8 +23,9 @@ composite_ppi(
 \arguments{
 \item{x}{A list of \code{ppi} objects.}
 
-\item{param}{An atomic vector of character strings, containing the names of \code{ppi} parameters to composite.
-To composite all \code{ppi} parameters use 'all'.}
+\item{param}{The scan parameter name(s) to composite. An atomic vector of character strings
+can be provided to composite multiple scan parameters at once. To composite all available
+scan parameters use 'all' (default).}
 
 \item{nx}{number of raster pixels in the x (longitude) dimension}
 
