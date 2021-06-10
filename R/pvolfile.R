@@ -70,7 +70,7 @@ get_odim_object_type <- function(file) {
 
 is.odimfile <- function(file) {
   if (!H5Fis_hdf5(file)) {
-    warning(glue("{file} must be a HDF5 file."))
+    warning(glue("{file} is not an HDF5 file."))
     return(FALSE)
   }
   output <- TRUE
@@ -78,19 +78,22 @@ is.odimfile <- function(file) {
   if (!("dataset1" %in% groups)) {
     output <- FALSE
     warning(
-      glue("{file} is a HDF5 file, but it does not contain `/dataset1` group.")
+      glue("HDF5 file {file} does not contain a `/dataset1` group.")
     )
   }
 
   if (!("what" %in% groups)) {
     output <- FALSE
     warning(
-      glue("{file} is a HDF5 file, but it does not contain `/what` group.")
+      glue("HDF5 file {file} does not contain a `/what` group.")
     )
   } else {
     object <- h5readAttributes(file, "what")$object
     if (is.null(object)) {
-      warning("`object` attribute not found in `/what` group.")
+      warning(
+        glue("HDF5 file {file} does not contain an `object` attribute in the ",
+        "`/what` group.")
+      )
       output <- FALSE
     }
   }
@@ -98,13 +101,13 @@ is.odimfile <- function(file) {
   if (!("how" %in% groups)) {
     # accepting a missing /how group
     warning(
-      glue("{file} is a HDF5 file, but it does not contain `/how` group.")
+      glue("HDF5 file {file} does not contain a `/how` group.")
     )
   }
   if (!("where" %in% groups)) {
     output <- FALSE
     warning(
-      glue("{file} is a HDF5 file, but it does not contain `/where` group.")
+      glue("HDF5 file {file} does not contain a `/where` group.")
     )
   }
   return(output)
