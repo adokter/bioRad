@@ -27,7 +27,7 @@ For \code{\link[=dim.vpts]{dim.vpts()}}: number of datetimes, heights and quanti
 time series of vertical profiles (\code{vpts}).
 }
 \description{
-R base functions for inspecting a time series of vertical profiles (\code{vp})
+R base functions for inspecting a time series of vertical profiles (\code{vpts})
 object.
 }
 \details{

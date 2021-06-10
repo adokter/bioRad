@@ -1,6 +1,6 @@
 #' Inspect a time series of vertical profiles (`vpts`)
 #'
-#' R base functions for inspecting a time series of vertical profiles (`vp`)
+#' R base functions for inspecting a time series of vertical profiles (`vpts`)
 #' object.
 #'
 #' @param object A `vpts` object.
