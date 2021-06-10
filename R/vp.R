@@ -67,7 +67,7 @@
 #' * [bind_into_vpts()]
 #'
 #' @examples
-#' # Verify that an object is of class scan
+#' # Check if an object is of class vp
 #' is.vp(example_vp)
 #'
 #' # Get summary info
@@ -101,7 +101,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   ), "\n")
 }
 
-#' Verify if an object is of class `vp`
+#' Check if an object is of class `vp`
 #'
 #' @param x A `vp` object.
 #'

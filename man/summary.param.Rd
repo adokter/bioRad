@@ -45,7 +45,7 @@ vertically and horizontally polarized reflectivity factor.
 # Extract the DBZH parameter from a scan
 param <- get_param(example_scan, "DBZH")
 
-# Verify that it is an object of class param
+# Check if it is an object of class param
 is.param(param)
 
 # Get summary info for this parameter

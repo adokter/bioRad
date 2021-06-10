@@ -21,11 +21,11 @@ apply_mistnet(
 \item{pvolfile_out}{character. (optional) Filename for the polar volume to be
 stored, including the MistNet segmentation results}
 
-\item{verbose}{logical. When TRUE, pipe Docker stdout to R console. On
-Windows always TRUE.}
+\item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
+console. Always \code{TRUE} on Windows.}
 
-\item{mount}{character. String with the mount point (a directory path) for
-the Docker container.}
+\item{mount}{Character. Directory path of the mount point for the Docker
+container.}
 
 \item{load}{on completion load the data}
 

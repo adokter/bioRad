@@ -2,6 +2,8 @@
 
 * adding `attribute_table()` to quickly tabulate scan attributes
 
+* Warn when multiple scans with the same elevation are equally close to the requested elevation in `get_scan()`, and add option to return all (#414)
+
 * bugfix ylim argument in `composite_ppi()` (#389)
 
 * `scan_to_spatial()` now creates points for cell centers (#430)
