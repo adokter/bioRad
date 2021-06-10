@@ -35,7 +35,7 @@ file.copy(system.file("extdata", "volume.h5", package = "bioRad"), pvolfile, ove
 # - local_mistnet, because difficult to test
 
 test_that("calculate_vp() returns error on incorrect parameters", {
-  # these tests can run without docker
+  skip_if_no_docker()
   expect_error(calculate_vp(paste(tmpdir, "nofile.txt", sep = "/"), warnings = FALSE))
   # vpfile: only tests if parent dir is writeable
   # pvolfile: only tests if parent dir is writeable
