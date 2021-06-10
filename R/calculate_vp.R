@@ -191,6 +191,7 @@
 #' (11), pp. 1908-22. <doi:10.1111/2041-210X.13280>
 #'
 #' @examples
+#' \dontrun{
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
@@ -198,15 +199,14 @@
 #' file.copy(pvolfile, "~/volume.h5")
 #'
 #' # Calculate the profile
-#' \dontrun{
 #' vp <- calculate_vp("~/volume.h5")
 #'
 #' # Get summary info
 #' vp
-#' }
 #'
 #' # Clean up
 #' file.remove("~/volume.h5")
+#' }
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
                          mount = dirname(file[1]), sd_vvp_threshold,
