@@ -86,7 +86,7 @@ undetects.
 }
 
 \examples{
-# Verify that an object is of class scan
+# Check if an object is of class vp
 is.vp(example_vp)
 
 # Get summary info

@@ -1,6 +1,6 @@
 #' Inspect a time series of vertical profiles (`vpts`)
 #'
-#' R base functions for inspecting a time series of vertical profiles (`vp`)
+#' R base functions for inspecting a time series of vertical profiles (`vpts`)
 #' object.
 #'
 #' @param object A `vpts` object.
@@ -44,7 +44,7 @@
 #' * \code{\link[=[.vpts]{[vpts()}}
 #'
 #' @examples
-#' # Verify that an object is of class vpts
+#' # Check if an object is of class vpts
 #' is.vpts(example_vpts)
 #'
 #' # Get summary info
@@ -101,7 +101,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   }
 }
 
-#' Verify if an object is of class `vpts`
+#' Check if an object is of class `vpts`
 #'
 #' @param x A `vpts` object.
 #'

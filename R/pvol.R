@@ -33,7 +33,7 @@
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
 #'
-#' # Verify that it is an object of class pvol
+#' # Check if it is an object of class pvol
 #' is.pvol(pvol)
 #'
 #' # Get summary info
@@ -62,7 +62,7 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("nominal time: ", as.character(x$datetime), "\n\n")
 }
 
-#' Verify if an object is of class `pvol`
+#' Check if an object is of class `pvol`
 #'
 #' @param x A `pvol` object.
 #'

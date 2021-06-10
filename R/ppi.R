@@ -38,7 +38,7 @@
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #'
-#' # Verify that it is an object of class ppi
+#' # Check if it is an object of class ppi
 #' is.ppi(ppi)
 #'
 #' # Get summary info
@@ -65,7 +65,7 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   )
 }
 
-#' Verify if an object is of class `ppi`
+#' Check if an object is of class `ppi`
 #'
 #' @param x A `ppi` object.
 #'

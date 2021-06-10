@@ -2,23 +2,32 @@
 % Please edit documentation in R/vpfile.R
 \name{is.vpfile}
 \alias{is.vpfile}
-\title{Check if a local file is a vertical profile (\code{vp})}
+\title{Check if a file is a vertical profile (\code{vp})}
 \usage{
-is.vpfile(file, filename = NULL)
+is.vpfile(file)
 }
 \arguments{
-\item{file}{A string containing a filename}
-
-\item{filename}{Deprecated argument, use file instead.}
+\item{file}{Character. Path of the file to check.}
 }
 \value{
-TRUE when \code{filename} is a vertical profile, otherwise FALSE
+\code{TRUE} for a vertical profile file in readable format, otherwise
+\code{FALSE}.
 }
 \description{
-Checker whether a file is a vertical profile that can be read with
-package \pkg{bioRad}
+Checks whether a file is a vertical profile (\code{vp}) in the ODIM HDF5 format
+that can be read with bioRad.
 }
 \examples{
-profile <- system.file("extdata", "profile.h5", package = "bioRad")
-is.vpfile(profile) # > TRUE
+# Locate the vertical profile example file
+vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+
+# Check if it is a vpfile
+is.vpfile(vpfile)
+}
+\seealso{
+\itemize{
+\item \code{\link[=read_vpfiles]{read_vpfiles()}}
+\item \code{\link[=get_odim_object_type]{get_odim_object_type()}}
+\item \code{\link[=is.vp]{is.vp()}}
+}
 }
