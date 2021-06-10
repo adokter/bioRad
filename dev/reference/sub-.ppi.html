@@ -189,28 +189,28 @@ derived quantities to extract.</p></td>
 <span class='va'>ppi</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt;   parameters:  DBZH VRADH RHOHV ZDR PHIDP 
 #&gt;         dims:  201 x 200 pixels
 #&gt; </div><div class='input'>
 <span class='co'># Subset ppi to one containing only the first parameter (VRADH)</span>
 <span class='va'>ppi</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   parameters:  VRADH 
+#&gt;   parameters:  DBZH 
 #&gt;         dims:  201 x 200 pixels
 #&gt; </div><div class='input'>
 <span class='co'># Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)</span>
 <span class='va'>ppi</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   parameters:  VRADH DBZH ZDR 
+#&gt;   parameters:  DBZH VRADH RHOHV 
 #&gt;         dims:  201 x 200 pixels
 #&gt; </div><div class='input'>
 <span class='co'># Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)</span>
 <span class='va'>ppi</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>:</span><span class='op'>-</span><span class='fl'>2</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
-#&gt;   parameters:  ZDR RHOHV PHIDP 
+#&gt;   parameters:  RHOHV ZDR PHIDP 
 #&gt;         dims:  201 x 200 pixels
 #&gt; </div></pre>
   </div>

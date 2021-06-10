@@ -232,7 +232,7 @@ rays equals full circle).</p></li>
 <span class='va'>example_scan</span> <span class='co'># Same as summary(example_scan) or print(example_scan)</span>
 </div><div class='output co'>#&gt;                   Polar scan (class scan)
 #&gt; 
-#&gt;      parameters:  VRADH DBZH ZDR RHOHV PHIDP 
+#&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP 
 #&gt; elevation angle:  0.5 deg
 #&gt;            dims:  480 bins x 360 rays</div><div class='input'>
 <span class='co'># Get dimensions</span>
@@ -240,28 +240,28 @@ rays equals full circle).</p></li>
 </div><div class='output co'>#&gt; [1]   5 480 360</div><div class='input'>
 <span class='co'># Get summary info for the parameters in the scan</span>
 <span class='va'>example_scan</span><span class='op'>$</span><span class='va'>params</span>
-</div><div class='output co'>#&gt; $VRADH
-#&gt;                Polar scan parameter (class param)
-#&gt; 
-#&gt;     quantity:  VRADH 
-#&gt;         dims:  480 bins x 360 rays
-#&gt; 
-#&gt; $DBZH
+</div><div class='output co'>#&gt; $DBZH
 #&gt;                Polar scan parameter (class param)
 #&gt; 
 #&gt;     quantity:  DBZH 
 #&gt;         dims:  480 bins x 360 rays
 #&gt; 
-#&gt; $ZDR
+#&gt; $VRADH
 #&gt;                Polar scan parameter (class param)
 #&gt; 
-#&gt;     quantity:  ZDR 
+#&gt;     quantity:  VRADH 
 #&gt;         dims:  480 bins x 360 rays
 #&gt; 
 #&gt; $RHOHV
 #&gt;                Polar scan parameter (class param)
 #&gt; 
 #&gt;     quantity:  RHOHV 
+#&gt;         dims:  480 bins x 360 rays
+#&gt; 
+#&gt; $ZDR
+#&gt;                Polar scan parameter (class param)
+#&gt; 
+#&gt;     quantity:  ZDR 
 #&gt;         dims:  480 bins x 360 rays
 #&gt; 
 #&gt; $PHIDP
