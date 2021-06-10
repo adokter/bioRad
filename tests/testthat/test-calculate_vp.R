@@ -21,16 +21,6 @@ task_args <- function(x) {
 
 # Prepare test files
 tmpdir <- tempdir()
-test_that("calculate_vp produces a vp", {
-  skip_if_no_docker()
-  vp <- calculate_vp(file=pvolfile, warnings=FALSE)
-  expect_true(inherits(vp,"vp"))
-})
-
-test_that("calculate_vp writes vpfile hdf5 output", {
-  skip_if_no_docker()
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE)
-  expect_true(inherits(vp,"vp"))
 pvolfile <- paste(tmpdir, "pvol.h5", sep = "/")
 pvolfile_out <- paste(tmpdir,"pvol_out.h5", sep = "/")
 vpfile <- paste(tmpdir, "vp.h5", sep = "/")
@@ -46,16 +36,18 @@ file.copy(system.file("extdata", "volume.h5", package = "bioRad"), pvolfile, ove
 
 })
 
-test_that("calculate_vp writes pvol hdf5 output", {
+test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
   skip_if_no_docker()
-  vp <- calculate_vp(file=pvolfile, pvolfile_out=pvolfile_out, warnings=FALSE)
-  pvol <- read_pvolfile(pvolfile_out)
-  expect_true(inherits(vp,"vp"))
-  expect_true(inherits(pvol,"pvol"))
-  expect_true(inherits(pvol$scans[[1]],"scan"))
-  # test that CELL parameter has been added by vol2bird:
-  scan <- get_scan(pvol, 0.5)
-  expect_true(inherits(scan$params$CELL,"param"))
+  vp <- calculate_vp(file = pvolfile, vpfile = vpfile, pvolfile_out = pvolfile_out, warnings = FALSE)
+  vp_from_file <- read_vpfiles(vpfile)
+  pvol_from_file <- read_pvolfile(pvolfile_out)
+
+  expect_s3_class(vp, "vp")
+  expect_s3_class(vp_from_file, "vp")
+  expect_s3_class(pvol_from_file, "pvol")
+  expect_s3_class(pvol_from_file$scans[[1]], "scan")
+  scan <- get_scan(pvol_from_file, 0.5)
+  expect_s3_class(scan$params$CELL, "param")
 })
 
 test_that("input arguments are parsed to vol2bird", {
