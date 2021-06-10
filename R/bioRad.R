@@ -19,6 +19,7 @@
 #' @import graphics
 #' @import ggplot2
 #' @import ggmap
+#' @import glue
 #' @import rgdal
 #' @import sp
 #' @import utils

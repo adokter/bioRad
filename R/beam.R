@@ -44,6 +44,11 @@ beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
   assert_that(is.number(lat))
   assert_that(is.number(re))
   assert_that(is.number(rp))
+  beam_height_internal(range = range, elev = elev, k = k, lat = lat, re = re, rp = rp)
+}
+
+beam_height_internal <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
+                             rp = 6357) {
   sqrt(
     range^2 + (k * earth_radius(re, rp, lat))^2 +
       2 * range * (k * earth_radius(re, rp, lat)) * sin(elev * pi / 180)
@@ -81,6 +86,10 @@ earth_radius <- function(a, b, lat) {
 beam_width <- function(range, beam_angle = 1) {
   assert_that(is.numeric(range))
   assert_that(is.number(beam_angle))
+  beam_width_internal(range=range, beam_angle = beam_angle)
+}
+
+beam_width_internal <- function(range, beam_angle = 1) {
   range * sin(beam_angle * pi / 180)
 }
 
@@ -112,12 +121,20 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
   assert_that(is.number(lat))
   assert_that(is.number(rp))
   assert_that(is.number(re))
+  gaussian_beam_profile_internal(height = height, range = range, elev = elev, antenna = antenna,
+                                             beam_angle = beam_angle, k = k, lat = lat, re = re,
+                                             rp = rp)
+}
+
+gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
+                                  beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
+                                  rp = 6357) {
   dnorm(
     height,
-    mean = antenna + beam_height(
+    mean = antenna + beam_height_internal(
       range = range, elev = elev, k = k,
       lat = lat, re = re, rp = rp
-    ), sd = beam_width(
+    ), sd = beam_width_internal(
       range = range, beam_angle =
         beam_angle
     ) / (2 * sqrt(2 * log(2)))
@@ -178,7 +195,7 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   # calculate radiation pattern
   rowSums(
     do.call(cbind, lapply(elev, function(x) {
-      gaussian_beam_profile(height, beam_range(distance, x, k = k, lat = lat, re = re, rp = rp),
+      gaussian_beam_profile_internal(height, beam_range(distance, x, k = k, lat = lat, re = re, rp = rp),
         x,
         antenna = antenna, beam_angle = beam_angle, lat = lat, k = k, re = re,
         rp = rp

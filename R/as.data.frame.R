@@ -7,11 +7,11 @@
 #' and day/sunrise/sunset (parameter `suntime`).
 #'
 #' @param x A `vp` or `vpts` object.
-#' @param row.names `NULL` or a character vector giving the row names for
-#' the data frame. Missing values are not allowed. See [base::as.data.frame()].
+#' @param row.names `NULL` or a character vector giving the row names for the
+#'   data frame. Missing values are not allowed. See [base::as.data.frame()].
 #' @param optional Logical. If `FALSE` then the names of the variables in the
-#' data frame are checked to ensure that they are syntactically valid variable
-#' names and are not duplicated. See [base::as.data.frame()].
+#'   data frame are checked to ensure that they are syntactically valid variable
+#'   names and are not duplicated. See [base::as.data.frame()].
 #' @param geo Logical. When `TRUE`, adds latitude (`lat`), longitude (`lon`) and
 #'   antenna height of the radar (`height_antenna`) to each row.
 #' @param suntime Logical. When `TRUE`, adds whether it is daytime (`day`) and
@@ -31,6 +31,9 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [summary.vpts()]
+#'
 #' @details
 #' Note that only the `dens` quantity is thresholded for radial velocity
 #' standard deviation by [sd_vvp_threshold()]. This is different from the
@@ -39,33 +42,27 @@
 #' [sd_vvp_threshold()].
 #'
 #' @examples
-#' # Load the example vertical profile
-#' vp <- example_vp
-#'
-#' # Convert to a data.frame
-#' vp_df <- as.data.frame(vp)
+#' # Convert vp object to a data.frame
+#' vp_df <- as.data.frame(example_vp)
 #'
 #' # Print data.frame
 #' vp_df
 #'
-#' # Load the example time series of vertical profiles
-#' vpts <- example_vpts
-#'
-#' # Convert to a data.frame
-#' vpts_df <- as.data.frame(vpts)
+#' # Convert vpts object to a data.frame
+#' vpts_df <- as.data.frame(example_vpts)
 #'
 #' # Print the first 5 rows of the data.frame
 #' vpts_df[1:5, ]
 #'
 #' # Do not add lat/lon/height_antenna information
-#' vpts_df <- as.data.frame(vpts, geo = FALSE)
+#' vpts_df <- as.data.frame(example_vpts, geo = FALSE)
 #'
 #' # Do not add day/sunrise/sunset information
-#' vpts_df <- as.data.frame(vpts, suntime = FALSE)
+#' vpts_df <- as.data.frame(example_vpts, suntime = FALSE)
 #'
 #' # Override the latitude/longitude information stored in the object when
 #' # calculating sunrise/sunset information
-#' vpts_df <- as.data.frame(vpts, lat = 50, lon = 4)
+#' vpts_df <- as.data.frame(example_vpts, lat = 50, lon = 4)
 as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
                              suntime = TRUE, lat = NULL, lon = NULL,
                              elev = -0.268, ...) {
@@ -81,12 +78,12 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
   # set row.names
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-        length(x$data$height)) {
+      length(x$data$height)) {
       rownames(output) <- row.names
     } else {
-      stop(paste0(
-        "`row.names` is not a character vector of length ",
-        length(x$data$height), "."
+      stop(glue(
+        "`row.names` must be a character vector of length ",
+        "{length(x$data$height)}."
       ))
     }
   }
@@ -141,12 +138,12 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   # set row.names
   if (!is.null(row.names)) {
     if (is.character(row.names) & length(row.names) ==
-        length(x$datetime) * length(x$height)) {
+      length(x$datetime) * length(x$height)) {
       rownames(output) <- row.names
     } else {
-      stop(paste0(
-        "`row.names` is not a character vector of length ",
-        length(x$datetime) * length(x$height), "."
+      stop(glue(
+        "`row.names` must be a character vector of length ",
+        "{length(x$datetime) * length(x$height)}."
       ))
     }
   }

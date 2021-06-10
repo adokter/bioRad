@@ -1,29 +1,29 @@
-#' look up day of year (doy) or night of year (noy)
+#' Look up day of year (doy) or night of year (noy)
 #'
-#' Look up the day of year (\code{doy}) or night of year (\code{noy}) for datetimes and various bioRad objects.
-#' @param x \code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
-#' or a date inheriting from class \code{POSIXct} or a string
-#' interpretable by \link{as.POSIXct}.
-#' @param lon numeric. Longitude in decimal degrees.
-#' @param lat numeric. Latitude in decimal degrees.
-#' @param method method by which to do the time zone lookup. Either \code{"fast"} (default) or \code{"accurate"}, see \link[lutz]{tz_lookup_coords}.
-#' @param ... optional lat,lon arguments.
+#' Returns the day of year (`doy`) or night of year (`noy`) number for datetimes
+#' and various bioRad objects. The first night of the year is the night with
+#' datetime Jan 01 00:00:00 in the local time zone, so sunset on Jan 1 occurs
+#' on the second night of the year and New Years Eve on Dec 31 occurs on the
+#' first night of the new year.
+#'
+#' @param x A `pvol`, `vp`, `vpts`, or `vpi` object, or a [base::as.POSIXct]
+#'   datetime.
+#' @param lon Numeric. Longitude in decimal degrees.
+#' @param lat Numeric. Latitude in decimal degrees.
+#' @param method Method by which to do the time zone lookup. Either `fast`
+#'   (default) or `accurate`. See [lutz::tz_lookup_coords]].
+#' @param ... Optional lat, lon arguments.
 #'
 #' @name doy_noy
 #'
-#' @details
-#' First night of the year is the night with datetime Jan 01 00:00:00 in the local time zone,
-#' i.e. sunset on Jan 1 occurs on the second night of the year, and New Years Eve on Dec 31
-#' occurs on the first night of the new year.
-#'
 #' @examples
-#' # night of year of a profile (vp object):
+#' # Get day of year of a vp object
 #' noy(example_vp)
 #'
-#' # day of year of a profile (vp object):
+#' # Get night of year of a vp object
 #' noy(example_vp)
 #'
-#' # night of year of a vertial profile time series (vpts object):
+#' # Get night of year of a vpts object
 #' noy(example_vpts)
 NULL
 
@@ -53,7 +53,7 @@ doy.default <- function(x, lon, lat, ..., method = "fast") {
 #'
 #' @export
 noy.default <- function(x, lon, lat, ..., method = "fast") {
-  doy.default(x + 12 *3600, lon, lat, method = method)
+  doy.default(x + 12 * 3600, lon, lat, method = method)
 }
 
 #' @rdname doy_noy
