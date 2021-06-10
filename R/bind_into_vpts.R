@@ -172,7 +172,20 @@ vplist_to_vpts <- function(x, radar = NA) {
     ))
   }
 }
-
+common_heights <- function(x){
+  assert_that(is.list(x))
+  unique_height_diff<-unique(unlist(lapply(lapply(x, diff), unique)))
+  if(length(unique_height_diff)!=1)
+  {
+    stop("Not all data has the same size of altitude bins")
+  }
+  height_alignment<-unique(unlist(x)%%unique_height_diff)
+  if(length(height_alignment)!=1)
+  {
+    stop("Not all data has the same alignment of altitude bins")
+  }
+  return(sort(unique(x)))
+}
 vp_to_vpts_helper <- function(vps) {
   datetime <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
   daterange <- .POSIXct(c(min(datetime), max(datetime)), tz = "UTC")
@@ -182,6 +195,7 @@ vp_to_vpts_helper <- function(vps) {
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   profile.quantities <- names(vps[[1]]$data)
   if (length(unique(lapply(vps, function(x) x$data$height))) > 1) {
+
     stop(paste(
       "Vertical profiles of radar", vps[[1]]$radar,
       "have non-aligning altitude layers."
