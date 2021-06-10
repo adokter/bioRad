@@ -34,6 +34,52 @@ file.copy(system.file("extdata", "volume.h5", package = "bioRad"), pvolfile, ove
 # - local_install, because difficult to test
 # - local_mistnet, because difficult to test
 
+test_that("calculate_vp() returns error on incorrect parameters", {
+  # these tests can run without docker
+  expect_error(calculate_vp(paste(tmpdir, "nofile.txt", sep = "/"), warnings = FALSE))
+  # vpfile: only tests if parent dir is writeable
+  # pvolfile: only tests if parent dir is writeable
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, autoconf = "not_logical"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, verbose = "not_logical"))
+  expect_error(calculate_vp(pvolfile, warnings = "not_logical"))
+  # mount: hard to test
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, sd_vvp_threshold = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, sd_vvp_threshold = -1))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, rcs = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, rcs = 0))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, dual_pol = "not_logical"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, rho_hv = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, rho_hv = -0.1), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, rho_hv = 1.1), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, elev_min = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, elev_min = -91), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, elev_min = 91), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, elev_max = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, elev_max = -91), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, elev_max = 91), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, azim_min = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, azim_min = -1), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, azim_min = 361), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, azim_max = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, azim_max = -1), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, azim_max = 361), "must be a number between")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, range_min = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, range_min = -1), "must be a positive number")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, range_max = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, range_max = -1), "must be a positive number")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, range_min = 35000, range_max = 5000), "must be larger than")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, n_layer = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, h_layer = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, h_layer = -1), "must be a positive number")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, dealias = "not_logical"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, nyquist_min = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, nyquist_min = -1), "must be a positive number")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, dbz_quantity = "invalid"), "must be either")
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, mistnet = "not_logical"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, mistnet_elevations = c("not_numeric", "not_numeric", "not_numeric", "not_numeric", "not_numeric")))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, mistnet_elevations = c(0.5, 1.5))) # Not length 5
+  # local_install: hard to test
+  # local_mistnet: hard to test
 })
 
 test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
