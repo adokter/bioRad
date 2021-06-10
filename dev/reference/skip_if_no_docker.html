@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Identify NaN in a dataframe — is.nan.data.frame • bioRad</title>
+<title>Skip test if no docker — skip_if_no_docker • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,10 @@
 
 
 
-<meta property="og:title" content="Identify NaN in a dataframe — is.nan.data.frame" />
-<meta property="og:description" content="Identify cells with NaN (not a number) in a data frame. Improves on the
-defaultbase::is.nan() function, which only works on vectors, by allowing
-data frames as input." />
+<meta property="og:title" content="Skip test if no docker — skip_if_no_docker" />
+<meta property="og:description" content="Some functions require Docker. This helper function allows to skip a test if
+the Docker container is not available, e.g. when running in CI.
+Inspired by https://testthat.r-lib.org/articles/skipping.html#helpers." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -151,33 +151,20 @@ data frames as input." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Identify <code>NaN</code> in a dataframe</h1>
+    <h1>Skip test if no docker</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/zzz.R'><code>R/zzz.R</code></a></small>
-    <div class="hidden name"><code>is.nan.data.frame.Rd</code></div>
+    <div class="hidden name"><code>skip_if_no_docker.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Identify cells with <code>NaN</code> (not a number) in a data frame. Improves on the
-default<code><a href='https://rdrr.io/r/base/is.finite.html'>base::is.nan()</a></code> function, which only works on vectors, by allowing
-data frames as input.</p>
+    <p>Some functions require Docker. This helper function allows to skip a test if
+the Docker container is not available, e.g. when running in CI.
+Inspired by <a href='https://testthat.r-lib.org/articles/skipping.html#helpers'>https://testthat.r-lib.org/articles/skipping.html#helpers</a>.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for data.frame</span>
-<span class='fu'><a href='https://rdrr.io/r/base/is.finite.html'>is.nan</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>skip_if_no_docker</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>A <code>data.frame</code> object.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A matrix of the same dimension as <code>x</code>, with <code>TRUE</code>/<code>FALSE</code> values for
-whether each cell in the original data frame is a number or not.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
