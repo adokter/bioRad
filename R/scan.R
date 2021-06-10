@@ -37,7 +37,7 @@
 #' * [get_param()]
 #'
 #' @examples
-#' # Verify that an object is of class scan
+#' # Check if an object is of class scan
 #' is.scan(example_scan)
 #'
 #' # Get summary info
@@ -68,7 +68,7 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   )
 }
 
-#' Verify if an object is of class `scan`
+#' Check if an object is of class `scan`
 #'
 #' @param x A `scan` object.
 #'

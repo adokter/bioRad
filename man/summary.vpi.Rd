@@ -51,7 +51,7 @@ Class vpi inherits from class data.frame
 # Load the example vertical profile time series and integrate to a vpi
 vpi <- integrate_profile(example_vpts)
 
-# Verify that it is an object of class vpi
+# Check if it is an object of class vpi
 is.vpi(vpi)
 
 # Get summary info

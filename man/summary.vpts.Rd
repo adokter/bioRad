@@ -55,7 +55,7 @@ attributes, copied from the first profile.
 }
 }
 \examples{
-# Verify that an object is of class vpts
+# Check if an object is of class vpts
 is.vpts(example_vpts)
 
 # Get summary info

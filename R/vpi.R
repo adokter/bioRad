@@ -41,7 +41,7 @@
 #' # Load the example vertical profile time series and integrate to a vpi
 #' vpi <- integrate_profile(example_vpts)
 #'
-#' # Verify that it is an object of class vpi
+#' # Check if it is an object of class vpi
 #' is.vpi(vpi)
 #'
 #' # Get summary info
@@ -56,7 +56,7 @@ summary.vpi <- function(object, ...) {
   )
 }
 
-#' Verify if an object is of class `vpi`
+#' Check if an object is of class `vpi`
 #'
 #' @param x A `vpi` object.
 #'

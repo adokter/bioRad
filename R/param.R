@@ -33,7 +33,7 @@
 #' # Extract the DBZH parameter from a scan
 #' param <- get_param(example_scan, "DBZH")
 #'
-#' # Verify that it is an object of class param
+#' # Check if it is an object of class param
 #' is.param(param)
 #'
 #' # Get summary info for this parameter
@@ -54,7 +54,7 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("        dims: ", dim(x)[1], "bins x", dim(x)[2], "rays\n")
 }
 
-#' Verify if an object is of class `param`
+#' Check if an object is of class `param`
 #'
 #' @param x A `param` object.
 #'
