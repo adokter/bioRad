@@ -33,6 +33,6 @@ beam_range(100000, 5)
 }
 \seealso{
 \itemize{
-\item \code{\link[=beam_heigh]{beam_heigh()}}
+\item \code{\link[=beam_height]{beam_height()}}
 }
 }

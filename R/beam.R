@@ -87,7 +87,7 @@ earth_radius <- function(a, b, lat) {
 #' # Beam width in m at 10 km range
 #' beam_width(10000)
 #'
-#' Define ranges from 0 to 1000000 m (100 km), in steps of 100 m
+#' # Define ranges from 0 to 1000000 m (100 km), in steps of 100 m
 #' range <- seq(0, 100000, 100)
 #'
 #' # Plot the beam width as a function of range
@@ -396,7 +396,7 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' @export
 #'
 #' @seealso
-#' * [beam_heigh()]
+#' * [beam_height()]
 #'
 #' @examples
 #' # Slant range of the 5 degree elevation beam at a down range of 100 km

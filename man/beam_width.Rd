@@ -22,7 +22,7 @@ Calculates the width of a radar beam as a function of range and beam angle.
 # Beam width in m at 10 km range
 beam_width(10000)
 
-Define ranges from 0 to 1000000 m (100 km), in steps of 100 m
+# Define ranges from 0 to 1000000 m (100 km), in steps of 100 m
 range <- seq(0, 100000, 100)
 
 # Plot the beam width as a function of range
