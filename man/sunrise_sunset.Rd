@@ -11,77 +11,73 @@ sunrise(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 sunset(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 }
 \arguments{
-\item{date}{Date inheriting from class \code{POSIXt} or a string
-interpretable by \link[base]{as.Date}.}
+\item{date}{POSIXct. Date interpretable by \code{\link[base:as.Date]{base::as.Date()}}.}
 
-\item{lon}{Longitude in decimal degrees.}
+\item{lon}{Numeric. Longitude in decimal degrees.}
 
-\item{lat}{Latitude in decimal degrees.}
+\item{lat}{Numeric. Latitude in decimal degrees.}
 
-\item{elev}{Sun elevation in degrees.}
+\item{elev}{Numeric. Sun elevation in degrees.}
 
-\item{tz}{output time zone. Ignored if \code{date} has an associated time zone already}
+\item{tz}{Character. Time zone of \code{date}, ignored if \code{date} already has an
+associated time zone.}
 
-\item{force_tz}{whether to convert output to timezone \code{tz}. Default \code{FALSE}.}
+\item{force_tz}{Logical. If \code{TRUE}, the output is converted to the timezone
+set by \code{tz}.}
 }
 \value{
-The moment of sunrise or sunset for the date set by \code{date}and time zone as specified
-(by \code{date} and \code{tz}) or in UTC if not specified.
+The moment of sunrise or sunset for the specified \code{date} and
+timezone (either set in \code{date} or \code{tz}, otherwise UTC is assumed).
 }
 \description{
 Calculate sunrise or sunset for a time and place
 }
 \details{
-The day for which sunrise and sunset are calculated is given by the input date.
-Sunrise and sunset are calculated relative to the moment of solar noon for that date,
-i.e. the first sunrise before the moment of solar noon, and the first sunset after the
-moment of solar noon. Therefore, depending on the timezone provided, it is possible that
-the nearest sunrise prior to solar noon occurs a day earlier than the input date.
-Similarly, sunset may occur a day later than the input date. See examples for details.
+\code{sunrise()} and \code{sunset()} are convenience functions around
+\code{\link[maptools:sun-methods]{maptools::crepuscule()}}.
 
-The angular diameter of the sun is about 0.536 degrees,
-therefore the moment of sunrise/sunset corresponds to half that elevation
-at -0.268 degrees.
+The day for which sunrise and sunset are calculated is given by the input
+date. Sunrise and sunset are calculated relative to the moment of solar noon
+for that date, i.e. the first sunrise before the moment of solar noon, and
+the first sunset after the moment of solar noon. Therefore, depending on the
+timezone provided, it is possible that the nearest sunrise prior to solar
+noon occurs a day earlier than the input date. Similarly, sunset may occur a
+day later than the input date. See examples for details.
 
-This is a convenience function mapping to \link{crepuscule}.
-
-Approximate astronomical formula are used, therefore the moment of
-sunrise / sunset may be off by a few minutes
-
-If \code{force_tz} is \code{TRUE}, the output is converted to the timezone
-set by \code{tz}
+The angular diameter of the sun is about 0.536 degrees, therefore the moment
+of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
+Approximate astronomical formula are used, therefore the moment of sunrise /
+sunset may be off by a few minutes.
 }
 \examples{
-# sunrise in the Netherlands
+# Sunrise in the Netherlands
 sunrise("2016-01-01", 5, 53)
 
-# sunset in the Netherlands
+# Sunset in the Netherlands
 sunset("2016-01-01", 5, 53)
 
-# civil twilight in Ithaca, NY
+# Civil twilight in Ithaca, NY
 sunrise("2016-01-01", -76.5, 42.4, elev = -6)
 
-# next sunset in South Dakota, USA
+# Next sunset in South Dakota, USA
 sunset("2016-11-15", -98, 45)
 
-# Beware that some days have two sunsets, or
-# two sunrises! E.g. on 5 Oct (local timezone) at
-# this location  sunset is actually on the 6 Oct
-# in UTC time zone, i.e. the next day
+# Beware that some days have two sunsets, or two sunrises! E.g. on 5 Oct
+# (local timezone) at this location sunset is actually on the 6 Oct in UTC,
+# i.e. the next day
 sunset("2016-10-5", -98, 45)
-# One day later, sunset is again on 6 Oct:
+# One day later, sunset is again on 6 Oct
 sunset("2016-10-6", -98, 45)
 
-# working in local time zones typically avoids such ambiguities:
-sunset(lubridate::as_datetime("2016-06-05",tz="America/Chicago"), -98, 45)
-sunset(lubridate::as_datetime("2016-06-06",tz="America/Chicago"), -98, 45)
+# Working in local time zones typically avoids such ambiguities
+sunset(lubridate::as_datetime("2016-06-05", tz = "America/Chicago"), -98, 45)
+sunset(lubridate::as_datetime("2016-06-06", tz = "America/Chicago"), -98, 45)
 
-# use force_tz to force output to a specific time zone, by default UTC:
-sunset(lubridate::as_datetime("2016-06-05",tz="America/Chicago"), -98, 45, force_tz=TRUE)
-sunset(lubridate::as_datetime("2016-06-06",tz="America/Chicago"), -98, 45, force_tz=TRUE)
+# Use force_tz to force output to a specific time zone, by default UTC
+sunset(lubridate::as_datetime("2016-06-05", tz = "America/Chicago"), -98, 45, force_tz = TRUE)
+sunset(lubridate::as_datetime("2016-06-06", tz = "America/Chicago"), -98, 45, force_tz = TRUE)
 
-# Also beware of jumps in sunrise and sunset date with longitude:
+# Also beware of jumps in sunrise and sunset date with longitude
 sunrise("2016-11-01", 100, 45)
 sunrise("2016-11-01", 102, 45)
-
 }
