@@ -53,9 +53,9 @@
 
 
 <meta property="og:title" content="Check if a file is a polar volume (pvol) — is.pvolfile" />
-<meta property="og:description" content="Checks whether a file is a polar volume (pvol) in the ODIM hdf5 format that
-can be read with bioRad. Currently evaluates to FALSE for NEXRAD and
-IRIS RAW polar volume files." />
+<meta property="og:description" content="Checks whether a file is a polar volume (pvol) in the ODIM HDF5 format that
+can be read with bioRad. Evaluates to FALSE for NEXRAD and IRIS RAW polar
+volume file (see nexrad_to_odim())." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -157,9 +157,9 @@ IRIS RAW polar volume files." />
     </div>
 
     <div class="ref-description">
-    <p>Checks whether a file is a polar volume (<code>pvol</code>) in the ODIM hdf5 format that
-can be read with bioRad. Currently evaluates to <code>FALSE</code> for NEXRAD and
-IRIS RAW polar volume files.</p>
+    <p>Checks whether a file is a polar volume (<code>pvol</code>) in the ODIM HDF5 format that
+can be read with bioRad. Evaluates to <code>FALSE</code> for NEXRAD and IRIS RAW polar
+volume file (see <code><a href='nexrad_to_odim.html'>nexrad_to_odim()</a></code>).</p>
     </div>
 
     <pre class="usage"><span class='fu'>is.pvolfile</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
@@ -175,13 +175,13 @@ IRIS RAW polar volume files.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>TRUE</code> when the file is a polar volume (<code>pvol</code>) in readable format,
-otherwise <code>FALSE</code>.</p>
+    <p><code>TRUE</code> for a polar volume file in readable format, otherwise <code>FALSE</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
 <li><p><code><a href='read_pvolfile.html'>read_pvolfile()</a></code></p></li>
+<li><p><code><a href='get_odim_object_type.html'>get_odim_object_type()</a></code></p></li>
 <li><p><code><a href='summary.pvol.html'>is.pvol()</a></code></p></li>
 </ul>
 </div>
@@ -190,8 +190,8 @@ otherwise <code>FALSE</code>.</p>
     <pre class="examples"><div class='input'><span class='co'># Locate the polar volume example file</span>
 <span class='va'>pvolfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"volume.h5"</span>, package <span class='op'>=</span> <span class='st'>"bioRad"</span><span class='op'>)</span>
 
-<span class='co'># Check that the file is an ODIM hdf5 polar volume</span>
-<span class='fu'>is.pvolfile</span><span class='op'>(</span><span class='va'>pvolfile</span><span class='op'>)</span> <span class='co'># &gt; TRUE</span>
+<span class='co'># Check if it is a pvolfile</span>
+<span class='fu'>is.pvolfile</span><span class='op'>(</span><span class='va'>pvolfile</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

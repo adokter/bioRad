@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if a local file is a vertical profile (vp) — is.vpfile • bioRad</title>
+<title>Check if a file is a vertical profile (vp) — is.vpfile • bioRad</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,9 @@
 
 
 
-<meta property="og:title" content="Check if a local file is a vertical profile (vp) — is.vpfile" />
-<meta property="og:description" content="Checker whether a file is a vertical profile that can be read with
-package bioRad" />
+<meta property="og:title" content="Check if a file is a vertical profile (vp) — is.vpfile" />
+<meta property="og:description" content="Checks whether a file is a vertical profile (vp) in the ODIM HDF5 format
+that can be read with bioRad." />
 <meta property="og:image" content="https://adokter.github.io/bioRad/logo.png" />
 
 
@@ -150,38 +150,47 @@ package bioRad" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if a local file is a vertical profile (<code>vp</code>)</h1>
+    <h1>Check if a file is a vertical profile (<code>vp</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/adokter/bioRad/blob/master/R/vpfile.R'><code>R/vpfile.R</code></a></small>
     <div class="hidden name"><code>is.vpfile.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Checker whether a file is a vertical profile that can be read with
-package <span class="pkg">bioRad</span></p>
+    <p>Checks whether a file is a vertical profile (<code>vp</code>) in the ODIM HDF5 format
+that can be read with bioRad.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is.vpfile</span><span class='op'>(</span><span class='va'>file</span>, filename <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>is.vpfile</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>A string containing a filename</p></td>
-    </tr>
-    <tr>
-      <th>filename</th>
-      <td><p>Deprecated argument, use file instead.</p></td>
+      <td><p>Character. Path of the file to check.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE when <code>filename</code> is a vertical profile, otherwise FALSE</p>
+    <p><code>TRUE</code> for a vertical profile file in readable format, otherwise
+<code>FALSE</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='read_vpfiles.html'>read_vpfiles()</a></code></p></li>
+<li><p><code><a href='get_odim_object_type.html'>get_odim_object_type()</a></code></p></li>
+<li><p><code><a href='summary.vp.html'>is.vp()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>profile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"profile.h5"</span>, package <span class='op'>=</span> <span class='st'>"bioRad"</span><span class='op'>)</span>
-<span class='fu'>is.vpfile</span><span class='op'>(</span><span class='va'>profile</span><span class='op'>)</span> <span class='co'># &gt; TRUE</span>
+    <pre class="examples"><div class='input'><span class='co'># Locate the vertical profile example file</span>
+<span class='va'>vpfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"profile.h5"</span>, package <span class='op'>=</span> <span class='st'>"bioRad"</span><span class='op'>)</span>
+
+<span class='co'># Check if it is a vpfile</span>
+<span class='fu'>is.vpfile</span><span class='op'>(</span><span class='va'>vpfile</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
