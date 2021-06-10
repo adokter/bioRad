@@ -185,21 +185,21 @@ derived quantities to extract.</p></td>
     <pre class="examples"><div class='input'><span class='co'># Project a scan as a ppi</span>
 <span class='va'>ppi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span><span class='op'>(</span><span class='va'>example_scan</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'>
-<span class='co'># This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)</span>
+<span class='co'># This ppi contains 5 parameters (DBZH VRADH ZDR RHOHV PHIDP)</span>
 <span class='va'>ppi</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   parameters:  DBZH VRADH RHOHV ZDR PHIDP 
 #&gt;         dims:  201 x 200 pixels
 #&gt; </div><div class='input'>
-<span class='co'># Subset ppi to one containing only the first parameter (VRADH)</span>
+<span class='co'># Subset ppi to one containing only the first parameter (DBZH)</span>
 <span class='va'>ppi</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 
 #&gt;   parameters:  DBZH 
 #&gt;         dims:  201 x 200 pixels
 #&gt; </div><div class='input'>
-<span class='co'># Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)</span>
+<span class='co'># Subset ppi to one containing the first three parameters (DBZH, VRADH, ZDR)</span>
 <span class='va'>ppi</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;                Plan position indicator (class ppi)
 #&gt; 

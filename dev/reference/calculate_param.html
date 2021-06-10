@@ -169,6 +169,9 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 <span class='co'># S3 method for pvol</span>
 <span class='fu'>calculate_param</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for ppi</span>
+<span class='fu'>calculate_param</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='co'># S3 method for scan</span>
 <span class='fu'>calculate_param</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
@@ -193,6 +196,7 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
     
 <ul>
 <li><p><code>pvol</code>: Calculate a new scan parameter for all scans in a polar volume.</p></li>
+<li><p><code>ppi</code>: Calculate a new parameter for a PPI.</p></li>
 <li><p><code>scan</code>: Calculate a new scan parameter for a scan</p></li>
 </ul>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -212,6 +216,7 @@ data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
 
 <span class='co'># load the file:</span>
 <span class='va'>example_pvol</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pvolfile.html'>read_pvolfile</a></span><span class='op'>(</span><span class='va'>pvolfile</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>example_scan</span><span class='op'>)</span>
 
 <span class='co'># calculate linear reflectivity ETA from reflectivity factor DBZH:</span>
 <span class='va'>radar_wavelength</span> <span class='op'>&lt;-</span> <span class='va'>example_pvol</span><span class='op'>$</span><span class='va'>attributes</span><span class='op'>$</span><span class='va'>how</span><span class='op'>$</span><span class='va'>wavelength</span>
@@ -228,7 +233,16 @@ data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
 #&gt; 
 #&gt;      parameters:  DBZH VRADH RHOHV ZDR PHIDP DR 
 #&gt; elevation angle:  0.5 deg
-#&gt;            dims:  480 bins x 360 rays</div></pre>
+#&gt;            dims:  480 bins x 360 rays</div><div class='input'>
+<span class='co'># it also works for ppis</span>
+<span class='va'>ppi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='project_as_ppi.html'>project_as_ppi</a></span><span class='op'>(</span><span class='va'>example_scan</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: CRS object has comment, which is lost in output</span></div><div class='input'><span class='fu'>calculate_param</span><span class='op'>(</span><span class='va'>ppi</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>DBZH</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                Plan position indicator (class ppi)
+#&gt; 
+#&gt;   parameters:  DBZH VRADH RHOHV ZDR PHIDP exp(DBZH) 
+#&gt;         dims:  201 x 200 pixels
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
