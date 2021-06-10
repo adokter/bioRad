@@ -69,6 +69,7 @@ test_that("calculate_vp() returns error on incorrect parameters", {
   expect_error(calculate_vp(pvolfile, warnings = FALSE, range_max = 0), "must be a positive number")
   expect_error(calculate_vp(pvolfile, warnings = FALSE, range_min = 35000, range_max = 5000), "must be larger than")
   expect_error(calculate_vp(pvolfile, warnings = FALSE, n_layer = "not_numeric"))
+  expect_error(calculate_vp(pvolfile, warnings = FALSE, n_layer = "1.0")) # Not integer
   expect_error(calculate_vp(pvolfile, warnings = FALSE, h_layer = "not_numeric"))
   expect_error(calculate_vp(pvolfile, warnings = FALSE, h_layer = -1), "must be a positive number")
   expect_error(calculate_vp(pvolfile, warnings = FALSE, dealias = "not_logical"))
