@@ -16,8 +16,8 @@
 #' data(example_scan)
 #' attribute_table(example_scan)
 #'
-#' pvolfilepath <- system.file("extdata", "volume.h5", package = "bioRad")
-#' example_pvol <- read_pvolfile(pvolfilepath)
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#' example_pvol <- read_pvolfile(pvolfile)
 #' attribute_table(example_pvol)
 attribute_table <-
   function(x,
