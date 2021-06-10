@@ -13,6 +13,10 @@
 #'
 #' @export
 #'
+#' @details `bind_into_vpts()` currently requires profiles to have aligning altitude
+#' layers that are of equal width. Profiles are allowed to differ in the number
+#' of altitude layers, i.e. the maximum altitude
+#'
 #' @examples
 #' # load example time series of vertical profiles:
 #' data(example_vpts)
@@ -193,6 +197,7 @@ add_heights_vpts <- function(x, target) {
   }
   old <- target %in% x$height
   x$height <- target
+  x$attributes$where$levels <- length(target)
   m <- matrix(nrow = length(target), ncol = length(x$datetime))
   x$data <- lapply(x$data, function(x, m, s) {
     m[s, ] <- x
@@ -206,6 +211,7 @@ add_heights_vp <- function(x, target) {
   }
   x$data <- data.frame(rbindlist(list(x$data, data.frame(height = target[!(target %in% x$data$height)])), fill = TRUE))
   x$data <- x$data[order(x$data$height), ]
+  x$attributes$where$levels <- length(target)
   return(x)
 }
 vp_to_vpts_helper <- function(vps) {
