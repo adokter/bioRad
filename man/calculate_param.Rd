@@ -3,12 +3,15 @@
 \name{calculate_param}
 \alias{calculate_param}
 \alias{calculate_param.pvol}
+\alias{calculate_param.ppi}
 \alias{calculate_param.scan}
 \title{Calculate a new scan parameter}
 \usage{
 calculate_param(x, ...)
 
 \method{calculate_param}{pvol}(x, ...)
+
+\method{calculate_param}{ppi}(x, ...)
 
 \method{calculate_param}{scan}(x, ...)
 }
@@ -29,6 +32,8 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 \section{Methods (by class)}{
 \itemize{
 \item \code{pvol}: Calculate a new scan parameter for all scans in a polar volume.
+
+\item \code{ppi}: Calculate a new parameter for a PPI.
 
 \item \code{scan}: Calculate a new scan parameter for a scan
 }}

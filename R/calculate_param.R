@@ -40,15 +40,34 @@ calculate_param <- function(x, ...) {
 #' @describeIn calculate_param Calculate a new scan parameter for all scans in a polar volume.
 #' @export
 calculate_param.pvol <- function(x, ...) {
-  assert_that(class(x) == "pvol")
+  assert_that(is.pvol(x))
   x$scans <- do.call(lapply, list(x$scans, calculate_param.scan, substitute(list(...))))
+  return(x)
+}
+
+#' @describeIn calculate_param Calculate a new parameter for a PPI.
+#' @export
+calculate_param.ppi <- function(x, ...) {
+  assert_that(is.ppi(x))
+  calc <- as.list(substitute(list(...)))[-1L]
+  name <- names(calc)
+  if (is.null(name)) {
+    name <- rep("", length(calc))
+  }
+  for (i in seq_along(calc)) {
+    newParam <- eval(nn <- (calc[[i]]), x$data@data)
+    if ("" == (name[[i]])) {
+      name[[i]] <- deparse(nn, width.cutoff = 250L)[1]
+    }
+    x$data@data[,name[[i]]]<-newParam
+  }
   return(x)
 }
 
 #' @describeIn calculate_param Calculate a new scan parameter for a scan
 #' @export
 calculate_param.scan <- function(x, ...) {
-  assert_that(class(x) == "scan")
+  assert_that(is.scan(x))
   # check if all parameters are equal
   attr_to_check<-c('class','radar','datetime','geo','dim')
   for(i in attr_to_check){

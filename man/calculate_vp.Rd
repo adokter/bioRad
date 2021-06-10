@@ -22,7 +22,7 @@ calculate_vp(
   azim_max = 360,
   range_min = 5000,
   range_max = 35000,
-  n_layer = 20L,
+  n_layer = 20,
   h_layer = 200,
   dealias = TRUE,
   nyquist_min = if (dealias) 5 else 25,
