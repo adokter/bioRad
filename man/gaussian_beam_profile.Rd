@@ -19,10 +19,10 @@ gaussian_beam_profile(
 \arguments{
 \item{height}{Numeric. Height in m.}
 
-\item{range}{Numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.}
+\item{range}{Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.}
 
-\item{elev}{Numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
 \item{antenna}{Numeric. Height of the centre of the radar antenna, in m.}
 
@@ -31,11 +31,11 @@ angle between the half-power (-3 dB) points of the main lobe.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Numeric. Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 Numeric value.

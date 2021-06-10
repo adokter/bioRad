@@ -41,9 +41,9 @@ angle between the half-power (-3 dB) points of the main lobe.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 an object of class 'scan'

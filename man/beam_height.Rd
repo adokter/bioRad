@@ -7,18 +7,18 @@
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{Numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.}
+\item{range}{Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.}
 
-\item{elev}{Numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Numeric. Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 Beam height in m.
@@ -50,4 +50,9 @@ range <- seq(0, 100000, 100)
 
 # Plot the beam height of the 0.5 degree elevation beam
 plot(range, beam_height(range, 0.5), ylab = "beam height [m]", xlab = "range [m]")
+}
+\seealso{
+\itemize{
+\item \code{\link[=beam_width]{beam_width()}}
+}
 }

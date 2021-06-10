@@ -7,18 +7,18 @@
 beam_distance(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{Numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.}
+\item{range}{Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.}
 
-\item{elev}{Numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Numeric. Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 Beam distance (down range), in m.
@@ -30,4 +30,9 @@ for a given beam elevation and slant range.
 \examples{
 # Down range of the 5 degree elevation beam at a slant range of 100 km
 beam_distance(100000, 5)
+}
+\seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+}
 }

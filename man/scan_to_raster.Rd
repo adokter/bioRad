@@ -51,9 +51,9 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 a RasterBrick

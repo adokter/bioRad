@@ -59,9 +59,9 @@ angle between the half-power (-3 dB) points of the main lobe.}
 
 \item{lat}{Numeric. Radar latitude. Defaults to latitude in \code{vp}.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 A data.frame with columns \code{distance} and \code{overlap}.
@@ -114,4 +114,11 @@ bpo <- beam_profile_overlap(
 
 # Plot the calculated overlap
 plot(bpo)
+}
+\seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+\item \code{\link[=beam_width]{beam_width()}}
+\item \code{\link[=beam_profile]{beam_profile()}}
+}
 }

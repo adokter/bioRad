@@ -31,11 +31,11 @@ angle between the half-power (-3 dB) points of the main lobe.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Numeric. Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 Numeric vector. Normalized radiated energy at each of the specified
@@ -68,4 +68,11 @@ plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
   xlab = "normalized radiated energy",
   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
 )
+}
+\seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+\item \code{\link[=beam_width]{beam_width()}}
+\item \code{\link[=beam_range]{beam_range()}}
+}
 }

@@ -28,3 +28,8 @@ range <- seq(0, 100000, 100)
 # Plot the beam width as a function of range
 plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
 }
+\seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+}
+}

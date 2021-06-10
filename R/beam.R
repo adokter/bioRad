@@ -3,17 +3,20 @@
 #' Calculates the height of a radar beam as a function of elevation and range,
 #' assuming the beam is emitted at surface level.
 #'
-#' @param range Numeric. Slant range in m, the length of the skywave path
-#'   between target and the radar antenna.
-#' @param elev Numeric. Beam elevation in degrees.
+#' @param range Numeric. Slant range, i.e. the length of the skywave path
+#'   between target and the radar antenna, in m.
+#' @param elev Numeric. Beam elevation, in degrees.
 #' @param k Numeric. Standard refraction coefficient.
-#' @param lat Numeric. Geodetic latitude of the radar in degrees.
-#' @param re Numeric. Earth equatorial radius in km.
-#' @param rp Numeric. Earth polar radius in km.
+#' @param lat Numeric. Geodetic latitude of the radar, in degrees.
+#' @param re Numeric. Earth equatorial radius, in km.
+#' @param rp Numeric. Earth polar radius, in km.
 #'
 #' @return Beam height in m.
 #'
 #' @export
+#'
+#' @seealso
+#' * [beam_width()]
 #'
 #' @details
 #' To account for refraction of the beam towards the earth's surface, an
@@ -25,6 +28,7 @@
 #' making oblateness of the earth and the dependence of earth radius with
 #' latitude only a small correction. Using default values assumes an average
 #' earth's radius of 6371 km.
+#'
 #' @examples
 #' # Beam height in m at 10 km range for a 1 degree elevation beam
 #' beam_height(10000, 1)
@@ -75,6 +79,9 @@ earth_radius <- function(a, b, lat) {
 #' @return Beam width in m.
 #'
 #' @export
+#'
+#' @seealso
+#' * [beam_height()]
 #'
 #' @examples
 #' # Beam width in m at 10 km range
@@ -156,6 +163,11 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #'   heights.
 #'
 #' @export
+#'
+#' @seealso
+#' * [beam_height()]
+#' * [beam_width()]
+#' * [beam_range()]
 #'
 #' @examples
 #' # Plot the beam profile, for a 0.5 degree elevation beam at 50 km distance
@@ -274,6 +286,11 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #'
 #' @export
 #'
+#' @seealso
+#' * [beam_height()]
+#' * [beam_width()]
+#' * [beam_profile()]
+#'
 #' @details
 #' Overlap is calculated as the [Bhattacharyya
 #' coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
@@ -351,6 +368,9 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #'
 #' @return Beam distance (down range), in m.
 #'
+#' @seealso
+#' * [beam_height()]
+#'
 #' @export
 #'
 #' @examples
@@ -374,6 +394,9 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' @return Beam range (slant range), in m.
 #'
 #' @export
+#'
+#' @seealso
+#' * [beam_heigh()]
 #'
 #' @examples
 #' # Slant range of the 5 degree elevation beam at a down range of 100 km

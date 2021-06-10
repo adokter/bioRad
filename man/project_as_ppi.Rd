@@ -64,9 +64,9 @@ and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Numeric. Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Numeric. Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 An object of class '\link[=summary.ppi]{ppi}'.
