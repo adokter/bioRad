@@ -1,5 +1,7 @@
 # bioRad 0.5.2.9XXX
 
+* `calculate_param()` now also works on ppi's (#316)
+
 * Warn when multiple scans with the same elevation are equally close to the requested elevation in `get_scan()`, and add option to return all (#414)
 
 * bugfix ylim argument in `composite_ppi()` (#389)
