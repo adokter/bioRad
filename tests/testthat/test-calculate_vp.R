@@ -1,5 +1,5 @@
-# Define non-default options for testing
-sd_vvp_thresh <- 3
+# Define non-default options
+sd_vvp_threshold <- 3
 rcs <- 200
 dual_pol <- TRUE
 rho_hv <- 0.8
@@ -15,26 +15,12 @@ nyquist_min <- 6
 
 # Create function to extract task_args attributes of vol2bird as a list
 task_args <- function(x) {
-  task_args_quoted <- paste0(
-    gsub(",", "',", gsub("=", "='", x$attributes$how$task_args)), "'"
-  )
+  task_args_quoted <- paste0(gsub(",", "',", gsub("=", "='", x$attributes$how$task_args)), "'")
   eval(parse(text= paste0("list(", task_args_quoted, ")")))
 }
 
-# Prepare test file (paths)
+# Prepare test files
 tmpdir <- tempdir()
-pvolfile <- paste(tmpdir, "volume.h5", sep = "/")
-pvolfile_out <- paste(tmpdir,"volume_out.h5", sep = "/")
-vpfile <- paste(tmpdir, "profile.h5", sep = "/")
-# Copy example pvolfile to tempdir/volume.h5
-file.copy(
-  system.file("extdata", "volume.h5", package = "bioRad"),
-  pvolfile,
-  overwrite = TRUE
-)
-
-docker_ok <- (check_docker(verbose = FALSE) == 0)
-
 test_that("calculate_vp produces a vp", {
   skip_if_no_docker()
   vp <- calculate_vp(file=pvolfile, warnings=FALSE)
@@ -45,6 +31,19 @@ test_that("calculate_vp writes vpfile hdf5 output", {
   skip_if_no_docker()
   vp <- calculate_vp(file=pvolfile, vpfile=vpfile, warnings=FALSE)
   expect_true(inherits(vp,"vp"))
+pvolfile <- paste(tmpdir, "pvol.h5", sep = "/")
+pvolfile_out <- paste(tmpdir,"pvol_out.h5", sep = "/")
+vpfile <- paste(tmpdir, "vp.h5", sep = "/")
+file.copy(system.file("extdata", "volume.h5", package = "bioRad"), pvolfile, overwrite = TRUE)
+
+# TODO:
+# Arguments not yet tested:
+# - mistnet_elevations, because not stored in h5 currently
+# - dbz_quantity, because test file volume.h5 only has DBZH
+# - mount, because difficult to test
+# - local_install, because difficult to test
+# - local_mistnet, because difficult to test
+
 })
 
 test_that("calculate_vp writes pvol hdf5 output", {
@@ -148,12 +147,3 @@ test_that("dealiasing can be suppressed", {
   # but including to guarantee overall consistency.
   expect_equal(task_args(vp)$dealiasVrad,"1")
 })
-
-# TODO / FIXME:
-# * arguments not yet tested:
-#   - mistnet_elevations, because not stored in h5 currently
-#   - dbz_quantity, because test file volume.h5 only has DBZH
-#   - local_install, because difficult to test
-#   - mount, because difficult to test
-# * check if autoconf works (auto-selection of dual_pol, rcs, etc)
-#   - requires multiple pvol test files, left for later
