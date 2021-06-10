@@ -50,54 +50,57 @@ test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
   expect_s3_class(scan$params$CELL, "param")
 })
 
-test_that("input arguments are parsed to vol2bird", {
+test_that("calculate_vp() parses input arguments for vol2bird", {
   skip_if_no_docker()
+  # Run with non-default options
+  vp <- calculate_vp(file = pvolfile, , warnings = FALSE, sd_vvp_threshold =
+                     sd_vvp_threshold, rcs = rcs, dual_pol = dual_pol, rho_hv =
+                     rho_hv, elev_min = elev_min, elev_max = elev_max,
+                     azim_min = azim_min, azim_max = azim_max, range_min =
+                     range_min, range_max = range_max, n_layer = n_layer,
+                     h_layer = h_layer, nyquist_min = nyquist_min)
+  task_args <- task_args(vp)
 
-  # run vol2bird with non-default options
-  vp <- calculate_vp(file=pvolfile, vpfile=vpfile, sd_vvp_threshold=sd_vvp_thresh,
-               rcs=rcs, dual_pol=dual_pol,
-               rho_hv=rho_hv, elev_min=elev_min, elev_max=elev_max,
-               azim_min=azim_min,azim_max=azim_max,
-               range_min=range_min, range_max=range_max,
-               n_layer=n_layer, h_layer=h_layer, nyquist_min=nyquist_min,
-               warnings=FALSE)
-
-  # check that vol2bird reads non-default options
-  expect_equal(as.numeric(task_args(vp)$birdRadarCrossSection),rcs)
-  expect_equal(as.logical(as.numeric(task_args(vp)$dualPol)),dual_pol)
-  expect_equal(as.numeric(task_args(vp)$rhohvThresMin),rho_hv)
-  expect_equal(as.numeric(task_args(vp)$elevMin),elev_min)
-  expect_equal(as.numeric(task_args(vp)$elevMax),elev_max)
-  expect_equal(as.numeric(task_args(vp)$rangeMin),range_min)
-  expect_equal(as.numeric(task_args(vp)$rangeMax),range_max)
-  expect_equal(as.numeric(task_args(vp)$nLayers),n_layer)
-  expect_equal(as.numeric(task_args(vp)$layerThickness),h_layer)
+  # sd_vvp_threshold is not part of task_args
+  expect_equal(rcs, as.numeric(task_args$birdRadarCrossSection))
+  expect_equal(dual_pol, as.logical(as.numeric(task_args$dualPol)))
+  expect_equal(rho_hv, as.numeric(task_args$rhohvThresMin))
+  expect_equal(elev_min, as.numeric(task_args$elevMin))
+  expect_equal(elev_max, as.numeric(task_args$elevMax))
+  expect_equal(azim_min, as.numeric(task_args$azimMin))
+  expect_equal(azim_max, as.numeric(task_args$azimMax))
+  expect_equal(range_min, as.numeric(task_args$rangeMin))
+  expect_equal(range_max, as.numeric(task_args$rangeMax))
+  expect_equal(n_layer, as.numeric(task_args$nLayers))
+  expect_equal(h_layer, as.numeric(task_args$layerThickness))
+  expect_equal(nyquist_min, as.numeric(task_args$minNyquist))
 })
 
-test_that("input arguments are ignored during autoconf", {
+test_that("calculate_vp() ignores input arguments if autoconf", {
   skip_if_no_docker()
+  # Run with non-default options
+  vp <- calculate_vp(file = pvolfile, , warnings = FALSE, sd_vvp_threshold =
+                     sd_vvp_threshold, rcs = rcs, dual_pol = dual_pol, rho_hv =
+                     rho_hv, elev_min = elev_min, elev_max = elev_max,
+                     azim_min = azim_min, azim_max = azim_max, range_min =
+                     range_min, range_max = range_max, n_layer = n_layer,
+                     h_layer = h_layer, nyquist_min = nyquist_min,
+                     autoconf = TRUE)
+  task_args <- task_args(vp)
 
-  # run vol2bird with non-default options
-  expect_true(is.vp(calculate_vp(file=pvolfile, vpfile=vpfile, rcs=rcs, dual_pol=dual_pol,
-               rho_hv=rho_hv, elev_min=elev_min, elev_max=elev_max,
-               azim_min=azim_min,azim_max=azim_max,
-               range_min=range_min, range_max=range_max,
-               n_layer=n_layer, h_layer=h_layer, nyquist_min=nyquist_min,
-               autoconf=TRUE, warnings=FALSE)))
-
-  # read generated vp
-  vp <- read_vpfiles(vpfile)
-
-  # check that vol2bird reads non-default options
-  expect_false(as.numeric(task_args(vp)$birdRadarCrossSection)==rcs)
-  # ignoring dual_pol check because autoconf-ed
-  expect_false(as.numeric(task_args(vp)$rhohvThresMin)==rho_hv)
-  expect_false(as.numeric(task_args(vp)$elevMin)==elev_min)
-  expect_false(as.numeric(task_args(vp)$elevMax)==elev_max)
-  expect_false(as.numeric(task_args(vp)$rangeMin)==range_min)
-  expect_false(as.numeric(task_args(vp)$rangeMax)==range_max)
-  expect_false(as.numeric(task_args(vp)$nLayers)==n_layer)
-  expect_false(as.numeric(task_args(vp)$layerThickness)==h_layer)
+  # sd_vvp_threshold is not part of task_args
+  expect_false(rcs == as.numeric(task_args$birdRadarCrossSection))
+  expect_true(as.logical(as.numeric(task_args$dualPol))) # Set to true by autoconf
+  expect_false(rho_hv == as.numeric(task_args$rhohvThresMin))
+  expect_false(elev_min == as.numeric(task_args$elevMin))
+  expect_false(elev_max == as.numeric(task_args$elevMax))
+  expect_false(azim_min == as.numeric(task_args$azimMin))
+  expect_false(azim_max == as.numeric(task_args$azimMax))
+  expect_false(range_min == as.numeric(task_args$rangeMin))
+  expect_false(range_max == as.numeric(task_args$rangeMax))
+  expect_false(n_layer == as.numeric(task_args$nLayers))
+  expect_false(h_layer == as.numeric(task_args$layerThickness))
+  expect_false(nyquist_min == as.numeric(task_args$minNyquist))
 })
 
 test_that("MistNet is working", {
