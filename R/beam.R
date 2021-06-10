@@ -325,18 +325,18 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
                                  rp = 6357) {
   # min_detectable_eta <- dbz_to_eta(NEZH,vp$attributes$how$wavelength)*(range/1000)^2
 
-  if (!is.numeric(elev)) stop("'elev' should be a number or numeric vector with the beam elevation(s)")
-  if (!is.vp(vp)) stop("'vp' should be an object of class vp")
+  if (!is.numeric(elev)) stop("`elev` must be a number or numeric vector with the beam elevation(s).")
+  if (!is.vp(vp)) stop("`vp` must be an object of class vp.")
   if (missing(antenna)) antenna <- vp$attributes$where$height
   if (missing(lat)) lat <- vp$attributes$where$lat
-  if (!is.numeric(distance) | min(distance) < 0) stop("'distance' should be a positive numeric value or vector")
-  if (length(zlim) != 2 & !is.numeric(zlim)) stop("'zlim' should be a numeric vector of length two")
-  if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
-  if (length(steps) != 1 & !is.numeric(steps)) stop("'step' should be a numeric value")
-  if (!(quantity %in% c("dens", "eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
-  if (is.null(vp$attributes$where$height) && missing(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
+  if (!is.numeric(distance) | min(distance) < 0) stop("`distance` must be a positive numeric value or vector.")
+  if (length(zlim) != 2 & !is.numeric(zlim)) stop("`zlim` must be a numeric vector of length two.")
+  if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("`zlim` must be a vector with two numeric values for upper and lower bound.")
+  if (length(steps) != 1 & !is.numeric(steps)) stop("`step` must be a numeric value.")
+  if (!(quantity %in% c("dens", "eta"))) stop("`quantity` must be either `dens` or `eta`.")
+  if (is.null(vp$attributes$where$height) && missing(antenna)) stop("Antenna height cannot be found in polar volume, specify antenna height using `antenna` argument.")
   assert_that(is.number(antenna))
-  if (is.null(vp$attributes$where$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
+  if (is.null(vp$attributes$where$lat) && missing(lat)) stop("Radar latitude cannot be found in polar volume, specify using `lat` argument.")
   assert_that(is.number(lat))
   overlap <- sapply(distance, function(x) beam_profile_overlap_help(vp = vp, elev = elev, distance = x, antenna = antenna, zlim = zlim, steps = steps, quantity = quantity, normalize = normalize, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp))
   data.frame(distance = distance, overlap = overlap)
