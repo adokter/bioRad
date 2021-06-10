@@ -36,6 +36,6 @@ test_that("get_odim_object_type() returns warnings", {
   }
   expect_warning(get_odim_object_type(delete_group(vpfile, "dataset1")), "does not contain a `/dataset1` group")
   expect_warning(get_odim_object_type(delete_group(vpfile, "what")), "does not contain a `/what` group")
-  expect_warning(get_odim_object_type(delete_group(vpfile, "where")), "does not contain a `/how` group")
-  expect_warning(get_odim_object_type(delete_group(vpfile, "how")), "does not contain a `/where` group")
+  expect_warning(get_odim_object_type(delete_group(vpfile, "where")), "does not contain a `/where` group")
+  expect_warning(get_odim_object_type(delete_group(vpfile, "how")), "does not contain a `/how` group")
 })
