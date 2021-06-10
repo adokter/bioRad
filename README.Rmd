@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file and knit -->
+<!-- README.md is generated from README.Rmd. Please edit that file and knit with devtools::build_readme() -->
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -16,7 +16,10 @@ knitr::opts_chunk$set(
 # bioRad <img src="man/figures/logo.png" align="right" alt="" width="120">
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad) [![R-CMD-check](https://github.com/adokter/bioRad/workflows/R-CMD-check/badge.svg)](https://github.com/adokter/bioRad/actions) [![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://codecov.io/gh/adokter/bioRad) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
+[![CRAN status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad)
+[![R-CMD-check](https://github.com/adokter/bioRad/workflows/R-CMD-check/badge.svg)](https://github.com/adokter/bioRad/actions)
+[![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://codecov.io/gh/adokter/bioRad)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 <!-- badges: end -->
 
 bioRad provides standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low-level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.

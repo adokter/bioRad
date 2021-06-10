@@ -6,7 +6,7 @@ scan <- example_scan
 # is.vp() returns TRUE/FALSE and works for every input
 
 test_that("c.vp() returns error on incorrect parameters", {
-  expect_error(c(vp, "not_a_vp"), "Each element must be a vp object.", fixed = TRUE)
+  expect_error(c(vp, "not_a_vp"), "Each element must be a `vp` object.", fixed = TRUE)
 })
 
 test_that("summary.vp() prints metadata to the console", {
@@ -20,7 +20,7 @@ test_that("summary.vp() prints metadata to the console", {
 
 test_that("summary.vp() warns for legacy objects", {
   names(vp$data) <- sub("height", "HGHT", names(vp$data)) # Rename to legacy "HGHT"
-  expect_warning(summary(vp), "`x` is a legacy vp object without a column `height`.", fixed = TRUE)
+  expect_warning(summary(vp), "`x` is a legacy `vp` object without a column `height`.", fixed = TRUE)
 })
 
 test_that("is.vp() returns TRUE/FALSE correctly", {
