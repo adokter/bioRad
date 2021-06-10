@@ -7,24 +7,24 @@
 beam_width(range, beam_angle = 1)
 }
 \arguments{
-\item{range}{numeric. Range (distance from the radar antenna) in m.}
+\item{range}{Numeric. Range, i.e. distance from the radar antenna, in m.}
 
-\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
 }
 \value{
-numeric. Beam width in m.
+Beam width in m.
 }
 \description{
 Calculates the width of a radar beam as a function of range and beam angle.
 }
 \examples{
-#' # beam width in meters at 10 km range:
+# Beam width in m at 10 km range
 beam_width(10000)
 
-# define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
+Define ranges from 0 to 1000000 m (100 km), in steps of 100 m
 range <- seq(0, 100000, 100)
 
-# plot the beam width as a function of range:
+# Plot the beam width as a function of range
 plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
 }

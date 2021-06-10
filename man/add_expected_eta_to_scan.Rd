@@ -33,16 +33,17 @@ One of 'DBZH','DBZV','DBZ','TH','TV'.}
 
 \item{lon}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
 
-\item{antenna}{radar antenna height. If missing taken from \code{vp}}
+\item{antenna}{Numeric. Radar antenna height, in m. Default to antenna height
+in \code{vp}.}
 
-\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius in km.}
 }
 \value{
 an object of class 'scan'

@@ -17,57 +17,53 @@ beam_profile(
 )
 }
 \arguments{
-\item{height}{numeric. Height in meter.}
+\item{height}{Numeric. Height in m.}
 
-\item{distance}{numeric. Distance from the radar as measured along sea level (down range) in m.}
+\item{distance}{Numeric. Distance from the radar as measured along sea level
+(down range), in m.}
 
-\item{elev}{numeric vector. Beam elevation(s) in degrees.}
+\item{elev}{Numeric vector. Beam elevation(s), in degrees.}
 
-\item{antenna}{numeric. Height of the center of the radar antenna in meters}
+\item{antenna}{Numeric. Height of the centre of the radar antenna, in m.}
 
-\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar in degrees.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius in km.}
 }
 \value{
-numeric vector. Normalized radiated energy at each of the specified
+Numeric vector. Normalized radiated energy at each of the specified
 heights.
 }
 \description{
-Calculate for a set of beam elevations elev
-the altitudinal normalized distribution of radiated energy by those beams.
-}
-\details{
-Beam profile is calculated using \link{beam_height} and
-\link{beam_width}. Returns a beam profile as a function of height relative
-to ground level.
-
-Returns the normalized altitudinal pattern of radiated energy as a function
-of altitude at a given distance from the radar, assuming the beams are
-emitted at antenna level.
+Calculates for a set of beam elevations (\code{elev}) the altitudinal normalized
+distribution of radiated energy by those beams. Is a function of altitude
+(\code{height}) at a given distance (\code{distance}) from the radar, assuming the
+beams are emitted at antenna level
 }
 \examples{
-# plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:
+# Plot the beam profile, for a 0.5 degree elevation beam at 50 km distance
+# from the radar
 plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000,
   xlab = "normalized radiated energy",
   ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km"
 )
 
-# plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:
+# Plot the beam profile, for a 2 degree elevation beam at 50 km distance
+# from the radar
 plot(beam_profile(height = 0:4000, 50000, 2), 0:4000,
   xlab = "normalized radiated energy",
   ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km"
 )
 
-# plot the combined beam profile for a 0.5 and 2.0 degree elevation beam
-# at 50 km distance from the radar:
+# Plot the combined beam profile for a 0.5 and 2.0 degree elevation beam
+# at 50 km distance from the radar
 plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
   xlab = "normalized radiated energy",
   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
