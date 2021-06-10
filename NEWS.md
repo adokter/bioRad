@@ -2,6 +2,8 @@
 
 * Warn when more then one scan could be returned (#414) and provide alternative
 
+* `bind_into_vpts()` now works for vp's and vpts's with different heights (#343)
+
 * bugfix ylim argument in `composite_ppi()` (#389)
 
 * `scan_to_spatial()` now creates points for cell centers (#430)
