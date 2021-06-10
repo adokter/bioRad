@@ -17,10 +17,10 @@ test_that("get_odim_object_type() returns a valid ODIM type", {
   # TODO: test HDF5 files that are missing dataset1, what, how, ...
 })
 
-test_that("is.pvolfile() can identify ODIM hdf5 polar volume files", {
+test_that("is.pvolfile() can identify ODIM HDF5 polar volume files", {
   expect_true(is.pvolfile(pvolfile))
   expect_false(is.pvolfile(vpfile))
-  expect_false(suppressWarnings(is.pvolfile(textfile)))
-  expect_warning(is.pvolfile(ghostfile), "Can't find")
+  expect_false(is.pvolfile(textfile))
+  expect_warning(is.pvolfile(ghostfile), "Can't find") # From get_odim_object_type
   # TODO: test and identify NEXRAD and IRIS polar volume files
 })
