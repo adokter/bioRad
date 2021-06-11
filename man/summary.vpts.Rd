@@ -27,7 +27,7 @@ For \code{\link[=dim.vpts]{dim.vpts()}}: number of datetimes, heights and quanti
 time series of vertical profiles (\code{vpts}).
 }
 \description{
-R base functions for inspecting a time series of vertical profiles (\code{vp})
+R base functions for inspecting a time series of vertical profiles (\code{vpts})
 object.
 }
 \details{
@@ -68,17 +68,14 @@ has a measured value of zero (radiated and value zero detected or inferred).
 }
 
 \examples{
-# Load the example time series of vertical profiles
-vpts <- example_vpts
-
-# Verify that it is an object of class vpts
-is.vpts(vpts)
+# Check if an object is of class vpts
+is.vpts(example_vpts)
 
 # Get summary info
-vpts # Same as summary(vpts) or print(vpts)
+example_vpts # Same as summary(example_vpts) or print(example_vpts)
 
 # Get dimensions
-dim(vpts)
+dim(example_vpts)
 }
 \seealso{
 \itemize{

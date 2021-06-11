@@ -10,24 +10,22 @@
 #'
 #' @export
 #'
-#' @seealso [summary.param()]
+#' @seealso
+#' * [summary.param()]
 #'
 #' @examples
-#' # Load the example scan
-#' scan <- example_scan
-#'
-#' # Get summary info (including parameters)
-#' scan
+#' # Get summary info for a scan (including parameters)
+#' example_scan
 #'
 #' # Extract the VRADH scan parameter
-#' param <- get_param(scan, "VRADH")
+#' param <- get_param(example_scan, "VRADH")
 #'
 #' # Get summary info for this parameter
 #' param
 get_param <- function(x, param) {
   assert_that(class(x) == "scan", msg = "`x` must be a scan object.")
   if (!(param %in% names(x$params))) stop(
-    paste0("Can't find parameter `", param, "` in `x`.")
+    glue("Can't find parameter `{param}` in `x`.")
   )
   x$params[[param]]
 }

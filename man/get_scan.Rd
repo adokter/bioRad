@@ -4,19 +4,27 @@
 \alias{get_scan}
 \title{Get a scan (\code{scan}) from a polar volume (\code{pvol})}
 \usage{
-get_scan(x, elev)
+get_scan(x, elev, all = FALSE)
 }
 \arguments{
 \item{x}{A \code{pvol} object.}
 
-\item{elev}{Numeric. Elevation angle.}
+\item{elev}{Numeric. Elevation angle in degrees.}
+
+\item{all}{Logical. Return the first scan in the \code{pvol} object
+closest to the requested elevation (\code{FALSE}), or a list with
+all scans equally close to the requested elevation (\code{TRUE}).}
 }
 \value{
-A \code{scan} object.
+A \code{scan} object when \code{all} equals \code{FALSE} (default), or a list of \code{scan} objects if \code{all} equals \code{TRUE}
 }
 \description{
 Returns the scan (\code{scan}) from a polar volume (\code{pvol}) with elevation angle
 closest to \code{elev}.
+}
+\details{
+In cases where \code{elev} is exactly in between two
+scan elevation angles, the lower elevation angle scan is returned.
 }
 \examples{
 # Locate and read the polar volume example file
@@ -26,11 +34,17 @@ pvol <- read_pvolfile(pvolfile)
 # Get elevation angles
 get_elevation_angles(pvol)
 
-# Extract the scan closest to 3 degrees elevation (= 2.5)
+# Extract the scan closest to 3 degrees elevation (2.5 degree scan)
 scan <- get_scan(pvol, 3)
 
 # Get summary info
 scan
+
+# Extract all scans closest to 3 degrees elevation (2.5 degree scan)
+# Always returns a list with scan object(s), containing multiple scans
+# if the pvol contains multiple scans at the same closest elevation.
+scan_list <- get_scan(pvol, 3)
+scan_list
 }
 \seealso{
 \itemize{

@@ -99,3 +99,8 @@ vpts_df <- as.data.frame(example_vpts, suntime = FALSE)
 # calculating sunrise/sunset information
 vpts_df <- as.data.frame(example_vpts, lat = 50, lon = 4)
 }
+\seealso{
+\itemize{
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+}
+}

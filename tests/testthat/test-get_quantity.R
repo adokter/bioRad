@@ -4,7 +4,7 @@ vpts <- example_vpts
 
 test_that("get_quantity() returns error on incorrect parameters", {
   expect_error(get_quantity("not_a_vp", "dens"))
-  expect_error(get_quantity(vp_list_mixed, "dens"), "`x` must be list of vp objects.", fixed = TRUE)
+  expect_error(get_quantity(vp_list_mixed, "dens"), "`x` must be list of `vp` objects.", fixed = TRUE)
   expect_error(get_quantity(vp, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
   expect_error(get_quantity(vpts, "not_a_quantity"), "Can't find quantity `not_a_quantity` in `x`", fixed = TRUE)
 

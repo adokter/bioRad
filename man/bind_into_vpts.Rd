@@ -33,6 +33,11 @@ Binds vertical profiles (\code{vp}) into a vertical profile time series
 (\code{vpts}), sorted in time. Can also bind multiple \code{vpts} of a
 single radar into one \code{vpts}.
 }
+\details{
+\code{bind_into_vpts()} currently requires profiles to have aligning altitude
+layers that are of equal width. Profiles are allowed to differ in the number
+of altitude layers, i.e. the maximum altitude
+}
 \section{Methods (by class)}{
 \itemize{
 \item \code{vp}: Bind multiple \code{vp} into a \code{vpts}.

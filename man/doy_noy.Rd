@@ -54,13 +54,11 @@ datetime.}
 \item{lat}{Numeric. Latitude in decimal degrees.}
 }
 \description{
-Look up the day of year (\code{doy}) or night of year (\code{noy}) for datetimes and
-various bioRad objects.
-}
-\details{
-First night of the year is the night with datetime Jan 01 00:00:00 in the
-local time zone, i.e. sunset on Jan 1 occurs on the second night of the year
-and New Years Eve on Dec 31 occurs on the first night of the new year.
+Returns the day of year (\code{doy}) or night of year (\code{noy}) number for datetimes
+and various bioRad objects. The first night of the year is the night with
+datetime Jan 01 00:00:00 in the local time zone, so sunset on Jan 1 occurs
+on the second night of the year and New Years Eve on Dec 31 occurs on the
+first night of the new year.
 }
 \examples{
 # Get day of year of a vp object
