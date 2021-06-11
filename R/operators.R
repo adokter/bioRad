@@ -58,6 +58,10 @@
 `Ops.scan` <- function(e1, e2) {
   if (is.scan(e1)) {
     if (is.scan(e2)) {
+      if(length(e1$params)!=length(e2$params)){
+        stop(paste0("Operation (",.Generic,
+                    ") does not work for scans with unequal number of parameters"))
+      }
       if(any(names(e1$params)!=names(e2$params)))
       {
         warning(paste0("The names of parameters do not match, this
@@ -84,6 +88,10 @@
 `Ops.pvol` <- function(e1, e2) {
   if (is.pvol(e1)) {
     if (is.pvol(e2)) {
+      if(length(e1$scans)!=length(e2$scans)){
+        stop(paste0("Operation (",.Generic,
+                    ") does not work for pvols with unequal number of scans"))
+      }
       e1$scans <- mapply(.Generic, e1$scans, e2$scans, SIMPLIFY = F)
       return(e1)
     } else {
