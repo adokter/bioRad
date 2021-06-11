@@ -1,5 +1,7 @@
 # bioRad 0.5.2.9XXX
 
+* adding `attribute_table()` to quickly tabulate scan attributes
+
 * `calculate_param()` now also works on ppi's (#316)
 
 * Speed up `integrate_to_ppi` and other functions by avoiding duplicate input argument checking (#358)

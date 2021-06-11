@@ -6,7 +6,7 @@
 \usage{
 composite_ppi(
   x,
-  param = "DBZH",
+  param = "all",
   nx = 100,
   ny = 100,
   xlim,
@@ -16,13 +16,16 @@ composite_ppi(
   raster = NA,
   method = "max",
   idp = 2,
-  idw_max_distance = NA
+  idw_max_distance = NA,
+  coverage = FALSE
 )
 }
 \arguments{
 \item{x}{A list of \code{ppi} objects.}
 
-\item{param}{Scan parameter to composite.}
+\item{param}{The scan parameter name(s) to composite. An atomic vector of character strings
+can be provided to composite multiple scan parameters at once. To composite all available
+scan parameters use 'all' (default).}
 
 \item{nx}{number of raster pixels in the x (longitude) dimension}
 
@@ -42,13 +45,17 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 \item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
 arguments are ignored.}
 
-\item{method}{string. Compositing method, one of "mean", "min", "max" or "idw"}
+\item{method}{string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
+names of length(param) to apply different methods to each of the parameters.}
 
-\item{idp}{numeric. inverse distance weighting power}
+\item{idp}{numeric. inverse distance weighting power.}
 
 \item{idw_max_distance}{numeric. Maximum distance from the radar to consider in
 inverse distance weighting. Measurements beyond this distance will have a
 weighting factor of zero.}
+
+\item{coverage}{logical. When TRUE adds an additional "coverage" parameter to the \code{ppi} with the
+number of PPIs covering a single composite \code{ppi} pixel.}
 }
 \value{
 A \code{\link[=summary.ppi]{ppi}}.
@@ -79,7 +86,10 @@ weighted according to 1/(distance from the radar)^\code{idp}}
 }
 
 The coordinates system of the returned \code{ppi} is a WGS84
-(lat,lon) datum.
+(lat, lon) datum, unless a different \code{crs} is provided. If only
+\code{res} is provided, but no \code{crs} is set, \code{res} is in
+meter units and the origin of the composite \code{ppi} is set to the
+mean (lat, lon) location.
 
 This function is a prototype and under active development
 }
