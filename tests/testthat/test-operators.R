@@ -34,4 +34,5 @@ test_that("pvol operators", {
   expect_equal(example_pvol*example_pvol, exp(log(example_pvol)+log(example_pvol)))
   expect_equal(example_pvol, exp(log(example_pvol)))
   expect_equal(example_pvol, sqrt((example_pvol^2)))
+  expect_equal(Reduce('+', lapply(list(example_pvol, example_pvol), exp)), exp(example_pvol)+exp(example_pvol))
 })
