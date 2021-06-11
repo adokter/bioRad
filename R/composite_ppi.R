@@ -15,9 +15,8 @@
 #' inverse distance weighting. Measurements beyond this distance will have a
 #' weighting factor of zero.
 #' @param idp numeric. inverse distance weighting power.
-#' @param coverage string. Additional radar coverage parameter to be added to the \code{ppi}, one of "count" or
-#' "radars" for the number of radars 'covering' a single \code{ppi} pixel and a list of the the corresponding
-#' ODIM radar IDs respectively.
+#' @param coverage logical. When TRUE adds an additional "coverage" parameter to the \code{ppi} with the
+#' number of PPIs covering a single composite \code{ppi} pixel.
 #'
 #' @return A \code{\link[=summary.ppi]{ppi}}.
 #'
@@ -72,7 +71,7 @@
 #' # plot the calculated max product on the basemap
 #' map(my_composite, bm)
 #' }
-composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance = NA, coverage) {
+composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance = NA, coverage = FALSE) {
   if (FALSE %in% sapply(x, is.ppi)) {
     stop("'composite' expects objects of class ppi only")
   }
@@ -101,9 +100,7 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
   }
   if (!all(method %in% c("max", "min", "mean", "idw"))) stop("'method' should be one or multiple of 'max', 'mean', 'min' or 'idw'")
   if (length(method) != length(param) & length(method) != 1) stop("'method' should be of length 1 or length(param)")
-  if (!missing(coverage)) {
-    if (!coverage %in% c("count", "radars")) stop("'coverage' should be 'count' or 'radars'")
-  }
+  if (!is.logical(coverage)) stop("'coverage' should be a logical")
 
   if (length(param) == 1 && param == "all") {
     param <- names(x[[1]]$data)
@@ -145,7 +142,7 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
   spGrid = as(r, 'SpatialGridDataFrame')
   names(spGrid@data) <- names(ppis[[1]]$data)[1]
 
-  if (!missing(coverage)) {
+  if (coverage) {
     ppis <- lapply(ppis, function(x) {x$data$coverage <- 1; return(x)})
     param <- c(param, "coverage")
   }
@@ -206,15 +203,9 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
     }
   }
 
-  if (!missing(coverage)) {
-    colnames(projs) <- lapply(x, function(x) x$radar)
+  if (coverage) {
     cov <- !is.na(do.call("cbind", projs["coverage", ]))
-    if (coverage == "count") {
-      spGrid@data$coverage <- rowSums(cov)
-    } else if (coverage == "radars") {
-      cov <- apply(cov, 1, function(x) colnames(projs)[x])
-      spGrid@data$coverage <- cov
-    }
+    spGrid@data$coverage <- rowSums(cov)
   }
 
   ppi.out <- list(data = spGrid, geo = list(

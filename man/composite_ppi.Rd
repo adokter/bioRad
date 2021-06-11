@@ -17,7 +17,7 @@ composite_ppi(
   method = "max",
   idp = 2,
   idw_max_distance = NA,
-  coverage
+  coverage = FALSE
 )
 }
 \arguments{
@@ -54,9 +54,8 @@ names of length(param) to apply different methods to each of the parameters.}
 inverse distance weighting. Measurements beyond this distance will have a
 weighting factor of zero.}
 
-\item{coverage}{string. Additional radar coverage parameter to be added to the \code{ppi}, one of "count" or
-"radars" for the number of radars 'covering' a single \code{ppi} pixel and a list of the the corresponding
-ODIM radar IDs respectively.}
+\item{coverage}{logical. When TRUE adds an additional "coverage" parameter to the \code{ppi} with the
+number of PPIs covering a single composite \code{ppi} pixel.}
 }
 \value{
 A \code{\link[=summary.ppi]{ppi}}.
