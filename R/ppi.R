@@ -38,7 +38,7 @@
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #'
-#' # Verify that it is an object of class ppi
+#' # Check if it is an object of class ppi
 #' is.ppi(ppi)
 #'
 #' # Get summary info
@@ -65,7 +65,7 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   )
 }
 
-#' Verify if an object is of class `ppi`
+#' Check if an object is of class `ppi`
 #'
 #' @param x A `ppi` object.
 #'
@@ -109,13 +109,13 @@ dim.ppi <- function(x) {
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #'
-#' # This ppi contains 5 parameters (VRADH DBZH ZDR RHOHV PHIDP)
+#' # This ppi contains 5 parameters (DBZH VRADH ZDR RHOHV PHIDP)
 #' ppi
 #'
-#' # Subset ppi to one containing only the first parameter (VRADH)
+#' # Subset ppi to one containing only the first parameter (DBZH)
 #' ppi[1]
 #'
-#' # Subset ppi to one containing the first three parameters (VRADH, DBZH, ZDR)
+#' # Subset ppi to one containing the first three parameters (DBZH, VRADH, ZDR)
 #' ppi[1:3]
 #'
 #' # Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/zzz.R
 \name{is.nan.data.frame}
 \alias{is.nan.data.frame}
-\title{Identify \code{NaN} in a dataframe.}
+\title{Identify \code{NaN} in a dataframe}
 \usage{
 \method{is.nan}{data.frame}(x)
 }

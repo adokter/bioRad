@@ -3,12 +3,15 @@
 \name{calculate_param}
 \alias{calculate_param}
 \alias{calculate_param.pvol}
+\alias{calculate_param.ppi}
 \alias{calculate_param.scan}
 \title{Calculate a new scan parameter}
 \usage{
 calculate_param(x, ...)
 
 \method{calculate_param}{pvol}(x, ...)
+
+\method{calculate_param}{ppi}(x, ...)
 
 \method{calculate_param}{scan}(x, ...)
 }
@@ -30,6 +33,8 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 \itemize{
 \item \code{pvol}: Calculate a new scan parameter for all scans in a polar volume.
 
+\item \code{ppi}: Calculate a new parameter for a PPI.
+
 \item \code{scan}: Calculate a new scan parameter for a scan
 }}
 
@@ -39,6 +44,7 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
 # load the file:
 example_pvol <- read_pvolfile(pvolfile)
+data(example_scan)
 
 # calculate linear reflectivity ETA from reflectivity factor DBZH:
 radar_wavelength <- example_pvol$attributes$how$wavelength
@@ -51,6 +57,11 @@ example_pvol <- calculate_param(example_pvol, DR = 10 * log10((ZDR + 1 - 2 * ZDR
 # calculate_param operates on both pvol and scan objects:
 calculate_param(example_scan, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
+
+# it also works for ppis
+ppi <- project_as_ppi(example_scan)
+calculate_param(ppi, exp(DBZH))
+
 }
 \references{
 \itemize{
