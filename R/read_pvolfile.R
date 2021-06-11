@@ -354,14 +354,14 @@ read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo, dtype) 
   if(attr$quantity == "RHOHV"){
     data <- replace(data, data > 10, NaN)
   }
-  conversion <- list(gain = attr$gain, offset = attr$offset,
-                     nodata = attr$nodata, undetect = attr$undetect,
+  conversion <- list(gain = as.numeric(attr$gain), offset = as.numeric(attr$offset),
+                     nodata = as.numeric(attr$nodata), undetect = as.numeric(attr$undetect),
                      dtype = dtype)
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime
   attributes(data)$geo <- geo
-  attributes(data)$param <- attr$quantity
+  attributes(data)$param <- as.character(attr$quantity)
   attributes(data)$conversion <- conversion
   list(quantityName = attr$quantity, quantity = data)
 }
