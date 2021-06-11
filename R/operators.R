@@ -22,7 +22,7 @@
   )) {
     warning(paste("Operation", .Generic, "not meaningful for scan objects"))
   }
-  x$params <- lapply(x$params, .Generic)
+  x$params <- lapply(x$params, .Generic, ...)
   x
 }
 
@@ -35,7 +35,7 @@
   )) {
     warning(paste("Operation", .Generic, "not meaningful for pvol objects"))
   }
-  x$scans <- lapply(x$scans, .Generic)
+  x$scans <- lapply(x$scans, .Generic, ...)
   x
 }
 
