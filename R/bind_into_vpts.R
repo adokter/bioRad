@@ -12,6 +12,10 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [summary.vp()]
+#' * [summary.vpts()]
+#'
 #' @examples
 #' # Split the example vpts into two separate time series, one containing
 #' # profile 1-10 and a second containing profile 11-20

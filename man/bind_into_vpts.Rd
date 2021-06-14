@@ -52,3 +52,9 @@ vp2 <- example_vpts[2]
 # Bind the two profiles back into a vpts
 bind_into_vpts(vp1, vp2)
 }
+\seealso{
+\itemize{
+\item \code{\link[=summary.vp]{summary.vp()}}
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+}
+}
