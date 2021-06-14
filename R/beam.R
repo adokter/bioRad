@@ -294,10 +294,11 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @details
 #' Overlap is calculated as the [Bhattacharyya
 #' coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
-#' distribution overlap) between the (normalized) vertical profile vp and the
-#' (normalized) radiation coverage pattern as calculated by [beam_profile()]. In
-#' the calculation of this overlap metric, NA and NaN values in the profile
-#' quantity specified by `quantity` are replaced with zeros.
+#' distribution overlap) between the (normalized) vertical profile (`vp`) and
+#' the (normalized) radiation coverage pattern as calculated by
+#' [beam_profile()]. In the calculation of this overlap metric, `NA` and `NaN`
+#' values in the profile quantity specified by `quantity` are replaced with
+#' zeros.
 #'
 #' The current implementation does not (yet) take into account the system noise
 #' floor when calculating the overlap.
@@ -322,6 +323,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @examples
 #' # Read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#' pvol <- read_pvolfile(pvolfile)
 #'
 #' # Read the vertical profile example
 #' data(example_vp)
