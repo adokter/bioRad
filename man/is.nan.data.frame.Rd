@@ -2,7 +2,7 @@
 % Please edit documentation in R/zzz.R
 \name{is.nan.data.frame}
 \alias{is.nan.data.frame}
-\title{Identify \code{NaN} in a dataframe.}
+\title{Identify \code{NaN} in a dataframe}
 \usage{
 \method{is.nan}{data.frame}(x)
 }
@@ -10,8 +10,8 @@
 \item{x}{A \code{data.frame} object.}
 }
 \value{
-A matrix of the same dimension as \code{x}, with \code{TRUE}/\code{FALSE} values
-for whether each cell in the original data frame is a number or not.
+A matrix of the same dimension as \code{x}, with \code{TRUE}/\code{FALSE} values for
+whether each cell in the original data frame is a number or not.
 }
 \description{
 Identify cells with \code{NaN} (not a number) in a data frame. Improves on the

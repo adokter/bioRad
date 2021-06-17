@@ -11,7 +11,7 @@ An object of class \code{vpts} of dimension 1934 x 25 x 15.
 example_vpts
 }
 \description{
-Example object of class \code{\link[=summary.vpts]{vpts}} with name \code{example_vpts}.
+Example of a \code{\link[=summary.vpts]{vpts}} object with name \code{example_vpts}.
 }
 \examples{
 # Reload example_vpts from package (e.g. in case it was altered)
@@ -31,6 +31,11 @@ sd_vvp_threshold(example_vpts) <- 2
 example_vpts$attributes$where$lat <- 42.2
 example_vpts$attributes$where$lon <- -75.98
 save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.vpts]{summary.vpts()}}
 }
 }
 \keyword{datasets}
