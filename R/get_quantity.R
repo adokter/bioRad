@@ -10,8 +10,8 @@
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #' @param quantity Character. A (case sensitive) profile quantity, one of:
 #'   * `height`: Height bin (lower bound) in m above sea level.
-#'   * `u`: Speed component west to east in m/s.
-#'   * `v`: Speed component south to north in m/s.
+#'   * `u`: Ground speed component west to east in m/s.
+#'   * `v`: Ground speed component south to north in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
 #'   * `ff`: Horizontal speed in m/s.
 #'   * `dd`: Direction in degrees clockwise from north.
@@ -43,7 +43,7 @@
 #' # Extract the animal density (dens) quantity from a vp object
 #' get_quantity(example_vp, "dens")
 #'
-#' # Extract the horizontal speed (ff) quantity from a vpts object and show the
+#' # Extract the horizontal ground speed (ff) quantity from a vpts object and show the
 #' # first two datetimes
 #' get_quantity(example_vpts, "ff")[,1:2]
 get_quantity <- function(x, quantity) {

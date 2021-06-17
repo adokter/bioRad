@@ -20,11 +20,11 @@
 #' * `data`: A data.frame with the profile's quantities organized per height
 #' bin. Use [get_quantity()] to access these:
 #'   * `height`: Height bin (lower bound) in m above sea level.
-#'   * `u`: Speed component west to east in m/s.
-#'   * `v`: Speed component south to north in m/s.
+#'   * `u`: Ground speed component west to east in m/s.
+#'   * `v`: Ground speed component south to north in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
-#'   * `ff`: Horizontal speed in m/s.
-#'   * `dd`: Direction in degrees clockwise from north.
+#'   * `ff`: Horizontal ground speed in m/s.
+#'   * `dd`: Ground speed direction in degrees clockwise from north.
 #'   * `sd_vvp`: VVP radial velocity standard deviation in m/s.
 #'   * `gap`: Angular data gap detected in T/F.
 #'   * `dbz`: Animal reflectivity factor in dBZ.
