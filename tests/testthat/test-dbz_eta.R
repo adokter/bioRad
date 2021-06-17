@@ -1,6 +1,6 @@
 test_that("dbz_to_eta() returns error on incorrect parameters", {
   test_that("dbz_to_eta() returns error on incorrect parameters", {
-    expect_error(dbz_to_eta('not_a_dbz', 10),"`dbz` must be a strictly positive numeric.", fixed = TRUE)
+    expect_error(dbz_to_eta('not_a_dbz', 10),"dbz is not a numeric or integer vector", fixed = TRUE)
     expect_error(dbz_to_eta(7, 'not_a_wavelength'), "`wavelength` must be a strictly positive numeric.", fixed = TRUE)
     expect_error(dbz_to_eta(7, 10,'not_a_K'), "`K` must be a strictly positive numeric.", fixed = TRUE)
   })
