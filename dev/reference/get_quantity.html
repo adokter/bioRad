@@ -191,8 +191,8 @@ height bin. Values for <code>eta</code> are set to <code>0</code>, <code>dbz</co
       <th>quantity</th>
       <td><p>Character. A (case sensitive) profile quantity, one of:</p><ul>
 <li><p><code>height</code>: Height bin (lower bound) in m above sea level.</p></li>
-<li><p><code>u</code>: Speed component west to east in m/s.</p></li>
-<li><p><code>v</code>: Speed component south to north in m/s.</p></li>
+<li><p><code>u</code>: Ground speed component west to east in m/s.</p></li>
+<li><p><code>v</code>: Ground speed component south to north in m/s.</p></li>
 <li><p><code>w</code>: Vertical speed (unreliable!) in m/s.</p></li>
 <li><p><code>ff</code>: Horizontal speed in m/s.</p></li>
 <li><p><code>dd</code>: Direction in degrees clockwise from north.</p></li>
@@ -247,7 +247,7 @@ threshold of an object.</p></li>
 #&gt;   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000 
 #&gt;        4800 
 #&gt;   0.0000000 </div><div class='input'>
-<span class='co'># Extract the horizontal speed (ff) quantity from a vpts object and show the</span>
+<span class='co'># Extract the horizontal ground speed (ff) quantity from a vpts object and show the</span>
 <span class='co'># first two datetimes</span>
 <span class='fu'>get_quantity</span><span class='op'>(</span><span class='va'>example_vpts</span>, <span class='st'>"ff"</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;      2016-09-01 00:02:00 2016-09-01 00:06:00
