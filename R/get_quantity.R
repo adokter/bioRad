@@ -10,8 +10,8 @@
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #' @param quantity Character. A (case sensitive) profile quantity, one of:
 #'   * `height`: Height bin (lower bound) in m above sea level.
-#'   * `u`: Speed component west to east in m/s.
-#'   * `v`: Speed component south to north in m/s.
+#'   * `u`: Ground speed component west to east in m/s.
+#'   * `v`: Ground speed component south to north in m/s.
 #'   * `w`: Vertical speed (unreliable!) in m/s.
 #'   * `ff`: Horizontal speed in m/s.
 #'   * `dd`: Direction in degrees clockwise from north.
@@ -40,17 +40,12 @@
 #' threshold of an object.
 #'
 #' @examples
-#' # Load the example vertical profile
-#' vp <- example_vp
+#' # Extract the animal density (dens) quantity from a vp object
+#' get_quantity(example_vp, "dens")
 #'
-#' # Extract the quantity animal density (dens)
-#' get_quantity(vp, "dens")
-#'
-#' # Load the example time series of vertical profiles
-#' vpts <- example_vpts
-#'
-#' # Extract the quantity horizontal speed (ff) and show the first two datetimes
-#' get_quantity(vpts, "ff")[,1:2]
+#' # Extract the horizontal ground speed (ff) quantity from a vpts object and show the
+#' # first two datetimes
+#' get_quantity(example_vpts, "ff")[,1:2]
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)
 }
@@ -95,7 +90,7 @@ get_quantity.vp <- function(x, quantity = "dens") {
 get_quantity.list <- function(x, quantity = "dens") {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
-    stop("`x` must be list of vp objects.")
+    stop("`x` must be list of `vp` objects.")
   }
   lapply(x, get_quantity.vp, quantity = quantity)
 }

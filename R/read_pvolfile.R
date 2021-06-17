@@ -225,11 +225,17 @@ read_pvolfile_body <- function(file, param = c(
   attribs.where$lat <- vol.lat
   attribs.where$lon <- vol.lon
 
+  # assemble attributes in list
+  attributes <- list(
+    how = attribs.how, what = attribs.what,
+    where = attribs.where
+  )
+
   # read scan groups
   data <- lapply(
     scans,
     function(x) {
-      read_pvolfile_scan(file, x, param, radar, datetime, geo)
+      read_pvolfile_scan(file, x, param, radar, datetime, geo, attributes)
     }
   )
 
@@ -249,10 +255,7 @@ read_pvolfile_body <- function(file, param = c(
   # prepare output
   output <- list(
     radar = radar, datetime = datetime, scans = data,
-    attributes = list(
-      how = attribs.how, what = attribs.what,
-      where = attribs.where
-    ), geo = geo
+    attributes = attributes, geo = geo
   )
   class(output) <- "pvol"
   if (cleanup) {
@@ -261,7 +264,7 @@ read_pvolfile_body <- function(file, param = c(
   output
 }
 
-read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
+read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attributes) {
   h5struct <- h5ls(file)
   h5struct <- h5struct[h5struct$group == paste("/", scan, sep = ""), ]$name
   groups <- h5struct[grep("data", h5struct)]
@@ -326,6 +329,9 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo) {
   quantityNames <- sapply(quantities, "[[", "quantityName")
   quantities <- lapply(quantities, "[[", "quantity")
   names(quantities) <- quantityNames
+
+  # if wavelength is attribute is missing at the scan level, copy it from the pvol level
+  if(is.null(attribs.how$wavelength)) attribs.how$wavelength = attributes$how$wavelength
 
   output <- list(
     radar = radar, datetime = datetime, params = quantities,

@@ -29,8 +29,8 @@ test_that("dim.ppi() returns number of params, x, y", {
 })
 
 test_that("[.ppi subsets by param", {
-  # parameters:  VRADH DBZH ZDR RHOHV PHIDP
-  expect_equal(names(ppi[1]$data), c("VRADH"))
-  expect_equal(names(ppi[2:4]$data), c("DBZH", "ZDR", "RHOHV"))
-  expect_equal(names(ppi[-2:-4]$data), c("VRADH", "PHIDP")) # All except 2 to 4
+  # parameters: DBZH VRADH RHOHV ZDR PHIDP
+  expect_equal(names(ppi[1]$data), c("DBZH"))
+  expect_equal(names(ppi[2:4]$data), c("VRADH", "RHOHV", "ZDR"))
+  expect_equal(names(ppi[-2:-4]$data), c("DBZH", "PHIDP")) # All except 2 to 4
 })

@@ -20,10 +20,10 @@ test_that("summary.vpts() prints metadata to the console", {
 
 test_that("summary.vpts() warns for legacy objects", {
   names(vpts) <- sub("height", "heights", names(vpts)) # Rename to legacy "heights"
-  expect_warning(summary(vpts), "`x` is a legacy vpts object without a column `height`.", fixed = TRUE)
+  expect_warning(summary(vpts), "`x` is a legacy `vpts` object without a column `height`.", fixed = TRUE)
   vpts <- convert_legacy(vpts) # Reset
   names(vpts) <- sub("datetime", "dates", names(vpts)) # Rename to legacy "dates"
-  expect_warning(summary(vpts), "`x` is a legacy vpts object without a column `datetime`.", fixed = TRUE)
+  expect_warning(summary(vpts), "`x` is a legacy `vpts` object without a column `datetime`.", fixed = TRUE)
 })
 
 test_that("is.vpts() returns TRUE/FALSE correctly", {

@@ -1,7 +1,7 @@
-#' Convert legacy bioRad objects to current version
+#' Convert legacy bioRad objects
 #'
-#' Convert legacy bioRad objects (`vp`, `vpts`) that have become obsolete and
-#' make them compatible with the current bioRad version.
+#' Convert legacy bioRad objects (`vp`, `vpts`) and make them compatible with
+#' the current bioRad version. Conversion includes renaming `HGHT` to `height`.
 #'
 #' @param x A `vp` or `vpts` object.
 #'
@@ -9,14 +9,16 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [summary.vp()]
+#' * [summary.vpts()]
+#'
 #' @examples
 #' # Convert a vp object
-#' vp <- example_vp
-#' vp <- convert_legacy(vp)
+#' vp <- convert_legacy(example_vp)
 #'
 #' # Convert a vpts object
-#' vpts <- example_vpts
-#' vpts <- convert_legacy(vpts)
+#' vpts <- convert_legacy(example_vpts)
 convert_legacy <- function(x) {
   UseMethod("convert_legacy", x)
 }

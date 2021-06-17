@@ -37,20 +37,17 @@
 #' * [get_param()]
 #'
 #' @examples
-#' # Load the example scan
-#' scan <- example_scan
-#'
-#' # Verify that it is an object of class scan
-#' is.scan(scan)
+#' # Check if an object is of class scan
+#' is.scan(example_scan)
 #'
 #' # Get summary info
-#' scan # Same as summary(scan) or print(scan)
+#' example_scan # Same as summary(example_scan) or print(example_scan)
 #'
 #' # Get dimensions
-#' dim(scan)
+#' dim(example_scan)
 #'
 #' # Get summary info for the parameters in the scan
-#' scan$params
+#' example_scan$params
 summary.scan <- function(object, ...) {
   print.scan(object)
 }
@@ -71,7 +68,7 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   )
 }
 
-#' Verify if an object is of class `scan`
+#' Check if an object is of class `scan`
 #'
 #' @param x A `scan` object.
 #'

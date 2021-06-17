@@ -21,18 +21,15 @@ Select a vertical profile (\code{vp}) or a time series of vertical profiles
 (\code{vpts}) by index from a \code{vpts}.
 }
 \examples{
-# Load the example time series of vertical profiles
-vpts <- example_vpts
-
-# This vpts contains 1934 profiles (i.e. datetimes)
-dim(vpts)
+# The example vpts contains 1934 profiles (i.e. datetimes)
+dim(example_vpts)
 
 # Subset vpts to extract 10th profile
-vpts[10] # A vp object
+example_vpts[10] # A vp object
 
 # Subset vpts to extract the 20th to 100th profile
-vpts[20:100] # A vpts object with 81 profiles
+example_vpts[20:100] # A vpts object with 81 profiles
 
 # Subset vpts to remove the first 10 profiles
-vpts[-1:-10] # A vpts object with 10 less profiles
+example_vpts[-1:-10] # A vpts object with 10 less profiles
 }

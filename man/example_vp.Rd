@@ -11,7 +11,7 @@ An object of class \code{vp} with 25 rows and 16 columns.
 example_vp
 }
 \description{
-Example object of class \code{\link[=summary.vp]{vp}} with name \code{example_vp}.
+Example of a \code{\link[=summary.vp]{vp}} object with name \code{example_vp}.
 }
 \examples{
 # Reload example_vp from package (e.g. in case it was altered)
@@ -25,6 +25,11 @@ example_vp
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 example_vp <- read_vpfiles(vpfile)
 save(example_vp, file = "data/example_vp.rda")
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.vp]{summary.vp()}}
 }
 }
 \keyword{datasets}
