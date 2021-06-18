@@ -37,4 +37,6 @@ Mathematical and arithmetic operations on param's, scan's and pvol's
 These function do not attempt to check if the operations are sensible.
 For example when combining logarithmic values (e.g. DBZ) it might make
 sense to first take the exponent them before summing them.
+
+When doing operations on object of length one the arguments are recycled
 }

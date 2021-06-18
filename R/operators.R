@@ -13,6 +13,8 @@
 #' For example when combining logarithmic values (e.g. DBZ) it might make
 #' sense to first take the exponent them before summing them.
 #'
+#' When doing operations on object of length one the arguments are recycled
+#'
 #' @export
 #'
 `Math.scan` <- function(x, ...) {
@@ -58,11 +60,13 @@
 `Ops.scan` <- function(e1, e2) {
   if (is.scan(e1)) {
     if (is.scan(e2)) {
-      if(length(e1$params)!=length(e2$params)){
+      l1<-length(e1$params)
+      l2<-length(e2$params)
+      if(l1!=l2 & pmin(l1,l2)!=1){
         stop(paste0("Operation (",.Generic,
-                    ") does not work for scans with unequal number of parameters"))
+                    ") does not work for scans with unequal number of parameters (except for length one)"))
       }
-      if(any(names(e1$params)!=names(e2$params)))
+      if(any(names(e1$params)!=names(e2$params)) & pmin(l1,l2)!=1)
       {
         warning(paste0("The names of parameters do not match, this
                        likely means you try to combine (",.Generic,
