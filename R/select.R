@@ -1,32 +1,35 @@
-select.scan<-function(.data,...){
-  if (!requireNamespace("dplyr", quietly = TRUE))
-    stop("package dplyr required, please install it first") #
-  if (!requireNamespace("rlang", quietly = TRUE))
-    stop("package rlang required, please install it first") #
-  if (!requireNamespace("tidyselect", quietly = TRUE))
-    stop("package tidyselect required, please install it first") #
+select.scan <- function(.data, ...) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("package dplyr required, please install it first")
+  } #
+  if (!requireNamespace("rlang", quietly = TRUE)) {
+    stop("package rlang required, please install it first")
+  } #
+  if (!requireNamespace("tidyselect", quietly = TRUE)) {
+    stop("package tidyselect required, please install it first")
+  } #
   expr <- rlang::expr(c(...))
   pos <- tidyselect::eval_select(expr, data = .data$params)
-  .data$params<-rlang::set_names(.data$params[pos], names(pos))
+  .data$params <- rlang::set_names(.data$params[pos], names(pos))
   .data
 }
 
-select.pvol<-function(.data,...){
-    .data$scans<-lapply(.data$scans, select.scan, ...)
-    .data
+select.pvol <- function(.data, ...) {
+  .data$scans <- lapply(.data$scans, select.scan, ...)
+  .data
 }
 
-register_all_s3_methods = function() {
- # nocov start
+register_all_s3_methods <- function() {
+  # nocov start
   register_s3_method("dplyr", "select", "scan")
   register_s3_method("dplyr", "select", "pvol")
-# nocov end
+  # nocov end
 }
 
 # from: https://github.com/r-spatial/stars/blob/master/R/tidyverse.R
 # from: https://github.com/tidyverse/hms/blob/master/R/zzz.R
 # Thu Apr 19 10:53:24 CEST 2018
-#nocov start
+# nocov start
 register_s3_method <- function(pkg, generic, class, fun = NULL) {
   stopifnot(is.character(pkg), length(pkg) == 1)
   stopifnot(is.character(generic), length(generic) == 1)
@@ -50,4 +53,4 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
     }
   )
 }
-#nocov end
+# nocov end
