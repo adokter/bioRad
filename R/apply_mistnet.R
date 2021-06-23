@@ -26,6 +26,9 @@
 #'
 #' @export
 #'
+#' @seealso
+#' * [calculate_vp()]
+#'
 #' @details
 #' MistNet (Lin et al. 2019) is a deep convolutional neural network that has
 #' been trained using labels derived from S-band dual-polarization data across
