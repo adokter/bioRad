@@ -1,27 +1,22 @@
 example_vpi <- integrate_profile(example_vpts)
 
 test_that("plot.vpi() returns error on incorrect parameters", {
-
   expect_error(plot.vpi("not_a_vpi"))
   expect_error(plot.vpi(example_vpi, quantity = "not_a_quantity"))
 
   # Test error on "param" instead of "quantity"
   expect_error(plot.vpi(example_vpi, param = "ff"))
 
-  # Test warning on deprecated use of "line.col"
+  # Test warning for deprecated arguments
   expect_warning(plot.vpi(example_vpi, line.col = "red"))
-
-  # Test warning on deprecated use of "line.lwd"
   expect_warning(plot.vpi(example_vpi, line.lwd = 1))
   })
 
 test_that("plot.vpi() creates expected graph", {
-
-  # First time run it creates a snapshot, stored under
-  # testthat/_snap/function_name. Then each time test is run creates new
-  # snapshot and checks that it looks identical to previously saved snapshot.
-  # If it fails, a warning is given and the new snapshot is stored with ".new"
-  # appended to name for manual inspection.
+  # On first run: creates a snapshot, stored under testthat/_snap/function_name.
+  # On consecutive runs: creates new snapshot and checks that it looks identical
+  # to previously saved snapshot. If it fails, a warning is given and the new
+  # snapshot is stored with ".new" appended to name for manual inspection.
 
   vdiffr::expect_doppelganger(
     "example_plot_mtr",
@@ -68,4 +63,3 @@ test_that("plot.vpi() creates expected graph", {
     plot.vpi(example_vpi, quantity = "height")
   )
 })
-
