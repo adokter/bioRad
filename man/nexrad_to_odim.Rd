@@ -25,7 +25,8 @@ console. Always \code{TRUE} on Windows.}
 container.}
 
 \item{local_install}{Character. Path to local vol2bird installation (e.g.
-\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird}).}
+\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird}) to use instead of
+the Docker container.}
 }
 \value{
 \code{TRUE} on success

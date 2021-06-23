@@ -66,9 +66,11 @@
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
 #' @param local_install Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`).
+#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use instead of
+#'   the Docker container.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
-#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
+#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use instead of the
+#'   Docker container.
 #'
 #' @return A vertical profile object of class `vp`. When defined, output files
 #'   `vpfile` and `pvolfile_out` are saved to disk.

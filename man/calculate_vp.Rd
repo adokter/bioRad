@@ -116,10 +116,12 @@ scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 angles may compromise segmentation results.}
 
 \item{local_install}{Character. Path to local vol2bird installation (e.g.
-\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird}).}
+\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird}) to use instead of
+the Docker container.}
 
 \item{local_mistnet}{Character. Path to local MistNet segmentation model in
-PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}).}
+PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}) to use instead of the
+Docker container.}
 }
 \value{
 A vertical profile object of class \code{vp}. When defined, output files

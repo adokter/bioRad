@@ -2,7 +2,7 @@
 % Please edit documentation in R/apply_mistnet.R
 \name{apply_mistnet}
 \alias{apply_mistnet}
-\title{Apply MistNet segmentation to a polar volume}
+\title{Apply MistNet segmentation to a polar volume (\code{pvol})}
 \usage{
 apply_mistnet(
   file,
@@ -16,10 +16,11 @@ apply_mistnet(
 )
 }
 \arguments{
-\item{file}{character. File path for a radar polar volume.}
+\item{file}{Character. Path to a polar volume (\code{pvol}) file.}
 
-\item{pvolfile_out}{character. (optional) Filename for the polar volume to be
-stored, including the MistNet segmentation results}
+\item{pvolfile_out}{Character. File name. When provided, writes a polar
+volume (\code{pvol}) file to disk that includes the Mistnet segmentation
+results.}
 
 \item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
 console. Always \code{TRUE} on Windows.}
@@ -27,114 +28,113 @@ console. Always \code{TRUE} on Windows.}
 \item{mount}{Character. Directory path of the mount point for the Docker
 container.}
 
-\item{load}{on completion load the data}
+\item{load}{Logical. When \code{TRUE}, returns a \code{pvol} object.}
 
-\item{mistnet_elevations}{numeric vector of length 5.
-Elevation angles to feed to the MistNet
-segmentation model, which expects exactly 5 elevation scans
-at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
-elevation angles may compromise segmentation results.}
+\item{mistnet_elevations}{Numeric vector of length 5. Elevation angles to
+feed to the MistNet segmentation model, which expects exactly 5 elevation
+scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
+angles may compromise segmentation results.}
 
-\item{local_install}{(optional) String with path to local vol2bird binary
-(e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
-to use local installation instead of Docker container}
+\item{local_install}{Character. Path to local vol2bird installation (e.g.
+\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird}) to use instead of
+the Docker container.}
 
-\item{local_mistnet}{(optional) String with path to local mistnet segmentation model
-in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
-to use local installation instead of Docker container.}
+\item{local_mistnet}{Character. Path to local MistNet segmentation model in
+PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}) to use instead of the
+Docker container.}
 }
 \value{
-If parameter \code{load} is TRUE an object of class \code{pvol} on success.
-If parameter \code{load} is FALSE, \code{TRUE} on success.
+When \code{load} is \code{TRUE}, a polar volume (\code{pvol}) object with the
+Mistnet segmentation results. When \code{load} is \code{FALSE}, \code{TRUE} on success.
 }
 \description{
-Apply MistNet segmentation model to a polar volume file on disk, and load the
-resultant segmentation as a polar volume (\code{pvol}) object.
+Applies the MistNet segmentation model to a polar volume (\code{pvol}) file on
+disk and loads the resulting segmentation as a polar volume (\code{pvol}) object.
 }
 \details{
-MistNet is a deep convolutional neural network that has been trained
-using labels derived from S-band dual-polarization data across the US
-NEXRAD network.
+MistNet (Lin et al. 2019) is a deep convolutional neural network that has
+been trained using labels derived from S-band dual-polarization data across
+the US NEXRAD network. Its purpose is to screen out areas of precipitation in
+weather radar data, primarily legacy data for which dual-polarization data
+are not available. Because the network has been trained on S-band data, it
+may not perform as well on C-band.
 
-It's purpose is to screen out areas of precipitation in weather radar data,
-primarily legacy data for which dual-polarization data are not available.
+MistNet requires three single-polarization parameters as input: reflectivity
+(\code{DBZH}), radial velocity (\code{VRADH}), and spectrum width (\code{WRADH}), at 5
+specific elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on
+these data it can estimate a segmentation mask that identifies pixels with
+weather that should be removed when interested in biological data only.
 
-Because the network has been trained on S-band data, it may not
-perform as well on C-band.
-
-MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
-radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
-elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on these data
-it can estimate a segmentation mask that identifies pixels with weather
-that should be removed when interested only in biological data.
-
-MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
-to a 100\% probability) as additional scan parameters to the polar volume:
-\describe{
-\item{"\code{BACKGROUND}"}{class probability that no signal was detected above the noise level of the radar}
-\item{"\code{WEATHER}"}{class probability that weather was detected}
-\item{"\code{BIOLOGY}"}{class probability that biological scatterers were detected}
+MistNet will calculate three class probabilities (from 0 to 1, with 1
+corresponding to a 100\% probability) as additional scan parameters to the
+polar volume:
+\itemize{
+\item \code{BACKGROUND}: Class probability that no signal was detected above the noise
+level of the radar.
+\item \code{WEATHER}: Class probability that weather was detected.
+\item \code{BIOLOGY}: Class probability that biological scatterers were detected.
 }
+
 These class probabilities are only available for the 5 input elevations used
-as input for the MistNet model. Based on all the class probabilities a final weather segmentation map calculated,
-stored as scan parameter \code{CELL}, which is available for all elevation scans.
-\describe{
-\item{"\code{CELL}"}{Final weather segmentation, with values > 1 indicating pixels
-classified as weather, and values equal to 1 indicating pixels
-that are located within 5 km distance of a weather pixels}
+as input for the MistNet model. Based on all the class probabilities a final
+weather segmentation map is calculated, stored as scan parameter \code{CELL},
+which is available for all elevation scans.
+\itemize{
+\item \code{CELL}: Final weather segmentation, with values > 1 indicating pixels
+classified as weather and values equal to 1 indicating pixels that are
+located within 5 km distance of a weather pixels.
 }
 
-A pixel is classified as weather if the class probability \code{WEATHER} > 0.45
-or when the average class probability for rain across all five MistNet elevation
+A pixel is classified as weather if the class probability \code{WEATHER} > 0.45 or
+when the average class probability for rain across all five MistNet elevation
 scans at that spatial location > 0.45.
 
-MistNet may run more slowly on Windows than on Linux or Mac OSX.
-
-See Lin et al. 2019 for details.
+MistNet may run more slowly on Windows than on Linux or Mac OS X.
 }
 \examples{
 \dontrun{
-# download a NEXRAD file, save as KBGM_example
-download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
-  "2019/10/01/KBGM/KBGM20191001_000542_V06",
-  sep = ""
-), "~/KBGM_example")
+# Download a NEXRAD file and save as KBGM_example
+download.file(
+  "https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
+  "~/KBGM_example"
+)
 
-# calculate MistNet segmentation:
+# Calculate MistNet segmentation
 mistnet_pvol <- apply_mistnet("~/KBGM_example")
 
-# print summary info for the segmented elevation scan at 0.5 degree,
-# verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added:
-my_scan <- get_scan(mistnet_pvol, 0.5)
+# Print summary info for the segmented elevation scan at the 0.5 degree,
+# verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added
+scan <- get_scan(mistnet_pvol, 0.5)
+scan
 
-# project the scan as a ppi:
-my_ppi <- project_as_ppi(my_scan, range_max = 100000)
+# Project the scan as a ppi
+ppi <- project_as_ppi(scan, range_max = 100000)
 
-# plot the reflectivity parameter:
-plot(my_ppi, param = "DBZH")
+# Plot the reflectivity parameter
+plot(ppi, param = "DBZH")
 
-# plot the MistNet class probability [0-1] for weather
-plot(my_ppi, param = "WEATHER")
+# Plot the MistNet class probability [0-1] for weather
+plot(ppi, param = "WEATHER")
 
-# plot the MistNet class probability [0-1] for biology
-plot(my_ppi, param = "BIOLOGY")
+# Plot the MistNet class probability [0-1] for biology
+plot(ppi, param = "BIOLOGY")
 
-# plot the final segmentation result, with values >1 indicating
+# Plot the final segmentation result, with values >1 indicating
 # areas classified as weather, and value 1 pixels that fall within an
-# additional 5 km fringe around weather areas.
-plot(my_ppi, param = "CELL")
+# additional 5 km fringe around weather areas
+plot(ppi, param = "CELL")
 
-# clean up:
+# Remove file
 file.remove("~/KBGM_example")
 }
 }
 \references{
-Please also cite this publication when using MistNet:
+Please cite this publication when using MistNet:
 \itemize{
-\item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
-Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
-MistNet: Measuring historical bird migration in the US using archived
-weather radar data and convolutional neural networks. Methods in Ecology
-and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
+\item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
+Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
+Measuring historical bird migration in the US using archived weather radar
+data and convolutional neural networks. Methods in Ecology and Evolution 10
+(11), pp. 1908-22. \url{doi:10.1111/2041-210X.13280}
 }
 }
