@@ -71,7 +71,7 @@ color bar.}
 Plot a time series of vertical profiles  of class \code{vpts}.
 }
 \details{
-Profile can be visualized in three related quantities, as specified
+Profile can be visualized in four related quantities, as specified
 by argument \code{quantity}:
 \describe{
 \item{"\code{dens}"}{the aerial density of individuals. This quantity is
