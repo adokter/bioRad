@@ -96,7 +96,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
     data[index, 3] <- zlim[2]
   }
   # plot
-  azimuth <- NULL # dummy asignment to suppress devtools check warning
+  azimuth <- NULL # dummy assignment to suppress devtools check warning
   bbox <- coord_cartesian(xlim = xlim, ylim = ylim)
   ggplot(data = data, ...) +
     geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +

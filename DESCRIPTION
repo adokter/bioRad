@@ -46,7 +46,8 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    vdiffr
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
