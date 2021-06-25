@@ -7,7 +7,7 @@ test_that("plot.scan() returns error on incorrect parameters", {
   expect_error(plot.scan(example_scan, quantity = "DBZH"))
 })
 
-test_that("if param missing default to DBZH", {
+test_that("plot.scan() defaults to DBZH on missing param", {
   expect_equal(plot.scan(example_scan), plot.scan(example_scan, param = "DBZH"))
 })
 
@@ -24,16 +24,15 @@ test_that("plot.scan() uses param argument", {
   expect_true("VRADH" %in% names(example.plot$data))
 })
 
-test_that("length does not differ", {
+test_that("plot.scan() returns as much data as in the scan", {
   expect_equal(length(example.plot$data$VRADH), length(example_scan$params$VRADH))
 })
 
 test_that("plot.scan() creates expected graph", {
-
-  # First time run it creates a snapshot, stored under
-  # testthat/_snap/function_name. Then each time creates new snapshot and checks
-  # that it looks identical to previously saved snapshot. If it fails, the new
-  # snapshot is stored with ".new" appended to name.
+  # On first run: creates a snapshot, stored under testthat/_snap/function_name.
+  # On consecutive runs: creates new snapshot and checks that it looks identical
+  # to previously saved snapshot. If it fails, a warning is given and the new
+  # snapshot is stored with ".new" appended to name for manual inspection.
 
   vdiffr::expect_doppelganger(
     "example_plot_DBZH",
