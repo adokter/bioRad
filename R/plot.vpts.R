@@ -37,7 +37,6 @@
 #' @export
 #'
 #' @details Aerial abundances can be visualized in four related quantities, as specified
-#' Profile can be visualized in four related quantities, as specified
 #' by argument \code{quantity}:
 #' \describe{
 #'  \item{"\code{dens}"}{the aerial density of individuals. This quantity is
@@ -177,7 +176,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   # prepare zlim, ticks and legendticks
   if (missing(zlim)) {
     # first define defaults:
-    zlim = c(min(x$data[[quantity]],na.rm = T),max(x$data[[quantity]],na.rm = T))
+    finite_data <- (x$data[[quantity]][is.finite(x$data[[quantity]])])
+    zlim = c(min(finite_data),max(finite_data))
     legendticks <- ticks <- seq(zlim[1], zlim[2], length.out = 10)
     # specific quantities:
     if (quantity == "dens" & log) {
