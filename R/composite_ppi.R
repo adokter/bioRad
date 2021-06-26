@@ -1,67 +1,60 @@
-#' Create a composite of multiple plan position indicators (\code{ppi})
+#' Create a composite of multiple plan position indicators (`ppi`)
 #'
-#' Combines multiple plan position indicators (\code{ppi}) into a single
-#' \code{ppi}. Can be used to make a composite of \code{ppi}'s from multiple
-#' radars.
+#' Combines multiple plan position indicators (`ppi`) into a single `ppi`. Can
+#' be used to make a composite of `ppi`s from multiple radars.
 #'
 #' @inheritParams integrate_to_ppi
-#' @param x A list of \code{ppi} objects.
-#' @param param Scan parameter to composite.
-#' @param method string. Compositing method, one of "mean", "min", "max" or "idw"
-#' @param idw_max_distance numeric. Maximum distance from the radar to consider in
-#' inverse distance weighting. Measurements beyond this distance will have a
-#' weighting factor of zero.
-#' @param idp numeric. inverse distance weighting power
+#' @param x A list of `ppi` objects.
+#' @param param Character. Scan parameter to composite.
+#' @param method Character. Compositing method, either `mean`, `min`, `max` or
+#'   `idw`.
+#' @param idw_max_distance Numeric. Maximum distance from the radar to consider
+#'   in inverse distance weighting. Measurements beyond this distance will have
+#'   a weighting factor of zero.
+#' @param idp Numeric. Inverse distance weighting power.
 #'
-#' @return A \code{\link[=summary.ppi]{ppi}}.
+#' @return A `ppi` object.
 #'
 #' @export
 #'
 #' @details
-#' This function composites multiple ppi objects into a ppi object that
-#' combines all data.
+#' The function can combine multiple `ppi`s of different scan elevations of the
+#' same radar or `ppi`s of different radars. The coordinates of the returned
+#' `ppi` object are in the WGS84 datum.
 #'
-#' Either multiple ppi's of different scan elevation of the same radar may be combined,
-#' or ppi's of different radars can be composited.
+#' The `method` parameter determines how values of different `ppi`s at the same
+#' geographic location are combined:
+#' * `mean`: Compute the average value.
+#' * `max`: Compute the maximum value. If `ppi`s are of the same radar and the
+#' same polar volume, this computes a max product, showing the maximum detected
+#' signal at that geographic location.
+#' * `min`: Compute the minimum value.
+#' * `idw`: This option is useful primarily when compositing `ppi`s of multiple
+#' radars. Performs an inverse distance weighting, where values are weighted
+#' according to 1/(distance from the radar)^`idp`.
 #'
-#' Argument \code{method} determines how values of different ppi's at the same
-#' geographic location are combined.
-#' \describe{
-#' \item{\code{"mean"}}{Compute the average value}
-#' \item{\code{"max"}}{Compute the maximum value. If ppi's are of the same radar
-#' and the same polar volume, this computes a max product, showing the maximum
-#' detected signal at that geographic location.}
-#' \item{\code{"min"}}{Compute the minimum value}
-#' \item{\code{"idw"}}{This option is useful primarily when compositing ppi's of
-#' multiple radars. Performs an inverse distance weighting, where values are
-#' weighted according to 1/(distance from the radar)^\code{idp}}
-#' }
-#'
-#' The coordinates system of the returned \code{ppi} is a WGS84
-#' (lat,lon) datum.
-#'
-#' This function is a prototype and under active development
+#' @seealso
+#' * [summary.ppi()]
+#' * [project_as_ppi()]
 #'
 #' @examples
-#' # locate example volume file:
-#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-#'
-#' # load the file:
-#' example_pvol <- read_pvolfile(pvolfile)
-#'
-#' # calculate a ppi for each elevation scan
-#' my_ppis <- lapply(example_pvol$scans, project_as_ppi)
-#'
-#' # overlay the ppi's, calculating the maximum value observed
-#' # across the available scans at each geographic location
-#' my_composite <- composite_ppi(my_ppis, method="max")
-#'
 #' \dontrun{
-#' # download basemap
-#' bm <- download_basemap(my_composite)
+#' # Locate and read the polar volume example file
+#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#' pvol <- read_pvolfile(pvolfile)
 #'
-#' # plot the calculated max product on the basemap
-#' map(my_composite, bm)
+#' # Calculate a ppi for each elevation scan
+#' ppis <- lapply(pvol$scans, project_as_ppi)
+#'
+#' # Overlay the ppis, calculating the maximum value observed
+#' # across the available scans at each geographic location
+#' composite <- composite_ppi(ppis, method = "max")
+#'
+#' # Download basemap
+#' bm <- download_basemap(composite)
+#'
+#' # Plot the calculated max product on the basemap
+#' map(composite, bm)
 #' }
 composite_ppi <- function(x, param = "DBZH", nx = 100, ny = 100, xlim, ylim, res, crs, raster = NA, method = "max", idp = 2, idw_max_distance=NA) {
   if (FALSE %in% sapply(x, is.ppi)) {
