@@ -184,24 +184,30 @@ mount_docker_container <- function(mount = "~/") {
   return(result)
 }
 
-#' Check version of the vol2bird algorithm used by bioRad
+#' Get installed vol2bird version
 #'
-#' Checks that \href{https://www.docker.com/}{Docker} daemon is running
-#' correctly on the local system and returns the version of the
-#' installed vol2bird algorithm in the Docker container.
+#' Returns the version of the vol2bird algorithm currently installed and used by
+#' bioRad. This will either be the version installed in the Docker daemon
+#' (default, see [check_docker()]) or the version at `local_install`.
 #'
-#' @details when argument \code{local_install} is specified with
-#' a path to a local executable of vol2bird, the function will return
-#' the version of this local installation.
+#' @param local_install Character. Path to local vol2bird installation, see
+#'   [calculate_vp()] for details.
+#'
+#' @return
+#' * Version number of installed vol2bird.
+#' * `NA`: Error: Docker system command not available.
+#' * `NaN`: Error: Docker daemon not running.
+#' * `NULL`: Error: Docker vol2bird image not available.
 #'
 #' @export
-#' @param local_install (optional) String with path to local
-#' vol2bird installation, see \link{calculate_vp} for details.
-#' @return an object of class \link{numeric_version}, NA if docker system command not available,
-#' NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
+#'
+#' @seealso
+#' * [check_docker()]
+#' * [update_docker()]
+#'
 #' @examples
 #' \dontrun{
-#' # check installed vol2bird version:
+#' # Check installed vol2bird version
 #' vol2bird_version()
 #' }
 vol2bird_version <- function(local_install) {

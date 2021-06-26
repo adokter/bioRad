@@ -2,31 +2,36 @@
 % Please edit documentation in R/docker.R
 \name{vol2bird_version}
 \alias{vol2bird_version}
-\title{Check version of the vol2bird algorithm used by bioRad}
+\title{Get installed vol2bird version}
 \usage{
 vol2bird_version(local_install)
 }
 \arguments{
-\item{local_install}{(optional) String with path to local
-vol2bird installation, see \link{calculate_vp} for details.}
+\item{local_install}{Character. Path to local vol2bird installation, see
+\code{\link[=calculate_vp]{calculate_vp()}} for details.}
 }
 \value{
-an object of class \link{numeric_version}, NA if docker system command not available,
-NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
+\itemize{
+\item Version number of installed vol2bird.
+\item \code{NA}: Error: Docker system command not available.
+\item \code{NaN}: Error: Docker daemon not running.
+\item \code{NULL}: Error: Docker vol2bird image not available.
+}
 }
 \description{
-Checks that \href{https://www.docker.com/}{Docker} daemon is running
-correctly on the local system and returns the version of the
-installed vol2bird algorithm in the Docker container.
-}
-\details{
-when argument \code{local_install} is specified with
-a path to a local executable of vol2bird, the function will return
-the version of this local installation.
+Returns the version of the vol2bird algorithm currently installed and used by
+bioRad. This will either be the version installed in the Docker daemon
+(default, see \code{\link[=check_docker]{check_docker()}}) or the version at \code{local_install}.
 }
 \examples{
 \dontrun{
-# check installed vol2bird version:
+# Check installed vol2bird version
 vol2bird_version()
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=check_docker]{check_docker()}}
+\item \code{\link[=update_docker]{update_docker()}}
 }
 }
