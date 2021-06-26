@@ -16,7 +16,6 @@ color_scale <- function(param, zlim, na.value = "transparent") {
   return(colorscale)
 }
 
-
 color_scale_fill <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- scale_fill_gradient2(
@@ -55,7 +54,7 @@ color_palette <- function(param, n_color, alpha){
   return(cols)
 }
 
-# convert a vector of colors to a ScaleContinuous (fill) color scale object
+# Convert a vector of colors to a ScaleContinuous (fill) color scale object
 color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transparent"){
   ggplot2::scale_fill_gradientn(
     colours = colors,
@@ -64,7 +63,7 @@ color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transpa
     na.value = na.value)
 }
 
-# convert a vector of colors to a ScaleContinuous (colour) color scale object
+# Convert a vector of colors to a ScaleContinuous (colour) color scale object
 color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "transparent"){
   ggplot2::scale_colour_gradientn(
     colours = colors,
@@ -73,8 +72,8 @@ color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "trans
     na.value = na.value)
 }
 
-# helper function to add transparency
-# class dispatching needs improvement
+# Helper function to add transparency
+# TODO: class dispatching needs improvement
 add_color_transparency <- function(color, alpha = 1) {
   if (missing(color)) {
     stop("Please provide a vector or matrix of colours.")
@@ -97,7 +96,7 @@ add_color_transparency <- function(color, alpha = 1) {
   }
 }
 
-# color scale used in map plots:
+# Color scale used in map plots
 colors_dbz <- c(
   "lightblue", "darkblue",
   "green", "yellow", "red",
@@ -105,7 +104,7 @@ colors_dbz <- c(
 )
 colors_vrad <- c("blue", "white", "red")
 
-# color scale used in vertical profile plots:
+# Color scale used in vertical profile plots
 r_points <- c(1, 63, 82, 94, 146, 177, 192, 209, 256)
 r_values <- c(255, 255, 163, 255, 255, 81, 81, 0, 0)
 g_points <- c(1, 65, 80, 111, 143, 256)
