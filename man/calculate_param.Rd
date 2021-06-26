@@ -5,7 +5,8 @@
 \alias{calculate_param.pvol}
 \alias{calculate_param.ppi}
 \alias{calculate_param.scan}
-\title{Calculate a new scan parameter}
+\title{Calculate a new parameter (\code{param}) for a scan (\code{scan}) or polar volume
+(\code{pvol})}
 \usage{
 calculate_param(x, ...)
 
@@ -16,58 +17,63 @@ calculate_param(x, ...)
 \method{calculate_param}{scan}(x, ...)
 }
 \arguments{
-\item{x}{an object of class \code{pvol} or class \code{scan}}
+\item{x}{A \code{pvol} or \code{scan} object.}
 
-\item{...}{an expression defining the new scan parameter in terms of existing scan parameters}
+\item{...}{An expression defining the new scan parameter in terms of existing
+scan parameters.}
 }
 \value{
-an object of the same class as \code{x}, either class \code{pvol} or class \code{scan}
+An object of the same class as \code{x}, either a \code{pvol} or \code{scan}.
 }
 \description{
-Calculates a new scan parameter from a combination of existing scan parameters. Useful
-for calculating quantities that are defined in terms of other basic radar moments, like
-linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for applying
-clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH
+Calculates a new scan parameter (\code{param}) from a combination of existing scan
+parameters. Useful for calculating quantities that are defined in terms of
+other basic radar moments, like linear reflectivity eta, depolarization ratio
+(Kilambi et al. 2018), or for applying clutter corrections (\code{CCORH}) to
+uncorrected reflectivity moments (\code{TH}) as \code{TH + CCORH}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{pvol}: Calculate a new scan parameter for all scans in a polar volume.
+\item \code{pvol}: Calculate a new parameter (\code{param}) for all scans
+in a polar volume (\code{pvol}).
 
-\item \code{ppi}: Calculate a new parameter for a PPI.
+\item \code{ppi}: Calculate a new parameter (\code{param}) for a plan
+position indicator (\code{ppi}).
 
-\item \code{scan}: Calculate a new scan parameter for a scan
+\item \code{scan}: Calculate a new parameter (\code{param}) for a scan
+(\code{scan}).
 }}
 
 \examples{
-# locate example volume file:
+# Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+pvol <- read_pvolfile(pvolfile)
 
-# load the file:
-example_pvol <- read_pvolfile(pvolfile)
-data(example_scan)
+# Calculate linear reflectivity ETA from reflectivity factor DBZH
+radar_wavelength <- pvol$attributes$how$wavelength
+pvol <- calculate_param(pvol, ETA = dbz_to_eta(DBZH, radar_wavelength))
 
-# calculate linear reflectivity ETA from reflectivity factor DBZH:
-radar_wavelength <- example_pvol$attributes$how$wavelength
-# example_pvol <- calculate_param(example_pvol,ETA=dbz_to_eta(DBZH,radar_wavelength))
-
-# add depolarization ratio (DR) as a scan parameter (see Kilambi 2018):
-example_pvol <- calculate_param(example_pvol, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
+# Add depolarization ratio (DR) as a scan parameter (see Kilambi 2018)
+pvol <- calculate_param(pvol, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
 
-# calculate_param operates on both pvol and scan objects:
+# The function also works on scan and ppi objects
 calculate_param(example_scan, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
 
-# it also works for ppis
 ppi <- project_as_ppi(example_scan)
 calculate_param(ppi, exp(DBZH))
-
 }
 \references{
 \itemize{
-\item Kilambi, A., Fabry, F., and Meunier, V., 2018. A simple and effective method
-for separating meteorological from nonmeteorological targets using dual-polarization
-data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
-\url{https://doi.org/10.1175/JTECH-D-17-0175.1}
+\item Kilambi A, Fabry F, Meunier V (2018) A simple and effective method for
+separating meteorological from nonmeteorological targets using
+dual-polarization data. Journal of Atmospheric and Oceanic Technology 35, pp.
+1415–1424. \url{doi:10.1175/JTECH-D-17-0175.1}
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=get_param]{get_param()}}
 }
 }

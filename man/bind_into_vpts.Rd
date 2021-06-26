@@ -16,64 +16,50 @@ bind_into_vpts(x, ...)
 \method{bind_into_vpts}{vpts}(..., attributes_from = 1)
 }
 \arguments{
-\item{x}{A \code{vp}, \code{vpts} or a vector of these.}
+\item{x}{A \code{vp} or \code{vpts} object or a vector of these.}
 
-\item{...}{A \code{vp}, \code{vpts} or a vector of these.}
+\item{...}{A \code{vp} or \code{vpts} object or a vector of these.}
 
-\item{attributes_from}{integer. Which \code{vpts} to copy attributes from (default:
-first).}
+\item{attributes_from}{Integer. Which \code{vpts} to copy attributes from
+(default: first).}
 }
 \value{
-A \code{\link[=summary.vpts]{vpts}} for a single radar or a list of
-\code{vpts} for multiple radars. Input \code{vp} are sorted in time in the
-output \code{vpts}.
+A \code{vpts} for a single radar or a list of \code{vpts} for multiple radars.
+Input \code{vp} are sorted on datetime in the output \code{vpts}.
 }
 \description{
-Binds vertical profiles (\code{vp}) into a vertical profile time series
-(\code{vpts}), sorted in time. Can also bind multiple \code{vpts} of a
-single radar into one \code{vpts}.
+Binds vertical profiles (\code{vp}) into a vertical profile time series (\code{vpts}),
+sorted on datetime. Can also bind multiple \code{vpts} of the same radar into a
+single \code{vpts}.
 }
 \details{
 \code{bind_into_vpts()} currently requires profiles to have aligning altitude
 layers that are of equal width. Profiles are allowed to differ in the number
-of altitude layers, i.e. the maximum altitude
+of altitude layers, i.e. the maximum altitude.
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{vp}: Bind multiple \code{vp} into a \code{vpts}.
-If \code{vp} for multiple radars are provided, a list is returned containing
-a \code{vpts} for each radar.
-
-\item \code{list}: Bind multiple \code{vp} objects into a
-\code{vpts}. If data for multiple radars is provided, a list is returned
-containing a \code{vpts} for each radar.
-
-\item \code{vpts}: Bind multiple \code{vpts} into a single
-\code{vpts}. Requires the input \code{vpts} to be from the same radar.
-}}
-
 \examples{
-# load example time series of vertical profiles:
-data(example_vpts)
-
-# split the vpts into two separate time series, one containing profile 1-10,
-# and a second containing profile 11-20:
+# Split the example vpts into two separate time series, one containing
+# profile 1-10 and a second containing profile 11-20
 vpts1 <- example_vpts[1:10]
 vpts2 <- example_vpts[11:20]
 
-# use bind_into_vpts to bind the two together:
-vpts1and2 <- bind_into_vpts(vpts1, vpts2)
+# Bind the two vpts together
+vpts1_and_2 <- bind_into_vpts(vpts1, vpts2)
 
-# verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from
-# vpts2:
-summary(vpts1and2)
+# Verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from
+# vpts2
+summary(vpts1_and_2)
 
-# extract two profiles:
+# Extract two profiles
 vp1 <- example_vpts[1]
-vp1
 vp2 <- example_vpts[2]
-vp2
 
-# bind the two profiles back into a vpts:
+# Bind the two profiles back into a vpts
 bind_into_vpts(vp1, vp2)
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.vp]{summary.vp()}}
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+}
 }

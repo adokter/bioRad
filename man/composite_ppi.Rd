@@ -23,9 +23,8 @@ composite_ppi(
 \arguments{
 \item{x}{A list of \code{ppi} objects.}
 
-\item{param}{The scan parameter name(s) to composite. An atomic vector of character strings
-can be provided to composite multiple scan parameters at once. To composite all available
-scan parameters use 'all' (default).}
+\item{param}{Character (vector). One or more parameter name(s) to composite.
+To composite all available scan parameters use \code{all} (default).}
 
 \item{nx}{number of raster pixels in the x (longitude) dimension}
 
@@ -45,73 +44,70 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 \item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
 arguments are ignored.}
 
-\item{method}{string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
-names of length(param) to apply different methods to each of the parameters.}
+\item{method}{Character (vector). Compositing method(s), either \code{mean},
+\code{min}, \code{max} or \code{idw}. To apply different methods for each of the
+parameters, provide a vector with the same length as \code{param}.}
 
-\item{idp}{numeric. inverse distance weighting power.}
+\item{idp}{Numeric. Inverse distance weighting power.}
 
-\item{idw_max_distance}{numeric. Maximum distance from the radar to consider in
-inverse distance weighting. Measurements beyond this distance will have a
-weighting factor of zero.}
+\item{idw_max_distance}{Numeric. Maximum distance from the radar to consider
+in inverse distance weighting. Measurements beyond this distance will have
+a weighting factor of zero.}
 
-\item{coverage}{logical. When TRUE adds an additional "coverage" parameter to the \code{ppi} with the
-number of PPIs covering a single composite \code{ppi} pixel.}
+\item{coverage}{Logical. When \code{TRUE}, adds an additional \code{coverage} parameter
+to the \code{ppi} indicating the number of \code{ppi}s covering a single composite
+pixel.}
 }
 \value{
-A \code{\link[=summary.ppi]{ppi}}.
+A \code{ppi} object.
 }
 \description{
-Combines multiple plan position indicators (\code{ppi}) into a single
-\code{ppi}. Can be used to make a composite of \code{ppi}'s from multiple
-radars.
+Combines multiple plan position indicators (\code{ppi}) into a single \code{ppi}. Can
+be used to make a composite of \code{ppi}s from multiple radars.
 }
 \details{
-This function composites multiple ppi objects into a ppi object that
-combines all data.
+The function can combine multiple \code{ppi}s of different scan elevations of the
+same radar or \code{ppi}s of different radars. The coordinates of the returned
+\code{ppi} object are in the WGS84 datum, unless a different \code{crs} is provided. If
+only \code{res} is provided, but no \code{crs} is set, \code{res} is in meters and the
+origin of the composite \code{ppi} is set to the mean(lat, lon) location.
 
-Either multiple ppi's of different scan elevation of the same radar may be combined,
-or ppi's of different radars can be composited.
-
-Argument \code{method} determines how values of different ppi's at the same
-geographic location are combined.
-\describe{
-\item{\code{"mean"}}{Compute the average value}
-\item{\code{"max"}}{Compute the maximum value. If ppi's are of the same radar
-and the same polar volume, this computes a max product, showing the maximum
-detected signal at that geographic location.}
-\item{\code{"min"}}{Compute the minimum value}
-\item{\code{"idw"}}{This option is useful primarily when compositing ppi's of
-multiple radars. Performs an inverse distance weighting, where values are
-weighted according to 1/(distance from the radar)^\code{idp}}
+The \code{method} parameter determines how values of different \code{ppi}s at the same
+geographic location are combined:
+\itemize{
+\item \code{mean}: Compute the average value.
+\item \code{max}: Compute the maximum value. If \code{ppi}s are of the same radar and the
+same polar volume, this computes a max product, showing the maximum detected
+signal at that geographic location.
+\item \code{min}: Compute the minimum value.
+\item \code{idw}: This option is useful primarily when compositing \code{ppi}s of multiple
+radars. Performs an inverse distance weighting, where values are weighted
+according to 1/(distance from the radar)^\code{idp}.
 }
-
-The coordinates system of the returned \code{ppi} is a WGS84
-(lat, lon) datum, unless a different \code{crs} is provided. If only
-\code{res} is provided, but no \code{crs} is set, \code{res} is in
-meter units and the origin of the composite \code{ppi} is set to the
-mean (lat, lon) location.
-
-This function is a prototype and under active development
 }
 \examples{
-# locate example volume file:
-pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-
-# load the file:
-example_pvol <- read_pvolfile(pvolfile)
-
-# calculate a ppi for each elevation scan
-my_ppis <- lapply(example_pvol$scans, project_as_ppi)
-
-# overlay the ppi's, calculating the maximum value observed
-# across the available scans at each geographic location
-my_composite <- composite_ppi(my_ppis, method="max")
-
 \dontrun{
-# download basemap
-bm <- download_basemap(my_composite)
+# Locate and read the polar volume example file
+pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+pvol <- read_pvolfile(pvolfile)
 
-# plot the calculated max product on the basemap
-map(my_composite, bm)
+# Calculate a ppi for each elevation scan
+ppis <- lapply(pvol$scans, project_as_ppi)
+
+# Overlay the ppis, calculating the maximum value observed
+# across the available scans at each geographic location
+composite <- composite_ppi(ppis, method = "max")
+
+# Download basemap
+bm <- download_basemap(composite)
+
+# Plot the calculated max product on the basemap
+map(composite, bm)
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.ppi]{summary.ppi()}}
+\item \code{\link[=project_as_ppi]{project_as_ppi()}}
 }
 }
