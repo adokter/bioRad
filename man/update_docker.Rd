@@ -7,29 +7,28 @@
 update_docker(mistnet = FALSE)
 }
 \arguments{
-\item{mistnet}{logical. When True, installs MistNet segmentation model,
-downloading an additional 1GB Docker image
-(see \link{apply_mistnet} for details).}
+\item{mistnet}{Logical. When \code{TRUE}, installs the MistNet segmentation model,
+downloading an additional 1GB Docker image (see \code{\link[=apply_mistnet]{apply_mistnet()}}).}
 }
 \value{
-the POSIXct creation date of the installed Docker image
+The POSIXct creation date of the installed Docker image.
 }
 \description{
-Pulls and installs the latest Docker image used by bioRad from Docker hub
-}
-\details{
-This command pulls the latest
-\href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image
-from \href{https://hub.docker.com}{Docker hub}.
-Run this command to ensure all Docker functionality (e.g. the
-\link{calculate_vp} function) runs at the latest available version.
-
-To install the MistNet segmentation model into bioRad,
-run \code{update_docker(mistnet = TRUE)}
+Pulls and installs the latest \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird Docker image} from Docker hub. Run this
+command to ensure all Docker functionality (e.g. for \code{\link[=calculate_vp]{calculate_vp()}}) makes
+use of the latest available version.
 }
 \examples{
 \dontrun{
-# update the vol2bird docker image:
+# Update the vol2bird docker image
 update_docker()
+
+# Update the vol2bird docker image and install the MistNet segmentation model
+update_docker(mistnet = TRUE)
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=check_docker]{check_docker()}}
 }
 }

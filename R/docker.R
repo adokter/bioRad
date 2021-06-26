@@ -1,15 +1,24 @@
 #' Check if Docker is running
 #'
-#' Checks that \href{https://www.docker.com/}{Docker} daemon is running
-#' correctly on the local system, and that vol2bird Docker image is available.
-#' @param verbose logical. When TRUE messages are printed to
-#' R console.
+#' Checks if the [Docker](https://www.docker.com/) daemon is running correctly
+#' on the local system and that vol2bird Docker image is available.
+#'
+#' @param verbose Logical. When `TRUE`, messages are printed to R console.
+#'
+#' @return
+#' * `0`: Success.
+#' * `1`: Error: Docker vol2bird image not available.
+#' * `2`: Error: Docker daemon not running.
+#' * `3`: Error: Docker daemon not found.
+#'
 #' @export
-#' @return 0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
-#' 2 if Docker daemon not running, 3 if Docker daemon not found.
+#'
+#' @seealso
+#' * [update_docker()]
+#'
 #' @examples
 #' \dontrun{
-#' # check if Docker is running and vol2bird image is available:
+#' # Check if Docker is running and vol2bird image is available
 #' check_docker()
 #' }
 check_docker <- function(verbose = TRUE) {
@@ -42,25 +51,28 @@ check_docker <- function(verbose = TRUE) {
 
 #' Update Docker image from Docker hub
 #'
-#' Pulls and installs the latest Docker image used by bioRad from Docker hub
-#' @param mistnet logical. When True, installs MistNet segmentation model,
-#' downloading an additional 1GB Docker image
-#' (see \link{apply_mistnet} for details).
-#' @details
-#' This command pulls the latest
-#' \href{https://hub.docker.com/r/adokter/vol2bird/}{vol2bird} Docker image
-#' from \href{https://hub.docker.com}{Docker hub}.
-#' Run this command to ensure all Docker functionality (e.g. the
-#' \link{calculate_vp} function) runs at the latest available version.
+#' Pulls and installs the latest [vol2bird Docker
+#' image](https://hub.docker.com/r/adokter/vol2bird/) from Docker hub. Run this
+#' command to ensure all Docker functionality (e.g. for [calculate_vp()]) makes
+#' use of the latest available version.
 #'
-#' To install the MistNet segmentation model into bioRad,
-#' run \code{update_docker(mistnet = TRUE)}
+#' @param mistnet Logical. When `TRUE`, installs the MistNet segmentation model,
+#'   downloading an additional 1GB Docker image (see [apply_mistnet()]).
+#'
+#' @return The POSIXct creation date of the installed Docker image.
+#'
 #' @export
-#' @return the POSIXct creation date of the installed Docker image
+#'
+#' @seealso
+#' * [check_docker()]
+#'
 #' @examples
 #' \dontrun{
-#' # update the vol2bird docker image:
+#' # Update the vol2bird docker image
 #' update_docker()
+#'
+#' # Update the vol2bird docker image and install the MistNet segmentation model
+#' update_docker(mistnet = TRUE)
 #' }
 update_docker <- function(mistnet = FALSE) {
   creationDate <- NULL

@@ -7,20 +7,28 @@
 check_docker(verbose = TRUE)
 }
 \arguments{
-\item{verbose}{logical. When TRUE messages are printed to
-R console.}
+\item{verbose}{Logical. When \code{TRUE}, messages are printed to R console.}
 }
 \value{
-0 upon success, otherwise an error code: 1 if Docker vol2bird image not available,
-2 if Docker daemon not running, 3 if Docker daemon not found.
+\itemize{
+\item \code{0}: Success.
+\item \code{1}: Error: Docker vol2bird image not available.
+\item \code{2}: Error: Docker daemon not running.
+\item \code{3}: Error: Docker daemon not found.
+}
 }
 \description{
-Checks that \href{https://www.docker.com/}{Docker} daemon is running
-correctly on the local system, and that vol2bird Docker image is available.
+Checks if the \href{https://www.docker.com/}{Docker} daemon is running correctly
+on the local system and that vol2bird Docker image is available.
 }
 \examples{
 \dontrun{
-# check if Docker is running and vol2bird image is available:
+# Check if Docker is running and vol2bird image is available
 check_docker()
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=update_docker]{update_docker()}}
 }
 }
