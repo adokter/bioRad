@@ -275,6 +275,7 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 }
 \seealso{
 \itemize{
+\item \code{\link[=check_docker]{check_docker()}}
 \item \code{\link[=summary.pvol]{summary.pvol()}}
 \item \code{\link[=summary.vp]{summary.vp()}}
 }

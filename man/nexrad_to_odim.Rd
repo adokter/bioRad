@@ -52,3 +52,8 @@ get_odim_object_type("~/KBGM_example.h5")
 file.remove("~/KBGM_example", "~/KBGM_example.h5")
 }
 }
+\seealso{
+\itemize{
+\item \code{\link[=check_docker]{check_docker()}}
+}
+}

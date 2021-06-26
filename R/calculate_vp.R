@@ -169,6 +169,7 @@
 #' be downloaded at <https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt>.
 #'
 #' @seealso
+#' * [check_docker()]
 #' * [summary.pvol()]
 #' * [summary.vp()]
 #'

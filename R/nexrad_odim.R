@@ -8,6 +8,9 @@
 #'
 #' @return \code{TRUE} on success
 #'
+#' @seealso
+#' * [check_docker()]
+#'
 #' @export
 #' @examples
 #' \dontrun{

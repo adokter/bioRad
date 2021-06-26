@@ -63,6 +63,7 @@
 #' MistNet may run more slowly on Windows than on Linux or Mac OS X.
 #'
 #' @seealso
+#' * [check_docker()]
 #' * [calculate_vp()]
 #'
 #' @references
