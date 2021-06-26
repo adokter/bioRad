@@ -37,9 +37,12 @@
 #' pvol <- calculate_param(pvol, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
 #'   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
 #'
-#' # The function also works on scan rather than pvol objects
+#' # The function also works on scan and ppi objects
 #' calculate_param(example_scan, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
 #'   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
+#'
+#' ppi <- project_as_ppi(example_scan)
+#' calculate_param(ppi, exp(DBZH))
 calculate_param <- function(x, ...) {
   UseMethod("calculate_param", x)
 }
@@ -48,8 +51,28 @@ calculate_param <- function(x, ...) {
 #'   in a polar volume (`pvol`).
 #' @export
 calculate_param.pvol <- function(x, ...) {
-  assert_that(class(x) == "pvol")
+  assert_that(is.pvol(x))
   x$scans <- do.call(lapply, list(x$scans, calculate_param.scan, substitute(list(...))))
+  return(x)
+}
+
+#' @describeIn calculate_param Calculate a new parameter (`param`) for a plan
+#'   position indicator (`ppi`).
+#' @export
+calculate_param.ppi <- function(x, ...) {
+  assert_that(is.ppi(x))
+  calc <- as.list(substitute(list(...)))[-1L]
+  name <- names(calc)
+  if (is.null(name)) {
+    name <- rep("", length(calc))
+  }
+  for (i in seq_along(calc)) {
+    newParam <- eval(nn <- (calc[[i]]), x$data@data)
+    if ("" == (name[[i]])) {
+      name[[i]] <- deparse(nn, width.cutoff = 250L)[1]
+    }
+    x$data@data[,name[[i]]]<-newParam
+  }
   return(x)
 }
 
@@ -57,7 +80,7 @@ calculate_param.pvol <- function(x, ...) {
 #'  (`scan`).
 #' @export
 calculate_param.scan <- function(x, ...) {
-  assert_that(class(x) == "scan")
+  assert_that(is.scan(x))
   # check if all parameters are equal
   attr_to_check<-c('class','radar','datetime','geo','dim')
   for(i in attr_to_check){

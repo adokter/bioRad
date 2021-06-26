@@ -12,6 +12,11 @@
 #'
 #' @export
 #'
+#' @details
+#' `bind_into_vpts()` currently requires profiles to have aligning altitude
+#' layers that are of equal width. Profiles are allowed to differ in the number
+#' of altitude layers, i.e. the maximum altitude.
+#'
 #' @seealso
 #' * [summary.vp()]
 #' * [summary.vpts()]
@@ -42,7 +47,7 @@ bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 #' @export
 bind_into_vpts.vp <- function(...) {
   vps <- list(...)
-  vptest <- sapply(vps, function(x) is(x, "vp"))
+  vptest <- sapply(vps, is.vp)
   if (FALSE %in% vptest) {
     stop("requires vp objects as input")
   }
@@ -68,7 +73,7 @@ bind_into_vpts.list <- function(x, ...) {
 #' @export
 bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   vptss <- list(...)
-  vptstest <- sapply(vptss, function(x) is(x, "vpts"))
+  vptstest <- sapply(vptss, is.vpts)
   if (FALSE %in% vptstest) {
     stop("requires vpts objects as input")
   }
@@ -77,9 +82,12 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   if (length(radars) > 1) {
     stop("Vertical profiles are not from a single radar")
   }
-  if (length(unique(lapply(vptss, "[[", "height"))) > 1) {
-    stop("Vertical profiles have non-aligning altitude layers")
+  height_list <- lapply(vptss, "[[", "height")
+  if (length(unique(height_list)) > 1) {
+    target_heights <- combined_heights(height_list)
+    vptss <- lapply(vptss, add_heights_vpts, target = target_heights)
   }
+
   if (length(unique(lapply(vptss, function(x) names(x$"data")))) > 1) {
     stop("Vertical profiles have different quantities")
   }
@@ -147,7 +155,41 @@ vplist_to_vpts <- function(x, radar = NA) {
     ))
   }
 }
-
+combined_heights <- function(x) {
+  assert_that(is.list(x))
+  unique_height_diff <- unique(unlist(lapply(lapply(x, diff), unique)))
+  if (length(unique_height_diff) != 1) {
+    stop("Not all data has the same size of altitude bins")
+  }
+  height_alignment <- unique(unlist(x) %% unique_height_diff)
+  if (length(height_alignment) != 1) {
+    stop("Not all data has the same alignment of altitude bins")
+  }
+  return(sort(unique(unlist(x))))
+}
+add_heights_vpts <- function(x, target) {
+  if (identical(x$height, target)) {
+    return(x)
+  }
+  old <- target %in% x$height
+  x$height <- target
+  x$attributes$where$levels <- length(target)
+  m <- matrix(nrow = length(target), ncol = length(x$datetime))
+  x$data <- lapply(x$data, function(x, m, s) {
+    m[s, ] <- x
+    return(m)
+  }, s = old, m = m)
+  return(x)
+}
+add_heights_vp <- function(x, target) {
+  if (identical(x$data$height, target)) {
+    return(x)
+  }
+  x$data <- data.frame(rbindlist(list(x$data, data.frame(height = target[!(target %in% x$data$height)])), fill = TRUE))
+  x$data <- x$data[order(x$data$height), ]
+  x$attributes$where$levels <- length(target)
+  return(x)
+}
 vp_to_vpts_helper <- function(vps) {
   datetime <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
   daterange <- .POSIXct(c(min(datetime), max(datetime)), tz = "UTC")
@@ -156,12 +198,10 @@ vp_to_vpts_helper <- function(vps) {
   datetime <- .POSIXct(do.call("c", lapply(vps, "[[", "datetime")), tz = "UTC")
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   profile.quantities <- names(vps[[1]]$data)
-
-  if (length(unique(lapply(vps, "[[", "height"))) > 1) {
-    stop(paste(
-      "Vertical profiles of radar", vps[[1]]$radar,
-      "have non-aligning altitude layers."
-    ))
+  height_list <- lapply(vps, function(x) x$data$height)
+  if (length(unique(height_list)) > 1) {
+    target_heights <- combined_heights(height_list)
+    vps <- lapply(vps, add_heights_vp, target = target_heights)
   }
   if (length(unique(lapply(vps, function(x) names(x$"data")))) > 1) {
     stop(paste(

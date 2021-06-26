@@ -1,6 +1,14 @@
 # bioRad 0.5.2.9XXX
 
+* adding `attribute_table()` to quickly tabulate scan attributes
+
+* `calculate_param()` now also works on ppi's (#316)
+
+* Speed up `integrate_to_ppi` and other functions by avoiding duplicate input argument checking (#358)
+
 * Warn when multiple scans with the same elevation are equally close to the requested elevation in `get_scan()`, and add option to return all (#414)
+
+* `bind_into_vpts()` now works for vp's and vpts's with different heights (#343)
 
 * bugfix ylim argument in `composite_ppi()` (#389)
 

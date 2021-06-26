@@ -11,10 +11,10 @@
 #' '\code{rtr}' (reflectivity traffic rate),
 #' '\code{mt}' ((cumulative) migration traffic),
 #' '\code{rt}' ((cumulative) reflectivity traffic),
-#' '\code{ff}' (height-averaged speed)
+#' '\code{ff}' (height-averaged ground speed)
 #' '\code{dd}' (height-averaged direction)
-#' '\code{u}' (height-averaged u-component of speed),
-#' '\code{v}' (height-averaged v-component of speed).
+#' '\code{u}' (height-averaged u-component of ground speed),
+#' '\code{v}' (height-averaged v-component of ground speed).
 #' @param ylim y-axis plot range, numeric atomic vector of length 2.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
@@ -57,7 +57,7 @@
 #'  \item{\code{v}}{Ground speed component south to north in m/s}
 #'  \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 #' }
-#' The height-averaged speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
+#' The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 #' @examples
 #' # vertically integrate a vpts object:
 #' vpi <- integrate_profile(example_vpts)
@@ -70,9 +70,10 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  if(!(quantity %in% names(x)[!(names(x) %in% c("datetime", "height"))])){
-    stop(paste("quantity '",quantity,"'not found in vpi object",sep=""))
-  }
+  assert_that(
+    quantity %in% names(x) & quantity != "datetime",
+    msg = glue("quantity `{quantity}` not found in vpi object.")
+  )
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
@@ -135,7 +136,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     ), tz = "UTC")
 
     trise <- sunrise(days, lon, lat, elev = elev)
-    tset <- sunset(days, lon, lat, elev=elev)
+    tset <- sunset(days, lon, lat, elev = elev)
 
     if (trise[1] < tset[1]) {
       trise <- trise[-1]
