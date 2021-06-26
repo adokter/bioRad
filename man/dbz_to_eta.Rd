@@ -2,33 +2,37 @@
 % Please edit documentation in R/dbz_eta.R
 \name{dbz_to_eta}
 \alias{dbz_to_eta}
-\title{Convert reflectivity factor to reflectivity}
+\title{Convert reflectivity factor (dBZ) to reflectivity (eta)}
 \usage{
 dbz_to_eta(dbz, wavelength, K = 0.93)
 }
 \arguments{
-\item{dbz}{reflectivity factor in dBZ}
+\item{dbz}{Numeric. Reflectivity factor, in dBZ.}
 
-\item{wavelength}{radar wavelength in cm}
+\item{wavelength}{Numeric. Radar wavelength, in cm.}
 
-\item{K}{norm of the complex refractive index of water}
+\item{K}{Numeric. Norm of the complex refractive index of water.}
 }
 \value{
-reflectivity in cm^2/km^3
+Reflectivity, in cm^2/km^3.
 }
 \description{
-Convert reflectivity factor to reflectivity
+Converts reflectivity factor (dBZ) to reflectivity (eta).
 }
 \examples{
-# calculate eta for a 7 dBZ reflectivity factor at C-band:
+# Calculate eta for a 7 dBZ reflectivity factor at C-band
 dbz_to_eta(7, 5)
 
-# calculate eta for a 7 dBZ reflectivity factor at S-band:
+# Calculate eta for a 7 dBZ reflectivity factor at S-band
 dbz_to_eta(7, 10)
 
-# calculate animal density for a 5 dBZ reflectivity
-# factor at C-band and S-band, assuming a
-# 11 cm^2 radar cross section per animal:
+# Calculate animal density for a 5 dBZ reflectivity factor, assuming a
+# radar cross section of 11 cm^2 per individual
 dbz_to_eta(7, 5) / 11 # C-band
 dbz_to_eta(7, 10) / 11 # S-band
+}
+\seealso{
+\itemize{
+\item \code{\link[=eta_to_dbz]{eta_to_dbz()}}
+}
 }

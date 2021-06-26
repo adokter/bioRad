@@ -2,34 +2,37 @@
 % Please edit documentation in R/dbz_eta.R
 \name{eta_to_dbz}
 \alias{eta_to_dbz}
-\title{Convert reflectivity to reflectivity factor}
+\title{Convert reflectivity (eta) to reflectivity factor (dBZ)}
 \usage{
 eta_to_dbz(eta, wavelength, K = 0.93)
 }
 \arguments{
-\item{eta}{reflectivity in cm^2/km^3}
+\item{eta}{Numeric. Reflectivity, in cm^2/km^3.}
 
-\item{wavelength}{radar wavelength in cm}
+\item{wavelength}{Numeric. Radar wavelength, in cm.}
 
-\item{K}{norm of the complex refractive index of water}
+\item{K}{Numeric. Norm of the complex refractive index of water.}
 }
 \value{
-reflectivity factor in dBZ
+Reflectivity factor, in dBZ.
 }
 \description{
-Convert reflectivity to reflectivity factor
+Converts reflectivity (eta) to reflectivity factor (dBZ).
 }
 \examples{
-# reflectivity factor (dBZ) at C-band for a reflectivity eta=10000 cm^2/km^3:
+# Calculate dBZ for a 10000 cm^2/km^3 eta reflectivity at C-band
 eta_to_dbz(10000, 5)
 
-# reflectivity factor (dBZ) at S-band for a reflectivity eta=10000 cm^2/km^3:
+# Calculate dBZ for a 10000 cm^2/km^3 eta reflectivity at S-band
 eta_to_dbz(10000, 10)
 
-# expected reflectivity factor (dBZ) for an
-# animal density of 1000 individuals/km^3
-# and a radar cross section of 11 cm^2 per individual:
-# at C-band and S-band:
+# Calculate dBZ for an animal density of 1000 individuals/km^3 and a radar
+# cross section of 11 cm^2 per individual
 eta_to_dbz(1000 * 11, 5) # C-band
 eta_to_dbz(1000 * 11, 10) # S-band
+}
+\seealso{
+\itemize{
+\item \code{\link[=dbz_to_eta]{dbz_to_eta()}}
+}
 }
