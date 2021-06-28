@@ -2,65 +2,65 @@
 % Please edit documentation in R/filter_vpts.R
 \name{filter_vpts}
 \alias{filter_vpts}
-\title{Time and night/day selection in a time series of vertical profiles ('vpts')}
+\title{Select profiles on time/day/night in a time series of vertical profiles
+(\code{vpts})}
 \usage{
 filter_vpts(x, min, max, nearest, night, elev = -0.268, offset = 0)
 }
 \arguments{
 \item{x}{A \code{vpts} object.}
 
-\item{min}{Minimum datetime to be included. POSIXct value or character string convertible to POSIXct.}
+\item{min}{POSIXct date or character. Minimum datetime to be included.}
 
-\item{max}{Maximum datetime to be included. POSIXct value or character string convertible to POSIXct.}
+\item{max}{POSIXct date or character. Maximum datetime to be included.}
 
-\item{nearest}{If specified, \code{min} and \code{max} are ignored and the profile nearest to the
-specified datetime is returned that matches the day/night selection criteria.
-POSIXct value or character string convertible to POSIXct.}
+\item{nearest}{POSIXct date or character. If specified, \code{min} and \code{max} are
+ignored and the profile (\code{vp}) nearest to the specified datetime is
+returned that matches the day/night selection criteria.}
 
-\item{night}{When TRUE select only night time profiles, when FALSE select only day time profiles,
-as classified by \link{check_night}.}
+\item{night}{When \code{TRUE} selects only nighttime profiles, when \code{FALSE}
+selects only daytime profiles, as classified by \code{\link[=check_night]{check_night()}}.}
 
-\item{elev}{Numeric (vector). Sun elevation in degrees defining night time.
+\item{elev}{Numeric (vector). Sun elevation in degrees defining nighttime.
 May also be a numeric vector of length two, with first element giving
 sunset elevation, and second element sunrise elevation.}
 
-\item{offset}{numeric. Time duration in seconds by which to shift the start and end
-of night time. May also be a numeric vector of length two, with first element added to moment
-of sunset and second element added to moment of sunrise. See \link{check_night} for details.}
+\item{offset}{Numeric (vector). Time duration in seconds by which to shift
+the start and end of nighttime. May also be a numeric vector of length two,
+with first element added to moment of sunset and second element added to
+moment of sunrise. See \code{\link[=check_night]{check_night()}} for details.}
 }
 \value{
-An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
-if argument \code{nearest} is specified.
+A \code{vpts} object, or a \code{vp} object when \code{nearest} is specified.
 }
 \description{
-Time and night/day selection in a time series of vertical profiles ('vpts')
-}
-\details{
-Returns profiles for which min <= timestamp profile < max. Selection for night and day
-occurs by \link{check_night}.
+Select profiles from a time series of vertical profiles (\code{vpts}) for which
+\verb{min <= timestamp profile < max}. Selection for night and day uses
+\code{\link[=check_night]{check_night()}}.
 }
 \examples{
-# load example vertical profile time series:
-data(example_vpts)
-example_vpts
-
-# select profiles later than 02-Sep-2016
+# Select profiles later than 02 Sep 2016
 filter_vpts(example_vpts, min = "2016-09-02")
 
-# select the profile nearest to 2016-09-01 03:00 UTC:
+# Select the profile nearest to 2016-09-01 03:00 UTC
 filter_vpts(example_vpts, nearest = "2016-09-01 03:00")
 
-# select profiles between than 1 and 3 UTC on 02-Sep-2016:
+# Select profiles between than 01:00 and 03:00 UTC on 02 Sep 2016
 filter_vpts(example_vpts, min = "2016-09-02 01:00", max = "2016-09-02 03:00")
 
-# select day time profiles (day time periods from sunrise to sunset)
-filter_vpts(example_vpts, night=FALSE)
+# Select daytime profiles (i.e. profiles between sunrise and sunset)
+filter_vpts(example_vpts, night = FALSE)
 
-# select night time profiles, with nights starting starting and ending at civil twilight
-# (when the sun is 6 degrees below the horizon):
-filter_vpts(example_vpts, night=TRUE, elev = -6)
+# Select nighttime profiles, with nights starting and ending at
+# civil twilight (when the sun is 6 degrees below the horizon)
+filter_vpts(example_vpts, night = TRUE, elev = -6)
 
-# select night time profiles from 3 hours after sunset to 2 hours before sunrise
-filter_vpts(example_vpts, night=TRUE, offset=c(3,-2)*3600)
-
+# Select nighttime profiles from 3h after sunset to 2h before sunrise
+filter_vpts(example_vpts, night = TRUE, offset = c(3, -2)*3600)
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.vpts]{summary.vpts()}}
+\item \code{\link[=check_night]{check_night()}}
+}
 }

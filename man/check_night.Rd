@@ -30,14 +30,14 @@ interpretable by \code{\link[base:as.POSIXlt]{base::as.POSIXct()}}.}
 
 \item{...}{Optional lat, lon arguments.}
 
-\item{elev}{Numeric (vector). Sun elevation in degrees defining night time.
+\item{elev}{Numeric (vector). Sun elevation in degrees defining nighttime.
 May also be a numeric vector of length two, with first element giving
 sunset elevation, and second element sunrise elevation.}
 
 \item{offset}{Numeric (vector). Time duration in seconds by which to shift
-the start and end of night time. May also be a numeric vector of length
-two, with first element added to moment of sunset and second element added
-to moment of sunrise.}
+the start and end of nighttime. May also be a numeric vector of length two,
+with first element added to moment of sunset and second element added to
+moment of sunrise.}
 
 \item{lon}{Numeric. Longitude, in decimal degrees.}
 
