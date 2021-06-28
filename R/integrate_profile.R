@@ -1,169 +1,169 @@
-#' Vertically integrate profiles (\code{vp} or \code{vpts}) to an
-#' integrated profile (\code{vpi})
+#' Vertically integrate profiles (`vp` or `vpts`) into an integrated profile
+#' (`vpi`)
 #'
 #' Performs a vertical integration of density, reflectivity and migration
-#' traffic rate, and a vertical averaging of ground speed and direction
-#' weighted by density.
+#' traffic rate, and a vertical averaging of ground speed and direction weighted
+#' by density.
 #'
-#' @param x A \code{vp} or \code{vpts} object.
-#' @param alt_min Minimum altitude in m.
-#' @param alt_max Maximum altitude in m.
-#' @param alpha Migratory direction in clockwise degrees from north.
-#' @param interval_max Maximum time interval belonging to a single profile in
-#' seconds. Traffic rates are set to zero at times \code{t} for which no
-#' profiles can be found within the period \code{t-interval_max/2} to
-#' \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.
+#' @param x A `vp` or `vpts` object.
+#' @param alt_min Numeric. Minimum altitude, in m.
+#' @param alt_max Numeric. Maximum altitude, in m.
+#' @param alpha Numeric. Migratory direction, in clockwise degrees from north.
+#' @param interval_max Numeric. Maximum time interval belonging to a single
+#'   profile, in seconds. Traffic rates are set to zero at times `t` for which
+#'   no profiles can be found within the period `t - interval_max/2` to `t +
+#'   interval_max/2`. Ignored for single profiles of class `vp`.
 #'
-#' @return an object of class \code{vpi}, a data frame with vertically
-#' integrated profile quantities
+#' @return A `vpi` object: a data frame with vertically integrated profile
+#'   quantities.
+#'
+#' @export
 #'
 #' @details
-#' \subsection{Available quantities}{
-#' The function generates a specially classed data frame with the following
-#' quantities:
-#' \describe{
-#'    \item{\code{datetime}}{POSIXct date of each profile in UTC}
-#'    \item{\code{vid}}{Vertically Integrated Density in individuals/km^2.
-#'       \code{vid} is a surface density, whereas \code{dens} in \code{vp}
-#'       objects is a volume density.}
-#'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
-#'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
-#'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{\code{mt}}{Migration Traffic in individuals/km, cumulated from
-#'       the start of the time series up to \code{datetime}}
-#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
-#'       the start of the time series up to \code{datetime}}
-#'    \item{\code{ff}}{Horizontal ground speed in m/s}
-#'    \item{\code{dd}}{Direction of the horizontal ground speed in degrees}
-#'    \item{\code{u}}{Ground speed component west to east in m/s}
-#'    \item{\code{v}}{Ground speed component south to north in m/s}
-#'    \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
-#' }
+#' ## Available quantities
+#'
+#' See [summary.vpi()].
+#'
 #' Vertically integrated density and reflectivity are related according to
-#' \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
+#' \eqn{vid=vir/rcs(x)}, with `rcs` the assumed radar cross section per
 #' individual. Similarly, migration traffic rate and reflectivity traffic rate
 #' are related according to \eqn{mtr=rtr/rcs(x)}
-#' }
 #'
-#' \subsection{Ground speed (ff) and ground speed components (u,v)}{
+#' ## Ground speed (`ff`) and ground speed components (`u`, `v`)
+#'
 #' The height-averaged ground speed is defined as:
 #'
-#' \deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i / \sum_i dens_i}
-#' with the sum running over all altitude layers between \code{alt_min} and
-#' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
-#' altitude layer i.
+#' \deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i /
+#' \sum_i dens_i}
 #'
-#' the height-averaged u component (west to east) is defined as:
+#' with the sum running over all altitude layers between `alt_min` and
+#' `alt_max`, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+#' altitude layer `i`.
 #'
-#' \deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i dens_i}
+#' The height-averaged `u` component (west to east) is defined as:
 #'
-#' the height-averaged v component (south to north) is defined as:
+#' \deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i
+#' dens_i}
 #'
-#' \deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i dens_i}
-#' }
+#' The height-averaged `v` component (south to north) is defined as:
+#'
+#' \deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i
+#' dens_i}
 #'
 #' Note that \eqn{ff_i=\sqrt(u_i^2 + v_i^2)}, but the same does not hold for the
 #' height-integrated speeds, i.e. \eqn{ff != \sqrt(u^2 + v^2)} as soon as the
 #' ground speed directions vary with altitude.
 #'
-#' \subsection{Migration traffic rate (mtr) and reflectivity traffic rate (rtr)}{
-#' Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
-#' as the number of targets crossing a unit of transect per hour.
+#' ## Migration traffic rate (`mtr`) and reflectivity traffic rate (`rtr`)
 #'
-#' Column mtr of the output dataframe gives migration traffic rates in individuals/km/hour.
+#' Migration traffic rate (`mtr`) for an altitude layer is a flux measure,
+#' defined as the number of targets crossing a unit of transect per hour. Column
+#' `mtr` of the output dataframe gives migration traffic rates in
+#' individuals/km/hour.
 #'
-#' The transect direction is set by the angle \code{alpha}. When
-#' \code{alpha=NA}, the transect runs perpendicular to the measured migratory
-#' direction. \code{mtr} then equals the number of crossing targets per km
-#' transect per hour, for a transect kept perpendicular to the measured
-#' migratory movement at all times and altitudes. In this case \code{mtr} is
-#' always a positive quantity, defined as:
+#' The transect direction is set by the angle `alpha`. When `alpha = NA`, the
+#' transect runs perpendicular to the measured migratory direction. `mtr` then
+#' equals the number of crossing targets per km transect per hour, for a
+#' transect kept perpendicular to the measured migratory movement at all times
+#' and altitudes. In this case `mtr` is always a positive quantity, defined as:
 #'
-#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \Delta h}
+#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \Delta h}{mtr = 3.6 \sum_i dens_i ff_i
+#' \Delta h}
 #'
-#' with the sum running over all altitude layers between \code{alt_min} and
-#' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
-#' altitude layer i, and \eqn{\Delta h} the altitude layer width. The factor 3.6
-#' refers to a unit conversion of speeds \eqn{ff_i} from m/s to km/h.
+#' with the sum running over all altitude layers between `alt_min` and
+#' `alt_max`, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+#' altitude layer `i`, and \eqn{\Delta h} the altitude layer width. The factor
+#' 3.6 refers to a unit conversion of speeds \eqn{ff_i} from m/s to km/h.
 #'
-#' If \code{alpha} is given a numeric value, the transect is taken perpendicular
-#' to the direction \code{alpha}, and the number of crossing targets per hour
-#' per km transect is calculated as:
+#' If `alpha` is given a numeric value, the transect is taken perpendicular to
+#' the direction `alpha`, and the number of crossing targets per hour per km
+#' transect is calculated as:
 #'
-#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}
-#' with \eqn{dd_i} the migratory direction at altitude i.
+#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}{mtr =
+#' 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}
 #'
-#' Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+#' with \eqn{dd_i} the migratory direction at altitude `i`.
+#'
+#' Note that this equation evaluates to the previous equation when `alpha`
+#' equals \eqn{dd_i}.
+#'
 #' Also note we can rewrite this equation using trigonometry as:
 #'
-#' \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}
-#' with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.
+#' \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha
+#' pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i
+#' \cos(alpha pi/180)) \Delta h}
 #'
-#' In this definition \code{mtr} is a traditional flux into a direction of
-#' interest. Targets moving into the direction \code{alpha} contribute
-#' positively to \code{mtr}, while targets moving in the opposite direction
-#' contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
-#' positive or negative, depending on the definition of alpha.
+#' with \eqn{u_i} and \eqn{v_i} the `u` and `v` ground speed components at
+#' altitude `i`.
 #'
-#' Note that \code{mtr} for a given value of \code{alpha} can also be calculated from
-#' the vertically integrated density \code{vid} and the height-integrated velocity
-#' components \code{u} and \code{v} as follows:
+#' In this definition `mtr` is a traditional flux into a direction of interest.
+#' Targets moving into the direction `alpha` contribute positively to `mtr`,
+#' while targets moving in the opposite direction contribute negatively to
+#' `mtr`. Therefore `mtr` can be both positive or negative, depending on the
+#' definition of alpha.
 #'
-#' \deqn{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}
+#' Note that `mtr` for a given value of `alpha` can also be calculated from the
+#' vertically integrated density `vid` and the height-integrated velocity
+#' components `u` and `v` as follows:
 #'
-#' Formula for reflectivity traffic rate \code{rtr} are found by replacing
-#' \code{dens} with \code{eta} and \code{vid} with \code{vir} in the formula for \code{mtr}.
-#' Reflectivity traffic rate gives the cross-sectional area
-#' passing the radar per km transect perpendicular to the migratory direction per hour.
-#' \code{mtr} values are conditional on settings of \link{rcs}, while \code{rtr} values are not.
-#' }
+#' \deqn{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}{mtr = 3.6
+#' (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}
 #'
-#' \subsection{Migration traffic (mt) and reflectivity traffic (rt)}{
-#' Migration traffic is calculated by time-integration of
-#' migration traffic rates. Migration traffic gives the number of individuals
-#' that have passed per km perpendicular to the migratory direction at the
-#' position of the radar for the full period of the time series within the
-#' specified altitude band.
+#' Formula for reflectivity traffic rate `rtr` are found by replacing `dens`
+#' with `eta` and `vid` with `vir` in the formula for `mtr`. Reflectivity
+#' traffic rate gives the cross-sectional area passing the radar per km transect
+#' perpendicular to the migratory direction per hour. `mtr` values are
+#' conditional on settings of [rcs()], while `rtr` values are not.
 #'
-#' Reflectivity traffic is calculated by time-integration of
-#' reflectivity traffic rates. Reflectivity traffic gives the total cross-sectional area
-#' that has passed per km perpendicular to the migratory direction at the
-#' position of the radar for the full period of the time series within the
-#' specified altitude band.
+#' ## Migration traffic (`mt`) and reflectivity traffic (`rt`)
 #'
-#' \code{mt} values are conditional on settings of \link{rcs}, while \code{rt} values are not.
+#' Migration traffic (`mt`) is calculated by time-integration of migration
+#' traffic rates. Migration traffic gives the number of individuals that have
+#' passed per km perpendicular to the migratory direction at the position of the
+#' radar for the full period of the time series within the specified altitude
+#' band.
 #'
-#' Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
-#' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
-#' of the respective row.
-#' }
-#' @export
+#' Reflectivity traffic (`rt`) is calculated by time-integration of reflectivity
+#' traffic rates. Reflectivity traffic gives the total cross-sectional area that
+#' has passed per km perpendicular to the migratory direction at the position of
+#' the radar for the full period of the time series within the specified
+#' altitude band.
+#'
+#' `mt` values are conditional on settings of [rcs()], while `rt` values are
+#' not.
+#'
+#' Columns `mt` and `rt` in the output dataframe provides migration traffic as a
+#' numeric value equal to migration traffic and reflectivity traffic from the
+#' start of the time series up till the moment of the time stamp of the
+#' respective row.
+#'
+#' @seealso
+#' * [summary.vpi()]
 #'
 #' @examples
-#' # MTR for a single vertical profile
+#' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
 #'
-#' # MTRs for a list of vertical profiles
+#' # Calculate migration traffic rates for a list of vps
 #' integrate_profile(c(example_vp, example_vp))
 #'
-#' # MTRs for a time series of vertical profiles
-#' # load example data:
-#' data(example_vpts)
-#' example_vpts
-#' # print migration traffic rates
+#' # Calculate migration traffic rates for a vpts
 #' vpi <- integrate_profile(example_vpts)
-#' # plot migration traffic rates for the full air column
-#' plot(example_vpts)
-#' # plot migration traffic rates for altitudes > 1 km above sea level
+#'
+#' # Plot migration traffic rate (mtr) for the full air column
+#' plot(integrate_profile(example_vpts))
+#'
+#' # Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
-#' # plot the (cumulative) migration traffic
+#'
+#' # Plot cumulative migration traffic rates (mt)
 #' plot(integrate_profile(example_vpts), quantity = "mt")
 integrate_profile <- function(x, alt_min, alt_max,
                               alpha = NA, interval_max = Inf) {
   UseMethod("integrate_profile", x)
 }
 
-#' @describeIn integrate_profile Vertically integrate a vertical profile.
+#' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
@@ -232,8 +232,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   return(output)
 }
 
-#' @describeIn integrate_profile Vertically integrate a list of
-#' vertical profiles.
+#' @describeIn integrate_profile Vertically integrate a list of vertical
+#'   profiles (`vp`).
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
@@ -260,7 +260,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 }
 
 #' @describeIn integrate_profile Vertically integrate a time series of
-#' vertical profiles.
+#' vertical profiles (`vpts`).
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
