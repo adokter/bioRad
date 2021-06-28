@@ -38,6 +38,7 @@ Imports:
     rhdf5,
     sp,
     stats,
+    testthat,
     tidyr,
     utils,
     viridisLite,
@@ -46,7 +47,6 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    testthat,
     vdiffr
 LazyData: true
 Encoding: UTF-8
