@@ -16,7 +16,6 @@
 #'   downloaded files of the same names.
 #'
 #' @export
-#' @importFrom curl curl_fetch_disk
 #'
 #' @seealso select_vpfiles
 #'
