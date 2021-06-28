@@ -13,30 +13,30 @@ download_vpfiles(
 )
 }
 \arguments{
-\item{date_min}{character. YYYY-MM-DD start date of file selection. Days will
-be ignored.}
+\item{date_min}{Character. Start date of file selection, in \code{YYYY-MM-DD}
+format. Days will be ignored.}
 
-\item{date_max}{character. YYYY-MM-DD end date of file selection. Days will
-be ignored.}
+\item{date_max}{Character. End date of file selection, in \code{YYYY-MM-DD}
+format. Days will be ignored.}
 
-\item{radars}{character (vector). 5-letter country/radar code(s)
-(e.g. "bejab") of radars to include in file selection.}
+\item{radars}{Character (vector). 5-letter country/radar code(s) to include
+in file selection.}
 
-\item{directory}{character. Path to local directory where files should be
+\item{directory}{Character. Path to local directory where files should be
 downloaded and unzipped.}
 
-\item{overwrite}{logical. TRUE for re-downloading and overwriting previously
+\item{overwrite}{Logical. When \code{TRUE}, re-download and overwrite previously
 downloaded files of the same names.}
 }
 \description{
-Download and unzip a selection of vertical profile (\code{vp}) files from the
+Downloads and unzips a selection of vertical profile (\code{vp}) files from the
 \href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
 these are stored as monthly zips per radar.
 }
 \examples{
-# Download data from radars "bejab" and "bewid", even if previously
-# downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
-# but show 404 error for 2016-11 files (as these are not available).
+# Download (and overwrite) data from radars "bejab" and "bewid".
+# Will successfully download 2016-10 files, but show 404 error for
+# 2016-11 files, since these are not available.
 \dontrun{
 dir.create("~/bioRad_tmp_files")
 download_vpfiles(
@@ -46,10 +46,13 @@ download_vpfiles(
   directory = "~/bioRad_tmp_files",
   overwrite = TRUE
 )
-# clean up:
-unlink("~/bioRad_tmp_files", recursive = T)
+# Clean up
+unlink("~/bioRad_tmp_files", recursive = TRUE)
 }
 }
 \seealso{
-select_vpfiles
+\itemize{
+\item \code{\link[=select_vpfiles]{select_vpfiles()}}
+\item \code{\link[=read_vpfiles]{read_vpfiles()}}
+}
 }

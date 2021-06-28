@@ -7,15 +7,15 @@
 check_date_format(date, format)
 }
 \arguments{
-\item{date}{character. Character representation of a date, e.g.
+\item{date}{Character. Character representation of a date, e.g.
 \code{"2018-12-13"}.}
 
-\item{format}{character. strptime format the date should have, e.g.
-\code{"\%Y-\%m-\%d"}}
+\item{format}{Character. strptime format the date should have, e.g.
+\code{"\%Y-\%m-\%d"}.}
 }
 \value{
-NULL. Will stop and show error message if date does not have correct
-date format.
+\code{NULL}. Will stop and show error message if date does not have
+correct date format.
 }
 \description{
 Check if character date is in specific format

@@ -7,11 +7,10 @@
 check_radar_codes(radars)
 }
 \arguments{
-\item{radars}{character vector. Radar codes to check, e.g. \code{c("bejab",
-"bewideu")}.}
+\item{radars}{Character vector. Radar codes to check, e.g. \verb{c("bejab", "bewideu"}.}
 }
 \value{
-NULL. Will stop and show error message if at least one of the
+\code{NULL}. Will stop and show error message if at least one of the
 provided radar codes is not exactly 5 characters.
 }
 \description{
