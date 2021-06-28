@@ -2,7 +2,7 @@
 % Please edit documentation in R/integrate_to_ppi.R
 \name{add_expected_eta_to_scan}
 \alias{add_expected_eta_to_scan}
-\title{adds expected eta to a scan}
+\title{Adds expected eta to a scan}
 \usage{
 add_expected_eta_to_scan(
   scan,
@@ -21,17 +21,18 @@ add_expected_eta_to_scan(
 \arguments{
 \item{scan}{a scan (sweep) of class scan}
 
-\item{vp}{a vertical profile of class vp}
+\item{vp}{A \code{vp} object}
 
-\item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
+\item{quantity}{Character. Profile quantity on which to base range
+corrections, either \code{eta} or \code{dens}.}
 
-\item{param}{reflectivity factor scan parameter on which to base range corrections.
-Typically the same parameter from which animal densities are estimated for object \code{vp}.
-One of 'DBZH','DBZV','DBZ','TH','TV'.}
+\item{param}{reflectivity Character. Scan parameter on which to base range
+corrections. Typically the same parameter from which animal densities are
+estimated in \code{vp}. Either \code{DBZH}, \code{DBZV}, \code{DBZ}, \code{TH}, or \code{TV}.}
 
-\item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
+\item{lat}{Latitude of the radar, in degrees. If missing taken from \code{pvol}.}
 
-\item{lon}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
+\item{lon}{Latitude of the radar, in degrees. If missing taken from \code{pvol}.}
 
 \item{antenna}{Numeric. Radar antenna height, in m. Default to antenna height
 in \code{vp}.}
@@ -46,12 +47,9 @@ angle between the half-power (-3 dB) points of the main lobe.}
 \item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
-an object of class 'scan'
+A \code{scan} object.
 }
 \description{
-adds expected eta to a scan
-}
-\details{
-to be written
+Adds expected eta to a scan
 }
 \keyword{internal}

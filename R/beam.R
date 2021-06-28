@@ -325,7 +325,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
 #'
-#' # Read the vertical profile example
+#' # Read the corresponding vertical profile example
 #' data(example_vp)
 #'
 #' # Calculate overlap between vertical profile of birds and the vertical
