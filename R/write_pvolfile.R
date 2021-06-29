@@ -3,12 +3,11 @@
 #' @param pvol An object of class \code{pvol}.
 #' @param file string. A filepath to write the \code{pvol} object to.
 #' @param overwrite logical. Overwrites existing file when TRUE.
-#' @param infer.dtype logical. By default (infer.dtype = FALSE) writes 'params'
+#' @param infer_dtype logical. By default (infer_dtype = FALSE) writes 'params'
 #' back into ODIM HDF5 files with data stored in original data types. When TRUE
 #' infers data type from the data, at the cost of (heavily) inflated file sizes.
 #'
-#' @return Function is only used for the side-effect of writing a \code{pvol} object
-#' to a file.
+#' @return a \code{pvol} object to a file.
 #'
 #' @export
 #'
@@ -21,7 +20,7 @@
 #'
 #' # write the file:
 #' write_pvolfile(example_pvol, "volume_out.h5")
-write_pvolfile <- function(pvol, file, overwrite = FALSE, infer.dtype = FALSE) {
+write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
   assert_that(is.pvol(pvol))
   if (!overwrite) {
     assert_that(!file.exists(file),
@@ -45,7 +44,7 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer.dtype = FALSE) {
       d <- replace(d, is.na(data) & !is.nan(data), conv$nodata)
       dataname <- paste0("dataset", i, "/data", j, "/data")
 
-      if (infer.dtype) conv$dtype <- NULL
+      if (infer_dtype) conv$dtype <- NULL
 
       if (!is.null(conv$dtype)) {
         h5createDataset(fid, dataname, dim(pvol$scans[[i]]$params[[j]]),

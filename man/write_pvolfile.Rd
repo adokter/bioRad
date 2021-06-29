@@ -4,7 +4,7 @@
 \alias{write_pvolfile}
 \title{Write a polar volume (\code{pvol}) object to ODIM HDF5 file}
 \usage{
-write_pvolfile(pvol, file, overwrite = FALSE, infer.dtype = FALSE)
+write_pvolfile(pvol, file, overwrite = FALSE, infer_dtype = FALSE)
 }
 \arguments{
 \item{pvol}{An object of class \code{pvol}.}
@@ -13,13 +13,12 @@ write_pvolfile(pvol, file, overwrite = FALSE, infer.dtype = FALSE)
 
 \item{overwrite}{logical. Overwrites existing file when TRUE.}
 
-\item{infer.dtype}{logical. By default (infer.dtype = FALSE) writes 'params'
+\item{infer_dtype}{logical. By default (infer_dtype = FALSE) writes 'params'
 back into ODIM HDF5 files with data stored in original data types. When TRUE
 infers data type from the data, at the cost of (heavily) inflated file sizes.}
 }
 \value{
-Function is only used for the side-effect of writing a \code{pvol} object
-to a file.
+a \code{pvol} object to a file.
 }
 \description{
 Write a polar volume (\code{pvol}) object to ODIM HDF5 file
