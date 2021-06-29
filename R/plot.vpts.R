@@ -284,7 +284,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       palette <- c(vpts_default_palette, na_color, nan_color)
       palette <- c(colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color), na_color, nan_color)
     } else if(quantity %in% c("u","v")){
-      palette <- c(rev(bioRad::color_palette("VRADH", n=n_color)), na_color, nan_color)
+      palette <- c(rev(color_palette("VRADH", n=n_color)), na_color, nan_color)
     } else{
       palette <- c(rev(viridis::magma(n_color)), na_color, nan_color)
     }
