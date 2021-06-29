@@ -292,6 +292,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
       }
     )
     groups <- groups[quantityNames %in% param]
+    dtypes <- dtypes[quantityNames %in% param]
     if (length(groups) == 0) {
       return(NULL)
     }
