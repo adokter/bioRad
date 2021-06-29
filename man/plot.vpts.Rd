@@ -23,6 +23,7 @@
   barbs.dens = 5,
   na_color = "#C8C8C8",
   nan_color = palette[1],
+  n_color = 1000,
   palette = NA,
   ...
 )
@@ -70,6 +71,8 @@ color bar.}
 \item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
 
 \item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+
+\item{n_color}{The number of colors (>=1) to be in the palette.}
 
 \item{palette}{(Optional) character vector of hexadecimal color values defining
 the plot color scale, e.g. output from \link[viridisLite]{viridis}}

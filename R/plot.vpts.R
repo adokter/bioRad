@@ -23,6 +23,7 @@
 #' @param main A title for the plot.
 #' @param na_color Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.
 #' @param nan_color Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param n_color The number of colors (>=1) to be in the palette.
 #' @param palette (Optional) character vector of hexadecimal color values defining
 #' the plot color scale, e.g. output from \link[viridisLite]{viridis}
 #' @param ... Additional arguments to be passed to the low level
@@ -106,7 +107,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       zlim, legend_ticks, legend.ticks, main,
                       barbs.h = 10, barbs.t = 20, barbs.dens = 5,
                       na_color = "#C8C8C8", nan_color = palette[1],
-                      palette = NA,
+                      n_color=1000, palette = NA,
                       ...) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% names(x$data))
@@ -150,7 +151,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   }
 
   if(are_equal(log, NA)){
-    if(quantity %in% c("dens","eta","dbz","DBZH")){
+    if(quantity %in% c("dens","eta")){
       log = TRUE
     }
     else{
@@ -158,6 +159,10 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     }
   }
   assert_that(is.flag(log))
+
+  assert_that(is.count(n_color))
+  assert_that(is.string(na_color))
+  if(!missing(nan_color)) assert_that(is.string(nan_color))
 
   if (!missing(zlim)) {
     assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
@@ -277,10 +282,11 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   else{
     if(quantity %in% c("dens","eta","dbz","DBZH")){
       palette <- c(vpts_default_palette, na_color, nan_color)
+      palette <- c(colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color), na_color, nan_color)
     } else if(quantity %in% c("u","v")){
-      palette <- c(rev(bioRad:::color_palette("VRADH", n=1000)), na_color, nan_color)
+      palette <- c(rev(bioRad:::color_palette("VRADH", n=n_color)), na_color, nan_color)
     } else{
-      palette <- c(rev(viridis::magma(1000)), na_color, nan_color)
+      palette <- c(rev(viridis::magma(n_color)), na_color, nan_color)
     }
   }
 
