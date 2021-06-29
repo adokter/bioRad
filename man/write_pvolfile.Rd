@@ -18,7 +18,7 @@ back into ODIM HDF5 files with data stored in original data types. When TRUE
 infers data type from the data, at the cost of (heavily) inflated file sizes.}
 }
 \value{
-a \code{pvol} object to a file.
+0 on success. A \code{pvol} object will be written to file in ODIM H5 format.
 }
 \description{
 Write a polar volume (\code{pvol}) object to ODIM HDF5 file

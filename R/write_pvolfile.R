@@ -7,7 +7,7 @@
 #' back into ODIM HDF5 files with data stored in original data types. When TRUE
 #' infers data type from the data, at the cost of (heavily) inflated file sizes.
 #'
-#' @return a \code{pvol} object to a file.
+#' @return 0 on success. A \code{pvol} object will be written to file in ODIM H5 format.
 #'
 #' @export
 #'
