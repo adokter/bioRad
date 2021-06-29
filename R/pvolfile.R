@@ -65,6 +65,10 @@ get_odim_object_type <- function(file) {
     return(NA)
   }
   object <- h5readAttributes(file, "what")$object
+  # current implementation of write_pvolfile stores string attributes as
+  # single element arrays. This line guarantees that for files written with write_pvolfile
+  # the output class is character instead of an array with a single character element.
+  object <- object[1]
   return(object)
 }
 

@@ -265,9 +265,12 @@ read_pvolfile_body <- function(file, param = c(
 }
 
 read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attributes) {
-  h5struct <- h5ls(file)
+  h5struct <- h5ls(file, all = TRUE)
+  groups <- h5struct[h5struct$group == paste("/", scan, sep = ""), ]$name
+  groups <- groups[grep("data", groups)]
+  dtypes <- h5struct[startsWith(h5struct$group, paste("/", scan, "/data", sep = "")), ]
+  dtypes <- dtypes[dtypes$name == "data", ]$dtype
   h5struct <- h5struct[h5struct$group == paste("/", scan, sep = ""), ]$name
-  groups <- h5struct[grep("data", h5struct)]
 
   # select which scan parameters to read
   if (length(param) == 1 && param == "all") {
@@ -289,6 +292,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
       }
     )
     groups <- groups[quantityNames %in% param]
+    dtypes <- dtypes[quantityNames %in% param]
     if (length(groups) == 0) {
       return(NULL)
     }
@@ -316,15 +320,17 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
 
 
   # read scan parameters
-  quantities <- lapply(
-    groups,
-    function(x) {
+  quantities <- mapply(
+    function(x, y) {
       read_pvolfile_quantity(
         file,
         paste(scan, "/", x, sep = ""),
-        radar, datetime, geo
+        radar, datetime, geo, y
       )
-    }
+    },
+    x = groups,
+    y = dtypes,
+    SIMPLIFY = FALSE
   )
   quantityNames <- sapply(quantities, "[[", "quantityName")
   quantities <- lapply(quantities, "[[", "quantity")
@@ -344,7 +350,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
   output
 }
 
-read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo) {
+read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo, dtype) {
   data <- h5read(file, quantity)$data
   # convert storage mode from raw to numeric:
   storage.mode(data) <- "numeric"
@@ -355,10 +361,14 @@ read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo) {
   if(attr$quantity == "RHOHV"){
     data <- replace(data, data > 10, NaN)
   }
+  conversion <- list(gain = as.numeric(attr$gain), offset = as.numeric(attr$offset),
+                     nodata = as.numeric(attr$nodata), undetect = as.numeric(attr$undetect),
+                     dtype = dtype)
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime
   attributes(data)$geo <- geo
-  attributes(data)$param <- attr$quantity
+  attributes(data)$param <- as.character(attr$quantity)
+  attributes(data)$conversion <- conversion
   list(quantityName = attr$quantity, quantity = data)
 }
