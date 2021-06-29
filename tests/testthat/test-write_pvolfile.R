@@ -17,8 +17,8 @@ test_that("write_pvolfile() writes a valid pvol", {
   expect_equal(get_odim_object_type(testpath), "PVOL")
 })
 
-test_that("write_pvolfile() writes data to the same dtype if infer.dtype = FALSE", {
-  write_pvolfile(pvol, testpath, overwrite = TRUE, infer.dtype = FALSE)
+test_that("write_pvolfile() writes data to the same dtype if infer_dtype = FALSE", {
+  write_pvolfile(pvol, testpath, overwrite = TRUE, infer_dtype = FALSE)
   pvol_new <- read_pvolfile(testpath)
 
   extract_dtypes <- function(scan) {
