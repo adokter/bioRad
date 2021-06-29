@@ -46,6 +46,9 @@
 #'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
 #' }
 #'
+#' @seealso
+#' * [check_docker()]
+#'
 #' @examples
 #' # locate example volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

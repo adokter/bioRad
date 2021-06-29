@@ -8,10 +8,11 @@
 #'
 #' @return \code{TRUE} on success
 #'
+#' @export
+#'
 #' @seealso
 #' * [check_docker()]
 #'
-#' @export
 #' @examples
 #' \dontrun{
 #' # download a NEXRAD file, save as KBGM_example

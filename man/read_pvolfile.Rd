@@ -100,3 +100,8 @@ scan <- example_pvol$scans[[1]]
 # print summary info for the new object:
 scan
 }
+\seealso{
+\itemize{
+\item \code{\link[=check_docker]{check_docker()}}
+}
+}
