@@ -1,33 +1,38 @@
-#' Convert a NEXRAD polar volume file to an ODIM polar volume file
+#' Convert a NEXRAD polar volume file to an ODIM HDF5 polar volume file
 #'
-#' @param pvolfile_nexrad Polar volume input file in RSL format.
-#' @param pvolfile_odim Filename for the polar volume in ODIM HDF5 format to be
-#' generated.
+#' Converts a NEXRAD polar volume input file to an ODIM HDF5 polar volume output
+#' file (see [is.pvolfile()]). Requires a running
+#' [Docker](https://www.docker.com/) daemon, see [check_docker()].
 #'
+#' @param pvolfile_nexrad Character. Path to a polar volume file in NEXRAD/RSL
+#'   format.
+#' @param pvolfile_odim Character. Path of the polar volume file in ODIM HDF5
+#'   format to be written to disk.
 #' @inheritParams calculate_vp
 #'
-#' @return \code{TRUE} on success
+#' @return `TRUE` on successful conversion.
 #'
 #' @export
 #'
 #' @seealso
 #' * [check_docker()]
+#' * [is.pvolfile()]
 #'
 #' @examples
 #' \dontrun{
-#' # download a NEXRAD file, save as KBGM_example
-#' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
-#'   "2019/10/01/KBGM/KBGM20191001_000542_V06",
-#'   sep = ""
-#' ), "~/KBGM_example")
+#' # Download a NEXRAD file and save as KBGM_example
+#' download.file(
+#'   "https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
+#'   "~/KBGM_example"
+#' )
 #'
-#' # convert to ODIM format
+#' # Convert to ODIM format
 #' nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")
 #'
-#' # verify that we have generated a polar volume in ODIM HDF5 format
+#' # Verify that we have generated a polar volume in ODIM HDF5 format
 #' get_odim_object_type("~/KBGM_example.h5")
 #'
-#' # clean up
+#' # Clean up
 #' file.remove("~/KBGM_example", "~/KBGM_example.h5")
 #' }
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
@@ -42,6 +47,7 @@ nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE,
   file.rename(pvol_tmp, pvolfile_odim)
 }
 
+# Helper function
 nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
                                     mount = dirname(pvolfile), local_install) {
   # check input arguments

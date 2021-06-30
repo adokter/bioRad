@@ -2,7 +2,7 @@
 % Please edit documentation in R/nexrad_odim.R
 \name{nexrad_to_odim}
 \alias{nexrad_to_odim}
-\title{Convert a NEXRAD polar volume file to an ODIM polar volume file}
+\title{Convert a NEXRAD polar volume file to an ODIM HDF5 polar volume file}
 \usage{
 nexrad_to_odim(
   pvolfile_nexrad,
@@ -13,10 +13,11 @@ nexrad_to_odim(
 )
 }
 \arguments{
-\item{pvolfile_nexrad}{Polar volume input file in RSL format.}
+\item{pvolfile_nexrad}{Character. Path to a polar volume file in NEXRAD/RSL
+format.}
 
-\item{pvolfile_odim}{Filename for the polar volume in ODIM HDF5 format to be
-generated.}
+\item{pvolfile_odim}{Character. Path of the polar volume file in ODIM HDF5
+format to be written to disk.}
 
 \item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
 console. Always \code{TRUE} on Windows.}
@@ -29,31 +30,34 @@ container.}
 the Docker container.}
 }
 \value{
-\code{TRUE} on success
+\code{TRUE} on successful conversion.
 }
 \description{
-Convert a NEXRAD polar volume file to an ODIM polar volume file
+Converts a NEXRAD polar volume input file to an ODIM HDF5 polar volume output
+file (see \code{\link[=is.pvolfile]{is.pvolfile()}}). Requires a running
+\href{https://www.docker.com/}{Docker} daemon, see \code{\link[=check_docker]{check_docker()}}.
 }
 \examples{
 \dontrun{
-# download a NEXRAD file, save as KBGM_example
-download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
-  "2019/10/01/KBGM/KBGM20191001_000542_V06",
-  sep = ""
-), "~/KBGM_example")
+# Download a NEXRAD file and save as KBGM_example
+download.file(
+  "https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
+  "~/KBGM_example"
+)
 
-# convert to ODIM format
+# Convert to ODIM format
 nexrad_to_odim("~/KBGM_example", "~/KBGM_example.h5")
 
-# verify that we have generated a polar volume in ODIM HDF5 format
+# Verify that we have generated a polar volume in ODIM HDF5 format
 get_odim_object_type("~/KBGM_example.h5")
 
-# clean up
+# Clean up
 file.remove("~/KBGM_example", "~/KBGM_example.h5")
 }
 }
 \seealso{
 \itemize{
 \item \code{\link[=check_docker]{check_docker()}}
+\item \code{\link[=is.pvolfile]{is.pvolfile()}}
 }
 }
