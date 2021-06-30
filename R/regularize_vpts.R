@@ -98,7 +98,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   )
   index2 <- integer(0)
   if (!fill) {
-    index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs"))
+    index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs") / 2)
     if (length(index2) > 0) {
       ts$data <- lapply(
         1:length(ts$data),
