@@ -1,7 +1,7 @@
 #' @details
 #' To get started, see:
 #'
-#' * [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper describing the
+#' * Dokter et al. (2019) \doi{10.1111/ecog.04028}: a paper describing the
 #' package.
 #' * [bioRad vignette](https://adokter.github.io/bioRad/articles/bioRad.html):
 #' an introduction to bioRad's main functionalities.

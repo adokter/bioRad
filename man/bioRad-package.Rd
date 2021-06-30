@@ -9,13 +9,13 @@
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Extract, visualize and summarize aerial movements of birds and
-    insects from weather radar data. See <doi:10.1111/ecog.04028>
-    for a software paper describing package and methodologies.
+    insects from weather radar data. See \doi{10.1111/ecog.04028} for a software
+    paper describing package and methodologies.
 }
 \details{
 To get started, see:
 \itemize{
-\item \href{https://doi.org/10.1111/ecog.04028}{Dokter et al. (2019)}: a paper describing the
+\item Dokter et al. (2019) \doi{10.1111/ecog.04028}: a paper describing the
 package.
 \item \href{https://adokter.github.io/bioRad/articles/bioRad.html}{bioRad vignette}:
 an introduction to bioRad's main functionalities.

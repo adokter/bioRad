@@ -22,7 +22,7 @@
 #' * Kilambi A, Fabry F, Meunier V (2018) A simple and effective method for
 #' separating meteorological from nonmeteorological targets using
 #' dual-polarization data. Journal of Atmospheric and Oceanic Technology 35, pp.
-#' 1415–1424. <doi:10.1175/JTECH-D-17-0175.1>
+#' 1415–1424. \doi{10.1175/JTECH-D-17-0175.1}
 #'
 #' @examples
 #' # Locate and read the polar volume example file

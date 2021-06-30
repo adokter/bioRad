@@ -90,10 +90,11 @@
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
 #' J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird Movements
 #' Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-#' <https://doi.org/10.3390/rs12040635>
+#' \doi{https://doi.org/10.3390/rs12040635}
 #' * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 #' stopover using weather surveillance radar. IEEE Transactions on Geoscience
-#' and Remote Sensing 47: 2741-2751. <https://doi.org/10.1109/TGRS.2009.2014463>
+#' and Remote Sensing 47: 2741-2751.
+#' \doi{https://doi.org/10.1109/TGRS.2009.2014463}
 #'
 #' @examples
 #' # Locate and read the polar volume example file
