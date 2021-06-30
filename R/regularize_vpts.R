@@ -13,8 +13,8 @@
 #' Taken from \code{ts} when '\code{auto}'.
 #' @param units Optional units of \code{interval}, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill Logical, whether to fill missing timesteps with the values of
-#' the closest neighboring profile.
+#' @param fill Logical, whether to fill missing timesteps (i.e., further than
+#' +/- half the interval to the closest neighboring profile).
 #' @param verbose Logical, when \code{TRUE} prints text to console.
 #' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps.
 #'
@@ -23,10 +23,11 @@
 #' @export
 #'
 #' @details Irregular time series of profiles are typically aligned on a
-#' regular time grid with the expected time interval at which a radar provides
+#' regular time grid with the expected time interval at which a radar measure
 #' data. Empty profiles with only missing data values will be inserted at
 #' time stamps of the regular time grid that have no matching profile in the
-#' irregular time series.
+#' irregular time series within +/- half the interval duration expect if `fill`
+#' is true.
 #'
 #' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
