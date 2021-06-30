@@ -101,6 +101,6 @@ map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 \seealso{
 \itemize{
 \item \code{\link[=download_basemap]{download_basemap()}}
-\item \code{\link[=project_to_ppi]{project_to_ppi()}}
+\item \code{\link[=project_as_ppi]{project_as_ppi()}}
 }
 }

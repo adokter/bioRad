@@ -30,7 +30,7 @@
 #'
 #' @seealso
 #' * [download_basemap()]
-#' * [project_to_ppi()]
+#' * [project_as_ppi()]
 #'
 #' @examples
 #' # Project a scan as a ppi
