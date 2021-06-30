@@ -45,27 +45,6 @@
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }
 #'
-#' \subsection{Ground speed (ff) and ground speed components (u,v)}{
-#' The height-averaged ground speed is defined as:
-#'
-#' \deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i / \sum_i dens_i}
-#' with the sum running over all altitude layers between \code{alt_min} and
-#' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
-#' altitude layer i.
-#'
-#' the height-averaged u component (west to east) is defined as:
-#'
-#' \deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i dens_i}
-#'
-#' the height-averaged v component (south to north) is defined as:
-#'
-#' \deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i dens_i}
-#' }
-#'
-#' Note that \eqn{ff_i=\sqrt(u_i^2 + v_i^2)}, but the same does not hold for the
-#' height-integrated speeds, i.e. \eqn{ff != \sqrt(u^2 + v^2)} as soon as the
-#' ground speed directions vary with altitude.
-#'
 #' \subsection{Migration traffic rate (mtr) and reflectivity traffic rate (rtr)}{
 #' Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
 #' as the number of targets crossing a unit of transect per hour.
@@ -90,13 +69,13 @@
 #' to the direction \code{alpha}, and the number of crossing targets per hour
 #' per km transect is calculated as:
 #'
-#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}
+#' \deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-\alpha) \pi/180) \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-\alpha) \pi/180) \Delta h}
 #' with \eqn{dd_i} the migratory direction at altitude i.
 #'
 #' Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
 #' Also note we can rewrite this equation using trigonometry as:
 #'
-#' \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}
+#' \deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(\alpha \pi/180) + v_i \cos(\alpha \pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(\alpha \pi/180) + v_i \cos(alpha pi/180)) \Delta h}
 #' with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.
 #'
 #' In this definition \code{mtr} is a traditional flux into a direction of
@@ -109,7 +88,7 @@
 #' the vertically integrated density \code{vid} and the height-integrated velocity
 #' components \code{u} and \code{v} as follows:
 #'
-#' \deqn{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}
+#' \deqn{mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid}{mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid}
 #'
 #' Formula for reflectivity traffic rate \code{rtr} are found by replacing
 #' \code{dens} with \code{eta} and \code{vid} with \code{vir} in the formula for \code{mtr}.
@@ -136,6 +115,28 @@
 #' Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 #' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 #' of the respective row.
+#'
+#' #' \subsection{Ground speed (ff) and ground speed components (u,v)}{
+#' The height-averaged ground speed is defined as:
+#'
+#' \deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i / \sum_i dens_i}
+#' with the sum running over all altitude layers between \code{alt_min} and
+#' \code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+#' altitude layer i.
+#'
+#' the height-averaged u component (west to east) is defined as:
+#'
+#' \deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i dens_i}
+#'
+#' the height-averaged v component (south to north) is defined as:
+#'
+#' \deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i dens_i}
+#' }
+#'
+#' Note that \eqn{ff_i=\sqrt(u_i^2 + v_i^2)}, but the same does not hold for the
+#' height-integrated speeds, i.e. \eqn{ff != \sqrt(u^2 + v^2)} as soon as the
+#' ground speed directions vary with altitude.
+#'
 #' }
 #' @export
 #'
@@ -172,35 +173,54 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
-  interval <- x$attributes$where$interval
-
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
-  alt_min <- max(alt_min, min(x$data$height))
+  # Altitudinal resolution of the bin
+  interval <- x$attributes$where$interval
+
+  # Min altitude is the ground level
+  alt_min <- max(alt_min, min(x$attributes$where$height))
+
+  # Max altitude is the top of the highest bin
   alt_max <- min(alt_max, max(x$data$height) + interval)
-  if (alt_max - alt_min <= interval) stop(paste("selected altitude range (", alt_min, "-", alt_max, " m) should be wider than the width of a single altitude layer (", interval, " m)", sep = ""))
 
-  index <- which(x$data$height >= alt_min & x$data$height < alt_max)
+  # dh is a vector of the height of each bin used for the computation in km
+  # Its value is zeros for bins completly below alt_min or above alt_max, the
+  # interval value for all bin completly above alt_min and below alt_max, and
+  # a ratio of interval for the bins overlaping alt_min and alt_max
+  dh <- pmin(pmin(pmax(x$data$height-alt_min,0),interval),
+             pmin(pmax(alt_max-x$data$height,0),interval)) / 1000
+
+  # Vertically Integrated Density in individuals/km^2
+  vid <- sum(get_quantity(x, "dens") * dh, na.rm = TRUE)
+  # Vertically Integrated Reflectivity in cm^2/km^2
+  vir <- sum(get_quantity(x, "eta") * dh, na.rm = TRUE)
+
+  # Projection of migratory direction (alpha) on the flight direction (dd)
   if (is.na(alpha)) {
-    cosfactor <- rep(1, length(index))
+    cosfactor <- rep(1, length(dh))
   } else {
-    cosfactor <- cos((get_quantity(x, "dd")[index] - alpha) * pi / 180)
+    cosfactor <- cos((get_quantity(x, "dd") - alpha) * pi / 180)
   }
-  dens_quantity <- get_quantity(x, "dens")[index]
-  dens_quantity[is.na(dens_quantity)] <- 0
 
-  # multiply speeds by 3.6 to convert m/s to km/h
-  mtr <- sum(dens_quantity * cosfactor *
-    get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
-  rtr <- sum(get_quantity(x, "eta")[index] * cosfactor *
-    get_quantity(x, "ff")[index] * 3.6 * interval / 1000, na.rm = TRUE)
-  vid <- sum(dens_quantity, na.rm = TRUE) * interval / 1000
-  vir <- sum(get_quantity(x, "eta")[index], na.rm = TRUE) * interval / 1000
-  height <- weighted.mean(get_quantity(x, "height")[index] + x$attributes$where$interval / 2, dens_quantity, na.rm = TRUE)
+  # Migration Traffic Rate in individuals/km/h
+  # multiply speeds (ff) by 3.6 to convert m/s to km/h
+  mtr <- sum(get_quantity(x, "dens") * cosfactor * get_quantity(x, "ff")
+             * 3.6  * dh, na.rm = TRUE)
+  # Reflectivity Traffic Rate in cm^2/km/h
+  rtr <- sum(get_quantity(x, "eta") * cosfactor * get_quantity(x, "ff")
+             * 3.6 * dh, na.rm = TRUE)
 
-  u <- weighted.mean(get_quantity(x, "u")[index], dens_quantity, na.rm = TRUE)
-  v <- weighted.mean(get_quantity(x, "v")[index], dens_quantity, na.rm = TRUE)
-  ff <- weighted.mean(get_quantity(x, "ff")[index], dens_quantity, na.rm = TRUE)
+  # The following quantites are vertically summed by weighting each altitudinal
+  # bin based on their bird reflectivity value (eta) and the height
+  w <- get_quantity(x, "eta") * dh
+  w[is.na(w)] <- 0
+
+  height <- weighted.mean(get_quantity(x, "height") + interval / 2, w, na.rm = TRUE)
+
+  u <- weighted.mean(get_quantity(x, "u"), w, na.rm = TRUE)
+  v <- weighted.mean(get_quantity(x, "v"), w, na.rm = TRUE)
+  ff <- weighted.mean(get_quantity(x, "ff"), w, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures not defined for a single profile:
   mt <- NA
@@ -213,12 +233,12 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   )
 
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
-    airspeed_u <- get_quantity(x, "u")[index] - get_quantity(x, "u_wind")[index]
-    airspeed_v <- get_quantity(x, "v")[index] - get_quantity(x, "v_wind")[index]
-    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), dens_quantity, na.rm = TRUE)
-    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, dens_quantity, na.rm = TRUE)
-    output$airspeed_u <- weighted.mean(airspeed_u, dens_quantity, na.rm = TRUE)
-    output$airspeed_v <- weighted.mean(airspeed_u, dens_quantity, na.rm = TRUE)
+    airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
+    airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
+    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), w, na.rm = TRUE)
+    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, w, na.rm = TRUE)
+    output$airspeed_u <- weighted.mean(airspeed_u, w, na.rm = TRUE)
+    output$airspeed_v <- weighted.mean(airspeed_u, w, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -269,44 +289,56 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
-  interval <- x$attributes$where$interval
-
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
-  alt_min <- max(alt_min, min(x$height))
-  alt_max <- min(alt_max, max(x$height) + interval)
-  if (alt_max - alt_min <= interval) stop(paste("selected altitude range (", alt_min, "-", alt_max, " m) should be wider than the width of a single altitude layer (", interval, " m)", sep = ""))
+  # Altitudinal resolution of the bin
+  interval <- x$attributes$where$interval
 
-  index <- which(x$height >= alt_min & x$height < alt_max)
+  # Min altitude is the ground level
+  alt_min <- max(alt_min, min(x$attributes$where$height))
+
+  # Max altitude is the top of the highest bin
+  alt_max <- min(alt_max, max(x$height) + interval)
+
+  # dh is a vector of the height of each bin used for the computation in km
+  # Its value is zeros for bins completly below alt_min or above alt_max, the
+  # interval value for all bin completly above alt_min and below alt_max, and
+  # a ratio of interval for the bins overlaping alt_min and alt_max
+  dh <- pmin(pmin(pmax(x$height-alt_min,0),interval),
+             pmin(pmax(alt_max-x$height,0),interval)) / 1000
+
+  # Vertically Integrated Density in individuals/km^2
+  vid <- colSums(get_quantity(x, "dens") * dh, na.rm = TRUE)
+  # Vertically Integrated Reflectivity in cm^2/km^2
+  vir <- colSums(get_quantity(x, "eta") * dh, na.rm = TRUE)
+
+  # Projection of migratory direction (alpha) on the flight direction (dd)
   if (is.na(alpha)) {
-    cosfactor <- 1 + 0 * get_quantity(x, "dd")[index, ]
+    cosfactor <- 1 + 0 * get_quantity(x, "dd")
   } else {
-    cosfactor <- cos((get_quantity(x, "dd")[index, ] - alpha) * pi / 180)
+    cosfactor <- cos((get_quantity(x, "dd") - alpha) * pi / 180)
   }
 
-  dens_quantity <- colSums(get_quantity(x, "dens")[index, ], na.rm = TRUE)
+  # Migration Traffic Rate in individuals/km/h
+  # multiply speeds (ff) by 3.6 to convert m/s to km/h
+  mtr <- colSums(get_quantity(x, "dens") * cosfactor * get_quantity(x, "ff")
+             * 3.6  * dh, na.rm = TRUE)
+  # Reflectivity Traffic Rate in cm^2/km/h
+  rtr <- colSums(get_quantity(x, "eta") * cosfactor * get_quantity(x, "ff")
+             * 3.6 * dh, na.rm = TRUE)
 
-  # multiply speeds by 3.6 to convert m/s to km/h
-  mtr <- colSums(cosfactor * get_quantity(x, "ff")[index, ] * 3.6 *
-    get_quantity(x, "dens")[index, ], na.rm = TRUE) * interval / 1000
-  rtr <- colSums(cosfactor * get_quantity(x, "ff")[index, ] * 3.6 *
-    get_quantity(x, "eta")[index, ], na.rm = TRUE) * interval / 1000
-  vid <- dens_quantity * interval / 1000
-  vir <- colSums(get_quantity(x, "eta")[index, ], na.rm = TRUE) * interval / 1000
-  height <- colSums((x$height[index] + x$attributes$where$interval / 2) *
-    get_quantity(x, "dens")[index, ],
-  na.rm = TRUE
-  ) / dens_quantity
-  u <- colSums(get_quantity(x, "u")[index, ] * get_quantity(x, "dens")[index, ],
-    na.rm = TRUE
-  ) / dens_quantity
-  v <- colSums(get_quantity(x, "v")[index, ] * get_quantity(x, "dens")[index, ],
-    na.rm = TRUE
-  ) / dens_quantity
-  ff <- colSums(get_quantity(x, "ff")[index, ] * get_quantity(x, "dens")[index, ],
-    na.rm = TRUE
-  ) / dens_quantity
+  # The following quantites are vertically summed by weighting each altitudinal
+  # bin based on their bird reflectivity value (eta) and the height
+  w <- get_quantity(x, "eta") * dh
+  w[is.na(w)] <- 0
+  w <- sweep(w, 2, colSums(w), FUN="/")
+
+  height <- colSums( (get_quantity(x, "height") + interval / 2) * w, na.rm = T)
+  u <- colSums( (get_quantity(x, "u") + interval / 2) * w, na.rm = T)
+  v <- colSums( (get_quantity(x, "v") + interval / 2) * w, na.rm = T)
+  ff <- colSums( (get_quantity(x, "ff") + interval / 2) * w, na.rm = T)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
+
   # time-integrated measures:
   dt <- (c(0, x$timesteps) + c(x$timesteps, 0)) / 2
   dt <- pmin(interval_max, dt)
@@ -322,13 +354,12 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   )
 
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
-    airspeed_u <- get_quantity(x, "u")[index, ] - get_quantity(x, "u_wind")[index, ]
-    airspeed_v <- get_quantity(x, "v")[index, ] - get_quantity(x, "v_wind")[index, ]
-    output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * get_quantity(x, "dens")[index, ], na.rm = TRUE) /
-      dens_quantity
-    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * get_quantity(x, "dens")[index, ], na.rm = TRUE) / dens_quantity
-    output$airspeed_u <- colSums(airspeed_u * get_quantity(x, "dens")[index, ], na.rm = TRUE) / dens_quantity
-    output$airspeed_v <- colSums(airspeed_v * get_quantity(x, "dens")[index, ], na.rm = TRUE) / dens_quantity
+    airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
+    airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
+    output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * w, na.rm = TRUE)
+    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * w, na.rm = TRUE)
+    output$airspeed_u <- colSums(airspeed_u * w, na.rm = TRUE)
+    output$airspeed_v <- colSums(airspeed_v * w, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
