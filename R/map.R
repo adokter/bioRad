@@ -1,6 +1,7 @@
 #' Plot a plan position indicator (`ppi`) on a map
 #'
-#' Plots a plan position indicator (`ppi`) on a base layer using [pkg::ggmap].
+#' Plots a plan position indicator (`ppi`) on a base layer using
+#' [ggmap::ggmap()].
 #'
 #' @param x A `ppi` object.
 #' @param map Basemap to use, result of a call to [download_basemap()].

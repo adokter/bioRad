@@ -61,7 +61,8 @@ A ggmap object (a classed raster object with a bounding
 box attribute).
 }
 \description{
-Plots a plan position indicator (\code{ppi}) on a base layer using \link[pkg:ggmap]{pkg::ggmap}.
+Plots a plan position indicator (\code{ppi}) on a base layer using
+\code{\link[ggmap:ggmap]{ggmap::ggmap()}}.
 }
 \section{Methods (by class)}{
 \itemize{
