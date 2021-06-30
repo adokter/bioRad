@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvolfile.R
 \name{get_odim_object_type}
 \alias{get_odim_object_type}
-\title{Check the \code{data} object type of an ODIM HDF5 file}
+\title{Check the \code{data} type of an ODIM HDF5 file}
 \usage{
 get_odim_object_type(file)
 }

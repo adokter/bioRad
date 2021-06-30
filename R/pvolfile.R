@@ -32,7 +32,7 @@ is.pvolfile <- function(file) {
   }
 }
 
-#' Check the `data` object type of an ODIM HDF5 file
+#' Check the `data` type of an ODIM HDF5 file
 #'
 #' Checks what type of `data` object is contained in an ODIM HDF5 file. See
 #' [ODIM
