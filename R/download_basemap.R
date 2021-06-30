@@ -10,7 +10,7 @@
 #' @param zoom Integer. Optional zoom level from 3 (continent) to 21 (building),
 #'   see [ggmap::get_map()]. When undefined, the zoom level will be the one
 #'   matching the `ppi` extent.
-#' @param alpha Numeric. Transparency of the basemap (`0`-`1`).
+#' @param alpha Numeric. Transparency of the basemap, value between 0 and 1.
 #' @param source Character. Map service to be used: `stamen` or `google`.
 #' @param maptype Character. Type of basemap to plot. For Stamen Maps:
 #'   `terrain`, `terrain-background`, `terrain-labels`, `terrain-lines`,

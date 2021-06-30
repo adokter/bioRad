@@ -23,7 +23,7 @@ download_basemap(
 see \code{\link[ggmap:get_map]{ggmap::get_map()}}. When undefined, the zoom level will be the one
 matching the \code{ppi} extent.}
 
-\item{alpha}{Numeric. Transparency of the basemap (\code{0}-\code{1}).}
+\item{alpha}{Numeric. Transparency of the basemap, value between 0 and 1.}
 
 \item{source}{Character. Map service to be used: \code{stamen} or \code{google}.}
 

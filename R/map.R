@@ -1,114 +1,73 @@
-#' Map a plan position indicator (\code{ppi})
+#' Plot a plan position indicator (`ppi`) on a map
 #'
-#' Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
-#' layer map using \link[ggmap]{ggmap}.
+#' Plots a plan position indicator (`ppi`) on a base layer using [pkg::ggmap].
 #'
-#' @param x An object of class \code{ppi}.
-#' @param map  The basemap to use, result of a call to \link{download_basemap}.
-#' @param param The scan parameter to plot.
-#' @param alpha Transparency of the data, value between 0 and 1.
-#' @param radar_size Size of the symbol indicating the radar position.
-#' @param radar_color Color of the symbol indicating the radar position.
-#' @param n_color The number of colors (>=1) to be in the palette.
-#' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
-#' @param xlim Range of x values to plot (degrees longitude), as atomic
-#' vector of length 2.
-#' @param ylim Range of y values to plot (degrees latitude), as an atomic
-#' vector of length 2.
-#' @param zlim The range of values to plot.
-#' @param ratio Aspect ratio between x and y scale, by default
+#' @param x A `ppi` object.
+#' @param map Basemap to use, result of a call to [download_basemap()].
+#' @param param Character. A scan parameter to plot, such as `DBZH` or `VRADH`.
+#'   See [summary.param()] for commonly available parameters.
+#' @param alpha Numeric. Transparency of the data, value between 0 and 1.
+#' @param xlim Numeric vector of length 2. Range of x values to plot (degrees
+#'   longitude).
+#' @param ylim Numeric vector of length 2. Range of y values to plot (degrees
+#'   latitude).
+#' @param zlim Numeric vector of length 2. The range of values to plot.
+#' @param ratio Numeric. Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
-#' @param ... Arguments passed to low level \link[ggmap]{ggmap} function.
-#' @param radar.size Deprecated argument, use radar_size instead.
-#' @param radar.color Deprecated argument, use radar_color instead.
-#' @param n.color Deprecated argument, use n_color instead.
+#' @param radar_size Numeric. Size of the symbol indicating the radar position.
+#' @param radar_color Character. Color of the symbol indicating the radar
+#'   position.
+#' @param n_color Numeric. Number of colors (>=1) to use in the palette.
+#' @param palette Character vector. Hexadecimal color values defining the plot
+#'   color scale, e.g. output from [viridisLite::viridis()].
+#' @param ... Arguments passed to [ggmap::ggmap()].
 #'
 #' @return A ggmap object (a classed raster object with a bounding
 #' box attribute).
 #'
-#' @details
-#' Available scan parameters for mapping can by printed to screen by
-#' \code{summary(x)}. Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-#'  velocities towards the radar are negative, while radial velocities away
-#'  from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless) Correlation
-#'  between vertically polarized and horizontally polarized reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
-#' The scan parameters are named according to the OPERA data information
-#' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
-#'
 #' @export
+#'
+#' @seealso
+#' * [download_basemap()]
+#' * [project_to_ppi()]
+#'
 #' @examples
-#' # load an example scan:
-#' data(example_scan)
-#' # make ppi's for all scan parameters in the scan
+#' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #' \dontrun{
-#' # grab a basemap that matches the extent of the ppi:
-#' # using a gray-scale basemap:
+#' # Create a basemap that matches the extent of the ppi
 #' basemap <- download_basemap(ppi, maptype = "toner-lite")
 #'
-#' # map the radial velocity scan parameter onto the basemap:
+#' # Map the radial velocity of the ppi onto the basemap
 #' map(ppi, map = basemap, param = "VRADH")
 #'
-#' # extend the plotting range of velocities, from -50 to 50 m/s:
+#' # Extend the plotting range of velocities, from -50 to 50 m/s:
 #' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 #'
-#' # map the reflectivity on a terrain basemap:
-#' basemap <- download_basemap(ppi, maptype = "terrain")
+#' # Map the reflectivity
 #' map(ppi, map = basemap, param = "DBZH")
 #'
-#' # change the color palette, e.g. Viridis colors:
+#' # Change the color palette to Viridis colors
 #' map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
 #'
-#' # give the data more transparency:
+#' # Give the data more transparency
 #' map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 #'
-#' # change the appearance of the symbol indicating the radar location:
+#' # Change the appearance of the symbol indicating the radar location
 #' map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
 #'
-#' # crop the map:
+#' # Crop the map
 #' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 #' }
 map <- function(x, ...) {
   UseMethod("map", x)
 }
 
-#' @describeIn map plot a 'ppi' object on a map
+#' @describeIn map Plot a `ppi` object on a map.
 #' @export
-map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
-                    zlim = c(-20, 20), ratio, radar_size = 3,
-                    radar_color = "red", n_color = 1000,
-                    radar.size = 3, radar.color = "red",
-                    n.color = 1000, palette = NA, ...) {
-
-  # deprecate function arguments
-  if (!missing(radar.size)) {
-    warning("argument radar.size is deprecated; please use radar_size instead.",
-      call. = FALSE
-    )
-    radar_size <- radar.size
-  }
-  if (!missing(radar.color)) {
-    warning("argument radar.color is deprecated; please use radar_color instead.",
-      call. = FALSE
-    )
-    radar_color <- radar.color
-  }
-  if (!missing(n.color)) {
-    warning("argument n.color is deprecated; please use n_color instead.",
-      call. = FALSE
-    )
-    n_color <- n.color
-  }
+map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
+                    ratio, radar_size = 3, radar_color = "red", n_color = 1000,
+                    palette = NA, ...) {
 
   stopifnot(inherits(x, "ppi"))
 
@@ -252,5 +211,4 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       scale_y_continuous(limits = ylim, expand = c(0, 0))
   )
   suppressWarnings(mymap)
-
 }
