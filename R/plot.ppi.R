@@ -76,7 +76,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   }
   colorscale <- color_scale_fill(param, zlim, na.value)
   # extract the scan parameter
-  y <- NULL # dummy asignment to suppress devtools check warning
+  y <- NULL # dummy assignment to suppress devtools check warning
   data <- do.call(function(y) x$data[y], list(param))
   # convert to points
   data <- raster::as.data.frame(raster(data), xy = T)

@@ -3,7 +3,7 @@ title: "Correction for range effects"
 author: Adriaan M. Dokter
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Range correction}
+  %\VignetteIndexEntry{Correction for range effects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

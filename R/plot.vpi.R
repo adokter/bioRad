@@ -70,9 +70,10 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  if(!(quantity %in% names(x)[!(names(x) %in% c("datetime", "height"))])){
-    stop(paste("quantity '",quantity,"'not found in vpi object",sep=""))
-  }
+  assert_that(
+    quantity %in% names(x) & quantity != "datetime",
+    msg = glue("quantity `{quantity}` not found in vpi object.")
+  )
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
@@ -135,7 +136,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     ), tz = "UTC")
 
     trise <- sunrise(days, lon, lat, elev = elev)
-    tset <- sunset(days, lon, lat, elev=elev)
+    tset <- sunset(days, lon, lat, elev = elev)
 
     if (trise[1] < tset[1]) {
       trise <- trise[-1]
