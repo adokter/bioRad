@@ -212,15 +212,15 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
              * 3.6 * dh, na.rm = TRUE)
 
   # The following quantites are vertically summed by weighting each altitudinal
-  # bin based on their bird reflectivity value (eta) and the height
-  w <- get_quantity(x, "eta") * dh
-  w[is.na(w)] <- 0
+  # bin based on their bird densiuty value (dens) and their height.
+  weight_densdh <- get_quantity(x, "dens") * dh
+  weight_densdh[is.na(weight_densdh)] <- 0
 
-  height <- weighted.mean(get_quantity(x, "height") + interval / 2, w, na.rm = TRUE)
+  height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
 
-  u <- weighted.mean(get_quantity(x, "u"), w, na.rm = TRUE)
-  v <- weighted.mean(get_quantity(x, "v"), w, na.rm = TRUE)
-  ff <- weighted.mean(get_quantity(x, "ff"), w, na.rm = TRUE)
+  u <- weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
+  v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
+  ff <- weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   # time-integrated measures not defined for a single profile:
   mt <- NA
@@ -236,9 +236,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), w, na.rm = TRUE)
-    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, w, na.rm = TRUE)
-    output$airspeed_u <- weighted.mean(airspeed_u, w, na.rm = TRUE)
-    output$airspeed_v <- weighted.mean(airspeed_u, w, na.rm = TRUE)
+    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
+    output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
+    output$airspeed_v <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -329,14 +329,14 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   # The following quantites are vertically summed by weighting each altitudinal
   # bin based on their bird reflectivity value (eta) and the height
-  w <- get_quantity(x, "eta") * dh
-  w[is.na(w)] <- 0
-  w <- sweep(w, 2, colSums(w), FUN="/")
+  weight_densdh <- get_quantity(x, "dens") * dh
+  weight_densdh[is.na(weight_densdh)] <- 0
+  weight_densdh <- sweep(weight_densdh, 2, colSums(weight_densdh), FUN="/")
 
-  height <- colSums( (get_quantity(x, "height") + interval / 2) * w, na.rm = T)
-  u <- colSums( (get_quantity(x, "u") + interval / 2) * w, na.rm = T)
-  v <- colSums( (get_quantity(x, "v") + interval / 2) * w, na.rm = T)
-  ff <- colSums( (get_quantity(x, "ff") + interval / 2) * w, na.rm = T)
+  height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+  u <- colSums( (get_quantity(x, "u") + interval / 2) * weight_densdh, na.rm = T)
+  v <- colSums( (get_quantity(x, "v") + interval / 2) * weight_densdh, na.rm = T)
+  ff <- colSums( (get_quantity(x, "ff") + interval / 2) * weight_densdh, na.rm = T)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
 
   # time-integrated measures:
@@ -356,10 +356,10 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * w, na.rm = TRUE)
-    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * w, na.rm = TRUE)
-    output$airspeed_u <- colSums(airspeed_u * w, na.rm = TRUE)
-    output$airspeed_v <- colSums(airspeed_v * w, na.rm = TRUE)
+    output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_densdh, na.rm = TRUE)
+    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_densdh, na.rm = TRUE)
+    output$airspeed_u <- colSums(airspeed_u * weight_densdh, na.rm = TRUE)
+    output$airspeed_v <- colSums(airspeed_v * weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
