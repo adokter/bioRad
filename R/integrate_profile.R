@@ -212,9 +212,10 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
              * 3.6 * dh, na.rm = TRUE)
 
   # The following quantites are vertically summed by weighting each altitudinal
-  # bin based on their bird densiuty value (dens) and their height.
+  # bin based on their bird density value (dens) and their height.
   weight_densdh <- get_quantity(x, "dens") * dh
   weight_densdh[is.na(weight_densdh)] <- 0
+  weight_densdh <- weight_densdh / sum(weight_densdh)
 
   height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
 
@@ -328,15 +329,15 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
              * 3.6 * dh, na.rm = TRUE)
 
   # The following quantites are vertically summed by weighting each altitudinal
-  # bin based on their bird reflectivity value (eta) and the height
+  # bin based on their bird density value (dens) and their height.
   weight_densdh <- get_quantity(x, "dens") * dh
   weight_densdh[is.na(weight_densdh)] <- 0
   weight_densdh <- sweep(weight_densdh, 2, colSums(weight_densdh), FUN="/")
 
   height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
-  u <- colSums( (get_quantity(x, "u") + interval / 2) * weight_densdh, na.rm = T)
-  v <- colSums( (get_quantity(x, "v") + interval / 2) * weight_densdh, na.rm = T)
-  ff <- colSums( (get_quantity(x, "ff") + interval / 2) * weight_densdh, na.rm = T)
+  u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = T)
+  v <- colSums( get_quantity(x, "v") * weight_densdh, na.rm = T)
+  ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = T)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
 
   # time-integrated measures:
