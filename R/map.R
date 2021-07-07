@@ -5,13 +5,13 @@
 #'
 #' @param x A `ppi` object.
 #' @param map Basemap to use, result of a call to [download_basemap()].
-#' @param param Character. A scan parameter to plot, such as `DBZH` or `VRADH`.
-#'   See [summary.param()] for commonly available parameters.
+#' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
+#'   [summary.param()] for commonly available parameters.
 #' @param alpha Numeric. Transparency of the data, value between 0 and 1.
-#' @param xlim Numeric vector of length 2. Range of x values to plot (degrees
-#'   longitude).
-#' @param ylim Numeric vector of length 2. Range of y values to plot (degrees
-#'   latitude).
+#' @param xlim Numeric vector of length 2. Range of x values (degrees longitude)
+#'   to plot.
+#' @param ylim Numeric vector of length 2. Range of y values (degrees latitude)
+#'   to plot.
 #' @param zlim Numeric vector of length 2. The range of values to plot.
 #' @param ratio Numeric. Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
@@ -42,7 +42,7 @@
 #' # Map the radial velocity of the ppi onto the basemap
 #' map(ppi, map = basemap, param = "VRADH")
 #'
-#' # Extend the plotting range of velocities, from -50 to 50 m/s:
+#' # Extend the plotting range of velocities, from -50 to 50 m/s
 #' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 #'
 #' # Map the reflectivity

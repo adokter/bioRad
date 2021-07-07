@@ -30,16 +30,16 @@ map(x, ...)
 
 \item{map}{Basemap to use, result of a call to \code{\link[=download_basemap]{download_basemap()}}.}
 
-\item{param}{Character. A scan parameter to plot, such as \code{DBZH} or \code{VRADH}.
-See \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
+\item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
+\code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
 
 \item{alpha}{Numeric. Transparency of the data, value between 0 and 1.}
 
-\item{xlim}{Numeric vector of length 2. Range of x values to plot (degrees
-longitude).}
+\item{xlim}{Numeric vector of length 2. Range of x values (degrees longitude)
+to plot.}
 
-\item{ylim}{Numeric vector of length 2. Range of y values to plot (degrees
-latitude).}
+\item{ylim}{Numeric vector of length 2. Range of y values (degrees latitude)
+to plot.}
 
 \item{zlim}{Numeric vector of length 2. The range of values to plot.}
 
@@ -79,7 +79,7 @@ basemap <- download_basemap(ppi, maptype = "toner-lite")
 # Map the radial velocity of the ppi onto the basemap
 map(ppi, map = basemap, param = "VRADH")
 
-# Extend the plotting range of velocities, from -50 to 50 m/s:
+# Extend the plotting range of velocities, from -50 to 50 m/s
 map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 
 # Map the reflectivity

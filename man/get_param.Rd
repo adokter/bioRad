@@ -9,7 +9,7 @@ get_param(x, param)
 \arguments{
 \item{x}{A \code{scan} object.}
 
-\item{param}{Character. A scan parameter, such as \code{DBZH} or \code{VRADH}. See
+\item{param}{Character. A scan parameter, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
 }
 \value{

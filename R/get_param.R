@@ -3,7 +3,7 @@
 #' Returns the selected parameter (`param`) from a scan (`scan`).
 #'
 #' @param x A `scan` object.
-#' @param param Character. A scan parameter, such as `DBZH` or `VRADH`. See
+#' @param param Character. A scan parameter, e.g. `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
 #'
 #' @return A `param` object.
