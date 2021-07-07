@@ -15,58 +15,37 @@
 )
 }
 \arguments{
-\item{x}{An object of class \code{scan}.}
+\item{x}{A \code{scan} object.}
 
-\item{param}{The scan parameter to plot, see details below.}
+\item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
+\code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
 
-\item{xlim}{Range of x (range, distance from radar) values to plot.}
+\item{xlim}{Numeric vector of length 2. Range of x values (range, distance to
+radar) to plot.}
 
-\item{ylim}{Range of y (azimuth) values to plot.}
+\item{ylim}{Numeric vector of length 2. Range of y values (azimuth) to plot.}
 
-\item{zlim}{The range of parameter values to plot.}
+\item{zlim}{Numeric vector of length 2. The range of parameter values to
+plot.}
 
-\item{na.value}{\link[ggplot2]{ggplot} argument setting the plot color of NA values}
+\item{na.value}{Character. \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} parameter to set the color of
+\code{NA} values.}
 
-\item{...}{Arguments passed to low level \link[ggplot2]{ggplot} function.}
+\item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 }
 \description{
-Plots a scan in polar coordinates. For plots in Cartesian coordinates,
-see \code{project_to_ppi}
-}
-\details{
-Available scan parameters for plotting can by printed to screen
-by \code{summary(x)}. Commonly available parameters are:
-\describe{
-\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-\item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities away
-from the radar are positive}
-\item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-between vertically polarized and horizontally polarized
-reflectivity factor}
-\item{"\code{PHIDP}"}{Differential phase (degrees)}
-\item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-}
-The scan parameters are named according to the OPERA data information
-model (ODIM), see Table 16 in the
-\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+Plots a scan (\code{scan}) in polar coordinates. To plot in Cartesian coordinates,
+see \code{\link[=project_to_ppi]{project_to_ppi()}}.
 }
 \examples{
-# load an example scan:
-data(example_scan)
-
-# print to screen the available scan parameters
-summary(example_scan)
-
-# make ppi for the scan
-# plot the reflectivity param:
+# Plot reflectivity
 plot(example_scan, param = "DBZH")
 \dontrun{
-# change the range of reflectivities to plot, from -10 to 10 dBZ:
+# Change the range of reflectivities to plot, from -10 to 10 dBZ
 plot(example_scan, param = "DBZH", zlim = c(-10, 10))
 
-# change the scale name and colour scheme, using viridis colors:
-plot(example_scan, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
+# Change the scale name, change the color palette to Viridis colors
+plot(example_scan, param = "DBZH", zlim = c(-10, 10)) +
+  viridis::scale_fill_viridis(name = "dBZ")
 }
 }

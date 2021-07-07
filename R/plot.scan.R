@@ -1,60 +1,40 @@
-#' Plot a scan (\code{scan}) in polar coordinates
+#' Plot a scan (`scan`) in polar coordinates
 #'
-#' Plots a scan in polar coordinates. For plots in Cartesian coordinates,
-#' see \code{project_to_ppi}
+#' Plots a scan (`scan`) in polar coordinates. To plot in Cartesian coordinates,
+#' see [project_to_ppi()].
 #'
-#' @param x An object of class \code{scan}.
-#' @param param The scan parameter to plot, see details below.
-#' @param xlim Range of x (range, distance from radar) values to plot.
-#' @param ylim Range of y (azimuth) values to plot.
-#' @param zlim The range of parameter values to plot.
-#' @param na.value \link[ggplot2]{ggplot} argument setting the plot color of NA values
-#' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
+#' @param x A `scan` object.
+#' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
+#'   [summary.param()] for commonly available parameters.
+#' @param xlim Numeric vector of length 2. Range of x values (range, distance to
+#'   radar) to plot.
+#' @param ylim Numeric vector of length 2. Range of y values (azimuth) to plot.
+#' @param zlim Numeric vector of length 2. The range of parameter values to
+#'   plot.
+#' @param na.value Character. [ggplot2::ggplot()] parameter to set the color of
+#'   `NA` values.
+#' @param ... Arguments passed to [ggplot2::ggplot()].
 #'
 #' @method plot scan
 #'
 #' @export
-#' @details
-#' Available scan parameters for plotting can by printed to screen
-#' by \code{summary(x)}. Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-#'    velocities towards the radar are negative, while radial velocities away
-#'    from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-#'    between vertically polarized and horizontally polarized
-#'    reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
-#' The scan parameters are named according to the OPERA data information
-#' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 #'
 #' @examples
-#' # load an example scan:
-#' data(example_scan)
-#'
-#' # print to screen the available scan parameters
-#' summary(example_scan)
-#'
-#' # make ppi for the scan
-#' # plot the reflectivity param:
+#' # Plot reflectivity
 #' plot(example_scan, param = "DBZH")
 #' \dontrun{
-#' # change the range of reflectivities to plot, from -10 to 10 dBZ:
+#' # Change the range of reflectivities to plot, from -10 to 10 dBZ
 #' plot(example_scan, param = "DBZH", zlim = c(-10, 10))
 #'
-#' # change the scale name and colour scheme, using viridis colors:
-#' plot(example_scan, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
+#' # Change the scale name, change the color palette to Viridis colors
+#' plot(example_scan, param = "DBZH", zlim = c(-10, 10)) +
+#'   viridis::scale_fill_viridis(name = "dBZ")
 #' }
 plot.scan <- function(x, param, xlim = c(0, 100000),
                       ylim = c(0, 360), zlim = c(-20, 20), na.value = "transparent", ...) {
   stopifnot(inherits(x, "scan"))
 
-  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (hasArg("quantity")) stop("Unknown function argument `quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$params)) {
