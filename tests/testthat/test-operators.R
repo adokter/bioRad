@@ -9,10 +9,32 @@ test_that("param operators", {
   expect_equal(matrix(example_param) * 1:480, matrix(1:480 * example_param))
 })
 
+test_that("param errors", {
+  p1 <- structure(1:12, .Dim = c(3L, 4L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
+  p2 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
+  p3 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
+  p4 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 219, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
+  expect_error(p1 + p2, "The parameters have different dimensions, means the result will not be a valid parameter.")
+  expect_silent(p2 + p3)
+  expect_warning(p2 + p4, "*of the parameter.s. differ .e.g., location, range gate location. meaning you are likly to combine data that has been observed in different places.")
+  data("example_scan")
+  s4<-example_scan
+  s2<-example_scan
+  s2$params<-list(DB=p2)
+  s4$params<-list(DB=p4)
+  expect_warning(s2 + s4, "*of the parameter.s. differ .e.g., location, range gate location. meaning you are likly to combine data that has been observed in different places.")
+  s5<-example_scan
+  s6<-example_scan
+  s5$params<-list(DDB=p2, DF=p2)
+  s6$params<-list(DB=p2, DF=p2)
+  expect_warning(s5+s6,'The names of parameters do not match')
+})
 
 test_that("scan operators", {
   data(example_scan)
   expect_equal(example_scan + 1, 1 + example_scan)
+  expect_equal(matrix(((example_scan - 1)$params[[2]])), matrix(((example_scan)$params[[2]]))-1)
+  expect_equal(matrix(((1-example_scan )$params[[2]])), 1-matrix(((example_scan)$params[[2]])))
   expect_equal(example_scan * 1, example_scan)
   expect_equal(example_scan, example_scan * 1)
   expect_equal(2 * example_scan, example_scan * 2)
@@ -31,6 +53,9 @@ test_that("pvol operators", {
   pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
   example_pvol <- read_pvolfile(pvolfile)
   expect_equal(example_pvol + 1, 1 + example_pvol)
+  expect_equal(matrix(((example_pvol - 1)$scans[[1]]$params[[1]])), matrix(((example_pvol)$scans[[1]]$params[[1]]))-1)
+  expect_equal(matrix(((1-example_pvol )$scans[[1]]$params[[1]])), 1-matrix(((example_pvol)$scans[[1]]$params[[1]])))
+
   expect_equal(example_pvol * 1, example_pvol)
   expect_equal(example_pvol, example_pvol * 1)
   expect_equal(2 * example_pvol, example_pvol * 2)

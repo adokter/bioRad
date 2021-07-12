@@ -52,10 +52,10 @@
   if (is.param(e1) & is.param(e2)) {
     g1 <- attr(e1, "geo")
     g2 <- attr(e2, "geo")
-    if (!all.equal(g1, g2)) {
-      warnings("The `geo` attributed of the parameter(s) differ (e.g., location, range gate location) meaning you are likly to combine data that has been observed in different places.")
+    if (!isTRUE(all.equal(g1, g2))) {
+      warning("The `geo` attributed of the parameter(s) differ (e.g., location, range gate location) meaning you are likly to combine data that has been observed in different places.")
     }
-    if (!all.equal(dim(e1), dim(e2))) {
+    if (!identical(dim(e1), dim(e2))) {
       stop("The parameters have different dimensions, means the result will not be a valid parameter.")
     }
   }
@@ -98,7 +98,9 @@
     return(e1)
   } else {
     if (is.scan(e2)) {
-      return(do.call(.Generic, list(e2, e1)))
+      message("df")
+      e2$params <- lapply(e2$params,function(gen, e1,e2){do.call(gen, list(e1,e2))}, gen=.Generic, e1=e1)
+      return(e2)
     }
     e1$params <- lapply(e1$params, .Generic, e2)
     return(e1)
@@ -123,17 +125,24 @@
     })
     lapply(unique(warn), warning)
     return(e1)
-  } else {
+  } else { # there is one non scan
     if (is.pvol(e2)) {
-      return(do.call(.Generic, list(e2, e1)))
-    }
-    if(is.list(e2)){
-      if(length(e1$scans)!= length(e2)){
-       stop("Multiplying by lists only works if the list is equally long to the number of scans.")
+      if (is.list(e1)) {
+        if (length(e2$scans) != length(e1)) {
+          stop("Multiplying by lists only works if the list is equally long to the number of scans.")
+        }
+        e2$scans <- mapply(.Generic, e2$scans, e1, SIMPLIFY = F)
+      } else {
+        e2$scans <- lapply(e2$scans,function(gen, e1,e2){do.call(gen, list(e1,e2))}, gen=.Generic, e1=e1)
       }
-      e1$scans <- mapply(.Generic,e1$scans,  e2, SIMPLIFY = F)
-
-    }else{
+      return(e2)
+    }
+    if (is.list(e2)) {
+      if (length(e1$scans) != length(e2)) {
+        stop("Multiplying by lists only works if the list is equally long to the number of scans.")
+      }
+      e1$scans <- mapply(.Generic, e1$scans, e2, SIMPLIFY = F)
+    } else {
       e1$scans <- lapply(e1$scans, .Generic, e2)
     }
     return(e1)
