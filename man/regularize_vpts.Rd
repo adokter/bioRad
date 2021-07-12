@@ -24,16 +24,17 @@ regularize_vpts(
 median interval in the time series is used.}
 
 \item{date_min}{Start time of the projected time series, as a POSIXct object.
-Taken from \code{ts} when '\code{auto}'.}
+Taken from \code{ts} by default'.}
 
 \item{date_max}{End time of the projected time series, as a POSIXct object.
-Taken from \code{ts} when '\code{auto}'.}
+Taken from \code{ts} by default.}
 
 \item{units}{Optional units of \code{interval}, one of 'secs', 'mins',
 'hours','days', 'weeks'. Defaults to 'mins'.}
 
 \item{fill}{Logical, whether to fill missing timesteps with the values of
-the closest neighboring profile.}
+the closest neighboring profile (i.e., further than
++/- half the interval to the closest neighboring profile).}
 
 \item{verbose}{Logical, when \code{TRUE} prints text to console.}
 
@@ -48,9 +49,9 @@ Projects objects of class \code{vpts} on a regular time grid
 \details{
 Irregular time series of profiles are typically aligned on a
 regular time grid with the expected time interval at which a radar provides
-data. Empty profiles with only missing data values will be inserted at
-time stamps of the regular time grid that have no matching profile in the
-irregular time series.
+data. Alignment is performed with a nearest neighbor interpolation limited to
+neighboring profiles within +/- half the interval duration. If \code{fill} is
+true, all profiles are considered for the interpolation.
 
 In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 missing profiles (e.g. due to radar down time) become visible. In irregular
