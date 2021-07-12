@@ -5,6 +5,8 @@ test_that("param operators", {
   expect_equal(example_param + example_param, 2 * example_param)
   expect_equal(example_param + -1, example_param - 1)
   expect_equal(example_param / 2, example_param * .5)
+  expect_equal(example_param * 1:480, 1:480 * example_param)
+  expect_equal(matrix(example_param) * 1:480, matrix(1:480 * example_param))
 })
 
 
@@ -17,6 +19,11 @@ test_that("scan operators", {
   expect_equal(example_scan + example_scan, 2 * example_scan)
   expect_equal(example_scan + -1, example_scan - 1)
   expect_equal(example_scan / 2, example_scan * .5)
+  expect_equal(example_scan * 1:480, 1:480 * example_scan)
+  r <- matrix(runif(prod(dim(example_scan)[-1])), nrow = dim(example_scan)[2])
+  expect_equal(example_scan * r, r * example_scan)
+  expect_equal(example_scan$params[["DBZH"]][4, 1:54] * r[4, 1:54],
+               get_param(r * example_scan, "DBZH")[4, 1:54])
 })
 
 
@@ -38,5 +45,10 @@ test_that("pvol operators", {
   expect_equal(example_pvol, exp(log(example_pvol)))
   expect_equal(example_pvol, sqrt((example_pvol^2)))
   expect_equal(log10(example_pvol), log(example_pvol, base = 10))
-  expect_equal(Reduce("+", lapply(list(example_pvol, example_pvol), exp)), exp(example_pvol) + exp(example_pvol))
+  expect_equal(Reduce("+", lapply(list(example_pvol, example_pvol), exp)),
+               exp(example_pvol) + exp(example_pvol))
+  expect_equal(get_scan(example_pvol * list(1.4, 1.7, 1.8), 1.5),
+               get_scan(example_pvol, 1.5) * 1.7)
+  expect_equal(get_scan(example_pvol * list(1.4 + 1:480, 1.7 + 1:480, 1.8 + 1:480), 1.5),
+               get_scan(example_pvol, 1.5) * (1.7 + 1:480))
 })

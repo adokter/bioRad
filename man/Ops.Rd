@@ -38,5 +38,10 @@ These function do not attempt to check if the operations are sensible.
 For example when combining logarithmic values (e.g. DBZ) it might make
 sense to first take the exponent them before summing them.
 
-When doing operations on object of length one the arguments are recycled
+When doing operations on object of length one the arguments are recycled.
+
+Attributes are taken from the first object in the operation.
+
+If a \code{pvol} is multiplied by a list arguments are taken from the list per scan.
+this requires the list to have the same length as the number of scans.
 }
