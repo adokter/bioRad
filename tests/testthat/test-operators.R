@@ -33,8 +33,8 @@ test_that("param errors", {
 test_that("scan operators", {
   data(example_scan)
   expect_equal(example_scan + 1, 1 + example_scan)
-  expect_equal(matrix(((example_scan - 1)$params[[2]])), matrix(((example_scan)$params[[2]]))-1)
-  expect_equal(matrix(((1-example_scan )$params[[2]])), 1-matrix(((example_scan)$params[[2]])))
+  expect_equal(matrix(get_param(example_scan - 1,'VRADH')), matrix(get_param(example_scan,'VRADH'))-1)
+  expect_equal(matrix(get_param(1-example_scan ,'VRADH')), 1-matrix(get_param(example_scan,'VRADH')))
   expect_equal(example_scan * 1, example_scan)
   expect_equal(example_scan, example_scan * 1)
   expect_equal(2 * example_scan, example_scan * 2)
@@ -53,9 +53,8 @@ test_that("pvol operators", {
   pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
   example_pvol <- read_pvolfile(pvolfile)
   expect_equal(example_pvol + 1, 1 + example_pvol)
-  expect_equal(matrix(((example_pvol - 1)$scans[[1]]$params[[1]])), matrix(((example_pvol)$scans[[1]]$params[[1]]))-1)
-  expect_equal(matrix(((1-example_pvol )$scans[[1]]$params[[1]])), 1-matrix(((example_pvol)$scans[[1]]$params[[1]])))
-
+  expect_equal(matrix(get_param(get_scan(example_pvol - 1,3),'DBZH')), matrix(get_param(get_scan(example_pvol,3),'DBZH'))-1)
+  expect_equal(matrix(get_param(get_scan(1-example_pvol,3 ),'DBZH')), 1-matrix(get_param(get_scan(example_pvol,3),'DBZH')))
   expect_equal(example_pvol * 1, example_pvol)
   expect_equal(example_pvol, example_pvol * 1)
   expect_equal(2 * example_pvol, example_pvol * 2)
