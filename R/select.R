@@ -1,12 +1,12 @@
 select.scan <- function(.data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop("package dplyr required, please install it first")
+    stop("package dplyr required, please install it first") # nocov
   } #
   if (!requireNamespace("rlang", quietly = TRUE)) {
-    stop("package rlang required, please install it first")
+    stop("package rlang required, please install it first") # nocov
   } #
   if (!requireNamespace("tidyselect", quietly = TRUE)) {
-    stop("package tidyselect required, please install it first")
+    stop("package tidyselect required, please install it first") # nocov
   } #
   expr <- rlang::expr(c(...))
   pos <- tidyselect::eval_select(expr, data = .data$params)

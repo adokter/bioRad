@@ -71,8 +71,8 @@ test_that("pvol operators", {
   expect_silent(example_pvol + 1)
   expect_silent(1 + example_pvol)
   expect_silent(example_pvol + example_pvol)
-  expect_visible(example_pvol+1)
-  expect_equal(exp(1)^example_pvol,exp(example_pvol))
+  expect_visible(example_pvol + 1)
+  expect_equal(exp(1)^example_pvol, exp(example_pvol))
   expect_equal(example_pvol + 1, 1 + example_pvol)
   expect_equal(
     matrix(get_param(get_scan(example_pvol - 1, 3), "DBZH")),
@@ -119,6 +119,12 @@ test_that("pvol operators", {
     list(1, 2) * example_pvol, "only works if the list is equally long to the number"
   )
   expect_error(cumsum(example_pvol), "not meaningful for pvol objects")
+  p1 <- example_pvol
+  p1$scans[2] <- NULL
+  expect_error(p1 + example_pvol, "does not work for pvols with unequal number of scans")
+  p2 <- example_pvol
+  p2$scans <- p2$scans[c(1, 3, 2)]
+  expect_warning(p2 + example_pvol, "data that has been observed in different places")
 })
 test_that("Compare calculate_param and ops", {
   require(dplyr)
