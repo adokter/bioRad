@@ -98,8 +98,12 @@
     return(e1)
   } else {
     if (is.scan(e2)) {
-      message("df")
-      e2$params <- lapply(e2$params,function(gen, e1,e2){do.call(gen, list(e1,e2))}, gen=.Generic, e1=e1)
+      e2$params <- lapply(e2$params,
+        function(gen, e1, e2) {
+          do.call(gen, list(e1, e2))
+        },
+        gen = .Generic, e1 = e1
+      )
       return(e2)
     }
     e1$params <- lapply(e1$params, .Generic, e2)
@@ -133,7 +137,9 @@
         }
         e2$scans <- mapply(.Generic, e2$scans, e1, SIMPLIFY = F)
       } else {
-        e2$scans <- lapply(e2$scans,function(gen, e1,e2){do.call(gen, list(e1,e2))}, gen=.Generic, e1=e1)
+        e2$scans <- lapply(e2$scans, function(gen, e1, e2) {
+          do.call(gen, list(e1, e2))
+        }, gen = .Generic, e1 = e1)
       }
       return(e2)
     }

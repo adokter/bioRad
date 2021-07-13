@@ -1,6 +1,7 @@
 test_that("param operators", {
   data(example_scan)
   example_param <- get_param(example_scan, "VRADH")
+  expect_visible(example_param + 1)
   expect_equal(example_param + 1, 1 + example_param)
   expect_equal(example_param + example_param, 2 * example_param)
   expect_equal(example_param + -1, example_param - 1)
@@ -9,7 +10,7 @@ test_that("param operators", {
   expect_equal(matrix(example_param) * 1:480, matrix(1:480 * example_param))
 })
 
-test_that("param errors", {
+test_that("param and scan errors", {
   p1 <- structure(1:12, .Dim = c(3L, 4L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
   p2 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
   p3 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
@@ -28,10 +29,16 @@ test_that("param errors", {
   s5$params <- list(DDB = p2, DF = p2)
   s6$params <- list(DB = p2, DF = p2)
   expect_warning(s5 + s6, "The names of parameters do not match")
+  s7 <- example_scan
+  s7$params <- list(DB = p2, DF = p2, LL = p2)
+  expect_error(s7 + s6, "does not work for scans with unequal number of parameters")
+  expect_equal(s6 + s2, s6 + s6)
+  expect_equal(s7 + s2, 2 * s7)
 })
 
 test_that("scan operators", {
   data(example_scan)
+  expect_visible(example_scan + 1)
   expect_equal(example_scan + 1, 1 + example_scan)
   expect_equal(
     matrix(get_param(example_scan - 1, "VRADH")),
@@ -61,6 +68,11 @@ test_that("scan operators", {
 test_that("pvol operators", {
   pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
   example_pvol <- read_pvolfile(pvolfile)
+  expect_silent(example_pvol + 1)
+  expect_silent(1 + example_pvol)
+  expect_silent(example_pvol + example_pvol)
+  expect_visible(example_pvol+1)
+  expect_equal(exp(1)^example_pvol,exp(example_pvol))
   expect_equal(example_pvol + 1, 1 + example_pvol)
   expect_equal(
     matrix(get_param(get_scan(example_pvol - 1, 3), "DBZH")),
@@ -114,5 +126,11 @@ test_that("Compare calculate_param and ops", {
   expect_equal(
     select(example_scan, "DBZH") - select(example_scan, "VRADH"),
     select(calculate_param(example_scan, DBZH = DBZH - VRADH), DBZH)
+  )
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile, param = c("DBZH", "VRADH"))
+  expect_equal(
+    select(example_pvol, "DBZH") - select(example_pvol, "VRADH"),
+    select(calculate_param(example_pvol, DBZH = DBZH - VRADH), DBZH)
   )
 })
