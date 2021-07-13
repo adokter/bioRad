@@ -13,9 +13,9 @@
 #' Taken from \code{ts} by default.
 #' @param units Optional units of \code{interval}, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill Logical, whether to fill missing timesteps with the values of
-#' the closest neighboring profile (i.e., further than
-#' +/- half the interval to the closest neighboring profile).
+#' @param fill Numerical, fill each regularized timestep with the closest
+#' original profile found within a time window of +/- `fill * interval / 2`.
+#' Logical, If \code{TRUE}, fill=2 if \code{FALSE}, fill=0.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
 #' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps.
 #'
@@ -25,9 +25,8 @@
 #'
 #' @details Irregular time series of profiles are typically aligned on a
 #' regular time grid with the expected time interval at which a radar provides
-#' data. Alignment is performed with a nearest neighbor interpolation limited to
-#' neighboring profiles within +/- half the interval duration. If `fill` is
-#' true, all profiles are considered for the interpolation.
+#' data. Alignment is performed using a nearest neighbor interpolation limited to
+#' neighboring profiles that fall within +/- `fill * interval / 2` (centered).
 #'
 #' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
@@ -42,25 +41,27 @@
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
-                            units = "secs", fill = FALSE, verbose = TRUE, keep_datetime = FALSE) {
+                            units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   if (!inherits(ts, "vpts")) {
     stop("ts arguement should be a vpts object.")
   }
-
+  if (interval != "auto" && !(is.numeric(interval) && interval > 0) ) {
+    stop("Invalid or missing 'interval' argument. Should be a strictly positive numeric value.")
+  }
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
       "Invalid 'units' argument. Should be one of",
       "c('secs', 'mins', 'hours','days', 'weeks')"
     )
   }
-  if (interval != "auto" && !(is.numeric(interval) && interval > 0) ) {
-    stop("Invalid or missing 'interval' argument. Should be a strictly positive numeric value.")
-  }
   if (length(units) > 1) {
     stop("Invalid or missing 'units' argument.")
   }
-  if (!is.logical(fill) || length(fill) > 1) {
-    stop("Fill argument should be a logical value.")
+  if (is.logical(fill) && length(fill) == 1) {
+    # convert TRUE to 2 and FALSE to 0.
+    fill=2*fill
+  } else if (!(is.numeric(fill) && fill > 0 &&  length(fill) == 1) ) {
+    stop("Fill argument should be a logical or numeric value.")
   }
   if (!is.logical(verbose) || length(verbose) > 1) {
     stop("verbose argument should be a logical value.")
@@ -113,18 +114,17 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     }
   )
   index2 <- integer(0)
-  if (!fill) {
-    index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs") / 2)
-    if (length(index2) > 0) {
-      ts$data <- lapply(
-        1:length(ts$data),
-        function(x) {
-          tmp <- ts$data[[x]]
-          tmp[, index2] <- NA
-          tmp
-        }
-      )
-    }
+  # Keep interpolated vpts which are within +/- `fill*dt/2` of any original vpts
+  index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs") / 2 * fill)
+  if (length(index2) > 0) {
+    ts$data <- lapply(
+      1:length(ts$data),
+      function(x) {
+        tmp <- ts$data[[x]]
+        tmp[, index2] <- NA
+        tmp
+      }
+    )
   }
   names(ts$data) <- quantity.names
   ts$daterange <- daterange
