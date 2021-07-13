@@ -33,7 +33,7 @@
 #' @export
 #'
 #' @details
-#' Profile can be visualized in three related quantities, as specified
+#' Profile can be visualized in four related quantities, as specified
 #' by argument \code{quantity}:
 #' \describe{
 #'  \item{"\code{dens}"}{the aerial density of individuals. This quantity is
@@ -104,7 +104,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   if (!x$regular) {
     warning(
       "Irregular time-series: missing profiles will not be visible.",
-      "Use 'regularize_vpts' to make time series regular."
+      " Use 'regularize_vpts' to make time series regular."
     )
   }
 

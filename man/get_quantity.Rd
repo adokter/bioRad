@@ -22,8 +22,8 @@ get_quantity(x, quantity)
 \item{quantity}{Character. A (case sensitive) profile quantity, one of:
 \itemize{
 \item \code{height}: Height bin (lower bound) in m above sea level.
-\item \code{u}: Speed component west to east in m/s.
-\item \code{v}: Speed component south to north in m/s.
+\item \code{u}: Ground speed component west to east in m/s.
+\item \code{v}: Ground speed component south to north in m/s.
 \item \code{w}: Vertical speed (unreliable!) in m/s.
 \item \code{ff}: Horizontal speed in m/s.
 \item \code{dd}: Direction in degrees clockwise from north.
@@ -66,7 +66,7 @@ height bin. Values for \code{eta} are set to \code{0}, \code{dbz} to \code{-Inf}
 # Extract the animal density (dens) quantity from a vp object
 get_quantity(example_vp, "dens")
 
-# Extract the horizontal speed (ff) quantity from a vpts object and show the
+# Extract the horizontal ground speed (ff) quantity from a vpts object and show the
 # first two datetimes
 get_quantity(example_vpts, "ff")[,1:2]
 }

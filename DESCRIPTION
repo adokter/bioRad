@@ -49,7 +49,8 @@ Suggests:
     tidyselect,
     dplyr (>= 0.7-0),
     rmarkdown,
-    testthat
+    testthat,
+    vdiffr
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
