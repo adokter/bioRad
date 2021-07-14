@@ -6,7 +6,8 @@
 #' weighted by density.
 #'
 #' @param x A \code{vp} or \code{vpts} object.
-#' @param alt_min Minimum altitude in m.
+#' @param alt_min Minimum altitude in m. \code{"antenna"} can be used to set the
+#' minimum altitude to the height of the antenna.
 #' @param alt_max Maximum altitude in m.
 #' @param alpha Migratory direction in clockwise degrees from north.
 #' @param interval_max Maximum time interval belonging to a single profile in
@@ -170,19 +171,18 @@ integrate_profile <- function(x, alt_min, alt_max,
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                                  interval_max = Inf) {
   stopifnot(inherits(x, "vp"))
-  stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
+  stopifnot(is.numeric(alt_min) | alt_min=="antenna")
+  stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+
+  if (alt_min=="antenna"){
+    alt_min = x$attributes$where$height
+  }
 
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
   # Altitudinal resolution of the bin
   interval <- x$attributes$where$interval
-
-  # Min altitude is the ground level
-  alt_min <- max(alt_min, min(x$attributes$where$height))
-
-  # Max altitude is the top of the highest bin
-  alt_max <- min(alt_max, max(x$data$height) + interval)
 
   # dh is a vector of the height of each bin used for the computation in km
   # Its value is zeros for bins completly below alt_min or above alt_max, the
@@ -263,7 +263,8 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
-  stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
+  stopifnot(is.numeric(alt_min) | alt_min=="antenna")
+  stopifnot(is.numeric(alt_max))
 
   output <- do.call(rbind, lapply(x, integrate_profile.vp,
     alt_min = alt_min,
@@ -287,19 +288,19 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = Inf) {
   stopifnot(inherits(x, "vpts"))
-  stopifnot(is.numeric(alt_min) & is.numeric(alt_max))
+  stopifnot(is.numeric(alt_min) | alt_min=="antenna")
+  stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+
+  # Integrate from antenna height
+  if (alt_min=="antenna"){
+    alt_min = x$attributes$where$height
+  }
 
   if (alt_max <= alt_min) stop("'alt_min' should be smaller than 'alt_max'")
 
   # Altitudinal resolution of the bin
   interval <- x$attributes$where$interval
-
-  # Min altitude is the ground level
-  alt_min <- max(alt_min, min(x$attributes$where$height))
-
-  # Max altitude is the top of the highest bin
-  alt_max <- min(alt_max, max(x$height) + interval)
 
   # dh is a vector of the height of each bin used for the computation in km
   # Its value is zeros for bins completly below alt_min or above alt_max, the
@@ -332,13 +333,21 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   # bin based on their bird density value (dens) and their height.
   weight_densdh <- get_quantity(x, "dens") * dh
   weight_densdh[is.na(weight_densdh)] <- 0
+  # Normalize the weight of each vp by its column sum.
   weight_densdh <- sweep(weight_densdh, 2, colSums(weight_densdh), FUN="/")
+  # Find index where no bird are present
+  no_bird <- is.na(colSums(weight_densdh))
 
   height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+  height[no_bird] <- NA
   u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = T)
+  u[no_bird] <- NA
   v <- colSums( get_quantity(x, "v") * weight_densdh, na.rm = T)
+  v[no_bird] <- NA
   ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = T)
+  ff[no_bird] <- NA
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
+  dd[no_bird] <- NA
 
   # time-integrated measures:
   dt <- (c(0, x$timesteps) + c(x$timesteps, 0)) / 2
