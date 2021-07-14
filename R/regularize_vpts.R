@@ -3,6 +3,8 @@
 #'
 #' Projects objects of class \code{vpts} on a regular time grid
 #'
+#' Projects objects of class \code{vpts} on a regular time grid, and fills
+#' temporal gaps by nearest neighbor interpolation.
 #' @param ts An object inheriting from class \code{vpts}, see
 #' \code{\link[=summary.vpts]{vpts}} for details.
 #' @param interval Time interval grid to project on. When '\code{auto}' the
@@ -11,11 +13,12 @@
 #' Taken from \code{ts} by default'.
 #' @param date_max End time of the projected time series, as a POSIXct object.
 #' Taken from \code{ts} by default.
-#' @param units Optional units of \code{interval}, one of 'secs', 'mins',
+#' @param units Optional units of \code{interval} and \code{fill}, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill Numerical, fill each regularized timestep with the closest
-#' original profile found within a time window of +/- `fill * interval / 2`.
-#' Logical, If \code{TRUE}, fill=2 if \code{FALSE}, fill=0.
+#' @param fill Numeric or Logical. fill each regularized timestep with the closest
+#' original profile found within a time window of +/- `fill`.
+#' When \code{TRUE}, \code{fill} maps to \code{interval}, filling single missing
+#' timesteps. When \code{FALSE}, \code{fill}  maps to 0, disabling filling.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
 #' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps.
 #'
@@ -26,7 +29,7 @@
 #' @details Irregular time series of profiles are typically aligned on a
 #' regular time grid with the expected time interval at which a radar provides
 #' data. Alignment is performed using a nearest neighbor interpolation limited to
-#' neighboring profiles that fall within +/- `fill * interval / 2` (centered).
+#' neighboring profiles that fall within +/- `fill` (centered) of an original profile.
 #'
 #' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
@@ -40,6 +43,10 @@
 #'
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
+#'
+#' # regularize the time series on a 10 minute interval grid,
+#' # and fill data gaps smaller then 1 hour by nearest neighbor interpolation
+#' tsRegular <- regularize_vpts(ts, interval=600, fill=3600)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   assert_that(is.vpts(ts))
@@ -54,11 +61,6 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if (length(units) > 1) {
     stop("Invalid or missing 'units' argument.")
   }
-  if (is.flag(fill)) {
-    # convert TRUE to 2 and FALSE to 0.
-    fill=2*fill
-  } 
-  assert_that(is.number(fill), fill>0)
   assert_that(is.flag(verbose))
   assert_that(is.flag(keep_datetime))
 
@@ -76,6 +78,18 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     }
   } else {
     dt <- as.difftime(interval, units = units)
+  }
+
+  if (is.flag(fill)) {
+    # convert TRUE to dt and FALSE to 0.
+    fill=fill*dt
+  } else{
+    assert_that(is.number(fill), fill>0)
+    if(are_equal(fill,Inf)){
+      # map infinity to the largest stepsize, to guarantee everything is filled
+      fill=2*max(example_vpts$timesteps)
+    }
+    fill <- as.difftime(fill, units = units)
   }
 
   rounding_dt = lubridate::make_difftime(as.numeric(dt,units="secs"))
@@ -100,7 +114,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     }
   )
   index2 <- integer(0)
-  # Keep interpolated vpts which are within +/- `fill*dt/2` of any original vpts
+  # Keep interpolated vp's which are within +/- `fill*dt/2` of any original vp
   index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs") / 2 * fill)
   if (length(index2) > 0) {
     ts$data <- lapply(
