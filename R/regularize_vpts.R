@@ -81,6 +81,8 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   }
 
   if (is.flag(fill)) {
+    # deprecation warning of old fill=TRUE behaviour
+    if(fill && !missing(fill)) warning("fill=TRUE behaviour has changed in bioRad version >= 0.6. Use fill=Inf to reproduce the old fill=TRUE result")
     # convert TRUE to dt and FALSE to 0.
     fill=fill*dt
   } else{
