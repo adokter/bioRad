@@ -42,12 +42,9 @@
 #' tsRegular <- regularize_vpts(ts, interval = 300)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
-  if (!inherits(ts, "vpts")) {
-    stop("ts arguement should be a vpts object.")
-  }
-  if (interval != "auto" && !(is.numeric(interval) && interval > 0) ) {
-    stop("Invalid or missing 'interval' argument. Should be a strictly positive numeric value.")
-  }
+  assert_that(is.vpts(ts))
+  if (interval != "auto") assert_that(is.number(interval), interval > 0) 
+
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
       "Invalid 'units' argument. Should be one of",
@@ -57,18 +54,13 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if (length(units) > 1) {
     stop("Invalid or missing 'units' argument.")
   }
-  if (is.logical(fill) && length(fill) == 1) {
+  if (is.flag(fill)) {
     # convert TRUE to 2 and FALSE to 0.
     fill=2*fill
-  } else if (!(is.numeric(fill) && fill > 0 &&  length(fill) == 1) ) {
-    stop("Fill argument should be a logical or numeric value.")
-  }
-  if (!is.logical(verbose) || length(verbose) > 1) {
-    stop("verbose argument should be a logical value.")
-  }
-  if (!is.logical(keep_datetime) || length(keep_datetime) > 1) {
-    stop("keep_datetime argument should be a logical value.")
-  }
+  } 
+  assert_that(is.number(fill), fill>0)
+  assert_that(is.flag(verbose))
+  assert_that(is.flag(keep_datetime))
 
   # remove profiles with duplicate timestamps:
   index_duplicates <- which(ts$timesteps == 0) + 1
@@ -91,15 +83,9 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if(missing(date_min)) date_min <- tryCatch(lubridate::floor_date(ts$daterange[1],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[1]})
   if(missing(date_max)) date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[2]})
 
-  if (!inherits(date_min, "POSIXct")){
-    stop("date_min argument should be a POSIXct object.")
-  }
-  if (!inherits(date_max, "POSIXct")){
-    stop("date_max argument should be a POSIXct object.")
-  }
-  if (!(date_max >= date_min)){
-    stop("date_max should be greater than date_min.")
-  }
+  assert_that(is.time(date_min))
+  assert_that(is.time(date_max))
+  assert_that(date_max >= date_min)
 
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
