@@ -203,7 +203,8 @@ weighted by density.</p>
     </tr>
     <tr>
       <th>alt_min</th>
-      <td><p>Minimum altitude in m.</p></td>
+      <td><p>Minimum altitude in m. <code>"antenna"</code> can be used to set the
+minimum altitude to the height of the antenna.</p></td>
     </tr>
     <tr>
       <th>alt_max</th>
@@ -254,20 +255,6 @@ the start of the time series up to <code>datetime</code></p></dd>
 individual. Similarly, migration traffic rate and reflectivity traffic rate
 are related according to \(mtr=rtr/rcs(x)\)</p>
 
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Ground speed (ff) and ground speed components (u,v)</h3>
-<p>The height-averaged ground speed is defined as:</p>
-<p>$$ff = \sum_i dens_i ff_i / \sum_i dens_i$$
-with the sum running over all altitude layers between <code>alt_min</code> and
-<code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
-altitude layer i.</p>
-<p>the height-averaged u component (west to east) is defined as:</p>
-<p>$$u = \sum_i dens_i u_i / \sum_i dens_i$$</p>
-<p>the height-averaged v component (south to north) is defined as:</p>
-<p>$$v = \sum_i dens_i v_i / \sum_i dens_i$$</p>
-
-<p>Note that \(ff_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
-height-integrated speeds, i.e. \(ff != \sqrt(u^2 + v^2)\) as soon as the
-ground speed directions vary with altitude.</p>
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Migration traffic rate (mtr) and reflectivity traffic rate (rtr)</h3>
 <p>Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
 as the number of targets crossing a unit of transect per hour.</p>
@@ -286,11 +273,11 @@ refers to a unit conversion of speeds \(ff_i\) from m/s to km/h.</p>
 <p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
 to the direction <code>alpha</code>, and the number of crossing targets per hour
 per km transect is calculated as:</p>
-<p>$$mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h$$
+<p>$$mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-\alpha) \pi/180) \Delta h$$
 with \(dd_i\) the migratory direction at altitude i.</p>
 <p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
 Also note we can rewrite this equation using trigonometry as:</p>
-<p>$$mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h$$
+<p>$$mtr = 3.6 \sum_i dens_i (u_i \sin(\alpha \pi/180) + v_i \cos(\alpha \pi/180)) \Delta h$$
 with \(u_i\) and \(v_i\) the u and v ground speed components at altitude i.</p>
 <p>In this definition <code>mtr</code> is a traditional flux into a direction of
 interest. Targets moving into the direction <code>alpha</code> contribute
@@ -300,7 +287,7 @@ positive or negative, depending on the definition of alpha.</p>
 <p>Note that <code>mtr</code> for a given value of <code>alpha</code> can also be calculated from
 the vertically integrated density <code>vid</code> and the height-integrated velocity
 components <code>u</code> and <code>v</code> as follows:</p>
-<p>$$mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid$$</p>
+<p>$$mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid$$</p>
 <p>Formula for reflectivity traffic rate <code>rtr</code> are found by replacing
 <code>dens</code> with <code>eta</code> and <code>vid</code> with <code>vir</code> in the formula for <code>mtr</code>.
 Reflectivity traffic rate gives the cross-sectional area
@@ -322,6 +309,20 @@ specified altitude band.</p>
 <p>Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 of the respective row.</p>
+<p>#'</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Ground speed (ff) and ground speed components (u,v)</h4>
+<p>The height-averaged ground speed is defined as:</p>
+<p>$$ff = \sum_i dens_i ff_i / \sum_i dens_i$$
+with the sum running over all altitude layers between <code>alt_min</code> and
+<code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
+altitude layer i.</p>
+<p>the height-averaged u component (west to east) is defined as:</p>
+<p>$$u = \sum_i dens_i u_i / \sum_i dens_i$$</p>
+<p>the height-averaged v component (south to north) is defined as:</p>
+<p>$$v = \sum_i dens_i v_i / \sum_i dens_i$$</p>
+
+<p>Note that \(ff_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
+height-integrated speeds, i.e. \(ff != \sqrt(u^2 + v^2)\) as soon as the
+ground speed directions vary with altitude.</p>
 
     <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
