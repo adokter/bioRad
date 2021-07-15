@@ -116,7 +116,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     }
   )
   index2 <- integer(0)
-  # Keep interpolated vp's which are within +/- `fill` of any original vp
+  # Remove interpolated vp's which are further than +/- `fill` of any original vp
   index2 <- which(abs(ts$datetime[index] - grid) > as.double(fill, units = "secs"))
   if (length(index2) > 0) {
     ts$data <- lapply(
