@@ -5,7 +5,7 @@
 #' @param overwrite logical. Overwrites existing file when TRUE.
 #' @param infer_dtype logical. By default (infer_dtype = FALSE) writes 'params'
 #' back into ODIM HDF5 files with data stored in original data types. When TRUE
-#' infers data type from the data, at the cost of (heavily) inflated file sizes.
+#' infers data type from the R object data type, at the cost of (heavily) inflated file sizes.
 #'
 #' @return 0 on success. A \code{pvol} object will be written to file in ODIM H5 format.
 #'
@@ -47,6 +47,11 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
       if (infer_dtype) conv$dtype <- NULL
 
       if (!is.null(conv$dtype)) {
+        # this ensures converted NEXRAD files read as 64-bit floats to be
+        # written as smaller 32-bit floats.
+        if(grepl("H5T_IEEE_F64",conv$dtype)){
+           conv$dtype=gsub("64","32",conv$dtype)
+        }
         h5createDataset(fid, dataname, dim(pvol$scans[[i]]$params[[j]]),
           H5type = conv$dtype
         )
