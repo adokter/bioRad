@@ -274,24 +274,25 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     zlim <- log(zlim)
   }
 
-  # set color scales and palettes
+  # set color scales and (palettes
   if (!are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
-    palette <- c(palette, na_color, nan_color)
   }
   else{
     if(quantity %in% c("dens","eta","dbz","DBZH")){
-      palette <- c(vpts_default_palette, na_color, nan_color)
-      palette <- c(colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color), na_color, nan_color)
+      palette <- colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
     } else if(quantity %in% c("u","v")){
-      palette <- c(rev(color_palette("VRADH", n_color=n_color)), na_color, nan_color)
+      palette <- rev(color_palette("VRADH", n_color=n_color))
     } else{
-      palette <- c(rev(viridis::magma(n_color)), na_color, nan_color)
+      palette <- rev(viridis::magma(n_color))
     }
   }
+  
+  # add NA and NaN colors add beginning of palette
+  palette_na_nan <- c(na_color, nan_color, palette)
 
-  zstep <- (zlim[2] - zlim[1]) / (length(palette)-2);
-  breaks <- seq(zlim[1], zlim[2]+2*zstep, length.out = length(palette)+1)
+  zstep <- (zlim[2] - zlim[1]) / (length(palette_na_nan)-2);
+  breaks <- seq(zlim[1]-2*zstep, zlim[2], length.out = length(palette_na_nan)+1)
 
   # if a regular time series, use the regular timegrid for plotting
   # (in case keep_datetime = TRUE option is used in regularize_vpts())
@@ -301,15 +302,15 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   plotdata[plotdata < zlim[1]] <- zlim[1]
   plotdata[plotdata > zlim[2]] <- zlim[2]
   # set NA and NaN values
-  plotdata[is.na2(plotdata)] <- zlim[2]+zstep
-  plotdata[is.nan(plotdata)] <- zlim[2]+2*zstep
+  plotdata[is.na2(plotdata)] <- zlim[1]-2*zstep
+  plotdata[is.nan(plotdata)] <- zlim[1]-zstep
 
   stopifnot(!is.null(interval <- x$attributes$where$interval))
   axis.args <- list(at = legendticks, labels = ticks)
 
   # plot the image
   image.plot(x$datetime, x$height + interval / 2, plotdata,
-    col = palette, xlab = xlab,
+    col = palette_na_nan, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = zlim, main = main, ...
   )
