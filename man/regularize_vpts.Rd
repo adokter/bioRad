@@ -29,12 +29,13 @@ Taken from \code{ts} by default'.}
 \item{date_max}{End time of the projected time series, as a POSIXct object.
 Taken from \code{ts} by default.}
 
-\item{units}{Optional units of \code{interval}, one of 'secs', 'mins',
+\item{units}{Optional units of \code{interval} and \code{fill}, one of 'secs', 'mins',
 'hours','days', 'weeks'. Defaults to 'mins'.}
 
-\item{fill}{Numerical, fill each regularized timestep with the closest
-original profile found within a time window of +/- \code{fill * interval / 2}.
-Logical, If \code{TRUE}, fill=2 if \code{FALSE}, fill=0.}
+\item{fill}{Numeric or Logical. fill each regularized timestep with the closest
+original profile found within a time window of +/- \code{fill}.
+When \code{TRUE}, \code{fill} maps to \code{interval}, filling single missing
+timesteps. When \code{FALSE}, \code{fill}  maps to 0, disabling filling.}
 
 \item{verbose}{Logical, when \code{TRUE} prints text to console.}
 
@@ -47,10 +48,13 @@ An object of class \code{vpts} with regular time steps.
 Projects objects of class \code{vpts} on a regular time grid
 }
 \details{
+Projects objects of class \code{vpts} on a regular time grid, and fills
+temporal gaps by nearest neighbor interpolation.
+
 Irregular time series of profiles are typically aligned on a
 regular time grid with the expected time interval at which a radar provides
 data. Alignment is performed using a nearest neighbor interpolation limited to
-neighboring profiles that fall within +/- \code{fill * interval / 2} (centered).
+neighboring profiles that fall within +/- \code{fill} (centered) of an original profile.
 
 In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 missing profiles (e.g. due to radar down time) become visible. In irregular
@@ -64,4 +68,8 @@ ts <- example_vpts
 
 # regularize the time series on a 5 minute interval grid
 tsRegular <- regularize_vpts(ts, interval = 300)
+
+# regularize the time series on a 10 minute interval grid,
+# and fill data gaps smaller then 1 hour by nearest neighbor interpolation
+tsRegular <- regularize_vpts(ts, interval=600, fill=3600)
 }
