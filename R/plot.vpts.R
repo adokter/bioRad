@@ -291,7 +291,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   # add NA and NaN colors add beginning of palette
   palette_na_nan <- c(na_color, nan_color, palette)
 
-  zstep <- (zlim[2] - zlim[1]) / (length(palette_na_nan)-2);
+  zstep <- (zlim[2] - zlim[1]) / length(palette);
   breaks <- seq(zlim[1]-2*zstep, zlim[2], length.out = length(palette_na_nan)+1)
 
   # if a regular time series, use the regular timegrid for plotting
@@ -302,8 +302,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   plotdata[plotdata < zlim[1]] <- zlim[1]
   plotdata[plotdata > zlim[2]] <- zlim[2]
   # set NA and NaN values
-  plotdata[is.na2(plotdata)] <- zlim[1]-2*zstep
-  plotdata[is.nan(plotdata)] <- zlim[1]-zstep
+  plotdata[is.na2(plotdata)] <- zlim[1]-1.5*zstep
+  plotdata[is.nan(plotdata)] <- zlim[1]-0.5*zstep
 
   stopifnot(!is.null(interval <- x$attributes$where$interval))
   axis.args <- list(at = legendticks, labels = ticks)

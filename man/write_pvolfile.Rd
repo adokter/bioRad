@@ -15,7 +15,7 @@ write_pvolfile(pvol, file, overwrite = FALSE, infer_dtype = FALSE)
 
 \item{infer_dtype}{logical. By default (infer_dtype = FALSE) writes 'params'
 back into ODIM HDF5 files with data stored in original data types. When TRUE
-infers data type from the data, at the cost of (heavily) inflated file sizes.}
+infers data type from the R object data type, at the cost of (heavily) inflated file sizes.}
 }
 \value{
 0 on success. A \code{pvol} object will be written to file in ODIM H5 format.
