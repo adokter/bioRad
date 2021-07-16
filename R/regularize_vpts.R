@@ -3,18 +3,22 @@
 #'
 #' Projects objects of class \code{vpts} on a regular time grid
 #'
+#' Projects objects of class \code{vpts} on a regular time grid, and fills
+#' temporal gaps by nearest neighbor interpolation.
 #' @param ts An object inheriting from class \code{vpts}, see
 #' \code{\link[=summary.vpts]{vpts}} for details.
 #' @param interval Time interval grid to project on. When '\code{auto}' the
 #' median interval in the time series is used.
 #' @param date_min Start time of the projected time series, as a POSIXct object.
-#' Taken from \code{ts} when '\code{auto}'.
+#' Taken from \code{ts} by default'.
 #' @param date_max End time of the projected time series, as a POSIXct object.
-#' Taken from \code{ts} when '\code{auto}'.
-#' @param units Optional units of \code{interval}, one of 'secs', 'mins',
+#' Taken from \code{ts} by default.
+#' @param units Optional units of \code{interval} and \code{fill}, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
-#' @param fill Logical, whether to fill missing timesteps with the values of
-#' the closest neighboring profile.
+#' @param fill Numeric or Logical. fill each regularized timestep with the closest
+#' original profile found within a time window of +/- `fill`.
+#' When \code{TRUE}, \code{fill} maps to \code{interval}, filling single missing
+#' timesteps. When \code{FALSE}, \code{fill}  maps to 0, disabling filling.
 #' @param verbose Logical, when \code{TRUE} prints text to console.
 #' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps.
 #'
@@ -24,9 +28,8 @@
 #'
 #' @details Irregular time series of profiles are typically aligned on a
 #' regular time grid with the expected time interval at which a radar provides
-#' data. Empty profiles with only missing data values will be inserted at
-#' time stamps of the regular time grid that have no matching profile in the
-#' irregular time series.
+#' data. Alignment is performed using a nearest neighbor interpolation limited to
+#' neighboring profiles that fall within +/- `fill` (centered) of an original profile.
 #'
 #' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
@@ -40,9 +43,14 @@
 #'
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
+#'
+#' # regularize the time series on a 10 minute interval grid,
+#' # and fill data gaps smaller then 1 hour by nearest neighbor interpolation
+#' tsRegular <- regularize_vpts(ts, interval=600, fill=3600)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
-                            units = "secs", fill = FALSE, verbose = TRUE, keep_datetime = FALSE) {
-  stopifnot(inherits(ts, "vpts"))
+                            units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
+  assert_that(is.vpts(ts))
+  if (interval != "auto") assert_that(is.number(interval), interval > 0) 
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -50,15 +58,11 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
       "c('secs', 'mins', 'hours','days', 'weeks')"
     )
   }
-  if (interval != "auto" && !is.numeric(interval)) {
-    stop("Invalid or missing 'interval' argument. Should be a numeric value.")
-  }
   if (length(units) > 1) {
     stop("Invalid or missing 'units' argument.")
   }
-  if (!is.logical(fill) || length(fill) > 1) {
-    stop("Fill argument should be a logical value.")
-  }
+  assert_that(is.flag(verbose))
+  assert_that(is.flag(keep_datetime))
 
   # remove profiles with duplicate timestamps:
   index_duplicates <- which(ts$timesteps == 0) + 1
@@ -76,13 +80,28 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     dt <- as.difftime(interval, units = units)
   }
 
+  if (is.flag(fill)) {
+    # deprecation warning of old fill=TRUE behaviour
+    if(fill && !missing(fill)) warning("fill=TRUE behaviour has changed in bioRad version >= 0.6. Use fill=Inf to reproduce the old fill=TRUE result")
+    # convert TRUE to dt and FALSE to 0.
+    fill=fill*dt
+  } else{
+    assert_that(is.number(fill), fill>0)
+    if(are_equal(fill,Inf)){
+      # map infinity to the largest stepsize, to guarantee everything is filled
+      fill=max(example_vpts$timesteps)
+    }
+    fill <- as.difftime(fill, units = units)
+  }
+
   rounding_dt = lubridate::make_difftime(as.numeric(dt,units="secs"))
 
   if(missing(date_min)) date_min <- tryCatch(lubridate::floor_date(ts$daterange[1],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[1]})
   if(missing(date_max)) date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[2]})
 
-  stopifnot(inherits(date_min, "POSIXct"))
-  stopifnot(inherits(date_max, "POSIXct"))
+  assert_that(is.time(date_min))
+  assert_that(is.time(date_max))
+  assert_that(date_max >= date_min)
 
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
@@ -97,18 +116,17 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     }
   )
   index2 <- integer(0)
-  if (!fill) {
-    index2 <- which(abs(ts$datetime[index] - grid) > as.double(dt, units = "secs"))
-    if (length(index2) > 0) {
-      ts$data <- lapply(
-        1:length(ts$data),
-        function(x) {
-          tmp <- ts$data[[x]]
-          tmp[, index2] <- NA
-          tmp
-        }
-      )
-    }
+  # Remove interpolated vp's which are further than +/- `fill` of any original vp
+  index2 <- which(abs(ts$datetime[index] - grid) > as.double(fill, units = "secs"))
+  if (length(index2) > 0) {
+    ts$data <- lapply(
+      1:length(ts$data),
+      function(x) {
+        tmp <- ts$data[[x]]
+        tmp[, index2] <- NA
+        tmp
+      }
+    )
   }
   names(ts$data) <- quantity.names
   ts$daterange <- daterange
