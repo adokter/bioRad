@@ -22,7 +22,7 @@
   barbs.t = 20,
   barbs.dens = 5,
   na_color = "#C8C8C8",
-  nan_color = palette[1],
+  nan_color = "white",
   n_color = 1000,
   palette = NA,
   ...
