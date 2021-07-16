@@ -14,4 +14,3 @@ pkgdown/
 cran-comments.md
 inst/extdata/vpts.txt.zip
 ^\.github$
-tests/testthat/_snaps
