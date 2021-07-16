@@ -312,7 +312,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   image.plot(x$datetime, x$height + interval / 2, plotdata,
     col = palette_na_nan, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
-    zlim = zlim, main = main, ...
+    zlim = c(zlim[1]-2*zstep,zlim[2]), main = main, ...
   )
 
   # overlay speed barbs

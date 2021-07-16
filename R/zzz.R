@@ -23,5 +23,5 @@ skip_if_no_docker <- function() {
   if (check_docker(verbose = FALSE) == 0) {
     return(invisible(TRUE))
   }
-  skip("No docker")
+  testthat::skip("No docker")
 }
