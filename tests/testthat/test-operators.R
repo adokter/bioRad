@@ -15,23 +15,23 @@ test_that("param and scan errors", {
   p2 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
   p3 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
   p4 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 219, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
-  expect_error(p1 + p2, "The parameters have different dimensions, means the result will not be a valid parameter.")
+  expect_error(p1 + p2, "Scan parameters have different dimensions")
   expect_silent(p2 + p3)
-  expect_warning(p2 + p4, "*of the parameter.s. differ .e.g., location, range gate location. meaning you are likly to combine data that has been observed in different places.")
+  expect_warning(p2 + p4, "*You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")
   data("example_scan")
   s4 <- example_scan
   s2 <- example_scan
   s2$params <- list(DB = p2)
   s4$params <- list(DB = p4)
-  expect_warning(s2 + s4, "*of the parameter.s. differ .e.g., location, range gate location. meaning you are likly to combine data that has been observed in different places.")
+  expect_warning(s2 + s4, "*You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")
   s5 <- example_scan
   s6 <- example_scan
   s5$params <- list(DDB = p2, DF = p2)
   s6$params <- list(DB = p2, DF = p2)
-  expect_warning(s5 + s6, "The names of parameters do not match")
+  expect_warning(s5 + s6, "The names of scan parameters do not match")
   s7 <- example_scan
   s7$params <- list(DB = p2, DF = p2, LL = p2)
-  expect_error(s7 + s6, "does not work for scans with unequal number of parameters")
+  expect_error(s7 + s6, "not defined for scans with unequal number of scan parameters")
   expect_equal(s6 + s2, s6 + s6)
   expect_equal(s7 + s2, 2 * s7)
 })
@@ -61,7 +61,7 @@ test_that("scan operators", {
     example_scan$params[["DBZH"]][4, 1:54] * r[4, 1:54],
     get_param(r * example_scan, "DBZH")[4, 1:54]
   )
-  expect_error(cumsum(example_scan), "not meaningful for scan objects")
+  expect_error(cumsum(example_scan), "not defined for scan objects")
 })
 
 
@@ -118,13 +118,13 @@ test_that("pvol operators", {
   expect_error(
     list(1, 2) * example_pvol, "only works if the list is equally long to the number"
   )
-  expect_error(cumsum(example_pvol), "not meaningful for pvol objects")
+  expect_error(cumsum(example_pvol), "not defined for pvol objects")
   p1 <- example_pvol
   p1$scans[2] <- NULL
   expect_error(p1 + example_pvol, "does not work for pvols with unequal number of scans")
   p2 <- example_pvol
   p2$scans <- p2$scans[c(1, 3, 2)]
-  expect_warning(p2 + example_pvol, "data that has been observed in different places")
+  expect_warning(p2 + example_pvol, "*You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")
 })
 test_that("Compare calculate_param and ops", {
   require(dplyr)

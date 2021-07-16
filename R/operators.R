@@ -1,7 +1,7 @@
 #' Mathematical and arithmetic operations on param's, scan's and pvol's
 #'
 #' @param x object of class \code{scan}, or \code{pvol}
-#' @param ... parameters passed on to the Math functions
+#' @param ... objects passed on to the Math functions
 #' @param e1 object of class \code{param}, \code{scan}, \code{pvol} or a number
 #' @param e2 object of class \code{param}, \code{scan}, \code{pvol} or a number
 #'
@@ -27,7 +27,7 @@
     "lgamma", "gamma", "digamma", "trigamma",
     "cumsum", "cumprod", "cummax", "cummin"
   )) {
-    stop(paste("Operation", .Generic, "not meaningful for scan objects"))
+    stop(paste("Operation", .Generic, "not defined for scan objects"))
   }
   x$params <- lapply(x$params, .Generic, ...)
   x
@@ -40,7 +40,7 @@
     "lgamma", "gamma", "digamma", "trigamma",
     "cumsum", "cumprod", "cummax", "cummin"
   )) {
-    stop(paste("Operation", .Generic, "not meaningful for pvol objects"))
+    stop(paste("Operation", .Generic, "not defined for pvol objects"))
   }
   x$scans <- lapply(x$scans, .Generic, ...)
   x
@@ -52,11 +52,11 @@
   if (is.param(e1) & is.param(e2)) {
     g1 <- attr(e1, "geo")
     g2 <- attr(e2, "geo")
-    if (!isTRUE(all.equal(g1, g2))) {
-      warning("The `geo` attributed of the parameter(s) differ (e.g., location, range gate location) meaning you are likly to combine data that has been observed in different places.")
-    }
     if (!identical(dim(e1), dim(e2))) {
-      stop("The parameters have different dimensions, means the result will not be a valid parameter.")
+      stop("Scan parameters have different dimensions")
+    }
+    if (!isTRUE(all.equal(g1, g2))) {
+      warning("The `geo` attribute of the parameter(s) differs. You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")
     }
   }
   m <- do.call(.Generic, list(c(e1), c(e2)))
@@ -79,12 +79,12 @@
     if (l1 != l2 & pmin(l1, l2) != 1) {
       stop(paste0(
         "Operation (", .Generic,
-        ") does not work for scans with unequal number of parameters (except for length one)"
+        ") not defined for scans with unequal number of scan parameters"
       ))
     }
     if (any(names(e1$params) != names(e2$params)) & pmin(l1, l2) != 1) {
       warning(paste0(
-        "The names of parameters do not match, this
+        "The names of scan parameters do not match, this
                        likely means you try to combine (", .Generic,
         ") different quantities."
       ))

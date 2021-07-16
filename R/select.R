@@ -1,3 +1,4 @@
+# generalizations for the dplyr verb `select` to `scan` and `pvol` objects
 select.scan <- function(.data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("package dplyr required, please install it first") # nocov
