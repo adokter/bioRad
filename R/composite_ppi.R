@@ -100,7 +100,7 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
   }
   if (!all(method %in% c("max", "min", "mean", "idw"))) stop("'method' should be one or multiple of 'max', 'mean', 'min' or 'idw'")
   if (length(method) != length(param) & length(method) != 1) stop("'method' should be of length 1 or length(param)")
-  if (!is.logical(coverage)) stop("'coverage' should be a logical")
+  assert_that(is.flag(coverage))
 
   if (length(param) == 1 && param == "all") {
     param <- names(x[[1]]$data)

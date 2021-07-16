@@ -54,6 +54,19 @@ attributes, copied from the first profile.
 \item \code{regular}: Logical indicating whether the time series is regular or not.
 }
 }
+\section{Conventions}{
+
+\itemize{
+\item \code{NA}: Maps to \code{nodata} in the ODIM convention: value to denote areas void
+of data (never radiated).
+\item \code{NaN}: Maps to \code{undetect} in the ODIM convention: denote areas below the
+measurement detection threshold (radiated but nothing detected). The value is
+also used when there are too few datapoints to calculate a quantity.
+\item \code{0}: Maps to \code{0} in the ODIM convention: denote areas where the quantity
+has a measured value of zero (radiated and value zero detected or inferred).
+}
+}
+
 \examples{
 # Check if an object is of class vpts
 is.vpts(example_vpts)

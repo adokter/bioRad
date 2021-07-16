@@ -11,3 +11,17 @@
 #'
 #' @keywords internal
 is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
+
+#' Skip test if no docker
+#'
+#' Some functions require Docker. This helper function allows to skip a test if
+#' the Docker container is not available, e.g. when running in CI.
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#'
+#' @keywords internal
+skip_if_no_docker <- function() {
+  if (check_docker(verbose = FALSE) == 0) {
+    return(invisible(TRUE))
+  }
+  testthat::skip("No docker")
+}

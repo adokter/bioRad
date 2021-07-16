@@ -50,4 +50,17 @@ test_that("plot.vpts() creates expected graph", {
     "example_plot_DBZH",
     plot.vpts(example_vpts_reg,quantity = "DBZH")
   )
+  vdiffr::expect_doppelganger(
+    "example_plot_ff",
+    plot.vpts(example_vpts_reg,quantity = "ff")
+  )
+  vdiffr::expect_doppelganger(
+    "example_plot_u",
+    plot.vpts(example_vpts_reg,quantity = "u")
+  )
+  vdiffr::expect_doppelganger(
+    "example_plot_v",
+    plot.vpts(example_vpts_reg,quantity = "v")
+  )
+
 })

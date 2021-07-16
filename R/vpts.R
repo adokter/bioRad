@@ -32,6 +32,15 @@
 #' attributes, copied from the first profile.
 #' * `regular`: Logical indicating whether the time series is regular or not.
 #'
+#' @section Conventions:
+#' * `NA`: Maps to `nodata` in the ODIM convention: value to denote areas void
+#' of data (never radiated).
+#' * `NaN`: Maps to `undetect` in the ODIM convention: denote areas below the
+#' measurement detection threshold (radiated but nothing detected). The value is
+#' also used when there are too few datapoints to calculate a quantity.
+#' * `0`: Maps to `0` in the ODIM convention: denote areas where the quantity
+#' has a measured value of zero (radiated and value zero detected or inferred).
+#'
 #' @seealso
 #' * [bind_into_vpts()]
 #' * [read_vpts()]
