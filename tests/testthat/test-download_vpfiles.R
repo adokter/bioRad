@@ -4,9 +4,8 @@ test_that("download_vpfiles() returns error on incorrect parameters", {
   date_min <- "2016-10-01"
   date_max <- "2016-11-30"
   radars <- c("bejab", "bewid")
-  directory <- "~/bioRad_tmp_files"
+  directory <- tempdir()
   overwrite <- TRUE
-  dir.create(directory)
 
   expect_error(download_vpfiles('01/01/2016', date_max, radars, directory, overwrite), "Incorrect date format: 01/01/2016", fixed = TRUE)
   expect_error(download_vpfiles(12345, date_max, radars, directory, overwrite), "date_min is not a string (a length one character vector).", fixed = TRUE)
