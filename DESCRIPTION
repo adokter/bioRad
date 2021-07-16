@@ -45,6 +45,9 @@ Imports:
     maptools
 Suggests:
     knitr,
+    rlang,
+    tidyselect,
+    dplyr (>= 0.7-0),
     rmarkdown,
     testthat,
     vdiffr

@@ -2,6 +2,7 @@
 .pkgenv <- new.env(parent = emptyenv())
 
 .onLoad <- function(libname, pkgname) {
+  register_all_s3_methods() # dynamically registers non-imported pkgs (tidyverse) # nocov
   # latest available vol2bird release
   .pkgenv[["latest_vol2bird_version"]] <- numeric_version("0.5.0")
   # availability of mistnet
