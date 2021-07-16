@@ -11,10 +11,14 @@ test_that("param operators", {
 })
 
 test_that("param and scan errors", {
-  p1 <- structure(1:12, .Dim = c(3L, 4L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
-  p2 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191200, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
-  p3 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 209, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
-  p4 <- structure(1:9, .Dim = c(3L, 3L), class = c("param", "matrix", "array"), radar = "SE50", datetime = structure(1445191300, class = c("POSIXct", "POSIXt"), tzone = "UTC"), geo = list(lat = 56.3675003051758, lon = 12.8516998291016, height = 219, elangle = 0.5, rscale = 500, ascale = 1, rstart = 0), param = "VRADH")
+  data("example_scan")
+  p1<-get_param(example_scan,'VRADH')
+  p2<-p1
+  dim(p2)<-dim(p2)*c(2,.5)
+  p3<-p2
+  attr(p3,'datetime')<-attr(p3,'datetime')+10
+  p4<-p3
+  attr(p4,'geo')$height<-attr(p4,'geo')$height+10
   expect_error(p1 + p2, "Scan parameters have different dimensions")
   expect_silent(p2 + p3)
   expect_warning(p2 + p4, "*You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")
