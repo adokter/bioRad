@@ -106,7 +106,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       barbs_time = 20, barbs_dens_min = 5,
                       zlim, legend_ticks, legend.ticks, main,
                       barbs.h = 10, barbs.t = 20, barbs.dens = 5,
-                      na_color = "#C8C8C8", nan_color = palette[1],
+                      na_color = "#C8C8C8", nan_color = "white",
                       n_color=1000, palette = NA,
                       ...) {
   stopifnot(inherits(x, "vpts"))
