@@ -238,10 +238,10 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
     output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
-    output$ff_wind <- weighted.mean(sqrt(u_wind^2 + v_wind^2), weight_densdh, na.rm = TRUE)
-    output$dd_wind <- weighted.mean((pi / 2 - atan2(v_wind, u_wind)) * 180 / pi, weight_densdh, na.rm = TRUE)
     output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
     output$airspeed_v <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
+    output$ff_wind <- weighted.mean(sqrt(u_wind^2 + v_wind^2), weight_densdh, na.rm = TRUE)
+    output$dd_wind <- weighted.mean((pi / 2 - atan2(v_wind, u_wind)) * 180 / pi, weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -372,6 +372,8 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_densdh, na.rm = TRUE)
     output$airspeed_u <- colSums(airspeed_u * weight_densdh, na.rm = TRUE)
     output$airspeed_v <- colSums(airspeed_v * weight_densdh, na.rm = TRUE)
+    output$ff_wind <- colSums(sqrt(u_wind^2 + v_wind^2) * weight_densdh, na.rm = TRUE)
+    output$dd_wind <- colSums(((pi / 2 - atan2(v_wind, u_wind)) * 180 / pi) * weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
