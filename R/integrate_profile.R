@@ -236,7 +236,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), w, na.rm = TRUE)
+    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
     output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
     output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
     output$airspeed_v <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
