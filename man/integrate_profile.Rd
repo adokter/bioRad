@@ -224,4 +224,8 @@ plot(example_vpts)
 plot(integrate_profile(example_vpts, alt_min = 1000))
 # plot the (cumulative) migration traffic
 plot(integrate_profile(example_vpts), quantity = "mt")
+# calculate median flight altitude (instead of default mean)
+integrate_profile(example_vp, height_quantile=.5)
+# calculate the 90\% percentile of the flight altitude distribution
+integrate_profile(example_vpts, height_quantile=.9)
 }
