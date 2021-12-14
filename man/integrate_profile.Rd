@@ -8,14 +8,22 @@
 \title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an
 integrated profile (\code{vpi})}
 \usage{
-integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
+integrate_profile(
+  x,
+  alt_min,
+  alt_max,
+  alpha = NA,
+  interval_max = Inf,
+  height_quantile = NA
+)
 
 \method{integrate_profile}{vp}(
   x,
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf
+  interval_max = Inf,
+  height_quantile = NA
 )
 
 \method{integrate_profile}{list}(
@@ -23,7 +31,8 @@ integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf
+  interval_max = Inf,
+  height_quantile = NA
 )
 
 \method{integrate_profile}{vpts}(
@@ -31,7 +40,8 @@ integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf
+  interval_max = Inf,
+  height_quantile = NA
 )
 }
 \arguments{
@@ -48,6 +58,10 @@ minimum altitude to the height of the antenna.}
 seconds. Traffic rates are set to zero at times \code{t} for which no
 profiles can be found within the period \code{t-interval_max/2} to
 \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.}
+
+\item{height_quantile}{For default \code{NA} the calculated height equals
+the mean flight altitude. Otherwise a number between 0 and 1 specifying a
+quantile of the height distribution.}
 }
 \value{
 an object of class \code{vpi}, a data frame with vertically

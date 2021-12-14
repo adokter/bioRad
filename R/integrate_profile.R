@@ -227,7 +227,28 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   weight_densdh[is.na(weight_densdh)] <- 0
   weight_densdh <- weight_densdh / sum(weight_densdh)
 
-  height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+  if(is.na(height_quantile)){
+    # default (no height_quantile specified) is calculating the mean altitude
+    height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+  }
+  else{
+    # calculate a quantile of the flight altitude distribution
+    # 1) integrate over altitude
+    denscum=cumsum(weight_densdh)
+    denscum[is.na(denscum)]=0
+    # 2) find lowerbound index:
+    height_index_lower=findInterval(height_quantile, denscum)
+    # 3) find the two height bins closest to the quantile of interest
+    height_lower=x$data$height[height_index_lower] + interval / 2
+    height_upper=x$data$height[min(height_index_lower+1,length(denscum))] + interval / 2
+    height_quantile_lower <- denscum[height_index_lower]
+    height_quantile_upper <- denscum[min(height_index_lower+1,length(denscum))]
+    # 4) do a linear interpolation to estimate the altitude at the quantile of interest
+    delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
+    if(is.na(delta_linear_interpolation)) delta_linear_interpolation=0
+    # 5) store the quantile flight altitude as height
+    height <- height_lower+delta_linear_interpolation
+  }
 
   u <- weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
   v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
@@ -250,9 +271,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
     output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
     output$airspeed_v <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
-    output$ff_wind <- weighted.mean(sqrt(u_wind^2 + v_wind^2), weight_densdh, na.rm = TRUE)
-    output$u_wind <- weighted.mean(u_wind, weight_densdh, na.rm = TRUE)
-    output$v_wind <- weighted.mean(v_wind, weight_densdh, na.rm = TRUE)
+    output$ff_wind <- weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
+    output$u_wind <- weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
+    output$v_wind <- weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -260,6 +281,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
+  attributes(output)$interval_max <- interval_max
+  attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
@@ -290,6 +313,8 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
+  attributes(output)$interval_max <- interval_max
+  attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   # TODO set lat/lon attributes
   return(output)
@@ -367,11 +392,12 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     # calculate a quantile of the flight altitude distribution
     # 1) integrate over altitude
     denscum=apply(weight_densdh, 2, cumsum)
+    denscum[is.na(denscum)]=0
     # 2) find lowerbound index:
     height_index_lower=apply(denscum,2,findInterval,x=height_quantile)
     # 3) find the two height bins closest to the quantile of interest
-    height_lower=x$height[height_index_lower]
-    height_upper=x$height[pmin(height_index_lower+1,nrow(denscum))]
+    height_lower=x$height[height_index_lower] + interval / 2
+    height_upper=x$height[pmin(height_index_lower+1,nrow(denscum))] + interval / 2
     height_quantile_lower <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+height_index_lower]
     height_quantile_upper <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+pmin(height_index_lower+1,nrow(denscum))]
     # 4) do a linear interpolation to estimate the altitude at the quantile of interest
@@ -380,7 +406,6 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     # 5) store the quantile flight altitude as height
     height <- height_lower+delta_linear_interpolation
   }
-
 
   height[no_bird] <- NA
   u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = T)
@@ -424,6 +449,8 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
+  attributes(output)$interval_max <- interval_max
+  attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
