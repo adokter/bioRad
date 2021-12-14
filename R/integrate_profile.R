@@ -14,6 +14,9 @@
 #' seconds. Traffic rates are set to zero at times \code{t} for which no
 #' profiles can be found within the period \code{t-interval_max/2} to
 #' \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.
+#' @param height_quantile For default `NA` the calculated height equals
+#' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
+#' quantile of the height distribution.
 #'
 #' @return an object of class \code{vpi}, a data frame with vertically
 #' integrated profile quantities
@@ -161,7 +164,8 @@
 #' # plot the (cumulative) migration traffic
 #' plot(integrate_profile(example_vpts), quantity = "mt")
 integrate_profile <- function(x, alt_min, alt_max,
-                              alpha = NA, interval_max = Inf) {
+                              alpha = NA, interval_max = Inf,
+                              height_quantile = NA) {
   UseMethod("integrate_profile", x)
 }
 
@@ -169,11 +173,17 @@ integrate_profile <- function(x, alt_min, alt_max,
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
-                                 interval_max = Inf) {
+                                 interval_max = Inf, height_quantile = NA) {
   stopifnot(inherits(x, "vp"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+
+  assert_that(is.scalar(height_quantile))
+  if(!is.na(height_quantile)){
+    assert_that(is.number(height_quantile))
+    assert_that(height_quantile>0 && height_quantile<1)
+  }
 
   if (alt_min=="antenna"){
     alt_min = x$attributes$where$height
@@ -261,7 +271,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
-                                   alpha = NA, interval_max = Inf) {
+                                   alpha = NA, interval_max = Inf,
+                                   height_quantile = NA) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
@@ -289,11 +300,18 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
-                                   alpha = NA, interval_max = Inf) {
+                                   alpha = NA, interval_max = Inf,
+                                   height_quantile = NA) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+
+  assert_that(is.scalar(height_quantile))
+  if(!is.na(height_quantile)){
+    assert_that(is.number(height_quantile))
+    assert_that(height_quantile>0 && height_quantile<1)
+  }
 
   # Integrate from antenna height
   if (alt_min=="antenna"){
@@ -341,7 +359,29 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   # Find index where no bird are present
   no_bird <- is.na(colSums(weight_densdh))
 
-  height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+  if(is.na(height_quantile)){
+    # default (no height_quantile specified) is calculating the mean altitude
+    height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+  }
+  else{
+    # calculate a quantile of the flight altitude distribution
+    # 1) integrate over altitude
+    denscum=apply(weight_densdh, 2, cumsum)
+    # 2) find lowerbound index:
+    height_index_lower=apply(denscum,2,findInterval,x=height_quantile)
+    # 3) find the two height bins closest to the quantile of interest
+    height_lower=x$height[height_index_lower]
+    height_upper=x$height[pmin(height_index_lower+1,nrow(denscum))]
+    height_quantile_lower <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+height_index_lower]
+    height_quantile_upper <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+pmin(height_index_lower+1,nrow(denscum))]
+    # 4) do a linear interpolation to estimate the altitude at the quantile of interest
+    delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
+    delta_linear_interpolation[is.na(delta_linear_interpolation)]=0
+    # 5) store the quantile flight altitude as height
+    height <- height_lower+delta_linear_interpolation
+  }
+
+
   height[no_bird] <- NA
   u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = T)
   u[no_bird] <- NA
