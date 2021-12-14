@@ -89,7 +89,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     assert_that(is.number(fill), fill>0)
     if(are_equal(fill,Inf)){
       # map infinity to the largest stepsize, to guarantee everything is filled
-      fill=max(example_vpts$timesteps)
+      fill=max(ts$timesteps)
     }
     fill <- as.difftime(fill, units = units)
   }
