@@ -33,7 +33,6 @@ Imports:
     lubridate,
     lutz,
     methods,
-    raster,
     rgdal,
     rhdf5,
     sp,
@@ -42,7 +41,8 @@ Imports:
     utils,
     viridisLite,
     viridis,
-    maptools
+    maptools,
+    raster
 Suggests:
     knitr,
     rmarkdown,
