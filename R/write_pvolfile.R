@@ -19,7 +19,9 @@
 #' example_pvol <- read_pvolfile(pvolfile)
 #'
 #' # write the file:
+#' \dontrun{
 #' write_pvolfile(example_pvol, "volume_out.h5")
+#' }
 write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
   assert_that(is.pvol(pvol))
   if (!overwrite) {

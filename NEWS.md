@@ -1,4 +1,9 @@
 # bioRad 0.5.2.9XXX
+* bugfix `local_mistnet` argument in `calculate_vp()` (#488)
+
+* new optional argument `height_quantile` in `calculate_vp()` to calculate flight altitude quantiles
+
+* bugfix for `max_interval` argument in `regularize_vpts()` (#480, #484)
 
 * adding `attribute_table()` to quickly tabulate scan attributes
 
