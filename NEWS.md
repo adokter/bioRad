@@ -1,11 +1,17 @@
 # bioRad 0.5.2.9XXX
 * bugfix `local_mistnet` argument in `calculate_vp()` (#488)
 
-* new optional argument `height_quantile` in `calculate_vp()` to calculate flight altitude quantiles
+* new optional argument `height_quantile` in `calculate_vp()` to calculate flight altitude quantiles (#485)
 
 * bugfix for `max_interval` argument in `regularize_vpts()` (#480, #484)
 
-* adding `attribute_table()` to quickly tabulate scan attributes
+* extension of `fill` argument in `regularize_vpts()` to allow specification of a time interval over which to perform nearest neighbor interpolation to fill gaps of missing profile data. (#475)
+
+* altitude integration at altitude resolutions smaller than the altitude bin spacing. New option "antenna" for `alt_min` argument, setting the altitude of the antenna as the minimum altitude (#472)
+
+* adding `write_pvolfile()` to write polar volumes to ODIM hdf5 format (#471)
+
+* adding `attribute_table()` to quickly tabulate scan attributes (#365)
 
 * `calculate_param()` now also works on ppi's (#316)
 
