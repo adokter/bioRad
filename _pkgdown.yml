@@ -32,6 +32,7 @@ reference:
       - get_odim_object_type
       - nexrad_to_odim
       - read_pvolfile
+      - write_pvolfile
       - summary.pvol # is.pvol
   - title: "Inspecting radar scans"
     desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
@@ -111,6 +112,7 @@ reference:
       - "`sd_vvp_threshold<-`"
       - check_night
       - doy_noy
+      - attribute_table
   - title: "Radar beam geometry"
     desc: "Functions relating the radar beam shape to range, distance and height"
     contents:
