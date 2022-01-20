@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/articles/bioRad.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/articles/rad_aero_19.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/articles/range_correction.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/authors.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/index.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/news/index.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/add_expected_eta_to_scan.html</loc>
@@ -116,6 +143,9 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/get_scan.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/index.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/integrate_profile.html</loc>
@@ -248,14 +278,5 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/write_pvolfile.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/articles/bioRad.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/articles/rad_aero_19.html</loc>
-  </url>
-  <url>
-    <loc>https://adokter.github.io/bioRad/articles/range_correction.html</loc>
   </url>
 </urlset>
