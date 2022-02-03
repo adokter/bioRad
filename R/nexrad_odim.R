@@ -106,7 +106,7 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
         rsl2odim_path = "rsl2odim"  # when vol2bird and rls2odim are in the PATH
       }
       else{
-        rls2odim_path = paste(dirname(local_install),"/rsl2odim",sep="")
+        rsl2odim_path = paste(dirname(local_install),"/rsl2odim",sep="")
       }
       result <- system(paste("bash -l -c \"", rsl2odim_path, pvolfile, pvol_tmp, "\""), ignore.stdout = !verbose)
     }
