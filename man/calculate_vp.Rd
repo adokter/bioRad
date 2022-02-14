@@ -11,7 +11,7 @@ calculate_vp(
   autoconf = FALSE,
   verbose = FALSE,
   warnings = TRUE,
-  mount = dirname(file[1]),
+  mount,
   sd_vvp_threshold,
   rcs = 11,
   dual_pol = TRUE,
@@ -36,8 +36,7 @@ calculate_vp(
 \arguments{
 \item{file}{Character (vector). Either a path to a single radar polar volume
 (\code{pvol}) file containing multiple scans/sweeps, or multiple paths to scan
-files containing a single scan/sweep. Note that \code{pvol} objects are not
-supported. The file data format should be either 1)
+files containing a single scan/sweep. Or a single \code{pvol} object. The file data format should be either 1)
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
 format, which is the implementation of the OPERA data information model in
 the \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, 2) a format
