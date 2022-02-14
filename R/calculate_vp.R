@@ -257,7 +257,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (file.access(mount, 2) == -1) {
     stop(glue("No write permission to `mount` directory: {mount}"))
   }
-  if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))) {
+  if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet) && mistnet)) {
     stop("To use local vol2bird and MistNet model, specify both `local_install` and `local_mistnet`.")
   }
   assert_that(is.numeric(mistnet_elevations))
