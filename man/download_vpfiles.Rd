@@ -42,7 +42,7 @@ dir.create("~/bioRad_tmp_files")
 download_vpfiles(
   date_min = "2016-10-01",
   date_max = "2016-11-30",
-  radar = c("bejab", "bewid"),
+  radars = c("bejab", "bewid"),
   directory = "~/bioRad_tmp_files",
   overwrite = TRUE
 )

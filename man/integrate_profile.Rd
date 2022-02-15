@@ -8,14 +8,22 @@
 \title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an
 integrated profile (\code{vpi})}
 \usage{
-integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
+integrate_profile(
+  x,
+  alt_min,
+  alt_max,
+  alpha = NA,
+  interval_max = Inf,
+  height_quantile = NA
+)
 
 \method{integrate_profile}{vp}(
   x,
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf
+  interval_max = Inf,
+  height_quantile = NA
 )
 
 \method{integrate_profile}{list}(
@@ -23,7 +31,8 @@ integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf
+  interval_max = Inf,
+  height_quantile = NA
 )
 
 \method{integrate_profile}{vpts}(
@@ -31,13 +40,15 @@ integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf
+  interval_max = Inf,
+  height_quantile = NA
 )
 }
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}
 
-\item{alt_min}{Minimum altitude in m.}
+\item{alt_min}{Minimum altitude in m. \code{"antenna"} can be used to set the
+minimum altitude to the height of the antenna.}
 
 \item{alt_max}{Maximum altitude in m.}
 
@@ -47,6 +58,10 @@ integrate_profile(x, alt_min, alt_max, alpha = NA, interval_max = Inf)
 seconds. Traffic rates are set to zero at times \code{t} for which no
 profiles can be found within the period \code{t-interval_max/2} to
 \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.}
+
+\item{height_quantile}{For default \code{NA} the calculated height equals
+the mean flight altitude. Otherwise a number between 0 and 1 specifying a
+quantile of the height distribution.}
 }
 \value{
 an object of class \code{vpi}, a data frame with vertically
@@ -85,27 +100,6 @@ individual. Similarly, migration traffic rate and reflectivity traffic rate
 are related according to \eqn{mtr=rtr/rcs(x)}
 }
 
-\subsection{Ground speed (ff) and ground speed components (u,v)}{
-The height-averaged ground speed is defined as:
-
-\deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i / \sum_i dens_i}
-with the sum running over all altitude layers between \code{alt_min} and
-\code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
-altitude layer i.
-
-the height-averaged u component (west to east) is defined as:
-
-\deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i dens_i}
-
-the height-averaged v component (south to north) is defined as:
-
-\deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i dens_i}
-}
-
-Note that \eqn{ff_i=\sqrt(u_i^2 + v_i^2)}, but the same does not hold for the
-height-integrated speeds, i.e. \eqn{ff != \sqrt(u^2 + v^2)} as soon as the
-ground speed directions vary with altitude.
-
 \subsection{Migration traffic rate (mtr) and reflectivity traffic rate (rtr)}{
 Migration traffic rate (mtr) for an altitude layer is a flux measure, defined
 as the number of targets crossing a unit of transect per hour.
@@ -130,13 +124,13 @@ If \code{alpha} is given a numeric value, the transect is taken perpendicular
 to the direction \code{alpha}, and the number of crossing targets per hour
 per km transect is calculated as:
 
-\deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-alpha) pi/180) \Delta h}
+\deqn{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-\alpha) \pi/180) \Delta h}{mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-\alpha) \pi/180) \Delta h}
 with \eqn{dd_i} the migratory direction at altitude i.
 
 Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
 Also note we can rewrite this equation using trigonometry as:
 
-\deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(alpha pi/180) + v_i \cos(alpha pi/180)) \Delta h}
+\deqn{mtr = 3.6 \sum_i dens_i (u_i \sin(\alpha \pi/180) + v_i \cos(\alpha \pi/180)) \Delta h}{mtr = 3.6 \sum_i dens_i (u_i \sin(\alpha \pi/180) + v_i \cos(alpha pi/180)) \Delta h}
 with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.
 
 In this definition \code{mtr} is a traditional flux into a direction of
@@ -149,7 +143,7 @@ Note that \code{mtr} for a given value of \code{alpha} can also be calculated fr
 the vertically integrated density \code{vid} and the height-integrated velocity
 components \code{u} and \code{v} as follows:
 
-\deqn{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}{mtr = 3.6 (u \sin(alpha pi/180) + v \cos(alpha pi/180)) vid}
+\deqn{mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid}{mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid}
 
 Formula for reflectivity traffic rate \code{rtr} are found by replacing
 \code{dens} with \code{eta} and \code{vid} with \code{vir} in the formula for \code{mtr}.
@@ -176,6 +170,28 @@ specified altitude band.
 Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 of the respective row.
+
+#' \subsection{Ground speed (ff) and ground speed components (u,v)}{
+The height-averaged ground speed is defined as:
+
+\deqn{ff = \sum_i dens_i ff_i / \sum_i dens_i}{ff = \sum_i dens_i ff_i / \sum_i dens_i}
+with the sum running over all altitude layers between \code{alt_min} and
+\code{alt_max}, \eqn{dens_i} the bird density, \eqn{ff_i} the ground speed at
+altitude layer i.
+
+the height-averaged u component (west to east) is defined as:
+
+\deqn{u = \sum_i dens_i u_i / \sum_i dens_i}{u = \sum_i dens_i u_i / \sum_i dens_i}
+
+the height-averaged v component (south to north) is defined as:
+
+\deqn{v = \sum_i dens_i v_i / \sum_i dens_i}{v = \sum_i dens_i v_i / \sum_i dens_i}
+}
+
+Note that \eqn{ff_i=\sqrt(u_i^2 + v_i^2)}, but the same does not hold for the
+height-integrated speeds, i.e. \eqn{ff != \sqrt(u^2 + v^2)} as soon as the
+ground speed directions vary with altitude.
+
 }
 }
 \section{Methods (by class)}{
@@ -208,4 +224,8 @@ plot(example_vpts)
 plot(integrate_profile(example_vpts, alt_min = 1000))
 # plot the (cumulative) migration traffic
 plot(integrate_profile(example_vpts), quantity = "mt")
+# calculate median flight altitude (instead of default mean)
+integrate_profile(example_vp, height_quantile=.5)
+# calculate the 90\% percentile of the flight altitude distribution
+integrate_profile(example_vpts, height_quantile=.9)
 }

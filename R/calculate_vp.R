@@ -236,8 +236,17 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (!is.logical(mistnet)) {
     stop("`mistnet` must be a logical value.")
   }
-  if (mistnet && !.pkgenv$mistnet) {
-    stop("MistNet has not been installed, see update_docker() for install instructions.")
+  if (mistnet){
+    if(missing(local_mistnet)){
+      if (!.pkgenv$mistnet) {
+        stop("MistNet has not been installed, see update_docker() for install instructions.")
+      }
+    }
+    else{
+      if(!file.exists(local_mistnet)){
+        stop(paste0("'",local_mistnet,"' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
+      }
+    }
   }
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
@@ -330,7 +339,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assert_that(is.flag(mistnet))
   assert_that(
-    !(mistnet && !.pkgenv$mistnet),
+    !(mistnet && !.pkgenv$mistnet && missing(local_mistnet)),
     msg = "Can't find MistNet installation, see update_docker() for install instructions.")
   assert_that(is.flag(dealias))
   assert_that(
