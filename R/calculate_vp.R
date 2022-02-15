@@ -443,7 +443,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     )
   }
   else {
-    optfile <- paste(getwd(), "/options.conf", sep = "")
+    optfile <- tempfile(fileext = '.conf')
   }
 
   if (file.exists(optfile)) {
@@ -509,8 +509,17 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       )
     }
     else {
+      assert_that(vol2bird_version(local_install) >= numeric_version("0.5.0.9187"),
+        msg = glue(
+          "Current vol2bird installation does not support using a custom path for the configuration file. Please update your vol2bird."
+        )
+      )
+      cmd <- glue("{local_install} -c {optfile} -i {file} -o {profile.tmp}")
+      if (pvolfile_out != "") {
+        cmd <- glue("{cmd} -p {pvolfile_out}")
+      }
       # using a local install of vol2bird:
-      result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""),
+      result <- system(glue('bash -l -c "{cmd}"'),
         ignore.stdout = !verbose, ignore.stderr = !warnings
       )
     }
