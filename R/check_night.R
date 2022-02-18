@@ -66,8 +66,14 @@ check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268, off
   assert_that(length(offset)<=2)
   assert_that(is.numeric(lon))
   assert_that(is.numeric(lat))
+  assert_that(length(lat)==length(lon))
   #
   x <- as.POSIXct(x, tz = tz)
+  #
+  if(length(x)>1 & length(lon)==1){
+    lon=rep(lon,length(x)) # to accomodate lon subsetting below
+    lat=rep(lat,length(x)) # to accomodate lon subsetting below
+  }
   #
   elev_sunset = ifelse(length(elev) == 2,elev[1],elev)
   elev_sunrise = ifelse(length(elev) == 2,elev[2],elev)
