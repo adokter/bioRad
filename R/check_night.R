@@ -82,16 +82,16 @@ check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268, off
   tset_ordered = tset
   # sunrise -1 day
   idx <- which(x < tset  & trise > tset)
-  if(length(idx)>0) trise_ordered[idx] = sunrise(x[idx]-24*3600, lon, lat, tz = tz, elev = elev_sunrise)
+  if(length(idx)>0) trise_ordered[idx] = sunrise(x[idx]-24*3600, lon[idx], lat[idx], tz = tz, elev = elev_sunrise)
   # sunrise +1 day
   idx <- which(x > tset  & trise < tset)
-  if(length(idx)>0) trise_ordered[idx] = sunrise(x[idx]+24*3600, lon, lat, tz = tz, elev = elev_sunrise)
+  if(length(idx)>0) trise_ordered[idx] = sunrise(x[idx]+24*3600, lon[idx], lat[idx], tz = tz, elev = elev_sunrise)
   # sunset -1 day
   idx <- which(x < trise & trise < tset)
-  if(length(idx)>0) tset_ordered[idx] = sunset(x[idx]-24*3600, lon, lat, tz = tz, elev = elev_sunset)
+  if(length(idx)>0) tset_ordered[idx] = sunset(x[idx]-24*3600, lon[idx], lat[idx], tz = tz, elev = elev_sunset)
   # sunset +1 day
   idx <- which(x > trise & trise > tset)
-  if(length(idx)>0) tset_ordered[idx] = sunset(x[idx]+24*3600, lon, lat, tz = tz, elev = elev_sunset)
+  if(length(idx)>0) tset_ordered[idx] = sunset(x[idx]+24*3600, lon[idx], lat[idx], tz = tz, elev = elev_sunset)
   # store in original variable
   trise <- trise_ordered
   tset <- tset_ordered
