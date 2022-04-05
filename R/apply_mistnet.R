@@ -130,12 +130,18 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
 
   assert_that(file.exists(file))
 
-  if (!.pkgenv$mistnet) {
+  if (!.pkgenv$mistnet && missing(local_mistnet)) {
     stop("MistNet has not been installed, see update_docker() for install instructions")
   }
 
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
+
+  if(!missing(local_mistnet)){
+    if(!file.exists(local_mistnet)){
+      stop(paste0("'",local_mistnet,"' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
+    }
+  }
 
   if((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))){
     stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
