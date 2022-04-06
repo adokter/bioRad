@@ -6,7 +6,7 @@
 #'
 #' @param date_min character. YYYY-MM-DD HH:MM start date of file selection.
 #' @param date_max character. YYYY-MM-DD HH:MM end date of file selection.
-#' @param radar character (vector). 5-letter radar code(s) (e.g. "KAMA")
+#' @param radar character (vector). 4-letter radar code(s) (e.g. "KAMA")
 #' @param directory character. Path to local directory where files should be
 #'   downloaded
 #' @param overwrite logical. TRUE for re-downloading and overwriting previously
