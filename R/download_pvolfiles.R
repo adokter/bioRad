@@ -4,8 +4,10 @@
 #' \href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive
 #'  data}.
 #'
-#' @param date_min character. YYYY-MM-DD HH:MM start date of file selection.
-#' @param date_max character. YYYY-MM-DD HH:MM end date of file selection.
+#' @param date_min POSIXct. Start date of file selection. If no timezone are
+#' provided, it will be assumed to be UTC.
+#' @param date_max POSIXct. End date of file selection.If no timezone are
+#' provided, it will be assumed to be UTC.
 #' @param radar character (vector). 4-letter radar code(s) (e.g. "KAMA")
 #' @param directory character. Path to local directory where files should be
 #'   downloaded
@@ -16,13 +18,11 @@
 #' @export
 #'
 #' @examples
-#' # Download data from radar "KBBX", even if previously downloaded
-#' # (overwrite = TRUE).
 #' \dontrun{
 #' dir.create("~/bioRad_tmp_files")
 #' download_pvolfiles(
-#'   date_min = "2016-10-02 20:00",
-#'   date_max = "2016-10-02 20:05",
+#'   date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
+#'   date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
 #'   radar = "KBBX",
 #'   directory = "~/bioRad_tmp_files",
 #'   overwrite = TRUE
@@ -38,69 +38,89 @@ download_pvolfiles <- function(date_min, date_max, radar,
   # Stop if radar codes are not exactly 5 characters
   assert_that(is.character(radar))
   assert_that(length(radar) == 1, msg = paste0("radar is not of length 1"))
-  possible_radar <- c("KABR", "KABX", "KAKQ", "KAMA", "KAMX", "KAPX", "KARX",
-                      "KATX", "KBBX", "KBGM", "KBHX", "KBIS", "KBLX", "KBMX",
-                      "KBOX", "KBRO", "KBUF", "KBYX", "KCAE", "KCBW", "KCBX",
-                      "KCCX", "KCLE", "KCLX", "KCRP", "KCXX", "KCYS", "KDAX",
-                      "KDDC", "KDFX", "KDGX", "KDIX", "KDLH", "KDMX", "KDOX",
-                      "KDTX", "KDVN", "KDYX", "KEAX", "KEMX", "KENX", "KEOX",
-                      "KEPZ", "KESX", "KEVX", "KEWX", "KEYX", "KFCX", "KFDR",
-                      "KFDX", "KFFC", "KFSD", "KFSX", "KFTG", "KFWS", "KGGW",
-                      "KGJX", "KGLD", "KGRB", "KGRK", "KGRR", "KGSP", "KGWX",
-                      "KGYX", "KHDX", "KHGX", "KHNX", "KHPX", "KHTX", "KICT",
-                      "KICX", "KILN", "KILX", "KIND", "KINX", "KIWA", "KIWX",
-                      "KJAN", "KJAX", "KJGX", "KJKL", "KLBB", "KLCH", "KLGX",
-                      "KLIX", "KLNX", "KLOT", "KLRX", "KLSX", "KLTX", "KLVX",
-                      "KLWX", "KLZK", "KMAF", "KMAX", "KMBX", "KMHX", "KMKX",
-                      "KMLB", "KMOB", "KMPX", "KMQT", "KMRX", "KMSX", "KMTX",
-                      "KMUX", "KMVX", "KMXX", "KNKX", "KNQA", "KOAX", "KOHX",
-                      "KOKX", "KOTX", "KOUN", "KPAH", "KPBZ", "KPDT", "KPOE",
-                      "KPUX", "KRAX", "KRGX", "KRIW", "KRLX", "KRMX", "KRTX",
-                      "KSFX", "KSGF", "KSHV", "KSJT", "KSOX", "KSRX", "KTBW",
-                      "KTFX", "KTLH", "KTLX", "KTWX", "KTYX", "KUDX", "KUEX",
-                      "KVAX", "KVBX", "KVNX", "KVTX", "KVWX", "KYUX")
-  assert_that(radar %in% possible_radar, msg = paste0("radar ", radar,
-                                                      " doesn't exist"))
 
-  # Stop if dates are not a string
-  assert_that(is.string(date_min))
-  assert_that(is.string(date_max))
-
-  # Stop if dates are not in YYYY-MM-DD format:
-  check_date_format(date_min, "%Y-%m-%d %H:%M")
-  check_date_format(date_max, "%Y-%m-%d %H:%M")
+  # Stop if dates are not date and not
+  assert_that(lubridate::is.POSIXt(date_min), msg = "date_min is not a date")
+  assert_that(lubridate::is.POSIXt(date_max), msg = "date_max is not a date")
+  assert_that(date_min <= date_max,
+              msg = "date_max is not greater or equal to date_min")
 
   # Stop if overwrite is not a logical
   assert_that(is.logical(overwrite), msg = "overwrite is not a logical")
 
+  # Change timezone
+  if (attr(date_min, "tzone") == "") {
+    date_min <- as.POSIXct(format(date_min), tz = "UTC")
+  }
+  if (attr(date_max, "tzone") == "") {
+    date_max <- as.POSIXct(format(date_max), tz = "UTC")
+  }
+  attr(date_min, "tzone") <- "UTC"
+  attr(date_max, "tzone") <- "UTC"
+
   # Create series of unique days yyyy-mm-dd based on date_min/max:
-  dates <- seq(
-    as.Date(substring(date_min, 1, 10), tz = NULL),
-    as.Date(substring(date_max, 1, 10), tz = NULL),
-    by = "days"
-  )
+  dates <- seq(as.Date(date_min), as.Date(date_max), by = "days")
 
   # Start download and unzipping
-  message(paste0("Downloading data from ", bucket))
+  message(paste0(
+    "Downloading data from ", bucket, " for radar ", radar,
+    " spanning over ", length(dates), " days"
+  ))
 
   for (i_d in seq_len(length(dates))) {
 
     # set prefix
-    prefix <- paste(gsub("-", "/", dates[i_d]), radar, "", sep = "/")
+    prefix <- paste(format(dates[i_d], "%Y/%m/%d"), radar, "", sep = "/")
 
     # Get bucket matching the request
-    bucket_df <- aws.s3::get_bucket_df(bucket = bucket, prefix = prefix)
+    tryCatch(
+      {
+        bucket_df <- aws.s3::get_bucket_df(bucket = bucket, prefix = prefix)
+      },
+      error = function(cond) {
+        assert_that(aws.s3::bucket_exists(bucket = bucket),
+          msg = paste0("The bucket ", bucket, "does not exist")
+        )
+      }
+    )
+
+    # Check that bucket_df is not empty
+    if (nrow(bucket_df) == 0) {
+      # Check if date is correct
+      prefix_tmp <- paste(gsub("-", "/", dates[i_d]), sep = "/")
+      assert_that(not_empty(
+        aws.s3::get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1)
+      ),
+      msg = paste0(
+        "No data availble on the ", dates[i_d],
+        ". Please check data availability for this date."
+      )
+      )
+      assert_that(not_empty(
+        aws.s3::get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
+      ),
+      msg = paste0(
+        "No data availble for ", radar, " on the ", dates[i_d],
+        ". Check radar code and data availability on",
+        " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+      )
+      )
+    }
+
 
     # filter bucket with exact date
     isWithin <- sapply(bucket_df$Key, function(x) {
-      dd <- strptime(substring(x, 21, 35), format = "%Y%m%d_%H%M%S")
-      dd >= strptime(date_min, format = "%Y-%m-%d %H:%M") &
-        dd <= strptime(date_max, format = "%Y-%m-%d %H:%M")
+      dd <- as.POSIXct(substring(x, 21, 35),
+        format = "%Y%m%d_%H%M%S",
+        tz = "UTC"
+      )
+      dd >= date_min &
+        dd <= date_max
     })
     bucket_df <- bucket_df[isWithin, ]
 
     # create progresbar
-    message(paste0("Downloading pvol for ", prefix))
+    message(paste0("\nDownloading pvol for ", prefix))
     pb <- txtProgressBar(min = 0, max = nrow(bucket_df), initial = 0, style = 3)
 
     for (row in 1:nrow(bucket_df)) {

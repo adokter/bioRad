@@ -14,11 +14,13 @@ download_pvolfiles(
 )
 }
 \arguments{
-\item{date_min}{character. YYYY-MM-DD HH:MM start date of file selection.}
+\item{date_min}{POSIXct. Start date of file selection. If no timezone are
+provided, it will be assumed to be UTC.}
 
-\item{date_max}{character. YYYY-MM-DD HH:MM end date of file selection.}
+\item{date_max}{POSIXct. End date of file selection.If no timezone are
+provided, it will be assumed to be UTC.}
 
-\item{radar}{character (vector). 5-letter radar code(s) (e.g. "KAMA")}
+\item{radar}{character (vector). 4-letter radar code(s) (e.g. "KAMA")}
 
 \item{directory}{character. Path to local directory where files should be
 downloaded}
@@ -34,13 +36,11 @@ Download a selection of polar volume (\code{pvol}) files from the
 data}.
 }
 \examples{
-# Download data from radar "KBBX", even if previously downloaded
-# (overwrite = TRUE).
 \dontrun{
 dir.create("~/bioRad_tmp_files")
 download_pvolfiles(
-  date_min = "2016-10-02 20:00",
-  date_max = "2016-10-02 20:05",
+  date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
+  date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
   radar = "KBBX",
   directory = "~/bioRad_tmp_files",
   overwrite = TRUE
