@@ -14,22 +14,36 @@ download_pvolfiles(
 )
 }
 \arguments{
-\item{date_min}{character. YYYY-MM-DD start date of file selection. Days will
-be ignored.}
+\item{date_min}{character. YYYY-MM-DD HH:MM start date of file selection.}
 
-\item{date_max}{character. YYYY-MM-DD end date of file selection. Days will
-be ignored.}
+\item{date_max}{character. YYYY-MM-DD HH:MM end date of file selection.}
+
+\item{radar}{character (vector). 5-letter radar code(s) (e.g. "KAMA")}
 
 \item{directory}{character. Path to local directory where files should be
-downloaded and unzipped.}
+downloaded}
 
 \item{overwrite}{logical. TRUE for re-downloading and overwriting previously
 downloaded files of the same names.}
 
-\item{radars}{character (vector). 5-letter country/radar code(s)
-(e.g. "bejab") of radars to include in file selection.}
+\item{bucket}{character. Bucket name to use.}
 }
 \description{
 Download a selection of polar volume (\code{pvol}) files from the
-\href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data}.
+\href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive
+data}.
+}
+\examples{
+# Download data from radar "KBBX", even if previously downloaded
+# (overwrite = TRUE).
+\dontrun{
+dir.create("~/bioRad_tmp_files")
+download_pvolfiles(
+  date_min = "2016-10-02 20:00",
+  date_max = "2016-10-02 20:05",
+  radar = "KBBX",
+  directory = "~/bioRad_tmp_files",
+  overwrite = TRUE
+)
+}
 }
