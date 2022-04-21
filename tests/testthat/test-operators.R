@@ -32,7 +32,7 @@ test_that("param and scan errors", {
   s6 <- example_scan
   s5$params <- list(DDB = p2, DF = p2)
   s6$params <- list(DB = p2, DF = p2)
-  expect_warning(s5 + s6, "The names of scan parameters do not match")
+  expect_warning(s5 + s6, "potentially combining distinct parameters")
   s7 <- example_scan
   s7$params <- list(DB = p2, DF = p2, LL = p2)
   expect_error(s7 + s6, "not defined for scans with unequal number of scan parameters")
@@ -117,15 +117,15 @@ test_that("pvol operators", {
     get_scan(example_pvol, 2.5) * (1.8 + 1:480)
   )
   expect_error(
-    example_pvol * list(1, 2), "only works if the list is equally long to the number"
+    example_pvol * list(1, 2), "multiplication requires a list length equal to the number of scans."
   )
   expect_error(
-    list(1, 2) * example_pvol, "only works if the list is equally long to the number"
+    list(1, 2) * example_pvol, "multiplication requires a list length equal to the number of scans."
   )
   expect_error(cumsum(example_pvol), "not defined for pvol objects")
   p1 <- example_pvol
   p1$scans[2] <- NULL
-  expect_error(p1 + example_pvol, "does not work for pvols with unequal number of scans")
+  expect_error(p1 + example_pvol, "not defined for pvols with unequal number of scans")
   p2 <- example_pvol
   p2$scans <- p2$scans[c(1, 3, 2)]
   expect_warning(p2 + example_pvol, "*You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")

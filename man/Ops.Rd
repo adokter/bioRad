@@ -21,7 +21,7 @@
 \arguments{
 \item{x}{object of class \code{scan}, or \code{pvol}}
 
-\item{...}{parameters passed on to the Math functions}
+\item{...}{objects passed on to the Math functions}
 
 \item{e1}{object of class \code{param}, \code{scan}, \code{pvol} or a number}
 
