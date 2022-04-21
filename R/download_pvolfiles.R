@@ -135,23 +135,3 @@ download_pvolfiles <- function(date_min, date_max, radar,
     }
   }
 }
-
-
-
-#' Check if character date is in specific format
-#'
-#' @param date character. Character representation of a date, e.g.
-#'   \code{"2018-12-13"}.
-#' @param format character. strptime format the date should have, e.g.
-#'   \code{"\%Y-\%m-\%d"}
-#'
-#' @return NULL. Will stop and show error message if date does not have correct
-#'   date format.
-#'
-#' @keywords internal
-check_date_format <- function(date, format) {
-  parsed_date <- as.Date(date, format = format, tz = NULL)
-  if (is.na(parsed_date)) {
-    stop("Incorrect date format: ", date)
-  }
-}
