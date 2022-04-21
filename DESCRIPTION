@@ -50,9 +50,10 @@ Suggests:
     dplyr (>= 0.7-0),
     rmarkdown,
     testthat,
-    vdiffr
+    vdiffr,
+    aws.s3
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
