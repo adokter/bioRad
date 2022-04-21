@@ -84,9 +84,7 @@
     }
     if (any(names(e1$params) != names(e2$params)) & pmin(l1, l2) != 1) {
       warning(paste0(
-        "The names of scan parameters do not match, this
-                       likely means you try to combine (", .Generic,
-        ") different quantities."
+        "Mathematical operation (", .Generic,") applied to scans with different scan parameter names, potentially combining distinct parameters."
       ))
     }
     warn <- NULL # mechanism to prevent duplicated warnings
@@ -119,7 +117,7 @@
     if (length(e1$scans) != length(e2$scans)) {
       stop(paste0(
         "Operation (", .Generic,
-        ") does not work for pvols with unequal number of scans"
+        ") not defined for pvols with unequal number of scans"
       ))
     }
     warn <- NULL # mechanism to prevent duplicated warnings
@@ -133,7 +131,7 @@
     if (is.pvol(e2)) {
       if (is.list(e1)) {
         if (length(e2$scans) != length(e1)) {
-          stop("Multiplying by lists only works if the list is equally long to the number of scans.")
+          stop("pvol and list() multiplication requires a list length equal to the number of scans.")
         }
         e2$scans <- mapply(.Generic, e2$scans, e1, SIMPLIFY = F)
       } else {
@@ -145,7 +143,7 @@
     }
     if (is.list(e2)) {
       if (length(e1$scans) != length(e2)) {
-        stop("Multiplying by lists only works if the list is equally long to the number of scans.")
+        stop("pvol and list() multiplication requires a list length equal to the number of scans.")
       }
       e1$scans <- mapply(.Generic, e1$scans, e2, SIMPLIFY = F)
     } else {
