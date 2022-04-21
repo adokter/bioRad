@@ -23,6 +23,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     assertthat,
+    aws.s3,
     curl,
     data.table,
     fields,
@@ -50,8 +51,7 @@ Suggests:
     dplyr (>= 0.7-0),
     rmarkdown,
     testthat,
-    vdiffr,
-    aws.s3
+    vdiffr
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
