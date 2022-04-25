@@ -36,7 +36,7 @@ at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.}
 
 \item{local_install}{(optional) String with path to local vol2bird binary
-(e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
+(e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"}),
 to use local installation instead of Docker container}
 
 \item{local_mistnet}{(optional) String with path to local mistnet segmentation model

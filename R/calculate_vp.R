@@ -65,7 +65,7 @@
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
 #' @param local_install Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`).
+#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh`).
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
 #'
@@ -284,6 +284,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet) && mistnet)) {
     stop("To use local vol2bird and MistNet model, specify both `local_install` and `local_mistnet`.")
   }
+
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
   if (!.pkgenv$docker && missing(local_install)) {
