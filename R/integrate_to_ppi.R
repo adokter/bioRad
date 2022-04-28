@@ -127,11 +127,11 @@
 #'   \item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
 #'   Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
 #'   Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-#'   \url{https://doi.org/10.3390/rs12040635}
+#'   \doi{10.3390/rs12040635}
 #'   \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
-#'   \url{https://doi.org/10.1109/TGRS.2009.2014463}
+#'   \doi{10.1109/TGRS.2009.2014463}
 #' }
 integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")

@@ -205,7 +205,7 @@ vol2bird_version <- function(local_install) {
   imagePresentMistnet <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird-mistnet:latest", sep = ""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
 
   # return NA if docker command not found (docker not installed)
-  if (class(imagePresent) == "try-error") {
+  if (inherits(imagePresent, "try-error")) {
     return(NA)
   }
 
