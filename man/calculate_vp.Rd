@@ -128,7 +128,8 @@ A vertical profile object of class \code{vp}. When defined, output files
 \description{
 Calculates a vertical profile of biological scatterers (\code{vp}) from a polar
 volume (\code{pvol}) file using the algorithm
-\href{https://github.com/adokter/vol2bird/}{vol2bird} (\href{https://doi.org/10.1098/rsif.2010.0116}{Dokter et al. 2011}). Requires a running
+\href{https://github.com/adokter/vol2bird/}{vol2bird} (Dokter et al.
+2011 \doi{10.1098/rsif.2010.0116}). Requires a running
 \href{https://www.docker.com/}{Docker} daemon, unless a local installation of
 vol2bird is specified with \code{local_install}.
 }
@@ -259,16 +260,16 @@ cite Haase et al. (2004).
 \item Dokter AM, Liechti F, Stark H, Delobbe L,Tabary P, Holleman I (2011) Bird
 migration flight altitudes studied by a network of operational weather
 radars, Journal of the Royal Society Interface 8 (54), pp. 30-43.
-\url{doi:10.1098/rsif.2010.0116}
+\doi{10.1098/rsif.2010.0116}
 \item Haase G & Landelius T (2004)
 Dealiasing of Doppler radar velocities using a torus mapping. Journal of
 Atmospheric and Oceanic Technology 21(10), pp. 1566-1573.
-\url{doi:10.1175/1520-0426(2004)021\%3C1566:DODRVU\%3E2.0.CO;2}
+\doi{10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
 \item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
 Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
 Measuring historical bird migration in the US using archived weather radar
 data and convolutional neural networks. Methods in Ecology and Evolution 10
-(11), pp. 1908-22. \url{doi:10.1111/2041-210X.13280}
+(11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
 }
 }
 \seealso{

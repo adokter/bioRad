@@ -183,7 +183,7 @@
 #' * Haase G & Landelius T (2004)
 #' Dealiasing of Doppler radar velocities using a torus mapping. Journal of
 #' Atmospheric and Oceanic Technology 21(10), pp. 1566-1573.
-#' \doi{10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2}
+#' \doi{10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
 #' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
 #' Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
 #' Measuring historical bird migration in the US using archived weather radar

@@ -5,7 +5,7 @@
 \alias{example_vp}
 \title{Vertical profile (\code{vp}) example}
 \format{
-An object of class \code{vp} with 25 rows and 16 columns.
+An object of class \code{vp} of length 4.
 }
 \usage{
 example_vp

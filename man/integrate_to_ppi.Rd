@@ -192,10 +192,10 @@ plot(my_ppi, param = "VID", zlim = c(0, 200))
 \item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
 Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
 Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-\url{https://doi.org/10.3390/rs12040635}
+\doi{10.3390/rs12040635}
 \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.
-\url{https://doi.org/10.1109/TGRS.2009.2014463}
+\doi{10.1109/TGRS.2009.2014463}
 }
 }
