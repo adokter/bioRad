@@ -5,7 +5,7 @@
 \alias{example_vpts}
 \title{Time series of vertical profiles (\code{vpts}) example}
 \format{
-An object of class \code{vpts} of length 8.
+An object of class \code{vpts} of dimension 1934 x 25 x 15.
 }
 \usage{
 example_vpts
