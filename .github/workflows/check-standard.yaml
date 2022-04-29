@@ -66,6 +66,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          options("pkgType" = "binary") # See https://github.com/r-lib/actions/issues/141#issuecomment-664390398
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
