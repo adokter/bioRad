@@ -111,7 +111,8 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
       else{
         rsl2odim_path = paste0(dirname(local_install),"/rsl2odim",ext)
       }
-      result <- system(paste("bash -l -c \"", rsl2odim_path, pvolfile, pvol_tmp, "\""), ignore.stdout = !verbose)
+
+      result <- system(paste("bash -l -c \"", rsl2odim_path, format_file_for_shell(pvolfile), paste0(format_file_for_shell(dirname(pvol_tmp)),"/",basename(pvol_tmp)), "\""), ignore.stdout = !verbose)
     }
   } else {
     result <- suppressWarnings(system(
