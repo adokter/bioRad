@@ -515,9 +515,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
           "Current vol2bird installation does not support using a custom path for the configuration file. Please update your vol2bird."
         )
       )
-      cmd <- glue("{local_install} -c {optfile} -i {file} -o {profile.tmp}")
+      file_input_shell <- paste("-i ", format_file_for_shell(file), sep = "", collapse = " ")
+      profile_output_shell <- paste0(format_file_for_shell(dirname(profile.tmp)),"/",basename(profile.tmp))
+      cmd <- paste(local_install,"-c",optfile,file_input_shell,"-o",profile_output_shell)
       if (pvolfile_out != "") {
-        cmd <- glue("{cmd} -p {pvolfile_out}")
+        volume_output_shell <- format_file_for_shell(pvolfile_out)
+        cmd <- paste(cmd,"-p", volume_output_shell)
       }
       # using a local install of vol2bird:
       result <- system(glue('bash -l -c "{cmd}"'),
@@ -548,3 +551,5 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   output
 }
+
+format_file_for_shell <- function(x) sapply(x, function(file) system(paste("/bin/bash -c", shQuote(paste("printf %q", shQuote(normalizePath(file))))), intern = T),USE.NAMES=FALSE)
