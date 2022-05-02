@@ -258,6 +258,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
   ff <- weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
+  dd[which(dd<0)]=dd[which(dd<0)]+360
   # time-integrated measures not defined for a single profile:
   mt <- NA
   rt <- NA
@@ -273,6 +274,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
     output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
+    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
     output$airspeed_v <- weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
     output$ff_wind <- weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
@@ -419,6 +421,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = T)
   ff[no_bird] <- NA
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
+  dd[which(dd<0)]=dd[which(dd<0)]+360
   dd[no_bird] <- NA
 
   # time-integrated measures:
@@ -440,6 +443,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_densdh, na.rm = TRUE)
     output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_densdh, na.rm = TRUE)
+    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$airspeed_u <- colSums(airspeed_u * weight_densdh, na.rm = TRUE)
     output$airspeed_v <- colSums(airspeed_v * weight_densdh, na.rm = TRUE)
     output$ff_wind <- colSums(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2) * weight_densdh, na.rm = TRUE)
