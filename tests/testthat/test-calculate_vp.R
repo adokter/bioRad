@@ -97,6 +97,18 @@ test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
   expect_s3_class(scan$params$CELL, "param")
 })
 
+test_that("calculate_vp() produces same vp from disk and from memory", {
+  skip_if_no_docker()
+  # how differs in file locations other wise they are equal
+  vp_file<-calculate_vp(file = pvolfile, warnings = FALSE)
+  vp_memory<-  calculate_vp(file = read_pvolfile(pvolfile), warnings = FALSE)
+  expect_equal(vp_file$data, vp_memory$data)
+  expect_equal(vp_file$attributes$what, vp_memory$attributes$what)
+  expect_equal(vp_file$attributes$where, vp_memory$attributes$where)
+  expect_equal(vp_file$attributes$how$task_args, vp_memory$attributes$how$task_args)
+
+})
+
 test_that("calculate_vp() parses input arguments for vol2bird", {
   skip_if_no_docker()
   # Run with non-default options
