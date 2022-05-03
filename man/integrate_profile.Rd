@@ -13,7 +13,8 @@ integrate_profile(
   alt_min,
   alt_max,
   alpha = NA,
-  interval_max = Inf,
+  interval_max = 3600,
+  interval_replace = NA,
   height_quantile = NA
 )
 
@@ -22,7 +23,8 @@ integrate_profile(
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf,
+  interval_max = 3600,
+  interval_replace = NA,
   height_quantile = NA
 )
 
@@ -31,7 +33,8 @@ integrate_profile(
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf,
+  interval_max = 3600,
+  interval_replace = NA,
   height_quantile = NA
 )
 
@@ -40,7 +43,8 @@ integrate_profile(
   alt_min = 0,
   alt_max = Inf,
   alpha = NA,
-  interval_max = Inf,
+  interval_max = 3600,
+  interval_replace = NA,
   height_quantile = NA
 )
 }
@@ -58,6 +62,9 @@ minimum altitude to the height of the antenna.}
 seconds. Traffic rates are set to zero at times \code{t} for which no
 profiles can be found within the period \code{t-interval_max/2} to
 \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.}
+
+\item{interval_replace}{Time interval to use for any interval > interval_max.
+By default the mean of all intervals <= interval_max}
 
 \item{height_quantile}{For default \code{NA} the calculated height equals
 the mean flight altitude. Otherwise a number between 0 and 1 specifying a
