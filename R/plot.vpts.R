@@ -223,6 +223,10 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       ticks <- legendticks <- seq(0, 20, 5)
       zlim <- c(0, 20)
     }
+    if (quantity %in% c("dd","heading") & !log){
+      ticks <- legendticks <- seq(0,360,45)
+      zlim <- c(0,360)
+    }
 
   } else {
     ticks <- legendticks <- seq(zlim[1], zlim[2], length.out = 10)
@@ -283,6 +287,8 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       palette <- colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
     } else if(quantity %in% c("u","v")){
       palette <- rev(color_palette("VRADH", n_color=n_color))
+    } else if(quantity %in% c("dd","heading")){
+      palette <- c(rev(viridis::magma(n_color/2)),viridis::magma(n_color/2))
     } else{
       palette <- rev(viridis::magma(n_color))
     }
