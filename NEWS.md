@@ -13,13 +13,29 @@
 
 * adding `attribute_table()` to quickly tabulate scan attributes (#365)
 
-* `calculate_param()` now also works on ppi's (#316)
+* `calculate_param()` now also works on ppi's (#316). Bugfix for lost attributes (#401)
 
 * Speed up `integrate_to_ppi` and other functions by avoiding duplicate input argument checking (#358)
 
 * Warn when multiple scans with the same elevation are equally close to the requested elevation in `get_scan()`, and add option to return all (#414)
 
 * `bind_into_vpts()` now works for vp's and vpts's with different heights (#343)
+
+* new `is.vpi()` and `summary()` functions for vpi objects
+
+* bugfix `read_vpts()` missing height attribute (#409)
+
+* bugfix incorrect conversion of linear eta to reflectivity in `read_cajun()` (#403)
+
+* bugfix `plot.vpts()` negative zlim values (#402)
+
+* bugfix `calculate_param()` for long expressions without name (#399)
+
+* use `read_pvolfile()` with local vol2bird installation (#398)
+
+* Bugfix `integrate_to_ppi()` and `beam_profile_overlap()` that affected profiles with only NA values (#396)
+
+* Composite multiple PPI parameters at once (#390)
 
 * bugfix ylim argument in `composite_ppi()` (#389)
 
