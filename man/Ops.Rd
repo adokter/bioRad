@@ -34,7 +34,7 @@ an object of the input class
 Mathematical and arithmetic operations on param's, scan's and pvol's
 }
 \details{
-Users should apply care when applying these manipulations, as there are no
+Users should take caution when using these manipulations, as there are no
 consistency checks if the operations lead to interpretable outcomes.
 For example, when adding logarithmic values (e.g. DBZ), it might be required
 sense to first take the exponent them before summing them.
