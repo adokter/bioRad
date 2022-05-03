@@ -14,6 +14,8 @@
 #' seconds. Traffic rates are set to zero at times \code{t} for which no
 #' profiles can be found within the period \code{t-interval_max/2} to
 #' \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.
+#' @param interval_replace Time interval to use for any interval > interval_max.
+#' By default the mean of all intervals <= interval_max
 #' @param height_quantile For default `NA` the calculated height equals
 #' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
 #' quantile of the height distribution.
@@ -168,8 +170,8 @@
 #' # calculate the 90% percentile of the flight altitude distribution
 #' integrate_profile(example_vpts, height_quantile=.9)
 integrate_profile <- function(x, alt_min, alt_max,
-                              alpha = NA, interval_max = Inf,
-                              height_quantile = NA) {
+                              alpha = NA, interval_max = 3600,
+                              interval_replace = NA, height_quantile = NA) {
   UseMethod("integrate_profile", x)
 }
 
@@ -177,7 +179,7 @@ integrate_profile <- function(x, alt_min, alt_max,
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
-                                 interval_max = Inf, height_quantile = NA) {
+                                 interval_max = 3600, interval_replace = NA, height_quantile = NA) {
   stopifnot(inherits(x, "vp"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
@@ -288,6 +290,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$interval_max <- interval_max
+  attributes(output)$interval_replace <- interval_replace
   attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
@@ -300,8 +303,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
-                                   alpha = NA, interval_max = Inf,
-                                   height_quantile = NA) {
+                                   alpha = NA, interval_max = 3600,
+                                   interval_replace=NA, height_quantile = NA) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
@@ -312,7 +315,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
   output <- do.call(rbind, lapply(x, integrate_profile.vp,
     alt_min = alt_min,
     alt_max = alt_max, alpha = alpha,
-    interval_max = interval_max
+    interval_max = interval_max, interval_replace=interval_replace
   ))
   class(output) <- c("vpi", "data.frame")
   attributes(output)$radar <- x$radar
@@ -320,6 +323,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$interval_max <- interval_max
+  attributes(output)$interval_replace <- interval_replace
   attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   # TODO set lat/lon attributes
@@ -331,12 +335,26 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
-                                   alpha = NA, interval_max = Inf,
-                                   height_quantile = NA) {
+                                   alpha = NA, interval_max = 3600,
+                                   interval_replace = NA, height_quantile = NA) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+  assert_that(is.number(interval_max))
+  assert_that(interval_max>0)
+
+  dt_median <- as.double(median(x$timesteps),unit="secs")
+  if(interval_max < dt_median) warning(paste0("interval_max < median timestep of the time series (",dt_median," sec), consider a larger value."))
+
+  if(!missing(interval_replace)){
+    assert_that(is.number(interval_replace))
+    assert_that(interval_replace>0)
+  }
+  else{
+    interval_replace=as.double(mean(x$timesteps[x$timesteps<interval_max]),unit="secs")
+    if(is.na(interval_replace)) interval_replace=interval_max
+  }
 
   assert_that(is.scalar(height_quantile))
   if(!is.na(height_quantile)){
@@ -426,7 +444,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   # time-integrated measures:
   dt <- (c(0, x$timesteps) + c(x$timesteps, 0)) / 2
-  dt <- pmin(interval_max, dt)
+  dt <- pmin(interval_replace, dt)
   # convert to hours
   dt <- as.numeric(dt) / 3600
   mt <- cumsum(dt * mtr)
@@ -458,6 +476,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
   attributes(output)$interval_max <- interval_max
+  attributes(output)$interval_replace <- interval_replace
   attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
