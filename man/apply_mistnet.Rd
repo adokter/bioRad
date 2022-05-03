@@ -36,7 +36,7 @@ at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.}
 
 \item{local_install}{(optional) String with path to local vol2bird binary
-(e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
+(e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"}),
 to use local installation instead of Docker container}
 
 \item{local_mistnet}{(optional) String with path to local mistnet segmentation model
@@ -135,6 +135,6 @@ Please also cite this publication when using MistNet:
 Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 MistNet: Measuring historical bird migration in the US using archived
 weather radar data and convolutional neural networks. Methods in Ecology
-and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
+and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
 }
 }

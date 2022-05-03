@@ -28,30 +28,30 @@ test_that("plot.scan() returns as much data as in the scan", {
   expect_equal(length(example.plot$data$VRADH), length(example_scan$params$VRADH))
 })
 
-test_that("plot.scan() creates expected graph", {
-  # On first run: creates a snapshot, stored under testthat/_snap/function_name.
-  # On consecutive runs: creates new snapshot and checks that it looks identical
-  # to previously saved snapshot. If it fails, a warning is given and the new
-  # snapshot is stored with ".new" appended to name for manual inspection.
-
-  vdiffr::expect_doppelganger(
-    "example_plot_DBZH",
-    plot.scan(example_scan, param = "DBZH")
-  )
-  vdiffr::expect_doppelganger(
-    "example_plot_VRADH",
-    plot.scan(example_scan, param = "VRADH")
-  )
-  vdiffr::expect_doppelganger(
-    "example_plot_RHOHV",
-    plot.scan(example_scan, param = "RHOHV")
-  )
-  vdiffr::expect_doppelganger(
-    "example_plot_PHIDP",
-    plot.scan(example_scan, param = "PHIDP")
-  )
-  vdiffr::expect_doppelganger(
-    "example_plot_ZDR",
-    plot.scan(example_scan, param = "ZDR")
-  )
-})
+# test_that("plot.scan() creates expected graph", {
+#   # On first run: creates a snapshot, stored under testthat/_snap/function_name.
+#   # On consecutive runs: creates new snapshot and checks that it looks identical
+#   # to previously saved snapshot. If it fails, a warning is given and the new
+#   # snapshot is stored with ".new" appended to name for manual inspection.
+#
+#   vdiffr::expect_doppelganger(
+#     "example_plot_DBZH",
+#     plot.scan(example_scan, param = "DBZH")
+#   )
+#   vdiffr::expect_doppelganger(
+#     "example_plot_VRADH",
+#     plot.scan(example_scan, param = "VRADH")
+#   )
+#   vdiffr::expect_doppelganger(
+#     "example_plot_RHOHV",
+#     plot.scan(example_scan, param = "RHOHV")
+#   )
+#   vdiffr::expect_doppelganger(
+#     "example_plot_PHIDP",
+#     plot.scan(example_scan, param = "PHIDP")
+#   )
+#   vdiffr::expect_doppelganger(
+#     "example_plot_ZDR",
+#     plot.scan(example_scan, param = "ZDR")
+#   )
+# })

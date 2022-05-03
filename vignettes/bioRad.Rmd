@@ -21,7 +21,7 @@ In the top navigation, see [**Reference**](https://adokter.github.io/bioRad/refe
 [figure_2]: #figure-2
 [bruderer_2018]: https://doi.org/10.1007/s10336-017-1506-z
 [buler_2009]: https://doi.org/10.1109/TGRS.2009.2014463
-[chambers_2016]: https://www.crcpress.com/Extending-R/Chambers/p/book/9781498775717
+[chambers_2016]: https://www.routledge.com/Extending-R/Chambers/p/book/9781498775717
 [chilson_2012b]: https://doi.org/10.1890/ES12-00027.1
 [dokter_2011]: https://doi.org/10.1098/rsif.2010.0116
 [dokter_2013]: https://doi.org/10.1371/journal.pone.0052300

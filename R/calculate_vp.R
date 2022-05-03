@@ -2,15 +2,14 @@
 #'
 #' Calculates a vertical profile of biological scatterers (`vp`) from a polar
 #' volume (`pvol`) file using the algorithm
-#' [vol2bird](https://github.com/adokter/vol2bird/) ([Dokter et al.
-#' 2011](https://doi.org/10.1098/rsif.2010.0116)). Requires a running
+#' [vol2bird](https://github.com/adokter/vol2bird/) (Dokter et al.
+#' 2011 \doi{10.1098/rsif.2010.0116}). Requires a running
 #' [Docker](https://www.docker.com/) daemon, unless a local installation of
 #' vol2bird is specified with `local_install`.
 #'
 #' @param file Character (vector). Either a path to a single radar polar volume
 #'   (`pvol`) file containing multiple scans/sweeps, or multiple paths to scan
-#'   files containing a single scan/sweep. Note that `pvol` objects are not
-#'   supported. The file data format should be either 1)
+#'   files containing a single scan/sweep. Or a single `pvol` object. The file data format should be either 1)
 #'   [ODIM](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf)
 #'    format, which is the implementation of the OPERA data information model in
 #'   the [HDF5](https://support.hdfgroup.org/HDF5/) format, 2) a format
@@ -66,7 +65,7 @@
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
 #' @param local_install Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`).
+#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh`).
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
 #'
@@ -179,16 +178,16 @@
 #' * Dokter AM, Liechti F, Stark H, Delobbe L,Tabary P, Holleman I (2011) Bird
 #' migration flight altitudes studied by a network of operational weather
 #' radars, Journal of the Royal Society Interface 8 (54), pp. 30-43.
-#' <doi:10.1098/rsif.2010.0116>
+#' \doi{10.1098/rsif.2010.0116}
 #' * Haase G & Landelius T (2004)
 #' Dealiasing of Doppler radar velocities using a torus mapping. Journal of
 #' Atmospheric and Oceanic Technology 21(10), pp. 1566-1573.
-#' <doi:10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2>
+#' \doi{10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
 #' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
 #' Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
 #' Measuring historical bird migration in the US using archived weather radar
 #' data and convolutional neural networks. Methods in Ecology and Evolution 10
-#' (11), pp. 1908-22. <doi:10.1111/2041-210X.13280>
+#' (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
 #'
 #' @examples
 #' \dontrun{
@@ -209,7 +208,7 @@
 #' }
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
-                         mount = dirname(file[1]), sd_vvp_threshold,
+                         mount, sd_vvp_threshold,
                          rcs = 11, dual_pol = TRUE, rho_hv = 0.95, elev_min = 0,
                          elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20,
@@ -218,6 +217,28 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          dbz_quantity = "DBZH", mistnet = FALSE,
                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
                          local_install, local_mistnet) {
+  if (inherits(file, "pvol")) {
+    tmp_pvol_file <- tempfile(fileext = ".h5")
+    write_pvolfile(file, file = tmp_pvol_file)
+    withCallingHandlers(res <- calculate_vp(tmp_pvol_file,
+      vpfile = vpfile, pvolfile_out = pvolfile_out,
+      autoconf = autoconf, verbose = verbose, warnings = warnings,
+      mount = mount, sd_vvp_threshold = sd_vvp_threshold,
+      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, elev_min = elev_min,
+      elev_max = 90, azim_min = 0, azim_max = 360,
+      range_min = range_min, range_max = range_max, n_layer = n_layer,
+      h_layer = h_layer, dealias = dealias,
+      nyquist_min = nyquist_min,
+      dbz_quantity = dbz_quantity, mistnet = mistnet,
+      mistnet_elevations = mistnet_elevations,
+      local_install = local_install, local_mistnet = local_mistnet
+    ), error = function(e) {
+      file.remove(tmp_pvol_file)
+      e
+    })
+    file.remove(tmp_pvol_file)
+    return(res)
+  }
 
   # check input arguments
   assert_that(
@@ -236,11 +257,23 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (!is.logical(mistnet)) {
     stop("`mistnet` must be a logical value.")
   }
-  if (mistnet && !.pkgenv$mistnet) {
-    stop("MistNet has not been installed, see update_docker() for install instructions.")
+  if (mistnet){
+    if(missing(local_mistnet)){
+      if (!.pkgenv$mistnet) {
+        stop("MistNet has not been installed, see update_docker() for install instructions.")
+      }
+    }
+    else{
+      if(!file.exists(local_mistnet)){
+        stop(paste0("'",local_mistnet,"' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
+      }
+    }
   }
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
+  }
+  if(missing(mount))  {
+    mount<-dirname(file[1])
   }
   if (file.access(mount, 0) == -1) {
     stop(glue("Can't find `mount` directory: {mount}"))
@@ -248,9 +281,10 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (file.access(mount, 2) == -1) {
     stop(glue("No write permission to `mount` directory: {mount}"))
   }
-  if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))) {
+  if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet) && mistnet)) {
     stop("To use local vol2bird and MistNet model, specify both `local_install` and `local_mistnet`.")
   }
+
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
   if (!.pkgenv$docker && missing(local_install)) {
@@ -330,7 +364,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assert_that(is.flag(mistnet))
   assert_that(
-    !(mistnet && !.pkgenv$mistnet),
+    !(mistnet && !.pkgenv$mistnet && missing(local_mistnet)),
     msg = "Can't find MistNet installation, see update_docker() for install instructions.")
   assert_that(is.flag(dealias))
   assert_that(
@@ -410,7 +444,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     )
   }
   else {
-    optfile <- paste(getwd(), "/options.conf", sep = "")
+    optfile <- tempfile(fileext = '.conf')
   }
 
   if (file.exists(optfile)) {
@@ -476,8 +510,20 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       )
     }
     else {
+      assert_that(vol2bird_version(local_install) >= numeric_version("0.5.0.9187"),
+        msg = glue(
+          "Current vol2bird installation does not support using a custom path for the configuration file. Please update your vol2bird."
+        )
+      )
+      file_input_shell <- paste("-i ", format_file_for_shell(file), sep = "", collapse = " ")
+      profile_output_shell <- paste0(format_file_for_shell(dirname(profile.tmp)),"/",basename(profile.tmp))
+      cmd <- paste(local_install,"-c",optfile,file_input_shell,"-o",profile_output_shell)
+      if (pvolfile_out != "") {
+        volume_output_shell <- format_file_for_shell(pvolfile_out)
+        cmd <- paste(cmd,"-p", volume_output_shell)
+      }
       # using a local install of vol2bird:
-      result <- system(paste("bash -l -c \"", local_install, file, profile.tmp, pvolfile_out, "\""),
+      result <- system(glue('bash -l -c "{cmd}"'),
         ignore.stdout = !verbose, ignore.stderr = !warnings
       )
     }
@@ -505,3 +551,5 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   output
 }
+
+format_file_for_shell <- function(x) sapply(x, function(file) system(paste("/bin/bash -c", shQuote(paste("printf %q", shQuote(normalizePath(file))))), intern = T),USE.NAMES=FALSE)

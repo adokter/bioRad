@@ -98,8 +98,8 @@ You need to install Docker to:
 -   Process radar data into vertical profiles of biological targets with
     `calculate_vp()`.
 -   Read [NEXRAD radar
-    data](https://www.ncdc.noaa.gov/data-access/radar-data) or [IRIS
-    RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf)
+    data](https://www.ncdc.noaa.gov/nexradinv/) or [IRIS
+    RAW](ftp://ftp.sigmet.com/outgoing/manuals//IRIS-Programming-Guide-M211318EN.pdf)
     data with `read_pvolfile()`. Docker is not required for reading ODIM
     radar data.
 -   Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.

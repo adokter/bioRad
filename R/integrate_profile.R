@@ -14,6 +14,11 @@
 #' seconds. Traffic rates are set to zero at times \code{t} for which no
 #' profiles can be found within the period \code{t-interval_max/2} to
 #' \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.
+#' @param interval_replace Time interval to use for any interval > interval_max.
+#' By default the mean of all intervals <= interval_max
+#' @param height_quantile For default `NA` the calculated height equals
+#' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
+#' quantile of the height distribution.
 #'
 #' @return an object of class \code{vpi}, a data frame with vertically
 #' integrated profile quantities
@@ -160,8 +165,13 @@
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
 #' # plot the (cumulative) migration traffic
 #' plot(integrate_profile(example_vpts), quantity = "mt")
+#' # calculate median flight altitude (instead of default mean)
+#' integrate_profile(example_vp, height_quantile=.5)
+#' # calculate the 90% percentile of the flight altitude distribution
+#' integrate_profile(example_vpts, height_quantile=.9)
 integrate_profile <- function(x, alt_min, alt_max,
-                              alpha = NA, interval_max = Inf) {
+                              alpha = NA, interval_max = 3600,
+                              interval_replace = NA, height_quantile = NA) {
   UseMethod("integrate_profile", x)
 }
 
@@ -169,11 +179,17 @@ integrate_profile <- function(x, alt_min, alt_max,
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
-                                 interval_max = Inf) {
+                                 interval_max = 3600, interval_replace = NA, height_quantile = NA) {
   stopifnot(inherits(x, "vp"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+
+  assert_that(is.scalar(height_quantile))
+  if(!is.na(height_quantile)){
+    assert_that(is.number(height_quantile))
+    assert_that(height_quantile>0 && height_quantile<1)
+  }
 
   if (alt_min=="antenna"){
     alt_min = x$attributes$where$height
@@ -217,12 +233,34 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   weight_densdh[is.na(weight_densdh)] <- 0
   weight_densdh <- weight_densdh / sum(weight_densdh)
 
-  height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+  if(is.na(height_quantile)){
+    # default (no height_quantile specified) is calculating the mean altitude
+    height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+  }
+  else{
+    # calculate a quantile of the flight altitude distribution
+    # 1) integrate over altitude
+    denscum=cumsum(weight_densdh)
+    denscum[is.na(denscum)]=0
+    # 2) find lowerbound index:
+    height_index_lower=findInterval(height_quantile, denscum)
+    # 3) find the two height bins closest to the quantile of interest
+    height_lower=x$data$height[height_index_lower] + interval / 2
+    height_upper=x$data$height[min(height_index_lower+1,length(denscum))] + interval / 2
+    height_quantile_lower <- denscum[height_index_lower]
+    height_quantile_upper <- denscum[min(height_index_lower+1,length(denscum))]
+    # 4) do a linear interpolation to estimate the altitude at the quantile of interest
+    delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
+    if(is.na(delta_linear_interpolation)) delta_linear_interpolation=0
+    # 5) store the quantile flight altitude as height
+    height <- height_lower+delta_linear_interpolation
+  }
 
   u <- weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
   v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
   ff <- weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
+  dd[which(dd<0)]=dd[which(dd<0)]+360
   # time-integrated measures not defined for a single profile:
   mt <- NA
   rt <- NA
@@ -238,8 +276,12 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
     output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
+    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
-    output$airspeed_v <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
+    output$airspeed_v <- weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
+    output$ff_wind <- weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
+    output$u_wind <- weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
+    output$v_wind <- weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -247,6 +289,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
+  attributes(output)$interval_max <- interval_max
+  attributes(output)$interval_replace <- interval_replace
+  attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
@@ -258,7 +303,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
-                                   alpha = NA, interval_max = Inf) {
+                                   alpha = NA, interval_max = 3600,
+                                   interval_replace=NA, height_quantile = NA) {
   vptest <- sapply(x, function(y) is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
@@ -269,13 +315,16 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
   output <- do.call(rbind, lapply(x, integrate_profile.vp,
     alt_min = alt_min,
     alt_max = alt_max, alpha = alpha,
-    interval_max = interval_max
+    interval_max = interval_max, interval_replace=interval_replace
   ))
   class(output) <- c("vpi", "data.frame")
   attributes(output)$radar <- x$radar
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
+  attributes(output)$interval_max <- interval_max
+  attributes(output)$interval_replace <- interval_replace
+  attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   # TODO set lat/lon attributes
   return(output)
@@ -286,11 +335,32 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
-                                   alpha = NA, interval_max = Inf) {
+                                   alpha = NA, interval_max = 3600,
+                                   interval_replace = NA, height_quantile = NA) {
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
+  assert_that(is.number(interval_max))
+  assert_that(interval_max>0)
+
+  dt_median <- as.double(median(x$timesteps),unit="secs")
+  if(interval_max < dt_median) warning(paste0("interval_max < median timestep of the time series (",dt_median," sec), consider a larger value."))
+
+  if(!missing(interval_replace)){
+    assert_that(is.number(interval_replace))
+    assert_that(interval_replace>0)
+  }
+  else{
+    interval_replace=as.double(mean(x$timesteps[x$timesteps<interval_max]),unit="secs")
+    if(is.na(interval_replace)) interval_replace=interval_max
+  }
+
+  assert_that(is.scalar(height_quantile))
+  if(!is.na(height_quantile)){
+    assert_that(is.number(height_quantile))
+    assert_that(height_quantile>0 && height_quantile<1)
+  }
 
   # Integrate from antenna height
   if (alt_min=="antenna"){
@@ -338,7 +408,29 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   # Find index where no bird are present
   no_bird <- is.na(colSums(weight_densdh))
 
-  height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+  if(is.na(height_quantile)){
+    # default (no height_quantile specified) is calculating the mean altitude
+    height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+  }
+  else{
+    # calculate a quantile of the flight altitude distribution
+    # 1) integrate over altitude
+    denscum=apply(weight_densdh, 2, cumsum)
+    denscum[is.na(denscum)]=0
+    # 2) find lowerbound index:
+    height_index_lower=apply(denscum,2,findInterval,x=height_quantile)
+    # 3) find the two height bins closest to the quantile of interest
+    height_lower=x$height[height_index_lower] + interval / 2
+    height_upper=x$height[pmin(height_index_lower+1,nrow(denscum))] + interval / 2
+    height_quantile_lower <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+height_index_lower]
+    height_quantile_upper <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+pmin(height_index_lower+1,nrow(denscum))]
+    # 4) do a linear interpolation to estimate the altitude at the quantile of interest
+    delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
+    delta_linear_interpolation[is.na(delta_linear_interpolation)]=0
+    # 5) store the quantile flight altitude as height
+    height <- height_lower+delta_linear_interpolation
+  }
+
   height[no_bird] <- NA
   u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = T)
   u[no_bird] <- NA
@@ -347,11 +439,12 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = T)
   ff[no_bird] <- NA
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
+  dd[which(dd<0)]=dd[which(dd<0)]+360
   dd[no_bird] <- NA
 
   # time-integrated measures:
   dt <- (c(0, x$timesteps) + c(x$timesteps, 0)) / 2
-  dt <- pmin(interval_max, dt)
+  dt <- pmin(interval_replace, dt)
   # convert to hours
   dt <- as.numeric(dt) / 3600
   mt <- cumsum(dt * mtr)
@@ -368,8 +461,12 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_densdh, na.rm = TRUE)
     output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_densdh, na.rm = TRUE)
+    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$airspeed_u <- colSums(airspeed_u * weight_densdh, na.rm = TRUE)
     output$airspeed_v <- colSums(airspeed_v * weight_densdh, na.rm = TRUE)
+    output$ff_wind <- colSums(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2) * weight_densdh, na.rm = TRUE)
+    output$u_wind <- colSums(get_quantity(x,"u_wind") * weight_densdh, na.rm = TRUE)
+    output$v_wind <- colSums(get_quantity(x,"v_wind") * weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -378,6 +475,9 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$alt_min <- alt_min
   attributes(output)$alt_max <- alt_max
   attributes(output)$alpha <- alpha
+  attributes(output)$interval_max <- interval_max
+  attributes(output)$interval_replace <- interval_replace
+  attributes(output)$height_quantile <- height_quantile
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon

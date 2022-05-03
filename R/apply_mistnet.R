@@ -13,7 +13,7 @@
 #' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 #' elevation angles may compromise segmentation results.
 #' @param local_install (optional) String with path to local vol2bird binary
-#' (e.g. \code{"/your/install_path/vol2bird/bin/vol2bird"}),
+#' (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"}),
 #' to use local installation instead of Docker container
 #' @param local_mistnet (optional) String with path to local mistnet segmentation model
 #' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
@@ -74,7 +74,7 @@
 #'   Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 #'   MistNet: Measuring historical bird migration in the US using archived
 #'   weather radar data and convolutional neural networks. Methods in Ecology
-#'   and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
+#'   and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
 #' }
 #' @examples
 #' \dontrun{
@@ -130,12 +130,18 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
 
   assert_that(file.exists(file))
 
-  if (!.pkgenv$mistnet) {
+  if (!.pkgenv$mistnet && missing(local_mistnet)) {
     stop("MistNet has not been installed, see update_docker() for install instructions")
   }
 
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
+
+  if(!missing(local_mistnet)){
+    if(!file.exists(local_mistnet)){
+      stop(paste0("'",local_mistnet,"' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
+    }
+  }
 
   if((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))){
     stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
