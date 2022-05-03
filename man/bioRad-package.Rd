@@ -44,12 +44,15 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Bart Hoekstra \email{b.d.hoekstra@uva.nl} (\href{https://orcid.org/0000-0002-7085-3805}{ORCID}) [contributor]
   \item Bart Kranstauber \email{b.kranstauber@uva.nl} (\href{https://orcid.org/0000-0001-8303-780X}{ORCID}) [contributor]
+  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} (\href{https://orcid.org/0000-0001-7835-4480}{ORCID}) [contributor]
   \item Cecilia Nilsson \email{cecilia.nilsson709@gmail.com} (\href{https://orcid.org/0000-0001-8957-4411}{ORCID}) [contributor]
+  \item Nicolas Noé  \email{nicolas@niconoe.eu} (\href{https://orcid.org/0000-0002-9503-4750}{ORCID}) [contributor]
+  \item Raphaël Nussbaumer \email{rafnuss@gmail.com} (\href{https://orcid.org/0000-0002-8185-1020}{ORCID}) [contributor]
   \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
   \item Lourens Veen \email{l.veen@esciencecenter.nl} [contributor]
   \item Liesbeth Verlinden \email{l.verlinden@uva.nl} (\href{https://orcid.org/0000-0003-1744-9325}{ORCID}) [contributor]
-  \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} (\href{https://orcid.org/0000-0001-7835-4480}{ORCID}) [contributor]
 }
 
 }

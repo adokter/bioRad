@@ -18,6 +18,8 @@ All issues included in this release can be found [here](https://github.com/adokt
 
 * New function `write_pvolfile()` to write polar volumes to ODIM hdf5 format (#470, #471).
 
+* New functions `Math.pvol()`, `Math.scan()`, `Ops.pvol()`,`Ops.scan()`,`Ops.param()`: standard mathematical operations for `param`, `scan` and `pvol` objects.
+
 ## New features and bugfixes
 
 * `apply_mistnet()`, `nexrad_to_odim()` and `read_pvolfile()` can now use local vol2bird installation (#416, #398).
@@ -32,7 +34,7 @@ All issues included in this release can be found [here](https://github.com/adokt
 
 * `get_scan()` warns when multiple scans with the same elevation are equally close to the requested elevation and add option to return all (#414).
 
-* `integrate_profile()` now sets default `interval_max` to 1h (#481) and can now integrate at altitude resolutions smaller than the altitude bin spacing. New option `antenna` for `alt_min` parameter, setting the altitude of the antenna as the minimum altitude (#472). Directional angles are now always mapped to the 0-360 degree domain (#489).
+* `integrate_profile()` now sets default `interval_max` to 1h (#481) and has a new argument `interval_replace`. The function can now integrate at altitude resolutions smaller than the altitude bin spacing. New option `antenna` for `alt_min` parameter, setting the altitude of the antenna as the minimum altitude (#472). Directional angles are now always mapped to the 0-360 degree domain (#489).
 
 * `integrate_to_ppi()` and other functions are sped up by avoiding duplicate input argument checking (#358) + radar name now added to output (#425, #443). Bugfix affecting profiles consisting of primarily NA/NaN values (#415), which are now treated as zeros.
 

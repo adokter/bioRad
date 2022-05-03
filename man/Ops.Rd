@@ -34,14 +34,15 @@ an object of the input class
 Mathematical and arithmetic operations on param's, scan's and pvol's
 }
 \details{
-These function do not attempt to check if the operations are sensible.
-For example when combining logarithmic values (e.g. DBZ) it might make
+Users should apply care when applying these manipulations, as there are no
+consistency checks if the operations lead to interpretable outcomes.
+For example, when adding logarithmic values (e.g. DBZ), it might be required
 sense to first take the exponent them before summing them.
 
-When doing operations on object of length one the arguments are recycled.
+For operations on object of length one the arguments are recycled.
 
 Attributes are taken from the first object in the operation.
 
-If a \code{pvol} is multiplied by a list arguments are taken from the list per scan.
+If a \code{pvol} is multiplied by a list, arguments are taken from the list per scan.
 this requires the list to have the same length as the number of scans.
 }
