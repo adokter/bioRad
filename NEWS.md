@@ -42,7 +42,7 @@ All issues included in this release can be found [here](https://github.com/adokt
 
 * `plot.vpi()` now has an `elev` parameter (#412).
 
-* `plot.vpts()` can now plot speed and direction as colours (#424, #444) + height offset fixed in plots (#198) + bugfix negative `zlim` values (#402).
+* `plot.vpts()` now supports custom color scales (#444). It can plot speed and direction as colours (#424) + height offset fixed in plots (#198) + bugfix negative `zlim` values (#402).
 
 * `read_cajun()` bugfix for incorrect conversion of linear eta to reflectivity (#403).
 
