@@ -39,6 +39,8 @@ test_that("write_pvolfile() writes 8-bit integer if possible and conversion is m
                attributes(pvol$scans[[1]]$params$DBZH)$conversion)
   expect_equal(attributes(pvol_new$scans[[1]]$params$DBZH)$conversion$dtype,
                "H5T_STD_U8BE")
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
+               matrix(pvol_new$scans[[1]]$params[['DBZH']]))
 })
 
 test_that("write_pvolfile() writes 16-bit integer if possible and conversion is missing", {
@@ -52,6 +54,8 @@ test_that("write_pvolfile() writes 16-bit integer if possible and conversion is 
   expect_equal(conv$gain, 1)
   expect_equal(conv$nodata, 65535)
   expect_equal(conv$undetect, 0)
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
+               matrix(pvol_new$scans[[1]]$params[['DBZH']]))
 })
 
 test_that("write_pvolfile() writes float if values are not integers and conversion is missing", {
@@ -63,6 +67,8 @@ test_that("write_pvolfile() writes float if values are not integers and conversi
   expect_equal(conv$dtype, "H5T_IEEE_F32BE")
   expect_equal(conv$offset, -3005)
   expect_equal(conv$gain, 1)
-  expect_equal(conv$nodata, 5507)
+  expect_equal(conv$nodata, 8513)
   expect_equal(conv$undetect, 0)
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
+               matrix(pvol_new$scans[[1]]$params[['DBZH']]), tolerance = 1e-5)
 })

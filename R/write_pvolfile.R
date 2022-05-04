@@ -68,8 +68,8 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
 
         if (!isTRUE(int) | longint) {
           # Store as 32-bit floats instead
-          conv$offset <- floor(min(v, na.rm = TRUE) - 1)
-          conv$nodata <- ceiling(max(v, na.rm = TRUE))
+          conv$offset <- floor(min(v, na.rm = TRUE)) - 1
+          conv$nodata <- ceiling(max(v, na.rm = TRUE)) + 1 - conv$offset
           conv$dtype <- "H5T_IEEE_F32BE"
         }
       }
