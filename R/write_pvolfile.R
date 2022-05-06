@@ -40,8 +40,41 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
       h5createGroup(fid, paste0("dataset", i, "/data", j))
       data <- pvol$scans[[i]]$params[[j]]
       conv <- attributes(data)$conversion
+
       d <- data
       class(d) <- "matrix"
+
+      if (is.null(conv)) {
+        conv <- list()
+        longint <- FALSE
+        # Check if data can be stored directly as integers
+        # with a default nodata & undetect
+        v <- as.vector(data)
+        int <- all.equal(v, as.integer(v), na.rm = TRUE)
+        range_bits <- max(v, na.rm = TRUE) - min(v, na.rm = TRUE)
+        conv$gain <- 1
+        conv$undetect <- 0
+        if (isTRUE(int)) {
+          conv$offset <- min(v, na.rm = TRUE) - 1
+          if (range_bits <= 254) {
+            conv$nodata <- 255
+            conv$dtype <- "H5T_STD_U8BE"
+          } else if (range_bits > 254 & range_bits <= 65534) {
+            conv$nodata <- 65535
+            conv$dtype <- "H5T_STD_I16BE"
+          } else {
+            longint <- TRUE # for 16-bit+ integers just use float
+          }
+        }
+
+        if (!isTRUE(int) | longint) {
+          # Store as 32-bit floats instead
+          conv$offset <- floor(min(v, na.rm = TRUE)) - 1
+          conv$nodata <- ceiling(max(v, na.rm = TRUE)) + 1 - conv$offset
+          conv$dtype <- "H5T_IEEE_F32BE"
+        }
+      }
+
       d <- (d - conv$offset) / conv$gain
       d <- replace(d, is.nan(data), conv$undetect) # Replace NaNs
       d <- replace(d, is.na(data) & !is.nan(data), conv$nodata)
