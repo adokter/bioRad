@@ -426,7 +426,7 @@ The names of the radars in the networks can be found here:
 * US: [NEXRAD network](https://radar.weather.gov/)
 * Europe: [OPERA database](http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html)
 
-Useful sites for inspecting pre-made movies of the US composite are <http://birdcast.info/live-migration-maps/> and <http://www.pauljhurtado.com/US_Composite_Radar/>.
+Useful sites for inspecting pre-made movies of the US composite are <https://birdcast.info/migration-tools/live-migration-maps/> and <http://www.pauljhurtado.com/US_Composite_Radar/>.
 
 ### 3.2 Processing a single polar volume with the vol2bird algorithm
 

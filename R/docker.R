@@ -24,7 +24,7 @@ check_docker <- function(verbose = TRUE) {
     return(1)
   }
 
-  if (class(check) != "numeric_version") {
+  if (!inherits(check,"numeric_version")) {
     if (is.nan(check)) {
       if (verbose) warning("Docker daemon not running, please start Docker")
       return(2)

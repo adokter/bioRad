@@ -82,7 +82,7 @@ library(bioRad)
 You need to install Docker to:
 
 * Process radar data into vertical profiles of biological targets with `calculate_vp()`.
-* Read [NEXRAD radar data](https://www.ncdc.noaa.gov/data-access/radar-data) or [IRIS RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf) data with `read_pvolfile()`. Docker is not required for reading ODIM radar data.
+* Read [NEXRAD radar data](https://registry.opendata.aws/noaa-nexrad/) or [IRIS RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf) data with `read_pvolfile()`. Docker is not required for reading ODIM radar data.
 * Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
 * Use the [MistNet](https://doi.org/10.1111/2041-210X.13280) neural network with `calculate_vp()` or `apply_mistnet()`
 
@@ -113,7 +113,7 @@ Why? bioRad makes use of a [C implementation of the vol2bird](https://github.com
 
 ### Radar data example
 
-bioRad can read weather radar data (= polar volumes) in the [`ODIM`](http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf) format and formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. NEXRAD data (US) are [available as open data](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) and on [AWS](https://registry.opendata.aws/noaa-nexrad/).
+bioRad can read weather radar data (= polar volumes) in the [`ODIM`](http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf) format and formats supported by the [RSL library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as NEXRAD data. NEXRAD data (US) are [available as open data](https://www.ncdc.noaa.gov/nexradinv/) and on [AWS](https://registry.opendata.aws/noaa-nexrad/).
 
 Here we read an example polar volume data file with `read_pvolfile()`, extract the scan/sweep at elevation angle 3 with `get_scan()`, project the data to a plan position indicator with `project_as_ppi()` and plot the _radial velocity_ of detected targets with `plot()`:
 
