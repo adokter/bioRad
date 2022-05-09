@@ -184,7 +184,7 @@ First release on CRAN! All issues included in this release can be found [here](h
 
 * Details for deprecated functions `mt()`, `mtr()`, `cmt()` are now displayed with function (#166).
 
-* [README](https://adriaandokter.com/bioRad) reviewed for easier installation and usage (#155).
+* [README](https://adriaandokter.com/bioRad/) reviewed for easier installation and usage (#155).
 
 * [Get started vignette](https://adriaandokter.com/bioRad/articles/bioRad.html) is now based on figure and workflow from [Dokter et al.](https://doi.org/10.1111/ecog.04028) (#168).
 

@@ -41,7 +41,7 @@ More vignettes:
     for range effects.
 
 Documentation for the latest development version can be found
-[here](https://adriaandokter.com/bioRad/dev).
+[here](https://adriaandokter.com/bioRad/dev/).
 
 ## Installation
 
@@ -99,7 +99,7 @@ You need to install Docker to:
     `calculate_vp()`.
 -   Read [NEXRAD radar data](https://registry.opendata.aws/noaa-nexrad/)
     or [IRIS
-    RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf)
+    RAW](ftp://ftp.sigmet.com/outgoing/manuals//IRIS-Programming-Guide-M211318EN.pdf)
     data with `read_pvolfile()`. Docker is not required for reading ODIM
     radar data.
 -   Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
@@ -162,7 +162,7 @@ Known issues with Docker
 bioRad can read weather radar data (= polar volumes) in the
 [`ODIM`](http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf)
 format and formats supported by the [RSL
-library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as
+library](https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as
 NEXRAD data. NEXRAD data (US) are [available as open
 data](https://www.ncdc.noaa.gov/nexradinv/) and on
 [AWS](https://registry.opendata.aws/noaa-nexrad/).

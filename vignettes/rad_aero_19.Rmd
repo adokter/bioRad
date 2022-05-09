@@ -419,7 +419,7 @@ plot(my_vpts, quantity = "DBZH")
 ### 3.1 Obtaining radar data
 
 * US NEXRAD polar volume data can be accessed in the [Amazon cloud](https://s3.amazonaws.com/noaa-nexrad-level2/index.html).
-* European radar data can be accessed at http://enram.github.io/data-repository/. These are processed vertical profiles, the full polar volume data are not openly available for most countries.
+* European radar data can be accessed at https://aloftdata.eu. These are processed vertical profiles, the full polar volume data are not openly available for most countries.
 
 The names of the radars in the networks can be found here:
 
