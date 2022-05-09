@@ -116,7 +116,7 @@ New CRAN release. All issues included in this release can be found [here](https:
 
 ## New features
 
-* `integrate_to_ppi()` is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an `ppi` image showing the density of animals on the earth's surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See [Kranstauber et al. 2020](https://doi.org/10.3390/rs12040635) for methodology and [this vignette](https://adokter.github.io/bioRad/articles/range_correction.html) for examples.
+* `integrate_to_ppi()` is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an `ppi` image showing the density of animals on the earth's surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See [Kranstauber et al. 2020](https://doi.org/10.3390/rs12040635) for methodology and [this vignette](https://adriaandokter.com/bioRad/articles/range_correction.html) for examples.
 
 * `apply_mistnet()` is a new function to apply the convolution neural network "MistNet" on pvolfiles to separate biological and meteorological signals (see [Lin et al. 2019](https://doi.org/10.1111/2041-210X.13280)). Results can be readily visualized with `plot.ppi()` and `plot.scan()`. MistNet is now also a segmentation option in `calculate_vp()` (#262).
 
@@ -184,25 +184,25 @@ First release on CRAN! All issues included in this release can be found [here](h
 
 * Details for deprecated functions `mt()`, `mtr()`, `cmt()` are now displayed with function (#166).
 
-* [README](https://adokter.github.io/bioRad) reviewed for easier installation and usage (#155).
+* [README](https://adriaandokter.com/bioRad) reviewed for easier installation and usage (#155).
 
-* [Get started vignette](https://adokter.github.io/bioRad/articles/bioRad.html) is now based on figure and workflow from [Dokter et al.](https://doi.org/10.1111/ecog.04028) (#168).
+* [Get started vignette](https://adriaandokter.com/bioRad/articles/bioRad.html) is now based on figure and workflow from [Dokter et al.](https://doi.org/10.1111/ecog.04028) (#168).
 
-* [Introductory exercises vignette](https://adokter.github.io/bioRad/articles/rad_aero_19.html) renamed to `rad_aero_19.Rmd` since it is based on the 3d Radar Aeroecology Training School.
+* [Introductory exercises vignette](https://adriaandokter.com/bioRad/articles/rad_aero_19.html) renamed to `rad_aero_19.Rmd` since it is based on the 3d Radar Aeroecology Training School.
 
-* bioRad now has a [code of conduct](https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html) and [contributing guidelines](https://adokter.github.io/bioRad/CONTRIBUTING.html) (#145).
+* bioRad now has a [code of conduct](https://adriaandokter.com/bioRad/CODE_OF_CONDUCT.html) and [contributing guidelines](https://adriaandokter.com/bioRad/CONTRIBUTING.html) (#145).
 
 # bioRad 0.3.0
 
 Release consistent with and in preparation of the bioRad methods paper (https://doi.org/10.1111/ecog.04028). All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/1?closed=1).
 
-* Functions (#84), arguments (#112) and objects (#80) have been renamed to be consistent (#51). Deprecated functions will remain functional for now, but we will trigger a warning: **we advise to use the new functions names**. See the lists for [current functions](https://adokter.github.io/bioRad/reference/) and [deprecated functions](https://adokter.github.io/bioRad/reference/bioRad-deprecated.html).
+* Functions (#84), arguments (#112) and objects (#80) have been renamed to be consistent (#51). Deprecated functions will remain functional for now, but we will trigger a warning: **we advise to use the new functions names**. See the lists for [current functions](https://adriaandokter.com/bioRad/reference/) and [deprecated functions](https://adriaandokter.com/bioRad/reference/bioRad-deprecated.html).
 
 * `integrate_profile()` replaces the functionality of `cmt()` (#75) and `mt()` (#76).
 
 * `plot()` can now be used for scans (#71), e.g. `plot(example_scan)`.
 
-* Functions are [organized in sections](https://adokter.github.io/bioRad/reference/) on the website (#110).
+* Functions are [organized in sections](https://adriaandokter.com/bioRad/reference/) on the website (#110).
 
 * Changelog section (this page) has been added to website (#144).
 

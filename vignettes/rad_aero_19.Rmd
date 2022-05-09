@@ -25,7 +25,7 @@ library(bioRad)
 
 Radar data needed for this practical can be downloaded [here](https://www.dropbox.com/sh/hghu27u9zsqljsj/AABZSvoq1gEJ_OSVJpn2jzs9a?dl=0).
 
-Follow bioRad's [install instructions](http://adokter.github.io/bioRad/dev), and install the latest development version to be fully up-to-date.
+Follow bioRad's [install instructions](https://adriaandokter.com/bioRad/dev/), and install the latest development version to be fully up-to-date.
 
 Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
 
@@ -43,7 +43,7 @@ library(devtools)
 install_github("adokter/bioRad")
 ```
 
-All bioRad's functions are documented in an extensive [function reference](http://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
+All bioRad's functions are documented in an extensive [function reference](https://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
 
 ```{r, eval=SHOW_ANSWERS}
 # bring up the package general help page:

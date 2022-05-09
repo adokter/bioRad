@@ -1,4 +1,4 @@
-url: https://adokter.github.io/bioRad
+url: https://adriaandokter.com/bioRad
 
 template:
   params:
@@ -21,7 +21,7 @@ authors:
 home:
   links:
     - text: Browse latest development docs
-      href: "https://adokter.github.io/bioRad/dev/"
+      href: "https://adriaandokter.com/bioRad/dev/"
 
 reference:
   - title: "Reading radar data"

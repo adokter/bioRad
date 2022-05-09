@@ -1,7 +1,7 @@
 #' Download vertical profile (\code{vp}) files from the ENRAM data repository
 #'
 #' Download and unzip a selection of vertical profile (\code{vp}) files from the
-#' \href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+#' \href{https://aloftdata.eu/}{ENRAM data repository}, where
 #' these are stored as monthly zips per radar.
 #'
 #' @param date_min character. YYYY-MM-DD start date of file selection. Days will

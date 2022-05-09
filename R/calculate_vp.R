@@ -14,7 +14,7 @@
 #'    format, which is the implementation of the OPERA data information model in
 #'   the [HDF5](https://support.hdfgroup.org/HDF5/) format, 2) a format
 #'   supported by the [RSL
-#'   library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/) or 3) Vaisala
+#'   library](https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/) or 3) Vaisala
 #'   IRIS (IRIS RAW) format.
 #' @param vpfile Character. File name. When provided, writes a vertical profile
 #'   file (`vpfile`) in the ODIM HDF5 format to disk.

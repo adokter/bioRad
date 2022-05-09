@@ -19,7 +19,7 @@ Authors@R: c(
     person("Liesbeth", "Verlinden", role = "ctb", email = "l.verlinden@uva.nl", comment = c(ORCID = "0000-0003-1744-9325"))
     )
 License: MIT + file LICENSE
-URL: https://github.com/adokter/bioRad, https://adokter.github.io/bioRad
+URL: https://github.com/adokter/bioRad/, https://adriaandokter.com/bioRad/
 BugReports: https://github.com/adokter/bioRad/issues
 biocViews:
 Depends:
