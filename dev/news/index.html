@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9499</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9504</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -70,47 +70,98 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.2.9" id="biorad-0529xxx">bioRad 0.5.2.9XXX<a class="anchor" aria-label="anchor" href="#biorad-0529xxx"></a></h2>
-<ul><li><p>bugfix <code>local_mistnet</code> argument in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href="https://github.com/adokter/bioRad/issues/488" class="external-link">#488</a>)</p></li>
-<li><p>new optional argument <code>height_quantile</code> in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> to calculate flight altitude quantiles (<a href="https://github.com/adokter/bioRad/issues/485" class="external-link">#485</a>)</p></li>
-<li><p>bugfix for <code>max_interval</code> argument in <code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> (<a href="https://github.com/adokter/bioRad/issues/480" class="external-link">#480</a>, <a href="https://github.com/adokter/bioRad/issues/484" class="external-link">#484</a>)</p></li>
-<li><p>extension of <code>fill</code> argument in <code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> to allow specification of a time interval over which to perform nearest neighbor interpolation to fill gaps of missing profile data. (<a href="https://github.com/adokter/bioRad/issues/475" class="external-link">#475</a>)</p></li>
-<li><p>altitude integration at altitude resolutions smaller than the altitude bin spacing. New option “antenna” for <code>alt_min</code> argument, setting the altitude of the antenna as the minimum altitude (<a href="https://github.com/adokter/bioRad/issues/472" class="external-link">#472</a>)</p></li>
-<li><p>adding <code><a href="../reference/write_pvolfile.html">write_pvolfile()</a></code> to write polar volumes to ODIM hdf5 format (<a href="https://github.com/adokter/bioRad/issues/471" class="external-link">#471</a>)</p></li>
-<li><p>adding <code><a href="../reference/attribute_table.html">attribute_table()</a></code> to quickly tabulate scan attributes (<a href="https://github.com/adokter/bioRad/issues/365" class="external-link">#365</a>)</p></li>
-<li><p><code><a href="../reference/calculate_param.html">calculate_param()</a></code> now also works on ppi’s (<a href="https://github.com/adokter/bioRad/issues/316" class="external-link">#316</a>)</p></li>
-<li><p>Speed up <code>integrate_to_ppi</code> and other functions by avoiding duplicate input argument checking (<a href="https://github.com/adokter/bioRad/issues/358" class="external-link">#358</a>)</p></li>
-<li><p>Warn when multiple scans with the same elevation are equally close to the requested elevation in <code><a href="../reference/get_scan.html">get_scan()</a></code>, and add option to return all (<a href="https://github.com/adokter/bioRad/issues/414" class="external-link">#414</a>)</p></li>
-<li><p><code><a href="../reference/bind_into_vpts.html">bind_into_vpts()</a></code> now works for vp’s and vpts’s with different heights (<a href="https://github.com/adokter/bioRad/issues/343" class="external-link">#343</a>)</p></li>
-<li><p>bugfix ylim argument in <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> (<a href="https://github.com/adokter/bioRad/issues/389" class="external-link">#389</a>)</p></li>
-<li><p><code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> now creates points for cell centers (<a href="https://github.com/adokter/bioRad/issues/430" class="external-link">#430</a>)</p></li>
-<li><p>The package now account for <code>rstart</code> and <code>astart</code> from the odim specification. (<a href="https://github.com/adokter/bioRad/issues/434" class="external-link">#434</a>)</p></li>
+<ul><li><p>bugfix <code>local_mistnet</code> argument in
+<code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href="https://github.com/adokter/bioRad/issues/488" class="external-link">#488</a>)</p></li>
+<li><p>new optional argument <code>height_quantile</code> in
+<code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> to calculate flight altitude quantiles
+(<a href="https://github.com/adokter/bioRad/issues/485" class="external-link">#485</a>)</p></li>
+<li><p>bugfix for <code>max_interval</code> argument in
+<code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> (<a href="https://github.com/adokter/bioRad/issues/480" class="external-link">#480</a>, <a href="https://github.com/adokter/bioRad/issues/484" class="external-link">#484</a>)</p></li>
+<li><p>extension of <code>fill</code> argument in
+<code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> to allow specification of a time interval
+over which to perform nearest neighbor interpolation to fill gaps of
+missing profile data. (<a href="https://github.com/adokter/bioRad/issues/475" class="external-link">#475</a>)</p></li>
+<li><p>altitude integration at altitude resolutions smaller than the
+altitude bin spacing. New option “antenna” for <code>alt_min</code>
+argument, setting the altitude of the antenna as the minimum altitude
+(<a href="https://github.com/adokter/bioRad/issues/472" class="external-link">#472</a>)</p></li>
+<li><p>adding <code><a href="../reference/write_pvolfile.html">write_pvolfile()</a></code> to write polar volumes to
+ODIM hdf5 format (<a href="https://github.com/adokter/bioRad/issues/471" class="external-link">#471</a>)</p></li>
+<li><p>adding <code><a href="../reference/attribute_table.html">attribute_table()</a></code> to quickly tabulate scan
+attributes (<a href="https://github.com/adokter/bioRad/issues/365" class="external-link">#365</a>)</p></li>
+<li><p><code><a href="../reference/calculate_param.html">calculate_param()</a></code> now also works on ppi’s
+(<a href="https://github.com/adokter/bioRad/issues/316" class="external-link">#316</a>)</p></li>
+<li><p>Speed up <code>integrate_to_ppi</code> and other functions by
+avoiding duplicate input argument checking (<a href="https://github.com/adokter/bioRad/issues/358" class="external-link">#358</a>)</p></li>
+<li><p>Warn when multiple scans with the same elevation are equally
+close to the requested elevation in <code><a href="../reference/get_scan.html">get_scan()</a></code>, and add
+option to return all (<a href="https://github.com/adokter/bioRad/issues/414" class="external-link">#414</a>)</p></li>
+<li><p><code><a href="../reference/bind_into_vpts.html">bind_into_vpts()</a></code> now works for vp’s and vpts’s with
+different heights (<a href="https://github.com/adokter/bioRad/issues/343" class="external-link">#343</a>)</p></li>
+<li><p>bugfix ylim argument in <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code>
+(<a href="https://github.com/adokter/bioRad/issues/389" class="external-link">#389</a>)</p></li>
+<li><p><code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> now creates points for cell
+centers (<a href="https://github.com/adokter/bioRad/issues/430" class="external-link">#430</a>)</p></li>
+<li><p>The package now account for <code>rstart</code> and
+<code>astart</code> from the odim specification. (<a href="https://github.com/adokter/bioRad/issues/434" class="external-link">#434</a>)</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.2" id="biorad-052">bioRad 0.5.2<small>2020-05-11</small><a class="anchor" aria-label="anchor" href="#biorad-052"></a></h2>
-<p>This release is primarily a hotfix for R version 4.0 (<a href="https://github.com/adokter/bioRad/issues/375" class="external-link">#375</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/11?closed=1" class="external-link">here</a>. New features and improvements include:</p>
-<ul><li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> is now much faster, and chooses more intuitive starting and ending point of the regularized grid, e.g. projecting on half hour grid will have time series start on the nearest half hour (<a href="https://github.com/adokter/bioRad/issues/332" class="external-link">#332</a>).</p></li>
-<li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> has new option <code>keep_timestamp</code>, which allows individual profiles to keep there original timestamp instead of the timestamp of the regularized grid.</p></li>
-<li><p><code><a href="../reference/sunrise_sunset.html">sunrise()</a></code>/<code><a href="../reference/sunrise_sunset.html">sunset()</a></code> have improved documentation (<a href="https://github.com/adokter/bioRad/issues/180" class="external-link">#180</a>) and new option <code>force_tz</code> (<a href="https://github.com/adokter/bioRad/commit/4968019" class="external-link">4968019</a>).</p></li>
-<li><p><code><a href="../reference/check_night.html">check_night()</a></code> has new option <code>offset</code>, which allows day/night transition to be shifted by a temporal offset (<a href="https://github.com/adokter/bioRad/issues/338" class="external-link">#338</a>). For example, this is useful when selecting night time profiles that start a specific number of hours after sunset.</p></li>
+<p>This release is primarily a hotfix for R version 4.0 (<a href="https://github.com/adokter/bioRad/issues/375" class="external-link">#375</a>). All
+issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/11?closed=1" class="external-link">here</a>.
+New features and improvements include:</p>
+<ul><li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> is now much faster, and chooses
+more intuitive starting and ending point of the regularized grid,
+e.g. projecting on half hour grid will have time series start on the
+nearest half hour (<a href="https://github.com/adokter/bioRad/issues/332" class="external-link">#332</a>).</p></li>
+<li><p><code><a href="../reference/regularize_vpts.html">regularize_vpts()</a></code> has new option
+<code>keep_timestamp</code>, which allows individual profiles to keep
+there original timestamp instead of the timestamp of the regularized
+grid.</p></li>
+<li><p><code><a href="../reference/sunrise_sunset.html">sunrise()</a></code>/<code><a href="../reference/sunrise_sunset.html">sunset()</a></code> have improved
+documentation (<a href="https://github.com/adokter/bioRad/issues/180" class="external-link">#180</a>) and new option <code>force_tz</code> (<a href="https://github.com/adokter/bioRad/commit/4968019" class="external-link">4968019</a>).</p></li>
+<li><p><code><a href="../reference/check_night.html">check_night()</a></code> has new option <code>offset</code>,
+which allows day/night transition to be shifted by a temporal offset
+(<a href="https://github.com/adokter/bioRad/issues/338" class="external-link">#338</a>). For example, this is useful when selecting night time profiles
+that start a specific number of hours after sunset.</p></li>
 <li><p><code><a href="../reference/check_night.html">check_night()</a></code> now works for vpi objects (<a href="https://github.com/adokter/bioRad/commit/23def64" class="external-link">23def64</a>).</p></li>
-<li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> allows to select for day and night in vpts using new arguments <code>night</code>, <code>elev</code> and <code>offset</code>, based on functionality of <code><a href="../reference/check_night.html">check_night()</a></code> (<a href="https://github.com/adokter/bioRad/issues/345" class="external-link">#345</a>).</p></li>
-<li><p>New functions <code><a href="../reference/doy_noy.html">noy()</a></code> and <code><a href="../reference/doy_noy.html">doy()</a></code> to determine which night or day of the year a profile belongs to (<a href="https://github.com/adokter/bioRad/issues/346" class="external-link">#346</a>).</p></li>
-<li><p><code><a href="../reference/as.data.frame.vp.html">as.data.frame.vp()</a></code> now has separate function page and deprecated parameter <code>quantities</code> (<a href="https://github.com/adokter/bioRad/issues/364" class="external-link">#364</a>).</p></li>
-<li><p><code><a href="../reference/get_quantity.html">get_quantity()</a></code> now has improved documentation and allows to return height (<a href="https://github.com/adokter/bioRad/issues/352" class="external-link">#352</a>).</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> now returns dimensions in a different, more logical order for pvol and vpts objects (<a href="https://github.com/adokter/bioRad/issues/355" class="external-link">#355</a>).</p></li>
-<li><p>Improved documentation and unit tests for a number of functions thanks to an online bioRad sprint.</p></li>
+<li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> allows to select for day and night in
+vpts using new arguments <code>night</code>, <code>elev</code> and
+<code>offset</code>, based on functionality of
+<code><a href="../reference/check_night.html">check_night()</a></code> (<a href="https://github.com/adokter/bioRad/issues/345" class="external-link">#345</a>).</p></li>
+<li><p>New functions <code><a href="../reference/doy_noy.html">noy()</a></code> and <code><a href="../reference/doy_noy.html">doy()</a></code> to
+determine which night or day of the year a profile belongs to
+(<a href="https://github.com/adokter/bioRad/issues/346" class="external-link">#346</a>).</p></li>
+<li><p><code><a href="../reference/as.data.frame.vp.html">as.data.frame.vp()</a></code> now has separate function page
+and deprecated parameter <code>quantities</code> (<a href="https://github.com/adokter/bioRad/issues/364" class="external-link">#364</a>).</p></li>
+<li><p><code><a href="../reference/get_quantity.html">get_quantity()</a></code> now has improved documentation and
+allows to return height (<a href="https://github.com/adokter/bioRad/issues/352" class="external-link">#352</a>).</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> now returns dimensions in a different, more
+logical order for pvol and vpts objects (<a href="https://github.com/adokter/bioRad/issues/355" class="external-link">#355</a>).</p></li>
+<li><p>Improved documentation and unit tests for a number of functions
+thanks to an online bioRad sprint.</p></li>
 <li><p>Bugfixes (<a href="https://github.com/adokter/bioRad/issues/330" class="external-link">#330</a>, <a href="https://github.com/adokter/bioRad/issues/368" class="external-link">#368</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.1" id="biorad-051">bioRad 0.5.1<small>2020-04-01</small><a class="anchor" aria-label="anchor" href="#biorad-051"></a></h2>
-<p>Minor bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/pull/334" class="external-link">here</a>. This release primarily fixes a bug that will become effective once R version 4.0 is released.</p>
-<ul><li><p>Fixes a conflict due to new raw data format introduced in R version 4.0 (<a href="https://github.com/adokter/bioRad/issues/331" class="external-link">#331</a>).</p></li>
-<li><p>Corrects incorrect values in reading of correlation coefficient values RHOHV (<a href="https://github.com/adokter/bioRad/issues/328" class="external-link">#328</a>).</p></li>
-<li><p>Bugfix in <code><a href="../reference/read_cajun.html">read_cajun()</a></code> which introduced incorrect height column during refactoring in bioRad 0.5.0 release (<a href="https://github.com/adokter/bioRad/commit/93ad0a4" class="external-link">93ad0a4</a>).</p></li>
-<li><p>Bugfix that fixes the mapping by <code><a href="../reference/map.html">map()</a></code> of composites of composites (ppi’s produced after repeated application of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code>, <a href="https://github.com/adokter/bioRad/commit/a5c9048" class="external-link">a5c9048</a>, <a href="https://github.com/adokter/bioRad/commit/043aa73" class="external-link">043aa73</a>).</p></li>
-<li><p>Minor bug fixes, and addressing conflicts with CRAN dependencies.</p></li>
-<li><p>Extend the functionality of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> and improve its documentation (partial fix of <a href="https://github.com/adokter/bioRad/issues/59" class="external-link">#59</a>).</p></li>
-<li><p>Fix a bug in the color legend of <code><a href="../reference/map.html">map()</a></code> when providing a custom color scale with palette argument (<a href="https://github.com/adokter/bioRad/issues/324" class="external-link">#324</a>).</p></li>
+<p>Minor bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/pull/334" class="external-link">here</a>. This release
+primarily fixes a bug that will become effective once R version 4.0 is
+released.</p>
+<ul><li><p>Fixes a conflict due to new raw data format introduced in R
+version 4.0 (<a href="https://github.com/adokter/bioRad/issues/331" class="external-link">#331</a>).</p></li>
+<li><p>Corrects incorrect values in reading of correlation coefficient
+values RHOHV (<a href="https://github.com/adokter/bioRad/issues/328" class="external-link">#328</a>).</p></li>
+<li><p>Bugfix in <code><a href="../reference/read_cajun.html">read_cajun()</a></code> which introduced incorrect
+height column during refactoring in bioRad 0.5.0 release (<a href="https://github.com/adokter/bioRad/commit/93ad0a4" class="external-link">93ad0a4</a>).</p></li>
+<li><p>Bugfix that fixes the mapping by <code><a href="../reference/map.html">map()</a></code> of composites
+of composites (ppi’s produced after repeated application of
+<code><a href="../reference/composite_ppi.html">composite_ppi()</a></code>, <a href="https://github.com/adokter/bioRad/commit/a5c9048" class="external-link">a5c9048</a>, <a href="https://github.com/adokter/bioRad/commit/043aa73" class="external-link">043aa73</a>).</p></li>
+<li><p>Minor bug fixes, and addressing conflicts with CRAN
+dependencies.</p></li>
+<li><p>Extend the functionality of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> and
+improve its documentation (partial fix of <a href="https://github.com/adokter/bioRad/issues/59" class="external-link">#59</a>).</p></li>
+<li><p>Fix a bug in the color legend of <code><a href="../reference/map.html">map()</a></code> when
+providing a custom color scale with palette argument (<a href="https://github.com/adokter/bioRad/issues/324" class="external-link">#324</a>).</p></li>
 <li><p>Minor documentation improvements.</p></li>
 </ul></div>
     <div class="section level2">
@@ -118,65 +169,149 @@
 <p>New CRAN release. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/6?closed=1" class="external-link">here</a>.</p>
 <div class="section level3">
 <h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
-<ul><li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate spatial images of vertically integrated density and reflectivity. This function produces an <code>ppi</code> image showing the density of animals on the earth’s surface, corrected for the changing overlap between the radar beams and animal layer with distance from the radar. See <a href="https://doi.org/10.3390/rs12040635" class="external-link">Kranstauber et al. 2020</a> for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this vignette</a> for examples.</p></li>
-<li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is a new function to apply the convolution neural network “MistNet” on pvolfiles to separate biological and meteorological signals (see <a href="https://doi.org/10.1111/2041-210X.13280" class="external-link">Lin et al. 2019</a>). Results can be readily visualized with <code><a href="../reference/plot.ppi.html">plot.ppi()</a></code> and <code><a href="../reference/plot.scan.html">plot.scan()</a></code>. MistNet is now also a segmentation option in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href="https://github.com/adokter/bioRad/issues/262" class="external-link">#262</a>).</p></li>
-<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> now read Vaisala IRIS RAW format directly, helpful for countries like 🇨🇦🇫🇮🇨🇴🇵🇹 (<a href="https://github.com/adokter/bioRad/issues/222" class="external-link">#222</a>). bioRad now also reads files containing single elevation scans and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> can calculate profiles from multiple files containing single elevation scans (<a href="https://github.com/adokter/bioRad/issues/221" class="external-link">#221</a>).</p></li>
+<ul><li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> is a new function to estimate
+spatial images of vertically integrated density and reflectivity. This
+function produces an <code>ppi</code> image showing the density of
+animals on the earth’s surface, corrected for the changing overlap
+between the radar beams and animal layer with distance from the radar.
+See <a href="https://doi.org/10.3390/rs12040635" class="external-link">Kranstauber et
+al. 2020</a> for methodology and <a href="https://adokter.github.io/bioRad/articles/range_correction.html">this
+vignette</a> for examples.</p></li>
+<li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is a new function to apply the
+convolution neural network “MistNet” on pvolfiles to separate biological
+and meteorological signals (see <a href="https://doi.org/10.1111/2041-210X.13280" class="external-link">Lin et al. 2019</a>).
+Results can be readily visualized with <code><a href="../reference/plot.ppi.html">plot.ppi()</a></code> and
+<code><a href="../reference/plot.scan.html">plot.scan()</a></code>. MistNet is now also a segmentation option in
+<code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href="https://github.com/adokter/bioRad/issues/262" class="external-link">#262</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> now
+read Vaisala IRIS RAW format directly, helpful for countries like
+🇨🇦🇫🇮🇨🇴🇵🇹 (<a href="https://github.com/adokter/bioRad/issues/222" class="external-link">#222</a>). bioRad now also reads files containing single elevation
+scans and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> can calculate profiles from
+multiple files containing single elevation scans (<a href="https://github.com/adokter/bioRad/issues/221" class="external-link">#221</a>).</p></li>
 </ul><div class="section level4">
 <h4 id="newerfaster-conversions-0-5-0">Newer/faster conversions<a class="anchor" aria-label="anchor" href="#newerfaster-conversions-0-5-0"></a></h4>
-<ul><li><p><code><a href="../reference/calculate_param.html">calculate_param()</a></code> is a new function to calculate parameters from existing parameters, e.g. reflectivity <code>eta</code> from reflectivity factor <code>DBZH</code> (<a href="https://github.com/adokter/bioRad/issues/287" class="external-link">#287</a>).</p></li>
-<li><p><code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> is a new function to convert a <code>scan</code> into a <code>RasterBrick</code> compatible with package <a href="https://cran.r-project.org/package=raster" class="external-link">raster</a> (<a href="https://github.com/adokter/bioRad/issues/238" class="external-link">#238</a>).</p></li>
-<li><p><code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> is a new function to convert a <code>scan</code> into a <code>SpatialPointsDataFrame</code> compatible with package <a href="https://cran.r-project.org/package=sp" class="external-link">sp</a> (<a href="https://github.com/adokter/bioRad/issues/238" class="external-link">#238</a>).</p></li>
-<li><p><code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> is now much faster (<a href="https://github.com/adokter/bioRad/commit/e420e5d" class="external-link">e420e5d</a>) and accounts for earth’s curvature (<a href="https://github.com/adokter/bioRad/commit/820e85f" class="external-link">820e85f</a>).</p></li>
+<ul><li><p><code><a href="../reference/calculate_param.html">calculate_param()</a></code> is a new function to calculate
+parameters from existing parameters, e.g. reflectivity <code>eta</code>
+from reflectivity factor <code>DBZH</code> (<a href="https://github.com/adokter/bioRad/issues/287" class="external-link">#287</a>).</p></li>
+<li><p><code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> is a new function to convert a
+<code>scan</code> into a <code>RasterBrick</code> compatible with
+package <a href="https://cran.r-project.org/package=raster" class="external-link">raster</a>
+(<a href="https://github.com/adokter/bioRad/issues/238" class="external-link">#238</a>).</p></li>
+<li><p><code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> is a new function to convert a
+<code>scan</code> into a <code>SpatialPointsDataFrame</code> compatible
+with package <a href="https://cran.r-project.org/package=sp" class="external-link">sp</a>
+(<a href="https://github.com/adokter/bioRad/issues/238" class="external-link">#238</a>).</p></li>
+<li><p><code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> is now much faster (<a href="https://github.com/adokter/bioRad/commit/e420e5d" class="external-link">e420e5d</a>) and
+accounts for earth’s curvature (<a href="https://github.com/adokter/bioRad/commit/820e85f" class="external-link">820e85f</a>).</p></li>
 </ul></div>
 <div class="section level4">
 <h4 id="new-functions-describing-the-radar-beam-geometry-0-5-0">New functions describing the radar beam geometry<a class="anchor" aria-label="anchor" href="#new-functions-describing-the-radar-beam-geometry-0-5-0"></a></h4>
-<ul><li><p><code><a href="../reference/beam_distance.html">beam_distance()</a></code> and <code><a href="../reference/beam_range.html">beam_range()</a></code> are new functions to relate range (i.e. slant range), distance (i.e. down range) and height of the radar beam.</p></li>
-<li><p><code><a href="../reference/beam_profile.html">beam_profile()</a></code> is a new function to calculate for a set of beam elevations the altitudinal normalized distribution of radiated energy by those beams.</p></li>
-<li><p><code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code> is a new function to calculate the distribution overlap (in terms of Bhattacharyya distance) between a vertical profile (<code>vp</code>) and the vertical radiation profile of a set of emitted radar beams (given by <code><a href="../reference/beam_profile.html">beam_profile()</a></code>).</p></li>
+<ul><li><p><code><a href="../reference/beam_distance.html">beam_distance()</a></code> and <code><a href="../reference/beam_range.html">beam_range()</a></code> are
+new functions to relate range (i.e. slant range), distance (i.e. down
+range) and height of the radar beam.</p></li>
+<li><p><code><a href="../reference/beam_profile.html">beam_profile()</a></code> is a new function to calculate for a
+set of beam elevations the altitudinal normalized distribution of
+radiated energy by those beams.</p></li>
+<li><p><code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code> is a new function to
+calculate the distribution overlap (in terms of Bhattacharyya distance)
+between a vertical profile (<code>vp</code>) and the vertical radiation
+profile of a set of emitted radar beams (given by
+<code><a href="../reference/beam_profile.html">beam_profile()</a></code>).</p></li>
 </ul></div>
 <div class="section level4">
 <h4 id="additional-features-0-5-0">Additional features<a class="anchor" aria-label="anchor" href="#additional-features-0-5-0"></a></h4>
-<ul><li><p>Custom color scales in <code><a href="../reference/map.html">map()</a></code> and <code>plot.ppi</code> (<a href="https://github.com/adokter/bioRad/issues/318" class="external-link">#318</a>).</p></li>
-<li><p><code><a href="../reference/nyquist_velocity.html">nyquist_velocity()</a></code> is a new function to calculate the unambiguous velocity of Doppler radar from its pulse repetition frequency/frequencies (<a href="https://github.com/adokter/bioRad/issues/208" class="external-link">#208</a>).</p></li>
-<li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> is a new function simplifying the selection of time ranges and instances in vertical profile time series (<code>vpts</code>) (<a href="https://github.com/adokter/bioRad/issues/241" class="external-link">#241</a>).</p></li>
-<li><p>The definition of height-integrated velocity is now corrected (<a href="https://github.com/adokter/bioRad/issues/232" class="external-link">#232</a>, <a href="https://github.com/adokter/bioRad/issues/233" class="external-link">#233</a>, <a href="https://github.com/adokter/bioRad/commit/72be6d1" class="external-link">72be6d1</a>).</p></li>
-<li><p>Improved documentation of how mtr can be calculated from vid, u, v (<a href="https://github.com/adokter/bioRad/commit/6dce625" class="external-link">6dce625</a>).</p></li>
-<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> now also reads quantities DBZ, TH, T, because these often occur in European data and are relevant for biological analysis (note that DBZ and T are not ODIM-compliant names) (<a href="https://github.com/adokter/bioRad/commit/5db08bd" class="external-link">5db08bd</a>).</p></li>
-<li><p><code><a href="../reference/plot.scan.html">plot.scan()</a></code> now has correct ordering of rays (<a href="https://github.com/adokter/bioRad/issues/285" class="external-link">#285</a>).</p></li>
-<li><p><code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> now has correctly positioned and rounded speed barbs (<a href="https://github.com/adokter/bioRad/issues/277" class="external-link">#277</a>, <a href="https://github.com/adokter/bioRad/issues/244" class="external-link">#244</a>).</p></li>
-<li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>’s default unit of interval argument has been changed to seconds (<a href="https://github.com/adokter/bioRad/issues/234" class="external-link">#234</a>).</p></li>
-<li><p><code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code>’s default projection is now on earth’s surface (<a href="https://github.com/adokter/bioRad/issues/280" class="external-link">#280</a>).</p></li>
-<li><p><code>height</code> is now the default quantity denoting height above mean sea level. <code>HGHT</code> is deprecated (<a href="https://github.com/adokter/bioRad/issues/273" class="external-link">#273</a>).</p></li>
-<li><p><code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> and <code><a href="../reference/plot.vp.html">plot.vp()</a></code> plots are shifted up by half the height interval to reflect that height refers to the bottom of the height interval (<a href="https://github.com/adokter/bioRad/issues/277" class="external-link">#277</a>, <a href="https://github.com/adokter/bioRad/issues/198" class="external-link">#198</a>).</p></li>
-<li><p><code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>’s default <code>sd_vvp_threshold</code> parameter value at S-band is now 1 m/s (<a href="https://github.com/adokter/bioRad/issues/93" class="external-link">#93</a>).</p></li>
+<ul><li><p>Custom color scales in <code><a href="../reference/map.html">map()</a></code> and
+<code>plot.ppi</code> (<a href="https://github.com/adokter/bioRad/issues/318" class="external-link">#318</a>).</p></li>
+<li><p><code><a href="../reference/nyquist_velocity.html">nyquist_velocity()</a></code> is a new function to calculate
+the unambiguous velocity of Doppler radar from its pulse repetition
+frequency/frequencies (<a href="https://github.com/adokter/bioRad/issues/208" class="external-link">#208</a>).</p></li>
+<li><p><code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> is a new function simplifying the
+selection of time ranges and instances in vertical profile time series
+(<code>vpts</code>) (<a href="https://github.com/adokter/bioRad/issues/241" class="external-link">#241</a>).</p></li>
+<li><p>The definition of height-integrated velocity is now corrected
+(<a href="https://github.com/adokter/bioRad/issues/232" class="external-link">#232</a>, <a href="https://github.com/adokter/bioRad/issues/233" class="external-link">#233</a>, <a href="https://github.com/adokter/bioRad/commit/72be6d1" class="external-link">72be6d1</a>).</p></li>
+<li><p>Improved documentation of how mtr can be calculated from vid, u,
+v (<a href="https://github.com/adokter/bioRad/commit/6dce625" class="external-link">6dce625</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> now also reads quantities DBZ, TH,
+T, because these often occur in European data and are relevant for
+biological analysis (note that DBZ and T are not ODIM-compliant names)
+(<a href="https://github.com/adokter/bioRad/commit/5db08bd" class="external-link">5db08bd</a>).</p></li>
+<li><p><code><a href="../reference/plot.scan.html">plot.scan()</a></code> now has correct ordering of rays
+(<a href="https://github.com/adokter/bioRad/issues/285" class="external-link">#285</a>).</p></li>
+<li><p><code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> now has correctly positioned and rounded
+speed barbs (<a href="https://github.com/adokter/bioRad/issues/277" class="external-link">#277</a>, <a href="https://github.com/adokter/bioRad/issues/244" class="external-link">#244</a>).</p></li>
+<li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>’s default unit of interval
+argument has been changed to seconds (<a href="https://github.com/adokter/bioRad/issues/234" class="external-link">#234</a>).</p></li>
+<li><p><code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code>’s default projection is now on
+earth’s surface (<a href="https://github.com/adokter/bioRad/issues/280" class="external-link">#280</a>).</p></li>
+<li><p><code>height</code> is now the default quantity denoting height
+above mean sea level. <code>HGHT</code> is deprecated (<a href="https://github.com/adokter/bioRad/issues/273" class="external-link">#273</a>).</p></li>
+<li><p><code><a href="../reference/plot.vpts.html">plot.vpts()</a></code> and <code><a href="../reference/plot.vp.html">plot.vp()</a></code> plots are
+shifted up by half the height interval to reflect that height refers to
+the bottom of the height interval (<a href="https://github.com/adokter/bioRad/issues/277" class="external-link">#277</a>, <a href="https://github.com/adokter/bioRad/issues/198" class="external-link">#198</a>).</p></li>
+<li><p><code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>’s default
+<code>sd_vvp_threshold</code> parameter value at S-band is now 1 m/s
+(<a href="https://github.com/adokter/bioRad/issues/93" class="external-link">#93</a>).</p></li>
 <li><p>And many small bug fixes and documentation improvements.</p></li>
 </ul></div>
 </div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="biorad-040">bioRad 0.4.0<small>2018-12-14</small><a class="anchor" aria-label="anchor" href="#biorad-040"></a></h2>
-<p>First release on CRAN! All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/4?closed=1" class="external-link">here</a>.</p>
-<ul><li><p><code><a href="../reference/get_param.html">get_param()</a></code> added as new function to get parameters from scan (<a href="https://github.com/adokter/bioRad/issues/132" class="external-link">#132</a>).</p></li>
-<li><p><code><a href="../reference/download_basemap.html">download_basemap()</a></code> now uses Stamen basemaps by default (parameter <code>source</code>), so users do not need to request an API key for the previous default Google Maps (<a href="https://github.com/adokter/bioRad/issues/163" class="external-link">#163</a>).</p></li>
-<li><p><code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/select_vpfiles.html">select_vpfiles()</a></code> now use 5 letter radar codes (parameter <code>radars</code> instead of <code>radar</code> and <code>country</code>), allow to skip already downloaded files (parameter <code>overwrite = TRUE</code>) and have improved download and error messages (<a href="https://github.com/adokter/bioRad/issues/176" class="external-link">#176</a>).</p></li>
-<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>, <code><a href="../reference/nexrad_to_odim.html">nexrad_to_odim()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (all Docker dependent) can now read files from directories containing a space (<a href="https://github.com/adokter/bioRad/issues/162" class="external-link">#162</a>).</p></li>
-<li><p>Details for deprecated functions <code>mt()</code>, <code>mtr()</code>, <code>cmt()</code> are now displayed with function (<a href="https://github.com/adokter/bioRad/issues/166" class="external-link">#166</a>).</p></li>
-<li><p><a href="https://adokter.github.io/bioRad">README</a> reviewed for easier installation and usage (<a href="https://github.com/adokter/bioRad/issues/155" class="external-link">#155</a>).</p></li>
-<li><p><a href="https://adokter.github.io/bioRad/articles/bioRad.html">Get started vignette</a> is now based on figure and workflow from <a href="https://doi.org/10.1111/ecog.04028" class="external-link">Dokter et al.</a> (<a href="https://github.com/adokter/bioRad/issues/168" class="external-link">#168</a>).</p></li>
-<li><p><a href="https://adokter.github.io/bioRad/articles/rad_aero_19.html">Introductory exercises vignette</a> renamed to <code>rad_aero_19.Rmd</code> since it is based on the 3d Radar Aeroecology Training School.</p></li>
-<li><p>bioRad now has a <a href="https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html">code of conduct</a> and <a href="https://adokter.github.io/bioRad/CONTRIBUTING.html">contributing guidelines</a> (<a href="https://github.com/adokter/bioRad/issues/145" class="external-link">#145</a>).</p></li>
+<p>First release on CRAN! All issues included in this release can be
+found <a href="https://github.com/adokter/bioRad/milestone/4?closed=1" class="external-link">here</a>.</p>
+<ul><li><p><code><a href="../reference/get_param.html">get_param()</a></code> added as new function to get parameters
+from scan (<a href="https://github.com/adokter/bioRad/issues/132" class="external-link">#132</a>).</p></li>
+<li><p><code><a href="../reference/download_basemap.html">download_basemap()</a></code> now uses Stamen basemaps by
+default (parameter <code>source</code>), so users do not need to request
+an API key for the previous default Google Maps (<a href="https://github.com/adokter/bioRad/issues/163" class="external-link">#163</a>).</p></li>
+<li><p><code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/select_vpfiles.html">select_vpfiles()</a></code>
+now use 5 letter radar codes (parameter <code>radars</code> instead of
+<code>radar</code> and <code>country</code>), allow to skip already
+downloaded files (parameter <code>overwrite = TRUE</code>) and have
+improved download and error messages (<a href="https://github.com/adokter/bioRad/issues/176" class="external-link">#176</a>).</p></li>
+<li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>, <code><a href="../reference/nexrad_to_odim.html">nexrad_to_odim()</a></code> and
+<code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (all Docker dependent) can now read files
+from directories containing a space (<a href="https://github.com/adokter/bioRad/issues/162" class="external-link">#162</a>).</p></li>
+<li><p>Details for deprecated functions <code>mt()</code>,
+<code>mtr()</code>, <code>cmt()</code> are now displayed with function
+(<a href="https://github.com/adokter/bioRad/issues/166" class="external-link">#166</a>).</p></li>
+<li><p><a href="https://adokter.github.io/bioRad">README</a> reviewed
+for easier installation and usage (<a href="https://github.com/adokter/bioRad/issues/155" class="external-link">#155</a>).</p></li>
+<li><p><a href="https://adokter.github.io/bioRad/articles/bioRad.html">Get started
+vignette</a> is now based on figure and workflow from <a href="https://doi.org/10.1111/ecog.04028" class="external-link">Dokter et al.</a>
+(<a href="https://github.com/adokter/bioRad/issues/168" class="external-link">#168</a>).</p></li>
+<li><p><a href="https://adokter.github.io/bioRad/articles/rad_aero_19.html">Introductory
+exercises vignette</a> renamed to <code>rad_aero_19.Rmd</code> since it
+is based on the 3d Radar Aeroecology Training School.</p></li>
+<li><p>bioRad now has a <a href="https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html">code of
+conduct</a> and <a href="https://adokter.github.io/bioRad/CONTRIBUTING.html">contributing
+guidelines</a> (<a href="https://github.com/adokter/bioRad/issues/145" class="external-link">#145</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.0" id="biorad-030">bioRad 0.3.0<a class="anchor" aria-label="anchor" href="#biorad-030"></a></h2>
-<p>Release consistent with and in preparation of the bioRad methods paper (<a href="https://doi.org/10.1111/ecog.04028" class="external-link uri">https://doi.org/10.1111/ecog.04028</a>). All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1?closed=1" class="external-link">here</a>.</p>
-<ul><li><p>Functions (<a href="https://github.com/adokter/bioRad/issues/84" class="external-link">#84</a>), arguments (<a href="https://github.com/adokter/bioRad/issues/112" class="external-link">#112</a>) and objects (<a href="https://github.com/adokter/bioRad/issues/80" class="external-link">#80</a>) have been renamed to be consistent (<a href="https://github.com/adokter/bioRad/issues/51" class="external-link">#51</a>). Deprecated functions will remain functional for now, but we will trigger a warning: <strong>we advise to use the new functions names</strong>. See the lists for <a href="https://adokter.github.io/bioRad/reference/">current functions</a> and <a href="https://adokter.github.io/bioRad/reference/bioRad-deprecated.html">deprecated functions</a>.</p></li>
-<li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> replaces the functionality of <code>cmt()</code> (<a href="https://github.com/adokter/bioRad/issues/75" class="external-link">#75</a>) and <code>mt()</code> (<a href="https://github.com/adokter/bioRad/issues/76" class="external-link">#76</a>).</p></li>
-<li><p><code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> can now be used for scans (<a href="https://github.com/adokter/bioRad/issues/71" class="external-link">#71</a>), e.g. <code>plot(example_scan)</code>.</p></li>
-<li><p>Functions are <a href="https://adokter.github.io/bioRad/reference/">organized in sections</a> on the website (<a href="https://github.com/adokter/bioRad/issues/110" class="external-link">#110</a>).</p></li>
-<li><p>Changelog section (this page) has been added to website (<a href="https://github.com/adokter/bioRad/issues/144" class="external-link">#144</a>).</p></li>
-<li><p>Package R code is reorganized as one function = one file for easier maintenance (<a href="https://github.com/adokter/bioRad/issues/50" class="external-link">#50</a>).</p></li>
+<p>Release consistent with and in preparation of the bioRad methods
+paper (<a href="https://doi.org/10.1111/ecog.04028" class="external-link uri">https://doi.org/10.1111/ecog.04028</a>). All issues included
+in this release can be found <a href="https://github.com/adokter/bioRad/milestone/1?closed=1" class="external-link">here</a>.</p>
+<ul><li><p>Functions (<a href="https://github.com/adokter/bioRad/issues/84" class="external-link">#84</a>), arguments (<a href="https://github.com/adokter/bioRad/issues/112" class="external-link">#112</a>) and objects (<a href="https://github.com/adokter/bioRad/issues/80" class="external-link">#80</a>) have been
+renamed to be consistent (<a href="https://github.com/adokter/bioRad/issues/51" class="external-link">#51</a>). Deprecated functions will remain
+functional for now, but we will trigger a warning: <strong>we advise to
+use the new functions names</strong>. See the lists for <a href="https://adokter.github.io/bioRad/reference/">current functions</a>
+and <a href="https://adokter.github.io/bioRad/reference/bioRad-deprecated.html">deprecated
+functions</a>.</p></li>
+<li><p><code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> replaces the functionality of
+<code>cmt()</code> (<a href="https://github.com/adokter/bioRad/issues/75" class="external-link">#75</a>) and <code>mt()</code> (<a href="https://github.com/adokter/bioRad/issues/76" class="external-link">#76</a>).</p></li>
+<li><p><code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> can now be used for scans (<a href="https://github.com/adokter/bioRad/issues/71" class="external-link">#71</a>),
+e.g. <code>plot(example_scan)</code>.</p></li>
+<li><p>Functions are <a href="https://adokter.github.io/bioRad/reference/">organized in
+sections</a> on the website (<a href="https://github.com/adokter/bioRad/issues/110" class="external-link">#110</a>).</p></li>
+<li><p>Changelog section (this page) has been added to website
+(<a href="https://github.com/adokter/bioRad/issues/144" class="external-link">#144</a>).</p></li>
+<li><p>Package R code is reorganized as one function = one file for
+easier maintenance (<a href="https://github.com/adokter/bioRad/issues/50" class="external-link">#50</a>).</p></li>
 <li><p>First tests are included for some functions.</p></li>
-<li><p>Contributors (<a href="https://github.com/adokter/bioRad/issues/90" class="external-link">#90</a>) and citation (<a href="https://github.com/adokter/bioRad/issues/141" class="external-link">#141</a>) have been updated.</p></li>
+<li><p>Contributors (<a href="https://github.com/adokter/bioRad/issues/90" class="external-link">#90</a>) and citation (<a href="https://github.com/adokter/bioRad/issues/141" class="external-link">#141</a>) have been
+updated.</p></li>
 <li><p>bioRad now has a hex logo (<a href="https://github.com/adokter/bioRad/issues/137" class="external-link">#137</a>). ✨</p></li>
 </ul></div>
   </div>
@@ -189,11 +324,14 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M.
+Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>,
+<a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

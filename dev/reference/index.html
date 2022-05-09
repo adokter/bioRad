@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9499</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9504</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -69,9 +69,14 @@
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
           <h2 id="reading-radar-data">Reading radar data <a href="#reading-radar-data" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data.</p>
+          <p class="section-desc"></p><p>Functions to read polar volume (pvol) data. Requires a locally
+running Docker daemon for NEXRAD data.</p>
         </th>
       </tr></tbody><tbody><tr><td>
+          <p><code><a href="download_pvolfiles.html">download_pvolfiles()</a></code> </p>
+        </td>
+        <td><p>Download polar volume (<code>pvol</code>) files from the NEXRAD archive</p></td>
+      </tr><tr><td>
           <p><code><a href="is.pvolfile.html">is.pvolfile()</a></code> </p>
         </td>
         <td><p>Check if a file is a polar volume (<code>pvol</code>)</p></td>
@@ -101,7 +106,8 @@
         <td><p>Inspect a polar volume (<code>pvol</code>)</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="inspecting-radar-scans">Inspecting radar scans <a href="#inspecting-radar-scans" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to inspect and plot a polar scan (scan) from a polar volume (pvol).</p>
+          <p class="section-desc"></p><p>Functions to inspect and plot a polar scan (scan) from a polar volume
+(pvol).</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="get_elevation_angles.html">get_elevation_angles()</a></code> </p>
@@ -134,7 +140,8 @@
         <td><p>Inspect a parameter (<code>param</code>)</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="manipulating-radar-scans">Manipulating radar scans <a href="#manipulating-radar-scans" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to manipulate radar images (scan, param, ppi) and to identify precipitation.</p>
+          <p class="section-desc"></p><p>Functions to manipulate radar images (scan, param, ppi) and to
+identify precipitation.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code> </p>
@@ -150,7 +157,8 @@
         <td><p>Apply MistNet segmentation to a polar volume</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="plotting-radar-scans">Plotting radar scans <a href="#plotting-radar-scans" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi).</p>
+          <p class="section-desc"></p><p>Functions to plot a polar volume (pvol), scan (scan) or parameter
+(param) on a grid or basemap as a plan position indicator (ppi).</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="project_as_ppi.html">project_as_ppi()</a></code> </p>
@@ -195,7 +203,9 @@ position indicator (<code>ppi</code>)</p></td>
         <td><p>Subset a plan position indicator (<code>ppi</code>)</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="creating-vertical-profiles-of-biological-targets">Creating vertical profiles of biological targets <a href="#creating-vertical-profiles-of-biological-targets" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon.</p>
+          <p class="section-desc"></p><p>Functions to process weather radar data (pvol) into vertical profiles
+(vp) of biological targets. Requires a locally running Docker
+daemon.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="calculate_vp.html">calculate_vp()</a></code> </p>
@@ -219,7 +229,8 @@ position indicator (<code>ppi</code>)</p></td>
         <td><p>Check version of the vol2bird algorithm used by bioRad</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="reading-vertical-profile-data">Reading vertical profile data <a href="#reading-vertical-profile-data" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to download, read, inspect and plot vertical profile (vp) data.</p>
+          <p class="section-desc"></p><p>Functions to download, read, inspect and plot vertical profile (vp)
+data.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="download_vpfiles.html">download_vpfiles()</a></code> </p>
@@ -261,7 +272,8 @@ position indicator (<code>ppi</code>)</p></td>
 (<code>vpts</code>) to a data frame</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="combining-vertical-profiles-into-time-series">Combining vertical profiles into time series <a href="#combining-vertical-profiles-into-time-series" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these.</p>
+          <p class="section-desc"></p><p>Functions to combine vertical profiles (vp) into time series (vpts)
+and read, inspect and plot these.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="c.vp.html">c(<i>&lt;vp&gt;</i>)</a></code> </p>
@@ -312,7 +324,9 @@ regular time grid</p></td>
 profiles (<code>vpts</code>)</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="integrating-vertical-profiles">Integrating vertical profiles <a href="#integrating-vertical-profiles" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi).</p>
+          <p class="section-desc"></p><p>Functions to calculate e.g. the migration traffic rate (MTR) by
+vertically integrating profiles (vp or vpts) into an integrated profile
+(vpi).</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="integrate_profile.html">integrate_profile()</a></code> </p>
@@ -329,7 +343,8 @@ integrated profile (<code>vpi</code>)</p></td>
         <td><p>Inspect an integrated profile (<code>vpi</code>)</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="accessing-vertical-profile-metadata">Accessing vertical profile metadata <a href="#accessing-vertical-profile-metadata" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi).</p>
+          <p class="section-desc"></p><p>Functions to access metadata of vertical profiles (vp), time series
+(vpts) or integrated profiles (vpi).</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="rcs.html">rcs()</a></code> </p>
@@ -361,7 +376,8 @@ integrated profile (<code>vpi</code>)</p></td>
         <td><p>Extract a volume coverage pattern table with all attributes</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="radar-beam-geometry">Radar beam geometry <a href="#radar-beam-geometry" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions relating the radar beam shape to range, distance and height</p>
+          <p class="section-desc"></p><p>Functions relating the radar beam shape to range, distance and
+height</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="beam_height.html">beam_height()</a></code> </p>
@@ -421,11 +437,14 @@ and the vertical radiation profile emitted by the radar</p></td>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M.
+Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>,
+<a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

@@ -30,7 +30,7 @@ resultant segmentation as a polar volume (pvol) object."><meta property="og:imag
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -168,12 +168,12 @@ scans at that spatial location &gt; 0.45.</p>
 Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 MistNet: Measuring historical bird migration in the US using archived
 weather radar data and convolutional neural networks. Methods in Ecology
-and Evolution 10: 1908– 1922. <a href="https://doi.org/10.1111/2041-210X.13280" class="external-link">doi:10.1111/2041-210X.13280</a></p></li>
+and Evolution 10: 1908– 1922. doi: <a href="https://doi.org/10.1111/2041-210X.13280" class="external-link">10.1111/2041-210X.13280</a></p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \dontrun{</span></span>
 <span class="r-in"><span class="co"># download a NEXRAD file, save as KBGM_example</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"https://noaa-nexrad-level2.s3.amazonaws.com/"</span>,</span>
 <span class="r-in">  <span class="st">"2019/10/01/KBGM/KBGM20191001_000542_V06"</span>,</span>
@@ -189,24 +189,31 @@ and Evolution 10: 1908– 1922. <a href="https://doi.org/10.1111/2041-210X.13280
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># project the scan as a ppi:</span></span>
 <span class="r-in"><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">my_scan</span>, range_max <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot the reflectivity parameter:</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="apply_mistnet-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot the MistNet class probability [0-1] for weather</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"WEATHER"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="apply_mistnet-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot the MistNet class probability [0-1] for biology</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"BIOLOGY"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="apply_mistnet-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot the final segmentation result, with values &gt;1 indicating</span></span>
 <span class="r-in"><span class="co"># areas classified as weather, and value 1 pixels that fall within an</span></span>
 <span class="r-in"><span class="co"># additional 5 km fringe around weather areas.</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"CELL"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="apply_mistnet-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># clean up:</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="st">"~/KBGM_example"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>

@@ -31,6 +31,9 @@
     <loc>https://adokter.github.io/bioRad/news/index.html</loc>
   </url>
   <url>
+    <loc>https://adokter.github.io/bioRad/reference/Ops.html</loc>
+  </url>
+  <url>
     <loc>https://adokter.github.io/bioRad/reference/add_expected_eta_to_scan.html</loc>
   </url>
   <url>
@@ -101,6 +104,9 @@
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/download_basemap.html</loc>
+  </url>
+  <url>
+    <loc>https://adokter.github.io/bioRad/reference/download_pvolfiles.html</loc>
   </url>
   <url>
     <loc>https://adokter.github.io/bioRad/reference/download_vpfiles.html</loc>
