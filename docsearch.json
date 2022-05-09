@@ -2,21 +2,21 @@
   "index_name": "biorad",
   "start_urls": [
     {
-      "url": "https://adokter.github.io/bioRad/index.html",
+      "url": "https://adriaandokter.com/bioRad/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://adokter.github.io/bioRad/reference",
+      "url": "https://adriaandokter.com/bioRad/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://adokter.github.io/bioRad/articles",
+      "url": "https://adriaandokter.com/bioRad/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://adokter.github.io/bioRad/sitemap.xml"
+    "https://adriaandokter.com/bioRad/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

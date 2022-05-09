@@ -1,12 +1,12 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   bioRad: bioRad.html
   rad_aero_19: rad_aero_19.html
   range_correction: range_correction.html
-last_built: 2020-05-11T12:39Z
+last_built: 2022-05-09T19:23Z
 urls:
-  reference: https://adokter.github.io/bioRad/reference
-  article: https://adokter.github.io/bioRad/articles
+  reference: https://adriaandokter.com/bioRad/reference
+  article: https://adriaandokter.com/bioRad/articles
 
