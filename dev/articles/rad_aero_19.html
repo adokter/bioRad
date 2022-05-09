@@ -21,7 +21,7 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Introductory exercises with bioRad">
 <meta property="og:description" content="bioRad">
-<meta property="og:image" content="https://adokter.github.io/bioRad/logo.png">
+<meta property="og:image" content="https://adriaandokter.com/bioRad/logo.png">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.5.2.9504</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -97,12 +97,11 @@
 
       
 
-      </header><div class="row">
+      </header><script src="rad_aero_19_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introductory exercises with bioRad</h1>
-                        <h4 data-toc-skip class="author">Adriaan M.
-Dokter</h4>
+                        <h4 data-toc-skip class="author">Adriaan M. Dokter</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/HEAD/vignettes/rad_aero_19.Rmd" class="external-link"><code>vignettes/rad_aero_19.Rmd</code></a></small>
@@ -112,9 +111,7 @@ Dokter</h4>
 
     
     
-<p><em>These course materials were developed for the 3d Radar
-Aeroecology Training School, Jul 30 - Aug 2 2019, University of
-Oklahoma, Norman, OK, USA.</em></p>
+<p><em>These course materials were developed for the 3d Radar Aeroecology Training School, Jul 30 - Aug 2 2019, University of Oklahoma, Norman, OK, USA.</em></p>
 <div class="section level2">
 <h2 id="basic-visualization-of-radar-scans-in-r">1 Basic visualization of radar scans in R<a class="anchor" aria-label="anchor" href="#basic-visualization-of-radar-scans-in-r"></a>
 </h2>
@@ -122,29 +119,23 @@ Oklahoma, Norman, OK, USA.</em></p>
 <h3 id="preparation">1.1 Preparation<a class="anchor" aria-label="anchor" href="#preparation"></a>
 </h3>
 <p>Radar data needed for this practical can be downloaded <a href="https://www.dropbox.com/sh/hghu27u9zsqljsj/AABZSvoq1gEJ_OSVJpn2jzs9a?dl=0" class="external-link">here</a>.</p>
-<p>Follow bioRad’s <a href="http://adokter.github.io/bioRad/dev" class="external-link">install
-instructions</a>, and install the latest development version to be fully
-up-to-date.</p>
-<p>Execute each of the code examples provided below in <a href="https://www.rstudio.com/" class="external-link">RStudio</a>, and try to complete the
-exercises.</p>
+<p>Follow bioRad’s <a href="https://adriaandokter.com/bioRad/dev/">install instructions</a>, and install the latest development version to be fully up-to-date.</p>
+<p>Execute each of the code examples provided below in <a href="https://www.rstudio.com/" class="external-link">RStudio</a>, and try to complete the exercises.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make sure you start with a fresh R session</span>
 <span class="co"># load the bioRad package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad" class="external-link">bioRad</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span>
 <span class="co"># check the package version</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></code></pre></div>
-<p>Make sure you have the latest version (0.4.0.9243). If you have an
-older version, download and reinstall as follows:</p>
+<p>Make sure you have the latest version (0.4.0.9243). If you have an older version, download and reinstall as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
-<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></code></pre></div>
-<p>All bioRad’s functions are documented in an extensive <a href="http://adriaandokter.com/bioRad/dev/reference/index.html" class="external-link">function
-reference</a> online, as well as in manual pages within R:</p>
+<span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></code></pre></div>
+<p>All bioRad’s functions are documented in an extensive <a href="https://adriaandokter.com/bioRad/dev/reference/index.html">function reference</a> online, as well as in manual pages within R:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># bring up the package general help page:</span>
 <span class="op">?</span><span class="va">bioRad</span></code></pre></div>
-<p>Start by making a new directory on your local machine that you will
-use for this practical:</p>
+<p>Start by making a new directory on your local machine that you will use for this practical:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make a new local directory on your machine where to download data for this practical</span>
 <span class="co"># replace the string below with the path of that directory:</span>
@@ -157,20 +148,13 @@ use for this practical:</p>
 <span class="co"># Finally, we set the local time zone to UTC, so all plotted time axes will be in UTC</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>TZ <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></code></pre></div>
 <p>Your R session is now properly set up.</p>
-<p>To work with US NEXRAD data, bioRad currently requires a working
-installation of Docker (Linux/Mac) or Docker for Windows
-(<strong>not</strong> Docker Toolbox, this is an older implementation of
-Docker for Windows operating systems that is not supported). If you
-managed to successfully install Docker, test whether it works:</p>
+<p>To work with US NEXRAD data, bioRad currently requires a working installation of Docker (Linux/Mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported). If you managed to successfully install Docker, test whether it works:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># start your local Docker installation</span>
 <span class="co"># we first test whether R can communicate with Docker:</span>
 <span class="fu"><a href="../reference/check_docker.html">check_docker</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>The message “running docker image with vol2bird version 0.4.0”
-indicates everything is working.</p>
-<p>If you did <strong>not</strong> manage to install Docker, you will be
-able to continue with all of below exercises, but not be able to load
-NEXRAD data into R at this time.</p>
+<p>The message “running docker image with vol2bird version 0.4.0” indicates everything is working.</p>
+<p>If you did <strong>not</strong> manage to install Docker, you will be able to continue with all of below exercises, but not be able to load NEXRAD data into R at this time.</p>
 </div>
 <div class="section level3">
 <h3 id="the-structure-of-polar-volumes">1.2 The structure of polar volumes<a class="anchor" aria-label="anchor" href="#the-structure-of-polar-volumes"></a>
@@ -187,13 +171,7 @@ NEXRAD data into R at this time.</p>
 <span class="va">my_pvol</span>
 <span class="co"># print information about the polar scans contained in this polar volume:</span>
 <span class="va">my_pvol</span><span class="op">$</span><span class="va">scans</span></code></pre></div>
-<p><strong>Exercise 1:</strong> Load the polar volume file,
-<code>example_pvol.h5</code> from the files downloaded in section 1.1.
-Put it in your working directory and load it into R. What is the minimum
-and maximum scan elevation contained in the volume? And which scan
-parameters are available? (See manual page of the
-<code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> function for the nomenclature of various
-available quantities).</p>
+<p><strong>Exercise 1:</strong> Load the polar volume file, <code>example_pvol.h5</code> from the files downloaded in section 1.1. Put it in your working directory and load it into R. What is the minimum and maximum scan elevation contained in the volume? And which scan parameters are available? (See manual page of the <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> function for the nomenclature of various available quantities).</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-radar-scans">1.3 Plotting radar scans<a class="anchor" aria-label="anchor" href="#plotting-radar-scans"></a>
@@ -207,9 +185,7 @@ available quantities).</p>
 <span class="va">my_scan</span>
 <span class="co"># let's plot the reflectivity factor parameter of the scan in a range - azimuth coordinate system:</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_scan</span>, param <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></code></pre></div>
-<p>Usually it is more intuitive to explore radar scans as a PPI (plan
-position indicator), which is a projection of the scan on a Cartesian
-(X,Y) or (lat,lon) grid:</p>
+<p>Usually it is more intuitive to explore radar scans as a PPI (plan position indicator), which is a projection of the scan on a Cartesian (X,Y) or (lat,lon) grid:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># before we can plot the scan, we need to project it on a Cartesian grid,</span>
 <span class="co"># i.e. we need to make a Plan Position Indicator (PPI)</span>
@@ -223,15 +199,8 @@ position indicator), which is a projection of the scan on a Cartesian
 <span class="co">#</span>
 <span class="co"># Now we are ready to plot the ppi, for example let's plot reflectivity factor DBZH:</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></code></pre></div>
-<p><strong>Exercise 2:</strong> This case contains convective
-precipitation, characterized by localized but intense thunderstorms, as
-well as biological scattering. Make also a ppi plot of the correlation
-coefficient (RHOHV) and radial velocity (VRADH). Verify how the texture
-of the radial velocity, and the values of correlation coefficient of the
-precipitative areas differs from the areas with biological
-scattering.</p>
-<p><strong>Exercise 3:</strong> Based on the radial velocity image, are
-the biological scatterers birds or insects? Why?</p>
+<p><strong>Exercise 2:</strong> This case contains convective precipitation, characterized by localized but intense thunderstorms, as well as biological scattering. Make also a ppi plot of the correlation coefficient (RHOHV) and radial velocity (VRADH). Verify how the texture of the radial velocity, and the values of correlation coefficient of the precipitative areas differs from the areas with biological scattering.</p>
+<p><strong>Exercise 3:</strong> Based on the radial velocity image, are the biological scatterers birds or insects? Why?</p>
 </div>
 <div class="section level3">
 <h3 id="overlaying-radar-scans-on-maps">1.4 Overlaying radar scans on maps<a class="anchor" aria-label="anchor" href="#overlaying-radar-scans-on-maps"></a>
@@ -242,27 +211,14 @@ the biological scatterers birds or insects? Why?</p>
 <span class="va">basemap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">my_ppi</span><span class="op">)</span>
 <span class="co"># then overlay the PPI on the satellite image, restricting the color scale from -20 to 15 dBZ:</span>
 <span class="fu"><a href="../reference/map.html">map</a></span><span class="op">(</span><span class="va">my_ppi</span>, map <span class="op">=</span> <span class="va">basemap</span>, param <span class="op">=</span> <span class="st">"DBZH"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>bioRad provides several functions to convert radar scans to other
-common spatial formats in R (cf. package <code>raster</code> and package
-<code>sp</code>), see <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> and
-<code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code>, allowing you to process and overlay the
-radar data further with these spatial analysis toolkits.</p>
+<p>bioRad provides several functions to convert radar scans to other common spatial formats in R (cf. package <code>raster</code> and package <code>sp</code>), see <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> and <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code>, allowing you to process and overlay the radar data further with these spatial analysis toolkits.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="analysis-and-visualization-of-vertical-bird-profiles">2 Analysis and visualization of vertical bird profiles<a class="anchor" aria-label="anchor" href="#analysis-and-visualization-of-vertical-bird-profiles"></a>
 </h2>
-<p>In this section you will learn to compute, interpret and analyze
-vertical profiles (vp). A vp consists of the (bird) density, speed and
-directions at different altitudes at the location of a single radar. It
-is typically calculated for all data within a cylinder of 35 km radius
-around the radar, i.e. only containing data at relatively short
-distances, where the radar beam is still sufficiently narrow to resolve
-altitude information.</p>
-<p>Section 3 has examples that show how to process polar volume data
-into vertical profiles. To save time, we will start below with a list of
-pre-processed vertical profiles for the Brownsville radar in Texas
-(KBRO).</p>
+<p>In this section you will learn to compute, interpret and analyze vertical profiles (vp). A vp consists of the (bird) density, speed and directions at different altitudes at the location of a single radar. It is typically calculated for all data within a cylinder of 35 km radius around the radar, i.e. only containing data at relatively short distances, where the radar beam is still sufficiently narrow to resolve altitude information.</p>
+<p>Section 3 has examples that show how to process polar volume data into vertical profiles. To save time, we will start below with a list of pre-processed vertical profiles for the Brownsville radar in Texas (KBRO).</p>
 <div class="section level3">
 <h3 id="loading-processed-vertical-profiles">2.1 Loading processed vertical profiles<a class="anchor" aria-label="anchor" href="#loading-processed-vertical-profiles"></a>
 </h3>
@@ -278,10 +234,7 @@ pre-processed vertical profiles for the Brownsville radar in Texas
 <div class="section level3">
 <h3 id="inspecting-single-vertical-profiles">2.2 Inspecting single vertical profiles<a class="anchor" aria-label="anchor" href="#inspecting-single-vertical-profiles"></a>
 </h3>
-<p>Now that you have loaded a list of vertical profiles, we can start
-exploring them. We will start with plotting and inspecting single
-vertical profiles, i.e. a single profile from the list of vp objects you
-have just loaded.</p>
+<p>Now that you have loaded a list of vertical profiles, we can start exploring them. We will start with plotting and inspecting single vertical profiles, i.e. a single profile from the list of vp objects you have just loaded.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># let's extract a profile from the list, in this example the 41st profile:</span>
 <span class="va">my_vp</span> <span class="op">&lt;-</span> <span class="va">my_vplist</span><span class="op">[[</span><span class="fl">41</span><span class="op">]</span><span class="op">]</span>
@@ -293,49 +246,26 @@ have just loaded.</p>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vp</span>, quantity <span class="op">=</span> <span class="st">"dbz"</span><span class="op">)</span>
 <span class="co"># plot the vertical profile, in terms of (linear) reflectivity</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vp</span>, quantity <span class="op">=</span> <span class="st">"eta"</span><span class="op">)</span></code></pre></div>
-<p><code>eta</code> and <code>dbz</code> are closely related, the main
-difference is that reflectivity factors are logarithmic, and
-reflectivities linear. You can convert one into the other using
-<code><a href="../reference/eta_to_dbz.html">eta_to_dbz()</a></code> and <code><a href="../reference/dbz_to_eta.html">dbz_to_eta()</a></code> functions, which
-follow this simple formula:</p>
+<p><code>eta</code> and <code>dbz</code> are closely related, the main difference is that reflectivity factors are logarithmic, and reflectivities linear. You can convert one into the other using <code><a href="../reference/eta_to_dbz.html">eta_to_dbz()</a></code> and <code><a href="../reference/dbz_to_eta.html">dbz_to_eta()</a></code> functions, which follow this simple formula:</p>
 <pre><code>eta = (radar-wavelength dependent constant) * 10^(dbz/10)</code></pre>
-<p>The reflectivity factor <code>dBZ</code> is the quantity used by most
-meteorologist. It has the useful property that at different radar
-wavelengths (e.g. S-band versus C-band) the same amount of precipitation
-shows up at similar reflectivity factors. The same holds for insects, as
-well as any other target that is much smaller than the radar wavelength
-(S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering
-limit.</p>
-<p>In the case of birds we are outside the Rayleigh limit, because birds
-are of similar size as the radar wavelength. In this limit reflectivity
-<code>eta</code> is more similar between S-band and C-band.
-<code>eta</code> is also more directly related to the density of birds,
-since <code>eta</code> can be expressed as (bird density) x (radar cross
-section per bird). For these two reasons, for weather radar
-ornithologists not reflectivity factor <code>dBZ</code> but reflectivity
-<code>eta</code> is the more conventional unit.</p>
+<p>The reflectivity factor <code>dBZ</code> is the quantity used by most meteorologist. It has the useful property that at different radar wavelengths (e.g. S-band versus C-band) the same amount of precipitation shows up at similar reflectivity factors. The same holds for insects, as well as any other target that is much smaller than the radar wavelength (S-band = 10 cm, C-band = 5 cm), the so-called Rayleigh-scattering limit.</p>
+<p>In the case of birds we are outside the Rayleigh limit, because birds are of similar size as the radar wavelength. In this limit reflectivity <code>eta</code> is more similar between S-band and C-band. <code>eta</code> is also more directly related to the density of birds, since <code>eta</code> can be expressed as (bird density) x (radar cross section per bird). For these two reasons, for weather radar ornithologists not reflectivity factor <code>dBZ</code> but reflectivity <code>eta</code> is the more conventional unit.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># let'splot the vertical profile, in terms of bird density</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vp</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span>
 <span class="co"># print the currently assumed radar cross section (RCS) per bird:</span>
 <span class="fu"><a href="../reference/rcs.html">rcs</a></span><span class="op">(</span><span class="va">my_vp</span><span class="op">)</span></code></pre></div>
-<p><strong>Exercise 4:</strong> If you change your assumption on the
-bird’s radar cross section in the previous example, and assume it is 10
-times as large, what will be the effect on the bird density profile?</p>
+<p><strong>Exercise 4:</strong> If you change your assumption on the bird’s radar cross section in the previous example, and assume it is 10 times as large, what will be the effect on the bird density profile?</p>
 <p>The radar cross section you assume can be changed as follows:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># let's change the RCS to 110 cm^2</span>
 <span class="fu"><a href="../reference/rcs.html">rcs</a></span><span class="op">(</span><span class="va">my_vp</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">110</span></code></pre></div>
-<p><strong>Exercise 5:</strong> Verify your answers on the previous two
-questions, by re-plotting the vertical profiles for the bird density
-quantity.</p>
+<p><strong>Exercise 5:</strong> Verify your answers on the previous two questions, by re-plotting the vertical profiles for the bird density quantity.</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-vertical-profile-time-series">2.3 Plotting vertical profile time series<a class="anchor" aria-label="anchor" href="#plotting-vertical-profile-time-series"></a>
 </h3>
-<p>We will now examine multiple vertical profiles at once that are
-ordered into a time series, e.g. the vertical profiles obtained from a
-single radar over a full day.</p>
+<p>We will now examine multiple vertical profiles at once that are ordered into a time series, e.g. the vertical profiles obtained from a single radar over a full day.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># convert the list of vertical profiles into a time series:</span>
 <span class="va">my_vpts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span><span class="op">(</span><span class="va">my_vplist</span><span class="op">)</span>
@@ -364,40 +294,18 @@ single radar over a full day.</p>
 <span class="va">my_vpts_night</span> <span class="op">&lt;-</span> <span class="va">my_vpts</span><span class="op">[</span><span class="va">index_night</span><span class="op">]</span>
 <span class="co"># plot this smaller time series:</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpts_night</span><span class="op">)</span></code></pre></div>
-<p><strong>Exercise 6:</strong> Interpret the wind barbs in the profile
-time series figure: what is the approximate speed and direction at 1500
-meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s,
-each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in
-this case].</p>
-<p><strong>Exercise 7:</strong> Extract the vertical profile at 6 UTC
-from the time series and plot the vertical profile of ground speed
-(quantity <code>ff</code>). Hint: use function
-<code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> to extract the 6 UTC profile. Check whether
-your answer to the previous question was approximately correct.</p>
+<p><strong>Exercise 6:</strong> Interpret the wind barbs in the profile time series figure: what is the approximate speed and direction at 1500 meter at 6 UTC? In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s, [each pennant (triangle) 25 m/s, not occurring in this case].</p>
+<p><strong>Exercise 7:</strong> Extract the vertical profile at 6 UTC from the time series and plot the vertical profile of ground speed (quantity <code>ff</code>). Hint: use function <code><a href="../reference/filter_vpts.html">filter_vpts()</a></code> to extract the 6 UTC profile. Check whether your answer to the previous question was approximately correct.</p>
 </div>
 <div class="section level3">
 <h3 id="vertical-and-time-integration-of-profiles">2.4 Vertical and time integration of profiles<a class="anchor" aria-label="anchor" href="#vertical-and-time-integration-of-profiles"></a>
 </h3>
-<p>Often you will want to sum together all the migrants in the vertical
-dimension, for example if you want a single index of how many birds are
-migrating at a certain instant. There are at least two ways in which you
-can do that:</p>
+<p>Often you will want to sum together all the migrants in the vertical dimension, for example if you want a single index of how many birds are migrating at a certain instant. There are at least two ways in which you can do that:</p>
 <ul>
-<li>by calculating the vertically integrated bird density (VID), which
-is <em>surface</em> density as opposed to a <em>volume</em> densities
-you have been plotting in the previous exercises: this number gives you
-how many migrants are aloft per square kilometer earth’s surface (unit
-individuals/km<span class="math inline">\(^{2}\)</span>), and is a
-vertical integration of the volume densities(unit individuals/km<span class="math inline">\(^{3}\)</span>).</li>
-<li>Note that the VID quantity doesn’t depend on the speed of the
-migrants. A common measure that reflects both the density and speed of
-the migration is migration traffic rate (MTR). This is flux measure that
-gives you how many migrants are passing the radar station per unit of
-time and per unit of distance perpendicular to the migratory direction
-(unit individuals/km/hour).</li>
+<li>by calculating the vertically integrated bird density (VID), which is <em>surface</em> density as opposed to a <em>volume</em> densities you have been plotting in the previous exercises: this number gives you how many migrants are aloft per square kilometer earth’s surface (unit individuals/km<span class="math inline">\(^{2}\)</span>), and is a vertical integration of the volume densities(unit individuals/km<span class="math inline">\(^{3}\)</span>).</li>
+<li>Note that the VID quantity doesn’t depend on the speed of the migrants. A common measure that reflects both the density and speed of the migration is migration traffic rate (MTR). This is flux measure that gives you how many migrants are passing the radar station per unit of time and per unit of distance perpendicular to the migratory direction (unit individuals/km/hour).</li>
 </ul>
-<p>We will be using bioRad’s <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> function
-to calculate these quantities:</p>
+<p>We will be using bioRad’s <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code> function to calculate these quantities:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Let's continue with the vpts object created in the previous example.</span>
 <span class="co"># The vertically integrated quantities are calculated as follows:</span>
@@ -413,26 +321,11 @@ to calculate these quantities:</p>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mt"</span><span class="op">)</span>
 <span class="co"># execute `?plot.vpi` to open the help page listing all the options.</span>
 <span class="op">?</span><span class="va">plot.vpi</span></code></pre></div>
-<p>The following questions only require pen and paper. Assume a night
-migration event in which the volume density of birds from 0-1 km above
-ground is 200 birds per cubic kilometer, and from 1-1.5 km 100 birds per
-cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the
-upper layer at 100 km/hour. Above 1500 meter there are no birds.
-Migration continues for exactly three hours after sunset, and then halts
-abruptly.</p>
-<p><strong>Exercise 8:</strong> What is in this case the bird’s
-vertically integrated density (VID)? Give your answer in units
-birds/km<span class="math inline">\(^2\)</span>.</p>
-<p><strong>Exercise 9:</strong> What is in this case the migration
-traffic rate across a transect perpendicular to the direction of
-movement? Give your answer in units birds/km/hour.</p>
-<p><strong>Exercise 10:</strong> How many birds have passed a 1km
-transect perpendicular to the direction of movement in this night? Give
-your answer in terms of migration traffic (mt) in units birds/km.</p>
-<p>Both MTR, VID and MT depend on the assumed radar cross section (RCS)
-per bird. If you are unwilling/unable to specify RCS, you can
-alternatively use two closely related quantities that make no
-assumptions RCS:</p>
+<p>The following questions only require pen and paper. Assume a night migration event in which the volume density of birds from 0-1 km above ground is 200 birds per cubic kilometer, and from 1-1.5 km 100 birds per cubic kilometer. In the lower layer birds fly at 50 km/hour, and in the upper layer at 100 km/hour. Above 1500 meter there are no birds. Migration continues for exactly three hours after sunset, and then halts abruptly.</p>
+<p><strong>Exercise 8:</strong> What is in this case the bird’s vertically integrated density (VID)? Give your answer in units birds/km<span class="math inline">\(^2\)</span>.</p>
+<p><strong>Exercise 9:</strong> What is in this case the migration traffic rate across a transect perpendicular to the direction of movement? Give your answer in units birds/km/hour.</p>
+<p><strong>Exercise 10:</strong> How many birds have passed a 1km transect perpendicular to the direction of movement in this night? Give your answer in terms of migration traffic (mt) in units birds/km.</p>
+<p>Both MTR, VID and MT depend on the assumed radar cross section (RCS) per bird. If you are unwilling/unable to specify RCS, you can alternatively use two closely related quantities that make no assumptions RCS:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"vir"</span><span class="op">)</span>
@@ -440,27 +333,14 @@ assumptions RCS:</p>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"rtr"</span><span class="op">)</span>
 <span class="co"># instead of migration traffic (MT), you can use the reflectivity traffic (RT):</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"rt"</span><span class="op">)</span></code></pre></div>
-<p>VIR gives you the total cross-sectional area of air-borne targets per
-square kilometer of ground surface, whereas RTR gives you the total
-cross-sectional area of targets flying across a one kilometer line
-perpendicular to the migratory flow per hour.</p>
+<p>VIR gives you the total cross-sectional area of air-borne targets per square kilometer of ground surface, whereas RTR gives you the total cross-sectional area of targets flying across a one kilometer line perpendicular to the migratory flow per hour.</p>
 </div>
 <div class="section level3">
 <h3 id="inspecting-precipitation-signals-in-profiles">2.5 Inspecting precipitation signals in profiles<a class="anchor" aria-label="anchor" href="#inspecting-precipitation-signals-in-profiles"></a>
 </h3>
-<p>Precipitation is known to have a major influence on the timing and
-intensity of migration, therefore it is a useful skill to be able to
-inspect profiles for presence of precipitation.</p>
-<p>Also, although automated bird quantification algorithms become more
-and more reliable, distinguishing precipitation from birds remains
-challenging for algorithms in specific cases. It is therefore important
-to have the skills to inspect suspicious profiles. That may help you to
-identify potential errors of the automated methods, and prevent your
-from overinterpreting the data.</p>
-<p>An easy way of doing that is plotting the vertical profile of total
-reflectivity (quantity DBZH), which includes everything: birds, insects
-and precipitation. Precipitation often has higher reflectivities than
-birds, and also extends to much higher altitudes.</p>
+<p>Precipitation is known to have a major influence on the timing and intensity of migration, therefore it is a useful skill to be able to inspect profiles for presence of precipitation.</p>
+<p>Also, although automated bird quantification algorithms become more and more reliable, distinguishing precipitation from birds remains challenging for algorithms in specific cases. It is therefore important to have the skills to inspect suspicious profiles. That may help you to identify potential errors of the automated methods, and prevent your from overinterpreting the data.</p>
+<p>An easy way of doing that is plotting the vertical profile of total reflectivity (quantity DBZH), which includes everything: birds, insects and precipitation. Precipitation often has higher reflectivities than birds, and also extends to much higher altitudes.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load a time series for the KBGM radar in Binghamton, NY</span>
 <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"KBGM20170527-20170602.RData"</span><span class="op">)</span>
@@ -468,11 +348,7 @@ birds, and also extends to much higher altitudes.</p>
 <span class="va">my_vpts</span>
 <span class="co"># plot the bird density over time:</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpts</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span></code></pre></div>
-<p><strong>Exercise 11:</strong> Compare the above plot for bird density
-(quantity <code>dens</code>) with a profile plot for total reflectivity
-(quantity <code>DBZH</code>, showing birds and precipitation combined).
-Compare the two plots to visually identify periods and altitude layers
-with precipitation.</p>
+<p><strong>Exercise 11:</strong> Compare the above plot for bird density (quantity <code>dens</code>) with a profile plot for total reflectivity (quantity <code>DBZH</code>, showing birds and precipitation combined). Compare the two plots to visually identify periods and altitude layers with precipitation.</p>
 </div>
 </div>
 <div class="section level2">
@@ -482,41 +358,28 @@ with precipitation.</p>
 <h3 id="obtaining-radar-data">3.1 Obtaining radar data<a class="anchor" aria-label="anchor" href="#obtaining-radar-data"></a>
 </h3>
 <ul>
-<li>US NEXRAD polar volume data can be accessed in the <a href="https://s3.amazonaws.com/noaa-nexrad-level2/index.html" class="external-link">Amazon
-cloud</a>.</li>
-<li>European radar data can be accessed at <a href="http://enram.github.io/data-repository/" class="external-link uri">http://enram.github.io/data-repository/</a>. These are
-processed vertical profiles, the full polar volume data are not openly
-available for most countries.</li>
+<li>US NEXRAD polar volume data can be accessed in the <a href="https://s3.amazonaws.com/noaa-nexrad-level2/index.html" class="external-link">Amazon cloud</a>.</li>
+<li>European radar data can be accessed at <a href="https://aloftdata.eu" class="external-link uri">https://aloftdata.eu</a>. These are processed vertical profiles, the full polar volume data are not openly available for most countries.</li>
 </ul>
 <p>The names of the radars in the networks can be found here:</p>
 <ul>
 <li>US: <a href="https://radar.weather.gov/" class="external-link">NEXRAD network</a>
 </li>
-<li>Europe: <a href="http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html" class="external-link">OPERA
-database</a>
+<li>Europe: <a href="http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html" class="external-link">OPERA database</a>
 </li>
 </ul>
-<p>Useful sites for inspecting pre-made movies of the US composite are
-<a href="http://birdcast.info/live-migration-maps/" class="external-link uri">http://birdcast.info/live-migration-maps/</a> and <a href="http://www.pauljhurtado.com/US_Composite_Radar/" class="external-link uri">http://www.pauljhurtado.com/US_Composite_Radar/</a>.</p>
+<p>Useful sites for inspecting pre-made movies of the US composite are <a href="https://birdcast.info/migration-tools/live-migration-maps/" class="external-link uri">https://birdcast.info/migration-tools/live-migration-maps/</a> and <a href="https://www.pauljhurtado.com/US_Composite_Radar/" class="external-link uri">https://www.pauljhurtado.com/US_Composite_Radar/</a>.</p>
 </div>
 <div class="section level3">
-<h3 id="processing-a-single-polar-volume-with-the-vol2bird-algorithm">3.2 Processing a single polar volume with the vol2bird
-algorithm<a class="anchor" aria-label="anchor" href="#processing-a-single-polar-volume-with-the-vol2bird-algorithm"></a>
+<h3 id="processing-a-single-polar-volume-with-the-vol2bird-algorithm">3.2 Processing a single polar volume with the vol2bird algorithm<a class="anchor" aria-label="anchor" href="#processing-a-single-polar-volume-with-the-vol2bird-algorithm"></a>
 </h3>
-<p>The following steps take you through the process applying the
-vol2bird algorithm yourself. You need a working installation of Docker
-(Linux/Mac) or Docker for Windows (<strong>not</strong> Docker Toolbox,
-this is an older implementation of Docker for Windows operating systems
-that is not supported).</p>
-<p>We will generate vertical profiles with the automated algorithm
-vol2bird (<a href="https://github.com/adokter/vol2bird" class="external-link uri">https://github.com/adokter/vol2bird</a>), which is included
-in the bioRad package.</p>
+<p>The following steps take you through the process applying the vol2bird algorithm yourself. You need a working installation of Docker (Linux/Mac) or Docker for Windows (<strong>not</strong> Docker Toolbox, this is an older implementation of Docker for Windows operating systems that is not supported).</p>
+<p>We will generate vertical profiles with the automated algorithm vol2bird (<a href="https://github.com/adokter/vol2bird" class="external-link uri">https://github.com/adokter/vol2bird</a>), which is included in the bioRad package.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># start your local Docker installation</span>
 <span class="co"># we first test whether R can communicate with Docker:</span>
 <span class="fu"><a href="../reference/check_docker.html">check_docker</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>If you get a “Hello from Docker!” welcome message, everything is
-working and you can start processing.</p>
+<p>If you get a “Hello from Docker!” welcome message, everything is working and you can start processing.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># download a polar volume file you want to process and put it in your home directory.</span>
 <span class="va">my_file</span> <span class="op">&lt;-</span> <span class="st">"write_your_file_to_be_processed_here"</span>
@@ -535,8 +398,7 @@ working and you can start processing.</p>
 <div class="section level3">
 <h3 id="processing-multiple-polar-volumes">3.3 Processing multiple polar volumes<a class="anchor" aria-label="anchor" href="#processing-multiple-polar-volumes"></a>
 </h3>
-<p>This section contains an example for processing a directory of polar
-volumes into profiles:</p>
+<p>This section contains an example for processing a directory of polar volumes into profiles:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># read the filenames of the polar volumes you want to process</span>
 <span class="va">my_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="st">"your/directory/with/volumes/goes/here/"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -561,8 +423,7 @@ volumes into profiles:</p>
 <span class="va">my_vpfiles</span>
 <span class="co"># read them</span>
 <span class="va">my_vplist</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_vpfiles.html">read_vpfiles</a></span><span class="op">(</span><span class="va">my_vpfiles</span><span class="op">)</span></code></pre></div>
-<p>You can now continue with visualizing and post-processing as we did
-earlier:</p>
+<p>You can now continue with visualizing and post-processing as we did earlier:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># make a time series of profiles:</span>
 <span class="va">my_vpts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bind_into_vpts.html">bind_into_vpts</a></span><span class="op">(</span><span class="va">my_vplist</span><span class="op">)</span>
@@ -572,25 +433,17 @@ earlier:</p>
 <div class="section level3">
 <h3 id="further-analysis">4. Further analysis<a class="anchor" aria-label="anchor" href="#further-analysis"></a>
 </h3>
-<p>In many cases you will want to convert bioRad’s objects into a
-convenient form for your own further analyses. To convert bioRad objects
-to a simple <code>data.frame</code>:</p>
+<p>In many cases you will want to convert bioRad’s objects into a convenient form for your own further analyses. To convert bioRad objects to a simple <code>data.frame</code>:</p>
 <ul>
-<li>vertical profile (<code>vp</code>):
-as.data.frame(<code>your_vp_object</code>)</li>
-<li>vertical profile time series (<code>vpts</code>):
-as.data.frame(<code>your_vpts_object</code>)</li>
-<li>integrated vertical profile time series (<code>vpi</code>): is
-already a <code>data.frame</code>
+<li>vertical profile (<code>vp</code>): as.data.frame(<code>your_vp_object</code>)</li>
+<li>vertical profile time series (<code>vpts</code>): as.data.frame(<code>your_vpts_object</code>)</li>
+<li>integrated vertical profile time series (<code>vpi</code>): is already a <code>data.frame</code>
 </li>
 </ul>
-<p>Converting polar scans (<code>scan</code> objects) to common spatial
-formats:</p>
+<p>Converting polar scans (<code>scan</code> objects) to common spatial formats:</p>
 <ul>
-<li>use <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> to convert to a
-<code>RasterBrick</code> object (package raster)</li>
-<li>use <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> to convert to a
-<code>SpatialPointsDataFrame</code> object (package sp)</li>
+<li>use <code><a href="../reference/scan_to_raster.html">scan_to_raster()</a></code> to convert to a <code>RasterBrick</code> object (package raster)</li>
+<li>use <code><a href="../reference/scan_to_spatial.html">scan_to_spatial()</a></code> to convert to a <code>SpatialPointsDataFrame</code> object (package sp)</li>
 </ul>
 </div>
 </div>
@@ -608,15 +461,12 @@ formats:</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M.
-Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>,
-<a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+<p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
