@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad)
 [![R-CMD-check](https://github.com/adokter/bioRad/workflows/R-CMD-check/badge.svg)](https://github.com/adokter/bioRad/actions)
-[![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://codecov.io/gh/adokter/bioRad)
+[![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://app.codecov.io/gh/adokter/bioRad)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 <!-- badges: end -->
 
@@ -24,24 +24,24 @@ To get started, see:
 -   [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
     describing the package.
 -   [bioRad
-    vignette](https://adokter.github.io/bioRad/articles/bioRad.html): an
+    vignette](https://adriaandokter.com/bioRad/articles/bioRad.html): an
     introduction to bioRad’s main functionalities.
 -   [Function
-    reference](https://adokter.github.io/bioRad/reference/index.html):
+    reference](https://adriaandokter.com/bioRad/reference/index.html):
     an overview of all bioRad functions.
 -   [Introductory
-    exercises](https://adokter.github.io/bioRad/articles/rad_aero_19.html):
+    exercises](https://adriaandokter.com/bioRad/articles/rad_aero_19.html):
     a tutorial with code examples and exercises.
 
 More vignettes:
 
 -   [Range
-    correction](https://adokter.github.io/bioRad/articles/range_correction.html):
+    correction](https://adriaandokter.com/bioRad/articles/range_correction.html):
     estimate spatial images of vertically integrated density corrected
     for range effects.
 
 Documentation for the latest development version can be found
-[here](https://adokter.github.io/bioRad/dev).
+[here](https://adriaandokter.com/bioRad/dev/).
 
 ## Installation
 
@@ -87,8 +87,8 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.5.2.9419
-#> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0, MistNet available)
+#> Welcome to bioRad version 0.6.0
+#> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0.9169, MistNet available)
 ```
 
 ### Docker (optional)
@@ -97,9 +97,9 @@ You need to install Docker to:
 
 -   Process radar data into vertical profiles of biological targets with
     `calculate_vp()`.
--   Read [NEXRAD radar
-    data](https://www.ncdc.noaa.gov/data-access/radar-data) or [IRIS
-    RAW](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf)
+-   Read [NEXRAD radar data](https://registry.opendata.aws/noaa-nexrad/)
+    or [IRIS
+    RAW](ftp://ftp.sigmet.com/outgoing/manuals//IRIS-Programming-Guide-M211318EN.pdf)
     data with `read_pvolfile()`. Docker is not required for reading ODIM
     radar data.
 -   Convert NEXRAD radar data to ODIM format with `nexrad_to_odim()`.
@@ -117,7 +117,7 @@ Installing Docker
 </summary>
 
 1.  Go to [Docker
-    Desktop](https://www.docker.com/products/docker-desktop).
+    Desktop](https://www.docker.com/products/docker-desktop/).
 2.  Download Docker for Windows or Mac (free login required) and follow
     the installation instructions. Note that Docker for Windows requires
     Microsoft Windows 10 Professional or Enterprise 64-bit: installing
@@ -125,12 +125,12 @@ Installing Docker
 3.  Open the Docker application. The Docker (whale) icon will appear in
     your menu or task bar and indicate if it is running correctly.
 4.  Make local drive(s) available for Docker containers:
-    -   On Windows: right click the Docker icon &gt; `Settings` &gt;
-        `Shared drives` &gt; Select the drive(s) where you will be
-        processing radar files &gt; Click `Apply`.
-    -   On Mac: click the Docker icon &gt; `Preferences` &gt;
-        `File sharing` &gt; Add the drive(s) where you will be
-        processing radar files &gt; Click `Apply & Restart`.
+    -   On Windows: right click the Docker icon \> `Settings` \>
+        `Shared drives` \> Select the drive(s) where you will be
+        processing radar files \> Click `Apply`.
+    -   On Mac: click the Docker icon \> `Preferences` \> `File sharing`
+        \> Add the drive(s) where you will be processing radar files \>
+        Click `Apply & Restart`.
 5.  In R do `check_docker()`.
 6.  You can now use the bioRad functionality that requires Docker.
 
@@ -162,9 +162,9 @@ Known issues with Docker
 bioRad can read weather radar data (= polar volumes) in the
 [`ODIM`](http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf)
 format and formats supported by the [RSL
-library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as
+library](https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as
 NEXRAD data. NEXRAD data (US) are [available as open
-data](https://www.ncdc.noaa.gov/data-access/radar-data/nexrad) and on
+data](https://www.ncdc.noaa.gov/nexradinv/) and on
 [AWS](https://registry.opendata.aws/noaa-nexrad/).
 
 Here we read an example polar volume data file with `read_pvolfile()`,
@@ -191,8 +191,7 @@ movement from the top right to the bottom left.*
 
 Weather radar data can be processed into vertical profiles of biological
 targets using `calculate_vp()`. This type of data is [available as open
-data](https://enram.github.io/data-repository) for over 100 European
-weather radars.
+data](https://aloftdata.eu) for over 100 European weather radars.
 
 Once vertical profile data are loaded into bioRad, these can be bound
 into time series using `bind_into_vpts()`. Here we read an example time
@@ -231,20 +230,20 @@ time series, we use the last value of the *cumulative migration traffic*
 my_vpi %>%
   pull(mt) %>% # Extract column mt as a vector
   last()
-#> [1] 173023.8
+#> [1] 129491.5
 ```
 
 For more exercises, see [this
-tutorial](https://adokter.github.io/bioRad/articles/rad_aero_19.html).
+tutorial](https://adriaandokter.com/bioRad/articles/rad_aero_19.html).
 
 ## Meta
 
 -   We welcome
-    [contributions](https://adokter.github.io/bioRad/CONTRIBUTING.html)
+    [contributions](https://adriaandokter.com/bioRad/CONTRIBUTING.html)
     including bug reports.
 -   License: MIT
 -   Get citation information for `bioRad` in R doing
     `citation("bioRad")`.
 -   Please note that this project is released with a [Contributor Code
-    of Conduct](https://adokter.github.io/bioRad/CODE_OF_CONDUCT.html).
+    of Conduct](https://adriaandokter.com/bioRad/CODE_OF_CONDUCT.html).
     By participating in this project you agree to abide by its terms.

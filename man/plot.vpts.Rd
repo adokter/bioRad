@@ -9,7 +9,7 @@
   xlab = "time",
   ylab = "height [m]",
   quantity = "dens",
-  log = TRUE,
+  log = NA,
   barbs = TRUE,
   barbs_height = 10,
   barbs_time = 20,
@@ -21,6 +21,10 @@
   barbs.h = 10,
   barbs.t = 20,
   barbs.dens = 5,
+  na_color = "#C8C8C8",
+  nan_color = "white",
+  n_color = 1000,
+  palette = NA,
   ...
 )
 }
@@ -64,6 +68,15 @@ color bar.}
 
 \item{barbs.dens}{Deprecated argument, use barbs_dens_min instead.}
 
+\item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+
+\item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+
+\item{n_color}{The number of colors (>=1) to be in the palette.}
+
+\item{palette}{(Optional) character vector of hexadecimal color values defining
+the plot color scale, e.g. output from \link[viridisLite]{viridis}}
+
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics]{image} plotting function.}
 }
@@ -71,7 +84,7 @@ color bar.}
 Plot a time series of vertical profiles  of class \code{vpts}.
 }
 \details{
-Profile can be visualized in four related quantities, as specified
+Aerial abundances can be visualized in four related quantities, as specified
 by argument \code{quantity}:
 \describe{
 \item{"\code{dens}"}{the aerial density of individuals. This quantity is
@@ -88,8 +101,33 @@ than at C-band}
 reflectivity factor of all scatterers (biological and meteorological
 scattering combined)}
 }
+
+Aerial velocities can be visualized in three related quantities, as specified
+by argument \code{quantity}:
+\describe{
+\item{"\code{ff}"}{ground speed. The aerial velocity relative to the
+ground surface in m/s.}
+\item{"\code{u}"}{eastward ground speed component in m/s.}
+\item{"\code{v}"}{northward ground speed component in m/s.}
+}
+\subsection{barbs}{
+
 In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
 each pennant (triangle) 25 m/s
+}
+
+\subsection{legend_ticks / zlim}{
+
+Default legend ticks and plotting range are specified based on \code{quantity},
+radar wavelength (S- vs C-band), and value of \code{log}
+}
+
+\subsection{log}{
+
+Quantities \code{u} and \code{v} cannot be plotted on a logarithmic scale, because
+these quantities assume negative values.  For quantities \code{DBZH} and \code{dbz}
+\code{log=TRUE} is ignored, because these quantities are already logarithmic.
+}
 }
 \examples{
 # locate example file:
@@ -99,4 +137,20 @@ ts <- example_vpts
 plot(ts[1:500], ylim = c(0, 3000))
 # plot total reflectivity factor (rain, birds, insects together):
 plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
+# regularize the time grid, which includes empty (NA) profiles at
+# time steps without data:
+ts_regular <- regularize_vpts(ts)
+plot(ts_regular)
+# change the color of missing NA data to red
+plot(ts_regular, na_color="red")
+# change the color palette:
+plot(ts_regular[1:1000], ylim = c(0, 3000), palette=viridis::viridis(1000))
+# change and inverse the color palette:
+plot(ts_regular[1:1000], ylim = c(0, 3000), palette=rev(viridis::viridis(1000, option="A")))
+# plot the speed profile:
+plot(ts_regular[1:1000], quantity="ff")
+# plot the northward speed component:
+plot(ts_regular[1:1000], quantity="v")
+# plot speed profile with more legend ticks,
+plot(ts_regular[1:1000], quantity="ff", legend_ticks=seq(0,20,2), zlim=c(0,20))
 }

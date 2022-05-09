@@ -135,6 +135,6 @@ Please also cite this publication when using MistNet:
 Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 MistNet: Measuring historical bird migration in the US using archived
 weather radar data and convolutional neural networks. Methods in Ecology
-and Evolution 10: 1908– 1922. \url{https://doi.org/10.1111/2041-210X.13280}
+and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
 }
 }

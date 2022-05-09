@@ -2,8 +2,8 @@
 #'
 #' Calculates a vertical profile of biological scatterers (`vp`) from a polar
 #' volume (`pvol`) file using the algorithm
-#' [vol2bird](https://github.com/adokter/vol2bird/) ([Dokter et al.
-#' 2011](https://doi.org/10.1098/rsif.2010.0116)). Requires a running
+#' [vol2bird](https://github.com/adokter/vol2bird/) (Dokter et al.
+#' 2011 \doi{10.1098/rsif.2010.0116}). Requires a running
 #' [Docker](https://www.docker.com/) daemon, unless a local installation of
 #' vol2bird is specified with `local_install`.
 #'
@@ -14,7 +14,7 @@
 #'    format, which is the implementation of the OPERA data information model in
 #'   the [HDF5](https://support.hdfgroup.org/HDF5/) format, 2) a format
 #'   supported by the [RSL
-#'   library](http://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/) or 3) Vaisala
+#'   library](https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/) or 3) Vaisala
 #'   IRIS (IRIS RAW) format.
 #' @param vpfile Character. File name. When provided, writes a vertical profile
 #'   file (`vpfile`) in the ODIM HDF5 format to disk.
@@ -178,16 +178,16 @@
 #' * Dokter AM, Liechti F, Stark H, Delobbe L,Tabary P, Holleman I (2011) Bird
 #' migration flight altitudes studied by a network of operational weather
 #' radars, Journal of the Royal Society Interface 8 (54), pp. 30-43.
-#' <doi:10.1098/rsif.2010.0116>
+#' \doi{10.1098/rsif.2010.0116}
 #' * Haase G & Landelius T (2004)
 #' Dealiasing of Doppler radar velocities using a torus mapping. Journal of
 #' Atmospheric and Oceanic Technology 21(10), pp. 1566-1573.
-#' <doi:10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2>
+#' \doi{10.1175/1520-0426(2004)021<1566:DODRVU>2.0.CO;2}
 #' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
 #' Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
 #' Measuring historical bird migration in the US using archived weather radar
 #' data and convolutional neural networks. Methods in Ecology and Evolution 10
-#' (11), pp. 1908-22. <doi:10.1111/2041-210X.13280>
+#' (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
 #'
 #' @examples
 #' \dontrun{
@@ -515,9 +515,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
           "Current vol2bird installation does not support using a custom path for the configuration file. Please update your vol2bird."
         )
       )
-      cmd <- glue("{local_install} -c {optfile} -i {file} -o {profile.tmp}")
+      file_input_shell <- paste("-i ", format_file_for_shell(file), sep = "", collapse = " ")
+      profile_output_shell <- paste0(format_file_for_shell(dirname(profile.tmp)),"/",basename(profile.tmp))
+      cmd <- paste(local_install,"-c",optfile,file_input_shell,"-o",profile_output_shell)
       if (pvolfile_out != "") {
-        cmd <- glue("{cmd} -p {pvolfile_out}")
+        volume_output_shell <- format_file_for_shell(pvolfile_out)
+        cmd <- paste(cmd,"-p", volume_output_shell)
       }
       # using a local install of vol2bird:
       result <- system(glue('bash -l -c "{cmd}"'),
@@ -548,3 +551,5 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   output
 }
+
+format_file_for_shell <- function(x) sapply(x, function(file) system(paste("/bin/bash -c", shQuote(paste("printf %q", shQuote(normalizePath(file))))), intern = T),USE.NAMES=FALSE)

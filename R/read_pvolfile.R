@@ -74,6 +74,9 @@ read_pvolfile <- function(file, param = c(
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file), local_install) {
+  if(!file.exists(file)){
+     stop(paste0("'",file,"' does not exist in current working directory ('",getwd(),"')."))
+  }
   tryCatch(read_pvolfile_body(
     file, param, sort, lat, lon,
     height, elev_min, elev_max,

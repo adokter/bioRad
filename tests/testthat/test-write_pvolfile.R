@@ -30,4 +30,45 @@ test_that("write_pvolfile() writes data to the same dtype if infer_dtype = FALSE
   expect_equal(old_dtypes, new_dtypes)
 })
 
+test_that("write_pvolfile() writes 8-bit integer if possible and conversion is missing", {
+  pvol_noconversion <- pvol
+  attributes(pvol_noconversion$scans[[1]]$params$DBZH)$conversion <- NULL
+  write_pvolfile(pvol_noconversion, testpath, overwrite = TRUE)
+  pvol_new <- read_pvolfile(testpath)
+  expect_equal(attributes(pvol_new$scans[[1]]$params$DBZH)$conversion,
+               attributes(pvol$scans[[1]]$params$DBZH)$conversion)
+  expect_equal(attributes(pvol_new$scans[[1]]$params$DBZH)$conversion$dtype,
+               "H5T_STD_U8BE")
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
+               matrix(pvol_new$scans[[1]]$params[['DBZH']]))
+})
 
+test_that("write_pvolfile() writes 16-bit integer if possible and conversion is missing", {
+  pvol_noconversion <- calculate_param(pvol, DBZH = DBZH * 100)
+  attributes(pvol_noconversion$scans[[1]]$params$DBZH)$conversion <- NULL
+  write_pvolfile(pvol_noconversion, testpath, overwrite = TRUE)
+  pvol_new <- read_pvolfile(testpath)
+  conv <- attributes(pvol_new$scans[[1]]$params$DBZH)$conversion
+  expect_equal(conv$dtype, "H5T_STD_I16BE")
+  expect_equal(conv$offset, -3001)
+  expect_equal(conv$gain, 1)
+  expect_equal(conv$nodata, 65535)
+  expect_equal(conv$undetect, 0)
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
+               matrix(pvol_new$scans[[1]]$params[['DBZH']]))
+})
+
+test_that("write_pvolfile() writes float if values are not integers and conversion is missing", {
+  pvol_noconversion <- calculate_param(pvol, DBZH = DBZH * 100.123)
+  attributes(pvol_noconversion$scans[[1]]$params$DBZH)$conversion <- NULL
+  write_pvolfile(pvol_noconversion, testpath, overwrite = TRUE)
+  pvol_new <- read_pvolfile(testpath)
+  conv <- attributes(pvol_new$scans[[1]]$params$DBZH)$conversion
+  expect_equal(conv$dtype, "H5T_IEEE_F32BE")
+  expect_equal(conv$offset, -3005)
+  expect_equal(conv$gain, 1)
+  expect_equal(conv$nodata, 8513)
+  expect_equal(conv$undetect, 0)
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
+               matrix(pvol_new$scans[[1]]$params[['DBZH']]), tolerance = 1e-5)
+})

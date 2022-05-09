@@ -25,7 +25,7 @@ library(bioRad)
 
 Radar data needed for this practical can be downloaded [here](https://www.dropbox.com/sh/hghu27u9zsqljsj/AABZSvoq1gEJ_OSVJpn2jzs9a?dl=0).
 
-Follow bioRad's [install instructions](http://adokter.github.io/bioRad/dev), and install the latest development version to be fully up-to-date.
+Follow bioRad's [install instructions](https://adriaandokter.com/bioRad/dev/), and install the latest development version to be fully up-to-date.
 
 Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
 
@@ -43,7 +43,7 @@ library(devtools)
 install_github("adokter/bioRad")
 ```
 
-All bioRad's functions are documented in an extensive [function reference](http://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
+All bioRad's functions are documented in an extensive [function reference](https://adriaandokter.com/bioRad/dev/reference/index.html) online, as well as in manual pages within R:
 
 ```{r, eval=SHOW_ANSWERS}
 # bring up the package general help page:
@@ -419,14 +419,14 @@ plot(my_vpts, quantity = "DBZH")
 ### 3.1 Obtaining radar data
 
 * US NEXRAD polar volume data can be accessed in the [Amazon cloud](https://s3.amazonaws.com/noaa-nexrad-level2/index.html).
-* European radar data can be accessed at http://enram.github.io/data-repository/. These are processed vertical profiles, the full polar volume data are not openly available for most countries.
+* European radar data can be accessed at https://aloftdata.eu. These are processed vertical profiles, the full polar volume data are not openly available for most countries.
 
 The names of the radars in the networks can be found here:
 
 * US: [NEXRAD network](https://radar.weather.gov/)
 * Europe: [OPERA database](http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html)
 
-Useful sites for inspecting pre-made movies of the US composite are <http://birdcast.info/live-migration-maps/> and <http://www.pauljhurtado.com/US_Composite_Radar/>.
+Useful sites for inspecting pre-made movies of the US composite are <https://birdcast.info/migration-tools/live-migration-maps/> and <https://www.pauljhurtado.com/US_Composite_Radar/>.
 
 ### 3.2 Processing a single polar volume with the vol2bird algorithm
 

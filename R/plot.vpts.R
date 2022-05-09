@@ -21,6 +21,11 @@
 #' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
+#' @param na_color Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param nan_color Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param n_color The number of colors (>=1) to be in the palette.
+#' @param palette (Optional) character vector of hexadecimal color values defining
+#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{image} plotting function.
 #' @param barbs.h Deprecated argument, use barbs_height instead.
@@ -32,8 +37,7 @@
 #'
 #' @export
 #'
-#' @details
-#' Profile can be visualized in four related quantities, as specified
+#' @details Aerial abundances can be visualized in four related quantities, as specified
 #' by argument \code{quantity}:
 #' \describe{
 #'  \item{"\code{dens}"}{the aerial density of individuals. This quantity is
@@ -50,8 +54,28 @@
 #'    reflectivity factor of all scatterers (biological and meteorological
 #'    scattering combined)}
 #' }
+#'
+#' Aerial velocities can be visualized in three related quantities, as specified
+#' by argument \code{quantity}:
+#' \describe{
+#'  \item{"\code{ff}"}{ground speed. The aerial velocity relative to the
+#'    ground surface in m/s.}
+#'  \item{"\code{u}"}{eastward ground speed component in m/s.}
+#'  \item{"\code{v}"}{northward ground speed component in m/s.}
+#' }
+#'
+#' ## barbs
 #' In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
 #' each pennant (triangle) 25 m/s
+#'
+#' ## legend_ticks / zlim
+#' Default legend ticks and plotting range are specified based on \code{quantity},
+#' radar wavelength (S- vs C-band), and value of \code{log}
+#'
+#' ## log
+#' Quantities \code{u} and \code{v} cannot be plotted on a logarithmic scale, because
+#' these quantities assume negative values.  For quantities \code{DBZH} and \code{dbz}
+#' \code{log=TRUE} is ignored, because these quantities are already logarithmic.
 #'
 #' @examples
 #' # locate example file:
@@ -61,14 +85,32 @@
 #' plot(ts[1:500], ylim = c(0, 3000))
 #' # plot total reflectivity factor (rain, birds, insects together):
 #' plot(ts[1:500], ylim = c(0, 3000), quantity = "DBZH")
+#' # regularize the time grid, which includes empty (NA) profiles at
+#' # time steps without data:
+#' ts_regular <- regularize_vpts(ts)
+#' plot(ts_regular)
+#' # change the color of missing NA data to red
+#' plot(ts_regular, na_color="red")
+#' # change the color palette:
+#' plot(ts_regular[1:1000], ylim = c(0, 3000), palette=viridis::viridis(1000))
+#' # change and inverse the color palette:
+#' plot(ts_regular[1:1000], ylim = c(0, 3000), palette=rev(viridis::viridis(1000, option="A")))
+#' # plot the speed profile:
+#' plot(ts_regular[1:1000], quantity="ff")
+#' # plot the northward speed component:
+#' plot(ts_regular[1:1000], quantity="v")
+#' # plot speed profile with more legend ticks,
+#' plot(ts_regular[1:1000], quantity="ff", legend_ticks=seq(0,20,2), zlim=c(0,20))
 plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
-                      log = TRUE, barbs = TRUE, barbs_height = 10,
+                      log = NA, barbs = TRUE, barbs_height = 10,
                       barbs_time = 20, barbs_dens_min = 5,
                       zlim, legend_ticks, legend.ticks, main,
                       barbs.h = 10, barbs.t = 20, barbs.dens = 5,
+                      na_color = "#C8C8C8", nan_color = "white",
+                      n_color=1000, palette = NA,
                       ...) {
   stopifnot(inherits(x, "vpts"))
-  stopifnot(quantity %in% c("dens", "eta", "dbz", "DBZH"))
+  stopifnot(quantity %in% names(x$data))
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
@@ -108,11 +150,24 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
   }
 
+  if(are_equal(log, NA)){
+    if(quantity %in% c("dens","eta")){
+      log = TRUE
+    }
+    else{
+      log = FALSE
+    }
+  }
   assert_that(is.flag(log))
+
+  assert_that(is.count(n_color))
+  assert_that(is.string(na_color))
+  if(!missing(nan_color)) assert_that(is.string(nan_color))
+
   if (!missing(zlim)) {
     assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
     if (log && !(quantity %in% c("DBZH", "dbz"))) {
-      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' has the (default) value TRUE. Run ?plot.vpts for details.")
+      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
     }
   }
 
@@ -125,6 +180,11 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
 
   # prepare zlim, ticks and legendticks
   if (missing(zlim)) {
+    # first define defaults:
+    finite_data <- (x$data[[quantity]][is.finite(x$data[[quantity]])])
+    zlim = c(min(finite_data),max(finite_data))
+    legendticks <- ticks <- seq(zlim[1], zlim[2], length.out = 10)
+    # specific quantities:
     if (quantity == "dens" & log) {
       ticks <- legendticks <- c(1, 2, 5, 10, 25, 50, 100, 200, 500, 1000)
       zlim <- c(.5, 1000)
@@ -151,6 +211,23 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
         zlim <- c(-20, 10)
       }
     }
+    if (quantity %in% c('u','v')) {
+      ticks <- legendticks <- seq(-20, 20, 5)
+      zlim <- c(-20, 20)
+    }
+    if (quantity == "ff" & log) {
+      ticks <- legendticks <- c(1, 2, 5, 10, 20)
+      zlim <- c(1, 20)
+    }
+    if (quantity == "ff" & !log) {
+      ticks <- legendticks <- seq(0, 20, 5)
+      zlim <- c(0, 20)
+    }
+    if (quantity %in% c("dd","heading") & !log){
+      ticks <- legendticks <- seq(0,360,45)
+      zlim <- c(0,360)
+    }
+
   } else {
     ticks <- legendticks <- seq(zlim[1], zlim[2], length.out = 10)
   }
@@ -160,38 +237,38 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
 
   # set up the plot labels
   if (missing(main)) {
-    if (quantity == "dens") main <- expression("volume density [#/km"^3 * "]")
-    if (quantity == "eta") main <- expression("reflectivity " * eta * " [cm"^2 * "/km"^3 * "]")
-    if (quantity == "dbz") main <- expression("reflectivity factor [dBZ"[e] * "]")
-    if (quantity == "DBZH") main <- expression("total reflectivity factor [dBZ"[e] * "]")
+    main <- switch(quantity,
+                   "dens" = expression("volume density [#/km"^3 * "]"),
+                   "eta" = expression("reflectivity " * eta * " [cm"^2 * "/km"^3 * "]"),
+                   "dbz" = expression("reflectivity factor [dBZ"[e] * "]"),
+                   "DBZH" = expression("total reflectivity factor [dBZ"[e] * "]"),
+                   "ff" = expression("ground speed [m/s]"),
+                   "dd" = expression("ground speed direction [deg]"),
+                   "u" = expression("eastward ground speed component u [m/s]"),
+                   "v" = expression("northward ground speed component v [m/s]"),
+                   quantity
+    )
   }
 
   # extract the data from the time series object
-  if (quantity == "dens") plotdata <- t(get_quantity(x, quantity))
-  if (quantity == "eta") plotdata <- t(get_quantity(x, quantity))
-  if (quantity == "dbz") {
-    if (log) {
-      if (!missing(log)) {
+  plotdata <- t(get_quantity(x, quantity))
+
+  # check if we should ignore log argument
+  if (log & quantity %in% c("dbz","DBZH","u","v")) {
+    if (!missing(log)) {
+      if(quantity %in% c("dbz","DBZH")){
         warning(
-          "Reflectivity factor 'dbz' is already logarithmic,",
-          "ignoring 'log' argument..."
+          paste("Reflectivity factor",quantity,"is already logarithmic,",
+                "ignoring 'log' argument...")
+        )
+      } else{
+        warning(
+          paste("Velocity",quantity,"has negative values and can't be plotted on a log scale,",
+                "ignoring 'log' argument...")
         )
       }
-      log <- FALSE
     }
-    plotdata <- t(get_quantity(x, quantity))
-  }
-  if (quantity == "DBZH") {
-    if (log) {
-      if (!missing(log)) {
-        warning(
-          "Total reflectivity factor 'DBZH' is already logarithmic,",
-          "ignoring 'log' argument..."
-        )
-      }
-      log <- FALSE
-    }
-    plotdata <- t(get_quantity(x, quantity))
+    log <- FALSE
   }
 
   # do log-transformations:
@@ -200,36 +277,48 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     legendticks <- log(ticks)
     zlim <- log(zlim)
   }
-  breaks <- c(
-    zlim[1] - (zlim[2] - zlim[1]) / 1000,
-    seq(zlim[1], zlim[2], length.out = 256)
-  )
+
+  # set color scales and (palettes
+  if (!are_equal(palette, NA)) {
+    if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
+  }
+  else{
+    if(quantity %in% c("dens","eta","dbz","DBZH")){
+      palette <- colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
+    } else if(quantity %in% c("u","v")){
+      palette <- rev(color_palette("VRADH", n_color=n_color))
+    } else if(quantity %in% c("dd","heading")){
+      palette <- c(rev(viridis::magma(n_color/2)),viridis::magma(n_color/2))
+    } else{
+      palette <- rev(viridis::magma(n_color))
+    }
+  }
+  
+  # add NA and NaN colors add beginning of palette
+  palette_na_nan <- c(na_color, nan_color, palette)
+
+  zstep <- (zlim[2] - zlim[1]) / length(palette);
+  breaks <- seq(zlim[1]-2*zstep, zlim[2], length.out = length(palette_na_nan)+1)
 
   # if a regular time series, use the regular timegrid for plotting
   # (in case keep_datetime = TRUE option is used in regularize_vpts())
   if(x$regular) x$datetime <- seq(from = x$daterange[1], to = x$daterange[2], by = x$timesteps[1])
 
   # move points out of zlim range into valid color range
-  plotdata[plotdata < (breaks[2] + breaks[3]) / 2] <- (breaks[2] + breaks[3]) / 2
-  plotdata[plotdata > zlim[2]] <- breaks[length(breaks)]
-  plotdata[is.na2(plotdata)] <- (breaks[1] + breaks[2]) / 2
+  plotdata[plotdata < zlim[1]] <- zlim[1]
+  plotdata[plotdata > zlim[2]] <- zlim[2]
+  # set NA and NaN values
+  plotdata[is.na2(plotdata)] <- zlim[1]-1.5*zstep
+  plotdata[is.nan(plotdata)] <- zlim[1]-0.5*zstep
 
-  zlim[1] <- breaks[1]
-  axis.args <- list(at = legendticks, labels = ticks)
-  # FIXME: want to change this to
-  # plotdata[is.nan(plotdata)]=(breaks[2]+breaks[3])/2
-  # when calculate_vp stdout also differentiates between NA and NaN:
-  plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
-  # FIXME: want to change this to
-  # plotdata[is.na2(plotdata)]=(breaks[1]+breaks[2])/2
-  # when calculate_vp stdout also differentiates between NA and NaN:
-  plotdata[is.na(plotdata)] <- (breaks[2] + breaks[3]) / 2
   stopifnot(!is.null(interval <- x$attributes$where$interval))
+  axis.args <- list(at = legendticks, labels = ticks)
+
   # plot the image
   image.plot(x$datetime, x$height + interval / 2, plotdata,
-    col = plot_colors, xlab = xlab,
+    col = palette_na_nan, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
-    zlim = zlim, main = main, ...
+    zlim = c(zlim[1]-2*zstep,zlim[2]), main = main, ...
   )
 
   # overlay speed barbs

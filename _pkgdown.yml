@@ -1,4 +1,4 @@
-url: https://adokter.github.io/bioRad
+url: https://adriaandokter.com/bioRad
 
 template:
   params:
@@ -21,7 +21,7 @@ authors:
 home:
   links:
     - text: Browse latest development docs
-      href: "https://adokter.github.io/bioRad/dev/"
+      href: "https://adriaandokter.com/bioRad/dev/"
 
 reference:
   - title: "Reading radar data"
@@ -51,6 +51,7 @@ reference:
       - integrate_to_ppi
       - calculate_param
       - apply_mistnet
+      - Math.scan
   - title: "Plotting radar scans"
     desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
     contents:

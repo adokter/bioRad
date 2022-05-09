@@ -24,7 +24,7 @@ check_docker <- function(verbose = TRUE) {
     return(1)
   }
 
-  if (class(check) != "numeric_version") {
+  if (!inherits(check,"numeric_version")) {
     if (is.nan(check)) {
       if (verbose) warning("Docker daemon not running, please start Docker")
       return(2)
@@ -205,7 +205,7 @@ vol2bird_version <- function(local_install) {
   imagePresentMistnet <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird-mistnet:latest", sep = ""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
 
   # return NA if docker command not found (docker not installed)
-  if (class(imagePresent) == "try-error") {
+  if (inherits(imagePresent, "try-error")) {
     return(NA)
   }
 

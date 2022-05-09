@@ -9,19 +9,31 @@
 #'
 #' @rdname Ops
 #' @details
-#' These function do not attempt to check if the operations are sensible.
-#' For example when combining logarithmic values (e.g. DBZ) it might make
-#' sense to first take the exponent them before summing them.
-#'
-#' When doing operations on object of length one the arguments are recycled.
+#' Use caution when applying these manipulations, as there are no
+#' consistency checks if the operations lead to interpretable outcomes.
+#' For example, when averaging scans with logarithmic values (e.g. DBZ), it might be required
+#' to first exponentiate the data before summing.
 #'
 #' Attributes are taken from the first object in the operation.
 #'
-#' If a \code{pvol} is multiplied by a list arguments are taken from the list per scan.
+#' When a \code{pvol} is multiplied by a list, in which case arguments are taken from the list per scan.
 #' this requires the list to have the same length as the number of scans.
 #'
 #' @export
 #'
+#' @seealso
+#' * [calculate_param()]
+#'
+#' @examples
+#' # Locate and read the polar volume example file
+#' scan1 <- example_scan
+#'
+#' #add a value of 1 to all scan parameters:
+#' scan2 <- example_scan + 1
+#'
+#' # average the scan parameters of two scans:
+#' # NB: requires identical scan parameter names and order!
+#' (scan1 + scan2)/2
 `Math.scan` <- function(x, ...) {
   if (.Generic %in% c(
     "lgamma", "gamma", "digamma", "trigamma",

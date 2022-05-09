@@ -30,7 +30,7 @@ downloaded files of the same names.}
 }
 \description{
 Download and unzip a selection of vertical profile (\code{vp}) files from the
-\href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+\href{https://aloftdata.eu/}{ENRAM data repository}, where
 these are stored as monthly zips per radar.
 }
 \examples{
