@@ -4,28 +4,23 @@
 \alias{nexrad_to_odim}
 \title{Convert a NEXRAD polar volume file to an ODIM polar volume file}
 \usage{
-nexrad_to_odim(
-  pvolfile_nexrad,
-  pvolfile_odim,
-  verbose = FALSE,
-  mount = dirname(pvolfile_nexrad),
-  local_install
-)
+nexrad_to_odim(pvolfile_nexrad, pvolfile_odim, verbose = FALSE)
 }
 \arguments{
-\item{pvolfile_nexrad}{Polar volume input file in RSL format.}
+\item{pvolfile_nexrad}{Character (vector). Either a path to a single radar polar volume
+(\code{pvol}) file containing multiple scans/sweeps, or multiple paths to scan
+files containing a single scan/sweep. Or a single \code{pvol} object. The file data format should be either 1)
+\href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM}
+format, which is the implementation of the OPERA data information model in
+the \href{https://support.hdfgroup.org/HDF5/}{HDF5} format, 2) a format
+supported by the \href{https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL library} or 3) Vaisala
+IRIS (IRIS RAW) format.}
 
 \item{pvolfile_odim}{Filename for the polar volume in ODIM HDF5 format to be
 generated.}
 
 \item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
 console. Always \code{TRUE} on Windows.}
-
-\item{mount}{Character. Directory path of the mount point for the Docker
-container.}
-
-\item{local_install}{Character. Path to local vol2bird installation (e.g.
-\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh}).}
 }
 \value{
 \code{TRUE} on success

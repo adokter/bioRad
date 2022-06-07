@@ -46,7 +46,8 @@ Imports:
     tidyr,
     utils,
     viridisLite,
-    viridis
+    viridis,
+    vol2birdR
 Suggests:
     knitr,
     rlang,
@@ -58,5 +59,5 @@ Suggests:
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
