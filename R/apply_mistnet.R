@@ -130,8 +130,8 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
 
   assert_that(file.exists(file))
 
-  if (!.pkgenv$mistnet && missing(local_mistnet)) {
-    stop("MistNet has not been installed, see update_docker() for install instructions")
+  if (!vol2birdR::mistnet_exists() && missing(local_mistnet)) {
+    stop("MistNet has not been installed, see vol2birdR package documentation for install instructions")
   }
 
   assert_that(is.numeric(mistnet_elevations))

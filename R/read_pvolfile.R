@@ -128,12 +128,6 @@ read_pvolfile_body <- function(file, param = c(
     if (verbose && missing(local_install)) {
       cat("Converting using Docker...\n")
     }
-    if (!.pkgenv$docker && missing(local_install)) {
-      stop(
-        "Requires a running Docker daemon.\nTo enable, start your ",
-        "local Docker daemon, and run 'check_docker()' in R\n"
-      )
-    }
     file <- nexrad_to_odim_tempfile(file,
       verbose = verbose,
       mount = mount, local_install

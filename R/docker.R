@@ -19,9 +19,5 @@ vol2bird_version <- function(local_install) {
     return(numeric_version(vol2bird_version))
   }
 
-  if(vol2birdR::mistnet_exists()){
-    .pkgenv$mistnet <- TRUE
-  }
-
   return(vol2birdR::vol2bird_version())
 }

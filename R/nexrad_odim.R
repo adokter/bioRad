@@ -55,12 +55,6 @@ nexrad_to_odim_tempfile <- function(pvolfile, verbose = FALSE,
       mount
     ))
   }
-  if (!.pkgenv$docker && missing(local_install)) {
-    stop(
-      "Requires a running Docker daemon.\nTo enable, start your",
-      "local Docker daemon, and run 'check_docker()' in R\n"
-    )
-  }
   if (!file.exists(pvolfile)) {
     stop("No such file or directory")
   }

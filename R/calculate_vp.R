@@ -259,8 +259,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
   if (mistnet){
     if(missing(local_mistnet)){
-      if (!.pkgenv$mistnet) {
-        stop("MistNet has not been installed, see update_docker() for install instructions.")
+      if (!vol2birdR::mistnet_exists()) {
+        stop("MistNet has not been installed, see vol2birdR package documentation for install instructions.")
       }
     }
     else{
@@ -287,12 +287,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
-  if (!.pkgenv$docker && missing(local_install)) {
-    stop(
-      "Requires a running Docker daemon.\nTo enable calculate_vp(), start ",
-      "your local Docker daemon, and run check_docker() in R."
-    )
-  }
   assert_that(is.flag(autoconf))
   assert_that(is.flag(verbose))
   assert_that(is.flag(warnings))
@@ -364,32 +358,15 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assert_that(is.flag(mistnet))
   assert_that(
-    !(mistnet && !.pkgenv$mistnet && missing(local_mistnet)),
+    !(mistnet && !vol2birdR::mistnet_exists() && missing(local_mistnet)),
     msg = "Can't find MistNet installation, see update_docker() for install instructions.")
   assert_that(is.flag(dealias))
-  assert_that(
-    .pkgenv$docker | !missing(local_install),
-    msg = glue(
-      "Requires a running Docker daemon.\nTo enable calculate_vp(), start ",
-      "your local Docker daemon, and run check_docker() in R."
-    )
-  )
+
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assert_that(is.writeable(filedir))
   assert_that(
     grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
     msg = "Mount point `mount` must be a parent directory of the input `file`."
-  )
-
-  # check whether vol2bird container supports multiple input files
-  multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
-  if (!missing(local_install)) multi_file_support <- TRUE
-  assert_that(!(length(file) > 1 && !multi_file_support),
-    msg = glue(
-      "Current vol2bird installation does not support multiple input files. ",
-      "Provide a single input file containing a polar volume, or run ",
-      "update_docker() to update."
-    )
   )
 
   profile.tmp <- tempfile(tmpdir = filedir)
