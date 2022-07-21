@@ -174,10 +174,6 @@ mount_docker_container <- function(mount = "~/") {
 
 #' Check version of the vol2bird algorithm used by bioRad
 #'
-#' Checks that \href{https://www.docker.com/}{Docker} daemon is running
-#' correctly on the local system and returns the version of the
-#' installed vol2bird algorithm in the Docker container.
-#'
 #' @details when argument \code{local_install} is specified with
 #' a path to a local executable of vol2bird, the function will return
 #' the version of this local installation.
@@ -185,73 +181,21 @@ mount_docker_container <- function(mount = "~/") {
 #' @export
 #' @param local_install (optional) String with path to local
 #' vol2bird installation, see \link{calculate_vp} for details.
-#' @return an object of class \link{numeric_version}, NA if docker system command not available,
-#' NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available
+#' @return an object of class \link{numeric_version}
+#'
 #' @examples
-#' \dontrun{
 #' # check installed vol2bird version:
 #' vol2bird_version()
-#' }
 vol2bird_version <- function(local_install) {
-  creationDate <- NA
-
   if (!missing(local_install)) {
     vol2bird_version <- suppressWarnings(system(paste("bash -l -c \"", local_install, "--version\""), intern = T))
     vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][3]
     return(numeric_version(vol2bird_version))
   }
 
-  imagePresent <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird:latest", sep = ""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
-  imagePresentMistnet <- suppressWarnings(try(system(paste("docker images -q adokter/vol2bird-mistnet:latest", sep = ""), intern = TRUE, ignore.stderr = TRUE), silent = TRUE))
-
-  # return NA if docker command not found (docker not installed)
-  if (inherits(imagePresent, "try-error")) {
-    return(NA)
-  }
-
-  # return NaN if docker command executed, but threw an error status
-  # this happens when Docker is installed, but when the Docker daemon is not running
-  if ("status" %in% names(attributes(imagePresent))) {
-    return(NaN)
-  }
-
-  # return NULL if the container is not available
-  if (length(imagePresent) == 0) {
-    return(NULL)
-  }
-
-  if (length(imagePresentMistnet) == 0) {
-    image_name <- "vol2bird"
-    .pkgenv$mistnet <- FALSE
-  }
-  else {
-    image_name <- "vol2bird-mistnet"
+  if(vol2birdR::mistnet_exists()){
     .pkgenv$mistnet <- TRUE
   }
 
-  creationDate <- suppressWarnings(try(system(
-    paste("docker inspect -f \"{{ .Created }}\" adokter/", image_name, sep = ""),
-    intern = TRUE, ignore.stderr = TRUE
-  ), silent = TRUE))
-
-  # docker reports time stamps in Zulu (UTC) time
-  creationDate <- as.POSIXct(creationDate, format = "%Y-%m-%dT%T", tz = "UTC")
-
-  if (as.numeric(format(creationDate, "%Y")) < 2019) {
-    # vol2bird version generated before 2019, i.e. version < 0.4.0
-    vol2bird_version <- suppressWarnings(system(
-      paste("docker run --rm adokter/", image_name, " bash -c \"vol2bird 2>&1 | grep Version\"", sep = ""),
-      intern = TRUE
-    ))
-    vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][2]
-  }
-  else {
-    # vol2bird version >= 0.4.0, supporting --version argument
-    vol2bird_version <- suppressWarnings(system(
-      paste("docker run --rm adokter/", image_name, " bash -c \"vol2bird --version\"", sep = ""),
-      intern = TRUE
-    ))
-    vol2bird_version <- strsplit(trimws(vol2bird_version), split = " ")[[1]][3]
-  }
-  return(numeric_version(vol2bird_version))
+  return(vol2birdR::vol2bird_version())
 }
