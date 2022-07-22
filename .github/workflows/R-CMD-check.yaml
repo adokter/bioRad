@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-12,   r: 'release'}
+          - {os: macOS-latest,   r: 'release'}
           #- {os: windows-latest, r: 'release'}
           - {os: ubuntu-20.04,   r: 'devel'}
           #- {os: ubuntu-latest,   r: 'release'}
@@ -34,7 +34,7 @@ jobs:
       - name: Install macOS system dependencies
         if: runner.os == 'macOS'
         run: |
-          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl
+          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl gdal
      
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
