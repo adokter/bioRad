@@ -54,7 +54,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pak::local_install_deps(upgrade = TRUE)
+          pak::local_install_deps(upgrade = FALSE)
           pak::pkg_install("rcmdcheck")
           pak::pkg_install("rmarkdown")
           pak::pkg_install("markdown")
