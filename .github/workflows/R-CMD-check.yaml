@@ -34,7 +34,7 @@ jobs:
       - name: Install macOS system dependencies
         if: runner.os == 'macOS'
         run: |
-          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl gdal
+          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl
      
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -54,7 +54,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
+          pak::local_install_deps(upgrade = TRUE)
           pak::pkg_install("rcmdcheck")
           pak::pkg_install("rmarkdown")
           pak::pkg_install("markdown")
