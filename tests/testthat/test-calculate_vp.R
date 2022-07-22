@@ -158,6 +158,7 @@ test_that("calculate_vp() ignores input arguments if autoconf", {
 })
 
 test_that("MistNet adds param WEATHER", {
+  skip_if_no_mistnet()
   vp <- calculate_vp(file = pvolfile, pvolfile_out = pvolfile_out, warnings = FALSE, mistnet = TRUE)
   pvol_from_file <- read_pvolfile(pvolfile_out)
 

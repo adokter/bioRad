@@ -47,10 +47,10 @@ stored in file is overwritten.}
 \item{verbose}{A logical value, whether to print messages (\code{TRUE})
 to console.}
 
-\item{mount}{A character string with the mount point (a directory path)
+\item{mount}{(deprecated) A character string with the mount point (a directory path)
 for the Docker container.}
 
-\item{local_install}{(optional) String with path to local vol2bird installation,
+\item{local_install}{(deprecated) String with path to local vol2bird installation,
 to use local installation instead of Docker container}
 }
 \value{

@@ -19,8 +19,8 @@ IRIS (IRIS RAW) format.}
 \item{pvolfile_odim}{Filename for the polar volume in ODIM HDF5 format to be
 generated.}
 
-\item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
-console. Always \code{TRUE} on Windows.}
+\item{verbose}{Logical. When \code{TRUE}, vol2bird \code{stdout} is piped to the R
+console.}
 }
 \value{
 \code{TRUE} on success
