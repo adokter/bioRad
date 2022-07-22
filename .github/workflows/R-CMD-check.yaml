@@ -19,7 +19,7 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest,   r: 'release'}
-          #- {os: windows-latest, r: 'release'}
+          - {os: windows-latest, r: 'release'}
           - {os: ubuntu-20.04,   r: 'devel'}
           #- {os: ubuntu-latest,   r: 'release'}
     env:
@@ -54,6 +54,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # set upgrade to FALSE because otherwise several package that are not strict dependencies
+          # (like terra) get triggered to build and fail
           pak::local_install_deps(upgrade = FALSE)
           pak::pkg_install("rcmdcheck")
           pak::pkg_install("rmarkdown")
