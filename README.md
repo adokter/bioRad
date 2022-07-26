@@ -45,6 +45,8 @@ Documentation for the latest development version can be found
 
 ## Installation
 
+### Install system libraries
+
 For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5
 libraries need to be installed as system libraries prior to
 installation, which are required by dependency package
@@ -71,6 +73,8 @@ Linux systems. In terminal, install these with:
 </details>
 
 <br>
+
+### Install bioRad
 
 bioRad depends on packages from both the
 [CRAN](https://CRAN.R-project.org) and
@@ -103,6 +107,19 @@ library(bioRad)
 #> Welcome to bioRad version 0.7.0.9517
 #> using vol2bird version 0.5.0.9174 (MistNet not installed)
 ```
+
+### (optional) Enable MistNet
+
+To enable MistNet, the following vol2birdR commands should be executed:
+
+``` r
+vol2birdR::install_mistnet()
+vol2birdR::install_mistnet_model()
+```
+
+Read the [vol2birdR
+documentation](https://adriaandokter.com/vol2birdR/articles/vol2birdR.html)
+for more details.
 
 ## Usage
 

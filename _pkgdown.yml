@@ -69,10 +69,7 @@ reference:
     desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon."
     contents:
       - calculate_vp
-      - check_docker
-      - update_docker
       - nexrad_to_odim # Repeated
-      - vol2bird_version
   - title: "Reading vertical profile data"
     desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
     contents:

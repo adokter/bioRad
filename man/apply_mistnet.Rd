@@ -93,6 +93,10 @@ See Lin et al. 2019 for details.
 }
 \examples{
 \dontrun{
+# make sure you have installed the MistNet libraries and model, using:
+# vol2birdR::install_mistnet()
+# vol2birdR::install_mistnet_model()
+
 # download a NEXRAD file, save as KBGM_example
 download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
   "2019/10/01/KBGM/KBGM20191001_000542_V06",
