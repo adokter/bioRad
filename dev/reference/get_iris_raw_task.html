@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -74,25 +74,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_iris_raw_task</span><span class="op">(</span>
-  <span class="va">file</span>,
-  header_size <span class="op">=</span> <span class="fl">50</span>,
-  task <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WIND"</span>, <span class="st">"SURVEILLANCE"</span>, <span class="st">"VOL_A"</span>, <span class="st">"VOL_B"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_iris_raw_task</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  header_size <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  task <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WIND"</span>, <span class="st">"SURVEILLANCE"</span>, <span class="st">"VOL_A"</span>, <span class="st">"VOL_B"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file</dt>
 <dd><p>A string containing a file name.</p></dd>
+
+
 <dt>header_size</dt>
 <dd><p>Number of header bytes to search</p></dd>
+
+
 <dt>task</dt>
 <dd><p>task names to search for in the file header</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>one of the <code>task</code> names found in the header, <code>NA</code> if none of the task names were found.</p>
+    
+
+<p>one of the <code>task</code> names found in the header, <code>NA</code> if none of the task names were found.</p>
     </div>
 
   </div>
@@ -107,7 +114,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

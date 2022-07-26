@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -74,20 +74,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">attribute_table</span><span class="op">(</span>
-  <span class="va">x</span>,
-  select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"how.lowprf"</span>, <span class="st">"how.midprf"</span>, <span class="st">"how.highprf"</span>, <span class="st">"where.elangle"</span>, <span class="st">"where.nbins"</span>,
-    <span class="st">"where.nrays"</span>, <span class="st">"where.rscale"</span>, <span class="st">"how.NI"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">attribute_table</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"how.lowprf"</span>, <span class="st">"how.midprf"</span>, <span class="st">"how.highprf"</span>, <span class="st">"where.elangle"</span>, <span class="st">"where.nbins"</span>,</span>
+<span>    <span class="st">"where.nrays"</span>, <span class="st">"where.rscale"</span>, <span class="st">"how.NI"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>Either a pvol or scan for which the table should be created.</p></dd>
+
+
 <dt>select</dt>
 <dd><p>A character vector which the column names that should be returned when NULL all attributes are to be returned</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Currently not used</p>
 <p>This function tabulates the attributes of one scan or all scans of a pvol.
@@ -95,20 +99,21 @@ Attributes that have a length longer then one are presented as a list column.
 By default the function returns a limited set of columns to keep the output clear.
 It is important to note that attributes of the full polar volume can contain additional information on processing that is not included in the resulting table.
 This function only tabulates attributes of the scans.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">attribute_table</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">attribute_table</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    how.NI how.highprf how.lowprf where.elangle where.nbins where.nrays</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  24.06897         600        450           0.5         480         360</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  where.rscale                          param</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           500 DBZH, VRADH, RHOHV, ZDR, PHIDP</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">attribute_table</span><span class="op">(</span><span class="va">example_pvol</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">attribute_table</span><span class="op">(</span><span class="va">example_pvol</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     how.NI how.highprf how.lowprf where.elangle where.nbins where.nrays</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   24.06897         600        450           0.5         480         360</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 24.06897         600        450           1.5         480         360</span>
@@ -131,7 +136,7 @@ This function only tabulates attributes of the scans.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

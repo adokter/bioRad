@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -74,7 +74,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="va">example_vpts</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">example_vpts</span></span></code></pre></div>
     </div>
 
     <div id="format">
@@ -90,30 +90,30 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Reload example_vpts from package (e.g. in case it was altered)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Get summary info</span></span>
-<span class="r-in"><span class="va">example_vpts</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Reload example_vpts from package (e.g. in case it was altered)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get summary info</span></span></span>
+<span class="r-in"><span><span class="va">example_vpts</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  1934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  16320 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># example_vpts was created with</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">vptsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"vpts.txt.zip"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">vptsfile</span>, exdir <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">vptsfile</span><span class="op">)</span><span class="op">)</span>, junkpaths <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vptsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">vptsfile</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">vptsfile</span><span class="op">)</span> <span class="op">-</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_vpts</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_vpts.html">read_vpts</a></span><span class="op">(</span><span class="va">vptsfile</span>, radar <span class="op">=</span> <span class="st">"KBGM"</span>, wavelength <span class="op">=</span> <span class="st">"S"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span>
-<span class="r-in"><span class="fu"><a href="sd_vvp_threshold.html">sd_vvp_threshold</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="va">example_vpts</span><span class="op">$</span><span class="va">attributes</span><span class="op">$</span><span class="va">where</span><span class="op">$</span><span class="va">lat</span> <span class="op">&lt;-</span> <span class="fl">42.2</span></span>
-<span class="r-in"><span class="va">example_vpts</span><span class="op">$</span><span class="va">attributes</span><span class="op">$</span><span class="va">where</span><span class="op">$</span><span class="va">lon</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">75.98</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">example_vpts</span>, file <span class="op">=</span> <span class="st">"data/example_vpts.rda"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example_vpts was created with</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">vptsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"vpts.txt.zip"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">vptsfile</span>, exdir <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">vptsfile</span><span class="op">)</span><span class="op">)</span>, junkpaths <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vptsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">vptsfile</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">vptsfile</span><span class="op">)</span> <span class="op">-</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_vpts</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_vpts.html">read_vpts</a></span><span class="op">(</span><span class="va">vptsfile</span>, radar <span class="op">=</span> <span class="st">"KBGM"</span>, wavelength <span class="op">=</span> <span class="st">"S"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sd_vvp_threshold.html">sd_vvp_threshold</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="va">example_vpts</span><span class="op">$</span><span class="va">attributes</span><span class="op">$</span><span class="va">where</span><span class="op">$</span><span class="va">lat</span> <span class="op">&lt;-</span> <span class="fl">42.2</span></span></span>
+<span class="r-in"><span><span class="va">example_vpts</span><span class="op">$</span><span class="va">attributes</span><span class="op">$</span><span class="va">where</span><span class="op">$</span><span class="va">lon</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">75.98</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">example_vpts</span>, file <span class="op">=</span> <span class="st">"data/example_vpts.rda"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -128,7 +128,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

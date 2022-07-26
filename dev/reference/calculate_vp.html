@@ -3,9 +3,7 @@
 volume (pvol) file using the algorithm
 vol2bird (Dokter et al.
 2011 doi:10.1098/rsif.2010.0116
-). Requires a running
-Docker daemon, unless a local installation of
-vol2bird is specified with local_install."><meta property="og:image" content="https://adriaandokter.com/bioRad/logo.png"><meta name="robots" content="noindex"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+)."><meta property="og:image" content="https://adriaandokter.com/bioRad/logo.png"><meta name="robots" content="noindex"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -23,7 +21,7 @@ vol2bird is specified with local_install."><meta property="og:image" content="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -80,40 +78,38 @@ vol2bird is specified with local_install."><meta property="og:image" content="ht
 volume (<code>pvol</code>) file using the algorithm
 <a href="https://github.com/adokter/vol2bird/" class="external-link">vol2bird</a> (Dokter et al.
 2011 <a href="https://doi.org/10.1098/rsif.2010.0116" class="external-link">doi:10.1098/rsif.2010.0116</a>
-). Requires a running
-<a href="https://www.docker.com/" class="external-link">Docker</a> daemon, unless a local installation of
-vol2bird is specified with <code>local_install</code>.</p>
+).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calculate_vp</span><span class="op">(</span>
-  <span class="va">file</span>,
-  vpfile <span class="op">=</span> <span class="st">""</span>,
-  pvolfile_out <span class="op">=</span> <span class="st">""</span>,
-  autoconf <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  warnings <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">mount</span>,
-  <span class="va">sd_vvp_threshold</span>,
-  rcs <span class="op">=</span> <span class="fl">11</span>,
-  dual_pol <span class="op">=</span> <span class="cn">TRUE</span>,
-  rho_hv <span class="op">=</span> <span class="fl">0.95</span>,
-  elev_min <span class="op">=</span> <span class="fl">0</span>,
-  elev_max <span class="op">=</span> <span class="fl">90</span>,
-  azim_min <span class="op">=</span> <span class="fl">0</span>,
-  azim_max <span class="op">=</span> <span class="fl">360</span>,
-  range_min <span class="op">=</span> <span class="fl">5000</span>,
-  range_max <span class="op">=</span> <span class="fl">35000</span>,
-  n_layer <span class="op">=</span> <span class="fl">20</span>,
-  h_layer <span class="op">=</span> <span class="fl">200</span>,
-  dealias <span class="op">=</span> <span class="cn">TRUE</span>,
-  nyquist_min <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">dealias</span><span class="op">)</span> <span class="fl">5</span> <span class="kw">else</span> <span class="fl">25</span>,
-  dbz_quantity <span class="op">=</span> <span class="st">"DBZH"</span>,
-  mistnet <span class="op">=</span> <span class="cn">FALSE</span>,
-  mistnet_elevations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span><span class="op">)</span>,
-  <span class="va">local_install</span>,
-  <span class="va">local_mistnet</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_vp</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  vpfile <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  pvolfile_out <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  autoconf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  warnings <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">mount</span>,</span>
+<span>  <span class="va">sd_vvp_threshold</span>,</span>
+<span>  rcs <span class="op">=</span> <span class="fl">11</span>,</span>
+<span>  dual_pol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rho_hv <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  elev_min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  elev_max <span class="op">=</span> <span class="fl">90</span>,</span>
+<span>  azim_min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  azim_max <span class="op">=</span> <span class="fl">360</span>,</span>
+<span>  range_min <span class="op">=</span> <span class="fl">5000</span>,</span>
+<span>  range_max <span class="op">=</span> <span class="fl">35000</span>,</span>
+<span>  n_layer <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  h_layer <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  dealias <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  nyquist_min <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">dealias</span><span class="op">)</span> <span class="fl">5</span> <span class="kw">else</span> <span class="fl">25</span>,</span>
+<span>  dbz_quantity <span class="op">=</span> <span class="st">"DBZH"</span>,</span>
+<span>  mistnet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  mistnet_elevations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span><span class="op">)</span>,</span>
+<span>  <span class="va">local_install</span>,</span>
+<span>  <span class="va">local_mistnet</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -127,87 +123,140 @@ format, which is the implementation of the OPERA data information model in
 the <a href="https://support.hdfgroup.org/HDF5/" class="external-link">HDF5</a> format, 2) a format
 supported by the <a href="https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/" class="external-link">RSL library</a> or 3) Vaisala
 IRIS (IRIS RAW) format.</p></dd>
+
+
 <dt>vpfile</dt>
 <dd><p>Character. File name. When provided, writes a vertical profile
 file (<code>vpfile</code>) in the ODIM HDF5 format to disk.</p></dd>
+
+
 <dt>pvolfile_out</dt>
 <dd><p>Character. File name. When provided, writes a polar
 volume (<code>pvol</code>) file in the ODIM HDF5 format to disk. Useful for converting
 RSL formats to ODIM.</p></dd>
+
+
 <dt>autoconf</dt>
 <dd><p>Logical. When <code>TRUE</code>, default optimal configuration settings
 are selected automatically and other user settings are ignored.</p></dd>
+
+
 <dt>verbose</dt>
-<dd><p>Logical. When <code>TRUE</code>, Docker <code>stdout</code> is piped to the R
-console. Always <code>TRUE</code> on Windows.</p></dd>
+<dd><p>Logical. When <code>TRUE</code>, vol2bird <code>stdout</code> is piped to the R
+console.</p></dd>
+
+
 <dt>warnings</dt>
 <dd><p>Logical. When <code>TRUE</code>, vol2bird warnings are piped to the R
 console.</p></dd>
+
+
 <dt>mount</dt>
 <dd><p>Character. Directory path of the mount point for the Docker
-container.</p></dd>
+container (deprecated).</p></dd>
+
+
 <dt>sd_vvp_threshold</dt>
 <dd><p>Numeric. Lower threshold for the radial velocity
 standard deviation (profile quantity <code>sd_vvp</code>) in m/s. Biological signals
 with <code>sd_vvp &lt; sd_vvp_threshold</code> are set to zero. Defaults to 2 m/s for
 C-band radars and 1 m/s for S-band radars.</p></dd>
+
+
 <dt>rcs</dt>
 <dd><p>Numeric. Radar cross section per bird to use, in cm^2.</p></dd>
+
+
 <dt>dual_pol</dt>
 <dd><p>Logical. When <code>TRUE</code>, uses dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
 <code>rho_hv</code>. When <code>FALSE</code>, uses single polarization mode based only on
 reflectivity and radial velocity quantities.</p></dd>
+
+
 <dt>rho_hv</dt>
 <dd><p>Numeric. Lower threshold in correlation coefficient to use for
 filtering meteorological scattering.</p></dd>
+
+
 <dt>elev_min</dt>
 <dd><p>Numeric. Minimum elevation angle to include, in degrees.</p></dd>
+
+
 <dt>elev_max</dt>
 <dd><p>Numeric. Maximum elevation angle to include, in degrees.</p></dd>
+
+
 <dt>azim_min</dt>
 <dd><p>Numeric. Minimum azimuth to include, in degrees clockwise
 from north.</p></dd>
+
+
 <dt>azim_max</dt>
 <dd><p>Numeric. Maximum azimuth to include, in degrees clockwise
 from north.</p></dd>
+
+
 <dt>range_min</dt>
 <dd><p>Numeric. Minimum range to include, in m.</p></dd>
+
+
 <dt>range_max</dt>
 <dd><p>Numeric. Maximum range to include, in m.</p></dd>
+
+
 <dt>n_layer</dt>
 <dd><p>Numeric. Number of altitude layers to use in generated
 profile.</p></dd>
+
+
 <dt>h_layer</dt>
 <dd><p>Numeric. Width of altitude layers to use in generated profile,
 in m.</p></dd>
+
+
 <dt>dealias</dt>
 <dd><p>Logical. Whether to dealias radial velocities. This should
 typically be done when the scans in the polar volume have low Nyquist
 velocities (below 25 m/s).</p></dd>
+
+
 <dt>nyquist_min</dt>
 <dd><p>Numeric. Minimum Nyquist velocity of scans to include, in
 m/s.</p></dd>
+
+
 <dt>dbz_quantity</dt>
 <dd><p>Name of the available reflectivity factor to use if not
 <code>DBZH</code> (e.g. <code>DBZV</code>, <code>TH</code>, <code>TV</code>).</p></dd>
+
+
 <dt>mistnet</dt>
 <dd><p>Logical. Whether to use the MistNet segmentation model.</p></dd>
+
+
 <dt>mistnet_elevations</dt>
 <dd><p>Numeric vector of length 5. Elevation angles to
 feed to the MistNet segmentation model, which expects exactly 5 elevation
 scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 angles may compromise segmentation results.</p></dd>
+
+
 <dt>local_install</dt>
 <dd><p>Character. Path to local vol2bird installation (e.g.
-<code>your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh</code>).</p></dd>
+<code>your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh</code>). (deprecated)</p></dd>
+
+
 <dt>local_mistnet</dt>
 <dd><p>Character. Path to local MistNet segmentation model in
 PyTorch format (e.g. <code>/your/path/mistnet_nexrad.pt</code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vertical profile object of class <code>vp</code>. When defined, output files
+    
+
+<p>A vertical profile object of class <code>vp</code>. When defined, output files
 <code>vpfile</code> and <code>pvolfile_out</code> are saved to disk.</p>
     </div>
     <div id="details">
@@ -217,7 +266,7 @@ PyTorch format (e.g. <code>/your/path/mistnet_nexrad.pt</code>).</p></dd>
 <h3 id="typical-use">Typical use<a class="anchor" aria-label="anchor" href="#typical-use"></a></h3>
 
 
-<p>Common arguments set by users are <code>file</code>, <code>vpfile</code>, <code>autoconf</code> and <code>mount</code>.
+<p>Common arguments set by users are <code>file</code>, <code>vpfile</code> and <code>autoconf</code>.
 Turn on <code>autoconf</code> to automatically select the optimal parameters for a given
 radar file. The default for C-band data is to apply rain-filtering in single
 polarization mode and dual polarization mode when available. The default for
@@ -226,17 +275,6 @@ only.</p>
 <p>Arguments that sometimes require non-default values are: <code>rcs</code>,
 <code>sd_vvp_threshold</code>, <code>range_max</code>, <code>dual_pol</code>, <code>dealias</code>. Other arguments are
 typically left at their defaults.</p>
-</div>
-
-<div class="section">
-<h3 id="mount">mount<a class="anchor" aria-label="anchor" href="#mount"></a></h3>
-
-
-<p>On repeated calls of <code>calculate_vp()</code>, the Docker container mount can be
-recycled from one call to the next if subsequent calls share the same <code>mount</code>
-argument. Re-mounting a Docker container takes time, therefore it is advised
-to choose a mount point that is a parent directory of all volume files to be
-processed, such that <code>calculate_vp()</code> calls are as fast as possible.</p>
 </div>
 
 <div class="section">
@@ -315,17 +353,7 @@ patterns smaller than the beam width cannot be resolved.</p>
 <h3 id="local-installation">Local installation<a class="anchor" aria-label="anchor" href="#local-installation"></a></h3>
 
 
-<p>You can bypass the Docker container and speed up processing by installing
-vol2bird locally (not on Windows). Point <code>local_install</code> to the path of your
-local vol2bird executable, e.g.
-<code>/your/vol2bird_install_directory/vol2bird/bin/vol2bird</code>. Your local vol2bird
-executable will be called through a bash login shell. <code>LD_LIBRARY_PATH</code>
-(Linux) or <code>DYLD_LIBRARY_PATH</code> (Mac) should be correctly specified in your
-<code>.bashrc</code> or <code>.bash_profile</code> file and contain all the required shared
-libraries by vol2bird. See vol2bird installation pages on
-<a href="https://github.com/adokter/vol2bird" class="external-link">GitHub</a> for details.</p>
-<p>When using MistNet with a local vol2bird installation, also point parameter
-<code>local_mistnet</code> to your local download of the MistNet segmentation model in
+<p>You may point parameter <code>local_mistnet</code> to a local download of the MistNet segmentation model in
 PyTorch format, e.g. <code>/your/path/mistnet_nexrad.pt</code>. The MistNet model can
 be downloaded at <a href="https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt" class="external-link">https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt</a>.</p>
 </div>
@@ -360,22 +388,22 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Locate and read the polar volume example file</span></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Copy the file to a home directory with read/write permissions</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="va">pvolfile</span>, <span class="st">"~/volume.h5"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Calculate the profile</span></span>
-<span class="r-in"><span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu">calculate_vp</span><span class="op">(</span><span class="st">"~/volume.h5"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Get summary info</span></span>
-<span class="r-in"><span class="va">vp</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Clean up</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="st">"~/volume.h5"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Locate and read the polar volume example file</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Copy the file to a home directory with read/write permissions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="va">pvolfile</span>, <span class="st">"~/volume.h5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Calculate the profile</span></span></span>
+<span class="r-in"><span><span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu">calculate_vp</span><span class="op">(</span><span class="st">"~/volume.h5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get summary info</span></span></span>
+<span class="r-in"><span><span class="va">vp</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Clean up</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="st">"~/volume.h5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -390,7 +418,7 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

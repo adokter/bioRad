@@ -18,7 +18,7 @@ closest to elev."><meta property="og:image" content="https://adriaandokter.com/b
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -76,23 +76,32 @@ closest to <code>elev</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_scan</span><span class="op">(</span><span class="va">x</span>, <span class="va">elev</span>, all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_scan</span><span class="op">(</span><span class="va">x</span>, <span class="va">elev</span>, all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>pvol</code> object.</p></dd>
+
+
 <dt>elev</dt>
 <dd><p>Numeric. Elevation angle in degrees.</p></dd>
+
+
 <dt>all</dt>
 <dd><p>Logical. Return the first scan in the <code>pvol</code> object
 closest to the requested elevation (<code>FALSE</code>), or a list with
 all scans equally close to the requested elevation (<code>TRUE</code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>scan</code> object when <code>all</code> equals <code>FALSE</code> (default), or a list of <code>scan</code> objects if <code>all</code> equals <code>TRUE</code></p>
+    
+
+<p>A <code>scan</code> object when <code>all</code> equals <code>FALSE</code> (default), or a list of <code>scan</code> objects if <code>all</code> equals <code>TRUE</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -109,30 +118,30 @@ scan elevation angles, the lower elevation angle scan is returned.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Locate and read the polar volume example file</span></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Get elevation angles</span></span>
-<span class="r-in"><span class="fu"><a href="get_elevation_angles.html">get_elevation_angles</a></span><span class="op">(</span><span class="va">pvol</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Locate and read the polar volume example file</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get elevation angles</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_elevation_angles.html">get_elevation_angles</a></span><span class="op">(</span><span class="va">pvol</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 1.5 2.5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Extract the scan closest to 3 degrees elevation (2.5 degree scan)</span></span>
-<span class="r-in"><span class="va">scan</span> <span class="op">&lt;-</span> <span class="fu">get_scan</span><span class="op">(</span><span class="va">pvol</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Get summary info</span></span>
-<span class="r-in"><span class="va">scan</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Extract the scan closest to 3 degrees elevation (2.5 degree scan)</span></span></span>
+<span class="r-in"><span><span class="va">scan</span> <span class="op">&lt;-</span> <span class="fu">get_scan</span><span class="op">(</span><span class="va">pvol</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get summary info</span></span></span>
+<span class="r-in"><span><span class="va">scan</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Polar scan (class scan)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> elevation angle:  2.5 deg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            dims:  480 bins x 360 rays</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Extract all scans closest to 3 degrees elevation (2.5 degree scan)</span></span>
-<span class="r-in"><span class="co"># Always returns a list with scan object(s), containing multiple scans</span></span>
-<span class="r-in"><span class="co"># if the pvol contains multiple scans at the same closest elevation.</span></span>
-<span class="r-in"><span class="va">scan_list</span> <span class="op">&lt;-</span> <span class="fu">get_scan</span><span class="op">(</span><span class="va">pvol</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">scan_list</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Extract all scans closest to 3 degrees elevation (2.5 degree scan)</span></span></span>
+<span class="r-in"><span><span class="co"># Always returns a list with scan object(s), containing multiple scans</span></span></span>
+<span class="r-in"><span><span class="co"># if the pvol contains multiple scans at the same closest elevation.</span></span></span>
+<span class="r-in"><span><span class="va">scan_list</span> <span class="op">&lt;-</span> <span class="fu">get_scan</span><span class="op">(</span><span class="va">pvol</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scan_list</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Polar scan (class scan)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
@@ -152,7 +161,7 @@ scan elevation angles, the lower elevation angle scan is returned.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ elevation angles as given by beam_profile."><meta property="og:image" content="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -81,69 +81,100 @@ elevation angles as given by <a href="beam_profile.html">beam_profile</a>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">beam_profile_overlap</span><span class="op">(</span>
-  <span class="va">vp</span>,
-  <span class="va">elev</span>,
-  <span class="va">distance</span>,
-  <span class="va">antenna</span>,
-  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4000</span><span class="op">)</span>,
-  noise_floor <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,
-  noise_floor_ref_range <span class="op">=</span> <span class="fl">1</span>,
-  steps <span class="op">=</span> <span class="fl">500</span>,
-  quantity <span class="op">=</span> <span class="st">"dens"</span>,
-  normalize <span class="op">=</span> <span class="cn">T</span>,
-  beam_angle <span class="op">=</span> <span class="fl">1</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  <span class="va">lat</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">beam_profile_overlap</span><span class="op">(</span></span>
+<span>  <span class="va">vp</span>,</span>
+<span>  <span class="va">elev</span>,</span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">antenna</span>,</span>
+<span>  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4000</span><span class="op">)</span>,</span>
+<span>  noise_floor <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,</span>
+<span>  noise_floor_ref_range <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  steps <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  quantity <span class="op">=</span> <span class="st">"dens"</span>,</span>
+<span>  normalize <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  beam_angle <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>vp</dt>
 <dd><p>a vertical profile of class vp</p></dd>
+
+
 <dt>elev</dt>
 <dd><p>numeric vector. Beam elevation(s) in degrees.</p></dd>
+
+
 <dt>distance</dt>
 <dd><p>the distance(s) from the radar along sea level (down range)
 for which to calculate the overlap in m.</p></dd>
+
+
 <dt>antenna</dt>
 <dd><p>radar antenna height. If missing taken from <code>vp</code></p></dd>
+
+
 <dt>zlim</dt>
 <dd><p>altitude range in meter, given as a numeric vector of length two.</p></dd>
+
+
 <dt>noise_floor</dt>
 <dd><p>The system noise floor in dBZ. The total system noise
 expressed as the reflectivity factor it would represent at a distance
 <code>noise_floor_ref_range</code> from the radar. NOT YET IMPLEMENTED</p></dd>
+
+
 <dt>noise_floor_ref_range</dt>
 <dd><p>the reference distance from the radar at which
 <code>noise_floor</code> is expressed. NOT YET IMPLEMENTED</p></dd>
+
+
 <dt>steps</dt>
 <dd><p>number of integration steps over altitude range zlim, defining
 altitude grid size used for numeric integration</p></dd>
+
+
 <dt>quantity</dt>
 <dd><p>profile quantity to use for the altitude distribution, one of
 'dens' or 'eta'.</p></dd>
+
+
 <dt>normalize</dt>
 <dd><p>Whether to normalize the radiation coverage pattern over the
 altitude range specified by zlim</p></dd>
+
+
 <dt>beam_angle</dt>
 <dd><p>numeric. Beam opening angle in degrees, typically the
 angle between the half-power (-3 dB) points of the main lobe</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>radar latitude. If missing taken from <code>vp</code></p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data.frame with columns distance and overlap.</p>
+    
+
+<p>A data.frame with columns distance and overlap.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -175,28 +206,28 @@ is below noise level.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># locate example volume file:</span></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load the example polar volume file:</span></span>
-<span class="r-in"><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># let us use this example vertical profile:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_vp</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># locate example volume file:</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load the example polar volume file:</span></span></span>
+<span class="r-in"><span><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># let us use this example vertical profile:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_vp</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Vertical profile (class vp)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        radar:  seang </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nominal time:  2015-10-18 18:00:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> generated by:  vol2bird 0.3.17 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate overlap between vertical profile of birds</span></span>
-<span class="r-in"><span class="co"># and the vertical radiation profile emitted by the radar:</span></span>
-<span class="r-in"><span class="va">bpo</span> <span class="op">&lt;-</span> <span class="fu">beam_profile_overlap</span><span class="op">(</span><span class="va">example_vp</span>, <span class="fu"><a href="get_elevation_angles.html">get_elevation_angles</a></span><span class="op">(</span><span class="va">pvol</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the calculated overlap:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bpo</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate overlap between vertical profile of birds</span></span></span>
+<span class="r-in"><span><span class="co"># and the vertical radiation profile emitted by the radar:</span></span></span>
+<span class="r-in"><span><span class="va">bpo</span> <span class="op">&lt;-</span> <span class="fu">beam_profile_overlap</span><span class="op">(</span><span class="va">example_vp</span>, <span class="fu"><a href="get_elevation_angles.html">get_elevation_angles</a></span><span class="op">(</span><span class="va">pvol</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the calculated overlap:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bpo</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="beam_profile_overlap-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -212,7 +243,7 @@ is below noise level.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

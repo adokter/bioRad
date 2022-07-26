@@ -18,7 +18,7 @@ the altitudinal normalized distribution of radiated energy by those beams."><met
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -76,44 +76,63 @@ the altitudinal normalized distribution of radiated energy by those beams.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">beam_profile</span><span class="op">(</span>
-  <span class="va">height</span>,
-  <span class="va">distance</span>,
-  <span class="va">elev</span>,
-  antenna <span class="op">=</span> <span class="fl">0</span>,
-  beam_angle <span class="op">=</span> <span class="fl">1</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  lat <span class="op">=</span> <span class="fl">35</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">beam_profile</span><span class="op">(</span></span>
+<span>  <span class="va">height</span>,</span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">elev</span>,</span>
+<span>  antenna <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  beam_angle <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  lat <span class="op">=</span> <span class="fl">35</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>height</dt>
 <dd><p>numeric. Height in meter.</p></dd>
+
+
 <dt>distance</dt>
 <dd><p>numeric. Distance from the radar as measured along sea level (down range) in m.</p></dd>
+
+
 <dt>elev</dt>
 <dd><p>numeric vector. Beam elevation(s) in degrees.</p></dd>
+
+
 <dt>antenna</dt>
 <dd><p>numeric. Height of the center of the radar antenna in meters</p></dd>
+
+
 <dt>beam_angle</dt>
 <dd><p>numeric. Beam opening angle in degrees, typically the
 angle between the half-power (-3 dB) points of the main lobe</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Geodetic latitude of the radar in degrees.</p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>numeric vector. Normalized radiated energy at each of the specified
+    
+
+<p>numeric vector. Normalized radiated energy at each of the specified
 heights.</p>
     </div>
     <div id="details">
@@ -128,26 +147,26 @@ emitted at antenna level.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">beam_profile</span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>,</span>
-<span class="r-in">  xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>,</span>
-<span class="r-in">  ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevation: 0.5 deg, distance=50km"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">beam_profile</span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>,</span></span>
+<span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>,</span></span>
+<span class="r-in"><span>  ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevation: 0.5 deg, distance=50km"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="beam_profile-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">beam_profile</span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>,</span>
-<span class="r-in">  xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>,</span>
-<span class="r-in">  ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevation: 2 deg, distance=50km"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">beam_profile</span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>,</span></span>
+<span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>,</span></span>
+<span class="r-in"><span>  ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevation: 2 deg, distance=50km"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="beam_profile-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the combined beam profile for a 0.5 and 2.0 degree elevation beam</span></span>
-<span class="r-in"><span class="co"># at 50 km distance from the radar:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">beam_profile</span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>,</span>
-<span class="r-in">  xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>,</span>
-<span class="r-in">  ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevations: 0.5,2 deg, distance=50km"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the combined beam profile for a 0.5 and 2.0 degree elevation beam</span></span></span>
+<span class="r-in"><span><span class="co"># at 50 km distance from the radar:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">beam_profile</span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>,</span></span>
+<span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>,</span></span>
+<span class="r-in"><span>  ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevations: 0.5,2 deg, distance=50km"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="beam_profile-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -163,7 +182,7 @@ emitted at antenna level.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

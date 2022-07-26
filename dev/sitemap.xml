@@ -85,9 +85,6 @@
     <loc>https://adriaandokter.com/bioRad/reference/check_date_format.html</loc>
   </url>
   <url>
-    <loc>https://adriaandokter.com/bioRad/reference/check_docker.html</loc>
-  </url>
-  <url>
     <loc>https://adriaandokter.com/bioRad/reference/check_night.html</loc>
   </url>
   <url>
@@ -241,7 +238,7 @@
     <loc>https://adriaandokter.com/bioRad/reference/select_vpfiles.html</loc>
   </url>
   <url>
-    <loc>https://adriaandokter.com/bioRad/reference/skip_if_no_docker.html</loc>
+    <loc>https://adriaandokter.com/bioRad/reference/skip_if_no_mistnet.html</loc>
   </url>
   <url>
     <loc>https://adriaandokter.com/bioRad/reference/sub-.ppi.html</loc>
@@ -272,12 +269,6 @@
   </url>
   <url>
     <loc>https://adriaandokter.com/bioRad/reference/sunrise_sunset.html</loc>
-  </url>
-  <url>
-    <loc>https://adriaandokter.com/bioRad/reference/update_docker.html</loc>
-  </url>
-  <url>
-    <loc>https://adriaandokter.com/bioRad/reference/vol2bird_version.html</loc>
   </url>
   <url>
     <loc>https://adriaandokter.com/bioRad/reference/vplist_to_vpts.html</loc>

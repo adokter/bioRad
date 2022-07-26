@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -74,35 +74,50 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">x</span>, <span class="va">min</span>, <span class="va">max</span>, <span class="va">nearest</span>, <span class="va">night</span>, elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>, offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">x</span>, <span class="va">min</span>, <span class="va">max</span>, <span class="va">nearest</span>, <span class="va">night</span>, elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>, offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>vpts</code> object.</p></dd>
+
+
 <dt>min</dt>
 <dd><p>Minimum datetime to be included. POSIXct value or character string convertible to POSIXct.</p></dd>
+
+
 <dt>max</dt>
 <dd><p>Maximum datetime to be included. POSIXct value or character string convertible to POSIXct.</p></dd>
+
+
 <dt>nearest</dt>
 <dd><p>If specified, <code>min</code> and <code>max</code> are ignored and the profile nearest to the
 specified datetime is returned that matches the day/night selection criteria.
 POSIXct value or character string convertible to POSIXct.</p></dd>
+
+
 <dt>night</dt>
 <dd><p>When TRUE select only night time profiles, when FALSE select only day time profiles,
 as classified by <a href="check_night.html">check_night</a>.</p></dd>
+
+
 <dt>elev</dt>
 <dd><p>numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
 length two, with first element giving sunset elevation, and second element sunrise elevation.</p></dd>
+
+
 <dt>offset</dt>
 <dd><p>numeric. Time duration in seconds by which to shift the start and end
 of night time. May also be a numeric vector of length two, with first element added to moment
 of sunset and second element added to moment of sunrise. See <a href="check_night.html">check_night</a> for details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class '<a href="summary.vpts.html">vpts</a>', or an object of class '<a href="summary.vp.html">vp</a>'
+    
+
+<p>An object of class '<a href="summary.vpts.html">vpts</a>', or an object of class '<a href="summary.vp.html">vp</a>'
 if argument <code>nearest</code> is specified.</p>
     </div>
     <div id="details">
@@ -113,71 +128,71 @@ occurs by <a href="check_night.html">check_night</a>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load example vertical profile time series:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_vpts</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load example vertical profile time series:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_vpts</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  1934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  16320 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># select profiles later than 02-Sep-2016</span></span>
-<span class="r-in"><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, min <span class="op">=</span> <span class="st">"2016-09-02"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># select profiles later than 02-Sep-2016</span></span></span>
+<span class="r-in"><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, min <span class="op">=</span> <span class="st">"2016-09-02"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  1651 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-02 00:06:00 - 2016-09-10 11:56:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  16320 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># select the profile nearest to 2016-09-01 03:00 UTC:</span></span>
-<span class="r-in"><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, nearest <span class="op">=</span> <span class="st">"2016-09-01 03:00"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># select the profile nearest to 2016-09-01 03:00 UTC:</span></span></span>
+<span class="r-in"><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, nearest <span class="op">=</span> <span class="st">"2016-09-01 03:00"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Vertical profile (class vp)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       source:  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nominal time:  2016-09-01 03:02:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> generated by:   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># select profiles between than 1 and 3 UTC on 02-Sep-2016:</span></span>
-<span class="r-in"><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, min <span class="op">=</span> <span class="st">"2016-09-02 01:00"</span>, max <span class="op">=</span> <span class="st">"2016-09-02 03:00"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># select profiles between than 1 and 3 UTC on 02-Sep-2016:</span></span></span>
+<span class="r-in"><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, min <span class="op">=</span> <span class="st">"2016-09-02 01:00"</span>, max <span class="op">=</span> <span class="st">"2016-09-02 03:00"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  13 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-02 01:04:00 - 2016-09-02 02:59:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 540     max:  600 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># select day time profiles (day time periods from sunrise to sunset)</span></span>
-<span class="r-in"><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, night<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># select day time profiles (day time periods from sunrise to sunset)</span></span></span>
+<span class="r-in"><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, night<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  910 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 10:35:00 - 2016-09-10 11:56:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  41460 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># select night time profiles, with nights starting starting and ending at civil twilight</span></span>
-<span class="r-in"><span class="co"># (when the sun is 6 degrees below the horizon):</span></span>
-<span class="r-in"><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, night<span class="op">=</span><span class="cn">TRUE</span>, elev <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># select night time profiles, with nights starting starting and ending at civil twilight</span></span></span>
+<span class="r-in"><span><span class="co"># (when the sun is 6 degrees below the horizon):</span></span></span>
+<span class="r-in"><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, night<span class="op">=</span><span class="cn">TRUE</span>, elev <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  938 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 00:10:00 - 2016-09-10 10:10:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  55200 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># select night time profiles from 3 hours after sunset to 2 hours before sunrise</span></span>
-<span class="r-in"><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, night<span class="op">=</span><span class="cn">TRUE</span>, offset<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="fl">3600</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># select night time profiles from 3 hours after sunset to 2 hours before sunrise</span></span></span>
+<span class="r-in"><span><span class="fu">filter_vpts</span><span class="op">(</span><span class="va">example_vpts</span>, night<span class="op">=</span><span class="cn">TRUE</span>, offset<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="fl">3600</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  578 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 02:39:00 - 2016-09-10 08:41:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  65460 </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -192,7 +207,7 @@ occurs by <a href="check_night.html">check_night</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

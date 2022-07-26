@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -74,39 +74,46 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="va">dbz</span>, <span class="va">wavelength</span>, K <span class="op">=</span> <span class="fl">0.93</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="va">dbz</span>, <span class="va">wavelength</span>, K <span class="op">=</span> <span class="fl">0.93</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dbz</dt>
 <dd><p>reflectivity factor in dBZ</p></dd>
+
+
 <dt>wavelength</dt>
 <dd><p>radar wavelength in cm</p></dd>
+
+
 <dt>K</dt>
 <dd><p>norm of the complex refractive index of water</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>reflectivity in cm^2/km^3</p>
+    
+
+<p>reflectivity in cm^2/km^3</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># calculate eta for a 7 dBZ reflectivity factor at C-band:</span></span>
-<span class="r-in"><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># calculate eta for a 7 dBZ reflectivity factor at C-band:</span></span></span>
+<span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2122.439</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate eta for a 7 dBZ reflectivity factor at S-band:</span></span>
-<span class="r-in"><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate eta for a 7 dBZ reflectivity factor at S-band:</span></span></span>
+<span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 132.6524</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate animal density for a 5 dBZ reflectivity</span></span>
-<span class="r-in"><span class="co"># factor at C-band and S-band, assuming a</span></span>
-<span class="r-in"><span class="co"># 11 cm^2 radar cross section per animal:</span></span>
-<span class="r-in"><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">11</span> <span class="co"># C-band</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate animal density for a 5 dBZ reflectivity</span></span></span>
+<span class="r-in"><span><span class="co"># factor at C-band and S-band, assuming a</span></span></span>
+<span class="r-in"><span><span class="co"># 11 cm^2 radar cross section per animal:</span></span></span>
+<span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">11</span> <span class="co"># C-band</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 192.949</span>
-<span class="r-in"><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span> <span class="op">/</span> <span class="fl">11</span> <span class="co"># S-band</span></span>
+<span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span> <span class="op">/</span> <span class="fl">11</span> <span class="co"># S-band</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12.05931</span>
 </code></pre></div>
     </div>
@@ -122,7 +129,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

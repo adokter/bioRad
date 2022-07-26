@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -69,7 +69,17 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.6.0" id="biorad-060">bioRad 0.6.0<a class="anchor" aria-label="anchor" href="#biorad-060"></a></h2>
+<h2 class="page-header" data-toc-text="0.7.0" id="biorad-070xxxx">bioRad 0.7.0.XXXX<a class="anchor" aria-label="anchor" href="#biorad-070xxxx"></a></h2>
+<p>bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package <a href="https://adriaandokter.com/vol2birdR/" class="external-link">vol2birdR</a> package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.</p>
+<ul><li>bioRad is now fully available on Windows</li>
+<li>Faster implementations of functions previously dependent on Docker, such as <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> and <code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> and <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>.</li>
+<li>argument <code>local_install</code> in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> and <code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is now deprecated.</li>
+<li>functions <code><a href="../reference/bioRad-deprecated.html">check_docker()</a></code> and <code><a href="../reference/bioRad-deprecated.html">update_docker()</a></code> have been deprecated</li>
+<li>function <code><a href="../reference/bioRad-deprecated.html">vol2bird_version()</a></code> has been migrated to package vol2birdR and can be accessed by <code><a href="https://rdrr.io/pkg/vol2birdR/man/vol2bird_version.html" class="external-link">vol2birdR::vol2bird_version()</a></code>
+</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.6.0" id="biorad-060">bioRad 0.6.0<small>2022-05-09</small><a class="anchor" aria-label="anchor" href="#biorad-060"></a></h2>
 <p>Introduces a number of new functions and parameters and includes bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/8?closed=1" class="external-link">here</a>. ## New functions</p>
 <ul><li><p>New function <code><a href="../reference/attribute_table.html">attribute_table()</a></code> to quickly tabulate scan attributes (<a href="https://github.com/adokter/bioRad/issues/365" class="external-link">#365</a>).</p></li>
 <li><p>New function <code><a href="../reference/get_iris_raw_task.html">get_iris_raw_task()</a></code> to returns <code>task</code> from IRIS files (<a href="https://github.com/adokter/bioRad/issues/411" class="external-link">#411</a>).</p></li>
@@ -210,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

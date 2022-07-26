@@ -19,7 +19,7 @@ single radar into one vpts."><meta property="og:image" content="https://adriaand
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -78,31 +78,38 @@ single radar into one <code>vpts</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for vp</span>
-<span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for list</span>
-<span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for vpts</span>
-<span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">...</span>, attributes_from <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vp</span></span>
+<span><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for list</span></span>
+<span><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vpts</span></span>
+<span><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">...</span>, attributes_from <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>vp</code>, <code>vpts</code> or a vector of these.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>A <code>vp</code>, <code>vpts</code> or a vector of these.</p></dd>
+
+
 <dt>attributes_from</dt>
 <dd><p>integer. Which <code>vpts</code> to copy attributes from (default:
 first).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code><a href="summary.vpts.html">vpts</a></code> for a single radar or a list of
+    
+
+<p>A <code><a href="summary.vpts.html">vpts</a></code> for a single radar or a list of
 <code>vpts</code> for multiple radars. Input <code>vp</code> are sorted in time in the
 output <code>vpts</code>.</p>
     </div>
@@ -127,47 +134,47 @@ containing a <code>vpts</code> for each radar.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load example time series of vertical profiles:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># split the vpts into two separate time series, one containing profile 1-10,</span></span>
-<span class="r-in"><span class="co"># and a second containing profile 11-20:</span></span>
-<span class="r-in"><span class="va">vpts1</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">vpts2</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use bind_into_vpts to bind the two together:</span></span>
-<span class="r-in"><span class="va">vpts1and2</span> <span class="op">&lt;-</span> <span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">vpts1</span>, <span class="va">vpts2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from</span></span>
-<span class="r-in"><span class="co"># vpts2:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vpts1and2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load example time series of vertical profiles:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># split the vpts into two separate time series, one containing profile 1-10,</span></span></span>
+<span class="r-in"><span><span class="co"># and a second containing profile 11-20:</span></span></span>
+<span class="r-in"><span><span class="va">vpts1</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">vpts2</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use bind_into_vpts to bind the two together:</span></span></span>
+<span class="r-in"><span><span class="va">vpts1and2</span> <span class="op">&lt;-</span> <span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">vpts1</span>, <span class="va">vpts2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from</span></span></span>
+<span class="r-in"><span><span class="co"># vpts2:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vpts1and2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Regular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  20 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 00:02:00 - 2016-09-01 01:18:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  240 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract two profiles:</span></span>
-<span class="r-in"><span class="va">vp1</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">vp1</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract two profiles:</span></span></span>
+<span class="r-in"><span><span class="va">vp1</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">vp1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Vertical profile (class vp)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       source:  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nominal time:  2016-09-01 00:02:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> generated by:   </span>
-<span class="r-in"><span class="va">vp2</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">vp2</span></span>
+<span class="r-in"><span><span class="va">vp2</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">vp2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Vertical profile (class vp)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        radar:  KBGM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       source:  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nominal time:  2016-09-01 00:06:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> generated by:   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># bind the two profiles back into a vpts:</span></span>
-<span class="r-in"><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">vp1</span>, <span class="va">vp2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># bind the two profiles back into a vpts:</span></span></span>
+<span class="r-in"><span><span class="fu">bind_into_vpts</span><span class="op">(</span><span class="va">vp1</span>, <span class="va">vp2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Regular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  KBGM </span>
@@ -188,7 +195,7 @@ containing a <code>vpts</code> for each radar.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

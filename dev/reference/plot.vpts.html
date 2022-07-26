@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -74,85 +74,126 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for vpts</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  xlab <span class="op">=</span> <span class="st">"time"</span>,
-  ylab <span class="op">=</span> <span class="st">"height [m]"</span>,
-  quantity <span class="op">=</span> <span class="st">"dens"</span>,
-  log <span class="op">=</span> <span class="cn">NA</span>,
-  barbs <span class="op">=</span> <span class="cn">TRUE</span>,
-  barbs_height <span class="op">=</span> <span class="fl">10</span>,
-  barbs_time <span class="op">=</span> <span class="fl">20</span>,
-  barbs_dens_min <span class="op">=</span> <span class="fl">5</span>,
-  <span class="va">zlim</span>,
-  <span class="va">legend_ticks</span>,
-  <span class="va">legend.ticks</span>,
-  <span class="va">main</span>,
-  barbs.h <span class="op">=</span> <span class="fl">10</span>,
-  barbs.t <span class="op">=</span> <span class="fl">20</span>,
-  barbs.dens <span class="op">=</span> <span class="fl">5</span>,
-  na_color <span class="op">=</span> <span class="st">"#C8C8C8"</span>,
-  nan_color <span class="op">=</span> <span class="st">"white"</span>,
-  n_color <span class="op">=</span> <span class="fl">1000</span>,
-  palette <span class="op">=</span> <span class="cn">NA</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for vpts</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"time"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"height [m]"</span>,</span>
+<span>  quantity <span class="op">=</span> <span class="st">"dens"</span>,</span>
+<span>  log <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  barbs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  barbs_height <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  barbs_time <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  barbs_dens_min <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  <span class="va">zlim</span>,</span>
+<span>  <span class="va">legend_ticks</span>,</span>
+<span>  <span class="va">legend.ticks</span>,</span>
+<span>  <span class="va">main</span>,</span>
+<span>  barbs.h <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  barbs.t <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  barbs.dens <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  na_color <span class="op">=</span> <span class="st">"#C8C8C8"</span>,</span>
+<span>  nan_color <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  n_color <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  palette <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A vp class object inheriting from class <code>vpts</code>.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>A title for the x-axis.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>A title for the y-axis.</p></dd>
+
+
 <dt>quantity</dt>
 <dd><p>Character string with the quantity to plot,
 one of '<code>dens</code>','<code>eta</code>','<code>dbz</code>','<code>DBZH</code>' for density,
 reflectivity, reflectivity factor and total reflectivity factor,
 respectively.</p></dd>
+
+
 <dt>log</dt>
 <dd><p>Logical, whether to display <code>quantity</code> data on a
 logarithmic scale.</p></dd>
+
+
 <dt>barbs</dt>
 <dd><p>Logical, whether to overlay speed barbs.</p></dd>
+
+
 <dt>barbs_height</dt>
 <dd><p>Integer, number of barbs to plot in altitudinal dimension.</p></dd>
+
+
 <dt>barbs_time</dt>
 <dd><p>Integer, number of barbs to plot in temporal dimension.</p></dd>
+
+
 <dt>barbs_dens_min</dt>
 <dd><p>Numeric, lower threshold in aerial density of individuals
 for plotting speed barbs in individuals/km^3.</p></dd>
+
+
 <dt>zlim</dt>
 <dd><p>Optional numerical atomic vector of length 2, specifying the
 range of <code>quantity</code> values to plot.</p></dd>
+
+
 <dt>legend_ticks</dt>
 <dd><p>Numeric atomic vector specifying the ticks on the
 color bar.</p></dd>
+
+
 <dt>legend.ticks</dt>
 <dd><p>Deprecated argument, use legend_ticks instead.</p></dd>
+
+
 <dt>main</dt>
 <dd><p>A title for the plot.</p></dd>
+
+
 <dt>barbs.h</dt>
 <dd><p>Deprecated argument, use barbs_height instead.</p></dd>
+
+
 <dt>barbs.t</dt>
 <dd><p>Deprecated argument, use barbs_time instead.</p></dd>
+
+
 <dt>barbs.dens</dt>
 <dd><p>Deprecated argument, use barbs_dens_min instead.</p></dd>
+
+
 <dt>na_color</dt>
 <dd><p>Color to use for NA values, see class <code><a href="summary.vpts.html">vpts</a></code> conventions.</p></dd>
+
+
 <dt>nan_color</dt>
 <dd><p>Color to use for NaN values, see class <code><a href="summary.vpts.html">vpts</a></code> conventions.</p></dd>
+
+
 <dt>n_color</dt>
 <dd><p>The number of colors (&gt;=1) to be in the palette.</p></dd>
+
+
 <dt>palette</dt>
 <dd><p>(Optional) character vector of hexadecimal color values defining
 the plot color scale, e.g. output from <a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments to be passed to the low level
 <a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a> plotting function.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -220,40 +261,40 @@ these quantities assume negative values.  For quantities <code>DBZH</code> and <
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># locate example file:</span></span>
-<span class="r-in"><span class="va">ts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span>
-<span class="r-in"><span class="co"># plot density of individuals for the first 500 time steps, in the altitude</span></span>
-<span class="r-in"><span class="co"># layer 0-3000 m.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># locate example file:</span></span></span>
+<span class="r-in"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span></span>
+<span class="r-in"><span><span class="co"># plot density of individuals for the first 500 time steps, in the altitude</span></span></span>
+<span class="r-in"><span><span class="co"># layer 0-3000 m.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Irregular time-series: missing profiles will not be visible. Use 'regularize_vpts' to make time series regular.</span>
 <span class="r-plt img"><img src="plot.vpts-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># plot total reflectivity factor (rain, birds, insects together):</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, quantity <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># plot total reflectivity factor (rain, birds, insects together):</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, quantity <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Irregular time-series: missing profiles will not be visible. Use 'regularize_vpts' to make time series regular.</span>
 <span class="r-plt img"><img src="plot.vpts-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># regularize the time grid, which includes empty (NA) profiles at</span></span>
-<span class="r-in"><span class="co"># time steps without data:</span></span>
-<span class="r-in"><span class="va">ts_regular</span> <span class="op">&lt;-</span> <span class="fu"><a href="regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># regularize the time grid, which includes empty (NA) profiles at</span></span></span>
+<span class="r-in"><span><span class="co"># time steps without data:</span></span></span>
+<span class="r-in"><span><span class="va">ts_regular</span> <span class="op">&lt;-</span> <span class="fu"><a href="regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> projecting on 300 seconds interval grid...</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># change the color of missing NA data to red</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span>, na_color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># change the color of missing NA data to red</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span>, na_color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># change the color palette:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, palette<span class="op">=</span><span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># change the color palette:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, palette<span class="op">=</span><span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># change and inverse the color palette:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, palette<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">1000</span>, option<span class="op">=</span><span class="st">"A"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># change and inverse the color palette:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, palette<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">1000</span>, option<span class="op">=</span><span class="st">"A"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># plot the speed profile:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, quantity<span class="op">=</span><span class="st">"ff"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># plot the speed profile:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, quantity<span class="op">=</span><span class="st">"ff"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># plot the northward speed component:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, quantity<span class="op">=</span><span class="st">"v"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># plot the northward speed component:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, quantity<span class="op">=</span><span class="st">"v"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># plot speed profile with more legend ticks,</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, quantity<span class="op">=</span><span class="st">"ff"</span>, legend_ticks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">2</span><span class="op">)</span>, zlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># plot speed profile with more legend ticks,</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">]</span>, quantity<span class="op">=</span><span class="st">"ff"</span>, legend_ticks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">2</span><span class="op">)</span>, zlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-9.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -269,7 +310,7 @@ these quantities assume negative values.  For quantities <code>DBZH</code> and <
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

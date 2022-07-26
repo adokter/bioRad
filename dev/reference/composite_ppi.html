@@ -19,7 +19,7 @@ radars."><meta property="og:image" content="https://adriaandokter.com/bioRad/log
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -78,65 +78,92 @@ radars.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">composite_ppi</span><span class="op">(</span>
-  <span class="va">x</span>,
-  param <span class="op">=</span> <span class="st">"all"</span>,
-  nx <span class="op">=</span> <span class="fl">100</span>,
-  ny <span class="op">=</span> <span class="fl">100</span>,
-  <span class="va">xlim</span>,
-  <span class="va">ylim</span>,
-  <span class="va">res</span>,
-  <span class="va">crs</span>,
-  raster <span class="op">=</span> <span class="cn">NA</span>,
-  method <span class="op">=</span> <span class="st">"max"</span>,
-  idp <span class="op">=</span> <span class="fl">2</span>,
-  idw_max_distance <span class="op">=</span> <span class="cn">NA</span>,
-  coverage <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">composite_ppi</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  param <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  nx <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  ny <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  <span class="va">xlim</span>,</span>
+<span>  <span class="va">ylim</span>,</span>
+<span>  <span class="va">res</span>,</span>
+<span>  <span class="va">crs</span>,</span>
+<span>  raster <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"max"</span>,</span>
+<span>  idp <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  idw_max_distance <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  coverage <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A list of <code>ppi</code> objects.</p></dd>
+
+
 <dt>param</dt>
 <dd><p>The scan parameter name(s) to composite. An atomic vector of character strings
 can be provided to composite multiple scan parameters at once. To composite all available
 scan parameters use 'all' (default).</p></dd>
+
+
 <dt>nx</dt>
 <dd><p>number of raster pixels in the x (longitude) dimension</p></dd>
+
+
 <dt>ny</dt>
 <dd><p>number of raster pixels in the y (latitude) dimension</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p>x (longitude) range</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>y (latitude) range</p></dd>
+
+
 <dt>res</dt>
-<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/raster/man/resolution.html" class="external-link">res</a>).
+<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a>).
 If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></dd>
+
+
 <dt>raster</dt>
 <dd><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
 arguments are ignored.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
 names of length(param) to apply different methods to each of the parameters.</p></dd>
+
+
 <dt>idp</dt>
 <dd><p>numeric. inverse distance weighting power.</p></dd>
+
+
 <dt>idw_max_distance</dt>
 <dd><p>numeric. Maximum distance from the radar to consider in
 inverse distance weighting. Measurements beyond this distance will have a
 weighting factor of zero.</p></dd>
+
+
 <dt>coverage</dt>
 <dd><p>logical. When TRUE adds an additional "coverage" parameter to the <code>ppi</code> with the
 number of PPIs covering a single composite <code>ppi</code> pixel.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code><a href="summary.ppi.html">ppi</a></code>.</p>
+    
+
+<p>A <code><a href="summary.ppi.html">ppi</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -172,32 +199,32 @@ mean (lat, lon) location.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># locate example volume file:</span></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load the file:</span></span>
-<span class="r-in"><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate a ppi for each elevation scan</span></span>
-<span class="r-in"><span class="va">my_ppis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span>, <span class="va">project_as_ppi</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># locate example volume file:</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load the file:</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate a ppi for each elevation scan</span></span></span>
+<span class="r-in"><span><span class="va">my_ppis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span>, <span class="va">project_as_ppi</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># overlay the ppi's, calculating the maximum value observed</span></span>
-<span class="r-in"><span class="co"># across the available scans at each geographic location</span></span>
-<span class="r-in"><span class="va">my_composite</span> <span class="op">&lt;-</span> <span class="fu">composite_ppi</span><span class="op">(</span><span class="va">my_ppis</span>, method<span class="op">=</span><span class="st">"max"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># download basemap</span></span>
-<span class="r-in"><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">my_composite</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the calculated max product on the basemap</span></span>
-<span class="r-in"><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">my_composite</span>, <span class="va">bm</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># overlay the ppi's, calculating the maximum value observed</span></span></span>
+<span class="r-in"><span><span class="co"># across the available scans at each geographic location</span></span></span>
+<span class="r-in"><span><span class="va">my_composite</span> <span class="op">&lt;-</span> <span class="fu">composite_ppi</span><span class="op">(</span><span class="va">my_ppis</span>, method<span class="op">=</span><span class="st">"max"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># download basemap</span></span></span>
+<span class="r-in"><span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">my_composite</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the calculated max product on the basemap</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">my_composite</span>, <span class="va">bm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -212,7 +239,7 @@ mean (lat, lon) location.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

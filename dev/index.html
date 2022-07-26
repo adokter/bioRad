@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.0.9511</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9517</span>
       </span>
     </div>
 
@@ -124,56 +124,67 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>bioRad depends on packages from both the <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> and <a href="https://www.bioconductor.org/" class="external-link">Bioconductor</a> repositories. Enable both with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html" class="external-link">setRepositories</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<details><p><summary> Required system libraries on Linux (Ubuntu) </summary></p>
+<div class="section level3">
+<h3 id="install-system-libraries">Install system libraries<a class="anchor" aria-label="anchor" href="#install-system-libraries"></a>
+</h3>
+<p>For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5 libraries need to be installed as system libraries prior to installation, which are required by dependency package <strong><a href="https://adriaandokter.com/vol2birdR/" class="external-link">vol2birdR</a></strong>:</p>
+<table class="table">
+<colgroup>
+<col width="40%">
+<col width="59%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">System</th>
+<th align="left">Command</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>OS X (using Homebrew)</strong></td>
+<td align="left"><code>brew install hdf5 proj gsl</code></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Debian-based systems (including Ubuntu)</strong></td>
+<td align="left"><code>sudo apt-get install libhdf5-dev libproj-dev gsl-bin libgsl-dev</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Systems supporting yum and RPMs</strong></td>
+<td align="left"><code>sudo yum install hdf5-devel proj-devel gsl gsl-devel</code></td>
+</tr>
+</tbody>
+</table>
+<details><p><summary> Additional required system libraries on Linux (Ubuntu) </summary></p>
 <p>The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sudo apt install libcurl4<span class="op">-</span>openssl<span class="op">-</span>dev</span>
-<span id="cb2-2"><a href="#cb2-2"></a>sudo apt install libssl<span class="op">-</span>dev</span>
-<span id="cb2-3"><a href="#cb2-3"></a>sudo apt install libgdal<span class="op">-</span>dev</span></code></pre></div></details><p><br> You can install the released version of bioRad from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>sudo apt install libcurl4<span class="op">-</span>openssl<span class="op">-</span>dev</span>
+<span id="cb1-2"><a href="#cb1-2"></a>sudo apt install libssl<span class="op">-</span>dev</span>
+<span id="cb1-3"><a href="#cb1-3"></a>sudo apt install libgdal<span class="op">-</span>dev</span></code></pre></div></details><p><br></p>
+</div>
+<div class="section level3">
+<h3 id="install-biorad">Install bioRad<a class="anchor" aria-label="anchor" href="#install-biorad"></a>
+</h3>
+<p>bioRad depends on packages from both the <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> and <a href="https://www.bioconductor.org/" class="external-link">Bioconductor</a> repositories. Enable both with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html" class="external-link">setRepositories</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the released version of bioRad from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span>
-<span class="co">#&gt; Welcome to bioRad version 0.6.0</span>
-<span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0.9169, MistNet available)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Welcome to bioRad version 0.7.0.9517</span></span>
+<span><span class="co">#&gt; using vol2bird version 0.5.0.9174 (MistNet not installed)</span></span></code></pre></div>
+</div>
 <div class="section level3">
-<h3 id="docker-optional">Docker (optional)<a class="anchor" aria-label="anchor" href="#docker-optional"></a>
+<h3 id="optional-enable-mistnet">(optional) Enable MistNet<a class="anchor" aria-label="anchor" href="#optional-enable-mistnet"></a>
 </h3>
-<p>You need to install Docker to:</p>
-<ul>
-<li>Process radar data into vertical profiles of biological targets with <code><a href="reference/calculate_vp.html">calculate_vp()</a></code>.</li>
-<li>Read <a href="https://registry.opendata.aws/noaa-nexrad/" class="external-link">NEXRAD radar data</a> or <a href="ftp://ftp.sigmet.com/outgoing/manuals//IRIS-Programming-Guide-M211318EN.pdf">IRIS RAW</a> data with <code><a href="reference/read_pvolfile.html">read_pvolfile()</a></code>. Docker is not required for reading ODIM radar data.</li>
-<li>Convert NEXRAD radar data to ODIM format with <code><a href="reference/nexrad_to_odim.html">nexrad_to_odim()</a></code>.</li>
-<li>Use the <a href="https://doi.org/10.1111/2041-210X.13280" class="external-link">MistNet</a> neural network with <code><a href="reference/calculate_vp.html">calculate_vp()</a></code> or <code><a href="reference/apply_mistnet.html">apply_mistnet()</a></code>
-</li>
-</ul>
-<p>Why? bioRad makes use of a <a href="https://github.com/adokter/vol2bird" class="external-link">C implementation of the vol2bird</a> algorithm through <a href="https://www.docker.com/" class="external-link">Docker</a> to do the above. All other bioRad functions will work without a Docker installation.</p>
-<details><p><summary> Installing Docker </summary></p>
-<ol style="list-style-type: decimal">
-<li>Go to <a href="https://www.docker.com/products/docker-desktop/" class="external-link">Docker Desktop</a>.</li>
-<li>Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit: installing Docker <em>Toolbox</em> for previous Windows versions will not work.</li>
-<li>Open the Docker application. The Docker (whale) icon will appear in your menu or task bar and indicate if it is running correctly.</li>
-<li>Make local drive(s) available for Docker containers:<ul>
-<li>On Windows: right click the Docker icon &gt; <code>Settings</code> &gt; <code>Shared drives</code> &gt; Select the drive(s) where you will be processing radar files &gt; Click <code>Apply</code>.</li>
-<li>On Mac: click the Docker icon &gt; <code>Preferences</code> &gt; <code>File sharing</code> &gt; Add the drive(s) where you will be processing radar files &gt; Click <code>Apply &amp; Restart</code>.</li>
-</ul>
-</li>
-<li>In R do <code><a href="reference/check_docker.html">check_docker()</a></code>.</li>
-<li>You can now use the bioRad functionality that requires Docker.</li>
-</ol></details><details><p><summary> Known issues with Docker </summary></p>
-<ol style="list-style-type: decimal">
-<li>Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.</li>
-<li>For firewall issues on Windows, see <a href="https://github.com/adokter/bioRad/issues/128" class="external-link">this issue</a>
-</li>
-<li>For permission issues when running docker, specifically the error <code>Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock</code>, see <a href="https://techoverflow.net/2018/12/15/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/" class="external-link">this</a> solution. Running <code>sudo usermod -a -G docker $USER</code> in a terminal will fix this problem.</li>
-</ol></details>
+<p>To enable MistNet, the following vol2birdR commands should be executed:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/install_mistnet.html" class="external-link">install_mistnet</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/install_mistnet_model.html" class="external-link">install_mistnet_model</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Read the <a href="https://adriaandokter.com/vol2birdR/articles/vol2birdR.html" class="external-link">vol2birdR documentation</a> for more details.</p>
 </div>
 </div>
 <div class="section level2">
@@ -184,13 +195,13 @@
 </h3>
 <p>bioRad can read weather radar data (= polar volumes) in the <a href="http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf" class="external-link"><code>ODIM</code></a> format and formats supported by the <a href="https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/" class="external-link">RSL library</a>, such as NEXRAD data. NEXRAD data (US) are <a href="https://www.ncdc.noaa.gov/nexradinv/" class="external-link">available as open data</a> and on <a href="https://registry.opendata.aws/noaa-nexrad/" class="external-link">AWS</a>.</p>
 <p>Here we read an example polar volume data file with <code><a href="reference/read_pvolfile.html">read_pvolfile()</a></code>, extract the scan/sweep at elevation angle 3 with <code><a href="reference/get_scan.html">get_scan()</a></code>, project the data to a plan position indicator with <code><a href="reference/project_as_ppi.html">project_as_ppi()</a></code> and plot the <em>radial velocity</em> of detected targets with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span> <span class="co"># To pipe %&gt;% the steps below</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span> <span class="co"># To pipe %&gt;% the steps below</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="reference/read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_ppi-1.png" width="100%"></p>
 <p><em>Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.</em></p>
 </div>
@@ -199,25 +210,25 @@
 </h3>
 <p>Weather radar data can be processed into vertical profiles of biological targets using <code><a href="reference/calculate_vp.html">calculate_vp()</a></code>. This type of data is <a href="https://aloftdata.eu" class="external-link">available as open data</a> for over 100 European weather radars.</p>
 <p>Once vertical profile data are loaded into bioRad, these can be bound into time series using <code><a href="reference/bind_into_vpts.html">bind_into_vpts()</a></code>. Here we read an example time series, project it on a regular time grid with <code><a href="reference/regularize_vpts.html">regularize_vpts()</a></code> and plot it with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">example_vpts</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; projecting on 300 seconds interval grid...</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example_vpts</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; projecting on 300 seconds interval grid...</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_vpts-1.png" width="100%"></p>
 <p><em>The gray bars in the plot indicate gaps in the data.</em></p>
 <p>The altitudes in the profile can be integrated with <code><a href="reference/integrate_profile.html">integrate_profile()</a></code> resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity <em>migration traffic rate</em> (column <code>mtr</code>) with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mtr"</span><span class="op">)</span> <span class="co"># mtr = migration traffic rate</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mtr"</span><span class="op">)</span> <span class="co"># mtr = migration traffic rate</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_vpi-1.png" width="100%"></p>
 <p>To know the total number of birds passing over the radar during the full time series, we use the last value of the <em>cumulative migration traffic</em> (column <code>mt</code>):</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_vpi</span> <span class="op">%&gt;%</span>
-  <span class="fu">pull</span><span class="op">(</span><span class="va">mt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># Extract column mt as a vector</span>
-  <span class="fu">last</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] 129491.5</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">pull</span><span class="op">(</span><span class="va">mt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># Extract column mt as a vector</span></span>
+<span>  <span class="fu">last</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 129491.5</span></span></code></pre></div>
 <p>For more exercises, see <a href="https://adriaandokter.com/bioRad/articles/rad_aero_19.html">this tutorial</a>.</p>
 </div>
 </div>
@@ -303,7 +314,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
