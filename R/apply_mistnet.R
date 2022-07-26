@@ -12,12 +12,11 @@
 #' segmentation model, which expects exactly 5 elevation scans
 #' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 #' elevation angles may compromise segmentation results.
-#' @param local_install (optional) String with path to local vol2bird binary
+#' @param local_install (deprecated) String with path to local vol2bird binary
 #' (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"}),
 #' to use local installation instead of Docker container
 #' @param local_mistnet (optional) String with path to local mistnet segmentation model
-#' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
-#' to use local installation instead of Docker container.
+#' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"})
 #'
 #' @inheritParams calculate_vp
 #'
@@ -78,6 +77,10 @@
 #' }
 #' @examples
 #' \dontrun{
+#' # make sure you have installed the MistNet libraries and model, using:
+#' # vol2birdR::install_mistnet()
+#' # vol2birdR::install_mistnet_model()
+#'
 #' # download a NEXRAD file, save as KBGM_example
 #' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
 #'   "2019/10/01/KBGM/KBGM20191001_000542_V06",
@@ -130,8 +133,8 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
 
   assert_that(file.exists(file))
 
-  if (!.pkgenv$mistnet && missing(local_mistnet)) {
-    stop("MistNet has not been installed, see update_docker() for install instructions")
+  if (!vol2birdR::mistnet_exists()) {
+    stop("MistNet has not been installed, see vol2birdR package documentation for install instructions")
   }
 
   assert_that(is.numeric(mistnet_elevations))
@@ -143,10 +146,6 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
     }
   }
 
-  if((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet))){
-    stop("to use local vol2bird and mistnet model, specify both local_install and local_mistnet")
-  }
-
   if (!missing(pvolfile_out)) {
     if (!file.exists(dirname(pvolfile_out))) {
       stop(paste("output directory", dirname(pvolfile_out), "not found"))
@@ -156,45 +155,15 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
     }
   }
 
-  opt.names <- c("USE_MISTNET", "MISTNET_ELEVS", "MISTNET_PATH")
-  opt.values <- c(
-    "TRUE",
-    paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = ""),
-    ifelse(missing(local_install), "/MistNet/mistnet_nexrad.pt", normalizePath(local_mistnet))
-  )
+  config <- vol2birdR::vol2bird_config()
+  config$useMistNet <- TRUE
+  config$mistNetElevs <- mistnet_elevations
+  if(!missing(local_mistnet)) config$mistNetPath <- local_mistnet
 
-  opt <- data.frame(
-    "option" = opt.names, "is" = rep("=", length(opt.values)),
-    "value" = opt.values
-  )
-
-  if (missing(local_install)) {
-    optfile <- paste(normalizePath(mount, winslash = "/"),
-                     "/options.conf",
-                     sep = ""
-    )
-  }
-  else {
-    optfile <- paste(getwd(), "/options.conf", sep = "")
-  }
-
-  if (file.exists(optfile)) {
-    optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
-    warning(paste("options.conf file found in directory ", mount,
-      ". Renamed to ", basename(optfile_save), " to prevent overwrite...",
-      sep = ""
-    ))
-    file.rename(optfile, optfile_save)
-  }
-
-  # write options.conf file
-  write.table(opt,
-    file = optfile, col.names = FALSE,
-    row.names = FALSE, quote = FALSE
-  )
+  pvol_tmp <- tempfile()
 
   # apply mistnet and generate pvol.
-  pvol_tmp <- nexrad_to_odim_tempfile(file, verbose, mount, local_install)
+  vol2birdR::rsl2odim(file=file, config=config, pvolfile_out=pvol_tmp, verbose=verbose)
 
   if (load) output <- read_pvolfile(pvol_tmp) else output <- TRUE
 
@@ -203,10 +172,6 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
     file.remove(pvol_tmp)
   } else {
     file.rename(pvol_tmp, pvolfile_out)
-  }
-  # clean up options.conf
-  if (file.exists(optfile)) {
-    file.remove(optfile)
   }
 
   return(output)

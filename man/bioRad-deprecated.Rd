@@ -2,10 +2,35 @@
 % Please edit documentation in R/bioRad-deprecated.R
 \name{bioRad-deprecated}
 \alias{bioRad-deprecated}
+\alias{check_docker}
+\alias{update_docker}
+\alias{vol2bird_version}
 \title{Deprecated bioRad functions and data}
+\usage{
+check_docker(...)
+
+update_docker(...)
+
+vol2bird_version(...)
+}
 \description{
 The functions and data listed below are deprecated or renamed and will be
 defunct in the near future. When possible, alternative functions with similar
 functionality are mentioned.
 }
+\section{check_docker}{
+
+This function has been removed and always returns TRUE
+}
+
+\section{update_docker}{
+
+This function has been deprecated
+}
+
+\section{vol2bird_version}{
+
+This function has been moved to package vol2birdR
+}
+
 \keyword{internal}

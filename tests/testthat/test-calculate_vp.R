@@ -35,7 +35,6 @@ file.copy(system.file("extdata", "volume.h5", package = "bioRad"), pvolfile, ove
 # - local_mistnet, because difficult to test
 
 test_that("calculate_vp() returns error on incorrect parameters", {
-  skip_if_no_docker()
   expect_error(calculate_vp(paste(tmpdir, "nofile.txt", sep = "/"), warnings = FALSE))
   # vpfile: only tests if parent dir is writeable
   # pvolfile: only tests if parent dir is writeable
@@ -84,7 +83,6 @@ test_that("calculate_vp() returns error on incorrect parameters", {
 })
 
 test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
-  skip_if_no_docker()
   vp <- calculate_vp(file = pvolfile, vpfile = vpfile, pvolfile_out = pvolfile_out, warnings = FALSE)
   vp_from_file <- read_vpfiles(vpfile)
   pvol_from_file <- read_pvolfile(pvolfile_out)
@@ -98,7 +96,6 @@ test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
 })
 
 test_that("calculate_vp() produces same vp from disk and from memory", {
-  skip_if_no_docker()
   # how differs in file locations other wise they are equal
   vp_file<-calculate_vp(file = pvolfile, warnings = FALSE)
   vp_memory<-  calculate_vp(file = read_pvolfile(pvolfile), warnings = FALSE)
@@ -110,7 +107,6 @@ test_that("calculate_vp() produces same vp from disk and from memory", {
 })
 
 test_that("calculate_vp() parses input arguments for vol2bird", {
-  skip_if_no_docker()
   # Run with non-default options
   vp <- calculate_vp(file = pvolfile, , warnings = FALSE, sd_vvp_threshold =
                      sd_vvp_threshold, rcs = rcs, dual_pol = dual_pol, rho_hv =
@@ -136,7 +132,6 @@ test_that("calculate_vp() parses input arguments for vol2bird", {
 })
 
 test_that("calculate_vp() ignores input arguments if autoconf", {
-  skip_if_no_docker()
   # Run with non-default options
   vp <- calculate_vp(file = pvolfile, , warnings = FALSE, sd_vvp_threshold =
                      sd_vvp_threshold, rcs = rcs, dual_pol = dual_pol, rho_hv =
@@ -163,7 +158,7 @@ test_that("calculate_vp() ignores input arguments if autoconf", {
 })
 
 test_that("MistNet adds param WEATHER", {
-  skip_if_no_docker()
+  skip_if_no_mistnet()
   vp <- calculate_vp(file = pvolfile, pvolfile_out = pvolfile_out, warnings = FALSE, mistnet = TRUE)
   pvol_from_file <- read_pvolfile(pvolfile_out)
 
@@ -173,8 +168,6 @@ test_that("MistNet adds param WEATHER", {
 })
 
 test_that("Dealiasing can be toggled", {
-  skip_if_no_docker()
-
   # run without dealiasing
   vp <- calculate_vp(file = pvolfile, warnings = FALSE, nyquist_min = nyquist_min, dealias = FALSE)
   # Dealias attribute is stored in two locations

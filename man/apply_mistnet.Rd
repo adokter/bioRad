@@ -21,11 +21,11 @@ apply_mistnet(
 \item{pvolfile_out}{character. (optional) Filename for the polar volume to be
 stored, including the MistNet segmentation results}
 
-\item{verbose}{Logical. When \code{TRUE}, Docker \code{stdout} is piped to the R
-console. Always \code{TRUE} on Windows.}
+\item{verbose}{Logical. When \code{TRUE}, vol2bird \code{stdout} is piped to the R
+console.}
 
 \item{mount}{Character. Directory path of the mount point for the Docker
-container.}
+container (deprecated).}
 
 \item{load}{on completion load the data}
 
@@ -35,13 +35,12 @@ segmentation model, which expects exactly 5 elevation scans
 at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 elevation angles may compromise segmentation results.}
 
-\item{local_install}{(optional) String with path to local vol2bird binary
+\item{local_install}{(deprecated) String with path to local vol2bird binary
 (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"}),
 to use local installation instead of Docker container}
 
 \item{local_mistnet}{(optional) String with path to local mistnet segmentation model
-in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"}),
-to use local installation instead of Docker container.}
+in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"})}
 }
 \value{
 If parameter \code{load} is TRUE an object of class \code{pvol} on success.
@@ -94,6 +93,10 @@ See Lin et al. 2019 for details.
 }
 \examples{
 \dontrun{
+# make sure you have installed the MistNet libraries and model, using:
+# vol2birdR::install_mistnet()
+# vol2birdR::install_mistnet_model()
+
 # download a NEXRAD file, save as KBGM_example
 download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
   "2019/10/01/KBGM/KBGM20191001_000542_V06",

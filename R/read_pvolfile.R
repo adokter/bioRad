@@ -18,9 +18,9 @@
 #' @param elev_max Maximum scan elevation to read in degrees.
 #' @param verbose A logical value, whether to print messages (\code{TRUE})
 #' to console.
-#' @param mount A character string with the mount point (a directory path)
+#' @param mount (deprecated) A character string with the mount point (a directory path)
 #' for the Docker container.
-#' @param local_install (optional) String with path to local vol2bird installation,
+#' @param local_install (deprecated) String with path to local vol2bird installation,
 #' to use local installation instead of Docker container
 #'
 #' @return An object of class \link[=summary.pvol]{pvol}, which is a list
@@ -74,6 +74,7 @@ read_pvolfile <- function(file, param = c(
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file), local_install) {
+  if(!missing(local_install)) warning("argument 'local_install' has been deprecated")
   if(!file.exists(file)){
      stop(paste0("'",file,"' does not exist in current working directory ('",getwd(),"')."))
   }
@@ -125,24 +126,17 @@ read_pvolfile_body <- function(file, param = c(
       stop("Failed to read HDF5 file.")
     }
   } else {
-    if (verbose && missing(local_install)) {
-      cat("Converting using Docker...\n")
-    }
-    if (!.pkgenv$docker && missing(local_install)) {
-      stop(
-        "Requires a running Docker daemon.\nTo enable, start your ",
-        "local Docker daemon, and run 'check_docker()' in R\n"
-      )
-    }
-    file <- nexrad_to_odim_tempfile(file,
-      verbose = verbose,
-      mount = mount, local_install
-    )
-    if (!is.pvolfile(file)) {
-      file.remove(file)
+    pvol_tmp <- tempfile()
+
+    config <- vol2birdR::vol2bird_config()
+    vol2birdR::rsl2odim(file=file, config=config, pvolfile_out=pvol_tmp, verbose=verbose)
+
+    if (!is.pvolfile(pvol_tmp)) {
+      file.remove(pvol_tmp)
       stop("converted file contains errors")
     }
     cleanup <- TRUE
+    file <- pvol_tmp
   }
 
   # extract scan groups

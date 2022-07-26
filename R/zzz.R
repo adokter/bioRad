@@ -12,16 +12,16 @@
 #' @keywords internal
 is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 
-#' Skip test if no docker
+#' Skip test if no mistnet
 #'
-#' Some functions require Docker. This helper function allows to skip a test if
-#' the Docker container is not available, e.g. when running in CI.
+#' Some functions require MistNet to be enabled in package vol2birdR.
+#' This helper function allows to skip a test if MistNet is not available, e.g. when running in CI.
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #'
 #' @keywords internal
-skip_if_no_docker <- function() {
-  if (check_docker(verbose = FALSE) == 0) {
+skip_if_no_mistnet <- function() {
+  if (vol2birdR::mistnet_exists()) {
     return(invisible(TRUE))
   }
-  testthat::skip("No docker")
+  testthat::skip("No MistNet")
 }

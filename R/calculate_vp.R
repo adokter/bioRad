@@ -3,9 +3,7 @@
 #' Calculates a vertical profile of biological scatterers (`vp`) from a polar
 #' volume (`pvol`) file using the algorithm
 #' [vol2bird](https://github.com/adokter/vol2bird/) (Dokter et al.
-#' 2011 \doi{10.1098/rsif.2010.0116}). Requires a running
-#' [Docker](https://www.docker.com/) daemon, unless a local installation of
-#' vol2bird is specified with `local_install`.
+#' 2011 \doi{10.1098/rsif.2010.0116}).
 #'
 #' @param file Character (vector). Either a path to a single radar polar volume
 #'   (`pvol`) file containing multiple scans/sweeps, or multiple paths to scan
@@ -23,12 +21,12 @@
 #'   RSL formats to ODIM.
 #' @param autoconf Logical. When `TRUE`, default optimal configuration settings
 #'   are selected automatically and other user settings are ignored.
-#' @param verbose Logical. When `TRUE`, Docker `stdout` is piped to the R
-#'   console. Always `TRUE` on Windows.
+#' @param verbose Logical. When `TRUE`, vol2bird `stdout` is piped to the R
+#'   console.
 #' @param warnings Logical. When `TRUE`, vol2bird warnings are piped to the R
 #'   console.
 #' @param mount Character. Directory path of the mount point for the Docker
-#'   container.
+#'   container (deprecated).
 #' @param sd_vvp_threshold Numeric. Lower threshold for the radial velocity
 #'   standard deviation (profile quantity `sd_vvp`) in m/s. Biological signals
 #'   with `sd_vvp < sd_vvp_threshold` are set to zero. Defaults to 2 m/s for
@@ -65,7 +63,7 @@
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
 #' @param local_install Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh`).
+#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh`). (deprecated)
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
 #'
@@ -77,7 +75,7 @@
 #' @details
 #' ## Typical use
 #'
-#' Common arguments set by users are `file`, `vpfile`, `autoconf` and `mount`.
+#' Common arguments set by users are `file`, `vpfile` and `autoconf`.
 #' Turn on `autoconf` to automatically select the optimal parameters for a given
 #' radar file. The default for C-band data is to apply rain-filtering in single
 #' polarization mode and dual polarization mode when available. The default for
@@ -87,14 +85,6 @@
 #' Arguments that sometimes require non-default values are: `rcs`,
 #' `sd_vvp_threshold`, `range_max`, `dual_pol`, `dealias`. Other arguments are
 #' typically left at their defaults.
-#'
-#' ## mount
-#'
-#' On repeated calls of [calculate_vp()], the Docker container mount can be
-#' recycled from one call to the next if subsequent calls share the same `mount`
-#' argument. Re-mounting a Docker container takes time, therefore it is advised
-#' to choose a mount point that is a parent directory of all volume files to be
-#' processed, such that [calculate_vp()] calls are as fast as possible.
 #'
 #' ## sd_vvp_threshold
 #'
@@ -150,18 +140,7 @@
 #'
 #' ## Local installation
 #'
-#' You can bypass the Docker container and speed up processing by installing
-#' vol2bird locally (not on Windows). Point `local_install` to the path of your
-#' local vol2bird executable, e.g.
-#' `/your/vol2bird_install_directory/vol2bird/bin/vol2bird`. Your local vol2bird
-#' executable will be called through a bash login shell. `LD_LIBRARY_PATH`
-#' (Linux) or `DYLD_LIBRARY_PATH` (Mac) should be correctly specified in your
-#' `.bashrc` or `.bash_profile` file and contain all the required shared
-#' libraries by vol2bird. See vol2bird installation pages on
-#' [GitHub](https://github.com/adokter/vol2bird) for details.
-#'
-#' When using MistNet with a local vol2bird installation, also point parameter
-#' `local_mistnet` to your local download of the MistNet segmentation model in
+#' You may point parameter `local_mistnet` to a local download of the MistNet segmentation model in
 #' PyTorch format, e.g. `/your/path/mistnet_nexrad.pt`. The MistNet model can
 #' be downloaded at <https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt>.
 #'
@@ -259,8 +238,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
   if (mistnet){
     if(missing(local_mistnet)){
-      if (!.pkgenv$mistnet) {
-        stop("MistNet has not been installed, see update_docker() for install instructions.")
+      if (!vol2birdR::mistnet_exists()) {
+        stop("MistNet has not been installed, see vol2birdR package documentation for install instructions.")
       }
     }
     else{
@@ -272,31 +251,18 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
   }
-  if(missing(mount))  {
-    mount<-dirname(file[1])
+  if(!missing(mount))  {
+    warning("mount argument is deprecated")
   }
-  if (file.access(mount, 0) == -1) {
-    stop(glue("Can't find `mount` directory: {mount}"))
-  }
-  if (file.access(mount, 2) == -1) {
-    stop(glue("No write permission to `mount` directory: {mount}"))
-  }
-  if ((missing(local_install) && !missing(local_mistnet)) || (!missing(local_install) && missing(local_mistnet) && mistnet)) {
-    stop("To use local vol2bird and MistNet model, specify both `local_install` and `local_mistnet`.")
+  if(!missing(local_install)){
+    warning("local_install argument is deprecated")
   }
 
   assert_that(is.numeric(mistnet_elevations))
   assert_that(length(mistnet_elevations) == 5)
-  if (!.pkgenv$docker && missing(local_install)) {
-    stop(
-      "Requires a running Docker daemon.\nTo enable calculate_vp(), start ",
-      "your local Docker daemon, and run check_docker() in R."
-    )
-  }
   assert_that(is.flag(autoconf))
   assert_that(is.flag(verbose))
   assert_that(is.flag(warnings))
-  assert_that(is.writeable(mount))
   if (!missing(sd_vvp_threshold)) {
     assert_that(is.number(sd_vvp_threshold))
     assert_that(sd_vvp_threshold >= 0)
@@ -364,192 +330,52 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assert_that(is.flag(mistnet))
   assert_that(
-    !(mistnet && !.pkgenv$mistnet && missing(local_mistnet)),
-    msg = "Can't find MistNet installation, see update_docker() for install instructions.")
+    !(mistnet && !vol2birdR::mistnet_exists() && missing(local_mistnet)),
+    msg = "Can't find MistNet installation, see vol2birdR package for install instructions.")
   assert_that(is.flag(dealias))
-  assert_that(
-    .pkgenv$docker | !missing(local_install),
-    msg = glue(
-      "Requires a running Docker daemon.\nTo enable calculate_vp(), start ",
-      "your local Docker daemon, and run check_docker() in R."
-    )
-  )
+
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assert_that(is.writeable(filedir))
-  assert_that(
-    grepl(normalizePath(mount, winslash = "/"), filedir, fixed = TRUE),
-    msg = "Mount point `mount` must be a parent directory of the input `file`."
-  )
 
-  # check whether vol2bird container supports multiple input files
-  multi_file_support <- !is.null(.pkgenv$vol2bird_version) && !is.na(.pkgenv$vol2bird_version) && .pkgenv$vol2bird_version > numeric_version("0.3.20")
-  if (!missing(local_install)) multi_file_support <- TRUE
-  assert_that(!(length(file) > 1 && !multi_file_support),
-    msg = glue(
-      "Current vol2bird installation does not support multiple input files. ",
-      "Provide a single input file containing a polar volume, or run ",
-      "update_docker() to update."
-    )
-  )
+  profile.tmp <- tempfile()
 
-  profile.tmp <- tempfile(tmpdir = filedir)
-
-  if (missing(local_install)) {
-    assert_that(
-      mount_docker_container(normalizePath(mount, winslash = "/")) == 0,
-      msg = "Failed to start vol2bird Docker container, see check_docker()."
-    )
+  config <- vol2birdR::vol2bird_config()
+  if(!autoconf){
+    config$birdRadarCrossSection <- rcs
+    config$rhohvThresMin <- rho_hv
+    config$elevMin <- elev_min
+    config$elevMax <- elev_max
+    config$azimMin <- azim_min
+    config$azimMax <- azim_max
+    config$rangeMin <- range_min
+    config$rangeMax <- range_max
+    config$nLayers <- n_layer
+    config$layerThickness <- h_layer
+    config$minNyquist <- nyquist_min
+    config$dbzType <- dbz_quantity
+    config$dualPol <- dual_pol
+    config$dealiasVrad <- dealias
+    if (!missing(sd_vvp_threshold)) config$stdDevMinBird <- sd_vvp_threshold
+  } else{
+    # setting stdDevMinBird triggers it to be set according to wavelength (1 m/s for S-band, 2 m/s for C-band)
+    config$stdDevMinBird <- -1
   }
+  config$mistNetElevs <- mistnet_elevations
+  config$useMistNet <- mistnet
+  if(!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
 
-  # put options file in place, to be read by vol2bird container
-  opt.values <- c(
-    as.character(c(
-      rcs, rho_hv, elev_min, elev_max,
-      azim_min, azim_max, range_min, range_max,
-      n_layer, h_layer, nyquist_min, dbz_quantity
-    )),
-    if (dual_pol) "TRUE" else "FALSE",
-    if (dealias) "TRUE" else "FALSE"
-  )
-
-  opt.names <- c(
-    "SIGMA_BIRD", "RHOHVMIN", "ELEVMIN", "ELEVMAX",
-    "AZIMMIN", "AZIMMAX", "RANGEMIN", "RANGEMAX", "NLAYER",
-    "HLAYER", "MIN_NYQUIST_VELOCITY", "DBZTYPE", "DUALPOL",
-    "DEALIAS_VRAD"
-  )
-
-  if (!missing(sd_vvp_threshold)) {
-    opt.values <- c(as.character(sd_vvp_threshold), opt.values)
-    opt.names <- c("STDEV_BIRD", opt.names)
-  }
-
-  if (mistnet) {
-    opt.values <- c(
-      opt.values, "TRUE",
-      paste("{", paste(as.character(mistnet_elevations), collapse = ", "), paste = "}", sep = ""),
-      ifelse(missing(local_install), "/MistNet/mistnet_nexrad.pt", normalizePath(local_mistnet))
-    )
-    opt.names <- c(opt.names, "USE_MISTNET", "MISTNET_ELEVS", "MISTNET_PATH")
-  }
-
-  opt <- data.frame(
-    "option" = opt.names, "is" = rep("=", length(opt.values)),
-    "value" = opt.values
-  )
-  if (missing(local_install)) {
-    optfile <- paste(normalizePath(mount, winslash = "/"),
-      "/options.conf",
-      sep = ""
-    )
-  }
-  else {
-    optfile <- tempfile(fileext = '.conf')
-  }
-
-  if (file.exists(optfile)) {
-    optfile_save <- paste(optfile, ".", format(Sys.time(), "%Y%m%d%H%M%S"), sep = "")
-    warning(glue(
-      "`options.conf` file found in directory {mount}. Renamed to ",
-      "{basename(optfile_save)} to prevent overwrite."
-    ))
-    file.rename(optfile, optfile_save)
-  }
-
-  # only use user configuration when autoconfiguration is off.
-  if (!autoconf) {
-    write.table(opt,
-      file = optfile, col.names = FALSE,
-      row.names = FALSE, quote = FALSE
-    )
-  }
-
-  # prepare docker input filenames relative to mountpoint
-  prefixstart <- if (mount == "/") 1 else 2
-  prefix <- substring(
-    filedir,
-    prefixstart + nchar(normalizePath(mount, winslash = "/"))
-  )
-  if (nchar(prefix) > 0) {
-    prefix <- paste(prefix, "/", sep = "")
-  }
-
-
-  # we have a valid vol2bird version > 0.3.20, so we can use multiple file inputs
-  if (multi_file_support) {
-    pvolfile_docker <- paste("-i ", prefix, basename(file), sep = "", collapse = " ")
-    profile.tmp.docker <- paste("-o ", prefix, basename(profile.tmp), sep = "")
-    if (pvolfile_out != "") {
-      pvolfile_out_docker <- paste("-p ", prefix, basename(pvolfile_out), sep = "")
-    } else {
-      pvolfile_out_docker <- ""
-    }
-  }
-  else { # only single polar volume file input supported
-    pvolfile_docker <- paste(prefix, basename(file), sep = "")
-    profile.tmp.docker <- paste(prefix, basename(profile.tmp), sep = "")
-    if (pvolfile_out != "") {
-      pvolfile_out_docker <- paste(prefix, basename(pvolfile_out), sep = "")
-    } else {
-      pvolfile_out_docker <- ""
-    }
-  }
-
-  docker_command <- paste(
-    "docker exec vol2bird bash -c \"cd data && vol2bird ",
-    pvolfile_docker, profile.tmp.docker,
-    pvolfile_out_docker, "\""
-  )
-
-  # run vol2bird container
-  if (.Platform$OS.type == "unix") {
-    # on mac and linux:
-    if (missing(local_install)) {
-      result <- system(docker_command,
-        ignore.stdout = !verbose, ignore.stderr = !warnings
-      )
-    }
-    else {
-      assert_that(vol2bird_version(local_install) >= numeric_version("0.5.0.9187"),
-        msg = glue(
-          "Current vol2bird installation does not support using a custom path for the configuration file. Please update your vol2bird."
-        )
-      )
-      file_input_shell <- paste("-i ", format_file_for_shell(file), sep = "", collapse = " ")
-      profile_output_shell <- paste0(format_file_for_shell(dirname(profile.tmp)),"/",basename(profile.tmp))
-      cmd <- paste(local_install,"-c",optfile,file_input_shell,"-o",profile_output_shell)
-      if (pvolfile_out != "") {
-        volume_output_shell <- format_file_for_shell(pvolfile_out)
-        cmd <- paste(cmd,"-p", volume_output_shell)
-      }
-      # using a local install of vol2bird:
-      result <- system(glue('bash -l -c "{cmd}"'),
-        ignore.stdout = !verbose, ignore.stderr = !warnings
-      )
-    }
-  } else {
-    # on Windows platforms:
-    result <- suppressWarnings(system(docker_command))
-  }
-  if (result != 0) {
-    if (file.exists(optfile)) file.remove(optfile)
-    stop("Failed to run vol2bird.")
-  }
+  # run vol2bird
+  vol2birdR::vol2bird(file=file, config=config, vpfile=profile.tmp, pvolfile_out=pvolfile_out, verbose = verbose)
 
   # read output into a vp object
   output <- read_vpfiles(profile.tmp)
 
-  # clean up
+  # read output and clean up
   if (vpfile == "") {
     file.remove(profile.tmp)
   } else {
     file.rename(profile.tmp, vpfile)
   }
-  if (file.exists(optfile)) {
-    file.remove(optfile)
-  }
 
   output
 }
-
-format_file_for_shell <- function(x) sapply(x, function(file) system(paste("/bin/bash -c", shQuote(paste("printf %q", shQuote(normalizePath(file))))), intern = T),USE.NAMES=FALSE)
