@@ -4,6 +4,14 @@
 
 -->
 
+# bioRad 0.7.0.XXXX
+
+bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package [vol2birdR](https://adriaandokter.com/vol2birdR/) package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.
+
+* bioRad is now fully available on Windows
+* Faster implementations of functions previously dependent on Docker, such as  `calculate_vp()` and `apply_mistnet()` and `read_pvolfile()`.
+* argument `local_install` in `calculate_vp()` and `apply_mistnet()` is now deprecated.
+
 # bioRad 0.6.0
 
 Introduces a number of new functions and parameters and includes bugfixes.
