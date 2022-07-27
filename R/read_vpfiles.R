@@ -39,6 +39,13 @@ read_vp <- function(file) {
   attribs.how <- h5readAttributes(file, "how")
   attribs.what <- h5readAttributes(file, "what")
   attribs.where <- h5readAttributes(file, "where")
+
+  # construct wavelength attribute from frequency attribute if possible:
+  if(is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)){
+    speed_of_light = 299792458
+    attribs.how$wavelength = 100*speed_of_light/attribs.how$frequency
+  }
+
   # add vp_filename attribute if missing
   if (is.null(attribs.how$filename_vp)) {
     attribs.how$filename_vp <- file
