@@ -34,10 +34,11 @@
 #' @param rcs Numeric. Radar cross section per bird to use, in cm^2.
 #' @param dual_pol Logical. When `TRUE`, uses dual-pol mode, in which
 #'   meteorological echoes are filtered using the correlation coefficient
-#'   `rho_hv`. When `FALSE`, uses single polarization mode based only on
-#'   reflectivity and radial velocity quantities.
+#'   threshold `rho_hv`.
 #' @param rho_hv Numeric. Lower threshold in correlation coefficient to use for
 #'   filtering meteorological scattering.
+#' @param single_pol Logical. When `TRUE`, uses precipitation filtering in single
+#' polarization mode based on reflectivity and radial velocity quantities.
 #' @param elev_min Numeric. Minimum elevation angle to include, in degrees.
 #' @param elev_max Numeric. Maximum elevation angle to include, in degrees.
 #' @param azim_min Numeric. Minimum azimuth to include, in degrees clockwise
@@ -188,8 +189,8 @@
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
                          mount, sd_vvp_threshold,
-                         rcs = 11, dual_pol = TRUE, rho_hv = 0.95, elev_min = 0,
-                         elev_max = 90, azim_min = 0, azim_max = 360,
+                         rcs = 11, dual_pol = TRUE, rho_hv = 0.95, single_pol = TRUE,
+                         elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
@@ -203,8 +204,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       vpfile = vpfile, pvolfile_out = pvolfile_out,
       autoconf = autoconf, verbose = verbose, warnings = warnings,
       mount = mount, sd_vvp_threshold = sd_vvp_threshold,
-      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, elev_min = elev_min,
-      elev_max = 90, azim_min = 0, azim_max = 360,
+      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol=single_pol,
+      elev_min = elev_min, elev_max = 90, azim_min = 0, azim_max = 360,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
       h_layer = h_layer, dealias = dealias,
       nyquist_min = nyquist_min,
@@ -271,6 +272,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(rcs > 0)
   assert_that(is.flag(dual_pol))
   assert_that(is.number(rho_hv))
+  assert_that(is.flag(single_pol))
   assert_that(
     rho_hv >= 0 & rho_hv <= 1,
     msg = "`rho_hv` must be a number between 0 and 1."
