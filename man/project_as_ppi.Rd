@@ -79,12 +79,12 @@ The returned PPI is in Azimuthal Equidistant Projection.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{param}: Project as \code{ppi} for a single scan parameter.
+\item \code{project_as_ppi(param)}: Project as \code{ppi} for a single scan parameter.
 
-\item \code{scan}: Project multiple \code{ppi}'s for all scan
+\item \code{project_as_ppi(scan)}: Project multiple \code{ppi}'s for all scan
 parameters in a scan
-}}
 
+}}
 \examples{
 # load a polar scan example object:
 data(example_scan)

@@ -16,6 +16,7 @@ calculate_vp(
   rcs = 11,
   dual_pol = TRUE,
   rho_hv = 0.95,
+  single_pol = TRUE,
   elev_min = 0,
   elev_max = 90,
   azim_min = 0,
@@ -71,11 +72,13 @@ C-band radars and 1 m/s for S-band radars.}
 
 \item{dual_pol}{Logical. When \code{TRUE}, uses dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
-\code{rho_hv}. When \code{FALSE}, uses single polarization mode based only on
-reflectivity and radial velocity quantities.}
+threshold \code{rho_hv}.}
 
 \item{rho_hv}{Numeric. Lower threshold in correlation coefficient to use for
 filtering meteorological scattering.}
+
+\item{single_pol}{Logical. When \code{TRUE}, uses precipitation filtering in single
+polarization mode based on reflectivity and radial velocity quantities.}
 
 \item{elev_min}{Numeric. Minimum elevation angle to include, in degrees.}
 
