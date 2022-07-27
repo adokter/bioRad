@@ -94,6 +94,7 @@ volume (<code>pvol</code>) file using the algorithm
 <span>  rcs <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  dual_pol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  rho_hv <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  single_pol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  elev_min <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  elev_max <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>  azim_min <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -170,13 +171,17 @@ C-band radars and 1 m/s for S-band radars.</p></dd>
 <dt>dual_pol</dt>
 <dd><p>Logical. When <code>TRUE</code>, uses dual-pol mode, in which
 meteorological echoes are filtered using the correlation coefficient
-<code>rho_hv</code>. When <code>FALSE</code>, uses single polarization mode based only on
-reflectivity and radial velocity quantities.</p></dd>
+threshold <code>rho_hv</code>.</p></dd>
 
 
 <dt>rho_hv</dt>
 <dd><p>Numeric. Lower threshold in correlation coefficient to use for
 filtering meteorological scattering.</p></dd>
+
+
+<dt>single_pol</dt>
+<dd><p>Logical. When <code>TRUE</code>, uses precipitation filtering in single
+polarization mode based on reflectivity and radial velocity quantities.</p></dd>
 
 
 <dt>elev_min</dt>
