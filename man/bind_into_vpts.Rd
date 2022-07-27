@@ -40,18 +40,18 @@ of altitude layers, i.e. the maximum altitude
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{vp}: Bind multiple \code{vp} into a \code{vpts}.
+\item \code{bind_into_vpts(vp)}: Bind multiple \code{vp} into a \code{vpts}.
 If \code{vp} for multiple radars are provided, a list is returned containing
 a \code{vpts} for each radar.
 
-\item \code{list}: Bind multiple \code{vp} objects into a
+\item \code{bind_into_vpts(list)}: Bind multiple \code{vp} objects into a
 \code{vpts}. If data for multiple radars is provided, a list is returned
 containing a \code{vpts} for each radar.
 
-\item \code{vpts}: Bind multiple \code{vpts} into a single
+\item \code{bind_into_vpts(vpts)}: Bind multiple \code{vpts} into a single
 \code{vpts}. Requires the input \code{vpts} to be from the same radar.
-}}
 
+}}
 \examples{
 # load example time series of vertical profiles:
 data(example_vpts)

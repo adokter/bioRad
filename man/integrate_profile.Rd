@@ -203,15 +203,15 @@ ground speed directions vary with altitude.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{vp}: Vertically integrate a vertical profile.
+\item \code{integrate_profile(vp)}: Vertically integrate a vertical profile.
 
-\item \code{list}: Vertically integrate a list of
+\item \code{integrate_profile(list)}: Vertically integrate a list of
 vertical profiles.
 
-\item \code{vpts}: Vertically integrate a time series of
+\item \code{integrate_profile(vpts)}: Vertically integrate a time series of
 vertical profiles.
+
 }}
-
 \examples{
 # MTR for a single vertical profile
 integrate_profile(example_vp)
