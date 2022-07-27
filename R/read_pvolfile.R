@@ -169,6 +169,12 @@ read_pvolfile_body <- function(file, param = c(
     attribs.where <- h5readAttributes(file, "where")
   }
 
+  # construct wavelength attribute from frequency attribute if possible:
+  if(is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)){
+    speed_of_light = 299792458
+    attribs.how$wavelength = 100*speed_of_light/attribs.how$frequency
+  }
+
   vol.lat <- c(attribs.where$lat) # need the c() to convert single element matrix to single element vector
   vol.lon <- c(attribs.where$lon)
   vol.height <- c(attribs.where$height)
