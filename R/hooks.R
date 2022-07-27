@@ -5,5 +5,5 @@
 
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage(paste("Welcome to", pkgname, "version", packageVersion(pkgname)))
-  packageStartupMessage(paste("using vol2bird version ", vol2birdR::vol2bird_version(), ifelse(vol2birdR::mistnet_exists(), " (MistNet installed)", " (MistNet not installed)"), sep = ""))
+  packageStartupMessage(paste("using vol2birdR version ", packageVersion("vol2birdR"), ifelse(vol2birdR::mistnet_exists(), " (MistNet installed)", " (MistNet not installed)"), sep = ""))
 }
