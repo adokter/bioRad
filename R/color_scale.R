@@ -134,6 +134,9 @@ get_zlim <- function(param, zlim) {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     return(c(-20, 20))
   }
+  if (param %in% c("WRADH", "WRADV", "WRAD")) {
+    return(c(0, 6))
+  }
   if (param == "RHOHV") {
     return(c(0.4, 1))
   }

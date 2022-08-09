@@ -68,7 +68,7 @@
 #' # print summary info for the new object:
 #' scan
 read_pvolfile <- function(file, param = c(
-                            "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
+                            "DBZH", "DBZ", "VRADH", "VRAD", "WRADH", "WRAD", "TH", "T", "RHOHV",
                             "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
                           ),
                           sort = TRUE, lat, lon, height, elev_min = 0,
