@@ -91,9 +91,9 @@ model (ODIM), see Table 16 in the
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{ppi}: plot a 'ppi' object on a map
-}}
+\item \code{map(ppi)}: plot a 'ppi' object on a map
 
+}}
 \examples{
 # load an example scan:
 data(example_scan)

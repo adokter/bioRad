@@ -31,13 +31,13 @@ clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+C
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{pvol}: Calculate a new scan parameter for all scans in a polar volume.
+\item \code{calculate_param(pvol)}: Calculate a new scan parameter for all scans in a polar volume.
 
-\item \code{ppi}: Calculate a new parameter for a PPI.
+\item \code{calculate_param(ppi)}: Calculate a new parameter for a PPI.
 
-\item \code{scan}: Calculate a new scan parameter for a scan
+\item \code{calculate_param(scan)}: Calculate a new scan parameter for a scan
+
 }}
-
 \examples{
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

@@ -4,6 +4,9 @@
 
 -->
 
+# bioRad 0.6.1
+Rebuilds the documentation using roxygen2 for compability with HTML5
+
 # bioRad 0.6.0
 
 Introduces a number of new functions and parameters and includes bugfixes.
