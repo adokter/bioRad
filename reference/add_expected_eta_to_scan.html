@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,52 +74,75 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_expected_eta_to_scan</span><span class="op">(</span>
-  <span class="va">scan</span>,
-  <span class="va">vp</span>,
-  quantity <span class="op">=</span> <span class="st">"dens"</span>,
-  param <span class="op">=</span> <span class="st">"DBZH"</span>,
-  <span class="va">lat</span>,
-  <span class="va">lon</span>,
-  <span class="va">antenna</span>,
-  beam_angle <span class="op">=</span> <span class="fl">1</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_expected_eta_to_scan</span><span class="op">(</span></span>
+<span>  <span class="va">scan</span>,</span>
+<span>  <span class="va">vp</span>,</span>
+<span>  quantity <span class="op">=</span> <span class="st">"dens"</span>,</span>
+<span>  param <span class="op">=</span> <span class="st">"DBZH"</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  <span class="va">lon</span>,</span>
+<span>  <span class="va">antenna</span>,</span>
+<span>  beam_angle <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>scan</dt>
 <dd><p>a scan (sweep) of class scan</p></dd>
+
+
 <dt>vp</dt>
 <dd><p>a vertical profile of class vp</p></dd>
+
+
 <dt>quantity</dt>
 <dd><p>profile quantity on which to base range corrections, 'eta' or 'dens'.</p></dd>
+
+
 <dt>param</dt>
 <dd><p>reflectivity factor scan parameter on which to base range corrections.
 Typically the same parameter from which animal densities are estimated for object <code>vp</code>.
 One of 'DBZH','DBZV','DBZ','TH','TV'.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Geodetic latitude of the radar in degrees. If missing taken from <code>pvol</code>.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Geodetic latitude of the radar in degrees. If missing taken from <code>pvol</code>.</p></dd>
+
+
 <dt>antenna</dt>
 <dd><p>radar antenna height. If missing taken from <code>vp</code></p></dd>
+
+
 <dt>beam_angle</dt>
 <dd><p>numeric. Beam opening angle in degrees, typically the
 angle between the half-power (-3 dB) points of the main lobe</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an object of class 'scan'</p>
+    
+
+<p>an object of class 'scan'</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -138,7 +161,7 @@ angle between the half-power (-3 dB) points of the main lobe</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

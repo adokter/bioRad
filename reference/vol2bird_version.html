@@ -19,7 +19,7 @@ installed vol2bird algorithm in the Docker container."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -31,7 +31,7 @@ installed vol2bird algorithm in the Docker container."><meta property="og:image"
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -78,7 +78,7 @@ installed vol2bird algorithm in the Docker container.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vol2bird_version</span><span class="op">(</span><span class="va">local_install</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vol2bird_version</span><span class="op">(</span><span class="va">local_install</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,10 +86,13 @@ installed vol2bird algorithm in the Docker container.</p>
     <dl><dt>local_install</dt>
 <dd><p>(optional) String with path to local
 vol2bird installation, see <a href="calculate_vp.html">calculate_vp</a> for details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an object of class <a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">numeric_version</a>, NA if docker system command not available,
+    
+
+<p>an object of class <a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">numeric_version</a>, NA if docker system command not available,
 NaN if Docker daemon not running, NULL if adokter/vol2bird docker image not available</p>
     </div>
     <div id="details">
@@ -101,11 +104,11 @@ the version of this local installation.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># check installed vol2bird version:</span></span>
-<span class="r-in"><span class="fu">vol2bird_version</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># check installed vol2bird version:</span></span></span>
+<span class="r-in"><span><span class="fu">vol2bird_version</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ‘0.5.0.9169’</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -120,7 +123,7 @@ the version of this local installation.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ sd_vvp_threshold and 0 if below."><meta property="og:image" content="https://adr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -31,7 +31,7 @@ sd_vvp_threshold and 0 if below."><meta property="og:image" content="https://adr
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -78,27 +78,30 @@ updates the migration densities in <code>x$data$dens</code> to <code>eta</code>/
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="co"># S3 method for vp</span>
-<span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="co"># S3 method for list</span>
-<span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="co"># S3 method for vpts</span>
-<span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="co"># S3 method for vpi</span>
-<span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for vp</span></span>
+<span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for list</span></span>
+<span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for vpts</span></span>
+<span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for vpi</span></span>
+<span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>vp</code>, list of <code>vp</code>, <code>vpts</code> or <code>vpi</code> object.</p></dd>
+
+
 <dt>value</dt>
 <dd><p>Numeric. The radar cross section value to assign in cm^2.</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -110,17 +113,17 @@ updates the migration densities in <code>x$data$dens</code> to <code>eta</code>/
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Set the radar cross section for a vp</span></span>
-<span class="r-in"><span class="va">vp</span> <span class="op">&lt;-</span> <span class="va">example_vp</span></span>
-<span class="r-in"><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">vp</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Set the radar cross section for a vpts</span></span>
-<span class="r-in"><span class="va">vpts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span>
-<span class="r-in"><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">vpts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Set the radar cross section for a vpi</span></span>
-<span class="r-in"><span class="va">vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">vpi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Set the radar cross section for a vp</span></span></span>
+<span class="r-in"><span><span class="va">vp</span> <span class="op">&lt;-</span> <span class="va">example_vp</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">vp</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Set the radar cross section for a vpts</span></span></span>
+<span class="r-in"><span><span class="va">vpts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">vpts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Set the radar cross section for a vpi</span></span></span>
+<span class="r-in"><span><span class="va">vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="rcs.html">rcs</a></span><span class="op">(</span><span class="va">vpi</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">11</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -135,7 +138,7 @@ updates the migration densities in <code>x$data$dens</code> to <code>eta</code>/
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

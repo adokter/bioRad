@@ -20,7 +20,7 @@ vector of regex options as possible options."><meta property="og:image" content=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@ vector of regex options as possible options."><meta property="og:image" content=
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -80,20 +80,25 @@ vector of regex options as possible options.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">match_filenames</span><span class="op">(</span><span class="va">file_list</span>, <span class="va">regex_list</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">match_filenames</span><span class="op">(</span><span class="va">file_list</span>, <span class="va">regex_list</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file_list</dt>
 <dd><p>character vector. Haystack of filenames/filepaths.</p></dd>
+
+
 <dt>regex_list</dt>
 <dd><p>character vector. Needle of regular expressions to which
 filenames should comply.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>character vector. Subset of filenames from the file_list that comply
+    
+
+<p>character vector. Subset of filenames from the file_list that comply
 to the provided regular expressions in regex_list.</p>
     </div>
 
@@ -109,7 +114,7 @@ to the provided regular expressions in regex_list.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

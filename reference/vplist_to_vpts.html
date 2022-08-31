@@ -18,7 +18,7 @@ keeping backward compatibility with the vpts function."><meta property="og:image
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@ keeping backward compatibility with the vpts function."><meta property="og:image
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -76,7 +76,7 @@ keeping backward compatibility with the <code>vpts</code> function.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vplist_to_vpts</span><span class="op">(</span><span class="va">x</span>, radar <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vplist_to_vpts</span><span class="op">(</span><span class="va">x</span>, radar <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,25 +84,33 @@ keeping backward compatibility with the <code>vpts</code> function.</p>
     <dl><dt>x</dt>
 <dd><p>A list of <code>vp</code> objects, usually a result of a call
 to <a href="read_vpfiles.html">read_vpfiles</a>.</p></dd>
+
+
 <dt>radar</dt>
 <dd><p>optional string containing the radar identifier to generate
 time series for.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>an object of class <a href="summary.vpts.html">vpts</a> when <code>list</code>contains profiles of a single radar. A list of objects of class
+    
+
+<p>an object of class <a href="summary.vpts.html">vpts</a> when <code>list</code></p>
+
+
+<p>contains profiles of a single radar. A list of objects of class
 <a href="summary.vpts.html">vpts</a> in case when <code>list</code> contains profiles of
 multiple radars, containing <a href="summary.vpts.html">vpts</a> objects for each radar.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="va">vps</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_vpfiles.html">read_vpfiles</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"my/path/profile1.h5"</span>, <span class="st">"my/path/profile2.h5"</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="va">vps</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_vpfiles.html">read_vpfiles</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"my/path/profile1.h5"</span>, <span class="st">"my/path/profile2.h5"</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5",     ...)):</span> '...' used in an incorrect context</span>
-<span class="r-in"><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="bind_into_vpts.html">bind_into_vpts</a></span><span class="op">(</span><span class="va">vps</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="bind_into_vpts.html">bind_into_vpts</a></span><span class="op">(</span><span class="va">vps</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in bind_into_vpts(vps):</span> object 'vps' not found</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -117,7 +125,7 @@ multiple radars, containing <a href="summary.vpts.html">vpts</a> objects for eac
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

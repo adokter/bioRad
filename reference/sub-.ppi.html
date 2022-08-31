@@ -18,7 +18,7 @@ position indicator (ppi)."><meta property="og:image" content="https://adriaandok
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@ position indicator (ppi)."><meta property="og:image" content="https://adriaandok
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -84,48 +84,53 @@ position indicator (<code>ppi</code>).</p>
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>ppi</code> object.</p></dd>
+
+
 <dt>i</dt>
 <dd><p>Integer. Index/indices specifying which parameters (<code>param</code>) or
 derived quantities to extract.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>ppi</code> object containing a subset of parameters (<code>param</code>).</p>
+    
+
+<p>A <code>ppi</code> object containing a subset of parameters (<code>param</code>).</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Project a scan as a ppi</span></span>
-<span class="r-in"><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Project a scan as a ppi</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># This ppi contains 5 parameters (DBZH VRADH ZDR RHOHV PHIDP)</span></span>
-<span class="r-in"><span class="va">ppi</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># This ppi contains 5 parameters (DBZH VRADH ZDR RHOHV PHIDP)</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Subset ppi to one containing only the first parameter (DBZH)</span></span>
-<span class="r-in"><span class="va">ppi</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Subset ppi to one containing only the first parameter (DBZH)</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Subset ppi to one containing the first three parameters (DBZH, VRADH, ZDR)</span></span>
-<span class="r-in"><span class="va">ppi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Subset ppi to one containing the first three parameters (DBZH, VRADH, ZDR)</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH VRADH RHOHV </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)</span></span>
-<span class="r-in"><span class="va">ppi</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  RHOHV ZDR PHIDP </span>
@@ -145,7 +150,7 @@ derived quantities to extract.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

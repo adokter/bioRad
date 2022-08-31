@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,74 +74,103 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scan_to_raster</span><span class="op">(</span>
-  <span class="va">scan</span>,
-  nx <span class="op">=</span> <span class="fl">100</span>,
-  ny <span class="op">=</span> <span class="fl">100</span>,
-  <span class="va">xlim</span>,
-  <span class="va">ylim</span>,
-  res <span class="op">=</span> <span class="cn">NA</span>,
-  <span class="va">param</span>,
-  raster <span class="op">=</span> <span class="cn">NA</span>,
-  <span class="va">lat</span>,
-  <span class="va">lon</span>,
-  crs <span class="op">=</span> <span class="cn">NA</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scan_to_raster</span><span class="op">(</span></span>
+<span>  <span class="va">scan</span>,</span>
+<span>  nx <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  ny <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  <span class="va">xlim</span>,</span>
+<span>  <span class="va">ylim</span>,</span>
+<span>  res <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  <span class="va">param</span>,</span>
+<span>  raster <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  <span class="va">lon</span>,</span>
+<span>  crs <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>scan</dt>
 <dd><p>a scan (sweep) of class scan</p></dd>
+
+
 <dt>nx</dt>
 <dd><p>number of raster pixels in the x (longitude) dimension</p></dd>
+
+
 <dt>ny</dt>
 <dd><p>number of raster pixels in the y (latitude) dimension</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p>x (longitude) range</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>y (latitude) range</p></dd>
+
+
 <dt>res</dt>
-<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/raster/man/resolution.html" class="external-link">res</a>).
+<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a>).
 If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></dd>
+
+
 <dt>param</dt>
 <dd><p>scan parameters to include. If <code>NA</code> include all scan parameters. Reducing the number
 of scan parameters speeds up evaluation.</p></dd>
+
+
 <dt>raster</dt>
 <dd><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
 arguments are ignored.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Geodetic latitude of the radar in degrees. If missing taken from <code>scan</code>.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Geodetic longitude of the radar in degrees. If missing taken from <code>scan</code>.</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a RasterBrick</p>
+    
+
+<p>a RasterBrick</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>uses <a href="scan_to_spatial.html">scan_to_spatial</a> to georeference the scan's pixels. If multiple scan pixels fall within
-the same raster pixel, the last added pixel is given (see <a href="https://rdrr.io/pkg/raster/man/rasterize.html" class="external-link">rasterize</a> for details).</p>
+the same raster pixel, the last added pixel is given (see <a href="https://rdrr.io/pkg/terra/man/rasterize.html" class="external-link">rasterize</a> for details).</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># default projects full extent on 100x100 pixel raster:</span></span>
-<span class="r-in"><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># default projects full extent on 100x100 pixel raster:</span></span></span>
+<span class="r-in"><span><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 100, 100, 10000, 5  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 4791.787, 4791.787  (x, y)</span>
@@ -152,9 +181,9 @@ the same raster pixel, the last added pixel is given (see <a href="https://rdrr.
 <span class="r-out co"><span class="r-pr">#&gt;</span> min values :  -12.00000,  -21.43643,    0.02680,  -14.87059, -178.58824 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max values :  32.000000,  20.684274,   0.999300,   7.905883, 178.588244 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># crop the scan and project at a resolution of 0.1 degree:</span></span>
-<span class="r-in"><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">55</span>, <span class="fl">57</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># crop the scan and project at a resolution of 0.1 degree:</span></span></span>
+<span class="r-in"><span><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">55</span>, <span class="fl">57</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 20, 10, 200, 5  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
@@ -165,10 +194,10 @@ the same raster pixel, the last added pixel is given (see <a href="https://rdrr.
 <span class="r-out co"><span class="r-pr">#&gt;</span> min values :           NA,   -0.1880389,    0.9254000,   -0.7529409, -103.7647040 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max values :           NA,    0.3760777,    0.9951000,    0.6588239,  -27.5294080 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># using a template raster</span></span>
-<span class="r-in"><span class="va">template_raster</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">56</span>, <span class="fl">58</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span>, raster <span class="op">=</span> <span class="va">template_raster</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># using a template raster</span></span></span>
+<span class="r-in"><span><span class="va">template_raster</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">56</span>, <span class="fl">58</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span>, raster <span class="op">=</span> <span class="va">template_raster</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 10, 10, 100, 5  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 0.1, 0.2  (x, y)</span>
@@ -193,7 +222,7 @@ the same raster pixel, the last added pixel is given (see <a href="https://rdrr.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

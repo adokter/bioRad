@@ -23,7 +23,7 @@ sd_vvp_threshold()."><meta property="og:image" content="https://adriaandokter.co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@ sd_vvp_threshold()."><meta property="og:image" content="https://adriaandokter.co
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -85,22 +85,24 @@ height bin. Values for <code>eta</code> are set to <code>0</code>, <code>dbz</co
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, <span class="va">quantity</span><span class="op">)</span>
-
-<span class="co"># S3 method for vp</span>
-<span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span>
-
-<span class="co"># S3 method for list</span>
-<span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span>
-
-<span class="co"># S3 method for vpts</span>
-<span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, <span class="va">quantity</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vp</span></span>
+<span><span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for list</span></span>
+<span><span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vpts</span></span>
+<span><span class="fu">get_quantity</span><span class="op">(</span><span class="va">x</span>, quantity <span class="op">=</span> <span class="st">"dens"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>vp</code>, list of <code>vp</code> or <code>vpts</code> object.</p></dd>
+
+
 <dt>quantity</dt>
 <dd><p>Character. A (case sensitive) profile quantity, one of:</p><ul><li><p><code>height</code>: Height bin (lower bound) in m above sea level.</p></li>
 <li><p><code>u</code>: Ground speed component west to east in m/s.</p></li>
@@ -125,14 +127,21 @@ estimate (quantity <code>DBZH</code>).</p></li>
 <li><p><code>attributes</code>: List of the vertical profile's <code>what</code>, <code>where</code> and <code>how</code>
 attributes.</p></li>
 </ul></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>For a <code>vp</code> object: a named (height bin) vector with values for the
-selected quantity.
-For a <code>list</code> object: a list of named (height bin) vectors with values
-for the selected quantity.
-For a <code>vpts</code> object: a (height bin * datetime) matrix with values for
+    
+
+<p>For a <code>vp</code> object: a named (height bin) vector with values for the
+selected quantity.</p>
+
+
+<p>For a <code>list</code> object: a list of named (height bin) vectors with values
+for the selected quantity.</p>
+
+
+<p>For a <code>vpts</code> object: a (height bin * datetime) matrix with values for
 the selected quantity.</p>
     </div>
     <div id="see-also">
@@ -146,8 +155,8 @@ threshold of an object.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Extract the animal density (dens) quantity from a vp object</span></span>
-<span class="r-in"><span class="fu">get_quantity</span><span class="op">(</span><span class="va">example_vp</span>, <span class="st">"dens"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Extract the animal density (dens) quantity from a vp object</span></span></span>
+<span class="r-in"><span><span class="fu">get_quantity</span><span class="op">(</span><span class="va">example_vp</span>, <span class="st">"dens"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           0         200         400         600         800        1000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          NA  85.0995178 110.4298782  91.7822418  34.5677528  20.5497875 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        1200        1400        1600        1800        2000        2200 </span>
@@ -158,10 +167,10 @@ threshold of an object.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000   0.0000000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        4800 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   0.0000000 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Extract the horizontal ground speed (ff) quantity from a vpts object and show the</span></span>
-<span class="r-in"><span class="co"># first two datetimes</span></span>
-<span class="r-in"><span class="fu">get_quantity</span><span class="op">(</span><span class="va">example_vpts</span>, <span class="st">"ff"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Extract the horizontal ground speed (ff) quantity from a vpts object and show the</span></span></span>
+<span class="r-in"><span><span class="co"># first two datetimes</span></span></span>
+<span class="r-in"><span><span class="fu">get_quantity</span><span class="op">(</span><span class="va">example_vpts</span>, <span class="st">"ff"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      2016-09-01 00:02:00 2016-09-01 00:06:00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0                    NaN                 NaN</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 200                  NaN                 NaN</span>
@@ -202,7 +211,7 @@ threshold of an object.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

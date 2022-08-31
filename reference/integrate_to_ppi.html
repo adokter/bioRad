@@ -24,7 +24,7 @@ described in detail in Kranstauber et al. (2020)."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -36,7 +36,7 @@ described in detail in Kranstauber et al. (2020)."><meta property="og:image" con
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -88,83 +88,124 @@ described in detail in Kranstauber et al. (2020).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">integrate_to_ppi</span><span class="op">(</span>
-  <span class="va">pvol</span>,
-  <span class="va">vp</span>,
-  nx <span class="op">=</span> <span class="fl">100</span>,
-  ny <span class="op">=</span> <span class="fl">100</span>,
-  <span class="va">xlim</span>,
-  <span class="va">ylim</span>,
-  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4000</span><span class="op">)</span>,
-  <span class="va">res</span>,
-  quantity <span class="op">=</span> <span class="st">"eta"</span>,
-  param <span class="op">=</span> <span class="st">"DBZH"</span>,
-  raster <span class="op">=</span> <span class="cn">NA</span>,
-  <span class="va">lat</span>,
-  <span class="va">lon</span>,
-  <span class="va">antenna</span>,
-  beam_angle <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">crs</span>,
-  param_ppi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"VIR"</span>, <span class="st">"VID"</span>, <span class="st">"R"</span>, <span class="st">"overlap"</span>, <span class="st">"eta_sum"</span>, <span class="st">"eta_sum_expected"</span><span class="op">)</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">integrate_to_ppi</span><span class="op">(</span></span>
+<span>  <span class="va">pvol</span>,</span>
+<span>  <span class="va">vp</span>,</span>
+<span>  nx <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  ny <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  <span class="va">xlim</span>,</span>
+<span>  <span class="va">ylim</span>,</span>
+<span>  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4000</span><span class="op">)</span>,</span>
+<span>  <span class="va">res</span>,</span>
+<span>  quantity <span class="op">=</span> <span class="st">"eta"</span>,</span>
+<span>  param <span class="op">=</span> <span class="st">"DBZH"</span>,</span>
+<span>  raster <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  <span class="va">lon</span>,</span>
+<span>  <span class="va">antenna</span>,</span>
+<span>  beam_angle <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">crs</span>,</span>
+<span>  param_ppi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"VIR"</span>, <span class="st">"VID"</span>, <span class="st">"R"</span>, <span class="st">"overlap"</span>, <span class="st">"eta_sum"</span>, <span class="st">"eta_sum_expected"</span><span class="op">)</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>pvol</dt>
 <dd><p>a polar volume of class pvol</p></dd>
+
+
 <dt>vp</dt>
 <dd><p>a vertical profile of class vp</p></dd>
+
+
 <dt>nx</dt>
 <dd><p>number of raster pixels in the x (longitude) dimension</p></dd>
+
+
 <dt>ny</dt>
 <dd><p>number of raster pixels in the y (latitude) dimension</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p>x (longitude) range</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>y (latitude) range</p></dd>
+
+
 <dt>zlim</dt>
 <dd><p>altitude range in meter, given as a numeric vector of length two.</p></dd>
+
+
 <dt>res</dt>
-<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/raster/man/resolution.html" class="external-link">res</a>).
+<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a>).
 If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></dd>
+
+
 <dt>quantity</dt>
 <dd><p>profile quantity on which to base range corrections, 'eta' or 'dens'.</p></dd>
+
+
 <dt>param</dt>
 <dd><p>reflectivity factor scan parameter on which to base range corrections.
 Typically the same parameter from which animal densities are estimated for object <code>vp</code>.
 One of 'DBZH','DBZV','DBZ','TH','TV'.</p></dd>
+
+
 <dt>raster</dt>
 <dd><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
 arguments are ignored.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Geodetic latitude of the radar in degrees. If missing taken from <code>pvol</code>.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Geodetic latitude of the radar in degrees. If missing taken from <code>pvol</code>.</p></dd>
+
+
 <dt>antenna</dt>
 <dd><p>radar antenna height. If missing taken from <code>vp</code></p></dd>
+
+
 <dt>beam_angle</dt>
 <dd><p>numeric. Beam opening angle in degrees, typically the
 angle between the half-power (-3 dB) points of the main lobe</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></dd>
+
+
 <dt>param_ppi</dt>
 <dd><p>one or multiple of 'VIR', 'VID', 'R', 'overlap', 'eta_sum', 'eta_sum_expected'</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class '<a href="summary.ppi.html">ppi</a>'.</p>
+    
+
+<p>An object of class '<a href="summary.ppi.html">ppi</a>'.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -209,59 +250,59 @@ and stored as quantity <code>overlap</code>.</p>
 <ul><li><p>Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
 Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
 Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-doi: <a href="https://doi.org/10.3390/rs12040635" class="external-link">10.3390/rs12040635</a></p></li>
+<a href="https://doi.org/10.3390/rs12040635" class="external-link">doi:10.3390/rs12040635</a></p></li>
 <li><p>Buler JJ &amp; Diehl RH (2009) Quantifying bird density during migratory
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.
-doi: <a href="https://doi.org/10.1109/TGRS.2009.2014463" class="external-link">10.1109/TGRS.2009.2014463</a></p></li>
+<a href="https://doi.org/10.1109/TGRS.2009.2014463" class="external-link">doi:10.1109/TGRS.2009.2014463</a></p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># locate example polar volume file:</span></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load polar volume</span></span>
-<span class="r-in"><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load the corresponding vertical profile for this polar volume</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate the range-corrected ppi on a 50x50 pixel raster</span></span>
-<span class="r-in"><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, nx <span class="op">=</span> <span class="fl">50</span>, ny <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># locate example polar volume file:</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load polar volume</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load the corresponding vertical profile for this polar volume</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate the range-corrected ppi on a 50x50 pixel raster</span></span></span>
+<span class="r-in"><span><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, nx <span class="op">=</span> <span class="fl">50</span>, ny <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2000</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="integrate_to_ppi-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span></span>
-<span class="r-in"><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, res <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># calculate the range-corrected ppi on finer 2000m x 2000m pixel raster:</span></span></span>
+<span class="r-in"><span><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, res <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"VID"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the vertically integrated density (VID) using a 0-200 birds/km^2 color scale:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"VID"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="integrate_to_ppi-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># to overlay ppi objects on a background map, first</span></span>
-<span class="r-in"><span class="co"># download a basemap, and map the ppi:</span></span>
-<span class="r-in"><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">my_ppi</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># to overlay ppi objects on a background map, first</span></span></span>
+<span class="r-in"><span><span class="co"># download a basemap, and map the ppi:</span></span></span>
+<span class="r-in"><span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">my_ppi</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Downloading zoom = 7 ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span>
-<span class="r-in"><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">my_ppi</span>, <span class="va">bm</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">my_ppi</span>, <span class="va">bm</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-plt img"><img src="integrate_to_ppi-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># the ppi can also be projected on a user-defined raster, as follows:</span></span>
-<span class="r-in"><span class="co"># first define the raster:</span></span>
-<span class="r-in"><span class="va">template_raster</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">56</span>, <span class="fl">57</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># project the ppi on the defined raster:</span></span>
-<span class="r-in"><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, raster <span class="op">=</span> <span class="va">template_raster</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the ppi can also be projected on a user-defined raster, as follows:</span></span></span>
+<span class="r-in"><span><span class="co"># first define the raster:</span></span></span>
+<span class="r-in"><span><span class="va">template_raster</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">56</span>, <span class="fl">57</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># project the ppi on the defined raster:</span></span></span>
+<span class="r-in"><span><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, raster <span class="op">=</span> <span class="va">template_raster</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
@@ -270,9 +311,9 @@ doi: <a href="https://doi.org/10.1109/TGRS.2009.2014463" class="external-link">1
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract the raster data from the ppi object:</span></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/brick.html" class="external-link">brick</a></span><span class="op">(</span><span class="va">my_ppi</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract the raster data from the ppi object:</span></span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/brick.html" class="external-link">brick</a></span><span class="op">(</span><span class="va">my_ppi</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
@@ -283,18 +324,18 @@ doi: <a href="https://doi.org/10.1109/TGRS.2009.2014463" class="external-link">1
 <span class="r-out co"><span class="r-pr">#&gt;</span> min values :    0.0000000,    0.0000000,    0.0000000,    0.3189387,    0.0000000,      406.9671616 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max values : 6.052578e+04, 5.480034e+03, 6.151489e+01, 9.217694e-01, 6.468812e+04,     3.196694e+03 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span></span>
-<span class="r-in"><span class="co"># cropping the area up to 50000 meter from the radar.</span></span>
-<span class="r-in"><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>,</span>
-<span class="r-in">  res <span class="op">=</span> <span class="fl">500</span>,</span>
-<span class="r-in">  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50000</span>, <span class="fl">50000</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50000</span>, <span class="fl">50000</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span></span></span>
+<span class="r-in"><span><span class="co"># cropping the area up to 50000 meter from the radar.</span></span></span>
+<span class="r-in"><span><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>,</span></span>
+<span class="r-in"><span>  res <span class="op">=</span> <span class="fl">500</span>,</span></span>
+<span class="r-in"><span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50000</span>, <span class="fl">50000</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50000</span>, <span class="fl">50000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"VID"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, param <span class="op">=</span> <span class="st">"VID"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="integrate_to_ppi-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -309,7 +350,7 @@ doi: <a href="https://doi.org/10.1109/TGRS.2009.2014463" class="external-link">1
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

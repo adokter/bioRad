@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -128,7 +128,7 @@
 </h2>
 <p>bioRad depends on packages from both the <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> and <a href="https://www.bioconductor.org/" class="external-link">Bioconductor</a> repositories. Enable both with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html" class="external-link">setRepositories</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html" class="external-link">setRepositories</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Required system libraries on Linux (Ubuntu)
 </summary><p>The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:</p>
@@ -137,16 +137,16 @@ Required system libraries on Linux (Ubuntu)
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sudo apt install libgdal<span class="sc">-</span>dev</span></code></pre></div>
 </details><p><br> You can install the released version of bioRad from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span>
-<span class="co">#&gt; Welcome to bioRad version 0.6.0</span>
-<span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0.9169, MistNet available)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Welcome to bioRad version 0.6.0</span></span>
+<span><span class="co">#&gt; Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0.9169, MistNet available)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="docker-optional">Docker (optional)<a class="anchor" aria-label="anchor" href="#docker-optional"></a>
 </h3>
@@ -192,12 +192,12 @@ Known issues with Docker
 <p>bioRad can read weather radar data (= polar volumes) in the <a href="http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf" class="external-link"><code>ODIM</code></a> format and formats supported by the <a href="https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/" class="external-link">RSL library</a>, such as NEXRAD data. NEXRAD data (US) are <a href="https://www.ncdc.noaa.gov/nexradinv/" class="external-link">available as open data</a> and on <a href="https://registry.opendata.aws/noaa-nexrad/" class="external-link">AWS</a>.</p>
 <p>Here we read an example polar volume data file with <code><a href="reference/read_pvolfile.html">read_pvolfile()</a></code>, extract the scan/sweep at elevation angle 3 with <code><a href="reference/get_scan.html">get_scan()</a></code>, project the data to a plan position indicator with <code><a href="reference/project_as_ppi.html">project_as_ppi()</a></code> and plot the <em>radial velocity</em> of detected targets with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span> <span class="co"># To pipe %&gt;% the steps below</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span> <span class="co"># To pipe %&gt;% the steps below</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_ppi-1.png" width="100%"></p>
 <p><em>Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.</em></p>
 </div>
@@ -207,24 +207,24 @@ Known issues with Docker
 <p>Weather radar data can be processed into vertical profiles of biological targets using <code><a href="reference/calculate_vp.html">calculate_vp()</a></code>. This type of data is <a href="https://aloftdata.eu" class="external-link">available as open data</a> for over 100 European weather radars.</p>
 <p>Once vertical profile data are loaded into bioRad, these can be bound into time series using <code><a href="reference/bind_into_vpts.html">bind_into_vpts()</a></code>. Here we read an example time series, project it on a regular time grid with <code><a href="reference/regularize_vpts.html">regularize_vpts()</a></code> and plot it with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">example_vpts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; projecting on 300 seconds interval grid...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">example_vpts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; projecting on 300 seconds interval grid...</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_vpts-1.png" width="100%"></p>
 <p><em>The gray bars in the plot indicate gaps in the data.</em></p>
 <p>The altitudes in the profile can be integrated with <code><a href="reference/integrate_profile.html">integrate_profile()</a></code> resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity <em>migration traffic rate</em> (column <code>mtr</code>) with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mtr"</span><span class="op">)</span> <span class="co"># mtr = migration traffic rate</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mtr"</span><span class="op">)</span> <span class="co"># mtr = migration traffic rate</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_vpi-1.png" width="100%"></p>
 <p>To know the total number of birds passing over the radar during the full time series, we use the last value of the <em>cumulative migration traffic</em> (column <code>mt</code>):</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_vpi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">mt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># Extract column mt as a vector</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">last</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] 129491.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">mt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># Extract column mt as a vector</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">last</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 129491.5</span></span></code></pre></div>
 <p>For more exercises, see <a href="https://adriaandokter.com/bioRad/articles/rad_aero_19.html">this tutorial</a>.</p>
 </div>
 </div>
@@ -289,15 +289,7 @@ Known issues with Docker
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=bioRad" class="external-link"><img src="https://www.r-pkg.org/badges/version/bioRad" alt="CRAN status"></a></li>
-<li><a href="https://github.com/adokter/bioRad/actions" class="external-link"><img src="https://github.com/adokter/bioRad/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/adokter/bioRad" class="external-link"><img src="https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu" alt="codecov"></a></li>
-<li><a href="https://doi.org/10.5281/zenodo.3370004" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg" alt="DOI"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -310,7 +302,7 @@ Known issues with Docker
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

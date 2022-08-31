@@ -22,7 +22,7 @@ and day/sunrise/sunset (parameter suntime)."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -34,7 +34,7 @@ and day/sunrise/sunset (parameter suntime)."><meta property="og:image" content="
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,65 +83,84 @@ and day/sunrise/sunset (parameter <code>suntime</code>).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for vp</span>
-<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  row.names <span class="op">=</span> <span class="cn">NULL</span>,
-  optional <span class="op">=</span> <span class="cn">FALSE</span>,
-  geo <span class="op">=</span> <span class="cn">TRUE</span>,
-  suntime <span class="op">=</span> <span class="cn">TRUE</span>,
-  lat <span class="op">=</span> <span class="cn">NULL</span>,
-  lon <span class="op">=</span> <span class="cn">NULL</span>,
-  elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for vpts</span>
-<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  row.names <span class="op">=</span> <span class="cn">NULL</span>,
-  optional <span class="op">=</span> <span class="cn">FALSE</span>,
-  geo <span class="op">=</span> <span class="cn">TRUE</span>,
-  suntime <span class="op">=</span> <span class="cn">TRUE</span>,
-  lat <span class="op">=</span> <span class="cn">NULL</span>,
-  lon <span class="op">=</span> <span class="cn">NULL</span>,
-  elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for vp</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  row.names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  optional <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  geo <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  suntime <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for vpts</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  row.names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  optional <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  geo <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  suntime <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>vp</code> or <code>vpts</code> object.</p></dd>
+
+
 <dt>row.names</dt>
 <dd><p><code>NULL</code> or a character vector giving the row names for the
 data frame. Missing values are not allowed. See <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">base::as.data.frame()</a></code>.</p></dd>
+
+
 <dt>optional</dt>
 <dd><p>Logical. If <code>FALSE</code> then the names of the variables in the
 data frame are checked to ensure that they are syntactically valid variable
 names and are not duplicated. See <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">base::as.data.frame()</a></code>.</p></dd>
+
+
 <dt>geo</dt>
 <dd><p>Logical. When <code>TRUE</code>, adds latitude (<code>lat</code>), longitude (<code>lon</code>) and
 antenna height of the radar (<code>height_antenna</code>) to each row.</p></dd>
+
+
 <dt>suntime</dt>
 <dd><p>Logical. When <code>TRUE</code>, adds whether it is daytime (<code>day</code>) and
 the datetime of <code>sunrise</code> and <code>sunset</code> to each row.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Numeric. Radar latitude in decimal degrees. When set, overrides
 the latitude stored in <code>x</code> for <code><a href="sunrise_sunset.html">sunrise()</a></code>/<code><a href="sunrise_sunset.html">sunset()</a></code> calculations.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Numeric. Radar longitude in decimal degrees. When set, overrides
 the longitude stored in <code>x</code> for <code><a href="sunrise_sunset.html">sunrise()</a></code>/<code><a href="sunrise_sunset.html">sunset()</a></code> calculations.</p></dd>
+
+
 <dt>elev</dt>
 <dd><p>Numeric. Sun elevation in degrees, used for
 <code><a href="sunrise_sunset.html">sunrise()</a></code>/<code><a href="sunrise_sunset.html">sunset()</a></code> calculations.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments to be passed to or from methods.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>data.frame</code> object, containing radar, datetime and height as rows
+    
+
+<p>A <code>data.frame</code> object, containing radar, datetime and height as rows
 and all profile quantities as columns, complemented with some oft-used
 additional information (columns <code>lat</code>, <code>lon</code>, <code>height_antenna</code>, <code>day</code>,
 <code>sunrise</code>, <code>sunset</code>).</p>
@@ -163,11 +182,11 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Convert vp object to a data.frame</span></span>
-<span class="r-in"><span class="va">vp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Print data.frame</span></span>
-<span class="r-in"><span class="va">vp_df</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Convert vp object to a data.frame</span></span></span>
+<span class="r-in"><span><span class="va">vp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Print data.frame</span></span></span>
+<span class="r-in"><span><span class="va">vp_df</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    radar            datetime       ff         dbz        dens         u</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  seang 2015-10-18 18:00:00       NA          NA          NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  seang 2015-10-18 18:00:00 11.53461   4.3039665  85.0995178 -3.860118</span>
@@ -272,12 +291,12 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Convert vpts object to a data.frame</span></span>
-<span class="r-in"><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Print the first 5 rows of the data.frame</span></span>
-<span class="r-in"><span class="va">vpts_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Convert vpts object to a data.frame</span></span></span>
+<span class="r-in"><span><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Print the first 5 rows of the data.frame</span></span></span>
+<span class="r-in"><span><span class="va">vpts_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   radar            datetime height    u    v     w   ff   dd sd_vvp   gap   dbz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  KBGM 2016-09-01 00:02:00      0  NaN  NaN   NaN  NaN  NaN    NaN  TRUE   NaN</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  KBGM 2016-09-01 00:02:00    200  NaN  NaN   NaN  NaN  NaN    NaN  TRUE   NaN</span>
@@ -296,16 +315,16 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Do not add lat/lon/height_antenna information</span></span>
-<span class="r-in"><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, geo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Do not add day/sunrise/sunset information</span></span>
-<span class="r-in"><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, suntime <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Override the latitude/longitude information stored in the object when</span></span>
-<span class="r-in"><span class="co"># calculating sunrise/sunset information</span></span>
-<span class="r-in"><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, lat <span class="op">=</span> <span class="fl">50</span>, lon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Do not add lat/lon/height_antenna information</span></span></span>
+<span class="r-in"><span><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, geo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Do not add day/sunrise/sunset information</span></span></span>
+<span class="r-in"><span><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, suntime <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Override the latitude/longitude information stored in the object when</span></span></span>
+<span class="r-in"><span><span class="co"># calculating sunrise/sunset information</span></span></span>
+<span class="r-in"><span><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, lat <span class="op">=</span> <span class="fl">50</span>, lon <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -320,7 +339,7 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

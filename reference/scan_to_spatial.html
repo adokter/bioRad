@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,27 +74,40 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scan_to_spatial</span><span class="op">(</span><span class="va">scan</span>, <span class="va">lat</span>, <span class="va">lon</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>, re <span class="op">=</span> <span class="fl">6378</span>, rp <span class="op">=</span> <span class="fl">6357</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scan_to_spatial</span><span class="op">(</span><span class="va">scan</span>, <span class="va">lat</span>, <span class="va">lon</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>, re <span class="op">=</span> <span class="fl">6378</span>, rp <span class="op">=</span> <span class="fl">6357</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>scan</dt>
 <dd><p>a scan (sweep) of class scan</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Geodetic latitude of the radar in degrees. If missing taken from <code>scan</code>.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Geodetic longitude of the radar in degrees. If missing taken from <code>scan</code>.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a SpatialPointsDataFrame</p>
+    
+
+<p>a SpatialPointsDataFrame</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -104,11 +117,11 @@ Distance from the radar over the earth's surface is calculated using <a href="be
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load example scan:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convert to a SpatialPointsDataFrame:</span></span>
-<span class="r-in"><span class="fu">scan_to_spatial</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load example scan:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># convert to a SpatialPointsDataFrame:</span></span></span>
+<span class="r-in"><span><span class="fu">scan_to_spatial</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               coordinates azim  range    distance    height DBZH       VRADH</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     (2.18155, 249.9809)  0.5    250    249.9904  211.1853  NaN   0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    (6.544647, 749.9422)  0.5    750    749.9708  215.5780  NaN   0.0000000</span>
@@ -20124,7 +20137,7 @@ Distance from the radar over the earth's surface is calculated using <a href="be
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,62 +74,87 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_pvolfile</span><span class="op">(</span>
-  <span class="va">file</span>,
-  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBZH"</span>, <span class="st">"DBZ"</span>, <span class="st">"VRADH"</span>, <span class="st">"VRAD"</span>, <span class="st">"TH"</span>, <span class="st">"T"</span>, <span class="st">"RHOHV"</span>, <span class="st">"ZDR"</span>, <span class="st">"PHIDP"</span>, <span class="st">"CELL"</span>,
-    <span class="st">"BIOLOGY"</span>, <span class="st">"WEATHER"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span>,
-  sort <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">lat</span>,
-  <span class="va">lon</span>,
-  <span class="va">height</span>,
-  elev_min <span class="op">=</span> <span class="fl">0</span>,
-  elev_max <span class="op">=</span> <span class="fl">90</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  mount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,
-  <span class="va">local_install</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_pvolfile</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBZH"</span>, <span class="st">"DBZ"</span>, <span class="st">"VRADH"</span>, <span class="st">"VRAD"</span>, <span class="st">"TH"</span>, <span class="st">"T"</span>, <span class="st">"RHOHV"</span>, <span class="st">"ZDR"</span>, <span class="st">"PHIDP"</span>, <span class="st">"CELL"</span>,</span>
+<span>    <span class="st">"BIOLOGY"</span>, <span class="st">"WEATHER"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span>,</span>
+<span>  sort <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  <span class="va">lon</span>,</span>
+<span>  <span class="va">height</span>,</span>
+<span>  elev_min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  elev_max <span class="op">=</span> <span class="fl">90</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  mount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
+<span>  <span class="va">local_install</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file</dt>
 <dd><p>A string containing the path to a polar volume file</p></dd>
+
+
 <dt>param</dt>
 <dd><p>An atomic vector of character strings, containing the names
 of scan parameters to read. To read all scan parameters use 'all'.</p></dd>
+
+
 <dt>sort</dt>
 <dd><p>A logical value, when <code>TRUE</code> sort scans ascending
 by elevation.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Latitude in decimal degrees of the radar position. If not
 specified, value stored in file is used. If specified, value stored in
 file is overwritten.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Longitude in decimal degrees of the radar position. If not
 specified, value stored in file is used. If specified, value stored in
 file is overwritten.</p></dd>
+
+
 <dt>height</dt>
 <dd><p>Height of the center of the antenna in meters above sea
 level. If not specified, value stored in file is used. If specified, value
 stored in file is overwritten.</p></dd>
+
+
 <dt>elev_min</dt>
 <dd><p>Minimum scan elevation to read in degrees.</p></dd>
+
+
 <dt>elev_max</dt>
 <dd><p>Maximum scan elevation to read in degrees.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>A logical value, whether to print messages (<code>TRUE</code>)
 to console.</p></dd>
+
+
 <dt>mount</dt>
 <dd><p>A character string with the mount point (a directory path)
 for the Docker container.</p></dd>
+
+
 <dt>local_install</dt>
 <dd><p>(optional) String with path to local vol2bird installation,
 to use local installation instead of Docker container</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <a href="summary.pvol.html">pvol</a>, which is a list
+    
+
+<p>An object of class <a href="summary.pvol.html">pvol</a>, which is a list
 containing polar scans, i.e. objects of class <code>scan</code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -163,18 +188,18 @@ factor</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># locate example volume file:</span></span>
-<span class="r-in"><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print the local path of the volume file:</span></span>
-<span class="r-in"><span class="va">pvolfile</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/RtmpwyaTdz/temp_libpathbeb74bf11d90/bioRad/extdata/volume.h5"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load the file:</span></span>
-<span class="r-in"><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu">read_pvolfile</span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print summary info for the loaded polar volume:</span></span>
-<span class="r-in"><span class="va">example_pvol</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># locate example volume file:</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print the local path of the volume file:</span></span></span>
+<span class="r-in"><span><span class="va">pvolfile</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/private/var/folders/hq/tlbyscp93lq2js72t62dkbrh2z_dgv/T/Rtmp71m0AJ/temp_libpath162fb2a011716/bioRad/extdata/volume.h5"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load the file:</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu">read_pvolfile</span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print summary info for the loaded polar volume:</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Polar volume (class pvol)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      # scans:  3 </span>
@@ -182,9 +207,9 @@ factor</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nominal time:  2015-10-18 18:00:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print summary info for the scans in the polar volume:</span></span>
-<span class="r-in"><span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print summary info for the scans in the polar volume:</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Polar scan (class scan)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -206,12 +231,12 @@ factor</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> elevation angle:  2.5 deg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            dims:  480 bins x 360 rays</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># copy the first scan to a new object 'scan'</span></span>
-<span class="r-in"><span class="va">scan</span> <span class="op">&lt;-</span> <span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print summary info for the new object:</span></span>
-<span class="r-in"><span class="va">scan</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># copy the first scan to a new object 'scan'</span></span></span>
+<span class="r-in"><span><span class="va">scan</span> <span class="op">&lt;-</span> <span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print summary info for the new object:</span></span></span>
+<span class="r-in"><span><span class="va">scan</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Polar scan (class scan)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
@@ -231,7 +256,7 @@ factor</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

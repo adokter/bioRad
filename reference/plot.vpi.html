@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,21 +74,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for vpi</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  quantity <span class="op">=</span> <span class="st">"mtr"</span>,
-  xlab <span class="op">=</span> <span class="st">"time"</span>,
-  ylab <span class="op">=</span> <span class="st">"migration traffic rate [#/km/h]"</span>,
-  main <span class="op">=</span> <span class="st">"MTR"</span>,
-  night_shade <span class="op">=</span> <span class="cn">TRUE</span>,
-  elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>,
-  lat <span class="op">=</span> <span class="cn">NULL</span>,
-  lon <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  nightshade <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for vpi</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  quantity <span class="op">=</span> <span class="st">"mtr"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"time"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"migration traffic rate [#/km/h]"</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"MTR"</span>,</span>
+<span>  night_shade <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  elev <span class="op">=</span> <span class="op">-</span><span class="fl">0.268</span>,</span>
+<span>  lat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nightshade <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,6 +96,8 @@
     <dl><dt>x</dt>
 <dd><p>1 class object inheriting from class <code>vpi</code>, typically a
 call to <a href="integrate_profile.html">integrate_profile</a>.</p></dd>
+
+
 <dt>quantity</dt>
 <dd><p>Character string with the quantity to plot, one of
 '<code>vid</code>' (vertically integrated density),
@@ -108,30 +110,51 @@ call to <a href="integrate_profile.html">integrate_profile</a>.</p></dd>
 '<code>dd</code>' (height-averaged direction)
 '<code>u</code>' (height-averaged u-component of ground speed),
 '<code>v</code>' (height-averaged v-component of ground speed).</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>A title for the x-axis.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>A title for the y-axis.</p></dd>
+
+
 <dt>main</dt>
 <dd><p>A title for the plot.</p></dd>
+
+
 <dt>night_shade</dt>
 <dd><p>Logical, whether to plot night time shading.</p></dd>
+
+
 <dt>elev</dt>
 <dd><p>Numeric, sun elevation to use for day/night transition,
 see <a href="sunrise_sunset.html">sunrise</a>.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>(optional) Latitude in decimal degrees. Overrides the lat
 attribute of <code>x</code>.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>(optional) Longitude in decimal degrees. Overrides the lon
 attribute of <code>x</code>.</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>y-axis plot range, numeric atomic vector of length 2.</p></dd>
+
+
 <dt>nightshade</dt>
 <dd><p>Deprecated argument, use night_shade instead.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments to be passed to the low level
 <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a> plotting function.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -182,13 +205,13 @@ on the assumed radar cross section (RCS)</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># vertically integrate a vpts object:</span></span>
-<span class="r-in"><span class="va">vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># plot the migration traffic rates</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vpi</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># vertically integrate a vpts object:</span></span></span>
+<span class="r-in"><span><span class="va">vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># plot the migration traffic rates</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vpi</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpi-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># plot the vertically integrated densities, without night shading:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vpi</span>, quantity <span class="op">=</span> <span class="st">"vid"</span>, night_shade <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># plot the vertically integrated densities, without night shading:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vpi</span>, quantity <span class="op">=</span> <span class="st">"vid"</span>, night_shade <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpi-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -204,7 +227,7 @@ on the assumed radar cross section (RCS)</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

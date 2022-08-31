@@ -19,7 +19,7 @@ position indicator (ppi) — project_as_ppi"><meta property="og:description" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -31,7 +31,7 @@ position indicator (ppi) — project_as_ppi"><meta property="og:description" con
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -77,75 +77,96 @@ position indicator (<code>ppi</code>)</h1>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">project_as_ppi</span><span class="op">(</span>
-  <span class="va">x</span>,
-  grid_size <span class="op">=</span> <span class="fl">500</span>,
-  range_max <span class="op">=</span> <span class="fl">50000</span>,
-  project <span class="op">=</span> <span class="cn">TRUE</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  raster <span class="op">=</span> <span class="cn">NA</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for param</span>
-<span class="fu">project_as_ppi</span><span class="op">(</span>
-  <span class="va">x</span>,
-  grid_size <span class="op">=</span> <span class="fl">500</span>,
-  range_max <span class="op">=</span> <span class="fl">50000</span>,
-  project <span class="op">=</span> <span class="cn">TRUE</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  raster <span class="op">=</span> <span class="cn">NA</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for scan</span>
-<span class="fu">project_as_ppi</span><span class="op">(</span>
-  <span class="va">x</span>,
-  grid_size <span class="op">=</span> <span class="fl">500</span>,
-  range_max <span class="op">=</span> <span class="fl">50000</span>,
-  project <span class="op">=</span> <span class="cn">TRUE</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  raster <span class="op">=</span> <span class="cn">NA</span>,
-  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,
-  re <span class="op">=</span> <span class="fl">6378</span>,
-  rp <span class="op">=</span> <span class="fl">6357</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">project_as_ppi</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  grid_size <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  range_max <span class="op">=</span> <span class="fl">50000</span>,</span>
+<span>  project <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  raster <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for param</span></span>
+<span><span class="fu">project_as_ppi</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  grid_size <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  range_max <span class="op">=</span> <span class="fl">50000</span>,</span>
+<span>  project <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  raster <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for scan</span></span>
+<span><span class="fu">project_as_ppi</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  grid_size <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  range_max <span class="op">=</span> <span class="fl">50000</span>,</span>
+<span>  project <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  raster <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
+<span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An object of class <code>param</code> or <code>scan</code>.</p></dd>
+
+
 <dt>grid_size</dt>
 <dd><p>Cartesian grid size in m.</p></dd>
+
+
 <dt>range_max</dt>
 <dd><p>Maximum range in m.</p></dd>
+
+
 <dt>project</dt>
 <dd><p>Whether to vertically project onto earth's surface.</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p>The range of latitudes to include.</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p>The range of longitudes to include.</p></dd>
+
+
 <dt>raster</dt>
 <dd><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
 and <code>grid_size</code>, <code>range_max</code>, <code>xlim</code>, <code>ylim</code> are ignored.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Standard refraction coefficient.</p></dd>
+
+
 <dt>re</dt>
 <dd><p>Earth equatorial radius in km.</p></dd>
+
+
 <dt>rp</dt>
 <dd><p>Earth polar radius in km.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class '<a href="summary.ppi.html">ppi</a>'.</p>
+    
+
+<p>An object of class '<a href="summary.ppi.html">ppi</a>'.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -154,60 +175,60 @@ and <code>grid_size</code>, <code>range_max</code>, <code>xlim</code>, <code>yli
     <div id="methods-by-class-">
     <h2>Methods (by class)</h2>
     
-<ul><li><p><code>param</code>: Project as <code>ppi</code> for a single scan parameter.</p></li>
-<li><p><code>scan</code>: Project multiple <code>ppi</code>'s for all scan
+<ul><li><p><code>project_as_ppi(param)</code>: Project as <code>ppi</code> for a single scan parameter.</p></li>
+<li><p><code>project_as_ppi(scan)</code>: Project multiple <code>ppi</code>'s for all scan
 parameters in a scan</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load a polar scan example object:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">example_scan</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load a polar scan example object:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">example_scan</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Polar scan (class scan)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> elevation angle:  0.5 deg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            dims:  480 bins x 360 rays</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the scan:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the scan:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="project_as_ppi-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># make PPIs for all scan parameters in the scan:</span></span>
-<span class="r-in"><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu">project_as_ppi</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># make PPIs for all scan parameters in the scan:</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu">project_as_ppi</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print summary info for the ppi:</span></span>
-<span class="r-in"><span class="va">ppi</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print summary info for the ppi:</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the ppi:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the ppi:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="project_as_ppi-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract the DBZH scan parameter of the volume to a new</span></span>
-<span class="r-in"><span class="co"># object 'param':</span></span>
-<span class="r-in"><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_param.html">get_param</a></span><span class="op">(</span><span class="va">example_scan</span>, <span class="st">"VRADH"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># make a ppi for the new 'param' object:</span></span>
-<span class="r-in"><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu">project_as_ppi</span><span class="op">(</span><span class="va">param</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print summary info for this ppi:</span></span>
-<span class="r-in"><span class="va">ppi</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract the DBZH scan parameter of the volume to a new</span></span></span>
+<span class="r-in"><span><span class="co"># object 'param':</span></span></span>
+<span class="r-in"><span><span class="va">param</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_param.html">get_param</a></span><span class="op">(</span><span class="va">example_scan</span>, <span class="st">"VRADH"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># make a ppi for the new 'param' object:</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu">project_as_ppi</span><span class="op">(</span><span class="va">param</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print summary info for this ppi:</span></span></span>
+<span class="r-in"><span><span class="va">ppi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  VRADH </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the ppi:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the ppi:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="project_as_ppi-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -223,7 +244,7 @@ parameters in a scan</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

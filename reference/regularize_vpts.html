@@ -19,7 +19,7 @@ regular time grid — regularize_vpts"><meta property="og:description" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -31,7 +31,7 @@ regular time grid — regularize_vpts"><meta property="og:description" content="
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -77,16 +77,16 @@ regular time grid</h1>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">regularize_vpts</span><span class="op">(</span>
-  <span class="va">ts</span>,
-  interval <span class="op">=</span> <span class="st">"auto"</span>,
-  <span class="va">date_min</span>,
-  <span class="va">date_max</span>,
-  units <span class="op">=</span> <span class="st">"secs"</span>,
-  fill <span class="op">=</span> <span class="cn">TRUE</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  keep_datetime <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">regularize_vpts</span><span class="op">(</span></span>
+<span>  <span class="va">ts</span>,</span>
+<span>  interval <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  <span class="va">date_min</span>,</span>
+<span>  <span class="va">date_max</span>,</span>
+<span>  units <span class="op">=</span> <span class="st">"secs"</span>,</span>
+<span>  fill <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  keep_datetime <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,31 +94,48 @@ regular time grid</h1>
     <dl><dt>ts</dt>
 <dd><p>An object inheriting from class <code>vpts</code>, see
 <code><a href="summary.vpts.html">vpts</a></code> for details.</p></dd>
+
+
 <dt>interval</dt>
 <dd><p>Time interval grid to project on. When '<code>auto</code>' the
 median interval in the time series is used.</p></dd>
+
+
 <dt>date_min</dt>
 <dd><p>Start time of the projected time series, as a POSIXct object.
 Taken from <code>ts</code> by default'.</p></dd>
+
+
 <dt>date_max</dt>
 <dd><p>End time of the projected time series, as a POSIXct object.
 Taken from <code>ts</code> by default.</p></dd>
+
+
 <dt>units</dt>
 <dd><p>Optional units of <code>interval</code> and <code>fill</code>, one of 'secs', 'mins',
 'hours','days', 'weeks'. Defaults to 'mins'.</p></dd>
+
+
 <dt>fill</dt>
 <dd><p>Numeric or Logical. fill each regularized timestep with the closest
 original profile found within a time window of +/- <code>fill</code>.
 When <code>TRUE</code>, <code>fill</code> maps to <code>interval</code>, filling single missing
 timesteps. When <code>FALSE</code>, <code>fill</code>  maps to 0, disabling filling.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>Logical, when <code>TRUE</code> prints text to console.</p></dd>
+
+
 <dt>keep_datetime</dt>
 <dd><p>Logical, when <code>TRUE</code> keep original radar acquisition timestamps.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>vpts</code> with regular time steps.</p>
+    
+
+<p>An object of class <code>vpts</code> with regular time steps.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -136,16 +153,16 @@ continues, and temporal data gaps are filled up visually.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># start form example vpts object:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># regularize the time series on a 5 minute interval grid</span></span>
-<span class="r-in"><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># regularize the time series on a 10 minute interval grid,</span></span>
-<span class="r-in"><span class="co"># and fill data gaps smaller then 1 hour by nearest neighbor interpolation</span></span>
-<span class="r-in"><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval<span class="op">=</span><span class="fl">600</span>, fill<span class="op">=</span><span class="fl">3600</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># start form example vpts object:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># regularize the time series on a 5 minute interval grid</span></span></span>
+<span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># regularize the time series on a 10 minute interval grid,</span></span></span>
+<span class="r-in"><span><span class="co"># and fill data gaps smaller then 1 hour by nearest neighbor interpolation</span></span></span>
+<span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval<span class="op">=</span><span class="fl">600</span>, fill<span class="op">=</span><span class="fl">3600</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -160,7 +177,7 @@ continues, and temporal data gaps are filled up visually.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
