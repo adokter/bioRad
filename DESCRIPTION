@@ -48,7 +48,7 @@ Imports:
     viridis,
     vol2birdR
 Remotes:
-    adokter/vol2birdR
+    adokter/vol2birdR,
     bioc::rhdf5
 Suggests:
     knitr,
