@@ -14,6 +14,9 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * functions `check_docker()` and `update_docker()` have been deprecated
 * function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`
 
+# bioRad 0.6.1
+Rebuilds the documentation using roxygen2 for compability with HTML5
+
 # bioRad 0.6.0
 
 Introduces a number of new functions and parameters and includes bugfixes.
