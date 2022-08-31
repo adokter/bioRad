@@ -31,6 +31,8 @@ All issues included in this release can be found [here](https://github.com/adokt
 
 * New function `write_pvolfile()` to write polar volumes to ODIM hdf5 format (#470, #471).
 
+* New function `download_pvolfiles()` to download NEXRAD polar volume files from Amazon Web Services (#41, #487)
+
 * New functions `Math.pvol()`, `Math.scan()`, `Ops.pvol()`,`Ops.scan()`,`Ops.param()`: standard mathematical operations for `param`, `scan` and `pvol` objects.
 
 ## New features and bugfixes
