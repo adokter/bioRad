@@ -76,15 +76,6 @@ Linux systems. In terminal, install these with:
 
 ### Install bioRad
 
-bioRad depends on packages from both the
-[CRAN](https://CRAN.R-project.org) and
-[Bioconductor](https://www.bioconductor.org/) repositories. Enable both
-with:
-
-``` r
-setRepositories(ind = 1:2)
-```
-
 You can install the released version of bioRad from
 [CRAN](https://CRAN.R-project.org) with:
 
@@ -104,8 +95,8 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.7.0.9517
-#> using vol2bird version 0.5.0.9174 (MistNet not installed)
+#> Welcome to bioRad version 0.7.0.9522
+#> using vol2birdR version 0.1.1.9913 (MistNet not installed)
 ```
 
 ### (optional) Enable MistNet

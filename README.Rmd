@@ -62,13 +62,6 @@ sudo apt install libgdal-dev
 <br>
 
 ### Install bioRad
-bioRad depends on packages from both the [CRAN](https://CRAN.R-project.org) and
-[Bioconductor](https://www.bioconductor.org/) repositories. Enable both with:
-
-```{r eval = FALSE}
-setRepositories(ind = 1:2)
-```
-
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
