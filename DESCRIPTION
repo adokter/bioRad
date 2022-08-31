@@ -40,7 +40,6 @@ Imports:
     methods,
     raster,
     rgdal,
-    rhdf5,
     sp,
     stats,
     tidyr,
@@ -50,6 +49,7 @@ Imports:
     vol2birdR
 Remotes:
     adokter/vol2birdR
+    bioc::rhdf5
 Suggests:
     knitr,
     rlang,
