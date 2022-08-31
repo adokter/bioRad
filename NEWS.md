@@ -15,12 +15,13 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`
 
 # bioRad 0.6.1
-Rebuilds the documentation using roxygen2 for compability with HTML5
+
+Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).
 
 # bioRad 0.6.0
 
-Introduces a number of new functions and parameters and includes bugfixes.
-All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/8?closed=1). 
+Introduces a number of new functions and parameters and includes bugfixes. All issues included in this release can be found [here](https://github.com/adokter/bioRad/milestone/8?closed=1). 
+
 ## New functions
 
 * New function `attribute_table()` to quickly tabulate scan attributes (#365).
