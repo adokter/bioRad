@@ -233,19 +233,19 @@ direction. <code>mtr</code> then equals the number of crossing targets per km
 transect per hour, for a transect kept perpendicular to the measured
 migratory movement at all times and altitudes. In this case <code>mtr</code> is
 always a positive quantity, defined as:</p>
-<p>$$mtr = 3.6 \sum_i dens_i ff_i \Delta h$$</p>
+<p>$$mtr = 3.6 \sum_i \mathit{dens}_i \mathit{ff}_i \Delta h$$</p>
 <p>with the sum running over all altitude layers between <code>alt_min</code> and
-<code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
+<code>alt_max</code>, \(\mathit{dens}_i\) the bird density, \(\mathit{ff}_i\) the ground speed at
 altitude layer i, and \(\Delta h\) the altitude layer width. The factor 3.6
-refers to a unit conversion of speeds \(ff_i\) from m/s to km/h.</p>
+refers to a unit conversion of speeds \(\mathit{ff}_i\) from m/s to km/h.</p>
 <p>If <code>alpha</code> is given a numeric value, the transect is taken perpendicular
 to the direction <code>alpha</code>, and the number of crossing targets per hour
 per km transect is calculated as:</p>
-<p>$$mtr = 3.6 \sum_i dens_i ff_i \cos((dd_i-\alpha) \pi/180) \Delta h$$
+<p>$$mtr = 3.6 \sum_i \mathit{dens}_i \mathit{ff}_i \cos((dd_i-\alpha) \pi/180) \Delta h$$
 with \(dd_i\) the migratory direction at altitude i.</p>
 <p>Note that this equation evaluates to the previous equation when <code>alpha</code> equals \(dd_i\).
 Also note we can rewrite this equation using trigonometry as:</p>
-<p>$$mtr = 3.6 \sum_i dens_i (u_i \sin(\alpha \pi/180) + v_i \cos(\alpha \pi/180)) \Delta h$$
+<p>$$mtr = 3.6 \sum_i \mathit{dens}_i (u_i \sin(\alpha \pi/180) + v_i \cos(\alpha \pi/180)) \Delta h$$
 with \(u_i\) and \(v_i\) the u and v ground speed components at altitude i.</p>
 <p>In this definition <code>mtr</code> is a traditional flux into a direction of
 interest. Targets moving into the direction <code>alpha</code> contribute
@@ -282,18 +282,18 @@ of the respective row.</p>
 <p>#'</p><div class="section">
 <h4 id="ground-speed-ff-and-ground-speed-components-u-v-">Ground speed (ff) and ground speed components (u,v)<a class="anchor" aria-label="anchor" href="#ground-speed-ff-and-ground-speed-components-u-v-"></a></h4>
 <p>The height-averaged ground speed is defined as:</p>
-<p>$$ff = \sum_i dens_i ff_i / \sum_i dens_i$$
+<p>$$\mathit{ff} = \sum_i \mathit{dens}_i \mathit{ff}_i / \sum_i \mathit{dens}_i$$
 with the sum running over all altitude layers between <code>alt_min</code> and
-<code>alt_max</code>, \(dens_i\) the bird density, \(ff_i\) the ground speed at
+<code>alt_max</code>, \(\mathit{dens}_i\) the bird density, \(\mathit{ff}_i\) the ground speed at
 altitude layer i.</p>
 <p>the height-averaged u component (west to east) is defined as:</p>
-<p>$$u = \sum_i dens_i u_i / \sum_i dens_i$$</p>
+<p>$$u = \sum_i \mathit{dens}_i u_i / \sum_i \mathit{dens}_i$$</p>
 <p>the height-averaged v component (south to north) is defined as:</p>
-<p>$$v = \sum_i dens_i v_i / \sum_i dens_i$$</p>
+<p>$$v = \sum_i \mathit{dens}_i v_i / \sum_i \mathit{dens}_i$$</p>
 </div>
 
-<p>Note that \(ff_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
-height-integrated speeds, i.e. \(ff != \sqrt(u^2 + v^2)\) as soon as the
+<p>Note that \(\mathit{ff}_i=\sqrt(u_i^2 + v_i^2)\), but the same does not hold for the
+height-integrated speeds, i.e. \(\mathit{ff} \neq \sqrt(u^2 + v^2)\) as soon as the
 ground speed directions vary with altitude.</p>
 </div>
 
