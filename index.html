@@ -104,6 +104,7 @@
 <div class="page-header"><h1 id="biorad-">bioRad <img src="reference/figures/logo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#biorad-"></a>
 </h1></div>
 <!-- badges: start -->
+
 <p>bioRad provides standardized methods for extracting and reporting biological signals from weather radars. It includes functionality to inspect low-level radar data, process these data into meaningful biological information on animal speeds and directions at different altitudes in the atmosphere, visualize these biological extractions, and calculate further summary statistics.</p>
 <p>To get started, see:</p>
 <ul>
@@ -117,8 +118,10 @@
 <a href="https://adriaandokter.com/bioRad/articles/rad_aero_19.html">Introductory exercises</a>: a tutorial with code examples and exercises.</li>
 </ul>
 <p>More vignettes:</p>
-<ul><li>
-<a href="https://adriaandokter.com/bioRad/articles/range_correction.html">Range correction</a>: estimate spatial images of vertically integrated density corrected for range effects.</li></ul>
+<ul>
+<li>
+<a href="https://adriaandokter.com/bioRad/articles/range_correction.html">Range correction</a>: estimate spatial images of vertically integrated density corrected for range effects.</li>
+</ul>
 <p>Documentation for the latest development version can be found <a href="https://adriaandokter.com/bioRad/dev/">here</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -126,17 +129,19 @@
 <p>bioRad depends on packages from both the <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> and <a href="https://www.bioconductor.org/" class="external-link">Bioconductor</a> repositories. Enable both with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html" class="external-link">setRepositories</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<details><p><summary> Required system libraries on Linux (Ubuntu) </summary></p>
-<p>The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sudo apt install libcurl4<span class="op">-</span>openssl<span class="op">-</span>dev</span>
-<span id="cb2-2"><a href="#cb2-2"></a>sudo apt install libssl<span class="op">-</span>dev</span>
-<span id="cb2-3"><a href="#cb2-3"></a>sudo apt install libgdal<span class="op">-</span>dev</span></code></pre></div></details><p><br> You can install the released version of bioRad from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<details><summary>
+Required system libraries on Linux (Ubuntu)
+</summary><p>The following system libraries are required before installing bioRad on Linux systems. In terminal, install these with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sudo apt install libcurl4<span class="sc">-</span>openssl<span class="sc">-</span>dev</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sudo apt install libssl<span class="sc">-</span>dev</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sudo apt install libgdal<span class="sc">-</span>dev</span></code></pre></div>
+</details><p><br> You can install the released version of bioRad from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span>
@@ -154,20 +159,23 @@
 </li>
 </ul>
 <p>Why? bioRad makes use of a <a href="https://github.com/adokter/vol2bird" class="external-link">C implementation of the vol2bird</a> algorithm through <a href="https://www.docker.com/" class="external-link">Docker</a> to do the above. All other bioRad functions will work without a Docker installation.</p>
-<details><p><summary> Installing Docker </summary></p>
-<ol style="list-style-type: decimal">
+<details><summary>
+Installing Docker
+</summary><ol style="list-style-type: decimal">
 <li>Go to <a href="https://www.docker.com/products/docker-desktop/" class="external-link">Docker Desktop</a>.</li>
 <li>Download Docker for Windows or Mac (free login required) and follow the installation instructions. Note that Docker for Windows requires Microsoft Windows 10 Professional or Enterprise 64-bit: installing Docker <em>Toolbox</em> for previous Windows versions will not work.</li>
 <li>Open the Docker application. The Docker (whale) icon will appear in your menu or task bar and indicate if it is running correctly.</li>
-<li>Make local drive(s) available for Docker containers:<ul>
+<li>Make local drive(s) available for Docker containers:
+<ul>
 <li>On Windows: right click the Docker icon &gt; <code>Settings</code> &gt; <code>Shared drives</code> &gt; Select the drive(s) where you will be processing radar files &gt; Click <code>Apply</code>.</li>
 <li>On Mac: click the Docker icon &gt; <code>Preferences</code> &gt; <code>File sharing</code> &gt; Add the drive(s) where you will be processing radar files &gt; Click <code>Apply &amp; Restart</code>.</li>
 </ul>
 </li>
 <li>In R do <code><a href="reference/check_docker.html">check_docker()</a></code>.</li>
 <li>You can now use the bioRad functionality that requires Docker.</li>
-</ol></details><details><p><summary> Known issues with Docker </summary></p>
-<ol style="list-style-type: decimal">
+</ol></details><details><summary>
+Known issues with Docker
+</summary><ol style="list-style-type: decimal">
 <li>Hyper-V / Virtualbox conflicts on Windows. Docker requires Hyper-V enabled, but Hyper-V can not run together with Virtualbox. To use Virtualbox you will need to disable Hyper-V, which also disables Docker, and requires a reboot of the system.</li>
 <li>For firewall issues on Windows, see <a href="https://github.com/adokter/bioRad/issues/128" class="external-link">this issue</a>
 </li>
@@ -185,10 +193,10 @@
 <p>Here we read an example polar volume data file with <code><a href="reference/read_pvolfile.html">read_pvolfile()</a></code>, extract the scan/sweep at elevation angle 3 with <code><a href="reference/get_scan.html">get_scan()</a></code>, project the data to a plan position indicator with <code><a href="reference/project_as_ppi.html">project_as_ppi()</a></code> and plot the <em>radial velocity</em> of detected targets with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span> <span class="co"># To pipe %&gt;% the steps below</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="reference/read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_ppi-1.png" width="100%"></p>
 <p><em>Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.</em></p>
@@ -199,8 +207,8 @@
 <p>Weather radar data can be processed into vertical profiles of biological targets using <code><a href="reference/calculate_vp.html">calculate_vp()</a></code>. This type of data is <a href="https://aloftdata.eu" class="external-link">available as open data</a> for over 100 European weather radars.</p>
 <p>Once vertical profile data are loaded into bioRad, these can be bound into time series using <code><a href="reference/bind_into_vpts.html">bind_into_vpts()</a></code>. Here we read an example time series, project it on a regular time grid with <code><a href="reference/regularize_vpts.html">regularize_vpts()</a></code> and plot it with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">example_vpts</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">example_vpts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; projecting on 300 seconds interval grid...</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_vpts-1.png" width="100%"></p>
@@ -213,9 +221,9 @@
 <p><img src="reference/figures/README-plot_vpi-1.png" width="100%"></p>
 <p>To know the total number of birds passing over the radar during the full time series, we use the last value of the <em>cumulative migration traffic</em> (column <code>mt</code>):</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">pull</span><span class="op">(</span><span class="va">mt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># Extract column mt as a vector</span></span>
-<span>  <span class="fu">last</span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">mt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># Extract column mt as a vector</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">last</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 129491.5</span></span></code></pre></div>
 <p>For more exercises, see <a href="https://adriaandokter.com/bioRad/articles/rad_aero_19.html">this tutorial</a>.</p>
 </div>
