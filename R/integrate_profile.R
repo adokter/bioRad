@@ -204,7 +204,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   # Its value is zeros for bins completly below alt_min or above alt_max, the
   # interval value for all bin completly above alt_min and below alt_max, and
   # a ratio of interval for the bins overlaping alt_min and alt_max
-  dh <- pmin(pmin(pmax(x$data$height-alt_min,0),interval),
+  dh <- pmin(pmin(pmax(x$data$height+x$attributes$where$interval-alt_min,0),interval),
              pmin(pmax(alt_max-x$data$height,0),interval)) / 1000
 
   # Vertically Integrated Density in individuals/km^2
@@ -376,7 +376,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   # Its value is zeros for bins completly below alt_min or above alt_max, the
   # interval value for all bin completly above alt_min and below alt_max, and
   # a ratio of interval for the bins overlaping alt_min and alt_max
-  dh <- pmin(pmin(pmax(x$height-alt_min,0),interval),
+  dh <- pmin(pmin(pmax(x$height+x$attributes$where$interval-alt_min,0),interval),
              pmin(pmax(alt_max-x$height,0),interval)) / 1000
 
   # Vertically Integrated Density in individuals/km^2
