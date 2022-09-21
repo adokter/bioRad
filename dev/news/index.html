@@ -80,17 +80,20 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.1" id="biorad-061">bioRad 0.6.1<small>2022-08-30</small><a class="anchor" aria-label="anchor" href="#biorad-061"></a></h2>
-<p>Rebuilds the documentation using roxygen2 for compability with HTML5</p>
+<p>Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).</p>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.0" id="biorad-060">bioRad 0.6.0<small>2022-05-09</small><a class="anchor" aria-label="anchor" href="#biorad-060"></a></h2>
-<p>Introduces a number of new functions and parameters and includes bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/8?closed=1" class="external-link">here</a>. ## New functions</p>
+<p>Introduces a number of new functions and parameters and includes bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/8?closed=1" class="external-link">here</a>.</p>
+<div class="section level3">
+<h3 id="new-functions-0-6-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-6-0"></a></h3>
 <ul><li><p>New function <code><a href="../reference/attribute_table.html">attribute_table()</a></code> to quickly tabulate scan attributes (<a href="https://github.com/adokter/bioRad/issues/365" class="external-link">#365</a>).</p></li>
 <li><p>New function <code><a href="../reference/get_iris_raw_task.html">get_iris_raw_task()</a></code> to returns <code>task</code> from IRIS files (<a href="https://github.com/adokter/bioRad/issues/411" class="external-link">#411</a>).</p></li>
 <li><p>New functions <code><a href="../reference/summary.vpi.html">is.vpi()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> for vpi objects (<a href="https://github.com/adokter/bioRad/issues/380" class="external-link">#380</a>, <a href="https://github.com/adokter/bioRad/issues/405" class="external-link">#405</a>).</p></li>
 <li><p>New function <code><a href="../reference/write_pvolfile.html">write_pvolfile()</a></code> to write polar volumes to ODIM hdf5 format (<a href="https://github.com/adokter/bioRad/issues/470" class="external-link">#470</a>, <a href="https://github.com/adokter/bioRad/issues/471" class="external-link">#471</a>).</p></li>
 <li><p>New functions <code><a href="../reference/Ops.html">Math.pvol()</a></code>, <code><a href="../reference/Ops.html">Math.scan()</a></code>, <code><a href="../reference/Ops.html">Ops.pvol()</a></code>,<code><a href="../reference/Ops.html">Ops.scan()</a></code>,<code><a href="../reference/Ops.html">Ops.param()</a></code>: standard mathematical operations for <code>param</code>, <code>scan</code> and <code>pvol</code> objects.</p></li>
-</ul><div class="section level3">
+</ul></div>
+<div class="section level3">
 <h3 id="new-features-and-bugfixes-0-6-0">New features and bugfixes<a class="anchor" aria-label="anchor" href="#new-features-and-bugfixes-0-6-0"></a></h3>
 <ul><li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code>, <code><a href="../reference/nexrad_to_odim.html">nexrad_to_odim()</a></code> and <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> can now use local vol2bird installation (<a href="https://github.com/adokter/bioRad/issues/416" class="external-link">#416</a>, <a href="https://github.com/adokter/bioRad/issues/398" class="external-link">#398</a>).</p></li>
 <li><p><code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code> and <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> bugfix that affected profiles with only <code>NA</code> values (<a href="https://github.com/adokter/bioRad/issues/396" class="external-link">#396</a>).</p></li>
