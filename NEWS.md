@@ -13,6 +13,9 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * argument `local_install` in `calculate_vp()` and `apply_mistnet()` is now deprecated.
 * functions `check_docker()` and `update_docker()` have been deprecated
 * function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`
+* fix bug in height integration, which excluded the lowest bins for certain low altitude radars (#534)
+* fast parallel mistnet runs (https://github.com/adokter/vol2birdR/issues/16)
+* simplify installation, including automatic installation of rhdf5 from bioconductor (#464)
 
 # bioRad 0.6.1
 Rebuilds the documentation using roxygen2 for compability with HTML5
