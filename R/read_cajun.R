@@ -71,7 +71,8 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   attributes <- list(
     where = data.frame(
       interval = interval,
-      levels = length(height)
+      levels = length(height),
+      height = 0 # cajun altitudes are relative to antenna level
     ),
     what = data.frame(source = basename(file), stringsAsFactors = F),
     how = data.frame(wavelength = wavelength, task = "UMASS Cajun")
