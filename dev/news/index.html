@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9522</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9532</span>
       </span>
     </div>
 
@@ -77,6 +77,9 @@
 <li>functions <code><a href="../reference/bioRad-deprecated.html">check_docker()</a></code> and <code><a href="../reference/bioRad-deprecated.html">update_docker()</a></code> have been deprecated</li>
 <li>function <code><a href="../reference/bioRad-deprecated.html">vol2bird_version()</a></code> has been migrated to package vol2birdR and can be accessed by <code><a href="https://rdrr.io/pkg/vol2birdR/man/vol2bird_version.html" class="external-link">vol2birdR::vol2bird_version()</a></code>
 </li>
+<li>fix bug in height integration, which excluded the lowest bins for certain low altitude radars (<a href="https://github.com/adokter/bioRad/issues/534" class="external-link">#534</a>)</li>
+<li>fast parallel mistnet runs (<a href="https://github.com/adokter/vol2birdR/issues/16" class="external-link uri">https://github.com/adokter/vol2birdR/issues/16</a>)</li>
+<li>simplify installation, including automatic installation of rhdf5 from bioconductor (<a href="https://github.com/adokter/bioRad/issues/464" class="external-link">#464</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.1" id="biorad-061">bioRad 0.6.1<small>2022-08-30</small><a class="anchor" aria-label="anchor" href="#biorad-061"></a></h2>
@@ -91,6 +94,7 @@
 <li><p>New function <code><a href="../reference/get_iris_raw_task.html">get_iris_raw_task()</a></code> to returns <code>task</code> from IRIS files (<a href="https://github.com/adokter/bioRad/issues/411" class="external-link">#411</a>).</p></li>
 <li><p>New functions <code><a href="../reference/summary.vpi.html">is.vpi()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> for vpi objects (<a href="https://github.com/adokter/bioRad/issues/380" class="external-link">#380</a>, <a href="https://github.com/adokter/bioRad/issues/405" class="external-link">#405</a>).</p></li>
 <li><p>New function <code><a href="../reference/write_pvolfile.html">write_pvolfile()</a></code> to write polar volumes to ODIM hdf5 format (<a href="https://github.com/adokter/bioRad/issues/470" class="external-link">#470</a>, <a href="https://github.com/adokter/bioRad/issues/471" class="external-link">#471</a>).</p></li>
+<li><p>New function <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> to download NEXRAD polar volume files from Amazon Web Services (<a href="https://github.com/adokter/bioRad/issues/41" class="external-link">#41</a>, <a href="https://github.com/adokter/bioRad/issues/487" class="external-link">#487</a>)</p></li>
 <li><p>New functions <code><a href="../reference/Ops.html">Math.pvol()</a></code>, <code><a href="../reference/Ops.html">Math.scan()</a></code>, <code><a href="../reference/Ops.html">Ops.pvol()</a></code>,<code><a href="../reference/Ops.html">Ops.scan()</a></code>,<code><a href="../reference/Ops.html">Ops.param()</a></code>: standard mathematical operations for <code>param</code>, <code>scan</code> and <code>pvol</code> objects.</p></li>
 </ul></div>
 <div class="section level3">
