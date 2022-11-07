@@ -19,7 +19,7 @@ radars."><meta property="og:image" content="https://adriaandokter.com/bioRad/log
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9532</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9536</span>
       </span>
     </div>
 
@@ -207,12 +207,6 @@ mean (lat, lon) location.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate a ppi for each elevation scan</span></span></span>
 <span class="r-in"><span><span class="va">my_ppis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span>, <span class="va">project_as_ppi</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># overlay the ppi's, calculating the maximum value observed</span></span></span>
 <span class="r-in"><span><span class="co"># across the available scans at each geographic location</span></span></span>

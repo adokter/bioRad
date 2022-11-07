@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9532</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9536</span>
       </span>
     </div>
 
@@ -74,7 +74,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_vpts</span><span class="op">(</span><span class="va">file</span>, <span class="va">radar</span>, <span class="va">lat</span>, <span class="va">lon</span>, <span class="va">height</span>, wavelength <span class="op">=</span> <span class="st">"C"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_vpts</span><span class="op">(</span><span class="va">file</span>, <span class="va">radar</span>, <span class="va">lat</span>, <span class="va">lon</span>, <span class="va">height</span>, wavelength <span class="op">=</span> <span class="st">"C"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,6 +104,10 @@ by vol2bird (or the package function <code>calculate_vp</code>).</p></dd>
 <dd><p>Radar wavelength in cm, or one of 'C' or 'S' for C-band
 and S-band radar, respectively, in which case C-band wavelength is assumed
 to be 5.3 cm and S-band wavelength 10.6 cm</p></dd>
+
+
+<dt>sep</dt>
+<dd><p>the field separator character, see <a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></p></dd>
 
 </dl></div>
     <div id="value">
