@@ -4,7 +4,7 @@
 \alias{read_vpts}
 \title{Read a time series of vertical profiles (\code{vpts}) from file}
 \usage{
-read_vpts(file, radar, lat, lon, height, wavelength = "C")
+read_vpts(file, radar, lat, lon, height, wavelength = "C", sep = "")
 }
 \arguments{
 \item{file}{A text file containing the standard output (stdout) generated
@@ -21,6 +21,8 @@ by vol2bird (or the package function \code{calculate_vp}).}
 \item{wavelength}{Radar wavelength in cm, or one of 'C' or 'S' for C-band
 and S-band radar, respectively, in which case C-band wavelength is assumed
 to be 5.3 cm and S-band wavelength 10.6 cm}
+
+\item{sep}{the field separator character, see \link[utils]{read.table}}
 }
 \value{
 An object inheriting from class \code{vpts}, see
