@@ -9,6 +9,7 @@
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
 #' and S-band radar, respectively, in which case C-band wavelength is assumed
 #' to be 5.3 cm and S-band wavelength 10.6 cm
+#' @param sep the field separator character, see \link[utils]{read.table}
 #'
 #' @return An object inheriting from class \code{vpts}, see
 #' \code{\link[=summary.vpts]{vpts}} for details.
@@ -21,7 +22,7 @@
 #' # load time series:
 #' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
 #' ts
-read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
+read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
   # input checks
   if (!file.exists(file)) {
     stop(paste("File", file, "doesn't exist."))
@@ -44,7 +45,7 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
       stop("'height' should be a positive number of meters above sea level")
     }
   }
-  if (missing(radar)) {
+  if (missing(radar) && sep =="") {
     stop("'radar' argument missing. Required to specify a radar identifier.")
   }
   if (missing(wavelength)) {
@@ -63,6 +64,10 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
     stop("Not a valid 'wavelength' argument.")
   }
 
+  # currently only two delimitors supported
+  # "" for legacy vol2bird output, "," for csv output
+  assert_that(sep == "" || sep == ",")
+
   # header of the data file
   header.names.short <- c(
     "Date", "Time", "height", "u", "v", "w", "ff", "dd",
@@ -76,19 +81,34 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C") {
     "n_all", "n_dbz_all"
   )
   # read the data
-  data <- read.table(file = file, header = FALSE)
-  if (ncol(data) == 22) {
-    colnames(data) <- header.names.long
-  } else {
-    colnames(data) <- header.names.short
+
+  if(sep!=""){
+    # for parsing new csv format
+    data <- read.table(file = file, header = TRUE, sep = sep)
+    radar <- unique(data$radar)
+    if(length(radar)>1){
+      stop("file contains data for multiple radars")
+    }
+    data$radar <- NULL
+    data$datetime <- parse_datetime(data$datetime)
+    data$gap <- as.logical(data$gap)
+  } else{
+    # for parsing legacy vol2bird text output
+    data <- read.table(file = file, header = FALSE, sep = sep)
+    if (ncol(data) == 22) {
+      colnames(data) <- header.names.long
+    } else {
+      colnames(data) <- header.names.short
+    }
+
+    # convert Time into a POSIXct date-time
+    data$datetime <- as.POSIXct(paste(data$Date, sprintf("%04d", data$Time),
+                                      sep = ""
+    ),
+    format = "%Y%m%d%H%M",
+    tz = "UTC"
+    )
   }
-  # convert Time into a POSIXct date-time
-  data$datetime <- as.POSIXct(paste(data$Date, sprintf("%04d", data$Time),
-    sep = ""
-  ),
-  format = "%Y%m%d%H%M",
-  tz = "UTC"
-  )
 
   # add profile_index to identify consecutive profiles
   data$new_profile_starts <- c(T, (data$height[-1] - data$height[-length(data$height)]) < 0)
