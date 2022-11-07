@@ -16,6 +16,7 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * fix bug in height integration, which excluded the lowest bins for certain low altitude radars (#534)
 * fast parallel mistnet runs (https://github.com/adokter/vol2birdR/issues/16)
 * simplify installation, including automatic installation of rhdf5 from bioconductor (#464)
+* new sep argument in read_vpts() (#536)
 
 # bioRad 0.6.1
 
