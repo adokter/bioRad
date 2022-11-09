@@ -373,11 +373,10 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   output <- read_vpfiles(profile.tmp)
 
   # read output and clean up
-  if (vpfile == "") {
-    file.remove(profile.tmp)
-  } else {
-    file.rename(profile.tmp, vpfile)
+  if (vpfile != "") {
+    file.copy(profile.tmp, vpfile)
   }
+  file.remove(profile.tmp)
 
   output
 }

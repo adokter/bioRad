@@ -1,4 +1,9 @@
 .onLoad <- function(libname, pkgname) {
+   options("rgdal_show_exportToProj4_warnings"="none")
+   setHook(packageEvent("rgdal", "onLoad"), function(...){
+      rgdal::set_rgdal_show_exportToProj4_warnings(FALSE)
+   }) 
+   library(rgdal, quietly=TRUE)
   register_all_s3_methods() # dynamically registers non-imported pkgs (tidyverse) # nocov
   assert_that(is.string(find.package("vol2birdR", verbose=F, quiet=T)),msg="package vol2birdR not found. See https://adokter.github.io/vol2birdR/ for install instructions")
 }
