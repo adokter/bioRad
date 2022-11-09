@@ -24,7 +24,7 @@ described in detail in Kranstauber et al. (2020)."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9536</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9537</span>
       </span>
     </div>
 
@@ -270,6 +270,10 @@ and Remote Sensing 47: 2741-2751.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate the range-corrected ppi on a 50x50 pixel raster</span></span></span>
 <span class="r-in"><span><span class="va">my_ppi</span> <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">example_vp</span>, nx <span class="op">=</span> <span class="fl">50</span>, ny <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the vertically integrated reflectivity (VIR) using a 0-2000 cm^2/km^2 color scale:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_ppi</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2000</span><span class="op">)</span><span class="op">)</span></span></span>
