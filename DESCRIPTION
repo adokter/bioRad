@@ -39,6 +39,7 @@ Imports:
     maptools,
     methods,
     raster,
+    readr,
     rgdal,
     rhdf5,
     sp,

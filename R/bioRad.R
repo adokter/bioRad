@@ -32,6 +32,7 @@
 #' @importFrom raster values<-
 #' @importFrom raster extent
 #' @importFrom raster crs
+#' @importFrom readr parse_datetime
 #' @importFrom curl curl_download
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
