@@ -100,13 +100,12 @@ download_pvolfiles <- function(date_min, date_max, radar,
         aws.s3::get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
       ),
       msg = paste0(
-        "No data availble for ", radar, " on the ", dates[i_d],
+        "No data available for ", radar, " on the ", dates[i_d],
         ". Check radar code and data availability on",
         " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
       )
       )
     }
-
 
     # filter bucket with exact date
     isWithin <- sapply(bucket_df$Key, function(x) {
@@ -119,7 +118,17 @@ download_pvolfiles <- function(date_min, date_max, radar,
     })
     bucket_df <- bucket_df[isWithin, ]
 
-    # create progresbar
+    # throw out occasional NA keys, see e.g. 2015/03/01/KEPZ/
+    bucket_df %>% dplyr::filter(!is.na(Key)) -> bucket_df
+
+    assert_that(nrow(bucket_df) > 0,
+      msg = paste0(
+        "No data available for ", radar, " on the ", dates[i_d],
+        "within the selected datetime range. Check radar code and data availability on",
+        " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+      ))
+
+    # create progress bar
     message(paste0("\nDownloading pvol for ", prefix))
     pb <- txtProgressBar(min = 0, max = nrow(bucket_df), initial = 0, style = 3)
 
