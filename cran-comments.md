@@ -1,3 +1,2 @@
-## bioRad 0.6.1
-This version rebuilds the documentation with roxygen2 on request of CRAN
-for compatibility with HTML5
+## bioRad 0.6.2
+This release includes an important bugfix in function integrate_profile()
