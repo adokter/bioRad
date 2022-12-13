@@ -1,8 +1,11 @@
-<!--
+# bioRad 0.6.2
+This release is a bug fix for issue #532, which caused the lowest altitude bin of profiles to be exclude from the altitude integration of integrate_profile(). The bug showed up only for those radars for which the antenna height is less than the bin width of the profile above sea level (typically 100 or 200 m), and first appeared in bioRad version 0.6.0
 
-* `bind_into_vpts()` now works for vp's and vpts's with different heights (#343).
+Additional fixes:
 
--->
+* allow eta=0 in eta_to_dbz() (#526)
+
+* fix for running calculate_vp() on files on external hard disks or different partitions (#535)
 
 # bioRad 0.6.1
 Rebuilds the documentation using roxygen2 for compability with HTML5

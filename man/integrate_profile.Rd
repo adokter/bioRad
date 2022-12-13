@@ -178,7 +178,7 @@ Columns mt and rt in the output dataframe provides migration traffic as a numeri
 migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
 of the respective row.
 
-#' \subsection{Ground speed (ff) and ground speed components (u,v)}{
+\subsection{Ground speed (ff) and ground speed components (u,v)}{
 The height-averaged ground speed is defined as:
 
 \deqn{\mathit{ff} = \sum_i \mathit{dens}_i \mathit{ff}_i / \sum_i \mathit{dens}_i}{\mathit{ff} = \sum_i \mathit{dens}_i \mathit{ff}_i / \sum_i \mathit{dens}_i}
