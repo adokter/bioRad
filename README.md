@@ -87,7 +87,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.6.0
+#> Welcome to bioRad version 0.6.2
 #> Docker daemon running, Docker functionality enabled (vol2bird version 0.5.0.9169, MistNet available)
 ```
 
