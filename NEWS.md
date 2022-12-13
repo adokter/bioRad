@@ -1,5 +1,5 @@
 # bioRad 0.6.2
-This release is a bug fix for issue #532, which caused the lowest altitude bin of profiles to be excluded in vertical integration using integrate_profile(). This bug only affects radars for which the antenna height is close to sea level, i.e. within the first bin of the profile (typically 100 or 200 m). It first appeared in bioRad version 0.6.0
+This release is a bug fix for issue #532, which caused the lowest altitude bin of profiles to be excluded in vertical integration using integrate_profile(). This bug only affects radars for which the antenna height is close to sea level, i.e. within the first bin of the profile (typically 100 or 200 m). It first appeared in bioRad version 0.6.0.
 
 Additional fixes:
 
