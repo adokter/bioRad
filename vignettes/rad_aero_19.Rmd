@@ -27,7 +27,7 @@ Radar data needed for this practical can be downloaded [here](https://www.dropbo
 
 Follow bioRad's [install instructions](https://adriaandokter.com/bioRad/dev/), and install the latest development version to be fully up-to-date.
 
-Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
+Execute each of the code examples provided below in [RStudio](https://www.posit.co/), and try to complete the exercises.
 
 ```{r, eval=SHOW_ANSWERS}
 # make sure you start with a fresh R session
