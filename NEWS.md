@@ -17,6 +17,8 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * fast parallel mistnet runs (https://github.com/adokter/vol2birdR/issues/16)
 * simplify installation, including automatic installation of rhdf5 from bioconductor (#464)
 * new sep argument in read_vpts() (#536)
+* allow odim files with missing source attribute. Extraction of radar indentifer from what/source attribute in read_pvolfiles updated to function as read_vpfiles(), i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use "unknown" (2f6935c).
+
 
 # bioRad 0.6.1
 
