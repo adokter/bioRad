@@ -55,6 +55,7 @@ read_vp <- function(file) {
   datetime <- as.POSIXct(paste(attribs.what$date, attribs.what$time),
     format = "%Y%m%d %H%M%S", tz = "UTC"
   )
+  if(is.null(attribs.what$source)) attribs.what$source=""
   sources <- strsplit(attribs.what$source, ",")[[1]]
   radar <- gsub("NOD:", "", sources[which(grepl("NOD:", sources))])
   if (length(radar) == 0) {

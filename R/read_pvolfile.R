@@ -220,8 +220,19 @@ read_pvolfile_body <- function(file, param = c(
   datetime <- as.POSIXct(paste(attribs.what$date, attribs.what$time),
     format = "%Y%m%d %H%M%S", tz = "UTC"
   )
+  if(is.null(attribs.what$source)) attribs.what$source=""
   sources <- strsplit(attribs.what$source, ",")[[1]]
-  radar <- gsub("RAD:", "", sources[which(grepl("RAD:", sources))])
+  radar <- gsub("NOD:", "", sources[which(grepl("NOD:", sources))])
+  if (length(radar) == 0) {
+    radar <- gsub("RAD:", "", sources[which(grepl("RAD:", sources))])
+    if (length(radar) == 0) {
+      radar <- gsub("WMO:", "", sources[which(grepl("WMO:", sources))])
+      if (length(radar) == 0) {
+        radar <- "unknown"
+      }
+    }
+  }
+
 
   # write height, lat, lon attributes (update with potential user-defined values)
   attribs.where$height <- vol.height
