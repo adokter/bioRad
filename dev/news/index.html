@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9541</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9547</span>
       </span>
     </div>
 
@@ -81,6 +81,7 @@
 <li>fast parallel mistnet runs (<a href="https://github.com/adokter/vol2birdR/issues/16" class="external-link uri">https://github.com/adokter/vol2birdR/issues/16</a>)</li>
 <li>simplify installation, including automatic installation of rhdf5 from bioconductor (<a href="https://github.com/adokter/bioRad/issues/464" class="external-link">#464</a>)</li>
 <li>new sep argument in read_vpts() (<a href="https://github.com/adokter/bioRad/issues/536" class="external-link">#536</a>)</li>
+<li>allow odim files with missing source attribute. Extraction of radar indentifer from what/source attribute in read_pvolfiles updated to function as read_vpfiles(), i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use “unknown” (2f6935c).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.1" id="biorad-061">bioRad 0.6.1<small>2022-08-30</small><a class="anchor" aria-label="anchor" href="#biorad-061"></a></h2>
@@ -232,7 +233,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9541</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9547</span>
       </span>
     </div>
 
@@ -97,11 +97,12 @@
 
       
 
-      </header><script src="range_correction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Correction for range effects</h1>
-                        <h4 data-toc-skip class="author">Adriaan M. Dokter</h4>
+                        <h4 data-toc-skip class="author">Adriaan M.
+Dokter</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/HEAD/vignettes/range_correction.Rmd" class="external-link"><code>vignettes/range_correction.Rmd</code></a></small>
@@ -117,21 +118,26 @@
 <p>Load bioRad</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Welcome to bioRad version 0.7.0.9541</span></span></code></pre>
+<pre><code><span><span class="co">## Welcome to bioRad version 0.7.0.9547</span></span></code></pre>
 <pre><code><span><span class="co">## using vol2birdR version 0.1.1.9923 (MistNet not installed)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="beam-propagation">2 Beam propagation<a class="anchor" aria-label="anchor" href="#beam-propagation"></a>
 </h2>
-<p>We start with the changing properties of the radar beam as it propagates through the atmosphere. We define:</p>
+<p>We start with the changing properties of the radar beam as it
+propagates through the atmosphere. We define:</p>
 <ul>
 <li>
-<strong>range</strong>: the length of the skywave path between target and the radar antenna, also known as <em>slant range</em>
+<strong>range</strong>: the length of the skywave path between
+target and the radar antenna, also known as <em>slant range</em>
 </li>
 <li>
-<strong>distance</strong>: the distance of the target from the radar as measured along the earth’s surface, also known as <em>down range</em>.</li>
+<strong>distance</strong>: the distance of the target from the radar
+as measured along the earth’s surface, also known as <em>down
+range</em>.</li>
 </ul>
-<p>The beam height is changing as a result of earth’s curvature, and beam refraction:</p>
+<p>The beam height is changing as a result of earth’s curvature, and
+beam refraction:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define a range grid from 0 to 200 km:</span></span>
 <span><span class="va">my_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200000</span>, <span class="fl">1000</span><span class="op">)</span></span>
@@ -143,7 +149,11 @@
 <code class="sourceCode R"><span><span class="co"># plot the beam width, for a beam opening angle of 1 degree (typical for most weather radars):</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_range</span>, <span class="fu"><a href="../reference/beam_width.html">beam_width</a></span><span class="op">(</span><span class="va">my_range</span>, beam_angle <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"range [m]"</span>, ylab <span class="op">=</span> <span class="st">"beam width [m]"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>We can now combine the relations for beam width and beam height, to calculate the beam profile as a function of height, i.e. the altitudinal normalized distribution of radiated energy by the beam. Let’s plot the radiation profile for a 0.5 and 2 degree beam elevation at 50 km from the radar (the height axis runs from ground level straight up):</p>
+<p>We can now combine the relations for beam width and beam height, to
+calculate the beam profile as a function of height, i.e. the altitudinal
+normalized distribution of radiated energy by the beam. Let’s plot the
+radiation profile for a 0.5 and 2 degree beam elevation at 50 km from
+the radar (the height axis runs from ground level straight up):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/beam_profile.html">beam_profile</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>, ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevation: 0.5 deg, distance=50km"</span><span class="op">)</span></span></code></pre></div>
@@ -152,7 +162,8 @@
 <code class="sourceCode R"><span><span class="co"># plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/beam_profile.html">beam_profile</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>, ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevation: 2 deg, distance=50km"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
-<p>We can also calculate the normalized radiation profile for the two beams combined:</p>
+<p>We can also calculate the normalized radiation profile for the two
+beams combined:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the combined beam profile for a 0.5 and 2.0 degree elevation beam at 50 km distance from the radar:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/beam_profile.html">beam_profile</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, <span class="fl">50000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4000</span>, xlab <span class="op">=</span> <span class="st">"normalized radiated energy"</span>, ylab <span class="op">=</span> <span class="st">"height [m]"</span>, main <span class="op">=</span> <span class="st">"beam elevations: 0.5,2 deg, distance=50km"</span><span class="op">)</span></span></code></pre></div>
@@ -161,7 +172,8 @@
 <div class="section level2">
 <h2 id="vertical-profiles-and-polar-volumes">3 Vertical profiles and polar volumes<a class="anchor" aria-label="anchor" href="#vertical-profiles-and-polar-volumes"></a>
 </h2>
-<p>Let us now assume we have calculated a vertical profile (of birds) for a certain polar volume file. Let’s load an example</p>
+<p>Let us now assume we have calculated a vertical profile (of birds)
+for a certain polar volume file. Let’s load an example</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># let's load an example polar volume:</span></span>
 <span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span>
@@ -176,11 +188,14 @@
 <span><span class="co">##       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar </span></span>
 <span><span class="co">## nominal time:  2015-10-18 18:00:00 </span></span>
 <span><span class="co">## generated by:  vol2bird 0.3.17</span></span></code></pre>
-<p>Let’s plot the vertical profile, for the quantity eta (the linear reflectivity):</p>
+<p>Let’s plot the vertical profile, for the quantity eta (the linear
+reflectivity):</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">example_vp</span>, quantity <span class="op">=</span> <span class="st">"eta"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<p>Note that eta is directly related to reflectivity factor (DBZH), i.e. a reflectivity factor of 5 dBZ amounts to the following eta at a radar wavelength of 5.3 cm:</p>
+<p>Note that eta is directly related to reflectivity factor (DBZH),
+i.e. a reflectivity factor of 5 dBZ amounts to the following eta at a
+radar wavelength of 5.3 cm:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dbz_to_eta.html">dbz_to_eta</a></span><span class="op">(</span><span class="fl">5</span>, wavelength <span class="op">=</span> <span class="fl">5.3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1060.747</span></span></code></pre>
@@ -188,25 +203,49 @@
 <div class="section level2">
 <h2 id="spatial-estimates-of-vertically-integrated-density-vid">4 Spatial estimates of vertically integrated density (VID)<a class="anchor" aria-label="anchor" href="#spatial-estimates-of-vertically-integrated-density-vid"></a>
 </h2>
-<p>Our goal is to estimate a spatial image of vertically integrated density (VID) based on all elevation scans of the radar, while accounting for the changing overlap between the radar beams as a function of range.</p>
+<p>Our goal is to estimate a spatial image of vertically integrated
+density (VID) based on all elevation scans of the radar, while
+accounting for the changing overlap between the radar beams as a
+function of range.</p>
 <p>We start with:</p>
 <ul>
 <li>a polar volume, containing multiple scans</li>
 <li>a vertical profile (of birds) calculated for that polar volume</li>
-<li>a grid that we define relative to the earth’s surface, on which we will calculate the range corrected image. The pixel locations on the ground are easily translated into a corresponding azimuth and range of the various scans (see function <code><a href="../reference/beam_range.html">beam_range()</a></code>).</li>
+<li>a grid that we define relative to the earth’s surface, on which we
+will calculate the range corrected image. The pixel locations on the
+ground are easily translated into a corresponding azimuth and range of
+the various scans (see function <code><a href="../reference/beam_range.html">beam_range()</a></code>).</li>
 </ul>
 <p>For each scan within the polar volume we:</p>
 <ul>
-<li>calculate for each ground surface pixel the vertical radiation profile at that pixel for that particular scan, following above paragraph 2.</li>
-<li>calculate the reflectivity we expect at that pixel (<span class="math inline">\(eta_{expected}\)</span>), given the vertical profile (of birds) and the part of the profile radiated by the beam. This <span class="math inline">\(eta_{expected}\)</span> is simply the average of (linear) eta in the profile (as plotted in paragraph 3 above), weighted by the vertical radiation profile (as plotted in paragraph 2).</li>
-<li>we also calculated the observed eta at this pixel, which is simply given by <code>dbz_to_eta(DBZH)</code> (see paragraph 3), with DBZH the reflectivity factor measured at the pixel’s distance from the radar.</li>
+<li>calculate for each ground surface pixel the vertical radiation
+profile at that pixel for that particular scan, following above
+paragraph 2.</li>
+<li>calculate the reflectivity we expect at that pixel (<span class="math inline">\(eta_{expected}\)</span>), given the vertical
+profile (of birds) and the part of the profile radiated by the beam.
+This <span class="math inline">\(eta_{expected}\)</span> is simply the
+average of (linear) eta in the profile (as plotted in paragraph 3
+above), weighted by the vertical radiation profile (as plotted in
+paragraph 2).</li>
+<li>we also calculated the observed eta at this pixel, which is simply
+given by <code>dbz_to_eta(DBZH)</code> (see paragraph 3), with DBZH the
+reflectivity factor measured at the pixel’s distance from the
+radar.</li>
 </ul>
-<p>For each pixel on the ground, we thus end up with a set of <span class="math inline">\(eta_{expected}\)</span> and a set of <span class="math inline">\(eta_{observed}\)</span>. From those we can calculate a correction factor at that pixel, as <span class="math inline">\(R=\sum{eta_{observed}}/\sum{eta_{expected}}\)</span>, with the sum running over scans.</p>
+<p>For each pixel on the ground, we thus end up with a set of <span class="math inline">\(eta_{expected}\)</span> and a set of <span class="math inline">\(eta_{observed}\)</span>. From those we can
+calculate a correction factor at that pixel, as <span class="math inline">\(R=\sum{eta_{observed}}/\sum{eta_{expected}}\)</span>,
+with the sum running over scans.</p>
 <p>To arrive at the final PPI image:</p>
 <ul>
-<li>we calculate the vertically integrated density (<code>vid</code>) and vertically integrated reflectivity (<code>vir</code>) for the profile, using the function <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>.</li>
-<li>the spatial range-corrected PPI for <code>VID</code> is simply the adjustment factor image (<code>R</code>), multiplied by the <code>vid</code> calculated for the profile</li>
-<li>Likewise, the spatial range-corrected PPI for <code>VIR</code> is simply the <code>R</code> image, multiplied by the <code>vir</code> calculated for the profile</li>
+<li>we calculate the vertically integrated density (<code>vid</code>)
+and vertically integrated reflectivity (<code>vir</code>) for the
+profile, using the function <code><a href="../reference/integrate_profile.html">integrate_profile()</a></code>.</li>
+<li>the spatial range-corrected PPI for <code>VID</code> is simply the
+adjustment factor image (<code>R</code>), multiplied by the
+<code>vid</code> calculated for the profile</li>
+<li>Likewise, the spatial range-corrected PPI for <code>VIR</code> is
+simply the <code>R</code> image, multiplied by the <code>vir</code>
+calculated for the profile</li>
 </ul>
 </div>
 <div class="section level2">
@@ -250,7 +289,8 @@
 <span><span class="co">## </span></span>
 <span><span class="co">##   parameters:  VIR VID R overlap eta_sum eta_sum_expected </span></span>
 <span><span class="co">##         dims:  400 x 400 pixels</span></span></code></pre>
-<p>The range corrected PPI has four parameters: VIR, VID, R, overlap. Let’s plot the adjustment factor R:</p>
+<p>The range corrected PPI has four parameters: VIR, VID, R, overlap.
+Let’s plot the adjustment factor R:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the adjustment factor R:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_corrected_ppi</span>, param <span class="op">=</span> <span class="st">"R"</span><span class="op">)</span></span></code></pre></div>
@@ -271,12 +311,17 @@
 <div class="section level2">
 <h2 id="overlap-between-radiation-profile-and-bird-profile">6 Overlap between radiation profile and bird profile<a class="anchor" aria-label="anchor" href="#overlap-between-radiation-profile-and-bird-profile"></a>
 </h2>
-<p>At large distances from the radar we expect correction for range effects to become more difficult:</p>
+<p>At large distances from the radar we expect correction for range
+effects to become more difficult:</p>
 <ol style="list-style-type: decimal">
-<li>radar beams start to overshoot the aerial layers with biology, i.e. the overlap between the vertical profile and the emitted radiation profile decreases</li>
-<li>at large distances weak biological echoes may get below the radar’s detection level</li>
+<li>radar beams start to overshoot the aerial layers with biology,
+i.e. the overlap between the vertical profile and the emitted radiation
+profile decreases</li>
+<li>at large distances weak biological echoes may get below the radar’s
+detection level</li>
 </ol>
-<p>We can calculate overlap between emitted radiation and the biological profile as follows:</p>
+<p>We can calculate overlap between emitted radiation and the biological
+profile as follows:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate overlap between vertical profile of birds</span></span>
 <span><span class="co"># and the vertical radiation profile emitted by the radar:</span></span>
@@ -284,19 +329,33 @@
 <span><span class="co"># plot the calculated overlap:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bpo</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<p>The function first normalizes the vertical profile altitudinal distribution. This can be either using profile quantity eta or dens, whichever is preferred (note that dens, the density, is sometimes thresholded to zero based on radial velocity standard deviation, see <code><a href="../reference/sd_vvp_threshold.html">sd_vvp_threshold()</a></code>, while eta is not)</p>
-<p>It then calculates the overlap between the normalized vertical profile, and the normalized radiation profile as calculated with <code><a href="../reference/beam_profile.html">beam_profile()</a></code>, using a metric called the <a href="https://en.wikipedia.org/wiki/Bhattacharyya_distance" class="external-link">Bhattacharyya distance</a>. This metric is zero when there is no overlap, and 1 when the distributions are identical.</p>
-<p>The range-corrected PPI also contains a field <code>overlap</code>, which contains the same metric but then calculated on the grid of the PPI:</p>
+<p>The function first normalizes the vertical profile altitudinal
+distribution. This can be either using profile quantity eta or dens,
+whichever is preferred (note that dens, the density, is sometimes
+thresholded to zero based on radial velocity standard deviation, see
+<code><a href="../reference/sd_vvp_threshold.html">sd_vvp_threshold()</a></code>, while eta is not)</p>
+<p>It then calculates the overlap between the normalized vertical
+profile, and the normalized radiation profile as calculated with
+<code><a href="../reference/beam_profile.html">beam_profile()</a></code>, using a metric called the <a href="https://en.wikipedia.org/wiki/Bhattacharyya_distance" class="external-link">Bhattacharyya
+distance</a>. This metric is zero when there is no overlap, and 1 when
+the distributions are identical.</p>
+<p>The range-corrected PPI also contains a field <code>overlap</code>,
+which contains the same metric but then calculated on the grid of the
+PPI:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_corrected_ppi</span>, param <span class="op">=</span> <span class="st">"overlap"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<p>The overlap metric might be used in the future to show only certain section of the PPI, based on their overlap value.</p>
+<p>The overlap metric might be used in the future to show only certain
+section of the PPI, based on their overlap value.</p>
 </div>
 <div class="section level2">
 <h2 id="to-do">7 To do<a class="anchor" aria-label="anchor" href="#to-do"></a>
 </h2>
 <ul>
-<li>implementation of a <code>noise_floor</code> parameter, by which one can determine at which distance birds are expected to be below noise level, given their vertical profile. Affects function <code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code>.</li>
+<li>implementation of a <code>noise_floor</code> parameter, by which one
+can determine at which distance birds are expected to be below noise
+level, given their vertical profile. Affects function
+<code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code>.</li>
 </ul>
 </div>
   </div>
@@ -318,7 +377,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
