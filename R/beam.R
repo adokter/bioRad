@@ -19,7 +19,7 @@
 #' an effective earth's radius of k * (true radius) is assumed, with k = 4/3.
 #'
 #' The earth's radius is approximated as a point on a spheroid surface, with
-#' \code{re} the longer equatorial radius, and \code{rp} the shorter polar
+#' `re` the longer equatorial radius, and `rp` the shorter polar
 #' radius. Typically uncertainties in refraction coefficient are relatively
 #' large, making oblateness of the earth and the dependence of earth radius with
 #' latitude only a small correction. Using default values assumes an average
@@ -105,8 +105,8 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #'
 #' @return numeric.
 #'
-#' @details Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code{height} and
-#' \code{antenna} should be given in reference to the same reference plane (e.g. ground level or sea level)
+#' @details Beam profile is calculated using [beam_height] and [beam_width]. `height` and
+#' `antenna` should be given in reference to the same reference plane (e.g. ground level or sea level)
 #'
 #' @keywords internal
 gaussian_beam_profile <- function(height, range, elev, antenna = 0,
@@ -153,8 +153,8 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #'
 #' @export
 #'
-#' @details Beam profile is calculated using \link{beam_height} and
-#'   \link{beam_width}. Returns a beam profile as a function of height relative
+#' @details Beam profile is calculated using [beam_height] and
+#'   [beam_width]. Returns a beam profile as a function of height relative
 #'   to ground level.
 #'
 #'   Returns the normalized altitudinal pattern of radiated energy as a function
@@ -247,10 +247,10 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #'
 #' Calculates the distribution overlap between a vertical profile ('vp') and the
 #' vertical radiation profile of a set of emitted radar beams at various
-#' elevation angles as given by \link{beam_profile}.
+#' elevation angles as given by [beam_profile].
 #'
-#' This function also calculates the \code{overlap} quantity in the output of
-#' \link{integrate_to_ppi}.
+#' This function also calculates the `overlap` quantity in the output of
+#' [integrate_to_ppi].
 #' @inheritParams beam_height
 #' @inheritParams beam_width
 #' @param vp a vertical profile of class vp
@@ -260,17 +260,17 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @param zlim altitude range in meter, given as a numeric vector of length two.
 #' @param noise_floor The system noise floor in dBZ. The total system noise
 #'   expressed as the reflectivity factor it would represent at a distance
-#'   \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED
+#'   `noise_floor_ref_range` from the radar. NOT YET IMPLEMENTED
 #' @param noise_floor_ref_range the reference distance from the radar at which
-#'   \code{noise_floor} is expressed. NOT YET IMPLEMENTED
+#'   `noise_floor` is expressed. NOT YET IMPLEMENTED
 #' @param steps number of integration steps over altitude range zlim, defining
 #'   altitude grid size used for numeric integration
 #' @param quantity profile quantity to use for the altitude distribution, one of
 #'   'dens' or 'eta'.
 #' @param normalize Whether to normalize the radiation coverage pattern over the
 #'   altitude range specified by zlim
-#' @param antenna radar antenna height. If missing taken from \code{vp}
-#' @param lat radar latitude. If missing taken from \code{vp}
+#' @param antenna radar antenna height. If missing taken from `vp`
+#' @param lat radar latitude. If missing taken from `vp`
 #' @return A data.frame with columns distance and overlap.
 #'
 #' @export
@@ -279,25 +279,25 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #'   coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
 #'   distribution overlap) between the (normalized) vertical profile vp and the
 #'   (normalized) radiation coverage pattern as calculated by
-#'   \link{beam_profile}. In the calculation of this overlap metric, NA and NaN values
-#'   in the profile quantity specified by \code{quantity} are replaced with zeros.
+#'   [beam_profile]. In the calculation of this overlap metric, NA and NaN values
+#'   in the profile quantity specified by `quantity` are replaced with zeros.
 #'
 #'   The current implementation does not (yet) take into account the system
 #'   noise floor when calculating the overlap.
 #'
-#'   In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH}
+#'   In the ODIM data model the attribute `/how/NEZ` or `/how/NEZH`
 #'   specifies the system noise floor (the Noise Equivalent Z or noise
 #'   equivalent reflectivity factor. the H refers to the horizontal channel of a
-#'   dual-polarization radar). In addition, the attribute \code{/how/LOG} gives
+#'   dual-polarization radar). In addition, the attribute `/how/LOG` gives
 #'   "security distance above mean noise level (dB) threshold value". This is
 #'   equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the
 #'   noise floor for the signal processor to report a valid reflectivity value.
-#'   We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this
+#'   We recommend using `NEZH`+`LOG` for `noise_floor`, as this
 #'   is the effective noise floor of the system below which no data will be
 #'   reported by the radar signal processor.
 #'
-#'   Typical values are \code{NEZH} = -45 to -50 dBZ at 1 km from the radar.
-#'   \code{LOG} is typically around 1 dB.
+#'   Typical values are `NEZH` = -45 to -50 dBZ at 1 km from the radar.
+#'   `LOG` is typically around 1 dB.
 #'
 #'   Need to evaluate beam by beam the returned signal relative to a uniform
 #'   beam filling of at least NEZH + LOG If returned signal is lower, the gate
@@ -354,7 +354,7 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #'
 #' @export
 #'
-#' @details depends on \link{beam_height} to calculate beam height.
+#' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # down range of the 5 degree elevation beam at a slant range of 100 km:
 #' beam_distance(100000, 5)
@@ -375,7 +375,7 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #'
 #' @export
 #'
-#' @details depends on \link{beam_height} to calculate beam height.
+#' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # slant range of the 5 degree elevation beam at a down range of 100 km:
 #' beam_range(100000, 5)
