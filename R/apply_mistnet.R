@@ -62,24 +62,25 @@
 #'
 #' MistNet may run more slowly on Windows than on Linux or Mac OSX.
 #'
-#' See Lin et al. 2019 for details.
+#' @seealso
+#' * [check_docker()]
+#' * [calculate_vp()]
 #'
 #' @references
-#' Please also cite this publication when using MistNet:
-#' \itemize{
-#'   \item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
-#'   Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
-#'   MistNet: Measuring historical bird migration in the US using archived
-#'   weather radar data and convolutional neural networks. Methods in Ecology
-#'   and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
-#' }
+#' Please cite this publication when using MistNet:
+#' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
+#' Van Doren BM, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019) MistNet:
+#' Measuring historical bird migration in the US using archived weather radar
+#' data and convolutional neural networks. Methods in Ecology and Evolution 10
+#' (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
+#'
 #' @examples
 #' \dontrun{
 #' # make sure you have installed the MistNet libraries and model, using:
 #' # vol2birdR::install_mistnet()
 #' # vol2birdR::install_mistnet_model()
 #'
-#' # download a NEXRAD file, save as KBGM_example
+#' # Download a NEXRAD file, and save as KBGM_example
 #' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
 #'   "2019/10/01/KBGM/KBGM20191001_000542_V06",
 #'   sep = ""
