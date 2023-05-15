@@ -1,66 +1,66 @@
 #' Apply MistNet segmentation to a polar volume
 #'
-#' Apply MistNet segmentation model to a polar volume file on disk, and load the
-#' resultant segmentation as a polar volume (`pvol`) object.
+#' Applies the MistNet segmentation model to a polar volume file on disk and
+#'   loads the resultant segmentation as a polar volume (`pvol`) object.
 #'
-#' @param file character. File path for a radar polar volume.
-#' @param pvolfile_out character. (optional) Filename for the polar volume to be
-#' stored, including the MistNet segmentation results
-#' @param load on completion load the data
-#' @param mistnet_elevations numeric vector of length 5.
-#' Elevation angles to feed to the MistNet
-#' segmentation model, which expects exactly 5 elevation scans
-#' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
-#' elevation angles may compromise segmentation results.
-#' @param local_install (deprecated) String with path to local vol2bird binary
-#' (e.g. `"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"`),
-#' to use local installation instead of Docker container
-#' @param local_mistnet (optional) String with path to local mistnet segmentation model
-#' in PyTorch format (e.g. `"/your/path/mistnet_nexrad.pt"`)
+#' @param file Character. Path to a polar volume (`pvol`) file.
+#' @param pvolfile_out Character. (optional) File name. When provided, writes a
+#'   polar volume (`pvol`) file to disk that includes the Mistnet segmentation
+#'   results.
+#' @param load Logical. When `TRUE`, returns a `pvol` object.
+#' @param mistnet_elevations Numeric vector of length 5. Elevation angles to
+#'   feed to the MistNet segmentation model, which expects exactly 5 elevation
+#'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
+#'   angles may compromise segmentation results.
+#' @param local_install Character. Path to local vol2bird installation (e.g.
+#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use instead of
+#'   the Docker container.
+#' @param local_mistnet Character. Path to local MistNet segmentation model in
+#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use instead of the
+#'   Docker container.
 #'
 #' @inheritParams calculate_vp
 #'
-#' @return If parameter `load` is TRUE an object of class `pvol` on success.
-#' If parameter `load` is FALSE, `TRUE` on success.
+#' @return When `load` is `TRUE`, a polar volume (`pvol`) object with the
+#'   Mistnet segmentation results. When `load` is `FALSE`, `TRUE` on success.
 #'
 #' @export
 #'
 #' @details
-#' MistNet is a deep convolutional neural network that has been trained
-#' using labels derived from S-band dual-polarization data across the US
-#' NEXRAD network.
+#' MistNet (Lin et al. 2019) is a deep convolutional neural network that has
+#' been trained using labels derived from S-band dual-polarization data across
+#' the US NEXRAD network. Its purpose is to screen out areas of precipitation in
+#' weather radar data, primarily legacy data for which dual-polarization data
+#' are not available. Because the network has been trained on S-band data, it
+#' may not perform as well on C-band.
 #'
-#' It's purpose is to screen out areas of precipitation in weather radar data,
-#' primarily legacy data for which dual-polarization data are not available.
+#' MistNet requires three single-polarization parameters as input: reflectivity
+#' (`DBZH`), radial velocity (`VRADH`), and spectrum width (`WRADH`), at 5
+#' specific elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on
+#' these data it can estimate a segmentation mask that identifies pixels with
+#' weather that should be removed when interested in biological data only.
 #'
-#' Because the network has been trained on S-band data, it may not
-#' perform as well on C-band.
-#'
-#' MistNet requires three single-polarization parameters as input: reflectivity (DBZH),
-#' radial velocity (VRADH), and spectrum width (WRADH), at 5 specific
-#' elevation angles (0.5, 1.5, 2.5, 3.5 and 4.5 degrees). Based on these data
-#' it can estimate a segmentation mask that identifies pixels with weather
-#' that should be removed when interested only in biological data.
-#'
-#' MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
-#' to a 100% probability) as additional scan parameters to the polar volume:
-#' * `BACKGROUND` : class probability that no signal was detected above the noise level of the radar
-#' * `WEATHER` : class probability that weather was detected
-#' * `BIOLOGY` : class probability that biological scatterers were detected}
+#' MistNet will calculate three class probabilities (from 0 to 1, with 1
+#' corresponding to a 100% probability) as additional scan parameters to the
+#' polar volume:
+#' * `BACKGROUND`: Class probability that no signal was detected above the noise
+#' level of the radar.
+#' * `WEATHER`: Class probability that weather was detected.
+#' * `BIOLOGY`: Class probability that biological scatterers were detected.
 #'
 #' These class probabilities are only available for the 5 input elevations used
-#' as input for the MistNet model. Based on all the class probabilities a final weather segmentation map calculated,
-#' stored as scan parameter `CELL`, which is available for all elevation scans.
-#' * `CELL` : Final weather segmentation, with values > 1 indicating pixels
-#' classified as weather, and values equal to 1 indicating pixels
-#' that are located within 5 km distance of a weather pixels
+#' as input for the MistNet model. Based on all the class probabilities a final
+#' weather segmentation map is calculated, stored as scan parameter `CELL`,
+#' which is available for all elevation scans.
+#' * `CELL`: Final weather segmentation, with values > 1 indicating pixels
+#' classified as weather and values equal to 1 indicating pixels that are
+#' located within 5 km distance of a weather pixels.
 #'
-#'
-#' A pixel is classified as weather if the class probability `WEATHER` > 0.45
-#' or when the average class probability for rain across all five MistNet elevation
+#' A pixel is classified as weather if the class probability `WEATHER` > 0.45 or
+#' when the average class probability for rain across all five MistNet elevation
 #' scans at that spatial location > 0.45.
 #'
-#' MistNet may run more slowly on Windows than on Linux or Mac OSX.
+#' MistNet may run more slowly on Windows than on Linux or Mac OS X.
 #'
 #' @seealso
 #' * [check_docker()]
