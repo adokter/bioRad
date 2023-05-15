@@ -1,8 +1,8 @@
-#' Download polar volume (\code{pvol}) files from the NEXRAD archive
+#' Download polar volume (`pvol`) files from the NEXRAD archive
 #'
-#' Download a selection of polar volume (\code{pvol}) files from the
-#' \href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive
-#'  data}.
+#' Download a selection of polar volume (`pvol`) files from the
+#' [NEXRAD Level II archive
+#'  data](https://registry.opendata.aws/noaa-nexrad/).
 #'
 #' @param date_min POSIXct. Start date of file selection. If no timezone are
 #' provided, it will be assumed to be UTC.
