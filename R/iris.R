@@ -12,21 +12,30 @@
 #'
 #' @export
 get_iris_raw_task <- function(file, header_size = 50,
-                              task = c("WIND",
-                                       "SURVEILLANCE",
-                                       "VOL_A",
-                                       "VOL_B")) {
+                              task = c(
+                                "WIND",
+                                "SURVEILLANCE",
+                                "VOL_A",
+                                "VOL_B"
+                              )) {
   assert_that(file.exists(file))
 
   # read binary header
-  types <- sapply(task, function(x) suppressWarnings(
-    any(grepl(pattern = x, readBin(file, n = header_size, "character")))))
+  types <- sapply(task, function(x) {
+    suppressWarnings(
+      any(grepl(pattern = x, readBin(file, n = header_size, "character")))
+    )
+  })
 
-  if(!any(types)) return(NA)
+  if (!any(types)) {
+    return(NA)
+  }
 
-  if(sum(types) > 1) {
-    warning(paste("Multiple file types found in binary header:",
-                  paste(task[types], collapse = ",")))
+  if (sum(types) > 1) {
+    warning(paste(
+      "Multiple file types found in binary header:",
+      paste(task[types], collapse = ",")
+    ))
   }
 
   task[types]
