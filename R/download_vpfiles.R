@@ -1,29 +1,31 @@
 #' Download vertical profile (`vp`) files from the ENRAM data repository
 #'
-#' Download and unzip a selection of vertical profile (`vp`) files from the
-#' [ENRAM data repository](https://aloftdata.eu/), where
+#' Downloads and unzips a selection of vertical profile (`vp`) files from the
+#' [ENRAM data repository](http://enram.github.io/data-repository/), where
 #' these are stored as monthly zips per radar.
 #'
-#' @param date_min character. YYYY-MM-DD start date of file selection. Days will
-#'   be ignored.
-#' @param date_max character. YYYY-MM-DD end date of file selection. Days will
-#'   be ignored.
-#' @param radars character (vector). 5-letter country/radar code(s)
-#'   (e.g. "bejab") of radars to include in file selection.
-#' @param directory character. Path to local directory where files should be
+#' @param date_min Character. Start date of file selection, in `YYYY-MM-DD`
+#'   format. Days will be ignored.
+#' @param date_max Character. End date of file selection, in `YYYY-MM-DD`
+#'   format. Days will be ignored.
+#' @param radars Character (vector). 5-letter country/radar code(s) to include
+#'   in file selection.
+#' @param directory Character. Path to local directory where files should be
 #'   downloaded and unzipped.
-#' @param overwrite logical. TRUE for re-downloading and overwriting previously
+#' @param overwrite Logical. When `TRUE`, re-download and overwrite previously
 #'   downloaded files of the same names.
 #'
 #' @export
 #' @importFrom curl curl_fetch_disk
 #'
-#' @seealso select_vpfiles
+#' @seealso
+#' * [select_vpfiles()]
+#' * [read_vpfiles()]
 #'
 #' @examples
-#' # Download data from radars "bejab" and "bewid", even if previously
-#' # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
-#' # but show 404 error for 2016-11 files (as these are not available).
+#' # Download (and overwrite) data from radars "bejab" and "bewid".
+#' # Will successfully download 2016-10 files, but show 404 error for
+#' # 2016-11 files, since these are not available.
 #' \dontrun{
 #' dir.create("~/bioRad_tmp_files")
 #' download_vpfiles(
@@ -33,7 +35,7 @@
 #'   directory = "~/bioRad_tmp_files",
 #'   overwrite = TRUE
 #' )
-#' # clean up:
+#' # Clean up
 #' unlink("~/bioRad_tmp_files", recursive = T)
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
@@ -148,9 +150,9 @@ check_radar_codes <- function(radars) {
 
 #' Check if character date is in specific format
 #'
-#' @param date character. Character representation of a date, e.g.
+#' @param date Character. Character representation of a date, e.g.
 #'   `"2018-12-13"`.
-#' @param format character. strptime format the date should have, e.g.
+#' @param format Character. strptime format the date should have, e.g.
 #'   `"\%Y-\%m-\%d"`
 #'
 #' @return NULL. Will stop and show error message if date does not have correct
