@@ -37,26 +37,24 @@
 #' @details
 #' The integrated profiles can be visualized in various related quantities, as specified by
 #' argument `quantity`:
-#' \describe{
-#'  \item{"`vid`"}{Vertically Integrated Density, i.e. the aerial surface
+#'  * "`vid`" : Vertically Integrated Density, i.e. the aerial surface
 #'    density of individuals. This quantity is dependent on the assumed radar
-#'    cross section per individual (RCS)}
-#'  \item{"`vir`"}{Vertically Integrated Reflectivity. This quantity is
-#'    independent of the value of individual's radar cross section}
-#'  \item{"`mtr`"}{Migration Traffic Rate. This quantity is dependent on
-#'    the assumed radar cross section (RCS)}
-#'  \item{"`rtr`"}{Reflectivity Traffic Rate. This quantity is independent
-#'    on the assumed radar cross section (RCS)}
-#'  \item{"`mt`"}{Migration Traffic. This quantity is dependent on
-#'    the assumed radar cross section (RCS)}
-#'  \item{"`rt`"}{Reflectivity Traffic. This quantity is independent
-#'    on the assumed radar cross section (RCS)}
-#'  \item{`ff`}{Horizontal ground speed in m/s}
-#'  \item{`dd`}{Horizontal ground speed direction in degrees}
-#'  \item{`u`}{Ground speed component west to east in m/s}
-#'  \item{`v`}{Ground speed component south to north in m/s}
-#'  \item{`height`}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
-#' }
+#'    cross section per individual (RCS)
+#'  * "`vir`" : Vertically Integrated Reflectivity. This quantity is
+#'    independent of the value of individual's radar cross section
+#'  * "`mtr`" : Migration Traffic Rate. This quantity is dependent on
+#'    the assumed radar cross section (RCS)
+#'  * "`rtr`" : Reflectivity Traffic Rate. This quantity is independent
+#'    on the assumed radar cross section (RCS)
+#'  * "`mt`" : Migration Traffic. This quantity is dependent on
+#'    the assumed radar cross section (RCS)
+#'  * "`rt`" : Reflectivity Traffic. This quantity is independent
+#'    on the assumed radar cross section (RCS)
+#'  * `ff` : Horizontal ground speed in m/s
+#'  * `dd` : Horizontal ground speed direction in degrees
+#'  * `u` : Ground speed component west to east in m/s
+#'  * `v` : Ground speed component south to north in m/s
+#'  * `height` : Mean flight height (height weighted by reflectivity eta) in m above sea level
 #' The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 #' @examples
 #' # vertically integrate a vpts object:

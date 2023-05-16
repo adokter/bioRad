@@ -27,24 +27,24 @@
 #' \subsection{Available quantities}{
 #' The function generates a specially classed data frame with the following
 #' quantities:
-#' \describe{
-#'    \item{`datetime`}{POSIXct date of each profile in UTC}
-#'    \item{`vid`}{Vertically Integrated Density in individuals/km^2.
+#'
+#'  * `datetime` : POSIXct date of each profile in UTC
+#'  * `vid` : Vertically Integrated Density in individuals/km^2.
 #'       `vid` is a surface density, whereas `dens` in `vp`
-#'       objects is a volume density.}
-#'    \item{`vir`}{Vertically Integrated Reflectivity in cm^2/km^2}
-#'    \item{`mtr`}{Migration Traffic Rate in individuals/km/h}
-#'    \item{`rtr`}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{`mt`}{Migration Traffic in individuals/km, cumulated from
-#'       the start of the time series up to `datetime`}
-#'    \item{`rt`}{Reflectivity Traffic in cm^2/km, cumulated from
-#'       the start of the time series up to `datetime`}
-#'    \item{`ff`}{Horizontal ground speed in m/s}
-#'    \item{`dd`}{Direction of the horizontal ground speed in degrees}
-#'    \item{`u`}{Ground speed component west to east in m/s}
-#'    \item{`v`}{Ground speed component south to north in m/s}
-#'    \item{`height`}{Mean flight height (height weighted by eta) in m above sea level}
-#' }
+#'       objects is a volume density.
+#'  * `vir` : Vertically Integrated Reflectivity in cm^2/km^2
+#'  * `mtr` : Migration Traffic Rate in individuals/km/h
+#'  * `rtr` : Reflectivity Traffic Rate in cm^2/km/h
+#'  * `mt` : Migration Traffic in individuals/km, cumulated from
+#'       the start of the time series up to `datetime`
+#'  * `rt` : Reflectivity Traffic in cm^2/km, cumulated from
+#'       the start of the time series up to `datetime`
+#'  * `ff` : Horizontal ground speed in m/s
+#'  * `dd` : Direction of the horizontal ground speed in degrees
+#'  * `u` : Ground speed component west to east in m/s
+#'  * `v` : Ground speed component south to north in m/s
+#'  * `height` : Mean flight height (height weighted by eta) in m above sea level
+#'
 #' Vertically integrated density and reflectivity are related according to
 #' \eqn{vid=vir/rcs(x)}, with [rcs] the assumed radar cross section per
 #' individual. Similarly, migration traffic rate and reflectivity traffic rate

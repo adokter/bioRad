@@ -3,13 +3,11 @@
 #' @param x A `vp` class object.
 #' @param quantity Character string with the quantity to plot. See
 #' [vp][summary.vp] for list of available quantities.
-##' \itemize{
-##'  \item{Aerial density related:}{'`dens`', '`eta`', '`dbz`',
+##'  * Aerial density related : '`dens`', '`eta`', '`dbz`',
 ##'    '`DBZH`' for density, reflectivity, reflectivity factor and total
-##'    reflectivity factor, respectively.}
-##'  \item{Ground speed related:}{'`ff`','`dd`', for ground speed
-##'    and direction, respectively.}
-##' }
+##'    reflectivity factor, respectively.
+##'  * Ground speed related : '`ff`','`dd`', for ground speed
+##'    and direction, respectively.
 #' @param xlab A title for the x axis.
 #' @param ylab A title for the y axis.
 #' @param line_col Color of the plotted curve.

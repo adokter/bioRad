@@ -1,14 +1,12 @@
 #' @details
 #' To get started, see:
 #'
-#' \itemize{
-#'   \item Dokter et al. (2019) \doi{10.1111/ecog.04028}: a
+#'   * Dokter et al. (2019) \doi{10.1111/ecog.04028}: a
 #'   paper describing the package.
-#'   \item [bioRad
+#'   * [bioRad
 #'   vignette](https://adriaandokter.com/bioRad/articles/bioRad.html): an introduction to bioRad's main functionalities.
-#'   \item [Function
+#'   * [Function
 #'   reference](https://adriaandokter.com/bioRad/reference/index.html): an overview of all bioRad functions.
-#' }
 #'
 #' @keywords internal
 #'

@@ -33,12 +33,12 @@
 #' calculate_param(ppi, exp(DBZH))
 #'
 #' @references
-#' \itemize{
-#'   \item Kilambi, A., Fabry, F., and Meunier, V., 2018. A simple and effective method
+#'
+#'   * Kilambi, A., Fabry, F., and Meunier, V., 2018. A simple and effective method
 #'   for separating meteorological from nonmeteorological targets using dual-polarization
 #'   data. Journal of Atmospheric and Oceanic Technology, 35, 1415–1424.
 #'   \doi{10.1175/JTECH-D-17-0175.1}
-#' }
+#'
 calculate_param <- function(x, ...) {
   UseMethod("calculate_param", x)
 }
