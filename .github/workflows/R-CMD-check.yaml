@@ -19,10 +19,10 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          # - {os: windows-latest, r: 'release'} # disabled until vol2birdR CRAN release
+          - {os: ubuntu-20.04,   r: 'devel'}
+          - {os: ubuntu-20.04,   r: 'release'}
+          - {os: ubuntu-20.04,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -39,10 +39,33 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install macOS system dependencies
+        if: runner.os == 'macOS'
+        run: |
+          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
           needs: check
+
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          pak::local_system_requirements(execute = TRUE)
+          pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
+          pak::pkg_system_requirements("proj4", execute = TRUE) # Using same proj for now...
+          pak::pkg_system_requirements("hdf5r", execute = TRUE) # Using same hdf5 for now...
+        shell: Rscript {0}
+      - name: Install dependencies
+        run: |
+          # set upgrade to FALSE because otherwise several package that are not strict dependencies
+          # (like terra) get triggered to build and fail
+          pak::local_install_deps(upgrade = FALSE)
+          pak::pkg_install("rcmdcheck")
+          pak::pkg_install("rmarkdown")
+          pak::pkg_install("markdown")
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
