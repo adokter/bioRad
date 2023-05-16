@@ -105,7 +105,7 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #'
 #' @return numeric.
 #'
-#' @details Beam profile is calculated using \link{beam_height} and \link{beam_width}. `height` and
+#' @details Beam profile is calculated using [beam_height] and [beam_width]. `height` and
 #' `antenna` should be given in reference to the same reference plane (e.g. ground level or sea level)
 #'
 #' @keywords internal
@@ -153,8 +153,8 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #'
 #' @export
 #'
-#' @details Beam profile is calculated using \link{beam_height} and
-#'   \link{beam_width}. Returns a beam profile as a function of height relative
+#' @details Beam profile is calculated using [beam_height] and
+#'   [beam_width]. Returns a beam profile as a function of height relative
 #'   to ground level.
 #'
 #'   Returns the normalized altitudinal pattern of radiated energy as a function
@@ -247,10 +247,10 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #'
 #' Calculates the distribution overlap between a vertical profile ('vp') and the
 #' vertical radiation profile of a set of emitted radar beams at various
-#' elevation angles as given by \link{beam_profile}.
+#' elevation angles as given by [beam_profile].
 #'
 #' This function also calculates the `overlap` quantity in the output of
-#' \link{integrate_to_ppi}.
+#' [integrate_to_ppi].
 #' @inheritParams beam_height
 #' @inheritParams beam_width
 #' @param vp a vertical profile of class vp
@@ -279,7 +279,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #'   coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
 #'   distribution overlap) between the (normalized) vertical profile vp and the
 #'   (normalized) radiation coverage pattern as calculated by
-#'   \link{beam_profile}. In the calculation of this overlap metric, NA and NaN values
+#'   [beam_profile]. In the calculation of this overlap metric, NA and NaN values
 #'   in the profile quantity specified by `quantity` are replaced with zeros.
 #'
 #'   The current implementation does not (yet) take into account the system
@@ -354,7 +354,7 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #'
 #' @export
 #'
-#' @details depends on \link{beam_height} to calculate beam height.
+#' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # down range of the 5 degree elevation beam at a slant range of 100 km:
 #' beam_distance(100000, 5)
@@ -375,7 +375,7 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #'
 #' @export
 #'
-#' @details depends on \link{beam_height} to calculate beam height.
+#' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # slant range of the 5 degree elevation beam at a down range of 100 km:
 #' beam_range(100000, 5)

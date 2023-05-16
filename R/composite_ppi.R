@@ -18,7 +18,7 @@
 #' @param coverage logical. When TRUE adds an additional "coverage" parameter to the `ppi` with the
 #' number of PPIs covering a single composite `ppi` pixel.
 #'
-#' @return A \code{\link[=summary.ppi]{ppi}}.
+#' @return A [`ppi()`][summary.ppi].
 #'
 #' @export
 #'

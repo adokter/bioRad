@@ -7,7 +7,7 @@
 #'
 #' @param x `pvol`, `vp`, `vpts`, `vpi`,
 #' or a date inheriting from class `POSIXct` or a string
-#' interpretable by \link{as.POSIXct}.
+#' interpretable by [as.POSIXct].
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
 #' @param tz character. Time zone. Ignored when `date` already has an associated time zone

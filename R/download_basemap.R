@@ -1,7 +1,7 @@
 #' Download a basemap for `map(ppi)`
 #'
 #' Downloads a Stamen Maps or Google Maps base layer
-#' map using \link[ggmap]{get_map}.
+#' map using [get_map][ggmap::get_map].
 #'
 #' To use Google Maps as `source`, you will have to register with Google,
 #' enable billing and provide an API key to ggmap. See the ggmap
@@ -11,7 +11,7 @@
 #' `devtools::install_github("dkahle/ggmap")`.
 #'
 #' @param x An object of class `ppi`.
-#' @param zoom Zoom level (optional), see \link[ggmap]{get_map}. An integer
+#' @param zoom Zoom level (optional), see [get_map][ggmap::get_map]. An integer
 #'   from 3 (continent) to 21 (building). By default the zoom level matching the
 #'   ppi extent is selected automatically.
 #' @param alpha Transparency of the basemap (0-1).
@@ -22,7 +22,7 @@
 #' "toner-2010", "toner-2011", "toner-background", "toner-hybrid",
 #' "toner-labels", "toner-lines", "toner-lite", "watercolor". For Google
 #' Maps: "terrain", "satellite", "roadmap", "hybrid"
-#' @param ... Arguments to pass to \link[ggmap]{get_map} function.
+#' @param ... Arguments to pass to [get_map][ggmap::get_map] function.
 #'
 #' @export
 #'

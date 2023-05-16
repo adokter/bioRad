@@ -8,15 +8,15 @@
 #' specified datetime is returned that matches the day/night selection criteria.
 #' POSIXct value or character string convertible to POSIXct.
 #' @param night When TRUE select only night time profiles, when FALSE select only day time profiles,
-#' as classified by \link{check_night}.
+#' as classified by [check_night].
 #' @param offset numeric. Time duration in seconds by which to shift the start and end
 #' of night time. May also be a numeric vector of length two, with first element added to moment
-#' of sunset and second element added to moment of sunrise. See \link{check_night} for details.
-#' @return An object of class '\link[=summary.vpts]{vpts}', or an object of class '\link[=summary.vp]{vp}'
+#' of sunset and second element added to moment of sunrise. See [check_night] for details.
+#' @return An object of class '[vpts][summary.vpts]', or an object of class '[vp][summary.vp]'
 #' if argument `nearest` is specified.
 #' @export
 #' @details Returns profiles for which min <= timestamp profile < max. Selection for night and day
-#' occurs by \link{check_night}.
+#' occurs by [check_night].
 #' @examples
 #' # load example vertical profile time series:
 #' data(example_vpts)

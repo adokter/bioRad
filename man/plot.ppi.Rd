@@ -28,13 +28,13 @@
 
 \item{ratio}{Aspect ratio between x and y scale.}
 
-\item{na.value}{\link[ggplot2]{ggplot} argument setting the plot color of NA values}
+\item{na.value}{\link[ggplot2:ggplot]{ggplot} argument setting the plot color of NA values}
 
-\item{...}{Arguments passed to low level \link[ggplot2]{ggplot} function.}
+\item{...}{Arguments passed to low level \link[ggplot2:ggplot]{ggplot} function.}
 }
 \description{
 Plot a plan position indicator (PPI) generated with \code{project_to_ppi}
-using \link[ggplot2]{ggplot}
+using \link[ggplot2:ggplot]{ggplot}
 }
 \details{
 Available scan parameters for plotting can by printed to screen

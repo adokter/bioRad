@@ -1,17 +1,17 @@
 #' Map a plan position indicator (`ppi`)
 #'
 #' Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
-#' layer map using \link[ggmap]{ggmap}.
+#' layer map using [ggmap][ggmap::ggmap].
 #'
 #' @param x An object of class `ppi`.
-#' @param map  The basemap to use, result of a call to \link{download_basemap}.
+#' @param map  The basemap to use, result of a call to [download_basemap].
 #' @param param The scan parameter to plot.
 #' @param alpha Transparency of the data, value between 0 and 1.
 #' @param radar_size Size of the symbol indicating the radar position.
 #' @param radar_color Color of the symbol indicating the radar position.
 #' @param n_color The number of colors (>=1) to be in the palette.
 #' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
+#' the plot color scale, e.g. output from [viridis][viridisLite::viridis]
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.
 #' @param ylim Range of y values to plot (degrees latitude), as an atomic
@@ -19,7 +19,7 @@
 #' @param zlim The range of values to plot.
 #' @param ratio Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
-#' @param ... Arguments passed to low level \link[ggmap]{ggmap} function.
+#' @param ... Arguments passed to low level [ggmap][ggmap::ggmap] function.
 #' @param radar.size Deprecated argument, use radar_size instead.
 #' @param radar.color Deprecated argument, use radar_color instead.
 #' @param n.color Deprecated argument, use n_color instead.

@@ -46,7 +46,7 @@
 #'    \item{`height`}{Mean flight height (height weighted by eta) in m above sea level}
 #' }
 #' Vertically integrated density and reflectivity are related according to
-#' \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
+#' \eqn{vid=vir/rcs(x)}, with [rcs] the assumed radar cross section per
 #' individual. Similarly, migration traffic rate and reflectivity traffic rate
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }
@@ -100,7 +100,7 @@
 #' `dens` with `eta` and `vid` with `vir` in the formula for `mtr`.
 #' Reflectivity traffic rate gives the cross-sectional area
 #' passing the radar per km transect perpendicular to the migratory direction per hour.
-#' `mtr` values are conditional on settings of \link{rcs}, while `rtr` values are not.
+#' `mtr` values are conditional on settings of [rcs], while `rtr` values are not.
 #' }
 #'
 #' \subsection{Migration traffic (mt) and reflectivity traffic (rt)}{
@@ -116,7 +116,7 @@
 #' position of the radar for the full period of the time series within the
 #' specified altitude band.
 #'
-#' `mt` values are conditional on settings of \link{rcs}, while `rt` values are not.
+#' `mt` values are conditional on settings of [rcs], while `rt` values are not.
 #'
 #' Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 #' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp

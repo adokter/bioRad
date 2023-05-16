@@ -13,7 +13,7 @@
 #' and `grid_size`, `range_max`, `xlim`, `ylim` are ignored.
 #' @inheritParams beam_height
 #'
-#' @return An object of class '\link[=summary.ppi]{ppi}'.
+#' @return An object of class '[ppi][summary.ppi]'.
 #'
 #' @export
 #'
@@ -235,7 +235,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
 }
 
 
-#' A wrapper for \code{\link{spTransform}}.
+#' A wrapper for [spTransform()].
 #'
 #' @param lon Longitude
 #' @param lat Latitude
@@ -252,7 +252,7 @@ wgs_to_proj <- function(lon, lat, proj4string) {
   return(res)
 }
 
-#' A wrapper for \code{\link{spTransform}}.
+#' A wrapper for [spTransform()].
 #'
 #' @param x Longitude
 #' @param y Latitude

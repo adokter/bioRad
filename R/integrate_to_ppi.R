@@ -20,7 +20,7 @@
 #' One of 'DBZH','DBZV','DBZ','TH','TV'.
 #' @param lat Geodetic latitude of the radar in degrees. If missing taken from `pvol`.
 #' @param lon Geodetic latitude of the radar in degrees. If missing taken from `pvol`.
-#' @return An object of class '\link[=summary.ppi]{ppi}'.
+#' @return An object of class '[ppi][summary.ppi]'.
 #'
 #' @export
 #'
@@ -33,18 +33,18 @@
 #' (defined by `raster`, or a combination of `nx`,`ny`,`res` arguments).
 #' }
 #' The pixel locations on the ground are easily translated into a corresponding azimuth and range of
-#' the various scans (see function \link{beam_range}).
+#' the various scans (see function [beam_range]).
 #'
 #' For each scan within the polar volume, the function calculates:
 #' \enumerate{
 #' \item the vertical radiation profile for each ground surface pixel for that particular scan,
-#' using \link{beam_profile}.
+#' using [beam_profile].
 #' \item the reflectivity expected for each ground surface pixel (\eqn{\eta_{expected}}),
 #' given the vertical profile (of biological scatterers) and the part of the profile radiated
 #' by the beam. This \eqn{\eta_{expected}} is simply the average of
 #' (linear) `eta` in the profile, weighted by the vertical radiation profile.
 #' \item the observed eta at each pixel \eqn{\eta_{observed}},
-#' which is converted form `DBZH` using function \link{dbz_to_eta},
+#' which is converted form `DBZH` using function [dbz_to_eta],
 #' with `DBZH` the reflectivity factor measured at the pixel's distance from the radar.
 #' }
 #'
@@ -59,7 +59,7 @@
 #' \itemize{
 #' \item the vertically integrated density (`vid`) and vertically integrated
 #' reflectivity (`vir`) for the profile,
-#' using the function \link{integrate_profile}.
+#' using the function [integrate_profile].
 #' \item the spatial range-corrected PPI for `VID`, defined as the adjustment
 #' factor image (`R`), multiplied by the `vid`
 #' calculated for the profile
@@ -71,7 +71,7 @@
 #' the extent of the data in the first scan of the polar volume.
 #'
 #' As an additional parameter, overlap between vertical profile and vertical radiation
-#' profile is calculated using \link{beam_profile}
+#' profile is calculated using [beam_profile]
 #' and stored as quantity `overlap`.
 #'
 #' scans at 90 degree beam elevation (birdbath scans) are ignored.

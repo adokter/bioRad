@@ -3,7 +3,7 @@
 #' Plot an object of class `vpi`.
 #'
 #' @param x 1 class object inheriting from class `vpi`, typically a
-#' call to \link[bioRad]{integrate_profile}.
+#' call to [integrate_profile][bioRad::integrate_profile].
 #' @param quantity Character string with the quantity to plot, one of
 #' '`vid`' (vertically integrated density),
 #' '`vir`' (vertically integrated reflectivity),
@@ -21,13 +21,13 @@
 #' @param main A title for the plot.
 #' @param night_shade Logical, whether to plot night time shading.
 #' @param elev Numeric, sun elevation to use for day/night transition,
-#' see \link{sunrise}.
+#' see [sunrise].
 #' @param lat (optional) Latitude in decimal degrees. Overrides the lat
 #' attribute of `x`.
 #' @param lon (optional) Longitude in decimal degrees. Overrides the lon
 #' attribute of `x`.
 #' @param ... Additional arguments to be passed to the low level
-#' \link[graphics]{plot} plotting function.
+#' [plot][graphics::plot] plotting function.
 #' @param nightshade Deprecated argument, use night_shade instead.
 #'
 #' @method plot vpi

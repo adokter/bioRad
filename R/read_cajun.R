@@ -7,7 +7,7 @@
 #' in which case C-band wavelength is assumed to be 5.3 cm and S-band wavelength 10.6 cm
 #'
 #' @return An object inheriting from class `vp`, see
-#' \code{\link[=summary.vp]{vp}} for details.
+#' [`vp()`][summary.vp] for details.
 #'
 #' @export
 read_cajun <- function(file, rcs = 11, wavelength = "S") {

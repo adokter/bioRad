@@ -23,7 +23,7 @@
 #' @param local_install (deprecated) String with path to local vol2bird installation,
 #' to use local installation instead of Docker container
 #'
-#' @return An object of class \link[=summary.pvol]{pvol}, which is a list
+#' @return An object of class [pvol][summary.pvol], which is a list
 #' containing polar scans, i.e. objects of class `scan`
 #'
 #' @export

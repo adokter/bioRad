@@ -1,7 +1,7 @@
 #' Plot a plan position indicator (`ppi`)
 #'
 #' Plot a plan position indicator (PPI) generated with `project_to_ppi`
-#' using \link[ggplot2]{ggplot}
+#' using [ggplot][ggplot2::ggplot]
 #'
 #' @param x An object of class `ppi`.
 #' @param param The scan parameter to plot, see details below.
@@ -9,8 +9,8 @@
 #' @param ylim Range of y values to plot.
 #' @param ratio Aspect ratio between x and y scale.
 #' @param zlim The range of parameter values to plot.
-#' @param na.value \link[ggplot2]{ggplot} argument setting the plot color of NA values
-#' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
+#' @param na.value [ggplot][ggplot2::ggplot] argument setting the plot color of NA values
+#' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
 #'
 #' @method plot ppi
 #'

@@ -1,7 +1,7 @@
 #' Calculate sunrise or sunset for a time and place
 #'
 #' @param date Date inheriting from class `POSIXt` or a string
-#' interpretable by \link[base]{as.Date}.
+#' interpretable by [as.Date][base::as.Date].
 #' @param lon Longitude in decimal degrees.
 #' @param lat Latitude in decimal degrees.
 #' @param elev Sun elevation in degrees.
@@ -23,7 +23,7 @@
 #' therefore the moment of sunrise/sunset corresponds to half that elevation
 #' at -0.268 degrees.
 #'
-#' This is a convenience function mapping to \link{crepuscule}.
+#' This is a convenience function mapping to [crepuscule].
 #'
 #' Approximate astronomical formula are used, therefore the moment of
 #' sunrise / sunset may be off by a few minutes

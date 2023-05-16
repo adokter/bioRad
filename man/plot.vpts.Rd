@@ -68,17 +68,17 @@ color bar.}
 
 \item{barbs.dens}{Deprecated argument, use barbs_dens_min instead.}
 
-\item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+\item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts()}} conventions.}
 
-\item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+\item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts()}} conventions.}
 
 \item{n_color}{The number of colors (>=1) to be in the palette.}
 
 \item{palette}{(Optional) character vector of hexadecimal color values defining
-the plot color scale, e.g. output from \link[viridisLite]{viridis}}
+the plot color scale, e.g. output from \link[viridisLite:viridis]{viridis}}
 
 \item{...}{Additional arguments to be passed to the low level
-\link[graphics]{image} plotting function.}
+\link[graphics:image]{image} plotting function.}
 }
 \description{
 Plot a time series of vertical profiles  of class \code{vpts}.

@@ -42,7 +42,7 @@ integrate_to_ppi(
 
 \item{zlim}{altitude range in meter, given as a numeric vector of length two.}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}

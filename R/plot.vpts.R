@@ -21,13 +21,13 @@
 #' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
-#' @param na_color Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.
-#' @param nan_color Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param na_color Color to use for NA values, see class [`vpts()`][summary.vpts] conventions.
+#' @param nan_color Color to use for NaN values, see class [`vpts()`][summary.vpts] conventions.
 #' @param n_color The number of colors (>=1) to be in the palette.
 #' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
+#' the plot color scale, e.g. output from [viridis][viridisLite::viridis]
 #' @param ... Additional arguments to be passed to the low level
-#' \link[graphics]{image} plotting function.
+#' [image][graphics::image] plotting function.
 #' @param barbs.h Deprecated argument, use barbs_height instead.
 #' @param barbs.t Deprecated argument, use barbs_time instead.
 #' @param barbs.dens Deprecated argument, use barbs_dens_min instead.

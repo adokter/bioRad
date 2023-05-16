@@ -8,8 +8,8 @@
 #' @param xlim Range of x (range, distance from radar) values to plot.
 #' @param ylim Range of y (azimuth) values to plot.
 #' @param zlim The range of parameter values to plot.
-#' @param na.value \link[ggplot2]{ggplot} argument setting the plot color of NA values
-#' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
+#' @param na.value [ggplot][ggplot2::ggplot] argument setting the plot color of NA values
+#' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
 #'
 #' @method plot scan
 #'

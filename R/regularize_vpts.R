@@ -6,7 +6,7 @@
 #' Projects objects of class `vpts` on a regular time grid, and fills
 #' temporal gaps by nearest neighbor interpolation.
 #' @param ts An object inheriting from class `vpts`, see
-#' \code{\link[=summary.vpts]{vpts}} for details.
+#' [`vpts()`][summary.vpts] for details.
 #' @param interval Time interval grid to project on. When '`auto`' the
 #' median interval in the time series is used.
 #' @param date_min Start time of the projected time series, as a POSIXct object.
@@ -31,7 +31,7 @@
 #' data. Alignment is performed using a nearest neighbor interpolation limited to
 #' neighboring profiles that fall within +/- `fill` (centered) of an original profile.
 #'
-#' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
+#' In plots of regular time series (see [plot.vpts()]) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
 #' time series data points in the plot are carried through until the time series
 #' continues, and temporal data gaps are filled up visually.
