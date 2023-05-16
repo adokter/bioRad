@@ -1,7 +1,7 @@
-#' Download vertical profile (\code{vp}) files from the ENRAM data repository
+#' Download vertical profile (`vp`) files from the ENRAM data repository
 #'
-#' Download and unzip a selection of vertical profile (\code{vp}) files from the
-#' \href{https://aloftdata.eu/}{ENRAM data repository}, where
+#' Download and unzip a selection of vertical profile (`vp`) files from the
+#' [ENRAM data repository](https://aloftdata.eu/), where
 #' these are stored as monthly zips per radar.
 #'
 #' @param date_min character. YYYY-MM-DD start date of file selection. Days will
@@ -120,8 +120,8 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 
 #' Check if radar codes are exactly 5 characters
 #'
-#' @param radars character vector. Radar codes to check, e.g. \code{c("bejab",
-#'   "bewideu")}.
+#' @param radars character vector. Radar codes to check, e.g. `c("bejab",
+#'   "bewideu")`.
 #'
 #' @return NULL. Will stop and show error message if at least one of the
 #'   provided radar codes is not exactly 5 characters.
@@ -149,9 +149,9 @@ check_radar_codes <- function(radars) {
 #' Check if character date is in specific format
 #'
 #' @param date character. Character representation of a date, e.g.
-#'   \code{"2018-12-13"}.
+#'   `"2018-12-13"`.
 #' @param format character. strptime format the date should have, e.g.
-#'   \code{"\%Y-\%m-\%d"}
+#'   `"\%Y-\%m-\%d"`
 #'
 #' @return NULL. Will stop and show error message if date does not have correct
 #'   date format.

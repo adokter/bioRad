@@ -1,4 +1,4 @@
-#' Read a vertical profile (\code{vp}) from UMASS Cajun text file
+#' Read a vertical profile (`vp`) from UMASS Cajun text file
 #'
 #' @param file A text file containing the standard output (stdout) generated
 #' by UMASS Cajun pipeline
@@ -6,7 +6,7 @@
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band and S-band radar, respectively,
 #' in which case C-band wavelength is assumed to be 5.3 cm and S-band wavelength 10.6 cm
 #'
-#' @return An object inheriting from class \code{vp}, see
+#' @return An object inheriting from class `vp`, see
 #' \code{\link[=summary.vp]{vp}} for details.
 #'
 #' @export

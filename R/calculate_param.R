@@ -4,9 +4,9 @@
 #' for calculating quantities that are defined in terms of other basic radar moments, like
 #' linear reflectivity eta, depolarization ratio (Kilambi et al. 2018), or for applying
 #' clutter corrections (CCORH) to uncorrected reflectivity moments (TH), as in TH+CCORH
-#' @param x an object of class \code{pvol} or class \code{scan}
+#' @param x an object of class `pvol` or class `scan`
 #' @param ... an expression defining the new scan parameter in terms of existing scan parameters
-#' @return an object of the same class as \code{x}, either class \code{pvol} or class \code{scan}
+#' @return an object of the same class as `x`, either class `pvol` or class `scan`
 #' @export
 #' @examples
 #' # locate example volume file:

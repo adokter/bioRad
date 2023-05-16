@@ -1,20 +1,20 @@
-#' Plot an integrated profile (\code{vpi})
+#' Plot an integrated profile (`vpi`)
 #'
-#' Plot an object of class \code{vpi}.
+#' Plot an object of class `vpi`.
 #'
-#' @param x 1 class object inheriting from class \code{vpi}, typically a
+#' @param x 1 class object inheriting from class `vpi`, typically a
 #' call to \link[bioRad]{integrate_profile}.
 #' @param quantity Character string with the quantity to plot, one of
-#' '\code{vid}' (vertically integrated density),
-#' '\code{vir}' (vertically integrated reflectivity),
-#' '\code{mtr}' (migration traffic rate),
-#' '\code{rtr}' (reflectivity traffic rate),
-#' '\code{mt}' ((cumulative) migration traffic),
-#' '\code{rt}' ((cumulative) reflectivity traffic),
-#' '\code{ff}' (height-averaged ground speed)
-#' '\code{dd}' (height-averaged direction)
-#' '\code{u}' (height-averaged u-component of ground speed),
-#' '\code{v}' (height-averaged v-component of ground speed).
+#' '`vid`' (vertically integrated density),
+#' '`vir`' (vertically integrated reflectivity),
+#' '`mtr`' (migration traffic rate),
+#' '`rtr`' (reflectivity traffic rate),
+#' '`mt`' ((cumulative) migration traffic),
+#' '`rt`' ((cumulative) reflectivity traffic),
+#' '`ff`' (height-averaged ground speed)
+#' '`dd`' (height-averaged direction)
+#' '`u`' (height-averaged u-component of ground speed),
+#' '`v`' (height-averaged v-component of ground speed).
 #' @param ylim y-axis plot range, numeric atomic vector of length 2.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
@@ -23,9 +23,9 @@
 #' @param elev Numeric, sun elevation to use for day/night transition,
 #' see \link{sunrise}.
 #' @param lat (optional) Latitude in decimal degrees. Overrides the lat
-#' attribute of \code{x}.
+#' attribute of `x`.
 #' @param lon (optional) Longitude in decimal degrees. Overrides the lon
-#' attribute of \code{x}.
+#' attribute of `x`.
 #' @param ... Additional arguments to be passed to the low level
 #' \link[graphics]{plot} plotting function.
 #' @param nightshade Deprecated argument, use night_shade instead.
@@ -36,26 +36,26 @@
 #'
 #' @details
 #' The integrated profiles can be visualized in various related quantities, as specified by
-#' argument \code{quantity}:
+#' argument `quantity`:
 #' \describe{
-#'  \item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface
+#'  \item{"`vid`"}{Vertically Integrated Density, i.e. the aerial surface
 #'    density of individuals. This quantity is dependent on the assumed radar
 #'    cross section per individual (RCS)}
-#'  \item{"\code{vir}"}{Vertically Integrated Reflectivity. This quantity is
+#'  \item{"`vir`"}{Vertically Integrated Reflectivity. This quantity is
 #'    independent of the value of individual's radar cross section}
-#'  \item{"\code{mtr}"}{Migration Traffic Rate. This quantity is dependent on
+#'  \item{"`mtr`"}{Migration Traffic Rate. This quantity is dependent on
 #'    the assumed radar cross section (RCS)}
-#'  \item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent
+#'  \item{"`rtr`"}{Reflectivity Traffic Rate. This quantity is independent
 #'    on the assumed radar cross section (RCS)}
-#'  \item{"\code{mt}"}{Migration Traffic. This quantity is dependent on
+#'  \item{"`mt`"}{Migration Traffic. This quantity is dependent on
 #'    the assumed radar cross section (RCS)}
-#'  \item{"\code{rt}"}{Reflectivity Traffic. This quantity is independent
+#'  \item{"`rt`"}{Reflectivity Traffic. This quantity is independent
 #'    on the assumed radar cross section (RCS)}
-#'  \item{\code{ff}}{Horizontal ground speed in m/s}
-#'  \item{\code{dd}}{Horizontal ground speed direction in degrees}
-#'  \item{\code{u}}{Ground speed component west to east in m/s}
-#'  \item{\code{v}}{Ground speed component south to north in m/s}
-#'  \item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
+#'  \item{`ff`}{Horizontal ground speed in m/s}
+#'  \item{`dd`}{Horizontal ground speed direction in degrees}
+#'  \item{`u`}{Ground speed component west to east in m/s}
+#'  \item{`v`}{Ground speed component south to north in m/s}
+#'  \item{`height`}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
 #' }
 #' The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 #' @examples

@@ -1,16 +1,16 @@
-#' Download a basemap for \code{map(ppi)}
+#' Download a basemap for `map(ppi)`
 #'
 #' Downloads a Stamen Maps or Google Maps base layer
 #' map using \link[ggmap]{get_map}.
 #'
-#' To use Google Maps as \code{source}, you will have to register with Google,
+#' To use Google Maps as `source`, you will have to register with Google,
 #' enable billing and provide an API key to ggmap. See the ggmap
-#' \href{https://github.com/dkahle/ggmap#attention}{README} for details.
+#' [README](https://github.com/dkahle/ggmap#attention) for details.
 #'
-#' To use \code{maptype}, install the development version of ggmap (>3.0.0) with
-#' \code{devtools::install_github("dkahle/ggmap")}.
+#' To use `maptype`, install the development version of ggmap (>3.0.0) with
+#' `devtools::install_github("dkahle/ggmap")`.
 #'
-#' @param x An object of class \code{ppi}.
+#' @param x An object of class `ppi`.
 #' @param zoom Zoom level (optional), see \link[ggmap]{get_map}. An integer
 #'   from 3 (continent) to 21 (building). By default the zoom level matching the
 #'   ppi extent is selected automatically.

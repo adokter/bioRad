@@ -1,9 +1,9 @@
-#' Plot a plan position indicator (\code{ppi})
+#' Plot a plan position indicator (`ppi`)
 #'
-#' Plot a plan position indicator (PPI) generated with \code{project_to_ppi}
+#' Plot a plan position indicator (PPI) generated with `project_to_ppi`
 #' using \link[ggplot2]{ggplot}
 #'
-#' @param x An object of class \code{ppi}.
+#' @param x An object of class `ppi`.
 #' @param param The scan parameter to plot, see details below.
 #' @param xlim Range of x values to plot.
 #' @param ylim Range of y values to plot.
@@ -18,21 +18,21 @@
 #'
 #' @details
 #' Available scan parameters for plotting can by printed to screen
-#' by \code{summary(x)}. Commonly available parameters are:
+#' by `summary(x)`. Commonly available parameters are:
 #' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
+#'  \item{"`DBZH`", "`DBZ`"}{(Logged) reflectivity factor (dBZ)}
+#'  \item{"`TH`", "`T`"}{(Logged) uncorrected reflectivity factor (dBZ)}
+#'  \item{"`VRADH`", "`VRAD`"}{Radial velocity (m/s). Radial
 #'  velocities towards the radar are negative, while radial velocities away
 #'  from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
+#'  \item{"`RHOHV`"}{Correlation coefficient (unitless). Correlation
 #'  between vertically polarized and horizontally polarized reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
+#'  \item{"`PHIDP`"}{Differential phase (degrees)}
+#'  \item{"`ZDR`"}{(Logged) differential reflectivity (dB)}
 #' }
 #' The scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #'
 #' @examples
 #' # load an example scan:
