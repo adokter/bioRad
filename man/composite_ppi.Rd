@@ -74,15 +74,15 @@ or ppi's of different radars can be composited.
 
 Argument \code{method} determines how values of different ppi's at the same
 geographic location are combined.
-\describe{
-\item{\code{"mean"}}{Compute the average value}
-\item{\code{"max"}}{Compute the maximum value. If ppi's are of the same radar
+\itemize{
+\item \code{"mean"} : Compute the average value
+\item \code{"max"} : Compute the maximum value. If ppi's are of the same radar
 and the same polar volume, this computes a max product, showing the maximum
-detected signal at that geographic location.}
-\item{\code{"min"}}{Compute the minimum value}
-\item{\code{"idw"}}{This option is useful primarily when compositing ppi's of
+detected signal at that geographic location.
+\item \code{"min"} : Compute the minimum value
+\item \code{"idw"} : This option is useful primarily when compositing ppi's of
 multiple radars. Performs an inverse distance weighting, where values are
-weighted according to 1/(distance from the radar)^\code{idp}}
+weighted according to 1/(distance from the radar)^\code{idp}
 }
 
 The coordinates system of the returned \code{ppi} is a WGS84

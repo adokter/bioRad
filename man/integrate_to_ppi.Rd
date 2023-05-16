@@ -96,11 +96,12 @@ The function requires
 \item a grid defined on the earth's surface, on which we will calculate the range corrected image
 (defined by \code{raster}, or a combination of \code{nx},\code{ny},\code{res} arguments).
 }
+
 The pixel locations on the ground are easily translated into a corresponding azimuth and range of
 the various scans (see function \link{beam_range}).
 
 For each scan within the polar volume, the function calculates:
-\enumerate{
+\itemize{
 \item the vertical radiation profile for each ground surface pixel for that particular scan,
 using \link{beam_profile}.
 \item the reflectivity expected for each ground surface pixel (\eqn{\eta_{expected}}),

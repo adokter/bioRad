@@ -69,18 +69,19 @@ that should be removed when interested only in biological data.
 
 MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
 to a 100\% probability) as additional scan parameters to the polar volume:
-\describe{
-\item{"\code{BACKGROUND}"}{class probability that no signal was detected above the noise level of the radar}
-\item{"\code{WEATHER}"}{class probability that weather was detected}
-\item{"\code{BIOLOGY}"}{class probability that biological scatterers were detected}
+\itemize{
+\item \code{BACKGROUND} : Class probability that no signal was detected above the noise level of the radar
+\item \code{WEATHER} : Class probability that weather was detected
+\item \code{BIOLOGY} : Class probability that biological scatterers were detected
 }
+
 These class probabilities are only available for the 5 input elevations used
 as input for the MistNet model. Based on all the class probabilities a final weather segmentation map calculated,
 stored as scan parameter \code{CELL}, which is available for all elevation scans.
-\describe{
-\item{"\code{CELL}"}{Final weather segmentation, with values > 1 indicating pixels
+\itemize{
+\item \code{CELL} : Final weather segmentation, with values > 1 indicating pixels
 classified as weather, and values equal to 1 indicating pixels
-that are located within 5 km distance of a weather pixels}
+that are located within 5 km distance of a weather pixels
 }
 
 A pixel is classified as weather if the class probability \code{WEATHER} > 0.45
@@ -139,5 +140,6 @@ Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 MistNet: Measuring historical bird migration in the US using archived
 weather radar data and convolutional neural networks. Methods in Ecology
 and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
+}
 }
 }

@@ -12,7 +12,6 @@ Extract, visualize and summarize aerial movements of birds and insects from weat
 }
 \details{
 To get started, see:
-
 \itemize{
 \item Dokter et al. (2019) \doi{10.1111/ecog.04028}: a
 paper describing the package.
