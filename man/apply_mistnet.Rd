@@ -142,4 +142,3 @@ weather radar data and convolutional neural networks. Methods in Ecology
 and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
 }
 }
-}

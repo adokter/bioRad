@@ -74,7 +74,7 @@
 #'   MistNet: Measuring historical bird migration in the US using archived
 #'   weather radar data and convolutional neural networks. Methods in Ecology
 #'   and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
-#' }
+#'
 #' @examples
 #' \dontrun{
 #' # make sure you have installed the MistNet libraries and model, using:
