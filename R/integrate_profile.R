@@ -1,52 +1,31 @@
-#' Vertically integrate profiles (`vp` or `vpts`) to an
+#' Vertically integrate profiles (`vp` or `vpts`) into an
 #' integrated profile (`vpi`)
 #'
 #' Performs a vertical integration of density, reflectivity and migration
-#' traffic rate, and a vertical averaging of ground speed and direction
-#' weighted by density.
+#' traffic rate, and a vertical averaging of ground speed and direction weighted
+#' by density.
 #'
 #' @param x A `vp` or `vpts` object.
-#' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
-#' minimum altitude to the height of the antenna.
-#' @param alt_max Maximum altitude in m.
-#' @param alpha Migratory direction in clockwise degrees from north.
-#' @param interval_max Maximum time interval belonging to a single profile in
-#' seconds. Traffic rates are set to zero at times `t` for which no
-#' profiles can be found within the period `t-interval_max/2` to
-#' `t+interval_max/2`. Ignored for single profiles of class `vp`.
-#' @param interval_replace Time interval to use for any interval > interval_max.
-#' By default the mean of all intervals <= interval_max
-#' @param height_quantile For default `NA` the calculated height equals
-#' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
-#' quantile of the height distribution.
+#' @param alt_min Numeric. Minimum altitude, in m.
+#' @param alt_max Numeric. Maximum altitude, in m.
+#' @param alpha Numeric. Migratory direction, in clockwise degrees from north.
+#' @param interval_max Numeric. Maximum time interval belonging to a single
+#'   profile, in seconds. Traffic rates are set to zero at times `t` for which
+#'   no profiles can be found within the period `t - interval_max/2` to `t +
+#'   interval_max/2`. Ignored for single profiles of class `vp`.
 #'
-#' @return an object of class `vpi`, a data frame with vertically
-#' integrated profile quantities
+#' @return A `vpi` object: a data frame with vertically integrated profile
+#'   quantities.
+#'
+#' @export
 #'
 #' @details
-#' \subsection{Available quantities}{
-#' The function generates a specially classed data frame with the following
-#' quantities:
-#' \describe{
-#'    \item{`datetime`}{POSIXct date of each profile in UTC}
-#'    \item{`vid`}{Vertically Integrated Density in individuals/km^2.
-#'       `vid` is a surface density, whereas `dens` in `vp`
-#'       objects is a volume density.}
-#'    \item{`vir`}{Vertically Integrated Reflectivity in cm^2/km^2}
-#'    \item{`mtr`}{Migration Traffic Rate in individuals/km/h}
-#'    \item{`rtr`}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{`mt`}{Migration Traffic in individuals/km, cumulated from
-#'       the start of the time series up to `datetime`}
-#'    \item{`rt`}{Reflectivity Traffic in cm^2/km, cumulated from
-#'       the start of the time series up to `datetime`}
-#'    \item{`ff`}{Horizontal ground speed in m/s}
-#'    \item{`dd`}{Direction of the horizontal ground speed in degrees}
-#'    \item{`u`}{Ground speed component west to east in m/s}
-#'    \item{`v`}{Ground speed component south to north in m/s}
-#'    \item{`height`}{Mean flight height (height weighted by eta) in m above sea level}
-#' }
+#' ## Available quantities
+#'
+#' See [summary.vpi()].
+#'
 #' Vertically integrated density and reflectivity are related according to
-#' \eqn{vid=vir/rcs(x)}, with [rcs] the assumed radar cross section per
+#' \eqn{vid=vir/rcs(x)}, with `rcs` the assumed radar cross section per
 #' individual. Similarly, migration traffic rate and reflectivity traffic rate
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }
@@ -147,23 +126,22 @@
 #' @export
 #'
 #' @examples
-#' # MTR for a single vertical profile
+#' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
 #'
-#' # MTRs for a list of vertical profiles
+#' # Calculate migration traffic rates for a list of vps
 #' integrate_profile(c(example_vp, example_vp))
 #'
-#' # MTRs for a time series of vertical profiles
-#' # load example data:
-#' data(example_vpts)
-#' example_vpts
-#' # print migration traffic rates
+#' # Calculate migration traffic rates for a vpts
 #' vpi <- integrate_profile(example_vpts)
-#' # plot migration traffic rates for the full air column
-#' plot(example_vpts)
-#' # plot migration traffic rates for altitudes > 1 km above sea level
+#'
+#' # Plot migration traffic rate (mtr) for the full air column
+#' plot(integrate_profile(example_vpts))
+#'
+#' # Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
-#' # plot the (cumulative) migration traffic
+#'
+#' # Plot cumulative migration traffic rates (mt)
 #' plot(integrate_profile(example_vpts), quantity = "mt")
 #' # calculate median flight altitude (instead of default mean)
 #' integrate_profile(example_vp, height_quantile=.5)
@@ -175,7 +153,7 @@ integrate_profile <- function(x, alt_min, alt_max,
   UseMethod("integrate_profile", x)
 }
 
-#' @describeIn integrate_profile Vertically integrate a vertical profile.
+#' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
@@ -298,8 +276,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   return(output)
 }
 
-#' @describeIn integrate_profile Vertically integrate a list of
-#' vertical profiles.
+#' @describeIn integrate_profile Vertically integrate a list of vertical
+#'   profiles (`vp`).
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
@@ -331,7 +309,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 }
 
 #' @describeIn integrate_profile Vertically integrate a time series of
-#' vertical profiles.
+#' vertical profiles (`vpts`).
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
