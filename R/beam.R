@@ -201,8 +201,8 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   assert_that(is.number(lat))
   assert_that(is.number(rp))
   assert_that(is.number(re))
-  assert_that(sum(c(length(height), length(distance), length(elev))>1)<2,
-              msg='`height`, `distance`, and `elev` not have an unequal length when more then one. ')
+  assert_that(sum(c(length(height), length(distance))>1)<2,
+              msg='`height` and `distance` not have an unequal length when more then one. ')
 
   # calculate radiation pattern
   rowSums(
