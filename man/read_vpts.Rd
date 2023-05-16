@@ -22,11 +22,11 @@ by vol2bird (or the package function \code{calculate_vp}).}
 and S-band radar, respectively, in which case C-band wavelength is assumed
 to be 5.3 cm and S-band wavelength 10.6 cm}
 
-\item{sep}{the field separator character, see \link[utils]{read.table}}
+\item{sep}{the field separator character, see \link[utils:read.table]{read.table}}
 }
 \value{
 An object inheriting from class \code{vpts}, see
-\code{\link[=summary.vpts]{vpts}} for details.
+\code{\link[=summary.vpts]{vpts()}} for details.
 }
 \description{
 Read a time series of vertical profiles (\code{vpts}) from file

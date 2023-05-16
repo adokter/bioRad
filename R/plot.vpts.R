@@ -1,15 +1,15 @@
-#' Plot a time series of vertical profiles (\code{vpts})
+#' Plot a time series of vertical profiles (`vpts`)
 #'
-#' Plot a time series of vertical profiles  of class \code{vpts}.
+#' Plot a time series of vertical profiles  of class `vpts`.
 #'
-#' @param x A vp class object inheriting from class \code{vpts}.
+#' @param x A vp class object inheriting from class `vpts`.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
 #' @param quantity Character string with the quantity to plot,
-#' one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density,
+#' one of '`dens`','`eta`','`dbz`','`DBZH`' for density,
 #' reflectivity, reflectivity factor and total reflectivity factor,
 #' respectively.
-#' @param log Logical, whether to display \code{quantity} data on a
+#' @param log Logical, whether to display `quantity` data on a
 #' logarithmic scale.
 #' @param barbs Logical, whether to overlay speed barbs.
 #' @param barbs_height Integer, number of barbs to plot in altitudinal dimension.
@@ -17,17 +17,17 @@
 #' @param barbs_dens_min Numeric, lower threshold in aerial density of individuals
 #' for plotting speed barbs in individuals/km^3.
 #' @param zlim Optional numerical atomic vector of length 2, specifying the
-#' range of \code{quantity} values to plot.
+#' range of `quantity` values to plot.
 #' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
-#' @param na_color Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.
-#' @param nan_color Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param na_color Color to use for NA values, see class [`vpts()`][summary.vpts] conventions.
+#' @param nan_color Color to use for NaN values, see class [`vpts()`][summary.vpts] conventions.
 #' @param n_color The number of colors (>=1) to be in the palette.
 #' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
+#' the plot color scale, e.g. output from [viridis][viridisLite::viridis]
 #' @param ... Additional arguments to be passed to the low level
-#' \link[graphics]{image} plotting function.
+#' [image][graphics::image] plotting function.
 #' @param barbs.h Deprecated argument, use barbs_height instead.
 #' @param barbs.t Deprecated argument, use barbs_time instead.
 #' @param barbs.dens Deprecated argument, use barbs_dens_min instead.
@@ -38,30 +38,30 @@
 #' @export
 #'
 #' @details Aerial abundances can be visualized in four related quantities, as specified
-#' by argument \code{quantity}:
+#' by argument `quantity`:
 #' \describe{
-#'  \item{"\code{dens}"}{the aerial density of individuals. This quantity is
+#'  \item{"`dens`"}{the aerial density of individuals. This quantity is
 #'    dependent on the assumed radar cross section (RCS) in the
-#'    \code{x$attributes$how$rcs_bird} attribute}
-#'  \item{"\code{eta}"}{reflectivity. This quantity is independent of the
-#'    value of the \code{rcs_bird} attribute}
-#'  \item{"\code{dbz}"}{reflectivity factor. This quantity is independent
-#'    of the value of the \code{rcs_bird} attribute, and corresponds to the
+#'    `x$attributes$how$rcs_bird` attribute}
+#'  \item{"`eta`"}{reflectivity. This quantity is independent of the
+#'    value of the `rcs_bird` attribute}
+#'  \item{"`dbz`"}{reflectivity factor. This quantity is independent
+#'    of the value of the `rcs_bird` attribute, and corresponds to the
 #'    dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
 #'    tends to occur at much higher reflectivity factors at S-band
 #'    than at C-band}
-#'  \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
+#'  \item{"`DBZH`"}{total reflectivity factor. This quantity equals the
 #'    reflectivity factor of all scatterers (biological and meteorological
 #'    scattering combined)}
 #' }
 #'
 #' Aerial velocities can be visualized in three related quantities, as specified
-#' by argument \code{quantity}:
+#' by argument `quantity`:
 #' \describe{
-#'  \item{"\code{ff}"}{ground speed. The aerial velocity relative to the
+#'  \item{"`ff`"}{ground speed. The aerial velocity relative to the
 #'    ground surface in m/s.}
-#'  \item{"\code{u}"}{eastward ground speed component in m/s.}
-#'  \item{"\code{v}"}{northward ground speed component in m/s.}
+#'  \item{"`u`"}{eastward ground speed component in m/s.}
+#'  \item{"`v`"}{northward ground speed component in m/s.}
 #' }
 #'
 #' ## barbs
@@ -69,13 +69,13 @@
 #' each pennant (triangle) 25 m/s
 #'
 #' ## legend_ticks / zlim
-#' Default legend ticks and plotting range are specified based on \code{quantity},
-#' radar wavelength (S- vs C-band), and value of \code{log}
+#' Default legend ticks and plotting range are specified based on `quantity`,
+#' radar wavelength (S- vs C-band), and value of `log`
 #'
 #' ## log
-#' Quantities \code{u} and \code{v} cannot be plotted on a logarithmic scale, because
-#' these quantities assume negative values.  For quantities \code{DBZH} and \code{dbz}
-#' \code{log=TRUE} is ignored, because these quantities are already logarithmic.
+#' Quantities `u` and `v` cannot be plotted on a logarithmic scale, because
+#' these quantities assume negative values.  For quantities `DBZH` and `dbz`
+#' `log=TRUE` is ignored, because these quantities are already logarithmic.
 #'
 #' @examples
 #' # locate example file:

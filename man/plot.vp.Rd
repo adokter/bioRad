@@ -42,7 +42,7 @@ and direction, respectively.}
 \item{line.lwd}{Deprecated argument, use line_lwd instead.}
 
 \item{...}{Additional arguments to be passed to the low level
-\link[graphics]{plot} plotting function.}
+\link[graphics:plot.default]{plot} plotting function.}
 }
 \description{
 Plot a vertical profile (\code{vp})

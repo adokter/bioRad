@@ -2,8 +2,8 @@
 % Please edit documentation in R/beam.R
 \name{beam_profile_overlap}
 \alias{beam_profile_overlap}
-\title{Calculate overlap between a vertical profile ('vp') of biological scatterers
-and the vertical radiation profile emitted by the radar}
+\title{Calculate overlap between a vertical profile ('vp') and the vertical
+radiation profile emitted by the radar}
 \usage{
 beam_profile_overlap(
   vp,
@@ -24,46 +24,42 @@ beam_profile_overlap(
 )
 }
 \arguments{
-\item{vp}{a vertical profile of class vp}
+\item{elev}{Numeric vector. Beam elevation(s), in degrees.}
 
-\item{elev}{numeric vector. Beam elevation(s) in degrees.}
+\item{distance}{Numeric. The distance(s) from the radar along sea level (down
+range) for which to calculate the overlap, in m.}
 
-\item{distance}{the distance(s) from the radar along sea level (down range)
-for which to calculate the overlap in m.}
+\item{antenna}{Numeric. Radar antenna height, in m. Default to antenna height
+in \code{vp}.}
 
-\item{antenna}{radar antenna height. If missing taken from \code{vp}}
+\item{zlim}{Numeric vector of length two. Altitude range, in m}
 
-\item{zlim}{altitude range in meter, given as a numeric vector of length two.}
-
-\item{noise_floor}{The system noise floor in dBZ. The total system noise
-expressed as the reflectivity factor it would represent at a distance
+\item{noise_floor}{Numeric. The system noise floor in dBZ. The total system
+noise expressed as the reflectivity factor it would represent at a distance
 \code{noise_floor_ref_range} from the radar. NOT YET IMPLEMENTED}
 
-\item{noise_floor_ref_range}{the reference distance from the radar at which
-\code{noise_floor} is expressed. NOT YET IMPLEMENTED}
+\item{noise_floor_ref_range}{Numeric. The reference distance from the radar
+at which \code{noise_floor} is expressed. NOT YET IMPLEMENTED.}
 
-\item{steps}{number of integration steps over altitude range zlim, defining
-altitude grid size used for numeric integration}
+\item{steps}{Numeric. Number of integration steps over altitude range \code{zlim},
+defining altitude grid size used for numeric integration.}
 
-\item{quantity}{profile quantity to use for the altitude distribution, one of
-'dens' or 'eta'.}
+\item{quantity}{Character. Profile quantity (\code{dens} or \code{eta}) to use for the
+altitude distribution.}
 
-\item{normalize}{Whether to normalize the radiation coverage pattern over the
-altitude range specified by zlim}
+\item{normalize}{Logical. If \code{TRUE}, normalize the radiation coverage pattern
+over the altitude range specified by \code{zlim}.}
 
-\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{k}{Standard refraction coefficient.}
+\item{lat}{Numeric. Radar latitude. Defaults to latitude in \code{vp}.}
 
-\item{lat}{radar latitude. If missing taken from \code{vp}}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{re}{Earth equatorial radius in km.}
-
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
-A data.frame with columns distance and overlap.
+A data.frame with columns \code{distance} and \code{overlap}.
 }
 \description{
 Calculates the distribution overlap between a vertical profile ('vp') and the
@@ -71,51 +67,57 @@ vertical radiation profile of a set of emitted radar beams at various
 elevation angles as given by \link{beam_profile}.
 }
 \details{
-This function also calculates the \code{overlap} quantity in the output of
-\link{integrate_to_ppi}.
-
 Overlap is calculated as the \href{https://en.wikipedia.org/wiki/Bhattacharyya_distance}{Bhattacharyya coefficient} (i.e.
-distribution overlap) between the (normalized) vertical profile vp and the
-(normalized) radiation coverage pattern as calculated by
-\link{beam_profile}. In the calculation of this overlap metric, NA and NaN values
-in the profile quantity specified by \code{quantity} are replaced with zeros.
+distribution overlap) between the (normalized) vertical profile (\code{vp}) and
+the (normalized) radiation coverage pattern as calculated by
+\code{\link[=beam_profile]{beam_profile()}}. In the calculation of this overlap metric, \code{NA} and \code{NaN}
+values in the profile quantity specified by \code{quantity} are replaced with
+zeros.
 
-The current implementation does not (yet) take into account the system
-noise floor when calculating the overlap.
+The current implementation does not (yet) take into account the system noise
+floor when calculating the overlap.
 
-In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH}
-specifies the system noise floor (the Noise Equivalent Z or noise
-equivalent reflectivity factor. the H refers to the horizontal channel of a
-dual-polarization radar). In addition, the attribute \code{/how/LOG} gives
-"security distance above mean noise level (dB) threshold value". This is
-equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the
-noise floor for the signal processor to report a valid reflectivity value.
-We recommend using \code{NEZH}+\code{LOG} for \code{noise_floor}, as this
-is the effective noise floor of the system below which no data will be
-reported by the radar signal processor.
+In the ODIM data model the attribute \verb{/how/NEZ} or \verb{/how/NEZH} specifies the
+system noise floor (the Noise Equivalent Z or noise equivalent reflectivity
+factor. the H refers to the horizontal channel of a dual-polarization radar).
+In addition, the attribute \verb{/how/LOG} gives "security distance above mean
+noise level (dB) threshold value". This is equivalent to the log receiver
+signal-to-noise ratio, i.e. the dB above the noise floor for the signal
+processor to report a valid reflectivity value. We recommend using \code{NEZH + LOG} for \code{noise_floor}, as this is the effective noise floor of the system
+below which no data will be reported by the radar signal processor.
 
-Typical values are \code{NEZH} = -45 to -50 dBZ at 1 km from the radar.
-\code{LOG} is typically around 1 dB.
+Typical values are \code{NEZH} = -45 to -50 dBZ at 1 km from the radar. \code{LOG} is
+typically around 1 dB.
 
-Need to evaluate beam by beam the returned signal relative to a uniform
-beam filling of at least NEZH + LOG If returned signal is lower, the gate
-is below noise level.
+Need to evaluate beam by beam the returned signal relative to a uniform beam
+filling of at least \code{NEZH + LOG} If returned signal is lower, the gate is
+below noise level.
 }
 \examples{
-# locate example volume file:
+# Read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
-# load the example polar volume file:
+# Read the corresponding vertical profile example
 pvol <- read_pvolfile(pvolfile)
 
 # let us use this example vertical profile:
 data(example_vp)
 example_vp
 
-# calculate overlap between vertical profile of birds
-# and the vertical radiation profile emitted by the radar:
-bpo <- beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0, 100000, 1000))
+# Calculate overlap between vertical profile of birds and the vertical
+# radiation profile emitted by the radar
+bpo <- beam_profile_overlap(
+  example_vp,
+  get_elevation_angles(pvol), seq(0, 100000, 1000)
+)
 
-# plot the calculated overlap:
+# Plot the calculated overlap:
 plot(bpo)
+}
+\seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+\item \code{\link[=beam_width]{beam_width()}}
+\item \code{\link[=beam_profile]{beam_profile()}}
+}
 }

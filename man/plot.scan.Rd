@@ -25,9 +25,9 @@
 
 \item{zlim}{The range of parameter values to plot.}
 
-\item{na.value}{\link[ggplot2]{ggplot} argument setting the plot color of NA values}
+\item{na.value}{\link[ggplot2:ggplot]{ggplot} argument setting the plot color of NA values}
 
-\item{...}{Arguments passed to low level \link[ggplot2]{ggplot} function.}
+\item{...}{Arguments passed to low level \link[ggplot2:ggplot]{ggplot} function.}
 }
 \description{
 Plots a scan in polar coordinates. For plots in Cartesian coordinates,

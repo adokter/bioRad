@@ -1,7 +1,7 @@
-#' Read a time series of vertical profiles (\code{vpts}) from file
+#' Read a time series of vertical profiles (`vpts`) from file
 #'
 #' @param file A text file containing the standard output (stdout) generated
-#' by vol2bird (or the package function \code{calculate_vp}).
+#' by vol2bird (or the package function `calculate_vp`).
 #' @param lon numeric. Longitude of the radar in decimal degrees.
 #' @param lat numeric. Latitude of the radar in decimal degrees.
 #' @param height numeric. Height above sea level of the radar antenna in meters.
@@ -9,10 +9,10 @@
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
 #' and S-band radar, respectively, in which case C-band wavelength is assumed
 #' to be 5.3 cm and S-band wavelength 10.6 cm
-#' @param sep the field separator character, see \link[utils]{read.table}
+#' @param sep the field separator character, see [read.table][utils::read.table]
 #'
-#' @return An object inheriting from class \code{vpts}, see
-#' \code{\link[=summary.vpts]{vpts}} for details.
+#' @return An object inheriting from class `vpts`, see
+#' [`vpts()`][summary.vpts] for details.
 #'
 #' @export
 #'

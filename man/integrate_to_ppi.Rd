@@ -40,9 +40,9 @@ integrate_to_ppi(
 
 \item{ylim}{y (latitude) range}
 
-\item{zlim}{altitude range in meter, given as a numeric vector of length two.}
+\item{zlim}{Numeric vector of length two. Altitude range, in m}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
@@ -58,10 +58,8 @@ arguments are ignored.}
 
 \item{lon}{Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.}
 
-\item{antenna}{radar antenna height. If missing taken from \code{vp}}
-
-\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe}
+\item{antenna}{Numeric. Radar antenna height, in m. Default to antenna height
+in \code{vp}.}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
@@ -69,11 +67,11 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
 \item{param_ppi}{one or multiple of 'VIR', 'VID', 'R', 'overlap', 'eta_sum', 'eta_sum_expected'}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 An object of class '\link[=summary.ppi]{ppi}'.

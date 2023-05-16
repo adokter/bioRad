@@ -18,7 +18,7 @@ regularize_vpts(
 }
 \arguments{
 \item{ts}{An object inheriting from class \code{vpts}, see
-\code{\link[=summary.vpts]{vpts}} for details.}
+\code{\link[=summary.vpts]{vpts()}} for details.}
 
 \item{interval}{Time interval grid to project on. When '\code{auto}' the
 median interval in the time series is used.}
@@ -56,7 +56,7 @@ regular time grid with the expected time interval at which a radar provides
 data. Alignment is performed using a nearest neighbor interpolation limited to
 neighboring profiles that fall within +/- \code{fill} (centered) of an original profile.
 
-In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
+In plots of regular time series (see \code{\link[=plot.vpts]{plot.vpts()}}) temporal gaps of
 missing profiles (e.g. due to radar down time) become visible. In irregular
 time series data points in the plot are carried through until the time series
 continues, and temporal data gaps are filled up visually.

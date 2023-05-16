@@ -7,29 +7,32 @@
 beam_range(distance, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{distance}{numeric. Distance from the radar as measured along sea level (down range) in m.}
+\item{distance}{Numeric. Distance from the radar as measured along sea level
+(down range), in m.}
 
-\item{elev}{numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
-numeric. Beam range (slant range) in m.
+Beam range (slant range), in m.
 }
 \description{
-Calculates the range (i.e. slant range) given a distance measured along the earth's surface
-(i.e. down range) and beam elevation.
-}
-\details{
-depends on \link{beam_height} to calculate beam height.
+Calculates the range (i.e. slant range) given a distance measured along the
+earth's surface (i.e. down range) and beam elevation.
 }
 \examples{
-# slant range of the 5 degree elevation beam at a down range of 100 km:
+# Slant range of the 5 degree elevation beam at a down range of 100 km
 beam_range(100000, 5)
+}
+\seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+}
 }
