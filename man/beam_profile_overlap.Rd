@@ -119,3 +119,13 @@ bpo <- beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0, 10000
 # plot the calculated overlap:
 plot(bpo)
 }
+\seealso{
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
+}
+\concept{beam_functions}

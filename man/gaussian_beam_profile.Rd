@@ -48,4 +48,14 @@ altitude at a given distance from the radar.
 Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code{height} and
 \code{antenna} should be given in reference to the same reference plane (e.g. ground level or sea level)
 }
+\seealso{
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()}
+}
+\concept{beam_functions}
 \keyword{internal}
