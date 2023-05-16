@@ -20,9 +20,9 @@
 #' # locate example file:
 #' vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 #' # load time series:
-#' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
+#' ts <- read_stdout(vptsfile, radar = "KBGM", wavelength = "S")
 #' ts
-read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
+read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
   # input checks
   if (!file.exists(file)) {
     stop(paste("File", file, "doesn't exist."))
