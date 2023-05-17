@@ -21,7 +21,7 @@ test_that("regularize_vpts() returns error on incorrect parameters", {
     date_max = as.POSIXct("2016-05-01")
   ))
 })
-test_that("`regularize_vpts` has expected results", {
+test_that("`regularize_vpts` has expected datetime when dates and intervals are manipulated", {
   expect_message(expect_equal(
     length(regularize_vpts(example_vpts)$datetime),
     2737
@@ -49,18 +49,20 @@ test_that("`regularize_vpts` has expected results", {
     900
   )
   expect_equal(regularize_vpts(example_vpts,
-    date_min = as.POSIXct("2016-09-10"),
-    date_max = as.POSIXct("2016-09-12")
-  )$daterange, structure(c(1473458400, 1473631200),
-    class = c("POSIXct", "POSIXt"), tzone = ""
+    date_min = as.POSIXct("2016-09-10", tz = "UTC"),
+    date_max = as.POSIXct("2016-09-12", tz = "UTC")
+  )$daterange, structure(c(1473465600, 1473638400),
+    class = c("POSIXct", "POSIXt"), tzone = "UTC"
   ))
+})
+test_that("regularized vpts has the same data at the same or slightly shifted times ", {
   expect_equal(
-    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% example_vpts$datetime[c(618,950)]],
+    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% example_vpts$datetime[c(618, 950)]],
     example_vpts[c(618, 950)]
   )
   # check for match in records that are shifted by 60 seconds
   expect_equal(
-    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% (example_vpts$datetime[c(801, 1515)]+60)]$data,
+    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% (example_vpts$datetime[c(801, 1515)] + 60)]$data,
     example_vpts[c(801, 1515)]$data
   )
 })
