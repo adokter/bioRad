@@ -212,7 +212,7 @@ add_heights_vp <- function(x, target) {
   if (identical(x$data$height, target)) {
     return(x)
   }
-  x$data <- data.frame(rbindlist(list(x$data, data.frame(height = target[!(target %in% x$data$height)])), fill = TRUE))
+  x$data <- data.frame(dplyr::bind_rows(list(x$data, data.frame(height = target[!(target %in% x$data$height)]))))
   x$data <- x$data[order(x$data$height), ]
   x$attributes$where$levels <- length(target)
   return(x)
