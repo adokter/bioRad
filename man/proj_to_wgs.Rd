@@ -2,7 +2,7 @@
 % Please edit documentation in R/project_as_ppi.R
 \name{proj_to_wgs}
 \alias{proj_to_wgs}
-\title{A wrapper for \code{\link{spTransform}}.}
+\title{A wrapper for \code{\link[=spTransform]{spTransform()}}.}
 \usage{
 proj_to_wgs(x, y, proj4string)
 }
@@ -17,6 +17,6 @@ proj_to_wgs(x, y, proj4string)
 An object of class \code{SpatialPoints}.
 }
 \description{
-A wrapper for \code{\link{spTransform}}.
+A wrapper for \code{\link[=spTransform]{spTransform()}}.
 }
 \keyword{internal}

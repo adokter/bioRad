@@ -42,7 +42,7 @@ integrate_to_ppi(
 
 \item{zlim}{altitude range in meter, given as a numeric vector of length two.}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{quantity}{profile quantity on which to base range corrections, 'eta' or 'dens'.}
@@ -93,23 +93,26 @@ The function requires
 \itemize{
 \item a polar volume, containing one or multiple scans (\code{pvol})
 \item a vertical profile (of birds) calculated for that same polar volume (\code{vp})
-\item a grid defined on the earth's surface, on which we will calculate the range corrected image
-(defined by \code{raster}, or a combination of \code{nx},\code{ny},\code{res} arguments).
+\item a grid defined on the earth's surface, on which we will calculate the range
+corrected image (defined by \code{raster}, or a combination of \code{nx},\code{ny},\code{res}
+arguments).
 }
+
 The pixel locations on the ground are easily translated into a corresponding azimuth and range of
 the various scans (see function \link{beam_range}).
 
 For each scan within the polar volume, the function calculates:
-\enumerate{
-\item the vertical radiation profile for each ground surface pixel for that particular scan,
-using \link{beam_profile}.
-\item the reflectivity expected for each ground surface pixel (\eqn{\eta_{expected}}),
-given the vertical profile (of biological scatterers) and the part of the profile radiated
-by the beam. This \eqn{\eta_{expected}} is simply the average of
-(linear) \code{eta} in the profile, weighted by the vertical radiation profile.
-\item the observed eta at each pixel \eqn{\eta_{observed}},
-which is converted form \code{DBZH} using function \link{dbz_to_eta},
-with \code{DBZH} the reflectivity factor measured at the pixel's distance from the radar.
+\itemize{
+\item the vertical radiation profile for each ground surface pixel for that
+particular scan, using \link{beam_profile}.
+\item the reflectivity expected for each ground surface pixel
+(\eqn{\eta_{expected}}), given the vertical profile (of biological
+scatterers) and the part of the profile radiated by the beam.
+This \eqn{\eta_{expected}} is simply the average of (linear) \code{eta} in the
+profile, weighted by the vertical radiation profile.
+\item the observed eta at each pixel \eqn{\eta_{observed}}, which is converted
+form \code{DBZH} using function \link{dbz_to_eta}, with \code{DBZH} the reflectivity
+factor measured at the pixel's distance from the radar.
 }
 
 For each pixel on the ground, we thus retrieve a set of \eqn{\eta_{expected}}
@@ -122,13 +125,12 @@ with the sum running over scans.
 To arrive at the final PPI image, the function calculates
 \itemize{
 \item the vertically integrated density (\code{vid}) and vertically integrated
-reflectivity (\code{vir}) for the profile,
-using the function \link{integrate_profile}.
+reflectivity (\code{vir}) for the profile, using the function
+\link{integrate_profile}.
 \item the spatial range-corrected PPI for \code{VID}, defined as the adjustment
-factor image (\code{R}), multiplied by the \code{vid}
-calculated for the profile
-\item the spatial range-corrected PPI for \code{VIR}, defined as the
-adjustment factor \code{R}, multiplied by the \code{vir} calculated for the profile.
+factor image (\code{R}), multiplied by the \code{vid} calculated for the profile
+\item the spatial range-corrected PPI for \code{VIR}, defined as the adjustment
+factor \code{R}, multiplied by the \code{vir} calculated for the profile.
 }
 
 If one of \code{lat} or \code{lon} is missing, the extent of the PPI is taken equal to
@@ -189,10 +191,10 @@ plot(my_ppi, param = "VID", zlim = c(0, 200))
 }
 \references{
 \itemize{
-\item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
-Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
-Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-\doi{10.3390/rs12040635}
+\item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
+J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+635. \doi{10.3390/rs12040635}
 \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.

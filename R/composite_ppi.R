@@ -1,7 +1,7 @@
-#' Create a composite of multiple plan position indicators (\code{ppi})
+#' Create a composite of multiple plan position indicators (`ppi`)
 #'
-#' Combines multiple plan position indicators (\code{ppi}) into a single
-#' \code{ppi}. Can be used to make a composite of \code{ppi}'s from multiple
+#' Combines multiple plan position indicators (`ppi`) into a single
+#' `ppi`. Can be used to make a composite of `ppi`'s from multiple
 #' radars.
 #'
 #' @inheritParams integrate_to_ppi
@@ -15,10 +15,10 @@
 #' inverse distance weighting. Measurements beyond this distance will have a
 #' weighting factor of zero.
 #' @param idp numeric. inverse distance weighting power.
-#' @param coverage logical. When TRUE adds an additional "coverage" parameter to the \code{ppi} with the
-#' number of PPIs covering a single composite \code{ppi} pixel.
+#' @param coverage logical. When TRUE adds an additional "coverage" parameter to the `ppi` with the
+#' number of PPIs covering a single composite `ppi` pixel.
 #'
-#' @return A \code{\link[=summary.ppi]{ppi}}.
+#' @return A [`ppi()`][summary.ppi].
 #'
 #' @export
 #'
@@ -29,23 +29,22 @@
 #' Either multiple ppi's of different scan elevation of the same radar may be combined,
 #' or ppi's of different radars can be composited.
 #'
-#' Argument \code{method} determines how values of different ppi's at the same
+#' Argument `method` determines how values of different ppi's at the same
 #' geographic location are combined.
-#' \describe{
-#' \item{\code{"mean"}}{Compute the average value}
-#' \item{\code{"max"}}{Compute the maximum value. If ppi's are of the same radar
-#' and the same polar volume, this computes a max product, showing the maximum
-#' detected signal at that geographic location.}
-#' \item{\code{"min"}}{Compute the minimum value}
-#' \item{\code{"idw"}}{This option is useful primarily when compositing ppi's of
-#' multiple radars. Performs an inverse distance weighting, where values are
-#' weighted according to 1/(distance from the radar)^\code{idp}}
-#' }
 #'
-#' The coordinates system of the returned \code{ppi} is a WGS84
-#' (lat, lon) datum, unless a different \code{crs} is provided. If only
-#' \code{res} is provided, but no \code{crs} is set, \code{res} is in
-#' meter units and the origin of the composite \code{ppi} is set to the
+#' * `mean`: Compute the average value
+#' * `max`: Compute the maximum value. If ppi's are of the same radar and the
+#'   same polar volume, this computes a max product, showing the maximum
+#'   detected signal at that geographic location.
+#' * `min`: Compute the minimum value
+#' * `idw`: This option is useful primarily when compositing ppi's of multiple
+#'   radars. Performs an inverse distance weighting, where values are weighted
+#'   according to 1/(distance from the radar)^`idp`
+#'
+#' The coordinates system of the returned `ppi` is a WGS84
+#' (lat, lon) datum, unless a different `crs` is provided. If only
+#' `res` is provided, but no `crs` is set, `res` is in
+#' meter units and the origin of the composite `ppi` is set to the
 #' mean (lat, lon) location.
 #'
 #' This function is a prototype and under active development

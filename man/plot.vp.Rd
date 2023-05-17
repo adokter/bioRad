@@ -22,11 +22,11 @@
 \item{quantity}{Character string with the quantity to plot. See
 \link[=summary.vp]{vp} for list of available quantities.
 \itemize{
-\item{Aerial density related:}{'\code{dens}', '\code{eta}', '\code{dbz}',
-'\code{DBZH}' for density, reflectivity, reflectivity factor and total
-reflectivity factor, respectively.}
-\item{Ground speed related:}{'\code{ff}','\code{dd}', for ground speed
-and direction, respectively.}
+\item Aerial density related : \code{dens}, \code{eta}, \code{dbz}, \code{DBZH} for density,
+reflectivity, reflectivity factor and total reflectivity factor,
+respectively.
+\item Ground speed related : \code{ff}, \code{dd}, for ground speed and direction,
+respectively.
 }}
 
 \item{xlab}{A title for the x axis.}
@@ -42,7 +42,7 @@ and direction, respectively.}
 \item{line.lwd}{Deprecated argument, use line_lwd instead.}
 
 \item{...}{Additional arguments to be passed to the low level
-\link[graphics]{plot} plotting function.}
+\link[graphics:plot.default]{plot} plotting function.}
 }
 \description{
 Plot a vertical profile (\code{vp})

@@ -29,7 +29,7 @@ map(x, ...)
 \arguments{
 \item{x}{An object of class \code{ppi}.}
 
-\item{...}{Arguments passed to low level \link[ggmap]{ggmap} function.}
+\item{...}{Arguments passed to low level \link[ggmap:ggmap]{ggmap} function.}
 
 \item{map}{The basemap to use, result of a call to \link{download_basemap}.}
 
@@ -61,7 +61,7 @@ vector of length 2.}
 \item{n.color}{Deprecated argument, use n_color instead.}
 
 \item{palette}{(Optional) character vector of hexadecimal color values defining
-the plot color scale, e.g. output from \link[viridisLite]{viridis}}
+the plot color scale, e.g. output from \link[viridisLite:viridis]{viridis}}
 }
 \value{
 A ggmap object (a classed raster object with a bounding
@@ -69,25 +69,24 @@ box attribute).
 }
 \description{
 Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
-layer map using \link[ggmap]{ggmap}.
+layer map using \link[ggmap:ggmap]{ggmap}.
 }
 \details{
 Available scan parameters for mapping can by printed to screen by
 \code{summary(x)}. Commonly available parameters are:
-\describe{
-\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-\item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities away
-from the radar are positive}
-\item{"\code{RHOHV}"}{Correlation coefficient (unitless) Correlation
-between vertically polarized and horizontally polarized reflectivity factor}
-\item{"\code{PHIDP}"}{Differential phase (degrees)}
-\item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-}
+\itemize{
+\item \code{DBZH}, \code{DBZ}: (Logged) reflectivity factor (dBZ)
+\item \code{TH}, \code{T}: (Logged) uncorrected reflectivity factor (dBZ)
+\item \code{VRADH}, \code{VRAD}: Radial velocity (m/s). Radial velocities towards the radar
+are negative, while radial velocities away from the radar are positive
+\item \code{RHOHV}: Correlation coefficient (unitless) Correlation between vertically
+polarized and horizontally polarized reflectivity factor
+\item \code{PHIDP}: Differential phase (degrees)
+\item \code{ZDR}: (Logged) differential reflectivity (dB)
 The scan parameters are named according to the OPERA data information
 model (ODIM), see Table 16 in the
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+}
 }
 \section{Methods (by class)}{
 \itemize{

@@ -1,19 +1,19 @@
-#' Project a scan (\code{scan}) or parameter (\code{param}) to a plan
-#' position indicator (\code{ppi})
+#' Project a scan (`scan`) or parameter (`param`) to a plan
+#' position indicator (`ppi`)
 #'
 #' Make a plan position indicator (ppi)
 #'
-#' @param x An object of class \code{param} or \code{scan}.
+#' @param x An object of class `param` or `scan`.
 #' @param grid_size Cartesian grid size in m.
 #' @param range_max Maximum range in m.
 #' @param ylim The range of latitudes to include.
 #' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
 #' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
-#' and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.
+#' and `grid_size`, `range_max`, `xlim`, `ylim` are ignored.
 #' @inheritParams beam_height
 #'
-#' @return An object of class '\link[=summary.ppi]{ppi}'.
+#' @return An object of class '[ppi][summary.ppi]'.
 #'
 #' @export
 #'
@@ -54,7 +54,7 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 }
 
 
-#' @describeIn project_as_ppi Project as \code{ppi} for a single scan parameter.
+#' @describeIn project_as_ppi Project as `ppi` for a single scan parameter.
 #'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
@@ -79,7 +79,7 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
   data
 }
 
-#' @describeIn project_as_ppi Project multiple \code{ppi}'s for all scan
+#' @describeIn project_as_ppi Project multiple `ppi`'s for all scan
 #' parameters in a scan
 #'
 #' @export
@@ -235,15 +235,15 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
 }
 
 
-#' A wrapper for \code{\link{spTransform}}.
+#' A wrapper for [spTransform()].
 #'
 #' @param lon Longitude
 #' @param lat Latitude
-#' @param proj4string An object of class 'CRS', as defined in package \code{sp}.
+#' @param proj4string An object of class 'CRS', as defined in package `sp`.
 #'
 #' @keywords internal
 #'
-#' @return An object of class \code{SpatialPoints}.
+#' @return An object of class `SpatialPoints`.
 wgs_to_proj <- function(lon, lat, proj4string) {
   xy <- data.frame(x = lon, y = lat)
   coordinates(xy) <- c("x", "y")
@@ -252,13 +252,13 @@ wgs_to_proj <- function(lon, lat, proj4string) {
   return(res)
 }
 
-#' A wrapper for \code{\link{spTransform}}.
+#' A wrapper for [spTransform()].
 #'
 #' @param x Longitude
 #' @param y Latitude
-#' @param proj4string An object of class 'CRS', as defined in package \code{sp}.
+#' @param proj4string An object of class 'CRS', as defined in package `sp`.
 #' @keywords internal
-#' @return An object of class \code{SpatialPoints}.
+#' @return An object of class `SpatialPoints`.
 proj_to_wgs <- function(x, y, proj4string) {
   xy <- data.frame(lon = x, lat = y)
   coordinates(xy) <- c("lon", "lat")

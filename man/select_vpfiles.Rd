@@ -30,7 +30,7 @@ radar range.
 Create a list of vertical profile (\code{vp}) files from a local directory
 that match a specific date and radar range. Files are selected based on their
 file name (not directory structure), which should be of format
-\code{radar_vp_yyyymmdd*.*}, such as \code{bewid_vp_20171123T1900Z_0x5.h5}.
+\verb{radar_vp_yyyymmdd*.*}, such as \code{bewid_vp_20171123T1900Z_0x5.h5}.
 }
 \examples{
 select_vpfiles(

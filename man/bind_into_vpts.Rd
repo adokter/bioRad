@@ -24,7 +24,7 @@ bind_into_vpts(x, ...)
 first).}
 }
 \value{
-A \code{\link[=summary.vpts]{vpts}} for a single radar or a list of
+A \code{\link[=summary.vpts]{vpts()}} for a single radar or a list of
 \code{vpts} for multiple radars. Input \code{vp} are sorted in time in the
 output \code{vpts}.
 }

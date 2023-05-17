@@ -1,16 +1,16 @@
-#' Plot a plan position indicator (\code{ppi})
+#' Plot a plan position indicator (`ppi`)
 #'
-#' Plot a plan position indicator (PPI) generated with \code{project_to_ppi}
-#' using \link[ggplot2]{ggplot}
+#' Plot a plan position indicator (PPI) generated with `project_to_ppi`
+#' using [ggplot][ggplot2::ggplot]
 #'
-#' @param x An object of class \code{ppi}.
+#' @param x An object of class `ppi`.
 #' @param param The scan parameter to plot, see details below.
 #' @param xlim Range of x values to plot.
 #' @param ylim Range of y values to plot.
 #' @param ratio Aspect ratio between x and y scale.
 #' @param zlim The range of parameter values to plot.
-#' @param na.value \link[ggplot2]{ggplot} argument setting the plot color of NA values
-#' @param ... Arguments passed to low level \link[ggplot2]{ggplot} function.
+#' @param na.value [ggplot][ggplot2::ggplot] argument setting the plot color of NA values
+#' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
 #'
 #' @method plot ppi
 #'
@@ -18,21 +18,18 @@
 #'
 #' @details
 #' Available scan parameters for plotting can by printed to screen
-#' by \code{summary(x)}. Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-#'  velocities towards the radar are negative, while radial velocities away
-#'  from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
-#'  between vertically polarized and horizontally polarized reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
+#' by `summary(x)`. Commonly available parameters are:
+#' * `DBZH`, `DBZ`: (Logged) reflectivity factor (dBZ)
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor (dBZ)
+#' * `VRADH`, `VRAD`: Radial velocity (m/s). Radial velocities towards the radar
+#'   are negative, while radial velocities away from the radar are positive
+#' * `RHOHV`: Correlation coefficient (unitless). Correlation between vertically
+#'   polarized and horizontally polarized reflectivity factor
+#' * `PHIDP`: Differential phase (degrees)
+#' * `ZDR`: (Logged) differential reflectivity (dB)
 #' The scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #'
 #' @examples
 #' # load an example scan:
