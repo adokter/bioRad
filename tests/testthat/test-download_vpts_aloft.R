@@ -5,6 +5,15 @@ radars <- "KBBX"
 directory <- tempdir()
 overwrite <- TRUE
 
+test_that("download_vpts_aloft() returns error for invalid arguments", {
+  expect_error(download_vpts_aloft(date_min,
+                                   date_max,
+                                   radars,
+                                   directory = file.path(tempdir(),"doesn't_exist__")),
+               regexp = "path .* doesn't exist",
+               fixed = TRUE)
+})
+
 test_that("date input for download_vpts_aloft() ", {
 
   # working with default
