@@ -41,10 +41,25 @@ list_vpts_aloft <- function(
     )
   )
 
+  # check radars
+  valid_radars <-
+    jsonlite::fromJSON(
+      "https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json"
+    ) %>% dplyr::filter(!is.na(odimcode)) %>%
+    dplyr::pull(odimcode)
+
+  assertthat::assert_that(
+    all(radars %in% valid_radars),
+    msg = glue::glue("Can't find radar(s): {missing_radars}",
+      missing_radars = radars[!radars %in% valid_radars]
+    )
+  )
+
+  # create file list --------------------------------------------------------
+
   # Convert to dates
   start_date <- as.Date(date_min, tz = NULL)
   end_date <- as.Date(date_max, tz = NULL)
-  # create file list --------------------------------------------------------
 
   # Set base URL
   base_url <- "https://aloft.s3-eu-west-1.amazonaws.com"

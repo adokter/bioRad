@@ -7,7 +7,11 @@ test_that("list_vpts_aloft() returns error for invalid format", {
 })
 
 test_that("list_vpts_aloft() returns error if radar doesn't exist", {
-
+  expect_error(list_vpts_aloft(date_min = "1990-01-01",
+                  date_max = "2050-01-01",
+                  radars = c("not a valid radar")),
+               regexp = "Can't find radar(s): not a valid radar",
+               fixed = TRUE)
 })
 
 test_that("list_vpts_aloft() returns a character vector", {
