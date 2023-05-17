@@ -50,7 +50,7 @@
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   assert_that(is.vpts(ts))
-  if (interval != "auto") assert_that(is.number(interval), interval > 0) 
+  if (interval != "auto") assert_that(is.number(interval), interval > 0)
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -74,7 +74,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if (interval == "auto") {
     dt <- as.difftime(median(ts$timesteps), units = "secs")
     if (verbose) {
-      cat(paste("projecting on", dt, "seconds interval grid...\n"))
+      message(paste("projecting on", dt, "seconds interval grid...\n"))
     }
   } else {
     dt <- as.difftime(interval, units = units)
