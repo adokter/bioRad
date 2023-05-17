@@ -15,6 +15,9 @@ list_vpts_aloft(
 \arguments{
 \item{source}{}
 }
+\value{
+A character vector of aloft urls
+}
 \description{
 Title
 }

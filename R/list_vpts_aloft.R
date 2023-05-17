@@ -6,7 +6,7 @@
 #' @param format
 #' @param source
 #'
-#' @return
+#' @return A character vector of aloft urls
 #' @export
 #'
 #' @examples
