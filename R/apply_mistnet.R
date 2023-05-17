@@ -132,7 +132,7 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
                           local_install, local_mistnet) {
 
   assert_that(file.exists(file))
-  rlang::check_installed('vol2birdR',"to run `apply_mist`")
+  rlang::check_installed('vol2birdR',"to run `apply_mist`. To install please run `devtools::install_github('adokter/bioRad')` manually untill it is released to CRAN")
   if (!vol2birdR::mistnet_exists()) {
     stop("MistNet has not been installed, see vol2birdR package documentation for install instructions")
   }
