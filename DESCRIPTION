@@ -30,7 +30,6 @@ Imports:
     curl,
     data.table,
     fields,
-    ggmap (>= 3.0.0),
     ggplot2,
     glue,
     graphics,
@@ -53,6 +52,7 @@ Remotes:
     adokter/vol2birdR,
     bioc::rhdf5
 Suggests:
+    ggmap (>= 3.0.0),
     knitr,
     rlang,
     tidyselect,
