@@ -12,6 +12,10 @@ test_that("get_param() returns error on incorrect parameters", {
 test_that("get_param() returns correct parameter", {
   # Parameters: VRADH DBZH ZDR RHOHV PHIDP
   expect_equal(get_param(scan, "DBZH"), scan$params[["DBZH"]])
+  expect_equal(get_param(scan, "ZDR"), scan$params[["ZDR"]])
+  expect_equal(get_param(scan, "RHOHV"), scan$params[["RHOHV"]])
+  expect_equal(get_param(scan, "VRADH"), scan$params[["VRADH"]])
   expect_equal(get_param(scan, "PHIDP"), scan$params[["PHIDP"]])
+
   expect_s3_class(get_param(scan, "RHOHV"), "param")
 })
