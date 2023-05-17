@@ -18,7 +18,7 @@ download_vpts_aloft <- function(date_min = NULL,
                  directory = ".",
                  overwrite = FALSE,
                  format = "csv", # also hdf5
-                 source = "baltrad", # also ecog-04003
+                 source = "baltrad" # also ecog-04003
                  ) {
 
 # Assertations ------------------------------------------------------------
