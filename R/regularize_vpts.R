@@ -1,4 +1,4 @@
-globalVariables(c("x","y","closestt"))
+globalVariables(c("x","y","closest"))
 
 #' Regularize a time series of vertical profiles (`vpts`) on a
 #' regular time grid
