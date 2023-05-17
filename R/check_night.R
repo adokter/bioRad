@@ -1,16 +1,16 @@
 #' Check if it is night at a given time and place
 #'
-#' Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
+#' Checks if it is night (`TRUE`/`FALSE`) for a combination of
 #' latitude, longitude, date and sun elevation. When used on a bioRad object
-#' (\code{pvol}, \code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the
+#' (`pvol`, `vp`, `vpts`, `vpi`) this information is extracted from the
 #' bioRad object directly.
 #'
-#' @param x \code{pvol}, \code{vp}, \code{vpts}, \code{vpi},
-#' or a date inheriting from class \code{POSIXct} or a string
-#' interpretable by \link{as.POSIXct}.
+#' @param x `pvol`, `vp`, `vpts`, `vpi`,
+#' or a date inheriting from class `POSIXct` or a string
+#' interpretable by [as.POSIXct].
 #' @param lon numeric. Longitude in decimal degrees.
 #' @param lat numeric. Latitude in decimal degrees.
-#' @param tz character. Time zone. Ignored when \code{date} already has an associated time zone
+#' @param tz character. Time zone. Ignored when `date` already has an associated time zone
 #' @param elev numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
 #' length two, with first element giving sunset elevation, and second element sunrise elevation.
 #' @param offset numeric. Time duration in seconds by which to shift the start and end
@@ -18,9 +18,9 @@
 #' of sunset and second element added to moment of sunrise.
 #' @param ... optional lat,lon arguments.
 #'
-#' @return \code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
-#' (either datetime or geographic location missing). For \code{vpts} a
-#' vector of \code{TRUE}/\code{FALSE} values is returned.
+#' @return `TRUE` when night, `FALSE` when day, `NA` if unknown
+#' (either datetime or geographic location missing). For `vpts` a
+#' vector of `TRUE`/`FALSE` values is returned.
 #'
 #' @export
 #'
@@ -28,15 +28,15 @@
 #' the moment of sunrise/sunset corresponds to half that elevation at
 #' -0.268 degrees.
 #'
-#' \code{check_night()} evaluates to \code{FALSE} when the sun has a higher
-#' elevation than parameter \code{elev}, otherwise \code{TRUE}.
+#' `check_night()` evaluates to `FALSE` when the sun has a higher
+#' elevation than parameter `elev`, otherwise `TRUE`.
 #'
 #' Approximate astronomical formula are used, therefore the day/night
 #' transition may be off by a few minutes.
 #'
-#' \code{offset} can be used to shift the moment of sunset and sunrise by a
-#' temporal offset, for example, \code{offset=c(600,-900)} will assume nighttime
-#' starts 600 seconds after sunset (as defined by \code{elev}) and stops 900 seconds before sunrise.
+#' `offset` can be used to shift the moment of sunset and sunrise by a
+#' temporal offset, for example, `offset=c(600,-900)` will assume nighttime
+#' starts 600 seconds after sunset (as defined by `elev`) and stops 900 seconds before sunrise.
 #'
 #' @examples
 #' # check if it is night at UTC midnight in the Netherlands on January 1st:

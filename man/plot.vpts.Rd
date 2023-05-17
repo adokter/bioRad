@@ -68,17 +68,17 @@ color bar.}
 
 \item{barbs.dens}{Deprecated argument, use barbs_dens_min instead.}
 
-\item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+\item{na_color}{Color to use for NA values, see class \code{\link[=summary.vpts]{vpts()}} conventions.}
 
-\item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.}
+\item{nan_color}{Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts()}} conventions.}
 
 \item{n_color}{The number of colors (>=1) to be in the palette.}
 
 \item{palette}{(Optional) character vector of hexadecimal color values defining
-the plot color scale, e.g. output from \link[viridisLite]{viridis}}
+the plot color scale, e.g. output from \link[viridisLite:viridis]{viridis}}
 
 \item{...}{Additional arguments to be passed to the low level
-\link[graphics]{image} plotting function.}
+\link[graphics:image]{image} plotting function.}
 }
 \description{
 Plot a time series of vertical profiles  of class \code{vpts}.
@@ -86,29 +86,28 @@ Plot a time series of vertical profiles  of class \code{vpts}.
 \details{
 Aerial abundances can be visualized in four related quantities, as specified
 by argument \code{quantity}:
-\describe{
-\item{"\code{dens}"}{the aerial density of individuals. This quantity is
-dependent on the assumed radar cross section (RCS) in the
-\code{x$attributes$how$rcs_bird} attribute}
-\item{"\code{eta}"}{reflectivity. This quantity is independent of the
-value of the \code{rcs_bird} attribute}
-\item{"\code{dbz}"}{reflectivity factor. This quantity is independent
-of the value of the \code{rcs_bird} attribute, and corresponds to the
-dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
-tends to occur at much higher reflectivity factors at S-band
-than at C-band}
-\item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
-reflectivity factor of all scatterers (biological and meteorological
-scattering combined)}
+\itemize{
+\item \code{dens}: the aerial density of individuals. This quantity is dependent on
+the assumed radar cross section (RCS) in the \code{x$attributes$how$rcs_bird}
+attribute
+\item \code{eta}: reflectivity. This quantity is independent of the value of the
+\code{rcs_bird} attribute
+\item \code{dbz}: reflectivity factor. This quantity is independent of the value of
+the \code{rcs_bird} attribute, and corresponds to the dBZ scale commonly used in
+weather radar meteorology. Bioscatter by birds tends to occur at much
+higher reflectivity factors at S-band than at C-band
+\item \code{DBZH}: total reflectivity factor. This quantity equals the reflectivity
+factor of all scatterers (biological and meteorological scattering
+combined)
 }
 
 Aerial velocities can be visualized in three related quantities, as specified
 by argument \code{quantity}:
-\describe{
-\item{"\code{ff}"}{ground speed. The aerial velocity relative to the
-ground surface in m/s.}
-\item{"\code{u}"}{eastward ground speed component in m/s.}
-\item{"\code{v}"}{northward ground speed component in m/s.}
+\itemize{
+\item \code{ff}: ground speed. The aerial velocity relative to the ground surface in
+m/s.
+\item \code{u}: eastward ground speed component in m/s.
+\item \code{v}: northward ground speed component in m/s.
 }
 \subsection{barbs}{
 

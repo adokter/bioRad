@@ -1,15 +1,15 @@
 #' Calculate sunrise or sunset for a time and place
 #'
-#' @param date Date inheriting from class \code{POSIXt} or a string
-#' interpretable by \link[base]{as.Date}.
+#' @param date Date inheriting from class `POSIXt` or a string
+#' interpretable by [as.Date][base::as.Date].
 #' @param lon Longitude in decimal degrees.
 #' @param lat Latitude in decimal degrees.
 #' @param elev Sun elevation in degrees.
-#' @param tz output time zone. Ignored if \code{date} has an associated time zone already
-#' @param force_tz whether to convert output to timezone \code{tz}. Default \code{FALSE}.
+#' @param tz output time zone. Ignored if `date` has an associated time zone already
+#' @param force_tz whether to convert output to timezone `tz`. Default `FALSE`.
 #'
-#' @return The moment of sunrise or sunset for the date set by \code{date}and time zone as specified
-#' (by \code{date} and \code{tz}) or in UTC if not specified.
+#' @return The moment of sunrise or sunset for the date set by `date`and time zone as specified
+#' (by `date` and `tz`) or in UTC if not specified.
 #'
 #' @details
 #' The day for which sunrise and sunset are calculated is given by the input date.
@@ -23,13 +23,13 @@
 #' therefore the moment of sunrise/sunset corresponds to half that elevation
 #' at -0.268 degrees.
 #'
-#' This is a convenience function mapping to \link{crepuscule}.
+#' This is a convenience function mapping to [crepuscule].
 #'
 #' Approximate astronomical formula are used, therefore the moment of
 #' sunrise / sunset may be off by a few minutes
 #'
-#' If \code{force_tz} is \code{TRUE}, the output is converted to the timezone
-#' set by \code{tz}
+#' If `force_tz` is `TRUE`, the output is converted to the timezone
+#' set by `tz`
 #'
 #' @examples
 #' # sunrise in the Netherlands

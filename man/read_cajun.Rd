@@ -17,7 +17,7 @@ in which case C-band wavelength is assumed to be 5.3 cm and S-band wavelength 10
 }
 \value{
 An object inheriting from class \code{vp}, see
-\code{\link[=summary.vp]{vp}} for details.
+\code{\link[=summary.vp]{vp()}} for details.
 }
 \description{
 Read a vertical profile (\code{vp}) from UMASS Cajun text file

@@ -1,7 +1,7 @@
-#' Calculate a plan position indicator (\code{ppi}) of vertically integrated density adjusted for range effects
+#' Calculate a plan position indicator (`ppi`) of vertically integrated density adjusted for range effects
 #'
 #' This function estimates a spatial image (PPI object) of vertically integrated
-#' density (\code{VID}) based on all elevation scans of the radar, while
+#' density (`VID`) based on all elevation scans of the radar, while
 #' accounting for the changing overlap between the radar beams as a function of
 #' range. The resulting PPI is a vertical integration over the layer of
 #' biological scatterers based on all available elevation scans, corrected for
@@ -16,63 +16,59 @@
 #' @param quantity profile quantity on which to base range corrections, 'eta' or 'dens'.
 #' @param param_ppi one or multiple of 'VIR', 'VID', 'R', 'overlap', 'eta_sum', 'eta_sum_expected'
 #' @param param reflectivity factor scan parameter on which to base range corrections.
-#' Typically the same parameter from which animal densities are estimated for object \code{vp}.
+#' Typically the same parameter from which animal densities are estimated for object `vp`.
 #' One of 'DBZH','DBZV','DBZ','TH','TV'.
-#' @param lat Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.
-#' @param lon Geodetic latitude of the radar in degrees. If missing taken from \code{pvol}.
-#' @return An object of class '\link[=summary.ppi]{ppi}'.
+#' @param lat Geodetic latitude of the radar in degrees. If missing taken from `pvol`.
+#' @param lon Geodetic latitude of the radar in degrees. If missing taken from `pvol`.
+#' @return An object of class '[ppi][summary.ppi]'.
 #'
 #' @export
 #'
 #' @details
 #' The function requires
-#' \itemize{
-#' \item a polar volume, containing one or multiple scans (\code{pvol})
-#' \item a vertical profile (of birds) calculated for that same polar volume (\code{vp})
-#' \item a grid defined on the earth's surface, on which we will calculate the range corrected image
-#' (defined by \code{raster}, or a combination of \code{nx},\code{ny},\code{res} arguments).
-#' }
+#' * a polar volume, containing one or multiple scans (`pvol`)
+#' * a vertical profile (of birds) calculated for that same polar volume (`vp`)
+#' * a grid defined on the earth's surface, on which we will calculate the range
+#'   corrected image (defined by `raster`, or a combination of `nx`,`ny`,`res`
+#'   arguments).
+#'
 #' The pixel locations on the ground are easily translated into a corresponding azimuth and range of
-#' the various scans (see function \link{beam_range}).
+#' the various scans (see function [beam_range]).
 #'
 #' For each scan within the polar volume, the function calculates:
-#' \enumerate{
-#' \item the vertical radiation profile for each ground surface pixel for that particular scan,
-#' using \link{beam_profile}.
-#' \item the reflectivity expected for each ground surface pixel (\eqn{\eta_{expected}}),
-#' given the vertical profile (of biological scatterers) and the part of the profile radiated
-#' by the beam. This \eqn{\eta_{expected}} is simply the average of
-#' (linear) \code{eta} in the profile, weighted by the vertical radiation profile.
-#' \item the observed eta at each pixel \eqn{\eta_{observed}},
-#' which is converted form \code{DBZH} using function \link{dbz_to_eta},
-#' with \code{DBZH} the reflectivity factor measured at the pixel's distance from the radar.
-#' }
+#' * the vertical radiation profile for each ground surface pixel for that
+#'   particular scan, using [beam_profile].
+#' * the reflectivity expected for each ground surface pixel
+#'   (\eqn{\eta_{expected}}), given the vertical profile (of biological
+#'   scatterers) and the part of the profile radiated by the beam.
+#'   This \eqn{\eta_{expected}} is simply the average of (linear) `eta` in the
+#'   profile, weighted by the vertical radiation profile.
+#' * the observed eta at each pixel \eqn{\eta_{observed}}, which is converted
+#'   form `DBZH` using function [dbz_to_eta], with `DBZH` the reflectivity
+#'   factor measured at the pixel's distance from the radar.
 #'
 #' For each pixel on the ground, we thus retrieve a set of \eqn{\eta_{expected}}
 #' and a set of \eqn{\eta_{observed}}. From those we can calculate a spatial adjustment factor
-#' \code{R} as:
+#' `R` as:
 #'
 #' \deqn{R=\sum{\eta_{observed}}/\sum{\eta_{expected}}},
 #' with the sum running over scans.
 #'
 #' To arrive at the final PPI image, the function calculates
-#' \itemize{
-#' \item the vertically integrated density (\code{vid}) and vertically integrated
-#' reflectivity (\code{vir}) for the profile,
-#' using the function \link{integrate_profile}.
-#' \item the spatial range-corrected PPI for \code{VID}, defined as the adjustment
-#' factor image (\code{R}), multiplied by the \code{vid}
-#' calculated for the profile
-#' \item the spatial range-corrected PPI for \code{VIR}, defined as the
-#' adjustment factor \code{R}, multiplied by the \code{vir} calculated for the profile.
-#' }
+#' * the vertically integrated density (`vid`) and vertically integrated
+#'   reflectivity (`vir`) for the profile, using the function
+#'   [integrate_profile].
+#' * the spatial range-corrected PPI for `VID`, defined as the adjustment
+#'   factor image (`R`), multiplied by the `vid` calculated for the profile
+#' * the spatial range-corrected PPI for `VIR`, defined as the adjustment
+#'   factor `R`, multiplied by the `vir` calculated for the profile.
 #'
-#' If one of \code{lat} or \code{lon} is missing, the extent of the PPI is taken equal to
+#' If one of `lat` or `lon` is missing, the extent of the PPI is taken equal to
 #' the extent of the data in the first scan of the polar volume.
 #'
 #' As an additional parameter, overlap between vertical profile and vertical radiation
-#' profile is calculated using \link{beam_profile}
-#' and stored as quantity \code{overlap}.
+#' profile is calculated using [beam_profile]
+#' and stored as quantity `overlap`.
 #'
 #' scans at 90 degree beam elevation (birdbath scans) are ignored.
 #'
@@ -123,16 +119,14 @@
 #' plot(my_ppi, param = "VID", zlim = c(0, 200))
 #' }
 #' @references
-#' \itemize{
-#'   \item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
-#'   Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
-#'   Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-#'   \doi{10.3390/rs12040635}
-#'   \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
+#' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
+#'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+#'   Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+#'   635. \doi{10.3390/rs12040635}
+#' * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
 #'   \doi{10.1109/TGRS.2009.2014463}
-#' }
 integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")

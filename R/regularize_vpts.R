@@ -1,28 +1,28 @@
-#' Regularize a time series of vertical profiles (\code{vpts}) on a
+#' Regularize a time series of vertical profiles (`vpts`) on a
 #' regular time grid
 #'
-#' Projects objects of class \code{vpts} on a regular time grid
+#' Projects objects of class `vpts` on a regular time grid
 #'
-#' Projects objects of class \code{vpts} on a regular time grid, and fills
+#' Projects objects of class `vpts` on a regular time grid, and fills
 #' temporal gaps by nearest neighbor interpolation.
-#' @param ts An object inheriting from class \code{vpts}, see
-#' \code{\link[=summary.vpts]{vpts}} for details.
-#' @param interval Time interval grid to project on. When '\code{auto}' the
+#' @param ts An object inheriting from class `vpts`, see
+#' [`vpts()`][summary.vpts] for details.
+#' @param interval Time interval grid to project on. When '`auto`' the
 #' median interval in the time series is used.
 #' @param date_min Start time of the projected time series, as a POSIXct object.
-#' Taken from \code{ts} by default'.
+#' Taken from `ts` by default'.
 #' @param date_max End time of the projected time series, as a POSIXct object.
-#' Taken from \code{ts} by default.
-#' @param units Optional units of \code{interval} and \code{fill}, one of 'secs', 'mins',
+#' Taken from `ts` by default.
+#' @param units Optional units of `interval` and `fill`, one of 'secs', 'mins',
 #' 'hours','days', 'weeks'. Defaults to 'mins'.
 #' @param fill Numeric or Logical. fill each regularized timestep with the closest
 #' original profile found within a time window of +/- `fill`.
-#' When \code{TRUE}, \code{fill} maps to \code{interval}, filling single missing
-#' timesteps. When \code{FALSE}, \code{fill}  maps to 0, disabling filling.
-#' @param verbose Logical, when \code{TRUE} prints text to console.
-#' @param keep_datetime Logical, when \code{TRUE} keep original radar acquisition timestamps.
+#' When `TRUE`, `fill` maps to `interval`, filling single missing
+#' timesteps. When `FALSE`, `fill`  maps to 0, disabling filling.
+#' @param verbose Logical, when `TRUE` prints text to console.
+#' @param keep_datetime Logical, when `TRUE` keep original radar acquisition timestamps.
 #'
-#' @return An object of class \code{vpts} with regular time steps.
+#' @return An object of class `vpts` with regular time steps.
 #'
 #' @export
 #'
@@ -31,7 +31,7 @@
 #' data. Alignment is performed using a nearest neighbor interpolation limited to
 #' neighboring profiles that fall within +/- `fill` (centered) of an original profile.
 #'
-#' In plots of regular time series (see \code{\link{plot.vpts}}) temporal gaps of
+#' In plots of regular time series (see [plot.vpts()]) temporal gaps of
 #' missing profiles (e.g. due to radar down time) become visible. In irregular
 #' time series data points in the plot are carried through until the time series
 #' continues, and temporal data gaps are filled up visually.
