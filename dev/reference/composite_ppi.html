@@ -124,7 +124,7 @@ scan parameters use 'all' (default).</p></dd>
 
 
 <dt>res</dt>
-<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a>).
+<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see res).
 If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></dd>
 
 
@@ -163,7 +163,7 @@ number of PPIs covering a single composite <code>ppi</code> pixel.</p></dd>
     <h2>Value</h2>
     
 
-<p>A <code><a href="summary.ppi.html">ppi</a></code>.</p>
+<p>A <code><a href="summary.ppi.html">ppi()</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -172,24 +172,15 @@ combines all data.</p>
 <p>Either multiple ppi's of different scan elevation of the same radar may be combined,
 or ppi's of different radars can be composited.</p>
 <p>Argument <code>method</code> determines how values of different ppi's at the same
-geographic location are combined.</p><dl><dt><code>"mean"</code></dt>
-<dd><p>Compute the average value</p></dd>
-
-<dt><code>"max"</code></dt>
-<dd><p>Compute the maximum value. If ppi's are of the same radar
-and the same polar volume, this computes a max product, showing the maximum
-detected signal at that geographic location.</p></dd>
-
-<dt><code>"min"</code></dt>
-<dd><p>Compute the minimum value</p></dd>
-
-<dt><code>"idw"</code></dt>
-<dd><p>This option is useful primarily when compositing ppi's of
-multiple radars. Performs an inverse distance weighting, where values are
-weighted according to 1/(distance from the radar)^<code>idp</code></p></dd>
-
-
-</dl><p>The coordinates system of the returned <code>ppi</code> is a WGS84
+geographic location are combined.</p><ul><li><p><code>mean</code>: Compute the average value</p></li>
+<li><p><code>max</code>: Compute the maximum value. If ppi's are of the same radar and the
+same polar volume, this computes a max product, showing the maximum
+detected signal at that geographic location.</p></li>
+<li><p><code>min</code>: Compute the minimum value</p></li>
+<li><p><code>idw</code>: This option is useful primarily when compositing ppi's of multiple
+radars. Performs an inverse distance weighting, where values are weighted
+according to 1/(distance from the radar)^<code>idp</code></p></li>
+</ul><p>The coordinates system of the returned <code>ppi</code> is a WGS84
 (lat, lon) datum, unless a different <code>crs</code> is provided. If only
 <code>res</code> is provided, but no <code>crs</code> is set, <code>res</code> is in
 meter units and the origin of the composite <code>ppi</code> is set to the

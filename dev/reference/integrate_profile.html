@@ -175,48 +175,23 @@ integrated profile quantities</p>
 <div class="section">
 <h3 id="available-quantities">Available quantities<a class="anchor" aria-label="anchor" href="#available-quantities"></a></h3>
 <p>The function generates a specially classed data frame with the following
-quantities:</p><dl><dt><code>datetime</code></dt>
-<dd><p>POSIXct date of each profile in UTC</p></dd>
-
-<dt><code>vid</code></dt>
-<dd><p>Vertically Integrated Density in individuals/km^2.
-<code>vid</code> is a surface density, whereas <code>dens</code> in <code>vp</code>
-objects is a volume density.</p></dd>
-
-<dt><code>vir</code></dt>
-<dd><p>Vertically Integrated Reflectivity in cm^2/km^2</p></dd>
-
-<dt><code>mtr</code></dt>
-<dd><p>Migration Traffic Rate in individuals/km/h</p></dd>
-
-<dt><code>rtr</code></dt>
-<dd><p>Reflectivity Traffic Rate in cm^2/km/h</p></dd>
-
-<dt><code>mt</code></dt>
-<dd><p>Migration Traffic in individuals/km, cumulated from
-the start of the time series up to <code>datetime</code></p></dd>
-
-<dt><code>rt</code></dt>
-<dd><p>Reflectivity Traffic in cm^2/km, cumulated from
-the start of the time series up to <code>datetime</code></p></dd>
-
-<dt><code>ff</code></dt>
-<dd><p>Horizontal ground speed in m/s</p></dd>
-
-<dt><code>dd</code></dt>
-<dd><p>Direction of the horizontal ground speed in degrees</p></dd>
-
-<dt><code>u</code></dt>
-<dd><p>Ground speed component west to east in m/s</p></dd>
-
-<dt><code>v</code></dt>
-<dd><p>Ground speed component south to north in m/s</p></dd>
-
-<dt><code>height</code></dt>
-<dd><p>Mean flight height (height weighted by eta) in m above sea level</p></dd>
-
-
-</dl><p>Vertically integrated density and reflectivity are related according to
+quantities:</p><ul><li><p><code>datetime</code>: POSIXct date of each profile in UTC</p></li>
+<li><p><code>vid</code>: Vertically Integrated Density in individuals/km^2.
+<code>vid</code> is a surface density, whereas <code>dens</code> in <code>vp</code> objects is a volume
+density.</p></li>
+<li><p><code>vir</code>: Vertically Integrated Reflectivity in cm^2/km^2</p></li>
+<li><p><code>mtr</code>: Migration Traffic Rate in individuals/km/h</p></li>
+<li><p><code>rtr</code>: Reflectivity Traffic Rate in cm^2/km/h</p></li>
+<li><p><code>mt</code>: Migration Traffic in individuals/km, cumulated from the start of the
+time series up to <code>datetime</code></p></li>
+<li><p><code>rt</code>: Reflectivity Traffic in cm^2/km, cumulated from the start of the time
+series up to <code>datetime</code></p></li>
+<li><p><code>ff</code>: Horizontal ground speed in m/s</p></li>
+<li><p><code>dd</code>: Direction of the horizontal ground speed in degrees</p></li>
+<li><p><code>u</code>: Ground speed component west to east in m/s</p></li>
+<li><p><code>v</code>: Ground speed component south to north in m/s</p></li>
+<li><p><code>height</code>: Mean flight height (height weighted by eta) in m above sea level</p></li>
+</ul><p>Vertically integrated density and reflectivity are related according to
 \(vid=vir/rcs(x)\), with <a href="rcs.html">rcs</a> the assumed radar cross section per
 individual. Similarly, migration traffic rate and reflectivity traffic rate
 are related according to \(mtr=rtr/rcs(x)\)</p>

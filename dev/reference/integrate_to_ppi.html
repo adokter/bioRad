@@ -143,7 +143,7 @@ described in detail in Kranstauber et al. (2020).</p>
 
 
 <dt>res</dt>
-<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">res</a>).
+<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see res).
 If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></dd>
 
 
@@ -211,32 +211,33 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></d
     <h2>Details</h2>
     <p>The function requires</p><ul><li><p>a polar volume, containing one or multiple scans (<code>pvol</code>)</p></li>
 <li><p>a vertical profile (of birds) calculated for that same polar volume (<code>vp</code>)</p></li>
-<li><p>a grid defined on the earth's surface, on which we will calculate the range corrected image
-(defined by <code>raster</code>, or a combination of <code>nx</code>,<code>ny</code>,<code>res</code> arguments).</p></li>
+<li><p>a grid defined on the earth's surface, on which we will calculate the range
+corrected image (defined by <code>raster</code>, or a combination of <code>nx</code>,<code>ny</code>,<code>res</code>
+arguments).</p></li>
 </ul><p>The pixel locations on the ground are easily translated into a corresponding azimuth and range of
 the various scans (see function <a href="beam_range.html">beam_range</a>).</p>
-<p>For each scan within the polar volume, the function calculates:</p><ol><li><p>the vertical radiation profile for each ground surface pixel for that particular scan,
-using <a href="beam_profile.html">beam_profile</a>.</p></li>
-<li><p>the reflectivity expected for each ground surface pixel (\(\eta_{expected}\)),
-given the vertical profile (of biological scatterers) and the part of the profile radiated
-by the beam. This \(\eta_{expected}\) is simply the average of
-(linear) <code>eta</code> in the profile, weighted by the vertical radiation profile.</p></li>
-<li><p>the observed eta at each pixel \(\eta_{observed}\),
-which is converted form <code>DBZH</code> using function <a href="dbz_to_eta.html">dbz_to_eta</a>,
-with <code>DBZH</code> the reflectivity factor measured at the pixel's distance from the radar.</p></li>
-</ol><p>For each pixel on the ground, we thus retrieve a set of \(\eta_{expected}\)
+<p>For each scan within the polar volume, the function calculates:</p><ul><li><p>the vertical radiation profile for each ground surface pixel for that
+particular scan, using <a href="beam_profile.html">beam_profile</a>.</p></li>
+<li><p>the reflectivity expected for each ground surface pixel
+(\(\eta_{expected}\)), given the vertical profile (of biological
+scatterers) and the part of the profile radiated by the beam.
+This \(\eta_{expected}\) is simply the average of (linear) <code>eta</code> in the
+profile, weighted by the vertical radiation profile.</p></li>
+<li><p>the observed eta at each pixel \(\eta_{observed}\), which is converted
+form <code>DBZH</code> using function <a href="dbz_to_eta.html">dbz_to_eta</a>, with <code>DBZH</code> the reflectivity
+factor measured at the pixel's distance from the radar.</p></li>
+</ul><p>For each pixel on the ground, we thus retrieve a set of \(\eta_{expected}\)
 and a set of \(\eta_{observed}\). From those we can calculate a spatial adjustment factor
 <code>R</code> as:</p>
 <p>$$R=\sum{\eta_{observed}}/\sum{\eta_{expected}}$$,
 with the sum running over scans.</p>
 <p>To arrive at the final PPI image, the function calculates</p><ul><li><p>the vertically integrated density (<code>vid</code>) and vertically integrated
-reflectivity (<code>vir</code>) for the profile,
-using the function <a href="integrate_profile.html">integrate_profile</a>.</p></li>
+reflectivity (<code>vir</code>) for the profile, using the function
+<a href="integrate_profile.html">integrate_profile</a>.</p></li>
 <li><p>the spatial range-corrected PPI for <code>VID</code>, defined as the adjustment
-factor image (<code>R</code>), multiplied by the <code>vid</code>
-calculated for the profile</p></li>
-<li><p>the spatial range-corrected PPI for <code>VIR</code>, defined as the
-adjustment factor <code>R</code>, multiplied by the <code>vir</code> calculated for the profile.</p></li>
+factor image (<code>R</code>), multiplied by the <code>vid</code> calculated for the profile</p></li>
+<li><p>the spatial range-corrected PPI for <code>VIR</code>, defined as the adjustment
+factor <code>R</code>, multiplied by the <code>vir</code> calculated for the profile.</p></li>
 </ul><p>If one of <code>lat</code> or <code>lon</code> is missing, the extent of the PPI is taken equal to
 the extent of the data in the first scan of the polar volume.</p>
 <p>As an additional parameter, overlap between vertical profile and vertical radiation
@@ -247,10 +248,10 @@ and stored as quantity <code>overlap</code>.</p>
     <div id="references">
     <h2>References</h2>
     
-<ul><li><p>Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
-Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
-Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-<a href="https://doi.org/10.3390/rs12040635" class="external-link">doi:10.3390/rs12040635</a></p></li>
+<ul><li><p>Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
+J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+635. <a href="https://doi.org/10.3390/rs12040635" class="external-link">doi:10.3390/rs12040635</a></p></li>
 <li><p>Buler JJ &amp; Diehl RH (2009) Quantifying bird density during migratory
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.

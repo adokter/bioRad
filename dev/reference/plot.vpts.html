@@ -174,11 +174,11 @@ color bar.</p></dd>
 
 
 <dt>na_color</dt>
-<dd><p>Color to use for NA values, see class <code><a href="summary.vpts.html">vpts</a></code> conventions.</p></dd>
+<dd><p>Color to use for NA values, see class <code><a href="summary.vpts.html">vpts()</a></code> conventions.</p></dd>
 
 
 <dt>nan_color</dt>
-<dd><p>Color to use for NaN values, see class <code><a href="summary.vpts.html">vpts</a></code> conventions.</p></dd>
+<dd><p>Color to use for NaN values, see class <code><a href="summary.vpts.html">vpts()</a></code> conventions.</p></dd>
 
 
 <dt>n_color</dt>
@@ -198,41 +198,24 @@ the plot color scale, e.g. output from <a href="https://sjmgarnier.github.io/vir
     <div id="details">
     <h2>Details</h2>
     <p>Aerial abundances can be visualized in four related quantities, as specified
-by argument <code>quantity</code>:</p><dl><dt>"<code>dens</code>"</dt>
-<dd><p>the aerial density of individuals. This quantity is
-dependent on the assumed radar cross section (RCS) in the
-<code>x$attributes$how$rcs_bird</code> attribute</p></dd>
-
-<dt>"<code>eta</code>"</dt>
-<dd><p>reflectivity. This quantity is independent of the
-value of the <code>rcs_bird</code> attribute</p></dd>
-
-<dt>"<code>dbz</code>"</dt>
-<dd><p>reflectivity factor. This quantity is independent
-of the value of the <code>rcs_bird</code> attribute, and corresponds to the
-dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
-tends to occur at much higher reflectivity factors at S-band
-than at C-band</p></dd>
-
-<dt>"<code>DBZH</code>"</dt>
-<dd><p>total reflectivity factor. This quantity equals the
-reflectivity factor of all scatterers (biological and meteorological
-scattering combined)</p></dd>
-
-
-</dl><p>Aerial velocities can be visualized in three related quantities, as specified
-by argument <code>quantity</code>:</p><dl><dt>"<code>ff</code>"</dt>
-<dd><p>ground speed. The aerial velocity relative to the
-ground surface in m/s.</p></dd>
-
-<dt>"<code>u</code>"</dt>
-<dd><p>eastward ground speed component in m/s.</p></dd>
-
-<dt>"<code>v</code>"</dt>
-<dd><p>northward ground speed component in m/s.</p></dd>
-
-
-</dl><div class="section">
+by argument <code>quantity</code>:</p><ul><li><p><code>dens</code>: the aerial density of individuals. This quantity is dependent on
+the assumed radar cross section (RCS) in the <code>x$attributes$how$rcs_bird</code>
+attribute</p></li>
+<li><p><code>eta</code>: reflectivity. This quantity is independent of the value of the
+<code>rcs_bird</code> attribute</p></li>
+<li><p><code>dbz</code>: reflectivity factor. This quantity is independent of the value of
+the <code>rcs_bird</code> attribute, and corresponds to the dBZ scale commonly used in
+weather radar meteorology. Bioscatter by birds tends to occur at much
+higher reflectivity factors at S-band than at C-band</p></li>
+<li><p><code>DBZH</code>: total reflectivity factor. This quantity equals the reflectivity
+factor of all scatterers (biological and meteorological scattering
+combined)</p></li>
+</ul><p>Aerial velocities can be visualized in three related quantities, as specified
+by argument <code>quantity</code>:</p><ul><li><p><code>ff</code>: ground speed. The aerial velocity relative to the ground surface in
+m/s.</p></li>
+<li><p><code>u</code>: eastward ground speed component in m/s.</p></li>
+<li><p><code>v</code>: northward ground speed component in m/s.</p></li>
+</ul><div class="section">
 <h3 id="barbs">barbs<a class="anchor" aria-label="anchor" href="#barbs"></a></h3>
 
 
