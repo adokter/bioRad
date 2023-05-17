@@ -128,7 +128,7 @@ read_pvolfile_body <- function(file, param = c(
     }
   } else {
     pvol_tmp <- tempfile()
-    rlang::check_installed("vol2birdR", "to read `NEXTRAD` files. To install please run `devtools::install_github('adokter/bioRad')` manually untill it is released to CRAN")
+    rlang::check_installed("vol2birdR", "to read `NEXRAD` files. See https://adokter.github.io/vol2birdR for install instructions.")
     config <- vol2birdR::vol2bird_config()
     vol2birdR::rsl2odim(file = file, config = config, pvolfile_out = pvol_tmp, verbose = verbose)
 

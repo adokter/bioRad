@@ -34,7 +34,7 @@ update_docker <- function(...) {
 #' @export
 vol2bird_version <- function(...) {
   .Deprecated("vol2birdR::vol2bird_version")
-  rlang::check_installed('vol2birdR',"to run `vol2bird_version`. To install please run `devtools::install_github('adokter/bioRad')` manually untill it is released to CRAN")
+  rlang::check_installed('vol2birdR',"to run `vol2bird_version`. See https://adokter.github.io/vol2birdR for install instructions.")
   warning("vol2bird_version has been moved to package vol2birdR")
   vol2birdR::vol2bird_version()
 }

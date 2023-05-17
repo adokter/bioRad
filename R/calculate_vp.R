@@ -219,7 +219,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     file.remove(tmp_pvol_file)
     return(res)
   }
-  rlang::check_installed('vol2birdR','to run `calculate_vp`. To install please run `devtools::install_github("adokter/bioRad")` manually untill it is released to CRAN')
+  rlang::check_installed('vol2birdR','to run `calculate_vp`. See https://adokter.github.io/vol2birdR for install instructions.')
   # check input arguments
   assert_that(
     is.character(file),
