@@ -74,7 +74,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if (interval == "auto") {
     dt <- as.difftime(median(ts$timesteps), units = "secs")
     if (verbose) {
-      cat(paste("projecting on", dt, "seconds interval grid...\n"))
+      message(paste("projecting on", dt, "seconds interval grid...\n"))
     }
   } else {
     dt <- as.difftime(interval, units = units)
