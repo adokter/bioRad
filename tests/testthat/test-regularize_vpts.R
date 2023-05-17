@@ -54,4 +54,13 @@ test_that("`regularize_vpts` has expected results", {
   )$daterange, structure(c(1473458400, 1473631200),
     class = c("POSIXct", "POSIXt"), tzone = ""
   ))
+  expect_equal(
+    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% example_vpts$datetime[c(618,950)]],
+    example_vpts[c(618, 950)]
+  )
+  # check for match in records that are shifted by 60 seconds
+  expect_equal(
+    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% (example_vpts$datetime[c(801, 1515)]+60)]$data,
+    example_vpts[c(801, 1515)]$data
+  )
 })
