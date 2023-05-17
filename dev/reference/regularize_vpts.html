@@ -19,7 +19,7 @@ regular time grid — regularize_vpts"><meta property="og:description" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9572</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9574</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@ continues, and temporal data gaps are filled up visually.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># regularize the time series on a 10 minute interval grid,</span></span></span>
 <span class="r-in"><span><span class="co"># and fill data gaps smaller then 1 hour by nearest neighbor interpolation</span></span></span>
-<span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval<span class="op">=</span><span class="fl">600</span>, fill<span class="op">=</span><span class="fl">3600</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">600</span>, fill <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
