@@ -28,7 +28,6 @@ Imports:
     assertthat,
     aws.s3,
     curl,
-    data.table,
     fields,
     ggmap (>= 3.0.0),
     ggplot2,
@@ -41,6 +40,7 @@ Imports:
     raster,
     readr,
     rgdal,
+    dplyr (>= 1.1.0),
     rhdf5,
     sp,
     stats,
@@ -56,7 +56,6 @@ Suggests:
     knitr,
     rlang,
     tidyselect,
-    dplyr (>= 0.7-0),
     rmarkdown,
     testthat,
     vdiffr
