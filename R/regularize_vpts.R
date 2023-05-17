@@ -50,7 +50,7 @@
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   assert_that(is.vpts(ts))
-  if (interval != "auto") assert_that(is.number(interval), interval > 0) 
+  if (interval != "auto") assert_that(is.number(interval), interval > 0)
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -106,7 +106,11 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
 
-  index <- data.table::setDT(data.frame(datetime=ts$datetime))[data.frame(grid), roll = "nearest", which = TRUE, on = "datetime==grid"]
+  # currently closest from dplyr does not allow for the closest before and after therefore this somewhat long query to find the index of the closest record in the vpts to grid
+  index<-data.frame(grid=grid) %>%
+    left_join(data.frame(ts=ts$datetime, id=seq_along(ts$datetime)),by =join_by(closest(grid>=ts)) ) %>%
+    left_join(data.frame(ts=ts$datetime, id=seq_along(ts$datetime)),by =join_by(closest(grid<=ts)),suffix = c('','.after') ) %>%
+    mutate(index=if_else((grid-ts.after)>(ts-grid),id.after,id), index=if_else(is.na(index), if_else(is.na(id), id.after,id),index)) %>% pull(index)
 
   quantity.names <- names(ts$data)
   ts$data <- lapply(
