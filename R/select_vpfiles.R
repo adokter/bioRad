@@ -1,14 +1,14 @@
-#' Select vertical profile (\code{vp}) files from computer
+#' Select vertical profile (`vp`) files from computer
 #'
-#' Create a list of vertical profile (\code{vp}) files from a local directory
+#' Create a list of vertical profile (`vp`) files from a local directory
 #' that match a specific date and radar range. Files are selected based on their
 #' file name (not directory structure), which should be of format
-#' \code{radar_vp_yyyymmdd*.*}, such as \code{bewid_vp_20171123T1900Z_0x5.h5}.
+#' `radar_vp_yyyymmdd*.*`, such as `bewid_vp_20171123T1900Z_0x5.h5`.
 #'
 #' @param date_min character. YYYY-MM-DD start date of file selection.
 #' @param date_max character. YYYY-MM-DD end date of file selection.
 #' @param radars character (vector). 5-letter country/radar code(s) (e.g.
-#'   \code{bejab}) of radars to include in file selection.
+#'   `bejab`) of radars to include in file selection.
 #' @param directory character. Path to local directory where files should be
 #'   looked for.
 #'

@@ -4,12 +4,12 @@
 #'
 #' @inheritParams beam_height
 #' @param scan a scan (sweep) of class scan
-#' @param lat Geodetic latitude of the radar in degrees. If missing taken from \code{scan}.
-#' @param lon Geodetic longitude of the radar in degrees. If missing taken from \code{scan}.
+#' @param lat Geodetic latitude of the radar in degrees. If missing taken from `scan`.
+#' @param lon Geodetic longitude of the radar in degrees. If missing taken from `scan`.
 #' @return a SpatialPointsDataFrame
 #' @export
-#' @details Beam altitude accounts for the curvature of the earth, using \link{beam_height}.
-#' Distance from the radar over the earth's surface is calculated using \link{beam_distance}.
+#' @details Beam altitude accounts for the curvature of the earth, using [beam_height].
+#' Distance from the radar over the earth's surface is calculated using [beam_distance].
 #' @examples
 #' # load example scan:
 #' data(example_scan)
@@ -63,18 +63,18 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' @param ny number of raster pixels in the y (latitude) dimension
 #' @param xlim x (longitude) range
 #' @param ylim y (latitude) range
-#' @param param scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
+#' @param param scan parameters to include. If `NA` include all scan parameters. Reducing the number
 #' of scan parameters speeds up evaluation.
 #' @param crs character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 #' When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 #' To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"
-#' @param res numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
-#' If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.
+#' @param res numeric vector of length 1 or 2 to set the resolution of the raster (see [res][raster::res]).
+#' If this argument is used, arguments `nx` and `ny` are ignored. Unit is identical to `xlim` and `ylim`.
 #' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
 #' arguments are ignored.
 #' @return a RasterBrick
-#' @details uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
-#' the same raster pixel, the last added pixel is given (see \link[raster]{rasterize} for details).
+#' @details uses [scan_to_spatial] to georeference the scan's pixels. If multiple scan pixels fall within
+#' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
 #' @export
 #' @examples
 #' # default projects full extent on 100x100 pixel raster:

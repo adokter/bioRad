@@ -7,8 +7,7 @@
 check_radar_codes(radars)
 }
 \arguments{
-\item{radars}{character vector. Radar codes to check, e.g. \code{c("bejab",
-"bewideu")}.}
+\item{radars}{character vector. Radar codes to check, e.g. \code{c("bejab", "bewideu")}.}
 }
 \value{
 NULL. Will stop and show error message if at least one of the

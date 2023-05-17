@@ -12,7 +12,7 @@ sunset(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 }
 \arguments{
 \item{date}{Date inheriting from class \code{POSIXt} or a string
-interpretable by \link[base]{as.Date}.}
+interpretable by \link[base:as.Date]{as.Date}.}
 
 \item{lon}{Longitude in decimal degrees.}
 

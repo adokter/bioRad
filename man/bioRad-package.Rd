@@ -12,14 +12,13 @@ Extract, visualize and summarize aerial movements of birds and insects from weat
 }
 \details{
 To get started, see:
-
 \itemize{
-\item Dokter et al. (2019) \doi{10.1111/ecog.04028}: a
-paper describing the package.
-\item \href{https://adriaandokter.com/bioRad/articles/bioRad.html}{bioRad
-vignette}: an introduction to bioRad's main functionalities.
-\item \href{https://adriaandokter.com/bioRad/reference/index.html}{Function
-reference}: an overview of all bioRad functions.
+\item Dokter et al. (2019) \doi{10.1111/ecog.04028}: a paper describing the
+package.
+\item \href{https://adriaandokter.com/bioRad/articles/bioRad.html}{bioRad vignette}: an
+introduction to bioRad's main functionalities.
+\item \href{https://adriaandokter.com/bioRad/reference/index.html}{Function reference}: an
+overview of all bioRad functions.
 }
 }
 \seealso{
