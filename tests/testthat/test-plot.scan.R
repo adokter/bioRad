@@ -34,8 +34,6 @@ test_that("plot.scan() returns as much data as in the scan", {
    # to previously saved snapshot. If it fails, a warning is given and the new
    # snapshot is stored with ".new" appended to name for manual inspection.
 
-   skip_on_cran()
-
    vdiffr::expect_doppelganger(
      "example_plot_DBZH",
      plot.scan(example_scan, param = "DBZH")

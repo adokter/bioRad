@@ -33,7 +33,7 @@ test_that("plot.vpts() creates expected graph", {
    # On consecutive runs: creates new snapshot and checks that it looks identical
    # to previously saved snapshot. If it fails, a warning is given and the new
    # snapshot is stored with ".new" appended to name for manual inspection.
-  skip_on_cran()
+
    vdiffr::expect_doppelganger(
      "example_plot_dens",
      plot.vpts(example_vpts_reg, quantity = "dens")
