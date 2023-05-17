@@ -3,11 +3,11 @@
 #' @param x A `vp` class object.
 #' @param quantity Character string with the quantity to plot. See
 #' [vp][summary.vp] for list of available quantities.
-##'  * Aerial density related : '`dens`', '`eta`', '`dbz`',
-##'    '`DBZH`' for density, reflectivity, reflectivity factor and total
-##'    reflectivity factor, respectively.
-##'  * Ground speed related : '`ff`','`dd`', for ground speed
-##'    and direction, respectively.
+#' * Aerial density related : `dens`, `eta`, `dbz`, `DBZH` for density,
+#'   reflectivity, reflectivity factor and total reflectivity factor,
+#'   respectively.
+#' * Ground speed related : `ff`, `dd`, for ground speed and direction,
+#'   respectively.
 #' @param xlab A title for the x axis.
 #' @param ylab A title for the y axis.
 #' @param line_col Color of the plotted curve.

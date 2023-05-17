@@ -5,16 +5,16 @@
 #' @param x 1 class object inheriting from class `vpi`, typically a
 #' call to [integrate_profile][bioRad::integrate_profile].
 #' @param quantity Character string with the quantity to plot, one of
-#' '`vid`' (vertically integrated density),
-#' '`vir`' (vertically integrated reflectivity),
-#' '`mtr`' (migration traffic rate),
-#' '`rtr`' (reflectivity traffic rate),
-#' '`mt`' ((cumulative) migration traffic),
-#' '`rt`' ((cumulative) reflectivity traffic),
-#' '`ff`' (height-averaged ground speed)
-#' '`dd`' (height-averaged direction)
-#' '`u`' (height-averaged u-component of ground speed),
-#' '`v`' (height-averaged v-component of ground speed).
+#' * `vid` (vertically integrated density),
+#' * `vir` (vertically integrated reflectivity),
+#' * `mtr` (migration traffic rate),
+#' * `rtr` (reflectivity traffic rate),
+#' * `mt` ((cumulative) migration traffic),
+#' * `rt` ((cumulative) reflectivity traffic),
+#' * `ff` (height-averaged ground speed)
+#' * `dd` (height-averaged direction)
+#' * `u` (height-averaged u-component of ground speed),
+#' * `v` (height-averaged v-component of ground speed).
 #' @param ylim y-axis plot range, numeric atomic vector of length 2.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
@@ -37,24 +37,25 @@
 #' @details
 #' The integrated profiles can be visualized in various related quantities, as specified by
 #' argument `quantity`:
-#'  * "`vid`" : Vertically Integrated Density, i.e. the aerial surface
-#'    density of individuals. This quantity is dependent on the assumed radar
-#'    cross section per individual (RCS)
-#'  * "`vir`" : Vertically Integrated Reflectivity. This quantity is
-#'    independent of the value of individual's radar cross section
-#'  * "`mtr`" : Migration Traffic Rate. This quantity is dependent on
-#'    the assumed radar cross section (RCS)
-#'  * "`rtr`" : Reflectivity Traffic Rate. This quantity is independent
-#'    on the assumed radar cross section (RCS)
-#'  * "`mt`" : Migration Traffic. This quantity is dependent on
-#'    the assumed radar cross section (RCS)
-#'  * "`rt`" : Reflectivity Traffic. This quantity is independent
-#'    on the assumed radar cross section (RCS)
-#'  * `ff` : Horizontal ground speed in m/s
-#'  * `dd` : Horizontal ground speed direction in degrees
-#'  * `u` : Ground speed component west to east in m/s
-#'  * `v` : Ground speed component south to north in m/s
-#'  * `height` : Mean flight height (height weighted by reflectivity eta) in m above sea level
+#' * `vid`: Vertically Integrated Density, i.e. the aerial surface density of
+#'   individuals. This quantity is dependent on the assumed radar cross section
+#'   per individual (RCS)
+#' * `vir`: Vertically Integrated Reflectivity. This quantity is independent of
+#'   the value of individual's radar cross section
+#' * `mtr`: Migration Traffic Rate. This quantity is dependent on the assumed
+#'   radar cross section (RCS)
+#' * `rtr`: Reflectivity Traffic Rate. This quantity is independent on the
+#'   assumed radar cross section (RCS)
+#' * `mt`: Migration Traffic. This quantity is dependent on the assumed radar
+#'   cross section (RCS)
+#' * `rt`: Reflectivity Traffic. This quantity is independent on the assumed
+#'   radar cross section (RCS)
+#' * `ff`: Horizontal ground speed in m/s
+#' * `dd`: Horizontal ground speed direction in degrees
+#' * `u`: Ground speed component west to east in m/s
+#' * `v`: Ground speed component south to north in m/s
+#' * `height`: Mean flight height (height weighted by reflectivity eta) in m
+#'   above sea level
 #' The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 #' @examples
 #' # vertically integrate a vpts object:

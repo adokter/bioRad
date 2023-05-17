@@ -33,16 +33,16 @@
 #' model (ODIM), see Table 16 in the
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #' Commonly available parameters are:
-#'  * "`DBZH`", "`DBZ`" :  (Logged) reflectivity factor (dBZ)
-#'  * "`TH`", "`T`" :  (Logged) uncorrected reflectivity factor (dBZ)
-#'  * "`VRADH`", "`VRAD`" :  Radial velocity (m/s). Radial
+#' * `DBZH`, `DBZ`: (Logged) reflectivity factor (dBZ)
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor (dBZ)
+#' * `VRADH`, `VRAD`: Radial velocity (m/s). Radial
 #'    velocities towards the radar are negative, while radial velocities away
 #'    from the radar are positive
-#'  * "`RHOHV`" :  Correlation coefficient (unitless). Correlation
+#' * `RHOHV`: Correlation coefficient (unitless). Correlation
 #'    between vertically polarized and horizontally polarized reflectivity
 #'    factor
-#'  * "`PHIDP`" :  Differential phase (degrees)
-#'  * "`ZDR`" :  (Logged) differential reflectivity (dB)
+#' * `PHIDP`: Differential phase (degrees)
+#' * `ZDR`: (Logged) differential reflectivity (dB)
 #'
 #' @examples
 #' # locate example volume file:

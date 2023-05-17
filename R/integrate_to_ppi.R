@@ -28,22 +28,24 @@
 #' The function requires
 #' * a polar volume, containing one or multiple scans (`pvol`)
 #' * a vertical profile (of birds) calculated for that same polar volume (`vp`)
-#' * a grid defined on the earth's surface, on which we will calculate the range corrected image
-#' (defined by `raster`, or a combination of `nx`,`ny`,`res` arguments).
+#' * a grid defined on the earth's surface, on which we will calculate the range
+#'   corrected image (defined by `raster`, or a combination of `nx`,`ny`,`res`
+#'   arguments).
 #'
 #' The pixel locations on the ground are easily translated into a corresponding azimuth and range of
 #' the various scans (see function [beam_range]).
 #'
 #' For each scan within the polar volume, the function calculates:
-#' * the vertical radiation profile for each ground surface pixel for that particular scan,
-#'  using [beam_profile].
-#' * the reflectivity expected for each ground surface pixel (\eqn{\eta_{expected}}),
-#'  given the vertical profile (of biological scatterers) and the part of the profile radiated
-#'  by the beam. This \eqn{\eta_{expected}} is simply the average of
-#'  (linear) `eta` in the profile, weighted by the vertical radiation profile.
-#' * the observed eta at each pixel \eqn{\eta_{observed}},
-#'  which is converted form `DBZH` using function [dbz_to_eta],
-#'  with `DBZH` the reflectivity factor measured at the pixel's distance from the radar.
+#' * the vertical radiation profile for each ground surface pixel for that
+#'   particular scan, using [beam_profile].
+#' * the reflectivity expected for each ground surface pixel
+#'   (\eqn{\eta_{expected}}), given the vertical profile (of biological
+#'   scatterers) and the part of the profile radiated by the beam.
+#'   This \eqn{\eta_{expected}} is simply the average of (linear) `eta` in the
+#'   profile, weighted by the vertical radiation profile.
+#' * the observed eta at each pixel \eqn{\eta_{observed}}, which is converted
+#'   form `DBZH` using function [dbz_to_eta], with `DBZH` the reflectivity
+#'   factor measured at the pixel's distance from the radar.
 #'
 #' For each pixel on the ground, we thus retrieve a set of \eqn{\eta_{expected}}
 #' and a set of \eqn{\eta_{observed}}. From those we can calculate a spatial adjustment factor
@@ -54,14 +56,12 @@
 #'
 #' To arrive at the final PPI image, the function calculates
 #' * the vertically integrated density (`vid`) and vertically integrated
-#'  reflectivity (`vir`) for the profile,
-#'  using the function [integrate_profile].
+#'   reflectivity (`vir`) for the profile, using the function
+#'   [integrate_profile].
 #' * the spatial range-corrected PPI for `VID`, defined as the adjustment
-#'  factor image (`R`), multiplied by the `vid`
-#'  calculated for the profile
-#' * the spatial range-corrected PPI for `VIR`, defined as the
-#'  adjustment factor `R`, multiplied by the `vir` calculated for the profile.
-#'
+#'   factor image (`R`), multiplied by the `vid` calculated for the profile
+#' * the spatial range-corrected PPI for `VIR`, defined as the adjustment
+#'   factor `R`, multiplied by the `vir` calculated for the profile.
 #'
 #' If one of `lat` or `lon` is missing, the extent of the PPI is taken equal to
 #' the extent of the data in the first scan of the polar volume.
@@ -119,11 +119,11 @@
 #' plot(my_ppi, param = "VID", zlim = c(0, 200))
 #' }
 #' @references
-#'   * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
-#'   Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial Distribution of
-#'   Bird Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-#'   \doi{10.3390/rs12040635}
-#'   * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
+#' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
+#'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+#'   Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+#'   635. \doi{10.3390/rs12040635}
+#' * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
 #'   \doi{10.1109/TGRS.2009.2014463}

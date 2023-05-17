@@ -45,18 +45,18 @@
 #' MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
 #' to a 100% probability) as additional scan parameters to the polar volume:
 #'
-#' * `BACKGROUND` : Class probability that no signal was detected above the noise level of the radar
-#' * `WEATHER` : Class probability that weather was detected
-#' * `BIOLOGY` : Class probability that biological scatterers were detected
+#' * `BACKGROUND`: Class probability that no signal was detected above the noise
+#'   level of the radar
+#' * `WEATHER`: Class probability that weather was detected
+#' * `BIOLOGY`: Class probability that biological scatterers were detected
 #'
 #' These class probabilities are only available for the 5 input elevations used
 #' as input for the MistNet model. Based on all the class probabilities a final weather segmentation map calculated,
 #' stored as scan parameter `CELL`, which is available for all elevation scans.
 
-#' * `CELL` : Final weather segmentation, with values > 1 indicating pixels
-#'  classified as weather, and values equal to 1 indicating pixels
-#'  that are located within 5 km distance of a weather pixels
-
+#' * `CELL`: Final weather segmentation, with values > 1 indicating pixels
+#'  classified as weather, and values equal to 1 indicating pixels that are
+#'  located within 5 km distance of a weather pixels
 #'
 #' A pixel is classified as weather if the class probability `WEATHER` > 0.45
 #' or when the average class probability for rain across all five MistNet elevation
@@ -69,7 +69,7 @@
 #' @references
 #' Please also cite this publication when using MistNet:
 #'
-#'   * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
+#' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
 #'   Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 #'   MistNet: Measuring historical bird migration in the US using archived
 #'   weather radar data and convolutional neural networks. Methods in Ecology

@@ -32,15 +32,14 @@
 #' Argument `method` determines how values of different ppi's at the same
 #' geographic location are combined.
 #'
-#' * `"mean"` : Compute the average value
-#' * `"max"` : Compute the maximum value. If ppi's are of the same radar
-#' and the same polar volume, this computes a max product, showing the maximum
-#' detected signal at that geographic location.
-#' * `"min"` : Compute the minimum value
-#' * `"idw"` : This option is useful primarily when compositing ppi's of
-#' multiple radars. Performs an inverse distance weighting, where values are
-#' weighted according to 1/(distance from the radar)^`idp`
-#'
+#' * `mean`: Compute the average value
+#' * `max`: Compute the maximum value. If ppi's are of the same radar and the
+#'   same polar volume, this computes a max product, showing the maximum
+#'   detected signal at that geographic location.
+#' * `min`: Compute the minimum value
+#' * `idw`: This option is useful primarily when compositing ppi's of multiple
+#'   radars. Performs an inverse distance weighting, where values are weighted
+#'   according to 1/(distance from the radar)^`idp`
 #'
 #' The coordinates system of the returned `ppi` is a WGS84
 #' (lat, lon) datum, unless a different `crs` is provided. If only
