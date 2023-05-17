@@ -1,17 +1,17 @@
-#' Map a plan position indicator (\code{ppi})
+#' Map a plan position indicator (`ppi`)
 #'
 #' Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
-#' layer map using \link[ggmap]{ggmap}.
+#' layer map using [ggmap][ggmap::ggmap].
 #'
-#' @param x An object of class \code{ppi}.
-#' @param map  The basemap to use, result of a call to \link{download_basemap}.
+#' @param x An object of class `ppi`.
+#' @param map  The basemap to use, result of a call to [download_basemap].
 #' @param param The scan parameter to plot.
 #' @param alpha Transparency of the data, value between 0 and 1.
 #' @param radar_size Size of the symbol indicating the radar position.
 #' @param radar_color Color of the symbol indicating the radar position.
 #' @param n_color The number of colors (>=1) to be in the palette.
 #' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
+#' the plot color scale, e.g. output from [viridis][viridisLite::viridis]
 #' @param xlim Range of x values to plot (degrees longitude), as atomic
 #' vector of length 2.
 #' @param ylim Range of y values to plot (degrees latitude), as an atomic
@@ -19,7 +19,7 @@
 #' @param zlim The range of values to plot.
 #' @param ratio Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
-#' @param ... Arguments passed to low level \link[ggmap]{ggmap} function.
+#' @param ... Arguments passed to low level [ggmap][ggmap::ggmap] function.
 #' @param radar.size Deprecated argument, use radar_size instead.
 #' @param radar.color Deprecated argument, use radar_color instead.
 #' @param n.color Deprecated argument, use n_color instead.
@@ -29,21 +29,18 @@
 #'
 #' @details
 #' Available scan parameters for mapping can by printed to screen by
-#' \code{summary(x)}. Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-#'  velocities towards the radar are negative, while radial velocities away
-#'  from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless) Correlation
-#'  between vertically polarized and horizontally polarized reflectivity factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
+#' `summary(x)`. Commonly available parameters are:
+#' * `DBZH`, `DBZ`: (Logged) reflectivity factor (dBZ)
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor (dBZ)
+#' * `VRADH`, `VRAD`: Radial velocity (m/s). Radial velocities towards the radar
+#'   are negative, while radial velocities away from the radar are positive
+#' * `RHOHV`: Correlation coefficient (unitless) Correlation between vertically
+#'   polarized and horizontally polarized reflectivity factor
+#' * `PHIDP`: Differential phase (degrees)
+#' * `ZDR`: (Logged) differential reflectivity (dB)
 #' The scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #'
 #' @export
 #' @examples

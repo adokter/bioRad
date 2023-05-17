@@ -32,7 +32,7 @@ scan_to_raster(
 
 \item{ylim}{y (latitude) range}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{param}{scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
@@ -63,7 +63,7 @@ convert an object of class 'scan' into a raster of class 'RasterBrick'
 }
 \details{
 uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
-the same raster pixel, the last added pixel is given (see \link[raster]{rasterize} for details).
+the same raster pixel, the last added pixel is given (see \link[raster:rasterize]{rasterize} for details).
 }
 \examples{
 # default projects full extent on 100x100 pixel raster:

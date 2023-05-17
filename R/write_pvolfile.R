@@ -1,13 +1,13 @@
-#' Write a polar volume (\code{pvol}) object to ODIM HDF5 file
+#' Write a polar volume (`pvol`) object to ODIM HDF5 file
 #'
-#' @param pvol An object of class \code{pvol}.
-#' @param file string. A filepath to write the \code{pvol} object to.
+#' @param pvol An object of class `pvol`.
+#' @param file string. A filepath to write the `pvol` object to.
 #' @param overwrite logical. Overwrites existing file when TRUE.
 #' @param infer_dtype logical. By default (infer_dtype = FALSE) writes 'params'
 #' back into ODIM HDF5 files with data stored in original data types. When TRUE
 #' infers data type from the R object data type, at the cost of (heavily) inflated file sizes.
 #'
-#' @return 0 on success. A \code{pvol} object will be written to file in ODIM H5 format.
+#' @return 0 on success. A `pvol` object will be written to file in ODIM H5 format.
 #'
 #' @export
 #'

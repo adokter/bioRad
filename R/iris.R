@@ -5,7 +5,7 @@
 #' @param file A string containing a file name.
 #' @param header_size Number of header bytes to search
 #' @param task task names to search for in the file header
-#' @return one of the \code{task} names found in the header, \code{NA} if none of the task names were found.
+#' @return one of the `task` names found in the header, `NA` if none of the task names were found.
 #'
 #' @export
 get_iris_raw_task <- function(file, header_size=50, task=c("WIND","SURVEILLANCE","VOL_A","VOL_B")){

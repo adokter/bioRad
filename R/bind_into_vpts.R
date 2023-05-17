@@ -1,15 +1,15 @@
-#' Bind vertical profiles (\code{vp}) into time series (\code{vpts})
+#' Bind vertical profiles (`vp`) into time series (`vpts`)
 #'
-#' Binds vertical profiles (\code{vp}) into a vertical profile time series
-#' (\code{vpts}), sorted in time. Can also bind multiple \code{vpts} of a
-#' single radar into one \code{vpts}.
+#' Binds vertical profiles (`vp`) into a vertical profile time series
+#' (`vpts`), sorted in time. Can also bind multiple `vpts` of a
+#' single radar into one `vpts`.
 #'
-#' @param x A \code{vp}, \code{vpts} or a vector of these.
-#' @param ... A \code{vp}, \code{vpts} or a vector of these.
+#' @param x A `vp`, `vpts` or a vector of these.
+#' @param ... A `vp`, `vpts` or a vector of these.
 #'
-#' @return A \code{\link[=summary.vpts]{vpts}} for a single radar or a list of
-#' \code{vpts} for multiple radars. Input \code{vp} are sorted in time in the
-#' output \code{vpts}.
+#' @return A [`vpts()`][summary.vpts] for a single radar or a list of
+#' `vpts` for multiple radars. Input `vp` are sorted in time in the
+#' output `vpts`.
 #'
 #' @export
 #'
@@ -43,9 +43,9 @@
 #' bind_into_vpts(vp1, vp2)
 bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 
-#' @describeIn bind_into_vpts Bind multiple \code{vp} into a \code{vpts}.
-#' If \code{vp} for multiple radars are provided, a list is returned containing
-#' a \code{vpts} for each radar.
+#' @describeIn bind_into_vpts Bind multiple `vp` into a `vpts`.
+#' If `vp` for multiple radars are provided, a list is returned containing
+#' a `vpts` for each radar.
 #'
 #' @export
 bind_into_vpts.vp <- function(...) {
@@ -57,9 +57,9 @@ bind_into_vpts.vp <- function(...) {
   vplist_to_vpts(c.vp(...))
 }
 
-#' @describeIn bind_into_vpts Bind multiple \code{vp} objects into a
-#' \code{vpts}. If data for multiple radars is provided, a list is returned
-#' containing a \code{vpts} for each radar.
+#' @describeIn bind_into_vpts Bind multiple `vp` objects into a
+#' `vpts`. If data for multiple radars is provided, a list is returned
+#' containing a `vpts` for each radar.
 #'
 #' @export
 bind_into_vpts.list <- function(x, ...) {
@@ -70,10 +70,10 @@ bind_into_vpts.list <- function(x, ...) {
   vplist_to_vpts(x, ...)
 }
 
-#' @describeIn bind_into_vpts Bind multiple \code{vpts} into a single
-#' \code{vpts}. Requires the input \code{vpts} to be from the same radar.
+#' @describeIn bind_into_vpts Bind multiple `vpts` into a single
+#' `vpts`. Requires the input `vpts` to be from the same radar.
 #'
-#' @param attributes_from integer. Which \code{vpts} to copy attributes from (default:
+#' @param attributes_from integer. Which `vpts` to copy attributes from (default:
 #' first).
 #'
 #' @export
@@ -137,20 +137,20 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   output
 }
 
-#' Bind vertical profiles (\code{vp}) into time series (\code{vpts})
+#' Bind vertical profiles (`vp`) into time series (`vpts`)
 #'
-#' Used as helper function for the method dispatched \code{bind_into_vpts} and
-#' keeping backward compatibility with the \code{vpts} function.
+#' Used as helper function for the method dispatched `bind_into_vpts` and
+#' keeping backward compatibility with the `vpts` function.
 #'
-#' @param x A list of \code{vp} objects, usually a result of a call
-#' to \link{read_vpfiles}.
+#' @param x A list of `vp` objects, usually a result of a call
+#' to [read_vpfiles].
 #' @param radar optional string containing the radar identifier to generate
 #' time series for.
 #'
-#' @return an object of class \link[=summary.vpts]{vpts} when \code{list}
+#' @return an object of class [vpts][summary.vpts] when `list`
 #' contains profiles of a single radar. A list of objects of class
-#' \link[=summary.vpts]{vpts} in case when \code{list} contains profiles of
-#' multiple radars, containing \link[=summary.vpts]{vpts} objects for each radar.
+#' [vpts][summary.vpts] in case when `list` contains profiles of
+#' multiple radars, containing [vpts][summary.vpts] objects for each radar.
 #'
 #' @keywords internal
 #'
