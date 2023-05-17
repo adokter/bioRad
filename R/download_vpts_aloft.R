@@ -1,8 +1,7 @@
 #' Download vertical profile time series data (`vpts`) from aloftdata.eu
 #'
 #' @param directory description
-#' @return
-#' @family
+#' @return invisibly return directory
 #' @export
 #' @examples
 #' # example code
@@ -10,6 +9,10 @@ download_vpts_aloft <- function(directory = ".", radars = NULL,
                                 start_date = NULL, end_date = NULL,
                                 source = "baltrad", format = "csv",
                                 overwrite = FALSE) {
+
+
+# assertations ------------------------------------------------------------
+
   # Check source
   valid_sources <- c("baltrad", "ecog-04003")
   assertthat::assert_that(
@@ -38,6 +41,8 @@ download_vpts_aloft <- function(directory = ".", radars = NULL,
   start_date <- as.Date(start_date, tz = NULL)
   end_date <- as.Date(end_date, tz = NULL)
 
+# create file list --------------------------------------------------------
+
   # Set base URL
   base_url <- "https://aloft.s3-eu-west-1.amazonaws.com"
 
@@ -50,8 +55,17 @@ download_vpts_aloft <- function(directory = ".", radars = NULL,
     # TODO: create file path of form
     # https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202302.csv.gz
 
+    # urls <-
+    #   expand.grid(base_url, source, "monthly", radars, substring(months, 1, 4), months) %>%
+    #   dplyr::mutate(filename = paste0(Var4,"_vpts_",Var6,".csv.gz")) %>%
+    #   dplyr::select(-"Var6") %>%
+    #   apply(1, function(x){paste(x, collapse = "/")}) %>%
+    #   unique() %>%
+    #   sort()
+
+
     # This alternates incorrectly, creating too few file paths
-    paste0("radar/", substring(month_range, 1, 4), "/", "bejab_vpts_", month_range, ".csv.gz")
+    # paste0("radar/", substring(month_range, 1, 4), "/", "bejab_vpts_", month_range, ".csv.gz")
 
     # Alternatively, use aws.s3 bucket
     # Get list of files
@@ -63,10 +77,17 @@ download_vpts_aloft <- function(directory = ".", radars = NULL,
     # hdf5 files
     # TODO: create file paths of form
     # https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/bejab/2023/05/02/bejab_vp_20230502T000000Z_0x9.h5
-  }
+    }
+
+
+# check if files exist ----------------------------------------------------
+
+  purrr::map(urls, ~httr::http_error(httr::HEAD(.x)))
 
   # Create directory if it doesn't exists yet
   if (!dir.exists(directory)) {
     dir.create(directory, recursive = TRUE)
   }
+
+  invisible(directory)
 }
