@@ -23,7 +23,7 @@
 #' @import sp
 #' @import utils
 #' @import assertthat
-#' @import data.table
+#' @importFrom dplyr mutate pull bind_rows left_join join_by if_else
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom raster rasterize
