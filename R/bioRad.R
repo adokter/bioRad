@@ -36,5 +36,6 @@
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
 #' @importFrom tidyr fill
+#' @importFrom dplyr %>%
 #'
 "_PACKAGE"

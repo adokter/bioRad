@@ -75,7 +75,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   }
   # check size of ppi and determine zoom
   if (missing(zoom)) {
-    use_zoom <- calc_zoom(x$geo$bbox["lon", ], x$geo$bbox["lat", ])
+    use_zoom <- ggmap::calc_zoom(x$geo$bbox["lon", ], x$geo$bbox["lat", ])
   } else {
     use_zoom <- zoom
   }
@@ -83,7 +83,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   if (verbose) {
     cat("Downloading zoom =", use_zoom, "...\n")
   }
-  map <- get_map(
+  map <- ggmap::get_map(
     location = location,
     zoom = use_zoom,
     source = source,
@@ -100,7 +100,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
       if (verbose) {
         cat("Map too small, downloading zoom =", use_zoom - 1, "...\n")
       }
-      map <- get_map(
+      map <- ggmap::get_map(
         location = location,
         zoom = use_zoom - 1,
         source = source,
@@ -115,7 +115,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
         if (verbose) {
           cat("Map still too small, downloading zoom =", use_zoom - 2, "...\n")
         }
-        map <- get_map(
+        map <- ggmap::get_map(
           location = location,
           zoom = use_zoom - 2,
           source = source,
