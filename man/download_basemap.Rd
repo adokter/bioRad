@@ -43,9 +43,6 @@ map using \link[ggmap:get_map]{get_map}.
 To use Google Maps as \code{source}, you will have to register with Google,
 enable billing and provide an API key to ggmap. See the ggmap
 \href{https://github.com/dkahle/ggmap#attention}{README} for details.
-
-To use \code{maptype}, install the development version of ggmap (>3.0.0) with
-\code{devtools::install_github("dkahle/ggmap")}.
 }
 \examples{
 # load an example scan:

@@ -18,7 +18,6 @@
 #' @import methods
 #' @import graphics
 #' @import ggplot2
-#' @import ggmap
 #' @import glue
 #' @import rgdal
 #' @import sp
@@ -37,5 +36,6 @@
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
 #' @importFrom tidyr fill
+#' @importFrom dplyr %>%
 #'
 "_PACKAGE"
