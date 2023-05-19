@@ -240,8 +240,9 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   if (missing(xlim)) xlim <- bboxlatlon[1, ]
   if (missing(ylim)) ylim <- bboxlatlon[2, ]
   # plot the data on the map
+  rlang::check_installed("ggmap",'to map ppi\'s', version = '3.0.0')
   mymap <- suppressMessages(
-    ggmap(map) +
+    ggmap::ggmap(map) +
       inset_raster(raster::as.matrix(r), e@xmin, e@xmax, e@ymin, e@ymax) +
       dummy + colorscale +
       radarpoint +
