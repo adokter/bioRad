@@ -26,7 +26,6 @@
 #' @importFrom raster extent
 #' @importFrom raster crs
 #' @importFrom readr parse_datetime
-#' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
 #' @importFrom tidyr fill
 #' @importFrom dplyr %>% .data

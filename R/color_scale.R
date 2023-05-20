@@ -35,7 +35,7 @@ color_scale_fill <- function(param, zlim, na.value = "transparent") {
 color_palette <- function(param, n_color, alpha){
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
-      colorRampPalette(
+      grDevices::colorRampPalette(
         colors = colors_vrad,
         alpha = TRUE
       )(n_color),
@@ -45,7 +45,7 @@ color_palette <- function(param, n_color, alpha){
     cols <- viridisLite::viridis(n=n_color, alpha=alpha)
   } else {
     cols <- add_color_transparency(
-      colorRampPalette(
+      grDevices::colorRampPalette(
         colors = colors_dbz,
         alpha = TRUE
       )(n_color),
@@ -80,8 +80,8 @@ add_color_transparency <- function(color, alpha = 1) {
     stop("Please provide a vector or matrix of colours.")
   }
 
-  mycol <- col2rgb(color) / 255
-  mycol <- rgb(mycol[1, ], mycol[2, ], mycol[3, ], alpha = alpha)
+  mycol <- grDevices::col2rgb(color) / 255
+  mycol <- grDevices::rgb(mycol[1, ], mycol[2, ], mycol[3, ], alpha = alpha)
   if (inherits(color, "ggmap")) {
     mycol <- matrix(mycol, nrow = dim(color)[1], ncol = dim(color)[2])
     attributes(mycol) <- attributes(color)
@@ -93,7 +93,7 @@ add_color_transparency <- function(color, alpha = 1) {
   }
   else {
     return(mycol)
-    # apply(sapply(color, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha=alpha))
+    # apply(sapply(color, grDevices::col2rgb)/255, 2, function(x) grDevices::rgb(x[1], x[2], x[3], alpha=alpha))
   }
 }
 
@@ -112,7 +112,7 @@ g_points <- c(1, 65, 80, 111, 143, 256)
 g_values <- c(255, 255, 163, 163, 0, 0)
 b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
 b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
-vpts_default_palette <- rgb(approx(
+vpts_default_palette <- grDevices::rgb(approx(
   r_points, r_values,
   seq(1, 255, length.out = 255)
 )$y,

@@ -279,7 +279,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   }
   else{
     if(quantity %in% c("dens","eta","dbz","DBZH")){
-      palette <- colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
+      palette <- grDevices::colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
     } else if(quantity %in% c("u","v")){
       palette <- rev(color_palette("VRADH", n_color=n_color))
     } else if(quantity %in% c("dd","heading")){
