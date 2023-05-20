@@ -37,7 +37,7 @@ sd_vvp_threshold.vp <- function(x) {
 #'
 #' @export
 sd_vvp_threshold.list <- function(x) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("`x` must be list of `vp` objects.")
   }
@@ -106,7 +106,7 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' @export
 `sd_vvp_threshold<-.list` <- function(x, value) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("`x` must be list of `vp` objects.")
   }

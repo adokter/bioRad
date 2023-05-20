@@ -50,7 +50,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
                       ylim = c(0, 360), zlim = c(-20, 20), na.value = "transparent", ...) {
   stopifnot(inherits(x, "scan"))
 
-  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (methods::hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$params)) {

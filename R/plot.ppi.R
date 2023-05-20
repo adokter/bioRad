@@ -56,7 +56,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
                      ratio = 1, na.value = "transparent", ...) {
   stopifnot(inherits(x, "ppi"))
 
-  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (methods::hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {

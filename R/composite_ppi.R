@@ -138,7 +138,7 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
 
   # initialize all values of the grid to NA
   suppressWarnings(r <- raster::setValues(r, NA))
-  spGrid = as(r, 'SpatialGridDataFrame')
+  spGrid = methods::as(r, 'SpatialGridDataFrame')
   names(spGrid@data) <- names(ppis[[1]]$data)[1]
 
   if (coverage) {

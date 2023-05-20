@@ -43,7 +43,7 @@ plot.vp <- function(x, quantity = "dens",
                     line_lwd = 1, line.col = "red", line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
 
-  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function argument
   if (!missing(line.col)) {

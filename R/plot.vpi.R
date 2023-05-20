@@ -74,7 +74,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     msg = glue::glue("quantity `{quantity}` not found in vpi object.")
   )
 
-  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function argument
   if (!missing(nightshade)) {

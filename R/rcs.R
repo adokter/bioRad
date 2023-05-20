@@ -38,7 +38,7 @@ rcs.vp <- function(x) {
 #'
 #' @export
 rcs.list <- function(x) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("`x` must be list of `vp` objects.")
   }
@@ -116,7 +116,7 @@ rcs.vpi <- function(x) {
 #'
 #' @export
 `rcs<-.list` <- function(x, value) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("`x` must be list of `vp` objects.")
   }

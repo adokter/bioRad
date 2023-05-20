@@ -305,7 +305,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,
                                    interval_replace=NA, height_quantile = NA) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }

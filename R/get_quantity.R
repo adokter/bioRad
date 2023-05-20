@@ -88,7 +88,7 @@ get_quantity.vp <- function(x, quantity = "dens") {
 #' @return For a `list` object: a list of named (height bin) vectors with values
 #'   for the selected quantity.
 get_quantity.list <- function(x, quantity = "dens") {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("`x` must be list of `vp` objects.")
   }

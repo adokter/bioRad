@@ -138,7 +138,7 @@ check_night.vp <- function(x, ..., elev = -0.268, offset = 0) {
 #'
 #' @export
 check_night.list <- function(x, ..., elev = -0.268, offset = 0) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }

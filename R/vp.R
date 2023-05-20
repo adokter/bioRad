@@ -142,7 +142,7 @@ dim.vp <- function(x) {
 #' @seealso [bind_into_vpts()]
 c.vp <- function(...) {
   vp_list <- list(...)
-  is_vp <- sapply(vp_list, function(x) is(x, "vp"))
+  is_vp <- sapply(vp_list, function(x) methods::is(x, "vp"))
   assertthat::assert_that(all(is_vp), msg = "Each element must be a `vp` object.")
   # extract radar identifiers
   radars <- unique(sapply(vp_list, "[[", "radar"))

@@ -14,7 +14,6 @@
 #'
 #' @import stats
 #' @import rhdf5
-#' @import methods
 #' @import rgdal
 #' @import sp
 #' @import utils

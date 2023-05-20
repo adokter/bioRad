@@ -225,11 +225,11 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
         spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
       )
     })
-    output <- as(raster, "SpatialGridDataFrame")
+    output <- methods::as(raster, "SpatialGridDataFrame")
     output@data <- rasters[[1]]@data
   } else {
     rasters <- lapply(pvol$scans, function(x) {
-      as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }

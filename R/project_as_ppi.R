@@ -97,7 +97,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
       " +units=m",
       sep = ""
     ))
-    grid_size <- spTransform(as(as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
+    grid_size <- spTransform(methods::as(methods::as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
   }
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
@@ -124,7 +124,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
     data <- do.call(cbind, alldata)
   }
   if (inherits(data, "SpatialPoints")) {
-    data <- SpatialGridDataFrame(as(raster, "SpatialGrid"), data@data)
+    data <- SpatialGridDataFrame(methods::as(raster, "SpatialGrid"), data@data)
   }
   data <- list(
     radar = x$radar, datetime = x$datetime,
@@ -144,11 +144,11 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   ))
   if (inherits(grid_size, c("RasterLayer", "SpatialPoints"))) {
     if (proj4string(grid_size) != as.character(proj4string)) {
-      gridTopo <- spTransform(as(as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
+      gridTopo <- spTransform(methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
     } else if (inherits(grid_size, "RasterLayer")) {
-      gridTopo <- as(as(grid_size, "SpatialGrid"), "SpatialPoints")
+      gridTopo <- methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints")
     } else {
-      gridTopo <- as(grid_size, "SpatialPoints")
+      gridTopo <- methods::as(grid_size, "SpatialPoints")
     }
   } else {
     bboxlatlon <- proj_to_wgs(
@@ -218,7 +218,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   colnames(data) <- attributes(param)$param
 
   if (inherits(grid_size, "RasterLayer")) {
-    output <- SpatialGridDataFrame(as(grid_size, "SpatialGrid"), data)
+    output <- SpatialGridDataFrame(methods::as(grid_size, "SpatialGrid"), data)
   } else if (inherits(grid_size, "SpatialPoints")) {
     output <- SpatialPointsDataFrame(grid_size, data)
   } else {
