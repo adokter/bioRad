@@ -11,9 +11,6 @@
 #'   overview of all bioRad functions.
 #'
 #' @keywords internal
-#'
-#' @import rgdal
-#' @import utils
 #' @importFrom dplyr %>% .data
 #'
 "_PACKAGE"
