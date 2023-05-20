@@ -39,7 +39,7 @@
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
   # Ensure directory exists
-  assert_that(is.dir(directory))
+  assertthat::assert_that(assertthat::is.dir(directory))
 
   # Stop if radar codes are not exactly 5 characters
   check_radar_codes(radars)
@@ -48,15 +48,15 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5), sep = "_")
 
   # Stop if dates are not a string
-  assert_that(is.string(date_min))
-  assert_that(is.string(date_max))
+  assertthat::assert_that(assertthat::is.string(date_min))
+  assertthat::assert_that(assertthat::is.string(date_max))
 
   # Stop if dates are not in YYYY-MM-DD format:
   check_date_format(date_min, "%Y-%m-%d")
   check_date_format(date_max, "%Y-%m-%d")
 
   # Stop if overwrite is not a logical
-  assert_that(is.logical(overwrite), msg='overwrite is not a logical')
+  assertthat::assert_that(is.logical(overwrite), msg='overwrite is not a logical')
 
   # Set day to 01 and create series of yyyy/mm based on date_min/max:
   # 2016/10, 2016/11, 2016/12

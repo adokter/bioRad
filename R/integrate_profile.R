@@ -185,10 +185,10 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
-  assert_that(is.scalar(height_quantile))
+  assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
-    assert_that(is.number(height_quantile))
-    assert_that(height_quantile>0 && height_quantile<1)
+    assertthat::assert_that(assertthat::is.number(height_quantile))
+    assertthat::assert_that(height_quantile>0 && height_quantile<1)
   }
 
   if (alt_min=="antenna"){
@@ -341,25 +341,25 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
-  assert_that(is.number(interval_max))
-  assert_that(interval_max>0)
+  assertthat::assert_that(assertthat::is.number(interval_max))
+  assertthat::assert_that(interval_max>0)
 
   dt_median <- as.double(median(x$timesteps),unit="secs")
   if(interval_max < dt_median) warning(paste0("interval_max < median timestep of the time series (",dt_median," sec), consider a larger value."))
 
   if(!missing(interval_replace)){
-    assert_that(is.number(interval_replace))
-    assert_that(interval_replace>0)
+    assertthat::assert_that(assertthat::is.number(interval_replace))
+    assertthat::assert_that(interval_replace>0)
   }
   else{
     interval_replace=as.double(mean(x$timesteps[x$timesteps<interval_max]),unit="secs")
     if(is.na(interval_replace)) interval_replace=interval_max
   }
 
-  assert_that(is.scalar(height_quantile))
+  assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
-    assert_that(is.number(height_quantile))
-    assert_that(height_quantile>0 && height_quantile<1)
+    assertthat::assert_that(assertthat::is.number(height_quantile))
+    assertthat::assert_that(height_quantile>0 && height_quantile<1)
   }
 
   # Integrate from antenna height

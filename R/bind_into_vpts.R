@@ -183,7 +183,7 @@ vplist_to_vpts <- function(x, radar = NA) {
   }
 }
 combined_heights <- function(x) {
-  assert_that(is.list(x))
+  assertthat::assert_that(is.list(x))
   unique_height_diff <- unique(unlist(lapply(lapply(x, diff), unique)))
   if (length(unique_height_diff) != 1) {
     stop("Not all data has the same size of altitude bins")

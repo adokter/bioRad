@@ -40,15 +40,15 @@
 #' plot(range, beam_height(range, 0.5), ylab = "beam height [m]", xlab = "range [m]")
 beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
                         rp = 6357) {
-  assert_that(is.numeric(range))
-  assert_that(is.numeric(elev))
-  assert_that(length(range) == length(elev) | length(range) == 1 | length(elev) == 1,
+  assertthat::assert_that(is.numeric(range))
+  assertthat::assert_that(is.numeric(elev))
+  assertthat::assert_that(length(range) == length(elev) | length(range) == 1 | length(elev) == 1,
     msg = "`range` and `elev` should either be equal length or either should have a length of one"
   )
-  assert_that(is.number(k))
-  assert_that(is.number(lat))
-  assert_that(is.number(re))
-  assert_that(is.number(rp))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(assertthat::is.number(rp))
   beam_height_internal(range = range, elev = elev, k = k, lat = lat, re = re, rp = rp)
 }
 
@@ -90,8 +90,8 @@ earth_radius <- function(a, b, lat) {
 #' # plot the beam width as a function of range:
 #' plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
 beam_width <- function(range, beam_angle = 1) {
-  assert_that(is.numeric(range))
-  assert_that(is.number(beam_angle))
+  assertthat::assert_that(is.numeric(range))
+  assertthat::assert_that(assertthat::is.number(beam_angle))
   beam_width_internal(range = range, beam_angle = beam_angle)
 }
 
@@ -119,15 +119,15 @@ beam_width_internal <- function(range, beam_angle = 1) {
 gaussian_beam_profile <- function(height, range, elev, antenna = 0,
                                   beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
                                   rp = 6357) {
-  assert_that(is.numeric(height))
-  assert_that(is.numeric(range))
-  assert_that(is.number(elev))
-  assert_that(is.number(antenna))
-  assert_that(is.number(beam_angle))
-  assert_that(is.number(k))
-  assert_that(is.number(lat))
-  assert_that(is.number(rp))
-  assert_that(is.number(re))
+  assertthat::assert_that(is.numeric(height))
+  assertthat::assert_that(is.numeric(range))
+  assertthat::assert_that(assertthat::is.number(elev))
+  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(assertthat::is.number(beam_angle))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(rp))
+  assertthat::assert_that(assertthat::is.number(re))
   gaussian_beam_profile_internal(
     height = height, range = range, elev = elev, antenna = antenna,
     beam_angle = beam_angle, k = k, lat = lat, re = re,
@@ -192,16 +192,16 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #' )
 beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
                          k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
-  assert_that(is.numeric(height))
-  assert_that(is.numeric(distance))
-  assert_that(is.numeric(elev))
-  assert_that(is.number(antenna))
-  assert_that(is.number(beam_angle))
-  assert_that(is.number(k))
-  assert_that(is.number(lat))
-  assert_that(is.number(rp))
-  assert_that(is.number(re))
-  assert_that(sum(c(length(height), length(distance))>1)<2,
+  assertthat::assert_that(is.numeric(height))
+  assertthat::assert_that(is.numeric(distance))
+  assertthat::assert_that(is.numeric(elev))
+  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(assertthat::is.number(beam_angle))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(rp))
+  assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(sum(c(length(height), length(distance))>1)<2,
               msg='`height` and `distance` not have an unequal length when more then one. ')
 
   # calculate radiation pattern
@@ -350,9 +350,9 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
   if (length(steps) != 1 & !is.numeric(steps)) stop("'step' should be a numeric value")
   if (!(quantity %in% c("dens", "eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
   if (is.null(vp$attributes$where$height) && missing(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
-  assert_that(is.number(antenna))
+  assertthat::assert_that(assertthat::is.number(antenna))
   if (is.null(vp$attributes$where$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
-  assert_that(is.number(lat))
+  assertthat::assert_that(assertthat::is.number(lat))
   overlap <- sapply(distance, function(x) beam_profile_overlap_help(vp = vp, elev = elev, distance = x, antenna = antenna, zlim = zlim, steps = steps, quantity = quantity, normalize = normalize, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp))
   data.frame(distance = distance, overlap = overlap)
 }
@@ -395,14 +395,14 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' # slant range of the 5 degree elevation beam at a down range of 100 km:
 #' beam_range(100000, 5)
 beam_range <- function(distance, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
-  assert_that(length(distance) == length(elev) | length(distance) == 1 | length(elev) == 1,
+  assertthat::assert_that(length(distance) == length(elev) | length(distance) == 1 | length(elev) == 1,
     msg = "`distance` and `elev` should either be equal length or either should have a length of one"
   )
 
-  assert_that(is.number(k))
-  assert_that(is.number(lat))
-  assert_that(is.number(rp))
-  assert_that(is.number(re))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(rp))
+  assertthat::assert_that(assertthat::is.number(re))
 
   er <- earth_radius(re, rp, lat)
   # to do: simplify trigonometry below

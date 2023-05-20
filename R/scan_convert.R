@@ -17,16 +17,16 @@
 #' # convert to a SpatialPointsDataFrame:
 #' scan_to_spatial(example_scan)
 scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
-  assert_that(is.scan(scan))
-  assert_that(is.number(k))
-  assert_that(is.number(re))
-  assert_that(is.number(rp))
+  assertthat::assert_that(is.scan(scan))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(assertthat::is.number(rp))
   if (is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
   if (is.null(scan$geo$lon) && missing(lon)) stop("radar longitude cannot be found in scan, specify using 'lon' argument")
   if (missing(lat)) lat <- scan$geo$lat
   if (missing(lon)) lon <- scan$geo$lon
-  assert_that(is.number(lat))
-  assert_that(is.number(lon))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(lon))
 
   proj4string <- CRS(paste("+proj=aeqd +lat_0=", lat,
     " +lon_0=", lon,
@@ -89,8 +89,8 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param, raster = NA, lat, lon, crs = NA, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
-  if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
-  if (!is.number(ny) && missing(res)) stop("'ny' should be an integer")
+  if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
+  if (!assertthat::is.number(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
     if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
     if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
@@ -100,8 +100,8 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     if (is.na(ylim[1]) | is.na(ylim[2]) | ylim[1] > ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
   }
   if (!missing(res) && !is.na(res)) {
-    assert_that(is.numeric(res))
-    assert_that(length(res) <= 2)
+    assertthat::assert_that(is.numeric(res))
+    assertthat::assert_that(length(res) <= 2)
   }
   if (!missing(param)) {
     if (FALSE %in% (param %in% c(names(scan$params), "azim", "range", "distance"))) stop("'param' contains scan parameter not found in scan")
@@ -112,8 +112,8 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   else {
     param_to_use <- names(scan$params)
   }
-  if (!are_equal(raster, NA)) {
-    assert_that(inherits(raster, "RasterLayer"))
+  if (!assertthat::are_equal(raster, NA)) {
+    assertthat::assert_that(inherits(raster, "RasterLayer"))
   }
 
   if (is.null(scan$geo$lat) && missing(lat)) stop("radar latitude cannot be found in scan, specify using 'lat' argument")
@@ -122,8 +122,8 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   if (missing(lat)) lat <- scan$geo$lat
   if (missing(lon)) lon <- scan$geo$lon
 
-  assert_that(is.number(lat))
-  assert_that(is.number(lon))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(lon))
   localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
     " +lon_0=", lon,
     " +units=m",
@@ -136,12 +136,12 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     # check crs argument as in raster::raster()
     crs <- CRS(as.character(raster::projection(crs)))
   }
-  if (!are_equal(raster, NA)) {
+  if (!assertthat::are_equal(raster, NA)) {
     crs <- raster::crs(raster)
   }
-  assert_that(is.number(k))
-  assert_that(is.number(re))
-  assert_that(is.number(rp))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(assertthat::is.number(rp))
 
   rscale <- scan$geo$rscale
   ascale <- scan$geo$ascale
@@ -166,7 +166,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     if (missing(xlim)) xlim <- c(spdf_extent@xmin, spdf_extent@xmax)
     if (missing(ylim)) ylim <- c(spdf_extent@ymin, spdf_extent@ymax)
   }
-  if (!are_equal(raster, NA)) {
+  if (!assertthat::are_equal(raster, NA)) {
     r <- raster(raster)
   } else {
     if (missing(res) | is.na(res)) {
@@ -233,16 +233,16 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
   if (missing(lat)) lat <- scan$geo$lat
   if (missing(lon)) lon <- scan$geo$lon
 
-  assert_that(is.number(lat))
-  assert_that(is.number(lon))
+  assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(assertthat::is.number(lon))
   localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
     " +lon_0=", lon,
     " +units=m",
     sep = ""
   ))
-  assert_that(is.number(k))
-  assert_that(is.number(re))
-  assert_that(is.number(rp))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(assertthat::is.number(rp))
   stopifnot(all.equal(localCrs, CRS(proj4string(spdf))))
 
   rscale <- scan$geo$rscale

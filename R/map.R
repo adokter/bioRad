@@ -141,7 +141,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   }
 
   # set color scales and palettes
-  if (!are_equal(palette, NA)) {
+  if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
     # apply transparancy
     palette <- alpha(palette,alpha)

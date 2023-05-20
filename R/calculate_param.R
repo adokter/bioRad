@@ -46,7 +46,7 @@ calculate_param <- function(x, ...) {
 #' @describeIn calculate_param Calculate a new scan parameter for all scans in a polar volume.
 #' @export
 calculate_param.pvol <- function(x, ...) {
-  assert_that(is.pvol(x))
+  assertthat::assert_that(is.pvol(x))
   x$scans <- do.call(lapply, list(x$scans, calculate_param.scan, substitute(list(...))))
   return(x)
 }
@@ -54,7 +54,7 @@ calculate_param.pvol <- function(x, ...) {
 #' @describeIn calculate_param Calculate a new parameter for a PPI.
 #' @export
 calculate_param.ppi <- function(x, ...) {
-  assert_that(is.ppi(x))
+  assertthat::assert_that(is.ppi(x))
   calc <- as.list(substitute(list(...)))[-1L]
   name <- names(calc)
   if (is.null(name)) {
@@ -73,13 +73,13 @@ calculate_param.ppi <- function(x, ...) {
 #' @describeIn calculate_param Calculate a new scan parameter for a scan
 #' @export
 calculate_param.scan <- function(x, ...) {
-  assert_that(is.scan(x))
+  assertthat::assert_that(is.scan(x))
   # check if all parameters are equal
   attr_to_check<-c('class','radar','datetime','geo','dim')
   for(i in attr_to_check){
-    lapply(x$params, function(param, i) assert_that(has_attr(param, i)),i=i)
+    lapply(x$params, function(param, i) assertthat::assert_that(assertthat::has_attr(param, i)),i=i)
     if(length(x$params)!=1)
-      lapply(lapply(x$params[-1], attr, i), function(x,y) assert_that(are_equal(x,y)), y=attr(x$params[[1]], i))
+      lapply(lapply(x$params[-1], attr, i), function(x,y) assertthat::assert_that(assertthat::are_equal(x,y)), y=attr(x$params[[1]], i))
   }
   if (as.character(as.list(substitute(...))[[1L]]) == "list") {
     calc <- as.list(substitute(...))[-1L]
@@ -98,7 +98,7 @@ calculate_param.scan <- function(x, ...) {
     attr(newParam, "param") <- name[[i]]
     # reassign attributes if they are lost in operation
     for(j in attr_to_check) {
-      if(!has_attr(newParam,j)) {
+      if(!assertthat::has_attr(newParam,j)) {
         attr(newParam,j) <- attr(x$params[[1]], j)
       }
     }

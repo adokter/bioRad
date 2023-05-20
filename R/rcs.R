@@ -98,8 +98,8 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
-  assert_that(is.numeric(value))
-  assert_that(value > 0)
+  assertthat::assert_that(is.numeric(value))
+  assertthat::assert_that(value > 0)
   x$attributes$how$rcs_bird <- value
   x$data$dens <- x$data$eta / value
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {
@@ -130,8 +130,8 @@ rcs.vpi <- function(x) {
 #' @export
 `rcs<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
-  assert_that(is.numeric(value))
-  assert_that(value > 0)
+  assertthat::assert_that(is.numeric(value))
+  assertthat::assert_that(value > 0)
   x$attributes$how$rcs_bird <- value
   x$data$dens <- x$data$eta / value
   if (is.numeric(x$attributes$how$sd_vvp_thresh)) {

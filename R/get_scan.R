@@ -40,10 +40,10 @@
 #' scan_list <- get_scan(pvol, 3)
 #' scan_list
 get_scan <- function(x, elev, all = FALSE) {
-  assert_that(class(x) == "pvol", msg = "`x` must be a `pvol` object.")
-  assert_that(class(elev) == "numeric", msg = "`elev` must be numeric.")
-  assert_that(is.scalar(elev))
-  assert_that(is.flag(all))
+  assertthat::assert_that(class(x) == "pvol", msg = "`x` must be a `pvol` object.")
+  assertthat::assert_that(class(elev) == "numeric", msg = "`elev` must be numeric.")
+  assertthat::assert_that(assertthat::is.scalar(elev))
+  assertthat::assert_that(assertthat::is.flag(all))
   difference_vector <- abs(get_elevation_angles(x) - elev)
   # select indices closest to elev:
   selection <- which(min(difference_vector)==difference_vector)

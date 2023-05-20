@@ -145,7 +145,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
   }
 
-  if(are_equal(log, NA)){
+  if(assertthat::are_equal(log, NA)){
     if(quantity %in% c("dens","eta")){
       log = TRUE
     }
@@ -153,16 +153,16 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       log = FALSE
     }
   }
-  assert_that(is.flag(log))
+  assertthat::assert_that(assertthat::is.flag(log))
 
-  assert_that(is.count(n_color))
-  assert_that(is.string(na_color))
-  if(!missing(nan_color)) assert_that(is.string(nan_color))
+  assertthat::assert_that(assertthat::is.count(n_color))
+  assertthat::assert_that(assertthat::is.string(na_color))
+  if(!missing(nan_color)) assertthat::assert_that(assertthat::is.string(nan_color))
 
   if (!missing(zlim)) {
-    assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
+    assertthat::assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
     if (log && !(quantity %in% c("DBZH", "dbz"))) {
-      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
+      assertthat::assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
     }
   }
 
@@ -274,7 +274,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   }
 
   # set color scales and (palettes
-  if (!are_equal(palette, NA)) {
+  if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
   }
   else{

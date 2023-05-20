@@ -74,8 +74,8 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
   if (FALSE %in% sapply(x, is.ppi)) {
     stop("'composite' expects objects of class ppi only")
   }
-  if (!is.count(nx) && missing(res)) stop("'nx' should be an integer")
-  if (!is.count(ny) && missing(res)) stop("'ny' should be an integer")
+  if (!assertthat::is.count(nx) && missing(res)) stop("'nx' should be an integer")
+  if (!assertthat::is.count(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
     if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be a numeric vector of length two")
     if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for lower and upper bound respectively")
@@ -85,8 +85,8 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
     if (is.na(ylim[1]) | is.na(ylim[2]) | ylim[1] > ylim[2]) stop("'ylim' should be a vector with two numeric values for lower and upper bound respectively")
   }
   if (!missing(res)) {
-    assert_that(is.numeric(res))
-    assert_that(length(res) <= 2)
+    assertthat::assert_that(is.numeric(res))
+    assertthat::assert_that(length(res) <= 2)
     t_res <- res
   } else {
     t_res <- NULL
@@ -99,7 +99,7 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
   }
   if (!all(method %in% c("max", "min", "mean", "idw"))) stop("'method' should be one or multiple of 'max', 'mean', 'min' or 'idw'")
   if (length(method) != length(param) & length(method) != 1) stop("'method' should be of length 1 or length(param)")
-  assert_that(is.flag(coverage))
+  assertthat::assert_that(assertthat::is.flag(coverage))
 
   if (length(param) == 1 && param == "all") {
     param <- names(x[[1]]$data)
@@ -118,7 +118,7 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
     ncol = 2, dimnames = dimnames(ppis[[1]]$geo$bbox)
   )
 
-  if (!are_equal(raster, NA)) {
+  if (!assertthat::are_equal(raster, NA)) {
     r <- raster::raster(raster)
   } else {
     d_crs <- CRS("+proj=longlat +datum=WGS84")

@@ -69,7 +69,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  assert_that(
+  assertthat::assert_that(
     quantity %in% names(x) & quantity != "datetime",
     msg = glue("quantity `{quantity}` not found in vpi object.")
   )

@@ -60,13 +60,13 @@ check_night <- function(x, ..., elev = -0.268, offset = 0) {
 #' @export
 check_night.default <- function(x, lon, lat, ..., tz = "UTC", elev = -0.268, offset = 0) {
   # input checks
-  assert_that(is.numeric(elev))
-  assert_that(length(elev)<=2)
-  assert_that(is.numeric(offset))
-  assert_that(length(offset)<=2)
-  assert_that(is.numeric(lon))
-  assert_that(is.numeric(lat))
-  assert_that(length(lat)==length(lon))
+  assertthat::assert_that(is.numeric(elev))
+  assertthat::assert_that(length(elev)<=2)
+  assertthat::assert_that(is.numeric(offset))
+  assertthat::assert_that(length(offset)<=2)
+  assertthat::assert_that(is.numeric(lon))
+  assertthat::assert_that(is.numeric(lat))
+  assertthat::assert_that(length(lat)==length(lon))
   #
   x <- as.POSIXct(x, tz = tz)
   #

@@ -64,7 +64,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
     } else {
       param <- names(x$data)[1]
     }
-  } else if (!see_if(param %in% names(x$data))) {
+  } else if (!assertthat::see_if(param %in% names(x$data))) {
     stop(paste("parameter '", param, "' not found in PPI", sep = ""))
   }
 

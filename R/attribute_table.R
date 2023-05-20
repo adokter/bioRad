@@ -32,8 +32,8 @@ attribute_table <-
              "how.NI"
            ),
            ...) {
-    assert_that(inherits(x, "scan") | inherits(x, "pvol"))
-    assert_that(is.character(select) | is.null(select))
+    assertthat::assert_that(inherits(x, "scan") | inherits(x, "pvol"))
+    assertthat::assert_that(is.character(select) | is.null(select))
     if (inherits(x, "pvol")) {
       df <-
         do.call(

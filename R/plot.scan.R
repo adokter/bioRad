@@ -58,7 +58,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
     } else {
       param <- names(x$params)[1]
     }
-  } else if (!see_if(param %in% names(x$params))) {
+  } else if (!assertthat::see_if(param %in% names(x$params))) {
     stop(paste("parameter '", param, "' not found in scan", sep = ""))
   }
   if (missing(zlim)) {

@@ -51,8 +51,8 @@ globalVariables(c("x","y","closest"))
 #' tsRegular <- regularize_vpts(ts, interval = 600, fill = 3600)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
-  assert_that(is.vpts(ts))
-  if (interval != "auto") assert_that(is.number(interval), interval > 0)
+  assertthat::assert_that(is.vpts(ts))
+  if (interval != "auto") assertthat::assert_that(assertthat::is.number(interval), interval > 0)
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -63,8 +63,8 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if (length(units) > 1) {
     stop("Invalid or missing 'units' argument.")
   }
-  assert_that(is.flag(verbose))
-  assert_that(is.flag(keep_datetime))
+  assertthat::assert_that(assertthat::is.flag(verbose))
+  assertthat::assert_that(assertthat::is.flag(keep_datetime))
 
   # remove profiles with duplicate timestamps:
   index_duplicates <- which(ts$timesteps == 0) + 1
@@ -82,14 +82,14 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     dt <- as.difftime(interval, units = units)
   }
 
-  if (is.flag(fill)) {
+  if (assertthat::is.flag(fill)) {
     # deprecation warning of old fill=TRUE behaviour
     if (fill && !missing(fill)) warning("fill=TRUE behaviour has changed in bioRad version >= 0.6. Use fill=Inf to reproduce the old fill=TRUE result")
     # convert TRUE to dt and FALSE to 0.
     fill <- fill * dt
   } else {
-    assert_that(is.number(fill), fill > 0)
-    if (are_equal(fill, Inf)) {
+    assertthat::assert_that(assertthat::is.number(fill), fill > 0)
+    if (assertthat::are_equal(fill, Inf)) {
       # map infinity to the largest stepsize, to guarantee everything is filled
       fill <- max(ts$timesteps)
     }
@@ -109,9 +109,9 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
     })
   }
 
-  assert_that(is.time(date_min))
-  assert_that(is.time(date_max))
-  assert_that(date_max >= date_min)
+  assertthat::assert_that(assertthat::is.time(date_min))
+  assertthat::assert_that(assertthat::is.time(date_max))
+  assertthat::assert_that(date_max >= date_min)
 
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)

@@ -9,7 +9,7 @@
 #'
 #' @export
 get_iris_raw_task <- function(file, header_size=50, task=c("WIND","SURVEILLANCE","VOL_A","VOL_B")){
-  assert_that(file.exists(file))
+  assertthat::assert_that(file.exists(file))
 
   # read binary header
   types <- sapply(task, function(x) suppressWarnings(any(grepl(pattern=x,readBin(file,n=header_size,"character")))))

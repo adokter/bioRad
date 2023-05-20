@@ -87,8 +87,8 @@ sd_vvp_threshold.vpts <- function(x) {
 #' @export
 `sd_vvp_threshold<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
-  assert_that(is.numeric(value))
-  assert_that(value >= 0)
+  assertthat::assert_that(is.numeric(value))
+  assertthat::assert_that(value >= 0)
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
     x$data$dens <- x$data$eta / x$attributes$how$rcs_bird
@@ -120,8 +120,8 @@ sd_vvp_threshold.vpts <- function(x) {
 #' @export
 `sd_vvp_threshold<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
-  assert_that(is.numeric(value))
-  assert_that(value >= 0)
+  assertthat::assert_that(is.numeric(value))
+  assertthat::assert_that(value >= 0)
   x$attributes$how$sd_vvp_thresh <- value
   if (is.numeric(x$attributes$how$rcs_bird)) {
     x$data$dens <- x$data$eta / x$attributes$how$rcs_bird

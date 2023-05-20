@@ -87,8 +87,8 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
                                 project = TRUE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
 
-  if (!are_equal(raster, NA)) {
-    assert_that(inherits(raster, "RasterLayer"))
+  if (!assertthat::are_equal(raster, NA)) {
+    assertthat::assert_that(inherits(raster, "RasterLayer"))
   }
 
   if (inherits(raster, "RasterLayer")) {

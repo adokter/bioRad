@@ -24,9 +24,9 @@
 #' write_pvolfile(example_pvol, pvolfile_out)
 #' }
 write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
-  assert_that(is.pvol(pvol))
+  assertthat::assert_that(is.pvol(pvol))
   if (!overwrite) {
-    assert_that(!file.exists(file),
+    assertthat::assert_that(!file.exists(file),
       msg = "File already exists, use overwrite = TRUE to overwrite this file"
     )
   }

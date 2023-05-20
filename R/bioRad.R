@@ -22,7 +22,6 @@
 #' @import rgdal
 #' @import sp
 #' @import utils
-#' @import assertthat
 #' @importFrom dplyr mutate pull bind_rows left_join join_by if_else
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
