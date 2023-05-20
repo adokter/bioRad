@@ -167,17 +167,17 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     if (missing(ylim)) ylim <- c(spdf_extent@ymin, spdf_extent@ymax)
   }
   if (!assertthat::are_equal(raster, NA)) {
-    r <- raster(raster)
+    r <- raster::raster(raster)
   } else {
     if (missing(res) | is.na(res)) {
-      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs)
+      r <- raster::raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs)
     }
     else {
-      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs, res = res)
+      r <- raster::raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs, res = res)
     }
   }
   # convert raster coordinates to local Cartesian CRS
-  crds <- coordinates(spTransform(rasterToPoints(r, spatial = T), localCrs))
+  crds <- coordinates(spTransform(raster::rasterToPoints(r, spatial = T), localCrs))
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
   index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)

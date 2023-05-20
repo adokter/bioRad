@@ -123,16 +123,16 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
   } else {
     d_crs <- CRS("+proj=longlat +datum=WGS84")
     if (!is.null(t_res) && !is.null(t_crs)) {
-      r <- raster(ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = t_crs, resolution = t_res)
+      r <- raster::raster(ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = t_crs, resolution = t_res)
     } else if (!is.null(t_crs) && is.null(t_res)) {
-      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = t_crs)
+      r <- raster::raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = t_crs)
     } else if (is.null(t_crs) && !is.null(t_res)) {
-      r <- raster(ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = d_crs)
+      r <- raster::raster(ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = d_crs)
       t_crs <- CRS(paste0("+proj=aeqd +units=m +ellps=WGS84 +lat_0=", mean(lats), " +lon_0=", mean(lons)))
       r <- raster::projectExtent(r, t_crs)
       raster::res(r) <- t_res
     } else {
-      r <- raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = d_crs)
+      r <- raster::raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = d_crs)
     }
   }
 
@@ -181,18 +181,18 @@ composite_ppi <- function(x, param = "all", nx = 100, ny = 100, xlim, ylim, res,
     if(param_method == "idw"){
       brick_data <- suppressWarnings(raster::brick(raster::brick(spGrid), nl = length(merged)))
       brick_weights <- brick_data
-      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), coordinates(raster(spGrid)),lonlat=T)
+      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), coordinates(raster::raster(spGrid)),lonlat=T)
       for(i in 1:length(merged)){
         brick_data <- raster::setValues(brick_data, merged[[i]], layer=i)
         latlon.radar <- unique(data.frame(lat = c(lats.radar), lon = c(lons.radar)))
         if (is.null(t_res)) {
-          weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = latlon.radar$lon, y = latlon.radar$lat))[i, ], coordinates(raster(spGrid)), lonlat = TRUE))
+          weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = latlon.radar$lon, y = latlon.radar$lat))[i, ], coordinates(raster::raster(spGrid)), lonlat = TRUE))
         } else {
           d <- data.frame(lon = latlon.radar$lon, lat = latlon.radar$lat)
           coordinates(d) <- c("lon", "lat")
           proj4string(d) <- d_crs
           proj.radar <- as.data.frame(spTransform(d, t_crs))
-          weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = proj.radar$lon, y = proj.radar$lat))[i, ], coordinates(raster(spGrid)), lonlat = FALSE))
+          weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = proj.radar$lon, y = proj.radar$lat))[i, ], coordinates(raster::raster(spGrid)), lonlat = FALSE))
         }
         if(!is.na(idw_max_distance)) weights[weights > idw_max_distance] <- NA
         weights <- 1 / (weights ^ idp)

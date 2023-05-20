@@ -17,13 +17,6 @@
 #' @import rgdal
 #' @import sp
 #' @import utils
-#' @importFrom raster rasterToPoints
-#' @importFrom raster raster
-#' @importFrom raster rasterize
-#' @importFrom raster values
-#' @importFrom raster values<-
-#' @importFrom raster extent
-#' @importFrom raster crs
 #' @importFrom readr parse_datetime
 #' @importFrom tidyr fill
 #' @importFrom dplyr %>% .data

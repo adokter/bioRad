@@ -78,7 +78,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   rstart <- ifelse(is.null(x$geo$rstart), 0, x$geo$rstart)
   astart <- ifelse(is.null(x$geo$astart), 0, x$geo$astart)
 
-  data <- raster::as.data.frame(raster::flip(raster(t(data), ymn = astart, ymx = astart + 360, xmn = rstart, xmx = rstart + rscale * dimraster[1]), direction = "y"), xy = T)
+  data <- raster::as.data.frame(raster::flip(raster::raster(t(data), ymn = astart, ymx = astart + 360, xmn = rstart, xmx = rstart + rscale * dimraster[1]), direction = "y"), xy = T)
   # change the name from "layer" to the parameter names
   names(data) <- c("range", "azimuth", param)
 

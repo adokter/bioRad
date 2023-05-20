@@ -76,7 +76,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   y <- NULL # dummy assignment to suppress devtools check warning
   data <- do.call(function(y) x$data[y], list(param))
   # convert to points
-  data <- raster::as.data.frame(raster(data), xy = T)
+  data <- raster::as.data.frame(raster::raster(data), xy = T)
   # bring z-values within plotting range
   index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {

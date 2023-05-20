@@ -174,7 +174,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
     )
   )
   e <- raster::extent(mybbox.wgs)
-  r <- raster(raster::extent(mybbox),
+  r <- raster::raster(raster::extent(mybbox),
     ncol = data@grid@cells.dim[1] * .9,
     nrow = data@grid@cells.dim[2] * .9, crs = CRS(proj4string(mybbox))
   )
