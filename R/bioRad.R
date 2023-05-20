@@ -22,7 +22,6 @@
 #' @import rgdal
 #' @import sp
 #' @import utils
-#' @importFrom dplyr mutate pull bind_rows left_join join_by if_else
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom raster rasterize
@@ -34,6 +33,6 @@
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
 #' @importFrom tidyr fill
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% .data
 #'
 "_PACKAGE"
