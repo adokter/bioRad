@@ -16,7 +16,6 @@
 #' @import rgdal
 #' @import sp
 #' @import utils
-#' @importFrom readr parse_datetime
 #' @importFrom tidyr fill
 #' @importFrom dplyr %>% .data
 #'

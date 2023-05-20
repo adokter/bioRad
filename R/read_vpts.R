@@ -90,7 +90,7 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
       stop("file contains data for multiple radars")
     }
     data$radar <- NULL
-    data$datetime <- parse_datetime(data$datetime)
+    data$datetime <- readr::parse_datetime(data$datetime)
     data$gap <- as.logical(data$gap)
   } else{
     # for parsing legacy vol2bird text output
