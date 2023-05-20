@@ -9,7 +9,7 @@
 #' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
 #' and S-band radar, respectively, in which case C-band wavelength is assumed
 #' to be 5.3 cm and S-band wavelength 10.6 cm
-#' @param sep the field separator character, see [read.table][utils::read.table]
+#' @param sep the field separator character, see [utils::read.table]
 #'
 #' @return An object inheriting from class `vpts`, see
 #' [`vpts()`][summary.vpts] for details.
@@ -84,7 +84,7 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
 
   if(sep!=""){
     # for parsing new csv format
-    data <- read.table(file = file, header = TRUE, sep = sep)
+    data <- utils::read.table(file = file, header = TRUE, sep = sep)
     radar <- unique(data$radar)
     if(length(radar)>1){
       stop("file contains data for multiple radars")
@@ -94,7 +94,7 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
     data$gap <- as.logical(data$gap)
   } else{
     # for parsing legacy vol2bird text output
-    data <- read.table(file = file, header = FALSE, sep = sep)
+    data <- utils::read.table(file = file, header = FALSE, sep = sep)
     if (ncol(data) == 22) {
       colnames(data) <- header.names.long
     } else {

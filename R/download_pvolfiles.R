@@ -130,7 +130,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
 
     # create progress bar
     message(paste0("\nDownloading pvol for ", prefix))
-    pb <- txtProgressBar(min = 0, max = nrow(bucket_df), initial = 0, style = 3)
+    pb <- utils::txtProgressBar(min = 0, max = nrow(bucket_df), initial = 0, style = 3)
 
     for (row in 1:nrow(bucket_df)) {
       # Save file
@@ -140,7 +140,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         file = paste(directory, bucket_df$Key[row], sep = "/"),
         overwite = overwrite
       )
-      setTxtProgressBar(pb, row)
+      utils::setTxtProgressBar(pb, row)
     }
   }
 }

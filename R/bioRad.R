@@ -14,7 +14,6 @@
 #'
 #' @import rgdal
 #' @import utils
-#' @importFrom tidyr fill
 #' @importFrom dplyr %>% .data
 #'
 "_PACKAGE"

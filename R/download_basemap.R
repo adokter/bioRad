@@ -53,7 +53,7 @@
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", maptype = "terrain", ...) {
   stopifnot(inherits(x, "ppi"))
   rlang::check_installed("ggmap",'to run `download_basemap`', version = '3.0.0')
-  if(packageVersion("ggmap") < numeric_version("3.0.0.903")){
+  if(utils::packageVersion("ggmap") < numeric_version("3.0.0.903")){
     # not throw a true warning to pass CRAN checks
     message("Warning message:\n ggmap not up-to-date (version < 3.0.0.903), upgrade is required using devtools::install_github(\"dkahle/ggmap\")")
   }

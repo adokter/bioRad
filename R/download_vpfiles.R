@@ -107,7 +107,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
     # Check http status
     if (req$status_code == "200") {
       # Unzip file
-      unzip(file_path, exdir = file.path(directory, unzip_dir))
+      utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
       message(paste0(file_name, ": successfully downloaded"))
     } else {
       # Remove file
@@ -134,7 +134,7 @@ check_radar_codes <- function(radars) {
       paste(wrong_codes, collapse = ", ")
     )
   } else {
-    radars.csv <- read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
+    radars.csv <- utils::read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
     wrong_codes <- radars[!(radars %in% radars.csv$countryradar)]
     if (length(wrong_codes) > 0) {
       stop(

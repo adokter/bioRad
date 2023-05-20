@@ -321,12 +321,12 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     if ("xlim" %in% names(args)) {
       t.barbs <- seq(min(args$xlim), max(args$xlim), length.out = barbs_time)
     } else {
-      t.barbs <- seq(x$datetime[1], tail(x$datetime, 1), length.out = barbs_time)
+      t.barbs <- seq(x$datetime[1], utils::tail(x$datetime, 1), length.out = barbs_time)
     }
     if ("ylim" %in% names(args)) {
       h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height + 1)
     } else {
-      h.barbs <- seq(x$height[1], tail(x$height, 1) + interval, length.out = barbs_height + 1)
+      h.barbs <- seq(x$height[1], utils::tail(x$height, 1) + interval, length.out = barbs_height + 1)
     }
     h.barbs <- h.barbs[-length(h.barbs)] + diff(h.barbs) / 2
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)

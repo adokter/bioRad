@@ -39,7 +39,7 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   header.names.biorad <- c("height", "height_mean", "eta", "n_dbz_all", "dd", "ff", "u", "v", "sd_vvp", "elev1", "nvolumes_gr35_e1", "elev2", "nvolumes_gr35_e2", "vcp", "linear_eta_unfiltered", "percent_rain")
 
   # read the data
-  data <- read.table(file = file, header = TRUE, sep = ",")
+  data <- utils::read.table(file = file, header = TRUE, sep = ",")
 
   # rename columns to bioRad standard
   colnames(data) <- header.names.biorad
