@@ -310,7 +310,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   axis.args <- list(at = legendticks, labels = ticks)
 
   # plot the image
-  image.plot(x$datetime, x$height + interval / 2, plotdata,
+  fields::image.plot(x$datetime, x$height + interval / 2, plotdata,
     col = palette_na_nan, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = c(zlim[1]-2*zstep,zlim[2]), main = main, ...

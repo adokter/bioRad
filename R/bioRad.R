@@ -14,7 +14,6 @@
 #'
 #' @import stats
 #' @import rhdf5
-#' @import fields
 #' @import methods
 #' @import graphics
 #' @import ggplot2
