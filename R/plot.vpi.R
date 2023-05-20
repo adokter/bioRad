@@ -71,7 +71,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
   stopifnot(inherits(x, "vpi"))
   assertthat::assert_that(
     quantity %in% names(x) & quantity != "datetime",
-    msg = glue("quantity `{quantity}` not found in vpi object.")
+    msg = glue::glue("quantity `{quantity}` not found in vpi object.")
   )
 
   if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")

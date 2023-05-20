@@ -29,7 +29,7 @@ test_that("get_odim_object_type() returns warnings", {
 
   # Helper function to make invalid files
   delete_group <- function(vpfile, group) {
-    filename <- glue("{tempdir()}/vp_invalid.h5")
+    filename <- glue::glue("{tempdir()}/vp_invalid.h5")
     file.copy(vpfile, filename, overwrite = TRUE)
     h5delete(file = filename, name = group)
     filename

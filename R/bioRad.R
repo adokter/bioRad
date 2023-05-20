@@ -16,7 +16,6 @@
 #' @import rhdf5
 #' @import methods
 #' @import graphics
-#' @import glue
 #' @import rgdal
 #' @import sp
 #' @import utils
