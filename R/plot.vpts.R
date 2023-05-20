@@ -374,7 +374,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
     if (length(fill) > 1 & length(fill) != ns) stop(msg)
   }
 
-  tpar <- par()
+  tpar <- graphics::par()
   size <- tpar$csi
   scalex <- (tpar$usr[2] - tpar$usr[1]) / tpar$pin[1]
   scaley <- (tpar$usr[4] - tpar$usr[3]) / tpar$pin[2]
@@ -395,16 +395,16 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
       Y1 <- RY + y
       if (!is.na(spd)) {
         if (spd == 0) {
-          lines(RX * 2 + x, RY * 2 + y, col = col)
+          graphics::lines(RX * 2 + x, RY * 2 + y, col = col)
         }
       }
       if (fill[i] > 0) {
         lim <- c(51, 101, 151, 200)
-        polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
+        graphics::polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
           density = -1, col = col
         )
       }
-      lines(RX + x, RY + y, col = col)
+      graphics::lines(RX + x, RY + y, col = col)
     } # end of circle
 
     if (!is.na(spd)) {
@@ -496,7 +496,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
         S2 <- S2 * c(scalex, scaley) + c(as.numeric(x), y)
       }
       if (spd > 0) {
-        segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
+        graphics::segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
       }
     } # end of (!is.na(spd))
   } # end of ns

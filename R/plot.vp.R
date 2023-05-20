@@ -91,5 +91,5 @@ plot.vp <- function(x, quantity = "dens",
   pdat <- get_quantity(x, quantity)
   stopifnot(!is.null(interval <- x$attributes$where$interval))
   plot(pdat, (x$data$height + interval / 2) / 1000, xlab = xlab, ylab = ylab, ...)
-  points(pdat, (x$data$height + interval / 2) / 1000, col = line_col, lwd = line_lwd, type = "l")
+  graphics::points(pdat, (x$data$height + interval / 2) / 1000, col = line_col, lwd = line_lwd, type = "l")
 }

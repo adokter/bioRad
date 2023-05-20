@@ -158,14 +158,14 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
 
     # plot night time shading for each night.
     for (i in 1:length(days)) {
-      polygon(c(tset[i], trise[i], trise[i], tset[i]),
+      graphics::polygon(c(tset[i], trise[i], trise[i], tset[i]),
         ypolygon,
         lty = 0, col = "#CCCCCC"
       )
     }
 
     # plot the data again on top of the shading
-    points(x$datetime, x[quantity][[1]],
+    graphics::points(x$datetime, x[quantity][[1]],
       type = "l",
       xlab = "time", ylab = ylab, ylim = ylim, main = main, ...
     )
