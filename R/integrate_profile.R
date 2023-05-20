@@ -235,7 +235,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
   if(is.na(height_quantile)){
     # default (no height_quantile specified) is calculating the mean altitude
-    height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+    height <- stats::weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
   }
   else{
     # calculate a quantile of the flight altitude distribution
@@ -256,9 +256,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     height <- height_lower+delta_linear_interpolation
   }
 
-  u <- weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
-  v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
-  ff <- weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
+  u <- stats::weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
+  v <- stats::weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
+  ff <- stats::weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   dd[which(dd<0)]=dd[which(dd<0)]+360
   # time-integrated measures not defined for a single profile:
@@ -274,14 +274,14 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
-    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
+    output$airspeed <- stats::weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
+    output$heading <- stats::weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
     output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
-    output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
-    output$airspeed_v <- weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
-    output$ff_wind <- weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
-    output$u_wind <- weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
-    output$v_wind <- weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
+    output$airspeed_u <- stats::weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
+    output$airspeed_v <- stats::weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
+    output$ff_wind <- stats::weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
+    output$u_wind <- stats::weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
+    output$v_wind <- stats::weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -344,7 +344,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   assertthat::assert_that(assertthat::is.number(interval_max))
   assertthat::assert_that(interval_max>0)
 
-  dt_median <- as.double(median(x$timesteps),unit="secs")
+  dt_median <- as.double(stats::median(x$timesteps),unit="secs")
   if(interval_max < dt_median) warning(paste0("interval_max < median timestep of the time series (",dt_median," sec), consider a larger value."))
 
   if(!missing(interval_replace)){

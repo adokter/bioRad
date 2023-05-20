@@ -12,7 +12,6 @@
 #'
 #' @keywords internal
 #'
-#' @import stats
 #' @import rgdal
 #' @import utils
 #' @importFrom tidyr fill

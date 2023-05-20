@@ -138,7 +138,7 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
 gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
                                            beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
                                            rp = 6357) {
-  dnorm(
+  stats::dnorm(
     height,
     mean = antenna + beam_height_internal(
       range = range, elev = elev, k = k,
@@ -242,7 +242,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
     quantity_data <- vp$data[[quantity]]
     # set NA values to zero
     quantity_data[is.na(quantity_data)] <- 0
-    beamprof$vpr <- approxfun(
+    beamprof$vpr <- stats::approxfun(
       vp$data$height + vp$attributes$where$interval / 2,
       quantity_data
     )(height)
