@@ -16,7 +16,6 @@
 #'   downloaded files of the same names.
 #'
 #' @export
-#' @importFrom curl curl_fetch_disk
 #'
 #' @seealso select_vpfiles
 #'
@@ -103,7 +102,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
     }
 
     # Start download
-    req <- curl_fetch_disk(url, file_path) # will download regardless of status
+    req <- curl::curl_fetch_disk(url, file_path) # will download regardless of status
 
     # Check http status
     if (req$status_code == "200") {
