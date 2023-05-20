@@ -31,7 +31,7 @@ test_that("get_odim_object_type() returns warnings", {
   delete_group <- function(vpfile, group) {
     filename <- glue::glue("{tempdir()}/vp_invalid.h5")
     file.copy(vpfile, filename, overwrite = TRUE)
-    h5delete(file = filename, name = group)
+    rhdf5::h5delete(file = filename, name = group)
     filename
   }
   expect_warning(get_odim_object_type(delete_group(vpfile, "dataset1")), "does not contain a `/dataset1` group")

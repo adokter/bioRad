@@ -13,7 +13,6 @@
 #' @keywords internal
 #'
 #' @import stats
-#' @import rhdf5
 #' @import rgdal
 #' @import sp
 #' @import utils

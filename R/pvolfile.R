@@ -64,7 +64,7 @@ get_odim_object_type <- function(file) {
     # Errors are handled by is.odimfile()
     return(NA)
   }
-  object <- h5readAttributes(file, "what")$object
+  object <- rhdf5::h5readAttributes(file, "what")$object
   # current implementation of write_pvolfile stores string attributes as
   # single element arrays. This line guarantees that for files written with write_pvolfile
   # the output class is character instead of an array with a single character element.
@@ -73,12 +73,12 @@ get_odim_object_type <- function(file) {
 }
 
 is.odimfile <- function(file) {
-  if (!H5Fis_hdf5(file)) {
+  if (!rhdf5::H5Fis_hdf5(file)) {
     warning(glue::glue("{file} is not an HDF5 file."))
     return(FALSE)
   }
   output <- TRUE
-  groups <- h5ls(file, recursive = FALSE)$name
+  groups <- rhdf5::h5ls(file, recursive = FALSE)$name
   if (!("dataset1" %in% groups)) {
     output <- FALSE
     warning(
@@ -92,7 +92,7 @@ is.odimfile <- function(file) {
       glue::glue("HDF5 file {file} does not contain a `/what` group.")
     )
   } else {
-    object <- h5readAttributes(file, "what")$object
+    object <- rhdf5::h5readAttributes(file, "what")$object
     if (is.null(object)) {
       warning(
         glue::glue("HDF5 file {file} does not contain an `object` attribute in the ",
