@@ -173,7 +173,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
 
   # check crs argument as in raster::raster()
   if (!missing(crs)) {
-    crs <- CRS(as.character(raster::projection(crs)))
+    crs <- sp::CRS(as.character(raster::projection(crs)))
   }
   else {
     crs <- NA
@@ -212,13 +212,13 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   x <- NULL # define x to suppress devtools::check warning in next line
 
   if (!assertthat::are_equal(raster, NA)) {
-    localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
+    localCrs <- sp::CRS(paste("+proj=aeqd +lat_0=", lat,
       " +lon_0=", lon,
       " +units=m",
       sep = ""
     ))
     raster::values(raster) <- 1
-    spdf <- (spTransform(raster::rasterToPoints(raster, spatial = T), localCrs))
+    spdf <- (sp::spTransform(raster::rasterToPoints(raster, spatial = T), localCrs))
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
         add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
@@ -256,8 +256,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   geo$elangle <- get_elevation_angles(pvol)
 
   # convert the bounding box to wgs coordinates
-  # geo$bbox=proj_to_wgs(output@bbox[1,],output@bbox[2,],proj4string(output))@bbox
-  geo$bbox <- proj_to_wgs(output@bbox[1, ], output@bbox[2, ], proj4string = proj4string(output))@bbox
+  # geo$bbox=proj_to_wgs(output@bbox[1,],output@bbox[2,],sp::proj4string(output))@bbox
+  geo$bbox <- proj_to_wgs(output@bbox[1, ], output@bbox[2, ], proj4string = sp::proj4string(output))@bbox
   rownames(geo$bbox) <- c("lon", "lat")
   geo$merged <- TRUE
   output_ppi <- list(radar = pvol$radar, datetime = pvol$datetime, data = output[param_ppi], geo = geo)

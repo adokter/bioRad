@@ -155,19 +155,19 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  wgs84 <- CRS("+proj=longlat +datum=WGS84")
-  epsg3857 <- CRS("+init=epsg:3857") # this is the google mercator projection
+  wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
+  epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox <- suppressWarnings(
-    spTransform(
-      SpatialPoints(t(data@bbox),
+    sp::spTransform(
+      sp::SpatialPoints(t(data@bbox),
         proj4string = data@proj4string
       ),
-      CRS("+init=epsg:3857")
+      sp::CRS("+init=epsg:3857")
     )
   )
   mybbox.wgs <- suppressWarnings(
-    spTransform(
-      SpatialPoints(t(data@bbox),
+    sp::spTransform(
+      sp::SpatialPoints(t(data@bbox),
         proj4string = data@proj4string
       ),
       wgs84
@@ -176,12 +176,12 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   e <- raster::extent(mybbox.wgs)
   r <- raster::raster(raster::extent(mybbox),
     ncol = data@grid@cells.dim[1] * .9,
-    nrow = data@grid@cells.dim[2] * .9, crs = CRS(proj4string(mybbox))
+    nrow = data@grid@cells.dim[2] * .9, crs = sp::CRS(sp::proj4string(mybbox))
   )
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(spTransform(data, CRS("+init=epsg:3857")))
+    as.data.frame(sp::spTransform(data, sp::CRS("+init=epsg:3857")))
   )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])

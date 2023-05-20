@@ -92,12 +92,12 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
   }
 
   if (inherits(raster, "RasterLayer")) {
-    proj4string <- CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
+    proj4string <- sp::CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
       " +lon_0=", x$geo$lon,
       " +units=m",
       sep = ""
     ))
-    grid_size <- spTransform(methods::as(methods::as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
+    grid_size <- sp::spTransform(methods::as(methods::as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
   }
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
@@ -124,7 +124,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
     data <- do.call(cbind, alldata)
   }
   if (inherits(data, "SpatialPoints")) {
-    data <- SpatialGridDataFrame(methods::as(raster, "SpatialGrid"), data@data)
+    data <- sp::SpatialGridDataFrame(methods::as(raster, "SpatialGrid"), data@data)
   }
   data <- list(
     radar = x$radar, datetime = x$datetime,
@@ -137,14 +137,14 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 
 sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4 / 3, re = 6378, rp = 6357) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
-  proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
+  proj4string <- sp::CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
     " +lon_0=", attributes(param)$geo$lon,
     " +units=m",
     sep = ""
   ))
   if (inherits(grid_size, c("RasterLayer", "SpatialPoints"))) {
-    if (proj4string(grid_size) != as.character(proj4string)) {
-      gridTopo <- spTransform(methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
+    if (sp::proj4string(grid_size) != as.character(proj4string)) {
+      gridTopo <- sp::spTransform(methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
     } else if (inherits(grid_size, "RasterLayer")) {
       gridTopo <- methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints")
     } else {
@@ -179,7 +179,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
       )
     }
     # define cartesian grid
-    gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
+    gridTopo <- sp::GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   }
   # if projecting, account for elevation angle
   if (project) {
@@ -189,7 +189,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   }
   # get scan parameter indices, and extract data
   index <- polar_to_index(
-    cartesian_to_polar(coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
+    cartesian_to_polar(sp::coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
     rangebin = attributes(param)$geo$rscale,
     azimbin = attributes(param)$geo$ascale,
     azimstart = ifelse(is.null(attributes(param)$geo$astart), 0, attributes(param)$geo$astart),
@@ -218,12 +218,12 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   colnames(data) <- attributes(param)$param
 
   if (inherits(grid_size, "RasterLayer")) {
-    output <- SpatialGridDataFrame(methods::as(grid_size, "SpatialGrid"), data)
+    output <- sp::SpatialGridDataFrame(methods::as(grid_size, "SpatialGrid"), data)
   } else if (inherits(grid_size, "SpatialPoints")) {
-    output <- SpatialPointsDataFrame(grid_size, data)
+    output <- sp::SpatialPointsDataFrame(grid_size, data)
   } else {
-    output <- SpatialGridDataFrame(
-      grid = SpatialGrid(
+    output <- sp::SpatialGridDataFrame(
+      grid = sp::SpatialGrid(
         grid = gridTopo,
         proj4string = proj4string
       ),
@@ -235,7 +235,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
 }
 
 
-#' A wrapper for [spTransform()].
+#' A wrapper for [sp::spTransform()].
 #'
 #' @param lon Longitude
 #' @param lat Latitude
@@ -246,13 +246,13 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
 #' @return An object of class `SpatialPoints`.
 wgs_to_proj <- function(lon, lat, proj4string) {
   xy <- data.frame(x = lon, y = lat)
-  coordinates(xy) <- c("x", "y")
-  proj4string(xy) <- CRS("+proj=longlat +datum=WGS84")
-  res <- spTransform(xy, proj4string)
+  sp::coordinates(xy) <- c("x", "y")
+  sp::proj4string(xy) <- sp::CRS("+proj=longlat +datum=WGS84")
+  res <- sp::spTransform(xy, proj4string)
   return(res)
 }
 
-#' A wrapper for [spTransform()].
+#' A wrapper for [sp::spTransform()].
 #'
 #' @param x Longitude
 #' @param y Latitude
@@ -261,9 +261,9 @@ wgs_to_proj <- function(lon, lat, proj4string) {
 #' @return An object of class `SpatialPoints`.
 proj_to_wgs <- function(x, y, proj4string) {
   xy <- data.frame(lon = x, lat = y)
-  coordinates(xy) <- c("lon", "lat")
-  proj4string(xy) <- proj4string
-  res <- spTransform(xy, CRS("+proj=longlat +datum=WGS84"))
+  sp::coordinates(xy) <- c("lon", "lat")
+  sp::proj4string(xy) <- proj4string
+  res <- sp::spTransform(xy, sp::CRS("+proj=longlat +datum=WGS84"))
   return(res)
 }
 

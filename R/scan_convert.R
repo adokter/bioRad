@@ -28,7 +28,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   assertthat::assert_that(assertthat::is.number(lat))
   assertthat::assert_that(assertthat::is.number(lon))
 
-  proj4string <- CRS(paste("+proj=aeqd +lat_0=", lat,
+  proj4string <- sp::CRS(paste("+proj=aeqd +lat_0=", lat,
     " +lon_0=", lon,
     " +units=m",
     sep = ""
@@ -52,7 +52,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
     x = data$distance * cos(pi / 2 - data$azim * pi / 180),
     y = data$distance * sin(pi / 2 - data$azim * pi / 180)
   )
-  SpatialPointsDataFrame(coords = coords, data = data, coords.nrs = c(3, 4), proj4string = proj4string)
+  sp::SpatialPointsDataFrame(coords = coords, data = data, coords.nrs = c(3, 4), proj4string = proj4string)
 }
 
 #' convert a polar scan into a raster
@@ -124,7 +124,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
 
   assertthat::assert_that(assertthat::is.number(lat))
   assertthat::assert_that(assertthat::is.number(lon))
-  localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
+  localCrs <- sp::CRS(paste("+proj=aeqd +lat_0=", lat,
     " +lon_0=", lon,
     " +units=m",
     sep = ""
@@ -134,7 +134,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
   }
   else {
     # check crs argument as in raster::raster()
-    crs <- CRS(as.character(raster::projection(crs)))
+    crs <- sp::CRS(as.character(raster::projection(crs)))
   }
   if (!assertthat::are_equal(raster, NA)) {
     crs <- raster::crs(raster)
@@ -159,7 +159,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     # keep only selected scan parameters
     if (!missing(param)) spdf <- spdf[param]
     # transform spatialpoints to coordinate system of the raster
-    if (!missing(crs)) spdf <- spTransform(spdf, crs)
+    if (!missing(crs)) spdf <- sp::spTransform(spdf, crs)
     # get extent of the available data
     spdf_extent <- raster::extent(spdf)
     # prepare a raster matching the data extent (or user-specified extent)
@@ -177,7 +177,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     }
   }
   # convert raster coordinates to local Cartesian CRS
-  crds <- coordinates(spTransform(raster::rasterToPoints(r, spatial = T), localCrs))
+  crds <- sp::coordinates(sp::spTransform(raster::rasterToPoints(r, spatial = T), localCrs))
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
   index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)
@@ -235,7 +235,7 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
 
   assertthat::assert_that(assertthat::is.number(lat))
   assertthat::assert_that(assertthat::is.number(lon))
-  localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
+  localCrs <- sp::CRS(paste("+proj=aeqd +lat_0=", lat,
     " +lon_0=", lon,
     " +units=m",
     sep = ""
@@ -243,7 +243,7 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
   assertthat::assert_that(assertthat::is.number(k))
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(assertthat::is.number(rp))
-  stopifnot(all.equal(localCrs, CRS(proj4string(spdf))))
+  stopifnot(all.equal(localCrs, sp::CRS(sp::proj4string(spdf))))
 
   rscale <- scan$geo$rscale
   ascale <- scan$geo$ascale
@@ -253,7 +253,7 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
   nrang <- dim(scan)[2]
   nazim <- dim(scan)[3]
 
-  crds <- coordinates(spdf)
+  crds <- sp::coordinates(spdf)
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
   index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)

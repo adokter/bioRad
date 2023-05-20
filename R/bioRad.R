@@ -14,7 +14,6 @@
 #'
 #' @import stats
 #' @import rgdal
-#' @import sp
 #' @import utils
 #' @importFrom tidyr fill
 #' @importFrom dplyr %>% .data

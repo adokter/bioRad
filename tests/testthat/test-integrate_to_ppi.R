@@ -51,8 +51,8 @@ test_that("check if other projection gives same result", {
                                              example_vp,
                                              xlim = c(-10010, 10000), ylim = c(-11010, 10000), res = 510
   ), "ppi")
-  expect_s4_class(my_raster <- raster::rasterFromXYZ(spTransform(methods::as(my_ppi$data, "SpatialPointsDataFrame"), "+proj=longlat")[c(3, 7), ]), "RasterLayer")
-  expect_silent(proj4string(my_raster) <- "+proj=longlat")
+  expect_s4_class(my_raster <- raster::rasterFromXYZ(sp::spTransform(methods::as(my_ppi$data, "SpatialPointsDataFrame"), "+proj=longlat")[c(3, 7), ]), "RasterLayer")
+  expect_silent(sp::proj4string(my_raster) <- "+proj=longlat")
   expect_equal(
     raster::values(raster::raster(integrate_to_ppi(example_pvol, example_vp, raster = my_raster)$data))[!is.na(raster::values(my_raster))],
     raster::values(my_raster)[!is.na(raster::values(my_raster))]
