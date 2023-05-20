@@ -93,9 +93,9 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   if (missing(ylim)) {
     ylim <- x$data@bbox[2, ]
   }
-  bbox <- coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
-  ggplot(data = data, ...) +
-    geom_raster(aes(x, y, fill = eval(parse(text = param)))) +
+  bbox <- ggplot2::coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
+  ggplot2::ggplot(data = data, ...) +
+    ggplot2::geom_raster(ggplot2::aes(x, y, fill = eval(parse(text = param)))) +
     colorscale +
     bbox
 }

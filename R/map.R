@@ -144,7 +144,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
     # apply transparancy
-    palette <- alpha(palette,alpha)
+    palette <- ggplot2::alpha(palette,alpha)
     n_color = length(palette)
     colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
@@ -220,7 +220,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
-  dummy <- geom_point(aes(x = lon, y = lat, colour = z),
+  dummy <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat, colour = z),
     size = 0,
     data = data.frame(
       lon = latlon_radar$lon,
@@ -228,7 +228,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       z = 0
     )
   )
-  radarpoint <- geom_point(aes(x = lon, y = lat),
+  radarpoint <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat),
     colour = radar_color,
     size = radar_size,
     data = data.frame(lon = latlon_radar$lon, lat = latlon_radar$lat)
@@ -246,8 +246,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       ggmap::inset_raster(raster::as.matrix(r), e@xmin, e@xmax, e@ymin, e@ymax) +
       dummy + colorscale +
       radarpoint +
-      scale_x_continuous(limits = xlim, expand = c(0, 0)) +
-      scale_y_continuous(limits = ylim, expand = c(0, 0))
+      ggplot2::scale_x_continuous(limits = xlim, expand = c(0, 0)) +
+      ggplot2::scale_y_continuous(limits = ylim, expand = c(0, 0))
   )
   suppressWarnings(mymap)
 

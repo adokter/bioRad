@@ -1,6 +1,6 @@
 color_scale <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
-    colorscale <- scale_colour_gradient2(
+    colorscale <- ggplot2::scale_colour_gradient2(
       low = colors_vrad[1], high = colors_vrad[3],
       mid = colors_vrad[2], name = param,
       midpoint = 0, limits = zlim, na.value = na.value
@@ -8,7 +8,7 @@ color_scale <- function(param, zlim, na.value = "transparent") {
   } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
     colorscale <- viridis::scale_colour_viridis(na.value = na.value, name = param)
   } else {
-    colorscale <- scale_colour_gradientn(
+    colorscale <- ggplot2::scale_colour_gradientn(
       colours = colors_dbz,
       name = param, limits = zlim, na.value = na.value
     )
@@ -19,7 +19,7 @@ color_scale <- function(param, zlim, na.value = "transparent") {
 
 color_scale_fill <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
-    colorscale <- scale_fill_gradient2(
+    colorscale <- ggplot2::scale_fill_gradient2(
       low = colors_vrad[1], high = colors_vrad[3],
       mid = colors_vrad[2], name = param,
       midpoint = 0, limits = zlim, na.value = na.value

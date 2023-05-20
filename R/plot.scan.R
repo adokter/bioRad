@@ -93,9 +93,9 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   }
   # plot
   azimuth <- NULL # dummy assignment to suppress devtools check warning
-  bbox <- coord_cartesian(xlim = xlim, ylim = ylim)
-  ggplot(data = data, ...) +
-    geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
+  bbox <- ggplot2::coord_cartesian(xlim = xlim, ylim = ylim)
+  ggplot2::ggplot(data = data, ...) +
+    ggplot2::geom_raster(ggplot2::aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
     bbox
 }
