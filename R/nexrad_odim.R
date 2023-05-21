@@ -37,7 +37,7 @@
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE) {
   assert_that(dir.exists(dirname(pvolfile_odim)),msg=paste("output directory", dirname(pvolfile_odim), "not found"))
   assert_that(is.writeable(dirname(pvolfile_odim)))
-  rlang::check_installed('vol2birdR','to run `nexrad_to_odim`. See https://adokter.github.io/vol2birdR for install instructions.')
+  rlang::check_installed('vol2birdR',format_reason_vol2bird('to run `nexrad_to_odim`.'))
 
   config <- vol2birdR::vol2bird_config()
   vol2birdR::rsl2odim(file=pvolfile_nexrad, config=config, pvolfile_out=pvolfile_odim, verbose=verbose)
