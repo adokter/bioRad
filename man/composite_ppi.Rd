@@ -35,7 +35,7 @@ scan parameters use 'all' (default).}
 
 \item{ylim}{y (latitude) range}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
@@ -58,7 +58,7 @@ weighting factor of zero.}
 number of PPIs covering a single composite \code{ppi} pixel.}
 }
 \value{
-A \code{\link[=summary.ppi]{ppi}}.
+A \code{\link[=summary.ppi]{ppi()}}.
 }
 \description{
 Combines multiple plan position indicators (\code{ppi}) into a single
@@ -74,15 +74,15 @@ or ppi's of different radars can be composited.
 
 Argument \code{method} determines how values of different ppi's at the same
 geographic location are combined.
-\describe{
-\item{\code{"mean"}}{Compute the average value}
-\item{\code{"max"}}{Compute the maximum value. If ppi's are of the same radar
-and the same polar volume, this computes a max product, showing the maximum
-detected signal at that geographic location.}
-\item{\code{"min"}}{Compute the minimum value}
-\item{\code{"idw"}}{This option is useful primarily when compositing ppi's of
-multiple radars. Performs an inverse distance weighting, where values are
-weighted according to 1/(distance from the radar)^\code{idp}}
+\itemize{
+\item \code{mean}: Compute the average value
+\item \code{max}: Compute the maximum value. If ppi's are of the same radar and the
+same polar volume, this computes a max product, showing the maximum
+detected signal at that geographic location.
+\item \code{min}: Compute the minimum value
+\item \code{idw}: This option is useful primarily when compositing ppi's of multiple
+radars. Performs an inverse distance weighting, where values are weighted
+according to 1/(distance from the radar)^\code{idp}
 }
 
 The coordinates system of the returned \code{ppi} is a WGS84

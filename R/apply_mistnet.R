@@ -1,7 +1,7 @@
 #' Apply MistNet segmentation to a polar volume
 #'
 #' Apply MistNet segmentation model to a polar volume file on disk, and load the
-#' resultant segmentation as a polar volume (\code{pvol}) object.
+#' resultant segmentation as a polar volume (`pvol`) object.
 #'
 #' @param file character. File path for a radar polar volume.
 #' @param pvolfile_out character. (optional) Filename for the polar volume to be
@@ -13,15 +13,15 @@
 #' at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different
 #' elevation angles may compromise segmentation results.
 #' @param local_install (deprecated) String with path to local vol2bird binary
-#' (e.g. \code{"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"}),
+#' (e.g. `"/your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh"`),
 #' to use local installation instead of Docker container
 #' @param local_mistnet (optional) String with path to local mistnet segmentation model
-#' in PyTorch format (e.g. \code{"/your/path/mistnet_nexrad.pt"})
+#' in PyTorch format (e.g. `"/your/path/mistnet_nexrad.pt"`)
 #'
 #' @inheritParams calculate_vp
 #'
-#' @return If parameter \code{load} is TRUE an object of class \code{pvol} on success.
-#' If parameter \code{load} is FALSE, \code{TRUE} on success.
+#' @return If parameter `load` is TRUE an object of class `pvol` on success.
+#' If parameter `load` is FALSE, `TRUE` on success.
 #'
 #' @export
 #'
@@ -44,21 +44,21 @@
 #'
 #' MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
 #' to a 100% probability) as additional scan parameters to the polar volume:
-#' \describe{
-#' \item{"\code{BACKGROUND}"}{class probability that no signal was detected above the noise level of the radar}
-#' \item{"\code{WEATHER}"}{class probability that weather was detected}
-#' \item{"\code{BIOLOGY}"}{class probability that biological scatterers were detected}
-#' }
+#'
+#' * `BACKGROUND`: Class probability that no signal was detected above the noise
+#'   level of the radar
+#' * `WEATHER`: Class probability that weather was detected
+#' * `BIOLOGY`: Class probability that biological scatterers were detected
+#'
 #' These class probabilities are only available for the 5 input elevations used
 #' as input for the MistNet model. Based on all the class probabilities a final weather segmentation map calculated,
-#' stored as scan parameter \code{CELL}, which is available for all elevation scans.
-#' \describe{
-#' \item{"\code{CELL}"}{Final weather segmentation, with values > 1 indicating pixels
-#' classified as weather, and values equal to 1 indicating pixels
-#' that are located within 5 km distance of a weather pixels}
-#' }
+#' stored as scan parameter `CELL`, which is available for all elevation scans.
+
+#' * `CELL`: Final weather segmentation, with values > 1 indicating pixels
+#'  classified as weather, and values equal to 1 indicating pixels that are
+#'  located within 5 km distance of a weather pixels
 #'
-#' A pixel is classified as weather if the class probability \code{WEATHER} > 0.45
+#' A pixel is classified as weather if the class probability `WEATHER` > 0.45
 #' or when the average class probability for rain across all five MistNet elevation
 #' scans at that spatial location > 0.45.
 #'
@@ -68,13 +68,13 @@
 #'
 #' @references
 #' Please also cite this publication when using MistNet:
-#' \itemize{
-#'   \item Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
+#'
+#' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horten KG,
 #'   Nilsson C, Van Doren B, Farnsworth A, La Sorte FA, Maji S, Sheldon D (2019)
 #'   MistNet: Measuring historical bird migration in the US using archived
 #'   weather radar data and convolutional neural networks. Methods in Ecology
 #'   and Evolution 10: 1908– 1922. \doi{10.1111/2041-210X.13280}
-#' }
+#'
 #' @examples
 #' \dontrun{
 #' # make sure you have installed the MistNet libraries and model, using:

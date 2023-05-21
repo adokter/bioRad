@@ -21,19 +21,21 @@
 }
 \arguments{
 \item{x}{1 class object inheriting from class \code{vpi}, typically a
-call to \link[bioRad]{integrate_profile}.}
+call to \link[=integrate_profile]{integrate_profile}.}
 
 \item{quantity}{Character string with the quantity to plot, one of
-'\code{vid}' (vertically integrated density),
-'\code{vir}' (vertically integrated reflectivity),
-'\code{mtr}' (migration traffic rate),
-'\code{rtr}' (reflectivity traffic rate),
-'\code{mt}' ((cumulative) migration traffic),
-'\code{rt}' ((cumulative) reflectivity traffic),
-'\code{ff}' (height-averaged ground speed)
-'\code{dd}' (height-averaged direction)
-'\code{u}' (height-averaged u-component of ground speed),
-'\code{v}' (height-averaged v-component of ground speed).}
+\itemize{
+\item \code{vid} (vertically integrated density),
+\item \code{vir} (vertically integrated reflectivity),
+\item \code{mtr} (migration traffic rate),
+\item \code{rtr} (reflectivity traffic rate),
+\item \code{mt} ((cumulative) migration traffic),
+\item \code{rt} ((cumulative) reflectivity traffic),
+\item \code{ff} (height-averaged ground speed)
+\item \code{dd} (height-averaged direction)
+\item \code{u} (height-averaged u-component of ground speed),
+\item \code{v} (height-averaged v-component of ground speed).
+}}
 
 \item{xlab}{A title for the x-axis.}
 
@@ -57,7 +59,7 @@ attribute of \code{x}.}
 \item{nightshade}{Deprecated argument, use night_shade instead.}
 
 \item{...}{Additional arguments to be passed to the low level
-\link[graphics]{plot} plotting function.}
+\link[graphics:plot.default]{plot} plotting function.}
 }
 \description{
 Plot an object of class \code{vpi}.
@@ -65,27 +67,28 @@ Plot an object of class \code{vpi}.
 \details{
 The integrated profiles can be visualized in various related quantities, as specified by
 argument \code{quantity}:
-\describe{
-\item{"\code{vid}"}{Vertically Integrated Density, i.e. the aerial surface
-density of individuals. This quantity is dependent on the assumed radar
-cross section per individual (RCS)}
-\item{"\code{vir}"}{Vertically Integrated Reflectivity. This quantity is
-independent of the value of individual's radar cross section}
-\item{"\code{mtr}"}{Migration Traffic Rate. This quantity is dependent on
-the assumed radar cross section (RCS)}
-\item{"\code{rtr}"}{Reflectivity Traffic Rate. This quantity is independent
-on the assumed radar cross section (RCS)}
-\item{"\code{mt}"}{Migration Traffic. This quantity is dependent on
-the assumed radar cross section (RCS)}
-\item{"\code{rt}"}{Reflectivity Traffic. This quantity is independent
-on the assumed radar cross section (RCS)}
-\item{\code{ff}}{Horizontal ground speed in m/s}
-\item{\code{dd}}{Horizontal ground speed direction in degrees}
-\item{\code{u}}{Ground speed component west to east in m/s}
-\item{\code{v}}{Ground speed component south to north in m/s}
-\item{\code{height}}{Mean flight height (height weighted by reflectivity eta) in m above sea level}
-}
+\itemize{
+\item \code{vid}: Vertically Integrated Density, i.e. the aerial surface density of
+individuals. This quantity is dependent on the assumed radar cross section
+per individual (RCS)
+\item \code{vir}: Vertically Integrated Reflectivity. This quantity is independent of
+the value of individual's radar cross section
+\item \code{mtr}: Migration Traffic Rate. This quantity is dependent on the assumed
+radar cross section (RCS)
+\item \code{rtr}: Reflectivity Traffic Rate. This quantity is independent on the
+assumed radar cross section (RCS)
+\item \code{mt}: Migration Traffic. This quantity is dependent on the assumed radar
+cross section (RCS)
+\item \code{rt}: Reflectivity Traffic. This quantity is independent on the assumed
+radar cross section (RCS)
+\item \code{ff}: Horizontal ground speed in m/s
+\item \code{dd}: Horizontal ground speed direction in degrees
+\item \code{u}: Ground speed component west to east in m/s
+\item \code{v}: Ground speed component south to north in m/s
+\item \code{height}: Mean flight height (height weighted by reflectivity eta) in m
+above sea level
 The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.
+}
 }
 \examples{
 # vertically integrate a vpts object:

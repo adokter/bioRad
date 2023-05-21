@@ -73,3 +73,13 @@ plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
 )
 }
+\seealso{
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
+}
+\concept{beam_functions}

@@ -19,7 +19,7 @@ download_basemap(
 
 \item{verbose}{Logical, whether to print information to console.}
 
-\item{zoom}{Zoom level (optional), see \link[ggmap]{get_map}. An integer
+\item{zoom}{Zoom level (optional), see \link[ggmap:get_map]{get_map}. An integer
 from 3 (continent) to 21 (building). By default the zoom level matching the
 ppi extent is selected automatically.}
 
@@ -33,19 +33,16 @@ ppi extent is selected automatically.}
 "toner-labels", "toner-lines", "toner-lite", "watercolor". For Google
 Maps: "terrain", "satellite", "roadmap", "hybrid"}
 
-\item{...}{Arguments to pass to \link[ggmap]{get_map} function.}
+\item{...}{Arguments to pass to \link[ggmap:get_map]{get_map} function.}
 }
 \description{
 Downloads a Stamen Maps or Google Maps base layer
-map using \link[ggmap]{get_map}.
+map using \link[ggmap:get_map]{get_map}.
 }
 \details{
 To use Google Maps as \code{source}, you will have to register with Google,
 enable billing and provide an API key to ggmap. See the ggmap
 \href{https://github.com/dkahle/ggmap#attention}{README} for details.
-
-To use \code{maptype}, install the development version of ggmap (>3.0.0) with
-\code{devtools::install_github("dkahle/ggmap")}.
 }
 \examples{
 # load an example scan:

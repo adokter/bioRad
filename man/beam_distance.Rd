@@ -34,3 +34,13 @@ depends on \link{beam_height} to calculate beam height.
 # down range of the 5 degree elevation beam at a slant range of 100 km:
 beam_distance(100000, 5)
 }
+\seealso{
+Other beam_functions: 
+\code{\link{beam_height}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
+}
+\concept{beam_functions}

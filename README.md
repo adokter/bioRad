@@ -7,7 +7,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad)
-[![R-CMD-check](https://github.com/adokter/bioRad/workflows/R-CMD-check/badge.svg)](https://github.com/adokter/bioRad/actions)
+[![R-CMD-check](https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://app.codecov.io/gh/adokter/bioRad)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 <!-- badges: end -->

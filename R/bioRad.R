@@ -1,14 +1,14 @@
 #' @details
 #' To get started, see:
 #'
-#' \itemize{
-#'   \item Dokter et al. (2019) \doi{10.1111/ecog.04028}: a
-#'   paper describing the package.
-#'   \item \href{https://adriaandokter.com/bioRad/articles/bioRad.html}{bioRad
-#'   vignette}: an introduction to bioRad's main functionalities.
-#'   \item \href{https://adriaandokter.com/bioRad/reference/index.html}{Function
-#'   reference}: an overview of all bioRad functions.
-#' }
+#' * Dokter et al. (2019) \doi{10.1111/ecog.04028}: a paper describing the
+#'   package.
+#' * [bioRad
+#'   vignette](https://adriaandokter.com/bioRad/articles/bioRad.html): an
+#'   introduction to bioRad's main functionalities.
+#' * [Function
+#'   reference](https://adriaandokter.com/bioRad/reference/index.html): an
+#'   overview of all bioRad functions.
 #'
 #' @keywords internal
 #'
@@ -18,13 +18,12 @@
 #' @import methods
 #' @import graphics
 #' @import ggplot2
-#' @import ggmap
 #' @import glue
 #' @import rgdal
 #' @import sp
 #' @import utils
 #' @import assertthat
-#' @import data.table
+#' @importFrom dplyr mutate pull bind_rows left_join join_by if_else
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom raster rasterize
@@ -37,5 +36,6 @@
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
 #' @importFrom tidyr fill
+#' @importFrom dplyr %>%
 #'
 "_PACKAGE"

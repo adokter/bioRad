@@ -83,10 +83,10 @@ in the profile quantity specified by \code{quantity} are replaced with zeros.
 The current implementation does not (yet) take into account the system
 noise floor when calculating the overlap.
 
-In the ODIM data model the attribute \code{/how/NEZ} or \code{/how/NEZH}
+In the ODIM data model the attribute \verb{/how/NEZ} or \verb{/how/NEZH}
 specifies the system noise floor (the Noise Equivalent Z or noise
 equivalent reflectivity factor. the H refers to the horizontal channel of a
-dual-polarization radar). In addition, the attribute \code{/how/LOG} gives
+dual-polarization radar). In addition, the attribute \verb{/how/LOG} gives
 "security distance above mean noise level (dB) threshold value". This is
 equivalent to the log receiver signal-to-noise ratio, i.e. the dB above the
 noise floor for the signal processor to report a valid reflectivity value.
@@ -119,3 +119,13 @@ bpo <- beam_profile_overlap(example_vp, get_elevation_angles(pvol), seq(0, 10000
 # plot the calculated overlap:
 plot(bpo)
 }
+\seealso{
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
+}
+\concept{beam_functions}

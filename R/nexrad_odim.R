@@ -14,7 +14,7 @@
 #'
 #' @inheritParams calculate_vp
 #'
-#' @return \code{TRUE} on success
+#' @return `TRUE` on success
 #'
 #' @export
 #' @examples

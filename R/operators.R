@@ -1,9 +1,9 @@
 #' Mathematical and arithmetic operations on param's, scan's and pvol's
 #'
-#' @param x object of class \code{scan}, or \code{pvol}
+#' @param x object of class `scan`, or `pvol`
 #' @param ... objects passed on to the Math functions
-#' @param e1 object of class \code{param}, \code{scan}, \code{pvol} or a number
-#' @param e2 object of class \code{param}, \code{scan}, \code{pvol} or a number
+#' @param e1 object of class `param`, `scan`, `pvol` or a number
+#' @param e2 object of class `param`, `scan`, `pvol` or a number
 #'
 #' @return an object of the input class
 #'
@@ -16,7 +16,7 @@
 #'
 #' Attributes are taken from the first object in the operation.
 #'
-#' When a \code{pvol} is multiplied by a list, in which case arguments are taken from the list per scan.
+#' When a `pvol` is multiplied by a list, in which case arguments are taken from the list per scan.
 #' this requires the list to have the same length as the number of scans.
 #'
 #' @export

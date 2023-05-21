@@ -1,7 +1,7 @@
-#' Read a polar volume (\code{pvol}) from file
+#' Read a polar volume (`pvol`) from file
 #'
 #' @param file A string containing the path to a polar volume file
-#' @param sort A logical value, when \code{TRUE} sort scans ascending
+#' @param sort A logical value, when `TRUE` sort scans ascending
 #' by elevation.
 #' @param param An atomic vector of character strings, containing the names
 #' of scan parameters to read. To read all scan parameters use 'all'.
@@ -16,35 +16,33 @@
 #' stored in file is overwritten.
 #' @param elev_min Minimum scan elevation to read in degrees.
 #' @param elev_max Maximum scan elevation to read in degrees.
-#' @param verbose A logical value, whether to print messages (\code{TRUE})
+#' @param verbose A logical value, whether to print messages (`TRUE`)
 #' to console.
 #' @param mount (deprecated) A character string with the mount point (a directory path)
 #' for the Docker container.
 #' @param local_install (deprecated) String with path to local vol2bird installation,
 #' to use local installation instead of Docker container
 #'
-#' @return An object of class \link[=summary.pvol]{pvol}, which is a list
-#' containing polar scans, i.e. objects of class \code{scan}
+#' @return An object of class [pvol][summary.pvol], which is a list
+#' containing polar scans, i.e. objects of class `scan`
 #'
 #' @export
 #'
 #' @details
 #' Scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #' Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
+#' * `DBZH`, `DBZ`: (Logged) reflectivity factor (dBZ)
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor (dBZ)
+#' * `VRADH`, `VRAD`: Radial velocity (m/s). Radial
 #'    velocities towards the radar are negative, while radial velocities away
-#'    from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
+#'    from the radar are positive
+#' * `RHOHV`: Correlation coefficient (unitless). Correlation
 #'    between vertically polarized and horizontally polarized reflectivity
-#'    factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
+#'    factor
+#' * `PHIDP`: Differential phase (degrees)
+#' * `ZDR`: (Logged) differential reflectivity (dB)
 #'
 #' @examples
 #' # locate example volume file:
