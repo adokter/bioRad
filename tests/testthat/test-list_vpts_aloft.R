@@ -23,6 +23,38 @@ test_that("list_vpts_aloft() returns a character vector", {
   )
 })
 
+
+test_that("list_vpts_aloft() works without specifying dates", {
+  # just date_min
+  expect_no_error(
+    list_vpts_aloft(
+      date_min = "1900-01-01",
+      radars = "frmtc"
+    )
+  )
+  # just date_max
+  expect_no_error(
+    list_vpts_aloft(
+      date_max = Sys.Date(),
+      radars = "ukhhd"
+    )
+  )
+  # neither provided
+  expect_no_error(
+    list_vpts_aloft(
+      radars = c("atval","essse")
+    )
+  )
+
+})
+
 test_that("list_vpts_aloft() returns all data when no dates are provided", {
 
+})
+
+
+test_that("list_vpts_aloft() doesn't return the base url on missing data" ,{
+  expect_false(
+    list_vpts_aloft(date_min = "1900-01-01", date_max = Sys.Date(), radars = c("atval")) ==
+      "https://aloft.s3-eu-west-1.amazonaws.com/")
 })
