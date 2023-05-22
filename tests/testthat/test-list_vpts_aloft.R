@@ -50,7 +50,7 @@ test_that("list_vpts_aloft() works without specifying dates", {
   expect_no_error(
     list_vpts_aloft(
       date_max = Sys.Date(),
-      radars = "ukhhd"
+      radars = "bejab"
     )
   )
   # neither provided
