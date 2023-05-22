@@ -45,8 +45,8 @@ list_vpts_aloft <- function(
   valid_radars <-
     jsonlite::fromJSON(
       "https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json"
-    ) %>% dplyr::filter(!is.na(odimcode)) %>%
-    dplyr::pull(odimcode)
+    ) %>% dplyr::filter(!is.na(.data$odimcode)) %>%
+    dplyr::pull("odimcode")
 
   assertthat::assert_that(
     all(radars %in% valid_radars),
@@ -80,7 +80,7 @@ list_vpts_aloft <- function(
                     date = regmatches(.data$Key, regexpr("[0-9]{6}", .data$Key))) %>%
       dplyr::filter(.data$radar %in% radars,
                     date %in% months) %>%
-      dplyr::pull(Key) %>%
+      dplyr::pull("Key") %>%
       paste(base_url, ., sep = "/")
 
 
