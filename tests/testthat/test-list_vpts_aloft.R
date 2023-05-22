@@ -15,7 +15,7 @@ test_that("list_vpts_aloft() returns error for invalid format", {
                     date_max = "2001-12-15",
                     radars = "itdec",
                     format = "not a valid format"),
-    regexp = "Error: `format` must be one of: `csv`, `hdf5`.",
+    regexp = "`format` must be one of: `csv`, `hdf5`.",
     fixed = TRUE
   )
 })
