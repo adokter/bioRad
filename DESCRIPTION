@@ -26,7 +26,6 @@ Depends:
     R (>= 3.5.0)
 Imports:
     assertthat,
-    aws.s3,
     curl,
     fields,
     ggplot2,
@@ -49,10 +48,10 @@ Imports:
     viridis,
     rlang
 Remotes:
-    adokter/vol2birdR,
     bioc::rhdf5
 Suggests:
     vol2birdR,
+    aws.s3,
     ggmap (>= 3.0.0),
     knitr,
     tidyselect,
