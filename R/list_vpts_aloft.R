@@ -132,8 +132,26 @@ list_vpts_aloft <- function(
     )
   }
 
-  found_vpts_aloft %>%
-    dplyr::pull("Key") %>%
-    paste(base_url, ., sep = "/")
+  data_urls <-
+    glue::glue("{base_url}/{keys}",
+      keys = dplyr::pull(found_vpts_aloft, "Key")
+    )
 
+  # Assert that some data was found
+  assertthat::assert_that(
+    assertthat::not_empty(data_urls),
+    msg = glue::glue("No data found for radars between {date_min} - {date_max}")
+  )
+
+  # Warn if less dates were found then requested
+  assertthat::validate_that(
+    all(months %in% found_vpts_aloft$date),
+    msg = glue::glue("No radars found for all dates, ",
+                     "radars found for {first_date_found} to {last_date_found}",
+                     first_date_found = format(lubridate::ym(min(found_vpts_aloft$date)),"%Y-%m"),
+                     last_date_found = format(lubridate::ym(max(found_vpts_aloft$date)), "%Y-%m")
+  )
+  )
+
+  return(data_urls)
 }
