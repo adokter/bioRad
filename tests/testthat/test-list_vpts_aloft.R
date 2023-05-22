@@ -1,43 +1,53 @@
 test_that("list_vpts_aloft() returns error for unknown source", {
   expect_error(
-    list_vpts_aloft(date_min = "2000-01-01",
-                    date_max = "2001-12-15",
-                    radars = "itdec",
-                    source = "not a valid source"),
+    list_vpts_aloft(
+      date_min = "2000-01-01",
+      date_max = "2001-12-15",
+      radars = "itdec",
+      source = "not a valid source"
+    ),
     regexp = "`source` must be one of: `baltrad`, `ecog-04003`.",
     fixed = TRUE
-    )
+  )
 })
 
 test_that("list_vpts_aloft() returns error for invalid format", {
   expect_error(
-    list_vpts_aloft(date_min = "2000-01-01",
-                    date_max = "2001-12-15",
-                    radars = "itdec",
-                    format = "not a valid format"),
+    list_vpts_aloft(
+      date_min = "2000-01-01",
+      date_max = "2001-12-15",
+      radars = "itdec",
+      format = "not a valid format"
+    ),
     regexp = "`format` must be one of: `csv`, `hdf5`.",
     fixed = TRUE
   )
 })
 
 test_that("list_vpts_aloft() returns error if radar doesn't exist", {
-  expect_error(list_vpts_aloft(date_min = "1990-01-01",
-                  date_max = "2050-01-01",
-                  radars = c("not a valid radar")),
-               regexp = "Can't find radar(s): not a valid radar",
-               fixed = TRUE)
+  expect_error(
+    list_vpts_aloft(
+      date_min = "1990-01-01",
+      date_max = "2050-01-01",
+      radars = c("not a valid radar")
+    ),
+    regexp = "Can't find radar(s): not a valid radar",
+    fixed = TRUE
+  )
 })
 
 test_that("list_vpts_aloft() returns a character vector", {
   expect_type(
-    list_vpts_aloft(date_min = "2023-02-01",
-                    date_max = "2023-05-01",
-                    radars = c("bejab","bewid")),
+    list_vpts_aloft(
+      date_min = "2023-02-01",
+      date_max = "2023-05-01",
+      radars = c("bejab", "bewid")
+    ),
     "character"
   )
 })
 
-test_that("list_vpts_aloft() returns no warning when all dates are specified",{
+test_that("list_vpts_aloft() returns no warning when all dates are specified", {
   expect_no_warning(
     list_vpts_aloft(
       radars = "bejab",
@@ -96,7 +106,7 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
 #       "https://aloft.s3-eu-west-1.amazonaws.com/")
 # })
 
-test_that("list_vpts_aloft() warns if data was found subset of radars",{
+test_that("list_vpts_aloft() warns if data was found subset of radars", {
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
