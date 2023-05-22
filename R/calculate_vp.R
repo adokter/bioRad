@@ -382,9 +382,11 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
 }
 
 format_reason_vol2bird <- function(x) {
-  if (.Platform$OS.type == "unix") {
+  on_intel_mac <- Sys.info()[["sysname"]]=="Darwin" & Sys.info()[["machine"]] == "x86_64"
+  if (.Platform$OS.type == "unix" & !on_intel_mac) {
     return(paste(x, "For successful installation and execution additionally system dependencies might be required on linux and OSX, for details on installation see https://github.com/adokter/vol2birdR#install ."))
   } else {
+    # platform is Windows or Intel Mac, pre-compiled binaries are available on CRAN
     return(x)
   }
 }
