@@ -19,9 +19,11 @@ is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #'
 #' @keywords internal
-skip_if_no_mistnet <- function() {
-  if (vol2birdR::mistnet_exists()) {
-    return(invisible(TRUE))
+skip_if_no_mistnet <- function(){
+  if(rlang::is_installed('vol2birdR')){
+    if (vol2birdR::mistnet_exists()) {
+      return(invisible(TRUE))
+    }
   }
   testthat::skip("No MistNet")
 }

@@ -46,15 +46,14 @@ Imports:
     utils,
     viridisLite,
     viridis,
-    vol2birdR
+    rlang
 Remotes:
-    adokter/vol2birdR,
     bioc::rhdf5
 Suggests:
+    vol2birdR,
     aws.s3,
     ggmap (>= 3.0.0),
     knitr,
-    rlang,
     tidyselect,
     rmarkdown,
     testthat,
