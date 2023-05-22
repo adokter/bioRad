@@ -144,14 +144,14 @@ list_vpts_aloft <- function(
   )
 
   # Warn if less dates were found then requested
-  assertthat::validate_that(
+  warning(assertthat::validate_that(
     all(months %in% found_vpts_aloft$date),
     msg = glue::glue("No radars found for all dates, ",
                      "radars found for {first_date_found} to {last_date_found}",
                      first_date_found = format(lubridate::ym(min(found_vpts_aloft$date)),"%Y-%m"),
                      last_date_found = format(lubridate::ym(max(found_vpts_aloft$date)), "%Y-%m")
   )
-  )
+  ))
 
   return(data_urls)
 }
