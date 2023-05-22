@@ -1,9 +1,23 @@
 test_that("list_vpts_aloft() returns error for unknown source", {
-
+  expect_error(
+    list_vpts_aloft(date_min = "2000-01-01",
+                    date_max = "2001-12-15",
+                    radars = "itdec",
+                    source = "not a valid source"),
+    regexp = "`source` must be one of: `baltrad`, `ecog-04003`.",
+    fixed = TRUE
+    )
 })
 
 test_that("list_vpts_aloft() returns error for invalid format", {
-
+  expect_error(
+    list_vpts_aloft(date_min = "2000-01-01",
+                    date_max = "2001-12-15",
+                    radars = "itdec",
+                    format = "not a valid format"),
+    regexp = "Error: `format` must be one of: `csv`, `hdf5`.",
+    fixed = TRUE
+  )
 })
 
 test_that("list_vpts_aloft() returns error if radar doesn't exist", {
@@ -42,7 +56,7 @@ test_that("list_vpts_aloft() works without specifying dates", {
   # neither provided
   expect_no_error(
     list_vpts_aloft(
-      radars = c("atval","essse")
+      radars = "essse"
     )
   )
 
