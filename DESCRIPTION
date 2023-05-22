@@ -47,7 +47,9 @@ Imports:
     utils,
     viridisLite,
     viridis,
-    vol2birdR
+    vol2birdR,
+    jsonlite,
+    purrr
 Remotes:
     adokter/vol2birdR,
     bioc::rhdf5
