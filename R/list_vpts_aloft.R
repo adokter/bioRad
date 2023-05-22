@@ -1,10 +1,12 @@
 #' Title
 #'
-#' @param date_min
-#' @param date_max
-#' @param radars
-#' @param format
-#' @param source
+#' @param date_min The first date to return urls for. In the shape of
+#'   YYYY-MM-DD.
+#' @param date_max The last date to return urls for. In the shape of YYYY-MM-DD.
+#' @param radars A character vector of radar stations to return urls for.
+#' @param format (Character) The format of archive urls to return, either csv or
+#'   hdf5. Currently only csv urls are supported.
+#' @param source (Character) Either `baltrad` or `ecog-04003`
 #'
 #' @return A character vector of aloft urls
 #' @export
