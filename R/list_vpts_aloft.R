@@ -57,6 +57,15 @@ list_vpts_aloft <- function(
 
   # create file list --------------------------------------------------------
 
+  # handle missing dates
+  if(rlang::is_empty(date_min)){
+    # if date_min is missing, set it to a date predating any radar observations
+    date_min <- "1900-01-01"
+  }
+  if(rlang::is_empty(date_max)){
+    date_max <- "2999-01-01"
+  }
+
   # Convert to dates
   start_date <- as.Date(date_min, tz = NULL)
   end_date <- as.Date(date_max, tz = NULL)
