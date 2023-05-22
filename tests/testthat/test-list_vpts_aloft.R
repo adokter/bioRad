@@ -97,15 +97,6 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
   )
 })
 
-
-# test_that("list_vpts_aloft() doesn't return the base url on missing data" ,{
-#   expect_true(
-#     list_vpts_aloft(date_min = "1900-01-01",
-#                     date_max = Sys.Date(),
-#                     radars = c("atval")) !=
-#       "https://aloft.s3-eu-west-1.amazonaws.com/")
-# })
-
 test_that("list_vpts_aloft() warns if data was found subset of radars", {
   expect_warning(
     list_vpts_aloft(
