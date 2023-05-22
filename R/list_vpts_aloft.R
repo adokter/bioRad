@@ -79,18 +79,22 @@ list_vpts_aloft <- function(
     months <- format(seq(start_date, end_date, by = "months"), "%Y%m")
     base_url <- "https://aloft.s3-eu-west-1.amazonaws.com"
 
-    aws.s3::get_bucket_df(
-      bucket = "s3://aloft",
-      prefix = glue::glue("{source}/monthly"),
-      region = "eu-west-1",
-      max = Inf
-    ) %>%
-      dplyr::mutate(radar = purrr::map_chr(.data$Key, ~strsplit(.x, "/", fixed = TRUE)[[1]][3]),
-                    date = regmatches(.data$Key, regexpr("[0-9]{6}", .data$Key))) %>%
-      dplyr::filter(.data$radar %in% radars,
-                    date %in% months) %>%
-      dplyr::pull("Key") %>%
-      paste(base_url, ., sep = "/")
+    found_vpts_aloft <-
+      aws.s3::get_bucket_df(
+        bucket = "s3://aloft",
+        prefix = glue::glue("{source}/monthly"),
+        region = "eu-west-1",
+        max = Inf
+      ) %>%
+      dplyr::mutate(
+        radar = purrr::map_chr(.data$Key, ~ strsplit(.x, "/", fixed = TRUE)[[1]][3]),
+        date = regmatches(.data$Key, regexpr("[0-9]{6}", .data$Key))
+      ) %>%
+      dplyr::filter(
+        .data$radar %in% radars,
+        date %in% months
+      )
+
 
 
   } else {
@@ -98,5 +102,31 @@ list_vpts_aloft <- function(
     # TODO: create file paths of form
     # https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/bejab/2023/05/02/bejab_vp_20230502T000000Z_0x9.h5
   }
+
+  # Provide a warning if data coudn't be retreived for all requested radar
+  # stations
+  found_radars <-
+    dplyr::distinct(found_vpts_aloft, .data$radar) %>%
+    dplyr::pull("radar")
+  all_radars_found <- all(found_radars == radars)
+  if (!all_radars_found) {
+    warning(
+      assertthat::validate_that(
+        all(found_radars == radars),
+        msg = glue::glue(
+          "Found no data for radars: {missing_radars_collapse}",
+          missing_radars_collapse =
+            glue::glue_collapse(
+              glue::backtick(radars[!radars %in% found_radars]),
+              sep = ", "
+            )
+        )
+      )
+    )
+  }
+
+  found_vpts_aloft %>%
+    dplyr::pull("Key") %>%
+    paste(base_url, ., sep = "/")
 
 }
