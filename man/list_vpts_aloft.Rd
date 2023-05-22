@@ -13,11 +13,24 @@ list_vpts_aloft(
 )
 }
 \arguments{
-\item{source}{}
+\item{date_min}{The first date to return urls for. In the shape of
+YYYY-MM-DD.}
+
+\item{date_max}{The last date to return urls for. In the shape of YYYY-MM-DD.}
+
+\item{radars}{A character vector of radar stations to return urls for.}
+
+\item{format}{(Character) The format of archive urls to return, either csv or
+hdf5. Currently only csv urls are supported.}
+
+\item{source}{(Character) Either \code{baltrad} or \code{ecog-04003}}
 }
 \value{
 A character vector of aloft urls
 }
 \description{
 Title
+}
+\examples{
+list_vpts_aloft(radars = "bejab")
 }
