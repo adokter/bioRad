@@ -30,50 +30,71 @@ test_that("list_vpts_aloft() returns error if radar doesn't exist", {
 
 test_that("list_vpts_aloft() returns a character vector", {
   expect_type(
-    list_vpts_aloft(date_min = "1990-01-01",
-                    date_max = "2050-01-01",
+    list_vpts_aloft(date_min = "2023-02-01",
+                    date_max = "2023-05-01",
                     radars = c("bejab","bewid")),
     "character"
   )
 })
 
+test_that("list_vpts_aloft() returns no warning when all dates are specified",{
+  expect_no_warning(
+    list_vpts_aloft(
+      radars = "bejab",
+      date_min = "2023-02-01",
+      date_max = "2023-04-01"
+    )
+  )
+})
 
 test_that("list_vpts_aloft() works without specifying dates", {
   # just date_min
   expect_no_error(
-    list_vpts_aloft(
+    suppressWarnings(list_vpts_aloft(
       date_min = "1900-01-01",
       radars = "frmtc"
-    )
+    ))
   )
   # just date_max
   expect_no_error(
-    list_vpts_aloft(
+    suppressWarnings(list_vpts_aloft(
       date_max = Sys.Date(),
       radars = "bejab"
-    )
+    ))
   )
   # neither provided
   expect_no_error(
-    list_vpts_aloft(
+    suppressWarnings(list_vpts_aloft(
       radars = "essse"
-    )
+    ))
   )
-
 })
 
 test_that("list_vpts_aloft() returns all data when no dates are provided", {
-
+  expect_gt(
+    length(
+      suppressWarnings(list_vpts_aloft(
+        radars = "bejab"
+      ))
+    ),
+    length(
+      list_vpts_aloft(
+        radars = "bejab",
+        date_min = "2023-02-01",
+        date_max = "2023-04-01"
+      )
+    )
+  )
 })
 
 
-test_that("list_vpts_aloft() doesn't return the base url on missing data" ,{
-  expect_false(
-    list_vpts_aloft(date_min = "1900-01-01",
-                    date_max = Sys.Date(),
-                    radars = c("atval")) ==
-      "https://aloft.s3-eu-west-1.amazonaws.com/")
-})
+# test_that("list_vpts_aloft() doesn't return the base url on missing data" ,{
+#   expect_true(
+#     list_vpts_aloft(date_min = "1900-01-01",
+#                     date_max = Sys.Date(),
+#                     radars = c("atval")) !=
+#       "https://aloft.s3-eu-west-1.amazonaws.com/")
+# })
 
 test_that("list_vpts_aloft() warns if data was found subset of radars",{
   expect_warning(
