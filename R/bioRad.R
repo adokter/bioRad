@@ -18,13 +18,12 @@
 #' @import methods
 #' @import graphics
 #' @import ggplot2
-#' @import ggmap
 #' @import glue
 #' @import rgdal
 #' @import sp
 #' @import utils
 #' @import assertthat
-#' @import data.table
+#' @importFrom dplyr mutate pull bind_rows left_join join_by if_else
 #' @importFrom raster rasterToPoints
 #' @importFrom raster raster
 #' @importFrom raster rasterize
@@ -37,5 +36,6 @@
 #' @importFrom grDevices col2rgb colorRampPalette rgb
 #' @importFrom maptools crepuscule
 #' @importFrom tidyr fill
+#' @importFrom dplyr %>%
 #'
 "_PACKAGE"

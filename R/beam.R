@@ -24,6 +24,8 @@
 #' large, making oblateness of the earth and the dependence of earth radius with
 #' latitude only a small correction. Using default values assumes an average
 #' earth's radius of 6371 km.
+#'
+#' @family beam_functions
 #' @examples
 #' # beam height in meters at 10 km range for a 1 degree elevation beam:
 #' beam_height(10000, 1)
@@ -40,6 +42,9 @@ beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
                         rp = 6357) {
   assert_that(is.numeric(range))
   assert_that(is.numeric(elev))
+  assert_that(length(range) == length(elev) | length(range) == 1 | length(elev) == 1,
+    msg = "`range` and `elev` should either be equal length or either should have a length of one"
+  )
   assert_that(is.number(k))
   assert_that(is.number(lat))
   assert_that(is.number(re))
@@ -48,7 +53,7 @@ beam_height <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
 }
 
 beam_height_internal <- function(range, elev, k = 4 / 3, lat = 35, re = 6378,
-                             rp = 6357) {
+                                 rp = 6357) {
   sqrt(
     range^2 + (k * earth_radius(re, rp, lat))^2 +
       2 * range * (k * earth_radius(re, rp, lat)) * sin(elev * pi / 180)
@@ -74,6 +79,7 @@ earth_radius <- function(a, b, lat) {
 #' @return numeric. Beam width in m.
 #'
 #' @export
+#' @family beam_functions
 #' @examples
 #' #' # beam width in meters at 10 km range:
 #' beam_width(10000)
@@ -86,7 +92,7 @@ earth_radius <- function(a, b, lat) {
 beam_width <- function(range, beam_angle = 1) {
   assert_that(is.numeric(range))
   assert_that(is.number(beam_angle))
-  beam_width_internal(range=range, beam_angle = beam_angle)
+  beam_width_internal(range = range, beam_angle = beam_angle)
 }
 
 beam_width_internal <- function(range, beam_angle = 1) {
@@ -103,6 +109,7 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #' @param antenna numeric. Height of the center of the radar antenna in meters
 #' @param height numeric. Height in meter.
 #'
+#' @family beam_functions
 #' @return numeric.
 #'
 #' @details Beam profile is calculated using [beam_height] and [beam_width]. `height` and
@@ -121,14 +128,16 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
   assert_that(is.number(lat))
   assert_that(is.number(rp))
   assert_that(is.number(re))
-  gaussian_beam_profile_internal(height = height, range = range, elev = elev, antenna = antenna,
-                                             beam_angle = beam_angle, k = k, lat = lat, re = re,
-                                             rp = rp)
+  gaussian_beam_profile_internal(
+    height = height, range = range, elev = elev, antenna = antenna,
+    beam_angle = beam_angle, k = k, lat = lat, re = re,
+    rp = rp
+  )
 }
 
 gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
-                                  beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
-                                  rp = 6357) {
+                                           beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
+                                           rp = 6357) {
   dnorm(
     height,
     mean = antenna + beam_height_internal(
@@ -151,6 +160,7 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #' @return numeric vector. Normalized radiated energy at each of the specified
 #'   heights.
 #'
+#' @family beam_functions
 #' @export
 #'
 #' @details Beam profile is calculated using [beam_height] and
@@ -191,6 +201,8 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   assert_that(is.number(lat))
   assert_that(is.number(rp))
   assert_that(is.number(re))
+  assert_that(sum(c(length(height), length(distance))>1)<2,
+              msg='`height` and `distance` not have an unequal length when more then one. ')
 
   # calculate radiation pattern
   rowSums(
@@ -224,12 +236,12 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
   # output as data.frame
   beamprof <- data.frame(height = height, radiation = beamprof)
   # linearly interpolate the density of the vertical profile at the same grid as beamprof above
-  if(all(is.na(vp$data[[quantity]]))){
+  if (all(is.na(vp$data[[quantity]]))) {
     beamprof$vpr <- NA
-  } else{
+  } else {
     quantity_data <- vp$data[[quantity]]
     # set NA values to zero
-    quantity_data[is.na(quantity_data)]=0
+    quantity_data[is.na(quantity_data)] <- 0
     beamprof$vpr <- approxfun(
       vp$data$height + vp$attributes$where$interval / 2,
       quantity_data
@@ -274,6 +286,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @return A data.frame with columns distance and overlap.
 #'
 #' @export
+#' @family beam_functions
 #'
 #' @details Overlap is calculated as the [Bhattacharyya
 #'   coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
@@ -354,6 +367,7 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #'
 #' @export
 #'
+#' @family beam_functions
 #' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # down range of the 5 degree elevation beam at a slant range of 100 km:
@@ -375,11 +389,21 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #'
 #' @export
 #'
+#' @family beam_functions
 #' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # slant range of the 5 degree elevation beam at a down range of 100 km:
 #' beam_range(100000, 5)
 beam_range <- function(distance, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
+  assert_that(length(distance) == length(elev) | length(distance) == 1 | length(elev) == 1,
+    msg = "`distance` and `elev` should either be equal length or either should have a length of one"
+  )
+
+  assert_that(is.number(k))
+  assert_that(is.number(lat))
+  assert_that(is.number(rp))
+  assert_that(is.number(re))
+
   er <- earth_radius(re, rp, lat)
   # to do: simplify trigonometry below
   -((2 * er * k * (k + cos(distance / er)) * (sin(distance / (2. * er))^2) * sin((elev * pi) / 180.) +

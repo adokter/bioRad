@@ -7,9 +7,6 @@
 #' enable billing and provide an API key to ggmap. See the ggmap
 #' [README](https://github.com/dkahle/ggmap#attention) for details.
 #'
-#' To use `maptype`, install the development version of ggmap (>3.0.0) with
-#' `devtools::install_github("dkahle/ggmap")`.
-#'
 #' @param x An object of class `ppi`.
 #' @param zoom Zoom level (optional), see [get_map][ggmap::get_map]. An integer
 #'   from 3 (continent) to 21 (building). By default the zoom level matching the
@@ -55,7 +52,7 @@
 #' }
 download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", maptype = "terrain", ...) {
   stopifnot(inherits(x, "ppi"))
-
+  rlang::check_installed("ggmap",'to run `download_basemap`', version = '3.0.0')
   if(packageVersion("ggmap") < numeric_version("3.0.0.903")){
     # not throw a true warning to pass CRAN checks
     message("Warning message:\n ggmap not up-to-date (version < 3.0.0.903), upgrade is required using devtools::install_github(\"dkahle/ggmap\")")
@@ -78,7 +75,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   }
   # check size of ppi and determine zoom
   if (missing(zoom)) {
-    use_zoom <- calc_zoom(x$geo$bbox["lon", ], x$geo$bbox["lat", ])
+    use_zoom <- ggmap::calc_zoom(x$geo$bbox["lon", ], x$geo$bbox["lat", ])
   } else {
     use_zoom <- zoom
   }
@@ -86,7 +83,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   if (verbose) {
     cat("Downloading zoom =", use_zoom, "...\n")
   }
-  map <- get_map(
+  map <- ggmap::get_map(
     location = location,
     zoom = use_zoom,
     source = source,
@@ -103,7 +100,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
       if (verbose) {
         cat("Map too small, downloading zoom =", use_zoom - 1, "...\n")
       }
-      map <- get_map(
+      map <- ggmap::get_map(
         location = location,
         zoom = use_zoom - 1,
         source = source,
@@ -118,7 +115,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
         if (verbose) {
           cat("Map still too small, downloading zoom =", use_zoom - 2, "...\n")
         }
-        map <- get_map(
+        map <- ggmap::get_map(
           location = location,
           zoom = use_zoom - 2,
           source = source,
