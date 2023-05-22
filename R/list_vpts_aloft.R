@@ -17,6 +17,13 @@ list_vpts_aloft <- function(
     format = "csv", # also hdf5
     source = "baltrad" # also ecog-04003
 ) {
+  # Check if aws.s3 is installed
+  # NOTE added because aws.s3 is schedueled to be moved to Suggests
+
+  rlang::check_installed("aws.s3",
+    reason = "to connect to the aloft bucket on Amazon Web Services"
+  )
+
   # Check source
   valid_sources <- c("baltrad", "ecog-04003")
   assertthat::assert_that(
