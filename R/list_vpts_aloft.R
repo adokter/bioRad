@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @examples
+#' list_vpts_aloft(radars = "bejab")
 list_vpts_aloft <- function(
     date_min = NULL,
     date_max = NULL,
