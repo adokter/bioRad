@@ -110,9 +110,9 @@ list_vpts_aloft <- function(date_min = NULL,
         max = Inf
       ) %>%
       dplyr::mutate(
-        radar = sapply(.data$Key, function(radar_key) {
+        radar = vapply(.data$Key, FUN = function(radar_key) {
           strsplit(radar_key, "/", fixed = TRUE)[[1]][3]
-        }),
+        }, FUN.VALUE = character(1)),
         date = extract_string(.data$Key, "[0-9]{6}")
       ) %>%
       dplyr::filter(
