@@ -1,4 +1,5 @@
-#' Title
+#' List aloft urls for time series of vertical profiles (`vpts`) of radar
+#' stations
 #'
 #' @param date_min The first date to return urls for. In the shape of
 #'   YYYY-MM-DD.

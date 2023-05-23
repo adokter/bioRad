@@ -2,7 +2,8 @@
 % Please edit documentation in R/list_vpts_aloft.R
 \name{list_vpts_aloft}
 \alias{list_vpts_aloft}
-\title{Title}
+\title{List aloft urls for time series of vertical profiles (\code{vpts}) of radar
+stations}
 \usage{
 list_vpts_aloft(
   date_min = NULL,
@@ -29,7 +30,8 @@ hdf5. Currently only csv urls are supported.}
 A character vector of aloft urls
 }
 \description{
-Title
+List aloft urls for time series of vertical profiles (\code{vpts}) of radar
+stations
 }
 \examples{
 list_vpts_aloft(radars = "bejab")
