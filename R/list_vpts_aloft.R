@@ -181,5 +181,7 @@ list_vpts_aloft <- function(date_min = NULL,
       )
     )
   }
+
+  # output vector of urls ---------------------------------------------------
   return(data_urls)
 }
