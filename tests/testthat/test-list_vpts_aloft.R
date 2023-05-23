@@ -100,7 +100,7 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
 test_that("list_vpts_aloft() warns if data was found subset of radars", {
   expect_warning(
     list_vpts_aloft(
-      date_min = "1900-01-01",
+      date_min = "2023-02-01",
       date_max = "2023-05-22",
       radars = c("nobml", "plpas")
     ),
@@ -119,6 +119,23 @@ test_that("list_vpts_aloft() warns if not all dates were found", {
     regexp = "No radars found for all dates, radars found for 2023-02 to 2023-05",
     fixed = TRUE
   )
+})
+
+test_that("list_vpts_aloft() can warn for both missing radars and dates", {
+  expect_warning(list_vpts_aloft(
+    date_min = "1900-01-01",
+    date_max = "2023-05-22",
+    radars = c("nobml", "plpas")
+  ),
+  regexp = "Found no data for radars: `plpas`",
+  fixed = TRUE)
+  expect_warning(list_vpts_aloft(
+    date_min = "1900-01-01",
+    date_max = "2023-05-22",
+    radars = c("nobml", "plpas")
+  ),
+  regexp = "No radars found for all dates, radars found for 2023-02 to 2023-05",
+  fixed = TRUE)
 })
 
 test_that("list_vpts_aloft() can silence warnings with verbose argument", {
