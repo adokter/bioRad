@@ -59,11 +59,10 @@ list_vpts_aloft <- function(
   )
 
   # check radars
-  valid_radars <-
-    jsonlite::fromJSON(
-      "https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json"
-    ) %>% dplyr::filter(!is.na(.data$odimcode)) %>%
-    dplyr::pull("odimcode")
+  aloft_radars_url <-
+    "https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json"
+  valid_radars <- readr::read_lines(aloft_radars_url) %>%
+    extract_string(pattern = '(?<="odimcode": ")[a-z]{5}', perl = TRUE)
 
   assertthat::assert_that(
     all(radars %in% valid_radars),
@@ -111,7 +110,7 @@ list_vpts_aloft <- function(
       ) %>%
       dplyr::mutate(
         radar = purrr::map_chr(.data$Key, ~ strsplit(.x, "/", fixed = TRUE)[[1]][3]),
-        date = regmatches(.data$Key, regexpr("[0-9]{6}", .data$Key))
+        date = extract_string(.data$Key, "[0-9]{6}")
       ) %>%
       dplyr::filter(
         .data$radar %in% radars,
