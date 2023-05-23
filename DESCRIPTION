@@ -46,7 +46,6 @@ Imports:
     utils,
     viridisLite,
     viridis,
-    purrr,
     rlang
 Remotes:
     bioc::rhdf5
