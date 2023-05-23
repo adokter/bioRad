@@ -9,22 +9,20 @@
 #' @param format Character, the format of archive urls to return, either csv or
 #'   hdf5. Currently only csv urls are supported.
 #' @param source Character, either `baltrad` or `ecog-04003`
-#' @param show_warnings Logical, whether to print warnings for dates or radar stations
-#'   for which no data was found.
+#' @param show_warnings Logical, whether to print warnings for dates or radar
+#'   stations for which no data was found.
 #'
 #' @return A character vector of aloft urls
 #' @export
 #'
 #' @examples
 #' list_vpts_aloft(radars = "bejab")
-list_vpts_aloft <- function(
-    date_min = NULL,
-    date_max = NULL,
-    radars = NULL,
-    format = "csv", # also hdf5
-    source = "baltrad", # also ecog-04003
-    show_warnings = TRUE
-) {
+list_vpts_aloft <- function(date_min = NULL,
+                            date_max = NULL,
+                            radars = NULL,
+                            format = "csv", # also hdf5
+                            source = "baltrad", # also ecog-04003
+                            show_warnings = TRUE) {
   # Check if aws.s3 is installed
   # NOTE added because aws.s3 is schedueled to be moved to Suggests
 
@@ -33,7 +31,6 @@ list_vpts_aloft <- function(
   )
 
   # check arguments against vocabulary --------------------------------------
-
   # Check source
   valid_sources <- c("baltrad", "ecog-04003")
   assertthat::assert_that(
@@ -60,7 +57,15 @@ list_vpts_aloft <- function(
 
   # check radars
   aloft_radars_url <-
-    "https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json"
+    paste(
+      sep = "/",
+      "https://raw.githubusercontent.com",
+      "enram",
+      "aloftdata.eu",
+      "main",
+      "_data",
+      "OPERA_RADARS_DB.json"
+    )
   valid_radars <- readr::read_lines(aloft_radars_url) %>%
     extract_string(pattern = '(?<="odimcode": ")[a-z]{5}', perl = TRUE)
 
@@ -72,23 +77,20 @@ list_vpts_aloft <- function(
   )
 
   # create file list --------------------------------------------------------
-
   ## handle dates -----------------------------------------------------------
 
-
   # handle missing dates
-  if(rlang::is_empty(date_min)){
+  if (rlang::is_empty(date_min)) {
     # if date_min is missing, set it to a date predating any radar observations
     date_min <- "1900-01-01"
   }
-  if(rlang::is_empty(date_max)){
+  if (rlang::is_empty(date_max)) {
     date_max <- "2999-01-01"
   }
 
   # Convert to dates
   start_date <- as.Date(date_min, tz = NULL)
   end_date <- as.Date(date_max, tz = NULL)
-
 
   ## set static urls --------------------------------------------------------
   # Set base URL
@@ -99,7 +101,6 @@ list_vpts_aloft <- function(
     # Aloft CSV data are available in daily and monthly files
     # This function uses the zipped monthly files, which are faster to download
     months <- format(seq(start_date, end_date, by = "months"), "%Y%m")
-    base_url <- "https://aloft.s3-eu-west-1.amazonaws.com"
 
     found_vpts_aloft <-
       aws.s3::get_bucket_df(
@@ -126,14 +127,30 @@ list_vpts_aloft <- function(
     # https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/bejab/2023/05/02/bejab_vp_20230502T000000Z_0x9.h5
   }
 
-  # warnings ----------------------------------------------------------------
-  ## warn missing radar stations --------------------------------------------
-
-  # Provide a warning if data couldn't be retrieved for all requested radar
-  # stations
+  # format found data -------------------------------------------------------
   found_radars <-
     dplyr::distinct(found_vpts_aloft, .data$radar) %>%
     dplyr::pull("radar")
+
+  data_urls <-
+    glue::glue("{base_url}/{keys}",
+      keys = dplyr::pull(found_vpts_aloft, "Key"),
+      base_url = base_url
+    )
+
+  # warnings ----------------------------------------------------------------
+  ## warn if no data found --------------------------------------------------
+  if (rlang::is_empty(data_urls) && show_warnings) {
+    warning(
+      glue::glue("No data found for radars between {date_min} - {date_max}")
+    )
+    # stop here, no need to warn for radars and dates individually
+    return(data_urls)
+  }
+  ## warn missing radar stations --------------------------------------------
+  # Provide a warning if data couldn't be retrieved for all requested radar
+  # stations
+
   all_radars_found <- all(found_radars == radars)
   if (!all_radars_found && show_warnings) {
     warning(
@@ -147,17 +164,6 @@ list_vpts_aloft <- function(
       )
     )
   }
-
-  data_urls <-
-    glue::glue("{base_url}/{keys}",
-      keys = dplyr::pull(found_vpts_aloft, "Key")
-    )
-
-  # Assert that some data was found
-  assertthat::assert_that(
-    assertthat::not_empty(data_urls),
-    msg = glue::glue("No data found for radars between {date_min} - {date_max}")
-  )
 
   ## warn missing dates -----------------------------------------------------
   # Warn if less dates were found then requested
@@ -175,6 +181,5 @@ list_vpts_aloft <- function(
       )
     )
   }
-
   return(data_urls)
 }

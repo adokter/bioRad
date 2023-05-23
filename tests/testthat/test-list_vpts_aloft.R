@@ -144,6 +144,26 @@ test_that("list_vpts_aloft() can warn for both missing radars and dates", {
   )
 })
 
+test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
+  expect_equal(
+    list_vpts_aloft(
+      date_min = "1800-01-01",
+      date_max = "1800-02-01",
+      radars = "rssje",
+      show_warnings = FALSE
+    ),
+    glue::glue()
+  )
+  expect_warning(
+    list_vpts_aloft(
+      date_min = "1800-01-01",
+      date_max = "1800-02-01",
+      radars = "rssje",
+      show_warnings = TRUE
+    )
+  )
+})
+
 test_that("list_vpts_aloft() silences warnings with show_warnings argument", {
   expect_no_warning(
     list_vpts_aloft(
