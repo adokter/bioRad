@@ -27,3 +27,22 @@ skip_if_no_mistnet <- function(){
   }
   testthat::skip("No MistNet")
 }
+
+
+#' extract strings from a vector using regex, analog to stringr::str_extract
+#'
+#' @param string Input vector. A character vector.
+#' @param pattern Regex pattern to look for
+#' @param ... passed on to `regexpr()`
+#'
+#' @return A character vector with matches only, possibly of different length as
+#'   `string`
+#' @keywords internal
+extract_string <- function(string,pattern,...) {
+  regmatches(string,
+             m = regexpr(
+               pattern = pattern,
+               text = string,
+               ...
+             ))
+}
