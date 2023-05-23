@@ -163,7 +163,7 @@ list_vpts_aloft <- function(
   if (!all(months %in% found_vpts_aloft$date) && show_warnings) {
     warning(
       glue::glue(
-        "No radars found for all dates, ",
+        "Not every date has radar data, ",
         "radars found for {first_date_found} to {last_date_found}",
         first_date_found = format(lubridate::ym(min(
           found_vpts_aloft$date
