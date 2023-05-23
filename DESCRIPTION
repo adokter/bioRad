@@ -47,7 +47,7 @@ Imports:
     viridisLite,
     viridis,
     jsonlite,
-    purrr
+    purrr,
     rlang
 Remotes:
     bioc::rhdf5
