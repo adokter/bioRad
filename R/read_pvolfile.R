@@ -72,19 +72,20 @@ read_pvolfile <- function(file, param = c(
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file), local_install) {
-  if(!missing(local_install)) warning("argument 'local_install' has been deprecated")
-  if(!file.exists(file)){
-     stop(paste0("'",file,"' does not exist in current working directory ('",getwd(),"')."))
+  if (!missing(local_install)) warning("argument 'local_install' has been deprecated")
+  if (!file.exists(file)) {
+    stop(paste0("'", file, "' does not exist in current working directory ('", getwd(), "')."))
   }
-  tryCatch(read_pvolfile_body(
-    file, param, sort, lat, lon,
-    height, elev_min, elev_max,
-    verbose, mount, local_install
-  ),
-  error = function(err) {
-    rhdf5::h5closeAll()
-    stop(err)
-  }
+  tryCatch(
+    read_pvolfile_body(
+      file, param, sort, lat, lon,
+      height, elev_min, elev_max,
+      verbose, mount, local_install
+    ),
+    error = function(err) {
+      rhdf5::h5closeAll()
+      stop(err)
+    }
   )
 }
 
@@ -125,9 +126,9 @@ read_pvolfile_body <- function(file, param = c(
     }
   } else {
     pvol_tmp <- tempfile()
-
+    rlang::check_installed("vol2birdR", format_reason_vol2bird("to read `NEXRAD` files."))
     config <- vol2birdR::vol2bird_config()
-    vol2birdR::rsl2odim(file=file, config=config, pvolfile_out=pvol_tmp, verbose=verbose)
+    vol2birdR::rsl2odim(file = file, config = config, pvolfile_out = pvol_tmp, verbose = verbose)
 
     if (!is.pvolfile(pvol_tmp)) {
       file.remove(pvol_tmp)
@@ -168,9 +169,9 @@ read_pvolfile_body <- function(file, param = c(
   }
 
   # construct wavelength attribute from frequency attribute if possible:
-  if(is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)){
-    speed_of_light = 299792458
-    attribs.how$wavelength = 100*speed_of_light/attribs.how$frequency
+  if (is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)) {
+    speed_of_light <- 299792458
+    attribs.how$wavelength <- 100 * speed_of_light / attribs.how$frequency
   }
 
   vol.lat <- c(attribs.where$lat) # need the c() to convert single element matrix to single element vector
@@ -218,7 +219,7 @@ read_pvolfile_body <- function(file, param = c(
   datetime <- as.POSIXct(paste(attribs.what$date, attribs.what$time),
     format = "%Y%m%d %H%M%S", tz = "UTC"
   )
-  if(is.null(attribs.what$source)) attribs.what$source=""
+  if (is.null(attribs.what$source)) attribs.what$source <- ""
   sources <- strsplit(attribs.what$source, ",")[[1]]
   radar <- gsub("NOD:", "", sources[which(grepl("NOD:", sources))])
   if (length(radar) == 0) {
@@ -254,8 +255,8 @@ read_pvolfile_body <- function(file, param = c(
   # filter out NULL output from read_pvolfile_scan
   valid_scans <- which(!sapply(data, is.null))
   assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
-  if(length(valid_scans) < length(scans)){
-    warning(paste("ignoring",length(scans)-length(valid_scans),"scan(s) in file",file,"because requested scan parameter(s) are missing."))
+  if (length(valid_scans) < length(scans)) {
+    warning(paste("ignoring", length(scans) - length(valid_scans), "scan(s) in file", file, "because requested scan parameter(s) are missing."))
   }
   data <- data[valid_scans]
 
@@ -349,7 +350,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
   names(quantities) <- quantityNames
 
   # if wavelength is attribute is missing at the scan level, copy it from the pvol level
-  if(is.null(attribs.how$wavelength)) attribs.how$wavelength = attributes$how$wavelength
+  if (is.null(attribs.how$wavelength)) attribs.how$wavelength <- attributes$how$wavelength
 
   output <- list(
     radar = radar, datetime = datetime, params = quantities,
@@ -370,12 +371,14 @@ read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo, dtype) 
   data <- replace(data, data == as.numeric(attr$nodata), NA)
   data <- replace(data, data == as.numeric(attr$undetect), NaN)
   data <- as.numeric(attr$offset) + as.numeric(attr$gain) * data
-  if(attr$quantity == "RHOHV"){
+  if (attr$quantity == "RHOHV") {
     data <- replace(data, data > 10, NaN)
   }
-  conversion <- list(gain = as.numeric(attr$gain), offset = as.numeric(attr$offset),
-                     nodata = as.numeric(attr$nodata), undetect = as.numeric(attr$undetect),
-                     dtype = dtype)
+  conversion <- list(
+    gain = as.numeric(attr$gain), offset = as.numeric(attr$offset),
+    nodata = as.numeric(attr$nodata), undetect = as.numeric(attr$undetect),
+    dtype = dtype
+  )
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime
