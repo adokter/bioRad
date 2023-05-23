@@ -32,6 +32,8 @@ list_vpts_aloft <- function(
     reason = "to connect to the aloft bucket on Amazon Web Services"
   )
 
+  # check arguments against vocabulary --------------------------------------
+
   # Check source
   valid_sources <- c("baltrad", "ecog-04003")
   assertthat::assert_that(
@@ -72,6 +74,9 @@ list_vpts_aloft <- function(
 
   # create file list --------------------------------------------------------
 
+  ## handle dates -----------------------------------------------------------
+
+
   # handle missing dates
   if(rlang::is_empty(date_min)){
     # if date_min is missing, set it to a date predating any radar observations
@@ -85,9 +90,12 @@ list_vpts_aloft <- function(
   start_date <- as.Date(date_min, tz = NULL)
   end_date <- as.Date(date_max, tz = NULL)
 
+
+  ## set static urls --------------------------------------------------------
   # Set base URL
   base_url <- "https://aloft.s3-eu-west-1.amazonaws.com"
 
+  # format csv --------------------------------------------------------------
   if (format == "csv") {
     # Aloft CSV data are available in daily and monthly files
     # This function uses the zipped monthly files, which are faster to download
@@ -110,15 +118,17 @@ list_vpts_aloft <- function(
         date %in% months
       )
 
-
-
+  # format hdf5 -------------------------------------------------------------
   } else {
     # hdf5 files
     # TODO: create file paths of form
     # https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/bejab/2023/05/02/bejab_vp_20230502T000000Z_0x9.h5
   }
 
-  # Provide a warning if data coudn't be retreived for all requested radar
+  # warnings ----------------------------------------------------------------
+  ## warn missing radar stations --------------------------------------------
+
+  # Provide a warning if data couldn't be retrieved for all requested radar
   # stations
   found_radars <-
     dplyr::distinct(found_vpts_aloft, .data$radar) %>%
@@ -148,6 +158,7 @@ list_vpts_aloft <- function(
     msg = glue::glue("No data found for radars between {date_min} - {date_max}")
   )
 
+  ## warn missing dates -----------------------------------------------------
   # Warn if less dates were found then requested
   if (!all(months %in% found_vpts_aloft$date)) {
     warning(
