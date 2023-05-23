@@ -122,16 +122,13 @@ list_vpts_aloft <- function(
   all_radars_found <- all(found_radars == radars)
   if (!all_radars_found) {
     warning(
-      assertthat::validate_that(
-        all(found_radars == radars),
-        msg = glue::glue(
-          "Found no data for radars: {missing_radars_collapse}",
-          missing_radars_collapse =
-            glue::glue_collapse(
-              glue::backtick(radars[!radars %in% found_radars]),
-              sep = ", "
-            )
-        )
+      glue::glue(
+        "Found no data for radars: {missing_radars_collapse}",
+        missing_radars_collapse =
+          glue::glue_collapse(
+            glue::backtick(radars[!radars %in% found_radars]),
+            sep = ", "
+          )
       )
     )
   }
