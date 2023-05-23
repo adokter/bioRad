@@ -85,7 +85,7 @@ list_vpts_aloft <- function(date_min = NULL,
     date_min <- "1900-01-01"
   }
   if (rlang::is_empty(date_max)) {
-    date_max <- "2999-01-01"
+    date_max <- "9999-12-31"
   }
 
   # Convert to dates
