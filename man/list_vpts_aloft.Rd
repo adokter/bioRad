@@ -28,8 +28,8 @@ hdf5. Currently only csv urls are supported.}
 
 \item{source}{Character, either \code{baltrad} or \code{ecog-04003}}
 
-\item{show_warnings}{Logical, whether to print warnings for dates or radar stations
-for which no data was found.}
+\item{show_warnings}{Logical, whether to print warnings for dates or radar
+stations for which no data was found.}
 }
 \value{
 A character vector of aloft urls
