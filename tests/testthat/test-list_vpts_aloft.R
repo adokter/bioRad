@@ -116,29 +116,35 @@ test_that("list_vpts_aloft() warns if not all dates were found", {
       date_max = "2023-05-22",
       radars = "nobml"
     ),
-    regexp = "No radars found for all dates, radars found for 2023-02 to 2023-05",
+    regexp = paste("Not every date has radar data,",
+                   "radars found for 2023-02 to 2023-05"),
     fixed = TRUE
   )
 })
 
 test_that("list_vpts_aloft() can warn for both missing radars and dates", {
-  expect_warning(list_vpts_aloft(
-    date_min = "1900-01-01",
-    date_max = "2023-05-22",
-    radars = c("nobml", "plpas")
-  ),
-  regexp = "Found no data for radars: `plpas`",
-  fixed = TRUE)
-  expect_warning(list_vpts_aloft(
-    date_min = "1900-01-01",
-    date_max = "2023-05-22",
-    radars = c("nobml", "plpas")
-  ),
-  regexp = "No radars found for all dates, radars found for 2023-02 to 2023-05",
-  fixed = TRUE)
+  expect_warning(
+    list_vpts_aloft(
+      date_min = "1900-01-01",
+      date_max = "2023-05-22",
+      radars = c("nobml", "plpas")
+    ),
+    regexp = "Found no data for radars: `plpas`",
+    fixed = TRUE
+  )
+  expect_warning(
+    list_vpts_aloft(
+      date_min = "1900-01-01",
+      date_max = "2023-05-22",
+      radars = c("nobml", "plpas")
+    ),
+    regexp = paste("Not every date has radar data,",
+                   "radars found for 2023-02 to 2023-05"),
+    fixed = TRUE
+  )
 })
 
-test_that("list_vpts_aloft() can silence warnings with show_warnings argument", {
+test_that("list_vpts_aloft() silences warnings with show_warnings argument", {
   expect_no_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
