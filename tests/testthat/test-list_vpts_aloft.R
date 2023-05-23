@@ -108,3 +108,16 @@ test_that("list_vpts_aloft() warns if data was found subset of radars", {
     fixed = TRUE
   )
 })
+
+test_that("list_vpts_aloft() warns if not all dates were found", {
+  expect_warning(
+    list_vpts_aloft(
+      date_min = "1900-01-01",
+      date_max = "2023-05-22",
+      radars = "nobml"
+    ),
+    regexp = "No radars found for all dates, radars found for 2023-02 to 2023-05",
+    fixed = TRUE
+  )
+})
+
