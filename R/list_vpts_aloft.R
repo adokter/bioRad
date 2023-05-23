@@ -1,13 +1,16 @@
 #' List aloft urls for time series of vertical profiles (`vpts`) of radar
 #' stations
 #'
-#' @param date_min The first date to return urls for. In the shape of
+#' @param date_min Character, the first date to return urls for. In the shape of
 #'   YYYY-MM-DD.
-#' @param date_max The last date to return urls for. In the shape of YYYY-MM-DD.
-#' @param radars A character vector of radar stations to return urls for.
-#' @param format (Character) The format of archive urls to return, either csv or
+#' @param date_max Character, the last date to return urls for. In the shape of
+#'   YYYY-MM-DD.
+#' @param radars Character vector, radar stations to return urls for.
+#' @param format Character, the format of archive urls to return, either csv or
 #'   hdf5. Currently only csv urls are supported.
-#' @param source (Character) Either `baltrad` or `ecog-04003`
+#' @param source Character, either `baltrad` or `ecog-04003`
+#' @param verbose Logical, whether to print warnings for dates or radar stations
+#'   for which no data was found.
 #'
 #' @return A character vector of aloft urls
 #' @export
@@ -19,7 +22,8 @@ list_vpts_aloft <- function(
     date_max = NULL,
     radars = NULL,
     format = "csv", # also hdf5
-    source = "baltrad" # also ecog-04003
+    source = "baltrad", # also ecog-04003
+    verbose = TRUE
 ) {
   # Check if aws.s3 is installed
   # NOTE added because aws.s3 is schedueled to be moved to Suggests

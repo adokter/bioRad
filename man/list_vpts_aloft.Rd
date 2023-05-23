@@ -10,21 +10,26 @@ list_vpts_aloft(
   date_max = NULL,
   radars = NULL,
   format = "csv",
-  source = "baltrad"
+  source = "baltrad",
+  verbose = TRUE
 )
 }
 \arguments{
-\item{date_min}{The first date to return urls for. In the shape of
+\item{date_min}{Character, the first date to return urls for. In the shape of
 YYYY-MM-DD.}
 
-\item{date_max}{The last date to return urls for. In the shape of YYYY-MM-DD.}
+\item{date_max}{Character, the last date to return urls for. In the shape of
+YYYY-MM-DD.}
 
-\item{radars}{A character vector of radar stations to return urls for.}
+\item{radars}{Character vector, radar stations to return urls for.}
 
-\item{format}{(Character) The format of archive urls to return, either csv or
+\item{format}{Character, the format of archive urls to return, either csv or
 hdf5. Currently only csv urls are supported.}
 
-\item{source}{(Character) Either \code{baltrad} or \code{ecog-04003}}
+\item{source}{Character, either \code{baltrad} or \code{ecog-04003}}
+
+\item{verbose}{Logical, whether to print warnings for dates or radar stations
+for which no data was found.}
 }
 \value{
 A character vector of aloft urls
