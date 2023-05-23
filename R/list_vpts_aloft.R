@@ -134,7 +134,7 @@ list_vpts_aloft <- function(
     dplyr::distinct(found_vpts_aloft, .data$radar) %>%
     dplyr::pull("radar")
   all_radars_found <- all(found_radars == radars)
-  if (!all_radars_found) {
+  if (!all_radars_found && show_warnings) {
     warning(
       glue::glue(
         "Found no data for radars: {missing_radars_collapse}",
@@ -160,7 +160,7 @@ list_vpts_aloft <- function(
 
   ## warn missing dates -----------------------------------------------------
   # Warn if less dates were found then requested
-  if (!all(months %in% found_vpts_aloft$date)) {
+  if (!all(months %in% found_vpts_aloft$date) && show_warnings) {
     warning(
       glue::glue(
         "No radars found for all dates, ",
