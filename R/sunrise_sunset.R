@@ -67,23 +67,55 @@ NULL
 #' @rdname sunrise_sunset
 #'
 #' @export
-sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
-  locations <- data.frame(lon = lon, lat = lat)
-  locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
-  datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
-  suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
-  if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz = tz)
-  suntimes$time
-}
+sunrise <-
+  function(date,
+           lon,
+           lat,
+           elev = -0.268,
+           tz = "UTC",
+           force_tz = FALSE) {
+    locations <- data.frame(lon = lon, lat = lat)
+    locations <-
+      SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
+    datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
+    suntimes <-
+      crepuscule(
+        locations,
+        datetime,
+        solarDep = -elev,
+        direction = "dawn",
+        POSIXct.out = TRUE
+      )
+    if (force_tz) {
+      suntimes$time <- lubridate::as_datetime(suntimes$time, tz = tz)
+    }
+    suntimes$time
+  }
 
 #' @rdname sunrise_sunset
 #'
 #' @export
-sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
-  locations <- data.frame(lon = lon, lat = lat)
-  locations <- SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
-  datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
-  suntimes <- crepuscule(locations, datetime, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
-  if (force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz = tz)
-  suntimes$time
-}
+sunset <-
+  function(date,
+           lon,
+           lat,
+           elev = -0.268,
+           tz = "UTC",
+           force_tz = FALSE) {
+    locations <- data.frame(lon = lon, lat = lat)
+    locations <-
+      SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
+    datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
+    suntimes <-
+      crepuscule(
+        locations,
+        datetime,
+        solarDep = -elev,
+        direction = "dusk",
+        POSIXct.out = TRUE
+      )
+    if (force_tz) {
+      suntimes$time <- lubridate::as_datetime(suntimes$time, tz = tz)
+    }
+    suntimes$time
+  }
