@@ -11,7 +11,7 @@ list_vpts_aloft(
   radars = NULL,
   format = "csv",
   source = "baltrad",
-  verbose = TRUE
+  show_warnings = TRUE
 )
 }
 \arguments{
@@ -28,7 +28,7 @@ hdf5. Currently only csv urls are supported.}
 
 \item{source}{Character, either \code{baltrad} or \code{ecog-04003}}
 
-\item{verbose}{Logical, whether to print warnings for dates or radar stations
+\item{show_warnings}{Logical, whether to print warnings for dates or radar stations
 for which no data was found.}
 }
 \value{

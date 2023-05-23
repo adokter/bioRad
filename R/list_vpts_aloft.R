@@ -9,7 +9,7 @@
 #' @param format Character, the format of archive urls to return, either csv or
 #'   hdf5. Currently only csv urls are supported.
 #' @param source Character, either `baltrad` or `ecog-04003`
-#' @param verbose Logical, whether to print warnings for dates or radar stations
+#' @param show_warnings Logical, whether to print warnings for dates or radar stations
 #'   for which no data was found.
 #'
 #' @return A character vector of aloft urls
@@ -23,7 +23,7 @@ list_vpts_aloft <- function(
     radars = NULL,
     format = "csv", # also hdf5
     source = "baltrad", # also ecog-04003
-    verbose = TRUE
+    show_warnings = TRUE
 ) {
   # Check if aws.s3 is installed
   # NOTE added because aws.s3 is schedueled to be moved to Suggests

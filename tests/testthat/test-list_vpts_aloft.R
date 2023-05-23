@@ -138,13 +138,13 @@ test_that("list_vpts_aloft() can warn for both missing radars and dates", {
   fixed = TRUE)
 })
 
-test_that("list_vpts_aloft() can silence warnings with verbose argument", {
+test_that("list_vpts_aloft() can silence warnings with show_warnings argument", {
   expect_no_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
       date_max = "2023-05-22",
       radars = c("nobml", "plpas"),
-      verbose = FALSE
+      show_warnings = FALSE
     )
   )
   expect_no_warning(
@@ -152,7 +152,7 @@ test_that("list_vpts_aloft() can silence warnings with verbose argument", {
       date_min = "1900-01-01",
       date_max = "2023-05-22",
       radars = "nobml",
-      verbose = FALSE
+      show_warnings = FALSE
     )
   )
 })
