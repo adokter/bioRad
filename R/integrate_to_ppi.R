@@ -97,6 +97,9 @@
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
+#' # load polar volume
+#' pvol <- read_pvolfile(pvolfile)
+#'
 #' # Read the corresponding vertical profile example
 #' data(example_vp)
 #'
