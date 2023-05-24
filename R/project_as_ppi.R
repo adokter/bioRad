@@ -234,39 +234,6 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   output
 }
 
-
-#' A wrapper for [spTransform()].
-#'
-#' @param lon Longitude
-#' @param lat Latitude
-#' @param proj4string An object of class 'CRS', as defined in package `sp`.
-#'
-#' @keywords internal
-#'
-#' @return An object of class `SpatialPoints`.
-wgs_to_proj <- function(lon, lat, proj4string) {
-  xy <- data.frame(x = lon, y = lat)
-  coordinates(xy) <- c("x", "y")
-  proj4string(xy) <- CRS("+proj=longlat +datum=WGS84")
-  res <- spTransform(xy, proj4string)
-  return(res)
-}
-
-#' A wrapper for [spTransform()].
-#'
-#' @param x Longitude
-#' @param y Latitude
-#' @param proj4string An object of class 'CRS', as defined in package `sp`.
-#' @keywords internal
-#' @return An object of class `SpatialPoints`.
-proj_to_wgs <- function(x, y, proj4string) {
-  xy <- data.frame(lon = x, lat = y)
-  coordinates(xy) <- c("lon", "lat")
-  proj4string(xy) <- proj4string
-  res <- spTransform(xy, CRS("+proj=longlat +datum=WGS84"))
-  return(res)
-}
-
 cartesian_to_polar <- function(coords, elev = 0, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2), elev, k = k, lat = lat, re = re, rp = rp)
   azim <- (0.5 * pi - atan2(coords[, 2], coords[, 1])) %% (2 * pi)
