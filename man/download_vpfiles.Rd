@@ -29,8 +29,8 @@ downloaded and unzipped.}
 downloaded files of the same names.}
 }
 \description{
-Downloads and unzips a selection of vertical profile (\code{vp}) files from the
-\href{http://enram.github.io/data-repository/}{ENRAM data repository}, where
+Download and unzip a selection of vertical profile (\code{vp}) files from the
+\href{https://aloftdata.eu/}{ENRAM data repository}, where
 these are stored as monthly zips per radar.
 }
 \examples{

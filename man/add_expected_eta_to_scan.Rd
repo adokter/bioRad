@@ -37,6 +37,9 @@ estimated in \code{vp}. Either \code{DBZH}, \code{DBZV}, \code{DBZ}, \code{TH}, 
 \item{antenna}{Numeric. Radar antenna height, in m. Default to antenna height
 in \code{vp}.}
 
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
+
 \item{k}{Numeric. Standard refraction coefficient.}
 
 \item{re}{Numeric. Earth equatorial radius, in km.}

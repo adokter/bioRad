@@ -63,6 +63,9 @@ arguments are ignored.}
 \item{antenna}{Numeric. Radar antenna height, in m. Default to antenna height
 in \code{vp}.}
 
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
+
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}

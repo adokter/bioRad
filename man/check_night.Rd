@@ -47,18 +47,18 @@ moment of sunrise.}
 time zone.}
 }
 \value{
-\code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown (because
-datetime datetime or geographic location missing). For \code{vpts} a vector of
-\code{TRUE}/\code{FALSE} values is returned.
+\code{TRUE} when night, \code{FALSE} when day, \code{NA} if unknown
+(either datetime or geographic location missing). For \code{vpts} a
+vector of \code{TRUE}/\code{FALSE} values is returned.
 }
 \description{
-Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of latitude,
-longitude, date and sun elevation. When used on a bioRad object (\code{pvol},
-\code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the bioRad object
-directly.
+Checks if it is night (\code{TRUE}/\code{FALSE}) for a combination of
+latitude, longitude, date and sun elevation. When used on a bioRad object
+(\code{pvol}, \code{vp}, \code{vpts}, \code{vpi}) this information is extracted from the
+bioRad object directly.
 }
 \details{
-\code{\link[=check_night]{check_night()}} evaluates to \code{FALSE} when the sun has a higher
+\code{check_night()} evaluates to \code{FALSE} when the sun has a higher
 elevation than parameter \code{elev}, otherwise \code{TRUE}.
 
 Approximate astronomical formula are used, therefore the day/night

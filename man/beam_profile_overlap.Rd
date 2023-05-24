@@ -24,6 +24,8 @@ beam_profile_overlap(
 )
 }
 \arguments{
+\item{vp}{A \code{vp} object.}
+
 \item{elev}{Numeric vector. Beam elevation(s), in degrees.}
 
 \item{distance}{Numeric. The distance(s) from the radar along sea level (down
@@ -49,6 +51,9 @@ altitude distribution.}
 
 \item{normalize}{Logical. If \code{TRUE}, normalize the radiation coverage pattern
 over the altitude range specified by \code{zlim}.}
+
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
