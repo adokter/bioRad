@@ -21,8 +21,6 @@
 #'
 #' @export
 #'
-#' @examples
-#'
 #' @seealso
 #' * [map.ppi()]
 #'

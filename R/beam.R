@@ -276,7 +276,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' [integrate_to_ppi].
 #' @inheritParams beam_height
 #' @inheritParams beam_width
-#' #' @param vp A `vp` object.
+#' @param vp A `vp` object.
 #' @param elev Numeric vector. Beam elevation(s), in degrees.
 #' @param distance Numeric. The distance(s) from the radar along sea level (down
 #'   range) for which to calculate the overlap, in m.
