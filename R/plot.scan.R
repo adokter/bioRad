@@ -1,7 +1,7 @@
 #' Plot a scan (`scan`) in polar coordinates
 #'
 #' Plots a scan (`scan`) in polar coordinates. To plot in Cartesian coordinates,
-#' see [project_to_ppi()].
+#' see [project_as_ppi()].
 #'
 #' @param x A `scan` object.
 #' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
