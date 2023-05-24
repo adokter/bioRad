@@ -58,14 +58,14 @@ emitted at antenna level.
 }
 \examples{
 # Plot the beam profile, for a 0.5 degree elevation beam at 50 km distance
-from the radar:
+# from the radar:
 plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000,
   xlab = "normalized radiated energy",
   ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km"
 )
 
 # Plot the beam profile, for a 2 degree elevation beam at 50 km distance
-from the radar:
+# from the radar:
 plot(beam_profile(height = 0:4000, 50000, 2), 0:4000,
   xlab = "normalized radiated energy",
   ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km"
