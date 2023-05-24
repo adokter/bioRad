@@ -48,6 +48,14 @@
 #' * `WEATHER`: Class probability that weather was detected.
 #' * `BIOLOGY`: Class probability that biological scatterers were detected.
 #'
+#' MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
+#' to a 100% probability) as additional scan parameters to the polar volume:
+#'
+#' * `BACKGROUND`: Class probability that no signal was detected above the noise
+#'   level of the radar
+#' * `WEATHER`: Class probability that weather was detected
+#' * `BIOLOGY`: Class probability that biological scatterers were detected
+#'
 #' These class probabilities are only available for the 5 input elevations used
 #' as input for the MistNet model. Based on all the class probabilities a final
 #' weather segmentation map is calculated, stored as scan parameter `CELL`,
@@ -134,7 +142,7 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
                           local_install, local_mistnet) {
 
   assert_that(file.exists(file))
-
+  rlang::check_installed('vol2birdR',format_reason_vol2bird("to run `apply_mist`."))
   if (!vol2birdR::mistnet_exists()) {
     stop("MistNet has not been installed, see vol2birdR package documentation for install instructions")
   }

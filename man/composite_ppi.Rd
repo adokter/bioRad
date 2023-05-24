@@ -62,8 +62,9 @@ pixel.}
 A \code{ppi} object.
 }
 \description{
-Combines multiple plan position indicators (\code{ppi}) into a single \code{ppi}. Can
-be used to make a composite of \code{ppi}s from multiple radars.
+Combines multiple plan position indicators (\code{ppi}) into a single
+\code{ppi}. Can be used to make a composite of \code{ppi}'s from multiple
+radars.
 }
 \details{
 The function can combine multiple \code{ppi}s of different scan elevations of the
@@ -84,6 +85,27 @@ signal at that geographic location.
 radars. Performs an inverse distance weighting, where values are weighted
 according to 1/(distance from the radar)^\code{idp}.
 }
+
+Argument \code{method} determines how values of different ppi's at the same
+geographic location are combined.
+\itemize{
+\item \code{mean}: Compute the average value
+\item \code{max}: Compute the maximum value. If ppi's are of the same radar and the
+same polar volume, this computes a max product, showing the maximum
+detected signal at that geographic location.
+\item \code{min}: Compute the minimum value
+\item \code{idw}: This option is useful primarily when compositing ppi's of multiple
+radars. Performs an inverse distance weighting, where values are weighted
+according to 1/(distance from the radar)^\code{idp}
+}
+
+The coordinates system of the returned \code{ppi} is a WGS84
+(lat, lon) datum, unless a different \code{crs} is provided. If only
+\code{res} is provided, but no \code{crs} is set, \code{res} is in
+meter units and the origin of the composite \code{ppi} is set to the
+mean (lat, lon) location.
+
+This function is a prototype and under active development
 }
 \examples{
 \dontrun{
@@ -103,11 +125,5 @@ bm <- download_basemap(composite)
 
 # Plot the calculated max product on the basemap
 map(composite, bm)
-}
-}
-\seealso{
-\itemize{
-\item \code{\link[=summary.ppi]{summary.ppi()}}
-\item \code{\link[=project_as_ppi]{project_as_ppi()}}
 }
 }

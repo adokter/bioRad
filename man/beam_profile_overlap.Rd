@@ -67,6 +67,9 @@ vertical radiation profile of a set of emitted radar beams at various
 elevation angles as given by \link{beam_profile}.
 }
 \details{
+This function also calculates the \code{overlap} quantity in the output of
+\link{integrate_to_ppi}.
+
 Overlap is calculated as the \href{https://en.wikipedia.org/wiki/Bhattacharyya_distance}{Bhattacharyya coefficient} (i.e.
 distribution overlap) between the (normalized) vertical profile (\code{vp}) and
 the (normalized) radiation coverage pattern as calculated by
@@ -120,4 +123,13 @@ plot(bpo)
 \item \code{\link[=beam_width]{beam_width()}}
 \item \code{\link[=beam_profile]{beam_profile()}}
 }
+
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
 }
+\concept{beam_functions}

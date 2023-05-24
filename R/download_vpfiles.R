@@ -1,7 +1,7 @@
 #' Download vertical profile (`vp`) files from the ENRAM data repository
 #'
-#' Downloads and unzips a selection of vertical profile (`vp`) files from the
-#' [ENRAM data repository](http://enram.github.io/data-repository/), where
+#' Download and unzip a selection of vertical profile (`vp`) files from the
+#' [ENRAM data repository](https://aloftdata.eu/), where
 #' these are stored as monthly zips per radar.
 #'
 #' @param date_min Character. Start date of file selection, in `YYYY-MM-DD`

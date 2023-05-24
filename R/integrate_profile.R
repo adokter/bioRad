@@ -14,18 +14,48 @@
 #'   no profiles can be found within the period `t - interval_max/2` to `t +
 #'   interval_max/2`. Ignored for single profiles of class `vp`.
 #'
-#' @return A `vpi` object: a data frame with vertically integrated profile
-#'   quantities.
+#' @param x A `vp` or `vpts` object.
+#' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
+#' minimum altitude to the height of the antenna.
+#' @param alt_max Maximum altitude in m.
+#' @param alpha Migratory direction in clockwise degrees from north.
+#' @param interval_max Maximum time interval belonging to a single profile in
+#' seconds. Traffic rates are set to zero at times `t` for which no
+#' profiles can be found within the period `t-interval_max/2` to
+#' `t+interval_max/2`. Ignored for single profiles of class `vp`.
+#' @param interval_replace Time interval to use for any interval > interval_max.
+#' By default the mean of all intervals <= interval_max
+#' @param height_quantile For default `NA` the calculated height equals
+#' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
+#' quantile of the height distribution.
 #'
-#' @export
+#' @return an object of class `vpi`, a data frame with vertically
+#' integrated profile quantities
 #'
 #' @details
-#' ## Available quantities
+#' \subsection{Available quantities}{
+#' The function generates a specially classed data frame with the following
+#' quantities:
 #'
-#' See [summary.vpi()].
+#' * `datetime`: POSIXct date of each profile in UTC
+#' * `vid`: Vertically Integrated Density in individuals/km^2.
+#'   `vid` is a surface density, whereas `dens` in `vp` objects is a volume
+#'   density.
+#' * `vir`: Vertically Integrated Reflectivity in cm^2/km^2
+#' * `mtr`: Migration Traffic Rate in individuals/km/h
+#' * `rtr`: Reflectivity Traffic Rate in cm^2/km/h
+#' * `mt`: Migration Traffic in individuals/km, cumulated from the start of the
+#'   time series up to `datetime`
+#' * `rt`: Reflectivity Traffic in cm^2/km, cumulated from the start of the time
+#'   series up to `datetime`
+#' * `ff`: Horizontal ground speed in m/s
+#' * `dd`: Direction of the horizontal ground speed in degrees
+#' * `u`: Ground speed component west to east in m/s
+#' * `v`: Ground speed component south to north in m/s
+#' * `height`: Mean flight height (height weighted by eta) in m above sea level
 #'
 #' Vertically integrated density and reflectivity are related according to
-#' \eqn{vid=vir/rcs(x)}, with `rcs` the assumed radar cross section per
+#' \eqn{vid=vir/rcs(x)}, with [rcs] the assumed radar cross section per
 #' individual. Similarly, migration traffic rate and reflectivity traffic rate
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }

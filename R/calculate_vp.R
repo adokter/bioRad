@@ -204,7 +204,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       vpfile = vpfile, pvolfile_out = pvolfile_out,
       autoconf = autoconf, verbose = verbose, warnings = warnings,
       mount = mount, sd_vvp_threshold = sd_vvp_threshold,
-      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol=single_pol,
+      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol = single_pol,
       elev_min = elev_min, elev_max = 90, azim_min = 0, azim_max = 360,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
       h_layer = h_layer, dealias = dealias,
@@ -219,7 +219,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     file.remove(tmp_pvol_file)
     return(res)
   }
-
+  rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."))
   # check input arguments
   assert_that(
     is.character(file),
@@ -237,25 +237,24 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (!is.logical(mistnet)) {
     stop("`mistnet` must be a logical value.")
   }
-  if (mistnet){
-    if(missing(local_mistnet)){
+  if (mistnet) {
+    if (missing(local_mistnet)) {
       if (!vol2birdR::mistnet_exists()) {
         stop("MistNet has not been installed, see vol2birdR package documentation for install instructions.")
       }
-    }
-    else{
-      if(!file.exists(local_mistnet)){
-        stop(paste0("'",local_mistnet,"' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
+    } else {
+      if (!file.exists(local_mistnet)) {
+        stop(paste0("'", local_mistnet, "' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
       }
     }
   }
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
   }
-  if(!missing(mount))  {
+  if (!missing(mount)) {
     warning("mount argument is deprecated")
   }
-  if(!missing(local_install)){
+  if (!missing(local_install)) {
     warning("local_install argument is deprecated")
   }
 
@@ -333,7 +332,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   assert_that(is.flag(mistnet))
   assert_that(
     !(mistnet && !vol2birdR::mistnet_exists() && missing(local_mistnet)),
-    msg = "Can't find MistNet installation, see vol2birdR package for install instructions.")
+    msg = "Can't find MistNet installation, see vol2birdR package for install instructions."
+  )
   assert_that(is.flag(dealias))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
@@ -342,7 +342,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   profile.tmp <- tempfile()
 
   config <- vol2birdR::vol2bird_config()
-  if(!autoconf){
+  if (!autoconf) {
     config$birdRadarCrossSection <- rcs
     config$rhohvThresMin <- rho_hv
     config$elevMin <- elev_min
@@ -358,16 +358,16 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$dualPol <- dual_pol
     config$dealiasVrad <- dealias
     if (!missing(sd_vvp_threshold)) config$stdDevMinBird <- sd_vvp_threshold
-  } else{
+  } else {
     # setting stdDevMinBird triggers it to be set according to wavelength (1 m/s for S-band, 2 m/s for C-band)
     config$stdDevMinBird <- -1
   }
   config$mistNetElevs <- mistnet_elevations
   config$useMistNet <- mistnet
-  if(!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
+  if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
 
   # run vol2bird
-  vol2birdR::vol2bird(file=file, config=config, vpfile=profile.tmp, pvolfile_out=pvolfile_out, verbose = verbose)
+  vol2birdR::vol2bird(file = file, config = config, vpfile = profile.tmp, pvolfile_out = pvolfile_out, verbose = verbose)
 
   # read output into a vp object
   output <- read_vpfiles(profile.tmp)
@@ -379,4 +379,14 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   file.remove(profile.tmp)
 
   output
+}
+
+format_reason_vol2bird <- function(x) {
+  on_intel_mac <- Sys.info()[["sysname"]]=="Darwin" & Sys.info()[["machine"]] == "x86_64"
+  if (.Platform$OS.type == "unix" & !on_intel_mac) {
+    return(paste(x, "Installation may require pre-installation of additional system libraries, see https://github.com/adokter/vol2birdR#install for instructions."))
+  } else {
+    # platform is Windows or Intel Mac, pre-compiled binaries are available on CRAN
+    return(x)
+  }
 }

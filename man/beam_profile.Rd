@@ -47,6 +47,15 @@ distribution of radiated energy by those beams. Is a function of altitude
 (\code{height}) at a given distance (\code{distance}) from the radar, assuming the
 beams are emitted at antenna level
 }
+\details{
+Beam profile is calculated using \link{beam_height} and
+\link{beam_width}. Returns a beam profile as a function of height relative
+to ground level.
+
+Returns the normalized altitudinal pattern of radiated energy as a function
+of altitude at a given distance from the radar, assuming the beams are
+emitted at antenna level.
+}
 \examples{
 # Plot the beam profile, for a 0.5 degree elevation beam at 50 km distance
 from the radar:
@@ -70,9 +79,12 @@ plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
 )
 }
 \seealso{
-\itemize{
-\item \code{\link[=beam_height]{beam_height()}}
-\item \code{\link[=beam_width]{beam_width()}}
-\item \code{\link[=beam_range]{beam_range()}}
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
 }
-}
+\concept{beam_functions}

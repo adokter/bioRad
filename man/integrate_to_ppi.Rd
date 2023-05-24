@@ -104,6 +104,16 @@ azimuth and range of the various scans (see \code{\link[=beam_range]{beam_range(
 
 For each scan within the polar volume, the function calculates:
 \itemize{
+\item the vertical radiation profile for each ground surface pixel for that
+particular scan, using \link{beam_profile}.
+\item the reflectivity expected for each ground surface pixel
+(\eqn{\eta_{expected}}), given the vertical profile (of biological
+scatterers) and the part of the profile radiated by the beam.
+This \eqn{\eta_{expected}} is simply the average of (linear) \code{eta} in the
+profile, weighted by the vertical radiation profile.
+\item the observed eta at each pixel \eqn{\eta_{observed}}, which is converted
+form \code{DBZH} using function \link{dbz_to_eta}, with \code{DBZH} the reflectivity
+factor measured at the pixel's distance from the radar.
 \item The vertical radiation profile for each ground surface pixel for that
 particular scan, using \code{\link[=beam_profile]{beam_profile()}}.
 \item The reflectivity expected for each ground surface pixel
@@ -119,9 +129,16 @@ reflectivity factor measured at the pixel's distance from the radar.
 If one of \code{lat} or \code{lon} is missing, the extent of the \code{ppi} is taken equal
 to the extent of the data in the first scan of the polar volume.
 
-As an additional parameter, overlap between vertical profile and vertical
-radiation profile is calculated using \code{\link[=beam_profile]{beam_profile()}} and stored as quantity
-\code{overlap}.
+To arrive at the final PPI image, the function calculates
+\itemize{
+\item the vertically integrated density (\code{vid}) and vertically integrated
+reflectivity (\code{vir}) for the profile, using the function
+\link{integrate_profile}.
+\item the spatial range-corrected PPI for \code{VID}, defined as the adjustment
+factor image (\code{R}), multiplied by the \code{vid} calculated for the profile
+\item the spatial range-corrected PPI for \code{VIR}, defined as the adjustment
+factor \code{R}, multiplied by the \code{vir} calculated for the profile.
+}
 
 Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
 
@@ -192,5 +209,16 @@ Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.
 \doi{https://doi.org/10.1109/TGRS.2009.2014463}
+}
+
+\itemize{
+\item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
+J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+635. \doi{10.3390/rs12040635}
+\item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
+stopover using weather surveillance radar. IEEE Transactions on Geoscience
+and Remote Sensing 47: 2741-2751.
+\doi{10.1109/TGRS.2009.2014463}
 }
 }

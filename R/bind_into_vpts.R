@@ -44,7 +44,9 @@
 #' bind_into_vpts(vp1, vp2)
 bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 
-#' @rdname bind_into_vpts
+#' @describeIn bind_into_vpts Bind multiple `vp` into a `vpts`.
+#' If `vp` for multiple radars are provided, a list is returned containing
+#' a `vpts` for each radar.
 #'
 #' @export
 bind_into_vpts.vp <- function(...) {
@@ -56,7 +58,9 @@ bind_into_vpts.vp <- function(...) {
   vplist_to_vpts(c.vp(...))
 }
 
-#' @rdname bind_into_vpts
+#' @describeIn bind_into_vpts Bind multiple `vp` objects into a
+#' `vpts`. If data for multiple radars is provided, a list is returned
+#' containing a `vpts` for each radar.
 #'
 #' @export
 bind_into_vpts.list <- function(x, ...) {
@@ -67,7 +71,8 @@ bind_into_vpts.list <- function(x, ...) {
   vplist_to_vpts(x, ...)
 }
 
-#' @rdname bind_into_vpts
+#' @describeIn bind_into_vpts Bind multiple `vpts` into a single
+#' `vpts`. Requires the input `vpts` to be from the same radar.
 #'
 #' @param attributes_from Integer. Which `vpts` to copy attributes from
 #'   (default: first).
@@ -208,7 +213,7 @@ add_heights_vp <- function(x, target) {
   if (identical(x$data$height, target)) {
     return(x)
   }
-  x$data <- data.frame(rbindlist(list(x$data, data.frame(height = target[!(target %in% x$data$height)])), fill = TRUE))
+  x$data <- data.frame(dplyr::bind_rows(list(x$data, data.frame(height = target[!(target %in% x$data$height)]))))
   x$data <- x$data[order(x$data$height), ]
   x$attributes$where$levels <- length(target)
   return(x)

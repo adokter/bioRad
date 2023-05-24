@@ -31,7 +31,7 @@
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
                                bucket = "noaa-nexrad-level2") {
-
+  rlang::check_installed('aws.s3','to download pvolfiles.')
   # Ensure directory exists
   assert_that(is.dir(directory))
 
@@ -119,7 +119,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
     bucket_df <- bucket_df[isWithin, ]
 
     # throw out occasional NA keys, see e.g. 2015/03/01/KEPZ/
-    bucket_df %>% dplyr::filter(!is.na(Key)) -> bucket_df
+    bucket_df %>% dplyr::filter(!is.na(.data$Key)) -> bucket_df
 
     assert_that(nrow(bucket_df) > 0,
       msg = paste0(

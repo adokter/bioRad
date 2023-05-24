@@ -39,30 +39,25 @@
 #'
 #' @details Aerial abundances can be visualized in four related quantities, as specified
 #' by argument `quantity`:
-#' \describe{
-#'  \item{"`dens`"}{the aerial density of individuals. This quantity is
-#'    dependent on the assumed radar cross section (RCS) in the
-#'    `x$attributes$how$rcs_bird` attribute}
-#'  \item{"`eta`"}{reflectivity. This quantity is independent of the
-#'    value of the `rcs_bird` attribute}
-#'  \item{"`dbz`"}{reflectivity factor. This quantity is independent
-#'    of the value of the `rcs_bird` attribute, and corresponds to the
-#'    dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
-#'    tends to occur at much higher reflectivity factors at S-band
-#'    than at C-band}
-#'  \item{"`DBZH`"}{total reflectivity factor. This quantity equals the
-#'    reflectivity factor of all scatterers (biological and meteorological
-#'    scattering combined)}
-#' }
+#' * `dens`: the aerial density of individuals. This quantity is dependent on
+#'   the assumed radar cross section (RCS) in the `x$attributes$how$rcs_bird`
+#'   attribute
+#' * `eta`: reflectivity. This quantity is independent of the value of the
+#'   `rcs_bird` attribute
+#' * `dbz`: reflectivity factor. This quantity is independent of the value of
+#'   the `rcs_bird` attribute, and corresponds to the dBZ scale commonly used in
+#'   weather radar meteorology. Bioscatter by birds tends to occur at much
+#'   higher reflectivity factors at S-band than at C-band
+#' * `DBZH`: total reflectivity factor. This quantity equals the reflectivity
+#'   factor of all scatterers (biological and meteorological scattering
+#'   combined)
 #'
 #' Aerial velocities can be visualized in three related quantities, as specified
 #' by argument `quantity`:
-#' \describe{
-#'  \item{"`ff`"}{ground speed. The aerial velocity relative to the
-#'    ground surface in m/s.}
-#'  \item{"`u`"}{eastward ground speed component in m/s.}
-#'  \item{"`v`"}{northward ground speed component in m/s.}
-#' }
+#' * `ff`: ground speed. The aerial velocity relative to the ground surface in
+#'   m/s.
+#' * `u`: eastward ground speed component in m/s.
+#' * `v`: northward ground speed component in m/s.
 #'
 #' ## barbs
 #' In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
@@ -293,7 +288,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       palette <- rev(viridis::magma(n_color))
     }
   }
-  
+
   # add NA and NaN colors add beginning of palette
   palette_na_nan <- c(na_color, nan_color, palette)
 

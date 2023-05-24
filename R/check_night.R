@@ -1,9 +1,9 @@
 #' Check if it is night at a given time and place
 #'
-#' Checks if it is night (`TRUE`/`FALSE`) for a combination of latitude,
-#' longitude, date and sun elevation. When used on a bioRad object (`pvol`,
-#' `vp`, `vpts`, `vpi`) this information is extracted from the bioRad object
-#' directly.
+#' Checks if it is night (`TRUE`/`FALSE`) for a combination of
+#' latitude, longitude, date and sun elevation. When used on a bioRad object
+#' (`pvol`, `vp`, `vpts`, `vpi`) this information is extracted from the
+#' bioRad object directly.
 #'
 #' @param x A `pvol`, `vp`, `vpts`, `vpi` object, a POSIXct date or a string
 #'   interpretable by [base::as.POSIXct()].
@@ -20,15 +20,15 @@
 #'   moment of sunrise.
 #' @param ... Optional lat, lon arguments.
 #'
-#' @return `TRUE` when night, `FALSE` when day, `NA` if unknown (because
-#'   datetime datetime or geographic location missing). For `vpts` a vector of
-#'   `TRUE`/`FALSE` values is returned.
+#' @return `TRUE` when night, `FALSE` when day, `NA` if unknown
+#' (either datetime or geographic location missing). For `vpts` a
+#' vector of `TRUE`/`FALSE` values is returned.
 #'
 #' @export
 #'
 #' @details
 #'
-#' [check_night()] evaluates to `FALSE` when the sun has a higher
+#' `check_night()` evaluates to `FALSE` when the sun has a higher
 #' elevation than parameter `elev`, otherwise `TRUE`.
 #'
 #' Approximate astronomical formula are used, therefore the day/night

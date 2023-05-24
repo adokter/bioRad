@@ -1,3 +1,5 @@
+globalVariables(c("x","y","closest"))
+
 #' Regularize a time series of vertical profiles (`vpts`) on a
 #' regular time grid
 #'
@@ -46,11 +48,11 @@
 #'
 #' # regularize the time series on a 10 minute interval grid,
 #' # and fill data gaps smaller then 1 hour by nearest neighbor interpolation
-#' tsRegular <- regularize_vpts(ts, interval=600, fill=3600)
+#' tsRegular <- regularize_vpts(ts, interval = 600, fill = 3600)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   assert_that(is.vpts(ts))
-  if (interval != "auto") assert_that(is.number(interval), interval > 0) 
+  if (interval != "auto") assert_that(is.number(interval), interval > 0)
 
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
@@ -74,7 +76,7 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   if (interval == "auto") {
     dt <- as.difftime(median(ts$timesteps), units = "secs")
     if (verbose) {
-      cat(paste("projecting on", dt, "seconds interval grid...\n"))
+      message(paste("projecting on", dt, "seconds interval grid...\n"))
     }
   } else {
     dt <- as.difftime(interval, units = units)
@@ -82,22 +84,30 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
 
   if (is.flag(fill)) {
     # deprecation warning of old fill=TRUE behaviour
-    if(fill && !missing(fill)) warning("fill=TRUE behaviour has changed in bioRad version >= 0.6. Use fill=Inf to reproduce the old fill=TRUE result")
+    if (fill && !missing(fill)) warning("fill=TRUE behaviour has changed in bioRad version >= 0.6. Use fill=Inf to reproduce the old fill=TRUE result")
     # convert TRUE to dt and FALSE to 0.
-    fill=fill*dt
-  } else{
-    assert_that(is.number(fill), fill>0)
-    if(are_equal(fill,Inf)){
+    fill <- fill * dt
+  } else {
+    assert_that(is.number(fill), fill > 0)
+    if (are_equal(fill, Inf)) {
       # map infinity to the largest stepsize, to guarantee everything is filled
-      fill=max(ts$timesteps)
+      fill <- max(ts$timesteps)
     }
     fill <- as.difftime(fill, units = units)
   }
 
-  rounding_dt = lubridate::make_difftime(as.numeric(dt,units="secs"))
+  rounding_dt <- lubridate::make_difftime(as.numeric(dt, units = "secs"))
 
-  if(missing(date_min)) date_min <- tryCatch(lubridate::floor_date(ts$daterange[1],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[1]})
-  if(missing(date_max)) date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2],paste(rounding_dt,attr(rounding_dt, "units"))), error = function(e) {ts$daterange[2]})
+  if (missing(date_min)) {
+    date_min <- tryCatch(lubridate::floor_date(ts$daterange[1], paste(rounding_dt, attr(rounding_dt, "units"))), error = function(e) {
+      ts$daterange[1]
+    })
+  }
+  if (missing(date_max)) {
+    date_max <- tryCatch(lubridate::ceiling_date(ts$daterange[2], paste(rounding_dt, attr(rounding_dt, "units"))), error = function(e) {
+      ts$daterange[2]
+    })
+  }
 
   assert_that(is.time(date_min))
   assert_that(is.time(date_max))
@@ -106,7 +116,15 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   daterange <- c(date_min, date_max)
   grid <- seq(from = daterange[1], to = daterange[2], by = dt)
 
-  index <- data.table::setDT(data.frame(datetime=ts$datetime))[data.frame(grid), roll = "nearest", which = TRUE, on = "datetime==grid"]
+  # currently closest from dplyr does not allow for the closest before and after therefore this somewhat long query to find the index of the closest record in the vpts to grid
+  index <- data.frame(grid = grid) %>%
+    dplyr::left_join(data.frame(ts = ts$datetime, id = seq_along(ts$datetime)), by = dplyr::join_by(closest(x$grid >= y$ts))) %>%
+    dplyr::left_join(data.frame(ts = ts$datetime, id = seq_along(ts$datetime)), by = dplyr::join_by(closest(x$grid <= y$ts)), suffix = c("", ".after")) %>%
+    dplyr::mutate(
+      index = dplyr::if_else((.data$grid - .data$ts.after) > (.data$ts - .data$grid), .data$id.after, .data$id),
+      index = dplyr::if_else(is.na(.data$index), dplyr::if_else(is.na(.data$id), .data$id.after, .data$id), .data$index)
+    ) %>%
+    dplyr::pull(.data$index)
 
   quantity.names <- names(ts$data)
   ts$data <- lapply(
@@ -131,9 +149,9 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
   names(ts$data) <- quantity.names
   ts$daterange <- daterange
   ts$timesteps <- rep(as.double(dt, units = "secs"), length(grid) - 1)
-  if(!keep_datetime){
+  if (!keep_datetime) {
     ts$datetime <- grid
-  } else{
+  } else {
     ts$datetime <- ts$datetime[index]
   }
   ts$regular <- TRUE

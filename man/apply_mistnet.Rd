@@ -75,6 +75,15 @@ level of the radar.
 \item \code{BIOLOGY}: Class probability that biological scatterers were detected.
 }
 
+MistNet will calculate three class probabilities (from 0 to 1, with 1 corresponding
+to a 100\% probability) as additional scan parameters to the polar volume:
+\itemize{
+\item \code{BACKGROUND}: Class probability that no signal was detected above the noise
+level of the radar
+\item \code{WEATHER}: Class probability that weather was detected
+\item \code{BIOLOGY}: Class probability that biological scatterers were detected
+}
+
 These class probabilities are only available for the 5 input elevations used
 as input for the MistNet model. Based on all the class probabilities a final
 weather segmentation map is calculated, stored as scan parameter \code{CELL},

@@ -38,4 +38,13 @@ beam_distance(100000, 5)
 \itemize{
 \item \code{\link[=beam_height]{beam_height()}}
 }
+
+Other beam_functions: 
+\code{\link{beam_height}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
 }
+\concept{beam_functions}

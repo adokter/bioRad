@@ -37,6 +37,20 @@ single radar into one \code{vpts}.
 layers that are of equal width. Profiles are allowed to differ in the number
 of altitude layers, i.e. the maximum altitude.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{bind_into_vpts(vp)}: Bind multiple \code{vp} into a \code{vpts}.
+If \code{vp} for multiple radars are provided, a list is returned containing
+a \code{vpts} for each radar.
+
+\item \code{bind_into_vpts(list)}: Bind multiple \code{vp} objects into a
+\code{vpts}. If data for multiple radars is provided, a list is returned
+containing a \code{vpts} for each radar.
+
+\item \code{bind_into_vpts(vpts)}: Bind multiple \code{vpts} into a single
+\code{vpts}. Requires the input \code{vpts} to be from the same radar.
+
+}}
 \examples{
 # Split the example vpts into two separate time series, one containing
 # profile 1-10 and a second containing profile 11-20

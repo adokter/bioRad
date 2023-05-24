@@ -41,6 +41,16 @@
 #' azimuth and range of the various scans (see [beam_range()]).
 #'
 #' For each scan within the polar volume, the function calculates:
+#' * the vertical radiation profile for each ground surface pixel for that
+#'   particular scan, using [beam_profile].
+#' * the reflectivity expected for each ground surface pixel
+#'   (\eqn{\eta_{expected}}), given the vertical profile (of biological
+#'   scatterers) and the part of the profile radiated by the beam.
+#'   This \eqn{\eta_{expected}} is simply the average of (linear) `eta` in the
+#'   profile, weighted by the vertical radiation profile.
+#' * the observed eta at each pixel \eqn{\eta_{observed}}, which is converted
+#'   form `DBZH` using function [dbz_to_eta], with `DBZH` the reflectivity
+#'   factor measured at the pixel's distance from the radar.
 #'
 #' * The vertical radiation profile for each ground surface pixel for that
 #' particular scan, using [beam_profile()].
@@ -56,9 +66,14 @@
 #' If one of `lat` or `lon` is missing, the extent of the `ppi` is taken equal
 #' to the extent of the data in the first scan of the polar volume.
 #'
-#' As an additional parameter, overlap between vertical profile and vertical
-#' radiation profile is calculated using [beam_profile()] and stored as quantity
-#' `overlap`.
+#' To arrive at the final PPI image, the function calculates
+#' * the vertically integrated density (`vid`) and vertically integrated
+#'   reflectivity (`vir`) for the profile, using the function
+#'   [integrate_profile].
+#' * the spatial range-corrected PPI for `VID`, defined as the adjustment
+#'   factor image (`R`), multiplied by the `vid` calculated for the profile
+#' * the spatial range-corrected PPI for `VIR`, defined as the adjustment
+#'   factor `R`, multiplied by the `vir` calculated for the profile.
 #'
 #' Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
 #'
@@ -126,14 +141,16 @@
 #' )
 #' plot(ppi, param = "VID", zlim = c(0, 200))
 #' }
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim,
-                             zlim = c(0, 4000), res, quantity = "eta",
-                             param = "DBZH", raster = NA, lat, lon, antenna,
-                             beam_angle = 1, crs, param_ppi = c("VIR", "VID",
-                                                                "R", "overlap",
-                                                                "eta_sum",
-                                                                "eta_sum_expected"),
-                             k = 4 / 3, re = 6378, rp = 6357) {
+#' @references
+#' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
+#'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+#'   Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+#'   635. \doi{10.3390/rs12040635}
+#' * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
+#'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
+#'   and Remote Sensing 47: 2741-2751.
+#'   \doi{10.1109/TGRS.2009.2014463}
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
