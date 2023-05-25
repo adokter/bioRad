@@ -102,9 +102,8 @@ radars.</p>
 
 
 <dt>param</dt>
-<dd><p>The scan parameter name(s) to composite. An atomic vector of character strings
-can be provided to composite multiple scan parameters at once. To composite all available
-scan parameters use 'all' (default).</p></dd>
+<dd><p>Character (vector). One or more parameter name(s) to composite.
+To composite all available scan parameters use <code>all</code> (default).</p></dd>
 
 
 <dt>nx</dt>
@@ -140,38 +139,50 @@ arguments are ignored.</p></dd>
 
 
 <dt>method</dt>
-<dd><p>string. Compositing method, one of "mean", "min", "max" or "idw". Provide a list of methods
-names of length(param) to apply different methods to each of the parameters.</p></dd>
+<dd><p>Character (vector). Compositing method(s), either <code>mean</code>,
+<code>min</code>, <code>max</code> or <code>idw</code>. To apply different methods for each of the
+parameters, provide a vector with the same length as <code>param</code>.</p></dd>
 
 
 <dt>idp</dt>
-<dd><p>numeric. inverse distance weighting power.</p></dd>
+<dd><p>Numeric. Inverse distance weighting power.</p></dd>
 
 
 <dt>idw_max_distance</dt>
-<dd><p>numeric. Maximum distance from the radar to consider in
-inverse distance weighting. Measurements beyond this distance will have a
-weighting factor of zero.</p></dd>
+<dd><p>Numeric. Maximum distance from the radar to consider
+in inverse distance weighting. Measurements beyond this distance will have
+a weighting factor of zero.</p></dd>
 
 
 <dt>coverage</dt>
-<dd><p>logical. When TRUE adds an additional "coverage" parameter to the <code>ppi</code> with the
-number of PPIs covering a single composite <code>ppi</code> pixel.</p></dd>
+<dd><p>Logical. When <code>TRUE</code>, adds an additional <code>coverage</code> parameter
+to the <code>ppi</code> indicating the number of <code>ppi</code>s covering a single composite
+pixel.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>A <code><a href="summary.ppi.html">ppi()</a></code>.</p>
+<p>A <code>ppi</code> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>This function composites multiple ppi objects into a ppi object that
-combines all data.</p>
-<p>Either multiple ppi's of different scan elevation of the same radar may be combined,
-or ppi's of different radars can be composited.</p>
-<p>Argument <code>method</code> determines how values of different ppi's at the same
+    <p>The function can combine multiple <code>ppi</code>s of different scan elevations of the
+same radar or <code>ppi</code>s of different radars. The coordinates of the returned
+<code>ppi</code> object are in the WGS84 datum, unless a different <code>crs</code> is provided. If
+only <code>res</code> is provided, but no <code>crs</code> is set, <code>res</code> is in meters and the
+origin of the composite <code>ppi</code> is set to the mean(lat, lon) location.</p>
+<p>The <code>method</code> parameter determines how values of different <code>ppi</code>s at the same
+geographic location are combined:</p><ul><li><p><code>mean</code>: Compute the average value.</p></li>
+<li><p><code>max</code>: Compute the maximum value. If <code>ppi</code>s are of the same radar and the
+same polar volume, this computes a max product, showing the maximum detected
+signal at that geographic location.</p></li>
+<li><p><code>min</code>: Compute the minimum value.</p></li>
+<li><p><code>idw</code>: This option is useful primarily when compositing <code>ppi</code>s of multiple
+radars. Performs an inverse distance weighting, where values are weighted
+according to 1/(distance from the radar)^<code>idp</code>.</p></li>
+</ul><p>Argument <code>method</code> determines how values of different ppi's at the same
 geographic location are combined.</p><ul><li><p><code>mean</code>: Compute the average value</p></li>
 <li><p><code>max</code>: Compute the maximum value. If ppi's are of the same radar and the
 same polar volume, this computes a max product, showing the maximum
@@ -190,43 +201,23 @@ mean (lat, lon) location.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># locate example volume file:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Locate and read the polar volume example file</span></span></span>
 <span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># load the file:</span></span></span>
-<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Calculate a ppi for each elevation scan</span></span></span>
+<span class="r-in"><span><span class="va">ppis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pvol</span><span class="op">$</span><span class="va">scans</span>, <span class="va">project_as_ppi</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># calculate a ppi for each elevation scan</span></span></span>
-<span class="r-in"><span><span class="va">my_ppis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">example_pvol</span><span class="op">$</span><span class="va">scans</span>, <span class="va">project_as_ppi</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># overlay the ppi's, calculating the maximum value observed</span></span></span>
+<span class="r-in"><span><span class="co"># Overlay the ppis, calculating the maximum value observed</span></span></span>
 <span class="r-in"><span><span class="co"># across the available scans at each geographic location</span></span></span>
-<span class="r-in"><span><span class="va">my_composite</span> <span class="op">&lt;-</span> <span class="fu">composite_ppi</span><span class="op">(</span><span class="va">my_ppis</span>, method<span class="op">=</span><span class="st">"max"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">composite</span> <span class="op">&lt;-</span> <span class="fu">composite_ppi</span><span class="op">(</span><span class="va">ppis</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># download basemap</span></span></span>
-<span class="r-in"><span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">my_composite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Download basemap</span></span></span>
+<span class="r-in"><span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">composite</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># plot the calculated max product on the basemap</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">my_composite</span>, <span class="va">bm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot the calculated max product on the basemap</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">composite</span>, <span class="va">bm</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

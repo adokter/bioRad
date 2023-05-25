@@ -80,12 +80,12 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>range</dt>
-<dd><p>numeric. Range (distance from the radar antenna) in m.</p></dd>
+<dd><p>Numeric. Range, i.e. distance from the radar antenna, in m.</p></dd>
 
 
 <dt>beam_angle</dt>
-<dd><p>numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe</p></dd>
+<dd><p>Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -107,14 +107,14 @@ angle between the half-power (-3 dB) points of the main lobe</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#' # beam width in meters at 10 km range:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#' # Beam width in meters at 10 km range:</span></span></span>
 <span class="r-in"><span><span class="fu">beam_width</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 174.5241</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:</span></span></span>
+<span class="r-in"><span><span class="co"># Define ranges from 0 to 1000000 m (100 km), in steps of 100 m:</span></span></span>
 <span class="r-in"><span><span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># plot the beam width as a function of range:</span></span></span>
+<span class="r-in"><span><span class="co"># Plot the beam width as a function of range:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">range</span>, <span class="fu">beam_width</span><span class="op">(</span><span class="va">range</span><span class="op">)</span>, ylab <span class="op">=</span> <span class="st">"beam width [m]"</span>, xlab <span class="op">=</span> <span class="st">"range [m]"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="beam_width-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>

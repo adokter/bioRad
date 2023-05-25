@@ -82,35 +82,35 @@ for a given beam elevation and slant range.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>range</dt>
-<dd><p>numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.</p></dd>
+<dd><p>Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.</p></dd>
 
 
 <dt>elev</dt>
-<dd><p>numeric. Beam elevation in degrees.</p></dd>
+<dd><p>Numeric. Beam elevation, in degrees.</p></dd>
 
 
 <dt>k</dt>
-<dd><p>Standard refraction coefficient.</p></dd>
+<dd><p>Numeric. Standard refraction coefficient.</p></dd>
 
 
 <dt>lat</dt>
-<dd><p>Geodetic latitude of the radar in degrees.</p></dd>
+<dd><p>Numeric. Geodetic latitude of the radar, in degrees.</p></dd>
 
 
 <dt>re</dt>
-<dd><p>Earth equatorial radius in km.</p></dd>
+<dd><p>Numeric. Earth equatorial radius, in km.</p></dd>
 
 
 <dt>rp</dt>
-<dd><p>Earth polar radius in km.</p></dd>
+<dd><p>Numeric. Earth polar radius, in km.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>numeric. Beam distance (down range) in m.</p>
+<p>Beam distance (down range), in m.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -118,7 +118,9 @@ between target and the radar antenna.</p></dd>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other beam_functions: 
+    <div class="dont-index">
+<ul><li><p><code><a href="beam_height.html">beam_height()</a></code></p></li>
+</ul><p>Other beam_functions: 
 <code><a href="beam_height.html">beam_height</a>()</code>,
 <code><a href="beam_profile_overlap.html">beam_profile_overlap</a>()</code>,
 <code><a href="beam_profile.html">beam_profile</a>()</code>,
@@ -129,7 +131,7 @@ between target and the radar antenna.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># down range of the 5 degree elevation beam at a slant range of 100 km:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Down range of the 5 degree elevation beam at a slant range of 100 km:</span></span></span>
 <span class="r-in"><span><span class="fu">beam_distance</span><span class="op">(</span><span class="fl">100000</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 99495.13</span>
 </code></pre></div>

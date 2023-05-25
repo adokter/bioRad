@@ -82,28 +82,28 @@ assuming the beam is emitted at surface level.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>range</dt>
-<dd><p>numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.</p></dd>
+<dd><p>Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.</p></dd>
 
 
 <dt>elev</dt>
-<dd><p>numeric. Beam elevation in degrees.</p></dd>
+<dd><p>Numeric. Beam elevation, in degrees.</p></dd>
 
 
 <dt>k</dt>
-<dd><p>Standard refraction coefficient.</p></dd>
+<dd><p>Numeric. Standard refraction coefficient.</p></dd>
 
 
 <dt>lat</dt>
-<dd><p>Geodetic latitude of the radar in degrees.</p></dd>
+<dd><p>Numeric. Geodetic latitude of the radar, in degrees.</p></dd>
 
 
 <dt>re</dt>
-<dd><p>Earth equatorial radius in km.</p></dd>
+<dd><p>Numeric. Earth equatorial radius, in km.</p></dd>
 
 
 <dt>rp</dt>
-<dd><p>Earth polar radius in km.</p></dd>
+<dd><p>Numeric. Earth polar radius, in km.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -114,8 +114,8 @@ between target and the radar antenna.</p></dd>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>To account for refraction of the beam towards the earth's surface,
-an effective earth's radius of k * (true radius) is assumed, with k = 4/3.</p>
+    <p>To account for refraction of the beam towards the earth's surface, an
+effective earth's radius of <code>k</code> * (true radius) is assumed, with <code>k</code> = 4/3.</p>
 <p>The earth's radius is approximated as a point on a spheroid surface, with
 <code>re</code> the longer equatorial radius, and <code>rp</code> the shorter polar
 radius. Typically uncertainties in refraction coefficient are relatively
@@ -125,7 +125,9 @@ earth's radius of 6371 km.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other beam_functions: 
+    <div class="dont-index">
+<ul><li><p><code><a href="beam_width.html">beam_width()</a></code></p></li>
+</ul><p>Other beam_functions: 
 <code><a href="beam_distance.html">beam_distance</a>()</code>,
 <code><a href="beam_profile_overlap.html">beam_profile_overlap</a>()</code>,
 <code><a href="beam_profile.html">beam_profile</a>()</code>,
@@ -136,18 +138,18 @@ earth's radius of 6371 km.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># beam height in meters at 10 km range for a 1 degree elevation beam:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Beam height in meters at 10 km range for a 1 degree elevation beam:</span></span></span>
 <span class="r-in"><span><span class="fu">beam_height</span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 180.4081</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># beam height in meters at 10 km range for a 3 and 5 degree elevation beam:</span></span></span>
+<span class="r-in"><span><span class="co"># Beam height in meters at 10 km range for a 3 and 5 degree elevation beam:</span></span></span>
 <span class="r-in"><span><span class="fu">beam_height</span><span class="op">(</span><span class="fl">10000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 529.229 877.398</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:</span></span></span>
+<span class="r-in"><span><span class="co"># Define ranges from 0 to 1000000 m (100 km), in steps of 100 m:</span></span></span>
 <span class="r-in"><span><span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># plot the beam height of the 0.5 degree elevation beam:</span></span></span>
+<span class="r-in"><span><span class="co"># Plot the beam height of the 0.5 degree elevation beam:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">range</span>, <span class="fu">beam_height</span><span class="op">(</span><span class="va">range</span>, <span class="fl">0.5</span><span class="op">)</span>, ylab <span class="op">=</span> <span class="st">"beam height [m]"</span>, xlab <span class="op">=</span> <span class="st">"range [m]"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="beam_height-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>

@@ -104,36 +104,38 @@ bioRad object directly.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code>pvol</code>, <code>vp</code>, <code>vpts</code>, <code>vpi</code>,
-or a date inheriting from class <code>POSIXct</code> or a string
-interpretable by <a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a>.</p></dd>
+<dd><p>A <code>pvol</code>, <code>vp</code>, <code>vpts</code>, <code>vpi</code> object, a POSIXct date or a string
+interpretable by <code><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">base::as.POSIXct()</a></code>.</p></dd>
 
 
 <dt>...</dt>
-<dd><p>optional lat,lon arguments.</p></dd>
+<dd><p>Optional lat, lon arguments.</p></dd>
 
 
 <dt>elev</dt>
-<dd><p>numeric. Sun elevation in degrees defining night time. May also be a numeric vector of
-length two, with first element giving sunset elevation, and second element sunrise elevation.</p></dd>
+<dd><p>Numeric (vector). Sun elevation in degrees defining nighttime.
+May also be a numeric vector of length two, with first element giving
+sunset elevation, and second element sunrise elevation.</p></dd>
 
 
 <dt>offset</dt>
-<dd><p>numeric. Time duration in seconds by which to shift the start and end
-of night time. May also be a numeric vector of length two, with first element added to moment
-of sunset and second element added to moment of sunrise.</p></dd>
+<dd><p>Numeric (vector). Time duration in seconds by which to shift
+the start and end of nighttime. May also be a numeric vector of length two,
+with first element added to moment of sunset and second element added to
+moment of sunrise.</p></dd>
 
 
 <dt>lon</dt>
-<dd><p>numeric. Longitude in decimal degrees.</p></dd>
+<dd><p>Numeric. Longitude, in decimal degrees.</p></dd>
 
 
 <dt>lat</dt>
-<dd><p>numeric. Latitude in decimal degrees.</p></dd>
+<dd><p>Numeric. Latitude, in decimal degrees.</p></dd>
 
 
 <dt>tz</dt>
-<dd><p>character. Time zone. Ignored when <code>date</code> already has an associated time zone</p></dd>
+<dd><p>Character. Time zone. Ignored when <code>date</code> already has an associated
+time zone.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -146,25 +148,27 @@ vector of <code>TRUE</code>/<code>FALSE</code> values is returned.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>The angular diameter of the sun is about 0.536 degrees, therefore
-the moment of sunrise/sunset corresponds to half that elevation at
--0.268 degrees.</p>
-<p><code>check_night()</code> evaluates to <code>FALSE</code> when the sun has a higher
+    <p><code>check_night()</code> evaluates to <code>FALSE</code> when the sun has a higher
 elevation than parameter <code>elev</code>, otherwise <code>TRUE</code>.</p>
 <p>Approximate astronomical formula are used, therefore the day/night
 transition may be off by a few minutes.</p>
-<p><code>offset</code> can be used to shift the moment of sunset and sunrise by a
-temporal offset, for example, <code>offset=c(600,-900)</code> will assume nighttime
-starts 600 seconds after sunset (as defined by <code>elev</code>) and stops 900 seconds before sunrise.</p>
+<p>The angular diameter of the sun is about 0.536 degrees, therefore the moment
+of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
+Approximate astronomical formula are used, therefore the day/night transition
+may be off by a few minutes.</p>
+<p><code>offset</code> can be used to shift the moment of sunset and sunrise by a temporal
+offset, for example, <code>offset = c(600,-900)</code> will assume nighttime starts 600
+seconds after sunset (as defined by <code>elev</code>) and stops 900 seconds before
+sunrise.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># check if it is night at UTC midnight in the Netherlands on January 1st:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Check if it is night at UTC midnight in the Netherlands on January 1st:</span></span></span>
 <span class="r-in"><span><span class="fu">check_night</span><span class="op">(</span><span class="st">"2016-01-01 00:00"</span>, <span class="fl">5</span>, <span class="fl">53</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># check on bioRad objects directly:</span></span></span>
+<span class="r-in"><span><span class="co"># Check on bioRad objects directly:</span></span></span>
 <span class="r-in"><span><span class="fu">check_night</span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
@@ -332,9 +336,9 @@ starts 600 seconds after sunset (as defined by <code>elev</code>) and stops 900 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1921] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1933] FALSE FALSE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># select nighttime profiles that are between 3 hours after sunset</span></span></span>
+<span class="r-in"><span><span class="co"># Select nighttime profiles that are between 3 hours after sunset</span></span></span>
 <span class="r-in"><span><span class="co"># and 2 hours before sunrise:</span></span></span>
-<span class="r-in"><span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu">check_night</span><span class="op">(</span><span class="va">example_vpts</span>, offset<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="fl">3600</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu">check_night</span><span class="op">(</span><span class="va">example_vpts</span>, offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="fl">3600</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">example_vpts</span><span class="op">[</span><span class="va">index</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Irregular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

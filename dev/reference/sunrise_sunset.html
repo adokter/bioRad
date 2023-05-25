@@ -82,101 +82,99 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>date</dt>
-<dd><p>Date inheriting from class <code>POSIXt</code> or a string
-interpretable by <a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a>.</p></dd>
+<dd><p>POSIXct. Date interpretable by <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">base::as.Date()</a></code>.</p></dd>
 
 
 <dt>lon</dt>
-<dd><p>Longitude in decimal degrees.</p></dd>
+<dd><p>Numeric. Longitude in decimal degrees.</p></dd>
 
 
 <dt>lat</dt>
-<dd><p>Latitude in decimal degrees.</p></dd>
+<dd><p>Numeric. Latitude in decimal degrees.</p></dd>
 
 
 <dt>elev</dt>
-<dd><p>Sun elevation in degrees.</p></dd>
+<dd><p>Numeric. Sun elevation in degrees.</p></dd>
 
 
 <dt>tz</dt>
-<dd><p>output time zone. Ignored if <code>date</code> has an associated time zone already</p></dd>
+<dd><p>Character. Time zone of <code>date</code>, ignored if <code>date</code> already has an
+associated time zone.</p></dd>
 
 
 <dt>force_tz</dt>
-<dd><p>whether to convert output to timezone <code>tz</code>. Default <code>FALSE</code>.</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, the output is converted to the timezone
+set by <code>tz</code>.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>The moment of sunrise or sunset for the date set by <code>date</code>and time zone as specified
-(by <code>date</code> and <code>tz</code>) or in UTC if not specified.</p>
+<p>The moment of sunrise or sunset for the specified <code>date</code> and
+timezone (either set in <code>date</code> or <code>tz</code>, otherwise UTC is assumed).</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>The day for which sunrise and sunset are calculated is given by the input date.
-Sunrise and sunset are calculated relative to the moment of solar noon for that date,
-i.e. the first sunrise before the moment of solar noon, and the first sunset after the
-moment of solar noon. Therefore, depending on the timezone provided, it is possible that
-the nearest sunrise prior to solar noon occurs a day earlier than the input date.
-Similarly, sunset may occur a day later than the input date. See examples for details.</p>
-<p>The angular diameter of the sun is about 0.536 degrees,
-therefore the moment of sunrise/sunset corresponds to half that elevation
-at -0.268 degrees.</p>
-<p>This is a convenience function mapping to crepuscule.</p>
-<p>Approximate astronomical formula are used, therefore the moment of
-sunrise / sunset may be off by a few minutes</p>
-<p>If <code>force_tz</code> is <code>TRUE</code>, the output is converted to the timezone
-set by <code>tz</code></p>
+    <p><code>sunrise()</code> and <code>sunset()</code> are convenience functions around
+<code><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">maptools::crepuscule()</a></code>.</p>
+<p>The day for which sunrise and sunset are calculated is given by the input
+date. Sunrise and sunset are calculated relative to the moment of solar noon
+for that date, i.e. the first sunrise before the moment of solar noon, and
+the first sunset after the moment of solar noon. Therefore, depending on the
+timezone provided, it is possible that the nearest sunrise prior to solar
+noon occurs a day earlier than the input date. Similarly, sunset may occur a
+day later than the input date. See examples for details.</p>
+<p>The angular diameter of the sun is about 0.536 degrees, therefore the moment
+of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
+Approximate astronomical formula are used, therefore the moment of sunrise /
+sunset may be off by a few minutes.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># sunrise in the Netherlands</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Sunrise in the Netherlands</span></span></span>
 <span class="r-in"><span><span class="fu">sunrise</span><span class="op">(</span><span class="st">"2016-01-01"</span>, <span class="fl">5</span>, <span class="fl">53</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-01-01 07:58:17 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># sunset in the Netherlands</span></span></span>
+<span class="r-in"><span><span class="co"># Sunset in the Netherlands</span></span></span>
 <span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="st">"2016-01-01"</span>, <span class="fl">5</span>, <span class="fl">53</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-01-01 15:28:31 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># civil twilight in Ithaca, NY</span></span></span>
+<span class="r-in"><span><span class="co"># Civil twilight in Ithaca, NY</span></span></span>
 <span class="r-in"><span><span class="fu">sunrise</span><span class="op">(</span><span class="st">"2016-01-01"</span>, <span class="op">-</span><span class="fl">76.5</span>, <span class="fl">42.4</span>, elev <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-01-01 12:03:29 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># next sunset in South Dakota, USA</span></span></span>
+<span class="r-in"><span><span class="co"># Next sunset in South Dakota, USA</span></span></span>
 <span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="st">"2016-11-15"</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-11-15 22:58:56 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Beware that some days have two sunsets, or</span></span></span>
-<span class="r-in"><span><span class="co"># two sunrises! E.g. on 5 Oct (local timezone) at</span></span></span>
-<span class="r-in"><span><span class="co"># this location  sunset is actually on the 6 Oct</span></span></span>
-<span class="r-in"><span><span class="co"># in UTC time zone, i.e. the next day</span></span></span>
+<span class="r-in"><span><span class="co"># Beware that some days have two sunsets, or two sunrises! E.g. on 5 Oct</span></span></span>
+<span class="r-in"><span><span class="co"># (local timezone) at this location sunset is actually on the 6 Oct in UTC,</span></span></span>
+<span class="r-in"><span><span class="co"># i.e. the next day</span></span></span>
 <span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="st">"2016-10-5"</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-10-06 00:00:46 UTC"</span>
-<span class="r-in"><span><span class="co"># One day later, sunset is again on 6 Oct:</span></span></span>
+<span class="r-in"><span><span class="co"># One day later, sunset is again on 6 Oct</span></span></span>
 <span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="st">"2016-10-6"</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-10-06 23:58:56 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># working in local time zones typically avoids such ambiguities:</span></span></span>
-<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-05"</span>,tz<span class="op">=</span><span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Working in local time zones typically avoids such ambiguities</span></span></span>
+<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-05"</span>, tz <span class="op">=</span> <span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-06-06 02:11:19 UTC"</span>
-<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-06"</span>,tz<span class="op">=</span><span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-06"</span>, tz <span class="op">=</span> <span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-06-07 02:12:00 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># use force_tz to force output to a specific time zone, by default UTC:</span></span></span>
-<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-05"</span>,tz<span class="op">=</span><span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span>, force_tz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Use force_tz to force output to a specific time zone, by default UTC</span></span></span>
+<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-05"</span>, tz <span class="op">=</span> <span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span>, force_tz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-06-06 02:11:19 UTC"</span>
-<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-06"</span>,tz<span class="op">=</span><span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span>, force_tz<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sunset</span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_datetime</a></span><span class="op">(</span><span class="st">"2016-06-06"</span>, tz <span class="op">=</span> <span class="st">"America/Chicago"</span><span class="op">)</span>, <span class="op">-</span><span class="fl">98</span>, <span class="fl">45</span>, force_tz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-06-07 02:12:00 UTC"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Also beware of jumps in sunrise and sunset date with longitude:</span></span></span>
+<span class="r-in"><span><span class="co"># Also beware of jumps in sunrise and sunset date with longitude</span></span></span>
 <span class="r-in"><span><span class="fu">sunrise</span><span class="op">(</span><span class="st">"2016-11-01"</span>, <span class="fl">100</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-11-01 00:01:50 UTC"</span>
 <span class="r-in"><span><span class="fu">sunrise</span><span class="op">(</span><span class="st">"2016-11-01"</span>, <span class="fl">102</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-10-31 23:53:50 UTC"</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

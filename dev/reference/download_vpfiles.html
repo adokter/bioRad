@@ -90,40 +90,43 @@ these are stored as monthly zips per radar.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>date_min</dt>
-<dd><p>character. YYYY-MM-DD start date of file selection. Days will
-be ignored.</p></dd>
+<dd><p>Character. Start date of file selection, in <code>YYYY-MM-DD</code>
+format. Days will be ignored.</p></dd>
 
 
 <dt>date_max</dt>
-<dd><p>character. YYYY-MM-DD end date of file selection. Days will
-be ignored.</p></dd>
+<dd><p>Character. End date of file selection, in <code>YYYY-MM-DD</code>
+format. Days will be ignored.</p></dd>
 
 
 <dt>radars</dt>
-<dd><p>character (vector). 5-letter country/radar code(s)
-(e.g. "bejab") of radars to include in file selection.</p></dd>
+<dd><p>Character (vector). 5-letter country/radar code(s) to include
+in file selection.</p></dd>
 
 
 <dt>directory</dt>
-<dd><p>character. Path to local directory where files should be
+<dd><p>Character. Path to local directory where files should be
 downloaded and unzipped.</p></dd>
 
 
 <dt>overwrite</dt>
-<dd><p>logical. TRUE for re-downloading and overwriting previously
+<dd><p>Logical. When <code>TRUE</code>, re-download and overwrite previously
 downloaded files of the same names.</p></dd>
 
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>select_vpfiles</p></div>
+    <div class="dont-index">
+<ul><li><p><code><a href="select_vpfiles.html">select_vpfiles()</a></code></p></li>
+<li><p><code><a href="read_vpfiles.html">read_vpfiles()</a></code></p></li>
+</ul></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Download data from radars "bejab" and "bewid", even if previously</span></span></span>
-<span class="r-in"><span><span class="co"># downloaded (overwrite = TRUE). Will successfully download 2016-10 files,</span></span></span>
-<span class="r-in"><span><span class="co"># but show 404 error for 2016-11 files (as these are not available).</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Download (and overwrite) data from radars "bejab" and "bewid".</span></span></span>
+<span class="r-in"><span><span class="co"># Will successfully download 2016-10 files, but show 404 error for</span></span></span>
+<span class="r-in"><span><span class="co"># 2016-11 files, since these are not available.</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"~/bioRad_tmp_files"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">download_vpfiles</span><span class="op">(</span></span></span>
@@ -133,7 +136,7 @@ downloaded files of the same names.</p></dd>
 <span class="r-in"><span>  directory <span class="op">=</span> <span class="st">"~/bioRad_tmp_files"</span>,</span></span>
 <span class="r-in"><span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># clean up:</span></span></span>
+<span class="r-in"><span><span class="co"># Clean up</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"~/bioRad_tmp_files"</span>, recursive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
