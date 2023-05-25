@@ -57,11 +57,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   check_date_format(date_max, "%Y-%m-%d")
 
   # Stop if overwrite is not a logical
-<<<<<<< HEAD
-  assert_that(is.logical(overwrite), msg = "overwrite is not a logical")
-=======
   assertthat::assert_that(is.logical(overwrite), msg='overwrite is not a logical')
->>>>>>> namespace
 
   # Set day to 01 and create series of yyyy/mm based on date_min/max:
   # 2016/10, 2016/11, 2016/12
