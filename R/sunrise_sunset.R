@@ -120,32 +120,6 @@ NULL
 #' @rdname sunrise_sunset
 #'
 #' @export
-<<<<<<< HEAD
-sunrise <-
-  function(date,
-           lon,
-           lat,
-           elev = -0.268,
-           tz = "UTC",
-           force_tz = FALSE) {
-    locations <- data.frame(lon = lon, lat = lat)
-    locations <-
-      SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
-    datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
-    suntimes <-
-      crepuscule(
-        locations,
-        datetime,
-        solarDep = -elev,
-        direction = "dawn",
-        POSIXct.out = TRUE
-      )
-    if (force_tz) {
-      suntimes$time <- lubridate::as_datetime(suntimes$time, tz = tz)
-    }
-    suntimes$time
-  }
-=======
 sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
   locations <- sp::SpatialPoints(locations, proj4string = sp::CRS("+proj=longlat +datum=WGS84"))
@@ -154,37 +128,10 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
   if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz=tz)
   suntimes$time
 }
->>>>>>> namespace
 
 #' @rdname sunrise_sunset
 #'
 #' @export
-<<<<<<< HEAD
-sunset <-
-  function(date,
-           lon,
-           lat,
-           elev = -0.268,
-           tz = "UTC",
-           force_tz = FALSE) {
-    locations <- data.frame(lon = lon, lat = lat)
-    locations <-
-      SpatialPoints(locations, proj4string = CRS("+proj=longlat +datum=WGS84"))
-    datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
-    suntimes <-
-      crepuscule(
-        locations,
-        datetime,
-        solarDep = -elev,
-        direction = "dusk",
-        POSIXct.out = TRUE
-      )
-    if (force_tz) {
-      suntimes$time <- lubridate::as_datetime(suntimes$time, tz = tz)
-    }
-    suntimes$time
-  }
-=======
 sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
   locations <- sp::SpatialPoints(locations, proj4string = sp::CRS("+proj=longlat +datum=WGS84"))
@@ -193,4 +140,3 @@ sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) 
   if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz=tz)
   suntimes$time
 }
->>>>>>> namespace
