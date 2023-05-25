@@ -41,6 +41,7 @@ Imports:
     dplyr (>= 1.1.0),
     rhdf5,
     sp,
+    sf,
     stats,
     tidyr,
     utils,

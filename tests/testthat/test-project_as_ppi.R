@@ -30,7 +30,7 @@ test_that("project_as_ppi works", {
 test_that("project_as_ppi works from different projection", {
   data("example_scan")
   expect_s3_class(b <- project_as_ppi(example_scan, 3000, 5000, project = F), "ppi")
-  expect_s4_class(r <- raster::rasterFromXYZ(sp::spTransform(methods::as(b$data, "SpatialPoints")[s <- c(1, 11), ], "+proj=longlat"), crs = "+proj=longlat"), "RasterLayer")
+  expect_s4_class(r <- raster::rasterFromXYZ(SpatialPoints(spTransform(as(b$data, "SpatialPoints")[s <- c(1, 11), ], "+proj=longlat"), proj4string= CRS("+proj=longlat")), crs = "+proj=longlat"), "RasterLayer")
   expect_s3_class(bb <- project_as_ppi(example_scan, raster = r, project = F), "ppi")
   expect_equivalent(b$data@data[s, ], bb$data@data[c(1, 4), ])
 })
