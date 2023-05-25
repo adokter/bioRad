@@ -13,11 +13,11 @@ scan_to_spatial(scan, lat, lon, k = 4/3, re = 6378, rp = 6357)
 
 \item{lon}{Geodetic longitude of the radar in degrees. If missing taken from \code{scan}.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 a SpatialPointsDataFrame

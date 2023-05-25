@@ -1,9 +1,18 @@
-#' Vertically integrate profiles (`vp` or `vpts`) to an
+#' Vertically integrate profiles (`vp` or `vpts`) into an
 #' integrated profile (`vpi`)
 #'
 #' Performs a vertical integration of density, reflectivity and migration
-#' traffic rate, and a vertical averaging of ground speed and direction
-#' weighted by density.
+#' traffic rate, and a vertical averaging of ground speed and direction weighted
+#' by density.
+#'
+#' @param x A `vp` or `vpts` object.
+#' @param alt_min Numeric. Minimum altitude, in m.
+#' @param alt_max Numeric. Maximum altitude, in m.
+#' @param alpha Numeric. Migratory direction, in clockwise degrees from north.
+#' @param interval_max Numeric. Maximum time interval belonging to a single
+#'   profile, in seconds. Traffic rates are set to zero at times `t` for which
+#'   no profiles can be found within the period `t - interval_max/2` to `t +
+#'   interval_max/2`. Ignored for single profiles of class `vp`.
 #'
 #' @param x A `vp` or `vpts` object.
 #' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
@@ -147,23 +156,22 @@
 #' @export
 #'
 #' @examples
-#' # MTR for a single vertical profile
+#' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
 #'
-#' # MTRs for a list of vertical profiles
+#' # Calculate migration traffic rates for a list of vps
 #' integrate_profile(c(example_vp, example_vp))
 #'
-#' # MTRs for a time series of vertical profiles
-#' # load example data:
-#' data(example_vpts)
-#' example_vpts
-#' # print migration traffic rates
+#' # Calculate migration traffic rates for a vpts
 #' vpi <- integrate_profile(example_vpts)
-#' # plot migration traffic rates for the full air column
-#' plot(example_vpts)
-#' # plot migration traffic rates for altitudes > 1 km above sea level
+#'
+#' # Plot migration traffic rate (mtr) for the full air column
+#' plot(integrate_profile(example_vpts))
+#'
+#' # Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
-#' # plot the (cumulative) migration traffic
+#'
+#' # Plot cumulative migration traffic rates (mt)
 #' plot(integrate_profile(example_vpts), quantity = "mt")
 #' # calculate median flight altitude (instead of default mean)
 #' integrate_profile(example_vp, height_quantile=.5)
@@ -175,7 +183,7 @@ integrate_profile <- function(x, alt_min, alt_max,
   UseMethod("integrate_profile", x)
 }
 
-#' @describeIn integrate_profile Vertically integrate a vertical profile.
+#' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
@@ -298,8 +306,8 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   return(output)
 }
 
-#' @describeIn integrate_profile Vertically integrate a list of
-#' vertical profiles.
+#' @describeIn integrate_profile Vertically integrate a list of vertical
+#'   profiles (`vp`).
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
@@ -331,7 +339,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 }
 
 #' @describeIn integrate_profile Vertically integrate a time series of
-#' vertical profiles.
+#' vertical profiles (`vpts`).
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
