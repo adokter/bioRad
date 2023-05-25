@@ -235,7 +235,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
 }
 
 
-#' A wrapper for [sp::spTransform()].
+#' A wrapper for [spTransform()].
 #'
 #' @param lon Longitude
 #' @param lat Latitude
@@ -248,24 +248,54 @@ wgs_to_proj <- function(lon, lat, proj4string) {
   xy <- data.frame(x = lon, y = lat)
   sp::coordinates(xy) <- c("x", "y")
   sp::proj4string(xy) <- sp::CRS("+proj=longlat +datum=WGS84")
+
   res <- sp::spTransform(xy, proj4string)
+    
+  # Check if the result is a SpatialPointsDataFrame
+  if (inherits(res, "SpatialPointsDataFrame")) {
+    # If it is, convert it to a SpatialPoints object
+    rownames(res@bbox) <- c('x', 'y')
+    colnames(res@coords) <- c('x', 'y')
+    res <- sp::SpatialPoints(coords=res@coords, proj4string=res@proj4string, bbox=res@bbox)
+  }
   return(res)
 }
-
-#' A wrapper for [sp::spTransform()].
+#' A wrapper for [spTransform()].
 #'
 #' @param x Longitude
 #' @param y Latitude
 #' @param proj4string An object of class 'CRS', as defined in package `sp`.
+#'
 #' @keywords internal
+#'
 #' @return An object of class `SpatialPoints`.
 proj_to_wgs <- function(x, y, proj4string) {
   xy <- data.frame(lon = x, lat = y)
   sp::coordinates(xy) <- c("lon", "lat")
   sp::proj4string(xy) <- proj4string
-  res <- sp::spTransform(xy, sp::CRS("+proj=longlat +datum=WGS84"))
-  return(res)
-}
+  res <- NULL
+
+  # Catch error when rgdal is not installed and sp_evolution_status is set to 0
+  tryCatch({
+    res <- sp::spTransform(xy, sp::CRS("+proj=longlat +datum=WGS84"))
+
+    # Check if the result is a SpatialPointsDataFrame
+    if (inherits(res, "SpatialPointsDataFrame")) {
+      # If it is, convert it to a SpatialPoints object and correct names
+      rownames(res@bbox) <- c('lon', 'lat')
+      colnames(res@coords) <- c('lon', 'lat')
+      res <- sp::SpatialPoints(coords=res@coords, proj4string=res@proj4string, bbox=res@bbox)
+    }
+    return(res)
+  }, error = function(err) {
+      if (grepl("package rgdal is required", err$message)) {
+              err <- simpleError("spTransform failed. Try resetting sp_evolution_status: sp::set_evolution_status(2L)")
+            } else {
+              err <- simpleError("proj_to_wgs() failed")
+            }
+            stop(err)
+      })
+    }
 
 cartesian_to_polar <- function(coords, elev = 0, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2), elev, k = k, lat = lat, re = re, rp = rp)
