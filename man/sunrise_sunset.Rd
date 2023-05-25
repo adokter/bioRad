@@ -44,10 +44,20 @@ timezone provided, it is possible that the nearest sunrise prior to solar
 noon occurs a day earlier than the input date. Similarly, sunset may occur a
 day later than the input date. See examples for details.
 
+<<<<<<< HEAD
 The angular diameter of the sun is about 0.536 degrees, therefore the moment
 of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
 Approximate astronomical formula are used, therefore the moment of sunrise /
 sunset may be off by a few minutes.
+=======
+This is a convenience function mapping to \link[maptools:sun-methods]{maptools::crepuscule}.
+
+Approximate astronomical formula are used, therefore the moment of
+sunrise / sunset may be off by a few minutes
+
+If \code{force_tz} is \code{TRUE}, the output is converted to the timezone
+set by \code{tz}
+>>>>>>> namespace
 }
 \examples{
 # Sunrise in the Netherlands

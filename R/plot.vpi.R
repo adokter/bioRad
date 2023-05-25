@@ -69,12 +69,12 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
                      main = "MTR", night_shade = TRUE,
                      elev = -0.268, lat = NULL, lon = NULL, ylim = NULL, nightshade = TRUE, ...) {
   stopifnot(inherits(x, "vpi"))
-  assert_that(
+  assertthat::assert_that(
     quantity %in% names(x) & quantity != "datetime",
-    msg = glue("quantity `{quantity}` not found in vpi object.")
+    msg = glue::glue("quantity `{quantity}` not found in vpi object.")
   )
 
-  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function argument
   if (!missing(nightshade)) {
@@ -158,14 +158,14 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
 
     # plot night time shading for each night.
     for (i in 1:length(days)) {
-      polygon(c(tset[i], trise[i], trise[i], tset[i]),
+      graphics::polygon(c(tset[i], trise[i], trise[i], tset[i]),
         ypolygon,
         lty = 0, col = "#CCCCCC"
       )
     }
 
     # plot the data again on top of the shading
-    points(x$datetime, x[quantity][[1]],
+    graphics::points(x$datetime, x[quantity][[1]],
       type = "l",
       xlab = "time", ylab = ylab, ylim = ylim, main = main, ...
     )

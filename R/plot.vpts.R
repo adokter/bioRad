@@ -107,7 +107,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% names(x$data))
 
-  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function arguments
   if (!missing(barbs.h)) {
@@ -145,7 +145,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
   }
 
-  if(are_equal(log, NA)){
+  if(assertthat::are_equal(log, NA)){
     if(quantity %in% c("dens","eta")){
       log = TRUE
     }
@@ -153,16 +153,16 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       log = FALSE
     }
   }
-  assert_that(is.flag(log))
+  assertthat::assert_that(assertthat::is.flag(log))
 
-  assert_that(is.count(n_color))
-  assert_that(is.string(na_color))
-  if(!missing(nan_color)) assert_that(is.string(nan_color))
+  assertthat::assert_that(assertthat::is.count(n_color))
+  assertthat::assert_that(assertthat::is.string(na_color))
+  if(!missing(nan_color)) assertthat::assert_that(assertthat::is.string(nan_color))
 
   if (!missing(zlim)) {
-    assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
+    assertthat::assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
     if (log && !(quantity %in% c("DBZH", "dbz"))) {
-      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
+      assertthat::assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
     }
   }
 
@@ -274,12 +274,12 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   }
 
   # set color scales and (palettes
-  if (!are_equal(palette, NA)) {
+  if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
   }
   else{
     if(quantity %in% c("dens","eta","dbz","DBZH")){
-      palette <- colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
+      palette <- grDevices::colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
     } else if(quantity %in% c("u","v")){
       palette <- rev(color_palette("VRADH", n_color=n_color))
     } else if(quantity %in% c("dd","heading")){
@@ -310,7 +310,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   axis.args <- list(at = legendticks, labels = ticks)
 
   # plot the image
-  image.plot(x$datetime, x$height + interval / 2, plotdata,
+  fields::image.plot(x$datetime, x$height + interval / 2, plotdata,
     col = palette_na_nan, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = c(zlim[1]-2*zstep,zlim[2]), main = main, ...
@@ -321,12 +321,12 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     if ("xlim" %in% names(args)) {
       t.barbs <- seq(min(args$xlim), max(args$xlim), length.out = barbs_time)
     } else {
-      t.barbs <- seq(x$datetime[1], tail(x$datetime, 1), length.out = barbs_time)
+      t.barbs <- seq(x$datetime[1], utils::tail(x$datetime, 1), length.out = barbs_time)
     }
     if ("ylim" %in% names(args)) {
       h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height + 1)
     } else {
-      h.barbs <- seq(x$height[1], tail(x$height, 1) + interval, length.out = barbs_height + 1)
+      h.barbs <- seq(x$height[1], utils::tail(x$height, 1) + interval, length.out = barbs_height + 1)
     }
     h.barbs <- h.barbs[-length(h.barbs)] + diff(h.barbs) / 2
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)
@@ -374,7 +374,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
     if (length(fill) > 1 & length(fill) != ns) stop(msg)
   }
 
-  tpar <- par()
+  tpar <- graphics::par()
   size <- tpar$csi
   scalex <- (tpar$usr[2] - tpar$usr[1]) / tpar$pin[1]
   scaley <- (tpar$usr[4] - tpar$usr[3]) / tpar$pin[2]
@@ -395,16 +395,16 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
       Y1 <- RY + y
       if (!is.na(spd)) {
         if (spd == 0) {
-          lines(RX * 2 + x, RY * 2 + y, col = col)
+          graphics::lines(RX * 2 + x, RY * 2 + y, col = col)
         }
       }
       if (fill[i] > 0) {
         lim <- c(51, 101, 151, 200)
-        polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
+        graphics::polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
           density = -1, col = col
         )
       }
-      lines(RX + x, RY + y, col = col)
+      graphics::lines(RX + x, RY + y, col = col)
     } # end of circle
 
     if (!is.na(spd)) {
@@ -496,7 +496,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
         S2 <- S2 * c(scalex, scaley) + c(as.numeric(x), y)
       }
       if (spd > 0) {
-        segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
+        graphics::segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
       }
     } # end of (!is.na(spd))
   } # end of ns

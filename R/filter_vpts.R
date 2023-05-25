@@ -48,30 +48,30 @@
 #' filter_vpts(example_vpts, night = TRUE, offset = c(3, -2)*3600)
 #'
 filter_vpts <- function(x, min, max, nearest, night, elev = -0.268, offset = 0) {
-  assert_that(is.vpts(x))
+  assertthat::assert_that(is.vpts(x))
   errorf <- function(e) {
     min
   }
 
-  if(!missing(night)) assert_that(is.logical(night))
+  if(!missing(night)) assertthat::assert_that(is.logical(night))
 
   if (!missing(min)) {
-    if (is.string(min)) {
+    if (assertthat::is.string(min)) {
       min <- tryCatch(as.POSIXct(min, tz = "UTC"), errorf = function(e) {
         min
       })
     }
-    assert_that(is.time(min))
-    assert_that(length(min) == 1)
+    assertthat::assert_that(assertthat::is.time(min))
+    assertthat::assert_that(length(min) == 1)
   }
   if (!missing(max)) {
-    if (is.string(max)) {
+    if (assertthat::is.string(max)) {
       max <- tryCatch(as.POSIXct(max, tz = "UTC"), errorf = function(e) {
         max
       })
     }
-    assert_that(is.time(max))
-    assert_that(length(max) == 1)
+    assertthat::assert_that(assertthat::is.time(max))
+    assertthat::assert_that(length(max) == 1)
   }
 
   # filter by day/night if requested
@@ -87,13 +87,13 @@ filter_vpts <- function(x, min, max, nearest, night, elev = -0.268, offset = 0) 
   }
 
   if (!missing(nearest)) {
-    if (is.string(nearest)) {
+    if (assertthat::is.string(nearest)) {
       nearest <- tryCatch(as.POSIXct(nearest, tz = "UTC"), errorf = function(e) {
         nearest
       })
     }
-    assert_that(is.time(nearest))
-    assert_that(length(nearest) == 1)
+    assertthat::assert_that(assertthat::is.time(nearest))
+    assertthat::assert_that(length(nearest) == 1)
     idx <- which.min(abs(difftime(x$datetime, nearest)))
     return(x[idx])
   }

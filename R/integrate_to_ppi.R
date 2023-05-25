@@ -156,8 +156,8 @@
 integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
-  if (!is.number(nx) && missing(res)) stop("'nx' should be an integer")
-  if (!is.number(ny) && missing(res)) stop("ny' should be an integer")
+  if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
+  if (!assertthat::is.number(ny) && missing(res)) stop("ny' should be an integer")
   if (!missing(xlim)) {
     if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
     if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
@@ -171,13 +171,13 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
   }
   if (!missing(res)) {
-    assert_that(is.numeric(res))
-    assert_that(length(res) <= 2)
+    assertthat::assert_that(is.numeric(res))
+    assertthat::assert_that(length(res) <= 2)
   } else {
     res <- NA
   }
-  if (!are_equal(raster, NA)) {
-    assert_that(inherits(raster, "RasterLayer"))
+  if (!assertthat::are_equal(raster, NA)) {
+    assertthat::assert_that(inherits(raster, "RasterLayer"))
   }
   if (is.null(pvol$geo$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
   if (is.null(pvol$geo$lon) && missing(lon)) stop("radar longitude cannot be found in polar volume, specify using 'lon' argument")
@@ -186,11 +186,11 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   if (missing(antenna)) {
     antenna <- pvol$geo$height
   }
-  assert_that(is.number(antenna))
+  assertthat::assert_that(assertthat::is.number(antenna))
   if (missing(lat)) lat <- pvol$geo$lat
-  assert_that(is.number(lat))
+  assertthat::assert_that(assertthat::is.number(lat))
   if (missing(lon)) lon <- pvol$geo$lon
-  assert_that(is.number(lon))
+  assertthat::assert_that(assertthat::is.number(lon))
 
   if (90 %in% get_elevation_angles(pvol)) {
     warning("ignoring 90 degree birdbath scan")
@@ -199,7 +199,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
 
   # check crs argument as in raster::raster()
   if (!missing(crs)) {
-    crs <- CRS(as.character(raster::projection(crs)))
+    crs <- sp::CRS(as.character(raster::projection(crs)))
   }
   else {
     crs <- NA
@@ -208,9 +208,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   if (FALSE %in% (param_ppi %in% c("VIR", "VID", "eta_sum", "eta_sum_expected", "azim", "range", "R", "overlap"))) stop("unknown param_ppi")
   if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
   if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste("param '", param, "' not one of DBZH, DBZV, DBZ, TH, TV", sep = ""))
-  assert_that(is.number(k))
-  assert_that(is.number(re))
-  assert_that(is.number(rp))
+  assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(assertthat::is.number(rp))
 
   # check that request scan parameter is present in the scans of the polar volume
   param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
@@ -225,7 +225,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   }
 
   # if extent not fully specified, determine it based off the first scan
-  if (are_equal(raster, NA)) {
+  if (assertthat::are_equal(raster, NA)) {
     if (missing(xlim) | missing(ylim)) {
       spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
       spdf_extent <- raster::extent(spdf)
@@ -237,25 +237,30 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
 
   x <- NULL # define x to suppress devtools::check warning in next line
 
-  if (!are_equal(raster, NA)) {
-    localCrs <- CRS(paste("+proj=aeqd +lat_0=", lat,
+  if (!assertthat::are_equal(raster, NA)) {
+    localCrs <- sp::CRS(paste("+proj=aeqd +lat_0=", lat,
       " +lon_0=", lon,
       " +units=m",
       sep = ""
     ))
+<<<<<<< HEAD
     values(raster) <- 1
     spdf <- (spTransform(rasterToPoints(raster, spatial = TRUE), localCrs))
+=======
+    raster::values(raster) <- 1
+    spdf <- (sp::spTransform(raster::rasterToPoints(raster, spatial = T), localCrs))
+>>>>>>> namespace
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
         add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
         spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
       )
     })
-    output <- as(raster, "SpatialGridDataFrame")
+    output <- methods::as(raster, "SpatialGridDataFrame")
     output@data <- rasters[[1]]@data
   } else {
     rasters <- lapply(pvol$scans, function(x) {
-      as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }
@@ -304,11 +309,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   geo$elangle <- get_elevation_angles(pvol)
 
   # convert the bounding box to wgs coordinates
-  # geo$bbox=proj_to_wgs(output@bbox[1,],output@bbox[2,],proj4string(output))@bbox
-  geo$bbox <-
-    proj_to_wgs(output@bbox[1,],
-                output@bbox[2,],
-                proj4string = proj4string(output))@bbox
+  # geo$bbox=proj_to_wgs(output@bbox[1,],output@bbox[2,],sp::proj4string(output))@bbox
+  geo$bbox <- proj_to_wgs(output@bbox[1, ], output@bbox[2, ], proj4string = sp::proj4string(output))@bbox
   rownames(geo$bbox) <- c("lon", "lat")
   geo$merged <- TRUE
   output_ppi <-
@@ -401,11 +403,11 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
   }
 
   if (missing(antenna)) antenna <- scan$geo$height
-  assert_that(is.number(antenna))
+  assertthat::assert_that(assertthat::is.number(antenna))
   if (missing(lat)) lat <- scan$geo$lat
-  assert_that(is.number(lat))
+  assertthat::assert_that(assertthat::is.number(lat))
   if (missing(lon)) lon <- scan$geo$lon
-  assert_that(is.number(lon))
+  assertthat::assert_that(assertthat::is.number(lon))
 
   # assert that profile contains data
   if (!(FALSE %in% is.na(vp$data[quantity]))) {
