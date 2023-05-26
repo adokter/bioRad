@@ -1,4 +1,4 @@
-test_that("scan_to_spatial. returns error on incorrect parameters", {
+test_that("scan_to_spatial() returns error on incorrect parameters", {
   expect_error(scan_to_spatial(scan = "a"),
                regexp = "is.scan(x = scan) is not TRUE",
                fixed = TRUE)
@@ -26,6 +26,57 @@ test_that("scan_to_spatial. returns error on incorrect parameters", {
                fixed = TRUE)
   expect_error(scan_to_spatial(missing_lon_scan),
                regexp = "radar longitude cannot be found in scan, specify using 'lon' argument",
+               fixed = TRUE)
+})
+
+test_that("scan_to_raster() returns error on incorrect parameters", {
+  expect_error(scan_to_raster("a"),
+               regexp = "'scan' should be an object of class scan",
+               fixed = TRUE)
+  square_birdbath <- example_scan
+  purrr::pluck(square_birdbath,"attributes","where","elangle") <- 90
+  expect_error(scan_to_raster(square_birdbath),
+               regexp = "georeferencing of 90 degree birdbath scan not supported",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, nx = "a"),
+               regexp = "'nx' should be an integer",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, ny = "a"),
+               regexp = "'ny' should be an integer",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, xlim = "a"),
+               regexp = "'xlim' should be an integer vector of length two",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, xlim = 2),
+               regexp = "'xlim' should be a vector with two numeric values for upper and lower bound",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, xlim = c("a",2)),
+               regexp = "'xlim' should be a vector with two numeric values for upper and lower bound",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, xlim = c(pi, 2)),
+               regexp = "'xlim' should be a vector with two numeric values for upper and lower bound",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, ylim = "a"),
+               regexp = "'ylim' should be an integer vector of length two",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, ylim = 2),
+               regexp = "'ylim' should be a vector with two numeric values for upper and lower bound",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, ylim = c("a",2)),
+               regexp = "'ylim' should be a vector with two numeric values for upper and lower bound",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, ylim = c(pi, 2)),
+               regexp = "'ylim' should be a vector with two numeric values for upper and lower bound",
+               fixed = TRUE)
+
+})
+
+test_that("scan_to_raster() returns error on wrongly formed param argument",{
+  expect_error(scan_to_raster(example_scan, param = "unexisting_param"),
+               regexp = "'param' contains scan parameter not found in scan",
+               fixed = TRUE)
+  expect_error(scan_to_raster(example_scan, param = "azim"),
+               regexp = "'param' should contain the name of one or more scan parameters contained in 'scan'",
                fixed = TRUE)
 })
 
