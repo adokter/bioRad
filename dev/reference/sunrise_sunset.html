@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9579</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9582</span>
       </span>
     </div>
 
@@ -116,19 +116,20 @@ timezone (either set in <code>date</code> or <code>tz</code>, otherwise UTC is a
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p><code>sunrise()</code> and <code>sunset()</code> are convenience functions around
-<code><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">maptools::crepuscule()</a></code>.</p>
-<p>The day for which sunrise and sunset are calculated is given by the input
-date. Sunrise and sunset are calculated relative to the moment of solar noon
-for that date, i.e. the first sunrise before the moment of solar noon, and
-the first sunset after the moment of solar noon. Therefore, depending on the
-timezone provided, it is possible that the nearest sunrise prior to solar
-noon occurs a day earlier than the input date. Similarly, sunset may occur a
-day later than the input date. See examples for details.</p>
-<p>The angular diameter of the sun is about 0.536 degrees, therefore the moment
-of sunrise/sunset corresponds to half that elevation at -0.268 degrees.
-Approximate astronomical formula are used, therefore the moment of sunrise /
-sunset may be off by a few minutes.</p>
+    <p>The day for which sunrise and sunset are calculated is given by the input date.
+Sunrise and sunset are calculated relative to the moment of solar noon for that date,
+i.e. the first sunrise before the moment of solar noon, and the first sunset after the
+moment of solar noon. Therefore, depending on the timezone provided, it is possible that
+the nearest sunrise prior to solar noon occurs a day earlier than the input date.
+Similarly, sunset may occur a day later than the input date. See examples for details.</p>
+<p>The angular diameter of the sun is about 0.536 degrees,
+therefore the moment of sunrise/sunset corresponds to half that elevation
+at -0.268 degrees.</p>
+<p>This is a convenience function mapping to maptools::crepuscule.</p>
+<p>Approximate astronomical formula are used, therefore the moment of
+sunrise / sunset may be off by a few minutes</p>
+<p>If <code>force_tz</code> is <code>TRUE</code>, the output is converted to the timezone
+set by <code>tz</code></p>
     </div>
 
     <div id="ref-examples">

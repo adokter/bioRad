@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9579</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9582</span>
       </span>
     </div>
 
@@ -171,8 +171,6 @@ the same raster pixel, the last added pixel is given (see <a href="https://rdrr.
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># default projects full extent on 100x100 pixel raster:</span></span></span>
 <span class="r-in"><span><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 100, 100, 10000, 5  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 4791.787, 4791.787  (x, y)</span>
@@ -186,7 +184,6 @@ the same raster pixel, the last added pixel is given (see <a href="https://rdrr.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># crop the scan and project at a resolution of 0.1 degree:</span></span></span>
 <span class="r-in"><span><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">55</span>, <span class="fl">57</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 20, 10, 200, 5  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
@@ -201,7 +198,6 @@ the same raster pixel, the last added pixel is given (see <a href="https://rdrr.
 <span class="r-in"><span><span class="co"># using a template raster</span></span></span>
 <span class="r-in"><span><span class="va">template_raster</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">56</span>, <span class="fl">58</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=longlat"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">scan_to_raster</span><span class="op">(</span><span class="va">example_scan</span>, raster <span class="op">=</span> <span class="va">template_raster</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 10, 10, 100, 5  (nrow, ncol, ncell, nlayers)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 0.1, 0.2  (x, y)</span>
