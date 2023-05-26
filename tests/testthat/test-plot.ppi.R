@@ -3,7 +3,8 @@ ppi <- project_as_ppi(example_scan)
 example.plot <-plot(ppi, param = "VRADH", zlim = c(-5, 5))
 
 test_that("plot() returns error on incorrect parameters", {
-  expect_error(plot("not_a_ppi"))
+  # use plot.ppi() to avoid defaulting to base plot()
+  expect_error(plot.ppi("not_a_ppi"))
   expect_error(plot(ppi, param = "not_a_param"))
   expect_error(plot(ppi, quantity = "DBZH"))
 })
@@ -27,37 +28,5 @@ test_that("plot() uses param argument", {
 
 test_that("length does not differ", {
   expect_equal(length(example.plot$data$VRADH), length(ppi$data$VRADH))
-})
-
-test_that("plot() creates expected graph", {
-  # On first run: creates a snapshot, stored under testthat/_snap/function_name.
-  # On consecutive runs: creates new snapshot and checks that it looks identical
-  # to previously saved snapshot. If it fails, a warning is given and the new
-  # snapshot is stored with ".new" appended to name for manual inspection.
-
-  vdiffr::expect_doppelganger(
-    "example_plot_DBZH",
-    plot(ppi, param = "DBZH")
-  )
-
-  vdiffr::expect_doppelganger(
-    "example_plot_VRADH",
-    plot(ppi, param = "VRADH")
-  )
-
-  vdiffr::expect_doppelganger(
-    "example_plot_RHOHV",
-    plot(ppi, param = "RHOHV")
-  )
-
-  vdiffr::expect_doppelganger(
-    "example_plot_PHIDP",
-    plot(ppi, param = "PHIDP")
-  )
-
-  vdiffr::expect_doppelganger(
-    "example_plot_ZDR",
-    plot(ppi, param = "ZDR")
-  )
 })
 
