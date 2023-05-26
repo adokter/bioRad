@@ -13,6 +13,10 @@ test_that("integrate_profile() returns error on incorrect parameters", {
   expect_error(integrate_profile(example_vp, alt_min = 500, alt_max = 300))
   expect_error(integrate_profile(example_vp, height_quantile = "a"))
   expect_error(integrate_profile(example_vp, height_quantile = 2))
+  expect_error(integrate_profile(example_vpts, height_quantile = "a"))
+  expect_error(integrate_profile(example_vpts, height_quantile = 2))
+})
+
 test_that("integrate_profile() returns error on non vp object in list input",{
   expect_error(integrate_profile(x = list(example_vp, example_vpts)),
                regexp = "requires list of vp objects as input",
