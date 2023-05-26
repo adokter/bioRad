@@ -10,7 +10,7 @@
 #'   radar) to plot.
 #' @param ylim Numeric vector of length 2. Range of y values (azimuth) to plot.
 #' @param zlim Numeric vector of length 2. The range of parameter values to
-#'   plot.
+#'   plot. Defaults to parameter specific limits for plotting, not full range of data.
 #' @param na.value Character. [ggplot2::ggplot()] parameter to set the color of
 #'   `NA` values.
 #' @param ... Arguments passed to [ggplot2::ggplot()].
