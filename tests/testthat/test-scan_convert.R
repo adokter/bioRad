@@ -94,3 +94,74 @@ test_that("scan_to_raster() raster argument produces expected raster output", {
   expect_s4_class(b <- scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1), "RasterBrick")
   expect_equal(b, scan_to_raster(example_scan, raster = raster(b)))
 })
+
+test_that("scan_to_spdf() returns error error on incorrect parameters",{
+  expect_error(scan_to_spdf("a"),
+               regexp = "'scan' should be an object of class scan",
+               fixed = TRUE)
+  square_birdbath <- example_scan
+  square_birdbath$attributes$where$elangle <- 90
+  expect_error(scan_to_spdf(square_birdbath),
+               regexp = "georeferencing of 90 degree birdbath scan not supported",
+               fixed = TRUE)
+})
+
+test_that("scan_to_spdf() returns error on wrongly formed param argument",{
+  expect_error(scan_to_spdf(example_scan, param = "unexisting_param",
+                            spdf = scan_to_spatial(example_scan)),
+               regexp = "'param' contains scan parameter not found in scan",
+               fixed = TRUE)
+  expect_error(scan_to_spdf(example_scan, param = "azim",
+                            spdf = scan_to_spatial(example_scan)),
+               regexp = "'param' should contain the name of one or more scan parameters contained in 'scan'",
+               fixed = TRUE)
+  expect_error(scan_to_spdf(example_scan),
+               regexp = 'argument "spdf" is missing, with no default',
+               fixed = TRUE)
+  expect_error(
+    scan_to_spdf(example_scan,
+                 scan_to_spatial(example_scan),
+                 lat = "a"),
+    regexp = "lat is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    scan_to_spdf(example_scan,
+                 scan_to_spatial(example_scan),
+                 lon = "a"),
+    regexp = "lon is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  missing_lat_scan <- example_scan
+  missing_lon_scan <- example_scan
+  missing_lat_scan$geo$lat <- NULL
+  missing_lon_scan$geo$lon <- NULL
+  expect_error(
+    scan_to_spdf(missing_lat_scan,
+                 scan_to_spatial(example_scan)),
+    regexp = "radar latitude cannot be found in scan, specify using 'lat' argument",
+    fixed = TRUE
+  )
+  expect_error(
+    scan_to_spdf(missing_lon_scan,
+                 scan_to_spatial(example_scan)),
+    regexp = "radar longitude cannot be found in scan, specify using 'lon' argument",
+    fixed = TRUE
+  )
+  expect_error(
+    scan_to_spdf(example_scan, scan_to_spatial(example_scan), k = "a"),
+    regexp = "k is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    scan_to_spdf(example_scan, scan_to_spatial(example_scan), re = "a"),
+    regexp = "re is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    scan_to_spdf(example_scan, scan_to_spatial(example_scan), rp = "a"),
+    regexp = "rp is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  # TODO add coverage for crs mismatch between local crs and spdf crs
+})
