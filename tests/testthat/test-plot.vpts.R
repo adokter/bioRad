@@ -32,7 +32,9 @@ test_that("plot.vpts() warns for deprecated arguments", {
   expect_warning(plot(example_vpts_reg, quantity = "dens", legend.ticks = 1))
 })
 
-test_that("plot.vpts() produces a plot", {
+test_that("plot.vpts() produces plots", {
   expect_s3_class(recordPlot(plot(example_vpts_reg)), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vpts_reg, quantity = "eta")), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vpts_reg, quantity = "DBZH")), "recordedplot")
 
 })
