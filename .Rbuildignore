@@ -15,5 +15,3 @@ cran-comments.md
 inst/extdata/vpts.txt.zip
 ^\.github$
 ^CRAN-SUBMISSION$
-^tests/testthat/_snaps
-^tests/testthat/Rplots.pdf
