@@ -66,6 +66,7 @@ get_odim_object_type <- function(file) {
     # Errors are handled by is.odimfile()
     return(NA)
   }
+
   object <- rhdf5::h5readAttributes(file, "what")$object
   # current implementation of write_pvolfile stores string attributes as
   # single element arrays. This line guarantees that for files written with write_pvolfile

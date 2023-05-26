@@ -54,7 +54,7 @@ dbz_to_eta <- function(dbz, wavelength, K = 0.93) {
 #' eta_to_dbz(1000 * 11, 5) # C-band
 #' eta_to_dbz(1000 * 11, 10) # S-band
 eta_to_dbz <- function(eta, wavelength, K = 0.93) {
-  assertthat::assert_that(is.numeric(eta) & all(eta>=0), msg = "`eta` must be a non-negative numeric.")
+  assertthat::assert_that(is.numeric(eta) & all(eta>=0), msg = "`eta` must be a strictly positive numeric.")
   assertthat::assert_that(is.numeric(wavelength) & all(wavelength > 0), msg = "`wavelength` must be a strictly positive numeric.")
   assertthat::assert_that(is.numeric(K) & all(K > 0), msg = "`K` must be a strictly positive numeric.")
   10 * log10(eta * wavelength^4 / (1000 * (K^2) * pi^5))

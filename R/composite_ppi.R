@@ -140,6 +140,7 @@ composite_ppi <-
   } else {
     t_crs <- NULL
   }
+
   if (!all(method %in% c("max", "min", "mean", "idw"))) stop("'method' should be one or multiple of 'max', 'mean', 'min' or 'idw'")
   if (length(method) != length(param) & length(method) != 1) stop("'method' should be of length 1 or length(param)")
   assertthat::assert_that(assertthat::is.flag(coverage))
@@ -170,6 +171,7 @@ composite_ppi <-
   } else {
     d_crs <- sp::CRS("+proj=longlat +datum=WGS84")
     if (!is.null(t_res) && !is.null(t_crs)) {
+
       r <- raster::raster(ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = t_crs, resolution = t_res)
     } else if (!is.null(t_crs) && is.null(t_res)) {
       r <- raster::raster(ncols = nx, nrows = ny, ext = raster::extent(c(min(lons), max(lons), min(lats), max(lats))), crs = t_crs)
@@ -185,7 +187,9 @@ composite_ppi <-
 
   # initialize all values of the grid to NA
   suppressWarnings(r <- raster::setValues(r, NA))
+
   spGrid = methods::as(r, 'SpatialGridDataFrame')
+
   names(spGrid@data) <- names(ppis[[1]]$data)[1]
 
   if (coverage) {
@@ -246,6 +250,7 @@ composite_ppi <-
           raster::brick(raster::brick(spGrid), nl = length(merged))
           )
       brick_weights <- brick_data
+
       #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), sp::coordinates(raster::raster(spGrid)),lonlat=T)
       for(i in 1:length(merged)){
         brick_data <- raster::setValues(brick_data, merged[[i]], layer=i)
@@ -258,6 +263,7 @@ composite_ppi <-
           sp::proj4string(d) <- d_crs
           proj.radar <- as.data.frame(sp::spTransform(d, t_crs))
           weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = proj.radar$lon, y = proj.radar$lat))[i, ], sp::coordinates(raster::raster(spGrid)), lonlat = FALSE))
+
         }
         if (!is.na(idw_max_distance)) weights[weights > idw_max_distance] <- NA
         weights <- 1 / (weights^idp)
