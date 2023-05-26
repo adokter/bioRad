@@ -27,7 +27,7 @@ convert_legacy <- function(x) {
 #'
 #' @export
 convert_legacy.vp <- function(x) {
-  assert_that(inherits(x, "vp"))
+  assertthat::assert_that(inherits(x, "vp"))
   names(x$data) <- sub("HGHT", "height", names(x$data))
   x
 }
@@ -36,7 +36,7 @@ convert_legacy.vp <- function(x) {
 #'
 #' @export
 convert_legacy.vpts <- function(x) {
-  assert_that(inherits(x, "vpts"))
+  assertthat::assert_that(inherits(x, "vpts"))
   names(x) <- sub("heights", "height", names(x))
   names(x) <- sub("dates", "datetime", names(x))
   x

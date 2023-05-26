@@ -24,20 +24,20 @@
 #' write_pvolfile(example_pvol, pvolfile_out)
 #' }
 write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
-  assert_that(is.pvol(pvol))
+  assertthat::assert_that(is.pvol(pvol))
   if (!overwrite) {
-    assert_that(!file.exists(file),
+    assertthat::assert_that(!file.exists(file),
       msg = "File already exists, use overwrite = TRUE to overwrite this file"
     )
   }
-  fid <- H5Fcreate(file)
+  fid <- rhdf5::H5Fcreate(file)
 
   for (i in seq_along(pvol$scans)) {
-    h5createGroup(fid, paste0("dataset", i))
+    rhdf5::h5createGroup(fid, paste0("dataset", i))
 
     # Write scan params
     for (j in seq_along(pvol$scans[[i]]$params)) {
-      h5createGroup(fid, paste0("dataset", i, "/data", j))
+      rhdf5::h5createGroup(fid, paste0("dataset", i, "/data", j))
       data <- pvol$scans[[i]]$params[[j]]
       conv <- attributes(data)$conversion
 
@@ -88,23 +88,23 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
         if(grepl("H5T_IEEE_F64",conv$dtype)){
            conv$dtype=gsub("64","32",conv$dtype)
         }
-        h5createDataset(fid, dataname, dim(pvol$scans[[i]]$params[[j]]),
+        rhdf5::h5createDataset(fid, dataname, dim(pvol$scans[[i]]$params[[j]]),
           H5type = conv$dtype
         )
       } else {
-        h5createDataset(fid, dataname, dim(pvol$scans[[i]]$params[[j]]))
+        rhdf5::h5createDataset(fid, dataname, dim(pvol$scans[[i]]$params[[j]]))
       }
 
-      h5write(d, fid, dataname)
+      rhdf5::h5write(d, fid, dataname)
       group <- paste0("dataset", i, "/data", j, "/what")
-      h5createGroup(fid, group)
-      gid <- H5Gopen(fid, group)
-      h5writeAttribute(attributes(data)$param, gid, "quantity")
-      h5writeAttribute(conv$gain, gid, "gain")
-      h5writeAttribute(conv$offset, gid, "offset")
-      h5writeAttribute(conv$nodata, gid, "nodata")
-      h5writeAttribute(conv$undetect, gid, "undetect")
-      H5Gclose(gid)
+      rhdf5::h5createGroup(fid, group)
+      gid <- rhdf5::H5Gopen(fid, group)
+      rhdf5::h5writeAttribute(attributes(data)$param, gid, "quantity")
+      rhdf5::h5writeAttribute(conv$gain, gid, "gain")
+      rhdf5::h5writeAttribute(conv$offset, gid, "offset")
+      rhdf5::h5writeAttribute(conv$nodata, gid, "nodata")
+      rhdf5::h5writeAttribute(conv$undetect, gid, "undetect")
+      rhdf5::H5Gclose(gid)
     }
 
     # Write scan attributes
@@ -116,20 +116,20 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
   # Write volume attributes
   attrgroupnames <- names(pvol$attributes)
   write_group_attributes(fid, attrgroupnames, pvol$attributes)
-  H5Fclose(fid)
+  rhdf5::H5Fclose(fid)
 }
 
 write_group_attributes <- function(fid, group, attrgroups) {
   for (k in seq_along(attrgroups)) {
-    h5createGroup(fid, group[k])
-    gid <- H5Gopen(fid, group[k])
+    rhdf5::h5createGroup(fid, group[k])
+    gid <- rhdf5::H5Gopen(fid, group[k])
 
     attrgroup <- attrgroups[k][[1]]
     attribnames <- names(attrgroup)
 
     for (l in seq_along(attribnames)) {
-      h5writeAttribute(attrgroup[[l]][[1]], gid, attribnames[l])
+      rhdf5::h5writeAttribute(attrgroup[[l]][[1]], gid, attribnames[l])
     }
-    H5Gclose(gid)
+    rhdf5::H5Gclose(gid)
   }
 }
