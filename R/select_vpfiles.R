@@ -67,21 +67,3 @@ select_vpfiles <- function(date_min = NULL, date_max = NULL, radars = NULL,
   # Append target directory to file paths
   file.path(directory, matched_files)
 }
-
-#' Match a set of regular expressions to a list of files
-#'
-#' Match a set of regular expressions to a list of files and return those
-#' filenames that comply to any of the provided regular expressions. This
-#' function basically wraps a grep to make it work on vectors by combining the
-#' vector of regex options as possible options.
-#'
-#' @param file_list character vector. Haystack of filenames/filepaths.
-#' @param regex_list character vector. Needle of regular expressions to which
-#'   filenames should comply.
-#'
-#' @return character vector. Subset of filenames from the file_list that comply
-#'   to the provided regular expressions in regex_list.
-#' @keywords internal
-match_filenames <- function(file_list, regex_list) {
-  grep(paste(regex_list, collapse = "|"), file_list, value = TRUE)
-}

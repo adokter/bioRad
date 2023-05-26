@@ -57,7 +57,8 @@ Suggests:
     tidyselect,
     rmarkdown,
     testthat,
-    vdiffr
+    vdiffr,
+    rgdal
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr

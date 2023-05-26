@@ -79,7 +79,7 @@ check_night.default <- function(x,
   assertthat::assert_that(is.numeric(lon))
   assertthat::assert_that(is.numeric(lat))
   assertthat::assert_that(length(lat)==length(lon))
- 
+
   x <- as.POSIXct(x, tz = tz)
 
   if (length(x) > 1 && length(lon) == 1) {

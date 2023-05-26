@@ -142,6 +142,7 @@ apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
                           local_install, local_mistnet) {
 
   assertthat::assert_that(file.exists(file))
+
   if (!vol2birdR::mistnet_exists()) {
     stop("MistNet has not been installed, see vol2birdR package documentation for install instructions")
   }
