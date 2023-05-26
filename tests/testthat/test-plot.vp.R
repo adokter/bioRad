@@ -5,8 +5,9 @@ test_that("plot.vp() returns error on incorrect parameters", {
 
   # Test error on "param" instead of "quantity"
   expect_error(plot(example_vp, param = "ff"))
+})
 
-  # Test warning for deprecated arguments
+test_that("plot.vp() warns for deprecated arguments", {
   expect_warning(plot(example_vp, line.col = "red"))
   expect_warning(plot(example_vp, line.lwd = 1))
 })
@@ -17,5 +18,4 @@ test_that("plot.vp() produces plots", {
   expect_s3_class(recordPlot(plot(example_vp, quantity = "ff")), "recordedplot")
   expect_s3_class(recordPlot(plot(example_vp, quantity = "DBZH")), "recordedplot")
   expect_s3_class(recordPlot(plot(example_vp, quantity = "dens")), "recordedplot")
-
 })

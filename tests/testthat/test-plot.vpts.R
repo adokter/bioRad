@@ -36,5 +36,4 @@ test_that("plot.vpts() produces plots", {
   expect_s3_class(recordPlot(plot(example_vpts_reg)), "recordedplot")
   expect_s3_class(recordPlot(plot(example_vpts_reg, quantity = "eta")), "recordedplot")
   expect_s3_class(recordPlot(plot(example_vpts_reg, quantity = "DBZH")), "recordedplot")
-
 })
