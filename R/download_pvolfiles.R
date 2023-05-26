@@ -31,7 +31,7 @@
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
                                bucket = "noaa-nexrad-level2") {
-
+  rlang::check_installed('aws.s3','to download pvolfiles.')
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
 

@@ -34,6 +34,7 @@ update_docker <- function(...) {
 #' @export
 vol2bird_version <- function(...) {
   .Deprecated("vol2birdR::vol2bird_version")
+  rlang::check_installed('vol2birdR',format_reason_vol2bird("to run `vol2bird_version`."))
   warning("vol2bird_version has been moved to package vol2birdR")
   vol2birdR::vol2bird_version()
 }

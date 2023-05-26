@@ -2,7 +2,7 @@
 % Please edit documentation in R/iris.R
 \name{get_iris_raw_task}
 \alias{get_iris_raw_task}
-\title{Check task of IRIS RAW file}
+\title{Check the \code{task} type of an IRIS RAW file}
 \usage{
 get_iris_raw_task(
   file,
@@ -11,15 +11,17 @@ get_iris_raw_task(
 )
 }
 \arguments{
-\item{file}{A string containing a file name.}
+\item{file}{Character. Path to a polar volume file in IRIS RAW format.}
 
-\item{header_size}{Number of header bytes to search}
+\item{header_size}{Integer. Number of header bytes to search.}
 
-\item{task}{task names to search for in the file header}
+\item{task}{Character (vector). Task names to search for in the file header.}
 }
 \value{
-one of the \code{task} names found in the header, \code{NA} if none of the task names were found.
+Specified \code{task} names found in the header or \code{NA} if none of the
+task names were found.
 }
 \description{
-Checks which task (polar volume type) is contained in a IRIS RAW file
+Checks what type of \code{task}(s), i.e. polar volume types, are contained in an
+IRIS RAW file.
 }

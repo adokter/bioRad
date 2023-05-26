@@ -5,7 +5,7 @@
 \alias{integrate_profile.vp}
 \alias{integrate_profile.list}
 \alias{integrate_profile.vpts}
-\title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an
+\title{Vertically integrate profiles (\code{vp} or \code{vpts}) into an
 integrated profile (\code{vpi})}
 \usage{
 integrate_profile(
@@ -76,8 +76,8 @@ integrated profile quantities
 }
 \description{
 Performs a vertical integration of density, reflectivity and migration
-traffic rate, and a vertical averaging of ground speed and direction
-weighted by density.
+traffic rate, and a vertical averaging of ground speed and direction weighted
+by density.
 }
 \details{
 \subsection{Available quantities}{
@@ -204,33 +204,32 @@ ground speed directions vary with altitude.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{integrate_profile(vp)}: Vertically integrate a vertical profile.
+\item \code{integrate_profile(vp)}: Vertically integrate a vertical profile (\code{vp}).
 
-\item \code{integrate_profile(list)}: Vertically integrate a list of
-vertical profiles.
+\item \code{integrate_profile(list)}: Vertically integrate a list of vertical
+profiles (\code{vp}).
 
 \item \code{integrate_profile(vpts)}: Vertically integrate a time series of
-vertical profiles.
+vertical profiles (\code{vpts}).
 
 }}
 \examples{
-# MTR for a single vertical profile
+# Calculate migration traffic rates for a single vp
 integrate_profile(example_vp)
 
-# MTRs for a list of vertical profiles
+# Calculate migration traffic rates for a list of vps
 integrate_profile(c(example_vp, example_vp))
 
-# MTRs for a time series of vertical profiles
-# load example data:
-data(example_vpts)
-example_vpts
-# print migration traffic rates
+# Calculate migration traffic rates for a vpts
 vpi <- integrate_profile(example_vpts)
-# plot migration traffic rates for the full air column
-plot(example_vpts)
-# plot migration traffic rates for altitudes > 1 km above sea level
+
+# Plot migration traffic rate (mtr) for the full air column
+plot(integrate_profile(example_vpts))
+
+# Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 plot(integrate_profile(example_vpts, alt_min = 1000))
-# plot the (cumulative) migration traffic
+
+# Plot cumulative migration traffic rates (mt)
 plot(integrate_profile(example_vpts), quantity = "mt")
 # calculate median flight altitude (instead of default mean)
 integrate_profile(example_vp, height_quantile=.5)

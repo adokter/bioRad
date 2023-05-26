@@ -32,11 +32,13 @@ is.pvolfile <- function(file) {
   }
 }
 
-#' Check the `data` object contained in a ODIM HDF5 file
+#' Check the `data` type of an ODIM HDF5 file
 #'
-#' Checks which data class is contained in a ODIM HDF5 file. See [ODIM
+#' Checks what type of `data` object is contained in an ODIM HDF5 file. See
+#' [ODIM
 #' specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf),
 #' Table 2 for a full list of existing ODIM file object types.
+#'
 #'
 #' @param file Character. Path of the file to check.
 #'
@@ -64,6 +66,7 @@ get_odim_object_type <- function(file) {
     # Errors are handled by is.odimfile()
     return(NA)
   }
+  
   object <- rhdf5::h5readAttributes(file, "what")$object
   # current implementation of write_pvolfile stores string attributes as
   # single element arrays. This line guarantees that for files written with write_pvolfile
