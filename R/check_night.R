@@ -194,8 +194,12 @@ check_night.list <- function(x, ..., elev = -0.268, offset = 0) {
 #' @export
 check_night.vpts <- function(x, ..., elev = -0.268, offset = 0) {
   stopifnot(inherits(x, "vpts"))
-  check_night(x$datetime, x$attributes$where$lon, x$attributes$where$lat,
-    elev = elev, offset = offset
+  check_night(
+    x$datetime,
+    x$attributes$where$lon,
+    x$attributes$where$lat,
+    elev = elev,
+    offset = offset
   )
 }
 
@@ -214,5 +218,9 @@ check_night.vpi <- function(x, ..., elev = -0.268, offset = 0) {
 #' @export
 check_night.pvol <- function(x, ..., elev = -0.268, offset = 0) {
   stopifnot(inherits(x, "pvol"))
-  check_night(x$datetime, x$geo$lon, x$geo$lat, elev = elev, offset = offset)
+  check_night(x$datetime,
+              x$geo$lon,
+              x$geo$lat,
+              elev = elev,
+              offset = offset)
 }
