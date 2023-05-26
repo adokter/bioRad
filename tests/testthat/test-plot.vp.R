@@ -12,7 +12,10 @@ test_that("plot.vp() returns error on incorrect parameters", {
 })
 
 
-test_that("plot.vp() produces a plot", {
+test_that("plot.vp() produces plots", {
   expect_s3_class(recordPlot(plot(example_vp)), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vp, quantity = "ff")), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vp, quantity = "DBZH")), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vp, quantity = "dens")), "recordedplot")
 
 })
