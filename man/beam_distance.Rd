@@ -7,21 +7,21 @@
 beam_distance(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.}
+\item{range}{Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.}
 
-\item{elev}{numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
-numeric. Beam distance (down range) in m.
+Beam distance (down range), in m.
 }
 \description{
 Calculates the distance as measured over the earth's surface (the down range)
@@ -31,10 +31,14 @@ for a given beam elevation and slant range.
 depends on \link{beam_height} to calculate beam height.
 }
 \examples{
-# down range of the 5 degree elevation beam at a slant range of 100 km:
+# Down range of the 5 degree elevation beam at a slant range of 100 km:
 beam_distance(100000, 5)
 }
 \seealso{
+\itemize{
+\item \code{\link[=beam_height]{beam_height()}}
+}
+
 Other beam_functions: 
 \code{\link{beam_height}()},
 \code{\link{beam_profile_overlap}()},

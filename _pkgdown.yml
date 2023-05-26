@@ -82,6 +82,7 @@ reference:
       - example_vp
       - plot.vp
       - as.data.frame.vp
+      - list_vpts_aloft
   - title: "Combining vertical profiles into time series"
     desc: "Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these."
     contents:

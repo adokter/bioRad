@@ -221,18 +221,18 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
   rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."))
   # check input arguments
-  assert_that(
+  assertthat::assert_that(
     is.character(file),
     msg = "`file` must be a path to a file (or a vector of paths to files)."
   )
   for (filename in file) {
-    assert_that(file.exists(filename))
+    assertthat::assert_that(file.exists(filename))
   }
-  if (!are_equal(vpfile, "")) {
-    assert_that(is.writeable(dirname(vpfile)))
+  if (!assertthat::are_equal(vpfile, "")) {
+    assertthat::assert_that(assertthat::is.writeable(dirname(vpfile)))
   }
-  if (!are_equal(pvolfile_out, "")) {
-    assert_that(is.writeable(dirname(pvolfile_out)))
+  if (!assertthat::are_equal(pvolfile_out, "")) {
+    assertthat::assert_that(assertthat::is.writeable(dirname(pvolfile_out)))
   }
   if (!is.logical(mistnet)) {
     stop("`mistnet` must be a logical value.")
@@ -258,86 +258,85 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     warning("local_install argument is deprecated")
   }
 
-  assert_that(is.numeric(mistnet_elevations))
-  assert_that(length(mistnet_elevations) == 5)
-  assert_that(is.flag(autoconf))
-  assert_that(is.flag(verbose))
-  assert_that(is.flag(warnings))
+  assertthat::assert_that(is.numeric(mistnet_elevations))
+  assertthat::assert_that(length(mistnet_elevations) == 5)
+  assertthat::assert_that(assertthat::is.flag(autoconf))
+  assertthat::assert_that(assertthat::is.flag(verbose))
+  assertthat::assert_that(assertthat::is.flag(warnings))
   if (!missing(sd_vvp_threshold)) {
-    assert_that(is.number(sd_vvp_threshold))
-    assert_that(sd_vvp_threshold >= 0)
+    assertthat::assert_that(assertthat::is.number(sd_vvp_threshold))
+    assertthat::assert_that(sd_vvp_threshold >= 0)
   }
-  assert_that(is.number(rcs))
-  assert_that(rcs > 0)
-  assert_that(is.flag(dual_pol))
-  assert_that(is.number(rho_hv))
-  assert_that(is.flag(single_pol))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(rcs))
+  assertthat::assert_that(rcs > 0)
+  assertthat::assert_that(assertthat::is.flag(dual_pol))
+  assertthat::assert_that(assertthat::is.number(rho_hv))
+  assertthat::assert_that(assertthat::is.flag(single_pol))
+  assertthat::assert_that(
     rho_hv >= 0 & rho_hv <= 1,
     msg = "`rho_hv` must be a number between 0 and 1."
   )
-  assert_that(is.number(elev_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(elev_min))
+  assertthat::assert_that(
     elev_min >= -90 & elev_min <= 90,
     msg = "`elev_min` must be a number between -90 and 90."
   )
-  assert_that(is.number(elev_max))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(elev_max))
+  assertthat::assert_that(
     elev_max >= -90 & elev_max <= 90,
     msg = "`elev_max` must be a number between -90 and 90."
   )
-  assert_that(
+  assertthat::assert_that(
     elev_max > elev_min,
     msg = "`elev_max` must be larger than `elev_min`."
   )
-  assert_that(is.number(azim_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(azim_min))
+  assertthat::assert_that(
     azim_min >= 0 & azim_min <= 360,
     msg = "`azim_min` must be a number between 0 and 360."
   )
-  assert_that(is.number(azim_max))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(azim_max))
+  assertthat::assert_that(
     azim_max >= 0 & azim_max <= 360,
     msg = "`azim_max` must be a number between 0 and 360."
   )
-  assert_that(is.number(range_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(range_min))
+  assertthat::assert_that(
     range_min >= 0,
     msg = "`range_min` must be a positive number."
   )
-  assert_that(is.number(range_max))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(range_max))
+  assertthat::assert_that(
     range_max > 0,
     msg = "`range_max` must be a positive number."
   )
-  assert_that(
+  assertthat::assert_that(
     range_max > range_min,
     msg = "`range_max` must be larger than `range_min`."
   )
-  assert_that(is.count(n_layer))
-  assert_that(is.number(h_layer))
-  assert_that(
+  assertthat::assert_that(assertthat::is.count(n_layer))
+  assertthat::assert_that(assertthat::is.number(h_layer))
+  assertthat::assert_that(
     h_layer > 0,
     msg = "`h_layer` must be a positive number."
   )
-  assert_that(is.number(nyquist_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(nyquist_min))
+  assertthat::assert_that(
     nyquist_min > 0,
     msg = "`nyquist_min` must be a positive number."
   )
-  assert_that(
+  assertthat::assert_that(
     dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"),
     msg = "`dbz_quantity` must be either `DBZ`, `DBZH`, `DBZV`, `TH` or `TV`."
   )
-  assert_that(is.flag(mistnet))
-  assert_that(
+  assertthat::assert_that(assertthat::is.flag(mistnet))
+  assertthat::assert_that(
     !(mistnet && !vol2birdR::mistnet_exists() && missing(local_mistnet)),
-    msg = "Can't find MistNet installation, see vol2birdR package for install instructions."
-  )
-  assert_that(is.flag(dealias))
+    msg = "Can't find MistNet installation, see vol2birdR package for install instructions.")
+  assertthat::assert_that(assertthat::is.flag(dealias))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
-  assert_that(is.writeable(filedir))
+  assertthat::assert_that(assertthat::is.writeable(filedir))
 
   profile.tmp <- tempfile()
 

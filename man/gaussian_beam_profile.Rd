@@ -17,32 +17,33 @@ gaussian_beam_profile(
 )
 }
 \arguments{
-\item{height}{numeric. Height in meter.}
+\item{height}{Numeric. Height in m.}
 
-\item{range}{numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.}
+\item{range}{Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.}
 
-\item{elev}{numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
-\item{antenna}{numeric. Height of the center of the radar antenna in meters}
+\item{antenna}{Numeric. Height of the centre of the radar antenna, in m.}
 
-\item{beam_angle}{numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
+angle between the half-power (-3 dB) points of the main lobe.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 numeric.
 }
 \description{
-Normalized altitudinal pattern of radiated energy as a function of
-altitude at a given distance from the radar.
+Normalized altitudinal pattern of radiated energy as a function of altitude
+at a given distance from the radar. \code{antenna} and \code{height} should be given in
+reference to the same reference plane (e.g. ground level or sea level).
 }
 \details{
 Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code{height} and

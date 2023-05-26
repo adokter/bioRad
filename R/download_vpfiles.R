@@ -4,26 +4,27 @@
 #' [ENRAM data repository](https://aloftdata.eu/), where
 #' these are stored as monthly zips per radar.
 #'
-#' @param date_min character. YYYY-MM-DD start date of file selection. Days will
-#'   be ignored.
-#' @param date_max character. YYYY-MM-DD end date of file selection. Days will
-#'   be ignored.
-#' @param radars character (vector). 5-letter country/radar code(s)
-#'   (e.g. "bejab") of radars to include in file selection.
-#' @param directory character. Path to local directory where files should be
+#' @param date_min Character. Start date of file selection, in `YYYY-MM-DD`
+#'   format. Days will be ignored.
+#' @param date_max Character. End date of file selection, in `YYYY-MM-DD`
+#'   format. Days will be ignored.
+#' @param radars Character (vector). 5-letter country/radar code(s) to include
+#'   in file selection.
+#' @param directory Character. Path to local directory where files should be
 #'   downloaded and unzipped.
-#' @param overwrite logical. TRUE for re-downloading and overwriting previously
+#' @param overwrite Logical. When `TRUE`, re-download and overwrite previously
 #'   downloaded files of the same names.
 #'
 #' @export
-#' @importFrom curl curl_fetch_disk
 #'
-#' @seealso select_vpfiles
+#' @seealso
+#' * [select_vpfiles()]
+#' * [read_vpfiles()]
 #'
 #' @examples
-#' # Download data from radars "bejab" and "bewid", even if previously
-#' # downloaded (overwrite = TRUE). Will successfully download 2016-10 files,
-#' # but show 404 error for 2016-11 files (as these are not available).
+#' # Download (and overwrite) data from radars "bejab" and "bewid".
+#' # Will successfully download 2016-10 files, but show 404 error for
+#' # 2016-11 files, since these are not available.
 #' \dontrun{
 #' dir.create("~/bioRad_tmp_files")
 #' download_vpfiles(
@@ -33,13 +34,13 @@
 #'   directory = "~/bioRad_tmp_files",
 #'   overwrite = TRUE
 #' )
-#' # clean up:
+#' # Clean up
 #' unlink("~/bioRad_tmp_files", recursive = T)
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
   # Ensure directory exists
-  assert_that(is.dir(directory))
+  assertthat::assert_that(assertthat::is.dir(directory))
 
   # Stop if radar codes are not exactly 5 characters
   check_radar_codes(radars)
@@ -48,15 +49,15 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5), sep = "_")
 
   # Stop if dates are not a string
-  assert_that(is.string(date_min))
-  assert_that(is.string(date_max))
+  assertthat::assert_that(assertthat::is.string(date_min))
+  assertthat::assert_that(assertthat::is.string(date_max))
 
   # Stop if dates are not in YYYY-MM-DD format:
   check_date_format(date_min, "%Y-%m-%d")
   check_date_format(date_max, "%Y-%m-%d")
 
   # Stop if overwrite is not a logical
-  assert_that(is.logical(overwrite), msg='overwrite is not a logical')
+  assertthat::assert_that(is.logical(overwrite), msg='overwrite is not a logical')
 
   # Set day to 01 and create series of yyyy/mm based on date_min/max:
   # 2016/10, 2016/11, 2016/12
@@ -103,12 +104,12 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
     }
 
     # Start download
-    req <- curl_fetch_disk(url, file_path) # will download regardless of status
+    req <- curl::curl_fetch_disk(url, file_path) # will download regardless of status
 
     # Check http status
     if (req$status_code == "200") {
       # Unzip file
-      unzip(file_path, exdir = file.path(directory, unzip_dir))
+      utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
       message(paste0(file_name, ": successfully downloaded"))
     } else {
       # Remove file

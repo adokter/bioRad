@@ -1,45 +1,46 @@
 #' Bind vertical profiles (`vp`) into time series (`vpts`)
 #'
 #' Binds vertical profiles (`vp`) into a vertical profile time series
-#' (`vpts`), sorted in time. Can also bind multiple `vpts` of a
+#' (`vpts`), sorted on datetime. Can also bind multiple `vpts` of a
 #' single radar into one `vpts`.
 #'
-#' @param x A `vp`, `vpts` or a vector of these.
-#' @param ... A `vp`, `vpts` or a vector of these.
+#' @param x A `vp`, `vpts` object or a vector of these.
+#' @param ... A `vp`, `vpts` object or a vector of these.
 #'
-#' @return A [`vpts()`][summary.vpts] for a single radar or a list of
-#' `vpts` for multiple radars. Input `vp` are sorted in time in the
-#' output `vpts`.
+#' @return A `vpts` for a single radar or a list of `vpts` for multiple radars.
+#'   Input `vp` are sorted on datetime in the output `vpts`.
 #'
 #' @export
 #'
-#' @details `bind_into_vpts()` currently requires profiles to have aligning altitude
+#' @details
+#'   `bind_into_vpts()` currently requires profiles to have aligning altitude
 #' layers that are of equal width. Profiles are allowed to differ in the number
-#' of altitude layers, i.e. the maximum altitude
+#' of altitude layers, i.e. the maximum altitude.
+#'
+#' @seealso
+#' * [summary.vp()]
+#' * [summary.vpts()]
 #'
 #' @examples
-#' # load example time series of vertical profiles:
-#' data(example_vpts)
-#'
-#' # split the vpts into two separate time series, one containing profile 1-10,
-#' # and a second containing profile 11-20:
+#' # Split the example vpts into two separate time series, one containing
+#' # profile 1-10 and a second containing profile 11-20
 #' vpts1 <- example_vpts[1:10]
 #' vpts2 <- example_vpts[11:20]
 #'
-#' # use bind_into_vpts to bind the two together:
-#' vpts1and2 <- bind_into_vpts(vpts1, vpts2)
+#' # Bind the two vpts together
+#' vpts1_and_2 <- bind_into_vpts(vpts1, vpts2)
 #'
-#' # verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from
-#' # vpts2:
-#' summary(vpts1and2)
+#' # Verify that the binded vpts now has 20 profiles, 10 from vpts1 and 10 from
+#' # vpts2
+#' summary(vpts1_and_2)
 #'
-#' # extract two profiles:
+#' # Extract two profiles
 #' vp1 <- example_vpts[1]
 #' vp1
 #' vp2 <- example_vpts[2]
 #' vp2
 #'
-#' # bind the two profiles back into a vpts:
+#' # Bind the two profiles back into a vpts:
 #' bind_into_vpts(vp1, vp2)
 bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 
@@ -63,7 +64,7 @@ bind_into_vpts.vp <- function(...) {
 #'
 #' @export
 bind_into_vpts.list <- function(x, ...) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
@@ -73,8 +74,8 @@ bind_into_vpts.list <- function(x, ...) {
 #' @describeIn bind_into_vpts Bind multiple `vpts` into a single
 #' `vpts`. Requires the input `vpts` to be from the same radar.
 #'
-#' @param attributes_from integer. Which `vpts` to copy attributes from (default:
-#' first).
+#' @param attributes_from Integer. Which `vpts` to copy attributes from
+#'   (default: first).
 #'
 #' @export
 bind_into_vpts.vpts <- function(..., attributes_from = 1) {
@@ -183,7 +184,7 @@ vplist_to_vpts <- function(x, radar = NA) {
   }
 }
 combined_heights <- function(x) {
-  assert_that(is.list(x))
+  assertthat::assert_that(is.list(x))
   unique_height_diff <- unique(unlist(lapply(lapply(x, diff), unique)))
   if (length(unique_height_diff) != 1) {
     stop("Not all data has the same size of altitude bins")

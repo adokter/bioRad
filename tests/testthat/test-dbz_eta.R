@@ -12,10 +12,10 @@ test_that("dbz_to_eta() returns error on incorrect parameters", {
 
 test_that("eta_to_dbz() returns error on incorrect parameters", {
   test_that("eta_to_dbz() returns error on incorrect parameters", {
-    expect_error(eta_to_dbz('not_a_eta', 10),"`eta` must be a non-negative numeric.", fixed = TRUE)
+    expect_error(eta_to_dbz('not_a_eta', 10),"`eta` must be a strictly positive numeric.", fixed = TRUE)
     expect_error(eta_to_dbz(10000, 'not_a_wavelength'), "`wavelength` must be a strictly positive numeric.", fixed = TRUE)
     expect_error(eta_to_dbz(10000, 10,'not_a_K'), "`K` must be a strictly positive numeric.", fixed = TRUE)
-    expect_error(eta_to_dbz(-10, 10),"`eta` must be a non-negative numeric.", fixed = TRUE)
+    expect_error(eta_to_dbz(-10, 10),"`eta` must be a strictly positive numeric.", fixed = TRUE)
   })
 
   test_that("eta_to_dbz() returns the correct dbz", {

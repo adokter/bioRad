@@ -1,28 +1,27 @@
-#' Map a plan position indicator (`ppi`)
+#' Map a plan position indicator (`ppi`) on a map
 #'
-#' Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
-#' layer map using [ggmap][ggmap::ggmap].
+#' Plots a plan position indicator (`ppi`) on a base layer using
+#' [ggmap::ggmap()].
 #'
-#' @param x An object of class `ppi`.
-#' @param map  The basemap to use, result of a call to [download_basemap].
-#' @param param The scan parameter to plot.
-#' @param alpha Transparency of the data, value between 0 and 1.
-#' @param radar_size Size of the symbol indicating the radar position.
-#' @param radar_color Color of the symbol indicating the radar position.
-#' @param n_color The number of colors (>=1) to be in the palette.
-#' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from [viridis][viridisLite::viridis]
-#' @param xlim Range of x values to plot (degrees longitude), as atomic
-#' vector of length 2.
-#' @param ylim Range of y values to plot (degrees latitude), as an atomic
-#' vector of length 2.
-#' @param zlim The range of values to plot.
-#' @param ratio Aspect ratio between x and y scale, by default
+#' @param x A `ppi` object.
+#' @param map Basemap to use, result of a call to [download_basemap()].
+#' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
+#'   [summary.param()] for commonly available parameters.
+#' @param alpha Numeric. Transparency of the data, value between 0 and 1.
+#' @param xlim Numeric vector of length 2. Range of x values (degrees longitude)
+#'   to plot.
+#' @param ylim Numeric vector of length 2. Range of y values (degrees latitude)
+#'   to plot.
+#' @param zlim Numeric vector of length 2. The range of values to plot.
+#' @param ratio Numeric. Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
-#' @param ... Arguments passed to low level [ggmap][ggmap::ggmap] function.
-#' @param radar.size Deprecated argument, use radar_size instead.
-#' @param radar.color Deprecated argument, use radar_color instead.
-#' @param n.color Deprecated argument, use n_color instead.
+#' @param radar_size Numeric. Size of the symbol indicating the radar position.
+#' @param radar_color Character. Color of the symbol indicating the radar
+#'   position.
+#' @param n_color Numeric. Number of colors (>=1) to use in the palette.
+#' @param palette Character vector. Hexadecimal color values defining the plot
+#'   color scale, e.g. output from [viridisLite::viridis()].
+#' @param ... Arguments passed to [ggmap::ggmap()].
 #'
 #' @return A ggmap object (a classed raster object with a bounding
 #' box attribute).
@@ -43,73 +42,52 @@
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #'
 #' @export
+#'
+#' @seealso
+#' * [download_basemap()]
+#' * [project_as_ppi()]
+#'
 #' @examples
-#' # load an example scan:
-#' data(example_scan)
-#' # make ppi's for all scan parameters in the scan
+#' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #' \dontrun{
-#' # grab a basemap that matches the extent of the ppi:
-#' # using a gray-scale basemap:
+#' # Create a basemap that matches the extent of the ppi
 #' basemap <- download_basemap(ppi, maptype = "toner-lite")
 #'
-#' # map the radial velocity scan parameter onto the basemap:
+#' # Map the radial velocity of the ppi onto the basemap
 #' map(ppi, map = basemap, param = "VRADH")
 #'
-#' # extend the plotting range of velocities, from -50 to 50 m/s:
+#' # Extend the plotting range of velocities, from -50 to 50 m/s
 #' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 #'
-#' # map the reflectivity on a terrain basemap:
-#' basemap <- download_basemap(ppi, maptype = "terrain")
+#' # Map the reflectivity
 #' map(ppi, map = basemap, param = "DBZH")
 #'
-#' # change the color palette, e.g. Viridis colors:
+#' # Change the color palette to Viridis colors
 #' map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
 #'
-#' # give the data more transparency:
+#' # Give the data more transparency
 #' map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 #'
-#' # change the appearance of the symbol indicating the radar location:
+#' # Change the appearance of the symbol indicating the radar location
 #' map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
 #'
-#' # crop the map:
+#' # Crop the map
 #' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 #' }
 map <- function(x, ...) {
   UseMethod("map", x)
 }
 
-#' @describeIn map plot a 'ppi' object on a map
+#' @describeIn map Plot a `ppi` object on a map.
 #' @export
-map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
-                    zlim = c(-20, 20), ratio, radar_size = 3,
-                    radar_color = "red", n_color = 1000,
-                    radar.size = 3, radar.color = "red",
-                    n.color = 1000, palette = NA, ...) {
-
-  # deprecate function arguments
-  if (!missing(radar.size)) {
-    warning("argument radar.size is deprecated; please use radar_size instead.",
-      call. = FALSE
-    )
-    radar_size <- radar.size
-  }
-  if (!missing(radar.color)) {
-    warning("argument radar.color is deprecated; please use radar_color instead.",
-      call. = FALSE
-    )
-    radar_color <- radar.color
-  }
-  if (!missing(n.color)) {
-    warning("argument n.color is deprecated; please use n_color instead.",
-      call. = FALSE
-    )
-    n_color <- n.color
-  }
+map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
+                    ratio, radar_size = 3, radar_color = "red", n_color = 1000,
+                    palette = NA, ...) {
 
   stopifnot(inherits(x, "ppi"))
 
-  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (methods::hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {
@@ -141,10 +119,10 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   }
 
   # set color scales and palettes
-  if (!are_equal(palette, NA)) {
+  if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
     # apply transparancy
-    palette <- alpha(palette,alpha)
+    palette <- ggplot2::alpha(palette,alpha)
     n_color = length(palette)
     colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
@@ -155,33 +133,33 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  wgs84 <- CRS("+proj=longlat +datum=WGS84")
-  epsg3857 <- CRS("+init=epsg:3857") # this is the google mercator projection
+  wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
+  epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox <- suppressWarnings(
-    spTransform(
-      SpatialPoints(t(data@bbox),
+    sp::spTransform(
+      sp::SpatialPoints(t(data@bbox),
         proj4string = data@proj4string
       ),
-      CRS("+init=epsg:3857")
+      sp::CRS("+init=epsg:3857")
     )
   )
   mybbox.wgs <- suppressWarnings(
-    spTransform(
-      SpatialPoints(t(data@bbox),
+    sp::spTransform(
+      sp::SpatialPoints(t(data@bbox),
         proj4string = data@proj4string
       ),
       wgs84
     )
   )
   e <- raster::extent(mybbox.wgs)
-  r <- raster(raster::extent(mybbox),
+  r <- raster::raster(raster::extent(mybbox),
     ncol = data@grid@cells.dim[1] * .9,
-    nrow = data@grid@cells.dim[2] * .9, crs = CRS(proj4string(mybbox))
+    nrow = data@grid@cells.dim[2] * .9, crs = sp::CRS(sp::proj4string(mybbox))
   )
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(spTransform(data, CRS("+init=epsg:3857")))
+    as.data.frame(sp::spTransform(data, sp::CRS("+init=epsg:3857")))
   )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])
@@ -220,7 +198,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
-  dummy <- geom_point(aes(x = lon, y = lat, colour = z),
+  dummy <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat, colour = z),
     size = 0,
     data = data.frame(
       lon = latlon_radar$lon,
@@ -228,7 +206,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       z = 0
     )
   )
-  radarpoint <- geom_point(aes(x = lon, y = lat),
+  radarpoint <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat),
     colour = radar_color,
     size = radar_size,
     data = data.frame(lon = latlon_radar$lon, lat = latlon_radar$lat)
@@ -246,9 +224,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim,
       ggmap::inset_raster(raster::as.matrix(r), e@xmin, e@xmax, e@ymin, e@ymax) +
       dummy + colorscale +
       radarpoint +
-      scale_x_continuous(limits = xlim, expand = c(0, 0)) +
-      scale_y_continuous(limits = ylim, expand = c(0, 0))
+      ggplot2::scale_x_continuous(limits = xlim, expand = c(0, 0)) +
+      ggplot2::scale_y_continuous(limits = ylim, expand = c(0, 0))
   )
   suppressWarnings(mymap)
-
 }

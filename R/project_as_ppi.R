@@ -87,17 +87,17 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
                                 project = TRUE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
 
-  if (!are_equal(raster, NA)) {
-    assert_that(inherits(raster, "RasterLayer"))
+  if (!assertthat::are_equal(raster, NA)) {
+    assertthat::assert_that(inherits(raster, "RasterLayer"))
   }
 
   if (inherits(raster, "RasterLayer")) {
-    proj4string <- CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
+    proj4string <- sp::CRS(paste("+proj=aeqd +lat_0=", x$geo$lat,
       " +lon_0=", x$geo$lon,
       " +units=m",
       sep = ""
     ))
-    grid_size <- spTransform(as(as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
+    grid_size <- sp::spTransform(methods::as(methods::as(raster, "SpatialGrid"), "SpatialPoints"), proj4string)
   }
   data <- sample_polar(
     x$params[[1]], grid_size, range_max,
@@ -124,7 +124,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
     data <- do.call(cbind, alldata)
   }
   if (inherits(data, "SpatialPoints")) {
-    data <- SpatialGridDataFrame(as(raster, "SpatialGrid"), data@data)
+    data <- sp::SpatialGridDataFrame(methods::as(raster, "SpatialGrid"), data@data)
   }
   data <- list(
     radar = x$radar, datetime = x$datetime,
@@ -137,18 +137,18 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 
 sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4 / 3, re = 6378, rp = 6357) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
-  proj4string <- CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
+  proj4string <- sp::CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
     " +lon_0=", attributes(param)$geo$lon,
     " +units=m",
     sep = ""
   ))
   if (inherits(grid_size, c("RasterLayer", "SpatialPoints"))) {
-    if (proj4string(grid_size) != as.character(proj4string)) {
-      gridTopo <- spTransform(as(as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
+    if (sp::proj4string(grid_size) != as.character(proj4string)) {
+      gridTopo <- sp::spTransform(methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
     } else if (inherits(grid_size, "RasterLayer")) {
-      gridTopo <- as(as(grid_size, "SpatialGrid"), "SpatialPoints")
+      gridTopo <- methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints")
     } else {
-      gridTopo <- as(grid_size, "SpatialPoints")
+      gridTopo <- methods::as(grid_size, "SpatialPoints")
     }
   } else {
     bboxlatlon <- proj_to_wgs(
@@ -179,7 +179,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
       )
     }
     # define cartesian grid
-    gridTopo <- GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
+    gridTopo <- sp::GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
   }
   # if projecting, account for elevation angle
   if (project) {
@@ -189,7 +189,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   }
   # get scan parameter indices, and extract data
   index <- polar_to_index(
-    cartesian_to_polar(coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
+    cartesian_to_polar(sp::coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
     rangebin = attributes(param)$geo$rscale,
     azimbin = attributes(param)$geo$ascale,
     azimstart = ifelse(is.null(attributes(param)$geo$astart), 0, attributes(param)$geo$astart),
@@ -218,12 +218,12 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   colnames(data) <- attributes(param)$param
 
   if (inherits(grid_size, "RasterLayer")) {
-    output <- SpatialGridDataFrame(as(grid_size, "SpatialGrid"), data)
+    output <- sp::SpatialGridDataFrame(methods::as(grid_size, "SpatialGrid"), data)
   } else if (inherits(grid_size, "SpatialPoints")) {
-    output <- SpatialPointsDataFrame(grid_size, data)
+    output <- sp::SpatialPointsDataFrame(grid_size, data)
   } else {
-    output <- SpatialGridDataFrame(
-      grid = SpatialGrid(
+    output <- sp::SpatialGridDataFrame(
+      grid = sp::SpatialGrid(
         grid = gridTopo,
         proj4string = proj4string
       ),

@@ -1,9 +1,18 @@
-#' Vertically integrate profiles (`vp` or `vpts`) to an
+#' Vertically integrate profiles (`vp` or `vpts`) into an
 #' integrated profile (`vpi`)
 #'
 #' Performs a vertical integration of density, reflectivity and migration
-#' traffic rate, and a vertical averaging of ground speed and direction
-#' weighted by density.
+#' traffic rate, and a vertical averaging of ground speed and direction weighted
+#' by density.
+#'
+#' @param x A `vp` or `vpts` object.
+#' @param alt_min Numeric. Minimum altitude, in m.
+#' @param alt_max Numeric. Maximum altitude, in m.
+#' @param alpha Numeric. Migratory direction, in clockwise degrees from north.
+#' @param interval_max Numeric. Maximum time interval belonging to a single
+#'   profile, in seconds. Traffic rates are set to zero at times `t` for which
+#'   no profiles can be found within the period `t - interval_max/2` to `t +
+#'   interval_max/2`. Ignored for single profiles of class `vp`.
 #'
 #' @param x A `vp` or `vpts` object.
 #' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
@@ -147,23 +156,22 @@
 #' @export
 #'
 #' @examples
-#' # MTR for a single vertical profile
+#' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
 #'
-#' # MTRs for a list of vertical profiles
+#' # Calculate migration traffic rates for a list of vps
 #' integrate_profile(c(example_vp, example_vp))
 #'
-#' # MTRs for a time series of vertical profiles
-#' # load example data:
-#' data(example_vpts)
-#' example_vpts
-#' # print migration traffic rates
+#' # Calculate migration traffic rates for a vpts
 #' vpi <- integrate_profile(example_vpts)
-#' # plot migration traffic rates for the full air column
-#' plot(example_vpts)
-#' # plot migration traffic rates for altitudes > 1 km above sea level
+#'
+#' # Plot migration traffic rate (mtr) for the full air column
+#' plot(integrate_profile(example_vpts))
+#'
+#' # Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
-#' # plot the (cumulative) migration traffic
+#'
+#' # Plot cumulative migration traffic rates (mt)
 #' plot(integrate_profile(example_vpts), quantity = "mt")
 #' # calculate median flight altitude (instead of default mean)
 #' integrate_profile(example_vp, height_quantile=.5)
@@ -175,7 +183,7 @@ integrate_profile <- function(x, alt_min, alt_max,
   UseMethod("integrate_profile", x)
 }
 
-#' @describeIn integrate_profile Vertically integrate a vertical profile.
+#' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
@@ -185,10 +193,10 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
-  assert_that(is.scalar(height_quantile))
+  assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
-    assert_that(is.number(height_quantile))
-    assert_that(height_quantile>0 && height_quantile<1)
+    assertthat::assert_that(assertthat::is.number(height_quantile))
+    assertthat::assert_that(height_quantile>0 && height_quantile<1)
   }
 
   if (alt_min=="antenna"){
@@ -235,7 +243,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
   if(is.na(height_quantile)){
     # default (no height_quantile specified) is calculating the mean altitude
-    height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+    height <- stats::weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
   }
   else{
     # calculate a quantile of the flight altitude distribution
@@ -256,9 +264,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     height <- height_lower+delta_linear_interpolation
   }
 
-  u <- weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
-  v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
-  ff <- weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
+  u <- stats::weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
+  v <- stats::weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
+  ff <- stats::weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   dd[which(dd<0)]=dd[which(dd<0)]+360
   # time-integrated measures not defined for a single profile:
@@ -274,14 +282,14 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
-    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
+    output$airspeed <- stats::weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
+    output$heading <- stats::weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
     output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
-    output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
-    output$airspeed_v <- weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
-    output$ff_wind <- weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
-    output$u_wind <- weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
-    output$v_wind <- weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
+    output$airspeed_u <- stats::weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
+    output$airspeed_v <- stats::weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
+    output$ff_wind <- stats::weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
+    output$u_wind <- stats::weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
+    output$v_wind <- stats::weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -298,14 +306,14 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   return(output)
 }
 
-#' @describeIn integrate_profile Vertically integrate a list of
-#' vertical profiles.
+#' @describeIn integrate_profile Vertically integrate a list of vertical
+#'   profiles (`vp`).
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,
                                    interval_replace=NA, height_quantile = NA) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
@@ -331,7 +339,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 }
 
 #' @describeIn integrate_profile Vertically integrate a time series of
-#' vertical profiles.
+#' vertical profiles (`vpts`).
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
@@ -341,25 +349,25 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
-  assert_that(is.number(interval_max))
-  assert_that(interval_max>0)
+  assertthat::assert_that(assertthat::is.number(interval_max))
+  assertthat::assert_that(interval_max>0)
 
-  dt_median <- as.double(median(x$timesteps),unit="secs")
+  dt_median <- as.double(stats::median(x$timesteps),unit="secs")
   if(interval_max < dt_median) warning(paste0("interval_max < median timestep of the time series (",dt_median," sec), consider a larger value."))
 
   if(!missing(interval_replace)){
-    assert_that(is.number(interval_replace))
-    assert_that(interval_replace>0)
+    assertthat::assert_that(assertthat::is.number(interval_replace))
+    assertthat::assert_that(interval_replace>0)
   }
   else{
     interval_replace=as.double(mean(x$timesteps[x$timesteps<interval_max]),unit="secs")
     if(is.na(interval_replace)) interval_replace=interval_max
   }
 
-  assert_that(is.scalar(height_quantile))
+  assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
-    assert_that(is.number(height_quantile))
-    assert_that(height_quantile>0 && height_quantile<1)
+    assertthat::assert_that(assertthat::is.number(height_quantile))
+    assertthat::assert_that(height_quantile>0 && height_quantile<1)
   }
 
   # Integrate from antenna height
