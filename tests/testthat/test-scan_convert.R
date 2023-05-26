@@ -19,8 +19,8 @@ test_that("scan_to_spatial() returns error on incorrect parameters", {
                fixed = TRUE)
   missing_lat_scan <- example_scan
   missing_lon_scan <- example_scan
-  purrr::pluck(missing_lat_scan,"geo","lat") <- NULL
-  purrr::pluck(missing_lon_scan,"geo","lon") <- NULL
+  missing_lat_scan$geo$lat <- NULL
+  missing_lon_scan$geo$lon <- NULL
   expect_error(scan_to_spatial(missing_lat_scan),
                regexp = "radar latitude cannot be found in scan, specify using 'lat' argument",
                fixed = TRUE)
@@ -34,7 +34,7 @@ test_that("scan_to_raster() returns error on incorrect parameters", {
                regexp = "'scan' should be an object of class scan",
                fixed = TRUE)
   square_birdbath <- example_scan
-  purrr::pluck(square_birdbath,"attributes","where","elangle") <- 90
+  square_birdbath$attributes$where$elangle <- 90
   expect_error(scan_to_raster(square_birdbath),
                regexp = "georeferencing of 90 degree birdbath scan not supported",
                fixed = TRUE)
@@ -68,7 +68,16 @@ test_that("scan_to_raster() returns error on incorrect parameters", {
   expect_error(scan_to_raster(example_scan, ylim = c(pi, 2)),
                regexp = "'ylim' should be a vector with two numeric values for upper and lower bound",
                fixed = TRUE)
-
+  missing_lat_scan <- example_scan
+  missing_lon_scan <- example_scan
+  missing_lat_scan$geo$lat <- NULL
+  missing_lon_scan$geo$lon <- NULL
+  expect_error(scan_to_raster(missing_lat_scan),
+               regexp = "radar latitude cannot be found in scan, specify using 'lat' argument",
+               fixed = TRUE)
+  expect_error(scan_to_raster(missing_lon_scan),
+               regexp = "radar longitude cannot be found in scan, specify using 'lon' argument",
+               fixed = TRUE)
 })
 
 test_that("scan_to_raster() returns error on wrongly formed param argument",{
