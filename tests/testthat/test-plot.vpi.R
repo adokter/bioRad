@@ -13,7 +13,10 @@ test_that("plot.vpi() returns error on incorrect parameters", {
   expect_warning(plot(example_vpi, line.lwd = 1))
   })
 
-test_that("plot.vpi() produces a plot", {
+test_that("plot.vpi() produces plots", {
   expect_s3_class(recordPlot(plot(example_vpi)), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vpi, quantity = "vir")), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vpi, quantity = "mtr")), "recordedplot")
+  expect_s3_class(recordPlot(plot(example_vpi, quantity = "dd")), "recordedplot")
 
 })
