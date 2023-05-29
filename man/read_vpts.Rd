@@ -2,39 +2,22 @@
 % Please edit documentation in R/read_vpts.R
 \name{read_vpts}
 \alias{read_vpts}
-\title{Read a time series of vertical profiles (\code{vpts}) from file}
+\title{Read time series of vertical profiles (\code{vpts}) from file(s)}
 \usage{
-read_vpts(file, radar, lat, lon, height, wavelength = "C", sep = "")
+read_vpts(files)
 }
 \arguments{
-\item{file}{A text file containing the standard output (stdout) generated
-by vol2bird (or the package function \code{calculate_vp}).}
-
-\item{radar}{A string containing a radar identifier.}
-
-\item{lat}{numeric. Latitude of the radar in decimal degrees.}
-
-\item{lon}{numeric. Longitude of the radar in decimal degrees.}
-
-\item{height}{numeric. Height above sea level of the radar antenna in meters.}
-
-\item{wavelength}{Radar wavelength in cm, or one of 'C' or 'S' for C-band
-and S-band radar, respectively, in which case C-band wavelength is assumed
-to be 5.3 cm and S-band wavelength 10.6 cm}
-
-\item{sep}{the field separator character, see \link[utils]{read.table}}
+\item{files}{Path(s) to one or more files containing vpts data.}
 }
 \value{
-An object inheriting from class \code{vpts}, see
-\code{\link[=summary.vpts]{vpts}} for details.
+\code{vpts} object.
 }
 \description{
-Read a time series of vertical profiles (\code{vpts}) from file
+Reads \code{vpts} data from one or more files.
+The following file formats are supported (but cannot be mixed):
+\itemize{
+\item \href{https://aloftdata.eu/vpts-csv/}{VPTS CSV}.
+\item \href{https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification}{ODIM bird profile}.
 }
-\examples{
-# locate example file:
-vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-# load time series:
-ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
-ts
 }
+\concept{read functions}
