@@ -1,7 +1,7 @@
-#' Read a polar volume (\code{pvol}) from file
+#' Read a polar volume (`pvol`) from file
 #'
 #' @param file A string containing the path to a polar volume file
-#' @param sort A logical value, when \code{TRUE} sort scans ascending
+#' @param sort A logical value, when `TRUE` sort scans ascending
 #' by elevation.
 #' @param param An atomic vector of character strings, containing the names
 #' of scan parameters to read. To read all scan parameters use 'all'.
@@ -16,35 +16,33 @@
 #' stored in file is overwritten.
 #' @param elev_min Minimum scan elevation to read in degrees.
 #' @param elev_max Maximum scan elevation to read in degrees.
-#' @param verbose A logical value, whether to print messages (\code{TRUE})
+#' @param verbose A logical value, whether to print messages (`TRUE`)
 #' to console.
 #' @param mount (deprecated) A character string with the mount point (a directory path)
 #' for the Docker container.
 #' @param local_install (deprecated) String with path to local vol2bird installation,
 #' to use local installation instead of Docker container
 #'
-#' @return An object of class \link[=summary.pvol]{pvol}, which is a list
-#' containing polar scans, i.e. objects of class \code{scan}
+#' @return An object of class [pvol][summary.pvol], which is a list
+#' containing polar scans, i.e. objects of class `scan`
 #'
 #' @export
 #'
 #' @details
 #' Scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
-#' \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
+#' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #' Commonly available parameters are:
-#' \describe{
-#'  \item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-#'  \item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-#'  \item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
+#' * `DBZH`, `DBZ`: (Logged) reflectivity factor (dBZ)
+#' * `TH`, `T`: (Logged) uncorrected reflectivity factor (dBZ)
+#' * `VRADH`, `VRAD`: Radial velocity (m/s). Radial
 #'    velocities towards the radar are negative, while radial velocities away
-#'    from the radar are positive}
-#'  \item{"\code{RHOHV}"}{Correlation coefficient (unitless). Correlation
+#'    from the radar are positive
+#' * `RHOHV`: Correlation coefficient (unitless). Correlation
 #'    between vertically polarized and horizontally polarized reflectivity
-#'    factor}
-#'  \item{"\code{PHIDP}"}{Differential phase (degrees)}
-#'  \item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-#' }
+#'    factor
+#' * `PHIDP`: Differential phase (degrees)
+#' * `ZDR`: (Logged) differential reflectivity (dB)
 #'
 #' @examples
 #' # locate example volume file:
@@ -74,19 +72,20 @@ read_pvolfile <- function(file, param = c(
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file), local_install) {
-  if(!missing(local_install)) warning("argument 'local_install' has been deprecated")
-  if(!file.exists(file)){
-     stop(paste0("'",file,"' does not exist in current working directory ('",getwd(),"')."))
+  if (!missing(local_install)) warning("argument 'local_install' has been deprecated")
+  if (!file.exists(file)) {
+    stop(paste0("'", file, "' does not exist in current working directory ('", getwd(), "')."))
   }
-  tryCatch(read_pvolfile_body(
-    file, param, sort, lat, lon,
-    height, elev_min, elev_max,
-    verbose, mount, local_install
-  ),
-  error = function(err) {
-    rhdf5::h5closeAll()
-    stop(err)
-  }
+  tryCatch(
+    read_pvolfile_body(
+      file, param, sort, lat, lon,
+      height, elev_min, elev_max,
+      verbose, mount, local_install
+    ),
+    error = function(err) {
+      rhdf5::h5closeAll()
+      stop(err)
+    }
   )
 }
 
@@ -121,15 +120,15 @@ read_pvolfile_body <- function(file, param = c(
 
   # check file type. If not ODIM HDF5, try to convert from RSL
   cleanup <- FALSE
-  if (H5Fis_hdf5(file)) {
+  if (rhdf5::H5Fis_hdf5(file)) {
     if (!is.pvolfile(file)) {
       stop("Failed to read HDF5 file.")
     }
   } else {
     pvol_tmp <- tempfile()
-
+    rlang::check_installed("vol2birdR", format_reason_vol2bird("to read `NEXRAD` files."))
     config <- vol2birdR::vol2bird_config()
-    vol2birdR::rsl2odim(file=file, config=config, pvolfile_out=pvol_tmp, verbose=verbose)
+    vol2birdR::rsl2odim(file = file, config = config, pvolfile_out = pvol_tmp, verbose = verbose)
 
     if (!is.pvolfile(pvol_tmp)) {
       file.remove(pvol_tmp)
@@ -140,14 +139,14 @@ read_pvolfile_body <- function(file, param = c(
   }
 
   # extract scan groups
-  scans <- h5ls(file, recursive = FALSE)$name
+  scans <- rhdf5::h5ls(file, recursive = FALSE)$name
   scans <- scans[grep("dataset", scans)]
 
   # extract elevations, and make selection based on elevation
   elevs <- sapply(
     scans,
     function(x) {
-      h5readAttributes(
+      rhdf5::h5readAttributes(
         file,
         paste(x, "/where", sep = "")
       )$elangle
@@ -156,23 +155,23 @@ read_pvolfile_body <- function(file, param = c(
   scans <- scans[elevs >= elev_min & elevs <= elev_max]
 
   # extract attributes
-  h5struct <- h5ls(file)
+  h5struct <- rhdf5::h5ls(file)
   h5struct <- h5struct[h5struct$group == "/", ]$name
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- h5readAttributes(file, "how")
+    attribs.how <- rhdf5::h5readAttributes(file, "how")
   }
   if ("what" %in% h5struct) {
-    attribs.what <- h5readAttributes(file, "what")
+    attribs.what <- rhdf5::h5readAttributes(file, "what")
   }
   if ("where" %in% h5struct) {
-    attribs.where <- h5readAttributes(file, "where")
+    attribs.where <- rhdf5::h5readAttributes(file, "where")
   }
 
   # construct wavelength attribute from frequency attribute if possible:
-  if(is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)){
-    speed_of_light = 299792458
-    attribs.how$wavelength = 100*speed_of_light/attribs.how$frequency
+  if (is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)) {
+    speed_of_light <- 299792458
+    attribs.how$wavelength <- 100 * speed_of_light / attribs.how$frequency
   }
 
   vol.lat <- c(attribs.where$lat) # need the c() to convert single element matrix to single element vector
@@ -220,7 +219,7 @@ read_pvolfile_body <- function(file, param = c(
   datetime <- as.POSIXct(paste(attribs.what$date, attribs.what$time),
     format = "%Y%m%d %H%M%S", tz = "UTC"
   )
-  if(is.null(attribs.what$source)) attribs.what$source=""
+  if (is.null(attribs.what$source)) attribs.what$source <- ""
   sources <- strsplit(attribs.what$source, ",")[[1]]
   radar <- gsub("NOD:", "", sources[which(grepl("NOD:", sources))])
   if (length(radar) == 0) {
@@ -255,7 +254,7 @@ read_pvolfile_body <- function(file, param = c(
 
   # filter out NULL output from read_pvolfile_scan
   valid_scans <- which(!sapply(data, is.null))
-  assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
+  assertthat::assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
   if(length(valid_scans) < length(scans)){
     warning(paste("ignoring",length(scans)-length(valid_scans),"scan(s) in file",file,"because requested scan parameter(s) are missing."))
   }
@@ -279,7 +278,7 @@ read_pvolfile_body <- function(file, param = c(
 }
 
 read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attributes) {
-  h5struct <- h5ls(file, all = TRUE)
+  h5struct <- rhdf5::h5ls(file, all = TRUE)
   groups <- h5struct[h5struct$group == paste("/", scan, sep = ""), ]$name
   groups <- groups[grep("data", groups)]
   dtypes <- h5struct[startsWith(h5struct$group, paste("/", scan, "/data", sep = "")), ]
@@ -297,7 +296,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
     quantityNames <- sapply(
       groups,
       function(x) {
-        h5readAttributes(
+        rhdf5::h5readAttributes(
           file,
           paste(scan, "/", x, "/what",
             sep = ""
@@ -315,13 +314,13 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
   # read attributes
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- h5readAttributes(file, paste(scan, "/how", sep = ""))
+    attribs.how <- rhdf5::h5readAttributes(file, paste(scan, "/how", sep = ""))
   }
   if ("what" %in% h5struct) {
-    attribs.what <- h5readAttributes(file, paste(scan, "/what", sep = ""))
+    attribs.what <- rhdf5::h5readAttributes(file, paste(scan, "/what", sep = ""))
   }
   if ("where" %in% h5struct) {
-    attribs.where <- h5readAttributes(file, paste(scan, "/where", sep = ""))
+    attribs.where <- rhdf5::h5readAttributes(file, paste(scan, "/where", sep = ""))
   }
 
   # add attributes to geo list
@@ -351,7 +350,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
   names(quantities) <- quantityNames
 
   # if wavelength is attribute is missing at the scan level, copy it from the pvol level
-  if(is.null(attribs.how$wavelength)) attribs.how$wavelength = attributes$how$wavelength
+  if (is.null(attribs.how$wavelength)) attribs.how$wavelength <- attributes$how$wavelength
 
   output <- list(
     radar = radar, datetime = datetime, params = quantities,
@@ -365,19 +364,21 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
 }
 
 read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo, dtype) {
-  data <- h5read(file, quantity)$data
+  data <- rhdf5::h5read(file, quantity)$data
   # convert storage mode from raw to numeric:
   storage.mode(data) <- "numeric"
-  attr <- h5readAttributes(file, paste(quantity, "/what", sep = ""))
+  attr <- rhdf5::h5readAttributes(file, paste(quantity, "/what", sep = ""))
   data <- replace(data, data == as.numeric(attr$nodata), NA)
   data <- replace(data, data == as.numeric(attr$undetect), NaN)
   data <- as.numeric(attr$offset) + as.numeric(attr$gain) * data
-  if(attr$quantity == "RHOHV"){
+  if (attr$quantity == "RHOHV") {
     data <- replace(data, data > 10, NaN)
   }
-  conversion <- list(gain = as.numeric(attr$gain), offset = as.numeric(attr$offset),
-                     nodata = as.numeric(attr$nodata), undetect = as.numeric(attr$undetect),
-                     dtype = dtype)
+  conversion <- list(
+    gain = as.numeric(attr$gain), offset = as.numeric(attr$offset),
+    nodata = as.numeric(attr$nodata), undetect = as.numeric(attr$undetect),
+    dtype = dtype
+  )
   class(data) <- c("param", class(data))
   attributes(data)$radar <- radar
   attributes(data)$datetime <- datetime

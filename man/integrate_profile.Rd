@@ -5,7 +5,7 @@
 \alias{integrate_profile.vp}
 \alias{integrate_profile.list}
 \alias{integrate_profile.vpts}
-\title{Vertically integrate profiles (\code{vp} or \code{vpts}) to an
+\title{Vertically integrate profiles (\code{vp} or \code{vpts}) into an
 integrated profile (\code{vpi})}
 \usage{
 integrate_profile(
@@ -76,31 +76,32 @@ integrated profile quantities
 }
 \description{
 Performs a vertical integration of density, reflectivity and migration
-traffic rate, and a vertical averaging of ground speed and direction
-weighted by density.
+traffic rate, and a vertical averaging of ground speed and direction weighted
+by density.
 }
 \details{
 \subsection{Available quantities}{
 The function generates a specially classed data frame with the following
 quantities:
-\describe{
-\item{\code{datetime}}{POSIXct date of each profile in UTC}
-\item{\code{vid}}{Vertically Integrated Density in individuals/km^2.
-\code{vid} is a surface density, whereas \code{dens} in \code{vp}
-objects is a volume density.}
-\item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
-\item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
-\item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
-\item{\code{mt}}{Migration Traffic in individuals/km, cumulated from
-the start of the time series up to \code{datetime}}
-\item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
-the start of the time series up to \code{datetime}}
-\item{\code{ff}}{Horizontal ground speed in m/s}
-\item{\code{dd}}{Direction of the horizontal ground speed in degrees}
-\item{\code{u}}{Ground speed component west to east in m/s}
-\item{\code{v}}{Ground speed component south to north in m/s}
-\item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
+\itemize{
+\item \code{datetime}: POSIXct date of each profile in UTC
+\item \code{vid}: Vertically Integrated Density in individuals/km^2.
+\code{vid} is a surface density, whereas \code{dens} in \code{vp} objects is a volume
+density.
+\item \code{vir}: Vertically Integrated Reflectivity in cm^2/km^2
+\item \code{mtr}: Migration Traffic Rate in individuals/km/h
+\item \code{rtr}: Reflectivity Traffic Rate in cm^2/km/h
+\item \code{mt}: Migration Traffic in individuals/km, cumulated from the start of the
+time series up to \code{datetime}
+\item \code{rt}: Reflectivity Traffic in cm^2/km, cumulated from the start of the time
+series up to \code{datetime}
+\item \code{ff}: Horizontal ground speed in m/s
+\item \code{dd}: Direction of the horizontal ground speed in degrees
+\item \code{u}: Ground speed component west to east in m/s
+\item \code{v}: Ground speed component south to north in m/s
+\item \code{height}: Mean flight height (height weighted by eta) in m above sea level
 }
+
 Vertically integrated density and reflectivity are related according to
 \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
 individual. Similarly, migration traffic rate and reflectivity traffic rate
@@ -203,33 +204,32 @@ ground speed directions vary with altitude.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{integrate_profile(vp)}: Vertically integrate a vertical profile.
+\item \code{integrate_profile(vp)}: Vertically integrate a vertical profile (\code{vp}).
 
-\item \code{integrate_profile(list)}: Vertically integrate a list of
-vertical profiles.
+\item \code{integrate_profile(list)}: Vertically integrate a list of vertical
+profiles (\code{vp}).
 
 \item \code{integrate_profile(vpts)}: Vertically integrate a time series of
-vertical profiles.
+vertical profiles (\code{vpts}).
 
 }}
 \examples{
-# MTR for a single vertical profile
+# Calculate migration traffic rates for a single vp
 integrate_profile(example_vp)
 
-# MTRs for a list of vertical profiles
+# Calculate migration traffic rates for a list of vps
 integrate_profile(c(example_vp, example_vp))
 
-# MTRs for a time series of vertical profiles
-# load example data:
-data(example_vpts)
-example_vpts
-# print migration traffic rates
+# Calculate migration traffic rates for a vpts
 vpi <- integrate_profile(example_vpts)
-# plot migration traffic rates for the full air column
-plot(example_vpts)
-# plot migration traffic rates for altitudes > 1 km above sea level
+
+# Plot migration traffic rate (mtr) for the full air column
+plot(integrate_profile(example_vpts))
+
+# Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 plot(integrate_profile(example_vpts, alt_min = 1000))
-# plot the (cumulative) migration traffic
+
+# Plot cumulative migration traffic rates (mt)
 plot(integrate_profile(example_vpts), quantity = "mt")
 # calculate median flight altitude (instead of default mean)
 integrate_profile(example_vp, height_quantile=.5)

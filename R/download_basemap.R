@@ -1,62 +1,53 @@
-#' Download a basemap for \code{map(ppi)}
+#' Download a basemap for `map(ppi)`
 #'
-#' Downloads a Stamen Maps or Google Maps base layer
-#' map using \link[ggmap]{get_map}.
+#' Downloads a basemap for [map.ppi()] from Stamen Maps or Google Maps using
+#' [ggmap::get_map()]. To use Google Maps as `source`, you will have to register
+#' with Google, enable billing and provide an API key to ggmap. See the [ggmap
+#' README](https://github.com/dkahle/ggmap#attention) for details.
 #'
-#' To use Google Maps as \code{source}, you will have to register with Google,
-#' enable billing and provide an API key to ggmap. See the ggmap
-#' \href{https://github.com/dkahle/ggmap#attention}{README} for details.
-#'
-#' To use \code{maptype}, install the development version of ggmap (>3.0.0) with
-#' \code{devtools::install_github("dkahle/ggmap")}.
-#'
-#' @param x An object of class \code{ppi}.
-#' @param zoom Zoom level (optional), see \link[ggmap]{get_map}. An integer
-#'   from 3 (continent) to 21 (building). By default the zoom level matching the
-#'   ppi extent is selected automatically.
-#' @param alpha Transparency of the basemap (0-1).
-#' @param verbose Logical, whether to print information to console.
-#' @param source String identifying which map service should be used: "stamen" or "google".
-#' @param maptype Type of basemap to plot. For Stamen Maps: "terrain",
-#' "terrain-background", "terrain-labels", "terrain-lines", "toner",
-#' "toner-2010", "toner-2011", "toner-background", "toner-hybrid",
-#' "toner-labels", "toner-lines", "toner-lite", "watercolor". For Google
-#' Maps: "terrain", "satellite", "roadmap", "hybrid"
-#' @param ... Arguments to pass to \link[ggmap]{get_map} function.
+#' @param x A `ppi` object.
+#' @param verbose Logical. When `TRUE`, prints information to console.
+#' @param zoom Integer. Optional zoom level from 3 (continent) to 21 (building),
+#'   see [ggmap::get_map()]. When undefined, the zoom level will be the one
+#'   matching the `ppi` extent.
+#' @param alpha Numeric. Transparency of the basemap, value between 0 and 1.
+#' @param source Character. Map service to be used: `stamen` or `google`.
+#' @param maptype Character. Type of basemap to plot. For Stamen Maps:
+#'   `terrain`, `terrain-background`, `terrain-labels`, `terrain-lines`,
+#'   `toner`, `toner-2010`, `toner-2011`, `toner-background`, `toner-hybrid`,
+#'   `toner-labels`, `toner-lines`, `toner-lite` or `watercolor`. For Google
+#'   Maps: `terrain`, `satellite`, `roadmap` or `hybrid`.
+#' @param ... Arguments to pass to [ggmap::get_map()].
 #'
 #' @export
 #'
+#' @seealso
+#' * [map.ppi()]
+#'
 #' @examples
-#' # load an example scan:
-#' data(example_scan)
-#'
-#' # print summary info for the scan:
-#' example_scan
-#'
-#' # make ppi for the scan
+#' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #' \dontrun{
-#' # grab a basemap that matches the extent of the ppi:
+#' # Create a basemap that matches the extent of the ppi
 #' basemap <- download_basemap(ppi)
 #'
-#' # map the reflectivity quantity of the ppi onto the basemap:
-#' map(ppi, map = basemap, param = "DBZH")
+#' # Map the radial velocity of the ppi onto the basemap
+#' map(ppi, map = basemap, param = "VRADH")
 #'
-#' # increase the transparancy of the basemap:
+#' # Increase the transparency of the basemap
 #' basemap <- download_basemap(ppi, alpha = 0.3)
-#' map(ppi, map = basemap, param = "DBZH")
+#' map(ppi, map = basemap, param = "VRADH")
 #'
-#' # download a different type of basemap, e.g. a gray-scale image:
-#' # see get_map() in ggmap library for full documentation of options
+#' # Download a different type of basemap, e.g. a gray-scale image.
+#' # See get_map() in ggmap library for full documentation of the options.
 #' basemap <- download_basemap(ppi, maptype = "toner-lite")
-#'
-#' # map the radial velocities onto the line image:
 #' map(ppi, map = basemap, param = "VRADH")
 #' }
-download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stamen", maptype = "terrain", ...) {
+download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1,
+                             source = "stamen", maptype = "terrain", ...) {
   stopifnot(inherits(x, "ppi"))
-
-  if(packageVersion("ggmap") < numeric_version("3.0.0.903")){
+  rlang::check_installed("ggmap",'to run `download_basemap`', version = '3.0.0')
+  if(utils::packageVersion("ggmap") < numeric_version("3.0.0.903")){
     # not throw a true warning to pass CRAN checks
     message("Warning message:\n ggmap not up-to-date (version < 3.0.0.903), upgrade is required using devtools::install_github(\"dkahle/ggmap\")")
   }
@@ -78,7 +69,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   }
   # check size of ppi and determine zoom
   if (missing(zoom)) {
-    use_zoom <- calc_zoom(x$geo$bbox["lon", ], x$geo$bbox["lat", ])
+    use_zoom <- ggmap::calc_zoom(x$geo$bbox["lon", ], x$geo$bbox["lat", ])
   } else {
     use_zoom <- zoom
   }
@@ -86,7 +77,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
   if (verbose) {
     cat("Downloading zoom =", use_zoom, "...\n")
   }
-  map <- get_map(
+  map <- ggmap::get_map(
     location = location,
     zoom = use_zoom,
     source = source,
@@ -103,7 +94,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
       if (verbose) {
         cat("Map too small, downloading zoom =", use_zoom - 1, "...\n")
       }
-      map <- get_map(
+      map <- ggmap::get_map(
         location = location,
         zoom = use_zoom - 1,
         source = source,
@@ -118,7 +109,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1, source = "stame
         if (verbose) {
           cat("Map still too small, downloading zoom =", use_zoom - 2, "...\n")
         }
-        map <- get_map(
+        map <- ggmap::get_map(
           location = location,
           zoom = use_zoom - 2,
           source = source,

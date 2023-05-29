@@ -204,7 +204,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       vpfile = vpfile, pvolfile_out = pvolfile_out,
       autoconf = autoconf, verbose = verbose, warnings = warnings,
       mount = mount, sd_vvp_threshold = sd_vvp_threshold,
-      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol=single_pol,
+      rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol = single_pol,
       elev_min = elev_min, elev_max = 90, azim_min = 0, azim_max = 360,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
       h_layer = h_layer, dealias = dealias,
@@ -219,130 +219,129 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     file.remove(tmp_pvol_file)
     return(res)
   }
-
+  rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."))
   # check input arguments
-  assert_that(
+  assertthat::assert_that(
     is.character(file),
     msg = "`file` must be a path to a file (or a vector of paths to files)."
   )
   for (filename in file) {
-    assert_that(file.exists(filename))
+    assertthat::assert_that(file.exists(filename))
   }
-  if (!are_equal(vpfile, "")) {
-    assert_that(is.writeable(dirname(vpfile)))
+  if (!assertthat::are_equal(vpfile, "")) {
+    assertthat::assert_that(assertthat::is.writeable(dirname(vpfile)))
   }
-  if (!are_equal(pvolfile_out, "")) {
-    assert_that(is.writeable(dirname(pvolfile_out)))
+  if (!assertthat::are_equal(pvolfile_out, "")) {
+    assertthat::assert_that(assertthat::is.writeable(dirname(pvolfile_out)))
   }
   if (!is.logical(mistnet)) {
     stop("`mistnet` must be a logical value.")
   }
-  if (mistnet){
-    if(missing(local_mistnet)){
+  if (mistnet) {
+    if (missing(local_mistnet)) {
       if (!vol2birdR::mistnet_exists()) {
         stop("MistNet has not been installed, see vol2birdR package documentation for install instructions.")
       }
-    }
-    else{
-      if(!file.exists(local_mistnet)){
-        stop(paste0("'",local_mistnet,"' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
+    } else {
+      if (!file.exists(local_mistnet)) {
+        stop(paste0("'", local_mistnet, "' does not exist, `local_mistnet` should specify the path of MistNet segmentation model"))
       }
     }
   }
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
   }
-  if(!missing(mount))  {
+  if (!missing(mount)) {
     warning("mount argument is deprecated")
   }
-  if(!missing(local_install)){
+  if (!missing(local_install)) {
     warning("local_install argument is deprecated")
   }
 
-  assert_that(is.numeric(mistnet_elevations))
-  assert_that(length(mistnet_elevations) == 5)
-  assert_that(is.flag(autoconf))
-  assert_that(is.flag(verbose))
-  assert_that(is.flag(warnings))
+  assertthat::assert_that(is.numeric(mistnet_elevations))
+  assertthat::assert_that(length(mistnet_elevations) == 5)
+  assertthat::assert_that(assertthat::is.flag(autoconf))
+  assertthat::assert_that(assertthat::is.flag(verbose))
+  assertthat::assert_that(assertthat::is.flag(warnings))
   if (!missing(sd_vvp_threshold)) {
-    assert_that(is.number(sd_vvp_threshold))
-    assert_that(sd_vvp_threshold >= 0)
+    assertthat::assert_that(assertthat::is.number(sd_vvp_threshold))
+    assertthat::assert_that(sd_vvp_threshold >= 0)
   }
-  assert_that(is.number(rcs))
-  assert_that(rcs > 0)
-  assert_that(is.flag(dual_pol))
-  assert_that(is.number(rho_hv))
-  assert_that(is.flag(single_pol))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(rcs))
+  assertthat::assert_that(rcs > 0)
+  assertthat::assert_that(assertthat::is.flag(dual_pol))
+  assertthat::assert_that(assertthat::is.number(rho_hv))
+  assertthat::assert_that(assertthat::is.flag(single_pol))
+  assertthat::assert_that(
     rho_hv >= 0 & rho_hv <= 1,
     msg = "`rho_hv` must be a number between 0 and 1."
   )
-  assert_that(is.number(elev_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(elev_min))
+  assertthat::assert_that(
     elev_min >= -90 & elev_min <= 90,
     msg = "`elev_min` must be a number between -90 and 90."
   )
-  assert_that(is.number(elev_max))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(elev_max))
+  assertthat::assert_that(
     elev_max >= -90 & elev_max <= 90,
     msg = "`elev_max` must be a number between -90 and 90."
   )
-  assert_that(
+  assertthat::assert_that(
     elev_max > elev_min,
     msg = "`elev_max` must be larger than `elev_min`."
   )
-  assert_that(is.number(azim_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(azim_min))
+  assertthat::assert_that(
     azim_min >= 0 & azim_min <= 360,
     msg = "`azim_min` must be a number between 0 and 360."
   )
-  assert_that(is.number(azim_max))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(azim_max))
+  assertthat::assert_that(
     azim_max >= 0 & azim_max <= 360,
     msg = "`azim_max` must be a number between 0 and 360."
   )
-  assert_that(is.number(range_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(range_min))
+  assertthat::assert_that(
     range_min >= 0,
     msg = "`range_min` must be a positive number."
   )
-  assert_that(is.number(range_max))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(range_max))
+  assertthat::assert_that(
     range_max > 0,
     msg = "`range_max` must be a positive number."
   )
-  assert_that(
+  assertthat::assert_that(
     range_max > range_min,
     msg = "`range_max` must be larger than `range_min`."
   )
-  assert_that(is.count(n_layer))
-  assert_that(is.number(h_layer))
-  assert_that(
+  assertthat::assert_that(assertthat::is.count(n_layer))
+  assertthat::assert_that(assertthat::is.number(h_layer))
+  assertthat::assert_that(
     h_layer > 0,
     msg = "`h_layer` must be a positive number."
   )
-  assert_that(is.number(nyquist_min))
-  assert_that(
+  assertthat::assert_that(assertthat::is.number(nyquist_min))
+  assertthat::assert_that(
     nyquist_min > 0,
     msg = "`nyquist_min` must be a positive number."
   )
-  assert_that(
+  assertthat::assert_that(
     dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"),
     msg = "`dbz_quantity` must be either `DBZ`, `DBZH`, `DBZV`, `TH` or `TV`."
   )
-  assert_that(is.flag(mistnet))
-  assert_that(
+  assertthat::assert_that(assertthat::is.flag(mistnet))
+  assertthat::assert_that(
     !(mistnet && !vol2birdR::mistnet_exists() && missing(local_mistnet)),
     msg = "Can't find MistNet installation, see vol2birdR package for install instructions.")
-  assert_that(is.flag(dealias))
+  assertthat::assert_that(assertthat::is.flag(dealias))
 
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
-  assert_that(is.writeable(filedir))
+  assertthat::assert_that(assertthat::is.writeable(filedir))
 
   profile.tmp <- tempfile()
 
   config <- vol2birdR::vol2bird_config()
-  if(!autoconf){
+  if (!autoconf) {
     config$birdRadarCrossSection <- rcs
     config$rhohvThresMin <- rho_hv
     config$elevMin <- elev_min
@@ -358,16 +357,16 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$dualPol <- dual_pol
     config$dealiasVrad <- dealias
     if (!missing(sd_vvp_threshold)) config$stdDevMinBird <- sd_vvp_threshold
-  } else{
+  } else {
     # setting stdDevMinBird triggers it to be set according to wavelength (1 m/s for S-band, 2 m/s for C-band)
     config$stdDevMinBird <- -1
   }
   config$mistNetElevs <- mistnet_elevations
   config$useMistNet <- mistnet
-  if(!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
+  if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
 
   # run vol2bird
-  vol2birdR::vol2bird(file=file, config=config, vpfile=profile.tmp, pvolfile_out=pvolfile_out, verbose = verbose)
+  vol2birdR::vol2bird(file = file, config = config, vpfile = profile.tmp, pvolfile_out = pvolfile_out, verbose = verbose)
 
   # read output into a vp object
   output <- read_vpfiles(profile.tmp)
@@ -379,4 +378,14 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   file.remove(profile.tmp)
 
   output
+}
+
+format_reason_vol2bird <- function(x) {
+  on_intel_mac <- Sys.info()[["sysname"]]=="Darwin" & Sys.info()[["machine"]] == "x86_64"
+  if (.Platform$OS.type == "unix" & !on_intel_mac) {
+    return(paste(x, "Installation may require pre-installation of additional system libraries, see https://github.com/adokter/vol2birdR#install for instructions."))
+  } else {
+    # platform is Windows or Intel Mac, pre-compiled binaries are available on CRAN
+    return(x)
+  }
 }

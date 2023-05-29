@@ -32,11 +32,13 @@ is.pvolfile <- function(file) {
   }
 }
 
-#' Check the `data` object contained in a ODIM HDF5 file
+#' Check the `data` type of an ODIM HDF5 file
 #'
-#' Checks which data class is contained in a ODIM HDF5 file. See [ODIM
+#' Checks what type of `data` object is contained in an ODIM HDF5 file. See
+#' [ODIM
 #' specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf),
 #' Table 2 for a full list of existing ODIM file object types.
+#'
 #'
 #' @param file Character. Path of the file to check.
 #'
@@ -57,14 +59,15 @@ is.pvolfile <- function(file) {
 #' get_odim_object_type(pvolfile)
 get_odim_object_type <- function(file) {
   if (!file.exists(file)) {
-    warning(glue("Can't find {file}"))
+    warning(glue::glue("Can't find {file}"))
     return(NA)
   }
   if (!is.odimfile(file)) {
     # Errors are handled by is.odimfile()
     return(NA)
   }
-  object <- h5readAttributes(file, "what")$object
+
+  object <- rhdf5::h5readAttributes(file, "what")$object
   # current implementation of write_pvolfile stores string attributes as
   # single element arrays. This line guarantees that for files written with write_pvolfile
   # the output class is character instead of an array with a single character element.
@@ -73,29 +76,29 @@ get_odim_object_type <- function(file) {
 }
 
 is.odimfile <- function(file) {
-  if (!H5Fis_hdf5(file)) {
-    warning(glue("{file} is not an HDF5 file."))
+  if (!rhdf5::H5Fis_hdf5(file)) {
+    warning(glue::glue("{file} is not an HDF5 file."))
     return(FALSE)
   }
   output <- TRUE
-  groups <- h5ls(file, recursive = FALSE)$name
+  groups <- rhdf5::h5ls(file, recursive = FALSE)$name
   if (!("dataset1" %in% groups)) {
     output <- FALSE
     warning(
-      glue("HDF5 file {file} does not contain a `/dataset1` group.")
+      glue::glue("HDF5 file {file} does not contain a `/dataset1` group.")
     )
   }
 
   if (!("what" %in% groups)) {
     output <- FALSE
     warning(
-      glue("HDF5 file {file} does not contain a `/what` group.")
+      glue::glue("HDF5 file {file} does not contain a `/what` group.")
     )
   } else {
-    object <- h5readAttributes(file, "what")$object
+    object <- rhdf5::h5readAttributes(file, "what")$object
     if (is.null(object)) {
       warning(
-        glue("HDF5 file {file} does not contain an `object` attribute in the ",
+        glue::glue("HDF5 file {file} does not contain an `object` attribute in the ",
         "`/what` group.")
       )
       output <- FALSE
@@ -105,13 +108,13 @@ is.odimfile <- function(file) {
   if (!("how" %in% groups)) {
     # accepting a missing /how group
     warning(
-      glue("HDF5 file {file} does not contain a `/how` group.")
+      glue::glue("HDF5 file {file} does not contain a `/how` group.")
     )
   }
   if (!("where" %in% groups)) {
     output <- FALSE
     warning(
-      glue("HDF5 file {file} does not contain a `/where` group.")
+      glue::glue("HDF5 file {file} does not contain a `/where` group.")
     )
   }
   return(output)

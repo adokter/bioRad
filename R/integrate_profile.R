@@ -1,52 +1,61 @@
-#' Vertically integrate profiles (\code{vp} or \code{vpts}) to an
-#' integrated profile (\code{vpi})
+#' Vertically integrate profiles (`vp` or `vpts`) into an
+#' integrated profile (`vpi`)
 #'
 #' Performs a vertical integration of density, reflectivity and migration
-#' traffic rate, and a vertical averaging of ground speed and direction
-#' weighted by density.
+#' traffic rate, and a vertical averaging of ground speed and direction weighted
+#' by density.
 #'
-#' @param x A \code{vp} or \code{vpts} object.
-#' @param alt_min Minimum altitude in m. \code{"antenna"} can be used to set the
+#' @param x A `vp` or `vpts` object.
+#' @param alt_min Numeric. Minimum altitude, in m.
+#' @param alt_max Numeric. Maximum altitude, in m.
+#' @param alpha Numeric. Migratory direction, in clockwise degrees from north.
+#' @param interval_max Numeric. Maximum time interval belonging to a single
+#'   profile, in seconds. Traffic rates are set to zero at times `t` for which
+#'   no profiles can be found within the period `t - interval_max/2` to `t +
+#'   interval_max/2`. Ignored for single profiles of class `vp`.
+#'
+#' @param x A `vp` or `vpts` object.
+#' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
 #' minimum altitude to the height of the antenna.
 #' @param alt_max Maximum altitude in m.
 #' @param alpha Migratory direction in clockwise degrees from north.
 #' @param interval_max Maximum time interval belonging to a single profile in
-#' seconds. Traffic rates are set to zero at times \code{t} for which no
-#' profiles can be found within the period \code{t-interval_max/2} to
-#' \code{t+interval_max/2}. Ignored for single profiles of class \code{vp}.
+#' seconds. Traffic rates are set to zero at times `t` for which no
+#' profiles can be found within the period `t-interval_max/2` to
+#' `t+interval_max/2`. Ignored for single profiles of class `vp`.
 #' @param interval_replace Time interval to use for any interval > interval_max.
 #' By default the mean of all intervals <= interval_max
 #' @param height_quantile For default `NA` the calculated height equals
 #' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
 #' quantile of the height distribution.
 #'
-#' @return an object of class \code{vpi}, a data frame with vertically
+#' @return an object of class `vpi`, a data frame with vertically
 #' integrated profile quantities
 #'
 #' @details
 #' \subsection{Available quantities}{
 #' The function generates a specially classed data frame with the following
 #' quantities:
-#' \describe{
-#'    \item{\code{datetime}}{POSIXct date of each profile in UTC}
-#'    \item{\code{vid}}{Vertically Integrated Density in individuals/km^2.
-#'       \code{vid} is a surface density, whereas \code{dens} in \code{vp}
-#'       objects is a volume density.}
-#'    \item{\code{vir}}{Vertically Integrated Reflectivity in cm^2/km^2}
-#'    \item{\code{mtr}}{Migration Traffic Rate in individuals/km/h}
-#'    \item{\code{rtr}}{Reflectivity Traffic Rate in cm^2/km/h}
-#'    \item{\code{mt}}{Migration Traffic in individuals/km, cumulated from
-#'       the start of the time series up to \code{datetime}}
-#'    \item{\code{rt}}{Reflectivity Traffic in cm^2/km, cumulated from
-#'       the start of the time series up to \code{datetime}}
-#'    \item{\code{ff}}{Horizontal ground speed in m/s}
-#'    \item{\code{dd}}{Direction of the horizontal ground speed in degrees}
-#'    \item{\code{u}}{Ground speed component west to east in m/s}
-#'    \item{\code{v}}{Ground speed component south to north in m/s}
-#'    \item{\code{height}}{Mean flight height (height weighted by eta) in m above sea level}
-#' }
+#'
+#' * `datetime`: POSIXct date of each profile in UTC
+#' * `vid`: Vertically Integrated Density in individuals/km^2.
+#'   `vid` is a surface density, whereas `dens` in `vp` objects is a volume
+#'   density.
+#' * `vir`: Vertically Integrated Reflectivity in cm^2/km^2
+#' * `mtr`: Migration Traffic Rate in individuals/km/h
+#' * `rtr`: Reflectivity Traffic Rate in cm^2/km/h
+#' * `mt`: Migration Traffic in individuals/km, cumulated from the start of the
+#'   time series up to `datetime`
+#' * `rt`: Reflectivity Traffic in cm^2/km, cumulated from the start of the time
+#'   series up to `datetime`
+#' * `ff`: Horizontal ground speed in m/s
+#' * `dd`: Direction of the horizontal ground speed in degrees
+#' * `u`: Ground speed component west to east in m/s
+#' * `v`: Ground speed component south to north in m/s
+#' * `height`: Mean flight height (height weighted by eta) in m above sea level
+#'
 #' Vertically integrated density and reflectivity are related according to
-#' \eqn{vid=vir/rcs(x)}, with \link{rcs} the assumed radar cross section per
+#' \eqn{vid=vir/rcs(x)}, with [rcs] the assumed radar cross section per
 #' individual. Similarly, migration traffic rate and reflectivity traffic rate
 #' are related according to \eqn{mtr=rtr/rcs(x)}
 #' }
@@ -57,50 +66,50 @@
 #'
 #' Column mtr of the output dataframe gives migration traffic rates in individuals/km/hour.
 #'
-#' The transect direction is set by the angle \code{alpha}. When
-#' \code{alpha=NA}, the transect runs perpendicular to the measured migratory
-#' direction. \code{mtr} then equals the number of crossing targets per km
+#' The transect direction is set by the angle `alpha`. When
+#' `alpha=NA`, the transect runs perpendicular to the measured migratory
+#' direction. `mtr` then equals the number of crossing targets per km
 #' transect per hour, for a transect kept perpendicular to the measured
-#' migratory movement at all times and altitudes. In this case \code{mtr} is
+#' migratory movement at all times and altitudes. In this case `mtr` is
 #' always a positive quantity, defined as:
 #'
 #' \deqn{mtr = 3.6 \sum_i \mathit{dens}_i \mathit{ff}_i \Delta h}{mtr = 3.6 \sum_i \mathit{dens}_i \mathit{ff}_i \Delta h}
 #'
-#' with the sum running over all altitude layers between \code{alt_min} and
-#' \code{alt_max}, \eqn{\mathit{dens}_i} the bird density, \eqn{\mathit{ff}_i} the ground speed at
+#' with the sum running over all altitude layers between `alt_min` and
+#' `alt_max`, \eqn{\mathit{dens}_i} the bird density, \eqn{\mathit{ff}_i} the ground speed at
 #' altitude layer i, and \eqn{\Delta h} the altitude layer width. The factor 3.6
 #' refers to a unit conversion of speeds \eqn{\mathit{ff}_i} from m/s to km/h.
 #'
-#' If \code{alpha} is given a numeric value, the transect is taken perpendicular
-#' to the direction \code{alpha}, and the number of crossing targets per hour
+#' If `alpha` is given a numeric value, the transect is taken perpendicular
+#' to the direction `alpha`, and the number of crossing targets per hour
 #' per km transect is calculated as:
 #'
 #' \deqn{mtr = 3.6 \sum_i \mathit{dens}_i \mathit{ff}_i \cos((dd_i-\alpha) \pi/180) \Delta h}{mtr = 3.6 \sum_i \mathit{dens}_i \mathit{ff}_i \cos((dd_i-\alpha) \pi/180) \Delta h}
 #' with \eqn{dd_i} the migratory direction at altitude i.
 #'
-#' Note that this equation evaluates to the previous equation when \code{alpha} equals \eqn{dd_i}.
+#' Note that this equation evaluates to the previous equation when `alpha` equals \eqn{dd_i}.
 #' Also note we can rewrite this equation using trigonometry as:
 #'
 #' \deqn{mtr = 3.6 \sum_i \mathit{dens}_i (u_i \sin(\alpha \pi/180) + v_i \cos(\alpha \pi/180)) \Delta h}{mtr = 3.6 \sum_i \mathit{dens}_i (u_i \sin(\alpha \pi/180) + v_i \cos(alpha pi/180)) \Delta h}
 #' with \eqn{u_i} and \eqn{v_i} the u and v ground speed components at altitude i.
 #'
-#' In this definition \code{mtr} is a traditional flux into a direction of
-#' interest. Targets moving into the direction \code{alpha} contribute
-#' positively to \code{mtr}, while targets moving in the opposite direction
-#' contribute negatively to \code{mtr}. Therefore \code{mtr} can be both
+#' In this definition `mtr` is a traditional flux into a direction of
+#' interest. Targets moving into the direction `alpha` contribute
+#' positively to `mtr`, while targets moving in the opposite direction
+#' contribute negatively to `mtr`. Therefore `mtr` can be both
 #' positive or negative, depending on the definition of alpha.
 #'
-#' Note that \code{mtr} for a given value of \code{alpha} can also be calculated from
-#' the vertically integrated density \code{vid} and the height-integrated velocity
-#' components \code{u} and \code{v} as follows:
+#' Note that `mtr` for a given value of `alpha` can also be calculated from
+#' the vertically integrated density `vid` and the height-integrated velocity
+#' components `u` and `v` as follows:
 #'
 #' \deqn{mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid}{mtr = 3.6 (u \sin(\alpha \pi/180) + v \cos(\alpha \pi/180)) vid}
 #'
-#' Formula for reflectivity traffic rate \code{rtr} are found by replacing
-#' \code{dens} with \code{eta} and \code{vid} with \code{vir} in the formula for \code{mtr}.
+#' Formula for reflectivity traffic rate `rtr` are found by replacing
+#' `dens` with `eta` and `vid` with `vir` in the formula for `mtr`.
 #' Reflectivity traffic rate gives the cross-sectional area
 #' passing the radar per km transect perpendicular to the migratory direction per hour.
-#' \code{mtr} values are conditional on settings of \link{rcs}, while \code{rtr} values are not.
+#' `mtr` values are conditional on settings of [rcs], while `rtr` values are not.
 #' }
 #'
 #' \subsection{Migration traffic (mt) and reflectivity traffic (rt)}{
@@ -116,7 +125,7 @@
 #' position of the radar for the full period of the time series within the
 #' specified altitude band.
 #'
-#' \code{mt} values are conditional on settings of \link{rcs}, while \code{rt} values are not.
+#' `mt` values are conditional on settings of [rcs], while `rt` values are not.
 #'
 #' Columns mt and rt in the output dataframe provides migration traffic as a numeric value equal to
 #' migration traffic and reflectivity traffic from the start of the time series up till the moment of the time stamp
@@ -126,8 +135,8 @@
 #' The height-averaged ground speed is defined as:
 #'
 #' \deqn{\mathit{ff} = \sum_i \mathit{dens}_i \mathit{ff}_i / \sum_i \mathit{dens}_i}{\mathit{ff} = \sum_i \mathit{dens}_i \mathit{ff}_i / \sum_i \mathit{dens}_i}
-#' with the sum running over all altitude layers between \code{alt_min} and
-#' \code{alt_max}, \eqn{\mathit{dens}_i} the bird density, \eqn{\mathit{ff}_i} the ground speed at
+#' with the sum running over all altitude layers between `alt_min` and
+#' `alt_max`, \eqn{\mathit{dens}_i} the bird density, \eqn{\mathit{ff}_i} the ground speed at
 #' altitude layer i.
 #'
 #' the height-averaged u component (west to east) is defined as:
@@ -147,23 +156,22 @@
 #' @export
 #'
 #' @examples
-#' # MTR for a single vertical profile
+#' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
 #'
-#' # MTRs for a list of vertical profiles
+#' # Calculate migration traffic rates for a list of vps
 #' integrate_profile(c(example_vp, example_vp))
 #'
-#' # MTRs for a time series of vertical profiles
-#' # load example data:
-#' data(example_vpts)
-#' example_vpts
-#' # print migration traffic rates
+#' # Calculate migration traffic rates for a vpts
 #' vpi <- integrate_profile(example_vpts)
-#' # plot migration traffic rates for the full air column
-#' plot(example_vpts)
-#' # plot migration traffic rates for altitudes > 1 km above sea level
+#'
+#' # Plot migration traffic rate (mtr) for the full air column
+#' plot(integrate_profile(example_vpts))
+#'
+#' # Plot migration traffic rate (mtr) for altitudes > 1 km above sea level
 #' plot(integrate_profile(example_vpts, alt_min = 1000))
-#' # plot the (cumulative) migration traffic
+#'
+#' # Plot cumulative migration traffic rates (mt)
 #' plot(integrate_profile(example_vpts), quantity = "mt")
 #' # calculate median flight altitude (instead of default mean)
 #' integrate_profile(example_vp, height_quantile=.5)
@@ -175,7 +183,7 @@ integrate_profile <- function(x, alt_min, alt_max,
   UseMethod("integrate_profile", x)
 }
 
-#' @describeIn integrate_profile Vertically integrate a vertical profile.
+#' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
 #'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
@@ -185,10 +193,10 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
 
-  assert_that(is.scalar(height_quantile))
+  assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
-    assert_that(is.number(height_quantile))
-    assert_that(height_quantile>0 && height_quantile<1)
+    assertthat::assert_that(assertthat::is.number(height_quantile))
+    assertthat::assert_that(height_quantile>0 && height_quantile<1)
   }
 
   if (alt_min=="antenna"){
@@ -235,7 +243,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
   if(is.na(height_quantile)){
     # default (no height_quantile specified) is calculating the mean altitude
-    height <- weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
+    height <- stats::weighted.mean(get_quantity(x, "height") + interval / 2, weight_densdh, na.rm = TRUE)
   }
   else{
     # calculate a quantile of the flight altitude distribution
@@ -256,9 +264,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     height <- height_lower+delta_linear_interpolation
   }
 
-  u <- weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
-  v <- weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
-  ff <- weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
+  u <- stats::weighted.mean(get_quantity(x, "u"), weight_densdh, na.rm = TRUE)
+  v <- stats::weighted.mean(get_quantity(x, "v"), weight_densdh, na.rm = TRUE)
+  ff <- stats::weighted.mean(get_quantity(x, "ff"), weight_densdh, na.rm = TRUE)
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   dd[which(dd<0)]=dd[which(dd<0)]+360
   # time-integrated measures not defined for a single profile:
@@ -274,14 +282,14 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
-    output$heading <- weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
+    output$airspeed <- stats::weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
+    output$heading <- stats::weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
     output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
-    output$airspeed_u <- weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
-    output$airspeed_v <- weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
-    output$ff_wind <- weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
-    output$u_wind <- weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
-    output$v_wind <- weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
+    output$airspeed_u <- stats::weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
+    output$airspeed_v <- stats::weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
+    output$ff_wind <- stats::weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
+    output$u_wind <- stats::weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
+    output$v_wind <- stats::weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -298,14 +306,14 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   return(output)
 }
 
-#' @describeIn integrate_profile Vertically integrate a list of
-#' vertical profiles.
+#' @describeIn integrate_profile Vertically integrate a list of vertical
+#'   profiles (`vp`).
 #'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,
                                    interval_replace=NA, height_quantile = NA) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("requires list of vp objects as input")
   }
@@ -331,7 +339,7 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 }
 
 #' @describeIn integrate_profile Vertically integrate a time series of
-#' vertical profiles.
+#' vertical profiles (`vpts`).
 #'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
@@ -341,25 +349,25 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
   stopifnot(is.na(alpha) || is.numeric(alpha))
-  assert_that(is.number(interval_max))
-  assert_that(interval_max>0)
+  assertthat::assert_that(assertthat::is.number(interval_max))
+  assertthat::assert_that(interval_max>0)
 
-  dt_median <- as.double(median(x$timesteps),unit="secs")
+  dt_median <- as.double(stats::median(x$timesteps),unit="secs")
   if(interval_max < dt_median) warning(paste0("interval_max < median timestep of the time series (",dt_median," sec), consider a larger value."))
 
   if(!missing(interval_replace)){
-    assert_that(is.number(interval_replace))
-    assert_that(interval_replace>0)
+    assertthat::assert_that(assertthat::is.number(interval_replace))
+    assertthat::assert_that(interval_replace>0)
   }
   else{
     interval_replace=as.double(mean(x$timesteps[x$timesteps<interval_max]),unit="secs")
     if(is.na(interval_replace)) interval_replace=interval_max
   }
 
-  assert_that(is.scalar(height_quantile))
+  assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
-    assert_that(is.number(height_quantile))
-    assert_that(height_quantile>0 && height_quantile<1)
+    assertthat::assert_that(assertthat::is.number(height_quantile))
+    assertthat::assert_that(height_quantile>0 && height_quantile<1)
   }
 
   # Integrate from antenna height

@@ -14,7 +14,7 @@
 #'
 #' @inheritParams calculate_vp
 #'
-#' @return \code{TRUE} on success
+#' @return `TRUE` on success
 #'
 #' @export
 #' @examples
@@ -35,8 +35,8 @@
 #' file.remove("~/KBGM_example", "~/KBGM_example.h5")
 #' }
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE) {
-  assert_that(dir.exists(dirname(pvolfile_odim)),msg=paste("output directory", dirname(pvolfile_odim), "not found"))
-  assert_that(is.writeable(dirname(pvolfile_odim)))
+  assertthat::assert_that(dir.exists(dirname(pvolfile_odim)),msg=paste("output directory", dirname(pvolfile_odim), "not found"))
+  assertthat::assert_that(assertthat::is.writeable(dirname(pvolfile_odim)))
 
   config <- vol2birdR::vol2bird_config()
   vol2birdR::rsl2odim(file=pvolfile_nexrad, config=config, pvolfile_out=pvolfile_odim, verbose=verbose)

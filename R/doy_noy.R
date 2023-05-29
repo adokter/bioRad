@@ -46,7 +46,7 @@ noy <- function(x, ..., method = "fast") {
 #' @export
 doy.default <- function(x, lon, lat, ..., method = "fast") {
   tzone = lutz::tz_lookup_coords(lat, lon, method = method, warn = FALSE)
-  yday(lubridate::with_tz(x, tzone = tzone))
+  as.integer(lubridate::yday(lubridate::with_tz(x, tzone = tzone)))
 }
 
 #' @rdname doy_noy

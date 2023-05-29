@@ -32,8 +32,7 @@ downloaded files of the same names.}
 }
 \description{
 Download a selection of polar volume (\code{pvol}) files from the
-\href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive
-data}.
+\href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data}.
 }
 \examples{
 \dontrun{

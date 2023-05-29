@@ -1,14 +1,19 @@
 color_scale <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
-    colorscale <- scale_colour_gradient2(
+    colorscale <- ggplot2::scale_colour_gradient2(
       low = colors_vrad[1], high = colors_vrad[3],
       mid = colors_vrad[2], name = param,
       midpoint = 0, limits = zlim, na.value = na.value
     )
-  } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
-    colorscale <- viridis::scale_colour_viridis(na.value = na.value, name = param)
+  } else if (param %in% c("overlap",
+                          "BACKGROUND",
+                          "WEATHER",
+                          "BIOLOGY",
+                          "CELL")) {
+    colorscale <-
+      viridis::scale_colour_viridis(na.value = na.value, name = param)
   } else {
-    colorscale <- scale_colour_gradientn(
+    colorscale <- ggplot2::scale_colour_gradientn(
       colours = colors_dbz,
       name = param, limits = zlim, na.value = na.value
     )
@@ -16,36 +21,49 @@ color_scale <- function(param, zlim, na.value = "transparent") {
   return(colorscale)
 }
 
-
 color_scale_fill <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
-    colorscale <- scale_fill_gradient2(
+    colorscale <- ggplot2::scale_fill_gradient2(
       low = colors_vrad[1], high = colors_vrad[3],
       mid = colors_vrad[2], name = param,
       midpoint = 0, limits = zlim, na.value = na.value
     )
-  } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
+  } else if (param %in% c("overlap",
+                          "BACKGROUND",
+                          "WEATHER",
+                          "BIOLOGY",
+                          "CELL")) {
     colorscale <- viridis::scale_fill_viridis(na.value = na.value, name = param)
   } else {
-    colorscale <- color_palette_to_scale_fill(param, zlim, colors_dbz, na.value = "transparent")
+    colorscale <-
+      color_palette_to_scale_fill(param,
+                                  zlim,
+                                  colors_dbz,
+                                  na.value = "transparent")
   }
   return(colorscale)
 }
 
-color_palette <- function(param, n_color, alpha){
+color_palette <- function(param, n_color, alpha) {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     cols <- add_color_transparency(
-      colorRampPalette(
+      grDevices::colorRampPalette(
         colors = colors_vrad,
         alpha = TRUE
       )(n_color),
       alpha = alpha
     )
-  } else if (param %in% c("overlap", "BACKGROUND", "WEATHER", "BIOLOGY", "CELL")) {
-    cols <- viridisLite::viridis(n=n_color, alpha=alpha)
+  } else if (param %in% c(
+    "overlap",
+    "BACKGROUND",
+    "WEATHER",
+    "BIOLOGY",
+    "CELL"
+  )) {
+    cols <- viridisLite::viridis(n = n_color, alpha = alpha)
   } else {
     cols <- add_color_transparency(
-      colorRampPalette(
+      grDevices::colorRampPalette(
         colors = colors_dbz,
         alpha = TRUE
       )(n_color),
@@ -55,33 +73,37 @@ color_palette <- function(param, n_color, alpha){
   return(cols)
 }
 
-# convert a vector of colors to a ScaleContinuous (fill) color scale object
-color_palette_to_scale_fill <- function(param, zlim, colors, na.value = "transparent"){
-  ggplot2::scale_fill_gradientn(
-    colours = colors,
-    name = param,
-    limits = zlim,
-    na.value = na.value)
-}
+# Convert a vector of colors to a ScaleContinuous (fill) color scale object
+color_palette_to_scale_fill <-
+  function(param, zlim, colors, na.value = "transparent") {
+    ggplot2::scale_fill_gradientn(
+      colours = colors,
+      name = param,
+      limits = zlim,
+      na.value = na.value
+    )
+  }
 
-# convert a vector of colors to a ScaleContinuous (colour) color scale object
-color_palette_to_scale_colour <- function(param, zlim, colors, na.value = "transparent"){
-  ggplot2::scale_colour_gradientn(
-    colours = colors,
-    name = param,
-    limits = zlim,
-    na.value = na.value)
-}
+# Convert a vector of colors to a ScaleContinuous (colour) color scale object
+color_palette_to_scale_colour <-
+  function(param, zlim, colors, na.value = "transparent") {
+    ggplot2::scale_colour_gradientn(
+      colours = colors,
+      name = param,
+      limits = zlim,
+      na.value = na.value
+    )
+  }
 
-# helper function to add transparency
-# class dispatching needs improvement
+# Helper function to add transparency
+# TODO: class dispatching needs improvement
 add_color_transparency <- function(color, alpha = 1) {
   if (missing(color)) {
     stop("Please provide a vector or matrix of colours.")
   }
 
-  mycol <- col2rgb(color) / 255
-  mycol <- rgb(mycol[1, ], mycol[2, ], mycol[3, ], alpha = alpha)
+  mycol <- grDevices::col2rgb(color) / 255
+  mycol <- grDevices::rgb(mycol[1, ], mycol[2, ], mycol[3, ], alpha = alpha)
   if (inherits(color, "ggmap")) {
     mycol <- matrix(mycol, nrow = dim(color)[1], ncol = dim(color)[2])
     attributes(mycol) <- attributes(color)
@@ -90,14 +112,13 @@ add_color_transparency <- function(color, alpha = 1) {
   } else if (inherits(color, "raster")) {
     color@data@values <- mycol
     return(color)
-  }
-  else {
+  } else {
     return(mycol)
-    # apply(sapply(color, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha=alpha))
+    # apply(sapply(color, grDevices::col2rgb)/255, 2, function(x) grDevices::rgb(x[1], x[2], x[3], alpha=alpha))
   }
 }
 
-# color scale used in map plots:
+# Color scale used in map plots:
 colors_dbz <- c(
   "lightblue", "darkblue",
   "green", "yellow", "red",
@@ -105,14 +126,14 @@ colors_dbz <- c(
 )
 colors_vrad <- c("blue", "white", "red")
 
-# color scale used in vertical profile plots:
+# Color scale used in vertical profile plots:
 r_points <- c(1, 63, 82, 94, 146, 177, 192, 209, 256)
 r_values <- c(255, 255, 163, 255, 255, 81, 81, 0, 0)
 g_points <- c(1, 65, 80, 111, 143, 256)
 g_values <- c(255, 255, 163, 163, 0, 0)
 b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
 b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
-vpts_default_palette <- rgb(approx(
+vpts_default_palette <- grDevices::rgb(approx(
   r_points, r_values,
   seq(1, 255, length.out = 255)
 )$y,

@@ -3,7 +3,7 @@
 \name{map}
 \alias{map}
 \alias{map.ppi}
-\title{Map a plan position indicator (\code{ppi})}
+\title{Map a plan position indicator (\code{ppi}) on a map}
 \usage{
 map(x, ...)
 
@@ -19,111 +19,105 @@ map(x, ...)
   radar_size = 3,
   radar_color = "red",
   n_color = 1000,
-  radar.size = 3,
-  radar.color = "red",
-  n.color = 1000,
   palette = NA,
   ...
 )
 }
 \arguments{
-\item{x}{An object of class \code{ppi}.}
+\item{x}{A \code{ppi} object.}
 
-\item{...}{Arguments passed to low level \link[ggmap]{ggmap} function.}
+\item{...}{Arguments passed to \code{\link[ggmap:ggmap]{ggmap::ggmap()}}.}
 
-\item{map}{The basemap to use, result of a call to \link{download_basemap}.}
+\item{map}{Basemap to use, result of a call to \code{\link[=download_basemap]{download_basemap()}}.}
 
-\item{param}{The scan parameter to plot.}
+\item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
+\code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
 
-\item{alpha}{Transparency of the data, value between 0 and 1.}
+\item{alpha}{Numeric. Transparency of the data, value between 0 and 1.}
 
-\item{xlim}{Range of x values to plot (degrees longitude), as atomic
-vector of length 2.}
+\item{xlim}{Numeric vector of length 2. Range of x values (degrees longitude)
+to plot.}
 
-\item{ylim}{Range of y values to plot (degrees latitude), as an atomic
-vector of length 2.}
+\item{ylim}{Numeric vector of length 2. Range of y values (degrees latitude)
+to plot.}
 
-\item{zlim}{The range of values to plot.}
+\item{zlim}{Numeric vector of length 2. The range of values to plot.}
 
-\item{ratio}{Aspect ratio between x and y scale, by default
+\item{ratio}{Numeric. Aspect ratio between x and y scale, by default
 \eqn{1/cos(latitude radar * pi/180)}.}
 
-\item{radar_size}{Size of the symbol indicating the radar position.}
+\item{radar_size}{Numeric. Size of the symbol indicating the radar position.}
 
-\item{radar_color}{Color of the symbol indicating the radar position.}
+\item{radar_color}{Character. Color of the symbol indicating the radar
+position.}
 
-\item{n_color}{The number of colors (>=1) to be in the palette.}
+\item{n_color}{Numeric. Number of colors (>=1) to use in the palette.}
 
-\item{radar.size}{Deprecated argument, use radar_size instead.}
-
-\item{radar.color}{Deprecated argument, use radar_color instead.}
-
-\item{n.color}{Deprecated argument, use n_color instead.}
-
-\item{palette}{(Optional) character vector of hexadecimal color values defining
-the plot color scale, e.g. output from \link[viridisLite]{viridis}}
+\item{palette}{Character vector. Hexadecimal color values defining the plot
+color scale, e.g. output from \code{\link[viridisLite:viridis]{viridisLite::viridis()}}.}
 }
 \value{
 A ggmap object (a classed raster object with a bounding
 box attribute).
 }
 \description{
-Plot a ppi on a Stamen Maps, OpenStreetMap, Google Maps or Naver Map base
-layer map using \link[ggmap]{ggmap}.
+Plots a plan position indicator (\code{ppi}) on a base layer using
+\code{\link[ggmap:ggmap]{ggmap::ggmap()}}.
 }
 \details{
 Available scan parameters for mapping can by printed to screen by
 \code{summary(x)}. Commonly available parameters are:
-\describe{
-\item{"\code{DBZH}", "\code{DBZ}"}{(Logged) reflectivity factor (dBZ)}
-\item{"\code{TH}", "\code{T}"}{(Logged) uncorrected reflectivity factor (dBZ)}
-\item{"\code{VRADH}", "\code{VRAD}"}{Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities away
-from the radar are positive}
-\item{"\code{RHOHV}"}{Correlation coefficient (unitless) Correlation
-between vertically polarized and horizontally polarized reflectivity factor}
-\item{"\code{PHIDP}"}{Differential phase (degrees)}
-\item{"\code{ZDR}"}{(Logged) differential reflectivity (dB)}
-}
+\itemize{
+\item \code{DBZH}, \code{DBZ}: (Logged) reflectivity factor (dBZ)
+\item \code{TH}, \code{T}: (Logged) uncorrected reflectivity factor (dBZ)
+\item \code{VRADH}, \code{VRAD}: Radial velocity (m/s). Radial velocities towards the radar
+are negative, while radial velocities away from the radar are positive
+\item \code{RHOHV}: Correlation coefficient (unitless) Correlation between vertically
+polarized and horizontally polarized reflectivity factor
+\item \code{PHIDP}: Differential phase (degrees)
+\item \code{ZDR}: (Logged) differential reflectivity (dB)
 The scan parameters are named according to the OPERA data information
 model (ODIM), see Table 16 in the
 \href{https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf}{ODIM specification}.
 }
+}
 \section{Methods (by class)}{
 \itemize{
-\item \code{map(ppi)}: plot a 'ppi' object on a map
+\item \code{map(ppi)}: Plot a \code{ppi} object on a map.
 
 }}
 \examples{
-# load an example scan:
-data(example_scan)
-# make ppi's for all scan parameters in the scan
+# Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
 \dontrun{
-# grab a basemap that matches the extent of the ppi:
-# using a gray-scale basemap:
+# Create a basemap that matches the extent of the ppi
 basemap <- download_basemap(ppi, maptype = "toner-lite")
 
-# map the radial velocity scan parameter onto the basemap:
+# Map the radial velocity of the ppi onto the basemap
 map(ppi, map = basemap, param = "VRADH")
 
-# extend the plotting range of velocities, from -50 to 50 m/s:
+# Extend the plotting range of velocities, from -50 to 50 m/s
 map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 
-# map the reflectivity on a terrain basemap:
-basemap <- download_basemap(ppi, maptype = "terrain")
+# Map the reflectivity
 map(ppi, map = basemap, param = "DBZH")
 
-# change the color palette, e.g. Viridis colors:
+# Change the color palette to Viridis colors
 map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
 
-# give the data more transparency:
+# Give the data more transparency
 map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 
-# change the appearance of the symbol indicating the radar location:
+# Change the appearance of the symbol indicating the radar location
 map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
 
-# crop the map:
+# Crop the map
 map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=download_basemap]{download_basemap()}}
+\item \code{\link[=project_as_ppi]{project_as_ppi()}}
 }
 }

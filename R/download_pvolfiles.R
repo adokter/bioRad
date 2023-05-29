@@ -1,8 +1,8 @@
-#' Download polar volume (\code{pvol}) files from the NEXRAD archive
+#' Download polar volume (`pvol`) files from the NEXRAD archive
 #'
-#' Download a selection of polar volume (\code{pvol}) files from the
-#' \href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive
-#'  data}.
+#' Download a selection of polar volume (`pvol`) files from the
+#' [NEXRAD Level II archive
+#'  data](https://registry.opendata.aws/noaa-nexrad/).
 #'
 #' @param date_min POSIXct. Start date of file selection. If no timezone are
 #' provided, it will be assumed to be UTC.
@@ -31,22 +31,22 @@
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
                                bucket = "noaa-nexrad-level2") {
-
+  rlang::check_installed('aws.s3','to download pvolfiles.')
   # Ensure directory exists
-  assert_that(is.dir(directory))
+  assertthat::assert_that(assertthat::is.dir(directory))
 
   # Stop if radar codes are not exactly 5 characters
-  assert_that(is.character(radar))
-  assert_that(length(radar) == 1, msg = paste0("radar is not of length 1"))
+  assertthat::assert_that(is.character(radar))
+  assertthat::assert_that(length(radar) == 1, msg = paste0("radar is not of length 1"))
 
   # Stop if dates are not date and not
-  assert_that(lubridate::is.POSIXt(date_min), msg = "date_min is not a date")
-  assert_that(lubridate::is.POSIXt(date_max), msg = "date_max is not a date")
-  assert_that(date_min <= date_max,
+  assertthat::assert_that(lubridate::is.POSIXt(date_min), msg = "date_min is not a date")
+  assertthat::assert_that(lubridate::is.POSIXt(date_max), msg = "date_max is not a date")
+  assertthat::assert_that(date_min <= date_max,
               msg = "date_max is not greater or equal to date_min")
 
   # Stop if overwrite is not a logical
-  assert_that(is.logical(overwrite), msg = "overwrite is not a logical")
+  assertthat::assert_that(is.logical(overwrite), msg = "overwrite is not a logical")
 
   # Change timezone
   if (attr(date_min, "tzone") == "") {
@@ -78,7 +78,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         bucket_df <- aws.s3::get_bucket_df(bucket = bucket, prefix = prefix)
       },
       error = function(cond) {
-        assert_that(aws.s3::bucket_exists(bucket = bucket),
+        assertthat::assert_that(aws.s3::bucket_exists(bucket = bucket),
           msg = paste0("The bucket ", bucket, "does not exist")
         )
       }
@@ -88,7 +88,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
     if (nrow(bucket_df) == 0) {
       # Check if date is correct
       prefix_tmp <- paste(gsub("-", "/", dates[i_d]), sep = "/")
-      assert_that(not_empty(
+      assertthat::assert_that(assertthat::not_empty(
         aws.s3::get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1)
       ),
       msg = paste0(
@@ -96,7 +96,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         ". Please check data availability for this date."
       )
       )
-      assert_that(not_empty(
+      assertthat::assert_that(assertthat::not_empty(
         aws.s3::get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
       ),
       msg = paste0(
@@ -119,9 +119,9 @@ download_pvolfiles <- function(date_min, date_max, radar,
     bucket_df <- bucket_df[isWithin, ]
 
     # throw out occasional NA keys, see e.g. 2015/03/01/KEPZ/
-    bucket_df %>% dplyr::filter(!is.na(Key)) -> bucket_df
+    bucket_df %>% dplyr::filter(!is.na(.data$Key)) -> bucket_df
 
-    assert_that(nrow(bucket_df) > 0,
+    assertthat::assert_that(nrow(bucket_df) > 0,
       msg = paste0(
         "No data available for ", radar, " on the ", dates[i_d],
         "within the selected datetime range. Check radar code and data availability on",
@@ -130,7 +130,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
 
     # create progress bar
     message(paste0("\nDownloading pvol for ", prefix))
-    pb <- txtProgressBar(min = 0, max = nrow(bucket_df), initial = 0, style = 3)
+    pb <- utils::txtProgressBar(min = 0, max = nrow(bucket_df), initial = 0, style = 3)
 
     for (row in 1:nrow(bucket_df)) {
       # Save file
@@ -140,7 +140,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         file = paste(directory, bucket_df$Key[row], sep = "/"),
         overwite = overwrite
       )
-      setTxtProgressBar(pb, row)
+      utils::setTxtProgressBar(pb, row)
     }
   }
 }

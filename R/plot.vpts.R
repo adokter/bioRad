@@ -1,15 +1,15 @@
-#' Plot a time series of vertical profiles (\code{vpts})
+#' Plot a time series of vertical profiles (`vpts`)
 #'
-#' Plot a time series of vertical profiles  of class \code{vpts}.
+#' Plot a time series of vertical profiles  of class `vpts`.
 #'
-#' @param x A vp class object inheriting from class \code{vpts}.
+#' @param x A vp class object inheriting from class `vpts`.
 #' @param xlab A title for the x-axis.
 #' @param ylab A title for the y-axis.
 #' @param quantity Character string with the quantity to plot,
-#' one of '\code{dens}','\code{eta}','\code{dbz}','\code{DBZH}' for density,
+#' one of '`dens`','`eta`','`dbz`','`DBZH`' for density,
 #' reflectivity, reflectivity factor and total reflectivity factor,
 #' respectively.
-#' @param log Logical, whether to display \code{quantity} data on a
+#' @param log Logical, whether to display `quantity` data on a
 #' logarithmic scale.
 #' @param barbs Logical, whether to overlay speed barbs.
 #' @param barbs_height Integer, number of barbs to plot in altitudinal dimension.
@@ -17,17 +17,17 @@
 #' @param barbs_dens_min Numeric, lower threshold in aerial density of individuals
 #' for plotting speed barbs in individuals/km^3.
 #' @param zlim Optional numerical atomic vector of length 2, specifying the
-#' range of \code{quantity} values to plot.
+#' range of `quantity` values to plot.
 #' @param legend_ticks Numeric atomic vector specifying the ticks on the
 #' color bar.
 #' @param main A title for the plot.
-#' @param na_color Color to use for NA values, see class \code{\link[=summary.vpts]{vpts}} conventions.
-#' @param nan_color Color to use for NaN values, see class \code{\link[=summary.vpts]{vpts}} conventions.
+#' @param na_color Color to use for NA values, see class [`vpts()`][summary.vpts] conventions.
+#' @param nan_color Color to use for NaN values, see class [`vpts()`][summary.vpts] conventions.
 #' @param n_color The number of colors (>=1) to be in the palette.
 #' @param palette (Optional) character vector of hexadecimal color values defining
-#' the plot color scale, e.g. output from \link[viridisLite]{viridis}
+#' the plot color scale, e.g. output from [viridis][viridisLite::viridis]
 #' @param ... Additional arguments to be passed to the low level
-#' \link[graphics]{image} plotting function.
+#' [image][graphics::image] plotting function.
 #' @param barbs.h Deprecated argument, use barbs_height instead.
 #' @param barbs.t Deprecated argument, use barbs_time instead.
 #' @param barbs.dens Deprecated argument, use barbs_dens_min instead.
@@ -38,44 +38,39 @@
 #' @export
 #'
 #' @details Aerial abundances can be visualized in four related quantities, as specified
-#' by argument \code{quantity}:
-#' \describe{
-#'  \item{"\code{dens}"}{the aerial density of individuals. This quantity is
-#'    dependent on the assumed radar cross section (RCS) in the
-#'    \code{x$attributes$how$rcs_bird} attribute}
-#'  \item{"\code{eta}"}{reflectivity. This quantity is independent of the
-#'    value of the \code{rcs_bird} attribute}
-#'  \item{"\code{dbz}"}{reflectivity factor. This quantity is independent
-#'    of the value of the \code{rcs_bird} attribute, and corresponds to the
-#'    dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
-#'    tends to occur at much higher reflectivity factors at S-band
-#'    than at C-band}
-#'  \item{"\code{DBZH}"}{total reflectivity factor. This quantity equals the
-#'    reflectivity factor of all scatterers (biological and meteorological
-#'    scattering combined)}
-#' }
+#' by argument `quantity`:
+#' * `dens`: the aerial density of individuals. This quantity is dependent on
+#'   the assumed radar cross section (RCS) in the `x$attributes$how$rcs_bird`
+#'   attribute
+#' * `eta`: reflectivity. This quantity is independent of the value of the
+#'   `rcs_bird` attribute
+#' * `dbz`: reflectivity factor. This quantity is independent of the value of
+#'   the `rcs_bird` attribute, and corresponds to the dBZ scale commonly used in
+#'   weather radar meteorology. Bioscatter by birds tends to occur at much
+#'   higher reflectivity factors at S-band than at C-band
+#' * `DBZH`: total reflectivity factor. This quantity equals the reflectivity
+#'   factor of all scatterers (biological and meteorological scattering
+#'   combined)
 #'
 #' Aerial velocities can be visualized in three related quantities, as specified
-#' by argument \code{quantity}:
-#' \describe{
-#'  \item{"\code{ff}"}{ground speed. The aerial velocity relative to the
-#'    ground surface in m/s.}
-#'  \item{"\code{u}"}{eastward ground speed component in m/s.}
-#'  \item{"\code{v}"}{northward ground speed component in m/s.}
-#' }
+#' by argument `quantity`:
+#' * `ff`: ground speed. The aerial velocity relative to the ground surface in
+#'   m/s.
+#' * `u`: eastward ground speed component in m/s.
+#' * `v`: northward ground speed component in m/s.
 #'
 #' ## barbs
 #' In the speed barbs, each half flag represents 2.5 m/s, each full flag 5 m/s,
 #' each pennant (triangle) 25 m/s
 #'
 #' ## legend_ticks / zlim
-#' Default legend ticks and plotting range are specified based on \code{quantity},
-#' radar wavelength (S- vs C-band), and value of \code{log}
+#' Default legend ticks and plotting range are specified based on `quantity`,
+#' radar wavelength (S- vs C-band), and value of `log`
 #'
 #' ## log
-#' Quantities \code{u} and \code{v} cannot be plotted on a logarithmic scale, because
-#' these quantities assume negative values.  For quantities \code{DBZH} and \code{dbz}
-#' \code{log=TRUE} is ignored, because these quantities are already logarithmic.
+#' Quantities `u` and `v` cannot be plotted on a logarithmic scale, because
+#' these quantities assume negative values.  For quantities `DBZH` and `dbz`
+#' `log=TRUE` is ignored, because these quantities are already logarithmic.
 #'
 #' @examples
 #' # locate example file:
@@ -112,7 +107,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   stopifnot(inherits(x, "vpts"))
   stopifnot(quantity %in% names(x$data))
 
-  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function arguments
   if (!missing(barbs.h)) {
@@ -150,7 +145,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     )
   }
 
-  if(are_equal(log, NA)){
+  if(assertthat::are_equal(log, NA)){
     if(quantity %in% c("dens","eta")){
       log = TRUE
     }
@@ -158,16 +153,16 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       log = FALSE
     }
   }
-  assert_that(is.flag(log))
+  assertthat::assert_that(assertthat::is.flag(log))
 
-  assert_that(is.count(n_color))
-  assert_that(is.string(na_color))
-  if(!missing(nan_color)) assert_that(is.string(nan_color))
+  assertthat::assert_that(assertthat::is.count(n_color))
+  assertthat::assert_that(assertthat::is.string(na_color))
+  if(!missing(nan_color)) assertthat::assert_that(assertthat::is.string(nan_color))
 
   if (!missing(zlim)) {
-    assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
+    assertthat::assert_that(is.numeric(zlim), length(zlim) == 2, zlim[2] > zlim[1])
     if (log && !(quantity %in% c("DBZH", "dbz"))) {
-      assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
+      assertthat::assert_that(zlim[1] > 0, msg = "zlim[1] not greater than 0. Positive values expected for zlim when argument 'log' is TRUE. Run ?plot.vpts for details.")
     }
   }
 
@@ -279,12 +274,12 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   }
 
   # set color scales and (palettes
-  if (!are_equal(palette, NA)) {
+  if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
   }
   else{
     if(quantity %in% c("dens","eta","dbz","DBZH")){
-      palette <- colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
+      palette <- grDevices::colorRampPalette(colors = vpts_default_palette,alpha = TRUE)(n_color)
     } else if(quantity %in% c("u","v")){
       palette <- rev(color_palette("VRADH", n_color=n_color))
     } else if(quantity %in% c("dd","heading")){
@@ -293,7 +288,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
       palette <- rev(viridis::magma(n_color))
     }
   }
-  
+
   # add NA and NaN colors add beginning of palette
   palette_na_nan <- c(na_color, nan_color, palette)
 
@@ -315,7 +310,7 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
   axis.args <- list(at = legendticks, labels = ticks)
 
   # plot the image
-  image.plot(x$datetime, x$height + interval / 2, plotdata,
+  fields::image.plot(x$datetime, x$height + interval / 2, plotdata,
     col = palette_na_nan, xlab = xlab,
     ylab = ylab, axis.args = axis.args, breaks = breaks,
     zlim = c(zlim[1]-2*zstep,zlim[2]), main = main, ...
@@ -326,12 +321,12 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
     if ("xlim" %in% names(args)) {
       t.barbs <- seq(min(args$xlim), max(args$xlim), length.out = barbs_time)
     } else {
-      t.barbs <- seq(x$datetime[1], tail(x$datetime, 1), length.out = barbs_time)
+      t.barbs <- seq(x$datetime[1], utils::tail(x$datetime, 1), length.out = barbs_time)
     }
     if ("ylim" %in% names(args)) {
       h.barbs <- seq(min(args$ylim), max(args$ylim), length.out = barbs_height + 1)
     } else {
-      h.barbs <- seq(x$height[1], tail(x$height, 1) + interval, length.out = barbs_height + 1)
+      h.barbs <- seq(x$height[1], utils::tail(x$height, 1) + interval, length.out = barbs_height + 1)
     }
     h.barbs <- h.barbs[-length(h.barbs)] + diff(h.barbs) / 2
     barbdata <- expand.grid(date = t.barbs, height = h.barbs)
@@ -379,7 +374,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
     if (length(fill) > 1 & length(fill) != ns) stop(msg)
   }
 
-  tpar <- par()
+  tpar <- graphics::par()
   size <- tpar$csi
   scalex <- (tpar$usr[2] - tpar$usr[1]) / tpar$pin[1]
   scaley <- (tpar$usr[4] - tpar$usr[3]) / tpar$pin[2]
@@ -400,16 +395,16 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
       Y1 <- RY + y
       if (!is.na(spd)) {
         if (spd == 0) {
-          lines(RX * 2 + x, RY * 2 + y, col = col)
+          graphics::lines(RX * 2 + x, RY * 2 + y, col = col)
         }
       }
       if (fill[i] > 0) {
         lim <- c(51, 101, 151, 200)
-        polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
+        graphics::polygon(c(as.numeric(x), X1[1:lim[fill[i]]]), c(y, Y1[1:lim[fill[i]]]),
           density = -1, col = col
         )
       }
-      lines(RX + x, RY + y, col = col)
+      graphics::lines(RX + x, RY + y, col = col)
     } # end of circle
 
     if (!is.na(spd)) {
@@ -501,7 +496,7 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
         S2 <- S2 * c(scalex, scaley) + c(as.numeric(x), y)
       }
       if (spd > 0) {
-        segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
+        graphics::segments(S1[1, ], S1[2, ], S2[1, ], S2[2, ], col = col, lwd = 1)
       }
     } # end of (!is.na(spd))
   } # end of ns

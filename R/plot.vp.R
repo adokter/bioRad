@@ -1,21 +1,19 @@
-#' Plot a vertical profile (\code{vp})
+#' Plot a vertical profile (`vp`)
 #'
-#' @param x A \code{vp} class object.
+#' @param x A `vp` class object.
 #' @param quantity Character string with the quantity to plot. See
-#' \link[=summary.vp]{vp} for list of available quantities.
-##' \itemize{
-##'  \item{Aerial density related:}{'\code{dens}', '\code{eta}', '\code{dbz}',
-##'    '\code{DBZH}' for density, reflectivity, reflectivity factor and total
-##'    reflectivity factor, respectively.}
-##'  \item{Ground speed related:}{'\code{ff}','\code{dd}', for ground speed
-##'    and direction, respectively.}
-##' }
+#' [vp][summary.vp] for list of available quantities.
+#' * Aerial density related : `dens`, `eta`, `dbz`, `DBZH` for density,
+#'   reflectivity, reflectivity factor and total reflectivity factor,
+#'   respectively.
+#' * Ground speed related : `ff`, `dd`, for ground speed and direction,
+#'   respectively.
 #' @param xlab A title for the x axis.
 #' @param ylab A title for the y axis.
 #' @param line_col Color of the plotted curve.
 #' @param line_lwd Line width of the plotted curve.
 #' @param ... Additional arguments to be passed to the low level
-#' \link[graphics]{plot} plotting function.
+#' [plot][graphics::plot] plotting function.
 #' @param line.col Deprecated argument, use line_col instead.
 #' @param line.lwd Deprecated argument, use line_lwd instead.
 #'
@@ -45,7 +43,7 @@ plot.vp <- function(x, quantity = "dens",
                     line_lwd = 1, line.col = "red", line.lwd = 1, ...) {
   stopifnot(inherits(x, "vp"))
 
-  if (hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
+  if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
   # deprecate function argument
   if (!missing(line.col)) {
@@ -93,5 +91,5 @@ plot.vp <- function(x, quantity = "dens",
   pdat <- get_quantity(x, quantity)
   stopifnot(!is.null(interval <- x$attributes$where$interval))
   plot(pdat, (x$data$height + interval / 2) / 1000, xlab = xlab, ylab = ylab, ...)
-  points(pdat, (x$data$height + interval / 2) / 1000, col = line_col, lwd = line_lwd, type = "l")
+  graphics::points(pdat, (x$data$height + interval / 2) / 1000, col = line_col, lwd = line_lwd, type = "l")
 }

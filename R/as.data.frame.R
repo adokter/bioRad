@@ -81,7 +81,7 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
       length(x$data$height)) {
       rownames(output) <- row.names
     } else {
-      stop(glue(
+      stop(glue::glue(
         "`row.names` must be a character vector of length ",
         "{length(x$data$height)}."
       ))
@@ -141,7 +141,7 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
       length(x$datetime) * length(x$height)) {
       rownames(output) <- row.names
     } else {
-      stop(glue(
+      stop(glue::glue(
         "`row.names` must be a character vector of length ",
         "{length(x$datetime) * length(x$height)}."
       ))

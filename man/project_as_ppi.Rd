@@ -62,11 +62,11 @@ project_as_ppi(
 \item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
 and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 An object of class '\link[=summary.ppi]{ppi}'.

@@ -7,18 +7,18 @@
 beam_height(range, elev, k = 4/3, lat = 35, re = 6378, rp = 6357)
 }
 \arguments{
-\item{range}{numeric. Slant range in m, the length of the skywave path
-between target and the radar antenna.}
+\item{range}{Numeric. Slant range, i.e. the length of the skywave path
+between target and the radar antenna, in m.}
 
-\item{elev}{numeric. Beam elevation in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
-\item{k}{Standard refraction coefficient.}
+\item{k}{Numeric. Standard refraction coefficient.}
 
-\item{lat}{Geodetic latitude of the radar in degrees.}
+\item{lat}{Numeric. Geodetic latitude of the radar, in degrees.}
 
-\item{re}{Earth equatorial radius in km.}
+\item{re}{Numeric. Earth equatorial radius, in km.}
 
-\item{rp}{Earth polar radius in km.}
+\item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
 numeric. Beam height in m.
@@ -28,8 +28,8 @@ Calculates the height of a radar beam as a function of elevation and range,
 assuming the beam is emitted at surface level.
 }
 \details{
-To account for refraction of the beam towards the earth's surface,
-an effective earth's radius of k * (true radius) is assumed, with k = 4/3.
+To account for refraction of the beam towards the earth's surface, an
+effective earth's radius of \code{k} * (true radius) is assumed, with \code{k} = 4/3.
 
 The earth's radius is approximated as a point on a spheroid surface, with
 \code{re} the longer equatorial radius, and \code{rp} the shorter polar
@@ -39,15 +39,29 @@ latitude only a small correction. Using default values assumes an average
 earth's radius of 6371 km.
 }
 \examples{
-# beam height in meters at 10 km range for a 1 degree elevation beam:
+# Beam height in meters at 10 km range for a 1 degree elevation beam:
 beam_height(10000, 1)
 
-# beam height in meters at 10 km range for a 3 and 5 degree elevation beam:
+# Beam height in meters at 10 km range for a 3 and 5 degree elevation beam:
 beam_height(10000, c(3, 5))
 
-# define ranges from 0 to 1000000 meter (100 km), in steps of 100 m:
+# Define ranges from 0 to 1000000 m (100 km), in steps of 100 m:
 range <- seq(0, 100000, 100)
 
-# plot the beam height of the 0.5 degree elevation beam:
+# Plot the beam height of the 0.5 degree elevation beam:
 plot(range, beam_height(range, 0.5), ylab = "beam height [m]", xlab = "range [m]")
 }
+\seealso{
+\itemize{
+\item \code{\link[=beam_width]{beam_width()}}
+}
+
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_profile}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
+}
+\concept{beam_functions}
