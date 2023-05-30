@@ -141,9 +141,15 @@ test_that("as.data.frame.vp() values in sunrise/sunset/day cols are correct and 
   # Manual data check on: https://www.suncalc.org/#/56.3675,12.8517,12/2015.10.18/09:00/1/3
   expected_sunrise <- as.POSIXlt("2015-10-18 05:45:26", tz = "UTC") # 07:45:26 UTC+2
   expected_sunset <- as.POSIXlt("2015-10-18 16:01:13", tz = "UTC") # 18:01:13 UTC+2
-
-  expect_equal(as.POSIXlt(vp_df$sunrise[1]), expected_sunrise, tolerance = 5) # Tolerance: minutes
-  expect_equal(as.POSIXlt(vp_df$sunset[1]), expected_sunset, tolerance = 5)
+  ## Test that results are within 5 minutes of manual data check
+  expect_lt(
+    abs(lubridate::ymd_hms(vp_df$sunrise[1]) - lubridate::ymd_hms(expected_sunrise)),
+    lubridate::dminutes(5)
+  )
+  expect_lt(
+    abs(lubridate::ymd_hms(vp_df$sunset[1]) - lubridate::ymd_hms(expected_sunset)),
+    lubridate::dminutes(5)
+  )
   expect_false(vp_df$day[1]) # At the 18:00:00 UTC timestamp, it is night
 
   # 2. Set lat/lon to other values and check if it's still correct
