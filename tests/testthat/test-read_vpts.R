@@ -7,19 +7,22 @@ vpts_gz_other_radar <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly
 
 
 # TODO: create the other vpts files from the files above, by downloading and gzipping
-
 test_that("read_vpts() returns error on incorrect parameters", {
+
+})
+
+test_that("All files exist", {
+  file_paths <- c("path/to/your/file1", "path/to/your/file2", "path/to/your/file3")
+  expect_true(all(file.exists(file_paths)))
+})
+
+test_that("read_vpts() returns error on mixed extensions", {
   # Prepare a vector of file paths with different extensions
   files <- c("file1.csv", "file2.gz")
-  
   # Expect an error when calling read_vpts() with this input
   expect_error(read_vpts(files), "`files` must all have the same extension.")
 })
 
-
-test_that("read_vpts() returns error on mixed extensions", {
-
-})
 
 test_that("read_vpts() can read local vp hdf5 files", {
   # Test for one file

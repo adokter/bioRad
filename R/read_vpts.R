@@ -9,11 +9,17 @@
 #' @family read functions
 #' @export
 read_vpts <- function(files) {
+  
+  #Assert that all files exist
+  assertthat::assert_that(all(file.exists(files)), 
+                          msg = "One or more input files do not exist.")
+  
   # Get file extension
   extension <- unique(tools::file_ext(files))
   assertthat::assert_that(
     length(extension) == 1,
     msg = "`files` must all have the same extension."
+
   )
 
   # Read files
