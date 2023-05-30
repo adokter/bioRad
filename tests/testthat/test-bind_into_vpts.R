@@ -1,5 +1,36 @@
 test_that("bind_into_vpts() returns error on incorrect parameters", {
+  # non vpts inputs
+  expect_error(
+    bind_into_vpts(
+      example_vpts[2:5],
+      example_vpts[1],
+      "not_a_vpts",
+      example_vpts[6:9]
+    ),
+    regexp = "requires vpts objects as input",
+    fixed = TRUE
+  )
+  # non vps inputs
+  expect_error(
+    bind_into_vpts.vp(
+      example_vpts[2:5],
+      example_vpts[1]
+    ),
+    regexp = "requires vpts objects as input",
+    fixed = TRUE
+  )
 
+})
+
+test_that("bind_into_vpts() warns for multiple different radars", {
+  expect_warning(
+    bind_into_vpts(
+      example_vp,
+      example_vpts[1]
+    ),
+    regexp = "Vertical profiles are not from a single radar.",
+    fixed = TRUE
+  )
 })
 
 test_that("vpts based on vp, multiple vp or vector of vp", {
