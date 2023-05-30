@@ -10,13 +10,13 @@ test_that("bind_into_vpts() returns error on incorrect parameters", {
     regexp = "requires vpts objects as input",
     fixed = TRUE
   )
-  # non vps inputs
+  # non vp objects input
   expect_error(
     bind_into_vpts.vp(
       example_vpts[2:5],
       example_vpts[1]
     ),
-    regexp = "requires vpts objects as input",
+    regexp = "requires vp objects as input",
     fixed = TRUE
   )
 
