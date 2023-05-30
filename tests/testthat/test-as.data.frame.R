@@ -25,8 +25,8 @@ test_that("as.data.frame().vp returns error on incorrect parameters", {
 })
 
 test_that("as.data.frame() returns a data frame", {
-  expect_is(as.data.frame(vp), "data.frame")
-  expect_is(as.data.frame(vpts), "data.frame")
+  expect_s3_class(as.data.frame(vp), "data.frame")
+  expect_s3_class(as.data.frame(vpts), "data.frame")
 })
 
 test_that("as.data.frame() returns correct number of rows/cols", {
@@ -110,14 +110,14 @@ test_that("as.data.frame() includes lat/lon/height_antenna cols and can be assig
 test_that("as.data.frame() includes sunset/sunrise/day cols, unless suntime = FALSE", {
     # sunset/sunrise/day columns are added by default
     vp_df <- as.data.frame(vp)
-    expect_is(vp_df$sunset, "POSIXct")
-    expect_is(vp_df$sunrise, "POSIXct")
-    expect_is(vp_df$day, "logical")
+    expect_s3_class(vp_df$sunset, "POSIXct")
+    expect_s3_class(vp_df$sunrise, "POSIXct")
+    expect_type(vp_df$day, "logical")
 
     vpts_df <- as.data.frame(vpts)
-    expect_is(vpts_df$sunset, "POSIXct")
-    expect_is(vpts_df$sunrise, "POSIXct")
-    expect_is(vpts_df$day, "logical")
+    expect_s3_class(vpts_df$sunset, "POSIXct")
+    expect_s3_class(vpts_df$sunrise, "POSIXct")
+    expect_type(vpts_df$day, "logical")
 
     # sunset/sunrise/day columns are missing if suntime = FALSE
     vp_df_suntime_false <- as.data.frame(vp, suntime = FALSE)
