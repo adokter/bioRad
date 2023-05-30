@@ -56,7 +56,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
                      ratio = 1, na.value = "transparent", ...) {
   stopifnot(inherits(x, "ppi"))
 
-  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (methods::hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {
@@ -64,7 +64,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
     } else {
       param <- names(x$data)[1]
     }
-  } else if (!see_if(param %in% names(x$data))) {
+  } else if (!assertthat::see_if(param %in% names(x$data))) {
     stop(paste("parameter '", param, "' not found in PPI", sep = ""))
   }
 
@@ -76,7 +76,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   y <- NULL # dummy assignment to suppress devtools check warning
   data <- do.call(function(y) x$data[y], list(param))
   # convert to points
-  data <- raster::as.data.frame(raster(data), xy = T)
+  data <- raster::as.data.frame(raster::raster(data), xy = T)
   # bring z-values within plotting range
   index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {
@@ -93,9 +93,9 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   if (missing(ylim)) {
     ylim <- x$data@bbox[2, ]
   }
-  bbox <- coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
-  ggplot(data = data, ...) +
-    geom_raster(aes(x, y, fill = eval(parse(text = param)))) +
+  bbox <- ggplot2::coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
+  ggplot2::ggplot(data = data, ...) +
+    ggplot2::geom_raster(ggplot2::aes(x, y, fill = eval(parse(text = param)))) +
     colorscale +
     bbox
 }

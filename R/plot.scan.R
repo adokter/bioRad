@@ -48,9 +48,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
                       ylim = c(0, 360), zlim = c(-20, 20), na.value = "transparent", ...) {
   stopifnot(inherits(x, "scan"))
 
-  if (hasArg("quantity")) {
-    stop("Unknown function argument `quantity`. Did you mean `param`?")
-  }
+  if (methods::hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$params)) {
@@ -58,7 +56,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
     } else {
       param <- names(x$params)[1]
     }
-  } else if (!see_if(param %in% names(x$params))) {
+  } else if (!assertthat::see_if(param %in% names(x$params))) {
     stop(paste("parameter '", param, "' not found in scan", sep = ""))
   }
   if (missing(zlim)) {
@@ -78,7 +76,7 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   rstart <- ifelse(is.null(x$geo$rstart), 0, x$geo$rstart)
   astart <- ifelse(is.null(x$geo$astart), 0, x$geo$astart)
 
-  data <- raster::as.data.frame(raster::flip(raster(t(data), ymn = astart, ymx = astart + 360, xmn = rstart, xmx = rstart + rscale * dimraster[1]), direction = "y"), xy = T)
+  data <- raster::as.data.frame(raster::flip(raster::raster(t(data), ymn = astart, ymx = astart + 360, xmn = rstart, xmx = rstart + rscale * dimraster[1]), direction = "y"), xy = T)
   # change the name from "layer" to the parameter names
   names(data) <- c("range", "azimuth", param)
 
@@ -93,9 +91,9 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
   }
   # plot
   azimuth <- NULL # dummy assignment to suppress devtools check warning
-  bbox <- coord_cartesian(xlim = xlim, ylim = ylim)
-  ggplot(data = data, ...) +
-    geom_raster(aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
+  bbox <- ggplot2::coord_cartesian(xlim = xlim, ylim = ylim)
+  ggplot2::ggplot(data = data, ...) +
+    ggplot2::geom_raster(ggplot2::aes(x = range, y = azimuth, fill = eval(parse(text = param)))) +
     colorscale +
     bbox
 }

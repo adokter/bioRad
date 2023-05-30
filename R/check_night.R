@@ -72,13 +72,13 @@ check_night.default <- function(x,
                                 elev = -0.268,
                                 offset = 0) {
   # input checks
-  assert_that(is.numeric(elev))
-  assert_that(length(elev) <= 2)
-  assert_that(is.numeric(offset))
-  assert_that(length(offset) <= 2)
-  assert_that(is.numeric(lon))
-  assert_that(is.numeric(lat))
-  assert_that(length(lat) == length(lon))
+  assertthat::assert_that(is.numeric(elev))
+  assertthat::assert_that(length(elev)<=2)
+  assertthat::assert_that(is.numeric(offset))
+  assertthat::assert_that(length(offset)<=2)
+  assertthat::assert_that(is.numeric(lon))
+  assertthat::assert_that(is.numeric(lat))
+  assertthat::assert_that(length(lat)==length(lon))
 
   x <- as.POSIXct(x, tz = tz)
 
@@ -182,7 +182,7 @@ check_night.vp <- function(x, ..., elev = -0.268, offset = 0) {
 #'
 #' @export
 check_night.list <- function(x, ..., elev = -0.268, offset = 0) {
-  vptest <- sapply(x, function(y) is(y, "vp"))
+  vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
     stop("`x` must be list of `vp` objects.")
   }

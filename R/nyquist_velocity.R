@@ -20,12 +20,13 @@
 #' # 1500 Hz PRFs
 #' nyquist_velocity(5.3, 2000, 1500)
 nyquist_velocity <- function(wavelength, prf1, prf2) {
-  assert_that(is.number(wavelength))
-  assert_that(is.number(prf1))
+  assertthat::assert_that(assertthat::is.number(wavelength))
+  assertthat::assert_that(assertthat::is.number(prf1))
   if (missing(prf2)) {
     return((wavelength / 100) * prf1 / 4)
-  } else {
-    assert_that(is.number(prf2))
+  }
+  else {
+    assertthat::assert_that(assertthat::is.number(prf2))
     return(((wavelength / 100) / 4) * prf1 * prf2 / abs(prf1 - prf2))
   }
 }

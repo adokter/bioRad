@@ -87,7 +87,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
 
   stopifnot(inherits(x, "ppi"))
 
-  if (hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
+  if (methods::hasArg("quantity")) stop("unknown function argument 'quantity`. Did you mean `param`?")
 
   if (missing(param)) {
     if ("DBZH" %in% names(x$data)) {
@@ -119,10 +119,10 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
   }
 
   # set color scales and palettes
-  if (!are_equal(palette, NA)) {
+  if (!assertthat::are_equal(palette, NA)) {
     if(!(is.character(palette) && length(palette) > 1)) stop("palette should be a character vector with hex color values")
     # apply transparancy
-    palette <- alpha(palette,alpha)
+    palette <- ggplot2::alpha(palette,alpha)
     n_color = length(palette)
     colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
@@ -133,33 +133,33 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  wgs84 <- CRS("+proj=longlat +datum=WGS84")
-  epsg3857 <- CRS("+init=epsg:3857") # this is the google mercator projection
+  wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
+  epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox <- suppressWarnings(
-    spTransform(
-      SpatialPoints(t(data@bbox),
+    sp::spTransform(
+      sp::SpatialPoints(t(data@bbox),
         proj4string = data@proj4string
       ),
-      CRS("+init=epsg:3857")
+      sp::CRS("+init=epsg:3857")
     )
   )
   mybbox.wgs <- suppressWarnings(
-    spTransform(
-      SpatialPoints(t(data@bbox),
+    sp::spTransform(
+      sp::SpatialPoints(t(data@bbox),
         proj4string = data@proj4string
       ),
       wgs84
     )
   )
   e <- raster::extent(mybbox.wgs)
-  r <- raster(raster::extent(mybbox),
+  r <- raster::raster(raster::extent(mybbox),
     ncol = data@grid@cells.dim[1] * .9,
-    nrow = data@grid@cells.dim[2] * .9, crs = CRS(proj4string(mybbox))
+    nrow = data@grid@cells.dim[2] * .9, crs = sp::CRS(sp::proj4string(mybbox))
   )
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(spTransform(data, CRS("+init=epsg:3857")))
+    as.data.frame(sp::spTransform(data, sp::CRS("+init=epsg:3857")))
   )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])
@@ -198,7 +198,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
-  dummy <- geom_point(aes(x = lon, y = lat, colour = z),
+  dummy <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat, colour = z),
     size = 0,
     data = data.frame(
       lon = latlon_radar$lon,
@@ -206,7 +206,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
       z = 0
     )
   )
-  radarpoint <- geom_point(aes(x = lon, y = lat),
+  radarpoint <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat),
     colour = radar_color,
     size = radar_size,
     data = data.frame(lon = latlon_radar$lon, lat = latlon_radar$lat)
@@ -224,8 +224,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
       ggmap::inset_raster(raster::as.matrix(r), e@xmin, e@xmax, e@ymin, e@ymax) +
       dummy + colorscale +
       radarpoint +
-      scale_x_continuous(limits = xlim, expand = c(0, 0)) +
-      scale_y_continuous(limits = ylim, expand = c(0, 0))
+      ggplot2::scale_x_continuous(limits = xlim, expand = c(0, 0)) +
+      ggplot2::scale_y_continuous(limits = ylim, expand = c(0, 0))
   )
   suppressWarnings(mymap)
 }
