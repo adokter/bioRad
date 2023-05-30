@@ -37,7 +37,10 @@ test_that("date input for download_pvolfiles() ", {
 
 test_that("Check radar code for download_pvolfiles() ", {
   expect_error(download_pvolfiles(date_min, date_max, c("KBBX", "KGHC"), directory, overwrite), "radar is not of length 1", fixed = TRUE)
-  expect_error(download_pvolfiles(date_min, date_max, "ABCD", directory, overwrite), fixed = TRUE)
+  expect_error(
+    download_pvolfiles(date_min, date_max, "ABCD", directory, overwrite),
+    regexp = "No data available for ABCD on the 2016-10-02. Check radar code and data availability on https://noaa-nexrad-level2.s3.amazonaws.com/index.html",
+    fixed = TRUE)
 })
 
 test_that("Check path and overwrite for download_pvolfiles() ", {
