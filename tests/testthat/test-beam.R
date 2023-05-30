@@ -355,3 +355,16 @@ test_that("beam_profile_overlap() returns error on incorrect parameters", {
     fixed = TRUE
   )
 })
+
+test_that("beam_width() returns error on incorrect parameters", {
+  range <- seq(0, 100000, 100)
+  expect_error(
+    beam_width(c(range,"a")),
+    regexp = "range is not a numeric or integer vector",
+    fixed = TRUE
+  )
+  expect_error(
+    beam_width(range,
+               beam_angle = "a")
+  )
+})
