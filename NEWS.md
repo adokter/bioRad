@@ -24,7 +24,7 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * New function `read_stdout()` replaces previous functionality of `read_vpts()` to read vol2bird stdout format. It also has a new `sep` argument (#536).
 
-* `read_pvolfiles()` now allows Odim files with missing `source` attribute. The functionality is similar to `read_vpfiles()`, i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use `unknown` (2f6935c).
+* `read_pvolfiles()` now allows ODIM_H5 files with missing `source` attribute. The functionality is similar to `read_vpfiles()`, i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use `unknown` (2f6935c).
 
 ## Bugfixes
 
