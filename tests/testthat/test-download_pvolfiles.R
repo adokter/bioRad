@@ -8,10 +8,19 @@ overwrite <- TRUE
 test_that("date input for download_pvolfiles() ", {
 
   # working with default
-  expect_error(download_pvolfiles(date_min, date_max, radars, directory, overwrite), NA, fixed = TRUE)
+  expect_no_error(
+    download_pvolfiles(date_min, date_max, radars, directory, overwrite))
 
   # Working over multiple days
-  expect_error(download_pvolfiles(as.POSIXct("2016-10-02 23:55", tz = "UTC"), as.POSIXct("2016-10-03 00:07", tz = "UTC"), radars, directory, overwrite), NA, fixed = TRUE)
+  expect_no_error(
+    download_pvolfiles(
+      as.POSIXct("2016-10-02 23:55", tz = "UTC"),
+      as.POSIXct("2016-10-03 00:07", tz = "UTC"),
+      radars,
+      directory,
+      overwrite
+    )
+  )
 
   # Wrong format
   expect_error(download_pvolfiles("01/01/2016", date_max, radars, directory, overwrite), "date_min is not a date", fixed = TRUE)
