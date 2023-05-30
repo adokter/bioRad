@@ -49,4 +49,11 @@ test_that("map() returns error on incorrect parameters", {
     regexp = "Not a basemap for this radar location.",
     fixed = TRUE
   )
+  # return error when palette isn't a character vector
+  expect_error(
+    map(ppi, map = basemap, palette = 123),
+    regexp = "palette should be a character vector with hex color values",
+    fixed = TRUE
+  )
+
 })
