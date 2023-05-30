@@ -70,20 +70,8 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7.0" id="biorad-070xxxx">bioRad 0.7.0.XXXX<a class="anchor" aria-label="anchor" href="#biorad-070xxxx"></a></h2>
-<p>bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package <a href="https://adriaandokter.com/vol2birdR/" class="external-link">vol2birdR</a> package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.</p>
-<ul><li>bioRad is now fully available on Windows</li>
-<li>Faster implementations of functions previously dependent on Docker, such as <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> and <code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> and <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>.</li>
-<li>argument <code>local_install</code> in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> and <code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is now deprecated.</li>
-<li>functions <code><a href="../reference/bioRad-deprecated.html">check_docker()</a></code> and <code><a href="../reference/bioRad-deprecated.html">update_docker()</a></code> have been deprecated</li>
-<li>function <code><a href="../reference/bioRad-deprecated.html">vol2bird_version()</a></code> has been migrated to package vol2birdR and can be accessed by <code><a href="https://rdrr.io/pkg/vol2birdR/man/vol2bird_version.html" class="external-link">vol2birdR::vol2bird_version()</a></code>
-</li>
-<li>fix bug in height integration, which excluded the lowest bins for certain low altitude radars (<a href="https://github.com/adokter/bioRad/issues/534" class="external-link">#534</a>)</li>
-<li>fast parallel mistnet runs (<a href="https://github.com/adokter/vol2birdR/issues/16" class="external-link uri">https://github.com/adokter/vol2birdR/issues/16</a>)</li>
-<li>simplify installation, including automatic installation of rhdf5 from bioconductor (<a href="https://github.com/adokter/bioRad/issues/464" class="external-link">#464</a>)</li>
-<li>new sep argument in read_vpts() (<a href="https://github.com/adokter/bioRad/issues/536" class="external-link">#536</a>)</li>
-<li>allow odim files with missing source attribute. Extraction of radar indentifer from what/source attribute in read_pvolfiles updated to function as read_vpfiles(), i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use “unknown” (2f6935c).</li>
-<li>new function <code><a href="../reference/list_vpts_aloft.html">list_vpts_aloft()</a></code> produces a list of aloft archive urls for time series of vertical profiles (<code>vpts</code>). This list of urls can then be used to bulk download this data using any number of external tools. <a href="https://github.com/adokter/bioRad/issues/553" class="external-link">#553</a></li>
-</ul></div>
+<p>bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package <a href="https://cran.r-project.org/package=vol2birdR" class="external-link">vol2birdR</a> package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.</p>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.1" id="biorad-061">bioRad 0.6.1<small>2022-08-30</small><a class="anchor" aria-label="anchor" href="#biorad-061"></a></h2>
 <p>Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).</p>
