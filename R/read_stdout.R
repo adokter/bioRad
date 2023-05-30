@@ -84,17 +84,17 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
 
   if(sep!=""){
     # for parsing new csv format
-    data <- read.table(file = file, header = TRUE, sep = sep)
+    data <- utils::read.table(file = file, header = TRUE, sep = sep)
     radar <- unique(data$radar)
     if(length(radar)>1){
       stop("file contains data for multiple radars")
     }
     data$radar <- NULL
-    data$datetime <- parse_datetime(data$datetime)
+    data$datetime <- readr::parse_datetime(data$datetime)
     data$gap <- as.logical(data$gap)
   } else{
     # for parsing legacy vol2bird text output
-    data <- read.table(file = file, header = FALSE, sep = sep)
+    data <- utils::read.table(file = file, header = FALSE, sep = sep)
     if (ncol(data) == 22) {
       colnames(data) <- header.names.long
     } else {
