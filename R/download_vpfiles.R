@@ -16,7 +16,6 @@
 #'   downloaded files of the same names.
 #'
 #' @export
-#' @importFrom curl curl_fetch_disk
 #'
 #' @seealso
 #' * [select_vpfiles()]
@@ -41,7 +40,7 @@
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
   # Ensure directory exists
-  assert_that(is.dir(directory))
+  assertthat::assert_that(assertthat::is.dir(directory))
 
   # Stop if radar codes are not exactly 5 characters
   check_radar_codes(radars)
@@ -50,15 +49,15 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5), sep = "_")
 
   # Stop if dates are not a string
-  assert_that(is.string(date_min))
-  assert_that(is.string(date_max))
+  assertthat::assert_that(assertthat::is.string(date_min))
+  assertthat::assert_that(assertthat::is.string(date_max))
 
   # Stop if dates are not in YYYY-MM-DD format:
   check_date_format(date_min, "%Y-%m-%d")
   check_date_format(date_max, "%Y-%m-%d")
 
   # Stop if overwrite is not a logical
-  assert_that(is.logical(overwrite), msg = "overwrite is not a logical")
+  assertthat::assert_that(is.logical(overwrite), msg='overwrite is not a logical')
 
   # Set day to 01 and create series of yyyy/mm based on date_min/max:
   # 2016/10, 2016/11, 2016/12
@@ -105,64 +104,17 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
     }
 
     # Start download
-    req <- curl_fetch_disk(url, file_path) # will download regardless of status
+    req <- curl::curl_fetch_disk(url, file_path) # will download regardless of status
 
     # Check http status
     if (req$status_code == "200") {
       # Unzip file
-      unzip(file_path, exdir = file.path(directory, unzip_dir))
+      utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
       message(paste0(file_name, ": successfully downloaded"))
     } else {
       # Remove file
       unlink(file_path)
       message(paste0(file_name, ": http error ", req$status_code))
     }
-  }
-}
-
-#' Check if radar codes are exactly 5 characters
-#'
-#' @param radars character vector. Radar codes to check, e.g. `c("bejab",
-#'   "bewideu")`.
-#'
-#' @return NULL. Will stop and show error message if at least one of the
-#'   provided radar codes is not exactly 5 characters.
-#'
-#' @keywords internal
-check_radar_codes <- function(radars) {
-  wrong_codes <- radars[nchar(radars) != 5]
-  if (length(wrong_codes) > 0) {
-    stop(
-      "Radar codes should be 5 characters: ",
-      paste(wrong_codes, collapse = ", ")
-    )
-  } else {
-    radars.csv <-
-      read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
-    wrong_codes <- radars[!(radars %in% radars.csv$countryradar)]
-    if (length(wrong_codes) > 0) {
-      stop(
-        "Radar codes don't exist: ",
-        paste(wrong_codes, collapse = ", ")
-      )
-    }
-  }
-}
-
-#' Check if character date is in specific format
-#'
-#' @param date Character. Character representation of a date, e.g.
-#'   `"2018-12-13"`.
-#' @param format Character. strptime format the date should have, e.g.
-#'   `"\%Y-\%m-\%d"`
-#'
-#' @return NULL. Will stop and show error message if date does not have correct
-#'   date format.
-#'
-#' @keywords internal
-check_date_format <- function(date, format) {
-  parsed_date <- as.Date(date, format = format, tz = NULL)
-  if (is.na(parsed_date)) {
-    stop("Incorrect date format: ", date)
   }
 }

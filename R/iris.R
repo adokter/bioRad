@@ -11,14 +11,8 @@
 #'   task names were found.
 #'
 #' @export
-get_iris_raw_task <- function(file, header_size = 50,
-                              task = c(
-                                "WIND",
-                                "SURVEILLANCE",
-                                "VOL_A",
-                                "VOL_B"
-                              )) {
-  assert_that(file.exists(file))
+get_iris_raw_task <- function(file, header_size=50, task=c("WIND","SURVEILLANCE","VOL_A","VOL_B")){
+  assertthat::assert_that(file.exists(file))
 
   # read binary header
   types <- sapply(task, function(x) {

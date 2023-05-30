@@ -120,7 +120,7 @@ read_pvolfile_body <- function(file, param = c(
 
   # check file type. If not ODIM HDF5, try to convert from RSL
   cleanup <- FALSE
-  if (H5Fis_hdf5(file)) {
+  if (rhdf5::H5Fis_hdf5(file)) {
     if (!is.pvolfile(file)) {
       stop("Failed to read HDF5 file.")
     }
@@ -139,14 +139,14 @@ read_pvolfile_body <- function(file, param = c(
   }
 
   # extract scan groups
-  scans <- h5ls(file, recursive = FALSE)$name
+  scans <- rhdf5::h5ls(file, recursive = FALSE)$name
   scans <- scans[grep("dataset", scans)]
 
   # extract elevations, and make selection based on elevation
   elevs <- sapply(
     scans,
     function(x) {
-      h5readAttributes(
+      rhdf5::h5readAttributes(
         file,
         paste(x, "/where", sep = "")
       )$elangle
@@ -155,17 +155,17 @@ read_pvolfile_body <- function(file, param = c(
   scans <- scans[elevs >= elev_min & elevs <= elev_max]
 
   # extract attributes
-  h5struct <- h5ls(file)
+  h5struct <- rhdf5::h5ls(file)
   h5struct <- h5struct[h5struct$group == "/", ]$name
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- h5readAttributes(file, "how")
+    attribs.how <- rhdf5::h5readAttributes(file, "how")
   }
   if ("what" %in% h5struct) {
-    attribs.what <- h5readAttributes(file, "what")
+    attribs.what <- rhdf5::h5readAttributes(file, "what")
   }
   if ("where" %in% h5struct) {
-    attribs.where <- h5readAttributes(file, "where")
+    attribs.where <- rhdf5::h5readAttributes(file, "where")
   }
 
   # construct wavelength attribute from frequency attribute if possible:
@@ -254,9 +254,9 @@ read_pvolfile_body <- function(file, param = c(
 
   # filter out NULL output from read_pvolfile_scan
   valid_scans <- which(!sapply(data, is.null))
-  assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
-  if (length(valid_scans) < length(scans)) {
-    warning(paste("ignoring", length(scans) - length(valid_scans), "scan(s) in file", file, "because requested scan parameter(s) are missing."))
+  assertthat::assert_that(length(valid_scans) > 0, msg = paste("none of the requested scan parameters found in file", file))
+  if(length(valid_scans) < length(scans)){
+    warning(paste("ignoring",length(scans)-length(valid_scans),"scan(s) in file",file,"because requested scan parameter(s) are missing."))
   }
   data <- data[valid_scans]
 
@@ -278,7 +278,7 @@ read_pvolfile_body <- function(file, param = c(
 }
 
 read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attributes) {
-  h5struct <- h5ls(file, all = TRUE)
+  h5struct <- rhdf5::h5ls(file, all = TRUE)
   groups <- h5struct[h5struct$group == paste("/", scan, sep = ""), ]$name
   groups <- groups[grep("data", groups)]
   dtypes <- h5struct[startsWith(h5struct$group, paste("/", scan, "/data", sep = "")), ]
@@ -296,7 +296,7 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
     quantityNames <- sapply(
       groups,
       function(x) {
-        h5readAttributes(
+        rhdf5::h5readAttributes(
           file,
           paste(scan, "/", x, "/what",
             sep = ""
@@ -314,13 +314,13 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
   # read attributes
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- h5readAttributes(file, paste(scan, "/how", sep = ""))
+    attribs.how <- rhdf5::h5readAttributes(file, paste(scan, "/how", sep = ""))
   }
   if ("what" %in% h5struct) {
-    attribs.what <- h5readAttributes(file, paste(scan, "/what", sep = ""))
+    attribs.what <- rhdf5::h5readAttributes(file, paste(scan, "/what", sep = ""))
   }
   if ("where" %in% h5struct) {
-    attribs.where <- h5readAttributes(file, paste(scan, "/where", sep = ""))
+    attribs.where <- rhdf5::h5readAttributes(file, paste(scan, "/where", sep = ""))
   }
 
   # add attributes to geo list
@@ -364,10 +364,10 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
 }
 
 read_pvolfile_quantity <- function(file, quantity, radar, datetime, geo, dtype) {
-  data <- h5read(file, quantity)$data
+  data <- rhdf5::h5read(file, quantity)$data
   # convert storage mode from raw to numeric:
   storage.mode(data) <- "numeric"
-  attr <- h5readAttributes(file, paste(quantity, "/what", sep = ""))
+  attr <- rhdf5::h5readAttributes(file, paste(quantity, "/what", sep = ""))
   data <- replace(data, data == as.numeric(attr$nodata), NA)
   data <- replace(data, data == as.numeric(attr$undetect), NaN)
   data <- as.numeric(attr$offset) + as.numeric(attr$gain) * data

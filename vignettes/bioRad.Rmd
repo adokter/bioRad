@@ -130,7 +130,7 @@ bioRad includes a number of example datasets:
 * `vpts.txt.zip`: example standard output of `calculate_vp()` piped to a text file (and zipped). Read using:
 
     ```R
-    vpts_file <- unzip(system.file("extdata", "vpts.txt.zip", package = "bioRad"))
+    vpts_file <- utils::unzip(system.file("extdata", "vpts.txt.zip", package = "bioRad"))
     read_vpts(vpts_file, radar = "KBGM", wavelength = "S")
     ```
 

@@ -12,12 +12,12 @@ read_vp <- function(file) {
     return(NULL)
   }
   # check input argument
-  groups <- h5ls(file, recursive = FALSE)$name
+  groups <- rhdf5::h5ls(file, recursive = FALSE)$name
   if (!("dataset1" %in% groups)) {
     stop("HDF5 file does not contain a /dataset1 group")
   }
   # extract quantities
-  groups <- h5ls(file)
+  groups <- rhdf5::h5ls(file)
   groups <- groups[which(groups$name == "data"), ]$group
   quantities <- sapply(
     groups,
@@ -36,9 +36,9 @@ read_vp <- function(file) {
   names(profile) <- quantities
 
   # extract attributes
-  attribs.how <- h5readAttributes(file, "how")
-  attribs.what <- h5readAttributes(file, "what")
-  attribs.where <- h5readAttributes(file, "where")
+  attribs.how <- rhdf5::h5readAttributes(file, "how")
+  attribs.what <- rhdf5::h5readAttributes(file, "what")
+  attribs.where <- rhdf5::h5readAttributes(file, "where")
 
   # construct wavelength attribute from frequency attribute if possible:
   if(is.null(attribs.how$wavelength) & !is.null(attribs.how$frequency)){
@@ -117,17 +117,17 @@ read_vpfiles <- function(files) {
 }
 
 quantity_name <- function(file, group) {
-  whatgroup <- h5readAttributes(file, paste(group, "/what", sep = ""))
+  whatgroup <- rhdf5::h5readAttributes(file, paste(group, "/what", sep = ""))
   whatgroup$quantity
 }
 
 read_odim_profile_data <- function(file, group) {
-  whatgroup <- h5readAttributes(file, sprintf("%s/what", group))
+  whatgroup <- rhdf5::h5readAttributes(file, sprintf("%s/what", group))
   nodata <- whatgroup$nodata
   undetect <- whatgroup$undetect
   gain <- whatgroup$gain
   offset <- whatgroup$offset
-  data <- h5read(file, sprintf("%s/data", group))[1, ]
+  data <- rhdf5::h5read(file, sprintf("%s/data", group))[1, ]
   data <- replace(data, data == nodata, NA)
   data <- replace(data, data == undetect, NaN)
   offset + gain * data
