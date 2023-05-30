@@ -66,7 +66,7 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
 
   # currently only two delimitors supported
   # "" for legacy vol2bird output, "," for csv output
-  assert_that(sep == "" || sep == ",")
+  asserthat::assert_that(sep == "" || sep == ",")
 
   # header of the data file
   header.names.short <- c(
