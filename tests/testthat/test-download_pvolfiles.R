@@ -23,16 +23,52 @@ test_that("date input for download_pvolfiles() ", {
   )
 
   # Wrong format
-  expect_error(download_pvolfiles("01/01/2016", date_max, radars, directory, overwrite), "date_min is not a date", fixed = TRUE)
-  expect_error(download_pvolfiles(12345, date_max, radars, directory, overwrite), "date_min is not a date", fixed = TRUE)
-  expect_error(download_pvolfiles(c(date_min, date_max), date_max, radars, directory, overwrite))
-  expect_error(download_pvolfiles(date_min, "01/01/2016", radars, directory, overwrite), fixed = TRUE)
-  expect_error(download_pvolfiles(date_min, 12345, radars, directory, overwrite), fixed = TRUE)
-  expect_error(download_pvolfiles(date_min, c(date_min, date_max), radars, directory, overwrite), fixed = TRUE)
+  expect_error(
+    download_pvolfiles("01/01/2016", date_max, radars, directory, overwrite),
+    "date_min is not a date",
+    fixed = TRUE
+  )
+  expect_error(
+    download_pvolfiles(12345, date_max, radars, directory, overwrite),
+    "date_min is not a date",
+    fixed = TRUE
+  )
+  expect_error(
+    download_pvolfiles(c(date_min, date_max), date_max, radars, directory, overwrite),
+    regexp = "Only one `date_min` should be provided.",
+    fixed = TRUE
+    )
+  expect_error(
+    download_pvolfiles(date_min, date_max = c(date_min, date_max), radars, directory, overwrite),
+    regexp = "Only one `date_max` should be provided.",
+    fixed = TRUE
+  )
+  expect_error(
+    download_pvolfiles(date_min = date_max,
+                       date_max = date_min,
+                       radars, directory, overwrite),
+    regexp = "date_max is not greater or equal to date_min",
+    fixed = TRUE
+  )
+  expect_error(
+    download_pvolfiles(date_min, "01/01/2016", radars, directory, overwrite),
+    regexp = "date_max is not a date",
+    fixed = TRUE
+  )
+  expect_error(
+    download_pvolfiles(date_min, 12345, radars, directory, overwrite),
+    regexp = "date_max is not a date",
+    fixed = TRUE)
 
   # Error on impossible date
-  expect_error(download_pvolfiles(as.POSIXct("2016-10-02 20:05", tz = "UTC"), as.POSIXct("2016-10-02 20:00", tz = "UTC"), radars, directory, overwrite), fixed = TRUE)
-  expect_error(download_pvolfiles(as.POSIXct("2046-10-02 20:00", tz = "UTC"), as.POSIXct("2046-10-02 20:05", tz = "UTC"), radars, directory, overwrite), fixed = TRUE)
+  expect_error(
+    download_pvolfiles(as.POSIXct("2016-10-02 20:05", tz = "UTC"), as.POSIXct("2016-10-02 20:00", tz = "UTC"), radars, directory, overwrite),
+    regexp = "date_max is not greater or equal to date_min",
+    fixed = TRUE)
+  expect_error(
+    download_pvolfiles(as.POSIXct("2046-10-02 20:00", tz = "UTC"), as.POSIXct("2046-10-02 20:05", tz = "UTC"), radars, directory, overwrite),
+    regexp = "No data availble on the 2046-10-02. Please check data availability for this date.",
+    fixed = TRUE)
 })
 
 test_that("Check radar code for download_pvolfiles() ", {
