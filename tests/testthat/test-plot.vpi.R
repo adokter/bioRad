@@ -7,6 +7,22 @@ test_that("plot.vpi() returns error on incorrect parameters", {
 
   # Test error on "param" instead of "quantity"
   expect_error(plot(example_vpi, param = "ff"))
+  # Return error when lon or lat is not an numeric
+  expect_error(
+    plot.vpi(example_vpi, lon = 'a'),
+    regexp = "No latitude/longitude found in attribute data, please provide lat and lon arguments when night_shade=TRUE.",
+    fixed = TRUE
+  )
+  expect_error(
+    plot.vpi(example_vpi, lat = 'a'),
+    regexp = "No latitude/longitude found in attribute data, please provide lat and lon arguments when night_shade=TRUE.",
+    fixed = TRUE
+  )
+  expect_error(
+    plot.vpi(example_vpi, lon = NA),
+    regexp = "No latitude/longitude found in attribute data, please provide lat and lon arguments when night_shade=TRUE.",
+    fixed = TRUE
+  )
 })
 
 test_that("plot.vpi() warns for deprecated arguments", {
