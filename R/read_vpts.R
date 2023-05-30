@@ -63,7 +63,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   # The following steps convert the data to a vpts object
   # Check radar is unique
   radar <- unique(df$radar)
-  assert_that(
+  assertthat::assert_that(
     length(radar) == 1,
     msg = "`files` must contain data of a single radar."
   )
