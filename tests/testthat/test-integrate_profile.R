@@ -15,6 +15,12 @@ test_that("integrate_profile() returns error on incorrect parameters", {
   expect_error(integrate_profile(example_vp, height_quantile = 2))
   expect_error(integrate_profile(example_vpts, height_quantile = "a"))
   expect_error(integrate_profile(example_vpts, height_quantile = 2))
+  expect_error(integrate_profile(example_vp, alt_max = 2, alt_min = 3),
+               regexp = "'alt_min' should be smaller than 'alt_max'",
+               fixed = TRUE)
+  expect_error(integrate_profile(example_vpts, alt_max = 2, alt_min = 3),
+               regexp = "'alt_min' should be smaller than 'alt_max'",
+               fixed = TRUE)
 })
 
 test_that("integrate_profile() returns error on non vp object in list input",{
