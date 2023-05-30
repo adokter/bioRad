@@ -19,7 +19,70 @@ test_that("bind_into_vpts() returns error on incorrect parameters", {
     regexp = "requires vp objects as input",
     fixed = TRUE
   )
-
+  # unexpected objects in list
+  expect_error(
+    suppressWarnings(
+      bind_into_vpts(list("a", example_vpts[2:5]))
+      ),
+    regexp = "requires list of vp objects as input",
+    fixed = TRUE
+  )
+  # must have same radar
+  example_vpts_radar_modified <- example_vpts
+  example_vpts_radar_modified$radar <- "seang"
+  expect_error(
+    bind_into_vpts(example_vpts, example_vpts_radar_modified),
+    regexp = "Vertical profiles are not from a single radar",
+    fixed = TRUE
+  )
+  # different quantities in vertical profiles
+  example_vpts_dbzh_delete <- example_vpts
+  example_vpts_dbzh_delete$data$DBZH <- NULL
+  expect_error(
+    bind_into_vpts(example_vpts_dbzh_delete, example_vpts),
+    regexp = "Vertical profiles have different quantities",
+    fixed = TRUE
+  )
+  # Vertical profiles with different altitude layer widths
+  example_vpts_interval_edit <- example_vpts
+  example_vpts_interval_edit$attributes$where$interval <- 189
+  expect_error(
+    bind_into_vpts(example_vpts_interval_edit, example_vpts),
+    regexp = "Vertical profiles with different altitude layer widths",
+    fixed = TRUE
+  )
+  # Vertical profiles with different numbers of altitude layers
+  example_vpts_layer_edit <- example_vpts
+  example_vpts_layer_edit$attributes$where$levels <- 23
+  expect_error(
+    bind_into_vpts(example_vpts_layer_edit, example_vpts),
+    regexp = "Vertical profiles with different numbers of altitude layers",
+    fixed = TRUE
+  )
+  # vp: Vertical profiles of radar contain different quantities.
+  example_vp_dbzh_delete <- example_vp
+  example_vp_dbzh_delete$data$DBZH <- NULL
+  expect_error(
+    bind_into_vpts(list(example_vp_dbzh_delete, example_vp)),
+    regexp = "Vertical profiles of radar seang contain different quantities.",
+    fixed = TRUE
+  )
+  # vp: Vertical profiles with different altitude layer widths
+  example_vp_interval_edit <- example_vp
+  example_vp_interval_edit$attributes$where$interval <- 189
+  expect_error(
+    bind_into_vpts(list(example_vp_interval_edit, example_vp)),
+    regexp = "Vertical profiles with different altitude layer widths",
+    fixed = TRUE
+  )
+  # vp: Vertical profiles with different numbers of altitude layers
+  example_vp_layer_edit <- example_vp
+  example_vp_layer_edit$attributes$where$levels <- 23
+  expect_error(
+    bind_into_vpts(list(example_vp_layer_edit, example_vp)),
+    regexp = "Vertical profiles with different numbers of altitude layers",
+    fixed = TRUE
+  )
 })
 
 test_that("bind_into_vpts() warns for multiple different radars", {
@@ -74,3 +137,36 @@ test_that("vpts with different heights", {
   expect_s3_class(vpts,'vpts')
   expect_equal(vpts$attributes$where$levels, example_vpts$attributes$where$levels)
 })
+
+test_that("vplist_to_vpts() returns error for unknown radar", {
+  expect_error(
+    vplist_to_vpts(list(example_vp,example_vp), radar = "not_a_radar"),
+    regexp = "no profiles found for radar not_a_radar",
+    fixed = TRUE
+  )
+})
+
+test_that("vplist_to_vpts() returns vpts object", {
+  expect_type(
+    vplist_to_vpts(list(example_vp, example_vp), radar = "seang"),
+    "list")
+  expect_s3_class(
+    vplist_to_vpts(list(example_vp, example_vp), radar = "seang"),
+    "vpts"
+  )
+})
+
+test_that("combined_heights() returns error on incorrect parameters", {
+  expect_error(
+    combined_heights("a"),
+    regexp = "x is not a list",
+    fixed = TRUE
+  )
+  expect_error(
+    combined_heights(as.list(example_vpts$height)),
+    regexp = "Not all data has the same size of altitude bins",
+    fixed = TRUE
+  )
+})
+
+
