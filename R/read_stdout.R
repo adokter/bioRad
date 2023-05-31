@@ -10,7 +10,7 @@
 #' and S-band radar, respectively, in which case C-band wavelength is assumed
 #' to be 5.3 cm and S-band wavelength 10.6 cm
 #' @param sep the field separator character, see [utils::read.table]
-#'
+#' @keywords internal
 #' @return An object inheriting from class `vpts`, see
 #' [`vpts()`][summary.vpts] for details.
 #'
