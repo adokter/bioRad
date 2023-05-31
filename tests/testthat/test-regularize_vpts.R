@@ -5,52 +5,72 @@ test_that("regularize_vpts() returns error on incorrect parameters", {
   expect_error(regularize_vpts(example_vp),
                regexp = "is.vpts(x = ts) is not TRUE",
                fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, "not_an_interval"),
-               regexp = "interval is not a number (a length one numeric vector).",
-               fixed = TRUE)
+  expect_error(
+    regularize_vpts(example_vpts, "not_an_interval"),
+    regexp = "interval is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
   expect_error(regularize_vpts(example_vpts, -5),
                regexp = "interval not greater than 0",
                fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, units = "not_an_unit"),
-               regexp = "Invalid 'units' argument. Should be one ofc('secs', 'mins', 'hours','days', 'weeks')",
-               fixed = TRUE)
+  expect_error(
+    regularize_vpts(example_vpts, units = "not_an_unit"),
+    regexp = "Invalid 'units' argument. Should be one ofc('secs', 'mins', 'hours','days', 'weeks')",
+    fixed = TRUE
+  )
   expect_error(regularize_vpts(example_vpts, units = c("weeks", "days")),
                regexp = "Only one 'units' argument can be provided.",
                fixed = TRUE)
   expect_error(regularize_vpts(example_vpts, units = 2),
                regexp = "Invalid 'units' argument. Should be one ofc('secs', 'mins', 'hours','days', 'weeks')",
                fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, fill = "not_a_logical", verbose = FALSE),
-               regexp = "fill is not a number (a length one numeric vector).",
-               fixed = TRUE)
+  expect_error(
+    regularize_vpts(example_vpts, fill = "not_a_logical", verbose = FALSE),
+    regexp = "fill is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
   expect_error(regularize_vpts(example_vpts, fill = c(TRUE, TRUE), verbose = FALSE))
-  expect_error(regularize_vpts(example_vpts, fill = c(1, 1), verbose = FALSE),
-               regexp = "fill is not a number (a length one numeric vector).",
-               fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, verbose = "not_a_logical"),
-               regexp = "verbose is not a flag (a length one logical vector).",
-               fixed = TRUE)
+  expect_error(
+    regularize_vpts(example_vpts, fill = c(1, 1), verbose = FALSE),
+    regexp = "fill is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    regularize_vpts(example_vpts, verbose = "not_a_logical"),
+    regexp = "verbose is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
   expect_error(regularize_vpts(example_vpts, verbose = 1),
                regexp = "verbose is not a flag (a length one logical vector).",
                fixed = TRUE)
   expect_error(regularize_vpts(example_vpts, verbose = c(TRUE, TRUE)),
                regexp = "verbose is not a flag (a length one logical vector).",
                fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, keep_datetime = "not_a_logical"),
-               regexp = "keep_datetime is not a flag (a length one logical vector).",
-               fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, keep_datetime = 1),
-               regexp = "keep_datetime is not a flag (a length one logical vector).",
-               fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, keep_datetime = c(TRUE, TRUE)),
-               regexp = "keep_datetime is not a flag (a length one logical vector).",
-               fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, date_min = "not_a_POSIXct", verbose = FALSE),
-               regexp = "date_min is not a POSIXt date-time object",
-               fixed = TRUE)
-  expect_error(regularize_vpts(example_vpts, date_max = "not_a_POSIXct", verbose = FALSE),
-               regexp = "date_max is not a POSIXt date-time object",
-               fixed = TRUE)
+  expect_error(
+    regularize_vpts(example_vpts, keep_datetime = "not_a_logical"),
+    regexp = "keep_datetime is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    regularize_vpts(example_vpts, keep_datetime = 1),
+    regexp = "keep_datetime is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    regularize_vpts(example_vpts, keep_datetime = c(TRUE, TRUE)),
+    regexp = "keep_datetime is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    regularize_vpts(example_vpts, date_min = "not_a_POSIXct", verbose = FALSE),
+    regexp = "date_min is not a POSIXt date-time object",
+    fixed = TRUE
+  )
+  expect_error(
+    regularize_vpts(example_vpts, date_max = "not_a_POSIXct", verbose = FALSE),
+    regexp = "date_max is not a POSIXt date-time object",
+    fixed = TRUE
+  )
   expect_error(
     regularize_vpts(
       example_vpts,
