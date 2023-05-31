@@ -99,12 +99,21 @@ test_that("`regularize_vpts` has expected datetime when dates and intervals are 
 })
 test_that("regularized vpts has the same data at the same or slightly shifted times ", {
   expect_equal(
-    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% example_vpts$datetime[c(618, 950)]],
+    regularize_vpts(
+      example_vpts,
+      verbose = FALSE)[regularize_vpts(
+        example_vpts,
+        verbose = FALSE)$datetime %in%
+          example_vpts$datetime[c(618, 950)]],
     example_vpts[c(618, 950)]
   )
   # check for match in records that are shifted by 60 seconds
   expect_equal(
-    regularize_vpts(example_vpts, verbose = F)[regularize_vpts(example_vpts, verbose = F)$datetime %in% (example_vpts$datetime[c(801, 1515)] + 60)]$data,
-    example_vpts[c(801, 1515)]$data
-  )
+    regularize_vpts(
+      example_vpts,
+      verbose = FALSE)[regularize_vpts(
+        example_vpts,
+        verbose = FALSE)$datetime %in%
+          (example_vpts$datetime[c(801, 1515)] + 60)]$data,
+    example_vpts[c(801, 1515)]$data)
 })
