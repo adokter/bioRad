@@ -17,14 +17,33 @@ test_that("download_vpfiles() returns error on incorrect parameters", {
     fixed = TRUE
   )
   expect_error(
-    download_vpfiles(c(date_min, date_max), date_max, radars, directory, overwrite),
+    download_vpfiles(
+      c(date_min, date_max), date_max, radars, directory, overwrite
+    ),
     "date_min is not a string (a length one character vector).",
     fixed = TRUE
   )
 
-  expect_error(download_vpfiles(date_min, '01/01/2016', radars, directory, overwrite), glue::glue("Incorrect date format: ", '01/01/2016'), fixed = TRUE)
-  expect_error(download_vpfiles(date_min ,12345, radars, directory, overwrite), "date_max is not a string (a length one character vector).", fixed = TRUE)
-  expect_error(download_vpfiles(date_min, c(date_min,date_max), radars, directory, overwrite), "date_max is not a string (a length one character vector).", fixed = TRUE)
+  expect_error(
+    download_vpfiles(
+      date_min, "01/01/2016",
+      radars, directory, overwrite
+    ),
+    glue::glue("Incorrect date format: ", "01/01/2016"),
+    fixed = TRUE
+  )
+  expect_error(download_vpfiles(date_min, 12345, radars, directory, overwrite),
+    "date_max is not a string (a length one character vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    download_vpfiles(
+      date_min, c(date_min, date_max),
+      radars, directory, overwrite
+    ),
+    "date_max is not a string (a length one character vector).",
+    fixed = TRUE
+  )
 
   expect_error(
     download_vpfiles(date_min, date_max, "not_radar_code", directory, overwrite),
