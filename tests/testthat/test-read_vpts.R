@@ -11,9 +11,14 @@ test_that("read_vpts() returns error on incorrect parameters", {
 
 })
 
-test_that("All files exist", {
-  file_paths <- c("path/to/your/file1", "path/to/your/file2", "path/to/your/file3")
-  expect_true(all(file.exists(file_paths)))
+test_that("all files exist", {
+# Create temporary files
+file_paths <- tempfile(c("file1", "file2", "file3"))
+file.create(file_paths)
+# Expect that all files exist
+expect_true(all(file.exists(file_paths)))
+# Remove temporary files
+file.remove(file_paths)
 })
 
 test_that("read_vpts() returns error on mixed extensions", {
