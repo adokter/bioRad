@@ -33,14 +33,14 @@ test_that("read_vpts() can read local vp hdf5 files", {
     temp_file <- tempfile()
     curl::curl_download(urls[1], destfile = temp_file)
     result <- read_vpts_hdf5(temp_file)
-    expect_true(length(result) == 1, "Expected one vp object to be returned when reading one file.")
 
+    expect_true(length(result$datetime) == 1, "Expected one vp object to be returned when reading one file.")
     # Test if the output is a vpts object
     expect_true(is.vpts(result), "Coverstion to vpts object failed.")
 
     file.remove(temp_file)
   }
-  
+
   # Test for multiple files
   temp_files <- lapply(urls, function(url) {
     temp_file <- tempfile()
@@ -48,10 +48,13 @@ test_that("read_vpts() can read local vp hdf5 files", {
     temp_file
   })
   result <- read_vpts_hdf5(temp_files)
-  expect_true(length(result) == n, paste("Expected", n, "vp objects to be returned when reading", n, "files."))
+  expect_true(length(result$datetime) == n, paste("Expected", n, "vp objects to be returned when reading", n, "files."))
+
+  print(result)
+  print(str(result))
 
   # Test if the output is a vpts object
-  expect_true(all(sapply(result, is.vpts)), "Conversion to vpts object failed.")
+  expect_true(is.vpts(result), "Coverstion to vpts object failed.")
 
   # Remove temporary files
   for (temp_file in temp_files) {
