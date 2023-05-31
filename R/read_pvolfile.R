@@ -99,23 +99,27 @@ read_pvolfile_body <- function(file, param = c(
                                elev_max = 90, verbose = TRUE,
                                mount = dirname(file), local_install) {
   # input checks
-  if (!is.logical(sort)) {
-    stop("'sort' should be logical")
-  }
+  assertthat::assert_that(assertthat::is.flag(sort),
+                          msg = "'sort' should be logical")
   if (!missing(lat)) {
-    if (!is.numeric(lat) || lat < -90 || lat > 90) {
-      stop("'lat' should be numeric between -90 and 90 degrees")
-    }
+    lat_msg <- "'lat' should be numeric between -90 and 90 degrees"
+    assertthat::assert_that(length(lat) == 1, msg = lat_msg)
+    assertthat::assert_that(is.numeric(lat), msg = lat_msg)
+    assertthat::assert_that(lat > -90, msg = lat_msg)
+    assertthat::assert_that(lat < 90, msg = lat_msg)
   }
   if (!missing(lon)) {
-    if (!is.numeric(lon) || lat < -360 || lat > 360) {
-      stop("'lon' should be numeric between -360 and 360 degrees")
-    }
+    lon_msg <- "'lon' should be numeric between -360 and 360 degrees"
+    assertthat::assert_that(length(lon) == 1, msg = lon_msg)
+    assertthat::assert_that(is.numeric(lon), msg = lon_msg)
+    assertthat::assert_that(lon > -360, msg = lon_msg)
+    assertthat::assert_that(lon < 360, msg = lon_msg)
   }
   if (!missing(height)) {
-    if (!is.numeric(height) || height < 0) {
-      stop("'height' should be a positive number of meters above sea level")
-    }
+    height_msg <- "'height' should be a positive number of meters above sea level"
+    assertthat::assert_that(length(height) == 1, msg = height_msg)
+    assertthat::assert_that(is.numeric(height), msg = height_msg)
+    assertthat::assert_that(height > 0, msg = height_msg)
   }
 
   # check file type. If not ODIM HDF5, try to convert from RSL
