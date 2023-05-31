@@ -55,7 +55,10 @@ test_that("read_vpts() can read local vp hdf5 files", {
     file.remove(temp_files)
   }
 
-  # Returns vpts class
+    # Remove temporary files
+  for (temp_file in temp_files) {
+    file.remove(temp_file)
+  }
 
 })
 
