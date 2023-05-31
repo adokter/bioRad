@@ -23,12 +23,14 @@ test_that("read_vpts() returns error on mixed extensions", {
 
 test_that("read_vpts() can read local vp hdf5 files", {
 
+  skip_if_offline()
+
   urls <- c(hdf5_local_vp_1, hdf5_local_vp_2)
   n <- length(urls)
 
   # Test for one file
   {
-    GET(urls[1], write_disk(temp_file))
+    curl::curl_download(urls[1], write_disk(temp_file))
     result <- read_vpts_hdf5(temp_file)
     expect_true(length(result) == 1, "Expected one vp object to be returned when reading one file.")
 
@@ -41,7 +43,7 @@ test_that("read_vpts() can read local vp hdf5 files", {
   {
     temp_files <- lapply(urls, function(url) {
       temp_file <- tempfile(fileext = ".h5")
-      GET(url, write_disk(temp_file))
+      curl::curl_download(url, write_disk(temp_file))
       temp_file
     })
     result <- read_vpts_hdf5(temp_files)
@@ -52,8 +54,6 @@ test_that("read_vpts() can read local vp hdf5 files", {
     file.remove(temp_files)
   }
 
-  # Test for one file
-  # Test for multiple files
   # Returns vpts class
 
 })
