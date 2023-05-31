@@ -126,13 +126,27 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
                                   rp = 6357) {
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(range))
+  assertthat::assert_that(all(range >= 0),
+                          msg = "range must be positive.")
   assertthat::assert_that(assertthat::is.number(elev))
   assertthat::assert_that(assertthat::is.number(antenna))
   assertthat::assert_that(assertthat::is.number(beam_angle))
+  assertthat::assert_that(!is.infinite(beam_angle),
+                          msg = "beam_angle can't be infinite.")
+  assertthat::assert_that(all(beam_angle > 0),
+                          msg = "beam_angle must be positive.")
   assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(!is.infinite(k),
+                          msg = "k can't be infinite.")
   assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(lat <= 90)
+  assertthat::assert_that(lat >= -90)
   assertthat::assert_that(assertthat::is.number(rp))
+  assertthat::assert_that(!is.infinite(rp),
+                          msg = "rp can't be infinite.")
   assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(!is.infinite(re),
+                          msg = "re can't be infinite.")
   gaussian_beam_profile_internal(
     height = height, range = range, elev = elev, antenna = antenna,
     beam_angle = beam_angle, k = k, lat = lat, re = re,

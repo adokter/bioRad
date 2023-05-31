@@ -368,3 +368,138 @@ test_that("beam_width() returns error on incorrect parameters", {
                beam_angle = "a")
   )
 })
+
+
+test_that("gaussian_beam_profile returns error on incorrect parameters", {
+  range <- seq(0, 100000, 100)
+  expect_error(
+    gaussian_beam_profile("a"),
+    regexp = "height is not a numeric or integer vector",
+    fixed = TRUE
+    )
+  expect_error(
+    gaussian_beam_profile(3),
+    regexp = 'argument "range" is missing, with no default',
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range = -2:3, elev = 2),
+    regexp = 'range must be positive',
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3,range),
+    regexp = 'argument "elev" is missing, with no default',
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1:4),
+    regexp = "elev is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = "a"),
+    regexp = "elev is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, antenna = 1:4),
+    regexp = "antenna is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, antenna = list(1)),
+    regexp = "antenna is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, antenna = "a"),
+    regexp = "antenna is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, beam_angle = c(0.2,4)),
+    regexp = "beam_angle is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, beam_angle = -9),
+    regexp = "beam_angle must be positive.",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, beam_angle = NA),
+    regexp = "beam_angle is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, beam_angle = Inf),
+    regexp = "beam_angle can't be infinite.",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, k = -4:2),
+    regexp = "k is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, k = Inf),
+    regexp = "k can't be infinite.",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, k = "a"),
+    regexp = "k is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, lat = 180),
+    regexp = "lat not less than or equal to 90",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, lat = -180),
+    regexp = "lat not greater than or equal to -90",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, lat = seq(5)),
+    regexp = "lat is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, lat = NA),
+    regexp = "lat is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, rp = seq(2)),
+    regexp = "rp is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, rp = "a"),
+    regexp = "rp is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, rp = Inf),
+    regexp = "rp can't be infinite",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, re = seq(2)),
+    regexp = "re is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, re = "a"),
+    regexp = "re is not a number (a length one numeric vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    gaussian_beam_profile(3, range, elev = 1.44, re = Inf),
+    regexp = "re can't be infinite.",
+    fixed = TRUE
+  )
+})
