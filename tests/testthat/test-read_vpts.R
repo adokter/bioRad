@@ -50,9 +50,6 @@ test_that("read_vpts() can read local vp hdf5 files", {
   result <- read_vpts_hdf5(temp_files)
   expect_true(length(result$datetime) == n, paste("Expected", n, "vp objects to be returned when reading", n, "files."))
 
-  print(result)
-  print(str(result))
-
   # Test if the output is a vpts object
   expect_true(is.vpts(result), "Coverstion to vpts object failed.")
 
