@@ -14,6 +14,9 @@ test_that("regularize_vpts() returns error on incorrect parameters", {
   expect_error(regularize_vpts(example_vpts, units = "not_an_unit"),
                regexp = "Invalid 'units' argument. Should be one ofc('secs', 'mins', 'hours','days', 'weeks')",
                fixed = TRUE)
+  expect_error(regularize_vpts(example_vpts, units = c("weeks", "days")),
+               regexp = "Only one 'units' argument can be provided.",
+               fixed = TRUE)
   expect_error(regularize_vpts(example_vpts, units = 2),
                regexp = "Invalid 'units' argument. Should be one ofc('secs', 'mins', 'hours','days', 'weeks')",
                fixed = TRUE)

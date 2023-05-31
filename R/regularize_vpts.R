@@ -53,15 +53,14 @@ regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   assertthat::assert_that(is.vpts(ts))
   if (interval != "auto") assertthat::assert_that(assertthat::is.number(interval), interval > 0)
-
+  if (length(units) > 1) {
+    stop("Only one 'units' argument can be provided.")
+  }
   if (!(units %in% c("secs", "mins", "hours", "days", "weeks"))) {
     stop(
       "Invalid 'units' argument. Should be one of",
       "c('secs', 'mins', 'hours','days', 'weeks')"
     )
-  }
-  if (length(units) > 1) {
-    stop("Invalid or missing 'units' argument.")
   }
   assertthat::assert_that(assertthat::is.flag(verbose))
   assertthat::assert_that(assertthat::is.flag(keep_datetime))
