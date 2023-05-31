@@ -38,3 +38,4 @@ vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 ts <- read_stdout(vptsfile, radar = "KBGM", wavelength = "S")
 ts
 }
+\keyword{internal}
