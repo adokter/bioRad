@@ -44,7 +44,7 @@ test_that("read_vpts() can read local vp hdf5 files", {
   {
     temp_files <- lapply(urls, function(url) {
       temp_file <- tempfile()
-      curl::curl_download(url, desfiile = temp_file)
+      curl::curl_download(url, destfile = temp_file)
       temp_file
     })
     result <- read_vpts_hdf5(temp_files)
