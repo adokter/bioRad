@@ -43,5 +43,36 @@ test_that("read_cajun() returns error on incorrect parameters", {
   )
 })
 
+# TODO add more tests to validate file was read correctly
+test_that("read_cajun() returns vp object", {
+  non_empty_file_path <- tempfile()
+  cajun_csv <- dplyr::tribble(
+    ~bin_lower, ~height, ~linear_eta, ~nbins, ~direction, ~speed, ~u, ~v, ~rmse, ~elev1, ~nvolumes_gr35_e1, ~elev2, ~nvolumes_gr35_e2, ~vcp, ~linear_eta_unfiltered, ~percent_rain,
+    0, 50, 851.2421, 29911, 36.8916, 9.1082, 5.4677, 7.2845, 12.5202, 0.3646, 216, 1.3329, 0, 21, 852.3826, 0.005955744,
+    100, 150, 212.6159, 49823, 44.6877, 14.4428, 10.1568, 10.2681, 11.5492, 0.3646, 216, 1.3329, 0, 21, 213.7921, 0.1159383
+  )
+  write.csv(x = cajun_csv, non_empty_file_path)
+  expect_s3_class(
+    read_cajun(non_empty_file_path, wavelength = c("S")),
+    "vp"
+  )
+})
 
+test_that("read_cajun() returns expected data", {
+  non_empty_file_path <- tempfile()
+  cajun_csv <- dplyr::tribble(
+    ~bin_lower, ~height, ~linear_eta, ~nbins, ~direction, ~speed, ~u, ~v, ~rmse, ~elev1, ~nvolumes_gr35_e1, ~elev2, ~nvolumes_gr35_e2, ~vcp, ~linear_eta_unfiltered, ~percent_rain,
+    0, 50, 851.2421, 29911, 36.8916, 9.1082, 5.4677, 7.2845, 12.5202, 0.3646, 216, 1.3329, 0, 21, 852.3826, 0.005955744,
+    100, 150, 212.6159, 49823, 44.6877, 14.4428, 10.1568, 10.2681, 11.5492, 0.3646, 216, 1.3329, 0, 21, 213.7921, 0.1159383
+  )
+  write.csv(x = cajun_csv, non_empty_file_path)
+  expect_equal(
+    ignore_attr = TRUE,
+    read_cajun(non_empty_file_path, wavelength = c("S"))$data,
+    dplyr::tribble(
+      ~height, ~u, ~v, ~w, ~ff, ~dd, ~sd_vvp, ~gap, ~dbz, ~eta, ~dens, ~DBZH, ~n, ~n_dbz, ~n_all, ~n_dbz_all, ~elev1, ~nvolumes_gr35_e1, ~elev2, ~nvolumes_gr35_e2, ~vcp, ~percent_rain,
+      1L, 9.1082, 5.4677, NA, 36.8916, 29911L, 7.2845, FALSE, 3.7747820481656, 50L, 4.54545454545455, 0.00727495214460544, NA, -6404.5974442746, NA, 851.2421, 12.5202, 0.3646, 216L, 1.3329, 0L, 852.3826,
+      2L, 14.4428, 10.1568, NA, 44.6877, 49823L, 10.2681, FALSE, 8.54599459536223, 150L, 13.6363636363636, 0.00727495214460544, NA, -241.9400975439, NA, 212.6159, 11.5492, 0.3646, 216L, 1.3329, 0L, 213.7921
+    )
+  )
 })
