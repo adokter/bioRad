@@ -30,7 +30,8 @@ test_that("read_vpts() can read local vp hdf5 files", {
 
   # Test for one file
   {
-    curl::curl_download(urls[1], write_disk(temp_file))
+    temp_file <- tempfile()
+    curl::curl_download(urls[1], destfile = temp_file)
     result <- read_vpts_hdf5(temp_file)
     expect_true(length(result) == 1, "Expected one vp object to be returned when reading one file.")
 
@@ -42,8 +43,8 @@ test_that("read_vpts() can read local vp hdf5 files", {
   # Test for multiple files
   {
     temp_files <- lapply(urls, function(url) {
-      temp_file <- tempfile(fileext = ".h5")
-      curl::curl_download(url, write_disk(temp_file))
+      temp_file <- tempfile()
+      curl::curl_download(url, desfiile = temp_file)
       temp_file
     })
     result <- read_vpts_hdf5(temp_files)
