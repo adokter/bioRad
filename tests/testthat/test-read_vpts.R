@@ -92,4 +92,89 @@ test_that("read_vpts() returns error on incorrect parameters", {
     regexp = "height is not a number (a length one numeric vector).",
     fixed = TRUE
   )
+
+  wavelength_msg <-
+    glue::glue(
+      "'wavelength' should be a single positive number",
+      ", or one of 'C' or 'S' for C-band and S-band radar, respectively."
+    )
+  expect_error(
+    read_vpts(vptsfile,
+      wavelength = "a",
+      radar = "KBGM"
+    ),
+    regexp = wavelength_msg,
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      wavelength = -12,
+      radar = "KBGM"
+    ),
+    regexp = wavelength_msg,
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      wavelength = 1:3,
+      radar = "KBGM"
+    ),
+    regexp = wavelength_msg,
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      wavelength = "Q",
+      radar = "KBGM"
+    ),
+    regexp = wavelength_msg,
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      wavelength = "S",
+      radar = "KBGM",
+      sep = "|"
+    ),
+    regexp = "'sep' should be either \",\" or \"\"",
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      sep = NA
+    ),
+    regexp = "'sep' should be either \",\" or \"\"",
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      sep = c(",", "&")
+    ),
+    regexp = "'sep' should be either \",\" or \"\"",
+    fixed = TRUE
+  )
+  expect_error(
+    read_vpts(vptsfile,
+      sep = c(",", "||")
+    ),
+    regexp = "'sep' should be either \",\" or \"\"",
+    fixed = TRUE
+  )
+})
+
+test_that("read_vpts() warns for missing wavelength", {
+  expect_warning(
+    read_vpts(vptsfile,
+      radar = "KBGM"
+    ),
+    regexp = "No 'wavelength' argument provided, assuming radar operates at C-band",
+    fixed = TRUE
+  )
+  # test a vptsfile with a comma seperator
+  vptsfile_lines <- readLines(vptsfile)
+  vptsfile_comment_lines <- grepl("#", readLines(vptsfile))
+  vptsfile_lines[!vptsfile_comment_lines] <-
+    gsub("\\s+", ",", readLines(vptsfile)[!vptsfile_comment_lines])
+  vptsfile_sep <- tempfile()
+  writeLines(vptsfile_lines, vptsfile_sep)
 })
