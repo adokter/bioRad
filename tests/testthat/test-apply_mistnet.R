@@ -7,6 +7,7 @@ download.file(
 
 
 test_that("apply_mistnet() forwards errors from rhdf5", {
+  skip_if_no_mistnet()
   expect_error(
     apply_mistnet(tempfile()),
     regexp = "does not exist"
@@ -14,6 +15,7 @@ test_that("apply_mistnet() forwards errors from rhdf5", {
 })
 
 test_that("apply_mistnet() returns error on incorrect parameters", {
+  skip_if_no_mistnet()
   expect_error(
     suppressMessages(
       apply_mistnet(
