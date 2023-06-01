@@ -30,6 +30,13 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
   }
+  # currently only two delimitors supported
+  # "" for legacy vol2bird output, "," for csv output
+  assertthat::assert_that(assertthat::is.scalar(sep) && is.character(sep),
+                          msg = "'sep' should be either \",\" or \"\"")
+  assertthat::assert_that(sep == "" || sep == ",",
+                          msg = "'sep' should be either \",\" or \"\"")
+
   if (!missing(lat)) {
     assertthat::assert_that(
       assertthat::is.number(lat),
@@ -81,13 +88,6 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
   if (wavelength == "S") {
     wavelength <- 10.6
   }
-  if (!is.numeric(wavelength) || length(wavelength) > 1) {
-    stop("Not a valid 'wavelength' argument.")
-  }
-
-  # currently only two delimitors supported
-  # "" for legacy vol2bird output, "," for csv output
-  assertthat::assert_that(sep == "" || sep == ",")
 
   # header of the data file
   header.names.short <- c(
