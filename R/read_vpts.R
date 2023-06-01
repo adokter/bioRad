@@ -31,12 +31,20 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
     stop(paste("File", file, "is empty."))
   }
   if (!missing(lat)) {
+    assertthat::assert_that(
+      assertthat::is.number(lat),
+      msg = "'lat' should be a single numeric between -90 and 90 degrees"
+      )
     if (!is.numeric(lat) || lat < -90 || lat > 90) {
       stop("'lat' should be numeric between -90 and 90 degrees")
     }
   }
   if (!missing(lon)) {
-    if (!is.numeric(lon) || lat < -360 || lat > 360) {
+    assertthat::assert_that(
+      assertthat::is.number(lon),
+      msg = "'lon' should be a single numeric numeric between -360 and 360 degrees"
+    )
+    if (!is.numeric(lon) || lon < -360 || lon > 360) {
       stop("'lon' should be numeric between -360 and 360 degrees")
     }
   }
