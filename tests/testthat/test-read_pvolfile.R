@@ -75,4 +75,13 @@ test_that("read_pvolfile() returns error on incorrect parameters", {
     regexp = "'height' should be a positive number of meters above sea level",
     fixed = TRUE
   )
+
+  temp_dir <- tempdir()
+  rhdf5::h5createFile(file.path(temp_dir,"missing_groups.h5"))
+
+  expect_error(
+    suppressWarnings(read_pvolfile(file.path(temp_dir,"missing_groups.h5"))),
+    regexp = "Failed to read HDF5 file.",
+    fixed = TRUE
+  )
 })
