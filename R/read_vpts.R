@@ -63,6 +63,18 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
       sep = ""
     ))
   }
+  wavelength_msg <-
+    glue::glue(
+      "'wavelength' should be a single positive number",
+      ", or one of 'C' or 'S' for C-band and S-band radar, respectively."
+    )
+  assertthat::assert_that(length(wavelength) == 1,
+                          msg = wavelength_msg)
+  assertthat::assert_that(
+    (is.numeric(wavelength) && wavelength > 0) ||
+      wavelength %in% c("C","S"),
+    msg = wavelength_msg)
+
   if (wavelength == "C") {
     wavelength <- 5.3
   }
