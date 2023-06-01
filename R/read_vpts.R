@@ -49,6 +49,7 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
     }
   }
   if (!missing(height)) {
+    assertthat::assert_that(assertthat::is.number(height))
     if (!is.numeric(height) || height < 0) {
       stop("'height' should be a positive number of meters above sea level")
     }
