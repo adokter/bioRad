@@ -9,9 +9,10 @@
 #' @family read functions
 #' @export
 read_vpts <- function(files, radar = NULL, lat = NULL, lon = NULL, height = NULL) {
-  if (!is.null(radar) | !is.null(lat) | !is.null(lon) | !is.null(height) | !is.null(wavelength)) {
+  #Check if any of the old parameters are used
+  if (!is.null(radar) | !is.null(lat) | !is.null(lon) | !is.null(height)) {
     .Deprecated("read_stdout")
-    return(read_stdout(files, radar, lat, lon, height, wavelength = "C", sep = ""))
+     return(read_stdout(file = files, radar = radar, lat = lat, lon = lon, height = height, wavelength = "C", sep = ""))
   }
 
   # Get file extension
