@@ -127,29 +127,28 @@ test_that("as.data.frame() includes lat/lon/height_antenna cols and can be assig
 })
 
 test_that("as.data.frame() includes sunset/sunrise/day cols, unless suntime = FALSE", {
-    # sunset/sunrise/day columns are added by default
-    vp_df <- as.data.frame(vp)
-    expect_s3_class(vp_df$sunset, "POSIXct")
-    expect_s3_class(vp_df$sunrise, "POSIXct")
-    expect_type(vp_df$day, "logical")
+  # sunset/sunrise/day columns are added by default
+  vp_df <- as.data.frame(vp)
+  expect_s3_class(vp_df$sunset, "POSIXct")
+  expect_s3_class(vp_df$sunrise, "POSIXct")
+  expect_type(vp_df$day, "logical")
 
-    vpts_df <- as.data.frame(vpts)
-    expect_s3_class(vpts_df$sunset, "POSIXct")
-    expect_s3_class(vpts_df$sunrise, "POSIXct")
-    expect_type(vpts_df$day, "logical")
+  vpts_df <- as.data.frame(vpts)
+  expect_s3_class(vpts_df$sunset, "POSIXct")
+  expect_s3_class(vpts_df$sunrise, "POSIXct")
+  expect_type(vpts_df$day, "logical")
 
-    # sunset/sunrise/day columns are missing if suntime = FALSE
-    vp_df_suntime_false <- as.data.frame(vp, suntime = FALSE)
-    expect_null(vp_df_suntime_false$sunset)
-    expect_null(vp_df_suntime_false$sunrise)
-    expect_null(vp_df_suntime_false$day)
+  # sunset/sunrise/day columns are missing if suntime = FALSE
+  vp_df_suntime_false <- as.data.frame(vp, suntime = FALSE)
+  expect_null(vp_df_suntime_false$sunset)
+  expect_null(vp_df_suntime_false$sunrise)
+  expect_null(vp_df_suntime_false$day)
 
-    vpts_df_suntime_false <- as.data.frame(vpts, suntime = FALSE)
-    expect_null(vpts_df_suntime_false$sunset)
-    expect_null(vpts_df_suntime_false$sunrise)
-    expect_null(vpts_df_suntime_false$day)
-  }
-)
+  vpts_df_suntime_false <- as.data.frame(vpts, suntime = FALSE)
+  expect_null(vpts_df_suntime_false$sunset)
+  expect_null(vpts_df_suntime_false$sunrise)
+  expect_null(vpts_df_suntime_false$day)
+})
 
 test_that("as.data.frame.vp() values in sunrise/sunset/day cols are correct and updated with lat/lon", {
   # Only tested for vp (not vpts), which has timestamp 2015-10-18 18:00:00 UTC
