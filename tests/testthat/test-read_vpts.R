@@ -17,9 +17,11 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
 
   expect_warning(read_vpts(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
                  "deprecated")
-  expect_equal(read_vpts(files = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
-              read_stdout(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000, wavelength = "C", sep = ""))
 
+  #Test if outputs from both functions are equal but supress warnings in tests
+  suppressWarnings(expect_equal(read_vpts(files = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
+              read_stdout(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000, wavelength = "C", sep = ""))
+)
 })
 
 test_that("read_vpts() returns error on mixed extensions", {
