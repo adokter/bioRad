@@ -11,12 +11,20 @@ test_that("as.data.frame().vp returns error on incorrect parameters", {
     as.data.frame(vp, row.names = "not_a_logical"),
     "`row.names` must be a character vector of length"
   )
-  # expect_error(as.data.frame(vp, optional = "not_a_logical"))
   expect_error(
-    as.data.frame(vp, geo = "not_a_logical")
+    as.data.frame(vp, optional = "not_a_logical"),
+    regexp = "optional is not a flag (a length one logical vector).",
+    fixed = TRUE
   )
   expect_error(
-    as.data.frame(vp, suntime = "not_a_logical")
+    as.data.frame(vp, geo = "not_a_logical"),
+    regexp = "geo is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vp, suntime = "not_a_logical"),
+    regexp = "suntime is not a flag (a length one logical vector).",
+    fixed = TRUE
   )
   expect_error(
     as.data.frame(vp, lat = "not_a_double"),
