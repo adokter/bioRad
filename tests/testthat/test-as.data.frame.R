@@ -7,13 +7,32 @@ vpts <- example_vpts
 # TODO: test if "elev" parameter is passed correctly
 
 test_that("as.data.frame().vp returns error on incorrect parameters", {
-  expect_error(as.data.frame(vp, row.names = "not_a_logical"), "`row.names` must be a character vector of length")
+  expect_error(
+    as.data.frame(vp, row.names = "not_a_logical"),
+    "`row.names` must be a character vector of length"
+  )
   # expect_error(as.data.frame(vp, optional = "not_a_logical"))
-  expect_error(as.data.frame(vp, geo = "not_a_logical"))
-  expect_error(as.data.frame(vp, suntime = "not_a_logical"))
-  expect_error(as.data.frame(vp, lat = "not_a_double"))
-  expect_error(as.data.frame(vp, lon = "not_a_double"))
-  expect_error(as.data.frame(vp, elev = "not_a_double"))
+  expect_error(
+    as.data.frame(vp, geo = "not_a_logical")
+  )
+  expect_error(
+    as.data.frame(vp, suntime = "not_a_logical")
+  )
+  expect_error(
+    as.data.frame(vp, lat = "not_a_double"),
+    regexp = "lat is not a numeric or integer vector",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vp, lon = "not_a_double"),
+    regexp = "lon is not a numeric or integer vector",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vp, elev = "not_a_double"),
+    regexp = "elev is not a numeric or integer vector",
+    fixed = TRUE
+  )
 
   expect_error(as.data.frame(vpts, row.names = "not_a_vector"), "`row.names` must be a character vector of length")
   # expect_error(as.data.frame(vpts, optional = "not_a_logical"))
