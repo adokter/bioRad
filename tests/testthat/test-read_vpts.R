@@ -2,7 +2,6 @@ hdf5_local_vp_1 <- "https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/09/1
 hdf5_local_vp_2 <- "https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/09/19/23/bejab_vp_201609192320.h5"
 hdf5_local_vp_other_radar <- ""
 
-
 vpts_gz_remote_1 <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz"
 vpts_gz_remote_2 <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz"
 vpts_gz_other_radar <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
@@ -69,7 +68,6 @@ test_that("read_vpts() can read local vp hdf5 files", {
     file.remove(temp_file)
   }
 })
-
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
 

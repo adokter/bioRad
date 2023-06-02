@@ -5,6 +5,10 @@
 #' - [VPTS CSV](https://aloftdata.eu/vpts-csv/).
 #' - [ODIM bird profile](https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification).
 #' @param files Path(s) to one or more files containing vpts data.
+#' @param radar [DEPRECATED] Radar (deprecated, use `read_stdout()` instead).
+#' @param lat [DEPRECATED] Latitude (deprecated, use `read_stdout()` instead).
+#' @param lon [DEPRECATED] Longitude (deprecated, use `read_stdout()` instead).
+#' @param height [DEPRECATED] Height (deprecated, use `read_stdout()` instead).
 #' @return `vpts` object.
 #' @family read functions
 #' @export
