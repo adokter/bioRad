@@ -12,11 +12,11 @@ vpts_gz_other_radar <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly
 
 #Expect rerouting to read_stdout() with previous arguments
 test_that("read_vpts correctly throws deprecation warning and reroutes to read_stdout", {
-  expect_warning(read_vpts(file = "testfile", radar = "radar", lat = 12, lon = 34, height = 1000),
-                 "deprecated")
 
   vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 
+  expect_warning(read_vpts(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
+                 "deprecated")
   expect_equal(read_vpts(files = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
               read_stdout(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000, wavelength = "C", sep = ""))
 
