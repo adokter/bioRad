@@ -3,7 +3,6 @@ vpts <- example_vpts
 
 # No tests for error on incorrect parameters:
 # as.data.frame() is generic and work for every input
-# TODO: test why parameter "optional" allows not_a_logical
 # TODO: test if "elev" parameter is passed correctly
 
 test_that("as.data.frame().vp returns error on incorrect parameters", {
@@ -42,13 +41,40 @@ test_that("as.data.frame().vp returns error on incorrect parameters", {
     fixed = TRUE
   )
 
-  expect_error(as.data.frame(vpts, row.names = "not_a_vector"), "`row.names` must be a character vector of length")
-  # expect_error(as.data.frame(vpts, optional = "not_a_logical"))
-  expect_error(as.data.frame(vpts, geo = "not_a_logical"))
-  expect_error(as.data.frame(vpts, suntime = "not_a_logical"))
-  expect_error(as.data.frame(vpts, lat = "not_a_double"))
-  expect_error(as.data.frame(vpts, lon = "not_a_double"))
-  expect_error(as.data.frame(vpts, elev = "not_a_double"))
+  expect_error(as.data.frame(vpts, row.names = "not_a_vector"),
+    regexp = "`row.names` must be a character vector of length",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vpts, optional = "not_a_logical"),
+    regexp = "optional is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vpts, geo = "not_a_logical"),
+    regexp = "geo is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vpts, suntime = "not_a_logical"),
+    regexp = "suntime is not a flag (a length one logical vector).",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vpts, lat = "not_a_double"),
+    regexp = "lat is not a numeric or integer vector",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vpts, lon = "not_a_double"),
+    regexp = "lon is not a numeric or integer vector",
+    fixed = TRUE
+  )
+  expect_error(
+    as.data.frame(vpts, elev = "not_a_double"),
+    regexp = "elev is not a numeric or integer vector",
+    fixed = TRUE
+  )
 })
 
 test_that("as.data.frame() returns a data frame", {
