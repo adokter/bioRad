@@ -207,22 +207,86 @@ test_that("beam_range() returns error on incorrect parameters", {
 })
 
 test_that("beam_profile() returns error on incorrect parameters", {
-  expect_error(beam_profile(), 'argument "height" is missing, with no default')
-  expect_error(beam_profile(1), 'argument "distance" is missing, with no default')
-  expect_error(beam_profile(1, 1), 'argument "elev" is missing, with no default')
-  expect_error(beam_profile(1:2, 1:3,1))
-  expect_error(beam_profile(1, 2, k = "not_a_double"))
-  expect_error(beam_profile(1, 2, k = NA))
-  expect_error(beam_profile(1, 2, lat = "not_a_double"))
-  expect_error(beam_profile(1, 2, lat = NA))
-  expect_error(beam_profile(1, 2, re = "not_a_double"))
-  expect_error(beam_profile(1, 2, re = NA))
-  expect_error(beam_profile(1, 2, rp = "not_a_double"))
-  expect_error(beam_profile(1, 2, rp = NA))
-  expect_error(beam_profile(1, 2, k = 1:2))
-  expect_error(beam_profile(1, 2, lat = 1:2))
-  expect_error(beam_profile(1, 2, re = 1:2))
-  expect_error(beam_profile(1, 2, rp = 1:2))
+  expect_error(
+    beam_profile(),
+    regexp = 'argument "height" is missing, with no default',
+    fixed = TRUE
+  )
+  expect_error(
+    beam_profile(1),
+    regexp = 'argument "distance" is missing, with no default',
+    fixed = TRUE
+  )
+  expect_error(
+    beam_profile(1, 1),
+    regexp = 'argument "elev" is missing, with no default',
+    fixed = TRUE
+  )
+  expect_error(
+    beam_profile(1:2, 1:3,1),
+    regexp = "`height` and `distance` not have an unequal length when more then one.",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, k = "not_a_double", elev = 4),
+    regexp = 'k is not a number (a length one numeric vector).',
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, k = NA, elev = 4),
+    regexp = "k is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, lat = "not_a_double", elev = 4),
+    regexp = "lat is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, lat = NA, elev = 4),
+    regexp = "lat is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, re = "not_a_double", elev = 5),
+    regexp = "re is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, re = NA, elev = 4),
+    regexp = "re is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, rp = "not_a_double", elev = 4),
+    regexp = "rp is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, rp = NA, elev = 4),
+    regexp = "rp is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, k = 1:2, elev = 4),
+    regexp = "k is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, lat = 1:2, elev = 4),
+    regexp = "lat is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, re = 1:2, elev = 42),
+    regexp = "re is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    beam_profile(1, 2, rp = 1:2, elev = 10E9),
+    regexp = "rp is not a number (a length one numeric vector).",
+    fixed = TRUE
+    )
 })
 
 test_that("beam_distance() returns expected values", {
