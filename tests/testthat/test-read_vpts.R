@@ -71,6 +71,8 @@ test_that("read_vpts() can read local vp hdf5 files", {
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
 
+  skip_if_offline()
+
   urls <- c(hdf5_local_vp_1, hdf5_local_vp_2, hdf5_local_vp_other_radar)
   n <- length(urls)
 
@@ -79,6 +81,7 @@ test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
     curl::curl_download(url, destfile = temp_file)
     temp_file
   })
+
   expect_error(
     read_vpts(temp_files),
     "`files` must contain data of a single radar."
