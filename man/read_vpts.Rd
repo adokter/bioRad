@@ -4,10 +4,18 @@
 \alias{read_vpts}
 \title{Read time series of vertical profiles (\code{vpts}) from file(s)}
 \usage{
-read_vpts(files)
+read_vpts(files, radar = NULL, lat = NULL, lon = NULL, height = NULL)
 }
 \arguments{
 \item{files}{Path(s) to one or more files containing vpts data.}
+
+\item{radar}{\link{DEPRECATED} Radar (deprecated, use \code{read_stdout()} instead).}
+
+\item{lat}{\link{DEPRECATED} Latitude (deprecated, use \code{read_stdout()} instead).}
+
+\item{lon}{\link{DEPRECATED} Longitude (deprecated, use \code{read_stdout()} instead).}
+
+\item{height}{\link{DEPRECATED} Height (deprecated, use \code{read_stdout()} instead).}
 }
 \value{
 \code{vpts} object.
