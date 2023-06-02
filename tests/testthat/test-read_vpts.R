@@ -1,6 +1,6 @@
 hdf5_local_vp_1 <- "https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/09/19/23/bejab_vp_201609192315.h5"
 hdf5_local_vp_2 <- "https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/09/19/23/bejab_vp_201609192320.h5"
-hdf5_local_vp_other_radar <- ""
+hdf5_local_vp_other_radar <- "https://lw-enram.s3-eu-west-1.amazonaws.com/cz/brd/2016/09/19/00/czbrd_vp_20160919T0000Z_0x5.h5"
 
 vpts_gz_remote_1 <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz"
 vpts_gz_remote_2 <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz"
@@ -71,6 +71,18 @@ test_that("read_vpts() can read local vp hdf5 files", {
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
 
+  urls <- c(hdf5_local_vp_1, hdf5_local_vp_2, hdf5_local_vp_other_radar)
+  n <- length(urls)
+
+  temp_files <- lapply(urls, function(url) {
+    temp_file <- tempfile()
+    curl::curl_download(url, destfile = temp_file)
+    temp_file
+  })
+  expect_error(
+    read_vpts(temp_files),
+    "`files` must contain data of a single radar."
+  )
 })
 
 test_that("read_vpts() can read local (gzipped) VPTS CSV files", {
