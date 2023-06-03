@@ -70,7 +70,7 @@ test_that("read_vpts() can read local vp hdf5 files", {
 })
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
-  skip('Not yet implemented')
+  skip("Not yet implemented")
 
   urls <- c(hdf5_local_vp_1, hdf5_local_vp_2, hdf5_local_vp_other_radar)
 
@@ -84,7 +84,6 @@ test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
     read_vpts(temp_files),
     "`files` must contain data of a single radar."
   )
-  unlink(temp_dir, recursive = TRUE)
 })
 
 test_that("read_vpts() can read remote (gzipped) VPTS CSV files", {
@@ -124,7 +123,6 @@ test_that("read_vpts() can read local (gzipped) VPTS CSV files", {
   urls <- c(vpts_gz_remote_1, vpts_gz_remote_2)
 
   temp_files <- sapply(urls, function(url) {
-
     temp_dir <- tempdir()
     file_name <- basename(url)
     dest_file <- file.path(temp_dir, file_name)
@@ -134,9 +132,6 @@ test_that("read_vpts() can read local (gzipped) VPTS CSV files", {
 
   # Returns vpts class
   expect_true(is.vpts(result))
-
-  unlink(temp_dir, recursive = TRUE)
-
 })
 
 test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
@@ -148,9 +143,14 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
 
   temp_files <- sapply(urls, function(url) {
     # Download the gzip file
+
     file_name <- basename(url)
     dest_file <- file.path(temp_dir, file_name)
-    curl::curl_download(url, destfile = dest_file)
+
+    if (!file.exists(dest_file)) {
+      curl::curl_download(url, destfile = dest_file)
+    }
+
     return(dest_file)
   }, simplify = TRUE)
 
@@ -159,5 +159,6 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
     read_vpts(temp_files),
     "`files` must contain data of a single radar."
   )
+
   unlink(temp_dir, recursive = TRUE)
 })
