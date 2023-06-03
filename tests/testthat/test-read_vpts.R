@@ -144,10 +144,10 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
   # Note: this is a limitation until we switch to vpts data frame objects
   urls <- c(vpts_gz_remote_1, vpts_gz_remote_2, vpts_gz_other_radar)
 
+  temp_dir <- tempdir()
+
   temp_files <- sapply(urls, function(url) {
     # Download the gzip file
-
-    temp_dir <- tempdir()
     file_name <- basename(url)
     dest_file <- file.path(temp_dir, file_name)
     curl::curl_download(url, destfile = dest_file)
