@@ -8,11 +8,9 @@ urls <- c(
   "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
 )
 
-# Define the path to your 'tests/testthat' directory
-test_dir <- system.file("tests/testthat", package = "bioRad") 
 
 # Define the path to the new temporary directory
-temp_dir <- file.path(test_dir, "temp")
+temp_dir <- 'temp'
 
 # Create the new directory if not exists
 if (!dir.exists(temp_dir)) {
