@@ -4,16 +4,37 @@ vp_list_mixed <- list(example_vp, "not_a_vp")
 vpts <- example_vpts
 
 test_that("sd_vvp_threshold() returns error on incorrect parameters", {
-  expect_error(sd_vvp_threshold("not_a_vp"))
-  expect_error(sd_vvp_threshold(vp_list_mixed), "`x` must be list of `vp` objects.", fixed = TRUE)
+  expect_error(
+    sd_vvp_threshold("not_a_vp"),
+    regexp = "no applicable method for 'sd_vvp_threshold' applied to an object of class")
+  expect_error(
+    sd_vvp_threshold(vp_list_mixed),
+    regexp = "`x` must be list of `vp` objects.",
+    fixed = TRUE)
 })
 
 test_that("sd_vvp_threshold()<- returns error on incorrect parameters", {
-  expect_error(sd_vvp_threshold(vp) <- "not_numeric")
-  expect_error(sd_vvp_threshold(vp) <- NULL)
-  expect_error(sd_vvp_threshold(vp) <- c(2, 2))
-  expect_error(sd_vvp_threshold("not_a_vp") <- 2)
-  expect_error(sd_vvp_threshold(vp_list_mixed) <- 2, "`x` must be list of `vp` objects.", fixed = TRUE)
+  expect_error(
+    sd_vvp_threshold(vp) <- "not_numeric",
+    regexp = "value is not a numeric or integer vector",
+    fixed = TRUE
+    )
+  expect_error(
+    sd_vvp_threshold(vp) <- NULL,
+    regexp = "value is not a numeric or integer vector",
+    fixed = TRUE
+    )
+  expect_error(
+    sd_vvp_threshold(vp) <- c(2, 2)
+    )
+  expect_error(
+    sd_vvp_threshold("not_a_vp") <- 2
+    )
+  expect_error(
+    sd_vvp_threshold(vp_list_mixed) <- 2,
+    regexp = "`x` must be list of `vp` objects.",
+    fixed = TRUE
+    )
 })
 
 test_that("sd_vvp_threshold() returns the correct sd_vvp_thresh", {
