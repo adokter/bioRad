@@ -436,13 +436,6 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
     stop(paste("radar longitude cannot be found in polar volume,",
                "specify using 'lon' argument"))
   }
-  if (is.null(scan$geo$height) &&
-      missing(antenna)) {
-    stop(
-      paste("antenna height cannot be found in polar volume,",
-            "specify antenna height using 'antenna' argument")
-    )
-  }
 
   if (missing(antenna)) antenna <- scan$geo$height
   assertthat::assert_that(assertthat::is.number(antenna))
