@@ -1,4 +1,5 @@
-example_vpts_reg <- regularize_vpts(example_vpts)
+example_vpts_reg <-
+  suppressMessages(regularize_vpts(example_vpts))
 
 test_that("plot.vpts() returns error on incorrect parameters", {
   # use plot.vpts() to avoid defaulting to base plot()
@@ -42,7 +43,7 @@ test_that("plot.vpts() warns for deprecated arguments", {
 
 test_that("plot.vpts() returns error on bad palette", {
   expect_error(
-    plot(regularize_vpts(example_vpts), palette = 123),
+    suppressMessages(plot(regularize_vpts(example_vpts), palette = 123)),
     regexp = "palette should be a character vector with hex color values",
     fixed = TRUE
   )
