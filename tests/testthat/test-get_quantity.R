@@ -3,7 +3,9 @@ vp_list_mixed <- list(example_vp, "not_a_vp")
 vpts <- example_vpts
 
 test_that("get_quantity() returns error on incorrect parameters", {
-  expect_error(get_quantity("not_a_vp", "dens"))
+  expect_error(
+    get_quantity("not_a_vp", "dens"),
+    regexp = "no applicable method for 'get_quantity' applied to an object of class")
   expect_error(
     get_quantity(vp_list_mixed, "dens"),
     "`x` must be list of `vp` objects.",
@@ -21,8 +23,12 @@ test_that("get_quantity() returns error on incorrect parameters", {
   )
 
   # Quantities are case sensitive
-  expect_error(get_quantity(vp, "dbzh"))
-  expect_error(get_quantity(vp, "DENS"))
+  expect_error(get_quantity(vp, "dbzh"),
+               regexp = "Can't find quantity `dbzh` in `x`.",
+               fixed = TRUE)
+  expect_error(get_quantity(vp, "DENS"),
+               regexp = "Can't find quantity `DENS` in `x`.",
+               fixed = TRUE)
 })
 
 test_that("get_quantity.vp() returns correct quantity, processing eta, dbz, ff when below sd_vvp_threshold", {
