@@ -35,7 +35,7 @@ skip_if_no_mistnet <- function(){
 #'
 #' @return NULL. Will stop and show error message if at least one of the
 #'   provided radar codes is not exactly 5 characters.
-#'
+#' @importFrom utils read.csv
 #' @keywords internal
 check_radar_codes <- function(radars) {
   wrong_codes <- radars[nchar(radars) != 5]
