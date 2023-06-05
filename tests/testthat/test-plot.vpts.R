@@ -2,11 +2,19 @@ example_vpts_reg <- regularize_vpts(example_vpts)
 
 test_that("plot.vpts() returns error on incorrect parameters", {
   # use plot.vpts() to avoid defaulting to base plot()
-  expect_error(plot.vpts("not_a_vpts"))
-  expect_error(plot(example_vpts_reg, quantity = "not_a_quantity"))
+  expect_error(plot.vpts("not_a_vpts"),
+               regexp = 'inherits(x, "vpts") is not TRUE',
+               fixed = TRUE)
+  expect_error(
+    plot(example_vpts_reg, quantity = "not_a_quantity"),
+    regexp = "quantity needs to be one of `dens`, `eta`, `dbz` or `DBZH`",
+    fixed = TRUE)
 
   # Test error on "param" instead of "quantity"
-  expect_error(plot(example_vpts_reg, param = "dens"))
+  expect_error(
+    plot(example_vpts_reg, param = "dens"),
+    regexp = "unknown function argument 'param`. Did you mean `quantity`?",
+    fixed = TRUE)
 })
 
 test_that("plot.vpts() warns for certain datatypes", {
