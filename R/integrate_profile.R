@@ -189,9 +189,11 @@ integrate_profile <- function(x, alt_min, alt_max,
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                                  interval_max = 3600, interval_replace = NA, height_quantile = NA) {
   stopifnot(inherits(x, "vp"))
-  stopifnot(is.numeric(alt_min) | alt_min=="antenna")
-  stopifnot(is.numeric(alt_max))
-  stopifnot(is.na(alpha) || is.numeric(alpha))
+  assertthat::assert_that(
+    is.numeric(alt_min) || alt_min=="antenna"
+  )
+  assertthat::assert_that(assertthat::is.number(alt_max))
+  assertthat::assert_that(is.na(alpha) || is.numeric(alpha))
 
   assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
