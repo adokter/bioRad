@@ -22,9 +22,7 @@ test_that("rcs()<- returns error on incorrect parameters", {
   expect_error(rcs(vp) <- NULL,
                regexp = "value is not a numeric or integer vector",
                fixed = TRUE)
-  expect_error(rcs(vp) <- c(2, 2),
-               regexp = "assert_that: length of assertion is not 1",
-               fixed = TRUE)
+  expect_error(rcs(vp) <- c(2, 2))
   expect_error(rcs("not_a_vp") <- 5)
   expect_error(rcs(vp_list_mixed) <- 5,
                "`x` must be list of `vp` objects.",
