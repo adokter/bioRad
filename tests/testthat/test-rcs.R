@@ -5,17 +5,33 @@ vpts <- example_vpts
 vpi <- integrate_profile(example_vpts)
 
 test_that("rcs() returns error on incorrect parameters", {
-  expect_error(rcs("not_a_vp"))
-  expect_error(rcs(vp_list_mixed), "`x` must be list of `vp` objects.", fixed = TRUE)
+  expect_error(
+    rcs("not_a_vp"),
+    regexp = "no applicable method for 'rcs' applied to an object of class \"character\"",
+    fixed = TRUE)
+  expect_error(
+    rcs(vp_list_mixed),
+    "`x` must be list of `vp` objects.",
+    fixed = TRUE)
 })
-
+# TODO: IMPROVE THIS ERROR MESSAGING, NOT DESCRIPTIVE
 test_that("rcs()<- returns error on incorrect parameters", {
-  expect_error(rcs(vp) <- "not_numeric")
-  expect_error(rcs(vp) <- NULL)
-  expect_error(rcs(vp) <- c(2, 2))
+  expect_error(rcs(vp) <- "not_numeric",
+               regexp = "value is not a numeric or integer vector",
+               fixed = TRUE)
+  expect_error(rcs(vp) <- NULL,
+               regexp = "value is not a numeric or integer vector",
+               fixed = TRUE)
+  expect_error(rcs(vp) <- c(2, 2),
+               regexp = "assert_that: length of assertion is not 1",
+               fixed = TRUE)
   expect_error(rcs("not_a_vp") <- 5)
-  expect_error(rcs(vp_list_mixed) <- 5, "`x` must be list of `vp` objects.", fixed = TRUE)
-  expect_error(rcs(vp) <- -11)
+  expect_error(rcs(vp_list_mixed) <- 5,
+               "`x` must be list of `vp` objects.",
+               fixed = TRUE)
+  expect_error(rcs(vp) <- -11,
+               regexp = "value not greater than 0",
+               fixed = TRUE)
 })
 
 test_that("rcs() returns the correct rcs", {
