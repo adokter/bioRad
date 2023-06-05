@@ -124,7 +124,9 @@ test_that("vp with different heights", {
   expect_s3_class(vpts, "vpts")
   expect_equal(vpts$attributes$where$levels, example_vpts$attributes$where$levels)
   higher$data$height <- higher$data$height + 1
-  expect_error(bind_into_vpts(example_vp, higher))
+  expect_error(bind_into_vpts(example_vp, higher),
+               regexp = "Not all data has the same alignment of altitude bins",
+               fixed = TRUE)
 })
 
 test_that("vpts with different heights", {
