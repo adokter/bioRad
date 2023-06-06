@@ -42,3 +42,5 @@ pkgdown/*
 
 # Mac OS
 .DS_Store
+/doc/
+/Meta/
