@@ -75,7 +75,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1,
   }
 
   if (verbose) {
-    cat("Downloading zoom =", use_zoom, "...\n")
+    message(paste("Downloading zoom =", use_zoom, "..."))
   }
   map <- ggmap::get_map(
     location = location,
@@ -92,7 +92,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1,
       bboxmap$ur.lat - bboxmap$ll.lat)) {
     if (missing(zoom)) {
       if (verbose) {
-        cat("Map too small, downloading zoom =", use_zoom - 1, "...\n")
+        message(paste("Map too small, downloading zoom =", use_zoom - 1, "..."))
       }
       map <- ggmap::get_map(
         location = location,
@@ -107,7 +107,7 @@ download_basemap <- function(x, verbose = TRUE, zoom, alpha = 1,
         (x$geo$bbox["lat", "max"] - x$geo$bbox["lat", "min"] >
           bboxmap$ur.lat - bboxmap$ll.lat)) {
         if (verbose) {
-          cat("Map still too small, downloading zoom =", use_zoom - 2, "...\n")
+          message(paste("Map still too small, downloading zoom =", use_zoom - 2, "..."))
         }
         map <- ggmap::get_map(
           location = location,
