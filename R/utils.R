@@ -35,7 +35,6 @@ skip_if_no_mistnet <- function(){
 #'
 #' @return NULL. Will stop and show error message if at least one of the
 #'   provided radar codes is not exactly 5 characters.
-#' @importFrom utils read.csv
 #' @keywords internal
 check_radar_codes <- function(radars) {
   wrong_codes <- radars[nchar(radars) != 5]
@@ -45,7 +44,7 @@ check_radar_codes <- function(radars) {
       paste(wrong_codes, collapse = ", ")
     )
   } else {
-    radars.csv <- read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
+    radars.csv <- utils::read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
     wrong_codes <- radars[!(radars %in% radars.csv$countryradar)]
     if (length(wrong_codes) > 0) {
       stop(
@@ -77,7 +76,7 @@ check_date_format <- function(date, format) {
 
 #'A wrapper for [spTransform()].
 #'Converts geographic (WGS84) coordinates to a specified projection
-#' 
+#'
 #' @param lon Longitude
 #' @param lat Latitude
 #' @param proj4string An object of class 'CRS', as defined in package `sp`.
@@ -91,7 +90,7 @@ wgs_to_proj <- function(lon, lat, proj4string) {
   sp::proj4string(xy) <- sp::CRS("+proj=longlat +datum=WGS84")
 
   res <- sp::spTransform(xy, proj4string)
-    
+
   # Check if the result is a SpatialPointsDataFrame
   if (inherits(res, "SpatialPointsDataFrame")) {
     # If it is, convert it to a SpatialPoints object
