@@ -13,10 +13,10 @@
 #' @family read functions
 #' @export
 read_vpts <- function(files, radar = NULL, lat = NULL, lon = NULL, height = NULL) {
-  #Check if any of the old parameters are used
+  # Check if any of the old parameters are used
   if (!is.null(radar) | !is.null(lat) | !is.null(lon) | !is.null(height)) {
     .Deprecated("read_stdout")
-     return(read_stdout(file = files, radar = radar, lat = lat, lon = lon, height = height, wavelength = "C", sep = ""))
+    return(read_stdout(file = files, radar = radar, lat = lat, lon = lon, height = height, wavelength = "C", sep = ""))
   }
 
   # Get file extension
@@ -24,12 +24,10 @@ read_vpts <- function(files, radar = NULL, lat = NULL, lon = NULL, height = NULL
   assertthat::assert_that(
     length(extension) == 1,
     msg = "`files` must all have the same extension."
-
   )
 
   # Read files
-  data <- switch(
-    extension,
+  data <- switch(extension,
     csv = read_vpts_csv(files),
     gz = read_vpts_csv(files),
     h5 = read_vpts_hdf5(files)

@@ -22,7 +22,7 @@
 #' # load time series:
 #' ts <- read_stdout(vptsfile, radar = "KBGM", wavelength = "S")
 #' ts
-read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
+read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep = "") {
   # input checks
   if (!file.exists(file)) {
     stop(paste("File", file, "doesn't exist."))
@@ -45,7 +45,7 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
       stop("'height' should be a positive number of meters above sea level")
     }
   }
-  if (missing(radar) && sep =="") {
+  if (missing(radar) && sep == "") {
     stop("'radar' argument missing. Required to specify a radar identifier.")
   }
   if (missing(wavelength)) {
@@ -82,19 +82,19 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
   )
   # read the data
 
-  if(sep!=""){
+  if (sep != "") {
     # for parsing new csv format
     data <- utils::read.table(file = file, header = TRUE, sep = sep)
     radar <- unique(data$radar)
-    if(length(radar)>1){
+    if (length(radar) > 1) {
       stop("file contains data for multiple radars")
     }
     data$radar <- NULL
     data$datetime <- readr::parse_datetime(data$datetime)
     data$gap <- as.logical(data$gap)
-  } else{
+  } else {
     # for parsing legacy vol2bird text output
-    data <- utils::read.table(file = file, header = FALSE, sep = sep, na.strings = c("NA","na"))
+    data <- utils::read.table(file = file, header = FALSE, sep = sep, na.strings = c("NA", "na"))
     if (ncol(data) == 22) {
       colnames(data) <- header.names.long
     } else {
@@ -102,11 +102,10 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
     }
 
     # convert Time into a POSIXct date-time
-    data$datetime <- as.POSIXct(paste(data$Date, sprintf("%04d", data$Time),
-                                      sep = ""
-    ),
-    format = "%Y%m%d%H%M",
-    tz = "UTC"
+    data$datetime <- as.POSIXct(
+      paste(data$Date, sprintf("%04d", data$Time), sep = ""),
+      format = "%Y%m%d%H%M",
+      tz = "UTC"
     )
   }
 
@@ -147,13 +146,9 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
   }
 
   # strip the datetime field
-  datetime <- .POSIXct(sapply(
-    1:length(data),
-    function(x) {
-      data[[x]]$datetime[1]
-    }
-  ),
-  tz = "UTC"
+  datetime <- .POSIXct(
+    sapply(1:length(data), function(x) { data[[x]]$datetime[1] }),
+    tz = "UTC"
   )
   data <- lapply(
     data,

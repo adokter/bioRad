@@ -19,8 +19,8 @@ is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #'
 #' @keywords internal
-skip_if_no_mistnet <- function(){
-  if(rlang::is_installed('vol2birdR')){
+skip_if_no_mistnet <- function() {
+  if (rlang::is_installed("vol2birdR")) {
     if (vol2birdR::mistnet_exists()) {
       return(invisible(TRUE))
     }
@@ -74,8 +74,8 @@ check_date_format <- function(date, format) {
 }
 
 
-#'A wrapper for [spTransform()].
-#'Converts geographic (WGS84) coordinates to a specified projection
+#' A wrapper for [spTransform()].
+#' Converts geographic (WGS84) coordinates to a specified projection
 #'
 #' @param lon Longitude
 #' @param lat Latitude
@@ -94,9 +94,9 @@ wgs_to_proj <- function(lon, lat, proj4string) {
   # Check if the result is a SpatialPointsDataFrame
   if (inherits(res, "SpatialPointsDataFrame")) {
     # If it is, convert it to a SpatialPoints object
-    rownames(res@bbox) <- c('x', 'y')
-    colnames(res@coords) <- c('x', 'y')
-    res <- sp::SpatialPoints(coords=res@coords, proj4string=res@proj4string, bbox=res@bbox)
+    rownames(res@bbox) <- c("x", "y")
+    colnames(res@coords) <- c("x", "y")
+    res <- sp::SpatialPoints(coords = res@coords, proj4string = res@proj4string, bbox = res@bbox)
   }
   return(res)
 }
@@ -165,7 +165,7 @@ match_filenames <- function(file_list, regex_list) {
 #' @return A character vector with matches only, possibly of different length as
 #'   `string`
 #' @keywords internal
-extract_string <- function(string,pattern,...) {
+extract_string <- function(string, pattern, ...) {
   regmatches(string,
              m = regexpr(
                pattern = pattern,
