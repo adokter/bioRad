@@ -24,8 +24,6 @@ library(bioRad)
 
 # Getting started
 
-To install the latest bioRad version follow these [install instructions](https://adriaandokter.com/colorado2022/bioRad_installation.html)
-
 Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
 
 ```{r, eval=SHOW_ANSWERS}
