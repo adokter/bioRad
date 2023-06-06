@@ -94,7 +94,7 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep="")
     data$gap <- as.logical(data$gap)
   } else{
     # for parsing legacy vol2bird text output
-    data <- utils::read.table(file = file, header = FALSE, sep = sep)
+    data <- utils::read.table(file = file, header = FALSE, sep = sep, na.strings = c("NA","na"))
     if (ncol(data) == 22) {
       colnames(data) <- header.names.long
     } else {
