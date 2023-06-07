@@ -19,7 +19,7 @@ radars."><meta property="og:image" content="https://adriaandokter.com/bioRad/log
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9588</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.95977</span>
       </span>
     </div>
 
@@ -201,8 +201,7 @@ mean (lat, lon) location.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># Locate and read the polar volume example file</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Locate and read the polar volume example file</span></span></span>
 <span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -212,7 +211,7 @@ mean (lat, lon) location.</p>
 <span class="r-in"><span><span class="co"># Overlay the ppis, calculating the maximum value observed</span></span></span>
 <span class="r-in"><span><span class="co"># across the available scans at each geographic location</span></span></span>
 <span class="r-in"><span><span class="va">composite</span> <span class="op">&lt;-</span> <span class="fu">composite_ppi</span><span class="op">(</span><span class="va">ppis</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Download basemap</span></span></span>
 <span class="r-in"><span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_basemap.html">download_basemap</a></span><span class="op">(</span><span class="va">composite</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

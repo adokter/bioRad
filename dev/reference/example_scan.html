@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9588</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.95977</span>
       </span>
     </div>
 
@@ -101,13 +101,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> elevation angle:  0.5 deg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            dims:  480 bins x 360 rays</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># example_scan was created with</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">pvolfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"volume.h5"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">example_scan</span> <span class="op">&lt;-</span> <span class="va">pvol</span><span class="op">$</span><span class="va">scans</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">example_scan</span>, file <span class="op">=</span> <span class="st">"data/example_scan.rda"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">## example_scan was created with:</span></span></span>
+<span class="r-in"><span><span class="co"># pvolfile &lt;- system.file("extdata", "volume.h5", package = "bioRad")</span></span></span>
+<span class="r-in"><span><span class="co"># pvol &lt;- read_pvolfile(pvolfile)</span></span></span>
+<span class="r-in"><span><span class="co"># example_scan &lt;- pvol$scans[[1]]</span></span></span>
+<span class="r-in"><span><span class="co"># save(example_scan, file = "data/example_scan.rda")</span></span></span>
 </code></pre></div>
     </div>
   </div>
