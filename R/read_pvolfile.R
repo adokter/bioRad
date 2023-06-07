@@ -102,23 +102,20 @@ read_pvolfile_body <- function(file, param = c(
   assertthat::assert_that(assertthat::is.flag(sort),
                           msg = "'sort' should be logical")
   if (!missing(lat)) {
-    lat_msg <- "'lat' should be numeric between -90 and 90 degrees"
-    assertthat::assert_that(length(lat) == 1, msg = lat_msg)
-    assertthat::assert_that(is.numeric(lat), msg = lat_msg)
+    lat_msg <- "'lat' should be a single numeric between -90 and 90 degrees"
+    assertthat::assert_that(assertthat::is.number(lat), msg = lat_msg)
     assertthat::assert_that(lat > -90, msg = lat_msg)
     assertthat::assert_that(lat < 90, msg = lat_msg)
   }
   if (!missing(lon)) {
-    lon_msg <- "'lon' should be numeric between -360 and 360 degrees"
-    assertthat::assert_that(length(lon) == 1, msg = lon_msg)
-    assertthat::assert_that(is.numeric(lon), msg = lon_msg)
+    lon_msg <- "'lon' should be a single numeric between -360 and 360 degrees"
+    assertthat::assert_that(assertthat::is.number(lon), msg = lon_msg)
     assertthat::assert_that(lon > -360, msg = lon_msg)
     assertthat::assert_that(lon < 360, msg = lon_msg)
   }
   if (!missing(height)) {
-    height_msg <- "'height' should be a positive number of meters above sea level"
-    assertthat::assert_that(length(height) == 1, msg = height_msg)
-    assertthat::assert_that(is.numeric(height), msg = height_msg)
+    height_msg <- "'height' should be a single positive number of meters above sea level"
+    assertthat::assert_that(assertthat::is.number(height), msg = height_msg)
     assertthat::assert_that(height > 0, msg = height_msg)
   }
 
