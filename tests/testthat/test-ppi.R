@@ -6,7 +6,9 @@ vp <- example_vp
 # is.ppi() returns TRUE/FALSE and works for every input
 
 test_that("[.ppi returns error on incorrect parameters", {
-  expect_error(ppi["not_numeric"])
+  expect_error(ppi["not_numeric"],
+               regexp = "undefined columns selected",
+               fixed = TRUE)
 })
 
 test_that("summary.ppi() prints metadata to the console", {

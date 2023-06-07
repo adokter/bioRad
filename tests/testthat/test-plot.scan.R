@@ -3,9 +3,15 @@ example.plot <- plot(example_scan, param = "VRADH")
 
 test_that("plot.scan() returns error on incorrect parameters", {
   # use plot.scan() to avoid defaulting to base plot()
-  expect_error(plot.scan("not_a_scan"))
-  expect_error(plot(example_scan, param = "not_a_param"))
-  expect_error(plot(example_scan, quantity = "DBZH"))
+  expect_error(plot.scan("not_a_scan"),
+               regexp = 'inherits(x, "scan") is not TRUE',
+               fixed = TRUE)
+  expect_error(plot(example_scan, param = "not_a_param"),
+               regexp = "parameter 'not_a_param' not found in scan",
+               fixed = TRUE)
+  expect_error(plot(example_scan, quantity = "DBZH"),
+               regexp = "unknown function argument 'quantity`. Did you mean `param`?",
+               fixed = TRUE)
 })
 
 test_that("plot.scan() defaults to DBZH on missing param", {

@@ -1,12 +1,21 @@
-example_vpts_reg <- regularize_vpts(example_vpts)
+example_vpts_reg <-
+  suppressMessages(regularize_vpts(example_vpts))
 
 test_that("plot.vpts() returns error on incorrect parameters", {
   # use plot.vpts() to avoid defaulting to base plot()
-  expect_error(plot.vpts("not_a_vpts"))
-  expect_error(plot(example_vpts_reg, quantity = "not_a_quantity"))
+  expect_error(plot.vpts("not_a_vpts"),
+               regexp = 'inherits(x, "vpts") is not TRUE',
+               fixed = TRUE)
+  expect_error(
+    plot(example_vpts_reg, quantity = "not_a_quantity"),
+    regexp = "`quantity` needs to be one of `u`, `v`, `w`, `ff`, `dd`, `sd_vvp`, `gap`, `dbz`, `eta`, `dens`, `DBZH`, `n`, `n_dbz`, `n_all` or `n_dbz_all`",
+    fixed = TRUE)
 
   # Test error on "param" instead of "quantity"
-  expect_error(plot(example_vpts_reg, param = "dens"))
+  expect_error(
+    plot(example_vpts_reg, param = "dens"),
+    regexp = "unknown function argument 'param`. Did you mean `quantity`?",
+    fixed = TRUE)
 })
 
 test_that("plot.vpts() warns for certain datatypes", {
@@ -30,6 +39,70 @@ test_that("plot.vpts() warns for deprecated arguments", {
   expect_warning(plot(example_vpts_reg, quantity = "dens", barbs.t = 1))
   expect_warning(plot(example_vpts_reg, quantity = "dens", barbs.dens = 1))
   expect_warning(plot(example_vpts_reg, quantity = "dens", legend.ticks = 1))
+})
+
+test_that("plot.vpts() returns error on bad palette", {
+  expect_error(
+    suppressMessages(plot(regularize_vpts(example_vpts), palette = 123)),
+    regexp = "palette should be a character vector with hex color values",
+    fixed = TRUE
+  )
+})
+
+test_that("plot_wind_barbs() returns error on incorrect parameters", {
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5, 8)),
+    regexp = "`cx` and `cy` should have the same length.",
+    fixed = TRUE
+  )
+
+  variable_error_message <-
+    "All variables, when provided, should have same length as coordinates."
+
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5)),
+    regexp = variable_error_message,
+    fixed = TRUE
+  )
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5),
+                    speed = 46,
+                    direction = NA),
+    regexp = variable_error_message,
+    fixed = TRUE
+  )
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5),
+                    speed = NA,
+                    direction = NA,
+                    fill = "red"),
+    regexp = variable_error_message,
+    fixed = TRUE
+  )
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5),
+                    speed = NA,
+                    direction = c(4,98,2,42),
+                    fill = NA),
+    regexp = variable_error_message,
+    fixed = TRUE
+  )
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5),
+                    speed = c(4,98,2,42),
+                    direction = NA,
+                    fill = NA),
+    regexp = variable_error_message,
+    fixed = TRUE
+  )
+  expect_error(
+    plot_wind_barbs(c(1, 2), c(4, 5),
+                    speed = NA,
+                    direction = NA,
+                    fill = c("slategray2","wheat3","tomato")),
+    regexp = variable_error_message,
+    fixed = TRUE
+  )
 })
 
 test_that("plot.vpts() produces plots", {

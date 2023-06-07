@@ -43,6 +43,11 @@ download_pvolfiles <- function(date_min, date_max, radar,
   assertthat::assert_that(is.character(radar))
   assertthat::assert_that(length(radar) == 1, msg = paste0("radar is not of length 1"))
 
+  # Stop if provided more than one date for min or max
+  assertthat::assert_that(length(date_min) == 1,
+                          msg = "Only one `date_min` should be provided.")
+  assertthat::assert_that(length(date_max) == 1,
+                          msg = "Only one `date_max` should be provided.")
   # Stop if dates are not date and not
   assertthat::assert_that(lubridate::is.POSIXt(date_min), msg = "date_min is not a date")
   assertthat::assert_that(lubridate::is.POSIXt(date_max), msg = "date_max is not a date")

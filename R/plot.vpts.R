@@ -105,7 +105,14 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       n_color=1000, palette = NA,
                       ...) {
   stopifnot(inherits(x, "vpts"))
-  stopifnot(quantity %in% names(x$data))
+  assertthat::assert_that(quantity %in% names(x$data),
+    msg = glue::glue("`quantity` needs to be one of {data_names_collapse}",
+      data_names_collapse = glue::glue_collapse(
+        glue::backtick(names(x$data)),
+        sep = ", ", last = " or "
+      )
+    )
+  )
 
   if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 
@@ -361,10 +368,10 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
   ### press is actually height in upper air ###
   ns <- length(cx)
   if (length(cy) != ns) {
-    stop("X AND Y COORDINATES SHOULD HAVE SAME LENGTH!")
+    stop("`cx` and `cy` should have the same length.")
   }
 
-  msg <- "ALL VARIABLES SHOULD HAVE SAME LENGTH AS COORDINATES, OR BE MISSING!!!"
+  msg <- "All variables, when provided, should have same length as coordinates."
   if (ns > 1) {
     if (length(direction) == 1) if (!is.na(direction)) stop(msg)
     if (length(speed) == 1) if (!is.na(speed)) stop(msg)

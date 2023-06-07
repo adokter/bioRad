@@ -364,7 +364,28 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
 
   # run vol2bird
-  vol2birdR::vol2bird(file = file, config = config, vpfile = profile.tmp, pvolfile_out = pvolfile_out, verbose = verbose)
+  ## use helper to allow vol2bird to silence output (vol2bird doesn't actually
+  ## use warnings)
+  vol2bird_warnings <-
+    function(warnings = TRUE, ...) {
+      if (warnings) {
+        vol2birdR::vol2bird(...)
+      } else
+      {
+        # write out to tempfile to prevent printing to console
+        utils::capture.output(vol2birdR::vol2bird(...), file = tempfile())
+      }
+
+    }
+
+  vol2bird_warnings(
+      file = file,
+      config = config,
+      vpfile = profile.tmp,
+      pvolfile_out = pvolfile_out,
+      verbose = verbose,
+      warnings = warnings
+  )
 
   # read output into a vp object
   output <- read_vpfiles(profile.tmp)

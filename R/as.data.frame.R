@@ -66,7 +66,12 @@
 as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
                              suntime = TRUE, lat = NULL, lon = NULL,
                              elev = -0.268, ...) {
+  # check input parameters
   stopifnot(inherits(x, "vp"))
+  assertthat::assert_that(assertthat::is.flag(optional))
+  assertthat::assert_that(assertthat::is.flag(geo))
+  assertthat::assert_that(assertthat::is.flag(suntime))
+  # fetch lat and long if missing
   if (is.null(lat)) {
     lat <- x$attributes$where$lat
   }
@@ -126,7 +131,13 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
                                geo = TRUE, suntime = TRUE, lat = NULL,
                                lon = NULL, elev = -0.268, ...) {
+
+  # check input parameters
   stopifnot(inherits(x, "vpts"))
+  assertthat::assert_that(assertthat::is.flag(optional))
+  assertthat::assert_that(assertthat::is.flag(geo))
+  assertthat::assert_that(assertthat::is.flag(suntime))
+  # fetch lat and long if missing
   if (is.null(lat)) {
     lat <- x$attributes$where$lat
   }

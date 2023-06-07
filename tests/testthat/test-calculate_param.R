@@ -9,7 +9,9 @@ example_scan_calc <- calculate_param(example_scan, new_param = DBZH * 2)
 ppi_calc <- calculate_param(ppi, new_param = DBZH * 2)
 
 test_that("calculate_param() returns error on incorrect parameters", {
-  expect_error(calculate_param("not_a_pvol/ppi/scan"))
+  expect_error(calculate_param("not_a_pvol/ppi/scan"),
+               regexp = 'no applicable method for \'calculate_param\' applied to an object of class "character"',
+               fixed = TRUE)
 })
 
 test_that("calculate_param() returns object of the correct class", {

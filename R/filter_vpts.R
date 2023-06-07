@@ -46,12 +46,13 @@
 #' filter_vpts(example_vpts, night = TRUE, offset = c(3, -2)*3600)
 #'
 filter_vpts <- function(x, min, max, nearest, night, elev = -0.268, offset = 0) {
-  assertthat::assert_that(is.vpts(x))
+  assertthat::assert_that(is.vpts(x),
+                          msg = "`x` is not a `vpts` object")
   errorf <- function(e) {
     min
   }
 
-  if(!missing(night)) assertthat::assert_that(is.logical(night))
+  if(!missing(night)) assertthat::assert_that(assertthat::is.flag(night))
 
   if (!missing(min)) {
     if (assertthat::is.string(min)) {

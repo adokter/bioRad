@@ -20,14 +20,14 @@ read_cajun <- function(file, rcs = 11, wavelength = "S") {
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
   }
+  if ((!is.numeric(wavelength) && !any(wavelength %in% c("C","S")))|| length(wavelength) > 1) {
+    stop("Not a valid 'wavelength' argument.")
+  }
   if (wavelength == "C") {
     wavelength <- 5.3
   }
   if (wavelength == "S") {
     wavelength <- 10.6
-  }
-  if (!is.numeric(wavelength) || length(wavelength) > 1) {
-    stop("Not a valid 'wavelength' argument.")
   }
 
   # header of the data file

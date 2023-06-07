@@ -99,7 +99,7 @@ composite_ppi <-
   if (!assertthat::is.count(nx) && missing(res)) stop("'nx' should be an integer")
   if (!assertthat::is.count(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
-    if (length(xlim) != 2 &
+    if (length(xlim) != 2 ||
         !is.numeric(xlim)) {
       stop("'xlim' should be a numeric vector of length two")
     }
@@ -111,7 +111,7 @@ composite_ppi <-
     }
   }
   if (!missing(ylim)) {
-    if (length(ylim) != 2 &&
+    if (length(ylim) != 2 ||
         !is.numeric(ylim)) {
       stop("'ylim' should be a numeric vector of length two")
     }

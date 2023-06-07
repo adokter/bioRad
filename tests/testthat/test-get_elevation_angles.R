@@ -4,7 +4,9 @@ scan <- get_scan(pvol, 0.5)
 param <- get_param(scan, "DBZH")
 
 test_that("get_elevation_angles() returns error on incorrect parameters", {
-  expect_error(get_elevation_angles("not_a_vp"))
+  expect_error(get_elevation_angles("not_a_vp"),
+               regexp = "no applicable method for 'get_elevation_angles' applied to an object of class \"character\"",
+               fixed = TRUE)
 })
 
 test_that("get_elevation_angles() returns the correct elangle", {
