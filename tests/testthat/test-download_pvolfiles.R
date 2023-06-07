@@ -6,6 +6,7 @@ directory <- tempdir()
 overwrite <- TRUE
 
 test_that("date input for download_pvolfiles() ", {
+  skip_if_offline()
   # working with default
   expect_no_error(
     download_pvolfiles(date_min, date_max, radars, directory, overwrite)
@@ -100,6 +101,7 @@ test_that("date input for download_pvolfiles() ", {
 })
 
 test_that("Check radar code for download_pvolfiles() ", {
+  skip_if_offline()
   expect_error(
     download_pvolfiles(date_min,
                        date_max,
@@ -121,6 +123,7 @@ test_that("Check radar code for download_pvolfiles() ", {
 })
 
 test_that("Check path and overwrite for download_pvolfiles() ", {
+  skip_if_offline()
   expect_error(
     download_pvolfiles(date_min, date_max, radars, 1, overwrite),
     "path is not a string (a length one character vector)",
