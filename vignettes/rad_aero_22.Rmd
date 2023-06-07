@@ -1,9 +1,7 @@
 ---
 title: "Introductory exercises with bioRad"
 author: Adriaan M. Dokter
-output:
-    bookdown::html_document2:
-      base_format: rmarkdown::html_vignette
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introductory exercises with bioRad}
   %\VignetteEngine{knitr::rmarkdown}
