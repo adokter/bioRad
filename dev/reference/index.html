@@ -35,7 +35,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -281,8 +281,10 @@ stations</p></td>
       </tr><tr><td>
           <p><code><a href="filter_vpts.html">filter_vpts()</a></code> </p>
         </td>
-        <td><p>Select profiles on time/day/night in a time series of vertical profiles
-(<code>vpts</code>)</p></td>
+        <td><p>Filter a time series of vertical profiles ('vpts') by a start and end time.
+Use argument night = TRUE to select only time stamps between sunset and sunrise,
+or night = FALSE to select daytime (sunrise to sunset). Selection for night and day uses
+<code><a href="../reference/check_night.html">check_night()</a></code>.</p></td>
       </tr><tr><td>
           <p><code><a href="summary.vpts.html">summary(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">is.vpts()</a></code> <code><a href="summary.vpts.html">dim(<i>&lt;vpts&gt;</i>)</a></code> </p>
         </td>

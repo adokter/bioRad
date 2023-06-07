@@ -3,9 +3,9 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   bioRad: bioRad.html
-  rad_aero_19: rad_aero_19.html
+  rad_aero_22: rad_aero_22.html
   range_correction: range_correction.html
-last_built: 2023-06-06T20:06Z
+last_built: 2023-06-07T15:03Z
 urls:
   reference: https://adriaandokter.com/bioRad/reference
   article: https://adriaandokter.com/bioRad/articles
