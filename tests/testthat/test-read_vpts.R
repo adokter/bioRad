@@ -15,10 +15,10 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
     "deprecated"
   )
 
-  expect_error(
-    suppressWarnings(read_vpts(file = vptsfile),
-    "'radar' argument missing. Required to specify a radar identifier."
-    )
+  expect_condition(
+    read_vpts(file = vptsfile),
+    class = c("warning", "error"),
+    regexp = "\\.txt extenstion detected - falling back to read_stdout\\(\\)\\. The use of read_stdout\\(\\) will be deprecated soon\\. \n    Please consider updating your code to use csv or h5 input files"
   )
 
   # Test if outputs from both functions are equal but supress warnings in tests
