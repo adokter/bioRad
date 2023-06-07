@@ -80,7 +80,7 @@ earth_radius <- function(a, b, lat) {
 #' @param beam_angle Numeric. Beam opening angle in degrees, typically the
 #'   angle between the half-power (-3 dB) points of the main lobe.
 #'
-#' @return numeric. Beam width in m.
+#' @return numeric. Beam width in m, typically the full width at half maximum (FWHM).
 #'
 #' @export
 #' @family beam_functions

@@ -1,14 +1,12 @@
-#' Select profiles on time/day/night in a time series of vertical profiles
-#' (`vpts`)
-#'
-#' Select profiles from a time series of vertical profiles (`vpts`) for which
-#' `min <= timestamp profile < max`. Selection for night and day uses
+#' Filter a time series of vertical profiles ('vpts') by a start and end time.
+#' Use argument night = TRUE to select only time stamps between sunset and sunrise,
+#' or night = FALSE to select daytime (sunrise to sunset). Selection for night and day uses
 #' [check_night()].
 #'
 #' @param x A `vpts` object.
 #' @inheritParams check_night
 #' @param min POSIXct date or character. Minimum datetime to be included.
-#' @param max POSIXct date or character. Maximum datetime to be included.
+#' @param max POSIXct date or character. Datetime up to this maximum included.
 #' @param nearest POSIXct date or character. If specified, `min` and `max` are
 #'   ignored and the profile (`vp`) nearest to the specified datetime is
 #'   returned that matches the day/night selection criteria.
