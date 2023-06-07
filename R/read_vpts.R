@@ -30,17 +30,33 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
   }
+  # currently only two delimitors supported
+  # "" for legacy vol2bird output, "," for csv output
+  assertthat::assert_that(assertthat::is.scalar(sep) && is.character(sep),
+                          msg = "'sep' should be either \",\" or \"\"")
+  assertthat::assert_that(sep == "" || sep == ",",
+                          msg = "'sep' should be either \",\" or \"\"")
+
   if (!missing(lat)) {
-    if (!is.numeric(lat) || lat < -90 || lat > 90) {
+    assertthat::assert_that(
+      assertthat::is.number(lat),
+      msg = "'lat' should be a single numeric between -90 and 90 degrees"
+      )
+    if (lat < -90 || lat > 90) {
       stop("'lat' should be numeric between -90 and 90 degrees")
     }
   }
   if (!missing(lon)) {
-    if (!is.numeric(lon) || lat < -360 || lat > 360) {
+    assertthat::assert_that(
+      assertthat::is.number(lon),
+      msg = "'lon' should be a single numeric numeric between -360 and 360 degrees"
+    )
+    if (lon < -360 || lon > 360) {
       stop("'lon' should be numeric between -360 and 360 degrees")
     }
   }
   if (!missing(height)) {
+    assertthat::assert_that(assertthat::is.number(height))
     if (!is.numeric(height) || height < 0) {
       stop("'height' should be a positive number of meters above sea level")
     }
@@ -54,19 +70,22 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
       sep = ""
     ))
   }
+  wavelength_msg <-
+    glue::glue(
+      "'wavelength' should be a single positive number",
+      ", or one of 'C' or 'S' for C-band and S-band radar, respectively."
+    )
+  assertthat::assert_that(
+    (assertthat::is.number(wavelength) && wavelength > 0) ||
+      (assertthat::is.scalar(wavelength) && wavelength %in% c("C","S")),
+    msg = wavelength_msg)
+
   if (wavelength == "C") {
     wavelength <- 5.3
   }
   if (wavelength == "S") {
     wavelength <- 10.6
   }
-  if (!is.numeric(wavelength) || length(wavelength) > 1) {
-    stop("Not a valid 'wavelength' argument.")
-  }
-
-  # currently only two delimitors supported
-  # "" for legacy vol2bird output, "," for csv output
-  assertthat::assert_that(sep == "" || sep == ",")
 
   # header of the data file
   header.names.short <- c(
