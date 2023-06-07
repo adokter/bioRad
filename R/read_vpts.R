@@ -75,8 +75,6 @@ read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
       "'wavelength' should be a single positive number",
       ", or one of 'C' or 'S' for C-band and S-band radar, respectively."
     )
-  # assertthat::assert_that(length(wavelength) == 1,
-  #                         msg = wavelength_msg)
   assertthat::assert_that(
     (assertthat::is.number(wavelength) && wavelength > 0) ||
       (assertthat::is.scalar(wavelength) && wavelength %in% c("C","S")),
