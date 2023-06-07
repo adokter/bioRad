@@ -32,7 +32,8 @@ example_pvol <- read_pvolfile(pvolfile)
 
 # write the file:
 pvolfile_out <- paste0(tempdir(),"pvolfile_out.h5")
-\dontrun{
 write_pvolfile(example_pvol, pvolfile_out)
-}
+
+# clean up
+file.remove(pvolfile_out)
 }

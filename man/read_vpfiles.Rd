@@ -28,9 +28,6 @@ vpfile
 # load the file:
 read_vpfiles(vpfile)
 
-# load multiple files at once:
-\dontrun{
+# to load multiple files at once:
 # read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
-}
-
 }

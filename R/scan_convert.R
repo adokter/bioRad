@@ -77,6 +77,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
 #' @export
 #' @examples
+#' \dontrun{
 #' # default projects full extent on 100x100 pixel raster:
 #' scan_to_raster(example_scan)
 #'
@@ -86,6 +87,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' # using a template raster
 #' template_raster <- raster::raster(raster::extent(12, 13, 56, 58), crs = sp::CRS("+proj=longlat"))
 #' scan_to_raster(example_scan, raster = template_raster)
+#' }
 scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param, raster = NA, lat, lon, crs = NA, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")

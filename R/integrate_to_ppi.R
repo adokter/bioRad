@@ -110,7 +110,6 @@
 #' # 0-2000 cm^2/km^2 color scale
 #' plot(ppi, zlim = c(0, 2000))
 #'
-#' \dontrun{
 #' # Calculate the range-corrected ppi on finer 2000m x 2000m pixel raster
 #' ppi <- integrate_to_ppi(pvol, example_vp, res = 2000)
 #'
@@ -118,9 +117,11 @@
 #' # 0-200 birds/km^2 color scale
 #' plot(ppi, param = "VID", zlim = c(0, 200))
 #'
+#' \dontrun{
 #' # Download a basemap and map the ppi
 #' bm <- download_basemap(ppi)
 #' map(ppi, bm)
+#' }
 #'
 #' # The ppi can also be projected on a user-defined raster, as follows:
 #'
@@ -143,7 +144,6 @@
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(ppi, param = "VID", zlim = c(0, 200))
-#' }
 #' @references
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
 #'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
