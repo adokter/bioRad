@@ -11,7 +11,7 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
   vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 
   expect_warning(
-    read_vpts(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
+    read_vpts(file = vptsfile),
     "deprecated"
   )
 

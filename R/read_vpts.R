@@ -5,19 +5,11 @@
 #' - [VPTS CSV](https://aloftdata.eu/vpts-csv/).
 #' - [ODIM bird profile](https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification).
 #' @param files Path(s) to one or more files containing vpts data.
-#' @param radar Radar (deprecated, use `read_stdout()` instead).
-#' @param lat Latitude (deprecated, use `read_stdout()` instead).
-#' @param lon Longitude (deprecated, use `read_stdout()` instead).
-#' @param height Height (deprecated, use `read_stdout()` instead).
+#' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
 #' @return `vpts` object.
 #' @family read functions
 #' @export
-read_vpts <- function(files, radar = NULL, lat = NULL, lon = NULL, height = NULL) {
-  # Check if any of the old parameters are used
-  if (!is.null(radar) | !is.null(lat) | !is.null(lon) | !is.null(height)) {
-    .Deprecated("read_stdout")
-    return(read_stdout(file = files, radar = radar, lat = lat, lon = lon, height = height, wavelength = "C", sep = ""))
-  }
+read_vpts <- function(files, ...) {
 
   # Get file extension
   extension <- unique(tools::file_ext(files))
@@ -26,6 +18,13 @@ read_vpts <- function(files, radar = NULL, lat = NULL, lon = NULL, height = NULL
     msg = "`files` must all have the same extension."
   )
 
+  # Check if the input file has a .txt extension and if so reroute to read_stdout
+  if (extension == "txt") {
+    warning(".txt extenstion detected - falling back to read_stdout(). The use of read_stdout() will be deprecated soon. 
+    Please consider updating your code to use csv or h5 input files")
+    return(read_stdout(file = files, wavelength = "C", sep = ""))
+  }
+  
   # Read files
   data <- switch(extension,
     csv = read_vpts_csv(files),
