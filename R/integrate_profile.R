@@ -188,12 +188,13 @@ integrate_profile <- function(x, alt_min, alt_max,
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                                  interval_max = 3600, interval_replace = NA, height_quantile = NA) {
-  stopifnot(inherits(x, "vp"))
+  assertthat::assert_that(is.vp(x),
+                          msg = "`x` needs to be a single vp or vpts object.")
   assertthat::assert_that(
     assertthat::is.number(alt_min) || alt_min=="antenna"
   )
   assertthat::assert_that(assertthat::is.number(alt_max))
-  assertthat::assert_that(is.na(alpha) || is.numeric(alpha))
+  assertthat::assert_that(assertthat::is.number(alpha) || is.na(alpha))
 
   assertthat::assert_that(assertthat::is.scalar(height_quantile))
   if(!is.na(height_quantile)){
@@ -350,7 +351,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   stopifnot(inherits(x, "vpts"))
   stopifnot(is.numeric(alt_min) | alt_min=="antenna")
   stopifnot(is.numeric(alt_max))
-  stopifnot(is.na(alpha) || is.numeric(alpha))
+  stopifnot(is.na(alpha) || assertthat::is.number(alpha))
   assertthat::assert_that(assertthat::is.number(interval_max))
   assertthat::assert_that(interval_max>0)
 

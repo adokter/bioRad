@@ -22,7 +22,7 @@ test_that("integrate_profile() returns error on incorrect parameters", {
   )
   expect_error(
     integrate_profile(example_vp, alpha = 'notANumeric'),
-    regexp = "is.na(alpha) is not TRUE or alpha is not a numeric or integer vector",
+    regexp = "alpha is not a number (a length one numeric vector).",
     fixed = TRUE
     )
   expect_error(
