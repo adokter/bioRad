@@ -26,16 +26,17 @@
 #' # Will successfully download 2016-10 files, but show 404 error for
 #' # 2016-11 files, since these are not available.
 #' \dontrun{
-#' dir.create("~/bioRad_tmp_files")
+#' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
+#' dir.create(temp_dir)
 #' download_vpfiles(
 #'   date_min = "2016-10-01",
 #'   date_max = "2016-11-30",
 #'   radars = c("bejab", "bewid"),
-#'   directory = "~/bioRad_tmp_files",
+#'   directory = temp_dir,
 #'   overwrite = TRUE
 #' )
 #' # Clean up
-#' unlink("~/bioRad_tmp_files", recursive = T)
+#' unlink(temp_dir, recursive = T)
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {

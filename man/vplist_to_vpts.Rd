@@ -24,9 +24,9 @@ Used as helper function for the method dispatched \code{bind_into_vpts} and
 keeping backward compatibility with the \code{vpts} function.
 }
 \examples{
-\dontrun{
-vps <- read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
+vpfile1 <- system.file("extdata", "profile.h5", package = "bioRad")
+vpfile2 <- vpfile1
+vps <- read_vpfiles(c(vpfile1,vpfile2))
 ts <- bind_into_vpts(vps)
-}
 }
 \keyword{internal}
