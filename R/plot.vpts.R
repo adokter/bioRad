@@ -368,10 +368,10 @@ plot_wind_barbs <- function(cx, cy, direction = 0, speed = NA,
   ### press is actually height in upper air ###
   ns <- length(cx)
   if (length(cy) != ns) {
-    stop("X AND Y COORDINATES SHOULD HAVE SAME LENGTH!")
+    stop("`cx` and `cy` should have the same length.")
   }
 
-  msg <- "ALL VARIABLES SHOULD HAVE SAME LENGTH AS COORDINATES, OR BE MISSING!!!"
+  msg <- "All variables, when provided, should have same length as coordinates."
   if (ns > 1) {
     if (length(direction) == 1) if (!is.na(direction)) stop(msg)
     if (length(speed) == 1) if (!is.na(speed)) stop(msg)
