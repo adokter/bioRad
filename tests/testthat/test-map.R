@@ -1,4 +1,5 @@
 test_that("map() returns error on incorrect parameters", {
+  skip_if_offline()
   ppi <- project_as_ppi(example_scan)
   basemap <- download_basemap(ppi, maptype = "toner-lite")
   # return error when input object is not of class ppi

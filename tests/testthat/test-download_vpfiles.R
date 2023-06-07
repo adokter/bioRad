@@ -5,7 +5,7 @@ test_that("download_vpfiles() returns error on incorrect parameters", {
   radars <- c("bejab", "bewid")
   directory <- tempdir()
   overwrite <- TRUE
-
+  skip_if_offline()
   expect_error(
     download_vpfiles("01/01/2016", date_max, radars, directory, overwrite),
     "Incorrect date format: 01/01/2016",
