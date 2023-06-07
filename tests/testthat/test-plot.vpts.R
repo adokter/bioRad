@@ -52,12 +52,12 @@ test_that("plot.vpts() returns error on bad palette", {
 test_that("plot_wind_barbs() returns error on incorrect parameters", {
   expect_error(
     plot_wind_barbs(c(1, 2), c(4, 5, 8)),
-    regexp = "X AND Y COORDINATES SHOULD HAVE SAME LENGTH!",
+    regexp = "`cx` and `cy` should have the same length.",
     fixed = TRUE
   )
 
   variable_error_message <-
-    "ALL VARIABLES SHOULD HAVE SAME LENGTH AS COORDINATES, OR BE MISSING!!!"
+    "All variables, when provided, should have same length as coordinates."
 
   expect_error(
     plot_wind_barbs(c(1, 2), c(4, 5)),
