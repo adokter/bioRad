@@ -9,17 +9,21 @@ test_that("date input for download_pvolfiles() ", {
   skip_if_offline()
   # working with default
   expect_no_error(
-    download_pvolfiles(date_min, date_max, radars, directory, overwrite)
+    suppressMessages(
+      download_pvolfiles(date_min, date_max, radars, directory, overwrite)
+      )
   )
 
   # Working over multiple days
   expect_no_error(
-    download_pvolfiles(
-      as.POSIXct("2016-10-02 23:55", tz = "UTC"),
-      as.POSIXct("2016-10-03 00:07", tz = "UTC"),
-      radars,
-      directory,
-      overwrite
+    suppressMessages(
+      download_pvolfiles(
+        as.POSIXct("2016-10-02 23:55", tz = "UTC"),
+        as.POSIXct("2016-10-03 00:07", tz = "UTC"),
+        radars,
+        directory,
+        overwrite
+      )
     )
   )
 
@@ -85,12 +89,14 @@ test_that("date input for download_pvolfiles() ", {
     fixed = TRUE
   )
   expect_error(
-    download_pvolfiles(
-      as.POSIXct("2046-10-02 20:00", tz = "UTC"),
-      as.POSIXct("2046-10-02 20:05", tz = "UTC"),
-      radars,
-      directory,
-      overwrite
+    suppressMessages(
+      download_pvolfiles(
+        as.POSIXct("2046-10-02 20:00", tz = "UTC"),
+        as.POSIXct("2046-10-02 20:05", tz = "UTC"),
+        radars,
+        directory,
+        overwrite
+      )
     ),
     regexp = paste0(
       "No data availble on the 2046-10-02. ",
@@ -112,7 +118,9 @@ test_that("Check radar code for download_pvolfiles() ", {
     fixed = TRUE
   )
   expect_error(
-    download_pvolfiles(date_min, date_max, "ABCD", directory, overwrite),
+    suppressMessages(
+      download_pvolfiles(date_min, date_max, "ABCD", directory, overwrite)
+    ),
     regexp = paste0(
       "No data available for ABCD on the 2016-10-02. Check radar",
       " code and data availability on",
