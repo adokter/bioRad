@@ -28,8 +28,12 @@ test_that("Example vp can be plotted correctly", {
 })
 
 test_that("Example vpts can be plotted correctly", {
-  expect_no_error(plot(regularize_vpts(example_vpts), quantity = "DBZH"))
-  expect_no_error(plot(regularize_vpts(example_vpts), quantity = "dbz"))
-  expect_no_error(plot(regularize_vpts(example_vpts), quantity = "eta"))
-  expect_no_error(plot(regularize_vpts(example_vpts), quantity = "dens"))
+  expect_no_error(
+    plot(regularize_vpts(example_vpts, verbose = FALSE), quantity = "DBZH"))
+  expect_no_error(
+    plot(regularize_vpts(example_vpts, verbose = FALSE), quantity = "dbz"))
+  expect_no_error(
+    plot(regularize_vpts(example_vpts, verbose = FALSE), quantity = "eta"))
+  expect_no_error(
+    plot(regularize_vpts(example_vpts, verbose = FALSE), quantity = "dens"))
 })
