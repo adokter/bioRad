@@ -19,7 +19,7 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
     read_vpts(file = vptsfile),
     "'radar' argument missing. Required to specify a radar identifier."
   )
-  
+
   # Test if outputs from both functions are equal but supress warnings in tests
   suppressWarnings(expect_equal(
     read_vpts(files = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),

@@ -22,7 +22,7 @@ read_vpts <- function(files, ...) {
   if (extension == "txt") {
     warning(".txt extenstion detected - falling back to read_stdout(). The use of read_stdout() will be deprecated soon. 
     Please consider updating your code to use csv or h5 input files")
-    return(read_stdout(file = files, wavelength = "C", sep = ""))
+    return(do.call(read_stdout, c(list(file = files, wavelength = "C", sep = ""), list(...))))
   }
   
   # Read files
