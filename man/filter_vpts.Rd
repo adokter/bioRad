@@ -2,8 +2,10 @@
 % Please edit documentation in R/filter_vpts.R
 \name{filter_vpts}
 \alias{filter_vpts}
-\title{Select profiles on time/day/night in a time series of vertical profiles
-(\code{vpts})}
+\title{Filter a time series of vertical profiles ('vpts') by a start and end time.
+Use argument night = TRUE to select only time stamps between sunset and sunrise,
+or night = FALSE to select daytime (sunrise to sunset). Selection for night and day uses
+\code{\link[=check_night]{check_night()}}.}
 \usage{
 filter_vpts(x, min, max, nearest, night, elev = -0.268, offset = 0)
 }
@@ -12,7 +14,7 @@ filter_vpts(x, min, max, nearest, night, elev = -0.268, offset = 0)
 
 \item{min}{POSIXct date or character. Minimum datetime to be included.}
 
-\item{max}{POSIXct date or character. Maximum datetime to be included.}
+\item{max}{POSIXct date or character. Datetime up to this maximum included.}
 
 \item{nearest}{POSIXct date or character. If specified, \code{min} and \code{max} are
 ignored and the profile (\code{vp}) nearest to the specified datetime is
@@ -34,8 +36,9 @@ moment of sunrise. See \code{\link[=check_night]{check_night()}} for details.}
 A \code{vpts} object, or a \code{vp} object when \code{nearest} is specified.
 }
 \description{
-Select profiles from a time series of vertical profiles (\code{vpts}) for which
-\verb{min <= timestamp profile < max}. Selection for night and day uses
+Filter a time series of vertical profiles ('vpts') by a start and end time.
+Use argument night = TRUE to select only time stamps between sunset and sunrise,
+or night = FALSE to select daytime (sunrise to sunset). Selection for night and day uses
 \code{\link[=check_night]{check_night()}}.
 }
 \details{

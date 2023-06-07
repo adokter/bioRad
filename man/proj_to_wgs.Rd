@@ -2,14 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{proj_to_wgs}
 \alias{proj_to_wgs}
-\title{A wrapper for \code{\link[=spTransform]{spTransform()}}.}
+\title{A wrapper for \code{\link[=spTransform]{spTransform()}}.
+Converts projected coordinates to geographic (WGS84) coordinates.}
 \usage{
 proj_to_wgs(x, y, proj4string)
 }
 \arguments{
-\item{x}{Longitude}
+\item{x}{The x-coordinate in the projected system.}
 
-\item{y}{Latitude}
+\item{y}{The y-coordinate in the projected system.}
 
 \item{proj4string}{An object of class 'CRS', as defined in package \code{sp}.}
 }
@@ -18,5 +19,6 @@ An object of class \code{SpatialPoints}.
 }
 \description{
 A wrapper for \code{\link[=spTransform]{spTransform()}}.
+Converts projected coordinates to geographic (WGS84) coordinates.
 }
 \keyword{internal}
