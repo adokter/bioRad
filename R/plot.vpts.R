@@ -105,10 +105,14 @@ plot.vpts <- function(x, xlab = "time", ylab = "height [m]", quantity = "dens",
                       n_color=1000, palette = NA,
                       ...) {
   stopifnot(inherits(x, "vpts"))
-  assertthat::assert_that(
-    quantity %in% names(x$data),
-    msg = "quantity needs to be one of `dens`, `eta`, `dbz` or `DBZH`"
+  assertthat::assert_that(quantity %in% names(x$data),
+    msg = glue::glue("`quantity` needs to be one of {data_names_collapse}",
+      data_names_collapse = glue::glue_collapse(
+        glue::backtick(names(x$data)),
+        sep = ", ", last = " or "
+      )
     )
+  )
 
   if (methods::hasArg("param")) stop("unknown function argument 'param`. Did you mean `quantity`?")
 

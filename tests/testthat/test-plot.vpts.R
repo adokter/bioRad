@@ -8,7 +8,7 @@ test_that("plot.vpts() returns error on incorrect parameters", {
                fixed = TRUE)
   expect_error(
     plot(example_vpts_reg, quantity = "not_a_quantity"),
-    regexp = "quantity needs to be one of `dens`, `eta`, `dbz` or `DBZH`",
+    regexp = "`quantity` needs to be one of `u`, `v`, `w`, `ff`, `dd`, `sd_vvp`, `gap`, `dbz`, `eta`, `dens`, `DBZH`, `n`, `n_dbz`, `n_all` or `n_dbz_all`",
     fixed = TRUE)
 
   # Test error on "param" instead of "quantity"
