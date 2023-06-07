@@ -7,7 +7,7 @@ test_that("Integrate_profile() return vpi", {
 test_that("integrate_profile() returns error on incorrect parameters", {
   expect_error(
     integrate_profile(example_vp, alt_min = 'notANumeric'),
-    regexp = 'alt_min is not a numeric or integer vector or alt_min not equal to "antenna"',
+    regexp = 'alt_min is not a number (a length one numeric vector). or alt_min not equal to "antenna"',
     fixed = TRUE
     )
   expect_error(
