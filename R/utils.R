@@ -45,8 +45,8 @@ check_radar_codes <- function(radars) {
       paste(wrong_codes, collapse = ", ")
     )
   } else {
-    radars.csv <- read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
-    wrong_codes <- radars[!(radars %in% radars.csv$countryradar)]
+    radars_csv <- read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
+    wrong_codes <- radars[!(radars %in% radars_csv$countryradar)]
     if (length(wrong_codes) > 0) {
       stop(
         "Radar codes don't exist: ",

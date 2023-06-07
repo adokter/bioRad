@@ -26,7 +26,7 @@ radar) to plot.}
 \item{ylim}{Numeric vector of length 2. Range of y values (azimuth) to plot.}
 
 \item{zlim}{Numeric vector of length 2. The range of parameter values to
-plot.}
+plot. Defaults to parameter specific limits for plotting, not full range of data.}
 
 \item{na.value}{Character. \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} parameter to set the color of
 \code{NA} values.}
