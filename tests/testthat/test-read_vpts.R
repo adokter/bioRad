@@ -170,11 +170,4 @@ test_that("read_vpts() warns for missing wavelength", {
     regexp = "No 'wavelength' argument provided, assuming radar operates at C-band",
     fixed = TRUE
   )
-  # test a vptsfile with a comma seperator
-  vptsfile_lines <- readLines(vptsfile)
-  vptsfile_comment_lines <- grepl("#", readLines(vptsfile))
-  vptsfile_lines[!vptsfile_comment_lines] <-
-    gsub("\\s+", ",", readLines(vptsfile)[!vptsfile_comment_lines])
-  vptsfile_sep <- tempfile()
-  writeLines(vptsfile_lines, vptsfile_sep)
 })
