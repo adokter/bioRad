@@ -85,7 +85,6 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
     regular <- FALSE
   }
 
-  # TODO: finish following code (inspired by read_stdout)
   # Get attributes
   heights <- unique(df$height)
   interval <- unique(heights[-1] - heights[-length(heights)])
@@ -93,7 +92,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
 
   # Create object
   output <- list(
-    radar = radar,
+    radar = as.character(radar),
     datetime = datetime,
     height = heights,
     daterange = c(min(datetime), max(datetime)),
