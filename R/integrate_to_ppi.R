@@ -169,6 +169,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       all(!is.na(xlim)),
       msg = "'xlim' should be a vector with two numeric values for upper and lower bound")
     assertthat::assert_that(
+      xlim[1] != xlim[2],
+      msg = "upper and lower bound of `xlim` can not be identical")
+    assertthat::assert_that(
       xlim[1] < xlim [2],
       msg = "'xlim' should be a vector with two numeric values for upper and lower bound")
   }
@@ -184,6 +187,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       all(!is.na(ylim)),
       msg = "'ylim' should be a vector with two numeric values for upper and lower bound"
     )
+    assertthat::assert_that(
+      ylim[1] != ylim[2],
+      msg = "upper and lower bound of `ylim` can not be identical")
     assertthat::assert_that(
       ylim[1] < ylim[2],
       msg = "'ylim' should be a vector with two numeric values for upper and lower bound"
@@ -201,6 +207,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       all(!is.na(zlim)),
       msg = "'zlim' should be a vector with two numeric values for upper and lower bound"
     )
+    assertthat::assert_that(
+      zlim[1] != zlim[2],
+      msg = "upper and lower bound of `zlim` can not be identical")
     assertthat::assert_that(
       zlim[1] < zlim[2],
       msg = "'zlim' should be a vector with two numeric values for upper and lower bound"

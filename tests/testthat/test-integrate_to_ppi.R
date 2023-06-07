@@ -68,6 +68,13 @@ test_that("integrate_to_ppi() returns error on incorrect parameters", {
   )
   expect_error(
     integrate_to_ppi(example_pvol,
+                     example_vp,
+                     xlim = c(42,42)),
+    regexp = "upper and lower bound of `xlim` can not be identical",
+    fixed = TRUE
+  )
+  expect_error(
+    integrate_to_ppi(example_pvol,
       example_vp,
       xlim = "not_a_limit"
     ),
@@ -100,6 +107,13 @@ test_that("integrate_to_ppi() returns error on incorrect parameters", {
   )
   expect_error(
     integrate_to_ppi(example_pvol,
+                     example_vp,
+                     ylim = c(42,42)),
+    regexp = "upper and lower bound of `ylim` can not be identical",
+    fixed = TRUE
+  )
+  expect_error(
+    integrate_to_ppi(example_pvol,
       example_vp,
       zlim = "not_a_limit"
     ),
@@ -128,6 +142,13 @@ test_that("integrate_to_ppi() returns error on incorrect parameters", {
       zlim = c(42E42, 42)
     ),
     regexp = "'zlim' should be a vector with two numeric values for upper and lower bound",
+    fixed = TRUE
+  )
+  expect_error(
+    integrate_to_ppi(example_pvol,
+                     example_vp,
+                     zlim = c(42,42)),
+    regexp = "upper and lower bound of `zlim` can not be identical",
     fixed = TRUE
   )
 
