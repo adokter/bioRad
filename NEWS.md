@@ -8,7 +8,7 @@
 
 bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package [vol2birdR](https://cran.r-project.org/package=vol2birdR) package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.
 
-# New features
+## New features
 
 * bioRad is now fully available on Windows.
 

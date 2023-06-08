@@ -10,7 +10,7 @@
 #'   radar) to plot.
 #' @param ylim Numeric vector of length 2. Range of y values (azimuth) to plot.
 #' @param zlim Numeric vector of length 2. The range of parameter values to
-#'   plot.
+#'   plot. Defaults to parameter specific limits for plotting, not full range of data.
 #' @param na.value Character. [ggplot2::ggplot()] parameter to set the color of
 #'   `NA` values.
 #' @param ... Arguments passed to [ggplot2::ggplot()].
@@ -36,14 +36,13 @@
 #' @examples
 #' # Plot reflectivity
 #' plot(example_scan, param = "DBZH")
-#' \dontrun{
+#'
 #' # Change the range of reflectivities to plot, from -10 to 10 dBZ
 #' plot(example_scan, param = "DBZH", zlim = c(-10, 10))
 #'
 #' # Change the scale name, change the color palette to Viridis colors
 #' plot(example_scan, param = "DBZH", zlim = c(-10, 10)) +
 #'   viridis::scale_fill_viridis(name = "dBZ")
-#' }
 plot.scan <- function(x, param, xlim = c(0, 100000),
                       ylim = c(0, 360), zlim = c(-20, 20), na.value = "transparent", ...) {
   stopifnot(inherits(x, "scan"))

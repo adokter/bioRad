@@ -20,12 +20,10 @@ data(example_vp)
 # Get summary info
 example_vp
 
-# example_vp was created with
-\dontrun{
-vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
-example_vp <- read_vpfiles(vpfile)
-save(example_vp, file = "data/example_vp.rda")
-}
+## example_vp was created with:
+# vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+# example_vp <- read_vpfiles(vpfile)
+# save(example_vp, file = "data/example_vp.rda")
 }
 \seealso{
 \itemize{

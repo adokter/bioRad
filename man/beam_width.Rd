@@ -13,7 +13,7 @@ beam_width(range, beam_angle = 1)
 angle between the half-power (-3 dB) points of the main lobe.}
 }
 \value{
-numeric. Beam width in m.
+numeric. Beam width in m, typically the full width at half maximum (FWHM).
 }
 \description{
 Calculates the width of a radar beam as a function of range and beam angle.

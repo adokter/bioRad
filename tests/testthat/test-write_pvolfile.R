@@ -2,14 +2,21 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 
 testpath <- file.path(tempdir(), basename(pvolfile))
-file.copy(pvolfile, testpath)  # Make copy of volume.h5 to avoid test leakage
+file.copy(pvolfile, testpath) # Make copy of volume.h5 to avoid test leakage
 
 test_that("write_pvolfile() returns error when writing no pvol object", {
-  expect_error(write_pvolfile("No PVOL object"))
+  expect_error(write_pvolfile("No PVOL object"),
+    regexp = "`pvol` must be an object of class `pvol`",
+    fixed = TRUE
+  )
 })
 
 test_that("write_pvolfile() returns error when file exists and overwrite = FALSE", {
-  expect_error(write_pvolfile(pvol, testpath, overwrite = FALSE))
+  expect_error(
+    write_pvolfile(pvol, testpath, overwrite = FALSE),
+    regexp = "File already exists, use overwrite = TRUE to overwrite this file",
+    fixed = TRUE
+  )
 })
 
 test_that("write_pvolfile() writes a valid pvol", {
@@ -35,12 +42,18 @@ test_that("write_pvolfile() writes 8-bit integer if possible and conversion is m
   attributes(pvol_noconversion$scans[[1]]$params$DBZH)$conversion <- NULL
   write_pvolfile(pvol_noconversion, testpath, overwrite = TRUE)
   pvol_new <- read_pvolfile(testpath)
-  expect_equal(attributes(pvol_new$scans[[1]]$params$DBZH)$conversion,
-               attributes(pvol$scans[[1]]$params$DBZH)$conversion)
-  expect_equal(attributes(pvol_new$scans[[1]]$params$DBZH)$conversion$dtype,
-               "H5T_STD_U8BE")
-  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
-               matrix(pvol_new$scans[[1]]$params[['DBZH']]))
+  expect_equal(
+    attributes(pvol_new$scans[[1]]$params$DBZH)$conversion,
+    attributes(pvol$scans[[1]]$params$DBZH)$conversion
+  )
+  expect_equal(
+    attributes(pvol_new$scans[[1]]$params$DBZH)$conversion$dtype,
+    "H5T_STD_U8BE"
+  )
+  expect_equal(
+    matrix(pvol_noconversion$scans[[1]]$params[["DBZH"]]),
+    matrix(pvol_new$scans[[1]]$params[["DBZH"]])
+  )
 })
 
 test_that("write_pvolfile() writes 16-bit integer if possible and conversion is missing", {
@@ -54,8 +67,10 @@ test_that("write_pvolfile() writes 16-bit integer if possible and conversion is 
   expect_equal(conv$gain, 1)
   expect_equal(conv$nodata, 65535)
   expect_equal(conv$undetect, 0)
-  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
-               matrix(pvol_new$scans[[1]]$params[['DBZH']]))
+  expect_equal(
+    matrix(pvol_noconversion$scans[[1]]$params[["DBZH"]]),
+    matrix(pvol_new$scans[[1]]$params[["DBZH"]])
+  )
 })
 
 test_that("write_pvolfile() writes float if values are not integers and conversion is missing", {
@@ -69,6 +84,8 @@ test_that("write_pvolfile() writes float if values are not integers and conversi
   expect_equal(conv$gain, 1)
   expect_equal(conv$nodata, 8513)
   expect_equal(conv$undetect, 0)
-  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[['DBZH']]),
-               matrix(pvol_new$scans[[1]]$params[['DBZH']]), tolerance = 1e-5)
+  expect_equal(matrix(pvol_noconversion$scans[[1]]$params[["DBZH"]]),
+    matrix(pvol_new$scans[[1]]$params[["DBZH"]]),
+    tolerance = 1e-5
+  )
 })

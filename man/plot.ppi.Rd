@@ -24,7 +24,8 @@
 
 \item{ylim}{Range of y values to plot.}
 
-\item{zlim}{The range of parameter values to plot.}
+\item{zlim}{The range of parameter values to plot. Defaults
+to parameter specific limits for plotting, not full range of data.}
 
 \item{ratio}{Aspect ratio between x and y scale.}
 

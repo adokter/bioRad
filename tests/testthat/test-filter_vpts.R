@@ -1,16 +1,31 @@
 vpts <- example_vpts
 
 test_that("filter_vpts() returns error on incorrect parameters", {
-  expect_error(filter_vpts("not_a_vpts"))
-  expect_error(filter_vpts(example_vp, min = "2016-09-01 00:02:00"))
-  expect_error(filter_vpts(vpts, min = "not_a_date"))
-  expect_error(filter_vpts(vpts, max = "not_a_date"))
-  expect_error(filter_vpts(vpts, night = "not_a_boolean"))
+  expect_error(filter_vpts("not_a_vpts"),
+               regexp = "`x` is not a `vpts` object",
+               fixed = TRUE)
+  expect_error(filter_vpts(example_vp, min = "2016-09-01 00:02:00"),
+               regexp = "`x` is not a `vpts` object",
+               fixed = TRUE
+               )
+  expect_error(filter_vpts(vpts, min = "not_a_date"),
+               regexp = "character string is not in a standard unambiguous format",
+               fixed = TRUE)
+  expect_error(filter_vpts(vpts, max = "not_a_date"),
+               regexp = "character string is not in a standard unambiguous format",
+               fixed = TRUE)
+  expect_error(filter_vpts(vpts, night = "not_a_boolean"),
+               regexp = "night is not a flag (a length one logical vector).",
+               fixed = TRUE)
 })
 
 test_that("filter_vpts() returns warning on out of bounds date", {
-  expect_warning(filter_vpts(vpts, min = "2016-09-20 00:00:00"))
-  expect_warning(filter_vpts(vpts, max = "2016-08-01 00:00:00"))
+  expect_warning(filter_vpts(vpts, min = "2016-09-20 00:00:00"),
+                 regexp = "no profiles passing datetime filter, returning empty vpts object",
+                 fixed = TRUE)
+  expect_warning(filter_vpts(vpts, max = "2016-08-01 00:00:00"),
+                 regexp = "no profiles passing datetime filter, returning empty vpts object",
+                 fixed = TRUE)
 })
 
 test_that("filter_vpts() returns the correct class of object", {

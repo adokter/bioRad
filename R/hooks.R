@@ -1,6 +1,6 @@
 .onLoad <- function(libname, pkgname) {
   register_all_s3_methods() # dynamically registers non-imported pkgs (tidyverse) # nocov
-  if (!"vol2birdR" %in% utils::installed.packages()) {
+  if (inherits(try(find.package("vol2birdR"), silent = TRUE),"try-error")) {
     warning("Package 'vol2birdR' is not found. Please see https://adokter.github.io/vol2birdR/ for installation instructions.")
   }
 }

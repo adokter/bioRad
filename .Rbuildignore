@@ -15,3 +15,5 @@ cran-comments.md
 inst/extdata/vpts.txt.zip
 ^\.github$
 ^CRAN-SUBMISSION$
+^doc$
+^Meta$

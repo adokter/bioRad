@@ -123,7 +123,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
   if (night_shade) {
     if (!is.numeric(lat) || !is.numeric(lon)) {
       stop(
-        "No latitude/longitude found in attribute data, please provide",
+        "No latitude/longitude found in attribute data, please provide ",
         "lat and lon arguments when night_shade=TRUE."
       )
     }

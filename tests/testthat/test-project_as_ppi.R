@@ -1,4 +1,15 @@
 test_that("returns error on incorrect parameters", {
+  # I don't think a user could naturally reach these errors:
+  expect_error(
+    project_as_ppi.param(example_scan),
+    regexp = 'inherits(x, "param") is not TRUE',
+    fixed = TRUE
+  )
+  expect_error(
+    project_as_ppi.scan(get_param(example_scan, "DBZH")),
+    regexp = 'inherits(x, "scan") is not TRUE',
+    fixed = TRUE
+  )
 })
 
 test_that("sample_polar works", {

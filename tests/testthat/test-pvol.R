@@ -6,6 +6,14 @@ vp <- example_vp
 # summary(), print(), dim() are generic and work for every input
 # is.pvol() returns TRUE/FALSE and works for every input
 
+test_that("print method on pvol returns correct test", {
+  expect_snapshot(
+    cat(
+      print(pvol)
+    )
+  )
+})
+
 test_that("summary.pvol() prints metadata to the console", {
   # print.pvol() is not tested as it is the same as and called from summary.pvol()
   expect_output(summary(pvol), "Polar volume (class pvol)", fixed = TRUE)

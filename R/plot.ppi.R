@@ -8,7 +8,8 @@
 #' @param xlim Range of x values to plot.
 #' @param ylim Range of y values to plot.
 #' @param ratio Aspect ratio between x and y scale.
-#' @param zlim The range of parameter values to plot.
+#' @param zlim The range of parameter values to plot. Defaults
+#' to parameter specific limits for plotting, not full range of data.
 #' @param na.value [ggplot][ggplot2::ggplot] argument setting the plot color of NA values
 #' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
 #'
