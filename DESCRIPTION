@@ -35,7 +35,6 @@ Imports:
     graphics,
     lubridate,
     lutz,
-    maptools,
     suntools,
     methods,
     raster,
