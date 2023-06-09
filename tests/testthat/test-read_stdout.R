@@ -105,7 +105,7 @@ test_that("read_stdout() returns error on incorrect parameters", {
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, sep = c(",", "&")),
+    read_stdout(vptsfile, sep = c(",", "&"), wavelength = "C"),
     regexp = "'sep' should be either \",\" or \"\"",
     fixed = TRUE
   )
