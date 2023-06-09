@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.0.9602",
+  "version": "0.7.0.9603",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
