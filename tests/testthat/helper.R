@@ -9,6 +9,30 @@ urls <- c(
 )
 
 
+guess_file_type <- function(file_path, n_lines = 5) {
+  # Check if it's an HDF5 or gzip file by looking at the first few bytes
+  first_bytes <- readBin(file_path, "raw", n = 10)
+
+  # HDF5 files typically start with the string "\211HDF\r\n\032\n"
+  if (identical(first_bytes[1:8], charToRaw("\211HDF\r\n\032\n"))) {
+    return("h5")
+  }
+  # Gzip files typically start with the magic number 1f 8b
+  if (identical(first_bytes[1:2], as.raw(c(0x1f, 0x8b)))) {
+    return("gz")
+  }
+  # If it's not an HDF5 or gzip file, check if it's a CSV file
+  first_lines <- readLines(file_path, n = n_lines)
+
+  # If any of the lines contains a comma, assume it's a CSV file
+  if (any(grepl(",", first_lines))) {
+    return("csv")
+  } else {
+    return("txt")
+  }
+}
+
+
 # Define the path to the new temporary directory
 temp_dir <- 'temp'
 
