@@ -40,7 +40,7 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
     "deprecated"
   )
 
-  #txt without explicit extension
+  #test read_stdout() txt without explicit extension
   no_ext_file<- tempfile(pattern = "example_vpts")
   file.copy(from = vptsfile, to = no_ext_file)
 
