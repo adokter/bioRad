@@ -1,12 +1,3 @@
-# Define the URLs
-urls <- c(
-"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5", 
-"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5",
-"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T001000Z_0xb.h5", 
-"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz",
-"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz",
-"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
-)
 
 guess_file_type <- function(file_path, n_lines = 5) {
   # Check if it's an HDF5 or gzip file by looking at the first few bytes
@@ -33,23 +24,8 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 }
 
-
-# Define the path to the new temporary directory
-temp_dir <- 'temp'
-
-# Create the new directory if not exists
-if (!dir.exists(temp_dir)) {
-  dir.create(temp_dir)
-}
-
-# Create the h5 and csv sub-directories
-h5_dir <- file.path(temp_dir, "h5")
-csv_dir <- file.path(temp_dir, "csv")
-if (!dir.exists(h5_dir)) dir.create(h5_dir)
-if (!dir.exists(csv_dir)) dir.create(csv_dir)
-
 # Function to download a file
-download_test_file <- function(url, dest_dir = temp_dir) {
+download_test_file <- function(url, dest_dir, h5_dir, csv_dir) {
   # Identify destination subdirectory based on file extension
   ext <- tools::file_ext(url)
   dest_sub_dir <- if (ext == "h5") h5_dir else if (ext == "gz") csv_dir else dest_dir
@@ -64,5 +40,3 @@ download_test_file <- function(url, dest_dir = temp_dir) {
     curl::curl_download(url, destfile = dest_file)
   } 
 }
-
-sapply(urls, download_test_file)
