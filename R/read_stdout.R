@@ -30,6 +30,15 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep = "
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
   }
+
+  # currently only two delimitors supported
+  # "" for legacy vol2bird output, "," for csv output
+  sep_msg <- "'sep' should be either \",\" or \"\""
+  assertthat::assert_that(assertthat::is.string(sep),
+                          msg = sep_msg)
+  assertthat::assert_that(sep == "" || sep == ",",
+                          msg = sep_msg)
+
   if (missing(radar) && sep == "") {
     stop("'radar' argument missing. Required to specify a radar identifier.")
   }
@@ -73,14 +82,6 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep = "
   if (wavelength == "S") {
     wavelength <- 10.6
   }
-
-  # currently only two delimitors supported
-  # "" for legacy vol2bird output, "," for csv output
-  sep_msg <- "'sep' should be either \",\" or \"\""
-  assertthat::assert_that(assertthat::is.string(sep),
-                          msg = sep_msg)
-  assertthat::assert_that(sep == "" || sep == ",",
-                          msg = sep_msg)
 
   # header of the data file
   header.names.short <- c(
