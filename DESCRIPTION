@@ -50,7 +50,7 @@ Imports:
     viridis,
     rlang
 Remotes:
-    bioc::rhdf5
+    bioc::rhdf5,
     github::adokter/suntools
 Suggests:
     vol2birdR,
