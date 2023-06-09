@@ -1,12 +1,16 @@
 # Define the URLs
 urls <- c(
-  "https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/09/19/23/bejab_vp_201609192315.h5",
-  "https://lw-enram.s3-eu-west-1.amazonaws.com/be/jab/2016/09/19/23/bejab_vp_201609192320.h5",
-  "https://lw-enram.s3-eu-west-1.amazonaws.com/cz/brd/2016/09/19/00/czbrd_vp_20160919T0000Z_0x5.h5",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
+"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5", 
+"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5",
+"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T001000Z_0xb.h5", 
+"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz",
+"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz",
+"https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
 )
+
+https://aloft.s3-eu-west-1.amazonaws.com/aloft/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5 
+https://aloft.s3-eu-west-1.amazonaws.com/aloft/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5 
+https://aloft.s3-eu-west-1.amazonaws.com/aloft/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T001000Z_0xb.h5 
 
 
 guess_file_type <- function(file_path, n_lines = 5) {
