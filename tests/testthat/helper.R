@@ -8,11 +8,6 @@ urls <- c(
 "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
 )
 
-https://aloft.s3-eu-west-1.amazonaws.com/aloft/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5 
-https://aloft.s3-eu-west-1.amazonaws.com/aloft/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5 
-https://aloft.s3-eu-west-1.amazonaws.com/aloft/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T001000Z_0xb.h5 
-
-
 guess_file_type <- function(file_path, n_lines = 5) {
   # Check if it's an HDF5 or gzip file by looking at the first few bytes
   first_bytes <- readBin(file_path, "raw", n = 10)
