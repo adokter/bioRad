@@ -36,6 +36,7 @@ Imports:
     lubridate,
     lutz,
     maptools,
+    suntools,
     methods,
     raster,
     readr,
@@ -51,6 +52,7 @@ Imports:
     rlang
 Remotes:
     bioc::rhdf5
+    github::adokter/suntools
 Suggests:
     vol2birdR,
     aws.s3,
