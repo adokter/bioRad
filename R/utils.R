@@ -173,3 +173,42 @@ extract_string <- function(string, pattern, ...) {
                ...
              ))
 }
+
+
+#' Guess the file type of a file
+#'
+#' Guess the file type of a file based on the first few
+#' bytes (for HDF5 and gzip files) or lines (for CSV files). If no known file 
+#' type can be guessed, it assumes the file is a text file.
+#'
+#' @param file_path A character string containing the path to the file
+#' @param n_lines An integer, the number of lines to read for guessing a CSV file
+#'
+#' @return A character string representing the guessed file type ("h5", "gz", "csv", or "txt")
+#' @keywords internal
+#' @export
+guess_file_type <- function(file_path, n_lines = 5) {
+  # Check if it's an HDF5 or gzip file by looking at the first few bytes
+  first_bytes <- readBin(file_path, "raw", n = 10)
+
+  # HDF5 files typically start with the string "\211HDF\r\n\032\n"
+  if (identical(first_bytes[1:8], charToRaw("\211HDF\r\n\032\n"))) {
+    return("h5")
+  }
+  # Gzip files typically start with the magic number 1f 8b
+  if (identical(first_bytes[1:2], as.raw(c(0x1f, 0x8b)))) {
+    return("gz")
+  }
+  # If it's not an HDF5 or gzip file, check if it's a CSV file
+  first_lines <- readLines(file_path, n = n_lines)
+
+  ## If every line in n_lines contains a comma, assume it's a CSV file
+  if (all(sapply(first_lines, function(line) grepl(",", line)))) {
+    return("csv")
+
+  } else {
+    message('No extension detected; assuming file type .txt')
+    return("txt")
+  }
+}
+
