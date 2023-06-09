@@ -31,7 +31,7 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep = "
     stop(paste("File", file, "is empty."))
   }
 
-  # currently only two delimitors supported
+  # currently only two delimiters supported
   # "" for legacy vol2bird output, "," for csv output
   sep_msg <- "'sep' should be either \",\" or \"\""
   assertthat::assert_that(assertthat::is.string(sep),
