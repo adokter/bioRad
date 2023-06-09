@@ -13,7 +13,7 @@ read_vpts <- function(files, ...) {
 
   #Define valid extensions
   valid_extensions <- c("csv", "gz", "h5", "txt")
-  
+
   # Get file extension
   extension <- unique(tools::file_ext(files))
 
@@ -33,12 +33,12 @@ read_vpts <- function(files, ...) {
     )
   } else {
     # If the file does not have an extension, infer the file type
-    extension <- guess_file_type(file_path)
+    extension <- guess_file_type(files)
   }
 
   # Check if the input file has a .txt extension and if so reroute to read_stdout
   if (extension == "txt") {
-    warning(".txt extenstion detected - falling back to read_stdout(). The use of read_stdout() will be deprecated soon. 
+    warning(".txt extenstion detected - falling back to read_stdout(). The use of read_stdout() will be deprecated soon.
     Please consider updating your code to use csv or h5 input files")
     return(do.call(read_stdout, c(list(file = files, wavelength = "C", sep = ""), list(...))))
   }

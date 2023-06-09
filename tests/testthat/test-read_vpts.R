@@ -14,9 +14,18 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
     "deprecated"
   )
 
+  #txt without explicit extension
+  no_ext_file<- tempfile(pattern = "example_vpts")
+  file.copy(from = vptsfile, to = no_ext_file)
+
+  expect_warning(
+    read_vpts(file = no_ext_file, radar = "KBGM"),
+    "deprecated"
+  )
+
   expect_warning(
     read_vpts(file = vptsfile, radar = "KBGM"),
-    regexp = "\\.txt extenstion detected - falling back to read_stdout\\(\\)\\. The use of read_stdout\\(\\) will be deprecated soon\\. \n    Please consider updating your code to use csv or h5 input files"
+    "deprecated"
   )
 
   # Test if outputs from both functions are equal but supress warnings in tests
