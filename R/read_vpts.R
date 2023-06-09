@@ -118,10 +118,13 @@ read_vpts_csv <- function(files, df = FALSE) {
     data = data,
     attributes = list(
       where = data.frame(
-        # interval = interval
-        # levels = length(heights)
+        interval = interval,
+        levels = length(heights),
+        height = data$radar_height[1],
+        lon = data$radar_longitude[1],
+        lat = data$radar_latitude[1]
       ),
-      how = data.frame(wavelength = wavelength)
+      how = data.frame(wavelength = wavelength, rcs_bird=data$rcs[1], sd_vvp_thresh=data$sd_vvp_threshold[1])
     ),
     regular = regular
   )
