@@ -30,23 +30,25 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep = "
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
   }
-  if (!missing(lat)) {
-    if (!is.numeric(lat) || lat < -90 || lat > 90) {
-      stop("'lat' should be numeric between -90 and 90 degrees")
-    }
-  }
-  if (!missing(lon)) {
-    if (!is.numeric(lon) || lat < -360 || lat > 360) {
-      stop("'lon' should be numeric between -360 and 360 degrees")
-    }
-  }
-  if (!missing(height)) {
-    if (!is.numeric(height) || height < 0) {
-      stop("'height' should be a positive number of meters above sea level")
-    }
-  }
   if (missing(radar) && sep == "") {
     stop("'radar' argument missing. Required to specify a radar identifier.")
+  }
+  if (!missing(lat)) {
+    lat_msg <- "'lat' should be a single numeric between -90 and 90 degrees"
+    assertthat::assert_that(assertthat::is.number(lat), msg = lat_msg)
+    assertthat::assert_that(lat > -90, msg = lat_msg)
+    assertthat::assert_that(lat < 90, msg = lat_msg)
+  }
+  if (!missing(lon)) {
+    lon_msg <- "'lon' should be a single numeric between -360 and 360 degrees"
+    assertthat::assert_that(assertthat::is.number(lon), msg = lon_msg)
+    assertthat::assert_that(lon > -360, msg = lon_msg)
+    assertthat::assert_that(lon < 360, msg = lon_msg)
+  }
+  if (!missing(height)) {
+    height_msg <- "'height' should be a single positive number of meters above sea level"
+    assertthat::assert_that(assertthat::is.number(height), msg = height_msg)
+    assertthat::assert_that(height > 0, msg = height_msg)
   }
   if (missing(wavelength)) {
     warning(paste("No 'wavelength' argument provided, assuming radar operates",
