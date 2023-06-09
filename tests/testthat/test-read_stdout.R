@@ -14,22 +14,22 @@ test_that("read_stdout() returns error on incorrect parameters", {
     regex = glue::glue("doesn't exist.")
   )
   expect_error(
-    read_stdout(vptsfile, lat = -180),
-    regexp = "'lat' should be numeric between -90 and 90 degrees",
+    read_stdout(vptsfile, radar = "KBGM", lat = -180),
+    regexp = "'lat' should be a single numeric between -90 and 90 degrees",
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, lat = 180),
-    regexp = "'lat' should be numeric between -90 and 90 degrees",
+    read_stdout(vptsfile, radar = "KBGM", lat = 180),
+    regexp = "'lat' should be a single numeric between -90 and 90 degrees",
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, lat = "a"),
-    regexp = "'lat' should be numeric between -90 and 90 degrees",
+    read_stdout(vptsfile, radar = "KBGM", lat = "a"),
+    regexp = "'lat' should be a single numeric between -90 and 90 degrees",
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, lat = c(48, 32)),
+    read_stdout(vptsfile, radar = "KBGM", lat = c(48, 32)),
     regexp = "'lat' should be a single numeric between -90 and 90 degrees",
     fixed = TRUE
   )
@@ -44,28 +44,28 @@ test_that("read_stdout() returns error on incorrect parameters", {
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, lon = -1080, lat = 38),
-    regexp = "lon' should be numeric between -360 and 360 degrees",
+    read_stdout(vptsfile, radar = "KBGM", lon = -1080, lat = 38),
+    regexp = "'lon' should be a single numeric between -360 and 360 degrees",
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, height = -1),
-    regexp = "'height' should be a positive number of meters above sea level",
+    read_stdout(vptsfile, radar = "KBGM", height = -1),
+    regexp = "'height' should be a single positive number of meters above sea level",
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, height = NA),
-    regexp = "height is not a number (a length one numeric vector).",
+    read_stdout(vptsfile, radar = "KBGM", height = NA),
+    regexp = "'height' should be a single positive number of meters above sea level",
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, height = NA),
-    regexp = "height is not a number (a length one numeric vector).",
+    read_stdout(vptsfile, radar = "KBGM", height = NA),
+    regexp = "'height' should be a single positive number of meters above sea level",
     fixed = TRUE
   )
   expect_error(
     read_stdout(vptsfile, radar = "KBGM", height = seq(50)),
-    regexp = "height is not a number (a length one numeric vector).",
+    regexp = "'height' should be a single positive number of meters above sea level",
     fixed = TRUE
   )
 
