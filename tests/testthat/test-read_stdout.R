@@ -100,7 +100,7 @@ test_that("read_stdout() returns error on incorrect parameters", {
     fixed = TRUE
   )
   expect_error(
-    read_stdout(vptsfile, sep = NA),
+    suppressWarnings(read_stdout(vptsfile, radar = "KBGM", sep = NA)),
     regexp = "'sep' should be either \",\" or \"\"",
     fixed = TRUE
   )
