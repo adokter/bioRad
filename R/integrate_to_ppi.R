@@ -110,7 +110,6 @@
 #' # 0-2000 cm^2/km^2 color scale
 #' plot(ppi, zlim = c(0, 2000))
 #'
-#' \dontrun{
 #' # Calculate the range-corrected ppi on finer 2000m x 2000m pixel raster
 #' ppi <- integrate_to_ppi(pvol, example_vp, res = 2000)
 #'
@@ -118,9 +117,11 @@
 #' # 0-200 birds/km^2 color scale
 #' plot(ppi, param = "VID", zlim = c(0, 200))
 #'
+#' \dontrun{
 #' # Download a basemap and map the ppi
 #' bm <- download_basemap(ppi)
 #' map(ppi, bm)
+#' }
 #'
 #' # The ppi can also be projected on a user-defined raster, as follows:
 #'
@@ -143,7 +144,6 @@
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(ppi, param = "VID", zlim = c(0, 200))
-#' }
 #' @references
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
 #'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
@@ -157,18 +157,63 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
-  if (!assertthat::is.number(ny) && missing(res)) stop("ny' should be an integer")
+  if (!assertthat::is.number(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
-    if (length(xlim) != 2 & !is.numeric(xlim)) stop("'xlim' should be an integer vector of length two")
-    if (is.na(xlim[1]) | is.na(xlim[2]) | xlim[1] > xlim[2]) stop("'xlim' should be a vector with two numeric values for upper and lower bound")
+    assertthat::assert_that(
+      is.numeric(xlim),
+      msg = "'xlim' should be an integer vector of length two")
+    assertthat::assert_that(
+      length(xlim) == 2,
+      msg = "'xlim' should be an integer vector of length two")
+    assertthat::assert_that(
+      all(!is.na(xlim)),
+      msg = "'xlim' should be a vector with two numeric values for upper and lower bound")
+    assertthat::assert_that(
+      xlim[1] != xlim[2],
+      msg = "upper and lower bound of `xlim` can not be identical")
+    assertthat::assert_that(
+      xlim[1] < xlim [2],
+      msg = "'xlim' should be a vector with two numeric values for upper and lower bound")
   }
   if (!missing(ylim)) {
-    if (length(ylim) != 2 & !is.numeric(ylim)) stop("'ylim' should be an integer vector of length two")
-    if (is.na(ylim[1]) | is.na(ylim[2]) | ylim[1] > ylim[2]) stop("'ylim' should be a vector with two numeric values for upper and lower bound")
+    assertthat::assert_that(
+      is.numeric(ylim),
+      msg = "'ylim' should be an integer vector of length two")
+    assertthat::assert_that(
+      length(ylim) == 2,
+      msg = "'ylim' should be an integer vector of length two"
+    )
+    assertthat::assert_that(
+      all(!is.na(ylim)),
+      msg = "'ylim' should be a vector with two numeric values for upper and lower bound"
+    )
+    assertthat::assert_that(
+      ylim[1] != ylim[2],
+      msg = "upper and lower bound of `ylim` can not be identical")
+    assertthat::assert_that(
+      ylim[1] < ylim[2],
+      msg = "'ylim' should be a vector with two numeric values for upper and lower bound"
+    )
   }
   if (!missing(zlim)) {
-    if (length(zlim) != 2 & !is.numeric(zlim)) stop("'zlim' should be an integer vector of length two")
-    if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
+    assertthat::assert_that(
+      is.numeric(zlim),
+      msg = "'zlim' should be an integer vector of length two")
+    assertthat::assert_that(
+      length(zlim) == 2,
+      msg = "'zlim' should be an integer vector of length two"
+    )
+    assertthat::assert_that(
+      all(!is.na(zlim)),
+      msg = "'zlim' should be a vector with two numeric values for upper and lower bound"
+    )
+    assertthat::assert_that(
+      zlim[1] != zlim[2],
+      msg = "upper and lower bound of `zlim` can not be identical")
+    assertthat::assert_that(
+      zlim[1] < zlim[2],
+      msg = "'zlim' should be a vector with two numeric values for upper and lower bound"
+    )
   }
   if (!missing(res)) {
     assertthat::assert_that(is.numeric(res))
@@ -206,8 +251,19 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   }
 
   if (FALSE %in% (param_ppi %in% c("VIR", "VID", "eta_sum", "eta_sum_expected", "azim", "range", "R", "overlap"))) stop("unknown param_ppi")
+  assertthat::assert_that(length(quantity) == 1)
   if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
-  if (!(param %in% c("DBZH", "DBZV", "DBZ", "TH", "TV"))) stop(paste("param '", param, "' not one of DBZH, DBZV, DBZ, TH, TV", sep = ""))
+  allowed_params <- c("DBZH", "DBZV", "DBZ", "TH", "TV")
+  assertthat::assert_that(
+    all(param %in% allowed_params),
+    msg = glue::glue(
+      "param {param_collapse} not one of DBZH, DBZV, DBZ, TH or TV",
+      param_collapse =
+        glue::glue_collapse(glue::backtick(param[!param %in% allowed_params]),
+                            sep = ", ",
+                            last = " & ")
+      )
+    )
   assertthat::assert_that(assertthat::is.number(k))
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(assertthat::is.number(rp))
@@ -388,13 +444,6 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
       missing(lon)) {
     stop(paste("radar longitude cannot be found in polar volume,",
                "specify using 'lon' argument"))
-  }
-  if (is.null(scan$geo$height) &&
-      missing(antenna)) {
-    stop(
-      paste("antenna height cannot be found in polar volume,",
-            "specify antenna height using 'antenna' argument")
-    )
   }
 
   if (missing(antenna)) antenna <- scan$geo$height

@@ -19,14 +19,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' dir.create("~/bioRad_tmp_files")
+#' create temporary directory
+#' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
+#' dir.create(temp_dir)
 #' download_pvolfiles(
 #'   date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
 #'   date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
 #'   radar = "KBBX",
-#'   directory = "~/bioRad_tmp_files",
+#'   directory = temp_dir,
 #'   overwrite = TRUE
 #' )
+#' # Clean up
+#' unlink(temp_dir, recursive = T)
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
@@ -39,6 +43,11 @@ download_pvolfiles <- function(date_min, date_max, radar,
   assertthat::assert_that(is.character(radar))
   assertthat::assert_that(length(radar) == 1, msg = paste0("radar is not of length 1"))
 
+  # Stop if provided more than one date for min or max
+  assertthat::assert_that(length(date_min) == 1,
+                          msg = "Only one `date_min` should be provided.")
+  assertthat::assert_that(length(date_max) == 1,
+                          msg = "Only one `date_max` should be provided.")
   # Stop if dates are not date and not
   assertthat::assert_that(lubridate::is.POSIXt(date_min), msg = "date_min is not a date")
   assertthat::assert_that(lubridate::is.POSIXt(date_max), msg = "date_max is not a date")

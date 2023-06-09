@@ -156,10 +156,10 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' @keywords internal
 #'
 #' @examples
-#' \dontrun{
-#' vps <- read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
+#' vpfile1 <- system.file("extdata", "profile.h5", package = "bioRad")
+#' vpfile2 <- vpfile1
+#' vps <- read_vpfiles(c(vpfile1,vpfile2))
 #' ts <- bind_into_vpts(vps)
-#' }
 vplist_to_vpts <- function(x, radar = NA) {
   stopifnot(inherits(x, "list"))
   # extract radar identifiers

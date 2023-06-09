@@ -25,6 +25,7 @@ test_that("list_vpts_aloft() returns error for invalid format", {
 })
 
 test_that("list_vpts_aloft() returns error if radar doesn't exist", {
+  skip_if_offline()
   expect_error(
     list_vpts_aloft(
       date_min = "1990-01-01",
@@ -37,6 +38,7 @@ test_that("list_vpts_aloft() returns error if radar doesn't exist", {
 })
 
 test_that("list_vpts_aloft() returns a character vector", {
+  skip_if_offline()
   expect_type(
     list_vpts_aloft(
       date_min = "2023-02-01",
@@ -48,6 +50,7 @@ test_that("list_vpts_aloft() returns a character vector", {
 })
 
 test_that("list_vpts_aloft() returns no warning when all dates are specified", {
+  skip_if_offline()
   expect_no_warning(
     list_vpts_aloft(
       radars = "bejab",
@@ -58,6 +61,7 @@ test_that("list_vpts_aloft() returns no warning when all dates are specified", {
 })
 
 test_that("list_vpts_aloft() works without specifying dates", {
+  skip_if_offline()
   # just date_min
   expect_no_error(
     suppressWarnings(list_vpts_aloft(
@@ -81,6 +85,7 @@ test_that("list_vpts_aloft() works without specifying dates", {
 })
 
 test_that("list_vpts_aloft() returns all data when no dates are provided", {
+  skip_if_offline()
   expect_gt(
     length(
       suppressWarnings(list_vpts_aloft(
@@ -98,6 +103,7 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
 })
 
 test_that("list_vpts_aloft() warns if data was found subset of radars", {
+  skip_if_offline()
   expect_warning(
     list_vpts_aloft(
       date_min = "2023-02-01",
@@ -110,6 +116,7 @@ test_that("list_vpts_aloft() warns if data was found subset of radars", {
 })
 
 test_that("list_vpts_aloft() warns if not all dates were found", {
+  skip_if_offline()
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
@@ -123,6 +130,7 @@ test_that("list_vpts_aloft() warns if not all dates were found", {
 })
 
 test_that("list_vpts_aloft() can warn for both missing radars and dates", {
+  skip_if_offline()
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
@@ -145,6 +153,7 @@ test_that("list_vpts_aloft() can warn for both missing radars and dates", {
 })
 
 test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
+  skip_if_offline()
   expect_equal(
     list_vpts_aloft(
       date_min = "1800-01-01",
@@ -165,6 +174,7 @@ test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
 })
 
 test_that("list_vpts_aloft() silences warnings with show_warnings argument", {
+  skip_if_offline()
   expect_no_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",

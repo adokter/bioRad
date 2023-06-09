@@ -5,8 +5,30 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 
 test_that("doy_noy() returns error on incorrect parameters", {
-  expect_error(doy("not_a_object"))
-  expect_error(noy("not_a_object"))
+  expect_error(doy("not_a_object"),
+               regexp = 'argument "lat" is missing, with no default',
+               fixed = TRUE)
+  expect_error(doy("not_a_object", lat = 23),
+               regexp = 'argument "lon" is missing, with no default',
+               fixed = TRUE)
+  expect_error(doy("not_a_object", lon = 23,lat = 4000),
+               regexp = "invalid coordinates",
+               fixed = TRUE)
+  expect_error(doy("not_a_object", lon = 23,lat = 40),
+               regexp = "character string is not in a standard unambiguous format",
+               fixed = TRUE)
+  expect_error(noy("not_a_object"),
+               regexp = 'argument "lat" is missing, with no default',
+               fixed = TRUE)
+  expect_error(noy("not_a_object", lat = 23),
+               regexp = 'argument "lon" is missing, with no default',
+               fixed = TRUE)
+  expect_error(noy("not_a_object", lon = 23,lat = 4000),
+               regexp = "invalid coordinates",
+               fixed = TRUE)
+  expect_error(noy("not_a_object", lon = 23,lat = 40),
+               regexp = "non-numeric argument to binary operator",
+               fixed = TRUE)
 })
 
 test_that("doy_noy() returns a number", {

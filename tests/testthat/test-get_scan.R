@@ -6,11 +6,29 @@ pvol_duplicate_elev$scans[[1]]$attributes$where$elangle=0.5
 pvol_duplicate_elev$scans[[2]]$attributes$where$elangle=0.5
 
 test_that("get_scan() returns error on incorrect parameters", {
-  expect_error(get_scan("not_a_pvol", 5), "`x` must be a `pvol` object.", fixed = TRUE)
-  expect_error(get_scan(pvol, "not_numeric"), "`elev` must be numeric.", fixed = TRUE)
-  expect_error(get_scan(pvol, 1:2))
-  expect_error(get_scan(pvol, 1, c(T,F)))
-  expect_error(get_scan(pvol, 1, 'a'))
+  expect_error(
+    get_scan("not_a_pvol", 5), "`x` must be a `pvol` object.",
+    fixed = TRUE
+    )
+  expect_error(
+    get_scan(pvol, "not_numeric"), "`elev` must be numeric.",
+    fixed = TRUE
+    )
+  expect_error(
+    get_scan(pvol, 1:2),
+    regexp = "`elev` must be numeric.",
+    fixed = TRUE
+    )
+  expect_error(
+    get_scan(pvol, 1, c(T,F)),
+    regexp = "all is not a flag (a length one logical vector).",
+    fixed = TRUE
+    )
+  expect_error(
+    get_scan(pvol, 1, 'a'),
+    regexp = "all is not a flag (a length one logical vector).",
+    fixed = TRUE
+    )
 })
 
 test_that("get_scan() returns a object of class scan", {

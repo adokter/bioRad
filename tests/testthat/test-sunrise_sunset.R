@@ -7,7 +7,7 @@ test_that("sunset() returns error on incorrect parameters", {
 })
 
 test_that("sunrise in the Netherlands", {
-  expect_is(
+  expect_s3_class(
     sunrise("2016-01-01", 5, 53),
     c("POSIXct", "POSIXt")
   )
@@ -16,7 +16,7 @@ test_that("sunrise in the Netherlands", {
 })
 
 test_that("sunset in the Netherlands", {
-  expect_is(
+  expect_s3_class(
     sunset("2016-01-01", 5, 53),
     c("POSIXct", "POSIXt")
   )

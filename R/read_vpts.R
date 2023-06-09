@@ -38,11 +38,11 @@ read_vpts <- function(files, ...) {
 #' Read time series of vertical profiles (`vpts`) from VPTS CSV file(s)
 #'
 #' @inheritParams read_vpts
-#' @param data_frame If `TRUE` returns data as data frame rather than `vpts`
+#' @param df If `TRUE` returns data as data frame rather than `vpts`
 #'   object.
 #' @return `vpts` object.
 #' @noRd
-read_vpts_csv <- function(files, data_frame = FALSE) {
+read_vpts_csv <- function(files, df = FALSE) {
   # Create Frictionless Data Package
   package <- frictionless::create_package()
   schema <- "https://raw.githubusercontent.com/enram/vpts-csv/main/vpts-csv-table-schema.json"
@@ -54,30 +54,30 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   )
 
   # Read resource (compares data with schema and binds rows of all files)
-  df <- frictionless::read_resource(package, "vpts")
+  data <- frictionless::read_resource(package, "vpts")
 
   # Convert data
-  df <- dplyr::mutate(
-    df,
+  data <- dplyr::mutate(
+    data,
     radar = as.factor(radar),
     source_file = as.factor(source_file)
   )
 
   # Return data as data frame
-  if (data_frame) {
-    return(df)
+  if (df) {
+    return(data)
   }
 
   # The following steps convert the data to a vpts object
   # Check radar is unique
-  radar <- unique(df$radar)
+  radar <- unique(data$radar)
   assertthat::assert_that(
     length(radar) == 1,
     msg = "`files` must contain data of a single radar."
   )
 
   # Check whether time series is regular
-  datetime <- unique(df$datetime)
+  datetime <- unique(data$datetime)
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   if (length(unique(difftimes)) == 1) {
     regular <- TRUE
@@ -86,9 +86,9 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   }
 
   # Get attributes
-  heights <- unique(df$height)
+  heights <- unique(data$height)
   interval <- unique(heights[-1] - heights[-length(heights)])
-  wavelength <- unique(df$radar_wavelength)
+  wavelength <- unique(data$radar_wavelength)
 
   # Create object
   output <- list(
@@ -97,7 +97,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
     height = heights,
     daterange = c(min(datetime), max(datetime)),
     # timesteps = difftimes,
-    data = df,
+    data = data,
     attributes = list(
       where = data.frame(
         # interval = interval

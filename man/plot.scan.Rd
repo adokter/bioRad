@@ -26,7 +26,7 @@ radar) to plot.}
 \item{ylim}{Numeric vector of length 2. Range of y values (azimuth) to plot.}
 
 \item{zlim}{Numeric vector of length 2. The range of parameter values to
-plot.}
+plot. Defaults to parameter specific limits for plotting, not full range of data.}
 
 \item{na.value}{Character. \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} parameter to set the color of
 \code{NA} values.}
@@ -57,12 +57,11 @@ model (ODIM), see Table 16 in the
 \examples{
 # Plot reflectivity
 plot(example_scan, param = "DBZH")
-\dontrun{
+
 # Change the range of reflectivities to plot, from -10 to 10 dBZ
 plot(example_scan, param = "DBZH", zlim = c(-10, 10))
 
 # Change the scale name, change the color palette to Viridis colors
 plot(example_scan, param = "DBZH", zlim = c(-10, 10)) +
   viridis::scale_fill_viridis(name = "dBZ")
-}
 }

@@ -214,7 +214,6 @@ be downloaded at \url{https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt}.
 }
 }
 \examples{
-\dontrun{
 # Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
@@ -229,7 +228,6 @@ vp
 
 # Clean up
 file.remove("~/volume.h5")
-}
 }
 \references{
 Dokter et al. (2011) is the main reference for the profiling algorithm

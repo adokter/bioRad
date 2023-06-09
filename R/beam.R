@@ -80,7 +80,7 @@ earth_radius <- function(a, b, lat) {
 #' @param beam_angle Numeric. Beam opening angle in degrees, typically the
 #'   angle between the half-power (-3 dB) points of the main lobe.
 #'
-#' @return numeric. Beam width in m.
+#' @return numeric. Beam width in m, typically the full width at half maximum (FWHM).
 #'
 #' @export
 #' @family beam_functions
@@ -126,13 +126,27 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
                                   rp = 6357) {
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(range))
+  assertthat::assert_that(all(range >= 0),
+                          msg = "range must be positive.")
   assertthat::assert_that(assertthat::is.number(elev))
   assertthat::assert_that(assertthat::is.number(antenna))
   assertthat::assert_that(assertthat::is.number(beam_angle))
+  assertthat::assert_that(!is.infinite(beam_angle),
+                          msg = "beam_angle can't be infinite.")
+  assertthat::assert_that(all(beam_angle > 0),
+                          msg = "beam_angle must be positive.")
   assertthat::assert_that(assertthat::is.number(k))
+  assertthat::assert_that(!is.infinite(k),
+                          msg = "k can't be infinite.")
   assertthat::assert_that(assertthat::is.number(lat))
+  assertthat::assert_that(lat <= 90)
+  assertthat::assert_that(lat >= -90)
   assertthat::assert_that(assertthat::is.number(rp))
+  assertthat::assert_that(!is.infinite(rp),
+                          msg = "rp can't be infinite.")
   assertthat::assert_that(assertthat::is.number(re))
+  assertthat::assert_that(!is.infinite(re),
+                          msg = "re can't be infinite.")
   gaussian_beam_profile_internal(
     height = height, range = range, elev = elev, antenna = antenna,
     beam_angle = beam_angle, k = k, lat = lat, re = re,
@@ -367,13 +381,13 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
   if (missing(antenna)) antenna <- vp$attributes$where$height
   if (missing(lat)) lat <- vp$attributes$where$lat
   if (!is.numeric(distance) | min(distance) < 0) stop("'distance' should be a positive numeric value or vector")
-  if (length(zlim) != 2 & !is.numeric(zlim)) stop("'zlim' should be a numeric vector of length two")
+  if (length(zlim) != 2 || !is.numeric(zlim)) stop("'zlim' should be a numeric vector of length two")
   if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
-  if (length(steps) != 1 & !is.numeric(steps)) stop("'step' should be a numeric value")
+  if (length(steps) != 1 || !is.numeric(steps)) stop("'step' should be a numeric value")
   if (!(quantity %in% c("dens", "eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
-  if (is.null(vp$attributes$where$height) && missing(antenna)) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
+  if (is.null(vp$attributes$where$height) && (missing(antenna) || is.null(antenna))) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
   assertthat::assert_that(assertthat::is.number(antenna))
-  if (is.null(vp$attributes$where$lat) && missing(lat)) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
+  if (is.null(vp$attributes$where$lat) && (missing(lat) || is.null(lat))) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
   assertthat::assert_that(assertthat::is.number(lat))
   overlap <- sapply(distance, function(x) beam_profile_overlap_help(vp = vp, elev = elev, distance = x, antenna = antenna, zlim = zlim, steps = steps, quantity = quantity, normalize = normalize, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp))
   data.frame(distance = distance, overlap = overlap)

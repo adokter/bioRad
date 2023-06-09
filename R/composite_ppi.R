@@ -62,7 +62,6 @@
 #' This function is a prototype and under active development
 #'
 #' @examples
-#' \dontrun{
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
@@ -73,7 +72,7 @@
 #' # Overlay the ppis, calculating the maximum value observed
 #' # across the available scans at each geographic location
 #' composite <- composite_ppi(ppis, method = "max")
-#'
+#' \dontrun{
 #' # Download basemap
 #' bm <- download_basemap(composite)
 #'
@@ -100,7 +99,7 @@ composite_ppi <-
   if (!assertthat::is.count(nx) && missing(res)) stop("'nx' should be an integer")
   if (!assertthat::is.count(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {
-    if (length(xlim) != 2 &
+    if (length(xlim) != 2 ||
         !is.numeric(xlim)) {
       stop("'xlim' should be a numeric vector of length two")
     }
@@ -112,7 +111,7 @@ composite_ppi <-
     }
   }
   if (!missing(ylim)) {
-    if (length(ylim) != 2 &&
+    if (length(ylim) != 2 ||
         !is.numeric(ylim)) {
       stop("'ylim' should be a numeric vector of length two")
     }

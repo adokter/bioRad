@@ -30,43 +30,58 @@ read_stdout <- function(file, radar, lat, lon, height, wavelength = "C", sep = "
   if (file.size(file) == 0) {
     stop(paste("File", file, "is empty."))
   }
-  if (!missing(lat)) {
-    if (!is.numeric(lat) || lat < -90 || lat > 90) {
-      stop("'lat' should be numeric between -90 and 90 degrees")
-    }
-  }
-  if (!missing(lon)) {
-    if (!is.numeric(lon) || lat < -360 || lat > 360) {
-      stop("'lon' should be numeric between -360 and 360 degrees")
-    }
-  }
-  if (!missing(height)) {
-    if (!is.numeric(height) || height < 0) {
-      stop("'height' should be a positive number of meters above sea level")
-    }
-  }
+
+  # currently only two delimiters supported
+  # "" for legacy vol2bird output, "," for csv output
+  sep_msg <- "'sep' should be either \",\" or \"\""
+  assertthat::assert_that(assertthat::is.string(sep),
+                          msg = sep_msg)
+  assertthat::assert_that(sep == "" || sep == ",",
+                          msg = sep_msg)
+
   if (missing(radar) && sep == "") {
     stop("'radar' argument missing. Required to specify a radar identifier.")
   }
+  if (!missing(lat)) {
+    lat_msg <- "'lat' should be a single numeric between -90 and 90 degrees"
+    assertthat::assert_that(assertthat::is.number(lat), msg = lat_msg)
+    assertthat::assert_that(lat > -90, msg = lat_msg)
+    assertthat::assert_that(lat < 90, msg = lat_msg)
+  }
+  if (!missing(lon)) {
+    lon_msg <- "'lon' should be a single numeric between -360 and 360 degrees"
+    assertthat::assert_that(assertthat::is.number(lon), msg = lon_msg)
+    assertthat::assert_that(lon > -360, msg = lon_msg)
+    assertthat::assert_that(lon < 360, msg = lon_msg)
+  }
+  if (!missing(height)) {
+    height_msg <- "'height' should be a single positive number of meters above sea level"
+    assertthat::assert_that(assertthat::is.number(height), msg = height_msg)
+    assertthat::assert_that(height > 0, msg = height_msg)
+  }
+
   if (missing(wavelength)) {
     warning(paste("No 'wavelength' argument provided, assuming radar operates",
-      " at ", wavelength, "-band",
-      sep = ""
+                  " at ", wavelength, "-band",
+                  sep = ""
     ))
   }
+  wavelength_msg <-
+    glue::glue(
+      "'wavelength' should be a single positive number",
+      ", or one of 'C' or 'S' for C-band and S-band radar, respectively."
+    )
+  assertthat::assert_that(
+    (assertthat::is.number(wavelength) && wavelength > 0) ||
+      (assertthat::is.scalar(wavelength) && wavelength %in% c("C","S")),
+    msg = wavelength_msg)
+
   if (wavelength == "C") {
     wavelength <- 5.3
   }
   if (wavelength == "S") {
     wavelength <- 10.6
   }
-  if (!is.numeric(wavelength) || length(wavelength) > 1) {
-    stop("Not a valid 'wavelength' argument.")
-  }
-
-  # currently only two delimitors supported
-  # "" for legacy vol2bird output, "," for csv output
-  assertthat::assert_that(sep == "" || sep == ",")
 
   # header of the data file
   header.names.short <- c(

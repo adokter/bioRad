@@ -2,8 +2,16 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
 data(example_scan)
 test_that("returns error on incorrect parameters", {
-  expect_error(attribute_table("not_a_vp"))
-  expect_error(attribute_table(example_pvol, select = 1L))
+  expect_error(
+    attribute_table("not_a_vp"),
+    regexp = "`x` must be a pvol or scan object",
+    fixed = TRUE
+    )
+  expect_error(
+    attribute_table(example_pvol, select = 1L),
+    regexp = "when provided, `select` must be a character vector",
+    fixed = TRUE
+    )
 })
 test_that("result is correct", {
   expect_equal(nrow(attribute_table(example_pvol)), length(example_pvol$scans))

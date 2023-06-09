@@ -5,7 +5,9 @@ scan <- example_scan
 test_that("get_param() returns error on incorrect parameters", {
   expect_error(get_param("not_a_scan", "DBZH"), "`x` must be a scan object.", fixed = TRUE)
   expect_error(get_param(pvol, "DBZH"),"`x` must be a scan object.", fixed = TRUE)
-  expect_error(get_param(scan)) # Parameter "param" missing
+  expect_error(get_param(scan),
+               regexp = 'argument "param" is missing, with no default',
+               fixed = TRUE) # Parameter "param" missing
   expect_error(get_param(scan, "not_a_param"), "Can't find parameter `not_a_param` in `x`", fixed = TRUE)
 })
 

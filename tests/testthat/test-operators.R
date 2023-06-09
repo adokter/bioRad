@@ -131,16 +131,15 @@ test_that("pvol operators", {
   expect_warning(p2 + example_pvol, "*You are likely combining scan parameters with different elevations, radar locations or range/azimuth resolution")
 })
 test_that("Compare calculate_param and ops", {
-  require(dplyr)
   data(example_scan)
   expect_equal(
-    select(example_scan, "DBZH") - select(example_scan, "VRADH"),
-    select(calculate_param(example_scan, DBZH = DBZH - VRADH), DBZH)
+    dplyr::select(example_scan, "DBZH") - dplyr::select(example_scan, "VRADH"),
+    dplyr::select(calculate_param(example_scan, DBZH = DBZH - VRADH), DBZH)
   )
   pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
   example_pvol <- read_pvolfile(pvolfile, param = c("DBZH", "VRADH"))
   expect_equal(
-    select(example_pvol, "DBZH") - select(example_pvol, "VRADH"),
-    select(calculate_param(example_pvol, DBZH = DBZH - VRADH), DBZH)
+    dplyr::select(example_pvol, "DBZH") - dplyr::select(example_pvol, "VRADH"),
+    dplyr::select(calculate_param(example_pvol, DBZH = DBZH - VRADH), DBZH)
   )
 })

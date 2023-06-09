@@ -32,8 +32,10 @@ attribute_table <-
              "how.NI"
            ),
            ...) {
-    assertthat::assert_that(inherits(x, "scan") | inherits(x, "pvol"))
-    assertthat::assert_that(is.character(select) | is.null(select))
+    assertthat::assert_that(inherits(x, "scan") | inherits(x, "pvol"),
+                            msg = "`x` must be a pvol or scan object")
+    assertthat::assert_that(is.character(select) | is.null(select),
+                            msg = "when provided, `select` must be a character vector")
     if (inherits(x, "pvol")) {
       df <-
         do.call(

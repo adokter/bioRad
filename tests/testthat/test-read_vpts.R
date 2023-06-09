@@ -1,4 +1,3 @@
-
 # Define the paths to subdirectories  within temp directory
 temp_h5_dir <- file.path(temp_dir, "h5")
 h5_files <- list.files(temp_h5_dir, pattern = "*.h5", full.names = TRUE)

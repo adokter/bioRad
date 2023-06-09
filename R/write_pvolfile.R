@@ -20,11 +20,13 @@
 #'
 #' # write the file:
 #' pvolfile_out <- paste0(tempdir(),"pvolfile_out.h5")
-#' \dontrun{
 #' write_pvolfile(example_pvol, pvolfile_out)
-#' }
+#'
+#' # clean up
+#' file.remove(pvolfile_out)
 write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
-  assertthat::assert_that(is.pvol(pvol))
+  assertthat::assert_that(is.pvol(pvol),
+                          msg = "`pvol` must be an object of class `pvol`")
   if (!overwrite) {
     assertthat::assert_that(!file.exists(file),
       msg = "File already exists, use overwrite = TRUE to overwrite this file"
