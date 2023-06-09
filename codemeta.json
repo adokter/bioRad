@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.6.1",
+  "version": "0.7.0.9602",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "runtimePlatform": "R version 4.2.3 (2023-03-15)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -54,6 +54,13 @@
     },
     {
       "@type": "Person",
+      "givenName": "Pieter",
+      "familyName": "Huybrechts",
+      "email": "pieter.huybrechts@inbo.be",
+      "@id": "https://orcid.org/0000-0002-6658-6062"
+    },
+    {
+      "@type": "Person",
       "givenName": "Bart",
       "familyName": "Kranstauber",
       "email": "b.kranstauber@uva.nl",
@@ -76,7 +83,7 @@
     {
       "@type": "Person",
       "givenName": "Nicolas",
-      "familyName": "Noé ",
+      "familyName": "Noé",
       "email": "nicolas@niconoe.eu",
       "@id": "https://orcid.org/0000-0002-9503-4750"
     },
@@ -92,6 +99,13 @@
       "givenName": "Jurriaan",
       "familyName": "Spaaks",
       "email": "j.spaaks@esciencecenter.nl"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Alexander",
+      "familyName": "Tedeschi",
+      "email": "alexander.tedeschi@cornell.edu",
+      "@id": "https://orcid.org/0000-0003-0772-6931"
     },
     {
       "@type": "Person",
@@ -119,6 +133,43 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "vol2birdR",
+      "name": "vol2birdR",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vol2birdR"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "aws.s3",
+      "name": "aws.s3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ggmap",
+      "name": "ggmap",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggmap"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "knitr",
       "name": "knitr",
       "provider": {
@@ -131,18 +182,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "rlang",
-      "name": "rlang",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rlang"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "tidyselect",
       "name": "tidyselect",
       "provider": {
@@ -152,19 +191,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyselect"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "dplyr",
-      "name": "dplyr",
-      "version": ">= 0.7-0",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
     {
       "@type": "SoftwareApplication",
@@ -182,6 +208,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -201,6 +228,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=vdiffr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rgdal",
+      "name": "rgdal",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rgdal"
     }
   ],
   "softwareRequirements": {
@@ -224,18 +263,6 @@
     },
     "3": {
       "@type": "SoftwareApplication",
-      "identifier": "aws.s3",
-      "name": "aws.s3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
-    },
-    "4": {
-      "@type": "SoftwareApplication",
       "identifier": "curl",
       "name": "curl",
       "provider": {
@@ -246,19 +273,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=curl"
     },
-    "5": {
-      "@type": "SoftwareApplication",
-      "identifier": "data.table",
-      "name": "data.table",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=data.table"
-    },
-    "6": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "fields",
       "name": "fields",
@@ -270,20 +285,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=fields"
     },
-    "7": {
-      "@type": "SoftwareApplication",
-      "identifier": "ggmap",
-      "name": "ggmap",
-      "version": ">= 3.0.0",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=ggmap"
-    },
-    "8": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
@@ -295,7 +297,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
-    "9": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "glue",
       "name": "glue",
@@ -307,12 +309,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=glue"
     },
-    "10": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "graphics",
       "name": "graphics"
     },
-    "11": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -324,7 +326,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "12": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "lutz",
       "name": "lutz",
@@ -336,24 +338,18 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lutz"
     },
-    "13": {
+    "10": {
       "@type": "SoftwareApplication",
-      "identifier": "maptools",
-      "name": "maptools",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=maptools"
+      "identifier": "suntools",
+      "name": "suntools",
+      "sameAs": "https://github.com/bioc::rhdf5\n    adokter/suntools"
     },
-    "14": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "15": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
@@ -365,19 +361,32 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=raster"
     },
-    "16": {
+    "13": {
       "@type": "SoftwareApplication",
-      "identifier": "rgdal",
-      "name": "rgdal",
+      "identifier": "readr",
+      "name": "readr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=rgdal"
+      "sameAs": "https://CRAN.R-project.org/package=readr"
     },
-    "17": {
+    "14": {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "version": ">= 1.1.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "rhdf5",
       "name": "rhdf5",
@@ -389,7 +398,7 @@
       },
       "sameAs": "https://bioconductor.org/packages/release/bioc/html/rhdf5.html"
     },
-    "18": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "sp",
       "name": "sp",
@@ -401,12 +410,24 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sp"
     },
-    "19": {
+    "17": {
+      "@type": "SoftwareApplication",
+      "identifier": "sf",
+      "name": "sf",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sf"
+    },
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
     },
-    "20": {
+    "19": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -418,12 +439,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    "21": {
+    "20": {
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
-    "22": {
+    "21": {
       "@type": "SoftwareApplication",
       "identifier": "viridisLite",
       "name": "viridisLite",
@@ -435,7 +456,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=viridisLite"
     },
-    "23": {
+    "22": {
       "@type": "SoftwareApplication",
       "identifier": "viridis",
       "name": "viridis",
@@ -447,9 +468,21 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=viridis"
     },
+    "23": {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "7107.803KB",
+  "fileSize": "47773.838KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -534,6 +567,6 @@
   ],
   "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "contIntegration": ["https://github.com/adokter/bioRad/actions", "https://app.codecov.io/gh/adokter/bioRad"],
+  "contIntegration": ["https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/adokter/bioRad"],
   "keywords": ["r", "package", "radar", "aeroecology", "movement-ecology", "enram", "nexrad", "eumetnet-opera", "lifewatch", "wsr-88d", "weather-radar", "oscibio"]
 }
