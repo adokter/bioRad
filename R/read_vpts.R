@@ -11,12 +11,30 @@
 #' @export
 read_vpts <- function(files, ...) {
 
+  #Define valid extensions
+  valid_extensions <- c("csv", "gz", "h5", "txt")
+  
   # Get file extension
   extension <- unique(tools::file_ext(files))
+
   assertthat::assert_that(
     length(extension) == 1,
     msg = "`files` must all have the same extension."
   )
+
+  # If the file has an extension, check if it is valid
+  if (extension != "") {
+      assertthat::assert_that(
+      extension %in% valid_extensions,
+      msg = glue::glue(
+        "`files` must have one of the following extensions: {valid_extensions_collapse}",
+        valid_extensions_collapse = glue::glue_collapse(valid_extensions, sep = ", ")
+      )
+    )
+  } else {
+    # If the file does not have an extension, infer the file type
+    extension <- guess_file_type(file_path)
+  }
 
   # Check if the input file has a .txt extension and if so reroute to read_stdout
   if (extension == "txt") {
@@ -24,7 +42,7 @@ read_vpts <- function(files, ...) {
     Please consider updating your code to use csv or h5 input files")
     return(do.call(read_stdout, c(list(file = files, wavelength = "C", sep = ""), list(...))))
   }
-  
+
   # Read files
   data <- switch(extension,
     csv = read_vpts_csv(files),
