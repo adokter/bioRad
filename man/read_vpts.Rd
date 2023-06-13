@@ -22,4 +22,17 @@ The following file formats are supported (but cannot be mixed):
 \item \href{https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification}{ODIM bird profile}.
 }
 }
+\examples{
+# read a single vertical profile file in ODIM h5 format:
+vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+read_vpts(vpfile)
+## read a vertical profile time series in VPTS CSV format:
+## FIXME, example_vpts.csv DOES NOT YET EXIST
+#vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+#read_vpts(vptsfile)
+## FIXME, below example throws an error
+# read a vertical profile time series in stdout format:
+#stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+#read_vpts(stdoutfile)
+}
 \concept{read functions}
