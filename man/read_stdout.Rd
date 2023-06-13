@@ -33,9 +33,9 @@ Read a time series of vertical profiles (\code{vpts}) from file
 }
 \examples{
 # locate example file:
-vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 # load time series:
-ts <- read_stdout(vptsfile, radar = "KBGM", wavelength = "S")
+ts <- read_stdout(stdout_file, radar = "KBGM", wavelength = "S")
 ts
 }
 \keyword{internal}
