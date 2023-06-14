@@ -17,7 +17,6 @@
 #' ## FIXME, example_vpts.csv DOES NOT YET EXIST
 #' #vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
 #' #read_vpts(vptsfile)
-#' ## FIXME, below example throws an error
 #' # read a vertical profile time series in stdout format:
 #' #stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 #' #read_vpts(stdoutfile)
@@ -50,9 +49,9 @@ read_vpts <- function(files, ...) {
 
   # Check if the input file has a .txt extension and if so reroute to read_stdout
   if (extension == "txt") {
-    warning(".txt extenstion detected - falling back to read_stdout(). The use of read_stdout() will be deprecated soon.
-    Please consider updating your code to use csv or h5 input files")
-    return(do.call(read_stdout, c(list(file = files, wavelength = "C", sep = ""), list(...))))
+    warning(".txt extenstion detected - falling back to read_stdout(). 
+    Please consider updating your workflow by using csv or h5 input files")
+    return(do.call(read_stdout, c(list(file = files), list(...))))
   }
 
   # Read files
