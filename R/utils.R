@@ -117,26 +117,29 @@ proj_to_wgs <- function(x, y, proj4string) {
   res <- NULL
 
   # Catch error when rgdal is not installed and sp_evolution_status is set to 0
-  tryCatch({
-    res <- sp::spTransform(xy, sp::CRS("+proj=longlat +datum=WGS84"))
+  tryCatch(
+    {
+      res <- sp::spTransform(xy, sp::CRS("+proj=longlat +datum=WGS84"))
 
-    # Check if the result is a SpatialPointsDataFrame
-    if (inherits(res, "SpatialPointsDataFrame")) {
-      # If it is, convert it to a SpatialPoints object and correct names
-      rownames(res@bbox) <- c('lon', 'lat')
-      colnames(res@coords) <- c('lon', 'lat')
-      res <- sp::SpatialPoints(coords=res@coords, proj4string=res@proj4string, bbox=res@bbox)
-    }
-    return(res)
-  }, error = function(err) {
+      # Check if the result is a SpatialPointsDataFrame
+      if (inherits(res, "SpatialPointsDataFrame")) {
+        # If it is, convert it to a SpatialPoints object and correct names
+        rownames(res@bbox) <- c("lon", "lat")
+        colnames(res@coords) <- c("lon", "lat")
+        res <- sp::SpatialPoints(coords = res@coords, proj4string = res@proj4string, bbox = res@bbox)
+      }
+      return(res)
+    },
+    error = function(err) {
       if (grepl("package rgdal is required", err$message)) {
-              err <- simpleError("spTransform failed. Try resetting sp_evolution_status: sp::set_evolution_status(2L)")
-            } else {
-              err <- simpleError("proj_to_wgs() failed")
-            }
-            stop(err)
-      })
+        err <- simpleError("spTransform failed. Try resetting sp_evolution_status: sp::set_evolution_status(2L)")
+      } else {
+        err <- simpleError("proj_to_wgs() failed")
+      }
+      stop(err)
     }
+  )
+}
 
 #' Match a set of regular expressions to a list of files
 #'
@@ -167,18 +170,19 @@ match_filenames <- function(file_list, regex_list) {
 #' @keywords internal
 extract_string <- function(string, pattern, ...) {
   regmatches(string,
-             m = regexpr(
-               pattern = pattern,
-               text = string,
-               ...
-             ))
+    m = regexpr(
+      pattern = pattern,
+      text = string,
+      ...
+    )
+  )
 }
 
 
 #' Guess the file type of a file
 #'
 #' Guess the file type of a file based on the first few
-#' bytes (for HDF5 and gzip files) or lines (for CSV files). If no known file 
+#' bytes (for HDF5 and gzip files) or lines (for CSV files). If no known file
 #' type can be guessed, it assumes the file is a text file.
 #'
 #' @param file_path A character string containing the path to the file
@@ -204,9 +208,8 @@ guess_file_type <- function(file_path, n_lines = 5) {
   ## If every line in n_lines contains a comma, assume it's a CSV file
   if (all(sapply(first_lines, function(line) grepl(",", line)))) {
     return("csv")
-
   } else {
-    message('No extension detected; assuming file type .txt')
+    message("No extension detected; assuming file type .txt")
     return("txt")
   }
 }
@@ -221,14 +224,14 @@ guess_file_type <- function(file_path, n_lines = 5) {
 tibble_to_mat <- function(tibble) {
   unique_heights <- unique(tibble$height)
   matrix_list <- lapply(unique_heights, function(height) {
-    height_subset <- tibble[tibble$height == height,]
+    height_subset <- tibble[tibble$height == height, ]
     matrix(height_subset$value, nrow = 1)
   })
   matrix <- do.call(rbind, matrix_list)
   return(list(variable = tibble$variable[1], matrix = matrix))
 }
 
-#' Convert a vpts dataframe into an ordered list of matrices 
+#' Convert a vpts dataframe into an ordered list of matrices
 #'
 #' @param data A dataframe created from a VPTS CSV file
 #' @param radvars A character vector of radar variables of interest, e.g., c("ff", "dbz", ...)
@@ -236,7 +239,6 @@ tibble_to_mat <- function(tibble) {
 #' @keywords internal
 #' @noRd
 df_to_mat_list <- function(data, radvars) {
-
   tbls_lst <- data %>%
     select(datetime, height, all_of(radvars)) %>%
     pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
