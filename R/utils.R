@@ -183,10 +183,9 @@ extract_string <- function(string, pattern, ...) {
 #'
 #' @param file_path A character string containing the path to the file
 #' @param n_lines An integer, the number of lines to read for guessing a CSV file
-#'
 #' @return A character string representing the guessed file type ("h5", "gz", "csv", or "txt")
 #' @keywords internal
-#' @export
+#' @noRd
 guess_file_type <- function(file_path, n_lines = 5) {
   # Check if it's an HDF5 or gzip file by looking at the first few bytes
   first_bytes <- readBin(file_path, "raw", n = 10)
@@ -211,4 +210,21 @@ guess_file_type <- function(file_path, n_lines = 5) {
     return("txt")
   }
 }
-
+#' Convert a tibble into a matrix
+#'
+#' Reshapes a tibble as a m✕n matrix where m represents number of distinct radar heights
+#' and n are observations ordered by time. Each tibble represents a variable of interest 
+#' such as dbz or ff 
+#' @param tibble A tibble in the format: datetime, height, variable, value
+#' @return A list with two elements: the 'variable' of interest and the reshaped matrix
+#' @keywords internal
+#' @noRd
+tibble_to_mat <- function(tibble) {
+  unique_heights <- unique(tibble$height)
+  matrix_list <- lapply(unique_heights, function(height) {
+    height_subset <- tibble[tibble$height == height,]
+    matrix(height_subset$value, nrow = 1)
+  })
+  matrix <- do.call(rbind, matrix_list)
+  return(list(variable = tibble$variable[1], matrix = matrix))
+}

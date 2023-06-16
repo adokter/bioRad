@@ -30,9 +30,8 @@ read_vpts(vpfile)
 ## FIXME, example_vpts.csv DOES NOT YET EXIST
 #vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
 #read_vpts(vptsfile)
-## FIXME, below example throws an error
 # read a vertical profile time series in stdout format:
 #stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-#read_vpts(stdoutfile)
+#read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 }
 \concept{read functions}

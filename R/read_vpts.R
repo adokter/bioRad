@@ -19,7 +19,7 @@
 #' #read_vpts(vptsfile)
 #' # read a vertical profile time series in stdout format:
 #' #stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-#' #read_vpts(stdoutfile)
+#' #read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 read_vpts <- function(files, ...) {
 
   #Define valid extensions
@@ -49,7 +49,7 @@ read_vpts <- function(files, ...) {
 
   # Check if the input file has a .txt extension and if so reroute to read_stdout
   if (extension == "txt") {
-    warning(".txt extenstion detected - falling back to read_stdout(). 
+    warning(".txt extenstion detected - falling back to read_stdout().\n
     Please consider updating your workflow by using csv or h5 input files")
     return(do.call(read_stdout, c(list(file = files), list(...))))
   }
@@ -115,22 +115,26 @@ read_vpts_csv <- function(files, df = FALSE) {
   }
 
   # Get attributes
-  heights <- unique(data$height)
+  n_height <- length(data$height)
+  heights = unique(data$height)
   interval <- unique(heights[-1] - heights[-length(heights)])
   wavelength <- unique(data$radar_wavelength)
 
-  # Create object
+
+# Create object
+
+  radcols <- c("ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz", "dd", "n", "dbz_all", "n_dbz_all", "eta", "sd_vvp", "n_all")
+
   output <- list(
     radar = as.character(radar),
     datetime = datetime,
-    height = heights,
+    height = unique(heights),
     daterange = c(min(datetime), max(datetime)),
     timesteps = difftimes,
     data = data,
     attributes = list(
       where = data.frame(
-        interval = interval,
-        levels = length(heights),
+        interval = interval,        levels = length(heights),
         height = data$radar_height[1],
         lon = data$radar_longitude[1],
         lat = data$radar_latitude[1]
