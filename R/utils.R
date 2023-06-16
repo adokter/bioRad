@@ -212,9 +212,8 @@ guess_file_type <- function(file_path, n_lines = 5) {
 }
 #' Convert a tibble into a matrix
 #'
-#' Reshapes a tibble as a m✕n matrix where m represents number of distinct radar heights
-#' and n are observations ordered by time. Each tibble represents a variable of interest 
-#' such as dbz or ff 
+#' Reshapes a tibble as an m✕n matrix of m distinct radar heights and
+#' n observations (sweeps) ordered by time. Each tibble contains data of a single vpts attribute.
 #' @param tibble A tibble in the format: datetime, height, variable, value
 #' @return A list with two elements: the 'variable' of interest and the reshaped matrix
 #' @keywords internal
@@ -227,4 +226,28 @@ tibble_to_mat <- function(tibble) {
   })
   matrix <- do.call(rbind, matrix_list)
   return(list(variable = tibble$variable[1], matrix = matrix))
+}
+
+#' Convert a vpts dataframe into an ordered list of matrices 
+#'
+#' @param data A dataframe created from a VPTS CSV file
+#' @param radvars A character vector of radar variables of interest, e.g., c("ff", "dbz", ...)
+#' @return A named list of matrices ordered according to radvars
+#' @keywords internal
+#' @noRd
+df_to_mat_list <- function(data, radvars) {
+
+  tbls_lst <- data %>%
+    select(datetime, height, all_of(radvars)) %>%
+    pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
+    group_by(variable) %>%
+    group_split()
+
+  unnamed_mat_list <- lapply(tbls_lst, tibble_to_mat)
+  var_names <- sapply(unnamed_mat_list, function(x) x$variable)
+  named_mat_list <- lapply(unnamed_mat_list, `[[`, "matrix")
+  names(named_mat_list) <- var_names
+  ordered_mat_list <- named_mat_list[radvars]
+
+  return(ordered_mat_list)
 }

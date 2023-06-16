@@ -121,9 +121,10 @@ read_vpts_csv <- function(files, df = FALSE) {
   wavelength <- unique(data$radar_wavelength)
 
 
-# Create object
+# Create vpts object
 
-  radcols <- c("ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz", "dd", "n", "dbz_all", "n_dbz_all", "eta", "sd_vvp", "n_all")
+  radvars <- c("ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz", "dd", "n", "dbz_all", "n_dbz_all", "eta", "sd_vvp", "n_all")
+  data = df_to_mat_list(data, radvars)
 
   output <- list(
     radar = as.character(radar),
@@ -134,7 +135,8 @@ read_vpts_csv <- function(files, df = FALSE) {
     data = data,
     attributes = list(
       where = data.frame(
-        interval = interval,        levels = length(heights),
+        interval = interval,        
+        levels = length(heights),
         height = data$radar_height[1],
         lon = data$radar_longitude[1],
         lat = data$radar_latitude[1]
