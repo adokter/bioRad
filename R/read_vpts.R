@@ -88,7 +88,8 @@ read_vpts_csv <- function(files, df = FALSE) {
   data <- dplyr::mutate(
     data,
     radar = as.factor(radar),
-    source_file = as.factor(source_file)
+    source_file = as.factor(source_file),
+    datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
   )
 
   # Return data as data frame
@@ -105,7 +106,12 @@ read_vpts_csv <- function(files, df = FALSE) {
   )
 
   # Check whether time series is regular
-  datetime <- unique(data$datetime)
+  heights <- unique(data$height)
+
+  #Subset timestamps by first sampled height
+  datetime <- data[data$height == heights[1],]$datetime
+
+  #Determine regularity
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   if (length(unique(difftimes)) == 1) {
     regular <- TRUE
@@ -114,10 +120,13 @@ read_vpts_csv <- function(files, df = FALSE) {
   }
 
   # Get attributes
-  n_height <- length(data$height)
-  heights <- unique(data$height)
+  radar_height = data$radar_height[1]
   interval <- unique(heights[-1] - heights[-length(heights)])
   wavelength <- unique(data$radar_wavelength)
+  lon <- data$radar_longitude[1]
+  lat <- data$radar_latitude[1]
+  rcs <-  data$rcs[1]
+  sd_vvp_threshold <- data$sd_vvp_threshold[1]
 
   # Convert dataframe
   radvars <- c("ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz", "dd", "n", "dbz_all", "n_dbz_all", "eta", "sd_vvp", "n_all")
@@ -127,7 +136,7 @@ read_vpts_csv <- function(files, df = FALSE) {
   output <- list(
     radar = as.character(radar),
     datetime = datetime,
-    height = unique(heights),
+    height = heights,
     daterange = c(min(datetime), max(datetime)),
     timesteps = difftimes,
     data = data,
@@ -135,11 +144,11 @@ read_vpts_csv <- function(files, df = FALSE) {
       where = data.frame(
         interval = interval,
         levels = length(heights),
-        height = data$radar_height[1],
-        lon = data$radar_longitude[1],
-        lat = data$radar_latitude[1]
+        height = radar_height,
+        lon = lon,
+        lat = lat
       ),
-      how = data.frame(wavelength = wavelength, rcs_bird = data$rcs[1], sd_vvp_thresh = data$sd_vvp_threshold[1])
+      how = data.frame(wavelength = wavelength, rcs_bird = rcs, sd_vvp_thresh = sd_vvp_threshold)
     ),
     regular = regular
   )

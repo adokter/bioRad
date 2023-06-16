@@ -217,14 +217,14 @@ guess_file_type <- function(file_path, n_lines = 5) {
 #'
 #' Reshapes a tibble as an m✕n matrix of m distinct radar heights and
 #' n observations (sweeps) ordered by time. Each tibble contains data of a single vpts attribute.
-#' @param tibble A tibble in the format: datetime, height, variable, value
+#' @param tibble A tibble in the format: datetime, height, variable, value.
 #' @return A list with two elements: the 'variable' of interest and the reshaped matrix
 #' @keywords internal
 #' @noRd
 tibble_to_mat <- function(tibble) {
-  unique_heights <- unique(tibble$height)
+  unique_heights <- unique(tibble[['height']])
   matrix_list <- lapply(unique_heights, function(height) {
-    height_subset <- tibble[tibble$height == height, ]
+    height_subset <- tibble[tibble[['height']] == height, ]
     matrix(height_subset$value, nrow = 1)
   })
   matrix <- do.call(rbind, matrix_list)
@@ -240,10 +240,10 @@ tibble_to_mat <- function(tibble) {
 #' @noRd
 df_to_mat_list <- function(data, radvars) {
   tbls_lst <- data %>%
-    select(datetime, height, all_of(radvars)) %>%
-    pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
-    group_by(variable) %>%
-    group_split()
+    dplyr::select(datetime, height, dplyr::all_of(radvars)) %>%
+    tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
+    dplyr::group_by(variable) %>%
+    dplyr::group_split()
 
   unnamed_mat_list <- lapply(tbls_lst, tibble_to_mat)
   var_names <- sapply(unnamed_mat_list, function(x) x$variable)

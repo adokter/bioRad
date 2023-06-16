@@ -28,10 +28,10 @@ vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 read_vpts(vpfile)
 ## read a vertical profile time series in VPTS CSV format:
 ## FIXME, example_vpts.csv DOES NOT YET EXIST
-#vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
-#read_vpts(vptsfile)
+# vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+# read_vpts(vptsfile)
 # read a vertical profile time series in stdout format:
-#stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-#read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
+# stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+# read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 }
 \concept{read functions}
