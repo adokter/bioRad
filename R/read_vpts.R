@@ -15,14 +15,13 @@
 #' read_vpts(vpfile)
 #' ## read a vertical profile time series in VPTS CSV format:
 #' ## FIXME, example_vpts.csv DOES NOT YET EXIST
-#' #vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
-#' #read_vpts(vptsfile)
+#' # vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+#' # read_vpts(vptsfile)
 #' # read a vertical profile time series in stdout format:
-#' #stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-#' #read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
+#' # stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+#' # read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 read_vpts <- function(files, ...) {
-
-  #Define valid extensions
+  # Define valid extensions
   valid_extensions <- c("csv", "gz", "h5", "txt")
 
   # Get file extension
@@ -35,7 +34,7 @@ read_vpts <- function(files, ...) {
 
   # If the file has an extension, check if it is valid
   if (extension != "") {
-      assertthat::assert_that(
+    assertthat::assert_that(
       extension %in% valid_extensions,
       msg = glue::glue(
         "`files` must have one of the following extensions: {valid_extensions_collapse}",
@@ -116,16 +115,15 @@ read_vpts_csv <- function(files, df = FALSE) {
 
   # Get attributes
   n_height <- length(data$height)
-  heights = unique(data$height)
+  heights <- unique(data$height)
   interval <- unique(heights[-1] - heights[-length(heights)])
   wavelength <- unique(data$radar_wavelength)
 
-
-# Create vpts object
-
+  # Convert dataframe
   radvars <- c("ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz", "dd", "n", "dbz_all", "n_dbz_all", "eta", "sd_vvp", "n_all")
-  data = df_to_mat_list(data, radvars)
+  data <- df_to_mat_list(data, radvars)
 
+  # Create vpts object
   output <- list(
     radar = as.character(radar),
     datetime = datetime,
@@ -135,13 +133,13 @@ read_vpts_csv <- function(files, df = FALSE) {
     data = data,
     attributes = list(
       where = data.frame(
-        interval = interval,        
+        interval = interval,
         levels = length(heights),
         height = data$radar_height[1],
         lon = data$radar_longitude[1],
         lat = data$radar_latitude[1]
       ),
-      how = data.frame(wavelength = wavelength, rcs_bird=data$rcs[1], sd_vvp_thresh=data$sd_vvp_threshold[1])
+      how = data.frame(wavelength = wavelength, rcs_bird = data$rcs[1], sd_vvp_thresh = data$sd_vvp_threshold[1])
     ),
     regular = regular
   )
@@ -158,4 +156,3 @@ read_vpts_hdf5 <- function(files) {
   vps <- read_vpfiles(files)
   bind_into_vpts(vps)
 }
-
