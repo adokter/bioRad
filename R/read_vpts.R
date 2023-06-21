@@ -84,7 +84,9 @@ read_vpts_csv <- function(files, df = FALSE) {
   # Read resource (compares data with schema and binds rows of all files)
   data <- frictionless::read_resource(package, "vpts")
 
+
   # Convert data
+  source_file <- NULL
   data <- dplyr::mutate(
     data,
     radar = as.factor(radar),

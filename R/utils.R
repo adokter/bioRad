@@ -239,6 +239,8 @@ tibble_to_mat <- function(tibble) {
 #' @keywords internal
 #' @noRd
 df_to_mat_list <- function(data, radvars) {
+  datetime <- height <- variable <- NULL
+
   tbls_lst <- data %>%
     dplyr::select(datetime, height, dplyr::all_of(radvars)) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
