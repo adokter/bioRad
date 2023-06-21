@@ -208,7 +208,7 @@ csv_files <- lapply(urls, function(url) {
   my_vpts_csv = read_vpts(unlist(csv_files))
   my_vpts_h5 = read_vpts(h5_files)
 
-  # Expect an error when calling read_vpts() with this input
+  # Expect equivalent summaries from both vpts objects
   expect_equal(summary(my_vpts_csv), summary(my_vpts_h5))
 
 })
