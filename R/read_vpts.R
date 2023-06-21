@@ -49,7 +49,7 @@ read_vpts <- function(files, ...) {
   # Check if the input file has a .txt extension and if so reroute to read_stdout
   if (extension == "txt") {
     warning(".txt extenstion detected - falling back to read_stdout().\n
-    Please consider updating your workflow by using csv or h5 input files")
+    Please consider updating your workflow by using VPTS csv or h5 input files")
     return(do.call(read_stdout, c(list(file = files), list(...))))
   }
 

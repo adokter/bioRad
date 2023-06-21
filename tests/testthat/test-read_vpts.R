@@ -36,8 +36,8 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
   vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 
   expect_warning(
-    read_vpts(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
-    "deprecated"
+    read_vpts(file = vptsfile, radar = "KGBM", lat = 12, lon = 34, height = 1000, wavelength = "S"),
+    "read_stdout"
   )
 
   #test read_stdout() txt without explicit extension
@@ -45,16 +45,16 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
   file.copy(from = vptsfile, to = no_ext_file)
 
   expect_warning(
-    read_vpts(file = no_ext_file, radar = "KBGM"),
-    "deprecated"
+    read_vpts(file = no_ext_file, radar = "KBGM", lat = 12, lon = 34, height = 1000, wavelength = "S"),
+    "read_stdout"
   )
 
   expect_warning(
-    read_vpts(file = vptsfile, radar = "KBGM"),
-    "deprecated"
+    read_vpts(file = vptsfile, radar = "KBGM", lat = 12, lon = 34, height = 1000, wavelength = "S"),
+    "read_stdout"
   )
 
-  # Test if outputs from both functions are equal but supress warnings in tests
+  # Test if outputs from both functions are equal but suppress warnings in tests
   suppressWarnings(expect_equal(
     read_vpts(files = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
     read_stdout(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000, wavelength = "C", sep = "")
@@ -149,6 +149,70 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
     "`files` must contain data of a single radar."
   )
 })
+
+if (!require("aws.s3")) {
+  stop("Package 'aws.s3' is not installed. Please install it before proceeding.")
+}
+
+test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days of data", {
+
+#clear directories
+file.remove(list.files(h5_dir, full.names = TRUE))
+file.remove(list.files(csv_dir, full.names = TRUE))
+
+ #h5
+ prefixes <- c('baltrad/hdf5/bewid/2023/04/14', 'baltrad/hdf5/bewid/2023/04/15', 'baltrad/hdf5/bewid/2023/04/16')
+
+ # Loop over the prefixes
+ for (prefix in prefixes) {
+
+   message("Starting download for prefix:", prefix)
+
+   # Get the files for the current prefix
+   h5_files <- aws.s3::get_bucket_df(
+     bucket = "s3://aloft/",
+     prefix = prefix,
+     region = "eu-west-1"
+   )
+
+   # Download the files to the temporary directory
+   sapply(h5_files$Key, function(file_name) {
+     aws.s3::save_object(
+       file = paste0(h5_dir, '/', basename(file_name)),
+       object = file_name,
+       bucket = "s3://aloft/",
+       region = "eu-west-1"
+     )
+   })
+
+   message("Completed download for prefix:", prefix)
+ }
+
+ h5_files = list.files(h5_dir, full.names = TRUE)
+
+#VPTS CSV
+
+urls =c("https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv",
+        "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230415.csv",
+        "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230416.csv")
+
+
+# Use lapply to download each file to a temporary location
+csv_files <- lapply(urls, function(url) {
+  file_name <- basename(url)
+  temp_file <- file.path(csv_dir, file_name)
+  curl::curl_download(url, temp_file)
+  return(temp_file)
+})
+
+  my_vpts_csv = read_vpts(unlist(csv_files))
+  my_vpts_h5 = read_vpts(h5_files)
+
+  # Expect an error when calling read_vpts() with this input
+  expect_equal(summary(my_vpts_csv), summary(my_vpts_h5))
+
+})
+
 
 # clean up
 unlink(temp_dir, recursive = TRUE)
