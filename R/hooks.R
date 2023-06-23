@@ -8,7 +8,7 @@
   }
   if (requireNamespace("sp", quietly = TRUE)) {
     sp::set_evolution_status(2L)
-    packageStartupMessage("Assigning sp_evolution_status to 2. See sp::get_evolution_status()")
+    packageStartupMessage("Assigning evolution status 2. See sp::get_evolution_status()")
     packageStartupMessage("This is required until the 'sp' package deprecates 'rgdal'")
   }
 }

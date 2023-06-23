@@ -20,17 +20,17 @@ The following file formats are supported (but cannot be mixed):
 \itemize{
 \item \href{https://aloftdata.eu/vpts-csv/}{VPTS CSV}.
 \item \href{https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification}{ODIM bird profile}.
+\item \link{vol2bird standard output}(see example below).
 }
 }
 \examples{
+## read a vertical profile time series in VPTS CSV format:
+# vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+# read_vpts(vptsfile)
 # read a single vertical profile file in ODIM h5 format:
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 read_vpts(vpfile)
-## read a vertical profile time series in VPTS CSV format:
-## FIXME, example_vpts.csv DOES NOT YET EXIST
-# vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
-# read_vpts(vptsfile)
-# read a vertical profile time series in stdout format:
+# read a vertical profile time series in `vol2bird` stdout format:
 # stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 # read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 }
