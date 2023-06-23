@@ -44,3 +44,6 @@ pkgdown/*
 .DS_Store
 /doc/
 /Meta/
+
+#VS Code
+.vscode/
