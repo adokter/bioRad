@@ -80,7 +80,10 @@ read_vpts_csv <- function(files, df = FALSE) {
     data = files,
     schema = schema
   )
-
+  
+  #Remove NaN from vector of missing values
+  package$resources[[1]]$schema$missingValues <- c("", "NA") 
+  
   # Read resource (compares data with schema and binds rows of all files)
   data <- frictionless::read_resource(package, "vpts")
 
