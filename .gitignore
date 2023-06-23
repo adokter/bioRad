@@ -45,5 +45,3 @@ pkgdown/*
 /doc/
 /Meta/
 
-#VS Code
-.vscode/
