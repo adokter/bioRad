@@ -208,7 +208,7 @@ test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
   vp_from_file <- read_vpfiles(vpfile)
   pvol_from_file <- read_pvolfile(pvolfile_out)
 
-  expect_s3_class(vp, "vp")
+  expect_s3_class(vp, "vpts")
   expect_s3_class(vp_from_file, "vp")
   expect_s3_class(pvol_from_file, "pvol")
   expect_s3_class(pvol_from_file$scans[[1]], "scan")
@@ -299,4 +299,22 @@ test_that("Dealiasing can be toggled", {
   vp <- calculate_vp(file = pvolfile, warnings = FALSE, nyquist_min = nyquist_min, dealias = TRUE)
   expect_equal(vp$attributes$how$dealiased, 1)
   expect_equal(task_args(vp)$dealiasVrad,"1")
+})
+
+
+test_that("Extension of vpfile is obeyed in output", {
+
+  # Test with a .h5 file
+  output_file <- calculate_vp(pvolfile, vpfile = vpfile)
+  expect_equal(tools::file_ext(vpfile), "h5")
+  expect_equal(guess_file_type(vpfile), "h5")
+
+   #Change the extension of vpfile to .csv
+  vpfile_csv <- sub("h5$", "csv", vpfile)
+
+  # Test with a .csv file
+  output_file <- calculate_vp(pvolfile, vpfile = vpfile_csv)
+  expect_equal(tools::file_ext(vpfile_csv), "csv")
+  expect_equal(guess_file_type(vpfile_csv), "csv")
+
 })
