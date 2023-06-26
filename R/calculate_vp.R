@@ -336,7 +336,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   filedir <- dirname(normalizePath(file[1], winslash = "/"))
   assertthat::assert_that(assertthat::is.writeable(filedir))
 
-  profile.tmp <- tempfile()
+  profile.tmp <- tempfile(fileext = ".csv")
 
   config <- vol2birdR::vol2bird_config()
   if (!autoconf) {
