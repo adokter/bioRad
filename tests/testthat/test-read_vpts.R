@@ -19,8 +19,11 @@ if (!dir.exists(temp_dir)) {
 # Create the h5 and csv sub-directories
 h5_dir <- file.path(temp_dir, "h5")
 csv_dir <- file.path(temp_dir, "csv")
+other_dir <- file.path(temp_dir, "other")
+
 if (!dir.exists(h5_dir)) dir.create(h5_dir)
 if (!dir.exists(csv_dir)) dir.create(csv_dir)
+if (!dir.exists(other_dir)) dir.create(other_dir)
 
 sapply(urls, function(url) download_test_file(url, temp_dir, h5_dir, csv_dir))
 
@@ -61,12 +64,25 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
   ))
 })
 
-test_that("read_vpts() returns error on mixed extensions", {
+test_that("read_vpts() returns error on explicit mixed extensions", {
   # Prepare a vector of file paths with different extensions
   files <- c("file1.csv", "file2.gz")
   # Expect an error when calling read_vpts() with this input
   expect_error(read_vpts(files), "`files` must all have the same extension.")
 })
+
+test_that("read_vpts() returns on error on inferred mixed extensions", {
+
+#test an h5 file with a csv extension
+ example_h5= h5_files[1]
+ new_filename <- paste0(tools::file_path_sans_ext(basename(example_h5)), ".csv")
+ new_filepath <- file.path(other_dir, new_filename)
+ file.copy(example_h5, new_filepath)
+
+expect_error(read_vpts(new_filepath), "does not match the guessed file type")
+
+})
+
 
 test_that("read_vpts() can read local vp hdf5 files", {
   # Test for one file

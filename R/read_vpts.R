@@ -41,6 +41,16 @@ read_vpts <- function(files, ...) {
         valid_extensions_collapse = glue::glue_collapse(valid_extensions, sep = ", ")
       )
     )
+    # infer the file type
+    guessed_file_type <- guess_file_type(files[1])
+    
+    assertthat::assert_that(
+      extension == guessed_file_type,
+      msg = glue::glue(
+        "The extension of the input file(s) {extension} does not match the guessed file type: {guessed_file_type}"
+      )
+    )
+
   } else {
     # If the file does not have an extension, infer the file type
     extension <- guess_file_type(files)
