@@ -12,14 +12,14 @@
 #' @export
 #' @examples
 #' ## read a vertical profile time series in VPTS CSV format:
-#' # vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
-#' # read_vpts(vptsfile)
-#' # read a single vertical profile file in ODIM h5 format:
+#' vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+#' read_vpts(vptsfile)
+#' #read a single vertical profile file in ODIM h5 format:
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' read_vpts(vpfile)
-#' # read a vertical profile time series in `vol2bird` stdout format:
-#' # stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-#' # read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
+#' #read a vertical profile time series in `vol2bird` stdout format:
+#' stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+#' read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 read_vpts <- function(files, ...) {
   # Define valid extensions
   valid_extensions <- c("csv", "gz", "h5", "txt")
