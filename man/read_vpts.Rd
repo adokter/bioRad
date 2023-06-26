@@ -20,7 +20,7 @@ The following file formats are supported (but cannot be mixed):
 \itemize{
 \item \href{https://aloftdata.eu/vpts-csv/}{VPTS CSV}.
 \item \href{https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification}{ODIM bird profile}.
-\item \link{vol2bird standard output}(see example below).
+\item vol2bird standard output (see example below).
 }
 }
 \examples{
