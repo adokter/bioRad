@@ -4,7 +4,7 @@
 #' The following file formats are supported (but cannot be mixed):
 #' - [VPTS CSV](https://aloftdata.eu/vpts-csv/).
 #' - [ODIM bird profile](https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification).
-#' - [vol2bird standard output](see example below).
+#' - vol2bird standard output (see example below).
 #' @param files Path(s) to one or more files containing vpts data.
 #' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
 #' @return `vpts` object.
