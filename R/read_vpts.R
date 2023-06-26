@@ -18,7 +18,7 @@
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' read_vpts(vpfile)
 #' #read a vertical profile time series in `vol2bird` stdout format:
-#' stdoutfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+#' stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 #' read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 read_vpts <- function(files, ...) {
   # Define valid extensions

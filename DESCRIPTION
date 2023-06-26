@@ -43,7 +43,6 @@ Imports:
     dplyr (>= 1.1.0),
     rhdf5,
     sp,
-    sf,
     stats,
     tidyr,
     utils,
@@ -63,7 +62,8 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     vdiffr,
-    rgdal
+    rgdal,
+    sf
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
