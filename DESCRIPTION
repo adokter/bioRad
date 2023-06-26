@@ -49,7 +49,8 @@ Imports:
     utils,
     viridisLite,
     viridis,
-    rlang
+    rlang,
+    jsonlite
 Remotes:
     bioc::rhdf5,
     github::adokter/suntools

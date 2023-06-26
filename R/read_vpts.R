@@ -74,6 +74,9 @@ read_vpts_csv <- function(files, df = FALSE) {
   # Create Frictionless Data Package
   package <- frictionless::create_package()
   schema <- "https://raw.githubusercontent.com/enram/vpts-csv/main/vpts-csv-table-schema.json"
+  schema <- jsonlite::fromJSON(schema, simplifyDataFrame = FALSE, simplifyVector = TRUE)
+  schema$missingValues <- c("", "NA")
+
   package <- frictionless::add_resource(
     package,
     "vpts",
@@ -82,7 +85,7 @@ read_vpts_csv <- function(files, df = FALSE) {
   )
   
   #Remove NaN from vector of missing values
-  package$resources[[1]]$schema$missingValues <- c("", "NA") 
+  #package$resources[[1]]$schema$missingValues <- c("", "NA") 
   
   # Read resource (compares data with schema and binds rows of all files)
   data <- frictionless::read_resource(package, "vpts")
