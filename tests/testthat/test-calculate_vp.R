@@ -208,7 +208,7 @@ test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
   vp_from_file <- read_vpfiles(vpfile)
   pvol_from_file <- read_pvolfile(pvolfile_out)
 
-  expect_s3_class(vp, "vpts")
+  expect_s3_class(vp, "vp")
   expect_s3_class(vp_from_file, "vp")
   expect_s3_class(pvol_from_file, "pvol")
   expect_s3_class(pvol_from_file$scans[[1]], "scan")

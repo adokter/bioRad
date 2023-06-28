@@ -394,7 +394,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   # read output into a vp object
   output <- vpts_to_vp(read_vpts(profile.tmp))
 
-
   # read output and clean up
   if (vpfile != "") {
     file.copy(profile.tmp, vpfile)
