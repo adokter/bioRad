@@ -226,5 +226,3 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days
   expect_equal(summary(my_vpts_csv), summary(my_vpts_h5))
 })
 
-# clean up
-unlink(temp_dir, recursive = TRUE)
