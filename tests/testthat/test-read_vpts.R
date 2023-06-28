@@ -9,7 +9,7 @@ urls <- c(
 )
 
 # Define the path to the new temporary directory
-temp_dir <- "temp"
+temp_dir <-  tempdir()
 
 # Create the new directory if not exists
 if (!dir.exists(temp_dir)) {
@@ -210,7 +210,6 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days
     "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230415.csv",
     "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230416.csv"
   )
-
 
   # Use lapply to download each file to a temporary location
   csv_files <- lapply(urls, function(url) {
