@@ -167,11 +167,9 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
 
 # Comapre read_vpts output from data in both formats
 
-if (!require("aws.s3")) {
-  stop("Package 'aws.s3' is not installed. Please install it before proceeding.")
-}
-
 test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days of data", {
+  skip_if_offline()
+
   # clear directories
   file.remove(list.files(h5_dir, full.names = TRUE))
   file.remove(list.files(csv_dir, full.names = TRUE))
