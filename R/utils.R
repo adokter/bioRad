@@ -178,7 +178,6 @@ extract_string <- function(string, pattern, ...) {
   )
 }
 
-
 #' Guess the file type of a file
 #'
 #' Guess the file type of a file based on the file signature
@@ -214,6 +213,40 @@ guess_file_type <- function(file_path, n_lines = 5) {
     return("txt")
   }
 }
+
+
+# Extract required fields from frictionless schema
+#' @param schema a frictionless schema
+#' @returns a character vector of required field names in a VPTS CSV schema
+#' @keywords internal
+#' @noRd
+get_required_fields <- function(schema) {
+  required_vars <- sapply(schema$fields, function(x) {
+    if (!is.null(x$constraints) && !is.null(x$constraints$required)) {
+      return(x$constraints$required)
+    } else {
+      return(FALSE)
+    }
+  })
+  required_fields <- sapply(schema$fields[required_vars], function(x) x$name)
+  return(required_fields)
+}
+
+# Recursive function to extract variable names from frictionless schema
+
+#' @param lst the "fields" list of a frictionless schema
+#' @returns a character vector of variable names in the order of a VPTS CSV schema
+#' @keywords internal
+#' @noRd
+extract_names <- function(lst) {
+  if (is.list(lst)) {
+    names <- lapply(lst, function(x) extract_names(x$name))
+    unlist(names)
+  } else {
+    lst
+  }
+}
+
 #' Convert a tibble into a matrix
 #'
 #' Reshapes a tibble as an m✕n matrix of m distinct radar heights and
@@ -223,9 +256,9 @@ guess_file_type <- function(file_path, n_lines = 5) {
 #' @keywords internal
 #' @noRd
 tibble_to_mat <- function(tibble) {
-  unique_heights <- unique(tibble[['height']])
+  unique_heights <- unique(tibble[["height"]])
   matrix_list <- lapply(unique_heights, function(height) {
-    height_subset <- tibble[tibble[['height']] == height, ]
+    height_subset <- tibble[tibble[["height"]] == height, ]
     matrix(height_subset$value, nrow = 1)
   })
   matrix <- do.call(rbind, matrix_list)
@@ -235,15 +268,18 @@ tibble_to_mat <- function(tibble) {
 #' Convert a vpts dataframe into an ordered list of matrices
 #'
 #' @param data A dataframe created from a VPTS CSV file
-#' @param radvars A character vector of radar variables of interest, e.g., c("ff", "dbz", ...)
-#' @return A named list of matrices ordered according to radvars
+#' @param maskvars a character vector of radar variables to be masked from the input , e.g., c("radar_latitude", "radar_longitude", ...)
+#' @param schema a frictionless schema
+#' @returns A named list of matrices ordered according to radvars
 #' @keywords internal
 #' @noRd
-df_to_mat_list <- function(data, radvars) {
-  datetime <- height <- variable <- NULL
+df_to_mat_list <- function(data, maskvars, schema) {
+  datetime <- height <- variable <- fields <- NULL
+  radvars <- extract_names(schema$fields)
+  radvars <- radvars[!radvars %in% maskvars]
 
   tbls_lst <- data %>%
-    dplyr::select(datetime, height, dplyr::all_of(radvars)) %>%
+    dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
@@ -255,4 +291,88 @@ df_to_mat_list <- function(data, radvars) {
   ordered_mat_list <- named_mat_list[radvars]
 
   return(ordered_mat_list)
+}
+
+#' Convert a dataframe into a vpts object
+#'
+#' @param data a dataframe created from a VPTS CSV file
+#' @returns a bioRad vpts object
+#' @export
+as.vpts <- function(data) {
+  datetime <- source_file <- radar <- NULL
+
+  data <- dplyr::mutate(
+    data,
+    radar = as.factor(radar),
+    source_file = as.factor(source_file),
+    datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+  )
+
+  radar <- unique(data[["radar"]])
+
+  if (!exists("cached_schema")) {
+    # Load the schema from the data directory and cache it
+    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"),
+      simplifyDataFrame = FALSE, simplifyVector = TRUE
+    )
+  }
+
+  # Check radar is unique
+  assertthat::assert_that(
+    length(radar) == 1,
+    msg = "`files` must contain data of a single radar."
+  )
+
+  # Check whether time series is regular
+  heights <- as.integer(unique(data[["height"]]))
+
+  # Subset timestamps by first sampled height
+  datetime <- data[data[["height"]] == heights[1], ][["datetime"]]
+  datetime <- as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+
+
+  # Determine regularity
+  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
+  if (length(unique(difftimes)) == 1) {
+    regular <- TRUE
+  } else {
+    regular <- FALSE
+  }
+
+  # Get attributes
+  radar_height <- data[["radar_height"]][1]
+  interval <- unique(heights[-1] - heights[-length(heights)])
+  wavelength <- data[["radar_wavelength"]][1]
+  lon <- data[["radar_longitude"]][1]
+  lat <- data[["radar_latitude"]][1]
+  rcs <- data[["rcs"]][1]
+  sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
+
+  # Convert dataframe
+  maskvars <- c("radar", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height")
+
+  data <- df_to_mat_list(data, maskvars, cached_schema)
+
+  # Create vpts object
+  output <- list(
+    radar = as.character(radar),
+    datetime = datetime,
+    height = heights,
+    daterange = c(min(datetime), max(datetime)),
+    timesteps = difftimes,
+    data = data,
+    attributes = list(
+      where = data.frame(
+        interval = as.integer(interval),
+        levels = length(heights),
+        height = as.integer(radar_height),
+        lon = lon,
+        lat = lat
+      ),
+      how = data.frame(wavelength = wavelength, rcs_bird = rcs, sd_vvp_thresh = sd_vvp_threshold)
+    ),
+    regular = regular
+  )
+  class(output) <- "vpts"
+  return(output)
 }

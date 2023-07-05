@@ -14,10 +14,10 @@
 #' ## read a vertical profile time series in VPTS CSV format:
 #' vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
 #' read_vpts(vptsfile)
-#' #read a single vertical profile file in ODIM h5 format:
+#' # read a single vertical profile file in ODIM h5 format:
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 #' read_vpts(vpfile)
-#' #read a vertical profile time series in `vol2bird` stdout format:
+#' # read a vertical profile time series in `vol2bird` stdout format:
 #' stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 #' read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 read_vpts <- function(files, ...) {
@@ -43,14 +43,13 @@ read_vpts <- function(files, ...) {
     )
     # infer the file type
     guessed_file_type <- guess_file_type(files[1])
-    
+
     assertthat::assert_that(
       extension == guessed_file_type,
       msg = glue::glue(
         "The extension of the input file(s) {extension} does not match the guessed file type: {guessed_file_type}"
       )
     )
-
   } else {
     # If the file does not have an extension, infer the file type
     extension <- guess_file_type(files)
@@ -69,40 +68,39 @@ read_vpts <- function(files, ...) {
     gz = read_vpts_csv(files),
     h5 = read_vpts_hdf5(files)
   )
-
   data
 }
 
 #' Read time series of vertical profiles (`vpts`) from VPTS CSV file(s)
 #'
 #' @inheritParams read_vpts
-#' @param df If `TRUE` returns data as data frame rather than `vpts`
-#'   object.
+#' @param df If `TRUE` returns data as dataframe rather than `vpts` object.
 #' @return `vpts` object.
 #' @noRd
 read_vpts_csv <- function(files, df = FALSE) {
-  # Create Frictionless Data Package
-  package <- frictionless::create_package()
-  schema <- "https://raw.githubusercontent.com/enram/vpts-csv/main/vpts-csv-table-schema.json"
-  schema <- jsonlite::fromJSON(schema, simplifyDataFrame = FALSE, simplifyVector = TRUE)
-  schema$missingValues <- c("", "NA")
 
-  package <- frictionless::add_resource(
-    package,
-    "vpts",
-    data = files,
-    schema = schema
-  )
-  
-  #Remove NaN from vector of missing values
-  #package$resources[[1]]$schema$missingValues <- c("", "NA") 
-  
+  if (!exists("cached_schema")) {
+    # Read the schema from the URL and cache it
+    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
+    cached_schema$missingValues <- c("", "NA")
+  }
+
+    # Create Frictionless Data Package
+    package <- frictionless::create_package()
+    # Add resource to the package
+    package <- frictionless::add_resource(
+      package,
+      "vpts",
+      data = files,
+      schema = cached_schema
+    )
+
   # Read resource (compares data with schema and binds rows of all files)
   data <- frictionless::read_resource(package, "vpts")
 
-
   # Convert data
-  source_file <- NULL
+  source_file <- datetime <- radar <- NULL
+
   data <- dplyr::mutate(
     data,
     radar = as.factor(radar),
@@ -113,67 +111,12 @@ read_vpts_csv <- function(files, df = FALSE) {
   # Return data as data frame
   if (df) {
     return(data)
-  }
-
-  # The following steps convert the data to a vpts object
-  # Check radar is unique
-  radar <- unique(data$radar)
-  assertthat::assert_that(
-    length(radar) == 1,
-    msg = "`files` must contain data of a single radar."
-  )
-
-  # Check whether time series is regular
-  heights <- unique(data$height)
-
-  #Subset timestamps by first sampled height
-  datetime <- data[data$height == heights[1],]$datetime
-
-  #Determine regularity
-  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
-  if (length(unique(difftimes)) == 1) {
-    regular <- TRUE
   } else {
-    regular <- FALSE
+    data <- as.vpts(data)
   }
 
-  # Get attributes
-  radar_height = data$radar_height[1]
-  interval <- unique(heights[-1] - heights[-length(heights)])
-  wavelength <- unique(data$radar_wavelength)
-  lon <- data$radar_longitude[1]
-  lat <- data$radar_latitude[1]
-  rcs <-  data$rcs[1]
-  sd_vvp_threshold <- data$sd_vvp_threshold[1]
-
-  # Convert dataframe
-  radvars <- c("ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz", "dd", "n", "dbz_all", "n_dbz_all", "eta", "sd_vvp", "n_all")
-  data <- df_to_mat_list(data, radvars)
-
-  # Create vpts object
-  output <- list(
-    radar = as.character(radar),
-    datetime = datetime,
-    height = heights,
-    daterange = c(min(datetime), max(datetime)),
-    timesteps = difftimes,
-    data = data,
-    attributes = list(
-      where = data.frame(
-        interval = interval,
-        levels = length(heights),
-        height = radar_height,
-        lon = lon,
-        lat = lat
-      ),
-      how = data.frame(wavelength = wavelength, rcs_bird = rcs, sd_vvp_thresh = sd_vvp_threshold)
-    ),
-    regular = regular
-  )
-  class(output) <- "vpts"
-  output
+  return(data)
 }
-
 #' Read time series of vertical profiles (`vpts`) from hdf5 file(s)
 #'
 #' @inheritParams read_vpts

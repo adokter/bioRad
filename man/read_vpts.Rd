@@ -27,10 +27,10 @@ The following file formats are supported (but cannot be mixed):
 ## read a vertical profile time series in VPTS CSV format:
 vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
 read_vpts(vptsfile)
-#read a single vertical profile file in ODIM h5 format:
+# read a single vertical profile file in ODIM h5 format:
 vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 read_vpts(vpfile)
-#read a vertical profile time series in `vol2bird` stdout format:
+# read a vertical profile time series in `vol2bird` stdout format:
 stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 }
