@@ -52,7 +52,6 @@ Imports:
     jsonlite
 Remotes:
     bioc::rhdf5,
-    github::adokter/suntools
 Suggests:
     vol2birdR,
     aws.s3,

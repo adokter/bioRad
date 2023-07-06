@@ -590,7 +590,7 @@ First we download more files, and prepare an output directory for storing the pr
 ```{r, eval=SHOW_ANSWERS,results='hide',warning=FALSE}
 # First we download more data, for a total of one additional hour for the same radar:
 download_pvolfiles(date_min=as.POSIXct("2017-05-04 01:40:00"), date_max=as.POSIXct("2017-05-04 02:40:00"), radar="KHGX", directory="./data_pvol")
-# We will process all the polar volume fil  es downloaded so far:
+# We will process all the polar volume files downloaded so far:
 my_pvolfiles <- list.files("./data_pvol", recursive = TRUE, full.names = TRUE, pattern="KHGX")
 my_pvolfiles
 # create output directory for processed profiles
