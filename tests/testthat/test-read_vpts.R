@@ -165,6 +165,7 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
   )
 })
 
+
 # Comapre read_vpts output from data in both formats
 
 test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days of data", {

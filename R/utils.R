@@ -214,6 +214,18 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 }
 
+#' Check if a number is a factor of another
+#'
+#' Determines if a given number is a factor of another number
+#' by checking if the remainder is zero after division.
+#' @param number The number to be checked if it is a factor.
+#' @param factor The potential factor to check against the number.
+#' @return A logical value indicating whether the factor is indeed a factor of the number.
+#' @keywords internal
+#' @noRd
+isFactor <- function(number, factor) {
+  return(number %% factor == 0)
+}
 
 # Extract required fields from frictionless schema
 #' @param schema a frictionless schema
@@ -297,18 +309,26 @@ df_to_mat_list <- function(data, maskvars, schema) {
 #'
 #' @param data a dataframe created from a VPTS CSV file
 #' @returns a bioRad vpts object
+#' @examples
+#' df = read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
+#' as.vpts(df)
 #' @export
 as.vpts <- function(data) {
-  datetime <- source_file <- radar <- NULL
+  height <- datetime <- source_file <- radar <- NULL
 
-  data <- dplyr::mutate(
-    data,
-    radar = as.factor(radar),
-    source_file = as.factor(source_file),
-    datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
-  )
+# Throw error if nrows per height are not identical
+
+  assertthat::assert_that(
+    isFactor(dim(data)[1], length(unique(data$height))) > 0
+   ,msg = "Number of rows per height variable must be identical")
 
   radar <- unique(data[["radar"]])
+
+    # Check radar is unique
+    assertthat::assert_that(
+      length(radar) == 1,
+      msg = "`files` must contain data of a single radar."
+    )
 
   if (!exists("cached_schema")) {
     # Load the schema from the data directory and cache it
@@ -317,10 +337,11 @@ as.vpts <- function(data) {
     )
   }
 
-  # Check radar is unique
-  assertthat::assert_that(
-    length(radar) == 1,
-    msg = "`files` must contain data of a single radar."
+  data <- dplyr::mutate(
+    data,
+    radar = as.factor(radar),
+    source_file = as.factor(source_file),
+    datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
   )
 
   # Check whether time series is regular

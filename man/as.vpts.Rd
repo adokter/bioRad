@@ -15,3 +15,7 @@ a bioRad vpts object
 \description{
 Convert a dataframe into a vpts object
 }
+\examples{
+df = read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
+as.vpts(df)
+}

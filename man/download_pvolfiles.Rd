@@ -36,7 +36,7 @@ Download a selection of polar volume (\code{pvol}) files from the
 }
 \examples{
 \dontrun{
-create temporary directory
+# create temporary directory
 temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 dir.create(temp_dir)
 download_pvolfiles(

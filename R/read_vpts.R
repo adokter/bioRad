@@ -76,6 +76,7 @@ read_vpts <- function(files, ...) {
 #' @inheritParams read_vpts
 #' @param df If `TRUE` returns data as dataframe rather than `vpts` object.
 #' @return `vpts` object.
+#' @keywords internal
 #' @noRd
 read_vpts_csv <- function(files, df = FALSE) {
 

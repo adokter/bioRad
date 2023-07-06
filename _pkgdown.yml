@@ -95,6 +95,7 @@ reference:
       - plot.vpts
       - regularize_vpts
       - as.data.frame.vp
+      - as.vpts
       - "`[.vpts`"
       - get_quantity
   - title: "Integrating vertical profiles"
