@@ -24,7 +24,13 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * New function `read_stdout()` replaces previous functionality of `read_vpts()` to read vol2bird stdout format. It also has a new `sep` argument (#536).
 
+* New function `as.vpts` converts a dataframe originating from a VPTS CSV file into a vpts object
+
+* Standardized VPTS data exchange format as included in package as a json file which allows for offline functionality of `frictionless`
+
 * `read_pvolfiles()` now allows ODIM_H5 files with missing `source` attribute. The functionality is similar to `read_vpfiles()`, i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use `unknown` (2f6935c).
+
+* `bind_into_vpts()` now works for vp and vpts objects with different heights
 
 ## Bugfixes
 
@@ -37,6 +43,8 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * Functions `check_docker()` and `update_docker()` have been deprecated.
 
 * Function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`.
+
+* Dependencies `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evoltion of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
 
 # bioRad 0.6.1
 
