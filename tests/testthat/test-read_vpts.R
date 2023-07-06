@@ -9,7 +9,7 @@ urls <- c(
 )
 
 # Define the path to the new temporary directory
-temp_dir <-  tempdir()
+temp_dir <- tempdir()
 
 # Create the new directory if not exists
 if (!dir.exists(temp_dir)) {
@@ -72,15 +72,13 @@ test_that("read_vpts() returns error on explicit mixed extensions", {
 })
 
 test_that("read_vpts() returns on error on inferred mixed extensions", {
+  # test an h5 file with a csv extension
+  example_h5 <- h5_files[1]
+  new_filename <- paste0(tools::file_path_sans_ext(basename(example_h5)), ".csv")
+  new_filepath <- file.path(other_dir, new_filename)
+  file.copy(example_h5, new_filepath)
 
-#test an h5 file with a csv extension
- example_h5= h5_files[1]
- new_filename <- paste0(tools::file_path_sans_ext(basename(example_h5)), ".csv")
- new_filepath <- file.path(other_dir, new_filename)
- file.copy(example_h5, new_filepath)
-
-expect_error(read_vpts(new_filepath), "does not match the guessed file type")
-
+  expect_error(read_vpts(new_filepath), "does not match the guessed file type")
 })
 
 
@@ -226,4 +224,3 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days
   # Expect equivalent summaries from both vpts objects
   expect_equal(summary(my_vpts_csv), summary(my_vpts_h5))
 })
-

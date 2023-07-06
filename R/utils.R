@@ -140,7 +140,6 @@ proj_to_wgs <- function(x, y, proj4string) {
     }
   )
 }
-
 #' Match a set of regular expressions to a list of files
 #'
 #' Match a set of regular expressions to a list of files and return those
@@ -303,97 +302,4 @@ df_to_mat_list <- function(data, maskvars, schema) {
   ordered_mat_list <- named_mat_list[radvars]
 
   return(ordered_mat_list)
-}
-
-#' Convert a dataframe into a vpts object
-#'
-#' @param data a dataframe created from a VPTS CSV file
-#' @returns a bioRad vpts object
-#' @examples
-#' df = read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
-#' as.vpts(df)
-#' @export
-as.vpts <- function(data) {
-  height <- datetime <- source_file <- radar <- NULL
-
-# Throw error if nrows per height are not identical
-
-  assertthat::assert_that(
-    isFactor(dim(data)[1], length(unique(data$height))) > 0
-   ,msg = "Number of rows per height variable must be identical")
-
-  radar <- unique(data[["radar"]])
-
-    # Check radar is unique
-    assertthat::assert_that(
-      length(radar) == 1,
-      msg = "`files` must contain data of a single radar."
-    )
-
-  if (!exists("cached_schema")) {
-    # Load the schema from the data directory and cache it
-    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"),
-      simplifyDataFrame = FALSE, simplifyVector = TRUE
-    )
-  }
-
-  data <- dplyr::mutate(
-    data,
-    radar = as.factor(radar),
-    source_file = as.factor(source_file),
-    datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
-  )
-
-  # Check whether time series is regular
-  heights <- as.integer(unique(data[["height"]]))
-
-  # Subset timestamps by first sampled height
-  datetime <- data[data[["height"]] == heights[1], ][["datetime"]]
-  datetime <- as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
-
-
-  # Determine regularity
-  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
-  if (length(unique(difftimes)) == 1) {
-    regular <- TRUE
-  } else {
-    regular <- FALSE
-  }
-
-  # Get attributes
-  radar_height <- data[["radar_height"]][1]
-  interval <- unique(heights[-1] - heights[-length(heights)])
-  wavelength <- data[["radar_wavelength"]][1]
-  lon <- data[["radar_longitude"]][1]
-  lat <- data[["radar_latitude"]][1]
-  rcs <- data[["rcs"]][1]
-  sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
-
-  # Convert dataframe
-  maskvars <- c("radar", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height")
-
-  data <- df_to_mat_list(data, maskvars, cached_schema)
-
-  # Create vpts object
-  output <- list(
-    radar = as.character(radar),
-    datetime = datetime,
-    height = heights,
-    daterange = c(min(datetime), max(datetime)),
-    timesteps = difftimes,
-    data = data,
-    attributes = list(
-      where = data.frame(
-        interval = as.integer(interval),
-        levels = length(heights),
-        height = as.integer(radar_height),
-        lon = lon,
-        lat = lat
-      ),
-      how = data.frame(wavelength = wavelength, rcs_bird = rcs, sd_vvp_thresh = sd_vvp_threshold)
-    ),
-    regular = regular
-  )
-  class(output) <- "vpts"
-  return(output)
 }
