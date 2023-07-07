@@ -59,7 +59,17 @@ read_vpts <- function(files, ...) {
   if (extension == "txt") {
     warning(".txt extenstion detected - falling back to read_stdout().\n
     Please consider updating your workflow by using VPTS csv or h5 input files")
-    return(do.call(read_stdout, c(list(file = files), list(...))))
+    
+        # Attempt to call read_stdout
+    tryCatch({
+      return(do.call(read_stdout, c(list(file = files), list(...)))) 
+  },
+        error = function(e) {
+        # Display custom message
+        message(paste(e$message, " See ?read_stdout() for more details."))
+        stop()
+      }
+   )
   }
 
   # Read files
