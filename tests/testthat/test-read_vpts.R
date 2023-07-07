@@ -1,5 +1,4 @@
 # Define the URLs of test files
-# NOTE: current test longs several minutes, due to large number of files being tested.
 urls <- c(
   "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5",
   "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5",
@@ -9,11 +8,6 @@ urls <- c(
   "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
 )
 
-daily_urls <- c(
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230415.csv",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230416.csv"
-)
 
 # Define the path to the new temporary directory
 temp_dir <- tempdir()
@@ -116,9 +110,8 @@ test_that("read_vpts() can read local vp hdf5 files", {
 })
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
-
-  #add eehar h5
-  eehar = "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
+  # add eehar h5
+  eehar <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
   download_test_file(eehar, temp_dir, h5_dir, csv_dir)
 
   h5_files <- list.files(temp_h5_dir, pattern = "*.h5", full.names = TRUE)
@@ -129,7 +122,6 @@ test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
   )
 
   file.remove(file.path(h5_dir, basename(eehar)))
-
 })
 
 test_that("read_vpts() can read remote (gzipped) VPTS CSV files", {
@@ -172,14 +164,21 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
 
   expect_error(
     read_vpts(gz_files),
-    "`data` must contain data of a single radar."
+    "`files` must contain data of a single radar."
   )
 })
 
 
-# Compare read_vpts output from data in both formats
+test_that("check ability to convert a vpts object into a data.frame, and then cast it back into a vpts", {
+  vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  my_vpts <- read_vpts(vptsfile)
+  res <- as.vpts(as.data.frame(my_vpts))
+  expect_true(is.vpts(res))
+})
 
-test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days of data", {
+# Comapre read_vpts output from data in both formats
+
+test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day of data", {
   skip_if_offline()
 
   # clear directories
@@ -187,7 +186,7 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days
   file.remove(list.files(csv_dir, full.names = TRUE))
 
   # h5
-  prefixes <- c("baltrad/hdf5/bewid/2023/04/14", "baltrad/hdf5/bewid/2023/04/15", "baltrad/hdf5/bewid/2023/04/16")
+  prefixes <- c("baltrad/hdf5/bewid/2023/04/14")
 
   # Loop over the prefixes
   for (prefix in prefixes) {
@@ -217,8 +216,10 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days
 
   # VPTS CSV
 
+  urls <- c("https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv")
+
   # Use lapply to download each file to a temporary location
-  csv_files <- lapply(daily_urls, function(url) {
+  csv_files <- lapply(urls, function(url) {
     file_name <- basename(url)
     temp_file <- file.path(csv_dir, file_name)
     curl::curl_download(url, temp_file)
