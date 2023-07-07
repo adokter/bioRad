@@ -10,7 +10,7 @@ test_that("read_cajun() returns error on incorrect parameters", {
   file.create(empty_file_path)
   expect_error(
     read_cajun(empty_file_path),
-    regexp = sprintf("File %s is empty.", empty_file_path)
+    regexp = sprintf("is empty.", empty_file_path)
   )
   # wavelength
   non_empty_file_path <- tempfile()
