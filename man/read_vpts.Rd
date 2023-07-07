@@ -4,10 +4,12 @@
 \alias{read_vpts}
 \title{Read time series of vertical profiles (\code{vpts}) from file(s)}
 \usage{
-read_vpts(files, ...)
+read_vpts(files, data_frame = FALSE, ...)
 }
 \arguments{
 \item{files}{Path(s) to one or more files containing vpts data.}
+
+\item{data_frame}{When \code{FALSE} (default) output a \code{vpts} object, when \code{TRUE} output a data.frame}
 
 \item{...}{Additional arguments for backward compatibility, passed to \code{read_stdout}.}
 }
