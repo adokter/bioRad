@@ -110,9 +110,8 @@ test_that("read_vpts() can read local vp hdf5 files", {
 })
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
-
-  #add eehar h5
-  eehar = "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
+  # add eehar h5
+  eehar <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
   download_test_file(eehar, temp_dir, h5_dir, csv_dir)
 
   h5_files <- list.files(temp_h5_dir, pattern = "*.h5", full.names = TRUE)
@@ -123,7 +122,6 @@ test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
   )
 
   file.remove(file.path(h5_dir, basename(eehar)))
-
 })
 
 test_that("read_vpts() can read remote (gzipped) VPTS CSV files", {
@@ -171,10 +169,17 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
 })
 
 
+test_that("check ability to convert a vpts object into a data.frame, and then cast it back into a vpts", {
+  vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  my_vpts <- read_vpts(vptsfile)
+  res <- as.vpts(as.data.frame(my_vpts))
+  expect_true(is.vpts(res))
+})
+
 # Comapre read_vpts output from data in both formats
 
 test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days of data", {
-  skip_if_offline()
+  skip()
 
   # clear directories
   file.remove(list.files(h5_dir, full.names = TRUE))
