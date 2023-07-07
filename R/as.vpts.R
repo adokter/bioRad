@@ -26,7 +26,7 @@ as.vpts <- function(data) {
   # Check radar is unique
   assertthat::assert_that(
     length(radar) == 1,
-    msg = "`files` must contain data of a single radar."
+    msg = "`data` must contain data of a single radar."
   )
 
   if (!exists("cached_schema")) {
@@ -36,18 +36,18 @@ as.vpts <- function(data) {
     )
   }
 
-    data <- dplyr::mutate(
+  data <- dplyr::mutate(
     data,
     radar = as.factor(radar),
     datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
     )
 
-    if("source_file" %in% colnames(data)){
+  if("source_file" %in% colnames(data)){
     data <- dplyr::mutate(
         data,
         source_file = as.factor(source_file)
     )
-    }
+  }
 
   # Check whether time series is regular
   heights <- as.integer(unique(data[["height"]]))
@@ -69,13 +69,17 @@ as.vpts <- function(data) {
   radar_height <- data[["radar_height"]][1]
   interval <- unique(heights[-1] - heights[-length(heights)])
   wavelength <- data[["radar_wavelength"]][1]
+  if(length(unique(data[["radar_longitude"]]))>1) warning(paste0("multiple `radar_longitude` values found, storing only first (",lon,") as the functional attribute"))
   lon <- data[["radar_longitude"]][1]
+  if(length(unique(data[["radar_latitude"]]))>1) warning(paste0("multiple `radar_latitude` values found, storing only first (",lat,") as the functional attribute"))
   lat <- data[["radar_latitude"]][1]
+  if(length(unique(data[["rcs"]]))>1) warning(paste0("multiple `rcs` values found, storing only first (",rcs,") as the functional attribute"))
   rcs <- data[["rcs"]][1]
+  if(length(unique(data[["sd_vvp_threshold"]]))>1) warning(paste0("multiple `sd_vvp_threshold` values found, storing only first (",sd_vvp_threshold,") as the functional attribute"))
   sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
 
   # Convert dataframe
-  maskvars <- c("radar", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height","sunrise","sunset","day")
+  maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
 
   data <- df_to_mat_list(data, maskvars, cached_schema)
 
