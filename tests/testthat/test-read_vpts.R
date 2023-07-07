@@ -8,6 +8,7 @@ urls <- c(
   "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
 )
 
+
 # Define the path to the new temporary directory
 temp_dir <- tempdir()
 
@@ -109,14 +110,20 @@ test_that("read_vpts() can read local vp hdf5 files", {
 })
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
-  skip("Not yet implemented")
+
+  #add eehar h5
+  eehar = "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
+  download_test_file(eehar, temp_dir, h5_dir, csv_dir)
 
   h5_files <- list.files(temp_h5_dir, pattern = "*.h5", full.names = TRUE)
 
-  expect_error(
+  expect_warning(
     read_vpts(h5_files),
-    "`files` must contain data of a single radar."
+    "profiles are not from a single radar"
   )
+
+  file.remove(file.path(h5_dir, basename(eehar)))
+
 })
 
 test_that("read_vpts() can read remote (gzipped) VPTS CSV files", {
