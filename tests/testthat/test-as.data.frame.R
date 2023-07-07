@@ -95,8 +95,8 @@ test_that("as.data.frame() returns correct number of rows/cols", {
 test_that("as.data.frame() returns the expected column names", {
   expected_col_names <- c(
     "radar", "datetime", "ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz",
-    "dd", "n", "DBZH", "height", "n_dbz_all", "eta", "sd_vvp", "n_all", "lat",
-    "lon", "height_antenna", "day", "sunrise", "sunset"
+    "dd", "n", "DBZH", "height", "n_dbz_all", "eta", "sd_vvp", "n_all", "radar_latitude",
+    "radar_longitude", "radar_height", "radar_wavelength", "day", "sunrise", "sunset"
   )
   expect_equal(names(as.data.frame(vp)), expected_col_names)
   # expect_equal(names(as.data.frame(vpts)), expected_col_names) # See #382
@@ -130,14 +130,14 @@ test_that("as.data.frame() allows to assign row.names", {
 test_that("as.data.frame() includes lat/lon/height_antenna cols and can be assigned, unless geo = FALSE", {
   # lat/lon/height_antenna columns are added by default and taken from metadata
   vp_df <- as.data.frame(vp)
-  expect_equal(unique(vp_df[["lat"]]), vp$attributes$where$lat)
-  expect_equal(unique(vp_df[["lon"]]), vp$attributes$where$lon)
-  expect_equal(unique(vp_df[["height_antenna"]]), vp$attributes$where$height)
+  expect_equal(unique(vp_df[["radar_latitude"]]), vp$attributes$where$lat)
+  expect_equal(unique(vp_df[["radar_longitude"]]), vp$attributes$where$lon)
+  expect_equal(unique(vp_df[["radar_height"]]), vp$attributes$where$height)
 
   vpts_df <- as.data.frame(vpts)
-  expect_equal(unique(vpts_df[["lat"]]), vpts$attributes$where$lat)
-  expect_equal(unique(vpts_df[["lon"]]), vpts$attributes$where$lon)
-  expect_equal(unique(vpts_df[["height_antenna"]]), vpts$attributes$where$height)
+  expect_equal(unique(vpts_df[["radar_latitude"]]), vpts$attributes$where$lat)
+  expect_equal(unique(vpts_df[["radar_longitude"]]), vpts$attributes$where$lon)
+  expect_equal(unique(vpts_df[["radar_height"]]), vpts$attributes$where$height)
 
   # lat/lon/height_antenna columns are missing if geo = FALSE
   vp_df_geo_false <- as.data.frame(vp, geo = FALSE)
@@ -152,12 +152,12 @@ test_that("as.data.frame() includes lat/lon/height_antenna cols and can be assig
 
   # lat/lon can be set explicitly
   vp_df_latlong <- as.data.frame(vp, lat = 50.6, lon = 4.3)
-  expect_equal(unique(vp_df_latlong[["lat"]]), 50.6)
-  expect_equal(unique(vp_df_latlong[["lon"]]), 4.3)
+  expect_equal(unique(vp_df_latlong[["radar_latitude"]]), 50.6)
+  expect_equal(unique(vp_df_latlong[["radar_longitude"]]), 4.3)
 
   vpts_df_latlong <- as.data.frame(vpts, lat = 50.6, lon = 4.3)
-  expect_equal(unique(vpts_df_latlong[["lat"]]), 50.6)
-  expect_equal(unique(vpts_df_latlong[["lon"]]), 4.3)
+  expect_equal(unique(vpts_df_latlong[["radar_latitude"]]), 50.6)
+  expect_equal(unique(vpts_df_latlong[["radar_longitude"]]), 4.3)
 })
 
 test_that("as.data.frame() includes sunset/sunrise/day cols, unless suntime = FALSE", {

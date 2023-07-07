@@ -10,6 +10,8 @@
 #' as.vpts(df)
 #' @export
 as.vpts <- function(data) {
+  assertthat::assert_that(inherits(data,"data.frame"))
+
   height <- datetime <- source_file <- radar <- NULL
 
   # Throw error if nrows per height are not identical
@@ -73,7 +75,7 @@ as.vpts <- function(data) {
   sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
 
   # Convert dataframe
-  maskvars <- c("radar", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height")
+  maskvars <- c("radar", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height","sunrise","sunset","day")
 
   data <- df_to_mat_list(data, maskvars, cached_schema)
 

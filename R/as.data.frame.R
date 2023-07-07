@@ -99,9 +99,10 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
   # add location information
   if (geo) {
-    output$lat <- lat
-    output$lon <- lon
-    output$height_antenna <- x$attributes$where$height
+    output$radar_latitude <- lat
+    output$radar_longitude <- lon
+    output$radar_height <- x$attributes$where$height
+    output$radar_wavelength <- x$attributes$how$wavelength
   }
   # override the lat, lon attributes in case of user-provided values
   x$attributes$where$lat <- lat
@@ -170,9 +171,10 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
   # add location information
   if (geo) {
-    output$lat <- lat
-    output$lon <- lon
-    output$height_antenna <- x$attributes$where$height
+    output$radar_latitude <- lat
+    output$radar_longitude <- lon
+    output$radar_height <- x$attributes$where$height
+    output$radar_wavelength <- x$attributes$how$wavelength
   }
   # override the lat, lon attributes in case of user-provided values
   x$attributes$where$lat <- lat

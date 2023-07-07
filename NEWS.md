@@ -40,6 +40,8 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * Dependency `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evoltion of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
 
+* Function `as.data.frame.vpts()` has output column names `lat`, `lon`, `antenna_height` renamed to `radar_latitude`, `radar_longitude`, `radar_height` for compatibility with the [VPTS CSV](https://aloftdata.eu/vpts-csv/) data format. The function also outputs an additional column `radar_wavelength` (#609)
+
 # bioRad 0.6.1
 
 Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).
