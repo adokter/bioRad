@@ -6,6 +6,7 @@
 #' - [ODIM bird profile](https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification).
 #' - vol2bird standard output (see example below).
 #' @param files Path(s) to one or more files containing vpts data.
+#' @param data_frame When `FALSE` (default) output a `vpts` object, when `TRUE` output a data.frame
 #' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
 #' @return `vpts` object.
 #' @family read functions
@@ -20,7 +21,7 @@
 #' # read a vertical profile time series in `vol2bird` stdout format:
 #' stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 #' read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
-read_vpts <- function(files, ...) {
+read_vpts <- function(files, data_frame = FALSE, ...) {
   # Define valid extensions
   valid_extensions <- c("csv", "gz", "h5", "txt")
 
@@ -59,10 +60,10 @@ read_vpts <- function(files, ...) {
   if (extension == "txt") {
     warning(".txt extenstion detected - falling back to read_stdout().\n
     Please consider updating your workflow by using VPTS csv or h5 input files")
-    
+
         # Attempt to call read_stdout
     tryCatch({
-      return(do.call(read_stdout, c(list(file = files), list(...)))) 
+      return(do.call(read_stdout, c(list(file = files), list(...))))
   },
         error = function(e) {
         # Display custom message
@@ -74,9 +75,9 @@ read_vpts <- function(files, ...) {
 
   # Read files
   data <- switch(extension,
-    csv = read_vpts_csv(files),
-    gz = read_vpts_csv(files),
-    h5 = read_vpts_hdf5(files)
+    csv = read_vpts_csv(files, data_frame=data_frame),
+    gz = read_vpts_csv(files, data_frame=data_frame),
+    h5 = read_vpts_hdf5(files, data_frame=data_frame)
   )
   data
 }
@@ -84,11 +85,11 @@ read_vpts <- function(files, ...) {
 #' Read time series of vertical profiles (`vpts`) from VPTS CSV file(s)
 #'
 #' @inheritParams read_vpts
-#' @param df If `TRUE` returns data as dataframe rather than `vpts` object.
+#' @param data_frame If `TRUE` returns data as dataframe rather than `vpts` object.
 #' @return `vpts` object.
 #' @keywords internal
 #' @noRd
-read_vpts_csv <- function(files, df = FALSE) {
+read_vpts_csv <- function(files, data_frame = FALSE) {
 
   if (!exists("cached_schema")) {
     # Read the schema from the URL and cache it
@@ -120,9 +121,7 @@ read_vpts_csv <- function(files, df = FALSE) {
   )
 
   # Return data as data frame
-  if (df) {
-    return(data)
-  } else {
+  if (!data_frame) {
     data <- as.vpts(data)
   }
 
@@ -133,7 +132,9 @@ read_vpts_csv <- function(files, df = FALSE) {
 #' @inheritParams read_vpts
 #' @return `vpts` object.
 #' @noRd
-read_vpts_hdf5 <- function(files) {
+read_vpts_hdf5 <- function(files, data_frame = FALSE) {
   vps <- read_vpfiles(files)
-  bind_into_vpts(vps)
+  output <- bind_into_vpts(vps)
+  if(data_frame) output <- as.data.frame(output)
+  output
 }
