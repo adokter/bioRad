@@ -97,11 +97,15 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
   output$height <- NULL
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
+  # add essential attributes
+  output$rcs <- x$attributes$how$rcs_bird
+  output$sd_vvp_threshold <- x$attributes$how$sd_vvp_thresh
   # add location information
   if (geo) {
-    output$lat <- lat
-    output$lon <- lon
-    output$height_antenna <- x$attributes$where$height
+    output$radar_latitude <- lat
+    output$radar_longitude <- lon
+    output$radar_height <- x$attributes$where$height
+    output$radar_wavelength <- x$attributes$how$wavelength
   }
   # override the lat, lon attributes in case of user-provided values
   x$attributes$where$lat <- lat
@@ -168,11 +172,15 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   )
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
+  # add essential attributes
+  output$rcs <- x$attributes$how$rcs_bird
+  output$sd_vvp_threshold <- x$attributes$how$sd_vvp_thresh
   # add location information
   if (geo) {
-    output$lat <- lat
-    output$lon <- lon
-    output$height_antenna <- x$attributes$where$height
+    output$radar_latitude <- lat
+    output$radar_longitude <- lon
+    output$radar_height <- x$attributes$where$height
+    output$radar_wavelength <- x$attributes$how$wavelength
   }
   # override the lat, lon attributes in case of user-provided values
   x$attributes$where$lat <- lat

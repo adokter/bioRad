@@ -300,3 +300,21 @@ test_that("Dealiasing can be toggled", {
   expect_equal(vp$attributes$how$dealiased, 1)
   expect_equal(task_args(vp)$dealiasVrad,"1")
 })
+
+
+test_that("Extension of vpfile is obeyed in output", {
+
+  # Test with a .h5 file
+  output_file <- calculate_vp(pvolfile, vpfile = vpfile)
+  expect_equal(tools::file_ext(vpfile), "h5")
+  expect_equal(guess_file_type(vpfile), "h5")
+
+   #Change the extension of vpfile to .csv
+  vpfile_csv <- sub("h5$", "csv", vpfile)
+
+  # Test with a .csv file
+  output_file <- calculate_vp(pvolfile, vpfile = vpfile_csv)
+  expect_equal(tools::file_ext(vpfile_csv), "csv")
+  expect_equal(guess_file_type(vpfile_csv), "csv")
+
+})

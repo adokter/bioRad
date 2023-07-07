@@ -70,6 +70,6 @@ ts <- example_vpts
 tsRegular <- regularize_vpts(ts, interval = 300)
 
 # regularize the time series on a 10 minute interval grid,
-# and fill data gaps smaller then 1 hour by nearest neighbor interpolation
+# and fill data gaps smaller than 1 hour by nearest neighbor interpolation
 tsRegular <- regularize_vpts(ts, interval = 600, fill = 3600)
 }

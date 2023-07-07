@@ -45,7 +45,7 @@ supported by the \href{https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/}{RSL 
 IRIS (IRIS RAW) format.}
 
 \item{vpfile}{Character. File name. When provided, writes a vertical profile
-file (\code{vpfile}) in the ODIM HDF5 format to disk.}
+file (\code{vpfile}) either in the VPTS CSV or ODIM HDF5 format to disk.}
 
 \item{pvolfile_out}{Character. File name. When provided, writes a polar
 volume (\code{pvol}) file in the ODIM HDF5 format to disk. Useful for converting

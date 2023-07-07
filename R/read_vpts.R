@@ -1,241 +1,140 @@
-#' Read a time series of vertical profiles (`vpts`) from file
+#' Read time series of vertical profiles (`vpts`) from file(s)
 #'
-#' @param file A text file containing the standard output (stdout) generated
-#' by vol2bird (or the package function `calculate_vp`).
-#' @param lon numeric. Longitude of the radar in decimal degrees.
-#' @param lat numeric. Latitude of the radar in decimal degrees.
-#' @param height numeric. Height above sea level of the radar antenna in meters.
-#' @param radar A string containing a radar identifier.
-#' @param wavelength Radar wavelength in cm, or one of 'C' or 'S' for C-band
-#' and S-band radar, respectively, in which case C-band wavelength is assumed
-#' to be 5.3 cm and S-band wavelength 10.6 cm
-#' @param sep the field separator character, see [utils::read.table]
-#'
-#' @return An object inheriting from class `vpts`, see
-#' [`vpts()`][summary.vpts] for details.
-#'
+#' Reads `vpts` data from one or more files.
+#' The following file formats are supported (but cannot be mixed):
+#' - [VPTS CSV](https://aloftdata.eu/vpts-csv/).
+#' - [ODIM bird profile](https://github.com/adokter/vol2bird/wiki/ODIM-bird-profile-format-specification).
+#' - vol2bird standard output (see example below).
+#' @param files Path(s) to one or more files containing vpts data.
+#' @param data_frame When `FALSE` (default) output a `vpts` object, when `TRUE` output a data.frame
+#' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
+#' @return `vpts` object.
+#' @family read functions
 #' @export
-#'
 #' @examples
-#' # locate example file:
-#' vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
-#' # load time series:
-#' ts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
-#' ts
-read_vpts <- function(file, radar, lat, lon, height, wavelength = "C", sep="") {
-  # input checks
-  if (!file.exists(file)) {
-    stop(paste("File", file, "doesn't exist."))
-  }
-  if (file.size(file) == 0) {
-    stop(paste("File", file, "is empty."))
-  }
-  # currently only two delimitors supported
-  # "" for legacy vol2bird output, "," for csv output
-  assertthat::assert_that(assertthat::is.scalar(sep) && is.character(sep),
-                          msg = "'sep' should be either \",\" or \"\"")
-  assertthat::assert_that(sep == "" || sep == ",",
-                          msg = "'sep' should be either \",\" or \"\"")
+#' ## read a vertical profile time series in VPTS CSV format:
+#' vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+#' read_vpts(vptsfile)
+#' # read a single vertical profile file in ODIM h5 format:
+#' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
+#' read_vpts(vpfile)
+#' # read a vertical profile time series in `vol2bird` stdout format:
+#' stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
+#' read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
+read_vpts <- function(files, data_frame = FALSE, ...) {
+  # Define valid extensions
+  valid_extensions <- c("csv", "gz", "h5", "txt")
 
-  if (!missing(lat)) {
-    assertthat::assert_that(
-      assertthat::is.number(lat),
-      msg = "'lat' should be a single numeric between -90 and 90 degrees"
-      )
-    if (lat < -90 || lat > 90) {
-      stop("'lat' should be numeric between -90 and 90 degrees")
-    }
-  }
-  if (!missing(lon)) {
-    assertthat::assert_that(
-      assertthat::is.number(lon),
-      msg = "'lon' should be a single numeric numeric between -360 and 360 degrees"
-    )
-    if (lon < -360 || lon > 360) {
-      stop("'lon' should be numeric between -360 and 360 degrees")
-    }
-  }
-  if (!missing(height)) {
-    assertthat::assert_that(assertthat::is.number(height))
-    if (!is.numeric(height) || height < 0) {
-      stop("'height' should be a positive number of meters above sea level")
-    }
-  }
-  if (missing(radar) && sep =="") {
-    stop("'radar' argument missing. Required to specify a radar identifier.")
-  }
-  if (missing(wavelength)) {
-    warning(paste("No 'wavelength' argument provided, assuming radar operates",
-      " at ", wavelength, "-band",
-      sep = ""
-    ))
-  }
-  wavelength_msg <-
-    glue::glue(
-      "'wavelength' should be a single positive number",
-      ", or one of 'C' or 'S' for C-band and S-band radar, respectively."
-    )
+  # Get file extension
+  extension <- unique(tools::file_ext(files))
+
   assertthat::assert_that(
-    (assertthat::is.number(wavelength) && wavelength > 0) ||
-      (assertthat::is.scalar(wavelength) && wavelength %in% c("C","S")),
-    msg = wavelength_msg)
-
-  if (wavelength == "C") {
-    wavelength <- 5.3
-  }
-  if (wavelength == "S") {
-    wavelength <- 10.6
-  }
-
-  # header of the data file
-  header.names.short <- c(
-    "Date", "Time", "height", "u", "v", "w", "ff", "dd",
-    "sd_vvp", "gap", "dbz", "eta", "dens", "DBZH", "n",
-    "n_dbz", "n_all", "n_dbz_all"
+    length(extension) == 1,
+    msg = "`files` must all have the same extension."
   )
-  header.names.long <- c(
-    "Date", "Time", "height", "u", "v", "w", "ff", "dd",
-    "sd_vvp", "head_bl", "head_ff", "head_dd", "head_sd",
-    "gap", "dbz", "eta", "dens", "DBZH", "n", "n_dbz",
-    "n_all", "n_dbz_all"
-  )
-  # read the data
 
-  if(sep!=""){
-    # for parsing new csv format
-    data <- utils::read.table(file = file, header = TRUE, sep = sep)
-    radar <- unique(data$radar)
-    if(length(radar)>1){
-      stop("file contains data for multiple radars")
-    }
-    data$radar <- NULL
-    data$datetime <- readr::parse_datetime(data$datetime)
-    data$gap <- as.logical(data$gap)
-  } else{
-    # for parsing legacy vol2bird text output
-    data <- utils::read.table(file = file, header = FALSE, sep = sep)
-    if (ncol(data) == 22) {
-      colnames(data) <- header.names.long
-    } else {
-      colnames(data) <- header.names.short
-    }
-
-    # convert Time into a POSIXct date-time
-    data$datetime <- as.POSIXct(paste(data$Date, sprintf("%04d", data$Time),
-                                      sep = ""
-    ),
-    format = "%Y%m%d%H%M",
-    tz = "UTC"
+  # If the file has an extension, check if it is valid
+  if (extension != "") {
+    assertthat::assert_that(
+      extension %in% valid_extensions,
+      msg = glue::glue(
+        "`files` must have one of the following extensions: {valid_extensions_collapse}",
+        valid_extensions_collapse = glue::glue_collapse(valid_extensions, sep = ", ")
+      )
     )
-  }
+    # infer the file type
+    guessed_file_type <- guess_file_type(files[1])
 
-  # add profile_index to identify consecutive profiles
-  data$new_profile_starts <- c(T, (data$height[-1] - data$height[-length(data$height)]) < 0)
-  data$profile_index <- NA
-  profile_index <- NULL # define profile_index to suppress devtools::check warning in next line
-  data[which(data$new_profile_starts), "profile_index"] <- 1:length(which(data$new_profile_starts))
-  data <- tidyr::fill(data, profile_index)
-
-  data$new_profile_starts <- NULL
-  data$Date <- NULL
-  data$Time <- NULL
-
-  # sort
-  data <- data[with(data, order(datetime, profile_index, height)), ]
-
-  # split into profiles
-  data <- split(data, data$profile_index)
-  names(data) <- NULL
-
-  # verify that profiles can be flattened
-  datadim <- sapply(1:length(data), function(x) dim(data[[x]]))
-
-  if (length(unique(datadim[1, ])) > 1) {
-    mostFrequent <- sort(table(datadim[1, ]), decreasing = TRUE)[1]
-    if (mostFrequent <= 1) {
-      stop("Profiles are of unequal altitudinal dimensions, unable to merge")
-    }
-    mostFrequentNBins <- as.integer(names(mostFrequent))
-    warning(paste(
-      "Profiles are of unequal altitudinal dimensions or",
-      "contain duplicates. Discarding", length(data) - mostFrequent,
-      "of", length(data), "profiles, restricting to",
-      mostFrequentNBins, "altitude bins."
-    ))
-    data <- data[datadim[1, ] == mostFrequentNBins]
-  }
-
-  # strip the datetime field
-  datetime <- .POSIXct(sapply(
-    1:length(data),
-    function(x) {
-      data[[x]]$datetime[1]
-    }
-  ),
-  tz = "UTC"
-  )
-  data <- lapply(
-    data,
-    function(x) {
-      x["datetime"] <- NULL
-      x["profile_index"] <- NULL
-      x
-    }
-  )
-
-  # sort again, since split() changes ordering
-  data <- data[order(datetime)]
-  datetime <- sort(datetime)
-
-  # check whether the time series is regular
-  difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
-  difftimes
-  if (length(unique(difftimes)) == 1) {
-    regular <- TRUE
+    assertthat::assert_that(
+      extension == guessed_file_type,
+      msg = glue::glue(
+        "The extension of the input file(s) {extension} does not match the guessed file type: {guessed_file_type}"
+      )
+    )
   } else {
-    regular <- FALSE
+    # If the file does not have an extension, infer the file type
+    extension <- guess_file_type(files)
   }
 
-  # flatten the profiles
-  profile.quantities <- names(data[[1]])
-  vpsFlat <- lapply(
-    profile.quantities,
-    function(quantity) {
-      sapply(data, "[[", quantity)
-    }
-  )
-  names(vpsFlat) <- profile.quantities
-  vpsFlat$height <- NULL
-  vpsFlat$profile_index <- NULL
-  # prepare output
-  heights <- data[[1]]$"height"
-  interval <- unique(heights[-1] - heights[-length(heights)])
+  # Check if the input file has a .txt extension and if so reroute to read_stdout
+  if (extension == "txt") {
+    warning(".txt extenstion detected - falling back to read_stdout().\n
+    Please consider updating your workflow by using VPTS csv or h5 input files")
 
-  attributes <- list(
-    where = data.frame(
-      interval = interval,
-      levels = length(heights)
-    ),
-    how = data.frame(wavelength = wavelength)
-  )
-  if (!missing(height)) attributes$where$height <- height else attributes$where$height <- heights[1]
-  if (!missing(lon)) attributes$where$lon <- lon
-  if (!missing(lat)) attributes$where$lat <- lat
-
-  output <- list(
-    radar = radar, datetime = datetime, height = heights,
-    daterange = .POSIXct(c(min(datetime), max(datetime)), tz = "UTC"),
-    timesteps = difftimes, data = vpsFlat,
-    attributes = attributes, regular = regular
-  )
-  class(output) <- "vpts"
-
-  # remove duplicate profiles
-  duplicate_timestamps <- which(output$timesteps == 0)
-  if (length(duplicate_timestamps) > 0) {
-    warning(paste("removed", length(duplicate_timestamps), "profiles with duplicate timestamps."))
-    output <- output[-duplicate_timestamps]
+        # Attempt to call read_stdout
+    tryCatch({
+      return(do.call(read_stdout, c(list(file = files), list(...))))
+  },
+        error = function(e) {
+        # Display custom message
+        message(paste(e$message, " See ?read_stdout() for more details."))
+        stop()
+      }
+   )
   }
 
+  # Read files
+  data <- switch(extension,
+    csv = read_vpts_csv(files, data_frame=data_frame),
+    gz = read_vpts_csv(files, data_frame=data_frame),
+    h5 = read_vpts_hdf5(files, data_frame=data_frame)
+  )
+  data
+}
+
+#' Read time series of vertical profiles (`vpts`) from VPTS CSV file(s)
+#'
+#' @inheritParams read_vpts
+#' @param data_frame If `TRUE` returns data as dataframe rather than `vpts` object.
+#' @return `vpts` object.
+#' @keywords internal
+#' @noRd
+read_vpts_csv <- function(files, data_frame = FALSE) {
+
+  if (!exists("cached_schema")) {
+    # Read the schema from the URL and cache it
+    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
+    cached_schema$missingValues <- c("", "NA")
+  }
+
+    # Create Frictionless Data Package
+    package <- frictionless::create_package()
+    # Add resource to the package
+    package <- frictionless::add_resource(
+      package,
+      "vpts",
+      data = files,
+      schema = cached_schema
+    )
+
+  # Read resource (compares data with schema and binds rows of all files)
+  data <- frictionless::read_resource(package, "vpts")
+
+  # Convert data
+  source_file <- datetime <- radar <- NULL
+
+  data <- dplyr::mutate(
+    data,
+    radar = as.factor(radar),
+    source_file = as.factor(source_file),
+    datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+  )
+
+  # Return data as data frame
+  if (!data_frame) {
+    data <- as.vpts(data)
+  }
+
+  return(data)
+}
+#' Read time series of vertical profiles (`vpts`) from hdf5 file(s)
+#'
+#' @inheritParams read_vpts
+#' @return `vpts` object.
+#' @noRd
+read_vpts_hdf5 <- function(files, data_frame = FALSE) {
+  vps <- read_vpfiles(files)
+  output <- bind_into_vpts(vps)
+  if(data_frame) output <- as.data.frame(output)
   output
 }

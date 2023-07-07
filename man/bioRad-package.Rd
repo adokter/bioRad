@@ -36,6 +36,8 @@ Useful links:
 Authors:
 \itemize{
   \item Peter Desmet \email{peter.desmet@inbo.be} (\href{https://orcid.org/0000-0002-8442-8025}{ORCID})
+  \item Bart Kranstauber \email{b.kranstauber@uva.nl} (\href{https://orcid.org/0000-0001-8303-780X}{ORCID})
+  \item Cecilia Nilsson \email{cecilia.nilsson709@gmail.com} (\href{https://orcid.org/0000-0001-8957-4411}{ORCID})
   \item Stijn Van Hoey \email{stijnvanhoey@gmail.com} (\href{https://orcid.org/0000-0001-6413-3185}{ORCID})
 }
 
@@ -43,9 +45,7 @@ Other contributors:
 \itemize{
   \item Bart Hoekstra \email{b.d.hoekstra@uva.nl} (\href{https://orcid.org/0000-0002-7085-3805}{ORCID}) [contributor]
   \item Pieter Huybrechts \email{pieter.huybrechts@inbo.be} (\href{https://orcid.org/0000-0002-6658-6062}{ORCID}) [contributor]
-  \item Bart Kranstauber \email{b.kranstauber@uva.nl} (\href{https://orcid.org/0000-0001-8303-780X}{ORCID}) [contributor]
   \item Hidde Leijnse \email{hidde.leijnse@knmi.nl} (\href{https://orcid.org/0000-0001-7835-4480}{ORCID}) [contributor]
-  \item Cecilia Nilsson \email{cecilia.nilsson709@gmail.com} (\href{https://orcid.org/0000-0001-8957-4411}{ORCID}) [contributor]
   \item Nicolas Noé \email{nicolas@niconoe.eu} (\href{https://orcid.org/0000-0002-9503-4750}{ORCID}) [contributor]
   \item Raphaël Nussbaumer \email{rafnuss@gmail.com} (\href{https://orcid.org/0000-0002-8185-1020}{ORCID}) [contributor]
   \item Jurriaan Spaaks \email{j.spaaks@esciencecenter.nl} [contributor]
