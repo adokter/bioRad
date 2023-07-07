@@ -85,17 +85,18 @@ test_that("as.data.frame() returns a data frame", {
 test_that("as.data.frame() returns correct number of rows/cols", {
   vp_df <- as.data.frame(vp, geo = FALSE, suntime = FALSE)
   expect_equal(nrow(vp_df), 25) # 25 rows in nrow(vp$data)
-  expect_equal(ncol(vp_df), 18) # radar, datetime + 16 quantities
+  expect_equal(ncol(vp_df), 20) # radar, datetime + 18 quantities
 
   vpts_df <- as.data.frame(vpts, geo = FALSE, suntime = FALSE)
   expect_equal(nrow(vpts_df), 25 * 1934) # 25 rows * 1934 datetimes
-  expect_equal(ncol(vpts_df), 18) # radar, datetime + 16 quantities
+  expect_equal(ncol(vpts_df), 20) # radar, datetime + 18 quantities
 })
 
 test_that("as.data.frame() returns the expected column names", {
   expected_col_names <- c(
     "radar", "datetime", "ff", "dbz", "dens", "u", "v", "gap", "w", "n_dbz",
-    "dd", "n", "DBZH", "height", "n_dbz_all", "eta", "sd_vvp", "n_all", "radar_latitude",
+    "dd", "n", "DBZH", "height", "n_dbz_all", "eta", "sd_vvp", "n_all",
+    "rcs", "sd_vvp_threshold", "radar_latitude",
     "radar_longitude", "radar_height", "radar_wavelength", "day", "sunrise", "sunset"
   )
   expect_equal(names(as.data.frame(vp)), expected_col_names)
