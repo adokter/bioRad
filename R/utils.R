@@ -207,6 +207,10 @@ guess_file_type <- function(file_path, n_lines = 5) {
   ## If every line in n_lines contains a comma, assume it's a CSV file
   if (all(sapply(first_lines, function(line) grepl(",", line)))) {
     return("csv")
+  }
+
+  if(tools::file_ext(file_path) == "txt"){
+    return("txt") 
   } else {
     message("No extension detected; assuming file type .txt which maps to stdout format")
     return("txt")
