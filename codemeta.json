@@ -4,7 +4,7 @@
   "identifier": "bioRad",
   "description": "Extract, visualize and summarize aerial movements of birds and insects from weather radar data. See <doi:10.1111/ecog.04028> for a software paper describing package and methodologies.",
   "name": "bioRad: Biological Analysis and Visualization of Weather Radar Data",
-  "relatedLink": ["https://adriaandokter.com/bioRad/", "https://CRAN.R-project.org/package=bioRad"],
+  "relatedLink": "https://adriaandokter.com/bioRad/",
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
@@ -14,13 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.3 (2023-03-15)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
+  "runtimePlatform": "R version 4.3.0 (2023-04-21)",
   "author": [
     {
       "@type": "Person",
@@ -231,15 +225,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "rgdal",
-      "name": "rgdal",
+      "identifier": "sf",
+      "name": "sf",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=rgdal"
+      "sameAs": "https://CRAN.R-project.org/package=sf"
     }
   ],
   "softwareRequirements": {
@@ -287,6 +281,18 @@
     },
     "5": {
       "@type": "SoftwareApplication",
+      "identifier": "frictionless",
+      "name": "frictionless",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=frictionless"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
       "provider": {
@@ -297,7 +303,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "glue",
       "name": "glue",
@@ -309,12 +315,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=glue"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "graphics",
       "name": "graphics"
     },
-    "8": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -326,7 +332,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "9": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "lutz",
       "name": "lutz",
@@ -338,18 +344,24 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lutz"
     },
-    "10": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "suntools",
       "name": "suntools",
-      "sameAs": "https://github.com/bioc::rhdf5\n    adokter/suntools"
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=suntools"
     },
-    "11": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "12": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
@@ -361,7 +373,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=raster"
     },
-    "13": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "readr",
       "name": "readr",
@@ -373,7 +385,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=readr"
     },
-    "14": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -386,7 +398,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    "15": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "rhdf5",
       "name": "rhdf5",
@@ -398,7 +410,7 @@
       },
       "sameAs": "https://bioconductor.org/packages/release/bioc/html/rhdf5.html"
     },
-    "16": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "sp",
       "name": "sp",
@@ -409,18 +421,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=sp"
-    },
-    "17": {
-      "@type": "SoftwareApplication",
-      "identifier": "sf",
-      "name": "sf",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=sf"
     },
     "18": {
       "@type": "SoftwareApplication",
@@ -480,9 +480,21 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
+    "24": {
+      "@type": "SoftwareApplication",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "47773.838KB",
+  "fileSize": "4880.465KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
