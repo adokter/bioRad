@@ -178,15 +178,15 @@ test_that("check ability to convert a vpts object into a data.frame, and then ca
 
 # Comapre read_vpts output from data in both formats
 
-test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days of data", {
-  skip()
+test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day of data", {
+  skip_if_offline()
 
   # clear directories
   file.remove(list.files(h5_dir, full.names = TRUE))
   file.remove(list.files(csv_dir, full.names = TRUE))
 
   # h5
-  prefixes <- c("baltrad/hdf5/bewid/2023/04/14", "baltrad/hdf5/bewid/2023/04/15", "baltrad/hdf5/bewid/2023/04/16")
+  prefixes <- c("baltrad/hdf5/bewid/2023/04/14")
 
   # Loop over the prefixes
   for (prefix in prefixes) {
@@ -216,11 +216,7 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 3 days
 
   # VPTS CSV
 
-  urls <- c(
-    "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv",
-    "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230415.csv",
-    "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230416.csv"
-  )
+  urls <- c("https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv")
 
   # Use lapply to download each file to a temporary location
   csv_files <- lapply(urls, function(url) {
