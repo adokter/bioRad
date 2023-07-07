@@ -43,6 +43,9 @@
     <loc>https://adriaandokter.com/bioRad/reference/as.data.frame.vp.html</loc>
   </url>
   <url>
+    <loc>https://adriaandokter.com/bioRad/reference/as.vpts.html</loc>
+  </url>
+  <url>
     <loc>https://adriaandokter.com/bioRad/reference/attribute_table.html</loc>
   </url>
   <url>
@@ -215,6 +218,9 @@
   </url>
   <url>
     <loc>https://adriaandokter.com/bioRad/reference/read_pvolfile.html</loc>
+  </url>
+  <url>
+    <loc>https://adriaandokter.com/bioRad/reference/read_stdout.html</loc>
   </url>
   <url>
     <loc>https://adriaandokter.com/bioRad/reference/read_vp.html</loc>

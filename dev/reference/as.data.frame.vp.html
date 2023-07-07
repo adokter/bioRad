@@ -184,6 +184,14 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Convert vp object to a data.frame</span></span></span>
 <span class="r-in"><span><span class="va">vp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vp</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> which was just loaded, will retire in October 2023.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Please refer to R-spatial evolution reports for details, especially</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> https://r-spatial.org/r/2023/05/15/evolution4.html.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> It may be desirable to make the sf package available;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> package maintainers should consider adding sf to Suggests:.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The sp package is now running under evolution status 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>      (status 2 uses the sf package in place of rgdal)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Print data.frame</span></span></span>
 <span class="r-in"><span><span class="va">vp_df</span></span></span>
@@ -239,58 +247,84 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23       NaN   1        NaN  2326      NaN    0 -39.968536   4400      2326</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24       NaN   1        NaN  2319      NaN    0 -44.746979   4600      2319</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25       NaN   1        NaN  1991      NaN    0 -40.657249   4800      1991</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             eta   sd_vvp n_all     lat     lon height_antenna   day</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            NA       NA     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  9.360947e+02 4.349111 11472 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.214729e+03 4.015257  9936 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.009605e+03 3.286927  8026 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.802453e+02 3.546942  5282 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.260477e+02 3.821268  4078 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.525710e+02 3.926216  3304 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.177226e+02 3.797443  3180 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.175499e+02 3.670397  2962 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.913836e+02 3.618254  2284 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.319144e+02 3.535195  1034 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 7.948948e+01 3.134931   859 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 3.380873e+01 2.994742   374 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.201020e+01      NaN   125 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 8.496607e+00 4.066769    72 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 7.096342e+00      NaN    51 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 5.475014e-01      NaN     2 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 5.672123e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 4.670447e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 4.765693e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 4.313115e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.215075e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 3.500013e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 1.164730e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.986746e-02      NaN     0 56.3675 12.8517            209 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                sunrise              sunset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2015-10-18 05:50:07 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             eta   sd_vvp n_all rcs sd_vvp_threshold radar_latitude</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            NA       NA     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  9.360947e+02 4.349111 11472  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.214729e+03 4.015257  9936  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.009605e+03 3.286927  8026  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.802453e+02 3.546942  5282  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.260477e+02 3.821268  4078  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.525710e+02 3.926216  3304  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.177226e+02 3.797443  3180  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.175499e+02 3.670397  2962  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.913836e+02 3.618254  2284  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.319144e+02 3.535195  1034  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 7.948948e+01 3.134931   859  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 3.380873e+01 2.994742   374  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.201020e+01      NaN   125  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 8.496607e+00 4.066769    72  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 7.096342e+00      NaN    51  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 5.475014e-01      NaN     2  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 5.672123e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 4.670447e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 4.765693e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 4.313115e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.215075e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 3.500013e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 1.164730e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.986746e-02      NaN     0  11                2        56.3675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    radar_longitude radar_height radar_wavelength   day             sunrise</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25         12.8517          209         5.348661 FALSE 2015-10-18 05:50:07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 sunset</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2015-10-18 15:56:28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2015-10-18 15:56:28</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Convert vpts object to a data.frame</span></span></span>
 <span class="r-in"><span><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
@@ -303,18 +337,24 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  KBGM 2016-09-01 00:02:00    400  NaN  NaN   NaN  NaN  NaN   2.81  TRUE  1.54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  KBGM 2016-09-01 00:02:00    600 4.14 3.84 12.17 5.65 47.2   2.80 FALSE  3.36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  KBGM 2016-09-01 00:02:00    800 5.06 0.24 15.17 5.07 87.2   2.42 FALSE -7.89</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    eta      dens   DBZH    n n_dbz n_all n_dbz_all      lat       lon</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  NaN       NaN    NaN    0     0     0         0 42.19972 -75.98472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  NaN       NaN    NaN    0     0     0         0 42.19972 -75.98472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.8 2.8000000   3.77  326   356 22485     28416 42.19972 -75.98472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 46.9 4.2636364   0.50 9006 13442 65947    104455 42.19972 -75.98472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.5 0.3181818 -10.33 2313 11145 21321     63542 42.19972 -75.98472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   height_antenna   day             sunrise              sunset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5            519 FALSE 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    eta      dens   DBZH    n n_dbz n_all n_dbz_all rcs sd_vvp_threshold</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  NaN       NaN    NaN    0     0     0         0  11                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  NaN       NaN    NaN    0     0     0         0  11                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.8 2.8000000   3.77  326   356 22485     28416  11                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 46.9 4.2636364   0.50 9006 13442 65947    104455  11                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.5 0.3181818 -10.33 2313 11145 21321     63542  11                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   radar_latitude radar_longitude radar_height radar_wavelength   day</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       42.19972       -75.98472          519             10.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       42.19972       -75.98472          519             10.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       42.19972       -75.98472          519             10.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       42.19972       -75.98472          519             10.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       42.19972       -75.98472          519             10.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               sunrise              sunset</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2016-09-01 10:32:55 2016-09-01 23:33:48</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Do not add lat/lon/height_antenna information</span></span></span>
 <span class="r-in"><span><span class="va">vpts_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">example_vpts</span>, geo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -335,7 +375,7 @@ quantities <code>eta</code>, <code>dbz</code>, <code>ff</code>, <code>u</code>, 
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
