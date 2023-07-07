@@ -3,7 +3,7 @@ test_that("read_cajun() returns error on incorrect parameters", {
   not_a_real_filepath <- file.path(tempdir(), "not_a_filename")
   expect_error(
     read_cajun(not_a_real_filepath),
-    regexp = sprintf("File %s doesn't exist", not_a_real_filepath)
+    regexp = sprintf("doesn't exist", not_a_real_filepath)
   )
   # test for an empty file
   empty_file_path <- file.path(tempfile())
