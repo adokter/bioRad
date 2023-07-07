@@ -34,12 +34,18 @@ as.vpts <- function(data) {
     )
   }
 
-  data <- dplyr::mutate(
+    data <- dplyr::mutate(
     data,
     radar = as.factor(radar),
-    source_file = as.factor(source_file),
     datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
-  )
+    )
+
+    if("source_file" %in% colnames(data)){
+    data <- dplyr::mutate(
+        data,
+        source_file = as.factor(source_file)
+    )
+    }
 
   # Check whether time series is regular
   heights <- as.integer(unique(data[["height"]]))
