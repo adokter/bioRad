@@ -97,6 +97,9 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
   output$height <- NULL
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
+  # add essential attributes
+  output$rcs <- x$attributes$how$rcs_bird
+  output$sd_vvp_threshold <- x$attributes$how$sd_vvp_thresh
   # add location information
   if (geo) {
     output$radar_latitude <- lat
@@ -169,6 +172,9 @@ as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
   )
   # add radar name
   output <- cbind(radar = x$radar, output, stringsAsFactors = FALSE)
+  # add essential attributes
+  output$rcs <- x$attributes$how$rcs_bird
+  output$sd_vvp_threshold <- x$attributes$how$sd_vvp_thresh
   # add location information
   if (geo) {
     output$radar_latitude <- lat

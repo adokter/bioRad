@@ -79,7 +79,7 @@ as.vpts <- function(data) {
   sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
 
   # Convert dataframe
-  maskvars <- c("radar", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
+  maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
 
   data <- df_to_mat_list(data, maskvars, cached_schema)
 
