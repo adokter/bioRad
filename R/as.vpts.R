@@ -4,7 +4,9 @@
 #' @param data a dataframe created from a VPTS CSV file
 #' @returns a bioRad vpts object
 #' @examples
+#' # locate example file in VPTS CSV format:
 #' df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
+#' # convert the data.frame to a vpts object:
 #' as.vpts(df)
 #' @export
 as.vpts <- function(data) {

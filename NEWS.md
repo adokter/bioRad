@@ -1,9 +1,3 @@
-<!--
-
-* `bind_into_vpts()` now works for vp's and vpts's with different heights (#343).
-
--->
-
 # bioRad 0.7.0
 
 bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package [vol2birdR](https://cran.r-project.org/package=vol2birdR) package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.
@@ -16,21 +10,21 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * Faster implementations of functions previously dependent on Docker, such as `calculate_vp()`, `apply_mistnet()` and `read_pvolfile()`.
 
-* Faster parallel mistnet runs (https://github.com/adokter/vol2birdR/issues/16).
+* Support for reading [VPTS CSV](https://aloftdata.eu/vpts-csv/) format through updated function `read_vpts()`. VPTS CSV table schema included to allow offline parsing of VPTS CSV files as a [frictionless](https://CRAN.R-project.org/package=frictionless) data package (#551, #590)
+
+* Updated function `read_vpts()` supports reading `vp`/`vpts` data in ODIM HDF, [VPTS CSV](https://aloftdata.eu/vpts-csv/) format (#551, #590)
 
 * New function `list_vpts_aloft()` produces a list of [aloft](https://aloftdata.eu/browse/) archive URLs for time series of vertical profiles (`vpts`). This list of URLs can then be used to bulk download data using any number of external tools (#553).
 
-* Updated function `read_vpts()` supports reading `vp`/`vpts` data in hdf5 and [VPTS CSV](https://aloftdata.eu/vpts-csv/) format.
+* New function `read_stdout()` replaces previous functionality of `read_vpts()` to read vol2bird stdout format. It also has a new `sep` argument (#536) to support both fixed-delimited and comma-separated stdout data.
 
-* New function `read_stdout()` replaces previous functionality of `read_vpts()` to read vol2bird stdout format. It also has a new `sep` argument (#536).
+* New function `as.vpts` converts a data.frame originating from a VPTS CSV file into a vpts object (#555). Inverse operation of as.data.frame.vpts
 
-* New function `as.vpts` converts a dataframe originating from a VPTS CSV file into a vpts object
+* `read_pvolfiles()` now allows ODIM H5 files with missing `source` attribute. The functionality is similar to `read_vpfiles()`, i.e. extracting the NOD, RAD or WMO identifier, otherwise using `unknown` (2f6935c).
 
-* Standardized VPTS data exchange format as included in package as a json file which allows for offline functionality of `frictionless`
+* `bind_into_vpts()` now works for vp and vpts objects with different heights (#343)
 
-* `read_pvolfiles()` now allows ODIM_H5 files with missing `source` attribute. The functionality is similar to `read_vpfiles()`, i.e. using the NOD identifier in the source attribute, if missing try RAD, if also missing try WMO, if nothing found use `unknown` (2f6935c).
-
-* `bind_into_vpts()` now works for vp and vpts objects with different heights
+* Faster parallel mistnet runs (https://github.com/adokter/vol2birdR/issues/16).
 
 ## Bugfixes
 
@@ -44,7 +38,7 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * Function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`.
 
-* Dependencies `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evoltion of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
+* Dependency `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evoltion of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
 
 # bioRad 0.6.1
 
