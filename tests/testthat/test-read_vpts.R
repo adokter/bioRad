@@ -164,7 +164,7 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
 
   expect_error(
     read_vpts(gz_files),
-    "`files` must contain data of a single radar."
+    "`data` must contain data of a single radar."
   )
 })
 
