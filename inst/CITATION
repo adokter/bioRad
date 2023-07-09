@@ -1,6 +1,6 @@
 citHeader("To cite bioRad in publications, please use:")
 
-citEntry(entry = "article",
+bibentry(bibtype  = "Article",
   title = "bioRad: biological analysis and visualization of weather radar data",
   author = c(person(c("Adriaan", "M."), "Dokter"), person("Peter", "Desmet"), person(c("Jurriaan","H."), "Spaaks"), person("Stijn", "Van Hoey"), person("Lourens", "Veen"), person("Liesbeth", "Verlinden"), person("Cecilia","Nilsson"), person("Günther","Haase"), person("Hidde","Leijnse"), person("Andrew","Farnsworth"), person("Willem","Bouten"), person("Judy","Shamoun-Baranes")),
   journal="Ecography",
