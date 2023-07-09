@@ -112,12 +112,12 @@ This function is a prototype and under active development
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 
-# Calculate a ppi for each elevation scan
-ppis <- lapply(pvol$scans, project_as_ppi)
+# Calculate a ppi for each elevation scan, 1000m grid resolution
+ppis <- lapply(pvol$scans, project_as_ppi, grid_size=1000)
 
 # Overlay the ppis, calculating the maximum value observed
 # across the available scans at each geographic location
-composite <- composite_ppi(ppis, method = "max")
+composite <- composite_ppi(ppis, method = "max", res=1000)
 \dontrun{
 # Download basemap
 bm <- download_basemap(composite)
