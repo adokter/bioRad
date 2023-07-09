@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.0.9603",
+  "version": "0.7.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -494,7 +494,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4888.805KB",
+  "fileSize": "4887.261KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
