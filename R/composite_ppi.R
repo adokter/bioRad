@@ -63,6 +63,7 @@
 #'
 #' @examples
 #' # Locate and read the polar volume example file
+#' \dontrun{
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
 #'
@@ -72,7 +73,7 @@
 #' # Overlay the ppis, calculating the maximum value observed
 #' # across the available scans at each geographic location
 #' composite <- composite_ppi(ppis, method = "max", res=1000)
-#' \dontrun{
+#'
 #' # Download basemap
 #' bm <- download_basemap(composite)
 #'

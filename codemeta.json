@@ -494,7 +494,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4887.261KB",
+  "fileSize": "4880.256KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -576,9 +576,5 @@
         }
       }
     }
-  ],
-  "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
-  "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
-  "contIntegration": ["https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/adokter/bioRad"],
-  "keywords": ["r", "package", "radar", "aeroecology", "movement-ecology", "enram", "nexrad", "eumetnet-opera", "lifewatch", "wsr-88d", "weather-radar", "oscibio"]
+  ]
 }
