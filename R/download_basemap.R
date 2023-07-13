@@ -20,7 +20,7 @@
 #' @param ... Arguments to pass to [ggmap::get_map()].
 #'
 #' @export
-#'
+#' @returns A ggmap object for `map(ppi)`
 #' @seealso
 #' * [map.ppi()]
 #'

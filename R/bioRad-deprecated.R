@@ -20,7 +20,6 @@ check_docker <- function(...) {
 
 #' @section update_docker:
 #' This function has been deprecated
-#'
 #' @rdname bioRad-deprecated
 #' @export
 update_docker <- function(...) {

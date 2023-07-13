@@ -11,7 +11,7 @@
 #' @param re Numeric. Earth equatorial radius, in km.
 #' @param rp Numeric. Earth polar radius, in km.
 #'
-#' @return numeric. Beam height in m.
+#' @returns numeric. Beam height in m.
 #'
 #' @export
 #'

@@ -16,7 +16,9 @@
 #' @param bucket character. Bucket name to use.
 #'
 #' @export
-#'
+#' @return `NULL`. The function's primary effect is to download selected polar volume 
+#' files from the NEXRAD Level II archive to a specified local directory, and to provide 
+#' a message and a progress bar in the console indicating the download status.
 #' @examples
 #' \dontrun{
 #' # create temporary directory
