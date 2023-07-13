@@ -66,7 +66,7 @@ uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan 
 the same raster pixel, the last added pixel is given (see \link[raster:rasterize]{rasterize} for details).
 }
 \examples{
-\dontrun{
+\donttest{
 # default projects full extent on 100x100 pixel raster:
 scan_to_raster(example_scan)
 

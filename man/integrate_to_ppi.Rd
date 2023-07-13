@@ -154,7 +154,7 @@ Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
 }
 }
 \examples{
-\dontrun{
+\donttest{
 # Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 

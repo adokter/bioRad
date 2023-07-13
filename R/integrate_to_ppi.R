@@ -94,7 +94,7 @@
 #' \doi{https://doi.org/10.1109/TGRS.2009.2014463}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'

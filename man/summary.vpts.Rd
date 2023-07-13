@@ -25,6 +25,8 @@ is.vpts(x)
 
 \item{x}{A \code{vpts} object.}
 
+\item{digits}{The number of significant digits to use when printing. Defaults to \code{max(3L, getOption("digits") - 3L)}.}
+
 \item{i}{Integer. Index/indices specifying which range of vertical profiles
 to extract.}
 }

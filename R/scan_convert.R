@@ -77,7 +77,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # default projects full extent on 100x100 pixel raster:
 #' scan_to_raster(example_scan)
 #'
