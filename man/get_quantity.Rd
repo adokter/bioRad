@@ -46,6 +46,8 @@ attributes.
 }}
 }
 \value{
+the value of a specific profile quantity specified in \code{quantity}.
+
 For a \code{vp} object: a named (height bin) vector with values for the
 selected quantity.
 

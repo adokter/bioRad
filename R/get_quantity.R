@@ -31,8 +31,7 @@
 #'   estimate (quantity `DBZH`).
 #' * `attributes`: List of the vertical profile's `what`, `where` and `how`
 #' attributes.
-#'
-#' @export
+#' @returns the value of a specific profile quantity specified in `quantity`.
 #'
 #' @seealso
 #' * [summary.vp()]
@@ -46,6 +45,7 @@
 #' # Extract the horizontal ground speed (ff) quantity from a vpts object and show the
 #' # first two datetimes
 #' get_quantity(example_vpts, "ff")[,1:2]
+#' @export
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)
 }
