@@ -109,7 +109,7 @@ This function is a prototype and under active development
 }
 \examples{
 # Locate and read the polar volume example file
-\dontrun{
+\donttest{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 

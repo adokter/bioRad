@@ -46,7 +46,7 @@ with Google, enable billing and provide an API key to ggmap. See the \href{https
 \examples{
 # Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
-\dontrun{
+\donttest{
 # Create a basemap that matches the extent of the ppi
 basemap <- download_basemap(ppi)
 
