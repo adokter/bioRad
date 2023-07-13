@@ -10,6 +10,9 @@ An object of class \code{vp} with 25 rows and 16 columns.
 \usage{
 example_vp
 }
+\value{
+An example object of type 'vp' which represents a vertical profile.
+}
 \description{
 Example of a \code{\link[=summary.vp]{vp}} object with name \code{example_vp}.
 }

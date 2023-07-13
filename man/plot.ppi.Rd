@@ -33,6 +33,9 @@ to parameter specific limits for plotting, not full range of data.}
 
 \item{...}{Arguments passed to low level \link[ggplot2:ggplot]{ggplot} function.}
 }
+\value{
+No return value, side effect is a plot.
+}
 \description{
 Plot a plan position indicator (PPI) generated with \code{project_to_ppi}
 using \link[ggplot2:ggplot]{ggplot}

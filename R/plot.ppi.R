@@ -12,7 +12,7 @@
 #' to parameter specific limits for plotting, not full range of data.
 #' @param na.value [ggplot][ggplot2::ggplot] argument setting the plot color of NA values
 #' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
-#'
+#' @returns No return value, side effect is a plot.
 #' @method plot ppi
 #'
 #' @export

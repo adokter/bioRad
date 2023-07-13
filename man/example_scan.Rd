@@ -10,6 +10,9 @@ An object of class \code{scan} of dimension 5 x 480 x 360.
 \usage{
 example_scan
 }
+\value{
+An example object of type 'scan' which represents a single scan from a weather radar.
+}
 \description{
 Example of a \code{\link[=summary.scan]{scan}} object with name \code{example_scan}.
 }

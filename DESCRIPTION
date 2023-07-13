@@ -41,6 +41,7 @@ Imports:
     methods,
     raster,
     readr,
+    rhdf5,
     dplyr (>= 1.1.0),
     sp,
     stats,
@@ -50,8 +51,6 @@ Imports:
     viridis,
     rlang,
     jsonlite
-Remotes:
-    bioc::rhdf5
 Suggests:
     vol2birdR,
     aws.s3,
