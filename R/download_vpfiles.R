@@ -25,7 +25,7 @@
 #' # Download (and overwrite) data from radars "bejab" and "bewid".
 #' # Will successfully download 2016-10 files, but show 404 error for
 #' # 2016-11 files, since these are not available.
-#' \dontrun{
+#' \donttest{
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 #' dir.create(temp_dir)
 #' download_vpfiles(

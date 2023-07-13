@@ -20,7 +20,7 @@
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide 
 #' a message and a progress bar in the console indicating the download status.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # create temporary directory
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 #' dir.create(temp_dir)
