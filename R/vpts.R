@@ -51,7 +51,7 @@
 #' * [plot.vp()]
 #' * [as.data.frame.vpts()]
 #' * \code{\link[=[.vpts]{[vpts()}}
-#'
+#' @returns For [summary.vpts()]: prints the summary of the`vpts` object.
 #' @examples
 #' # Check if an object is of class vpts
 #' is.vpts(example_vpts)
@@ -66,9 +66,8 @@ summary.vpts <- function(object, ...) {
 }
 
 #' Print summary for an object of class `vpts`
-#'
-#' @noRd
-#'
+#' @rdname summary.vpts
+#' @returns For [print.vpts()]: prints the summary of the `vpts` object.
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
@@ -148,11 +147,10 @@ dim.vpts <- function(x) {
 #' @param i Integer. Index/indices specifying which range of vertical profiles
 #'   to extract.
 #'
-#' @return A `vpts` object containing a subset of vertical profiles (`vp`) or a
+#' @return For `[.vpts`: A `vpts` object containing a subset of vertical profiles (`vp`) or a
 #'   `vp` object when subsetting a single vertical profile (`vp`).
 #'
-#' @export
-#'
+#' @rdname summary.vpts
 #' @examples
 #' # The example vpts contains 1934 profiles (i.e. datetimes)
 #' dim(example_vpts)
@@ -165,6 +163,7 @@ dim.vpts <- function(x) {
 #'
 #' # Subset vpts to remove the first 10 profiles
 #' example_vpts[-1:-10] # A vpts object with 10 less profiles
+#' @export
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
 
