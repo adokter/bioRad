@@ -17,6 +17,8 @@ is.vpi(x)
 \item{x}{A \code{vpi} object.}
 }
 \value{
+For \code{\link[=summary.vpi]{summary.vpi()}}: prints summary of the \code{vpi} object.
+
 For \code{\link[=is.vpi]{is.vpi()}}: \code{TRUE} for an object of class \code{vpi}, otherwise
 \code{FALSE}.
 }
