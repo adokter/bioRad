@@ -37,9 +37,6 @@ these are stored as monthly zips per radar.
 # Download (and overwrite) data from radars "bejab" and "bewid".
 # Will successfully download 2016-10 files, but show 404 error for
 # 2016-11 files, since these are not available.
-\dontrun{
-temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
-dir.create(temp_dir)
 download_vpfiles(
   date_min = "2016-10-01",
   date_max = "2016-11-30",
@@ -47,9 +44,6 @@ download_vpfiles(
   directory = temp_dir,
   overwrite = TRUE
 )
-# Clean up
-unlink(temp_dir, recursive = TRUE)
-}
 }
 \seealso{
 \itemize{
