@@ -1,6 +1,6 @@
 ## bioRad 0.7.1 
 
-Addresses all CRAN instructions from the recent 0.7.0 submission:
+Addresses all CRAN instructions from the recent 0.7.1 submission:
 
 1. Updated the DESCRIPTION file with references in the suggested format.
 2. Replaced 'T' and 'F' with 'TRUE' and 'FALSE'.
