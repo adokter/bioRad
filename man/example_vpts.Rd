@@ -11,7 +11,7 @@ An object of class \code{vpts} of dimension 1934 x 25 x 15.
 example_vpts
 }
 \value{
-An example object of type 'vpts' which represents a time series of vertical profiles.
+An example object of type `vpts`` which represents a time series of vertical profiles.
 }
 \description{
 Example of a \code{\link[=summary.vpts]{vpts}} object with name \code{example_vpts}.

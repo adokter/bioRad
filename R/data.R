@@ -3,7 +3,7 @@
 #' Example of a [`scan`][summary.scan()] object with name `example_scan`.
 #'
 #' @rdname example_scan
-#' @return An example object of type 'scan' which represents a single scan from a weather radar.
+#' @return An example object of type `scan`` which represents a single scan from a weather radar.
 #' @seealso
 #' * [summary.scan()]
 #'
@@ -20,7 +20,7 @@
 #' Example of a [`vp`][summary.vp()] object with name `example_vp`.
 #'
 #' @rdname example_vp   
-#' @return An example object of type 'vp' which represents a vertical profile.
+#' @return An example object of type `vp`` which represents a vertical profile.
 #' @seealso
 #' * [summary.vp()]
 #'
@@ -37,7 +37,7 @@
 #' Example of a [`vpts`][summary.vpts()] object with name `example_vpts`.
 #'
 #' @rdname example_vpts
-#' @return An example object of type 'vpts' which represents a time series of vertical profiles.
+#' @return An example object of type `vpts`` which represents a time series of vertical profiles.
 #' @seealso
 #' * [summary.vpts()]
 #'
