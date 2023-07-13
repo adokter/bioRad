@@ -21,18 +21,13 @@
 #' a message and a progress bar in the console indicating the download status.
 #' @examples
 #' \donttest{
-#' # create temporary directory
-#' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
-#' dir.create(temp_dir)
 #' download_pvolfiles(
 #'   date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
 #'   date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
 #'   radar = "KBBX",
-#'   directory = temp_dir,
+#'   directory = tempdir(),
 #'   overwrite = TRUE
 #' )
-#' # Clean up
-#' unlink(temp_dir, recursive = TRUE)
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
