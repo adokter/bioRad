@@ -22,7 +22,7 @@ library(bioRad)
 
 # Getting started
 
-Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
+Execute each of the code examples provided below in [RStudio](https://posit.co/), and try to complete the exercises.
 
 ```{r, eval=SHOW_ANSWERS}
 # make sure you start with a fresh R session
