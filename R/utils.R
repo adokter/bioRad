@@ -17,7 +17,7 @@ is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 #' Some functions require MistNet to be enabled in package vol2birdR.
 #' This helper function allows to skip a test if MistNet is not available, e.g. when running in CI.
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
-#'
+#' @return Invisibly returns TRUE if MistNet is available, otherwise skips the test with a message "No MistNet".
 #' @keywords internal
 skip_if_no_mistnet <- function() {
   if (rlang::is_installed("vol2birdR")) {
