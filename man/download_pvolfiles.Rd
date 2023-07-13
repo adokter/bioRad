@@ -40,11 +40,16 @@ Download a selection of polar volume (\code{pvol}) files from the
 \href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data}.
 }
 \examples{
+# create temporary directory
+temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
+dir.create(temp_dir)
 download_pvolfiles(
   date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
   date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
   radar = "KBBX",
-  directory = tempdir(),
+  directory = temp_dir,
   overwrite = TRUE
 )
+# Clean up
+unlink(temp_dir, recursive = TRUE)
 }

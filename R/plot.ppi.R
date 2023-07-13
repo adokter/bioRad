@@ -33,6 +33,7 @@
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #'
 #' @examples
+#' \donttest{
 #' # load an example scan:
 #' data(example_scan)
 #'
@@ -53,6 +54,7 @@
 #'
 #' # change the scale name and colour scheme, using viridis colors:
 #' plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
+#' }
 plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
                      ratio = 1, na.value = "transparent", ...) {
   stopifnot(inherits(x, "ppi"))

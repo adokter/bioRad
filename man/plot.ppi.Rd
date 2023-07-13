@@ -55,6 +55,7 @@ model (ODIM), see Table 16 in the
 }
 }
 \examples{
+\donttest{
 # load an example scan:
 data(example_scan)
 
@@ -75,4 +76,5 @@ plot(ppi, param = "DBZH", zlim = c(-10, 10))
 
 # change the scale name and colour scheme, using viridis colors:
 plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
+}
 }

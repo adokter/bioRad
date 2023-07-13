@@ -29,6 +29,7 @@ console.}
 Convert a NEXRAD polar volume file to an ODIM polar volume file
 }
 \examples{
+\donttest{
 # download a NEXRAD file, save as KBGM_example
 path = file.path(tempdir(), "KBGM_example")
 
@@ -48,4 +49,5 @@ get_odim_object_type(new_path)
 
 # clean up
 file.remove(path, new_path)
+}
 }

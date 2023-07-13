@@ -18,6 +18,7 @@
 #'
 #' @export
 #' @examples
+#' \donttest{
 #' # download a NEXRAD file, save as KBGM_example
 #' path = file.path(tempdir(), "KBGM_example")
 #' 
@@ -37,6 +38,7 @@
 #'
 #' # clean up
 #' file.remove(path, new_path)
+#' }
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE) {
   assertthat::assert_that(dir.exists(dirname(pvolfile_odim)),msg=paste("output directory", dirname(pvolfile_odim), "not found"))
   assertthat::assert_that(assertthat::is.writeable(dirname(pvolfile_odim)))
