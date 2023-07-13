@@ -19,12 +19,6 @@ data(example_scan)
 
 # Get summary info
 example_scan
-
-## example_scan was created with:
-# pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-# pvol <- read_pvolfile(pvolfile)
-# example_scan <- pvol$scans[[1]]
-# save(example_scan, file = "data/example_scan.rda")
 }
 \seealso{
 \itemize{
