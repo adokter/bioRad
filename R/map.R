@@ -22,7 +22,7 @@
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
 #' @param ... Arguments passed to [ggmap::ggmap()].
-#' @importFrom sf as
+#' @importFrom methods as
 #' @return A ggmap object (a classed raster object with a bounding
 #' box attribute).
 #'
