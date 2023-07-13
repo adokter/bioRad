@@ -54,7 +54,7 @@
 #'
 #' # change the scale name and colour scheme, using viridis colors:
 #' plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
-#' }
+#'}
 plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
                      ratio = 1, na.value = "transparent", ...) {
   stopifnot(inherits(x, "ppi"))
