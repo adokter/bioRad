@@ -30,7 +30,7 @@
 #'   overwrite = TRUE
 #' )
 #' # Clean up
-#' unlink(temp_dir, recursive = T)
+#' unlink(temp_dir, recursive = TRUE)
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,

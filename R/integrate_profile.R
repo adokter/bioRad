@@ -421,7 +421,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   if(is.na(height_quantile)){
     # default (no height_quantile specified) is calculating the mean altitude
-    height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = T)
+    height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = TRUE)
   }
   else{
     # calculate a quantile of the flight altitude distribution
@@ -443,11 +443,11 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   }
 
   height[no_bird] <- NA
-  u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = T)
+  u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = TRUE)
   u[no_bird] <- NA
-  v <- colSums( get_quantity(x, "v") * weight_densdh, na.rm = T)
+  v <- colSums( get_quantity(x, "v") * weight_densdh, na.rm = TRUE)
   v[no_bird] <- NA
-  ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = T)
+  ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = TRUE)
   ff[no_bird] <- NA
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   dd[which(dd<0)]=dd[which(dd<0)]+360

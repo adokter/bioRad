@@ -36,7 +36,7 @@
 #'   overwrite = TRUE
 #' )
 #' # Clean up
-#' unlink(temp_dir, recursive = T)
+#' unlink(temp_dir, recursive = TRUE)
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {

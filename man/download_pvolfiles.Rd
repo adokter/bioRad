@@ -47,6 +47,6 @@ download_pvolfiles(
   overwrite = TRUE
 )
 # Clean up
-unlink(temp_dir, recursive = T)
+unlink(temp_dir, recursive = TRUE)
 }
 }

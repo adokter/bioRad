@@ -154,6 +154,7 @@ Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
 }
 }
 \examples{
+\dontrun{
 # Locate and read the polar volume example file
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 
@@ -170,7 +171,6 @@ ppi <- integrate_to_ppi(pvol, example_vp, nx = 50, ny = 50)
 # 0-2000 cm^2/km^2 color scale
 plot(ppi, zlim = c(0, 2000))
 
-\dontrun{
 # Calculate the range-corrected ppi on finer 2000m x 2000m pixel raster
 ppi <- integrate_to_ppi(pvol, example_vp, res = 2000)
 

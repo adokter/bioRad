@@ -274,9 +274,9 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
   }
   # normalize the vertical profile density
   step <- (zlim[2] - zlim[1]) / (steps - 1)
-  beamprof$vpr <- beamprof$vpr / sum(step * beamprof$vpr, na.rm = T)
+  beamprof$vpr <- beamprof$vpr / sum(step * beamprof$vpr, na.rm = TRUE)
   # calculate the Bhattacharyya coefficient of the density profile and radiation coverage pattern
-  sum(step * sqrt(beamprof$radiation * beamprof$vpr), na.rm = T)
+  sum(step * sqrt(beamprof$radiation * beamprof$vpr), na.rm = TRUE)
 }
 
 #' Calculate overlap between a vertical profile ('vp') and the vertical
@@ -371,7 +371,7 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' plot(bpo)
 beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
                                  noise_floor = -Inf, noise_floor_ref_range = 1,
-                                 steps = 500, quantity = "dens", normalize = T,
+                                 steps = 500, quantity = "dens", normalize = TRUE,
                                  beam_angle = 1, k = 4 / 3, lat, re = 6378,
                                  rp = 6357) {
   # min_detectable_eta <- dbz_to_eta(NEZH,vp$attributes$how$wavelength)*(range/1000)^2

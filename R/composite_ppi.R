@@ -251,7 +251,7 @@ composite_ppi <-
           )
       brick_weights <- brick_data
 
-      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), sp::coordinates(raster::raster(spGrid)),lonlat=T)
+      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), sp::coordinates(raster::raster(spGrid)),lonlat=TRUE)
       for(i in 1:length(merged)){
         brick_data <- raster::setValues(brick_data, merged[[i]], layer=i)
         latlon.radar <- unique(data.frame(lat = c(lats.radar), lon = c(lons.radar)))
