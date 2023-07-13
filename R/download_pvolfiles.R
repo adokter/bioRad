@@ -20,7 +20,6 @@
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide 
 #' a message and a progress bar in the console indicating the download status.
 #' @examples
-#' \donttest{
 #' download_pvolfiles(
 #'   date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
 #'   date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
@@ -28,7 +27,6 @@
 #'   directory = tempdir(),
 #'   overwrite = TRUE
 #' )
-#' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
                                bucket = "noaa-nexrad-level2") {
