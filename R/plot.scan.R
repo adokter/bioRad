@@ -14,7 +14,7 @@
 #' @param na.value Character. [ggplot2::ggplot()] parameter to set the color of
 #'   `NA` values.
 #' @param ... Arguments passed to [ggplot2::ggplot()].
-#'
+#' @returns No return value, side effect is a plot.
 #' @method plot scan
 #'
 #' @export

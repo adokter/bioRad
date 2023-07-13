@@ -44,6 +44,9 @@ respectively.
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics:plot.default]{plot} plotting function.}
 }
+\value{
+No return value, side effect is a plot.
+}
 \description{
 Plot a vertical profile (\code{vp})
 }

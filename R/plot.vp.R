@@ -16,7 +16,7 @@
 #' [plot][graphics::plot] plotting function.
 #' @param line.col Deprecated argument, use line_col instead.
 #' @param line.lwd Deprecated argument, use line_lwd instead.
-#'
+#' @returns No return value, side effect is a plot.
 #' @method plot vp
 #'
 #' @export

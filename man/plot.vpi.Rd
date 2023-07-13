@@ -61,6 +61,9 @@ attribute of \code{x}.}
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics:plot.default]{plot} plotting function.}
 }
+\value{
+No return value, side effect is a plot.
+}
 \description{
 Plot an object of class \code{vpi}.
 }

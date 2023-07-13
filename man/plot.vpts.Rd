@@ -80,6 +80,9 @@ the plot color scale, e.g. output from \link[viridisLite:viridis]{viridis}}
 \item{...}{Additional arguments to be passed to the low level
 \link[graphics:image]{image} plotting function.}
 }
+\value{
+No return value, side effect is a plot.
+}
 \description{
 Plot a time series of vertical profiles  of class \code{vpts}.
 }
