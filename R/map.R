@@ -113,8 +113,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
   if (!attributes(map)$ppi) {
     stop("Not a ppi map, use download_basemap() to download a map.")
   }
-  if (attributes(map)$geo$lat != x$geo$lat ||
-    attributes(map)$geo$lon != x$geo$lon) {
+  if (all(attributes(map)$geo$lat != x$geo$lat) ||
+    all(attributes(map)$geo$lon != x$geo$lon)) {
     stop("Not a basemap for this radar location.")
   }
 
