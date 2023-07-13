@@ -20,6 +20,8 @@ is.scan(x)
 \item{x}{A \code{scan} object.}
 }
 \value{
+For \code{\link[=summary.scan]{summary.scan()}}: prints a summary of the \code{scan} object
+
 For \code{\link[=is.scan]{is.scan()}}: \code{TRUE} for an object of class \code{scan}, otherwise
 \code{FALSE}.
 

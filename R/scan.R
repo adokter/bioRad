@@ -36,6 +36,7 @@
 #' * [plot.scan()]
 #' * [get_param()]
 #'
+#' @return For [summary.scan()]: prints a summary of the `scan` object
 #' @examples
 #' # Check if an object is of class scan
 #' is.scan(example_scan)
