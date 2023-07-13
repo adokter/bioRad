@@ -31,7 +31,7 @@
 #'   date_min = "2016-10-01",
 #'   date_max = "2016-11-30",
 #'   radars = c("bejab", "bewid"),
-#'   directory = temp_dir,
+#'   directory = tempdir(),
 #'   overwrite = TRUE
 #' )
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",

@@ -28,6 +28,11 @@ downloaded and unzipped.}
 \item{overwrite}{Logical. When \code{TRUE}, re-download and overwrite previously
 downloaded files of the same names.}
 }
+\value{
+\code{NULL}. The function's primary effect is to download selected vertical profiles
+files from ENRAM data repository to a specified local directory, and to provide
+a message and a progress bar in the console indicating the download status.
+}
 \description{
 Download and unzip a selection of vertical profile (\code{vp}) files from the
 \href{https://aloftdata.eu/}{ENRAM data repository}, where
