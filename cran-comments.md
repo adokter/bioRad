@@ -8,4 +8,6 @@ Addresses all CRAN instructions from the recent 0.7.1 submission:
 4. Removed all commented code lines in examples. Replaced \dontrun{} with \donttest{} for examples that take more than 5 seconds to execute and kept \dontrun{} where an external model is required 
 5. Adjusted functions to avoid writing in the user's home filespace. All examples, vignettes, and tests now write to tempdir() by default.
 
- The deprecation of spatial packages `rgdal` and `maptools`, and the evolution of `sp` led to the archiving of bioRad on 07.07.2023.  All issues arising from spatial packages have been fixed.
+The deprecation of spatial packages `rgdal` and `maptools`, and the evolution of `sp` led to the archiving of bioRad on 07.07.2023.  All issues arising from spatial packages have been fixed.
+
+This package will be used extensively in a summer training school next week (Jul 16 - Jul 21), we would greatly appreciate it being restored on CRAN before that time.
