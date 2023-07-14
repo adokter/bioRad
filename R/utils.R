@@ -298,8 +298,8 @@ df_to_mat_list <- function(data, maskvars, schema) {
 
   tbls_lst <- data %>%
     dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
-    dplyr::mutate(DBZH = ifelse("dbz_all" %in% colnames(.), dbz_all, DBZH),
-                 dbz_all = ifelse("DBZH" %in% colnames(.), DBZH, dbz_all)) %>%
+    dplyr::mutate(DBZH = ifelse("dbz_all" %in% colnames(data), dbz_all, DBZH),
+                 dbz_all = ifelse("DBZH" %in% colnames(data), DBZH, dbz_all)) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
