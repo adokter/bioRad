@@ -290,7 +290,11 @@ tibble_to_mat <- function(tibble) {
 #' @noRd
 df_to_mat_list <- function(data, maskvars, schema) {
   datetime <- height <- variable <- fields <- NULL
-  radvars <- extract_names(schema$fields)
+  radvars <- extract_names(schema$fields) #allow DBZH as alternative to dbz_all
+  alt_radvar <- "DBZH"
+  insert_index <- which(radvars == "dbz_all") + 1
+  radvars <- append(radvars, alt_radvar, after = insert_index)
+
   radvars <- radvars[!radvars %in% maskvars]
 
   tbls_lst <- data %>%
@@ -303,7 +307,10 @@ df_to_mat_list <- function(data, maskvars, schema) {
   var_names <- sapply(unnamed_mat_list, function(x) x$variable)
   named_mat_list <- lapply(unnamed_mat_list, `[[`, "matrix")
   names(named_mat_list) <- var_names
-  ordered_mat_list <- named_mat_list[radvars]
 
+  subset_indices <- match(var_names, radvars)
+  ordered_subset <- var_names[order(subset_indices)]
+
+  ordered_mat_list <- named_mat_list[ordered_subset]
   return(ordered_mat_list)
 }
