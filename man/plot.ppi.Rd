@@ -33,6 +33,9 @@ to parameter specific limits for plotting, not full range of data.}
 
 \item{...}{Arguments passed to low level \link[ggplot2:ggplot]{ggplot} function.}
 }
+\value{
+No return value, side effect is a plot.
+}
 \description{
 Plot a plan position indicator (PPI) generated with \code{project_to_ppi}
 using \link[ggplot2:ggplot]{ggplot}
@@ -55,6 +58,7 @@ model (ODIM), see Table 16 in the
 }
 }
 \examples{
+\donttest{
 # load an example scan:
 data(example_scan)
 
@@ -75,4 +79,5 @@ plot(ppi, param = "DBZH", zlim = c(-10, 10))
 
 # change the scale name and colour scheme, using viridis colors:
 plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
+}
 }

@@ -53,6 +53,9 @@ datetime.}
 
 \item{lat}{Numeric. Latitude in decimal degrees.}
 }
+\value{
+integer representing the ordinal day of year or night of year.
+}
 \description{
 Returns the day of year (\code{doy}) or night of year (\code{noy}) number for datetimes
 and various bioRad objects. The first night of the year is the night with

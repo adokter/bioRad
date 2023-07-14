@@ -10,6 +10,9 @@ An object of class \code{vpts} of dimension 1934 x 25 x 15.
 \usage{
 example_vpts
 }
+\value{
+An example object of type \code{vpts} which represents a time series of vertical profiles.
+}
 \description{
 Example of a \code{\link[=summary.vpts]{vpts}} object with name \code{example_vpts}.
 }
@@ -19,17 +22,6 @@ data(example_vpts)
 
 # Get summary info
 example_vpts
-
-## example_vpts was created with
-# vptsfile <- system.file("extdata", "vpts.txt.zip", package = "bioRad")
-# utils::unzip(vptsfile, exdir = (dirname(vptsfile)), junkpaths = TRUE)
-# vptsfile <- substr(vptsfile, 1, nchar(vptsfile) - 4)
-# example_vpts <- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")
-# rcs(example_vpts) <- 11
-# sd_vvp_threshold(example_vpts) <- 2
-# example_vpts$attributes$where$lat <- 42.2
-# example_vpts$attributes$where$lon <- -75.98
-# save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
 }
 \seealso{
 \itemize{

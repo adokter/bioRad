@@ -20,6 +20,8 @@ is.vp(x)
 \item{x}{A \code{vp} object.}
 }
 \value{
+For \code{\link[=summary.vp]{summary.vp()}}: prints summary of the \code{vp} object.
+
 For \code{\link[=is.vp]{is.vp()}}: \code{TRUE} for an object of class \code{vp}, otherwise
 \code{FALSE}.
 

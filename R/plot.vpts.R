@@ -32,7 +32,8 @@
 #' @param barbs.t Deprecated argument, use barbs_time instead.
 #' @param barbs.dens Deprecated argument, use barbs_dens_min instead.
 #' @param legend.ticks Deprecated argument, use legend_ticks instead.
-#'
+#' @returns No return value, side effect is a plot.
+#' 
 #' @method plot vpts
 #'
 #' @export

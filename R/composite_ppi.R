@@ -63,6 +63,7 @@
 #'
 #' @examples
 #' # Locate and read the polar volume example file
+#' \donttest{
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #' pvol <- read_pvolfile(pvolfile)
 #'
@@ -72,7 +73,7 @@
 #' # Overlay the ppis, calculating the maximum value observed
 #' # across the available scans at each geographic location
 #' composite <- composite_ppi(ppis, method = "max", res=1000)
-#' \dontrun{
+#'
 #' # Download basemap
 #' bm <- download_basemap(composite)
 #'
@@ -250,7 +251,7 @@ composite_ppi <-
           )
       brick_weights <- brick_data
 
-      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), sp::coordinates(raster::raster(spGrid)),lonlat=T)
+      #weights<-raster::pointDistance(as.matrix(data.frame(x=lons.radar,y=lats.radar)), sp::coordinates(raster::raster(spGrid)),lonlat=TRUE)
       for(i in 1:length(merged)){
         brick_data <- raster::setValues(brick_data, merged[[i]], layer=i)
         latlon.radar <- unique(data.frame(lat = c(lats.radar), lon = c(lons.radar)))

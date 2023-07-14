@@ -1,3 +1,7 @@
+# bioRad 0.7.1
+
+Rebuilds documentation with examples formatted as per CRAN requirements.
+
 # bioRad 0.7.0
 
 bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package [vol2birdR](https://cran.r-project.org/package=vol2birdR) package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.
@@ -38,7 +42,7 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * Function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`.
 
-* Dependency `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evoltion of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
+* Dependency `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evolution of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
 
 * Function `as.data.frame.vpts()` has output column names `lat`, `lon`, `antenna_height` renamed to `radar_latitude`, `radar_longitude`, `radar_height` for compatibility with the [VPTS CSV](https://aloftdata.eu/vpts-csv/) data format. The function also outputs an additional column `radar_wavelength` (#609)
 

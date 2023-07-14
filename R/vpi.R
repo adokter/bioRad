@@ -30,7 +30,7 @@
 #' * `u`: Ground speed component west to east in m/s.
 #' * `v`: Ground speed component south to north in m/s.
 #' * `height`: Mean flight height (height weighted by eta) in m above sea level.
-#'
+#' @return For [summary.vpi()]: prints summary of the `vpi` object.
 #' @seealso
 #' * [integrate_profile()]
 #' * [plot.vpi()]

@@ -15,7 +15,7 @@ beam_profile_overlap(
   noise_floor_ref_range = 1,
   steps = 500,
   quantity = "dens",
-  normalize = T,
+  normalize = TRUE,
   beam_angle = 1,
   k = 4/3,
   lat,

@@ -22,7 +22,7 @@
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
 #' @param ... Arguments passed to [ggmap::ggmap()].
-#'
+#' @importFrom methods as
 #' @return A ggmap object (a classed raster object with a bounding
 #' box attribute).
 #'
@@ -50,7 +50,7 @@
 #' @examples
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
-#' \dontrun{
+#' \donttest{
 #' # Create a basemap that matches the extent of the ppi
 #' basemap <- download_basemap(ppi, maptype = "toner-lite")
 #'
@@ -113,8 +113,8 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
   if (!attributes(map)$ppi) {
     stop("Not a ppi map, use download_basemap() to download a map.")
   }
-  if (attributes(map)$geo$lat != x$geo$lat ||
-    attributes(map)$geo$lon != x$geo$lon) {
+  if (all(attributes(map)$geo$lat != x$geo$lat) ||
+    all(attributes(map)$geo$lon != x$geo$lon)) {
     stop("Not a basemap for this radar location.")
   }
 
@@ -159,7 +159,7 @@ map.ppi <- function(x, map, param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(sp::spTransform(data, sp::CRS("+init=epsg:3857")))
+    as.data.frame(sp::spTransform(as(data,"SpatialPointsDataFrame"), sp::CRS("+init=epsg:3857")))
   )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])

@@ -22,7 +22,7 @@ library(bioRad)
 
 # Getting started
 
-Execute each of the code examples provided below in [RStudio](https://www.rstudio.com/), and try to complete the exercises.
+Execute each of the code examples provided below in [RStudio](https://posit.co/), and try to complete the exercises.
 
 ```{r, eval=SHOW_ANSWERS}
 # make sure you start with a fresh R session
@@ -168,7 +168,7 @@ map(my_ppi, map = basemap, param = "DBZH", zlim = c(-20, 40))
 
 ## using correlation coefficient
 
-Screening precipitation based on correlation coefficient is arguably the most simple and established approach for screening out weather in cases where dual-polarization data is available. It is based on removing data above a certain $\rho_{/HV}$ tresholds, most commonly 0.95.
+Screening precipitation based on correlation coefficient is arguably the most simple and established approach for screening out weather in cases where dual-polarization data is available. It is based on removing data above a certain $\rho_{/HV}$ thresholds, most commonly 0.95.
 ```{r, eval=SHOW_ANSWERS}
 # Screen out the reflectivity areas with RHOHV < 0.95
 my_ppi_clean <- calculate_param(my_ppi, DBZH = ifelse(RHOHV > 0.95, NA, DBZH))

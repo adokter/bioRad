@@ -28,27 +28,27 @@ downloaded and unzipped.}
 \item{overwrite}{Logical. When \code{TRUE}, re-download and overwrite previously
 downloaded files of the same names.}
 }
+\value{
+\code{NULL}. The function's primary effect is to download selected vertical profiles
+files from ENRAM data repository to a specified local directory, and to provide
+a message and a progress bar in the console indicating the download status. Message will show
+a 404 error for files that are not available.
+}
 \description{
 Download and unzip a selection of vertical profile (\code{vp}) files from the
 \href{https://aloftdata.eu/}{ENRAM data repository}, where
 these are stored as monthly zips per radar.
 }
 \examples{
+\donttest{
 # Download (and overwrite) data from radars "bejab" and "bewid".
-# Will successfully download 2016-10 files, but show 404 error for
-# 2016-11 files, since these are not available.
-\dontrun{
-temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
-dir.create(temp_dir)
 download_vpfiles(
   date_min = "2016-10-01",
-  date_max = "2016-11-30",
+  date_max = "2016-10-31",
   radars = c("bejab", "bewid"),
-  directory = temp_dir,
+  directory = tempdir(),
   overwrite = TRUE
 )
-# Clean up
-unlink(temp_dir, recursive = T)
 }
 }
 \seealso{

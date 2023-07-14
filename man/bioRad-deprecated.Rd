@@ -13,6 +13,13 @@ update_docker(...)
 
 vol2bird_version(...)
 }
+\value{
+\code{TRUE}
+
+No return value, called for warning message side effect only
+
+an object of class \link{numeric_version}
+}
 \description{
 The functions and data listed below are deprecated or renamed and will be
 defunct in the near future. When possible, alternative functions with similar

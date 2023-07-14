@@ -13,7 +13,7 @@
 #' @param method Method by which to do the time zone lookup. Either `fast`
 #'   (default) or `accurate`. See [lutz::tz_lookup_coords]].
 #' @param ... Optional lat, lon arguments.
-#'
+#' @returns integer representing the ordinal day of year or night of year.
 #' @name doy_noy
 #'
 #' @examples

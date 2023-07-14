@@ -13,6 +13,7 @@ NULL
 #'
 #' @rdname bioRad-deprecated
 #' @export
+#' @return `TRUE`
 check_docker <- function(...) {
   warning("check_docker has been deprecated, and always returns TRUE")
   return(TRUE)
@@ -20,9 +21,9 @@ check_docker <- function(...) {
 
 #' @section update_docker:
 #' This function has been deprecated
-#'
 #' @rdname bioRad-deprecated
 #' @export
+#' @return No return value, called for warning message side effect only
 update_docker <- function(...) {
   warning("update_docker has been deprecated")
 }
@@ -32,6 +33,7 @@ update_docker <- function(...) {
 #'
 #' @rdname bioRad-deprecated
 #' @export
+#' @return an object of class \link{numeric_version}
 vol2bird_version <- function(...) {
   .Deprecated("vol2birdR::vol2bird_version")
   rlang::check_installed('vol2birdR',format_reason_vol2bird("to run `vol2bird_version`."))

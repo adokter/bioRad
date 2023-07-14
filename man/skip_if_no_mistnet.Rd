@@ -6,6 +6,9 @@
 \usage{
 skip_if_no_mistnet()
 }
+\value{
+Invisibly returns TRUE if MistNet is available, otherwise skips the test with a message "No MistNet".
+}
 \description{
 Some functions require MistNet to be enabled in package vol2birdR.
 This helper function allows to skip a test if MistNet is not available, e.g. when running in CI.

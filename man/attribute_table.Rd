@@ -24,6 +24,9 @@ By default the function returns a limited set of columns to keep the output clea
 It is important to note that attributes of the full polar volume can contain additional information on processing that is not included in the resulting table.
 This function only tabulates attributes of the scans.}
 }
+\value{
+A data.frame with the attributes of the scan(s)
+}
 \description{
 Extract a volume coverage pattern table with all attributes
 }

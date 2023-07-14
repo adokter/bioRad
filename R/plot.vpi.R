@@ -29,7 +29,7 @@
 #' @param ... Additional arguments to be passed to the low level
 #' [plot][graphics::plot] plotting function.
 #' @param nightshade Deprecated argument, use night_shade instead.
-#'
+#' @returns No return value, side effect is a plot.
 #' @method plot vpi
 #'
 #' @export

@@ -94,6 +94,7 @@
 #' \doi{https://doi.org/10.1109/TGRS.2009.2014463}
 #'
 #' @examples
+#' \donttest{
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
@@ -110,7 +111,6 @@
 #' # 0-2000 cm^2/km^2 color scale
 #' plot(ppi, zlim = c(0, 2000))
 #'
-#' \dontrun{
 #' # Calculate the range-corrected ppi on finer 2000m x 2000m pixel raster
 #' ppi <- integrate_to_ppi(pvol, example_vp, res = 2000)
 #'
@@ -300,7 +300,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       sep = ""
     ))
     raster::values(raster) <- 1
-    spdf <- (sp::spTransform(raster::rasterToPoints(raster, spatial = T), localCrs))
+    spdf <- (sp::spTransform(raster::rasterToPoints(raster, spatial = TRUE), localCrs))
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
         add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),

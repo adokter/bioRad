@@ -30,12 +30,16 @@ downloaded files of the same names.}
 
 \item{bucket}{character. Bucket name to use.}
 }
+\value{
+\code{NULL}. The function's primary effect is to download selected polar volume
+files from the NEXRAD Level II archive to a specified local directory, and to provide
+a message and a progress bar in the console indicating the download status.
+}
 \description{
 Download a selection of polar volume (\code{pvol}) files from the
 \href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data}.
 }
 \examples{
-\dontrun{
 # create temporary directory
 temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 dir.create(temp_dir)
@@ -47,6 +51,5 @@ download_pvolfiles(
   overwrite = TRUE
 )
 # Clean up
-unlink(temp_dir, recursive = T)
-}
+unlink(temp_dir, recursive = TRUE)
 }

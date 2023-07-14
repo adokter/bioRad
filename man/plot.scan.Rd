@@ -33,6 +33,9 @@ plot. Defaults to parameter specific limits for plotting, not full range of data
 
 \item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 }
+\value{
+No return value, side effect is a plot.
+}
 \description{
 Plots a scan (\code{scan}) in polar coordinates. To plot in Cartesian coordinates,
 see \code{\link[=project_as_ppi]{project_as_ppi()}}.

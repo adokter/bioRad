@@ -8,6 +8,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org/package=bioRad)
 [![R-CMD-check](https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml)
+[![repo
+status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://app.codecov.io/gh/adokter/bioRad)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 <!-- badges: end -->
@@ -26,24 +28,24 @@ calculate further summary statistics.
 
 To get started, see:
 
--   [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
-    describing the package.
--   [bioRad
-    vignette](https://adriaandokter.com/bioRad/articles/bioRad.html): an
-    introduction to bioRad’s main functionalities.
--   [Function
-    reference](https://adriaandokter.com/bioRad/reference/index.html):
-    an overview of all bioRad functions.
--   [Introductory
-    exercises](https://adriaandokter.com/bioRad/articles/rad_aero_19.html):
-    a tutorial with code examples and exercises.
+- [Dokter et al. (2019)](https://doi.org/10.1111/ecog.04028): a paper
+  describing the package.
+- [bioRad
+  vignette](https://adriaandokter.com/bioRad/articles/bioRad.html): an
+  introduction to bioRad’s main functionalities.
+- [Function
+  reference](https://adriaandokter.com/bioRad/reference/index.html): an
+  overview of all bioRad functions.
+- [Introductory
+  exercises](https://adriaandokter.com/bioRad/articles/rad_aero_19.html):
+  a tutorial with code examples and exercises.
 
 More vignettes:
 
--   [Range
-    correction](https://adriaandokter.com/bioRad/articles/range_correction.html):
-    estimate spatial images of vertically integrated density corrected
-    for range effects.
+- [Range
+  correction](https://adriaandokter.com/bioRad/articles/range_correction.html):
+  estimate spatial images of vertically integrated density corrected for
+  range effects.
 
 Documentation for the latest development version can be found
 [here](https://adriaandokter.com/bioRad/dev/).
@@ -100,8 +102,8 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.7.0.9532
-#> using vol2birdR version 0.1.1.9919 (MistNet installed)
+#> Welcome to bioRad version 0.7.0.9614
+#> using vol2birdR version 1.0.1 (MistNet not installed)
 ```
 
 ### (optional) Enable MistNet
@@ -164,7 +166,6 @@ plot it with `plot()`:
 example_vpts %>%
   regularize_vpts() %>%
   plot()
-#> projecting on 300 seconds interval grid...
 ```
 
 <img src="man/figures/README-plot_vpts-1.png" width="100%" />
@@ -200,12 +201,11 @@ tutorial](https://adriaandokter.com/bioRad/articles/rad_aero_19.html).
 
 ## Meta
 
--   We welcome
-    [contributions](https://adriaandokter.com/bioRad/CONTRIBUTING.html)
-    including bug reports.
--   License: MIT
--   Get citation information for `bioRad` in R doing
-    `citation("bioRad")`.
--   Please note that this project is released with a [Contributor Code
-    of Conduct](https://adriaandokter.com/bioRad/CODE_OF_CONDUCT.html).
-    By participating in this project you agree to abide by its terms.
+- We welcome
+  [contributions](https://adriaandokter.com/bioRad/CONTRIBUTING.html)
+  including bug reports.
+- License: MIT
+- Get citation information for `bioRad` in R doing `citation("bioRad")`.
+- Please note that this project is released with a [Contributor Code of
+  Conduct](https://adriaandokter.com/bioRad/CODE_OF_CONDUCT.html). By
+  participating in this project you agree to abide by its terms.

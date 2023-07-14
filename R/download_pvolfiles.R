@@ -16,9 +16,10 @@
 #' @param bucket character. Bucket name to use.
 #'
 #' @export
-#'
+#' @return `NULL`. The function's primary effect is to download selected polar volume 
+#' files from the NEXRAD Level II archive to a specified local directory, and to provide 
+#' a message and a progress bar in the console indicating the download status. 
 #' @examples
-#' \dontrun{
 #' # create temporary directory
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 #' dir.create(temp_dir)
@@ -30,8 +31,7 @@
 #'   overwrite = TRUE
 #' )
 #' # Clean up
-#' unlink(temp_dir, recursive = T)
-#' }
+#' unlink(temp_dir, recursive = TRUE)
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
                                bucket = "noaa-nexrad-level2") {

@@ -11,7 +11,7 @@
 #' This function only tabulates attributes of the scans.
 #'
 #' @export
-#'
+#' @returns A data.frame with the attributes of the scan(s)
 #' @examples
 #' data(example_scan)
 #' attribute_table(example_scan)

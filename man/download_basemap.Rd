@@ -35,6 +35,9 @@ Maps: \code{terrain}, \code{satellite}, \code{roadmap} or \code{hybrid}.}
 
 \item{...}{Arguments to pass to \code{\link[ggmap:get_map]{ggmap::get_map()}}.}
 }
+\value{
+A ggmap object for \code{map(ppi)}
+}
 \description{
 Downloads a basemap for \code{\link[=map.ppi]{map.ppi()}} from Stamen Maps or Google Maps using
 \code{\link[ggmap:get_map]{ggmap::get_map()}}. To use Google Maps as \code{source}, you will have to register
@@ -43,7 +46,7 @@ with Google, enable billing and provide an API key to ggmap. See the \href{https
 \examples{
 # Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
-\dontrun{
+\donttest{
 # Create a basemap that matches the extent of the ppi
 basemap <- download_basemap(ppi)
 

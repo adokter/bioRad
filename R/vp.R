@@ -66,6 +66,8 @@
 #' * [as.data.frame.vp()]
 #' * [bind_into_vpts()]
 #'
+#' @return For [summary.vp()]: prints summary of the `vp` object.
+#' 
 #' @examples
 #' # Check if an object is of class vp
 #' is.vp(example_vp)

@@ -20,14 +20,14 @@
 #' @param ... Arguments to pass to [ggmap::get_map()].
 #'
 #' @export
-#'
+#' @returns A ggmap object for `map(ppi)`
 #' @seealso
 #' * [map.ppi()]
 #'
 #' @examples
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
-#' \dontrun{
+#' \donttest{
 #' # Create a basemap that matches the extent of the ppi
 #' basemap <- download_basemap(ppi)
 #'

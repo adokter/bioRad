@@ -12,7 +12,7 @@
 #' to parameter specific limits for plotting, not full range of data.
 #' @param na.value [ggplot][ggplot2::ggplot] argument setting the plot color of NA values
 #' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
-#'
+#' @returns No return value, side effect is a plot.
 #' @method plot ppi
 #'
 #' @export
@@ -33,6 +33,7 @@
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 #'
 #' @examples
+#' \donttest{
 #' # load an example scan:
 #' data(example_scan)
 #'
@@ -53,6 +54,7 @@
 #'
 #' # change the scale name and colour scheme, using viridis colors:
 #' plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
+#'}
 plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
                      ratio = 1, na.value = "transparent", ...) {
   stopifnot(inherits(x, "ppi"))
@@ -77,7 +79,7 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   y <- NULL # dummy assignment to suppress devtools check warning
   data <- do.call(function(y) x$data[y], list(param))
   # convert to points
-  data <- raster::as.data.frame(raster::raster(data), xy = T)
+  data <- raster::as.data.frame(raster::raster(data), xy = TRUE)
   # bring z-values within plotting range
   index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {

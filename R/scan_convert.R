@@ -77,7 +77,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # default projects full extent on 100x100 pixel raster:
 #' scan_to_raster(example_scan)
 #'
@@ -179,7 +179,7 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
     }
   }
   # convert raster coordinates to local Cartesian CRS
-  crds <- sp::coordinates(sp::spTransform(raster::rasterToPoints(r, spatial = T), localCrs))
+  crds <- sp::coordinates(sp::spTransform(raster::rasterToPoints(r, spatial = TRUE), localCrs))
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
   index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)

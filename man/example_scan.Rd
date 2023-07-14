@@ -10,6 +10,9 @@ An object of class \code{scan} of dimension 5 x 480 x 360.
 \usage{
 example_scan
 }
+\value{
+An example object of type \code{scan} which represents a single scan from a weather radar.
+}
 \description{
 Example of a \code{\link[=summary.scan]{scan}} object with name \code{example_scan}.
 }
@@ -19,12 +22,6 @@ data(example_scan)
 
 # Get summary info
 example_scan
-
-## example_scan was created with:
-# pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
-# pvol <- read_pvolfile(pvolfile)
-# example_scan <- pvol$scans[[1]]
-# save(example_scan, file = "data/example_scan.rda")
 }
 \seealso{
 \itemize{
