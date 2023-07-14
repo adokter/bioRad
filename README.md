@@ -97,7 +97,7 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.7.1
+#> Welcome to bioRad version 0.7.0.9614
 #> using vol2birdR version 1.0.1 (MistNet not installed)
 ```
 
