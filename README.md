@@ -12,6 +12,11 @@ status](https://www.r-pkg.org/badges/version/bioRad)](https://cran.r-project.org
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 <!-- badges: end -->
 
+**bioRad is temporarily unavailable on CRAN - please install from GitHub**
+
+*bioRad will be released as soon as CRAN has resolved infrastructure issues
+(see 'Submitting to CRAN' at https://cran.r-project.org/)*
+
 bioRad provides standardized methods for extracting and reporting
 biological signals from weather radars. It includes functionality to
 inspect low-level radar data, process these data into meaningful
