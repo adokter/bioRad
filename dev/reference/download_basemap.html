@@ -19,7 +19,7 @@ with Google, enable billing and provide an API key to ggmap. See the ggmap READM
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9603</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9614</span>
       </span>
     </div>
 
@@ -125,6 +125,14 @@ Maps: <code>terrain</code>, <code>satellite</code>, <code>roadmap</code> or <cod
 <dd><p>Arguments to pass to <code><a href="https://rdrr.io/pkg/ggmap/man/get_map.html" class="external-link">ggmap::get_map()</a></code>.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>A ggmap object for <code>map(ppi)</code></p>
+
+
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index">
@@ -136,22 +144,31 @@ Maps: <code>terrain</code>, <code>satellite</code>, <code>roadmap</code> or <cod
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Project a scan as a ppi</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Create a basemap that matches the extent of the ppi</span></span></span>
 <span class="r-in"><span><span class="va">basemap</span> <span class="op">&lt;-</span> <span class="fu">download_basemap</span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading zoom = 9 ...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Map the radial velocity of the ppi onto the basemap</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">ppi</span>, map <span class="op">=</span> <span class="va">basemap</span>, param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="download_basemap-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Increase the transparency of the basemap</span></span></span>
 <span class="r-in"><span><span class="va">basemap</span> <span class="op">&lt;-</span> <span class="fu">download_basemap</span><span class="op">(</span><span class="va">ppi</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading zoom = 9 ...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span>
 <span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">ppi</span>, map <span class="op">=</span> <span class="va">basemap</span>, param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="download_basemap-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Download a different type of basemap, e.g. a gray-scale image.</span></span></span>
 <span class="r-in"><span><span class="co"># See get_map() in ggmap library for full documentation of the options.</span></span></span>
 <span class="r-in"><span><span class="va">basemap</span> <span class="op">&lt;-</span> <span class="fu">download_basemap</span><span class="op">(</span><span class="va">ppi</span>, maptype <span class="op">=</span> <span class="st">"toner-lite"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading zoom = 9 ...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</span>
 <span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">ppi</span>, map <span class="op">=</span> <span class="va">basemap</span>, param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-plt img"><img src="download_basemap-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

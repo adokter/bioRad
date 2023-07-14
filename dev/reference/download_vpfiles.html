@@ -19,7 +19,7 @@ these are stored as monthly zips per radar."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9603</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9614</span>
       </span>
     </div>
 
@@ -114,6 +114,15 @@ downloaded and unzipped.</p></dd>
 downloaded files of the same names.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><code>NULL</code>. The function's primary effect is to download selected vertical profiles
+files from ENRAM data repository to a specified local directory, and to provide
+a message and a progress bar in the console indicating the download status. Message will show
+a 404 error for files that are not available.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index">
@@ -124,22 +133,19 @@ downloaded files of the same names.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Download (and overwrite) data from radars "bejab" and "bewid".</span></span></span>
-<span class="r-in"><span><span class="co"># Will successfully download 2016-10 files, but show 404 error for</span></span></span>
-<span class="r-in"><span><span class="co"># 2016-11 files, since these are not available.</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">temp_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/bioRad_tmp_files"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">temp_dir</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># Download (and overwrite) data from radars "bejab" and "bewid".</span></span></span>
 <span class="r-in"><span><span class="fu">download_vpfiles</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  date_min <span class="op">=</span> <span class="st">"2016-10-01"</span>,</span></span>
-<span class="r-in"><span>  date_max <span class="op">=</span> <span class="st">"2016-11-30"</span>,</span></span>
+<span class="r-in"><span>  date_max <span class="op">=</span> <span class="st">"2016-10-31"</span>,</span></span>
 <span class="r-in"><span>  radars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bejab"</span>, <span class="st">"bewid"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  directory <span class="op">=</span> <span class="va">temp_dir</span>,</span></span>
+<span class="r-in"><span>  directory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Clean up</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">temp_dir</span>, recursive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading data from https://lw-enram.s3-eu-west-1.amazonaws.com</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bejab201610.zip: successfully downloaded</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> bewid201610.zip: successfully downloaded</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9603</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9614</span>
       </span>
     </div>
 
@@ -81,6 +81,12 @@
     <h2>Format</h2>
     <p>An object of class <code>vpts</code> of dimension 1934 x 25 x 15.</p>
     </div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>An example object of type <code>vpts</code> which represents a time series of vertical profiles.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index">
@@ -101,17 +107,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>       # profiles:  1934 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> time range (UTC):  2016-09-01 00:02:00 - 2016-09-10 11:56:00 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time step (s):  min: 180     max:  16320 </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## example_vpts was created with</span></span></span>
-<span class="r-in"><span><span class="co"># vptsfile &lt;- system.file("extdata", "vpts.txt.zip", package = "bioRad")</span></span></span>
-<span class="r-in"><span><span class="co"># utils::unzip(vptsfile, exdir = (dirname(vptsfile)), junkpaths = TRUE)</span></span></span>
-<span class="r-in"><span><span class="co"># vptsfile &lt;- substr(vptsfile, 1, nchar(vptsfile) - 4)</span></span></span>
-<span class="r-in"><span><span class="co"># example_vpts &lt;- read_vpts(vptsfile, radar = "KBGM", wavelength = "S")</span></span></span>
-<span class="r-in"><span><span class="co"># rcs(example_vpts) &lt;- 11</span></span></span>
-<span class="r-in"><span><span class="co"># sd_vvp_threshold(example_vpts) &lt;- 2</span></span></span>
-<span class="r-in"><span><span class="co"># example_vpts$attributes$where$lat &lt;- 42.2</span></span></span>
-<span class="r-in"><span><span class="co"># example_vpts$attributes$where$lon &lt;- -75.98</span></span></span>
-<span class="r-in"><span><span class="co"># save(example_vpts, file = "data/example_vpts.rda", compress = "xz")</span></span></span>
 </code></pre></div>
     </div>
   </div>

@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9603</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9614</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@ USA.</em></p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>Execute each of the code examples provided below in <a href="https://www.rstudio.com/" class="external-link">RStudio</a>, and try to complete the
+<p>Execute each of the code examples provided below in <a href="https://posit.co/" class="external-link">RStudio</a>, and try to complete the
 exercises.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># make sure you start with a fresh R session</span></span>
@@ -231,7 +231,7 @@ the biological scatterers birds or insects? Why?</p>
 the most simple and established approach for screening out weather in
 cases where dual-polarization data is available. It is based on removing
 data above a certain <span class="math inline">\(\rho_{/HV}\)</span>
-tresholds, most commonly 0.95.</p>
+thresholds, most commonly 0.95.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Screen out the reflectivity areas with RHOHV &lt; 0.95</span></span>
 <span><span class="va">my_ppi_clean</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_param.html">calculate_param</a></span><span class="op">(</span><span class="va">my_ppi</span>, DBZH <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">RHOHV</span> <span class="op">&gt;</span> <span class="fl">0.95</span>, <span class="cn">NA</span>, <span class="va">DBZH</span><span class="op">)</span><span class="op">)</span></span>

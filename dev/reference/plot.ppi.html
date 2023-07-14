@@ -18,7 +18,7 @@ using ggplot"><meta property="og:image" content="https://adriaandokter.com/bioRa
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9603</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9614</span>
       </span>
     </div>
 
@@ -124,6 +124,12 @@ to parameter specific limits for plotting, not full range of data.</p></dd>
 <dd><p>Arguments passed to low level <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a> function.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>No return value, side effect is a plot.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>Available scan parameters for plotting can by printed to screen
@@ -142,7 +148,8 @@ model (ODIM), see Table 16 in the
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load an example scan:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># load an example scan:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print to screen the available scan parameters:</span></span></span>
@@ -173,6 +180,7 @@ model (ODIM), see Table 16 in the
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">fill</span> is already present.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">fill</span>, which will replace the existing scale.</span>
 <span class="r-plt img"><img src="plot.ppi-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
