@@ -51,6 +51,8 @@ Imports:
     viridis,
     rlang,
     jsonlite
+Remotes:
+    bioc::rhdf5
 Suggests:
     vol2birdR,
     aws.s3,
