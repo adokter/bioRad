@@ -37,7 +37,6 @@ Imports:
     graphics,
     lubridate,
     lutz,
-    rhdf5,
     suntools,
     methods,
     raster,
