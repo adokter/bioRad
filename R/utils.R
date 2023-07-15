@@ -289,16 +289,17 @@ tibble_to_mat <- function(tibble) {
 #' @keywords internal
 #' @noRd
 df_to_mat_list <- function(data, maskvars, schema) {
-  datetime <- height <- variable <- fields <- NULL
+  datetime <- height <- variable <- fields <- dbz_all <- DBZH <- NULL
   radvars <- extract_names(schema$fields) #allow DBZH as alternative to dbz_all
+  radvars <- radvars[!radvars %in% maskvars]
   alt_radvar <- "DBZH"
   insert_index <- which(radvars == "dbz_all") + 1
   radvars <- append(radvars, alt_radvar, after = insert_index)
 
-  radvars <- radvars[!radvars %in% maskvars]
-
   tbls_lst <- data %>%
     dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
+    dplyr::mutate(DBZH = ifelse("dbz_all" %in% colnames(data), dbz_all, DBZH),
+                 dbz_all = ifelse("DBZH" %in% colnames(data), DBZH, dbz_all)) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
