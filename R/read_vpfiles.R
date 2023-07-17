@@ -101,7 +101,7 @@ read_vp <- function(file) {
 #' read_vpfiles(vpfile)
 #'
 #' # to load multiple files at once:
-#' # read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
+#' read_vpfiles(c(vpfile, vpfile))
 read_vpfiles <- function(files) {
   if (length(files) == 1) {
     return(read_vp(files))

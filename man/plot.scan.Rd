@@ -61,10 +61,12 @@ model (ODIM), see Table 16 in the
 # Plot reflectivity
 plot(example_scan, param = "DBZH")
 
+\donttest{
 # Change the range of reflectivities to plot, from -10 to 10 dBZ
 plot(example_scan, param = "DBZH", zlim = c(-10, 10))
 
 # Change the scale name, change the color palette to Viridis colors
 plot(example_scan, param = "DBZH", zlim = c(-10, 10)) +
   viridis::scale_fill_viridis(name = "dBZ")
+}
 }

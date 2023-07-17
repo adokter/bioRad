@@ -71,6 +71,8 @@ rcs.vpi <- function(x) {
 #' @inheritParams rcs
 #' @param value Numeric. The radar cross section value to assign in cm^2.
 #'
+#' @return The input object with updated density `x$data$dens` and updated radar cross section attribute.
+#'
 #' @export
 #'
 #' @seealso
