@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -99,17 +99,17 @@ call to <a href="integrate_profile.html">integrate_profile</a>.</p></dd>
 
 
 <dt>quantity</dt>
-<dd><p>Character string with the quantity to plot, one of
-'<code>vid</code>' (vertically integrated density),
-'<code>vir</code>' (vertically integrated reflectivity),
-'<code>mtr</code>' (migration traffic rate),
-'<code>rtr</code>' (reflectivity traffic rate),
-'<code>mt</code>' ((cumulative) migration traffic),
-'<code>rt</code>' ((cumulative) reflectivity traffic),
-'<code>ff</code>' (height-averaged ground speed)
-'<code>dd</code>' (height-averaged direction)
-'<code>u</code>' (height-averaged u-component of ground speed),
-'<code>v</code>' (height-averaged v-component of ground speed).</p></dd>
+<dd><p>Character string with the quantity to plot, one of</p><ul><li><p><code>vid</code> (vertically integrated density),</p></li>
+<li><p><code>vir</code> (vertically integrated reflectivity),</p></li>
+<li><p><code>mtr</code> (migration traffic rate),</p></li>
+<li><p><code>rtr</code> (reflectivity traffic rate),</p></li>
+<li><p><code>mt</code> ((cumulative) migration traffic),</p></li>
+<li><p><code>rt</code> ((cumulative) reflectivity traffic),</p></li>
+<li><p><code>ff</code> (height-averaged ground speed)</p></li>
+<li><p><code>dd</code> (height-averaged direction)</p></li>
+<li><p><code>u</code> (height-averaged u-component of ground speed),</p></li>
+<li><p><code>v</code> (height-averaged v-component of ground speed).</p></li>
+</ul></dd>
 
 
 <dt>xlab</dt>
@@ -156,52 +156,36 @@ attribute of <code>x</code>.</p></dd>
 <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a> plotting function.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>No return value, side effect is a plot.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>The integrated profiles can be visualized in various related quantities, as specified by
-argument <code>quantity</code>:</p><dl><dt>"<code>vid</code>"</dt>
-<dd><p>Vertically Integrated Density, i.e. the aerial surface
-density of individuals. This quantity is dependent on the assumed radar
-cross section per individual (RCS)</p></dd>
-
-<dt>"<code>vir</code>"</dt>
-<dd><p>Vertically Integrated Reflectivity. This quantity is
-independent of the value of individual's radar cross section</p></dd>
-
-<dt>"<code>mtr</code>"</dt>
-<dd><p>Migration Traffic Rate. This quantity is dependent on
-the assumed radar cross section (RCS)</p></dd>
-
-<dt>"<code>rtr</code>"</dt>
-<dd><p>Reflectivity Traffic Rate. This quantity is independent
-on the assumed radar cross section (RCS)</p></dd>
-
-<dt>"<code>mt</code>"</dt>
-<dd><p>Migration Traffic. This quantity is dependent on
-the assumed radar cross section (RCS)</p></dd>
-
-<dt>"<code>rt</code>"</dt>
-<dd><p>Reflectivity Traffic. This quantity is independent
-on the assumed radar cross section (RCS)</p></dd>
-
-<dt><code>ff</code></dt>
-<dd><p>Horizontal ground speed in m/s</p></dd>
-
-<dt><code>dd</code></dt>
-<dd><p>Horizontal ground speed direction in degrees</p></dd>
-
-<dt><code>u</code></dt>
-<dd><p>Ground speed component west to east in m/s</p></dd>
-
-<dt><code>v</code></dt>
-<dd><p>Ground speed component south to north in m/s</p></dd>
-
-<dt><code>height</code></dt>
-<dd><p>Mean flight height (height weighted by reflectivity eta) in m above sea level</p></dd>
-
-
-</dl><p>The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.</p>
-    </div>
+argument <code>quantity</code>:</p><ul><li><p><code>vid</code>: Vertically Integrated Density, i.e. the aerial surface density of
+individuals. This quantity is dependent on the assumed radar cross section
+per individual (RCS)</p></li>
+<li><p><code>vir</code>: Vertically Integrated Reflectivity. This quantity is independent of
+the value of individual's radar cross section</p></li>
+<li><p><code>mtr</code>: Migration Traffic Rate. This quantity is dependent on the assumed
+radar cross section (RCS)</p></li>
+<li><p><code>rtr</code>: Reflectivity Traffic Rate. This quantity is independent on the
+assumed radar cross section (RCS)</p></li>
+<li><p><code>mt</code>: Migration Traffic. This quantity is dependent on the assumed radar
+cross section (RCS)</p></li>
+<li><p><code>rt</code>: Reflectivity Traffic. This quantity is independent on the assumed
+radar cross section (RCS)</p></li>
+<li><p><code>ff</code>: Horizontal ground speed in m/s</p></li>
+<li><p><code>dd</code>: Horizontal ground speed direction in degrees</p></li>
+<li><p><code>u</code>: Ground speed component west to east in m/s</p></li>
+<li><p><code>v</code>: Ground speed component south to north in m/s</p></li>
+<li><p><code>height</code>: Mean flight height (height weighted by reflectivity eta) in m
+above sea level
+The height-averaged ground speed quantities (ff,dd,u,v) and height are weighted averages by reflectivity eta.</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -223,11 +207,11 @@ on the assumed radar cross section (RCS)</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

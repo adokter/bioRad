@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -174,11 +174,11 @@ color bar.</p></dd>
 
 
 <dt>na_color</dt>
-<dd><p>Color to use for NA values, see class <code><a href="summary.vpts.html">vpts</a></code> conventions.</p></dd>
+<dd><p>Color to use for NA values, see class <code><a href="summary.vpts.html">vpts()</a></code> conventions.</p></dd>
 
 
 <dt>nan_color</dt>
-<dd><p>Color to use for NaN values, see class <code><a href="summary.vpts.html">vpts</a></code> conventions.</p></dd>
+<dd><p>Color to use for NaN values, see class <code><a href="summary.vpts.html">vpts()</a></code> conventions.</p></dd>
 
 
 <dt>n_color</dt>
@@ -195,44 +195,33 @@ the plot color scale, e.g. output from <a href="https://sjmgarnier.github.io/vir
 <a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a> plotting function.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>No return value, side effect is a plot.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>Aerial abundances can be visualized in four related quantities, as specified
-by argument <code>quantity</code>:</p><dl><dt>"<code>dens</code>"</dt>
-<dd><p>the aerial density of individuals. This quantity is
-dependent on the assumed radar cross section (RCS) in the
-<code>x$attributes$how$rcs_bird</code> attribute</p></dd>
-
-<dt>"<code>eta</code>"</dt>
-<dd><p>reflectivity. This quantity is independent of the
-value of the <code>rcs_bird</code> attribute</p></dd>
-
-<dt>"<code>dbz</code>"</dt>
-<dd><p>reflectivity factor. This quantity is independent
-of the value of the <code>rcs_bird</code> attribute, and corresponds to the
-dBZ scale commonly used in weather radar meteorology. Bioscatter by birds
-tends to occur at much higher reflectivity factors at S-band
-than at C-band</p></dd>
-
-<dt>"<code>DBZH</code>"</dt>
-<dd><p>total reflectivity factor. This quantity equals the
-reflectivity factor of all scatterers (biological and meteorological
-scattering combined)</p></dd>
-
-
-</dl><p>Aerial velocities can be visualized in three related quantities, as specified
-by argument <code>quantity</code>:</p><dl><dt>"<code>ff</code>"</dt>
-<dd><p>ground speed. The aerial velocity relative to the
-ground surface in m/s.</p></dd>
-
-<dt>"<code>u</code>"</dt>
-<dd><p>eastward ground speed component in m/s.</p></dd>
-
-<dt>"<code>v</code>"</dt>
-<dd><p>northward ground speed component in m/s.</p></dd>
-
-
-</dl><div class="section">
+by argument <code>quantity</code>:</p><ul><li><p><code>dens</code>: the aerial density of individuals. This quantity is dependent on
+the assumed radar cross section (RCS) in the <code>x$attributes$how$rcs_bird</code>
+attribute</p></li>
+<li><p><code>eta</code>: reflectivity. This quantity is independent of the value of the
+<code>rcs_bird</code> attribute</p></li>
+<li><p><code>dbz</code>: reflectivity factor. This quantity is independent of the value of
+the <code>rcs_bird</code> attribute, and corresponds to the dBZ scale commonly used in
+weather radar meteorology. Bioscatter by birds tends to occur at much
+higher reflectivity factors at S-band than at C-band</p></li>
+<li><p><code>DBZH</code>: total reflectivity factor. This quantity equals the reflectivity
+factor of all scatterers (biological and meteorological scattering
+combined)</p></li>
+</ul><p>Aerial velocities can be visualized in three related quantities, as specified
+by argument <code>quantity</code>:</p><ul><li><p><code>ff</code>: ground speed. The aerial velocity relative to the ground surface in
+m/s.</p></li>
+<li><p><code>u</code>: eastward ground speed component in m/s.</p></li>
+<li><p><code>v</code>: northward ground speed component in m/s.</p></li>
+</ul><div class="section">
 <h3 id="barbs">barbs<a class="anchor" aria-label="anchor" href="#barbs"></a></h3>
 
 
@@ -275,7 +264,7 @@ these quantities assume negative values.  For quantities <code>DBZH</code> and <
 <span class="r-in"><span><span class="co"># regularize the time grid, which includes empty (NA) profiles at</span></span></span>
 <span class="r-in"><span><span class="co"># time steps without data:</span></span></span>
 <span class="r-in"><span><span class="va">ts_regular</span> <span class="op">&lt;-</span> <span class="fu"><a href="regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> projecting on 300 seconds interval grid...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> projecting on 300 seconds interval grid...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts_regular</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.vpts-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># change the color of missing NA data to red</span></span></span>
@@ -306,11 +295,11 @@ these quantities assume negative values.  For quantities <code>DBZH</code> and <
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

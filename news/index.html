@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -69,18 +69,56 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7.1" id="biorad-071">bioRad 0.7.1<small>2023-07-17</small><a class="anchor" aria-label="anchor" href="#biorad-071"></a></h2>
+<p>Rebuilds documentation with examples formatted as per CRAN requirements.</p>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7.0" id="biorad-070">bioRad 0.7.0<a class="anchor" aria-label="anchor" href="#biorad-070"></a></h2>
+<p>bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. All Docker-dependent functionality is now included in the new dependency package <a href="https://cran.r-project.org/package=vol2birdR" class="external-link">vol2birdR</a> package, which needs to be installed as part of bioRad. All bioRad functions remain the same, but several functions will run considerable faster.</p>
+<div class="section level3">
+<h3 id="new-features-0-7-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h3>
+<ul><li><p>bioRad is now fully available on Windows.</p></li>
+<li><p>Simplified installation, including automatic installation of rhdf5 from bioconductor (<a href="https://github.com/adokter/bioRad/issues/464" class="external-link">#464</a>).</p></li>
+<li><p>Faster implementations of functions previously dependent on Docker, such as <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>, <code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> and <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>.</p></li>
+<li><p>Support for reading <a href="https://aloftdata.eu/vpts-csv/" class="external-link">VPTS CSV</a> format through updated function <code><a href="../reference/read_vpts.html">read_vpts()</a></code>. VPTS CSV table schema included to allow offline parsing of VPTS CSV files as a <a href="https://CRAN.R-project.org/package=frictionless" class="external-link">frictionless</a> data package (<a href="https://github.com/adokter/bioRad/issues/551" class="external-link">#551</a>, <a href="https://github.com/adokter/bioRad/issues/590" class="external-link">#590</a>)</p></li>
+<li><p>Updated function <code><a href="../reference/read_vpts.html">read_vpts()</a></code> supports reading <code>vp</code>/<code>vpts</code> data in ODIM HDF, <a href="https://aloftdata.eu/vpts-csv/" class="external-link">VPTS CSV</a> format (<a href="https://github.com/adokter/bioRad/issues/551" class="external-link">#551</a>, <a href="https://github.com/adokter/bioRad/issues/590" class="external-link">#590</a>)</p></li>
+<li><p>New function <code><a href="../reference/list_vpts_aloft.html">list_vpts_aloft()</a></code> produces a list of <a href="https://aloftdata.eu/browse/" class="external-link">aloft</a> archive URLs for time series of vertical profiles (<code>vpts</code>). This list of URLs can then be used to bulk download data using any number of external tools (<a href="https://github.com/adokter/bioRad/issues/553" class="external-link">#553</a>).</p></li>
+<li><p>New function <code><a href="../reference/read_stdout.html">read_stdout()</a></code> replaces previous functionality of <code><a href="../reference/read_vpts.html">read_vpts()</a></code> to read vol2bird stdout format. It also has a new <code>sep</code> argument (<a href="https://github.com/adokter/bioRad/issues/536" class="external-link">#536</a>) to support both fixed-delimited and comma-separated stdout data.</p></li>
+<li><p>New function <code>as.vpts</code> converts a data.frame originating from a VPTS CSV file into a vpts object (<a href="https://github.com/adokter/bioRad/issues/555" class="external-link">#555</a>). Inverse operation of as.data.frame.vpts</p></li>
+<li><p><code>read_pvolfiles()</code> now allows ODIM H5 files with missing <code>source</code> attribute. The functionality is similar to <code><a href="../reference/read_vpfiles.html">read_vpfiles()</a></code>, i.e. extracting the NOD, RAD or WMO identifier, otherwise using <code>unknown</code> (2f6935c).</p></li>
+<li><p><code><a href="../reference/bind_into_vpts.html">bind_into_vpts()</a></code> now works for vp and vpts objects with different heights (<a href="https://github.com/adokter/bioRad/issues/343" class="external-link">#343</a>)</p></li>
+<li><p>Faster parallel mistnet runs (<a href="https://github.com/adokter/vol2birdR/issues/16" class="external-link uri">https://github.com/adokter/vol2birdR/issues/16</a>).</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-0-7-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-0"></a></h3>
+<ul><li>Fix bug in height integration, which excluded the lowest bins for certain low altitude radars (<a href="https://github.com/adokter/bioRad/issues/534" class="external-link">#534</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="deprecations-0-7-0">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-7-0"></a></h3>
+<ul><li><p>Argument <code>local_install</code> in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> and <code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code> is now deprecated.</p></li>
+<li><p>Functions <code><a href="../reference/bioRad-deprecated.html">check_docker()</a></code> and <code><a href="../reference/bioRad-deprecated.html">update_docker()</a></code> have been deprecated.</p></li>
+<li><p>Function <code><a href="../reference/bioRad-deprecated.html">vol2bird_version()</a></code> has been migrated to package vol2birdR and can be accessed by <code><a href="https://rdrr.io/pkg/vol2birdR/man/vol2bird_version.html" class="external-link">vol2birdR::vol2bird_version()</a></code>.</p></li>
+<li><p>Dependency <code>maptools</code> has been replaced with <a href="https://github.com/adokter/suntools" class="external-link">suntools</a>, <code>rgdal</code> has been removed in accordance with the evolution of <code>sp</code> and the <a href="https://r-spatial.org/r/2023/05/15/evolution4.html" class="external-link">imminent archiving</a> of <code>rgdal</code></p></li>
+<li><p>Function <code><a href="../reference/as.data.frame.vp.html">as.data.frame.vpts()</a></code> has output column names <code>lat</code>, <code>lon</code>, <code>antenna_height</code> renamed to <code>radar_latitude</code>, <code>radar_longitude</code>, <code>radar_height</code> for compatibility with the <a href="https://aloftdata.eu/vpts-csv/" class="external-link">VPTS CSV</a> data format. The function also outputs an additional column <code>radar_wavelength</code> (<a href="https://github.com/adokter/bioRad/issues/609" class="external-link">#609</a>)</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.1" id="biorad-061">bioRad 0.6.1<small>2022-08-30</small><a class="anchor" aria-label="anchor" href="#biorad-061"></a></h2>
-<p>Rebuilds the documentation using roxygen2 for compability with HTML5</p>
+<p>Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).</p>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.0" id="biorad-060">bioRad 0.6.0<small>2022-05-09</small><a class="anchor" aria-label="anchor" href="#biorad-060"></a></h2>
-<p>Introduces a number of new functions and parameters and includes bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/8?closed=1" class="external-link">here</a>. ## New functions</p>
+<p>Introduces a number of new functions and parameters and includes bugfixes. All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/8?closed=1" class="external-link">here</a>.</p>
+<div class="section level3">
+<h3 id="new-functions-0-6-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-6-0"></a></h3>
 <ul><li><p>New function <code><a href="../reference/attribute_table.html">attribute_table()</a></code> to quickly tabulate scan attributes (<a href="https://github.com/adokter/bioRad/issues/365" class="external-link">#365</a>).</p></li>
 <li><p>New function <code><a href="../reference/get_iris_raw_task.html">get_iris_raw_task()</a></code> to returns <code>task</code> from IRIS files (<a href="https://github.com/adokter/bioRad/issues/411" class="external-link">#411</a>).</p></li>
 <li><p>New functions <code><a href="../reference/summary.vpi.html">is.vpi()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> for vpi objects (<a href="https://github.com/adokter/bioRad/issues/380" class="external-link">#380</a>, <a href="https://github.com/adokter/bioRad/issues/405" class="external-link">#405</a>).</p></li>
 <li><p>New function <code><a href="../reference/write_pvolfile.html">write_pvolfile()</a></code> to write polar volumes to ODIM hdf5 format (<a href="https://github.com/adokter/bioRad/issues/470" class="external-link">#470</a>, <a href="https://github.com/adokter/bioRad/issues/471" class="external-link">#471</a>).</p></li>
+<li><p>New function <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> to download NEXRAD polar volume files from Amazon Web Services (<a href="https://github.com/adokter/bioRad/issues/41" class="external-link">#41</a>, <a href="https://github.com/adokter/bioRad/issues/487" class="external-link">#487</a>)</p></li>
 <li><p>New functions <code><a href="../reference/Ops.html">Math.pvol()</a></code>, <code><a href="../reference/Ops.html">Math.scan()</a></code>, <code><a href="../reference/Ops.html">Ops.pvol()</a></code>,<code><a href="../reference/Ops.html">Ops.scan()</a></code>,<code><a href="../reference/Ops.html">Ops.param()</a></code>: standard mathematical operations for <code>param</code>, <code>scan</code> and <code>pvol</code> objects.</p></li>
-</ul><div class="section level3">
+</ul></div>
+<div class="section level3">
 <h3 id="new-features-and-bugfixes-0-6-0">New features and bugfixes<a class="anchor" aria-label="anchor" href="#new-features-and-bugfixes-0-6-0"></a></h3>
 <ul><li><p><code><a href="../reference/apply_mistnet.html">apply_mistnet()</a></code>, <code><a href="../reference/nexrad_to_odim.html">nexrad_to_odim()</a></code> and <code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code> can now use local vol2bird installation (<a href="https://github.com/adokter/bioRad/issues/416" class="external-link">#416</a>, <a href="https://github.com/adokter/bioRad/issues/398" class="external-link">#398</a>).</p></li>
 <li><p><code><a href="../reference/beam_profile_overlap.html">beam_profile_overlap()</a></code> and <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> bugfix that affected profiles with only <code>NA</code> values (<a href="https://github.com/adokter/bioRad/issues/396" class="external-link">#396</a>).</p></li>
@@ -210,11 +248,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

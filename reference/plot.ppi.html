@@ -18,7 +18,7 @@ using ggplot"><meta property="og:image" content="https://adriaandokter.com/bioRa
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -36,7 +36,7 @@ using ggplot"><meta property="og:image" content="https://adriaandokter.com/bioRa
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -108,7 +108,8 @@ using <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="exter
 
 
 <dt>zlim</dt>
-<dd><p>The range of parameter values to plot.</p></dd>
+<dd><p>The range of parameter values to plot. Defaults
+to parameter specific limits for plotting, not full range of data.</p></dd>
 
 
 <dt>ratio</dt>
@@ -123,39 +124,32 @@ using <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="exter
 <dd><p>Arguments passed to low level <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a> function.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>No return value, side effect is a plot.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>Available scan parameters for plotting can by printed to screen
-by <code>summary(x)</code>. Commonly available parameters are:</p><dl><dt>"<code>DBZH</code>", "<code>DBZ</code>"</dt>
-<dd><p>(Logged) reflectivity factor (dBZ)</p></dd>
-
-<dt>"<code>TH</code>", "<code>T</code>"</dt>
-<dd><p>(Logged) uncorrected reflectivity factor (dBZ)</p></dd>
-
-<dt>"<code>VRADH</code>", "<code>VRAD</code>"</dt>
-<dd><p>Radial velocity (m/s). Radial
-velocities towards the radar are negative, while radial velocities away
-from the radar are positive</p></dd>
-
-<dt>"<code>RHOHV</code>"</dt>
-<dd><p>Correlation coefficient (unitless). Correlation
-between vertically polarized and horizontally polarized reflectivity factor</p></dd>
-
-<dt>"<code>PHIDP</code>"</dt>
-<dd><p>Differential phase (degrees)</p></dd>
-
-<dt>"<code>ZDR</code>"</dt>
-<dd><p>(Logged) differential reflectivity (dB)</p></dd>
-
-
-</dl><p>The scan parameters are named according to the OPERA data information
+by <code>summary(x)</code>. Commonly available parameters are:</p><ul><li><p><code>DBZH</code>, <code>DBZ</code>: (Logged) reflectivity factor (dBZ)</p></li>
+<li><p><code>TH</code>, <code>T</code>: (Logged) uncorrected reflectivity factor (dBZ)</p></li>
+<li><p><code>VRADH</code>, <code>VRAD</code>: Radial velocity (m/s). Radial velocities towards the radar
+are negative, while radial velocities away from the radar are positive</p></li>
+<li><p><code>RHOHV</code>: Correlation coefficient (unitless). Correlation between vertically
+polarized and horizontally polarized reflectivity factor</p></li>
+<li><p><code>PHIDP</code>: Differential phase (degrees)</p></li>
+<li><p><code>ZDR</code>: (Logged) differential reflectivity (dB)
+The scan parameters are named according to the OPERA data information
 model (ODIM), see Table 16 in the
-<a href="https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf" class="external-link">ODIM specification</a>.</p>
-    </div>
+<a href="https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf" class="external-link">ODIM specification</a>.</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load an example scan:</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># load an example scan:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print to screen the available scan parameters:</span></span></span>
@@ -168,8 +162,6 @@ model (ODIM), see Table 16 in the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># make ppi for the scan</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the default scan parameter, which is reflectivity "DBZH":</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span></span>
@@ -185,9 +177,10 @@ model (ODIM), see Table 16 in the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># change the scale name and colour scheme, using viridis colors:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"DBZH"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/scale_viridis.html" class="external-link">scale_fill_viridis</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"dBZ"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'fill' is already present. Adding another scale for 'fill', which</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> will replace the existing scale.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">fill</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">fill</span>, which will replace the existing scale.</span>
 <span class="r-plt img"><img src="plot.ppi-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -198,11 +191,11 @@ model (ODIM), see Table 16 in the
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ these are stored as monthly zips per radar."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -37,7 +37,7 @@ these are stored as monthly zips per radar."><meta property="og:image" content="
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -90,57 +90,61 @@ these are stored as monthly zips per radar.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>date_min</dt>
-<dd><p>character. YYYY-MM-DD start date of file selection. Days will
-be ignored.</p></dd>
+<dd><p>Character. Start date of file selection, in <code>YYYY-MM-DD</code>
+format. Days will be ignored.</p></dd>
 
 
 <dt>date_max</dt>
-<dd><p>character. YYYY-MM-DD end date of file selection. Days will
-be ignored.</p></dd>
+<dd><p>Character. End date of file selection, in <code>YYYY-MM-DD</code>
+format. Days will be ignored.</p></dd>
 
 
 <dt>radars</dt>
-<dd><p>character (vector). 5-letter country/radar code(s)
-(e.g. "bejab") of radars to include in file selection.</p></dd>
+<dd><p>Character (vector). 5-letter country/radar code(s) to include
+in file selection.</p></dd>
 
 
 <dt>directory</dt>
-<dd><p>character. Path to local directory where files should be
+<dd><p>Character. Path to local directory where files should be
 downloaded and unzipped.</p></dd>
 
 
 <dt>overwrite</dt>
-<dd><p>logical. TRUE for re-downloading and overwriting previously
+<dd><p>Logical. When <code>TRUE</code>, re-download and overwrite previously
 downloaded files of the same names.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><code>NULL</code>. The function's primary effect is to download selected vertical profiles
+files from ENRAM data repository to a specified local directory, and to provide
+a message and a progress bar in the console indicating the download status. Message will show
+a 404 error for files that are not available.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>select_vpfiles</p></div>
+    <div class="dont-index">
+<ul><li><p><code><a href="select_vpfiles.html">select_vpfiles()</a></code></p></li>
+<li><p><code><a href="read_vpfiles.html">read_vpfiles()</a></code></p></li>
+</ul></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Download data from radars "bejab" and "bewid", even if previously</span></span></span>
-<span class="r-in"><span><span class="co"># downloaded (overwrite = TRUE). Will successfully download 2016-10 files,</span></span></span>
-<span class="r-in"><span><span class="co"># but show 404 error for 2016-11 files (as these are not available).</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"~/bioRad_tmp_files"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/Users/amd427/bioRad_tmp_files' already exists</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># Download (and overwrite) data from radars "bejab" and "bewid".</span></span></span>
 <span class="r-in"><span><span class="fu">download_vpfiles</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  date_min <span class="op">=</span> <span class="st">"2016-10-01"</span>,</span></span>
-<span class="r-in"><span>  date_max <span class="op">=</span> <span class="st">"2016-11-30"</span>,</span></span>
+<span class="r-in"><span>  date_max <span class="op">=</span> <span class="st">"2016-10-31"</span>,</span></span>
 <span class="r-in"><span>  radars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bejab"</span>, <span class="st">"bewid"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  directory <span class="op">=</span> <span class="st">"~/bioRad_tmp_files"</span>,</span></span>
+<span class="r-in"><span>  directory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading data from https://lw-enram.s3-eu-west-1.amazonaws.com</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> bejab201610.zip: successfully downloaded</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> bewid201610.zip: successfully downloaded</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> bejab201611.zip: http error 404</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> bewid201611.zip: http error 404</span>
-<span class="r-in"><span><span class="co"># clean up:</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"~/bioRad_tmp_files"</span>, recursive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -152,11 +156,11 @@ downloaded files of the same names.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

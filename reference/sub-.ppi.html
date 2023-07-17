@@ -18,7 +18,7 @@ position indicator (ppi)."><meta property="og:image" content="https://adriaandok
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -36,7 +36,7 @@ position indicator (ppi)."><meta property="og:image" content="https://adriaandok
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -102,15 +102,13 @@ derived quantities to extract.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Project a scan as a ppi</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This ppi contains 5 parameters (DBZH VRADH ZDR RHOHV PHIDP)</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH VRADH RHOHV ZDR PHIDP </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 201 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Subset ppi to one containing only the first parameter (DBZH)</span></span></span>
@@ -118,7 +116,7 @@ derived quantities to extract.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 201 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Subset ppi to one containing the first three parameters (DBZH, VRADH, ZDR)</span></span></span>
@@ -126,7 +124,7 @@ derived quantities to extract.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  DBZH VRADH RHOHV </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 201 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)</span></span></span>
@@ -134,7 +132,7 @@ derived quantities to extract.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Plan position indicator (class ppi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parameters:  RHOHV ZDR PHIDP </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 200 pixels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         dims:  201 x 201 pixels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -146,11 +144,11 @@ derived quantities to extract.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

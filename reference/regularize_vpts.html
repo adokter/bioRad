@@ -19,7 +19,7 @@ regular time grid — regularize_vpts"><meta property="og:description" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -37,7 +37,7 @@ regular time grid — regularize_vpts"><meta property="og:description" content="
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/rad_aero_19.html">Introductory exercises with bioRad</a>
+      <a href="../articles/rad_aero_22.html">Introductory exercises with bioRad</a>
     </li>
     <li>
       <a href="../articles/range_correction.html">Correction for range effects</a>
@@ -93,7 +93,7 @@ regular time grid</h1>
     <h2>Arguments</h2>
     <dl><dt>ts</dt>
 <dd><p>An object inheriting from class <code>vpts</code>, see
-<code><a href="summary.vpts.html">vpts</a></code> for details.</p></dd>
+<code><a href="summary.vpts.html">vpts()</a></code> for details.</p></dd>
 
 
 <dt>interval</dt>
@@ -145,7 +145,7 @@ temporal gaps by nearest neighbor interpolation.</p>
 regular time grid with the expected time interval at which a radar provides
 data. Alignment is performed using a nearest neighbor interpolation limited to
 neighboring profiles that fall within +/- <code>fill</code> (centered) of an original profile.</p>
-<p>In plots of regular time series (see <code><a href="plot.vpts.html">plot.vpts</a></code>) temporal gaps of
+<p>In plots of regular time series (see <code><a href="plot.vpts.html">plot.vpts()</a></code>) temporal gaps of
 missing profiles (e.g. due to radar down time) become visible. In irregular
 time series data points in the plot are carried through until the time series
 continues, and temporal data gaps are filled up visually.</p>
@@ -161,8 +161,8 @@ continues, and temporal data gaps are filled up visually.</p>
 <span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># regularize the time series on a 10 minute interval grid,</span></span></span>
-<span class="r-in"><span><span class="co"># and fill data gaps smaller then 1 hour by nearest neighbor interpolation</span></span></span>
-<span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval<span class="op">=</span><span class="fl">600</span>, fill<span class="op">=</span><span class="fl">3600</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># and fill data gaps smaller than 1 hour by nearest neighbor interpolation</span></span></span>
+<span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">600</span>, fill <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -173,11 +173,11 @@ continues, and temporal data gaps are filled up visually.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
+  <p></p><p>Developed by <a href="http://adriaandokter.com" class="external-link">Adriaan M. Dokter</a>, <a href="https://twitter.com/peterdesmet" class="external-link">Peter Desmet</a>, Bart Kranstauber, Cecilia Nilsson, <a href="https://twitter.com/SVanHoey" class="external-link">Stijn Van Hoey</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
