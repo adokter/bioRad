@@ -20,6 +20,9 @@ sd_vvp_threshold(x) <- value
 
 \item{value}{Numeric. The \code{sd_vvp} threshold value to assign in m/s.}
 }
+\value{
+The input object with updated density \code{x$data$dens} and \code{sd_vvp_thresh} attribute.
+}
 \description{
 Sets the threshold of radial velocity standard deviation (\code{sd_vvp}) of an
 object in m/s. Altitude layers with \code{sd_vvp} below this threshold are assumed

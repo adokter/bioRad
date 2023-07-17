@@ -2,12 +2,8 @@
 
 Addresses all CRAN instructions from the recent 0.7.1 submission:
 
-1. Updated the DESCRIPTION file with references in the suggested format.
-2. Replaced 'T' and 'F' with 'TRUE' and 'FALSE'.
-3. Added \value tags to all .Rd files that were missing it and provided thorough descriptions of function outputs.
-4. Removed all commented code lines in examples. Replaced \dontrun{} with \donttest{} for examples that take more than 5 seconds to execute and kept \dontrun{} where an external model is required 
-5. Adjusted functions to avoid writing in the user's home filespace. All examples, vignettes, and tests now write to tempdir() by default.
+1. added value tags to rcs-set.Rd and sd_vvp_threshold-set.Rd
+2. removed commented example in read_vpfiles.Rd. We could not find a commented example in c.vp.Rd as mentioned by the reviewer, so that function was left unchanged.
+3. changed dontrun{} example in apply_mistnet to donttest{}, and prevent write in user home directory
 
-The deprecation of spatial packages `rgdal` and `maptools`, and the evolution of `sp` led to the archiving of bioRad on 07.07.2023.  All issues arising from spatial packages have been fixed.
-
-This package will be used extensively in a summer training school next week (Jul 16 - Jul 21), we would greatly appreciate it being restored on CRAN before that time.
+This package will be used extensively in a summer training school next week (Jul 16 - Jul 21), we would greatly appreciate it being restored on CRAN as soon as possible.

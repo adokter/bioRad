@@ -23,6 +23,9 @@ rcs(x) <- value
 
 \item{value}{Numeric. The radar cross section value to assign in cm^2.}
 }
+\value{
+The input object with updated density \code{x$data$dens} and updated radar cross section attribute.
+}
 \description{
 Sets the assumed radar cross section of an object in cm^2. This function also
 updates the migration densities in \code{x$data$dens} to \code{eta}/\code{rcs} when above

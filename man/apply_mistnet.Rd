@@ -101,19 +101,22 @@ scans at that spatial location > 0.45.
 MistNet may run more slowly on Windows than on Linux or Mac OS X.
 }
 \examples{
-\dontrun{
+\donttest{
 # make sure you have installed the MistNet libraries and model, using:
-# vol2birdR::install_mistnet()
-# vol2birdR::install_mistnet_model()
-
+if(!vol2birdR::mistnet_exists()){
+   vol2birdR::install_mistnet()
+   vol2birdR::install_mistnet_model()
+}
+# start a temporary file to store polar volume
+tempfile=tempfile("KBGM_example")
 # Download a NEXRAD file and save as KBGM_example
 download.file(
   "https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
-  "~/KBGM_example"
+  tempfile
 )
 
 # Calculate MistNet segmentation
-mistnet_pvol <- apply_mistnet("~/KBGM_example")
+mistnet_pvol <- apply_mistnet(tempfile)
 
 # Print summary info for the segmented elevation scan at the 0.5 degree,
 # verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added
@@ -138,7 +141,7 @@ plot(ppi, param = "BIOLOGY")
 plot(ppi, param = "CELL")
 
 # Remove file
-file.remove("~/KBGM_example")
+file.remove(tempfile)
 }
 }
 \references{

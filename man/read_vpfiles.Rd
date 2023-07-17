@@ -29,5 +29,5 @@ vpfile
 read_vpfiles(vpfile)
 
 # to load multiple files at once:
-# read_vpfiles(c("my/path/profile1.h5", "my/path/profile2.h5", ...))
+read_vpfiles(c(vpfile, vpfile))
 }
