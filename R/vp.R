@@ -67,7 +67,7 @@
 #' * [bind_into_vpts()]
 #'
 #' @return For [summary.vp()]: prints summary of the `vp` object.
-#' 
+#'
 #' @examples
 #' # Check if an object is of class vp
 #' is.vp(example_vp)
@@ -140,6 +140,10 @@ dim.vp <- function(x) {
 #' @return A list of `vp` objects.
 #'
 #' @export
+#'
+#' @examples
+#' # concatenate vp objects into a list:
+#' c(example_vp, example_vp)
 #'
 #' @seealso [bind_into_vpts()]
 c.vp <- function(...) {

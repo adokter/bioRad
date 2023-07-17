@@ -16,6 +16,11 @@ A list of \code{vp} objects.
 Concatenates vertical profiles (\code{vp}) into a list of vertical profiles
 (\code{c(vp, vp, vp)}) and warns if they are not from a single radar.
 }
+\examples{
+# concatenate vp objects into a list:
+c(example_vp, example_vp)
+
+}
 \seealso{
 \code{\link[=bind_into_vpts]{bind_into_vpts()}}
 }
