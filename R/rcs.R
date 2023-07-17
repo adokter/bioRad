@@ -73,6 +73,8 @@ rcs.vpi <- function(x) {
 #'
 #' @return The input object with updated density `x$data$dens` and updated radar cross section attribute.
 #'
+#' @export
+#'
 #' @seealso
 #' * [rcs()] for getting the radar cross section of an object.
 #' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-]
