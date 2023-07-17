@@ -18,7 +18,7 @@ loads the resultant segmentation as a polar volume (pvol) object."><meta propert
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.0.9617</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.0.9000</span>
       </span>
     </div>
 
@@ -193,45 +193,79 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># make sure you have installed the MistNet libraries and model, using:</span></span></span>
-<span class="r-in"><span><span class="co"># vol2birdR::install_mistnet()</span></span></span>
-<span class="r-in"><span><span class="co"># vol2birdR::install_mistnet_model()</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/mistnet_exists.html" class="external-link">mistnet_exists</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>   <span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/install_mistnet.html" class="external-link">install_mistnet</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/install_mistnet_model.html" class="external-link">install_mistnet_model</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="co"># start a temporary file to store polar volume</span></span></span>
+<span class="r-in"><span><span class="va">tempfile</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"KBGM_example"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Download a NEXRAD file and save as KBGM_example</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"~/KBGM_example"</span></span></span>
+<span class="r-in"><span>  <span class="va">tempfile</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate MistNet segmentation</span></span></span>
-<span class="r-in"><span><span class="va">mistnet_pvol</span> <span class="op">&lt;-</span> <span class="fu">apply_mistnet</span><span class="op">(</span><span class="st">"~/KBGM_example"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mistnet_pvol</span> <span class="op">&lt;-</span> <span class="fu">apply_mistnet</span><span class="op">(</span><span class="va">tempfile</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Filename = /tmp/RtmpFGwKXr/KBGM_example1a5f1382ad0, callid = KBGM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Reading RSL polar volume with nominal time 20191001-000542, source: RAD:KBGM,PLC:BINGHAMTON,state:NY,radar_name:KBGM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running vol2birdSetUp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: radial velocities will be dealiased...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: disabling single-polarization precipitation filter for S-band data, continuing in DUAL polarization mode</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: using MistNet, disabling other segmentation methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running segmentScansUsingMistnet.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: Requested elevation scan at 1.500000 degrees but selected scan at 1.318360 degrees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: Requested elevation scan at 3.500000 degrees but selected scan at 3.120115 degrees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: Requested elevation scan at 4.500000 degrees but selected scan at 3.999025 degrees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Warning: Ignoring scan(s) not used as MistNet input: 2 4 8 9 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running MistNet...done</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Print summary info for the segmented elevation scan at the 0.5 degree,</span></span></span>
 <span class="r-in"><span><span class="co"># verify new parameters BIOLOGY, WEATHER, BACKGROUND and CELL have been added</span></span></span>
 <span class="r-in"><span><span class="va">scan</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_scan.html">get_scan</a></span><span class="op">(</span><span class="va">mistnet_pvol</span>, <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">scan</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   Polar scan (class scan)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      parameters:  DBZH VRADH RHOHV WRADH WEATHER BACKGROUND CELL PHIDP BIOLOGY ZDR </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> elevation angle:  0.483395 deg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            dims:  1201 bins x 720 rays</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Project the scan as a ppi</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">scan</span>, range_max <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> which was just loaded, will retire in October 2023.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Please refer to R-spatial evolution reports for details, especially</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> https://r-spatial.org/r/2023/05/15/evolution4.html.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> It may be desirable to make the sf package available;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> package maintainers should consider adding sf to Suggests:.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The sp package is now running under evolution status 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>      (status 2 uses the sf package in place of rgdal)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the reflectivity parameter</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="apply_mistnet-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the MistNet class probability [0-1] for weather</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"WEATHER"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="apply_mistnet-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the MistNet class probability [0-1] for biology</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"BIOLOGY"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="apply_mistnet-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the final segmentation result, with values &gt;1 indicating</span></span></span>
 <span class="r-in"><span><span class="co"># areas classified as weather, and value 1 pixels that fall within an</span></span></span>
 <span class="r-in"><span><span class="co"># additional 5 km fringe around weather areas</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"CELL"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="apply_mistnet-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Remove file</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="st">"~/KBGM_example"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">tempfile</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
