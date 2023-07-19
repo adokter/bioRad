@@ -14,19 +14,19 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * Faster implementations of functions previously dependent on Docker, such as `calculate_vp()`, `apply_mistnet()` and `read_pvolfile()`.
 
-* Support for reading [VPTS CSV](https://aloftdata.eu/vpts-csv/) format through updated function `read_vpts()`. VPTS CSV table schema included to allow offline parsing of VPTS CSV files as a [frictionless](https://CRAN.R-project.org/package=frictionless) data package (#551, #590)
+* Support for reading [VPTS CSV](https://aloftdata.eu/vpts-csv/) format through updated function `read_vpts()`. VPTS CSV table schema included to allow offline parsing of VPTS CSV files as a [frictionless](https://CRAN.R-project.org/package=frictionless) data package (#551, #590).
 
-* Updated function `read_vpts()` supports reading `vp`/`vpts` data in ODIM HDF, [VPTS CSV](https://aloftdata.eu/vpts-csv/) format (#551, #590)
+* Updated function `read_vpts()` supports reading `vp`/`vpts` data in ODIM HDF and [VPTS CSV](https://aloftdata.eu/vpts-csv/) format (#551, #590).
 
 * New function `list_vpts_aloft()` produces a list of [aloft](https://aloftdata.eu/browse/) archive URLs for time series of vertical profiles (`vpts`). This list of URLs can then be used to bulk download data using any number of external tools (#553).
 
 * New function `read_stdout()` replaces previous functionality of `read_vpts()` to read vol2bird stdout format. It also has a new `sep` argument (#536) to support both fixed-delimited and comma-separated stdout data.
 
-* New function `as.vpts` converts a data.frame originating from a VPTS CSV file into a vpts object (#555). Inverse operation of as.data.frame.vpts
+* New function `as.vpts` converts a data.frame originating from a VPTS CSV file into a vpts object (#555). Inverse operation of `as.data.frame.vpts()`.
 
 * `read_pvolfiles()` now allows ODIM H5 files with missing `source` attribute. The functionality is similar to `read_vpfiles()`, i.e. extracting the NOD, RAD or WMO identifier, otherwise using `unknown` (2f6935c).
 
-* `bind_into_vpts()` now works for vp and vpts objects with different heights (#343)
+* `bind_into_vpts()` now works for vp and vpts objects with different heights (#343).
 
 * Faster parallel mistnet runs (https://github.com/adokter/vol2birdR/issues/16).
 
@@ -42,9 +42,9 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 * Function `vol2bird_version()` has been migrated to package vol2birdR and can be accessed by `vol2birdR::vol2bird_version()`.
 
-* Dependency `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evolution of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal` 
+* Dependency `maptools` has been replaced with [suntools](https://github.com/adokter/suntools), `rgdal` has been removed in accordance with the evolution of `sp` and the [imminent archiving](https://r-spatial.org/r/2023/05/15/evolution4.html) of `rgdal`.
 
-* Function `as.data.frame.vpts()` has output column names `lat`, `lon`, `antenna_height` renamed to `radar_latitude`, `radar_longitude`, `radar_height` for compatibility with the [VPTS CSV](https://aloftdata.eu/vpts-csv/) data format. The function also outputs an additional column `radar_wavelength` (#609)
+* Function `as.data.frame.vpts()` has output column names `lat`, `lon`, `antenna_height` renamed to `radar_latitude`, `radar_longitude`, `radar_height` for compatibility with the [VPTS CSV](https://aloftdata.eu/vpts-csv/) data format. The function also outputs an additional column `radar_wavelength` (#609).
 
 # bioRad 0.6.1
 
