@@ -1,13 +1,12 @@
 # Define the URLs of test files
 urls <- c(
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T001000Z_0xb.h5",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz",
-  "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
+  "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000000Z_0xb.h5",
+  "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T000500Z_0xb.h5",
+  "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/hdf5/czbrd/2023/06/01/czbrd_vp_20230601T001000Z_0xb.h5",
+  "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz",
+  "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz",
+  "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bewid/2023/bewid_vpts_202303.csv.gz"
 )
-
 
 # Define the path to the new temporary directory
 temp_dir <- tempdir()
@@ -111,7 +110,7 @@ test_that("read_vpts() can read local vp hdf5 files", {
 
 test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
   # add eehar h5
-  eehar <- "https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
+  eehar <- "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/hdf5/eehar/2023/06/01/eehar_vp_20230601T001000Z_0xb.h5"
   download_test_file(eehar, temp_dir, h5_dir, csv_dir)
 
   h5_files <- list.files(temp_h5_dir, pattern = "*.h5", full.names = TRUE)
@@ -194,7 +193,7 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day 
 
     # Get the files for the current prefix
     h5_files <- aws.s3::get_bucket_df(
-      bucket = "s3://aloft/",
+      bucket = "s3://aloftdata/",
       prefix = prefix,
       region = "eu-west-1"
     )
@@ -204,7 +203,7 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day 
       aws.s3::save_object(
         file = paste0(h5_dir, "/", basename(file_name)),
         object = file_name,
-        bucket = "s3://aloft/",
+        bucket = "s3://aloftdata/",
         region = "eu-west-1"
       )
     })
@@ -216,7 +215,7 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day 
 
   # VPTS CSV
 
-  urls <- c("https://aloft.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv")
+  urls <- c("https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv")
 
   # Use lapply to download each file to a temporary location
   csv_files <- lapply(urls, function(url) {

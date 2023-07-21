@@ -94,7 +94,7 @@ list_vpts_aloft <- function(date_min = NULL,
 
   ## set static urls --------------------------------------------------------
   # Set base URL
-  base_url <- "https://aloft.s3-eu-west-1.amazonaws.com"
+  base_url <- "https://aloftdata.s3-eu-west-1.amazonaws.com"
 
   # format csv --------------------------------------------------------------
   if (format == "csv") {
@@ -104,7 +104,7 @@ list_vpts_aloft <- function(date_min = NULL,
 
     found_vpts_aloft <-
       aws.s3::get_bucket_df(
-        bucket = "s3://aloft",
+        bucket = "s3://aloftdata",
         prefix = glue::glue("{source}/monthly"),
         region = "eu-west-1",
         max = Inf
@@ -124,7 +124,7 @@ list_vpts_aloft <- function(date_min = NULL,
   } else {
     # hdf5 files
     # TODO: create file paths of form
-    # https://aloft.s3-eu-west-1.amazonaws.com/baltrad/hdf5/bejab/2023/05/02/bejab_vp_20230502T000000Z_0x9.h5
+    # https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/hdf5/bejab/2023/05/02/bejab_vp_20230502T000000Z_0x9.h5
   }
 
   # format found data -------------------------------------------------------
