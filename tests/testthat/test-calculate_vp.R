@@ -35,6 +35,7 @@ file.copy(system.file("extdata", "volume.h5", package = "bioRad"), pvolfile, ove
 # - local_mistnet, because difficult to test
 
 test_that("calculate_vp() returns error on incorrect parameters", {
+  skip_if_no_vol2birdR()
   expect_error(
     calculate_vp(paste(tmpdir, "nofile.txt", sep = "/"), warnings = FALSE),
     regexp = sprintf("Path '%s' does not exist",
@@ -204,6 +205,7 @@ test_that("calculate_vp() returns error on incorrect parameters", {
 })
 
 test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
+  skip_if_no_vol2birdR()
   vp <- calculate_vp(file = pvolfile, vpfile = vpfile, pvolfile_out = pvolfile_out, warnings = FALSE)
   vp_from_file <- read_vpfiles(vpfile)
   pvol_from_file <- read_pvolfile(pvolfile_out)
@@ -217,6 +219,7 @@ test_that("calculate_vp() produces a vp object and optional vpfile, pvolfile", {
 })
 
 test_that("calculate_vp() produces same vp from disk and from memory", {
+  skip_if_no_vol2birdR()
   # how differs in file locations other wise they are equal
   vp_file<-calculate_vp(file = pvolfile, warnings = FALSE)
   vp_memory<-  calculate_vp(file = read_pvolfile(pvolfile), warnings = FALSE)
@@ -228,6 +231,7 @@ test_that("calculate_vp() produces same vp from disk and from memory", {
 })
 
 test_that("calculate_vp() parses input arguments for vol2bird", {
+  skip_if_no_vol2birdR()
   # Run with non-default options
   vp <- calculate_vp(file = pvolfile, , warnings = FALSE, sd_vvp_threshold =
                      sd_vvp_threshold, rcs = rcs, dual_pol = dual_pol, rho_hv =
@@ -253,6 +257,7 @@ test_that("calculate_vp() parses input arguments for vol2bird", {
 })
 
 test_that("calculate_vp() ignores input arguments if autoconf", {
+  skip_if_no_vol2birdR()
   # Run with non-default options
   vp <- calculate_vp(file = pvolfile, , warnings = FALSE, sd_vvp_threshold =
                      sd_vvp_threshold, rcs = rcs, dual_pol = dual_pol, rho_hv =
@@ -289,6 +294,7 @@ test_that("MistNet adds param WEATHER", {
 })
 
 test_that("Dealiasing can be toggled", {
+  skip_if_no_vol2birdR()
   # run without dealiasing
   vp <- calculate_vp(file = pvolfile, warnings = FALSE, nyquist_min = nyquist_min, dealias = FALSE)
   # Dealias attribute is stored in two locations
@@ -303,7 +309,7 @@ test_that("Dealiasing can be toggled", {
 
 
 test_that("Extension of vpfile is obeyed in output", {
-
+  skip_if_no_vol2birdR()
   # Test with a .h5 file
   output_file <- calculate_vp(pvolfile, vpfile = vpfile)
   expect_equal(tools::file_ext(vpfile), "h5")
