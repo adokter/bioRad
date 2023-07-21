@@ -17,7 +17,7 @@ as.vpts <- function(data) {
   # Throw error if nrows per height are not identical
 
   assertthat::assert_that(
-    is_divisor(dim(data)[1], length(unique(data$height))) > 0,
+    remainder_is_zero(dim(data)[1], length(unique(data$height))) > 0,
     msg = "Number of rows per height variable must be identical"
   )
 

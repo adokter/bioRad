@@ -232,16 +232,16 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 }
 
-#' Check if a number is a factor of another
+#' Check if remainder of a division is zero
 #'
 #' Determines if a given number is a factor of another number
 #' by checking if the remainder is zero after division.
-#' @param number The number to be checked if it is a factor.
-#' @param factor The potential factor to check against the number.
-#' @return A logical value indicating whether the factor is indeed a factor of the number.
+#' @param number The number to be divided (the dividend)
+#' @param divisor The divisor to check against the number.
+#' @return A logical value indicating whether the remainder of the division is zero
 #' @keywords internal
 #' @noRd
-is_divisor <- function(number, divisor) {
+remainder_is_zero <- function(number, divisor) {
   return(number %% divisor == 0)
 }
 
