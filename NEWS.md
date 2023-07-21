@@ -1,3 +1,7 @@
+# bioRad 0.7.1.9000
+
+* 
+
 # bioRad 0.7.1
 
 Rebuilds documentation with examples formatted as per CRAN requirements.
