@@ -1,6 +1,8 @@
 # bioRad 0.7.1.9000
 
-* 
+* changed default aloft bucket to aloftdata (#622)
+
+* skip tests for `calculate_vp()` when vol2birdR package is not installed (#624)
 
 # bioRad 0.7.1
 
