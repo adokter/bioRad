@@ -232,34 +232,17 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 }
 
-#' Check if a number is a factor of another
+#' Check if remainder of a division is zero
 #'
 #' Determines if a given number is a factor of another number
 #' by checking if the remainder is zero after division.
-#' @param number The number to be checked if it is a factor.
-#' @param factor The potential factor to check against the number.
-#' @return A logical value indicating whether the factor is indeed a factor of the number.
+#' @param number The number to be divided (the dividend)
+#' @param divisor The divisor to check against the number.
+#' @return A logical value indicating whether the remainder of the division is zero
 #' @keywords internal
 #' @noRd
-isFactor <- function(number, factor) {
-  return(number %% factor == 0)
-}
-
-# Extract required fields from frictionless schema
-#' @param schema a frictionless schema
-#' @returns a character vector of required field names in a VPTS CSV schema
-#' @keywords internal
-#' @noRd
-get_required_fields <- function(schema) {
-  required_vars <- sapply(schema$fields, function(x) {
-    if (!is.null(x$constraints) && !is.null(x$constraints$required)) {
-      return(x$constraints$required)
-    } else {
-      return(FALSE)
-    }
-  })
-  required_fields <- sapply(schema$fields[required_vars], function(x) x$name)
-  return(required_fields)
+remainder_is_zero <- function(number, divisor) {
+  return(number %% divisor == 0)
 }
 
 # Recursive function to extract variable names from frictionless schema
