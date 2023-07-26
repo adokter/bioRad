@@ -262,7 +262,9 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     height_quantile_upper <- denscum[min(height_index_lower+1,length(denscum))]
     # 4) do a linear interpolation to estimate the altitude at the quantile of interest
     delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
-    if(is.na(delta_linear_interpolation)) delta_linear_interpolation=0
+    if(length(delta_linear_interpolation) == 0 || is.na(delta_linear_interpolation)) {
+    delta_linear_interpolation = 0
+    }
     # 5) store the quantile flight altitude as height
     height <- height_lower+delta_linear_interpolation
   }
