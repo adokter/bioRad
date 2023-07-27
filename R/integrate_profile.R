@@ -254,11 +254,13 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     denscum=cumsum(weight_densdh)
     denscum[is.na(denscum)]=0
     # 2) find lowerbound index:
+    #    NOTE: findInterval gives zero when height_quantile < first element of denscum)
     height_index_lower=findInterval(height_quantile, denscum)
     # 3) find the two height bins closest to the quantile of interest
-    height_lower=x$data$height[height_index_lower] + interval / 2
-    height_upper=x$data$height[min(height_index_lower+1,length(denscum))] + interval / 2
-    height_quantile_lower <- denscum[height_index_lower]
+    #    NOTE: x$data$height indicates the lower end of a height bin.
+    height_lower=x$data$height[min(height_index_lower+1,length(denscum))]
+    height_upper=x$data$height[min(height_index_lower+2,length(denscum))]
+    height_quantile_lower <- ifelse(height_index_lower==0,0,denscum[height_index_lower])
     height_quantile_upper <- denscum[min(height_index_lower+1,length(denscum))]
     # 4) do a linear interpolation to estimate the altitude at the quantile of interest
     delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
@@ -429,14 +431,19 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     denscum=apply(weight_densdh, 2, cumsum)
     denscum[is.na(denscum)]=0
     # 2) find lowerbound index:
-    height_index_lower=apply(denscum,2,findInterval,x=height_quantile)
+    height_index_lower=height_index_lower_NA=apply(denscum,2,findInterval,x=height_quantile)
+    # change zero indices to NA (to allow subsetting of height_quantile_lower below):
+    height_index_lower_NA[height_index_lower_NA==0]=NA
     # 3) find the two height bins closest to the quantile of interest
-    height_lower=x$height[height_index_lower] + interval / 2
-    height_upper=x$height[pmin(height_index_lower+1,nrow(denscum))] + interval / 2
-    height_quantile_lower <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+height_index_lower]
+    height_lower=x$height[pmin(height_index_lower+1,nrow(denscum))]
+    height_upper=x$height[pmin(height_index_lower+2,nrow(denscum))]
+    height_quantile_lower <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+height_index_lower_NA]
+    # NA indicates lower end of first bin, which equals zero:
+    height_quantile_lower[is.na(height_quantile_lower)]=0
     height_quantile_upper <- denscum[seq(0,nrow(denscum)*(ncol(denscum)-1),nrow(denscum))+pmin(height_index_lower+1,nrow(denscum))]
     # 4) do a linear interpolation to estimate the altitude at the quantile of interest
     delta_linear_interpolation <- (height_quantile-height_quantile_lower)*(height_upper-height_lower)/(height_quantile_upper-height_quantile_lower)
+    # CHECK: this statement should not be necessary, can we remove?
     delta_linear_interpolation[is.na(delta_linear_interpolation)]=0
     # 5) store the quantile flight altitude as height
     height <- height_lower+delta_linear_interpolation
