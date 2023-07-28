@@ -4,6 +4,8 @@
 
 * skip tests for `calculate_vp()` when vol2birdR package is not installed (#624)
 
+* fix a bug in the calculation of flight altitude quantiles (#627), which caused underestimation of flight altitude quantiles by up to one altitude bin.
+
 # bioRad 0.7.1
 
 Rebuilds documentation with examples formatted as per CRAN requirements.
