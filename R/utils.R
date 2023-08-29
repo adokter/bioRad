@@ -59,8 +59,10 @@ check_radar_codes <- function(radars) {
       paste(wrong_codes, collapse = ", ")
     )
   } else {
-    radars.csv <- utils::read.csv(url("https://lw-enram.s3-eu-west-1.amazonaws.com/radars.csv"))
-    wrong_codes <- radars[!(radars %in% radars.csv$countryradar)]
+    # Load the JSON data from the new URL
+    radars.json <- fromJSON("https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json")
+    radar_codes = na.omit(radars.json$odimcode)
+    wrong_codes <- radars[!(radars %in% radar_codes)]
     if (length(wrong_codes) > 0) {
       stop(
         "Radar codes don't exist: ",
@@ -69,6 +71,7 @@ check_radar_codes <- function(radars) {
     }
   }
 }
+
 
 #' Check if character date is in specific format
 #'
