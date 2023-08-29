@@ -60,7 +60,7 @@ check_radar_codes <- function(radars) {
     )
   } else {
     # Load the JSON data from the new URL
-    radars.json <- fromJSON("https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json")
+    radars.json <- jsonlite::fromJSON("https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json")
     radar_codes = na.omit(radars.json$odimcode)
     wrong_codes <- radars[!(radars %in% radar_codes)]
     if (length(wrong_codes) > 0) {
