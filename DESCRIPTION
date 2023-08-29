@@ -50,17 +50,17 @@ Imports:
     tidyr,
     utils,
     viridis,
-    viridisLite,
-    vol2birdR
+    viridisLite
 Suggests:
     aws.s3,
     ggmap (>= 3.0.0),
     knitr,
-    tidyselect,
     rmarkdown,
+    sf,
     testthat (>= 3.0.0),
+    tidyselect,
     vdiffr,
-    sf
+    vol2birdR
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
