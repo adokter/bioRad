@@ -2,16 +2,12 @@ test_that("read_cajun() returns error on incorrect parameters", {
   # test for non existing file
   not_a_real_filepath <- file.path(tempdir(), "not_a_filename")
   expect_error(
-    read_cajun(not_a_real_filepath),
-    regexp = sprintf("doesn't exist", not_a_real_filepath)
-  )
+    read_cajun(not_a_real_filepath), "doesn't exist")
   # test for an empty file
   empty_file_path <- file.path(tempfile())
   file.create(empty_file_path)
   expect_error(
-    read_cajun(empty_file_path),
-    regexp = sprintf("is empty.", empty_file_path)
-  )
+    read_cajun(empty_file_path),"is empty.")
   # wavelength
   non_empty_file_path <- tempfile()
   cajun_csv <- dplyr::tribble(

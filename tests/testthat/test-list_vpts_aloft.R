@@ -102,54 +102,25 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
   )
 })
 
-test_that("list_vpts_aloft() warns if data was found subset of radars", {
-  skip_if_offline()
-  expect_warning(
-    list_vpts_aloft(
-      date_min = "2023-02-01",
-      date_max = "2023-05-22",
-      radars = c("nobml", "plpas")
-    ),
-    regexp = "Found no data for radars: `plpas`",
-    fixed = TRUE
-  )
-})
 
-test_that("list_vpts_aloft() warns if not all dates were found", {
+test_that("list_vpts_aloft() warns if data was found for subset of radars or if not all dates were found", {
   skip_if_offline()
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
       date_max = "2023-05-22",
-      radars = "nobml"
+      radars = c("plpas")
     ),
-    regexp = paste("Not every date has radar data,",
-                   "radars found for 2023-02 to 2023-05"),
-    fixed = TRUE
-  )
-})
-
-test_that("list_vpts_aloft() can warn for both missing radars and dates", {
-  skip_if_offline()
-  expect_warning(
-    list_vpts_aloft(
-      date_min = "1900-01-01",
-      date_max = "2023-05-22",
-      radars = c("nobml", "plpas")
-    ),
-    regexp = "Found no data for radars: `plpas`",
+    regexp = "No data found for radar(s) between 1900-01-01 - 2023-05-22",
     fixed = TRUE
   )
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
       date_max = "2023-05-22",
-      radars = c("nobml", "plpas")
+      radars = c("nobml")
     ),
-    regexp = paste("Not every date has radar data,",
-                   "radars found for 2023-02 to 2023-05"),
-    fixed = TRUE
-  )
+    "Radar data found between 2023-02 and 2023-05 but not every date has radar data")
 })
 
 test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{

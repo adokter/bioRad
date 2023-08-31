@@ -9,8 +9,14 @@ ghostfile <- paste(tempdir(), "garbage", sep = "/")
 test_that("is.pvolfile() can identify ODIM HDF5 polar volume files", {
   expect_true(is.pvolfile(pvolfile))
   expect_false(is.pvolfile(vpfile))
-  expect_warning(expect_false(is.pvolfile(textfile)))
-  expect_warning(is.pvolfile(ghostfile), "Can't find") # From get_odim_object_type
+
+  is.pvolfile(textfile) %>%
+    expect_warning("is not an HDF5 file") %>%
+    expect_warning("other data formats not yet recognized")
+
+  is.pvolfile(ghostfile) %>%
+    expect_warning("Can't find") %>%
+    expect_warning("other data formats not yet recognized")
   # TODO: test and identify NEXRAD and IRIS polar volume files
 })
 

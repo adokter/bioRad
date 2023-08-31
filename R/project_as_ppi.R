@@ -147,6 +147,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
       gridTopo <- sp::spTransform(methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
     } else if (inherits(grid_size, "RasterLayer")) {
       gridTopo <- methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints")
+
     } else {
       gridTopo <- methods::as(grid_size, "SpatialPoints")
     }
