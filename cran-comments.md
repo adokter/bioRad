@@ -1,10 +1,9 @@
-## bioRad 0.7.1 
+## bioRad 0.7.2 
 
-Addresses all CRAN instructions from the recent 0.7.1 submission:
+Updates to external links and tests. Errors addressed from CRAN package check.
 
-1. added value tags to rcs-set.Rd and sd_vvp_threshold-set.Rd
-2. removed commented example in read_vpfiles.Rd.
-3. We could not find a commented example in c.vp.Rd as mentioned by the reviewer, since this function did not have an example. We have added an example now.
-4. changed dontrun{} example in apply_mistnet to donttest{}, and prevent write in user home directory
+1. Replaced radar reference with https://aloftdata.eu/radars/ JSON link. 
 
-This package will be used extensively in a summer training school next week (Jul 16 - Jul 21), we would greatly appreciate it being restored on CRAN as soon as possible.
+2. Fixes an issue where flight altitude quantiles were incorrectly shifted down by up to one height bin in integrate_profile(). 
+
+3. Tests brought to date with the latest version of the `testthat` package, which requires handling each indvidual warning and deprecates expect_equivalent()
