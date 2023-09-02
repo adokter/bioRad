@@ -30,37 +30,37 @@ Depends:
 Imports:
     assertthat,
     curl,
+    dplyr (>= 1.1.0),
     fields,
     frictionless,
     ggplot2,
     glue,
     graphics,
+    jsonlite,
     lubridate,
     lutz,
-    suntools,
     methods,
     raster,
     readr,
     rhdf5,
-    dplyr (>= 1.1.0),
+    rlang,
     sp,
     stats,
+    suntools,
     tidyr,
     utils,
-    viridisLite,
     viridis,
-    rlang,
-    jsonlite
+    viridisLite
 Suggests:
-    vol2birdR,
     aws.s3,
     ggmap (>= 3.0.0),
     knitr,
-    tidyselect,
     rmarkdown,
+    sf,
     testthat (>= 3.0.0),
+    tidyselect,
     vdiffr,
-    sf
+    vol2birdR
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr

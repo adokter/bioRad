@@ -142,7 +142,7 @@ list_vpts_aloft <- function(date_min = NULL,
   ## warn if no data found --------------------------------------------------
   if (rlang::is_empty(data_urls) && show_warnings) {
     warning(
-      glue::glue("No data found for radars between {date_min} - {date_max}")
+      glue::glue("No data found for radar(s) between {date_min} - {date_max}")
     )
     # stop here, no need to warn for radars and dates individually
     return(data_urls)
@@ -155,7 +155,7 @@ list_vpts_aloft <- function(date_min = NULL,
   if (!all_radars_found && show_warnings) {
     warning(
       glue::glue(
-        "Found no data for radars: {missing_radars_collapse}",
+        "Found no data for radar(s): {missing_radars_collapse}",
         missing_radars_collapse =
           glue::glue_collapse(
             glue::backtick(radars[!radars %in% found_radars]),
@@ -170,8 +170,8 @@ list_vpts_aloft <- function(date_min = NULL,
   if (!all(months %in% found_vpts_aloft$date) && show_warnings) {
     warning(
       glue::glue(
-        "Not every date has radar data, ",
-        "radars found for {first_date_found} to {last_date_found}",
+        "Radar data found between {first_date_found} and {last_date_found} ",
+        "but not every date has radar data",
         first_date_found = format(lubridate::ym(min(
           found_vpts_aloft$date
         )), "%Y-%m"),
