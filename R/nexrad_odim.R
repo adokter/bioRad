@@ -22,10 +22,8 @@
 #' # download a NEXRAD file, save as KBGM_example
 #' path = file.path(tempdir(), "KBGM_example")
 #' 
-#' download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
-#'   "2019/10/01/KBGM/KBGM20191001_000542_V06", method="libcurl", mode="wb",
-#'   sep = ""
-#' ), path)
+#' download.file(paste0("https://noaa-nexrad-level2.s3.amazonaws.com/",
+#'   "2019/10/01/KBGM/KBGM20191001_000542_V06"), path, method="libcurl", mode="wb")
 #'
 #' # convert to ODIM format
 #' 
