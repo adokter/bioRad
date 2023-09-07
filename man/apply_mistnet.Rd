@@ -112,7 +112,7 @@ tempfile=tempfile("KBGM_example")
 # Download a NEXRAD file and save as KBGM_example
 download.file(
   "https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
-  tempfile
+  method="libcurl", mode="wb", tempfile
 )
 
 # Calculate MistNet segmentation

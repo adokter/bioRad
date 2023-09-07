@@ -34,7 +34,7 @@ Convert a NEXRAD polar volume file to an ODIM polar volume file
 path = file.path(tempdir(), "KBGM_example")
 
 download.file(paste("https://noaa-nexrad-level2.s3.amazonaws.com/",
-  "2019/10/01/KBGM/KBGM20191001_000542_V06",
+  "2019/10/01/KBGM/KBGM20191001_000542_V06", method="libcurl", mode="wb",
   sep = ""
 ), path)
 
