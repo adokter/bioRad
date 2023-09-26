@@ -24,9 +24,9 @@
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 #' dir.create(temp_dir)
 #' download_pvolfiles(
-#'   date_min = as.POSIXct("2016-10-02 20:00", tz = "UTC"),
-#'   date_max = as.POSIXct("2016-10-02 20:05", tz = "UTC"),
-#'   radar = "KBBX",
+#'   date_min = as.POSIXct("2002-10-01 00:00", tz = "UTC"),
+#'   date_max = as.POSIXct("2002-10-01 00:05", tz = "UTC"),
+#'   radar = "KBRO",
 #'   directory = temp_dir,
 #'   overwrite = TRUE
 #' )

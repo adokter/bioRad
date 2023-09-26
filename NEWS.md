@@ -1,10 +1,14 @@
-# bioRad 0.7.1.9000
+# bioRad 0.7.2
+
+## Bugfixes
 
 * changed default aloft bucket to aloftdata (#622)
 
 * skip tests for `calculate_vp()` when vol2birdR package is not installed (#624)
 
 * fix a bug in the calculation of flight altitude quantiles (#627), which caused underestimation of flight altitude quantiles by up to one altitude bin.
+
+* updates for compatibility with testthat package 3rd edition ($630)
 
 # bioRad 0.7.1
 
