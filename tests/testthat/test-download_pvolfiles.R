@@ -88,7 +88,7 @@ test_that("date input for download_pvolfiles() ", {
     regexp = "date_max is not greater or equal to date_min",
     fixed = TRUE
   )
-  expect_error(
+  expect_warning(
     suppressMessages(
       download_pvolfiles(
         as.POSIXct("2046-10-02 20:00", tz = "UTC"),
@@ -108,7 +108,7 @@ test_that("date input for download_pvolfiles() ", {
 
 test_that("Check radar code for download_pvolfiles() ", {
   skip_if_offline()
-  expect_error(
+  expect_warning(
     download_pvolfiles(date_min,
                        date_max,
                        c("KBBX", "KGHC"),
@@ -117,7 +117,7 @@ test_that("Check radar code for download_pvolfiles() ", {
     "radar is not of length 1",
     fixed = TRUE
   )
-  expect_error(
+  expect_warning(
     suppressMessages(
       download_pvolfiles(date_min, date_max, "ABCD", directory, overwrite)
     ),
