@@ -189,7 +189,6 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
     return(palette[output])
   }
 
-  #return(r@data@values)
   # convert data values to hex color string values.
   r@data@values <- col_func(r@data@values, zlim)
 
