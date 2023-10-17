@@ -9,7 +9,7 @@ map(x, ...)
 
 \method{map}{ppi}(
   x,
-  map,
+  basemap = "cartolight",
   param,
   alpha = 0.7,
   xlim,
@@ -17,7 +17,7 @@ map(x, ...)
   zlim = c(-20, 20),
   ratio,
   radar_size = 3,
-  radar_color = "red",
+  radar_color = "#202020",
   n_color = 1000,
   palette = NA,
   ...
@@ -28,7 +28,7 @@ map(x, ...)
 
 \item{...}{Arguments passed to \code{\link[ggmap:ggmap]{ggmap::ggmap()}}.}
 
-\item{map}{Basemap to use, result of a call to \code{\link[=download_basemap]{download_basemap()}}.}
+\item{basemap}{Basemap to use, one of \code{rosm::osm.types()}}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
@@ -90,8 +90,9 @@ model (ODIM), see Table 16 in the
 # Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
 \donttest{
-# Create a basemap that matches the extent of the ppi
-basemap <- download_basemap(ppi, maptype = "toner-lite")
+# Choose a basemap
+rosm::osm.types()
+basemap <- rosm::osm.types()[1]
 
 # Map the radial velocity of the ppi onto the basemap
 map(ppi, map = basemap, param = "VRADH")

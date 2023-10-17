@@ -4,7 +4,7 @@
 #' [ggmap::ggmap()].
 #'
 #' @param x A `ppi` object.
-#' @param basemap Basemap to use, result of a call to [download_basemap()].
+#' @param basemap Basemap to use, one of `rosm::osm.types()`
 #' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
 #' @param alpha Numeric. Transparency of the data, value between 0 and 1.
@@ -51,8 +51,9 @@
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #' \donttest{
-#' # Create a basemap that matches the extent of the ppi
-#' basemap <- download_basemap(ppi, maptype = "toner-lite")
+#' # Choose a basemap
+#' rosm::osm.types()
+#' basemap <- rosm::osm.types()[1]
 #'
 #' # Map the radial velocity of the ppi onto the basemap
 #' map(ppi, map = basemap, param = "VRADH")
