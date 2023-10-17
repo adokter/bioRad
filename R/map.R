@@ -244,14 +244,5 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
       labs(x="lon", y="lat")
   )
 
-  #mymap <- suppressMessages(
-  #  ggmap::ggmap(map) +
-  #    ggmap::inset_raster(raster::as.matrix(r), e@xmin, e@xmax, e@ymin, e@ymax) +
-  #    dummy + colorscale +
-  #    radarpoint +
-  #    ggplot2::scale_x_continuous(limits = xlim, expand = c(0, 0)) +
-  #    ggplot2::scale_y_continuous(limits = ylim, expand = c(0, 0))
-  #)
-
   suppressWarnings(mymap)
 }
