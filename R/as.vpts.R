@@ -2,6 +2,9 @@
 #' Convert a dataframe into a vpts object
 #'
 #' @param data a dataframe created from a VPTS CSV file
+#' @param from_csv logical. If TRUE, the function assumes the dataframe is in VPTS format
+#'   and keeps the reflectivity variable name as `dbz_all`. If FALSE, the function assumes conversion 
+#'   to a vpts object where reflectivity is referred to as `DBZH`. Default is FALSE.
 #' @returns a bioRad vpts object
 #' @examples
 #' # locate example file in VPTS CSV format:
@@ -9,7 +12,7 @@
 #' # convert the data.frame to a vpts object:
 #' as.vpts(df)
 #' @export
-as.vpts <- function(data) {
+as.vpts <- function(data, from_csv=FALSE) {
   assertthat::assert_that(inherits(data,"data.frame"))
 
   height <- datetime <- source_file <- radar <- NULL
@@ -81,7 +84,8 @@ as.vpts <- function(data) {
   # Convert dataframe
   maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
 
-  data <- df_to_mat_list(data, maskvars, cached_schema)
+  
+  data <- df_to_mat_list(data, maskvars, cached_schema, from_csv=from_csv)
 
   # Create vpts object
   output <- list(
