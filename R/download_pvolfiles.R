@@ -97,7 +97,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
     if (nrow(bucket_df) == 0) {
       # Check if date is correct
       prefix_tmp <- paste(gsub("-", "/", dates[i_d]), sep = "/")
-      assertthat::assert_that(assertthat::not_empty(
+      msg <- assertthat::validate_that(assertthat::not_empty(
         aws.s3::get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1)
       ),
       msg = paste0(
@@ -105,7 +105,11 @@ download_pvolfiles <- function(date_min, date_max, radar,
         ". Please check data availability for this date."
       )
       )
-      assertthat::assert_that(assertthat::not_empty(
+      if(msg != TRUE){
+        warning(msg)
+        next
+      }
+      msg <- assertthat::validate_that(assertthat::not_empty(
         aws.s3::get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
       ),
       msg = paste0(
@@ -114,6 +118,10 @@ download_pvolfiles <- function(date_min, date_max, radar,
         " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
       )
       )
+      if(msg != TRUE){
+        warning(msg)
+        next
+      }
     }
 
     # filter bucket with exact date
@@ -130,12 +138,17 @@ download_pvolfiles <- function(date_min, date_max, radar,
     # throw out occasional NA keys, see e.g. 2015/03/01/KEPZ/
     bucket_df %>% dplyr::filter(!is.na(.data$Key)) -> bucket_df
 
-    assertthat::assert_that(nrow(bucket_df) > 0,
+    msg <- assertthat::validate_that(nrow(bucket_df) > 0,
       msg = paste0(
         "No data available for ", radar, " on the ", dates[i_d],
         "within the selected datetime range. Check radar code and data availability on",
         " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
       ))
+    if(msg != TRUE){
+      warning(msg)
+      next
+    }
+
 
     # create progress bar
     message(paste0("\nDownloading pvol for ", prefix))
