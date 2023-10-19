@@ -219,11 +219,11 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
                                ))
 
   mymap <- suppressMessages(
-    ggplot() +
-      annotation_map_tile(type = basemap) +
-      geom_raster(data = rdf, aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
-      scale_fill_identity(na.value = "transparent") +
-      geom_point(data = radar_df, aes(x = X, y = Y),
+    ggplot2::ggplot() +
+      ggspatial::annotation_map_tile(type = basemap) +
+      ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
+      ggplot2::scale_fill_identity(na.value = "transparent") +
+      ggplot2::geom_point(data = radar_df, ggplot2::aes(x = X, y = Y),
                  shape = 21,
                  fill = "transparent",
                  colour = radar_color,
@@ -232,7 +232,7 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
                  show.legend = FALSE) +
       dummy +
       colorscale +
-      labs(x="lon", y="lat")
+      ggplot2::labs(x="lon", y="lat")
   )
 
   suppressWarnings(mymap)
