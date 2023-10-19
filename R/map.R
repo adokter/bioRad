@@ -21,7 +21,6 @@
 #' @param n_color Numeric. Number of colors (>=1) to use in the palette.
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
-#' @param ... Arguments passed to [ggspatial::ggspatial()].
 #' @importFrom methods as
 #' @return A ggplot object with 
 #' 
