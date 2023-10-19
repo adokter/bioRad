@@ -146,7 +146,7 @@ Or plot the vertically integrated density on a map:
 
 ```{r}
 bm <- "osm"
-map(my_corrected_ppi, basemap=bm, param = "VIR", alpha = .5)
+map(my_corrected_ppi, map=bm, param = "VIR", alpha = .5)
 ```
 
 ## 6 Overlap between radiation profile and bird profile

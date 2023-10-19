@@ -4,7 +4,7 @@
 #' [ggmap::ggmap()].
 #'
 #' @param x A `ppi` object.
-#' @param basemap Basemap to use, one of `rosm::osm.types()`
+#' @param map Basemap to use, one of `rosm::osm.types()`
 #' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
 #' @param alpha Numeric. Transparency of the data, value between 0 and 1.
@@ -52,25 +52,25 @@
 #' basemap <- rosm::osm.types()[1]
 #'
 #' # Map the radial velocity of the ppi onto the basemap
-#' map(ppi, basemap = basemap, param = "VRADH")
+#' map(ppi, map = basemap, param = "VRADH")
 #'
 #' # Extend the plotting range of velocities, from -50 to 50 m/s
-#' map(ppi, basemap = basemap, param = "VRADH", zlim = c(-50, 50))
+#' map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 #'
 #' # Map the reflectivity
-#' map(ppi, basemap = basemap, param = "DBZH")
+#' map(ppi, map = basemap, param = "DBZH")
 #'
 #' # Change the color palette to Viridis colors
-#' map(ppi, basemap = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
+#' map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
 #'
 #' # Give the data more transparency
-#' map(ppi, basemap = basemap, param = "DBZH", alpha = 0.3)
+#' map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 #'
 #' # Change the appearance of the symbol indicating the radar location
-#' map(ppi, basemap = basemap, radar_size = 5, radar_color = "blue")
+#' map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
 #'
 #' # Crop the map
-#' map(ppi, basemap = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
+#' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 #' }
 map <- function(x, ...) {
   UseMethod("map", x)
@@ -78,7 +78,7 @@ map <- function(x, ...) {
 
 #' @describeIn map Plot a `ppi` object on a map.
 #' @export
-map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
+map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
                     ratio, radar_size = 3, radar_color = "#202020", n_color = 1000,
                     palette = NA, ...) {
 
@@ -115,7 +115,7 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
     }
   }
 
-  assert_valid_basemap(basemap)
+  assert_valid_basemap(map)
 
   # set color scales and palettes
   if (!assertthat::are_equal(palette, NA)) {
@@ -218,7 +218,7 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
 
   mymap <- suppressWarnings(
     ggplot2::ggplot() +
-      ggspatial::annotation_map_tile(type = basemap) +
+      ggspatial::annotation_map_tile(type = map) +
       ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
       ggplot2::scale_fill_identity(na.value = "transparent") +
       ggplot2::geom_point(data = radar_df, ggplot2::aes(x = X, y = Y),

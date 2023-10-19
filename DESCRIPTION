@@ -34,7 +34,6 @@ Imports:
     fields,
     frictionless,
     ggplot2,
-    ggspatial,
     glue,
     graphics,
     jsonlite,
@@ -55,6 +54,7 @@ Imports:
 Suggests:
     aws.s3,
     knitr,
+    ggspatial,
     rmarkdown,
     rosm,
     prettymapr,

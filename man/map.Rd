@@ -9,7 +9,7 @@ map(x, ...)
 
 \method{map}{ppi}(
   x,
-  basemap = "cartolight",
+  map = "cartolight",
   param,
   alpha = 0.7,
   xlim,
@@ -28,7 +28,7 @@ map(x, ...)
 
 \item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{basemap}{Basemap to use, one of \code{rosm::osm.types()}}
+\item{map}{Basemap to use, one of \code{rosm::osm.types()}}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
@@ -93,25 +93,25 @@ ppi <- project_as_ppi(example_scan)
 basemap <- rosm::osm.types()[1]
 
 # Map the radial velocity of the ppi onto the basemap
-map(ppi, basemap = basemap, param = "VRADH")
+map(ppi, map = basemap, param = "VRADH")
 
 # Extend the plotting range of velocities, from -50 to 50 m/s
-map(ppi, basemap = basemap, param = "VRADH", zlim = c(-50, 50))
+map(ppi, map = basemap, param = "VRADH", zlim = c(-50, 50))
 
 # Map the reflectivity
-map(ppi, basemap = basemap, param = "DBZH")
+map(ppi, map = basemap, param = "DBZH")
 
 # Change the color palette to Viridis colors
-map(ppi, basemap = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
+map(ppi, map = basemap, param = "DBZH", palette = viridis::viridis(100), zlim=c(-10,10))
 
 # Give the data more transparency
-map(ppi, basemap = basemap, param = "DBZH", alpha = 0.3)
+map(ppi, map = basemap, param = "DBZH", alpha = 0.3)
 
 # Change the appearance of the symbol indicating the radar location
-map(ppi, basemap = basemap, radar_size = 5, radar_color = "blue")
+map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
 
 # Crop the map
-map(ppi, basemap = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
+map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }
 }
 \seealso{

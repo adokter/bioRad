@@ -157,8 +157,9 @@ plot(my_ppi, param = "VRADH")
 ```{r, eval=SHOW_ANSWERS, warning=FALSE}
 # It is often informative to plot radar data on a base layer.
 # First choose a base layer from the list of rosm::osm.types()
+basemap = "osm"
 # then overlay the PPI on the basemap, restricting the color scale from -20 to 40 dBZ:
-map(my_ppi, basemap = basemap, param = "DBZH", zlim = c(-20, 40))
+map(my_ppi, map = basemap, param = "DBZH", zlim = c(-20, 40))
 ```
 
 # Screening out weather
