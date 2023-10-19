@@ -53,11 +53,11 @@ Imports:
     viridisLite
 Suggests:
     aws.s3,
-    knitr,
     ggspatial,
+    knitr,
+    prettymapr,
     rmarkdown,
     rosm,
-    prettymapr,
     sf,
     testthat (>= 3.0.0),
     tidyselect,
