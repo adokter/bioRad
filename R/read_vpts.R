@@ -122,7 +122,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
 
   # Return data as data frame
   if (!data_frame) {
-    data <- as.vpts(data)
+    data <- as.vpts(data, from_csv=TRUE)
   }
 
   return(data)

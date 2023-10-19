@@ -289,7 +289,7 @@ tibble_to_mat <- function(tibble) {
 #' @returns A named list of matrices ordered according to radvars
 #' @keywords internal
 #' @noRd
-df_to_mat_list <- function(data, maskvars, schema) {
+df_to_mat_list <- function(data, maskvars, schema, from_csv) {
   datetime <- height <- variable <- fields <- dbz_all <- DBZH <- NULL
   radvars <- extract_names(schema$fields) #allow DBZH as alternative to dbz_all
   radvars <- radvars[!radvars %in% maskvars]
@@ -297,8 +297,23 @@ df_to_mat_list <- function(data, maskvars, schema) {
   insert_index <- which(radvars == "dbz_all") + 1
   radvars <- append(radvars, alt_radvar, after = insert_index)
 
+rename_reflectivity <- function(data) {
+  if (!from_csv) {
+    if ("dbz_all" %in% colnames(data)) {
+      data <- data %>%
+        dplyr::mutate(DBZH = dbz_all) %>%
+        dplyr::select(-dbz_all)
+    } else {
+      data <- data %>%
+        dplyr::rename(dbz_all = DBZH) %>%
+        dplyr::select(-dbz_all)
+    }
+  }
+  return(data)
+}
   tbls_lst <- data %>%
     dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
+    rename_reflectivity() %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
