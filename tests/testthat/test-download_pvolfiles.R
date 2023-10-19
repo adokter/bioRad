@@ -108,7 +108,7 @@ test_that("date input for download_pvolfiles() ", {
 
 test_that("Check radar code for download_pvolfiles() ", {
   skip_if_offline()
-  expect_warning(
+  expect_error(
     download_pvolfiles(date_min,
                        date_max,
                        c("KBBX", "KGHC"),
