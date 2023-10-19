@@ -119,8 +119,7 @@
 #' plot(ppi, param = "VID", zlim = c(0, 200))
 #'
 #' # Download a basemap and map the ppi
-#' bm <- download_basemap(ppi)
-#' map(ppi, bm)
+#' map(ppi)
 #'
 #' # The ppi can also be projected on a user-defined raster, as follows:
 #'

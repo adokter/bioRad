@@ -26,6 +26,8 @@ map(x, ...)
 \arguments{
 \item{x}{A \code{ppi} object.}
 
+\item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
+
 \item{basemap}{Basemap to use, one of \code{rosm::osm.types()}}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
@@ -88,7 +90,6 @@ model (ODIM), see Table 16 in the
 ppi <- project_as_ppi(example_scan)
 \donttest{
 # Choose a basemap
-rosm::osm.types()
 basemap <- rosm::osm.types()[1]
 
 # Map the radial velocity of the ppi onto the basemap
@@ -115,7 +116,6 @@ map(ppi, basemap = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }
 \seealso{
 \itemize{
-\item \code{\link[=download_basemap]{download_basemap()}}
 \item \code{\link[=project_as_ppi]{project_as_ppi()}}
 }
 }

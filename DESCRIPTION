@@ -45,7 +45,6 @@ Imports:
     readr,
     rhdf5,
     rlang,
-    rosm,
     sp,
     stats,
     suntools,
@@ -55,9 +54,10 @@ Imports:
     viridisLite
 Suggests:
     aws.s3,
-    ggmap (>= 3.0.0),
     knitr,
     rmarkdown,
+    rosm,
+    prettymapr,
     sf,
     testthat (>= 3.0.0),
     tidyselect,

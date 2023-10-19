@@ -21,6 +21,7 @@
 #' @param n_color Numeric. Number of colors (>=1) to use in the palette.
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
+#' @param ... Arguments passed to [ggplot2::ggplot()].
 #' @importFrom methods as
 #' @return A ggplot object
 #' @details
@@ -41,7 +42,6 @@
 #' @export
 #'
 #' @seealso
-#' * [download_basemap()]
 #' * [project_as_ppi()]
 #'
 #' @examples
@@ -49,7 +49,6 @@
 #' ppi <- project_as_ppi(example_scan)
 #' \donttest{
 #' # Choose a basemap
-#' rosm::osm.types()
 #' basemap <- rosm::osm.types()[1]
 #'
 #' # Map the radial velocity of the ppi onto the basemap
@@ -196,10 +195,9 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
 
   # these declarations prevent generation of NOTE "no visible binding for
   # global variable" during package Check
-  lon <- lat <- y <- z <- NA
+  fill <- lon <- lat <- X <- Y <- y <- z <- NA
   # extract unique radar locations
-  latlon_radar <- unique(data.frame(lat=c(x$geo$lat), lon=c(x$geo$lon)))
-  # symbols for the radar position
+
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
 
@@ -218,7 +216,7 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
                                  z = 0
                                ))
 
-  mymap <- suppressMessages(
+  mymap <- suppressWarnings(
     ggplot2::ggplot() +
       ggspatial::annotation_map_tile(type = basemap) +
       ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +

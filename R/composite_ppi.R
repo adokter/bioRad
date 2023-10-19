@@ -74,11 +74,8 @@
 #' # across the available scans at each geographic location
 #' composite <- composite_ppi(ppis, method = "max", res=1000)
 #'
-#' # Download basemap
-#' bm <- download_basemap(composite)
-#'
 #' # Plot the calculated max product on the basemap
-#' map(composite, bm)
+#' map(composite)
 #' }
 composite_ppi <-
   function(x,
