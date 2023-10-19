@@ -137,8 +137,8 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
-  epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
+  wgs84 <- sf::st_crs(4326)
+  epsg3857 <- sf::st_crs(3857) # this is the google mercator projection
   mybbox <- suppressWarnings(
     sp::spTransform(
       sp::SpatialPoints(t(data@bbox),
