@@ -189,7 +189,6 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
   }
 
   # convert data values to hex color string values.
-  #r@data@values <- col_func(r@data@values, zlim)
 
   rdf <- raster::as.data.frame(r, xy = TRUE)
   names(rdf) <- c("x", "y", "fill")
