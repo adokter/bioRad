@@ -22,11 +22,7 @@
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
 #' @importFrom methods as
-#' @return A ggplot object with 
-#' 
-#' (a classed raster object with a bounding
-#' box attribute).
-#'
+#' @return A ggplot object
 #' @details
 #' Available scan parameters for mapping can by printed to screen by
 #' `summary(x)`. Commonly available parameters are:
@@ -137,8 +133,8 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  wgs84 <- sf::st_crs(4326)
-  epsg3857 <- sf::st_crs(3857) # this is the google mercator projection
+  wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
+  epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
   mybbox <- suppressWarnings(
     sp::spTransform(
       sp::SpatialPoints(t(data@bbox),
@@ -192,11 +188,13 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
   }
 
   # convert data values to hex color string values.
-  r@data@values <- col_func(r@data@values, zlim)
+  #r@data@values <- col_func(r@data@values, zlim)
+
+  return(r)
 
   rdf <- as.data.frame(r, xy = TRUE)
   names(rdf) <- c("x", "y", "fill")
-  rdf$fill <- values(r)
+  rdf$fill <- col_func(r@data@values, zlim)
 
   # these declarations prevent generation of NOTE "no visible binding for
   # global variable" during package Check
