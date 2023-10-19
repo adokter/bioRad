@@ -2,17 +2,17 @@
 
 ## New features
 
-* Replaced the `ggmap` package with `ggspatial` for map visualizations. This change was made as `ggmap` no longer provides reliable open-source basemaps without the necessity to register for an API key.
+* Replaced the `ggmap` package with `ggspatial` for map visualizations. This change was made as `ggmap` no longer provides reliable open-source basemaps without the necessity to register for an API key (#638).
 
 ## Bugfixes
 
-* Corrected the radar attribute naming from `DBZH` to `dbz_all` to be in line with the VPTS CSV specification. Details on the specification can be found at [https://aloftdata.eu/vpts-csv/](https://aloftdata.eu/vpts-csv/).
+* Corrected the radar attribute naming from `DBZH` to `dbz_all` to be in line with the VPTS CSV specification. Details on the specification can be found at [https://aloftdata.eu/vpts-csv/](https://aloftdata.eu/vpts-csv/) (#634).
 
-* Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download.
+* Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download (#636)
 
 ## Deprecations
 
-* `download_basemap()` has been deprecated and replaced by `ggspatial::annotation_map_tile()`
+* `download_basemap()` has been deprecated, function `map()` now automatically downloads a basemap (#638).
 
 # bioRad 0.7.2
 
