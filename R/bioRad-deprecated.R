@@ -49,5 +49,5 @@ vol2bird_version <- function(...) {
 #' @return No return value, called for warning message side effect only
 download_basemap <- function(...) {
   warning("download_basemap has been deprecated; ?bioRad::map for details")
-  return(TRUE)
+  return("cartolight")
 }
