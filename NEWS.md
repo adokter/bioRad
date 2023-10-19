@@ -6,7 +6,7 @@
 
 ## Bugfixes
 
-* Corrected the radar attribute naming from `DBZH` to `dbz_all` to be in line with the VPTS CSV specification. Details on the specification can be found at [https://aloftdata.eu/vpts-csv/](https://aloftdata.eu/vpts-csv/) (#634).
+* Corrected incorrect mapping of to `dbz_all` data column in [VPTS CSV](https://aloftdata.eu/vpts-csv/) format to corresponding `DBZH` data column in bioRad vpts object (#634).
 
 * Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download (#636)
 
