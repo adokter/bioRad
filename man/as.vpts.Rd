@@ -4,10 +4,14 @@
 \alias{as.vpts}
 \title{Convert a dataframe into a vpts object}
 \usage{
-as.vpts(data)
+as.vpts(data, from_csv = FALSE)
 }
 \arguments{
 \item{data}{a dataframe created from a VPTS CSV file}
+
+\item{from_csv}{logical. If TRUE, the function assumes the dataframe is in VPTS format
+and keeps the reflectivity variable name as \code{dbz_all}. If FALSE, the function assumes conversion
+to a vpts object where reflectivity is referred to as \code{DBZH}. Default is FALSE.}
 }
 \value{
 a bioRad vpts object
