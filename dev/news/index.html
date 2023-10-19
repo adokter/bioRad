@@ -69,6 +69,23 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7.3" id="biorad-073">bioRad 0.7.3<a class="anchor" aria-label="anchor" href="#biorad-073"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-7-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-3"></a></h3>
+<ul><li>Replaced the <code>ggmap</code> package with <code>ggspatial</code> for map visualizations. This change was made as <code>ggmap</code> no longer provides reliable open-source basemaps without the necessity to register for an API key (<a href="https://github.com/adokter/bioRad/issues/638" class="external-link">#638</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-0-7-3">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-3"></a></h3>
+<ul><li><p>Corrected incorrect mapping of to <code>dbz_all</code> data column in <a href="https://aloftdata.eu/vpts-csv/" class="external-link">VPTS CSV</a> format to corresponding <code>DBZH</code> data column in bioRad vpts object (<a href="https://github.com/adokter/bioRad/issues/634" class="external-link">#634</a>).</p></li>
+<li><p>Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download (<a href="https://github.com/adokter/bioRad/issues/636" class="external-link">#636</a>)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="deprecations-0-7-3">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-7-3"></a></h3>
+<ul><li>
+<code><a href="../reference/bioRad-deprecated.html">download_basemap()</a></code> has been deprecated, function <code><a href="../reference/map.html">map()</a></code> now automatically downloads a basemap (<a href="https://github.com/adokter/bioRad/issues/638" class="external-link">#638</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7.2" id="biorad-072">bioRad 0.7.2<small>2023-09-06</small><a class="anchor" aria-label="anchor" href="#biorad-072"></a></h2>
 <div class="section level3">
 <h3 id="bugfixes-0-7-2">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-2"></a></h3>
@@ -226,7 +243,7 @@
 <h2 class="page-header" data-toc-text="0.4.0" id="biorad-040">bioRad 0.4.0<small>2018-12-14</small><a class="anchor" aria-label="anchor" href="#biorad-040"></a></h2>
 <p>First release on CRAN! All issues included in this release can be found <a href="https://github.com/adokter/bioRad/milestone/4?closed=1" class="external-link">here</a>.</p>
 <ul><li><p><code><a href="../reference/get_param.html">get_param()</a></code> added as new function to get parameters from scan (<a href="https://github.com/adokter/bioRad/issues/132" class="external-link">#132</a>).</p></li>
-<li><p><code><a href="../reference/download_basemap.html">download_basemap()</a></code> now uses Stamen basemaps by default (parameter <code>source</code>), so users do not need to request an API key for the previous default Google Maps (<a href="https://github.com/adokter/bioRad/issues/163" class="external-link">#163</a>).</p></li>
+<li><p><code><a href="../reference/bioRad-deprecated.html">download_basemap()</a></code> now uses Stamen basemaps by default (parameter <code>source</code>), so users do not need to request an API key for the previous default Google Maps (<a href="https://github.com/adokter/bioRad/issues/163" class="external-link">#163</a>).</p></li>
 <li><p><code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/select_vpfiles.html">select_vpfiles()</a></code> now use 5 letter radar codes (parameter <code>radars</code> instead of <code>radar</code> and <code>country</code>), allow to skip already downloaded files (parameter <code>overwrite = TRUE</code>) and have improved download and error messages (<a href="https://github.com/adokter/bioRad/issues/176" class="external-link">#176</a>).</p></li>
 <li><p><code><a href="../reference/read_pvolfile.html">read_pvolfile()</a></code>, <code><a href="../reference/nexrad_to_odim.html">nexrad_to_odim()</a></code> and <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (all Docker dependent) can now read files from directories containing a space (<a href="https://github.com/adokter/bioRad/issues/162" class="external-link">#162</a>).</p></li>
 <li><p>Details for deprecated functions <code>mt()</code>, <code>mtr()</code>, <code>cmt()</code> are now displayed with function (<a href="https://github.com/adokter/bioRad/issues/166" class="external-link">#166</a>).</p></li>
