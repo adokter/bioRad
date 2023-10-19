@@ -198,23 +198,17 @@ map.ppi <- function(x, basemap="cartolight", param, alpha = 0.7, xlim, ylim, zli
   # global variable" during package Check
   lon <- lat <- y <- z <- NA
   # extract unique radar locations
-
+  latlon_radar <- unique(data.frame(lat=c(x$geo$lat), lon=c(x$geo$lon)))
   # symbols for the radar position
   # dummy is a hack to be able to include the ggplot2 color scale,
   # radarpoint is the actual plotting of radar positions.
 
-  radarpoint <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat),
-    colour = radar_color,
-    size = radar_size,
-    data = data.frame(lon = latlon_radar$lon, lat = latlon_radar$lat)
-  )
-
   radar_location = data.frame(lon = x$geo$lon, lat = x$geo$lat) %>%
-    st_as_sf(coords = c("lon", "lat"))  %>%
-    st_set_crs(4326)  %>%
-    st_transform(3857)
+    sf::st_as_sf(coords = c("lon", "lat"))  %>%
+    sf::st_set_crs(4326)  %>%
+    sf::st_transform(3857)
 
-  radar_df <- data.frame(st_coordinates(radar_location))
+  radar_df <- data.frame(sf::st_coordinates(radar_location))
 
   dummy <- ggplot2::geom_point(ggplot2::aes(x = lon, y = lat, colour = z),
                                size = 0,
