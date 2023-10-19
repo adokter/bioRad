@@ -5,6 +5,7 @@
 \alias{check_docker}
 \alias{update_docker}
 \alias{vol2bird_version}
+\alias{download_basemap}
 \title{Deprecated bioRad functions and data}
 \usage{
 check_docker(...)
@@ -12,6 +13,8 @@ check_docker(...)
 update_docker(...)
 
 vol2bird_version(...)
+
+download_basemap(...)
 }
 \value{
 \code{TRUE}
@@ -19,6 +22,8 @@ vol2bird_version(...)
 No return value, called for warning message side effect only
 
 an object of class \link{numeric_version}
+
+No return value, called for warning message side effect only
 }
 \description{
 The functions and data listed below are deprecated or renamed and will be
@@ -38,6 +43,12 @@ This function has been deprecated
 \section{vol2bird_version}{
 
 This function has been moved to package vol2birdR
+}
+
+\section{download_basemap}{
+
+This function has been deprecated
+ggmap has been replaced by ggspatial which no longer requires a pre-downloaded raster basemap
 }
 
 \keyword{internal}
