@@ -8,7 +8,7 @@
 
 * Corrected incorrect mapping of to `dbz_all` data column in [VPTS CSV](https://aloftdata.eu/vpts-csv/) format to corresponding `DBZH` data column in bioRad vpts object (#634).
 
-* Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download (#636)
+* Improved the polar volume downloads by `download_pvolfiles()`: now skips a day if there are issues with fetching instead of aborting the entire download (#636)
 
 ## Deprecations
 
