@@ -228,7 +228,7 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 
   if(tools::file_ext(file_path) == "txt"){
-    return("txt") 
+    return("txt")
   } else {
     message("No extension detected; assuming file type .txt which maps to stdout format")
     return("txt")
@@ -289,31 +289,15 @@ tibble_to_mat <- function(tibble) {
 #' @returns A named list of matrices ordered according to radvars
 #' @keywords internal
 #' @noRd
-df_to_mat_list <- function(data, maskvars, schema, from_csv) {
+df_to_mat_list <- function(data, maskvars, schema) {
   datetime <- height <- variable <- fields <- dbz_all <- DBZH <- NULL
   radvars <- extract_names(schema$fields) #allow DBZH as alternative to dbz_all
   radvars <- radvars[!radvars %in% maskvars]
   alt_radvar <- "DBZH"
   insert_index <- which(radvars == "dbz_all") + 1
   radvars <- append(radvars, alt_radvar, after = insert_index)
-
-rename_reflectivity <- function(data) {
-  if (!from_csv) {
-    if ("dbz_all" %in% colnames(data)) {
-      data <- data %>%
-        dplyr::mutate(DBZH = dbz_all) %>%
-        dplyr::select(-dbz_all)
-    } else {
-      data <- data %>%
-        dplyr::rename(dbz_all = DBZH) %>%
-        dplyr::select(-dbz_all)
-    }
-  }
-  return(data)
-}
   tbls_lst <- data %>%
     dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
-    rename_reflectivity() %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
