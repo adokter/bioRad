@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.3.9000</span>
       </span>
     </div>
 
@@ -69,7 +69,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7.3" id="biorad-073">bioRad 0.7.3<a class="anchor" aria-label="anchor" href="#biorad-073"></a></h2>
+<h2 class="page-header" data-toc-text="0.7.3" id="biorad-073">bioRad 0.7.3<small>2023-10-20</small><a class="anchor" aria-label="anchor" href="#biorad-073"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-7-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-3"></a></h3>
 <ul><li>Replaced the <code>ggmap</code> package with <code>ggspatial</code> for map visualizations. This change was made as <code>ggmap</code> no longer provides reliable open-source basemaps without the necessity to register for an API key (<a href="https://github.com/adokter/bioRad/issues/638" class="external-link">#638</a>).</li>
@@ -77,7 +77,7 @@
 <div class="section level3">
 <h3 id="bugfixes-0-7-3">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-3"></a></h3>
 <ul><li><p>Corrected incorrect mapping of to <code>dbz_all</code> data column in <a href="https://aloftdata.eu/vpts-csv/" class="external-link">VPTS CSV</a> format to corresponding <code>DBZH</code> data column in bioRad vpts object (<a href="https://github.com/adokter/bioRad/issues/634" class="external-link">#634</a>).</p></li>
-<li><p>Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download (<a href="https://github.com/adokter/bioRad/issues/636" class="external-link">#636</a>)</p></li>
+<li><p>Improved the polar volume downloads by <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code>: now skips a day if there are issues with fetching instead of aborting the entire download (<a href="https://github.com/adokter/bioRad/issues/636" class="external-link">#636</a>)</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecations-0-7-3">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-7-3"></a></h3>
