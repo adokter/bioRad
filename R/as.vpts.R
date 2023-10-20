@@ -12,6 +12,12 @@
 as.vpts <- function(data) {
   assertthat::assert_that(inherits(data,"data.frame"))
 
+  # if dbz_all is a column name, rename to bioRad naming DBZH
+  if("dbz_all" %in% names(data)){
+    data <- data %>%
+      dplyr::rename(DBZH = "dbz_all")
+  }
+
   height <- datetime <- source_file <- radar <- NULL
 
   # Throw error if nrows per height are not identical
@@ -80,6 +86,7 @@ as.vpts <- function(data) {
 
   # Convert dataframe
   maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
+
 
   data <- df_to_mat_list(data, maskvars, cached_schema)
 

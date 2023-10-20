@@ -228,7 +228,7 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 
   if(tools::file_ext(file_path) == "txt"){
-    return("txt") 
+    return("txt")
   } else {
     message("No extension detected; assuming file type .txt which maps to stdout format")
     return("txt")
@@ -296,11 +296,8 @@ df_to_mat_list <- function(data, maskvars, schema) {
   alt_radvar <- "DBZH"
   insert_index <- which(radvars == "dbz_all") + 1
   radvars <- append(radvars, alt_radvar, after = insert_index)
-
   tbls_lst <- data %>%
     dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
-    dplyr::mutate(DBZH = ifelse("dbz_all" %in% colnames(data), dbz_all, DBZH),
-                 dbz_all = ifelse("DBZH" %in% colnames(data), DBZH, dbz_all)) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
