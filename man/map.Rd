@@ -9,7 +9,7 @@ map(x, ...)
 
 \method{map}{ppi}(
   x,
-  map,
+  map = "cartolight",
   param,
   alpha = 0.7,
   xlim,
@@ -17,7 +17,7 @@ map(x, ...)
   zlim = c(-20, 20),
   ratio,
   radar_size = 3,
-  radar_color = "red",
+  radar_color = "#202020",
   n_color = 1000,
   palette = NA,
   ...
@@ -26,9 +26,9 @@ map(x, ...)
 \arguments{
 \item{x}{A \code{ppi} object.}
 
-\item{...}{Arguments passed to \code{\link[ggmap:ggmap]{ggmap::ggmap()}}.}
+\item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{map}{Basemap to use, result of a call to \code{\link[=download_basemap]{download_basemap()}}.}
+\item{map}{Basemap to use, one of \code{rosm::osm.types()}}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
@@ -57,8 +57,7 @@ position.}
 color scale, e.g. output from \code{\link[viridisLite:viridis]{viridisLite::viridis()}}.}
 }
 \value{
-A ggmap object (a classed raster object with a bounding
-box attribute).
+A ggplot object
 }
 \description{
 Plots a plan position indicator (\code{ppi}) on a base layer using
@@ -90,8 +89,8 @@ model (ODIM), see Table 16 in the
 # Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
 \donttest{
-# Create a basemap that matches the extent of the ppi
-basemap <- download_basemap(ppi, maptype = "toner-lite")
+# Choose a basemap
+basemap <- rosm::osm.types()[1]
 
 # Map the radial velocity of the ppi onto the basemap
 map(ppi, map = basemap, param = "VRADH")
@@ -117,7 +116,6 @@ map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }
 \seealso{
 \itemize{
-\item \code{\link[=download_basemap]{download_basemap()}}
 \item \code{\link[=project_as_ppi]{project_as_ppi()}}
 }
 }

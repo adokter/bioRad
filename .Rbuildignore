@@ -17,4 +17,4 @@ inst/extdata/vpts.txt.zip
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
-rosm.cache
+^rosm\.cache$

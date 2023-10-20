@@ -1,3 +1,19 @@
+# bioRad 0.7.3
+
+## New features
+
+* Replaced the `ggmap` package with `ggspatial` for map visualizations. This change was made as `ggmap` no longer provides reliable open-source basemaps without the necessity to register for an API key (#638).
+
+## Bugfixes
+
+* Corrected incorrect mapping of to `dbz_all` data column in [VPTS CSV](https://aloftdata.eu/vpts-csv/) format to corresponding `DBZH` data column in bioRad vpts object (#634).
+
+* Improved the VPTS file fetching mechanism from s3: now skips a day if there are issues with fetching instead of aborting the entire download (#636)
+
+## Deprecations
+
+* `download_basemap()` has been deprecated, function `map()` now automatically downloads a basemap (#638).
+
 # bioRad 0.7.2
 
 ## Bugfixes
@@ -47,6 +63,8 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 * Fix bug in height integration, which excluded the lowest bins for certain low altitude radars (#534).
 
 ## Deprecations
+
+
 
 * Argument `local_install` in `calculate_vp()` and `apply_mistnet()` is now deprecated.
 

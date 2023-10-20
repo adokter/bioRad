@@ -1,3 +1,33 @@
+# Color scale used in map plots:
+colors_dbz <- c(
+  "lightblue", "darkblue",
+  "green", "yellow", "red",
+  "magenta"
+)
+colors_vrad <- c("blue", "white", "red")
+
+# Color scale used in vertical profile plots:
+r_points <- c(1, 63, 82, 94, 146, 177, 192, 209, 256)
+r_values <- c(255, 255, 163, 255, 255, 81, 81, 0, 0)
+g_points <- c(1, 65, 80, 111, 143, 256)
+g_values <- c(255, 255, 163, 163, 0, 0)
+b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
+b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
+vpts_default_palette <- grDevices::rgb(approx(
+  r_points, r_values,
+  seq(1, 255, length.out = 255)
+)$y,
+approx(
+  g_points, g_values,
+  seq(1, 255, length.out = 255)
+)$y,
+approx(
+  b_points, b_values,
+  seq(1, 255, length.out = 255)
+)$y,
+maxColorValue = 255
+)
+
 color_scale <- function(param, zlim, na.value = "transparent") {
   if (param %in% c("VRADH", "VRADV", "VRAD")) {
     colorscale <- ggplot2::scale_colour_gradient2(
@@ -118,35 +148,6 @@ add_color_transparency <- function(color, alpha = 1) {
   }
 }
 
-# Color scale used in map plots:
-colors_dbz <- c(
-  "lightblue", "darkblue",
-  "green", "yellow", "red",
-  "magenta"
-)
-colors_vrad <- c("blue", "white", "red")
-
-# Color scale used in vertical profile plots:
-r_points <- c(1, 63, 82, 94, 146, 177, 192, 209, 256)
-r_values <- c(255, 255, 163, 255, 255, 81, 81, 0, 0)
-g_points <- c(1, 65, 80, 111, 143, 256)
-g_values <- c(255, 255, 163, 163, 0, 0)
-b_points <- c(1, 80, 97, 111, 128, 160, 207, 256)
-b_values <- c(255, 0, 0, 82, 0, 0, 255, 0)
-vpts_default_palette <- grDevices::rgb(approx(
-  r_points, r_values,
-  seq(1, 255, length.out = 255)
-)$y,
-approx(
-  g_points, g_values,
-  seq(1, 255, length.out = 255)
-)$y,
-approx(
-  b_points, b_values,
-  seq(1, 255, length.out = 255)
-)$y,
-maxColorValue = 255
-)
 
 get_zlim <- function(param, zlim) {
   if (param %in% c("DBZH", "DBZV", "DBZ")) {

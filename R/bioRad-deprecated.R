@@ -40,4 +40,14 @@ vol2bird_version <- function(...) {
   warning("vol2bird_version has been moved to package vol2birdR")
   vol2birdR::vol2bird_version()
 }
-
+#' @section download_basemap:
+#' This function has been deprecated 
+#' ggmap has been replaced by ggspatial which no longer requires a pre-downloaded raster basemap
+#'
+#' @rdname bioRad-deprecated
+#' @export
+#' @return No return value, called for warning message side effect only
+download_basemap <- function(...) {
+  warning("download_basemap has been deprecated; ?bioRad::map for details")
+  return("cartolight")
+}

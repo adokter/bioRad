@@ -53,9 +53,11 @@ Imports:
     viridisLite
 Suggests:
     aws.s3,
-    ggmap (>= 3.0.0),
+    ggspatial,
     knitr,
+    prettymapr,
     rmarkdown,
+    rosm,
     sf,
     testthat (>= 3.0.0),
     tidyselect,
