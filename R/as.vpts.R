@@ -15,7 +15,7 @@ as.vpts <- function(data) {
   # if dbz_all is a column name, rename to bioRad naming DBZH
   if("dbz_all" %in% names(data)){
     data <- data %>%
-      dplyr::rename(DBZH = dbz_all)
+      dplyr::rename(DBZH = "dbz_all")
   }
 
   height <- datetime <- source_file <- radar <- NULL
