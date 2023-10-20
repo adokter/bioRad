@@ -60,8 +60,7 @@ color scale, e.g. output from \code{\link[viridisLite:viridis]{viridisLite::viri
 A ggplot object
 }
 \description{
-Plots a plan position indicator (\code{ppi}) on a base layer using
-\code{\link[ggmap:ggmap]{ggmap::ggmap()}}.
+Plots a plan position indicator (\code{ppi}) on a base layer
 }
 \details{
 Available scan parameters for mapping can by printed to screen by
