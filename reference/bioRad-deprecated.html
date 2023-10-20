@@ -19,7 +19,7 @@ functionality are mentioned."><meta property="og:image" content="https://adriaan
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -82,7 +82,9 @@ functionality are mentioned.</p>
 <span></span>
 <span><span class="fu">update_docker</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">vol2bird_version</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">vol2bird_version</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">download_basemap</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="value">
@@ -99,6 +101,8 @@ functionality are mentioned.</p>
 <p>an object of class <a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">numeric_version</a></p>
 
 
+
+<p>No return value, called for warning message side effect only</p>
     </div>
     <div id="check-docker">
     <h2>check_docker</h2>
@@ -117,6 +121,13 @@ functionality are mentioned.</p>
     
 
 <p>This function has been moved to package vol2birdR</p>
+    </div>
+    <div id="download-basemap">
+    <h2>download_basemap</h2>
+    
+
+<p>This function has been deprecated
+ggmap has been replaced by ggspatial which no longer requires a pre-downloaded raster basemap</p>
     </div>
 
   </div>

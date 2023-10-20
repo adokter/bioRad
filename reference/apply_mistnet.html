@@ -18,7 +18,7 @@ loads the resultant segmentation as a polar volume (pvol) object."><meta propert
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -210,7 +210,7 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate MistNet segmentation</span></span></span>
 <span class="r-in"><span><span class="va">mistnet_pvol</span> <span class="op">&lt;-</span> <span class="fu">apply_mistnet</span><span class="op">(</span><span class="va">tempfile</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Filename = /tmp/RtmpgYyHQx/KBGM_example1bdfdca9a32, callid = KBGM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Filename = /tmp/RtmpO2zEgh/KBGM_example1c1d1fa76dbd, callid = KBGM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Reading RSL polar volume with nominal time 20191001-000542, source: RAD:KBGM,PLC:BINGHAMTON,state:NY,radar_name:KBGM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running vol2birdSetUp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Warning: radial velocities will be dealiased...</span>
@@ -235,14 +235,6 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Project the scan as a ppi</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">scan</span>, range_max <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> which was just loaded, will retire in October 2023.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Please refer to R-spatial evolution reports for details, especially</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> https://r-spatial.org/r/2023/05/15/evolution4.html.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> It may be desirable to make the sf package available;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> package maintainers should consider adding sf to Suggests:.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The sp package is now running under evolution status 2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>      (status 2 uses the sf package in place of rgdal)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the reflectivity parameter</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span></span></span>
