@@ -74,7 +74,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eta_to_dbz</span><span class="op">(</span><span class="va">eta</span>, <span class="va">wavelength</span>, K <span class="op">=</span> <span class="fl">0.93</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eta_to_dbz</span><span class="op">(</span><span class="va">eta</span>, <span class="va">wavelength</span>, K <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">0.93</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,18 +102,18 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Calculate dBZ for a 10000 cm^2/km^3 eta reflectivity at C-band</span></span></span>
 <span class="r-in"><span><span class="fu">eta_to_dbz</span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13.73165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13.41648</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate dBZ for a 10000 cm^2/km^3 eta reflectivity at S-band</span></span></span>
 <span class="r-in"><span><span class="fu">eta_to_dbz</span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 25.77285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 25.45768</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate dBZ for an animal density of 1000 individuals/km^3 and a radar</span></span></span>
 <span class="r-in"><span><span class="co"># cross section of 11 cm^2 per individual</span></span></span>
 <span class="r-in"><span><span class="fu">eta_to_dbz</span><span class="op">(</span><span class="fl">1000</span> <span class="op">*</span> <span class="fl">11</span>, <span class="fl">5</span><span class="op">)</span> <span class="co"># C-band</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14.14557</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13.8304</span>
 <span class="r-in"><span><span class="fu">eta_to_dbz</span><span class="op">(</span><span class="fl">1000</span> <span class="op">*</span> <span class="fl">11</span>, <span class="fl">10</span><span class="op">)</span> <span class="co"># S-band</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 26.18677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 25.8716</span>
 </code></pre></div>
     </div>
   </div>

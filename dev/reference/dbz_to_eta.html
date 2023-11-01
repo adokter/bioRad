@@ -74,7 +74,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="va">dbz</span>, <span class="va">wavelength</span>, K <span class="op">=</span> <span class="fl">0.93</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="va">dbz</span>, <span class="va">wavelength</span>, K <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">0.93</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -108,18 +108,18 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Calculate eta for a 7 dBZ reflectivity factor at C-band:</span></span></span>
 <span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2122.439</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2282.193</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate eta for a 7 dBZ reflectivity factor at S-band:</span></span></span>
 <span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 132.6524</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 142.637</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate animal density for a 5 dBZ reflectivity factor, assuming a</span></span></span>
 <span class="r-in"><span><span class="co"># radar cross section of 11 cm^2 per individual</span></span></span>
 <span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">/</span> <span class="fl">11</span> <span class="co"># C-band</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 192.949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 207.4721</span>
 <span class="r-in"><span><span class="fu">dbz_to_eta</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span> <span class="op">/</span> <span class="fl">11</span> <span class="co"># S-band</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12.05931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12.967</span>
 </code></pre></div>
     </div>
   </div>
