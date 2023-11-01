@@ -24,7 +24,7 @@
 #' # radar cross section of 11 cm^2 per individual
 #' dbz_to_eta(7, 5) / 11 # C-band
 #' dbz_to_eta(7, 10) / 11 # S-band
-dbz_to_eta <- function(dbz, wavelength, K = 0.93) {
+dbz_to_eta <- function(dbz, wavelength, K = sqrt(0.93)) {
   assertthat::assert_that(is.numeric(dbz))
   assertthat::assert_that(is.numeric(wavelength) & all(wavelength > 0), msg = "`wavelength` must be a strictly positive numeric.")
   assertthat::assert_that(is.numeric(K) & all(K > 0), msg = "`K` must be a strictly positive numeric.")
@@ -53,7 +53,7 @@ dbz_to_eta <- function(dbz, wavelength, K = 0.93) {
 #' # cross section of 11 cm^2 per individual
 #' eta_to_dbz(1000 * 11, 5) # C-band
 #' eta_to_dbz(1000 * 11, 10) # S-band
-eta_to_dbz <- function(eta, wavelength, K = 0.93) {
+eta_to_dbz <- function(eta, wavelength, K = sqrt(0.93)) {
   assertthat::assert_that(is.numeric(eta) & all(eta>=0), msg = "`eta` must be a strictly positive numeric.")
   assertthat::assert_that(is.numeric(wavelength) & all(wavelength > 0), msg = "`wavelength` must be a strictly positive numeric.")
   assertthat::assert_that(is.numeric(K) & all(K > 0), msg = "`K` must be a strictly positive numeric.")
