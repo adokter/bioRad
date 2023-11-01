@@ -4,7 +4,7 @@
 \alias{eta_to_dbz}
 \title{Convert reflectivity (eta) to reflectivity factor (dBZ)}
 \usage{
-eta_to_dbz(eta, wavelength, K = 0.93)
+eta_to_dbz(eta, wavelength, K = sqrt(0.93))
 }
 \arguments{
 \item{eta}{Numeric. Reflectivity, in cm^2/km^3.}
