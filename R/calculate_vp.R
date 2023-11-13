@@ -357,6 +357,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$minNyquist <- nyquist_min
     config$dbzType <- dbz_quantity
     config$dualPol <- dual_pol
+    config$singlePol <- single_pol
     config$dealiasVrad <- dealias
     if (!missing(sd_vvp_threshold)) config$stdDevMinBird <- sd_vvp_threshold
   } else {
