@@ -72,7 +72,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   )
 
   # Set base url of data repository
-  base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
+  base_url <- "https://aloftdata.s3-eu-west-1.amazonaws.com"
 
   # Start download and unzipping
   message(paste("Downloading data from", base_url))
