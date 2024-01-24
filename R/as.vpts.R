@@ -71,18 +71,39 @@ as.vpts <- function(data) {
     regular <- FALSE
   }
 
-  # Get attributes
-  radar_height <- data[["radar_height"]][1]
-  interval <- unique(heights[-1] - heights[-length(heights)])
-  wavelength <- data[["radar_wavelength"]][1]
-  if(length(unique(data[["radar_longitude"]]))>1) warning(paste0("multiple `radar_longitude` values found, storing only first (",lon,") as the functional attribute"))
-  lon <- data[["radar_longitude"]][1]
-  if(length(unique(data[["radar_latitude"]]))>1) warning(paste0("multiple `radar_latitude` values found, storing only first (",lat,") as the functional attribute"))
-  lat <- data[["radar_latitude"]][1]
-  if(length(unique(data[["rcs"]]))>1) warning(paste0("multiple `rcs` values found, storing only first (",rcs,") as the functional attribute"))
-  rcs <- data[["rcs"]][1]
-  if(length(unique(data[["sd_vvp_threshold"]]))>1) warning(paste0("multiple `sd_vvp_threshold` values found, storing only first (",sd_vvp_threshold,") as the functional attribute"))
-  sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
+# Get attributes
+radar_height <- data[["radar_height"]][1]
+interval <- unique(heights[-1] - heights[-length(heights)])
+wavelength <- data[["radar_wavelength"]][1]
+
+# Check and warn for multiple longitude values
+if(length(unique(data[["radar_longitude"]])) > 1) {
+  warning(paste0("multiple `radar_longitude` values found, storing only first (",
+                 as.character(data[["radar_longitude"]][1]), ") as the functional attribute"))
+}
+lon <- data[["radar_longitude"]][1]
+
+# Check and warn for multiple latitude values
+if(length(unique(data[["radar_latitude"]])) > 1) {
+  warning(paste0("multiple `radar_latitude` values found, storing only first (",
+                 as.character(data[["radar_latitude"]][1]), ") as the functional attribute"))
+}
+lat <- data[["radar_latitude"]][1]
+
+# Check and warn for multiple rcs values
+if(length(unique(data[["rcs"]])) > 1) {
+  warning(paste0("multiple `rcs` values found, storing only first (",
+                 as.character(data[["rcs"]][1]), ") as the functional attribute"))
+}
+rcs <- data[["rcs"]][1]
+
+# Check and warn for multiple sd_vvp_threshold values
+if(length(unique(data[["sd_vvp_threshold"]])) > 1) {
+  warning(paste0("multiple `sd_vvp_threshold` values found, storing only first (",
+                 as.character(data[["sd_vvp_threshold"]][1]), ") as the functional attribute"))
+}
+sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
+
 
   # Convert dataframe
   maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
