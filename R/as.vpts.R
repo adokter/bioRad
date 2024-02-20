@@ -76,38 +76,30 @@ radar_height <- data[["radar_height"]][1]
 interval <- unique(heights[-1] - heights[-length(heights)])
 wavelength <- data[["radar_wavelength"]][1]
 
-# Check and warn for multiple longitude values
-if(length(unique(data[["radar_longitude"]])) > 1) {
-  warning(paste0("multiple `radar_longitude` values found, storing only first (",
-                 as.character(data[["radar_longitude"]][1]), ") as the functional attribute"))
+# Check and warn for multiple values of specific attributes and return only the first values of those attributes
+check_multivalue_attributes <- function(data) {
+  attributes <- c("radar_longitude", "radar_latitude", "rcs", "sd_vvp_threshold")
+  first_values <- list()
+  for (attr in attributes) {
+    if (length(unique(data[[attr]])) > 1) {
+      warning(paste0("multiple `", attr, "` values found, storing only first (",
+                     as.character(data[[attr]][1]), ") as the functional attribute."))
+    }
+    first_values[[attr]] <- data[[attr]][1]
+  }
+    return(first_values)
 }
-lon <- data[["radar_longitude"]][1]
 
-# Check and warn for multiple latitude values
-if(length(unique(data[["radar_latitude"]])) > 1) {
-  warning(paste0("multiple `radar_latitude` values found, storing only first (",
-                 as.character(data[["radar_latitude"]][1]), ") as the functional attribute"))
-}
-lat <- data[["radar_latitude"]][1]
-
-# Check and warn for multiple rcs values
-if(length(unique(data[["rcs"]])) > 1) {
-  warning(paste0("multiple `rcs` values found, storing only first (",
-                 as.character(data[["rcs"]][1]), ") as the functional attribute"))
-}
-rcs <- data[["rcs"]][1]
-
-# Check and warn for multiple sd_vvp_threshold values
-if(length(unique(data[["sd_vvp_threshold"]])) > 1) {
-  warning(paste0("multiple `sd_vvp_threshold` values found, storing only first (",
-                 as.character(data[["sd_vvp_threshold"]][1]), ") as the functional attribute"))
-}
-sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
-
-
+  first_values <- check_multivalue_attributes(data)
+  
+  # Directly extract and assign values from the list
+  lon <- first_values$radar_longitude
+  lat <- first_values$radar_latitude
+  rcs <- first_values$rcs
+  sd_vvp_threshold <- first_values$sd_vvp_threshold
+  
   # Convert dataframe
   maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
-
 
   data <- df_to_mat_list(data, maskvars, cached_schema)
 
