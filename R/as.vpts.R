@@ -35,11 +35,9 @@ as.vpts <- function(data) {
     msg = "`data` must contain data of a single radar."
   )
 
-
     vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"),
       simplifyDataFrame = FALSE, simplifyVector = TRUE
     )
-  
 
   data <- dplyr::mutate(
     data,
