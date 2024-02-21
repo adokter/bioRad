@@ -91,11 +91,10 @@ read_vpts <- function(files, data_frame = FALSE, ...) {
 #' @keywords internal
 #' @noRd
 read_vpts_csv <- function(files, data_frame = FALSE) {
-  if (!exists("cached_schema")) {
     # Read the schema from the URL and cache it
-    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
-    cached_schema$missingValues <- c("", "NA")
-  }
+    vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
+    vpts_schema$missingValues <- c("", "NA")
+  
 
   # Create Frictionless Data Package
   package <- frictionless::create_package()
@@ -104,7 +103,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
     package,
     "vpts",
     data = files,
-    schema = cached_schema
+    schema = vpts_schema
   )
 
   # Read resource (compares data with schema and binds rows of all files)
