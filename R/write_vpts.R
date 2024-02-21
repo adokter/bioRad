@@ -22,17 +22,22 @@ vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.
     simplifyDataFrame = FALSE, simplifyVector = TRUE
 )
 
-required_fields <- lapply(vpts_schema$fields, function(field) {
-  if (!is.null(field$constraints)) {
-    if (!is.null(field$constraints$required) && field$constraints$required == TRUE) {
-      return(field$name)
+preprocess_schema_constraints <- function(schema) {
+  for (i in seq_along(schema$fields)) {
+    if ("constraints" %in% names(schema$fields[[i]])) {
+      constraints <- schema$fields[[i]]$constraints
+      if ("minimum" %in% names(constraints) && constraints$minimum %in% c("Inf", "-Inf")) {
+        schema$fields[[i]]$constraints$minimum <- ifelse(constraints$minimum == "Inf", Inf, ifelse(constraints$minimum == "-Inf", -Inf, constraints$minimum))
+      }
+      if ("maximum" %in% names(constraints) && constraints$maximum %in% c("Inf", "-Inf")) {
+        schema$fields[[i]]$constraints$maximum <- ifelse(constraints$maximum == "Inf", Inf, ifelse(constraints$maximum == "-Inf", -Inf, constraints$maximum))
+      }
     }
   }
-  return(NULL)
-})
+  return(schema)
+}
 
-required_field_names <- required_fields[!sapply(required_fields, is.null)]
-required_field_names <- unlist(required_field_names)
+vpts_schema <- preprocess_schema_constraints(vpts_schema)
 
 
 write_vpts.dataframe <- function(x, file, ...) {
