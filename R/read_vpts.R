@@ -61,23 +61,24 @@ read_vpts <- function(files, data_frame = FALSE, ...) {
     warning(".txt extenstion detected - falling back to read_stdout().\n
     Please consider updating your workflow by using VPTS csv or h5 input files")
 
-        # Attempt to call read_stdout
-    tryCatch({
-      return(do.call(read_stdout, c(list(file = files), list(...))))
-  },
-        error = function(e) {
+    # Attempt to call read_stdout
+    tryCatch(
+      {
+        return(do.call(read_stdout, c(list(file = files), list(...))))
+      },
+      error = function(e) {
         # Display custom message
         message(paste(e$message, " See ?read_stdout() for more details."))
         stop()
       }
-   )
+    )
   }
 
   # Read files
   data <- switch(extension,
-    csv = read_vpts_csv(files, data_frame=data_frame),
-    gz = read_vpts_csv(files, data_frame=data_frame),
-    h5 = read_vpts_hdf5(files, data_frame=data_frame)
+    csv = read_vpts_csv(files, data_frame = data_frame),
+    gz = read_vpts_csv(files, data_frame = data_frame),
+    h5 = read_vpts_hdf5(files, data_frame = data_frame)
   )
   data
 }
@@ -90,27 +91,27 @@ read_vpts <- function(files, data_frame = FALSE, ...) {
 #' @keywords internal
 #' @noRd
 read_vpts_csv <- function(files, data_frame = FALSE) {
-
   if (!exists("cached_schema")) {
     # Read the schema from the URL and cache it
     cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
     cached_schema$missingValues <- c("", "NA")
   }
 
-    # Create Frictionless Data Package
-    package <- frictionless::create_package()
-    # Add resource to the package
-    package <- frictionless::add_resource(
-      package,
-      "vpts",
-      data = files,
-      schema = cached_schema
-    )
+  # Create Frictionless Data Package
+  package <- frictionless::create_package()
+  # Add resource to the package
+  package <- frictionless::add_resource(
+    package,
+    "vpts",
+    data = files,
+    schema = cached_schema
+  )
 
   # Read resource (compares data with schema and binds rows of all files)
   data <- frictionless::read_resource(package, "vpts")
 
   # Convert data
+
   source_file <- datetime <- radar <- NULL
 
   data <- dplyr::mutate(
@@ -135,6 +136,6 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
 read_vpts_hdf5 <- function(files, data_frame = FALSE) {
   vps <- read_vpfiles(files)
   output <- bind_into_vpts(vps)
-  if(data_frame) output <- as.data.frame(output)
+  if (data_frame) output <- as.data.frame(output)
   output
 }
