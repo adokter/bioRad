@@ -95,8 +95,8 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
     # Empty strings are interpreted sa missing values (NODATA)
     # NaN values are interpreted verbatim (UNDETECT)
 
-    vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
-    vpts_schema$missingValues <- c("")
+  vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
+  vpts_schema$missingValues <- c("")
   
   # Create Frictionless Data Package
   package <- frictionless::create_package()
@@ -112,7 +112,6 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   data <- frictionless::read_resource(package, "vpts")
 
   # Convert data
-
   source_file <- datetime <- radar <- NULL
 
   data <- dplyr::mutate(

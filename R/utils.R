@@ -309,7 +309,11 @@ df_to_mat_list <- function(data, maskvars, schema) {
 
   subset_indices <- match(var_names, radvars)
   ordered_subset <- var_names[order(subset_indices)]
-
   ordered_mat_list <- named_mat_list[ordered_subset]
+
+  # Convert 0/1 back to FALSE/TRUE for the "gap" variable if it exists
+  if ("gap" %in% names(ordered_mat_list)) {
+    ordered_mat_list$gap <- ifelse(ordered_mat_list$gap == 1, TRUE, FALSE)
+  }
   return(ordered_mat_list)
 }

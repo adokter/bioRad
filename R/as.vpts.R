@@ -59,7 +59,6 @@ as.vpts <- function(data) {
   datetime <- data[data[["height"]] == heights[1], ][["datetime"]]
   datetime <- as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
 
-
   # Determine regularity
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
   if (length(unique(difftimes)) == 1) {
