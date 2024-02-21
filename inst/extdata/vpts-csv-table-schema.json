@@ -44,7 +44,7 @@
     },
     {
       "name": "v",
-      "description": "Ground speed component north to south in m/s.",
+      "description": "Ground speed component south to north in m/s.",
       "type": "number",
       "example": "3.84",
       "constraints": {
