@@ -91,11 +91,13 @@ read_vpts <- function(files, data_frame = FALSE, ...) {
 #' @keywords internal
 #' @noRd
 read_vpts_csv <- function(files, data_frame = FALSE) {
-    # Read the schema from the URL and cache it
-    vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
-    vpts_schema$missingValues <- c("", "NA")
-  
+    # Read the schema from extdata
+    # Empty strings are interpreted sa missing values (NODATA)
+    # NaN values are interpreted verbatim (UNDETECT)
 
+    vpts_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
+    vpts_schema$missingValues <- c("")
+  
   # Create Frictionless Data Package
   package <- frictionless::create_package()
   # Add resource to the package
