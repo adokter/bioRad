@@ -193,8 +193,9 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
     cartesian_to_polar(sp::coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
     rangebin = attributes(param)$geo$rscale,
     azimbin = attributes(param)$geo$ascale,
-    azimstart = ifelse(is.null(attributes(param)$geo$astart), 0, attributes(param)$geo$astart),
-    rangestart = ifelse(is.null(attributes(param)$geo$rstart), 0, attributes(param)$geo$rstart)
+    azimstart <- max(c(0, attributes(param)$geo$astart), na.rm = TRUE),
+    rangestart <- max(c(0, attributes(param)$geo$rstart), na.rm = TRUE)
+
   )
   # set indices outside the scan's matrix to NA
   nrang <- dim(param)[1]
