@@ -15,7 +15,7 @@
 #' @param overwrite Logical. When `TRUE`, re-download and overwrite previously
 #'   downloaded files of the same names.
 #' @return `NULL`. The function's primary effect is to download selected vertical profiles
-#' files from ENRAM data repository to a specified local directory, and to provide 
+#' files from ENRAM data repository to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status. Message will show
 #' a 404 error for files that are not available.
 #' @export
@@ -28,8 +28,8 @@
 #' \donttest{
 #' # Download (and overwrite) data from radars "bejab" and "bewid".
 #' download_vpfiles(
-#'   date_min = "2016-10-01",
-#'   date_max = "2016-10-31",
+#'   date_min = "2018-10-01",
+#'   date_max = "2018-10-31",
 #'   radars = c("bejab", "bewid"),
 #'   directory = tempdir(),
 #'   overwrite = TRUE
@@ -42,9 +42,6 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 
   # Stop if radar codes are not exactly 5 characters
   check_radar_codes(radars)
-
-  # Split 5 letter radar codes into format be_jab
-  ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5), sep = "_")
 
   # Stop if dates are not a string
   assertthat::assert_that(assertthat::is.string(date_min))
@@ -67,24 +64,26 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   year_months <- format(dates, "%Y/%m")
 
   # Expand to series of radar/yyyy/mm: be_jab/2016/10, be_wid/2016/10, ...
-  radar_year_months <- apply(expand.grid(ra_dars, year_months), 1, paste,
+  radar_year_months <- apply(expand.grid(radars, year_months), 1, paste,
     collapse = "/"
   )
 
   # Set base url of data repository
-  base_url <- "https://lw-enram.s3-eu-west-1.amazonaws.com"
+  base_url <- "https://aloftdata.s3-eu-west-1.amazonaws.com"
 
   # Start download and unzipping
   message(paste("Downloading data from", base_url))
 
   for (radar_year_month in radar_year_months) {
     # Create filename of format bejab201610.zip (removing _ and /)
-    file_name <- paste0(gsub("/", "", gsub("_", "", radar_year_month)), ".zip")
-    # Create filepath of format directory/bejab201610.zip
+    file_name <- paste0(gsub("/", "", radar_year_month), ".csv.gz")
+    # insert new _vpts_ label (FIXME: assumes 5 letter radar code)
+    file_name <- paste0(substr(file_name,1,5),"_vpts_",substr(file_name,6,nchar(file_name)))
+    # Create filepath of format directory/bejab_vpts_201610.csv.gz
     file_path <- file.path(directory, file_name)
-    # Create url of format base_url/be/jab/2016/bejab201610.zip (removing month)
+    # Create url of format base_url/be/jab/2016/bejab_vpts_201610.csv.gz (removing month)
     url <- paste(
-      base_url,
+      base_url,"baltrad/monthly",
       gsub(
         "_", "/",
         substring(radar_year_month, 1, nchar(radar_year_month) - 3)
@@ -92,6 +91,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
       file_name,
       sep = "/"
     )
+
     # Create local unzip directory of format directory/bejab/2016/10
     unzip_dir <- gsub("_", "", radar_year_month)
 
@@ -106,8 +106,8 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 
     # Check http status
     if (req$status_code == "200") {
-      # Unzip file
-      utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
+      # Unzip file no longer necessary
+      # utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
       message(paste0(file_name, ": successfully downloaded"))
     } else {
       # Remove file

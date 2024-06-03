@@ -108,10 +108,10 @@ test_that("list_vpts_aloft() warns if data was found for subset of radars or if 
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
-      date_max = "2023-05-22",
+      date_max = "2010-01-01",
       radars = c("plpas")
     ),
-    regexp = "No data found for radar(s) between 1900-01-01 - 2023-05-22",
+    regexp = "No data found for radar(s) between 1900-01-01 - 2010-01-01",
     fixed = TRUE
   )
   expect_warning(
