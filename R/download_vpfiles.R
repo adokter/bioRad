@@ -15,7 +15,7 @@
 #' @param overwrite Logical. When `TRUE`, re-download and overwrite previously
 #'   downloaded files of the same names.
 #' @return `NULL`. The function's primary effect is to download selected vertical profiles
-#' files from ENRAM data repository to a specified local directory, and to provide 
+#' files from ENRAM data repository to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status. Message will show
 #' a 404 error for files that are not available.
 #' @export
@@ -28,8 +28,8 @@
 #' \donttest{
 #' # Download (and overwrite) data from radars "bejab" and "bewid".
 #' download_vpfiles(
-#'   date_min = "2016-10-01",
-#'   date_max = "2016-10-31",
+#'   date_min = "2018-10-01",
+#'   date_max = "2018-10-31",
 #'   radars = c("bejab", "bewid"),
 #'   directory = tempdir(),
 #'   overwrite = TRUE
@@ -76,10 +76,12 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 
   for (radar_year_month in radar_year_months) {
     # Create filename of format bejab201610.zip (removing _ and /)
-    file_name <- paste0(gsub("/", "", gsub("_", "", radar_year_month)), ".zip")
-    # Create filepath of format directory/bejab201610.zip
+    file_name <- paste0(gsub("/", "", radar_year_month), ".csv.gz")
+    # insert new _vpts_ label (FIXME: assumes 5 letter radar code)
+    file_name <- paste0(substr(file_name,1,5),"_vpts_",substr(file_name,6,nchar(file_name)))
+    # Create filepath of format directory/bejab_vpts_201610.csv.gz
     file_path <- file.path(directory, file_name)
-    # Create url of format base_url/be/jab/2016/bejab201610.zip (removing month)
+    # Create url of format base_url/be/jab/2016/bejab_vpts_201610.csv.gz (removing month)
     url <- paste(
       base_url,"baltrad/monthly",
       gsub(
@@ -89,7 +91,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
       file_name,
       sep = "/"
     )
-    print(url)
+
     # Create local unzip directory of format directory/bejab/2016/10
     unzip_dir <- gsub("_", "", radar_year_month)
 
@@ -104,8 +106,8 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
 
     # Check http status
     if (req$status_code == "200") {
-      # Unzip file
-      utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
+      # Unzip file no longer necessary
+      # utils::unzip(file_path, exdir = file.path(directory, unzip_dir))
       message(paste0(file_name, ": successfully downloaded"))
     } else {
       # Remove file
