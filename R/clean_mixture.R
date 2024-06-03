@@ -46,7 +46,7 @@ clean_mixture <- function(x, u, v, U, V, slow = 1, fast = 12, drop_slow_componen
   }
   if(mixture_airspeed <= fast & mixture_airspeed >= slow){
     p1 <- slow^2 - fast^2
-    p2 <- 2*(wind_speed + fast^2 - slow*(u*U+v*V)/wind_speed)
+    p2 <- 2*fast^2 - 2*(slow/wind_speed)*(u*U+v*V - wind_speed^2)
     p3 <- (u-U)^2 + (v-V)^2 - fast^2
     # signal proportion attributed to the slow component:
     f <- (-p2+sqrt(p2^2-4*p1*p3))/(2*p1)
