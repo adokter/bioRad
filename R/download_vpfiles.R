@@ -43,9 +43,6 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   # Stop if radar codes are not exactly 5 characters
   check_radar_codes(radars)
 
-  # Split 5 letter radar codes into format be_jab
-  ra_dars <- paste(substring(radars, 1, 2), substring(radars, 3, 5), sep = "_")
-
   # Stop if dates are not a string
   assertthat::assert_that(assertthat::is.string(date_min))
   assertthat::assert_that(assertthat::is.string(date_max))
@@ -67,7 +64,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
   year_months <- format(dates, "%Y/%m")
 
   # Expand to series of radar/yyyy/mm: be_jab/2016/10, be_wid/2016/10, ...
-  radar_year_months <- apply(expand.grid(ra_dars, year_months), 1, paste,
+  radar_year_months <- apply(expand.grid(radars, year_months), 1, paste,
     collapse = "/"
   )
 
@@ -84,7 +81,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
     file_path <- file.path(directory, file_name)
     # Create url of format base_url/be/jab/2016/bejab201610.zip (removing month)
     url <- paste(
-      base_url,
+      base_url,"baltrad/monthly",
       gsub(
         "_", "/",
         substring(radar_year_month, 1, nchar(radar_year_month) - 3)
@@ -92,6 +89,7 @@ download_vpfiles <- function(date_min, date_max, radars, directory = ".",
       file_name,
       sep = "/"
     )
+    print(url)
     # Create local unzip directory of format directory/bejab/2016/10
     unzip_dir <- gsub("_", "", radar_year_month)
 
