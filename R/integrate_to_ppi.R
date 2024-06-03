@@ -331,6 +331,11 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens", param = "DBZH"
   attributes(eta_expected)$param <- "eta_expected"
   scan$params$eta_expected <- eta_expected
 
+  # set eta_expected values to zero whenever the reflectivity quantity is NA
+  # NA values indicate the pixel was never irradiated, so no reflectivity return expected
+  na_idx <- is.na(scan$params[[param]]) & !is.nan(scan$params[[param]])
+  scan$params[["eta_expected"]][na_idx] <- 0
+
   # return the scan with added scan parameters 'eta' and 'eta_expected'
   scan
 }
