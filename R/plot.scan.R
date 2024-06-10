@@ -74,8 +74,8 @@ plot.scan <- function(x, param, xlim = c(0, 100000),
 
   rscale <- x$geo$rscale
   ascale <- x$geo$ascale
-  rstart <- ifelse(is.null(x$geo$rstart), 0, x$geo$rstart)
-  astart <- ifelse(is.null(x$geo$astart), 0, x$geo$astart)
+  rstart <- max(c(0, x$geo$rstart), na.rm = TRUE)
+  astart <- max(c(0, x$geo$astart), na.rm = TRUE)
 
   data <- raster::as.data.frame(raster::flip(raster::raster(t(data), ymn = astart, ymx = astart + 360, xmn = rstart, xmx = rstart + rscale * dimraster[1]), direction = "y"), xy = TRUE)
   # change the name from "layer" to the parameter names
