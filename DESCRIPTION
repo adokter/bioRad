@@ -33,6 +33,7 @@ Imports:
     dplyr (>= 1.1.0),
     fields,
     frictionless,
+    future.apply,
     ggplot2,
     glue,
     graphics,

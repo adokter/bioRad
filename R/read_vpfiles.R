@@ -106,7 +106,7 @@ read_vpfiles <- function(files) {
   if (length(files) == 1) {
     return(read_vp(files))
   } else {
-    vps <- lapply(files, read_vp)
+    vps <- future.apply::future_lapply(files, read_vp)
     # remove nulls
     vps <- vps[!sapply(vps, is.null)]
     do.call(c.vp, vps)
