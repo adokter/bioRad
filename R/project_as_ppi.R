@@ -137,25 +137,32 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
 
 sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4 / 3, re = 6378, rp = 6357) {
   # proj4string=CRS(paste("+proj=aeqd +lat_0=",attributes(param)$geo$lat," +lon_0=",attributes(param)$geo$lon," +ellps=WGS84 +datum=WGS84 +units=m +no_defs",sep=""))
-  proj4string <- sp::CRS(paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
+  proj4string <- (paste("+proj=aeqd +lat_0=", attributes(param)$geo$lat,
     " +lon_0=", attributes(param)$geo$lon,
     " +units=m",
     sep = ""
   ))
+  # create gridtopo depending on specification of grid_size
   if (inherits(grid_size, c("RasterLayer", "SpatialPoints"))) {
-    if (sp::proj4string(grid_size) != as.character(proj4string)) {
-      gridTopo <- sp::spTransform(methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints"), proj4string)
-    } else if (inherits(grid_size, "RasterLayer")) {
-      gridTopo <- methods::as(methods::as(grid_size, "SpatialGrid"), "SpatialPoints")
+    if(inherits(grid_size, "RasterLayer")){
+      rlang::check_installed("sf","to project rasters")
+      gridSf<-sf::st_as_sf(as.data.frame(raster::rasterToPoints(grid_size)), coords=c("x","y"), crs=sf::st_crs(grid_size))
+      if (sf::st_crs(gridSf) != sf::st_crs(proj4string)) {
+        gridSf <- sf::st_transform(gridSf, sf::st_crs(proj4string))
+      }
+      gridTopoCrds<-sf::st_coordinates(gridSf)
+    }else{
 
-    } else {
-      gridTopo <- methods::as(grid_size, "SpatialPoints")
+      if (!sp::identicalCRS((grid_size) ,sp::Spatial(sp::bbox(cbind(0,c(0,0))),sp::CRS(proj4string)))) {
+        grid_size<- sp::spTransform(grid_size, sp::CRS(proj4string))
+      }
+      gridTopoCrds<-sp::coordinates(grid_size)
     }
   } else {
     bboxlatlon <- proj_to_wgs(
       c(-range_max, range_max),
       c(-range_max, range_max),
-      proj4string
+      sp::CRS(proj4string)
     )@bbox
     if (!missing(ylim) & !is.null(ylim)) {
       bboxlatlon["lat", ] <- ylim
@@ -167,7 +174,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
       cellcentre.offset <- -c(range_max, range_max)
       cells.dim <- ceiling(rep(2 * range_max / grid_size, 2))
     } else {
-      bbox <- wgs_to_proj(bboxlatlon["lon", ], bboxlatlon["lat", ], proj4string)
+      bbox <- wgs_to_proj(bboxlatlon["lon", ], bboxlatlon["lat", ], sp::CRS(proj4string))
       cellcentre.offset <- c(
         min(bbox@coords[, "x"]),
         min(bbox@coords[, "y"])
@@ -180,7 +187,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
       )
     }
     # define cartesian grid
-    gridTopo <- sp::GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim)
+    gridTopoCrds<-sp::coordinates(gridTopo <- sp::GridTopology(cellcentre.offset, c(grid_size, grid_size), cells.dim))
   }
   # if projecting, account for elevation angle
   if (project) {
@@ -190,13 +197,14 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   }
   # get scan parameter indices, and extract data
   index <- polar_to_index(
-    cartesian_to_polar(sp::coordinates(gridTopo), elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
+    cartesian_to_polar(gridTopoCrds, elev, k = k, lat = attributes(param)$geo$lat, re = re, rp = rp),
     rangebin = attributes(param)$geo$rscale,
     azimbin = attributes(param)$geo$ascale,
     azimstart <- max(c(0, attributes(param)$geo$astart), na.rm = TRUE),
     rangestart <- max(c(0, attributes(param)$geo$rstart), na.rm = TRUE)
 
   )
+
   # set indices outside the scan's matrix to NA
   nrang <- dim(param)[1]
   nazim <- dim(param)[2]
@@ -209,14 +217,6 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   index <- (index$col - 1) * nrang + index$row
   data <- as.data.frame(param[index])
 
-  #  data <- data.frame(mapply(
-  #    function(x, y) {
-  #      safe_subset(param, x, y)
-  #    },
-  #    x = index$row,
-  #    y = index$col
-  #  ))
-
   colnames(data) <- attributes(param)$param
 
   if (inherits(grid_size, "RasterLayer")) {
@@ -227,7 +227,7 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
     output <- sp::SpatialGridDataFrame(
       grid = sp::SpatialGrid(
         grid = gridTopo,
-        proj4string = proj4string
+        proj4string = sp::CRS(proj4string)
       ),
       data = data
     )
@@ -235,6 +235,9 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   }
   output
 }
+
+
+
 
 cartesian_to_polar <- function(coords, elev = 0, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2), elev, k = k, lat = lat, re = re, rp = rp)
