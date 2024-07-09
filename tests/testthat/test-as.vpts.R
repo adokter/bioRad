@@ -8,6 +8,34 @@ test_that("as.vpts() returns error message for incorrect data", {
   expect_error(as.vpts(df),"identical")
 })
 
+test_that("as.vpts() handles multiple unique attribute values correctly", {
+
+  original_df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
+
+  if (nrow(original_df) > 1) {
+    df <- original_df
+    df$radar_longitude[2] <- df$radar_longitude[1] + 0.1  # Change longitude slightly
+    expect_warning(as.vpts(df), "multiple `radar_longitude` values found, storing only first")
+  }
+
+  if (nrow(original_df) > 1) {
+    df <- original_df
+    df$radar_latitude[2] <- df$radar_latitude[1] + 0.1    # Change latitude slightly
+    expect_warning(as.vpts(df), "multiple `radar_latitude` values found, storing only the first")
+  }
+
+  if (nrow(original_df) > 1) {
+    df <- original_df
+    df$rcs[2] <- df$rcs[1] * 1.1                          # Change rcs slightly
+    expect_warning(as.vpts(df), "multiple `rcs` values found, storing only the first")
+  }
+
+  if (nrow(original_df) > 1) {
+    df <- original_df
+    df$sd_vvp_threshold[2] <- df$sd_vvp_threshold[1] + 0.1 # Change sd_vvp_threshold slightly
+    expect_warning(as.vpts(df), "multiple `sd_vvp_threshold` values found, storing only the first")
+  }
+})
 
 test_that("as.vpts() converts reflectivity `dbz_all` into 'DBZH'", {
 
