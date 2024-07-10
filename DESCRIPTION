@@ -63,7 +63,7 @@ Suggests:
     tidyselect,
     vdiffr
 Remotes: 
-    adokter/vol2birdR
+    github::adokter/vol2birdR@cran_upload
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
