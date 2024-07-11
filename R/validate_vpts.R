@@ -24,8 +24,8 @@ validate_datetime_format <- function(data, format) {
 #' @importFrom glue glue
 #' @importFrom dplyr select
 #' @examples
-#' schema <- data('vpts_schema', package = 'bioRad')  # Assuming the schema is loaded like this
-#' df <- read.csv('path_to_your_data.csv')  # Your data file
+#' schema <- data('vpts_schema', package = 'bioRad')
+#' df <- read.csv('path_to_your_data.csv')  # Your VPTS csv
 #' validate_vpts_df(df, schema)
 #' @export
 validate_vpts_df <- function(df) {
