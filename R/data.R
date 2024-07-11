@@ -70,3 +70,13 @@
 # example_vpts$attributes$where$lat <- 42.2
 # example_vpts$attributes$where$lon <- -75.98
 # save(example_vpts, file = "data/example_vpts.rda", compress = "xz")
+
+#' ENRAM-defined VPTS schema
+#'
+#' A dataset containing the schema definitions for VPTS data validation.
+#' @rdname vpts_schema
+#' @return A list object containing the data model for the standard VPTS exchange format.
+#' @examples
+#' # Reload vpts_schema from package (e.g. in case it was altered)
+#' data(vpts_schema)
+"vpts_schema"
