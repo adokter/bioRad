@@ -65,21 +65,33 @@ as.vpts <- function(data) {
     regular <- FALSE
   }
 
-  # Get attributes
-  radar_height <- data[["radar_height"]][1]
-  interval <- unique(heights[-1] - heights[-length(heights)])
-  wavelength <- data[["radar_wavelength"]][1]
+# Get attributes
+radar_height <- data[["radar_height"]][1]
+interval <- unique(heights[-1] - heights[-length(heights)])
+wavelength <- data[["radar_wavelength"]][1]
 
-  lon <- data[["radar_longitude"]][1]
-  lat <- data[["radar_latitude"]][1]
-  rcs <- data[["rcs"]][1]
-  sd_vvp_threshold <- data[["sd_vvp_threshold"]][1]
+# Check and warn for multiple values of specific attributes and return only the first values of those attributes
+check_multivalue_attributes <- function(data) {
+  attributes <- c("radar_longitude", "radar_latitude", "rcs", "sd_vvp_threshold")
+  first_values <- list()
+  for (attr in attributes) {
+    if (length(unique(data[[attr]])) > 1) {
+      warning(paste0("multiple `", attr, "` values found, storing only first (",
+                     as.character(data[[attr]][1]), ") as the functional attribute."))
+    }
+    first_values[[attr]] <- data[[attr]][1]
+  }
+    return(first_values)
+}
 
-  if(length(unique(data[["radar_longitude"]]))>1) warning(paste0(glue::glue("multiple `radar_longitude` values found, storing only first {lon} as the functional attribute")))
-  if(length(unique(data[["radar_latitude"]]))>1) warning(paste0(glue::glue("multiple `radar_latitude` values found, storing only the first {lat} as the functional attribute")))
-  if(length(unique(data[["rcs"]]))>1) warning(paste0(glue::glue("multiple `rcs` values found, storing only the first {rcs} as the functional attribute")))
-  if(length(unique(data[["sd_vvp_threshold"]]))>1) warning(paste0(glue::glue("multiple `sd_vvp_threshold` values found, storing only the first {sd_vvp_threshold} as the functional attribute")))
-
+  first_values <- check_multivalue_attributes(data)
+  
+  # Directly extract and assign values from the list
+  lon <- first_values$radar_longitude
+  lat <- first_values$radar_latitude
+  rcs <- first_values$rcs
+  sd_vvp_threshold <- first_values$sd_vvp_threshold
+  
   # Convert dataframe
   maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
 

@@ -52,3 +52,27 @@ test_that("as.vpts() converts reflectivity `dbz_all` into 'DBZH'", {
   expect_true(!"dbz_all" %in% names(vpts_obj$data))
 
 })
+
+# Test that the function issues a correct warning for multiple radar_longitude values
+test_that("Warning is issued for multiple radar_longitude values", {
+  file <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  vpts_df <-  read_vpts(file, data_frame=TRUE)
+  vpts_df$radar_longitude[1] <- vpts_df$radar_longitude[1] + 0.1
+  expect_warning(
+    modified_df <- as.vpts(vpts_df),
+    "multiple `radar_longitude` values found"
+  )
+})
+
+# Test that the function sets all radar_longitude values to the first one if it's a multi-value attribute
+test_that("values are set to the first for multi-value attributes", {
+  file <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  vpts_df <-  read_vpts(file, data_frame=TRUE)
+  vpts_df$radar_longitude[1] <- vpts_df$radar_longitude[1] + 0.1
+  expect_warning(
+    vpts_obj <- as.vpts(vpts_df),
+    "multiple `radar_longitude` values found"
+  )
+  expect_equal(vpts_obj$attributes$where$lon, vpts_df$radar_longitude[1])
+
+})
