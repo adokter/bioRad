@@ -4,7 +4,7 @@ get_field_schema <- function(field, schema) {
             return(schema$fields[i, ])
         }
     }
-    return(NULL)  # return NULL if no matching schema found
+    return(NULL)  # return NULL if no matching field found
 }
 validate_datetime_format <- function(data, format) {
   parsed_data <- tryCatch({

@@ -86,29 +86,17 @@ read_vpts <- function(files, data_frame = FALSE, ...) {
 #'
 #' @inheritParams read_vpts
 #' @param data_frame If `TRUE` returns data as dataframe rather than `vpts` object.
+#' @importFrom readr read_csv
 #' @return `vpts` object.
 #' @keywords internal
 #' @noRd
 read_vpts_csv <- function(files, data_frame = FALSE) {
 
-  if (!exists("cached_schema")) {
-    # Read the schema from the URL and cache it
-    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"), simplifyDataFrame = FALSE, simplifyVector = TRUE)
-    cached_schema$missingValues <- c("", "NA")
-  }
-
-    # Create Frictionless Data Package
-    package <- frictionless::create_package()
-    # Add resource to the package
-    package <- frictionless::add_resource(
-      package,
-      "vpts",
-      data = files,
-      schema = cached_schema
-    )
-
-  # Read resource (compares data with schema and binds rows of all files)
-  data <- frictionless::read_resource(package, "vpts")
+  suppressMessages(
+  data <- readr::read_csv(files, show_col_types = FALSE)
+  )
+  #Validate the data
+  validate_vpts(data)
 
   # Convert data
   source_file <- datetime <- radar <- NULL
@@ -116,7 +104,6 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   data <- dplyr::mutate(
     data,
     radar = as.factor(radar),
-    source_file = as.factor(source_file),
     datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
   )
 

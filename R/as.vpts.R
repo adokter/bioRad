@@ -13,7 +13,7 @@
 as.vpts <- function(data) {
   assertthat::assert_that(inherits(data,"data.frame"))
 
-  # if dbz_all is a column name, rename to bioRad naming DBZH
+  # rename alternative names to standard names
   if("dbz_all" %in% names(data)){
     data <- data %>%
       dplyr::rename(DBZH = "dbz_all")
@@ -21,7 +21,7 @@ as.vpts <- function(data) {
 
   height <- datetime <- source_file <- radar <- NULL
 
-  # Throw error if nrows per height are not identical
+  # Throw error if nrows per height are not identical 
 
   assertthat::assert_that(
     remainder_is_zero(dim(data)[1], length(unique(data$height))) > 0,
