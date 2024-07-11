@@ -36,13 +36,6 @@ as.vpts <- function(data) {
     msg = "`data` must contain data of a single radar."
   )
 
-  if (!exists("cached_schema")) {
-    # Load the schema from the data directory and cache it
-    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"),
-      simplifyDataFrame = FALSE, simplifyVector = TRUE
-    )
-  }
-
   data <- dplyr::mutate(
     data,
     radar = as.factor(radar),
@@ -90,8 +83,7 @@ as.vpts <- function(data) {
   # Convert dataframe
   maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
 
-
-  data <- df_to_mat_list(data, maskvars, cached_schema)
+  data <- df_to_mat_list(data, maskvars, vpts_schema)
 
   # Create vpts object
   output <- list(
