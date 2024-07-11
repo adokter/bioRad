@@ -4,14 +4,13 @@ get_field_schema <- function(field, schema) {
             return(schema$fields[i, ])
         }
     }
-    return(NULL)  # Return NULL if no matching schema found
+    return(NULL)  # return NULL if no matching schema found
 }
 validate_datetime_format <- function(data, format) {
   parsed_data <- tryCatch({
     as.POSIXct(data, format = format, tz = "UTC")
   }, error = function(e) NULL)
-  
-  # Check if any of the parsing resulted in NULL (failed parsing)
+  # check for failed parsing
   if (any(is.na(parsed_data))) {
     return(FALSE)
   }
