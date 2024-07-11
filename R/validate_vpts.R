@@ -25,7 +25,7 @@ validate_datetime_format <- function(data, format) {
 #' @importFrom dplyr select
 #' @examples
 #' my_vpts <- as.data.frame(example_vpts)
-#' validate_vpts(my_vpts, schema)
+#' validate_vpts(my_vpts)
 #' @export
 validate_vpts <- function(df) {
     schema <- vpts_schema
