@@ -41,22 +41,6 @@ test_that("as.vpts() handles multiple unique attribute values correctly", {
   }
 })
 
-# test_that("as.vpts() converts reflectivity `dbz_all` into 'DBZH'", {
-
-#   file <- system.file("extdata", "example_vpts.csv", package = "bioRad")
-
-#   # When as.vpts() is called via read_vpts(), the reflectivity variable is named dbz_all in the resulting data.frame
-#   vpts_df <-  read_vpts(file, data_frame=TRUE)
-#   expect_true(!"DBZH" %in% colnames(vpts_df))
-#   expect_true("dbz_all" %in% colnames(vpts_df))
-
-#   # When as.vpts() is called on a dataframe, the reflectivity variable will be renamed DBZH in the resulting vpts object
-#   vpts_obj <- as.vpts(vpts_df)
-#   expect_true("DBZH" %in% names(vpts_obj$data))
-#   expect_true(!"dbz_all" %in% names(vpts_obj$data))
-
-# })
-
 # Test that the function issues a correct warning for multiple radar_longitude values
 test_that("Warning is issued for multiple radar_longitude values", {
   file <- system.file("extdata", "example_vpts.csv", package = "bioRad")
