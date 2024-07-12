@@ -76,7 +76,7 @@ check_multivalue_attributes <- function(data) {
   first_values <- list()
   for (attr in attributes) {
     if (length(unique(data[[attr]])) > 1) {
-      warning(paste0("multiple `", attr, "` values found, storing only first (",
+      warning(paste0("multiple ", as.character(substitute(attr))," values found, storing only first (",
                      as.character(data[[attr]][1]), ") as the functional attribute."))
     }
     first_values[[attr]] <- data[[attr]][1]
