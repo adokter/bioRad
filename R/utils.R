@@ -248,20 +248,6 @@ remainder_is_zero <- function(number, divisor) {
   return(number %% divisor == 0)
 }
 
-# Recursive function to extract variable names from frictionless schema
-
-#' @param lst the "fields" list of a frictionless schema
-#' @returns a character vector of variable names in the order of a VPTS CSV schema
-#' @keywords internal
-#' @noRd
-extract_names <- function(lst) {
-  if (is.list(lst)) {
-    names <- lapply(lst, function(x) extract_names(x$name))
-    unlist(names)
-  } else {
-    lst
-  }
-}
 
 #' Convert a tibble into a matrix
 #'
@@ -291,7 +277,7 @@ tibble_to_mat <- function(tibble) {
 #' @noRd
 df_to_mat_list <- function(data, maskvars, schema) {
   datetime <- height <- variable <- fields <- NULL
-  radvars <- extract_names(schema$fields)
+  radvars <- schema$fields$name
   radvars <- radvars[!radvars %in% maskvars]
 
   tbls_lst <- data %>%
