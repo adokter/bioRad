@@ -92,10 +92,11 @@ check_multivalue_attributes <- function(data) {
   rcs <- first_values$rcs
   sd_vvp_threshold <- first_values$sd_vvp_threshold
   
-  # Convert dataframe
-  maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
+  # Define set of radar variables that must be present at each height (including alternatives)
+  radvars <- c("u", "v", "w", "ff", "dd", "sd_vvp", "gap", "eta", "dens", "dbz", "dbz_all", "n", "n_dbz", "n_all", "n_dbz_all")
+  radvars <- c(radvars, unlist(vpts_schema$fields$nameAlternatives[vpts_schema$fields$name %in% maskvars]))
 
-  data <- df_to_mat_list(data, maskvars, vpts_schema)
+  data <- df_to_mat_list(data, radvars)
 
   # Create vpts object
   output <- list(

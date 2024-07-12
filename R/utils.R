@@ -275,13 +275,12 @@ tibble_to_mat <- function(tibble) {
 #' @returns A named list of matrices ordered according to radvars
 #' @keywords internal
 #' @noRd
-df_to_mat_list <- function(data, maskvars, schema) {
+df_to_mat_list <- function(data, radvars) {
   datetime <- height <- variable <- fields <- NULL
-  radvars <- schema$fields$name
-  radvars <- radvars[!radvars %in% maskvars]
+  all_vars <- c(radvars, "datetime", "height")
 
   tbls_lst <- data %>%
-    dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
+    select(all_of(intersect(all_vars, names(data)))) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
