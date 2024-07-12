@@ -270,8 +270,7 @@ tibble_to_mat <- function(tibble) {
 #' Convert a vpts dataframe into an ordered list of matrices
 #'
 #' @param data A dataframe created from a VPTS CSV file
-#' @param maskvars a character vector of radar variables to be masked from the input , e.g., c("radar_latitude", "radar_longitude", ...)
-#' @param schema a frictionless schema
+#' @param radvars a character vector of radar variables to be masked from the input , e.g., c("radar_latitude", "radar_longitude", ...)
 #' @returns A named list of matrices ordered according to radvars
 #' @keywords internal
 #' @noRd

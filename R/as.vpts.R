@@ -94,7 +94,7 @@ check_multivalue_attributes <- function(data) {
   
   # Define set of radar variables that must be present at each height (including alternatives)
   radvars <- c("u", "v", "w", "ff", "dd", "sd_vvp", "gap", "eta", "dens", "dbz", "dbz_all", "n", "n_dbz", "n_all", "n_dbz_all")
-  radvars <- c(radvars, unlist(vpts_schema$fields$nameAlternatives[vpts_schema$fields$name %in% maskvars]))
+  radvars <- c(radvars, unlist(vpts_schema$fields$nameAlternatives[vpts_schema$fields$name %in% radvars]))
 
   data <- df_to_mat_list(data, radvars)
 
