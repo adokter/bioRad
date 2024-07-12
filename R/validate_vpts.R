@@ -77,8 +77,8 @@ validate_vpts <- function(df) {
                 if (!is.na(field_schema$constraints$maximum) && any(field_data >
                   field_schema$constraints$maximum, na.rm = TRUE)) {
                   return(glue("Maximum value constraint violated for {field}"))
-                }
-                if (!is.na(field_schema$constraints$pattern) && any(!grepl(field_schema$constraints$pattern,
+                c}
+                if (!is.na(field_schema$constraints$pattern) && any(!stringr::str_detect(field_schema$constraints$pattern,
                   field_data))) {
                   return(glue("Pattern constraint violated for {field}"))
                 }
