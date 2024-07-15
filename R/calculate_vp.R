@@ -173,17 +173,14 @@
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
-#' # Copy the file to a home directory with read/write permissions
-#' file.copy(pvolfile, "~/volume.h5")
-#'
 #' # Calculate the profile
-#' vp <- calculate_vp("~/volume.h5")
-#'
+#' if (requireNamespace("vol2birdR", quietly = TRUE)) {
+#'  vp <- calculate_vp(pvolfile)
+#' 
 #' # Get summary info
 #' vp
+#' }
 #'
-#' # Clean up
-#' file.remove("~/volume.h5")
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
                          mount, sd_vvp_threshold,

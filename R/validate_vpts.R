@@ -1,3 +1,5 @@
+vpts_schema <- get0("vpts_schema", envir = asNamespace("bioRad"))
+
 get_field_schema <- function(field, schema) {
     for (i in seq_along(schema$fields$name)) {
         if (field %in% c(schema$fields$name[i], schema$fields$nameAlternatives[[i]])) {
@@ -97,7 +99,7 @@ validate_vpts <- function(df) {
 
     # Show validation issues
     if (length(issues) > 0) {
-        warning("Validation issues found: ", paste(results, collapse = "; "))
+        warning("Validation issues found: ", paste(issues, collapse = "; "))
     }
 
     invisible(list(valid = TRUE, issues = issues))

@@ -32,7 +32,6 @@ Imports:
     curl,
     dplyr (>= 1.1.0),
     fields,
-    frictionless,
     ggplot2,
     glue,
     graphics,

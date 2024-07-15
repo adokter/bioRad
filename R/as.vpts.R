@@ -1,4 +1,4 @@
-
+vpts_schema <- get0("vpts_schema", envir = asNamespace("bioRad"))
 #' Convert a dataframe into a vpts object
 #'
 #' @param data a dataframe created from a VPTS CSV file
@@ -97,6 +97,17 @@ check_multivalue_attributes <- function(data) {
   radvars <- c(radvars, unlist(vpts_schema$fields$nameAlternatives[vpts_schema$fields$name %in% radvars]))
 
   data <- df_to_mat_list(data, radvars)
+
+    # List of vectors to check
+  vectors_to_check <- list(heights = heights, interval = interval, radar_height = radar_height, lon = lon, lat = lat)
+
+  # Identify empty vectors
+  empty_vectors <- names(vectors_to_check)[sapply(vectors_to_check, function(v) length(v) == 0)]
+
+  # Stop execution if any empty vectors are found
+  if (length(empty_vectors) > 0) {
+      stop("Empty vectors detected: ", paste(empty_vectors, collapse=", "))
+  }
 
   # Create vpts object
   output <- list(

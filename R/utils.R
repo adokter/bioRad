@@ -279,7 +279,7 @@ df_to_mat_list <- function(data, radvars) {
   all_vars <- c(radvars, "datetime", "height")
 
   tbls_lst <- data %>%
-    select(all_of(intersect(all_vars, names(data)))) %>%
+    select(dplyr::all_of(intersect(all_vars, names(data)))) %>%
     tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
     dplyr::group_by(variable) %>%
     dplyr::group_split()
