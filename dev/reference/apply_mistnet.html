@@ -199,15 +199,6 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 <span class="r-in"><span>   <span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/install_mistnet.html" class="external-link">install_mistnet</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span>   <span class="fu">vol2birdR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vol2birdR/man/install_mistnet_model.html" class="external-link">install_mistnet_model</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting installation of MistNet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Checking write permissions...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Installing MistNet libraries...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Initializing MistNet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attempting to load MistNet from:/home/runner/work/_temp/Library/vol2birdR/lib</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> MistNet successfully initialized.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> MistNet initialized successfully.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> MistNet installation complete.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="co"># start a temporary file to store polar volume</span></span></span>
 <span class="r-in"><span><span class="va">tempfile</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"KBGM_example"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Download a NEXRAD file and save as KBGM_example</span></span></span>
@@ -218,7 +209,7 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate MistNet segmentation</span></span></span>
 <span class="r-in"><span><span class="va">mistnet_pvol</span> <span class="op">&lt;-</span> <span class="fu">apply_mistnet</span><span class="op">(</span><span class="va">tempfile</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Filename = /tmp/RtmpZJt3Jx/KBGM_example5ec24ee824c8, callid = KBGM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Filename = /tmp/RtmpXOkCxI/KBGM_example1a303cfea912, callid = KBGM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Reading RSL polar volume with nominal time 20191001-000542, source: RAD:KBGM,PLC:BINGHAMTON,state:NY,radar_name:KBGM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running vol2birdSetUp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Warning: radial velocities will be dealiased...</span>
