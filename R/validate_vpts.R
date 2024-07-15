@@ -23,6 +23,7 @@ validate_datetime_format <- function(data, format) {
 #' @return Invisibly returns a list with validation results including messages for any issues found.
 #' @importFrom glue glue
 #' @importFrom dplyr select
+#' @importFrom stringr str_detect
 #' @keywords internal
 #' @examples
 #' my_vpts <- as.data.frame(example_vpts)

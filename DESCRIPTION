@@ -46,9 +46,11 @@ Imports:
     rlang,
     sp,
     stats,
+    stringr,
     suntools,
     tidyr,
     utils,
+    vol2birdR,
     viridis,
     viridisLite
 Suggests:
