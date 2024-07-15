@@ -175,9 +175,8 @@
 #'
 #' # Calculate the profile
 #' if (requireNamespace("vol2birdR", quietly = TRUE)) {
-#'  vp <- calculate_vp(pvolfile)
+#' vp <- calculate_vp(pvolfile)
 #' 
-
 #' # Get summary info
 #' vp
 #' }

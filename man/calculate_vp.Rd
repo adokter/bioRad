@@ -219,10 +219,12 @@ pvolfile_source <- system.file("extdata", "volume.h5", package = "bioRad")
 
 # Calculate the profile
 if (requireNamespace("vol2birdR", quietly = TRUE)) {
- vp <- calculate_vp(pvolfile)
+vp <- calculate_vp(pvolfile)
 
 # Get summary info
 vp
+}
+
 }
 \references{
 Dokter et al. (2011) is the main reference for the profiling algorithm
