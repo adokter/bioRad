@@ -52,7 +52,6 @@
 #' pvolfile
 #'
 #' # load the file:
-#' if (requireNamespace("vol2birdR", quietly = TRUE)) {
 #' example_pvol <- read_pvolfile(pvolfile)
 #' 
 #' # print summary info for the loaded polar volume:
@@ -66,7 +65,6 @@
 #'
 #' # print summary info for the new object:
 #' scan
-#' }
 read_pvolfile <- function(file, param = c(
                             "DBZH", "DBZ", "VRADH", "VRAD", "WRADH", "WRAD", "TH", "T", "RHOHV",
                             "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"

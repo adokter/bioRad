@@ -86,7 +86,6 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvolfile
 
 # load the file:
-if (requireNamespace("vol2birdR", quietly = TRUE)) {
 example_pvol <- read_pvolfile(pvolfile)
 
 # print summary info for the loaded polar volume:
@@ -100,5 +99,4 @@ scan <- example_pvol$scans[[1]]
 
 # print summary info for the new object:
 scan
-}
 }
