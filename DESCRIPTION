@@ -50,7 +50,6 @@ Imports:
     suntools,
     tidyr,
     utils,
-    vol2birdR,
     viridis,
     viridisLite
 Suggests:
@@ -62,7 +61,8 @@ Suggests:
     rosm,
     testthat (>= 3.0.0),
     tidyselect,
-    vdiffr
+    vdiffr,
+    vol2birdR
 Remotes: 
     github::adokter/vol2birdR@cran_upload
 LazyData: true
