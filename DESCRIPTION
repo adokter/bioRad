@@ -43,6 +43,7 @@ Imports:
     readr,
     rhdf5,
     rlang,
+    sf,
     sp,
     stats,
     stringr,
@@ -59,7 +60,6 @@ Suggests:
     prettymapr,
     rmarkdown,
     rosm,
-    sf,
     testthat (>= 3.0.0),
     tidyselect,
     vdiffr

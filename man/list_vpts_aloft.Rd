@@ -39,5 +39,7 @@ List aloft urls for time series of vertical profiles (\code{vpts}) of radar
 stations
 }
 \examples{
+if (requireNamespace("aws.s3", quietly = TRUE)) {
 list_vpts_aloft(radars = "bejab")
+}
 }
