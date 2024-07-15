@@ -92,7 +92,7 @@ composite_ppi <-
            idw_max_distance = NA,
            coverage = FALSE) {
   if (FALSE %in% sapply(x, is.ppi)) {
-    stop("'composite' expects objects of class ppi only")
+    stop("'x' should be an object of class ppi, or a list of objects of class ppi")
   }
   if (!assertthat::is.count(nx) && missing(res)) stop("'nx' should be an integer")
   if (!assertthat::is.count(ny) && missing(res)) stop("'ny' should be an integer")
