@@ -75,7 +75,7 @@
 #'
 #' A dataset containing the schema definitions for VPTS data validation.
 #' @rdname vpts_schema
-#' @keywords data
+#' @keywords internal
 #' @return A list object containing the data model for the standard VPTS exchange format.
 #' @examples
 #' # Reload vpts_schema from package (e.g. in case it was altered)
