@@ -20,4 +20,4 @@ A dataset containing the schema definitions for VPTS data validation.
 # Reload vpts_schema from package (e.g. in case it was altered)
 data(vpts_schema)
 }
-\keyword{datasets}
+\keyword{internal}
