@@ -171,12 +171,13 @@
 #'
 #' @examples
 #' # Locate and read the polar volume example file
-#' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+#' pvolfile_source <- system.file("extdata", "volume.h5", package = "bioRad")
 #'
 #' # Calculate the profile
 #' if (requireNamespace("vol2birdR", quietly = TRUE)) {
 #'  vp <- calculate_vp(pvolfile)
 #' 
+
 #' # Get summary info
 #' vp
 #' }

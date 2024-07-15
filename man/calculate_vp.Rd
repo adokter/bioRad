@@ -215,7 +215,7 @@ be downloaded at \url{https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt}.
 }
 \examples{
 # Locate and read the polar volume example file
-pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+pvolfile_source <- system.file("extdata", "volume.h5", package = "bioRad")
 
 # Calculate the profile
 if (requireNamespace("vol2birdR", quietly = TRUE)) {
@@ -223,8 +223,6 @@ if (requireNamespace("vol2birdR", quietly = TRUE)) {
 
 # Get summary info
 vp
-}
-
 }
 \references{
 Dokter et al. (2011) is the main reference for the profiling algorithm
