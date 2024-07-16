@@ -2,7 +2,6 @@
 #'
 #' @param data a dataframe created from a VPTS CSV file
 #' @returns a bioRad vpts object
-#' @importFrom glue glue
 #' @examples
 #' # locate example file in VPTS CSV format:
 #' df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))

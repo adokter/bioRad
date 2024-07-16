@@ -19,19 +19,16 @@ validate_datetime_format <- function(data, format) {
 #' Validate dataframe against VPTS schema
 #'
 #' @param df The dataframe to validate.
-#'
+#' @noRd
 #' @return Invisibly returns a list with validation results including messages for any issues found.
 #' @keywords internal
-#' @examples
-#' my_vpts <- as.data.frame(example_vpts)
-#' validate_vpts(my_vpts)
 validate_vpts <- function(df) {
-    schema <- vpts_schema
+    schema <- bioRad::vpts_schema
     required_fields <- schema$fields$name[schema$fields$constraints.required ==
         TRUE]
     all_fields <- schema$fields$name
     df_fields <- names(df)
-    
+
     # Check for missing required fields
     missing_required <- setdiff(required_fields, df_fields)
     if (length(missing_required) > 0) {

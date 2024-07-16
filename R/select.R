@@ -1,5 +1,5 @@
 # generalizations for the dplyr verb `select` to `scan` and `pvol` objects
-#' @exportS3Method
+#' @keywords internal
 select.scan <- function(.data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("package dplyr required, please install it first") # nocov
@@ -16,7 +16,7 @@ select.scan <- function(.data, ...) {
   .data
 }
 
-#' @exportS3Method
+#' @keywords internal
 select.pvol <- function(.data, ...) {
   .data$scans <- lapply(.data$scans, select.scan, ...)
   .data
