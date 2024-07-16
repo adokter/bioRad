@@ -162,7 +162,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(sp::spTransform(as(data,"SpatialPointsDataFrame"), sp::CRS("+init=epsg:3857")))
+    as.data.frame(sp::spTransform(methods::as(data,"SpatialPointsDataFrame"), sp::CRS("+init=epsg:3857")))
   )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])
