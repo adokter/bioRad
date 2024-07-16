@@ -27,7 +27,6 @@ validate_datetime_format <- function(data, format) {
 #' @examples
 #' my_vpts <- as.data.frame(example_vpts)
 #' validate_vpts(my_vpts)
-#' @export
 validate_vpts <- function(df) {
     schema <- vpts_schema
     required_fields <- schema$fields$name[schema$fields$constraints.required ==
