@@ -23,9 +23,6 @@ validate_datetime_format <- function(data, format) {
 #' @param df The dataframe to validate.
 #'
 #' @return Invisibly returns a list with validation results including messages for any issues found.
-#' @importFrom glue glue
-#' @importFrom dplyr select
-#' @importFrom stringr str_detect
 #' @keywords internal
 #' @examples
 #' my_vpts <- as.data.frame(example_vpts)
@@ -62,13 +59,13 @@ validate_vpts <- function(df) {
                   "POSIXt"), boolean = is.logical(field_data), stop("Unsupported type specified in schema for field: ",
                   field))
             if (!type_valid) {
-                issues <- c(issues, glue("Type validation failed for {field}"))
+                issues <- c(issues, glue::glue("Type validation failed for {field}"))
             }
 
             # Validate date-time format if specified
             if (field_schema$type == "datetime" && !is.na(field_schema$format)) {
               if (!validate_datetime_format(field_data, field_schema$format)) {
-                return(glue("Date-time format validation failed for {field}"))
+                return(glue::glue("Date-time format validation failed for {field}"))
               }
             }
 
@@ -76,15 +73,15 @@ validate_vpts <- function(df) {
             if (!is.null(field_schema$constraints)) {
                 if (!is.na(field_schema$constraints$minimum) && any(field_data <
                   field_schema$constraints$minimum, na.rm = TRUE)) {
-                  return(glue("Minimum value constraint violated for {field}"))
+                  return(glue::glue("Minimum value constraint violated for {field}"))
                 }
                 if (!is.na(field_schema$constraints$maximum) && any(field_data >
                   field_schema$constraints$maximum, na.rm = TRUE)) {
-                  return(glue("Maximum value constraint violated for {field}"))
+                  return(glue::glue("Maximum value constraint violated for {field}"))
                 c}
                 if (!is.na(field_schema$constraints$pattern) && any(!stringr::str_detect(field_schema$constraints$pattern,
                   field_data))) {
-                  return(glue("Pattern constraint violated for {field}"))
+                  return(glue::glue("Pattern constraint violated for {field}"))
                 }
             }
         } else {
