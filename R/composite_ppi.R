@@ -184,6 +184,8 @@ composite_ppi <-
 
   # initialize all values of the grid to NA
   suppressWarnings(r <- raster::setValues(r, NA))
+  assertthat::assert_that(dim(r)[1] > 1, msg = "output raster has only a single pixel in x dimension, increase raster resolution")
+  assertthat::assert_that(dim(r)[2] > 1, msg = "output raster has only a single pixel in y dimension, increase raster resolution")
 
   spGrid = methods::as(r, 'SpatialGridDataFrame')
 
