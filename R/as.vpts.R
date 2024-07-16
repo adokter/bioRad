@@ -1,4 +1,3 @@
-vpts_schema <- get0("vpts_schema", envir = asNamespace("bioRad"))
 #' Convert a dataframe into a vpts object
 #'
 #' @param data a dataframe created from a VPTS CSV file

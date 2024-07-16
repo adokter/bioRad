@@ -1,5 +1,3 @@
-vpts_schema <- get0("vpts_schema", envir = asNamespace("bioRad"))
-
 get_field_schema <- function(field, schema) {
     for (i in seq_along(schema$fields$name)) {
         if (field %in% c(schema$fields$name[i], schema$fields$nameAlternatives[[i]])) {
@@ -33,7 +31,7 @@ validate_vpts <- function(df) {
         TRUE]
     all_fields <- schema$fields$name
     df_fields <- names(df)
-
+    
     # Check for missing required fields
     missing_required <- setdiff(required_fields, df_fields)
     if (length(missing_required) > 0) {
