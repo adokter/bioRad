@@ -1,8 +1,12 @@
-## bioRad 0.7.3 
+## bioRad 0.8.0 
 
-Adressing CRAN errors related to stamen maps brownouts, and resulting issues in dependency ggmap.
+Addresses CRAN policy violation of copying files to user home directory in examples
+
+Features:
+1. VPTS files are now able to be validated with `validate_vpts()`, enabled by a pre-defined VPTS schema `vpts_schema.rda`, now included in the package data
 
 Fixes:
-1. Migrated from ggmap to ggspatial
-2. Adressed all CRAN build issues
-3. some small bugfixes
+1. Handle empty numeric vectors when plotting clutter maps
+2. `download_vpfiles()` points to a new aloft S3 bucket
+3. Default refractive index of water changed in `eta_to_dbz()` and `dbz_to_eta()`
+4. Handle VPTS files with multiple sd_vvp_thresholds
