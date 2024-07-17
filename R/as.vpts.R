@@ -11,7 +11,7 @@
 as.vpts <- function(data) {
   assertthat::assert_that(inherits(data,"data.frame"))
   
-  validate_vpts(data)
+  bioRad::validate_vpts(data)
 
   height <- datetime <- source_file <- radar <- NULL
 
