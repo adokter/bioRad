@@ -20,7 +20,7 @@
       "@type": "Person",
       "givenName": "Adriaan M.",
       "familyName": "Dokter",
-      "email": "amd427@cornell.edu",
+      "email": "biorad@cornell.edu",
       "@id": "https://orcid.org/0000-0001-6573-066X"
     },
     {
@@ -120,7 +120,7 @@
       "@type": "Person",
       "givenName": "Adriaan M.",
       "familyName": "Dokter",
-      "email": "amd427@cornell.edu",
+      "email": "biorad@cornell.edu",
       "@id": "https://orcid.org/0000-0001-6573-066X"
     }
   ],
@@ -517,7 +517,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "12506.522KB",
+  "fileSize": "12506.703KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
