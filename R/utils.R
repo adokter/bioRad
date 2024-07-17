@@ -91,7 +91,7 @@ check_date_format <- function(date, format) {
 }
 
 
-#' A wrapper for [spTransform()].
+#' A wrapper for [sp::spTransform()].
 #' Converts geographic (WGS84) coordinates to a specified projection
 #'
 #' @param lon Longitude
@@ -112,7 +112,7 @@ wgs_to_proj <- function(lon, lat, proj4string) {
   return(res)
 }
 
-#' A wrapper for [spTransform()].
+#' A wrapper for [sp::spTransform()].
 #' Converts projected coordinates to geographic (WGS84) coordinates.
 #'
 #' @param x The x-coordinate in the projected system.

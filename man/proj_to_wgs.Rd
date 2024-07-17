@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{proj_to_wgs}
 \alias{proj_to_wgs}
-\title{A wrapper for \code{\link[=spTransform]{spTransform()}}.
+\title{A wrapper for \code{\link[sp:spTransform]{sp::spTransform()}}.
 Converts projected coordinates to geographic (WGS84) coordinates.}
 \usage{
 proj_to_wgs(x, y, proj4string)
@@ -18,7 +18,7 @@ proj_to_wgs(x, y, proj4string)
 An object of class \code{SpatialPoints}.
 }
 \description{
-A wrapper for \code{\link[=spTransform]{spTransform()}}.
+A wrapper for \code{\link[sp:spTransform]{sp::spTransform()}}.
 Converts projected coordinates to geographic (WGS84) coordinates.
 }
 \keyword{internal}
