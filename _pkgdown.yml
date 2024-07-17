@@ -51,6 +51,7 @@ reference:
       - integrate_to_ppi
       - calculate_param
       - apply_mistnet
+      - tidyverse
       - Math.scan
   - title: "Plotting radar scans"
     desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
