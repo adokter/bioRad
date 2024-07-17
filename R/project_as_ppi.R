@@ -145,7 +145,6 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   # create gridtopo depending on specification of grid_size
   if (inherits(grid_size, c("RasterLayer", "SpatialPoints"))) {
     if(inherits(grid_size, "RasterLayer")){
-      rlang::check_installed("sf","to project rasters")
       gridSf<-sf::st_as_sf(as.data.frame(raster::rasterToPoints(grid_size)), coords=c("x","y"), crs=sf::st_crs(grid_size))
       if (sf::st_crs(gridSf) != sf::st_crs(proj4string)) {
         gridSf <- sf::st_transform(gridSf, sf::st_crs(proj4string))

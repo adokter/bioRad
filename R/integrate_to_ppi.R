@@ -299,7 +299,6 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       sep = ""
     )
     raster::values(raster) <- 1
-    rlang::check_installed("sf")
     spdf<-as(sf::as_Spatial(
       sf::st_transform(sf::st_as_sf(as.data.frame(raster::rasterToPoints(raster)), coords=c("x","y"),
                                                           crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
