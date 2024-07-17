@@ -103,21 +103,16 @@ check_date_format <- function(date, format) {
 #'
 #' @return An object of class `SpatialPoints`.
 wgs_to_proj <- function(lon, lat, proj4string) {
-  xy <- data.frame(x = lon, y = lat)
-  sp::coordinates(xy) <- c("x", "y")
-  sp::proj4string(xy) <- sp::CRS("+proj=longlat +datum=WGS84")
+  xy<-sf::st_as_sf(data.frame(x = lon, y = lat), coords=c('x','y'), crs=4326L)
+  res <- sf::st_transform(xy, proj4string)
 
-  res <- sp::spTransform(xy, proj4string)
+  res <- sf::as_Spatial(res)
+  rownames(res@bbox) <- c("x", "y")
+  colnames(res@coords) <- c("x", "y")
 
-  # Check if the result is a SpatialPointsDataFrame
-  if (inherits(res, "SpatialPointsDataFrame")) {
-    # If it is, convert it to a SpatialPoints object
-    rownames(res@bbox) <- c("x", "y")
-    colnames(res@coords) <- c("x", "y")
-    res <- sp::SpatialPoints(coords = res@coords, proj4string = res@proj4string, bbox = res@bbox)
-  }
   return(res)
 }
+
 #' A wrapper for [spTransform()].
 #' Converts projected coordinates to geographic (WGS84) coordinates.
 #'

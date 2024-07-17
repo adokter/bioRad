@@ -1,6 +1,8 @@
 
 # bioRad 0.7.3.9000
 
+* speed up `integrate_to_ppi()` and `project_as_ppi()` by using native `sf` functions (#669)
+
 ** Bugfixes
 
 * Updated the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ) (#642). The effect is a 7% increase in animal densities in output of functions `integrate_to_ppi()` and `read_cajun()` only.
