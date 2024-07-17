@@ -3,7 +3,7 @@
 
 * speed up `integrate_to_ppi()` and `project_as_ppi()` by using native `sf` functions (#669)
 
-** Bugfixes
+## Bugfixes
 
 * support for tidyverse select method for polar volume and polar scan objects (#668,#460)
 
