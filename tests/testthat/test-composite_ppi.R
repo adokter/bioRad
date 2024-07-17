@@ -3,7 +3,7 @@ test_that("composite_ppi() returns error on incorrect parameters", {
   ppis <- lapply(pvol$scans, project_as_ppi)
   expect_error(
     composite_ppi(example_vp),
-    regexp = "'composite' expects objects of class ppi only",
+    regexp = "'x' should be an object of class ppi, or a list of objects of class ppi",
     fixed = TRUE
   )
   expect_error(

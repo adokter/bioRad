@@ -7,9 +7,13 @@
 
 *  VPTS files are now able to be validated with `validate_vpts()` which uses the schema to check for min/max constraint violations for specific fields, regex and datetime formatting
 
+* speed up `integrate_to_ppi()` and `project_as_ppi()` by using native `sf` functions (#669)
+
+* support for tidyverse select method for polar volume and polar scan objects (#668,#460)
+
 ## Bugfixes
 
-* Corrected the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ) (#642). The effect is a 7% increase in animal densities in output of functions `integrate_to_ppi()` and `read_cajun()` only.
+* Corrected the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ). The effect is a 7% increase in animal densities in output of functions `integrate_to_ppi()` and `read_cajun()` only (#642).
 
 * Fixed the handling of empty numeric vectors when plotting clutter maps (#655)
 
