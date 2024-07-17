@@ -19,6 +19,8 @@
 
 * Fixed warning when reading VPTS csv containing multiple values in `lat`, `lon`, '`rcs`' or `sd_vvp_threshold` (#651)
 
+* Fixed enabling/disabling of `single_pol` flag in `calculate_vp()` (#646)
+
 * Updated the s3 source bucket of `download_vpfiles()` to https://aloftdata.s3-eu-west-1.amazonaws.com (#648)
 
 * Fixed an error in the idw method of `composite_ppi()` that emerged with the evolution of dependency package sp / deprecation of rgdal (#666)
