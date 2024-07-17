@@ -46,4 +46,5 @@ pkgdown/*
 /Meta/
 
 # rosm cache
+rosm.cache/
 rosm.cache
