@@ -92,7 +92,7 @@ composite_ppi <-
            idw_max_distance = NA,
            coverage = FALSE) {
   if (FALSE %in% sapply(x, is.ppi)) {
-    stop("'composite' expects objects of class ppi only")
+    stop("'x' should be an object of class ppi, or a list of objects of class ppi")
   }
   if (!assertthat::is.count(nx) && missing(res)) stop("'nx' should be an integer")
   if (!assertthat::is.count(ny) && missing(res)) stop("'ny' should be an integer")
@@ -184,6 +184,8 @@ composite_ppi <-
 
   # initialize all values of the grid to NA
   suppressWarnings(r <- raster::setValues(r, NA))
+  assertthat::assert_that(dim(r)[1] > 1, msg = "output raster has only a single pixel in x dimension, increase raster resolution")
+  assertthat::assert_that(dim(r)[2] > 1, msg = "output raster has only a single pixel in y dimension, increase raster resolution")
 
   spGrid = methods::as(r, 'SpatialGridDataFrame')
 
@@ -259,7 +261,7 @@ composite_ppi <-
           sp::coordinates(d) <- c("lon", "lat")
           sp::proj4string(d) <- d_crs
           proj.radar <- as.data.frame(sp::spTransform(d, t_crs))
-          weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = proj.radar$lon, y = proj.radar$lat))[i, ], sp::coordinates(raster::raster(spGrid)), lonlat = FALSE))
+          weights <- suppressWarnings(raster::pointDistance(as.matrix(data.frame(x = proj.radar[,1], y = proj.radar[,2]))[i, ], sp::coordinates(raster::raster(spGrid)), lonlat = FALSE))
 
         }
         if (!is.na(idw_max_distance)) weights[weights > idw_max_distance] <- NA

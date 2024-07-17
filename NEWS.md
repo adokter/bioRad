@@ -7,15 +7,21 @@
 
 *  VPTS files are now able to be validated with `validate_vpts()` which uses the schema to check for min/max constraint violations for specific fields, regex and datetime formatting
 
+* speed up `integrate_to_ppi()` and `project_as_ppi()` by using native `sf` functions (#669)
+
+* support for tidyverse select method for polar volume and polar scan objects (#668,#460)
+
 ## Bugfixes
 
-* Updated the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ) (#642). The effect is a 7% increase in animal densities in output of functions `integrate_to_ppi()` and `read_cajun()` only.
+* Corrected the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ). The effect is a 7% increase in animal densities in output of functions `integrate_to_ppi()` and `read_cajun()` only (#642).
 
-* Fixed the handling of empty numeric vectors when plotting clutter maps
+* Fixed the handling of empty numeric vectors when plotting clutter maps (#655)
 
-* Fixed warning when reading VPTS csv containing multiple values in `lat`, `lon`, '`rcs`' or `sd_vvp_threshold`
+* Fixed warning when reading VPTS csv containing multiple values in `lat`, `lon`, '`rcs`' or `sd_vvp_threshold` (#651)
 
-* Updated the s3 source bucket of `download_vpfiles()` to https://aloftdata.s3-eu-west-1.amazonaws.com
+* Updated the s3 source bucket of `download_vpfiles()` to https://aloftdata.s3-eu-west-1.amazonaws.com (#648)
+
+* Fixed an error in the idw method of `composite_ppi()` that emerged with the evolution of dependency package sp / deprecation of rgdal (#666)
 
 # bioRad 0.7.3
 
