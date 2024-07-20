@@ -53,8 +53,8 @@ Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code
 Other beam_functions: 
 \code{\link{beam_distance}()},
 \code{\link{beam_height}()},
-\code{\link{beam_profile}()},
 \code{\link{beam_profile_overlap}()},
+\code{\link{beam_profile}()},
 \code{\link{beam_range}()},
 \code{\link{beam_width}()}
 }

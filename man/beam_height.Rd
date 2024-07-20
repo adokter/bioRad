@@ -58,8 +58,8 @@ plot(range, beam_height(range, 0.5), ylab = "beam height [m]", xlab = "range [m]
 
 Other beam_functions: 
 \code{\link{beam_distance}()},
-\code{\link{beam_profile}()},
 \code{\link{beam_profile_overlap}()},
+\code{\link{beam_profile}()},
 \code{\link{beam_range}()},
 \code{\link{beam_width}()},
 \code{\link{gaussian_beam_profile}()}

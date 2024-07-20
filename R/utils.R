@@ -11,6 +11,21 @@
 #' @keywords internal
 is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 
+#' Skip test if no aws.s3
+#'
+#' Some functions require package aws.s3
+#' This helper function allows to skip a test if aws.s3 is not available
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#' @return Invisibly returns TRUE if aws.s3 is available, otherwise skips the test with a message "Package aws.s3 not installed".
+#' @keywords internal
+skip_if_no_aws.s3 <- function() {
+  if (rlang::is_installed("aws.s3")) {
+     return(invisible(TRUE))
+  }
+  testthat::skip("Package aws.s3 not installed")
+}
+
+
 #' Skip test if no mistnet
 #'
 #' Some functions require MistNet to be enabled in package vol2birdR.
