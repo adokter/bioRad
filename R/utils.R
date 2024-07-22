@@ -19,11 +19,26 @@ is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 #' @return Invisibly returns TRUE if aws.s3 is available, otherwise skips the test with a message "Package aws.s3 not installed".
 #' @keywords internal
 skip_if_no_aws.s3 <- function() {
-  if (rlang::is_installed("aws.s3")) {
+  if (requireNamespace("aws.s3", quietly = TRUE)) {
      return(invisible(TRUE))
   }
   testthat::skip("Package aws.s3 not installed")
 }
+
+#' Skip test if no tidyselect
+#'
+#' dplyr select method require package tidyselect
+#' This helper function allows to skip a test if tidyselect is not available
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#' @return Invisibly returns TRUE if tidyselect is available, otherwise skips the test with a message "Package tidyselect not installed".
+#' @keywords internal
+skip_if_no_tidyselect <- function() {
+  if (requireNamespace("tidyselect", quietly = TRUE)) {
+     return(invisible(TRUE))
+  }
+  testthat::skip("Package tidyselect not installed")
+}
+
 
 
 #' Skip test if no mistnet
@@ -34,7 +49,7 @@ skip_if_no_aws.s3 <- function() {
 #' @return Invisibly returns TRUE if MistNet is available, otherwise skips the test with a message "No MistNet".
 #' @keywords internal
 skip_if_no_mistnet <- function() {
-  if (rlang::is_installed("vol2birdR")) {
+  if (requireNamespace("vol2birdR", quietly = TRUE)) {
     if (vol2birdR::mistnet_exists()) {
       return(invisible(TRUE))
     }
@@ -51,7 +66,7 @@ skip_if_no_mistnet <- function() {
 #' a message "Package vol2birdR not installed".
 #' @keywords internal
 skip_if_no_vol2birdR <- function() {
-  if (rlang::is_installed("vol2birdR")) {
+  if (requireNamespace("vol2birdR", quietly = TRUE)) {
     return(invisible(TRUE))
   }
   testthat::skip("Package vol2birdR not installed")
