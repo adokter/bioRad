@@ -43,8 +43,10 @@ select.pvol <- function(.data, ...) {
 
 register_all_s3_methods <- function() {
   # nocov start
-  register_s3_method("dplyr", "select", "scan")
-  register_s3_method("dplyr", "select", "pvol")
+  if (!(!requireNamespace("dplyr", quietly = TRUE) | !requireNamespace("rlang", quietly = TRUE) | !requireNamespace("tidyselect", quietly = TRUE))) {
+     register_s3_method("dplyr", "select", "scan")
+     register_s3_method("dplyr", "select", "pvol")
+  }
   # nocov end
 }
 
