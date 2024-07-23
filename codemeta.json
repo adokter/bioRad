@@ -212,18 +212,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "tidyselect",
-      "name": "tidyselect",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=tidyselect"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "vdiffr",
       "name": "vdiffr",
       "provider": {
@@ -488,10 +476,22 @@
     },
     "23": {
       "@type": "SoftwareApplication",
+      "identifier": "tidyselect",
+      "name": "tidyselect",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyselect"
+    },
+    "24": {
+      "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
-    "24": {
+    "25": {
       "@type": "SoftwareApplication",
       "identifier": "viridis",
       "name": "viridis",
@@ -503,7 +503,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=viridis"
     },
-    "25": {
+    "26": {
       "@type": "SoftwareApplication",
       "identifier": "viridisLite",
       "name": "viridisLite",
@@ -517,7 +517,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4894.424KB",
+  "fileSize": "4896.469KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
