@@ -98,7 +98,10 @@ check_multivalue_attributes <- function(data) {
 
   data <- df_to_mat_list(data, radvars)
 
-    # List of vectors to check
+  # convert gap back to logical, becasue df_to_mat_list converts it to integer
+  data$gap = (data$gap == 1)
+
+  # List of vectors to check
   vectors_to_check <- list(heights = heights, interval = interval, radar_height = radar_height, lon = lon, lat = lat)
 
   # Identify empty vectors
