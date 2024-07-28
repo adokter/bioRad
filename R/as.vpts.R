@@ -10,7 +10,13 @@
 #' @export
 as.vpts <- function(data) {
   assertthat::assert_that(inherits(data,"data.frame"))
-  
+
+  # if dbz_all is a column name, rename to bioRad naming DBZH
+  if("dbz_all" %in% names(data)){
+    data <- data %>%
+      dplyr::rename(DBZH = "dbz_all")
+  }  
+
   validate_vpts(data)
 
   height <- datetime <- source_file <- radar <- NULL
