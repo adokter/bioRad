@@ -39,7 +39,8 @@ List aloft urls for time series of vertical profiles (\code{vpts}) of radar
 stations
 }
 \examples{
+\donttest{
 if (requireNamespace("aws.s3", quietly = TRUE)) {
 list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
-}
+}}
 }
