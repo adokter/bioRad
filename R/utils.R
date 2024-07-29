@@ -25,6 +25,21 @@ skip_if_no_aws.s3 <- function() {
   testthat::skip("Package aws.s3 not installed")
 }
 
+#' Skip test if missing dependencies for mapping
+#'
+#' Function map depends on several spatial dependencies (ggspatial, prettymapr, rosm).
+#' This helper function allows to skip a test if these dependencies are  not available
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#' @return Invisibly returns TRUE if dependencies available, otherwise skips the test with a message "map() dependencies (ggspatial, prettymapr, rosm) not installed".
+#' @keywords internal
+skip_if_no_mapping <- function() {
+  if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))){
+     return(invisible(TRUE))
+  }
+  testthat::skip("map() dependencies (ggspatial, prettymapr, rosm) not installed")
+}
+
+
 #' Skip test if no tidyselect
 #'
 #' dplyr select method require package tidyselect
@@ -270,52 +285,4 @@ guess_file_type <- function(file_path, n_lines = 5) {
 #' @noRd
 remainder_is_zero <- function(number, divisor) {
   return(number %% divisor == 0)
-}
-
-
-#' Convert a tibble into a matrix
-#'
-#' Reshapes a tibble as an m✕n matrix of m distinct radar heights and
-#' n observations (sweeps) ordered by time. Each tibble contains data of a single vpts attribute.
-#' @param tibble A tibble in the format: datetime, height, variable, value.
-#' @return A list with two elements: the 'variable' of interest and the reshaped matrix
-#' @keywords internal
-#' @noRd
-tibble_to_mat <- function(tibble) {
-  unique_heights <- unique(tibble[["height"]])
-  matrix_list <- lapply(unique_heights, function(height) {
-    height_subset <- tibble[tibble[["height"]] == height, ]
-    matrix(height_subset$value, nrow = 1)
-  })
-  matrix <- do.call(rbind, matrix_list)
-  return(list(variable = tibble$variable[1], matrix = matrix))
-}
-
-#' Convert a vpts dataframe into an ordered list of matrices
-#'
-#' @param data A dataframe created from a VPTS CSV file
-#' @param radvars a character vector of radar variables to be masked from the input , e.g., c("radar_latitude", "radar_longitude", ...)
-#' @returns A named list of matrices ordered according to radvars
-#' @keywords internal
-#' @noRd
-df_to_mat_list <- function(data, radvars) {
-  datetime <- height <- variable <- fields <- NULL
-  all_vars <- c(radvars, "datetime", "height")
-
-  tbls_lst <- data %>%
-    dplyr::select(dplyr::all_of(intersect(all_vars, names(data)))) %>%
-    tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
-    dplyr::group_by(variable) %>%
-    dplyr::group_split()
-
-  unnamed_mat_list <- lapply(tbls_lst, tibble_to_mat)
-  var_names <- sapply(unnamed_mat_list, function(x) x$variable)
-  named_mat_list <- lapply(unnamed_mat_list, `[[`, "matrix")
-  names(named_mat_list) <- var_names
-
-  subset_indices <- match(var_names, radvars)
-  ordered_subset <- var_names[order(subset_indices)]
-
-  ordered_mat_list <- named_mat_list[ordered_subset]
-  return(ordered_mat_list)
 }

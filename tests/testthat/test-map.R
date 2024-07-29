@@ -1,5 +1,6 @@
 test_that("map() returns error on incorrect parameters", {
   skip_if_offline()
+  skip_if_no_mapping()
   ppi <- project_as_ppi(example_scan)
   basemap <-  rosm::osm.types()[1]
   # return error when input object is not of class ppi
