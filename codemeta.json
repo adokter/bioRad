@@ -4,17 +4,23 @@
   "identifier": "bioRad",
   "description": "Extract, visualize and summarize aerial movements of birds and insects from weather radar data. See Dokter, A. M. et al. (2018) \"bioRad: biological analysis and visualization of weather radar data\" <doi:10.1111/ecog.04028> for a software paper describing package and methodologies.",
   "name": "bioRad: Biological Analysis and Visualization of Weather Radar Data",
-  "relatedLink": "https://adriaandokter.com/bioRad/",
+  "relatedLink": ["https://adriaandokter.com/bioRad/", "https://CRAN.R-project.org/package=bioRad"],
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.3.0 (2023-04-21)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -517,7 +523,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4896.469KB",
+  "fileSize": "8297.02KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",

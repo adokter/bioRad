@@ -1,4 +1,14 @@
 
+# bioRad 0.8.1
+
+## bugfixes
+
+* dbz_all field in VPTS CSV files is now correctly mapped to DBZH field
+
+* non-standard field names are now retained
+
+* corrected unconditional use of Suggested packages in examples in dontrun blocks.
+
 # bioRad 0.8.0
 
 ## New features
