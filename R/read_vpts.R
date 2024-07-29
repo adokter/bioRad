@@ -108,7 +108,6 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
 
   data <- dplyr::mutate(
     data,
-    radar = as.factor(radar),
     datetime = as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
   )
 
