@@ -3,9 +3,11 @@
 
 ## bugfixes
 
-* dbz_all field in VPTS CSV files is now correctly mapped to DBZH field
+* dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (#661)
 
-* non-standard data fields are now retained in vpts objects produced with as.vpts()
+* non-standard data fields are now retained in vpts objects produced with as.vpts() (#661)
+
+* corrected the type of gap field in vpts objects to logical (#635)
 
 # bioRad 0.8.0
 
