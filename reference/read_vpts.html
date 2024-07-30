@@ -23,7 +23,7 @@ vol2bird standard output (see example below).
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@ vol2bird standard output (see example below).
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Read time series of vertical profiles (<code>vpts</code>) from file(s)</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/master/R/read_vpts.R" class="external-link"><code>R/read_vpts.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/0.8.0/R/read_vpts.R" class="external-link"><code>R/read_vpts.R</code></a></small>
     <div class="hidden name"><code>read_vpts.Rd</code></div>
     </div>
 
@@ -112,6 +112,7 @@ The following file formats are supported (but cannot be mixed):</p><ul><li><p><a
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## read a vertical profile time series in VPTS CSV format:</span></span></span>
 <span class="r-in"><span><span class="va">vptsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"example_vpts.csv"</span>, package <span class="op">=</span> <span class="st">"bioRad"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">read_vpts</span><span class="op">(</span><span class="va">vptsfile</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following named parsers don't match the column names: ...1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    Regular time series of vertical profiles (class vpts)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            radar:  bewid </span>
