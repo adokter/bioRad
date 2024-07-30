@@ -119,7 +119,9 @@
 #' plot(ppi, param = "VID", zlim = c(0, 200))
 #'
 #' # Download a basemap and map the ppi
+#' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' map(ppi)
+#' }
 #'
 #' # The ppi can also be projected on a user-defined raster, as follows:
 #'

@@ -47,6 +47,7 @@
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
 #' \donttest{
+#' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' # Choose a basemap
 #' basemap <- rosm::osm.types()[1]
 #'
@@ -70,6 +71,7 @@
 #'
 #' # Crop the map
 #' map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
+#' }
 #' }
 map <- function(x, ...) {
   UseMethod("map", x)
@@ -108,7 +110,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
   }
 
   # check that suggested dependencies are presetn
-  rlang::check_installed(c("ggspatial","prettymapr"),'to map ppi\'s')
+  rlang::check_installed(c("ggspatial","prettymapr", "rosm"),'to map ppi\'s')
 
   assert_valid_basemap <- function(basemap) {
     valid_types <- rosm::osm.types()
@@ -160,7 +162,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
 
   # convert to google earth mercator projection
   data <- suppressWarnings(
-    as.data.frame(sp::spTransform(as(data,"SpatialPointsDataFrame"), sp::CRS("+init=epsg:3857")))
+    as.data.frame(sp::spTransform(methods::as(data,"SpatialPointsDataFrame"), sp::CRS("+init=epsg:3857")))
   )
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])

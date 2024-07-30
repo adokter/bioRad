@@ -32,8 +32,8 @@ plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
 Other beam_functions: 
 \code{\link{beam_distance}()},
 \code{\link{beam_height}()},
-\code{\link{beam_profile_overlap}()},
 \code{\link{beam_profile}()},
+\code{\link{beam_profile_overlap}()},
 \code{\link{beam_range}()},
 \code{\link{gaussian_beam_profile}()}
 }

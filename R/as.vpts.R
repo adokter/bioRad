@@ -1,4 +1,3 @@
-
 #' Convert a dataframe into a vpts object
 #'
 #' @param data a dataframe created from a VPTS CSV file
@@ -18,6 +17,8 @@ as.vpts <- function(data) {
       dplyr::rename(DBZH = "dbz_all")
   }
 
+  validate_vpts(data)
+
   height <- datetime <- source_file <- radar <- NULL
 
   # Throw error if nrows per height are not identical
@@ -34,13 +35,6 @@ as.vpts <- function(data) {
     length(radar) == 1,
     msg = "`data` must contain data of a single radar."
   )
-
-  if (!exists("cached_schema")) {
-    # Load the schema from the data directory and cache it
-    cached_schema <- jsonlite::fromJSON(system.file("extdata", "vpts-csv-table-schema.json", package = "bioRad"),
-      simplifyDataFrame = FALSE, simplifyVector = TRUE
-    )
-  }
 
   data <- dplyr::mutate(
     data,
@@ -71,37 +65,55 @@ as.vpts <- function(data) {
     regular <- FALSE
   }
 
-# Get attributes
-radar_height <- data[["radar_height"]][1]
-interval <- unique(heights[-1] - heights[-length(heights)])
-wavelength <- data[["radar_wavelength"]][1]
+  # Get attributes
+  radar_height <- data[["radar_height"]][1]
+  interval <- unique(heights[-1] - heights[-length(heights)])
+  wavelength <- data[["radar_wavelength"]][1]
 
-# Check and warn for multiple values of specific attributes and return only the first values of those attributes
-check_multivalue_attributes <- function(data) {
-  attributes <- c("radar_longitude", "radar_latitude", "rcs", "sd_vvp_threshold")
-  first_values <- list()
-  for (attr in attributes) {
-    if (length(unique(data[[attr]])) > 1) {
-      warning(paste0("multiple `", attr, "` values found, storing only first (",
-                     as.character(data[[attr]][1]), ") as the functional attribute."))
+  # Check and warn for multiple values of specific attributes and return only the first values of those attributes
+  check_multivalue_attributes <- function(data) {
+    attributes <- c("radar_longitude", "radar_latitude", "rcs", "sd_vvp_threshold")
+    first_values <- list()
+    for (attr in attributes) {
+      if (length(unique(data[[attr]])) > 1) {
+        warning(paste0("multiple ", as.character(substitute(attr))," values found, storing only first (",
+                       as.character(data[[attr]][1]), ") as the functional attribute."))
+      }
+      first_values[[attr]] <- data[[attr]][1]
     }
-    first_values[[attr]] <- data[[attr]][1]
+      return(first_values)
   }
-    return(first_values)
-}
 
   first_values <- check_multivalue_attributes(data)
-  
+
   # Directly extract and assign values from the list
   lon <- first_values$radar_longitude
   lat <- first_values$radar_latitude
   rcs <- first_values$rcs
   sd_vvp_threshold <- first_values$sd_vvp_threshold
-  
-  # Convert dataframe
-  maskvars <- c("radar", "rcs", "sd_vvp_threshold", "radar_latitude", "radar_longitude", "radar_height", "radar_wavelength", "source_file", "datetime", "height", "sunrise", "sunset", "day")
 
-  data <- df_to_mat_list(data, maskvars, cached_schema)
+  # column names not to store in the vpts$data slot
+  radvars_exclude <- c("radar","datetime","height","rcs","sd_vvp_threshold","radar_latitude","radar_longitude","radar_height","radar_wavelength")
+  # radvars to include in vpts$data slot
+  radvars <- names(data)[!names(data) %in% radvars_exclude]
+
+  # calculate number of vertical profiles present
+  n_vp <- nrow(data)/length(heights)
+
+  # cast data.frame to list of matrices
+  data_output <- lapply(radvars, function(x) matrix(data[[x]],ncol=n_vp))
+  names(data_output)=radvars
+
+  # List of vectors to check
+  vectors_to_check <- list(heights = heights, interval = interval, radar_height = radar_height, lon = lon, lat = lat)
+
+  # Identify empty vectors
+  empty_vectors <- names(vectors_to_check)[sapply(vectors_to_check, function(v) length(v) == 0)]
+
+  # Stop execution if any empty vectors are found
+  if (length(empty_vectors) > 0) {
+      stop("Empty vectors detected: ", paste(empty_vectors, collapse=", "))
+  }
 
   # Create vpts object
   output <- list(
@@ -110,7 +122,7 @@ check_multivalue_attributes <- function(data) {
     height = heights,
     daterange = c(min(datetime), max(datetime)),
     timesteps = difftimes,
-    data = data,
+    data = data_output,
     attributes = list(
       where = data.frame(
         interval = as.integer(interval),
