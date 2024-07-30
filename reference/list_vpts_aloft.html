@@ -18,7 +18,7 @@ stations"><meta property="og:image" content="https://adriaandokter.com/bioRad/lo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -66,7 +66,7 @@ stations"><meta property="og:image" content="https://adriaandokter.com/bioRad/lo
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>List aloft urls for time series of vertical profiles (<code>vpts</code>) of radar stations</h1>
-    <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/0.8.0/R/list_vpts_aloft.R" class="external-link"><code>R/list_vpts_aloft.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/master/R/list_vpts_aloft.R" class="external-link"><code>R/list_vpts_aloft.R</code></a></small>
     <div class="hidden name"><code>list_vpts_aloft.Rd</code></div>
     </div>
 
@@ -125,9 +125,10 @@ stations for which no data was found.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"aws.s3"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"aws.s3"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">list_vpts_aloft</span><span class="op">(</span>radars <span class="op">=</span> <span class="st">"bejab"</span>, date_min<span class="op">=</span><span class="st">'2018-10-01'</span>, date_max <span class="op">=</span> <span class="st">'2018-12-31'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="co"># }</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201810.csv.gz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201811.csv.gz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201812.csv.gz</span>
