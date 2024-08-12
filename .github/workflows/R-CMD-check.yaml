@@ -42,7 +42,7 @@ jobs:
       - name: Install macOS system dependencies
         if: runner.os == 'macOS'
         run: |
-          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl pkg-config
+          env HOMEBREW_NO_AUTO_UPDATE=1 brew install hdf5 proj gsl
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -52,19 +52,19 @@ jobs:
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
         run: |
-          pak::pkg_sysreqs("local::.", dependencies = TRUE)$install_script
-          pak::pkg_sysreqs("rcmdcheck")$install_scripts
-          pak::pkg_sysreqs("proj4")$install_scripts
-          pak::pkg_sysreqs("hdf5r")$install_scripts
+          pak::local_system_requirements(execute = TRUE)
+          pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
+          pak::pkg_system_requirements("proj4", execute = TRUE) # Using same proj for now...
+          pak::pkg_system_requirements("hdf5r", execute = TRUE) # Using same hdf5 for now...
         shell: Rscript {0}
       - name: Install dependencies
         run: |
           # set upgrade to FALSE because otherwise several package that are not strict dependencies
           # (like terra) get triggered to build and fail
-          pak::pkg_sysreqs("local::.", dependencies = TRUE, upgrade=FALSE)$install_script
-          pak::pkg_sysreqs("rcmdcheck")$install_scripts
-          pak::pkg_sysreqs("rmarkdown")$install_scripts
-          pak::pkg_sysreqs("markdown")$install_scripts
+          pak::local_install_deps(upgrade = FALSE)
+          pak::pkg_install("rcmdcheck")
+          pak::pkg_install("rmarkdown")
+          pak::pkg_install("markdown")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
