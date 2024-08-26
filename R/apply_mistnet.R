@@ -85,6 +85,7 @@
 #' @examples
 #' \donttest{
 #' # make sure you have installed the MistNet libraries and model, using:
+#' if (requireNamespace("vol2birdR", quietly = TRUE)){
 #' if(!vol2birdR::mistnet_exists()){
 #'    vol2birdR::install_mistnet()
 #'    vol2birdR::install_mistnet_model()
@@ -124,6 +125,7 @@
 #'
 #' # Remove file
 #' file.remove(tempfile)
+#' }
 #' }
 apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
                           mount = dirname(file), load = TRUE,

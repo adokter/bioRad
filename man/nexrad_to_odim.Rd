@@ -40,12 +40,15 @@ download.file(paste0("https://noaa-nexrad-level2.s3.amazonaws.com/",
 
 new_path = file.path(tempdir(), "KBGM_example.h5")
 
+if (requireNamespace("vol2birdR", quietly = TRUE)) {
 nexrad_to_odim(path, new_path)
 
 # verify that we have generated a polar volume in ODIM HDF5 format
 get_odim_object_type(new_path)
 
 # clean up
-file.remove(path, new_path)
+file.remove(new_path)
+}
+file.remove(path)
 }
 }

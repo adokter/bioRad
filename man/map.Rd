@@ -88,6 +88,7 @@ model (ODIM), see Table 16 in the
 # Project a scan as a ppi
 ppi <- project_as_ppi(example_scan)
 \donttest{
+if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 # Choose a basemap
 basemap <- rosm::osm.types()[1]
 
@@ -111,6 +112,7 @@ map(ppi, map = basemap, radar_size = 5, radar_color = "blue")
 
 # Crop the map
 map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
+}
 }
 }
 \seealso{

@@ -167,18 +167,31 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
   )
 })
 
+test_that("VPTS CSV column dbz_all is renamed to DBZH", {
+  vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  expect_in("dbz_all",names(read.csv(vptsfile)))
+  my_vpts <- read_vpts(vptsfile)
+  expect_in("DBZH",names(example_vpts$data))
+})
+
+test_that("gap column is logical", {
+  vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  my_vpts <- read_vpts(vptsfile)
+  expect_true(is.logical(example_vpts$data$gap))
+})
 
 test_that("check ability to convert a vpts object into a data.frame, and then cast it back into a vpts", {
   vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
   my_vpts <- read_vpts(vptsfile)
-  res <- as.vpts(as.data.frame(my_vpts))
+  res <- as.vpts(as.data.frame(my_vpts, suntime=FALSE))
   expect_true(is.vpts(res))
 })
 
-# Comapre read_vpts output from data in both formats
+# Compare read_vpts output from data in both formats
 
 test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day of data", {
   skip_if_offline()
+  skip_if_no_aws.s3()
 
   # clear directories
   file.remove(list.files(h5_dir, full.names = TRUE))

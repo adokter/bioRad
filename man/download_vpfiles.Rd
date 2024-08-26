@@ -43,8 +43,8 @@ these are stored as monthly zips per radar.
 \donttest{
 # Download (and overwrite) data from radars "bejab" and "bewid".
 download_vpfiles(
-  date_min = "2016-10-01",
-  date_max = "2016-10-31",
+  date_min = "2018-10-01",
+  date_max = "2018-10-31",
   radars = c("bejab", "bewid"),
   directory = tempdir(),
   overwrite = TRUE
@@ -53,6 +53,7 @@ download_vpfiles(
 }
 \seealso{
 \itemize{
+\item \code{\link[=read_vpts]{read_vpts()}}
 \item \code{\link[=select_vpfiles]{select_vpfiles()}}
 \item \code{\link[=read_vpfiles]{read_vpfiles()}}
 }

@@ -1,4 +1,6 @@
 test_that("list_vpts_aloft() returns error for unknown source", {
+  skip_if_no_aws.s3()
+  skip_if_offline()
   expect_error(
     list_vpts_aloft(
       date_min = "2000-01-01",
@@ -12,6 +14,8 @@ test_that("list_vpts_aloft() returns error for unknown source", {
 })
 
 test_that("list_vpts_aloft() returns error for invalid format", {
+  skip_if_no_aws.s3()
+  skip_if_offline()
   expect_error(
     list_vpts_aloft(
       date_min = "2000-01-01",
@@ -25,6 +29,7 @@ test_that("list_vpts_aloft() returns error for invalid format", {
 })
 
 test_that("list_vpts_aloft() returns error if radar doesn't exist", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_error(
     list_vpts_aloft(
@@ -38,6 +43,7 @@ test_that("list_vpts_aloft() returns error if radar doesn't exist", {
 })
 
 test_that("list_vpts_aloft() returns a character vector", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_type(
     list_vpts_aloft(
@@ -50,6 +56,7 @@ test_that("list_vpts_aloft() returns a character vector", {
 })
 
 test_that("list_vpts_aloft() returns no warning when all dates are specified", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_no_warning(
     list_vpts_aloft(
@@ -61,6 +68,7 @@ test_that("list_vpts_aloft() returns no warning when all dates are specified", {
 })
 
 test_that("list_vpts_aloft() works without specifying dates", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   # just date_min
   expect_no_error(
@@ -85,6 +93,7 @@ test_that("list_vpts_aloft() works without specifying dates", {
 })
 
 test_that("list_vpts_aloft() returns all data when no dates are provided", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_gt(
     length(
@@ -104,14 +113,15 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
 
 
 test_that("list_vpts_aloft() warns if data was found for subset of radars or if not all dates were found", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_warning(
     list_vpts_aloft(
       date_min = "1900-01-01",
-      date_max = "2023-05-22",
+      date_max = "2010-01-01",
       radars = c("plpas")
     ),
-    regexp = "No data found for radar(s) between 1900-01-01 - 2023-05-22",
+    regexp = "No data found for radar(s) between 1900-01-01 - 2010-01-01",
     fixed = TRUE
   )
   expect_warning(
@@ -124,6 +134,7 @@ test_that("list_vpts_aloft() warns if data was found for subset of radars or if 
 })
 
 test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_equal(
     list_vpts_aloft(
@@ -145,6 +156,7 @@ test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
 })
 
 test_that("list_vpts_aloft() silences warnings with show_warnings argument", {
+  skip_if_no_aws.s3()
   skip_if_offline()
   expect_no_warning(
     list_vpts_aloft(
