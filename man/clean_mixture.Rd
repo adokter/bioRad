@@ -2,12 +2,57 @@
 % Please edit documentation in R/clean_mixture.R
 \name{clean_mixture}
 \alias{clean_mixture}
+\alias{clean_mixture.default}
+\alias{clean_mixture.vpts}
+\alias{clean_mixture.vp}
 \title{Partition mixtures of animals using assumptions on airspeeds.}
 \usage{
-clean_mixture(x, u, v, U, V, slow = 1, fast = 12, drop_slow_component = TRUE)
+clean_mixture(x, ..., slow = 1, fast = 12, drop_slow_component = TRUE)
+
+\method{clean_mixture}{default}(
+  eta,
+  u,
+  v,
+  U,
+  V,
+  slow = 1,
+  fast = 12,
+  drop_slow_component = TRUE,
+  drop_missing = FALSE,
+  keep_mixture = FALSE
+)
+
+\method{clean_mixture}{vpts}(
+  x,
+  ...,
+  slow = 1,
+  fast = 12,
+  drop_slow_component = TRUE,
+  drop_missing = FALSE,
+  keep_mixture = FALSE
+)
+
+\method{clean_mixture}{vp}(
+  x,
+  ...,
+  slow = 1,
+  fast = 12,
+  drop_slow_component = TRUE,
+  drop_missing = FALSE,
+  keep_mixture = FALSE
+)
 }
 \arguments{
-\item{x}{a mixture animal density or linear reflectivity eta.}
+\item{x}{a \code{vp}, \code{vpts} or \code{vpi} object.}
+
+\item{slow}{the slow component's airspeed}
+
+\item{fast}{the fast component's airspeed}
+
+\item{drop_slow_component}{when TRUE (default) output density, ground speed and
+heading for fast component, when FALSE for slow component.}
+
+\item{eta}{a mixture animal density or linear reflectivity eta.}
 
 \item{u}{the mixture's ground speed u component (west to east)}
 
@@ -17,12 +62,11 @@ clean_mixture(x, u, v, U, V, slow = 1, fast = 12, drop_slow_component = TRUE)
 
 \item{V}{the south to north wind component}
 
-\item{slow}{the slow component's airspeed}
+\item{drop_missing}{Values \code{x} without an associated ground speed
+and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{FALSE} (default).}
 
-\item{fast}{the fast component's airspeed}
-
-\item{drop_slow_component}{when TRUE (default) output density, ground speed and
-heading for fast component, when FALSE for slow component.}
+\item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
+renamed quantities with \code{mixture_} prefix}
 }
 \value{
 a data.frame with corrected density or reflectivity x, ground speed (u, v)
