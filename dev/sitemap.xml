@@ -81,7 +81,10 @@
 <url><loc>https://adriaandokter.com/bioRad/reference/sd_vvp_threshold-set.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/sd_vvp_threshold.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/select_vpfiles.html</loc></url>
+<url><loc>https://adriaandokter.com/bioRad/reference/skip_if_no_aws.s3.html</loc></url>
+<url><loc>https://adriaandokter.com/bioRad/reference/skip_if_no_mapping.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/skip_if_no_mistnet.html</loc></url>
+<url><loc>https://adriaandokter.com/bioRad/reference/skip_if_no_tidyselect.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/skip_if_no_vol2birdR.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/sub-.ppi.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/summary.param.html</loc></url>
@@ -94,6 +97,7 @@
 <url><loc>https://adriaandokter.com/bioRad/reference/sunrise_sunset.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/tidyverse.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/vplist_to_vpts.html</loc></url>
+<url><loc>https://adriaandokter.com/bioRad/reference/vpts_schema.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/wgs_to_proj.html</loc></url>
 <url><loc>https://adriaandokter.com/bioRad/reference/write_pvolfile.html</loc></url>
 </urlset>

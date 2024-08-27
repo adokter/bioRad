@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -69,21 +69,37 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7.3.9000" id="biorad-0739000">bioRad 0.7.3.9000<a class="anchor" aria-label="anchor" href="#biorad-0739000"></a></h2>
-<ul><li>speed up <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> and <code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> by using native <code>sf</code> functions (<a href="https://github.com/adokter/bioRad/issues/669" class="external-link">#669</a>)</li>
-</ul><div class="section level3">
-<h3 id="bugfixes-0-7-3-9000">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-3-9000"></a></h3>
-<ul><li><p>support for tidyverse select method for polar volume and polar scan objects (<a href="https://github.com/adokter/bioRad/issues/668" class="external-link">#668</a>,#460)</p></li>
-<li><p>Updated the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ) (<a href="https://github.com/adokter/bioRad/issues/642" class="external-link">#642</a>). The effect is a 7% increase in animal densities in output of functions <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> and <code><a href="../reference/read_cajun.html">read_cajun()</a></code> only.</p></li>
+<h2 class="page-header" data-toc-text="0.8.1" id="biorad-081">bioRad 0.8.1<small>2024-07-30</small><a class="anchor" aria-label="anchor" href="#biorad-081"></a></h2>
+<div class="section level3">
+<h3 id="bugfixes-0-8-1">bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-8-1"></a></h3>
+<ul><li><p>dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (<a href="https://github.com/adokter/bioRad/issues/661" class="external-link">#661</a>)</p></li>
+<li><p>non-standard data fields are now retained in vpts objects produced with as.vpts() (<a href="https://github.com/adokter/bioRad/issues/661" class="external-link">#661</a>)</p></li>
+<li><p>corrected the type of gap field in vpts objects to logical (<a href="https://github.com/adokter/bioRad/issues/635" class="external-link">#635</a>)</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.8.0" id="biorad-080">bioRad 0.8.0<small>2024-07-27</small><a class="anchor" aria-label="anchor" href="#biorad-080"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-8-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h3>
+<ul><li><p>ENRAM VPTS data exchange format added in package data as <code>vpts_schema.rda</code></p></li>
+<li><p>VPTS files are now able to be validated with <code>validate_vpts()</code> which uses the schema to check for min/max constraint violations for specific fields, regex and datetime formatting</p></li>
+<li><p>speed up <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> and <code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> by using native <code>sf</code> functions (<a href="https://github.com/adokter/bioRad/issues/669" class="external-link">#669</a>)</p></li>
+<li><p>support for tidyverse select method for polar volume and polar scan objects (<a href="https://github.com/adokter/bioRad/issues/668" class="external-link">#668</a>,#460)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-0-8-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-8-0"></a></h3>
+<ul><li><p>Corrected the default refractive index value used in conversion of linear reflectivity (eta) to logarithmic reflectivity (dBZ). The effect is a 7% increase in animal densities in output of functions <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> and <code><a href="../reference/read_cajun.html">read_cajun()</a></code> only (<a href="https://github.com/adokter/bioRad/issues/642" class="external-link">#642</a>).</p></li>
+<li><p>Fixed the handling of empty numeric vectors when plotting clutter maps (<a href="https://github.com/adokter/bioRad/issues/655" class="external-link">#655</a>)</p></li>
+<li><p>Fixed warning when reading VPTS csv containing multiple values in <code>lat</code>, <code>lon</code>, ‘<code>rcs</code>’ or <code>sd_vvp_threshold</code> (<a href="https://github.com/adokter/bioRad/issues/651" class="external-link">#651</a>)</p></li>
+<li><p>Fixed enabling/disabling of <code>single_pol</code> flag in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> (<a href="https://github.com/adokter/bioRad/issues/646" class="external-link">#646</a>)</p></li>
+<li><p>Updated the s3 source bucket of <code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> to <a href="https://aloftdata.s3-eu-west-1.amazonaws.com" class="external-link uri">https://aloftdata.s3-eu-west-1.amazonaws.com</a> (<a href="https://github.com/adokter/bioRad/issues/648" class="external-link">#648</a>)</p></li>
+<li><p>Fixed an error in the idw method of <code><a href="../reference/composite_ppi.html">composite_ppi()</a></code> that emerged with the evolution of dependency package sp / deprecation of rgdal (<a href="https://github.com/adokter/bioRad/issues/666" class="external-link">#666</a>)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7.3" id="biorad-073">bioRad 0.7.3<small>2023-10-20</small><a class="anchor" aria-label="anchor" href="#biorad-073"></a></h2>
-<div class="section level3">
-<h3 id="new-features-0-7-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-3"></a></h3>
 <ul><li>Replaced the <code>ggmap</code> package with <code>ggspatial</code> for map visualizations. This change was made as <code>ggmap</code> no longer provides reliable open-source basemaps without the necessity to register for an API key (<a href="https://github.com/adokter/bioRad/issues/638" class="external-link">#638</a>).</li>
-</ul></div>
-<div class="section level3">
+</ul><div class="section level3">
 <h3 id="bugfixes-0-7-3">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-3"></a></h3>
 <ul><li><p>Corrected incorrect mapping of to <code>dbz_all</code> data column in <a href="https://aloftdata.eu/vpts-csv/" class="external-link">VPTS CSV</a> format to corresponding <code>DBZH</code> data column in bioRad vpts object (<a href="https://github.com/adokter/bioRad/issues/634" class="external-link">#634</a>).</p></li>
 <li><p>Improved the polar volume downloads by <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code>: now skips a day if there are issues with fetching instead of aborting the entire download (<a href="https://github.com/adokter/bioRad/issues/636" class="external-link">#636</a>)</p></li>

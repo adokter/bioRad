@@ -18,7 +18,7 @@ stations"><meta property="og:image" content="https://adriaandokter.com/bioRad/lo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.7.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -125,30 +125,13 @@ stations for which no data was found.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">list_vpts_aloft</span><span class="op">(</span>radars <span class="op">=</span> <span class="st">"bejab"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Radar data found between 2018-10 and 2024-07 but not every date has radar data</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"aws.s3"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">list_vpts_aloft</span><span class="op">(</span>radars <span class="op">=</span> <span class="st">"bejab"</span>, date_min<span class="op">=</span><span class="st">'2018-10-01'</span>, date_max <span class="op">=</span> <span class="st">'2018-12-31'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="co"># }</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201810.csv.gz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201811.csv.gz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201812.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2019/bejab_vpts_201901.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202302.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202303.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202304.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202305.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202306.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202307.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202308.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202309.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202310.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202311.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2023/bejab_vpts_202312.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202401.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202402.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202403.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202404.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202405.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202406.csv.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2024/bejab_vpts_202407.csv.gz</span>
 </code></pre></div>
     </div>
   </div>
