@@ -29,7 +29,7 @@ NULL
 #' @rdname clean_mixture
 #'
 #' @export
-clean_mixture <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE){
+clean_mixture <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE){
   UseMethod("clean_mixture", x)
 }
 

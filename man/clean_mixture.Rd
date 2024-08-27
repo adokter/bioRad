@@ -7,7 +7,15 @@
 \alias{clean_mixture.vp}
 \title{Partition mixtures of animals using assumptions on airspeeds.}
 \usage{
-clean_mixture(x, ..., slow = 1, fast = 12, drop_slow_component = TRUE)
+clean_mixture(
+  x,
+  ...,
+  slow = 1,
+  fast = 8,
+  drop_slow_component = TRUE,
+  drop_missing = FALSE,
+  keep_mixture = FALSE
+)
 
 \method{clean_mixture}{default}(
   eta,
@@ -16,7 +24,7 @@ clean_mixture(x, ..., slow = 1, fast = 12, drop_slow_component = TRUE)
   U,
   V,
   slow = 1,
-  fast = 12,
+  fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE
@@ -26,7 +34,7 @@ clean_mixture(x, ..., slow = 1, fast = 12, drop_slow_component = TRUE)
   x,
   ...,
   slow = 1,
-  fast = 12,
+  fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE
@@ -36,7 +44,7 @@ clean_mixture(x, ..., slow = 1, fast = 12, drop_slow_component = TRUE)
   x,
   ...,
   slow = 1,
-  fast = 12,
+  fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE
@@ -52,6 +60,12 @@ clean_mixture(x, ..., slow = 1, fast = 12, drop_slow_component = TRUE)
 \item{drop_slow_component}{when TRUE (default) output density, ground speed and
 heading for fast component, when FALSE for slow component.}
 
+\item{drop_missing}{Values \code{x} without an associated ground speed
+and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{FALSE} (default).}
+
+\item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
+renamed quantities with \code{mixture_} prefix}
+
 \item{eta}{a mixture animal density or linear reflectivity eta.}
 
 \item{u}{the mixture's ground speed u component (west to east)}
@@ -61,12 +75,6 @@ heading for fast component, when FALSE for slow component.}
 \item{U}{the west to east wind component}
 
 \item{V}{the south to north wind component}
-
-\item{drop_missing}{Values \code{x} without an associated ground speed
-and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{FALSE} (default).}
-
-\item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
-renamed quantities with \code{mixture_} prefix}
 }
 \value{
 a data.frame with corrected density or reflectivity x, ground speed (u, v)

@@ -5,7 +5,7 @@
 \alias{select.scan}
 \title{Tidyverse methods for bioRad objects}
 \usage{
-select.scan(.data, ...)
+\method{select}{scan}(.data, ...)
 }
 \arguments{
 \item{.data}{data object of class \code{scan} or \code{pvol}}
