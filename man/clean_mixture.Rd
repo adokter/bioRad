@@ -62,7 +62,7 @@ clean_mixture(
 \item{drop_slow_component}{when TRUE (default) output density, ground speed and
 heading for fast component, when FALSE for slow component.}
 
-\item{drop_missing}{Values \code{x} without an associated ground speed
+\item{drop_missing}{Values \code{eta} without an associated ground speed
 and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{FALSE} (default).}
 
 \item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
@@ -87,7 +87,13 @@ Partition mixtures of animals using assumptions on airspeeds.
 }
 \examples{
 # drop the slow component (typically insects)
-clean_mixture(100,-13,13,-7,6, fast=12, slow=1)
+clean_mixture(100,-13,13,-7,6, fast=8, slow=1)
 # drop the fast component (typically birds)
-clean_mixture(100,-13,13,-7,6, fast=12, slow=1, drop_slow_component=FALSE)
+clean_mixture(100,-13,13,-7,6, fast=8, slow=1, drop_slow_component=FALSE)
+# keep the original mixture reflectivity and speed components
+clean_mixture(100,-13,13,-7,6, fast=8, slow=1, keep_mixture=TRUE)
+# keep reflectivity unaltered when one of the speed components is not a number:
+clean_mixture(100,-13,13,NaN,6, fast=8, slow=1)["eta"]
+# set reflectivity to NaN when one of the speed components is not a number:
+clean_mixture(100,-13,13,NaN,6, fast=8, slow=1, drop_missing=TRUE)["eta"]
 }

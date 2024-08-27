@@ -12,7 +12,7 @@
 #' @param slow the slow component's airspeed
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
 #' heading for fast component, when FALSE for slow component.
-#' @param drop_missing Values `x` without an associated ground speed
+#' @param drop_missing Values `eta` without an associated ground speed
 #' and wind speed are set to NA when `TRUE`, or returned unaltered when `FALSE` (default).
 #' @param keep_mixture When `TRUE` store original mixture reflectivity and speeds as
 #' renamed quantities with `mixture_` prefix
@@ -22,9 +22,15 @@
 #' @name clean_mixture
 #' @examples
 #' # drop the slow component (typically insects)
-#' clean_mixture(100,-13,13,-7,6, fast=12, slow=1)
+#' clean_mixture(100,-13,13,-7,6, fast=8, slow=1)
 #' # drop the fast component (typically birds)
-#' clean_mixture(100,-13,13,-7,6, fast=12, slow=1, drop_slow_component=FALSE)
+#' clean_mixture(100,-13,13,-7,6, fast=8, slow=1, drop_slow_component=FALSE)
+#' # keep the original mixture reflectivity and speed components
+#' clean_mixture(100,-13,13,-7,6, fast=8, slow=1, keep_mixture=TRUE)
+#' # keep reflectivity unaltered when one of the speed components is not a number:
+#' clean_mixture(100,-13,13,NaN,6, fast=8, slow=1)["eta"]
+#' # set reflectivity to NaN when one of the speed components is not a number:
+#' clean_mixture(100,-13,13,NaN,6, fast=8, slow=1, drop_missing=TRUE)["eta"]
 NULL
 
 #' @rdname clean_mixture
