@@ -1,7 +1,8 @@
 #' Partition mixtures of animals using assumptions on airspeeds.
 #'
 #' Partition mixtures of animals using assumptions on airspeeds.
-#' @param x a `vp`, `vpts` or `vpi` object.
+#' @param x a `vp` or `vpts` object.
+#' @param ... `eta`, `u`, `v`, `U`, `V` arguments, taken from object for `vp` or `vpts` class.
 #' @param eta a mixture animal density or linear reflectivity eta.
 #' @param u the mixture's ground speed u component (west to east)
 #' @param v the mixture's ground speed v component (south to north)
@@ -125,7 +126,7 @@ clean_mixture.default <- function(eta, u, v, U, V, slow = 1, fast = 8, drop_slow
 clean_mixture.vpts <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE){
   assertthat::assert_that(inherits(x,"vpts") | inherits(x,"vp"))
   assertthat::assert_that(all(c("u_wind","v_wind") %in% names(x$data)), msg="function requires paired wind data, quantities `u_wind` and `v_wind` not found")
-  assertthat::assert_that(assertthat::is.number(my_vpts$attributes$how$rcs_bird), msg="radar cross section not defined, please set with `rcs()`")
+  assertthat::assert_that(assertthat::is.number(x$attributes$how$rcs_bird), msg="radar cross section not defined, please set with `rcs()`")
 
   # call function
   result <- clean_mixture.default(x$data$eta, x$data$u, x$data$v, x$data$u_wind, x$data$v_wind,

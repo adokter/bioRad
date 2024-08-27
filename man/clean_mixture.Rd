@@ -51,7 +51,9 @@ clean_mixture(
 )
 }
 \arguments{
-\item{x}{a \code{vp}, \code{vpts} or \code{vpi} object.}
+\item{x}{a \code{vp} or \code{vpts} object.}
+
+\item{...}{\code{eta}, \code{u}, \code{v}, \code{U}, \code{V} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
 \item{slow}{the slow component's airspeed}
 
