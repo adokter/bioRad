@@ -62,7 +62,7 @@
 #' plot(regularize_vpts(example_vpts), quantity='dens')
 #' # filter can also be applied to single vp objects:
 #' filter_precip(example_vp)
-filter_precip <- function(x, dbz=7, range=3000, alt_max=4000, drop=FALSE){
+filter_precip <- function(x, dbz=7, range=2500, alt_max=3000, drop=FALSE){
   assertthat::assert_that(is.vp(x) | is.vpts(x))
   assertthat::assert_that(assertthat::is.number(dbz))
   assertthat::assert_that(assertthat::is.number(range))
