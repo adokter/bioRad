@@ -22,7 +22,7 @@ jobs:
           - {os: windows-latest, r: 'release'}
           # - {os: ubuntu-latest,   r: 'devel'} # disabled, runtime > 45 min.
           - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          # - {os: ubuntu-latest,   r: 'oldrel-1'} # disabled, pak error installing rjson: Needs R >= 4.4.0
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
