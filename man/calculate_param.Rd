@@ -39,10 +39,10 @@ For the expression to work it is important that the operation can be
 vectorized. For example the \code{base} \code{ifelse} function is not vectorized,
 in these cases alternatives can be used (e.g. \code{dplyr::if_else}).
 
-Next some times functions do not operate on a \code{matrix} or \code{param} object.
-One example is the \code{dplyr::if_else} function, this can be resolved by
-calling the \code{c} function on a parameter to convert it to a vector
-(e.g. \code{c(DBZH)}).
+Also note that some functions do not operate on a \code{matrix} or \code{param} object.
+One example is the \code{dplyr::if_else} function. A workaround is
+calling the \code{c()} function on a parameter to convert it to a vector
+(e.g. \code{c(DBZH)}, see examples).
 }
 \section{Methods (by class)}{
 \itemize{
@@ -73,6 +73,8 @@ pvol <- calculate_param(pvol, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
 calculate_param(example_scan, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
 
+# set all reflectivity  values to NA when correlation coefficient > 0.95
+(indicating precipitation)
 if (require(dplyr, quietly = TRUE)) {
   calculate_param(pvol,
     DBZH=if_else(c(RHOHV)>.95, NA, c(DBZH)) )
