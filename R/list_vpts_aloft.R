@@ -16,7 +16,10 @@
 #' @export
 #'
 #' @examples
-#' list_vpts_aloft(radars = "bejab")
+#' \donttest{
+#' if (requireNamespace("aws.s3", quietly = TRUE)) {
+#' list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
+#' }}
 list_vpts_aloft <- function(date_min = NULL,
                             date_max = NULL,
                             radars = NULL,

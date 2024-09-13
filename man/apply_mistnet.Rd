@@ -103,6 +103,7 @@ MistNet may run more slowly on Windows than on Linux or Mac OS X.
 \examples{
 \donttest{
 # make sure you have installed the MistNet libraries and model, using:
+if (requireNamespace("vol2birdR", quietly = TRUE)){
 if(!vol2birdR::mistnet_exists()){
    vol2birdR::install_mistnet()
    vol2birdR::install_mistnet_model()
@@ -142,6 +143,7 @@ plot(ppi, param = "CELL")
 
 # Remove file
 file.remove(tempfile)
+}
 }
 }
 \references{

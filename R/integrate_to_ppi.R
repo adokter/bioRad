@@ -119,7 +119,9 @@
 #' plot(ppi, param = "VID", zlim = c(0, 200))
 #'
 #' # Download a basemap and map the ppi
+#' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' map(ppi)
+#' }
 #'
 #' # The ppi can also be projected on a user-defined raster, as follows:
 #'
@@ -293,13 +295,15 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   x <- NULL # define x to suppress devtools::check warning in next line
 
   if (!assertthat::are_equal(raster, NA)) {
-    localCrs <- sp::CRS(paste("+proj=aeqd +lat_0=", lat,
+    localCrs <- paste("+proj=aeqd +lat_0=", lat,
       " +lon_0=", lon,
       " +units=m",
       sep = ""
-    ))
+    )
     raster::values(raster) <- 1
-    spdf <- (sp::spTransform(raster::rasterToPoints(raster, spatial = TRUE), localCrs))
+    spdf<-as(sf::as_Spatial(
+      sf::st_transform(sf::st_as_sf(as.data.frame(raster::rasterToPoints(raster)), coords=c("x","y"),
+                                                          crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
         add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),

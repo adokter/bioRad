@@ -1,8 +1,4 @@
-## bioRad 0.7.3 
+## bioRad 0.8.1 
 
-Adressing CRAN errors related to stamen maps brownouts, and resulting issues in dependency ggmap.
-
-Fixes:
-1. Migrated from ggmap to ggspatial
-2. Adressed all CRAN build issues
-3. some small bugfixes
+* examples in dontrun blocks now also use suggested packages conditionally
+* includes a small bugfix for function as.vpts() introduced in version 0.8.0

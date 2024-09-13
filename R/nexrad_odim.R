@@ -29,13 +29,16 @@
 #' 
 #' new_path = file.path(tempdir(), "KBGM_example.h5")
 #'
+#' if (requireNamespace("vol2birdR", quietly = TRUE)) {
 #' nexrad_to_odim(path, new_path)
 #'
 #' # verify that we have generated a polar volume in ODIM HDF5 format
 #' get_odim_object_type(new_path)
 #'
 #' # clean up
-#' file.remove(path, new_path)
+#' file.remove(new_path)
+#' }
+#' file.remove(path)
 #' }
 nexrad_to_odim <- function(pvolfile_nexrad, pvolfile_odim, verbose = FALSE) {
   assertthat::assert_that(dir.exists(dirname(pvolfile_odim)),msg=paste("output directory", dirname(pvolfile_odim), "not found"))

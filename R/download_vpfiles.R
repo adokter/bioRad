@@ -21,6 +21,7 @@
 #' @export
 #'
 #' @seealso
+#' * [read_vpts()]
 #' * [select_vpfiles()]
 #' * [read_vpfiles()]
 #'

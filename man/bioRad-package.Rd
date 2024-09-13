@@ -31,7 +31,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Adriaan M. Dokter \email{amd427@cornell.edu} (\href{https://orcid.org/0000-0001-6573-066X}{ORCID})
+\strong{Maintainer}: Adriaan M. Dokter \email{biorad@cornell.edu} (\href{https://orcid.org/0000-0001-6573-066X}{ORCID})
 
 Authors:
 \itemize{

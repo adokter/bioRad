@@ -53,7 +53,7 @@
 #'
 #' # load the file:
 #' example_pvol <- read_pvolfile(pvolfile)
-#'
+#' 
 #' # print summary info for the loaded polar volume:
 #' example_pvol
 #'

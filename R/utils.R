@@ -8,9 +8,53 @@
 #'
 #' @return A matrix of the same dimension as `x`, with `TRUE`/`FALSE` values for
 #'   whether each cell in the original data frame is a number or not.
-#' @importFrom stats na.omit
 #' @keywords internal
 is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
+
+#' Skip test if no aws.s3
+#'
+#' Some functions require package aws.s3
+#' This helper function allows to skip a test if aws.s3 is not available
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#' @return Invisibly returns TRUE if aws.s3 is available, otherwise skips the test with a message "Package aws.s3 not installed".
+#' @keywords internal
+skip_if_no_aws.s3 <- function() {
+  if (requireNamespace("aws.s3", quietly = TRUE)) {
+     return(invisible(TRUE))
+  }
+  testthat::skip("Package aws.s3 not installed")
+}
+
+#' Skip test if missing dependencies for mapping
+#'
+#' Function map depends on several spatial dependencies (ggspatial, prettymapr, rosm).
+#' This helper function allows to skip a test if these dependencies are  not available
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#' @return Invisibly returns TRUE if dependencies available, otherwise skips the test with a message "map() dependencies (ggspatial, prettymapr, rosm) not installed".
+#' @keywords internal
+skip_if_no_mapping <- function() {
+  if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))){
+     return(invisible(TRUE))
+  }
+  testthat::skip("map() dependencies (ggspatial, prettymapr, rosm) not installed")
+}
+
+
+#' Skip test if no tidyselect
+#'
+#' dplyr select method require package tidyselect
+#' This helper function allows to skip a test if tidyselect is not available
+#' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
+#' @return Invisibly returns TRUE if tidyselect is available, otherwise skips the test with a message "Package tidyselect not installed".
+#' @keywords internal
+skip_if_no_tidyselect <- function() {
+  if (requireNamespace("tidyselect", quietly = TRUE)) {
+     return(invisible(TRUE))
+  }
+  testthat::skip("Package tidyselect not installed")
+}
+
+
 
 #' Skip test if no mistnet
 #'
@@ -20,7 +64,7 @@ is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 #' @return Invisibly returns TRUE if MistNet is available, otherwise skips the test with a message "No MistNet".
 #' @keywords internal
 skip_if_no_mistnet <- function() {
-  if (rlang::is_installed("vol2birdR")) {
+  if (requireNamespace("vol2birdR", quietly = TRUE)) {
     if (vol2birdR::mistnet_exists()) {
       return(invisible(TRUE))
     }
@@ -37,7 +81,7 @@ skip_if_no_mistnet <- function() {
 #' a message "Package vol2birdR not installed".
 #' @keywords internal
 skip_if_no_vol2birdR <- function() {
-  if (rlang::is_installed("vol2birdR")) {
+  if (requireNamespace("vol2birdR", quietly = TRUE)) {
     return(invisible(TRUE))
   }
   testthat::skip("Package vol2birdR not installed")
@@ -61,7 +105,7 @@ check_radar_codes <- function(radars) {
   } else {
     # Load the JSON data from the new URL
     radars.json <- jsonlite::fromJSON("https://raw.githubusercontent.com/enram/aloftdata.eu/main/_data/OPERA_RADARS_DB.json")
-    radar_codes = na.omit(radars.json$odimcode)
+    radar_codes = stats::na.omit(radars.json$odimcode)
     wrong_codes <- radars[!(radars %in% radar_codes)]
     if (length(wrong_codes) > 0) {
       stop(
@@ -92,7 +136,7 @@ check_date_format <- function(date, format) {
 }
 
 
-#' A wrapper for [spTransform()].
+#' A wrapper for [sp::spTransform()].
 #' Converts geographic (WGS84) coordinates to a specified projection
 #'
 #' @param lon Longitude
@@ -103,22 +147,17 @@ check_date_format <- function(date, format) {
 #'
 #' @return An object of class `SpatialPoints`.
 wgs_to_proj <- function(lon, lat, proj4string) {
-  xy <- data.frame(x = lon, y = lat)
-  sp::coordinates(xy) <- c("x", "y")
-  sp::proj4string(xy) <- sp::CRS("+proj=longlat +datum=WGS84")
+  xy<-sf::st_as_sf(data.frame(x = lon, y = lat), coords=c('x','y'), crs=4326L)
+  res <- sf::st_transform(xy, proj4string)
 
-  res <- sp::spTransform(xy, proj4string)
+  res <- sf::as_Spatial(res)
+  rownames(res@bbox) <- c("x", "y")
+  colnames(res@coords) <- c("x", "y")
 
-  # Check if the result is a SpatialPointsDataFrame
-  if (inherits(res, "SpatialPointsDataFrame")) {
-    # If it is, convert it to a SpatialPoints object
-    rownames(res@bbox) <- c("x", "y")
-    colnames(res@coords) <- c("x", "y")
-    res <- sp::SpatialPoints(coords = res@coords, proj4string = res@proj4string, bbox = res@bbox)
-  }
   return(res)
 }
-#' A wrapper for [spTransform()].
+
+#' A wrapper for [sp::spTransform()].
 #' Converts projected coordinates to geographic (WGS84) coordinates.
 #'
 #' @param x The x-coordinate in the projected system.
@@ -246,70 +285,4 @@ guess_file_type <- function(file_path, n_lines = 5) {
 #' @noRd
 remainder_is_zero <- function(number, divisor) {
   return(number %% divisor == 0)
-}
-
-# Recursive function to extract variable names from frictionless schema
-
-#' @param lst the "fields" list of a frictionless schema
-#' @returns a character vector of variable names in the order of a VPTS CSV schema
-#' @keywords internal
-#' @noRd
-extract_names <- function(lst) {
-  if (is.list(lst)) {
-    names <- lapply(lst, function(x) extract_names(x$name))
-    unlist(names)
-  } else {
-    lst
-  }
-}
-
-#' Convert a tibble into a matrix
-#'
-#' Reshapes a tibble as an m✕n matrix of m distinct radar heights and
-#' n observations (sweeps) ordered by time. Each tibble contains data of a single vpts attribute.
-#' @param tibble A tibble in the format: datetime, height, variable, value.
-#' @return A list with two elements: the 'variable' of interest and the reshaped matrix
-#' @keywords internal
-#' @noRd
-tibble_to_mat <- function(tibble) {
-  unique_heights <- unique(tibble[["height"]])
-  matrix_list <- lapply(unique_heights, function(height) {
-    height_subset <- tibble[tibble[["height"]] == height, ]
-    matrix(height_subset$value, nrow = 1)
-  })
-  matrix <- do.call(rbind, matrix_list)
-  return(list(variable = tibble$variable[1], matrix = matrix))
-}
-
-#' Convert a vpts dataframe into an ordered list of matrices
-#'
-#' @param data A dataframe created from a VPTS CSV file
-#' @param maskvars a character vector of radar variables to be masked from the input , e.g., c("radar_latitude", "radar_longitude", ...)
-#' @param schema a frictionless schema
-#' @returns A named list of matrices ordered according to radvars
-#' @keywords internal
-#' @noRd
-df_to_mat_list <- function(data, maskvars, schema) {
-  datetime <- height <- variable <- fields <- dbz_all <- DBZH <- NULL
-  radvars <- extract_names(schema$fields) #allow DBZH as alternative to dbz_all
-  radvars <- radvars[!radvars %in% maskvars]
-  alt_radvar <- "DBZH"
-  insert_index <- which(radvars == "dbz_all") + 1
-  radvars <- append(radvars, alt_radvar, after = insert_index)
-  tbls_lst <- data %>%
-    dplyr::select(c(setdiff(colnames(data), maskvars), "datetime", "height")) %>%
-    tidyr::pivot_longer(-c(datetime, height), names_to = "variable", values_to = "value") %>%
-    dplyr::group_by(variable) %>%
-    dplyr::group_split()
-
-  unnamed_mat_list <- lapply(tbls_lst, tibble_to_mat)
-  var_names <- sapply(unnamed_mat_list, function(x) x$variable)
-  named_mat_list <- lapply(unnamed_mat_list, `[[`, "matrix")
-  names(named_mat_list) <- var_names
-
-  subset_indices <- match(var_names, radvars)
-  ordered_subset <- var_names[order(subset_indices)]
-
-  ordered_mat_list <- named_mat_list[ordered_subset]
-  return(ordered_mat_list)
 }

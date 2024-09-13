@@ -41,6 +41,7 @@ Download a selection of polar volume (\code{pvol}) files from the
 }
 \examples{
 # create temporary directory
+if (requireNamespace("aws.s3", quietly = TRUE)) {
 temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 dir.create(temp_dir)
 download_pvolfiles(
@@ -52,4 +53,5 @@ download_pvolfiles(
 )
 # Clean up
 unlink(temp_dir, recursive = TRUE)
+}
 }

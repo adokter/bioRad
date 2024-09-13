@@ -121,6 +121,8 @@ ppis <- lapply(pvol$scans, project_as_ppi, grid_size=1000)
 composite <- composite_ppi(ppis, method = "max", res=1000)
 
 # Plot the calculated max product on the basemap
+if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 map(composite)
+}
 }
 }
