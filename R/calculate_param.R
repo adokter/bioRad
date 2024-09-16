@@ -53,7 +53,7 @@
 #'   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
 #'
 #' # set all reflectivity  values to NA when correlation coefficient > 0.95
-#' (indicating precipitation)
+#' # (indicating precipitation)
 #' if (require(dplyr, quietly = TRUE)) {
 #'   calculate_param(pvol,
 #'     DBZH=if_else(c(RHOHV)>.95, NA, c(DBZH)) )
