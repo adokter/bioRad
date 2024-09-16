@@ -37,3 +37,15 @@ test_that("calculate_param() adds the calculated parameter", {
   )
   expect_equal(ppi_calc$data$DBZH * 2, ppi_calc$data$new_param)
 })
+test_that("calculate_param() works with if_else", {
+  skip_if_not_installed('dplyr')
+  require(dplyr)
+  expect_equal(
+    calculate_param(get_scan(example_pvol, 0.5), DBZH=if_else(c(RHOHV)>.95, NA, c(DBZH)) ),
+    get_scan(calculate_param(example_pvol, DBZH=if_else(c(RHOHV)>.95, NA, c(DBZH)) ), .5)
+  )
+  expect_equal(
+    calculate_param(example_scan, DBZH=dplyr::if_else(c(RHOHV)>.95, NA, c(DBZH)) ),
+    calculate_param(example_scan, DBZH=if_else(c(RHOHV)>.95, NA, c(DBZH)) )
+  )
+})
