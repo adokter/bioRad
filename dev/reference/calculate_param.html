@@ -112,6 +112,13 @@ parameters. Useful for calculating quantities that are defined in terms of
 other basic radar moments, like linear reflectivity eta, depolarization ratio
 (Kilambi et al. 2018), or for applying clutter corrections (<code>CCORH</code>) to
 uncorrected reflectivity moments (<code>TH</code>) as <code>TH + CCORH</code>.</p>
+<p>For the expression to work it is important that the operation can be
+vectorized. For example the <code>base</code> <code>ifelse</code> function is not vectorized,
+in these cases alternatives can be used (e.g. <code><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">dplyr::if_else</a></code>).</p>
+<p>Also note that some functions do not operate on a <code>matrix</code> or <code>param</code> object.
+One example is the <code><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">dplyr::if_else</a></code> function. A workaround is
+calling the <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> function on a parameter to convert it to a vector
+(e.g. <code>c(DBZH)</code>, see examples).</p>
     </div>
     <div id="methods-by-class-">
     <h2>Methods (by class)</h2>
@@ -165,6 +172,28 @@ dual-polarization data. Journal of Atmospheric and Oceanic Technology, 35,
 <span class="r-out co"><span class="r-pr">#&gt;</span>      parameters:  DBZH VRADH RHOHV ZDR PHIDP DR </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> elevation angle:  0.5 deg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            dims:  480 bins x 360 rays</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set all reflectivity  values to NA when correlation coefficient &gt; 0.95</span></span></span>
+<span class="r-in"><span><span class="co"># (indicating precipitation)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">calculate_param</span><span class="op">(</span><span class="va">pvol</span>,</span></span>
+<span class="r-in"><span>    DBZH<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">RHOHV</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">.95</span>, <span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">DBZH</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Polar volume (class pvol)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      # scans:  3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        radar:  seang </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       source:  WMO:02606,RAD:SE50,PLC:Angelholm,NOD:seang,ORG:82,CTY:643,CMT:Swedish radar </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> nominal time:  2015-10-18 18:00:00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># it also works for ppis</span></span></span>
 <span class="r-in"><span><span class="va">ppi</span> <span class="op">&lt;-</span> <span class="fu"><a href="project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="va">example_scan</span><span class="op">)</span></span></span>
