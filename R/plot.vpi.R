@@ -89,7 +89,7 @@ plot.vpi <- function(x, quantity = "mtr", xlab = "time",
     if (quantity == "mtr") ylab <- "migration traffic rate [#/km/h]"
     if (quantity == "rtr") ylab <- expression("reflectivity traffic rate [cm"^2 * "/km/h]")
     if (quantity == "vid") ylab <- expression("vertically integrated density [#/km"^2 * "]")
-    if (quantity == "vir") ylab <- expression("vertically integrated reflectivity [cm"^2 * "/km/h]")
+    if (quantity == "vir") ylab <- expression("vertically integrated reflectivity [cm"^2 * "/km"^2 * "]")
     if (quantity == "mt") ylab <- expression("(cumulative) migration traffic [#/km]")
     if (quantity == "rt") ylab <- expression("(cumulative) reflectivity traffic [cm"^2 * "/km]")
     if (quantity == "ff") ylab <- expression("vertically averaged ground speed [m/s]")
