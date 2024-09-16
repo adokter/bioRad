@@ -124,6 +124,7 @@ test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
 })
 
 test_that("read_vpts() can read remote (gzipped) VPTS CSV files", {
+  testthat::skip("Ignoring test until readr can read remote gzipped files (FIXME)")
   skip_if_offline()
 
   gz_urls <- urls[grepl("\\.gz$", urls)]
