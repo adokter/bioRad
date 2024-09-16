@@ -1,3 +1,6 @@
+# bioRad 0.8.1.9000
+
+* correct units specified in plot label for quantity VIR (#674)
 
 # bioRad 0.8.1
 
