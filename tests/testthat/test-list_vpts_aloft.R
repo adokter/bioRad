@@ -126,11 +126,11 @@ test_that("list_vpts_aloft() warns if data was found for subset of radars or if 
   )
   expect_warning(
     list_vpts_aloft(
-      date_min = "1900-01-01",
-      date_max = "2023-05-22",
+      date_min = "2020-01-01",
+      date_max = "2020-06-01",
       radars = c("nobml")
     ),
-    "Radar data found between 2023-02 and 2023-05 but not every date has radar data")
+    "Radar data found between 2020-02 and 2020-06 but not every date has radar data")
 })
 
 test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{

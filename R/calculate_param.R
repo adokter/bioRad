@@ -16,6 +16,16 @@
 #' @return An object of the same class as `x`, either a `pvol` or `scan`.
 #' @export
 #'
+#' @details
+#' For the expression to work it is important that the operation can be
+#' vectorized. For example the `base` `ifelse` function is not vectorized,
+#' in these cases alternatives can be used (e.g. `dplyr::if_else`).
+#'
+#' Also note that some functions do not operate on a `matrix` or `param` object.
+#' One example is the `dplyr::if_else` function. A workaround is
+#' calling the `c()` function on a parameter to convert it to a vector
+#' (e.g. `c(DBZH)`, see examples).
+#'
 #' @seealso
 #' * [get_param()]
 #'
@@ -41,6 +51,13 @@
 #' # The function also works on scan and ppi objects
 #' calculate_param(example_scan, DR = 10 * log10((ZDR + 1 - 2 * ZDR^0.5 * RHOHV) /
 #'   (ZDR + 1 + 2 * ZDR^0.5 * RHOHV)))
+#'
+#' # set all reflectivity  values to NA when correlation coefficient > 0.95
+#' # (indicating precipitation)
+#' if (require(dplyr, quietly = TRUE)) {
+#'   calculate_param(pvol,
+#'     DBZH=if_else(c(RHOHV)>.95, NA, c(DBZH)) )
+#' }
 #'
 #' # it also works for ppis
 #' ppi <- project_as_ppi(example_scan)
@@ -98,7 +115,7 @@ calculate_param.scan <- function(x, ...) {
     if(length(x$params)!=1)
       lapply(lapply(x$params[-1], attr, i), function(x,y) assertthat::assert_that(assertthat::are_equal(x,y)), y=attr(x$params[[1]], i))
   }
-  if (as.character(as.list(substitute(...))[[1L]]) == "list") {
+  if (as.character(as.list(substitute(...))[[1L]])[1] == "list") {
     calc <- as.list(substitute(...))[-1L]
   } else {
     calc <- as.list(substitute(list(...)))[-1L]
