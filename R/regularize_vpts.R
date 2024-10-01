@@ -33,22 +33,37 @@ globalVariables(c("x","y","closest"))
 #' data. Alignment is performed using a nearest neighbor interpolation limited to
 #' neighboring profiles that fall within +/- `fill` (centered) of an original profile.
 #'
+#' Remaining temporal gaps in the time series are filled with empty profiles that have values
+#' NA for all quantities, such that each timestamp of the regular grid has an
+#' associated profile.
+#'
 #' In plots of regular time series (see [plot.vpts()]) temporal gaps of
-#' missing profiles (e.g. due to radar down time) become visible. In irregular
+#' missing profiles (e.g. due to radar down time) become visible, as a result
+#' of the gap filling with empty profiles. In irregular
 #' time series data points in the plot are carried through until the time series
 #' continues, and temporal data gaps are filled up visually.
+#'
+#' When `keep_datetime` is `TRUE` the original profile timestamps are kept in
+#' `ts$datetime`. This may lead to duplicate timestamps when regularizing on a timegrid
+#' finer than the interval of available profiles.
 #'
 #' @examples
 #' # start form example vpts object:
 #' data(example_vpts)
 #' ts <- example_vpts
+#' # data gaps are not visible:
+#' plot(ts)
 #'
 #' # regularize the time series on a 5 minute interval grid
 #' tsRegular <- regularize_vpts(ts, interval = 300)
+#' # data gaps are visible:
+#' plot(tsRegular)
 #'
 #' # regularize the time series on a 10 minute interval grid,
 #' # and fill data gaps smaller than 1 hour by nearest neighbor interpolation
 #' tsRegular <- regularize_vpts(ts, interval = 600, fill = 3600)
+#' # data gaps are smaller as a result of nearest neighbor interpolation:
+#' plot(tsRegular)
 regularize_vpts <- function(ts, interval = "auto", date_min, date_max,
                             units = "secs", fill = TRUE, verbose = TRUE, keep_datetime = FALSE) {
   assertthat::assert_that(is.vpts(ts))
