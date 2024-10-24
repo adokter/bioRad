@@ -1,4 +1,7 @@
-#' Filter a time series of vertical profiles ('vpts') by a start and end time.
+#' Filter a time series of vertical profiles ('vpts').
+#'
+#' Filter a time series of vertical profiles ('vpts') by a start and end time,
+#' for night or day time, or extract profile nearest to provided timestamp.
 #' Use argument night = TRUE to select only time stamps between sunset and sunrise,
 #' or night = FALSE to select daytime (sunrise to sunset). Selection for night and day uses
 #' [check_night()].
