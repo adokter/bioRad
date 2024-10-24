@@ -14,8 +14,6 @@ status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repost
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 [![vol2birdR
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13362111.svg)](https://doi.org/10.5281/zenodo.13362111)
-[![vol2birdR CRAN
-status](https://www.r-pkg.org/badges/version/vol2birdR)](https://cran.r-project.org/package=vol2birdR)
 
 <!-- badges: end -->
 
