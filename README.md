@@ -13,7 +13,7 @@ status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repost
 [![codecov](https://codecov.io/gh/adokter/bioRad/branch/master/graph/badge.svg?token=pDmyO4JVJu)](https://app.codecov.io/gh/adokter/bioRad)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3370004.svg)](https://doi.org/10.5281/zenodo.3370004)
 [![vol2birdR
-DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13362111.svg)](https://doi.org/10.5281/zenodo.13362111)
+DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7992026.svg)](https://doi.org/10.5281/zenodo.7992026)
 
 <!-- badges: end -->
 
