@@ -315,13 +315,13 @@ read_pvolfile_scan <- function(file, scan, param, radar, datetime, geo, attribut
   # read attributes
   attribs.how <- attribs.what <- attribs.where <- NULL
   if ("how" %in% h5struct) {
-    attribs.how <- rhdf5::h5readAttributes(file, paste(scan, "/how", sep = ""))
+    attribs.how <- rhdf5::h5readAttributes(file, paste(scan, "/how", sep = ""), bit64conversion='double')
   }
   if ("what" %in% h5struct) {
-    attribs.what <- rhdf5::h5readAttributes(file, paste(scan, "/what", sep = ""))
+    attribs.what <- rhdf5::h5readAttributes(file, paste(scan, "/what", sep = ""), bit64conversion='double')
   }
   if ("where" %in% h5struct) {
-    attribs.where <- rhdf5::h5readAttributes(file, paste(scan, "/where", sep = ""))
+    attribs.where <- rhdf5::h5readAttributes(file, paste(scan, "/where", sep = ""), bit64conversion='double')
   }
 
   # add attributes to geo list
