@@ -23,6 +23,7 @@ as.vpts <- function(data) {
 
   # Throw error if nrows per height are not identical
   # FIXME: first if statement is a weak check that could fail, could be improved.
+  # retaining for now because of speed
   if(!remainder_is_zero(dim(data)[1], length(unique(data$height)))){
     data %>%
       dplyr::group_by(radar, datetime) %>%
@@ -31,8 +32,8 @@ as.vpts <- function(data) {
     interval_median <- median(data$bioRad_internal_interval, na.rm=TRUE)
     interval_unique <- unique(data$bioRad_internal_interval)
     interval_unique <- interval_unique[!is.na(interval_unique)]
-    if(length(bin_unique)>1){
-      warning(paste("profiles found with different altitude interval:",paste(sort(bin_unique),collapse=" ")), ", retaining ",bin_median, " only.")
+    if(length(interval_unique)>1){
+      warning(paste("profiles found with different altitude interval:",paste(sort(interval_unique),collapse=" ")), ", retaining ",interval_median, " only.")
       data <- dplyr::filter(data, bioRad_internal_interval == interval_median)
     }
     levels_median <- median(data$bioRad_internal_levels)
