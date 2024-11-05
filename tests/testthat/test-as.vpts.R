@@ -1,6 +1,10 @@
 test_that("as.vpts() returns warning message for incorrect data", {
   df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
 
+  #remove top bin of the third profile, creating a profile with lower max height
+  df <- df[-which(df$height==max(df$height))[3], ]
+  expect_warning(as.vpts(df),"profiles found with different")
+
   #randomly remove row
   randomIndex <- sample(nrow(df), 1)
   df <- df[-randomIndex, ]
