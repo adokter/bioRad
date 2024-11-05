@@ -2,6 +2,8 @@
 
 * correct units specified in plot label for quantity VIR (#674)
 
+* discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684)
+
 # bioRad 0.8.1
 
 ## bugfixes
