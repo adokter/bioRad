@@ -4,6 +4,8 @@
 
 * discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684)
 
+* new argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689)
+
 # bioRad 0.8.1
 
 ## bugfixes
