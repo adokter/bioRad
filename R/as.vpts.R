@@ -20,7 +20,7 @@ as.vpts <- function(data) {
   validate_vpts(data)
 
   # sort by datetime and height
-  data |> arrange(datetime, height) -> data
+  data |> dplyr::arrange(datetime, height) -> data
 
   height <- datetime <- source_file <- radar <- NULL
 
