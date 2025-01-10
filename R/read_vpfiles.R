@@ -35,6 +35,11 @@ read_vp <- function(file) {
   quantities <- gsub("HGHT", "height", quantities)
   names(profile) <- quantities
 
+  # make sure gap is logical
+  if("gap" %in% quantities){
+     profile$gap = as.logical(profile$gap)
+  }
+
   # extract attributes
   attribs.how <- rhdf5::h5readAttributes(file, "how")
   attribs.what <- rhdf5::h5readAttributes(file, "what")
