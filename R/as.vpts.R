@@ -16,8 +16,11 @@ as.vpts <- function(data) {
     data <- data %>%
       dplyr::rename(DBZH = "dbz_all")
   }
-
+ 
   validate_vpts(data)
+
+  # sort by datetime and height
+  data |> arrange(datetime, height) -> data
 
   height <- datetime <- source_file <- radar <- NULL
 
