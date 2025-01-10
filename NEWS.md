@@ -6,6 +6,8 @@
 
 * new argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689)
 
+* correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (#635, #691)
+
 # bioRad 0.8.1
 
 ## bugfixes
