@@ -8,6 +8,8 @@
 
 * correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (#635, #691)
 
+* interpret NA values in field DBZH in integrate_to_ppi() as pixels that were not irradiated (#658)
+
 # bioRad 0.8.1
 
 ## bugfixes
