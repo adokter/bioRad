@@ -20,6 +20,7 @@ map(x, ...)
   radar_color = "#202020",
   n_color = 1000,
   palette = NA,
+  zoomin = -2,
   ...
 )
 }
@@ -28,7 +29,7 @@ map(x, ...)
 
 \item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{map}{Basemap to use, one of \code{rosm::osm.types()}}
+\item{map}{Basemap to use, one of \code{\link[rosm:deprecated]{rosm::osm.types()}}}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
@@ -55,6 +56,8 @@ position.}
 
 \item{palette}{Character vector. Hexadecimal color values defining the plot
 color scale, e.g. output from \code{\link[viridisLite:viridis]{viridisLite::viridis()}}.}
+
+\item{zoomin}{Numeric. Maps to \code{\link[ggspatial:annotation_map_tile]{ggspatial::annotation_map_tile()}}}
 }
 \value{
 A ggplot object
