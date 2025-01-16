@@ -52,10 +52,15 @@ jobs:
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
         run: |
-          pak::local_system_requirements(execute = TRUE)
-          pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
-          pak::pkg_system_requirements("proj4", execute = TRUE) # Using same proj for now...
-          pak::pkg_system_requirements("hdf5r", execute = TRUE) # Using same hdf5 for now...
+          pak::pkg_sysreqs("local::.", dependencies = TRUE)$install_script
+          pak::pkg_sysreqs("rcmdcheck")$install_scripts
+          pak::pkg_sysreqs("proj4")$install_scripts
+          pak::pkg_sysreqs("hdf5r")$install_scripts
+          #pak::local_system_requirements(execute = TRUE)
+          #pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
+          #pak::pkg_system_requirements("proj4", execute = TRUE) # Using same proj for now...
+          #pak::pkg_system_requirements("hdf5r", execute = TRUE) # Using same hdf5 for now...
+
         shell: Rscript {0}
       - name: Install dependencies
         run: |

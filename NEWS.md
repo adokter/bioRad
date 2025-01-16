@@ -2,6 +2,14 @@
 
 * correct units specified in plot label for quantity VIR (#674)
 
+* discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684)
+
+* new argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689)
+
+* correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (#635, #691)
+
+* interpret NA values in field DBZH in integrate_to_ppi() as pixels that were not irradiated (#658)
+
 # bioRad 0.8.1
 
 ## bugfixes

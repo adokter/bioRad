@@ -3,7 +3,7 @@
 #' Plots a plan position indicator (`ppi`) on a base layer
 #'
 #' @param x A `ppi` object.
-#' @param map Basemap to use, one of `rosm::osm.types()`
+#' @param map Basemap to use, one of [rosm::osm.types()]
 #' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
 #' @param alpha Numeric. Transparency of the data, value between 0 and 1.
@@ -20,6 +20,7 @@
 #' @param n_color Numeric. Number of colors (>=1) to use in the palette.
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
+#' @param zoomin Numeric. Maps to [ggspatial::annotation_map_tile()]
 #' @param ... Arguments passed to [ggplot2::ggplot()].
 #' @importFrom methods as
 #' @return A ggplot object
@@ -81,7 +82,7 @@ map <- function(x, ...) {
 #' @export
 map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
                     ratio, radar_size = 3, radar_color = "#202020", n_color = 1000,
-                    palette = NA, ...) {
+                    palette = NA, zoomin = -2, ...) {
 
   stopifnot(inherits(x, "ppi"))
 
@@ -221,7 +222,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
 
   mymap <- suppressWarnings(
     ggplot2::ggplot() +
-      ggspatial::annotation_map_tile(type = map) +
+      ggspatial::annotation_map_tile(type = map, zoomin = zoomin) +
       ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
       ggplot2::scale_fill_identity(na.value = "transparent") +
       ggplot2::geom_point(data = radar_df, ggplot2::aes(x = X, y = Y),
