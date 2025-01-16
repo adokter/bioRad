@@ -12,6 +12,8 @@
 
 * Fixes a bug that prevented a data.frame to be converted to a vpts object with as.vpts() when profiles are not sorted in datetime and height (#692).
 
+* Bugfix for ignored `xlab` argument in `plot.vpi()` and night shading fix for dealing with NA values (#693)
+
 # bioRad 0.8.1
 
 ## bugfixes
