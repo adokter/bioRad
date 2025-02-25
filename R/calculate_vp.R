@@ -364,14 +364,16 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$dualPol <- dual_pol
     config$singlePol <- single_pol
     config$dealiasVrad <- dealias
-    if (!missing(sd_vvp_threshold)) config$stdDevMinBird <- sd_vvp_threshold
-  } else {
-    # setting stdDevMinBird triggers it to be set according to wavelength (1 m/s for S-band, 2 m/s for C-band)
-    config$stdDevMinBird <- -1
+    if (!missing(sd_vvp_threshold)){
+       config$stdDevMinBird <- sd_vvp_threshold
+    } else {
+       # setting stdDevMinBird triggers it to be set according to wavelength (1 m/s for S-band, 2 m/s for C-band)
+       config$stdDevMinBird <- -1
+    }
+    config$mistNetElevs <- mistnet_elevations
+    config$useMistNet <- mistnet
+    if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
   }
-  config$mistNetElevs <- mistnet_elevations
-  config$useMistNet <- mistnet
-  if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
 
   # run vol2bird
   ## use helper to allow vol2bird to silence output (vol2bird doesn't actually

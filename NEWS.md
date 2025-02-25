@@ -14,6 +14,8 @@
 
 * Bugfix for ignored `xlab` argument in `plot.vpi()` and night shading fix for dealing with NA values (#693)
 
+* Bugfix for incorrect default sd_vvp_threshold value for S-band data (2 m/s instead of correct 1 m/s) (#695)
+
 # bioRad 0.8.1
 
 ## bugfixes
