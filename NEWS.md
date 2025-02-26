@@ -1,14 +1,20 @@
 # bioRad 0.8.1.9000
 
-* correct units specified in plot label for quantity VIR (#674)
+* Correct units specified in plot label for quantity VIR (#674).
 
-* discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684)
+* Discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684).
 
-* new argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689)
+* New argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689).
 
-* correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (#635, #691)
+* Correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (#635, #691).
 
-* interpret NA values in field DBZH in integrate_to_ppi() as pixels that were not irradiated (#658)
+* Interpret NA values in field DBZH in `integrate_to_ppi()` as pixels that were not irradiated (#658).
+
+* Fixes a bug that prevented a data.frame to be converted to a vpts object with as.vpts() when profiles are not sorted in datetime and height (#692).
+
+* Bugfix for ignored `xlab` argument in `plot.vpi()` and night shading fix for dealing with NA values (#693)
+
+* Bugfix for incorrect default sd_vvp_threshold value for S-band data (2 m/s instead of correct 1 m/s) (#695)
 
 * add as.vp() function to convert data.frame to vertical profile object (#699)
 
@@ -18,11 +24,11 @@
 
 ## bugfixes
 
-* dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (#661)
+* dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (#661).
 
-* non-standard data fields are now retained in vpts objects produced with as.vpts() (#661)
+* Non-standard data fields are now retained in vpts objects produced with as.vpts() (#661).
 
-* corrected the type of gap field in vpts objects to logical (#635)
+* Corrected the type of gap field in vpts objects to logical (#635).
 
 # bioRad 0.8.0
 
