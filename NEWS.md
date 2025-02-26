@@ -10,6 +10,10 @@
 
 * interpret NA values in field DBZH in integrate_to_ppi() as pixels that were not irradiated (#658)
 
+* add as.vp() function to convert data.frame to vertical profile object (#101)
+
+* new function clean_mixture() (#100)
+
 # bioRad 0.8.1
 
 ## bugfixes

@@ -4,7 +4,7 @@
 \alias{filter_precip}
 \title{Posthoc precipitation filter}
 \usage{
-filter_precip(x, dbz = 7, range = 3000, alt_max = 4000, drop = FALSE)
+filter_precip(x, dbz = 7, range = 2500, alt_max = 3000, drop = FALSE)
 }
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}

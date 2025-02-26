@@ -1,26 +1,54 @@
 #' Partition mixtures of animals using assumptions on airspeeds.
 #'
-#' Partition mixtures of animals using assumptions on airspeeds.
+#' Partition mixtures of birds and insects using assumptions on their respective airspeeds,
+#' following the approach by Shi et al. (2025).
 #' @param x a `vp` or `vpts` object.
 #' @param ... `eta`, `u`, `v`, `U`, `V` arguments, taken from object for `vp` or `vpts` class.
-#' @param eta a mixture animal density or linear reflectivity eta.
-#' @param u the mixture's ground speed u component (west to east)
-#' @param v the mixture's ground speed v component (south to north)
-#' @param U the west to east wind component
-#' @param V the south to north wind component
-#' @param fast the fast component's airspeed
-#' @param slow the slow component's airspeed
+#' @param eta a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.
+#' @param u the mixture's ground speed u component (west to east) in m/s.
+#' @param v the mixture's ground speed v component (south to north) in m/s.
+#' @param U the west to east wind component in m/s. In the case of `vp` and `vpts` objects
+#' the quantity name for the U-component of the wind.
+#' @param V the south to north wind component in m/s.  In the case of `vp` and `vpts` objects
+#' the quantity name for the U-component of the wind.
+#' @param fast the fast component's airspeed in m/s, typically the airspeed of insects.
+#' @param slow the slow component's airspeed in m/s, typically the airspeed of birds.
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
 #' heading for fast component, when FALSE for slow component.
 #' @param drop_missing Values `eta` without an associated ground speed
 #' and wind speed are set to NA when `TRUE`, or returned unaltered when `FALSE` (default).
 #' @param keep_mixture When `TRUE` store original mixture reflectivity and speeds as
 #' renamed quantities with `mixture_` prefix
-#' @return a data.frame with corrected density or reflectivity x, ground speed (u, v)
-#' and heading in clockwise degrees from north.
+#' @return a named list with cleaned densities and speeds.
+#' Output differs depending on whether the fast component is retained
+#' (`drop_slow_component`=`TRUE`, default) or the slow component (`drop_slow_component`=`FALSE`, default). Output quantities include:
+#'   * `eta`: cleaned reflectivity in cm^2/km^3.
+#'   only the fast component (default) or the slow component
+#'    (when `drop_slow_component` is `TRUE`).
+#'   * `u`: cleaned ground speed component west to east in m/s.
+#'   * `v`: cleaned ground speed component south to north in m/s.
+#'   * `airspeed`: the airspeed of the selected component in m/s.
+#'   * `airspeed_u`: the u-component (west to east) of the airspeed of the retained component in m/s.
+#'   * `airspeed_v`: the v-component (south to north) of the airspeed of the retained component in m/s.
+#'   * `heading`: the heading of the selected component in degrees clockwise from north.
+#'   * `f`: the reflectivity proportion of the slow component (0-1 range), typically the proportion of insects.
+#'
+#' For `vp` and `vpts` objects the quantities `eta`,`u`,`v` will be updated, and other
+#' quantities listed above will be added.
 #' @export
 #' @name clean_mixture
 #' @examples
+#' # convert profile object to data.frame
+#' df <- as.data.frame(example_vp, suntime=FALSE)
+#' # add wind u and v component wind data
+#' # (here a NW wind identical at all altitudes)
+#' df$u_wind=3
+#' df$v_wind=-3
+#' # convert back to vp object
+#' my_vp <- as.vp(df)
+#' # partition the mixture:
+#' my_vp_clean <- clean_mixture(my_vp)
+#'
 #' # drop the slow component (typically insects)
 #' clean_mixture(100,-13,13,-7,6, fast=8, slow=1)
 #' # drop the fast component (typically birds)
@@ -31,12 +59,42 @@
 #' clean_mixture(100,-13,13,NaN,6, fast=8, slow=1)["eta"]
 #' # set reflectivity to NaN when one of the speed components is not a number:
 #' clean_mixture(100,-13,13,NaN,6, fast=8, slow=1, drop_missing=TRUE)["eta"]
+#' @references
+#' * Shi X, Drucker J, Chapman JW, Sanchez Herrera M, Dokter AM
+#' Analysis of mixtures of birds and insects in weather radar data.
+#' Ornithological Applications. 2025 (in press).
+#' * Nussbaumer R, Schmid B, Bauer S, Liechti F.
+#' A Gaussian mixture model to separate birds and insects in
+#' single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989.
+#' @details
+#' For a detail description of the methodology see Shi et al. (2025).
+#' Most commonly the fast component refers to migrating birds, while
+#' the slow component refers to insects. The slow component is always
+#' oriented in the direction of the wind by definition.
+#' Note that for mixture airspeeds exceeding the airspeed of the fast component,
+#' all reflectivity is assigned to the fast component. Similarly, for mixture
+#' airspeeds below the airspeed of the slow component, all reflectivity
+#' will be assigned to the slow component.
+#'
+#' ## How to use this function?
+#' 1. To apply this function to `vp` or `vpts` data altitudinal wind data
+#' needs to be added to the vertical profile data first. This is most easily
+#' accomplished by first converting the objects to a `data.frame` with [as.vp()] or [as.vpts()].
+#' Wind data can then be added as a new columns to the data.frame.
+#' By default the wind data is expected to be named `u_wind` for the U component
+#' and `v_wind` for the V component of the wind.
+#' Alternatively, arguments `U` and `V` can be used to specify different names.
+#' 2. Realistic assumptions for the expected airspeed for the slow (insect)
+#' and fast (bird) components need to be provided, using arguments `slow` and `fast`.
+#' See Shi et al. 2025 for recommendations in choosing these values.
+#'
+#' When \code{drop_slow_component} is \code{FALSE} the
 NULL
 
 #' @rdname clean_mixture
 #'
 #' @export
-clean_mixture <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE){
+clean_mixture <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, U="u_wind", V="v_wind"){
   UseMethod("clean_mixture", x)
 }
 
@@ -50,6 +108,8 @@ clean_mixture.default <- function(eta, u, v, U, V, slow = 1, fast = 8, drop_slow
   assertthat::assert_that(is.numeric(v))
   assertthat::assert_that(is.numeric(U))
   assertthat::assert_that(is.numeric(V))
+  assertthat::assert_that(is.numeric(slow))
+  assertthat::assert_that(is.numeric(fast))
   assertthat::assert_that(slow >= 0)
   assertthat::assert_that(fast > 0)
   assertthat::assert_that(fast > slow)
@@ -76,12 +136,12 @@ clean_mixture.default <- function(eta, u, v, U, V, slow = 1, fast = 8, drop_slow
   # catch limiting cases for which f is not defined
   idx_f_zero <- mixture_airspeed > fast
   if(length(which(idx_f_zero))>0){
-    warning("Assigning all reflectivity to fast component for mixture airspeeds exceeding airspeed of fast component")
+    #warning("Assigning all reflectivity to fast component for mixture airspeeds exceeding airspeed of fast component")
     f[idx_f_zero]=0
   }
   idx_f_one <- mixture_airspeed < slow
   if(length(which(idx_f_one))>0){
-    warning("Assigning all reflectivity to slow component for mixture airspeeds below airspeed of slow component")
+    #warning("Assigning all reflectivity to slow component for mixture airspeeds below airspeed of slow component")
     f[idx_f_one]=1
   }
 
@@ -129,13 +189,19 @@ clean_mixture.default <- function(eta, u, v, U, V, slow = 1, fast = 8, drop_slow
 #' @rdname clean_mixture
 #'
 #' @export
-clean_mixture.vpts <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE){
+clean_mixture.vpts <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, U="u_wind", V="v_wind"){
   assertthat::assert_that(inherits(x,"vpts") | inherits(x,"vp"))
-  assertthat::assert_that(all(c("u_wind","v_wind") %in% names(x$data)), msg="function requires paired wind data, quantities `u_wind` and `v_wind` not found")
-  assertthat::assert_that(assertthat::is.number(x$attributes$how$rcs_bird), msg="radar cross section not defined, please set with `rcs()`")
+  if(inherits(x,"vpts") | inherits(x,"vp")){
+    assertthat::assert_that(is.character(U))
+    assertthat::assert_that(is.character(V))
+  }
+  assertthat::assert_that(all(c(U,V) %in% names(x$data)), msg=paste0("function requires paired wind data, profile quantities `",U,"` and/or `",V,"` not found."))
+  assertthat::assert_that(all(c("u","v") %in% names(x$data)), msg="function requires ground speed data, profile quantities `u` and/or `v` not found.")
+  assertthat::assert_that("eta" %in% names(x$data), msg="function requires linear reflectivity data, profile quantity `eta` not found.")
+  assertthat::assert_that(assertthat::is.number(x$attributes$how$rcs_bird), msg="radar cross section not defined, please set with `rcs()`.")
 
   # call function
-  result <- clean_mixture.default(x$data$eta, x$data$u, x$data$v, x$data$u_wind, x$data$v_wind,
+  result <- clean_mixture.default(x$data$eta, x$data$u, x$data$v, x$data[[U]], x$data[[V]],
                                   slow = slow, fast = fast, drop_slow_component = drop_slow_component,
                                   drop_missing = drop_missing, keep_mixture = keep_mixture)
 
@@ -143,11 +209,18 @@ clean_mixture.vpts <- function(x, ..., slow = 1, fast = 8, drop_slow_component =
   x$data$eta=result$eta
   x$data$u=result$u
   x$data$v=result$v
+
+  # check for quantities potentially overwritten
+  quantities <- c("airspeed","airspeed_u","airspeed_v","heading","f")
+  if(keep_mixture) quantities <- c(quantities, "mixture_eta","mixture_u","mixture_v","mixture_airspeed","mixture_heading")
+  presence_test <- quantities %in% names(x$data)
+  if(sum(presence_test)>0) warning(paste0("Overwriting existing quantities `", paste(quantities[presence_test], collapse="`, `"),"`."))
+
   x$data$airspeed=result$airspeed
   x$data$heading=result$heading
   x$data$airspeed_u=result$airspeed_u
   x$data$airspeed_v=result$airspeed_v
-  x$data$proportion_slow=result$f
+  x$data$f=result$f
   if(keep_mixture){
     x$data$mixture_eta=result$mixture_eta
     x$data$mixture_u=result$mixture_u
@@ -166,10 +239,9 @@ clean_mixture.vpts <- function(x, ..., slow = 1, fast = 8, drop_slow_component =
 #' @rdname clean_mixture
 #'
 #' @export
-clean_mixture.vp <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE){
+clean_mixture.vp <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, U="u_wind", V="v_wind"){
   assertthat::assert_that(inherits(x,"vp"))
 
-  clean_mixture.vpts(x$data$eta, x$data$u, x$data$v, x$data$u_wind, x$data$v_wind,
-                        slow = slow, fast = fast, drop_slow_component = drop_slow_component,
-                        drop_missing = drop_missing, keep_mixture = keep_mixture)
+  clean_mixture.vpts(x,slow = slow, fast = fast, drop_slow_component = drop_slow_component,
+                     drop_missing = drop_missing, keep_mixture = keep_mixture, U=U, V=V)
 }

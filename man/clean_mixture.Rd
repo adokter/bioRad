@@ -14,7 +14,9 @@ clean_mixture(
   fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
-  keep_mixture = FALSE
+  keep_mixture = FALSE,
+  U = "u_wind",
+  V = "v_wind"
 )
 
 \method{clean_mixture}{default}(
@@ -37,7 +39,9 @@ clean_mixture(
   fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
-  keep_mixture = FALSE
+  keep_mixture = FALSE,
+  U = "u_wind",
+  V = "v_wind"
 )
 
 \method{clean_mixture}{vp}(
@@ -47,7 +51,9 @@ clean_mixture(
   fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
-  keep_mixture = FALSE
+  keep_mixture = FALSE,
+  U = "u_wind",
+  V = "v_wind"
 )
 }
 \arguments{
@@ -55,9 +61,9 @@ clean_mixture(
 
 \item{...}{\code{eta}, \code{u}, \code{v}, \code{U}, \code{V} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
-\item{slow}{the slow component's airspeed}
+\item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.}
 
-\item{fast}{the fast component's airspeed}
+\item{fast}{the fast component's airspeed in m/s, typically the airspeed of insects.}
 
 \item{drop_slow_component}{when TRUE (default) output density, ground speed and
 heading for fast component, when FALSE for slow component.}
@@ -68,24 +74,80 @@ and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{
 \item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
 renamed quantities with \code{mixture_} prefix}
 
-\item{eta}{a mixture animal density or linear reflectivity eta.}
+\item{U}{the west to east wind component in m/s. In the case of \code{vp} and \code{vpts} objects
+the quantity name for the U-component of the wind.}
 
-\item{u}{the mixture's ground speed u component (west to east)}
+\item{V}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
+the quantity name for the U-component of the wind.}
 
-\item{v}{the mixture's ground speed v component (south to north)}
+\item{eta}{a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.}
 
-\item{U}{the west to east wind component}
+\item{u}{the mixture's ground speed u component (west to east) in m/s.}
 
-\item{V}{the south to north wind component}
+\item{v}{the mixture's ground speed v component (south to north) in m/s.}
 }
 \value{
-a data.frame with corrected density or reflectivity x, ground speed (u, v)
-and heading in clockwise degrees from north.
+a named list with cleaned densities and speeds.
+Output differs depending on whether the fast component is retained
+(\code{drop_slow_component}=\code{TRUE}, default) or the slow component (\code{drop_slow_component}=\code{FALSE}, default). Output quantities include:
+\itemize{
+\item \code{eta}: cleaned reflectivity in cm^2/km^3.
+only the fast component (default) or the slow component
+(when \code{drop_slow_component} is \code{TRUE}).
+\item \code{u}: cleaned ground speed component west to east in m/s.
+\item \code{v}: cleaned ground speed component south to north in m/s.
+\item \code{airspeed}: the airspeed of the selected component in m/s.
+\item \code{airspeed_u}: the u-component (west to east) of the airspeed of the retained component in m/s.
+\item \code{airspeed_v}: the v-component (south to north) of the airspeed of the retained component in m/s.
+\item \code{heading}: the heading of the selected component in degrees clockwise from north.
+\item \code{f}: the reflectivity proportion of the slow component (0-1 range), typically the proportion of insects.
+}
+
+For \code{vp} and \code{vpts} objects the quantities \code{eta},\code{u},\code{v} will be updated, and other
+quantities listed above will be added.
 }
 \description{
-Partition mixtures of animals using assumptions on airspeeds.
+Partition mixtures of birds and insects using assumptions on their respective airspeeds,
+following the approach by Shi et al. (2025).
+}
+\details{
+For a detail description of the methodology see Shi et al. (2025).
+Most commonly the fast component refers to migrating birds, while
+the slow component refers to insects. The slow component is always
+oriented in the direction of the wind by definition.
+Note that for mixture airspeeds exceeding the airspeed of the fast component,
+all reflectivity is assigned to the fast component. Similarly, for mixture
+airspeeds below the airspeed of the slow component, all reflectivity
+will be assigned to the slow component.
+\subsection{How to use this function?}{
+\enumerate{
+\item To apply this function to \code{vp} or \code{vpts} data altitudinal wind data
+needs to be added to the vertical profile data first. This is most easily
+accomplished by first converting the objects to a \code{data.frame} with \code{\link[=as.vp]{as.vp()}} or \code{\link[=as.vpts]{as.vpts()}}.
+Wind data can then be added as a new columns to the data.frame.
+By default the wind data is expected to be named \code{u_wind} for the U component
+and \code{v_wind} for the V component of the wind.
+Alternatively, arguments \code{U} and \code{V} can be used to specify different names.
+\item Realistic assumptions for the expected airspeed for the slow (insect)
+and fast (bird) components need to be provided, using arguments \code{slow} and \code{fast}.
+See Shi et al. 2025 for recommendations in choosing these values.
+}
+
+When \code{drop_slow_component} is \code{FALSE} the
+}
 }
 \examples{
+# convert profile object to data.frame
+df <- as.data.frame(example_vp, suntime=FALSE)
+# add wind u and v component wind data
+# (here a NW wind identical at all altitudes)
+df$u_wind=3
+df$v_wind=-3
+# convert back to vp object
+my_vp <- as.vp(df)
+# partition the mixture:
+my_vp_clean <- clean_mixture(my_vp)
+
 # drop the slow component (typically insects)
 clean_mixture(100,-13,13,-7,6, fast=8, slow=1)
 # drop the fast component (typically birds)
@@ -96,4 +158,14 @@ clean_mixture(100,-13,13,-7,6, fast=8, slow=1, keep_mixture=TRUE)
 clean_mixture(100,-13,13,NaN,6, fast=8, slow=1)["eta"]
 # set reflectivity to NaN when one of the speed components is not a number:
 clean_mixture(100,-13,13,NaN,6, fast=8, slow=1, drop_missing=TRUE)["eta"]
+}
+\references{
+\itemize{
+\item Shi X, Drucker J, Chapman JW, Sanchez Herrera M, Dokter AM
+Analysis of mixtures of birds and insects in weather radar data.
+Ornithological Applications. 2025 (in press).
+\item Nussbaumer R, Schmid B, Bauer S, Liechti F.
+A Gaussian mixture model to separate birds and insects in
+single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989.
+}
 }
