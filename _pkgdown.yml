@@ -25,7 +25,7 @@ home:
 
 reference:
   - title: "Reading radar data"
-    desc: "Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data."
+    desc: "Functions to read polar volume (pvol) data.
     contents:
       - download_pvolfiles
       - is.pvolfile
@@ -67,7 +67,7 @@ reference:
       - composite_ppi
       - "`[.ppi`"
   - title: "Creating vertical profiles of biological targets"
-    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon."
+    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets.
     contents:
       - calculate_vp
       - nexrad_to_odim # Repeated
@@ -84,18 +84,21 @@ reference:
       - plot.vp
       - as.data.frame.vp
       - list_vpts_aloft
-  - title: "Combining vertical profiles into time series"
-    desc: "Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these."
+  - title: "Manipulating vertical profile data"
+    desc: "Functions to combine vertical profiles (vp) into time series (vpts) and to post-process, read, inspect and plot these."
     contents:
       - c.vp
       - bind_into_vpts
       - read_vpts
       - filter_vpts
+      - filter_precip
+      - clean_mixture
       - summary.vpts # is.vpts
       - example_vpts
       - plot.vpts
       - regularize_vpts
       - as.data.frame.vp
+      - as.vp
       - as.vpts
       - "`[.vpts`"
       - get_quantity
