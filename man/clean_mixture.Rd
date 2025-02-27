@@ -69,7 +69,7 @@ renamed quantities with \code{mixture_} prefix}
 the quantity name for the U-component of the wind.}
 
 \item{V}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
-the quantity name for the U-component of the wind.}
+the quantity name for the V-component of the wind.}
 
 \item{u}{the mixture's ground speed u component (west to east) in m/s.}
 

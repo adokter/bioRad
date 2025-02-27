@@ -9,7 +9,7 @@
 #' @param U the west to east wind component in m/s. In the case of `vp` and `vpts` objects
 #' the quantity name for the U-component of the wind.
 #' @param V the south to north wind component in m/s.  In the case of `vp` and `vpts` objects
-#' the quantity name for the U-component of the wind.
+#' the quantity name for the V-component of the wind.
 #' @param fast the fast component's airspeed in m/s, typically the airspeed of insects.
 #' @param slow the slow component's airspeed in m/s, typically the airspeed of birds.
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
