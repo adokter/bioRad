@@ -7,41 +7,32 @@
 \alias{clean_mixture.vp}
 \title{Partition mixtures of animals using assumptions on airspeeds.}
 \usage{
-clean_mixture(
+clean_mixture(x, ...)
+
+\method{clean_mixture}{default}(
   x,
-  ...,
   slow = 1,
   fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U = "u_wind",
-  V = "v_wind"
-)
-
-\method{clean_mixture}{default}(
-  eta,
-  u,
-  v,
   U,
   V,
-  slow = 1,
-  fast = 8,
-  drop_slow_component = TRUE,
-  drop_missing = FALSE,
-  keep_mixture = FALSE
+  u,
+  v,
+  ...
 )
 
 \method{clean_mixture}{vpts}(
   x,
-  ...,
   slow = 1,
   fast = 8,
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
   U = "u_wind",
-  V = "v_wind"
+  V = "v_wind",
+  ...
 )
 
 \method{clean_mixture}{vp}(
@@ -57,7 +48,7 @@ clean_mixture(
 )
 }
 \arguments{
-\item{x}{a \code{vp} or \code{vpts} object.}
+\item{x}{a \code{vp} or \code{vpts} object, or a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.}
 
 \item{...}{\code{eta}, \code{u}, \code{v}, \code{U}, \code{V} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
@@ -79,8 +70,6 @@ the quantity name for the U-component of the wind.}
 
 \item{V}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
 the quantity name for the U-component of the wind.}
-
-\item{eta}{a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.}
 
 \item{u}{the mixture's ground speed u component (west to east) in m/s.}
 
@@ -149,15 +138,15 @@ my_vp <- as.vp(df)
 my_vp_clean <- clean_mixture(my_vp)
 
 # drop the slow component (typically insects)
-clean_mixture(100,-13,13,-7,6, fast=8, slow=1)
+clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1)
 # drop the fast component (typically birds)
-clean_mixture(100,-13,13,-7,6, fast=8, slow=1, drop_slow_component=FALSE)
+clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1, drop_slow_component=FALSE)
 # keep the original mixture reflectivity and speed components
-clean_mixture(100,-13,13,-7,6, fast=8, slow=1, keep_mixture=TRUE)
+clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1, keep_mixture=TRUE)
 # keep reflectivity unaltered when one of the speed components is not a number:
-clean_mixture(100,-13,13,NaN,6, fast=8, slow=1)["eta"]
+clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1)["eta"]
 # set reflectivity to NaN when one of the speed components is not a number:
-clean_mixture(100,-13,13,NaN,6, fast=8, slow=1, drop_missing=TRUE)["eta"]
+clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
 }
 \references{
 \itemize{

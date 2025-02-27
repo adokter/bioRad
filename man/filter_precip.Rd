@@ -75,5 +75,8 @@ plot(regularize_vpts(example_vpts), quantity='dens')
 filter_precip(example_vp)
 }
 \seealso{
-\code{\link[=eta_to_dbz(), dbz_to_eta]{eta_to_dbz(), dbz_to_eta()}}
+\itemize{
+\item \link{eta_to_dbz}
+\item \link{dbz_to_eta}
+}
 }

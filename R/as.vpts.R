@@ -16,13 +16,14 @@ as.vpts <- function(data) {
     data <- data %>%
       dplyr::rename(DBZH = "dbz_all")
   }
- 
+
   validate_vpts(data)
 
   # sort by datetime and height
   data <- dplyr::arrange(data, datetime, height)
 
   height <- datetime <- source_file <- radar <- NULL
+  bioRad_internal_levels <- bioRad_internal_interval <- NULL
 
   # Throw error if nrows per height are not identical
   # FIXME: first if statement is a weak check that could fail, could be improved.
@@ -30,16 +31,16 @@ as.vpts <- function(data) {
   if(!remainder_is_zero(dim(data)[1], length(unique(data$height)))){
     data %>%
       dplyr::group_by(radar, datetime) %>%
-      dplyr::mutate(bioRad_internal_interval = height-lag(height)) %>%
+      dplyr::mutate(bioRad_internal_interval = height-dplyr::lag(height)) %>%
       dplyr::add_count(name="bioRad_internal_levels") -> data
-    interval_median <- median(data$bioRad_internal_interval, na.rm=TRUE)
+    interval_median <- stats::median(data$bioRad_internal_interval, na.rm=TRUE)
     interval_unique <- unique(data$bioRad_internal_interval)
     interval_unique <- interval_unique[!is.na(interval_unique)]
     if(length(interval_unique)>1){
       warning(paste("profiles found with different altitude interval:",paste(sort(interval_unique),collapse=" ")), ", retaining ",interval_median, " only.")
       data <- dplyr::filter(data, bioRad_internal_interval == interval_median)
     }
-    levels_median <- median(data$bioRad_internal_levels)
+    levels_median <- stats::median(data$bioRad_internal_levels)
     levels_unique <- unique(data$bioRad_internal_levels)
     if(length(levels_unique)>1){
       warning(paste("profiles found with different number of height layers:",paste(sort(levels_unique),collapse=" ")), ", retaining ",levels_median, " only.")

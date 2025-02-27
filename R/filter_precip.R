@@ -3,7 +3,7 @@
 #' The posthoc precipitation filter assesses how much of the altitude column has a high
 #' total reflectivity factor (biology + meteorology) consistent with precipitation,
 #' and removes biological signals when there is evidence for the presence of precipitation.
-#' Applied to  vertical profiles ('vp') or time series of vertical profiles ('vpts').
+#' Applied to vertical profiles ('vp') or time series of vertical profiles ('vpts').
 #'
 #' @param x A `vp` or `vpts` object.
 #' @param dbz The minimum reflectivity factor for precipitation.
@@ -44,7 +44,13 @@
 #' Parameter `range` should be chosen carefully, and should be higher than the
 #' typical altitude where biological scatterers still reach a reflectivity factor equal to `dbz`.
 #'
-#' @seealso [eta_to_dbz(), dbz_to_eta()]
+#' Note that at S-band wavelengths bird migration occurs much more frequently in the reflectivity
+#' regime for precipitation than at C-band. Therefore, at C-band lower settings for parameter `dbz`
+#' are appropriate than at S-band.
+#'
+#' @seealso
+#' * [eta_to_dbz]
+#' * [dbz_to_eta]
 #'
 #' @examples
 #' # rain periods are visible in quantity DBZH as dark vertical lines
