@@ -25,7 +25,7 @@ A \code{vpts} object or a \code{vp} object, depending on input \code{x}.
 The posthoc precipitation filter assesses how much of the altitude column has a high
 total reflectivity factor (biology + meteorology) consistent with precipitation,
 and removes biological signals when there is evidence for the presence of precipitation.
-Applied to  vertical profiles ('vp') or time series of vertical profiles ('vpts').
+Applied to vertical profiles ('vp') or time series of vertical profiles ('vpts').
 }
 \details{
 During precipitation events usually a high proportion of the altitude
@@ -56,6 +56,10 @@ below 7 dBZ is not recommended, as most precipitation has a reflectivity above 7
 
 Parameter \code{range} should be chosen carefully, and should be higher than the
 typical altitude where biological scatterers still reach a reflectivity factor equal to \code{dbz}.
+
+Note that at S-band wavelengths bird migration occurs much more frequently in the reflectivity
+regime for precipitation than at C-band. Therefore, at C-band lower settings for parameter \code{dbz}
+are appropriate than at S-band.
 }
 \examples{
 # rain periods are visible in quantity DBZH as dark vertical lines

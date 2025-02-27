@@ -73,7 +73,8 @@
 #' Note that for mixture airspeeds exceeding the airspeed of the fast component,
 #' all reflectivity is assigned to the fast component. Similarly, for mixture
 #' airspeeds below the airspeed of the slow component, all reflectivity
-#' will be assigned to the slow component.
+#' will be assigned to the slow component. In both these limiting cases the
+#' 
 #'
 #' ## How to use this function?
 #' 1. To apply this function to `vp` or `vpts` data altitudinal wind data
@@ -86,8 +87,12 @@
 #' 2. Realistic assumptions for the expected airspeed for the slow (insect)
 #' and fast (bird) components need to be provided, using arguments `slow` and `fast`.
 #' See Shi et al. 2025 for recommendations in choosing these values.
-#'
-#' When \code{drop_slow_component} is \code{FALSE} the
+#' 3. Use `drop_slow_component` to toggle between retaining the slow or fast component.
+#' When `TRUE` the fast (bird) component is retained. When `FALSE` the slow (insect)
+#' component is retained. Note that in this case the corrected ground speed direction will be
+#' identical to the wind direction, and the magnitude of the ground speed will be equal
+#' to the wind speed plus the value of `slow`, due to the underlying assumption
+#' of wind following by the slow component.
 NULL
 
 #' @rdname clean_mixture

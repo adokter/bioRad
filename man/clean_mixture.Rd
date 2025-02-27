@@ -107,7 +107,7 @@ oriented in the direction of the wind by definition.
 Note that for mixture airspeeds exceeding the airspeed of the fast component,
 all reflectivity is assigned to the fast component. Similarly, for mixture
 airspeeds below the airspeed of the slow component, all reflectivity
-will be assigned to the slow component.
+will be assigned to the slow component. In both these limiting cases the
 \subsection{How to use this function?}{
 \enumerate{
 \item To apply this function to \code{vp} or \code{vpts} data altitudinal wind data
@@ -120,9 +120,13 @@ Alternatively, arguments \code{U} and \code{V} can be used to specify different 
 \item Realistic assumptions for the expected airspeed for the slow (insect)
 and fast (bird) components need to be provided, using arguments \code{slow} and \code{fast}.
 See Shi et al. 2025 for recommendations in choosing these values.
+\item Use \code{drop_slow_component} to toggle between retaining the slow or fast component.
+When \code{TRUE} the fast (bird) component is retained. When \code{FALSE} the slow (insect)
+component is retained. Note that in this case the corrected ground speed direction will be
+identical to the wind direction, and the magnitude of the ground speed will be equal
+to the wind speed plus the value of \code{slow}, due to the underlying assumption
+of wind following by the slow component.
 }
-
-When \code{drop_slow_component} is \code{FALSE} the
 }
 }
 \examples{
