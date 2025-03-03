@@ -156,9 +156,9 @@ clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1, drop_missing=TRUE)["eta"
 \itemize{
 \item Shi X, Drucker J, Chapman JW, Sanchez Herrera M, Dokter AM
 Analysis of mixtures of birds and insects in weather radar data.
-Ornithological Applications. 2025 (in press).
+Ornithological Applications. 2025 (in press) \doi{10.1093/ornithapp/duaf020}.
 \item Nussbaumer R, Schmid B, Bauer S, Liechti F.
 A Gaussian mixture model to separate birds and insects in
-single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989.
+single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989 \doi{10.3390/rs13101989}.
 }
 }

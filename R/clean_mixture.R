@@ -61,10 +61,10 @@
 #' @references
 #' * Shi X, Drucker J, Chapman JW, Sanchez Herrera M, Dokter AM
 #' Analysis of mixtures of birds and insects in weather radar data.
-#' Ornithological Applications. 2025 (in press).
+#' Ornithological Applications. 2025 (in press) \doi{10.1093/ornithapp/duaf020}.
 #' * Nussbaumer R, Schmid B, Bauer S, Liechti F.
 #' A Gaussian mixture model to separate birds and insects in
-#' single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989.
+#' single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989 \doi{10.3390/rs13101989}.
 #' @details
 #' For a detail description of the methodology see Shi et al. (2025).
 #' Most commonly the fast component refers to migrating birds, while
