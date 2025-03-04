@@ -3,13 +3,16 @@ test_that("as.vpts() returns warning message for incorrect data", {
 
   #remove top bin of the third profile, creating a profile with lower max height
   df <- df[-which(df$height==max(df$height))[3], ]
-  expect_warning(as.vpts(df),"profiles found with different")
+  expect_warning(expect_warning(as.vpts(df),"Profiles found with different"),"Profiles found with different number of height layers")
 
   #randomly remove row
   randomIndex <- sample(nrow(df), 1)
   df <- df[-randomIndex, ]
 
-  expect_warning(as.vpts(df),"profiles found with different")
+  expect_warning(expect_warning(expect_warning(as.vpts(df),"Profiles found with different"),
+                 "Profiles found with different altitude interval"),
+                 "Profiles found with different number of height layers")
+
 })
 
 test_that("as.vpts() handles multiple unique attribute values correctly", {
@@ -68,3 +71,20 @@ test_that("values are set to the first for multi-value attributes", {
   #expect_equal(vpts_obj$attributes$where$lon, vpts_df$radar_longitude[1])
 
 })
+
+# Test that duplicate profiles are identified
+test_that("profiles with identical timestamps are identified", {
+  file <- system.file("extdata", "example_vpts.csv", package = "bioRad")
+  vpts_df <-  read_vpts(file, data_frame=TRUE)
+  vpts_duplicate <- as.vpts(rbind(vpts_df,vpts_df))
+  vpts_single <- as.vpts(vpts_df)
+  # vpts with duplicates should contain twice as many profiles:
+  expect_equal(dim(vpts_duplicate)[1], 2*dim(vpts_single)[1])
+  # duplicate profiles should be identical:
+  vp_df=as.data.frame(example_vp, suntime=F)
+  expect_identical(as.vpts(rbind(vp_df,vp_df))[1],as.vpts(rbind(vp_df,vp_df))[2])
+})
+
+
+
+

@@ -19,35 +19,59 @@ as.vpts <- function(data) {
 
   validate_vpts(data)
 
-  # sort by datetime and height
-  data <- dplyr::arrange(data, datetime, height)
-
+  # Silencing "no visible binding" NOTES
   height <- datetime <- source_file <- radar <- NULL
-  bioRad_internal_levels <- bioRad_internal_interval <- NULL
+  bioRad_internal_levels <- bioRad_internal_interval <- bioRad_internal_dummy_index <- bioRad_internal_profile_index <- profile_shape_hash <- NULL
 
-  # Throw error if nrows per height are not identical
-  # FIXME: first if statement is a weak check that could fail, could be improved.
-  # retaining for now because of speed
-  if(!remainder_is_zero(dim(data)[1], length(unique(data$height)))){
-    data %>%
-      dplyr::group_by(radar, datetime) %>%
-      dplyr::mutate(bioRad_internal_interval = height-dplyr::lag(height)) %>%
-      dplyr::add_count(name="bioRad_internal_levels") -> data
-    interval_median <- stats::median(data$bioRad_internal_interval, na.rm=TRUE)
+  # 1) sort by datetime and height
+  # 2) split out profiles, including those with identical radar and datetime
+  # 3) add profile_index as unique profile identifier
+  data %>%
+    dplyr::arrange(data, datetime, height) %>%
+    dplyr::group_by(radar, datetime, height) %>%
+    dplyr::mutate(bioRad_internal_dummy_index = dplyr::row_number()) %>%
+    dplyr::group_by(radar, datetime, bioRad_internal_dummy_index) %>%
+    dplyr::arrange(datetime, bioRad_internal_dummy_index, height) %>%
+    dplyr::mutate(bioRad_internal_profile_index = dplyr::cur_group_id()) %>%
+    dplyr::group_by(bioRad_internal_profile_index) %>%
+    dplyr::select(-bioRad_internal_dummy_index) %>%
+    dplyr::mutate(bioRad_internal_interval = height-dplyr::lag(height)) %>%
+    dplyr::add_count(name="bioRad_internal_levels") -> data
+
+  # identify profiles with a different profile layer definition than the median
+  # and remove them
+  data %>%
+    dplyr::summarize(profile_shape_hash = as.numeric(paste0(rev(height), collapse = ""))) %>%
+    dplyr::filter(profile_shape_hash != stats::median(profile_shape_hash)) %>%
+    dplyr::pull(bioRad_internal_profile_index) ->
+    profile_index_drop
+
+  if(length(profile_index_drop)>0){
+    warning(paste("Profiles found with different altitude layer specifications, keeping only the most
+    common one, dropping ",length(profile_index_drop),"profile(s) ..." ))
+
+    # determine unique levels and intervals for all input profiles
     interval_unique <- unique(data$bioRad_internal_interval)
     interval_unique <- interval_unique[!is.na(interval_unique)]
-    if(length(interval_unique)>1){
-      warning(paste("profiles found with different altitude interval:",paste(sort(interval_unique),collapse=" ")), ", retaining ",interval_median, " only.")
-      data <- dplyr::filter(data, bioRad_internal_interval == interval_median)
-    }
-    levels_median <- stats::median(data$bioRad_internal_levels)
     levels_unique <- unique(data$bioRad_internal_levels)
-    if(length(levels_unique)>1){
-      warning(paste("profiles found with different number of height layers:",paste(sort(levels_unique),collapse=" ")), ", retaining ",levels_median, " only.")
-      data <- dplyr::filter(data, bioRad_internal_levels == levels_median)
+
+    # remove selected profiles
+    data <- dplyr::filter(data, !(bioRad_internal_profile_index %in% profile_index_drop))
+
+    # provide informative messages on interval and number of layers retained
+    interval_median <- stats::median(data$bioRad_internal_interval, na.rm=TRUE)
+    levels_median <- stats::median(data$bioRad_internal_levels)
+    if(length(interval_unique)>1){
+      warning(paste("Profiles found with different altitude interval:",paste(sort(interval_unique),collapse=" ")), ", retaining ",interval_median, " only.")
     }
-    data <- dplyr::select(data, -c(bioRad_internal_interval, bioRad_internal_levels))
+    if(length(levels_unique)>1){
+      warning(paste("Profiles found with different number of height layers:",paste(sort(levels_unique),collapse=" ")), ", retaining ",levels_median, " only.")
+    }
   }
+
+  # remove internal columns used for profile separation
+  data <-
+    dplyr::select(dplyr::ungroup(data), -c(bioRad_internal_interval, bioRad_internal_levels, bioRad_internal_profile_index))
 
   radar <- unique(data[["radar"]])
 
@@ -71,12 +95,10 @@ as.vpts <- function(data) {
   }
 
   # Check whether time series is regular
-  heights <- as.integer(unique(data[["height"]]))
-
+  heights <- unique(data[["height"]])
   # Subset timestamps by first sampled height
   datetime <- data[data[["height"]] == heights[1], ][["datetime"]]
   datetime <- as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
-
 
   # Determine regularity
   difftimes <- difftime(datetime[-1], datetime[-length(datetime)], units = "secs")
@@ -89,11 +111,10 @@ as.vpts <- function(data) {
   # Get attributes
   radar_height <- data[["radar_height"]][1]
   interval <- unique(heights[-1] - heights[-length(heights)])
-  wavelength <- data[["radar_wavelength"]][1]
 
   # Check and warn for multiple values of specific attributes and return only the first values of those attributes
   check_multivalue_attributes <- function(data) {
-    attributes <- c("radar_longitude", "radar_latitude", "rcs", "sd_vvp_threshold")
+    attributes <- c("radar_longitude", "radar_latitude", "rcs", "sd_vvp_threshold", "radar_wavelength")
     first_values <- list()
     for (attr in attributes) {
       if (length(unique(data[[attr]])) > 1) {
@@ -112,6 +133,7 @@ as.vpts <- function(data) {
   lat <- first_values$radar_latitude
   rcs <- first_values$rcs
   sd_vvp_threshold <- first_values$sd_vvp_threshold
+  wavelength <- first_values$radar_wavelength
 
   # column names not to store in the vpts$data slot
   radvars_exclude <- c("radar","datetime","height","rcs","sd_vvp_threshold","radar_latitude","radar_longitude","radar_height","radar_wavelength")
