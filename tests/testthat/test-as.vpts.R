@@ -5,9 +5,8 @@ test_that("as.vpts() returns warning message for incorrect data", {
   df <- df[-which(df$height==max(df$height))[3], ]
   expect_warning(expect_warning(as.vpts(df),"Profiles found with different"),"Profiles found with different number of height layers")
 
-  #randomly remove row
-  randomIndex <- sample(nrow(df), 1)
-  df <- df[-randomIndex, ]
+  # remove a row in the middle of a profile (index 210)
+  df <- df[-210, ]
 
   expect_warning(expect_warning(expect_warning(as.vpts(df),"Profiles found with different"),
                  "Profiles found with different altitude interval"),
