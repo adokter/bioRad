@@ -69,7 +69,7 @@
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
           <h2 id="reading-radar-data">Reading radar data <a href="#reading-radar-data" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to read polar volume (pvol) data. Requires a locally running Docker daemon for NEXRAD data.</p>
+          <p class="section-desc"></p><p>Functions to read polar volume (pvol) data.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="download_pvolfiles.html">download_pvolfiles()</a></code> </p>
@@ -205,7 +205,7 @@
         <td><p>Subset a plan position indicator (<code>ppi</code>)</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="creating-vertical-profiles-of-biological-targets">Creating vertical profiles of biological targets <a href="#creating-vertical-profiles-of-biological-targets" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets. Requires a locally running Docker daemon.</p>
+          <p class="section-desc"></p><p>Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="calculate_vp.html">calculate_vp()</a></code> </p>
@@ -260,8 +260,8 @@
         </td>
         <td><p>List aloft urls for time series of vertical profiles (<code>vpts</code>) of radar stations</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="combining-vertical-profiles-into-time-series">Combining vertical profiles into time series <a href="#combining-vertical-profiles-into-time-series" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions to combine vertical profiles (vp) into time series (vpts) and read, inspect and plot these.</p>
+          <h2 id="manipulating-vertical-profile-data">Manipulating vertical profile data <a href="#manipulating-vertical-profile-data" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Functions to combine vertical profiles (vp) into time series (vpts) and to post-process, read, inspect and plot these.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="c.vp.html">c(<i>&lt;vp&gt;</i>)</a></code> </p>
@@ -279,6 +279,14 @@
           <p><code><a href="filter_vpts.html">filter_vpts()</a></code> </p>
         </td>
         <td><p>Filter a time series of vertical profiles ('vpts').</p></td>
+      </tr><tr><td>
+          <p><code><a href="filter_precip.html">filter_precip()</a></code> </p>
+        </td>
+        <td><p>Posthoc precipitation filter</p></td>
+      </tr><tr><td>
+          <p><code><a href="clean_mixture.html">clean_mixture()</a></code> </p>
+        </td>
+        <td><p>Partition mixtures of animals using assumptions on airspeeds.</p></td>
       </tr><tr><td>
           <p><code><a href="summary.vpts.html">summary(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">print(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">is.vpts()</a></code> <code><a href="summary.vpts.html">dim(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">`[`(<i>&lt;vpts&gt;</i>)</a></code> </p>
         </td>
@@ -299,6 +307,10 @@
           <p><code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vp&gt;</i>)</a></code> <code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vpts&gt;</i>)</a></code> </p>
         </td>
         <td><p>Convert a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>) to a data frame</p></td>
+      </tr><tr><td>
+          <p><code><a href="as.vp.html">as.vp()</a></code> </p>
+        </td>
+        <td><p>Convert a dataframe into a vp object</p></td>
       </tr><tr><td>
           <p><code><a href="as.vpts.html">as.vpts()</a></code> </p>
         </td>
@@ -357,7 +369,7 @@
         <td><p>Extract a volume coverage pattern table with all attributes</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="radar-beam-geometry">Radar beam geometry <a href="#radar-beam-geometry" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions relating the radar beam shape to range, distance and height</p>
+          <p class="section-desc"></p><p>Functions relating the radar beam shape to range, distance and height.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="beam_height.html">beam_height()</a></code> </p>
