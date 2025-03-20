@@ -1,10 +1,19 @@
 # bioRad 0.8.1.9000
+## new features
 
-* Correct units specified in plot label for quantity VIR (#674).
+* new function `as.vp()` to convert data.frame to vertical profile object (#699)
 
-* Discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684).
+* new function `clean_mixture(`) for partitioning bird and insect mixtures (#700)
+
+* new function `filter_precip()` for posthoc removal of precipitation in vp and vpts objects (#701)
 
 * New argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689).
+
+## bugfixes
+
+* Corrected units specified in plot label for quantity VIR (#674).
+
+* Discard profiles with misspecified altitude bins in `as.vpts()` and `read_vpts()` (#684).
 
 * Correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (#635, #691).
 

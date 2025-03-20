@@ -15,6 +15,7 @@
 #'
 #' @examples
 #' # Get Nyquist velocity at C-band (5.3 cm wavelength) and a PRF of 2000 Hz
+#' nyquist_velocity(5.3, 2000)
 #'
 #' # Get extended Nyquist velocity in a dual-PRF scheme using 2000 Hz and
 #' # 1500 Hz PRFs
