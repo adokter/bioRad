@@ -73,7 +73,7 @@
 #' Note that for mixture airspeeds exceeding the airspeed of the fast component,
 #' all reflectivity is assigned to the fast component. Similarly, for mixture
 #' airspeeds below the airspeed of the slow component, all reflectivity
-#' will be assigned to the slow component. In both these limiting cases the
+#' will be assigned to the slow component.
 #' 
 #'
 #' ## How to use this function?
