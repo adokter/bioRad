@@ -52,9 +52,13 @@ clean_mixture(x, ...)
 
 \item{...}{\code{eta}, \code{u}, \code{v}, \code{U}, \code{V} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
-\item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.}
+\item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.
+Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
+or a data column name (see Details).}
 
-\item{fast}{the fast component's airspeed in m/s, typically the airspeed of insects.}
+\item{fast}{the fast component's airspeed in m/s, typically the airspeed of insects.
+Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
+or a data column name (see Details).}
 
 \item{drop_slow_component}{when TRUE (default) output density, ground speed and
 heading for fast component, when FALSE for slow component.}
@@ -107,7 +111,7 @@ oriented in the direction of the wind by definition.
 Note that for mixture airspeeds exceeding the airspeed of the fast component,
 all reflectivity is assigned to the fast component. Similarly, for mixture
 airspeeds below the airspeed of the slow component, all reflectivity
-will be assigned to the slow component. In both these limiting cases the
+will be assigned to the slow component.
 \subsection{How to use this function?}{
 \enumerate{
 \item To apply this function to \code{vp} or \code{vpts} data altitudinal wind data
@@ -120,6 +124,16 @@ Alternatively, arguments \code{U} and \code{V} can be used to specify different 
 \item Realistic assumptions for the expected airspeed for the slow (insect)
 and fast (bird) components need to be provided, using arguments \code{slow} and \code{fast}.
 See Shi et al. 2025 for recommendations in choosing these values.
+The parameter values for \code{fast} and \code{slow} can be specified as follows:
+\itemize{
+\item as single values applied to all heights and timestamps
+\item as a numeric vector of equal length as the number of profiles in the \code{vpts},
+allowing the user to specify changes in the parameter over time
+\item as the name of a profile data quantity, allowing the user to specify changes in
+the parameter over time and/or altitude. Profile quantities are most easily added
+by first converting the \code{vpts} object to a data.frame with \code{\link[=as.data.frame.vpts]{as.data.frame.vpts()}},
+adding the values, and back-converting with \link{as.vpts}
+}
 \item Use \code{drop_slow_component} to toggle between retaining the slow or fast component.
 When \code{TRUE} the fast (bird) component is retained. When \code{FALSE} the slow (insect)
 component is retained. Note that in this case the corrected ground speed direction will be

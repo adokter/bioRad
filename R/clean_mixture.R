@@ -11,7 +11,11 @@
 #' @param V the south to north wind component in m/s.  In the case of `vp` and `vpts` objects
 #' the quantity name for the V-component of the wind.
 #' @param fast the fast component's airspeed in m/s, typically the airspeed of insects.
+#' Either a single number, or (optionally for `vpts`) a numeric vector equal in length to the number of profiles,
+#' or a data column name (see Details).
 #' @param slow the slow component's airspeed in m/s, typically the airspeed of birds.
+#' Either a single number, or (optionally for `vpts`) a numeric vector equal in length to the number of profiles,
+#' or a data column name (see Details).
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
 #' heading for fast component, when FALSE for slow component.
 #' @param drop_missing Values `eta` without an associated ground speed
@@ -74,7 +78,7 @@
 #' all reflectivity is assigned to the fast component. Similarly, for mixture
 #' airspeeds below the airspeed of the slow component, all reflectivity
 #' will be assigned to the slow component.
-#' 
+#'
 #'
 #' ## How to use this function?
 #' 1. To apply this function to `vp` or `vpts` data altitudinal wind data
@@ -87,6 +91,14 @@
 #' 2. Realistic assumptions for the expected airspeed for the slow (insect)
 #' and fast (bird) components need to be provided, using arguments `slow` and `fast`.
 #' See Shi et al. 2025 for recommendations in choosing these values.
+#' The parameter values for `fast` and `slow` can be specified as follows:
+#'     * as single values applied to all heights and timestamps
+#'     * as a numeric vector of equal length as the number of profiles in the `vpts`,
+#'       allowing the user to specify changes in the parameter over time
+#'     * as the name of a profile data quantity, allowing the user to specify changes in
+#'       the parameter over time and/or altitude. Profile quantities are most easily added
+#'       by first converting the `vpts` object to a data.frame with [as.data.frame.vpts()],
+#'       adding the values, and back-converting with [as.vpts]
 #' 3. Use `drop_slow_component` to toggle between retaining the slow or fast component.
 #' When `TRUE` the fast (bird) component is retained. When `FALSE` the slow (insect)
 #' component is retained. Note that in this case the corrected ground speed direction will be
@@ -114,9 +126,9 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
   assertthat::assert_that(is.numeric(V))
   assertthat::assert_that(is.numeric(slow))
   assertthat::assert_that(is.numeric(fast))
-  assertthat::assert_that(slow >= 0)
-  assertthat::assert_that(fast > 0)
-  assertthat::assert_that(fast > slow)
+  assertthat::assert_that(all(slow >= 0), msg="value(s) `slow` should be >= 0")
+  assertthat::assert_that(all(fast > 0), msg="value(s) `fast` should be > 0")
+  assertthat::assert_that(all(fast > slow), msg="value(s) `slow` should be smaller than `fast`")
   assertthat::assert_that(assertthat::is.flag(drop_slow_component))
   assertthat::assert_that(assertthat::is.flag(drop_missing))
   assertthat::assert_that(assertthat::is.flag(keep_mixture))
@@ -199,10 +211,43 @@ clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE
     assertthat::assert_that(is.character(U))
     assertthat::assert_that(is.character(V))
   }
+  if(inherits(x,"vpts")){
+    n_profiles = dim(x)[1]
+    n_bins = dim(x)[2]
+  }
+  else{ # x is a vp
+    n_profiles = 1
+    n_bins = dim(x)[1]
+  }
   assertthat::assert_that(all(c(U,V) %in% names(x$data)), msg=paste0("function requires paired wind data, profile quantities `",U,"` and/or `",V,"` not found."))
   assertthat::assert_that(all(c("u","v") %in% names(x$data)), msg="function requires ground speed data, profile quantities `u` and/or `v` not found.")
   assertthat::assert_that("eta" %in% names(x$data), msg="function requires linear reflectivity data, profile quantity `eta` not found.")
   assertthat::assert_that(assertthat::is.number(x$attributes$how$rcs_bird), msg="radar cross section not defined, please set with `rcs()`.")
+
+  if(is.character(slow)){
+    assertthat::assert_that(slow %in% names(x$data), msg=paste0("value of argument `slow` (",slow,") not refering to a valid data column"))
+    slow=x$data[[slow]]
+  }
+  else{
+    assertthat::assert_that(is.numeric(slow))
+    assertthat::assert_that(is.vector(slow))
+    if(!assertthat::is.number(slow)){
+      assertthat::assert_that(length(slow) == n_profiles, msg="`slow` should be a number or a vector equal to the number of profiles")
+      slow=matrix(rep(slow,n_bins), nrow=n_bins, byrow=TRUE)
+    }
+  }
+  if(is.character(fast)){
+    assertthat::assert_that(fast %in% names(x$data), msg=paste0("value of argument `fast` (",fast,") not refering to a valid data column"))
+    fast=x$data[[fast]]
+  }
+  else{
+    assertthat::assert_that(is.numeric(fast))
+    assertthat::assert_that(is.vector(fast))
+    if(!assertthat::is.number(fast)){
+      assertthat::assert_that(length(fast) == n_profiles, msg="`fast` should be a number or a vector equal to the number of profiles")
+      fast=matrix(rep(fast,n_bins), nrow=n_bins, byrow=TRUE)
+    }
+  }
 
   # call function
   result <- clean_mixture.default(x$data$eta,
