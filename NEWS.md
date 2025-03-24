@@ -25,6 +25,8 @@
 
 * Bugfix for incorrect default sd_vvp_threshold value for S-band data (2 m/s instead of correct 1 m/s) (#695)
 
+* Bugfix for not working `zlim` argument in `integrate_to_ppi()` (#702)
+
 # bioRad 0.8.1
 
 ## bugfixes

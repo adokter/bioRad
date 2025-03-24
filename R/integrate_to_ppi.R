@@ -325,8 +325,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output@data$eta_sum_expected <- eta_expected_sum
   output@data$eta_sum <- eta_sum
   output@data$R <- eta_sum / eta_expected_sum
-  output@data$VIR <- integrate_profile(vp)$vir * eta_sum / eta_expected_sum
-  output@data$VID <- integrate_profile(vp)$vid * eta_sum / eta_expected_sum
+  output@data$VIR <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vir * eta_sum / eta_expected_sum
+  output@data$VID <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vid * eta_sum / eta_expected_sum
 
   # calculate the overlap between vp and radiated energy
   if ("overlap" %in% param_ppi) {
