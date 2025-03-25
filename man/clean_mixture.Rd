@@ -16,8 +16,8 @@ clean_mixture(x, ...)
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U,
-  V,
+  u_wind,
+  v_wind,
   u,
   v,
   ...
@@ -30,8 +30,8 @@ clean_mixture(x, ...)
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U = "u_wind",
-  V = "v_wind",
+  u_wind = "u_wind",
+  v_wind = "v_wind",
   ...
 )
 
@@ -43,14 +43,14 @@ clean_mixture(x, ...)
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U = "u_wind",
-  V = "v_wind"
+  u_wind = "u_wind",
+  v_wind = "v_wind"
 )
 }
 \arguments{
 \item{x}{a \code{vp} or \code{vpts} object, or a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.}
 
-\item{...}{\code{eta}, \code{u}, \code{v}, \code{U}, \code{V} arguments, taken from object for \code{vp} or \code{vpts} class.}
+\item{...}{\code{eta}, \code{u}, \code{v}, \code{u_wind}, \code{v_wind} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
 \item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.
 Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
@@ -69,10 +69,10 @@ and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{
 \item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
 renamed quantities with \code{mixture_} prefix}
 
-\item{U}{the west to east wind component in m/s. In the case of \code{vp} and \code{vpts} objects
+\item{u_wind}{the west to east wind component in m/s. In the case of \code{vp} and \code{vpts} objects
 the quantity name for the U-component of the wind.}
 
-\item{V}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
+\item{v_wind}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
 the quantity name for the V-component of the wind.}
 
 \item{u}{the mixture's ground speed u component (west to east) in m/s.}
@@ -120,7 +120,7 @@ accomplished by first converting the objects to a \code{data.frame} with \code{\
 Wind data can then be added as a new columns to the data.frame.
 By default the wind data is expected to be named \code{u_wind} for the U component
 and \code{v_wind} for the V component of the wind.
-Alternatively, arguments \code{U} and \code{V} can be used to specify different names.
+Alternatively, arguments \code{u_wind} and \code{v_wind} can be used to specify different names.
 \item Realistic assumptions for the expected airspeed for the slow (insect)
 and fast (bird) components need to be provided, using arguments \code{slow} and \code{fast}.
 See Shi et al. 2025 for recommendations in choosing these values.
@@ -156,15 +156,15 @@ my_vp <- as.vp(df)
 my_vp_clean <- clean_mixture(my_vp)
 
 # drop the slow component (typically insects)
-clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1)
+clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1)
 # drop the fast component (typically birds)
-clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1, drop_slow_component=FALSE)
+clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, drop_slow_component=FALSE)
 # keep the original mixture reflectivity and speed components
-clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1, keep_mixture=TRUE)
+clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, keep_mixture=TRUE)
 # keep reflectivity unaltered when one of the speed components is not a number:
-clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1)["eta"]
+clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1)["eta"]
 # set reflectivity to NaN when one of the speed components is not a number:
-clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
+clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
 }
 \references{
 \itemize{
