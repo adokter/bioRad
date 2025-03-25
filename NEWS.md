@@ -29,6 +29,8 @@
 
 * Added workaround for using `ifelse()` statements in `calculate_param()` (#672, #673).
 
+* Bugfix for not working `zlim` argument in `integrate_to_ppi()` (#702)
+
 # bioRad 0.8.1
 
 ## bugfixes
