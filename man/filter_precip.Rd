@@ -4,17 +4,25 @@
 \alias{filter_precip}
 \title{Posthoc precipitation filter}
 \usage{
-filter_precip(x, dbz = 7, range = 2500, alt_max = 3000, drop = FALSE)
+filter_precip(
+  x,
+  dbz = ifelse(x$attributes$how$wavelength < 7 || is.null(x$attributes$how$wavelength),
+    7, 20),
+  range = 2500,
+  alt_max = 3000,
+  drop = FALSE
+)
 }
 \arguments{
 \item{x}{A \code{vp} or \code{vpts} object.}
 
-\item{dbz}{The minimum reflectivity factor for precipitation.}
+\item{dbz}{The minimum reflectivity factor for precipitation in units dBZ.
+Defaults to 7 dBZ for C-band radars and 20 dBZ for S-band radars.}
 
 \item{range}{The minimum altitude range with total reflectivity factor.
-\code{DBZH} > \code{dbz} at which the filter is triggered.}
+\code{DBZH} > \code{dbz} at which the filter is triggered in m.}
 
-\item{alt_max}{Maximum altitude above ground level to consider.}
+\item{alt_max}{Maximum altitude above ground level to consider in m.}
 
 \item{drop}{When \code{TRUE} the profile is removed from the}
 }

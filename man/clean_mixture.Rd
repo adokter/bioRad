@@ -16,8 +16,8 @@ clean_mixture(x, ...)
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U,
-  V,
+  u_wind,
+  v_wind,
   u,
   v,
   ...
@@ -30,8 +30,8 @@ clean_mixture(x, ...)
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U = "u_wind",
-  V = "v_wind",
+  u_wind = "u_wind",
+  v_wind = "v_wind",
   ...
 )
 
@@ -43,18 +43,22 @@ clean_mixture(x, ...)
   drop_slow_component = TRUE,
   drop_missing = FALSE,
   keep_mixture = FALSE,
-  U = "u_wind",
-  V = "v_wind"
+  u_wind = "u_wind",
+  v_wind = "v_wind"
 )
 }
 \arguments{
 \item{x}{a \code{vp} or \code{vpts} object, or a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.}
 
-\item{...}{\code{eta}, \code{u}, \code{v}, \code{U}, \code{V} arguments, taken from object for \code{vp} or \code{vpts} class.}
+\item{...}{\code{eta}, \code{u}, \code{v}, \code{u_wind}, \code{v_wind} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
-\item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.}
+\item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.
+Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
+or a data column name (see Details).}
 
-\item{fast}{the fast component's airspeed in m/s, typically the airspeed of insects.}
+\item{fast}{the fast component's airspeed in m/s, typically the airspeed of insects.
+Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
+or a data column name (see Details).}
 
 \item{drop_slow_component}{when TRUE (default) output density, ground speed and
 heading for fast component, when FALSE for slow component.}
@@ -65,10 +69,10 @@ and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{
 \item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
 renamed quantities with \code{mixture_} prefix}
 
-\item{U}{the west to east wind component in m/s. In the case of \code{vp} and \code{vpts} objects
+\item{u_wind}{the west to east wind component in m/s. In the case of \code{vp} and \code{vpts} objects
 the quantity name for the U-component of the wind.}
 
-\item{V}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
+\item{v_wind}{the south to north wind component in m/s.  In the case of \code{vp} and \code{vpts} objects
 the quantity name for the V-component of the wind.}
 
 \item{u}{the mixture's ground speed u component (west to east) in m/s.}
@@ -107,7 +111,7 @@ oriented in the direction of the wind by definition.
 Note that for mixture airspeeds exceeding the airspeed of the fast component,
 all reflectivity is assigned to the fast component. Similarly, for mixture
 airspeeds below the airspeed of the slow component, all reflectivity
-will be assigned to the slow component. In both these limiting cases the
+will be assigned to the slow component.
 \subsection{How to use this function?}{
 \enumerate{
 \item To apply this function to \code{vp} or \code{vpts} data altitudinal wind data
@@ -116,10 +120,20 @@ accomplished by first converting the objects to a \code{data.frame} with \code{\
 Wind data can then be added as a new columns to the data.frame.
 By default the wind data is expected to be named \code{u_wind} for the U component
 and \code{v_wind} for the V component of the wind.
-Alternatively, arguments \code{U} and \code{V} can be used to specify different names.
+Alternatively, arguments \code{u_wind} and \code{v_wind} can be used to specify different names.
 \item Realistic assumptions for the expected airspeed for the slow (insect)
 and fast (bird) components need to be provided, using arguments \code{slow} and \code{fast}.
 See Shi et al. 2025 for recommendations in choosing these values.
+The parameter values for \code{fast} and \code{slow} can be specified as follows:
+\itemize{
+\item as single values applied to all heights and timestamps
+\item as a numeric vector of equal length as the number of profiles in the \code{vpts},
+allowing the user to specify changes in the parameter over time
+\item as the name of a profile data quantity, allowing the user to specify changes in
+the parameter over time and/or altitude. Profile quantities are most easily added
+by first converting the \code{vpts} object to a data.frame with \code{\link[=as.data.frame.vpts]{as.data.frame.vpts()}},
+adding the values, and back-converting with \link{as.vpts}
+}
 \item Use \code{drop_slow_component} to toggle between retaining the slow or fast component.
 When \code{TRUE} the fast (bird) component is retained. When \code{FALSE} the slow (insect)
 component is retained. Note that in this case the corrected ground speed direction will be
@@ -142,15 +156,15 @@ my_vp <- as.vp(df)
 my_vp_clean <- clean_mixture(my_vp)
 
 # drop the slow component (typically insects)
-clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1)
+clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1)
 # drop the fast component (typically birds)
-clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1, drop_slow_component=FALSE)
+clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, drop_slow_component=FALSE)
 # keep the original mixture reflectivity and speed components
-clean_mixture(100,u=-13,v=13,U=-7,V=6, fast=8, slow=1, keep_mixture=TRUE)
+clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, keep_mixture=TRUE)
 # keep reflectivity unaltered when one of the speed components is not a number:
-clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1)["eta"]
+clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1)["eta"]
 # set reflectivity to NaN when one of the speed components is not a number:
-clean_mixture(100,u=-13,v=13,U=NaN,V=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
+clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
 }
 \references{
 \itemize{

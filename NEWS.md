@@ -9,6 +9,8 @@
 
 * New argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689).
 
+* Added Citation File Format (cff) metadata to package (#680)
+
 ## bugfixes
 
 * Corrected units specified in plot label for quantity VIR (#674).
@@ -24,6 +26,8 @@
 * Bugfix for ignored `xlab` argument in `plot.vpi()` and night shading fix for dealing with NA values (#693)
 
 * Bugfix for incorrect default sd_vvp_threshold value for S-band data (2 m/s instead of correct 1 m/s) (#695)
+
+* Added workaround for using `ifelse()` statements in `calculate_param()` (#672, #673).
 
 * Bugfix for not working `zlim` argument in `integrate_to_ppi()` (#702)
 
