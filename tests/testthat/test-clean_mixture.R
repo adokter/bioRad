@@ -46,13 +46,13 @@ test_that("clean_mixture() returns warning for infinite wind data", {
 
 test_that("clean_mixture() returns expected values", {
   # only birds
-  expect_equal(clean_mixture(100,u=10,v=0,U=5,V=0, fast=5, slow=1)$f,0)
+  expect_equal(clean_mixture(100,u=10,v=0,u_wind=5,v_wind=0, fast=5, slow=1)$f,0)
   # only insects
-  expect_equal(clean_mixture(100,u=6,v=0,U=5,V=0, fast=5, slow=1)$f,1)
+  expect_equal(clean_mixture(100,u=6,v=0,u_wind=5,v_wind=0, fast=5, slow=1)$f,1)
   # observed airspeed faster than fast component
-  expect_equal(clean_mixture(100,u=11,v=0,U=5,V=0, fast=5, slow=1)$f,0)
+  expect_equal(clean_mixture(100,u=11,v=0,u_wind=5,v_wind=0, fast=5, slow=1)$f,0)
   # observed airspeed slower than slow component
-  expect_equal(clean_mixture(100,u=5.5,v=0,U=5,V=0, fast=5, slow=1)$f,1)
+  expect_equal(clean_mixture(100,u=5.5,v=0,u_wind=5,v_wind=0, fast=5, slow=1)$f,1)
 })
 
 
