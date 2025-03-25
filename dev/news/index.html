@@ -76,6 +76,7 @@
 <li><p>new function <code>clean_mixture(</code>) for partitioning bird and insect mixtures (<a href="https://github.com/adokter/bioRad/issues/700" class="external-link">#700</a>)</p></li>
 <li><p>new function <code><a href="../reference/filter_precip.html">filter_precip()</a></code> for posthoc removal of precipitation in vp and vpts objects (<a href="https://github.com/adokter/bioRad/issues/701" class="external-link">#701</a>)</p></li>
 <li><p>New argument <code>zoomin</code> for function <code><a href="../reference/map.html">bioRad::map()</a></code> to increase basemap resolution (<a href="https://github.com/adokter/bioRad/issues/689" class="external-link">#689</a>).</p></li>
+<li><p>Added Citation File Format (cff) metadata to package (<a href="https://github.com/adokter/bioRad/issues/680" class="external-link">#680</a>)</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bugfixes-0-8-1-9000">bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-8-1-9000"></a></h3>
@@ -86,6 +87,7 @@
 <li><p>Fixes a bug that prevented a data.frame to be converted to a vpts object with as.vpts() when profiles are not sorted in datetime and height (<a href="https://github.com/adokter/bioRad/issues/692" class="external-link">#692</a>).</p></li>
 <li><p>Bugfix for ignored <code>xlab</code> argument in <code><a href="../reference/plot.vpi.html">plot.vpi()</a></code> and night shading fix for dealing with NA values (<a href="https://github.com/adokter/bioRad/issues/693" class="external-link">#693</a>)</p></li>
 <li><p>Bugfix for incorrect default sd_vvp_threshold value for S-band data (2 m/s instead of correct 1 m/s) (<a href="https://github.com/adokter/bioRad/issues/695" class="external-link">#695</a>)</p></li>
+<li><p>Added workaround for using <code><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse()</a></code> statements in <code><a href="../reference/calculate_param.html">calculate_param()</a></code> (<a href="https://github.com/adokter/bioRad/issues/672" class="external-link">#672</a>, <a href="https://github.com/adokter/bioRad/issues/673" class="external-link">#673</a>).</p></li>
 <li><p>Bugfix for not working <code>zlim</code> argument in <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> (<a href="https://github.com/adokter/bioRad/issues/702" class="external-link">#702</a>)</p></li>
 </ul></div>
 </div>
