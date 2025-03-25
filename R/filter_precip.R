@@ -6,10 +6,11 @@
 #' Applied to vertical profiles ('vp') or time series of vertical profiles ('vpts').
 #'
 #' @param x A `vp` or `vpts` object.
-#' @param dbz The minimum reflectivity factor for precipitation.
+#' @param dbz The minimum reflectivity factor for precipitation in units dBZ.
+#' Defaults to 7 dBZ for C-band radars and 20 dBZ for S-band radars.
 #' @param range The minimum altitude range with total reflectivity factor.
-#' `DBZH` > `dbz` at which the filter is triggered.
-#' @param alt_max Maximum altitude above ground level to consider.
+#' `DBZH` > `dbz` at which the filter is triggered in m.
+#' @param alt_max Maximum altitude above ground level to consider in m.
 #' @param drop When `TRUE` the profile is removed from the
 #' @return A `vpts` object or a `vp` object, depending on input `x`.
 #'
@@ -68,7 +69,7 @@
 #' plot(regularize_vpts(example_vpts), quantity='dens')
 #' # filter can also be applied to single vp objects:
 #' filter_precip(example_vp)
-filter_precip <- function(x, dbz=7, range=2500, alt_max=3000, drop=FALSE){
+filter_precip <- function(x, dbz=ifelse(x$attributes$how$wavelength<7 || is.null(x$attributes$how$wavelength),7,20), range=2500, alt_max=3000, drop=FALSE){
   assertthat::assert_that(is.vp(x) | is.vpts(x))
   assertthat::assert_that(assertthat::is.number(dbz))
   assertthat::assert_that(assertthat::is.number(range))
