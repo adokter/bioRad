@@ -65,7 +65,7 @@ skip_if_no_tidyselect <- function() {
 #' @keywords internal
 skip_if_no_mistnet <- function() {
   if (requireNamespace("vol2birdR", quietly = TRUE)) {
-    if (vol2birdR::mistnet_exists()) {
+    if (vol2birdR::mistnet_exists() && file.exists(file.path(vol2birdR::torch_install_path(),"data","mistnet_nexrad.pt"))) {
       return(invisible(TRUE))
     }
   }
