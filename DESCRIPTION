@@ -62,7 +62,7 @@ Suggests:
     rosm,
     testthat (>= 3.0.0),
     vdiffr,
-    vol2birdR (>= 1.0.9)
+    vol2birdR (>= 1.0.8)
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
