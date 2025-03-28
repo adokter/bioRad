@@ -1,4 +1,5 @@
-## bioRad 0.8.1 
-
-* examples in dontrun blocks now also use suggested packages conditionally
-* includes a small bugfix for function as.vpts() introduced in version 0.8.0
+## bioRad 0.9.0 
+various bugfixes and introduction of three new functions:
+* `as.vp()` to convert data.frame to vertical profile object
+* `clean_mixture(`) for partitioning bird and insect mixtures
+* `filter_precip()` for posthoc rain filtering

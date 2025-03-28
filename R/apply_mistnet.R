@@ -12,12 +12,11 @@
 #'   feed to the MistNet segmentation model, which expects exactly 5 elevation
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
-#' @param local_install Character. Path to local vol2bird installation (e.g.
+#' @param local_install (deprecated) Character. Path to local vol2bird installation (e.g.
 #'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use instead of
 #'   the Docker container.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
-#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use instead of the
-#'   Docker container.
+#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use.
 #'
 #' @inheritParams calculate_vp
 #'
@@ -84,8 +83,9 @@
 #'
 #' @examples
 #' \donttest{
-#' # make sure you have installed the MistNet libraries and model, using:
-#' if (requireNamespace("vol2birdR", quietly = TRUE)){
+#' # make sure you have installed the MistNet libraries and install if necessary:
+#' if (requireNamespace("vol2birdR", quietly = TRUE) && vol2birdR::mistnet_installed()){
+#' # if mistnet has not been installedi yet, run the following:
 #' if(!vol2birdR::mistnet_exists()){
 #'    vol2birdR::install_mistnet()
 #'    vol2birdR::install_mistnet_model()
