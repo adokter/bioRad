@@ -232,6 +232,7 @@
       "@type": "SoftwareApplication",
       "identifier": "vol2birdR",
       "name": "vol2birdR",
+      "version": ">= 1.0.9",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -523,7 +524,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4942.102KB",
+  "fileSize": "5082.793KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",

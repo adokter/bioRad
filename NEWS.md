@@ -1,4 +1,4 @@
-# bioRad 0.8.1.9000
+# bioRad 0.9.0
 ## new features
 
 * new function `as.vp()` to convert data.frame to vertical profile object (#699)
