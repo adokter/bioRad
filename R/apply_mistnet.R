@@ -85,7 +85,8 @@
 #' @examples
 #' \donttest{
 #' # make sure you have installed the MistNet libraries and install if necessary:
-#' if (requireNamespace("vol2birdR", quietly = TRUE) && vol2birdR::mistnet_exists()){
+#' if (requireNamespace("vol2birdR", quietly = TRUE) && vol2birdR::mistnet_installed()){
+#' # if mistnet has not been installedi yet, run the following:
 #' if(!vol2birdR::mistnet_exists()){
 #'    vol2birdR::install_mistnet()
 #'    vol2birdR::install_mistnet_model()
