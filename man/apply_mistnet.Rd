@@ -40,8 +40,7 @@ angles may compromise segmentation results.}
 the Docker container.}
 
 \item{local_mistnet}{Character. Path to local MistNet segmentation model in
-PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}) to use instead of the
-Docker container.}
+PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}) to use.}
 }
 \value{
 When \code{load} is \code{TRUE}, a polar volume (\code{pvol}) object with the

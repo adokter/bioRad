@@ -16,8 +16,7 @@
 #'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use instead of
 #'   the Docker container.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
-#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use instead of the
-#'   Docker container.
+#'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use.
 #'
 #' @inheritParams calculate_vp
 #'
