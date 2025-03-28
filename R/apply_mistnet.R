@@ -12,7 +12,7 @@
 #'   feed to the MistNet segmentation model, which expects exactly 5 elevation
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
-#' @param local_install Character. Path to local vol2bird installation (e.g.
+#' @param local_install (deprecated) Character. Path to local vol2bird installation (e.g.
 #'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use instead of
 #'   the Docker container.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
