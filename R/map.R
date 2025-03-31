@@ -100,8 +100,13 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
       "scan parameter name."
     )
   }
+
+  # validate xlim and ylim
+  if(!missing(xlim)) assertthat::assert_that(is.numeric(xlim), length(xlim) == 2, msg = "xlim must be a numeric vector of length 2")
+  if(!missing(ylim)) assertthat::assert_that(is.numeric(ylim), length(ylim) == 2, msg = "ylim must be a numeric vector of length 2")
+
   if (missing(zlim)) {
-    zlim <- get_zlim(param, zlim)
+    zlim <- bioRad:::get_zlim(param, zlim)
   }
   if (!(param %in% names(x$data))) {
     stop(paste("no scan parameter '", param, "' in this ppi", sep = ""))
@@ -128,43 +133,45 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
     # apply transparancy
     palette <- ggplot2::alpha(palette,alpha)
     n_color = length(palette)
-    colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
+    colorscale <- bioRad:::color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
   else{
-    palette <- color_palette(param = param, n_color = n_color, alpha = alpha)
-    colorscale <- color_scale(param, zlim)
+    palette <- bioRad:::color_palette(param = param, n_color = n_color, alpha = alpha)
+    colorscale <- bioRad:::color_scale(param, zlim)
   }
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
-  epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
-  mybbox <- suppressWarnings(
+  #wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
+  #epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
+  wgs84 <- sp::CRS(SRS_string = sf::st_crs(4326)$wkt)
+  epsg3857 <- sp::CRS(SRS_string = sf::st_crs(3857)$wkt)
+
+  mybbox <-
     sp::spTransform(
       sp::SpatialPoints(t(data@bbox),
-        proj4string = data@proj4string
+                        proj4string = data@proj4string
       ),
-      sp::CRS("+init=epsg:3857")
+      epsg3857
     )
-  )
-  mybbox.wgs <- suppressWarnings(
+
+  mybbox.wgs <-
     sp::spTransform(
       sp::SpatialPoints(t(data@bbox),
-        proj4string = data@proj4string
+                        proj4string = data@proj4string
       ),
       wgs84
     )
-  )
+
   e <- raster::extent(mybbox.wgs)
   r <- raster::raster(raster::extent(mybbox),
-    ncol = data@grid@cells.dim[1] * .9,
-    nrow = data@grid@cells.dim[2] * .9, crs = sp::CRS(sp::proj4string(mybbox))
+                      ncol = data@grid@cells.dim[1] * .9,
+                      nrow = data@grid@cells.dim[2] * .9, crs = sp::CRS(sp::proj4string(mybbox))
   )
 
   # convert to google earth mercator projection
-  data <- suppressWarnings(
-    as.data.frame(sp::spTransform(methods::as(data,"SpatialPointsDataFrame"), sp::CRS("+init=epsg:3857")))
-  )
+  data <- as.data.frame(sp::spTransform(methods::as(data,"SpatialPointsDataFrame"), epsg3857))
+
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])
   if (length(index) > 0) {
@@ -220,22 +227,43 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
                                  z = 0
                                ))
 
-  mymap <- suppressWarnings(
-    ggplot2::ggplot() +
-      ggspatial::annotation_map_tile(type = map, zoomin = zoomin) +
-      ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
-      ggplot2::scale_fill_identity(na.value = "transparent") +
-      ggplot2::geom_point(data = radar_df, ggplot2::aes(x = X, y = Y),
-                 shape = 21,
-                 fill = "transparent",
-                 colour = radar_color,
-                 size = radar_size,
-                 stroke = 1.5,
-                 show.legend = FALSE) +
-      dummy +
-      colorscale +
-      ggplot2::labs(x="lon", y="lat")
-  )
+  # Initialize projected limits as NULL
+  projected_xlim <- NULL
+  projected_ylim <- NULL
 
-  suppressWarnings(mymap)
+  # Check if xlim is provided; if so, generate projected xlim
+  if (!missing(xlim)) {
+    # Create a temporary bounding box for x limits only (use full latitude range for the bbox)
+    bbox_latlon_x <- sf::st_bbox(c(xmin = xlim[1], xmax = xlim[2], ymin = -90, ymax = 90), crs = 4326)
+    bbox_projected_x <- sf::st_transform(sf::st_as_sfc(bbox_latlon_x), crs = 3857)
+    projected_xlim <- sf::st_bbox(bbox_projected_x)[c("xmin", "xmax")]
+  }
+
+  # Check if ylim is provided; if so, generate projected ylim
+  if (!missing(ylim)) {
+    # Create a temporary bounding box for y limits only (use full longitude range for the bbox)
+    bbox_latlon_y <- sf::st_bbox(c(xmin = -180, xmax = 180, ymin = ylim[1], ymax = ylim[2]), crs = 4326)
+    bbox_projected_y <- sf::st_transform(sf::st_as_sfc(bbox_latlon_y), crs = 3857)
+    projected_ylim <- sf::st_bbox(bbox_projected_y)[c("ymin", "ymax")]
+  }
+
+  mymap <-
+    ggplot2::ggplot() +
+    ggspatial::annotation_map_tile(type = map, zoomin = zoomin) +
+    ggplot2::coord_sf(xlim = projected_xlim, ylim = projected_ylim, expand=FALSE) +
+    ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
+    ggplot2::scale_fill_identity(na.value = "transparent") +
+    ggplot2::geom_point(data = radar_df, ggplot2::aes(x = X, y = Y),
+                        shape = 21,
+                        fill = "transparent",
+                        colour = radar_color,
+                        size = radar_size,
+                        stroke = 1.5,
+                        show.legend = FALSE) +
+    dummy +
+    colorscale +
+    ggplot2::labs(x="lon", y="lat")
+
+  mymap
 }
+
