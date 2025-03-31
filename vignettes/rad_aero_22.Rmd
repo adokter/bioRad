@@ -16,8 +16,6 @@ SHOW_ANSWERS <- FALSE
 if (Sys.info()["sysname"] == "Linux") prefix <- "/home/adriaan/" else prefix <- "/Users/amd427/"
 if (SHOW_ANSWERS) knitr::opts_knit$set(root.dir = normalizePath(paste(prefix, "git/training/colorado2022/", sep = "")))
 # knitr::opts_chunk$set(eval=FALSE)
-# make sure rosm.cache does not leave anything in working directory (required by CRAN)
-rosm::set_default_cachedir(system.file("rosm.cache", package = "ggspatial"))
 Sys.setenv(TZ = "UTC")
 library(bioRad)
 ```

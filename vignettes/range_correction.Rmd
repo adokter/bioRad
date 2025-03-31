@@ -12,11 +12,6 @@ vignette: >
 
 Load bioRad
 
-```{r setup, include = FALSE}
-# make sure rosm.cache does not leave anything in working directory (required by CRAN)
-rosm::set_default_cachedir(system.file("rosm.cache", package = "ggspatial"))
-```
-
 ```{r}
 options("sp_evolution_status" = 2L)
 library(bioRad)
