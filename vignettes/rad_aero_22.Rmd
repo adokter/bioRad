@@ -16,6 +16,8 @@ SHOW_ANSWERS <- FALSE
 if (Sys.info()["sysname"] == "Linux") prefix <- "/home/adriaan/" else prefix <- "/Users/amd427/"
 if (SHOW_ANSWERS) knitr::opts_knit$set(root.dir = normalizePath(paste(prefix, "git/training/colorado2022/", sep = "")))
 # knitr::opts_chunk$set(eval=FALSE)
+# make sure rosm.cache does not leave anything in working directory (required by CRAN)
+rosm::set_default_cachedir(system.file("rosm.cache", package = "ggspatial"))
 Sys.setenv(TZ = "UTC")
 library(bioRad)
 ```
@@ -574,7 +576,7 @@ plot(my_ppi_integrated, param="logVID", zlim=c(-10,10))
 
 The names of the radars in the networks can be found here:
 
-* US: [NEXRAD network](https://www.roc.noaa.gov/WSR88D/Maps.aspx)
+* US: [NEXRAD network](https://www.roc.noaa.gov/branches/program-branch/site-id-database/site-id-location-maps.php)
 * Europe: [OPERA database](http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html)
 
 Useful sites for inspecting pre-made movies of the US composite are <https://birdcast.info/migration-tools/live-migration-maps/> and <https://www.pauljhurtado.com/US_Composite_Radar/>.

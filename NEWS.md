@@ -31,6 +31,8 @@
 
 * Bugfix for not working `zlim` argument in `integrate_to_ppi()` (#702)
 
+* Fixes cropping in `map()` with `xlim` and `ylim` arguments (#707)
+
 # bioRad 0.8.1
 
 ## bugfixes

@@ -106,7 +106,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
   if(!missing(ylim)) assertthat::assert_that(is.numeric(ylim), length(ylim) == 2, msg = "ylim must be a numeric vector of length 2")
 
   if (missing(zlim)) {
-    zlim <- bioRad:::get_zlim(param, zlim)
+    zlim <- get_zlim(param, zlim)
   }
   if (!(param %in% names(x$data))) {
     stop(paste("no scan parameter '", param, "' in this ppi", sep = ""))
@@ -133,11 +133,11 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
     # apply transparancy
     palette <- ggplot2::alpha(palette,alpha)
     n_color = length(palette)
-    colorscale <- bioRad:::color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
+    colorscale <- color_palette_to_scale_colour(param, zlim, palette, na.value = "transparent")
   }
   else{
-    palette <- bioRad:::color_palette(param = param, n_color = n_color, alpha = alpha)
-    colorscale <- bioRad:::color_scale(param, zlim)
+    palette <- color_palette(param = param, n_color = n_color, alpha = alpha)
+    colorscale <- color_scale(param, zlim)
   }
 
   # extract the scan parameter
@@ -249,7 +249,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
 
   mymap <-
     ggplot2::ggplot() +
-    ggspatial::annotation_map_tile(type = map, zoomin = zoomin) +
+    ggspatial::annotation_map_tile(type = map, zoomin = zoomin, cachedir=system.file("rosm.cache", package = "ggspatial")) +
     ggplot2::coord_sf(xlim = projected_xlim, ylim = projected_ylim, expand=FALSE) +
     ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
     ggplot2::scale_fill_identity(na.value = "transparent") +
