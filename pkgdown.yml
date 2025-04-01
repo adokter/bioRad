@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   bioRad: bioRad.html
   rad_aero_22: rad_aero_22.html
   range_correction: range_correction.html
-last_built: 2024-08-12T20:31Z
+last_built: 2025-04-01T01:50Z
 urls:
   reference: https://adriaandokter.com/bioRad/reference
   article: https://adriaandokter.com/bioRad/articles

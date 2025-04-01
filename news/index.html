@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -69,12 +69,36 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.9.0" id="biorad-090">bioRad 0.9.0<small>2025-03-31</small><a class="anchor" aria-label="anchor" href="#biorad-090"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-9-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-9-0"></a></h3>
+<ul><li><p>new function <code><a href="../reference/as.vp.html">as.vp()</a></code> to convert data.frame to vertical profile object (<a href="https://github.com/adokter/bioRad/issues/699" class="external-link">#699</a>)</p></li>
+<li><p>new function <code><a href="../reference/clean_mixture.html">clean_mixture()</a></code> for partitioning bird and insect mixtures (<a href="https://github.com/adokter/bioRad/issues/700" class="external-link">#700</a>)</p></li>
+<li><p>new function <code><a href="../reference/filter_precip.html">filter_precip()</a></code> for posthoc removal of precipitation in vp and vpts objects (<a href="https://github.com/adokter/bioRad/issues/701" class="external-link">#701</a>)</p></li>
+<li><p>New argument <code>zoomin</code> for function <code><a href="../reference/map.html">bioRad::map()</a></code> to increase basemap resolution (<a href="https://github.com/adokter/bioRad/issues/689" class="external-link">#689</a>).</p></li>
+<li><p>Added Citation File Format (cff) metadata to package (<a href="https://github.com/adokter/bioRad/issues/680" class="external-link">#680</a>)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-0-9-0">bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-9-0"></a></h3>
+<ul><li><p>Corrected units specified in plot label for quantity VIR (<a href="https://github.com/adokter/bioRad/issues/674" class="external-link">#674</a>).</p></li>
+<li><p>Discard profiles with misspecified altitude bins in <code><a href="../reference/as.vpts.html">as.vpts()</a></code> and <code><a href="../reference/read_vpts.html">read_vpts()</a></code> (<a href="https://github.com/adokter/bioRad/issues/684" class="external-link">#684</a>).</p></li>
+<li><p>Correct type of gap field in vpts objects for profiles stored in ODIM HDF5 format (.h5) (<a href="https://github.com/adokter/bioRad/issues/635" class="external-link">#635</a>, <a href="https://github.com/adokter/bioRad/issues/691" class="external-link">#691</a>).</p></li>
+<li><p>Interpret NA values in field DBZH in <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> as pixels that were not irradiated (<a href="https://github.com/adokter/bioRad/issues/658" class="external-link">#658</a>).</p></li>
+<li><p>Fixes a bug that prevented a data.frame to be converted to a vpts object with as.vpts() when profiles are not sorted in datetime and height (<a href="https://github.com/adokter/bioRad/issues/692" class="external-link">#692</a>).</p></li>
+<li><p>Bugfix for ignored <code>xlab</code> argument in <code><a href="../reference/plot.vpi.html">plot.vpi()</a></code> and night shading fix for dealing with NA values (<a href="https://github.com/adokter/bioRad/issues/693" class="external-link">#693</a>)</p></li>
+<li><p>Bugfix for incorrect default sd_vvp_threshold value for S-band data (2 m/s instead of correct 1 m/s) (<a href="https://github.com/adokter/bioRad/issues/695" class="external-link">#695</a>)</p></li>
+<li><p>Added workaround for using <code><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse()</a></code> statements in <code><a href="../reference/calculate_param.html">calculate_param()</a></code> (<a href="https://github.com/adokter/bioRad/issues/672" class="external-link">#672</a>, <a href="https://github.com/adokter/bioRad/issues/673" class="external-link">#673</a>).</p></li>
+<li><p>Bugfix for not working <code>zlim</code> argument in <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> (<a href="https://github.com/adokter/bioRad/issues/702" class="external-link">#702</a>)</p></li>
+<li><p>Fixes cropping in <code><a href="../reference/map.html">map()</a></code> with <code>xlim</code> and <code>ylim</code> arguments (<a href="https://github.com/adokter/bioRad/issues/707" class="external-link">#707</a>)</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.1" id="biorad-081">bioRad 0.8.1<small>2024-07-30</small><a class="anchor" aria-label="anchor" href="#biorad-081"></a></h2>
 <div class="section level3">
 <h3 id="bugfixes-0-8-1">bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-8-1"></a></h3>
-<ul><li><p>dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (<a href="https://github.com/adokter/bioRad/issues/661" class="external-link">#661</a>)</p></li>
-<li><p>non-standard data fields are now retained in vpts objects produced with as.vpts() (<a href="https://github.com/adokter/bioRad/issues/661" class="external-link">#661</a>)</p></li>
-<li><p>corrected the type of gap field in vpts objects to logical (<a href="https://github.com/adokter/bioRad/issues/635" class="external-link">#635</a>)</p></li>
+<ul><li><p>dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (<a href="https://github.com/adokter/bioRad/issues/661" class="external-link">#661</a>).</p></li>
+<li><p>Non-standard data fields are now retained in vpts objects produced with as.vpts() (<a href="https://github.com/adokter/bioRad/issues/661" class="external-link">#661</a>).</p></li>
+<li><p>Corrected the type of gap field in vpts objects to logical (<a href="https://github.com/adokter/bioRad/issues/635" class="external-link">#635</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -304,7 +328,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>

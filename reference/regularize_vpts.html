@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -142,10 +142,17 @@ temporal gaps by nearest neighbor interpolation.</p>
 regular time grid with the expected time interval at which a radar provides
 data. Alignment is performed using a nearest neighbor interpolation limited to
 neighboring profiles that fall within +/- <code>fill</code> (centered) of an original profile.</p>
+<p>Remaining temporal gaps in the time series are filled with empty profiles that have values
+NA for all quantities, such that each timestamp of the regular grid has an
+associated profile.</p>
 <p>In plots of regular time series (see <code><a href="plot.vpts.html">plot.vpts()</a></code>) temporal gaps of
-missing profiles (e.g. due to radar down time) become visible. In irregular
+missing profiles (e.g. due to radar down time) become visible, as a result
+of the gap filling with empty profiles. In irregular
 time series data points in the plot are carried through until the time series
 continues, and temporal data gaps are filled up visually.</p>
+<p>When <code>keep_datetime</code> is <code>TRUE</code> the original profile timestamps are kept in
+<code>ts$datetime</code>. This may lead to duplicate timestamps when regularizing on a timegrid
+finer than the interval of available profiles.</p>
     </div>
 
     <div id="ref-examples">
@@ -153,13 +160,23 @@ continues, and temporal data gaps are filled up visually.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># start form example vpts object:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ts</span> <span class="op">&lt;-</span> <span class="va">example_vpts</span></span></span>
+<span class="r-in"><span><span class="co"># data gaps are not visible:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ts</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Irregular time-series: missing profiles will not be visible. Use 'regularize_vpts' to make time series regular.</span>
+<span class="r-plt img"><img src="regularize_vpts-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># regularize the time series on a 5 minute interval grid</span></span></span>
 <span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># data gaps are visible:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tsRegular</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="regularize_vpts-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># regularize the time series on a 10 minute interval grid,</span></span></span>
 <span class="r-in"><span><span class="co"># and fill data gaps smaller than 1 hour by nearest neighbor interpolation</span></span></span>
 <span class="r-in"><span><span class="va">tsRegular</span> <span class="op">&lt;-</span> <span class="fu">regularize_vpts</span><span class="op">(</span><span class="va">ts</span>, interval <span class="op">=</span> <span class="fl">600</span>, fill <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># data gaps are smaller as a result of nearest neighbor interpolation:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tsRegular</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="regularize_vpts-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -174,7 +191,7 @@ continues, and temporal data gaps are filled up visually.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
