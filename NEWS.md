@@ -1,9 +1,9 @@
-# bioRad 0.8.1.9000
+# bioRad 0.9.0
 ## new features
 
 * new function `as.vp()` to convert data.frame to vertical profile object (#699)
 
-* new function `clean_mixture(`) for partitioning bird and insect mixtures (#700)
+* new function `clean_mixture()` for partitioning bird and insect mixtures (#700)
 
 * new function `filter_precip()` for posthoc removal of precipitation in vp and vpts objects (#701)
 
@@ -30,6 +30,8 @@
 * Added workaround for using `ifelse()` statements in `calculate_param()` (#672, #673).
 
 * Bugfix for not working `zlim` argument in `integrate_to_ppi()` (#702)
+
+* Fixes cropping in `map()` with `xlim` and `ylim` arguments (#707)
 
 # bioRad 0.8.1
 

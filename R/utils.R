@@ -54,8 +54,6 @@ skip_if_no_tidyselect <- function() {
   testthat::skip("Package tidyselect not installed")
 }
 
-
-
 #' Skip test if no mistnet
 #'
 #' Some functions require MistNet to be enabled in package vol2birdR.
@@ -65,7 +63,7 @@ skip_if_no_tidyselect <- function() {
 #' @keywords internal
 skip_if_no_mistnet <- function() {
   if (requireNamespace("vol2birdR", quietly = TRUE)) {
-    if (vol2birdR::mistnet_exists()) {
+    if (vol2birdR::mistnet_installed()) {
       return(invisible(TRUE))
     }
   }
@@ -272,17 +270,4 @@ guess_file_type <- function(file_path, n_lines = 5) {
     message("No extension detected; assuming file type .txt which maps to stdout format")
     return("txt")
   }
-}
-
-#' Check if remainder of a division is zero
-#'
-#' Determines if a given number is a factor of another number
-#' by checking if the remainder is zero after division.
-#' @param number The number to be divided (the dividend)
-#' @param divisor The divisor to check against the number.
-#' @return A logical value indicating whether the remainder of the division is zero
-#' @keywords internal
-#' @noRd
-remainder_is_zero <- function(number, divisor) {
-  return(number %% divisor == 0)
 }
