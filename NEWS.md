@@ -1,3 +1,7 @@
+# bioRad 0.9.1
+
+* new argument `cachedir` in `map()` to set the location of the cache used by dependency package `ggspatial`.
+
 # bioRad 0.9.0
 ## new features
 
