@@ -21,6 +21,7 @@ map(x, ...)
   n_color = 1000,
   palette = NA,
   zoomin = -2,
+  cachedir = tools::R_user_dir("bioRad"),
   ...
 )
 }
@@ -58,6 +59,9 @@ position.}
 color scale, e.g. output from \code{\link[viridisLite:viridis]{viridisLite::viridis()}}.}
 
 \item{zoomin}{Numeric. Maps to \code{\link[ggspatial:annotation_map_tile]{ggspatial::annotation_map_tile()}}}
+
+\item{cachedir}{Character. Maps to \code{\link[ggspatial:annotation_map_tile]{ggspatial::annotation_map_tile()}}, defaults to
+\code{tools::R_user_dir("bioRad")}}
 }
 \value{
 A ggplot object

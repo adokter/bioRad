@@ -21,6 +21,8 @@
 #' @param palette Character vector. Hexadecimal color values defining the plot
 #'   color scale, e.g. output from [viridisLite::viridis()].
 #' @param zoomin Numeric. Maps to [ggspatial::annotation_map_tile()]
+#' @param cachedir Character. Maps to [ggspatial::annotation_map_tile()], defaults to
+#' `tools::R_user_dir("bioRad")`
 #' @param ... Arguments passed to [ggplot2::ggplot()].
 #' @importFrom methods as
 #' @return A ggplot object
@@ -82,7 +84,7 @@ map <- function(x, ...) {
 #' @export
 map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = c(-20, 20),
                     ratio, radar_size = 3, radar_color = "#202020", n_color = 1000,
-                    palette = NA, zoomin = -2, ...) {
+                    palette = NA, zoomin = -2, cachedir = tools::R_user_dir("bioRad"), ...) {
 
   stopifnot(inherits(x, "ppi"))
 
@@ -249,7 +251,7 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
 
   mymap <-
     ggplot2::ggplot() +
-    ggspatial::annotation_map_tile(type = map, zoomin = zoomin, cachedir=system.file("rosm.cache", package = "ggspatial")) +
+    ggspatial::annotation_map_tile(type = map, zoomin = zoomin, cachedir = cachedir) +
     ggplot2::coord_sf(xlim = projected_xlim, ylim = projected_ylim, expand=FALSE) +
     ggplot2::geom_raster(data = rdf, ggplot2::aes(x = x, y = y, fill = fill), na.rm = TRUE, interpolate = FALSE) +
     ggplot2::scale_fill_identity(na.value = "transparent") +
