@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@
 Dokter</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/0.9.0/vignettes/range_correction.Rmd" class="external-link"><code>vignettes/range_correction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/adokter/bioRad/blob/master/vignettes/range_correction.Rmd" class="external-link"><code>vignettes/range_correction.Rmd</code></a></small>
       <div class="hidden name"><code>range_correction.Rmd</code></div>
 
     </div>
@@ -110,7 +110,7 @@ Dokter</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"sp_evolution_status"</span> <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Welcome to bioRad version 0.9.0</span></span></code></pre>
+<pre><code><span><span class="co">## Welcome to bioRad version 0.9.1</span></span></code></pre>
 <pre><code><span><span class="co">## using vol2birdR version 1.0.9 (MistNet not installed)</span></span></code></pre>
 </div>
 <div class="section level2">
@@ -284,6 +284,9 @@ Let’s plot the adjustment factor R:</p>
 <span>   <span class="fu"><a href="../reference/map.html">map</a></span><span class="op">(</span><span class="va">my_corrected_ppi</span>, map<span class="op">=</span><span class="va">bm</span>, param <span class="op">=</span> <span class="st">"VIR"</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code><span><span class="co">## Zoom: 7</span></span></code></pre>
+<pre><code><span><span class="co">## Fetching 4 missing tiles</span></span></code></pre>
+<pre><code><span><span class="co">##   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</span></span></code></pre>
+<pre><code><span><span class="co">## ...complete!</span></span></code></pre>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -300,7 +303,7 @@ detection level</li>
 </ol>
 <p>We can calculate overlap between emitted radiation and the biological
 profile as follows:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate overlap between vertical profile of birds</span></span>
 <span><span class="co"># and the vertical radiation profile emitted by the radar:</span></span>
 <span><span class="va">bpo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/beam_profile_overlap.html">beam_profile_overlap</a></span><span class="op">(</span><span class="va">example_vp</span>, <span class="fu"><a href="../reference/get_elevation_angles.html">get_elevation_angles</a></span><span class="op">(</span><span class="va">example_pvol</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">1000</span><span class="op">)</span>, quantity <span class="op">=</span> <span class="st">"eta"</span><span class="op">)</span></span>
@@ -320,7 +323,7 @@ the distributions are identical.</p>
 <p>The range-corrected PPI also contains a field <code>overlap</code>,
 which contains the same metric but then calculated on the grid of the
 PPI:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_corrected_ppi</span>, param <span class="op">=</span> <span class="st">"overlap"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>The overlap metric might be used in the future to show only certain
