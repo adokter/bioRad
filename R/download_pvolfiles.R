@@ -14,6 +14,7 @@
 #' @param overwrite logical. TRUE for re-downloading and overwriting previously
 #'   downloaded files of the same names.
 #' @param bucket character. Bucket name to use.
+#' @param create_tree character. Whether to create the yyyy/mm/dd/radar directory structure
 #'
 #' @export
 #' @return `NULL`. The function's primary effect is to download selected polar volume 
@@ -36,7 +37,7 @@
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
-                               bucket = "noaa-nexrad-level2") {
+                               bucket = "noaa-nexrad-level2", create_tree = TRUE) {
   rlang::check_installed('aws.s3','to download pvolfiles.')
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
