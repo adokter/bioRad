@@ -62,7 +62,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
   assertthat::assert_that(is.logical(overwrite), msg = "overwrite is not a logical")
 
   # assert that directory_tree is logical
-  assertthat::assert_that(assertthat::is.logical(directory_tree))
+  assertthat::assert_that(is.logical(directory_tree))
 
   # Change timezone
   if (attr(date_min, "tzone") == "") {
