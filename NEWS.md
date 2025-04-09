@@ -1,3 +1,7 @@
+# bioRad 0.9.1.9000
+
+* new argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
+
 # bioRad 0.9.1
 
 * new argument `cachedir` in `map()` to set the location of the cache used by dependency package `ggspatial` (#708)
