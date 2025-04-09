@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -111,8 +111,8 @@ Dokter</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"sp_evolution_status"</span> <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Welcome to bioRad version 0.8.1.9000</span></span></code></pre>
-<pre><code><span><span class="co">## using vol2birdR version 1.0.7 (MistNet installed)</span></span></code></pre>
+<pre><code><span><span class="co">## Welcome to bioRad version 0.9.1.9000</span></span></code></pre>
+<pre><code><span><span class="co">## using vol2birdR version 1.0.9 (MistNet not installed)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="beam-propagation">2 Beam propagation<a class="anchor" aria-label="anchor" href="#beam-propagation"></a>
@@ -284,9 +284,7 @@ Let’s plot the adjustment factor R:</p>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ggspatial"</span>,<span class="st">"prettymapr"</span>, <span class="st">"rosm"</span><span class="op">)</span>, <span class="va">requireNamespace</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>   <span class="fu"><a href="../reference/map.html">map</a></span><span class="op">(</span><span class="va">my_corrected_ppi</span>, map<span class="op">=</span><span class="va">bm</span>, param <span class="op">=</span> <span class="st">"VIR"</span>, alpha <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is</span></span>
-<span><span class="co">## deprecated. It might return a CRS with a non-EPSG compliant axis order.</span></span></code></pre>
-<pre><code><span><span class="co">## Zoom: 6</span></span></code></pre>
+<pre><code><span><span class="co">## Zoom: 7</span></span></code></pre>
 <pre><code><span><span class="co">## Fetching 4 missing tiles</span></span></code></pre>
 <pre><code><span><span class="co">##   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</span></span></code></pre>
 <pre><code><span><span class="co">## ...complete!</span></span></code></pre>
@@ -306,7 +304,7 @@ detection level</li>
 </ol>
 <p>We can calculate overlap between emitted radiation and the biological
 profile as follows:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate overlap between vertical profile of birds</span></span>
 <span><span class="co"># and the vertical radiation profile emitted by the radar:</span></span>
 <span><span class="va">bpo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/beam_profile_overlap.html">beam_profile_overlap</a></span><span class="op">(</span><span class="va">example_vp</span>, <span class="fu"><a href="../reference/get_elevation_angles.html">get_elevation_angles</a></span><span class="op">(</span><span class="va">example_pvol</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100000</span>, <span class="fl">1000</span><span class="op">)</span>, quantity <span class="op">=</span> <span class="st">"eta"</span><span class="op">)</span></span>
@@ -326,7 +324,7 @@ the distributions are identical.</p>
 <p>The range-corrected PPI also contains a field <code>overlap</code>,
 which contains the same metric but then calculated on the grid of the
 PPI:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_corrected_ppi</span>, param <span class="op">=</span> <span class="st">"overlap"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="range_correction_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>The overlap metric might be used in the future to show only certain

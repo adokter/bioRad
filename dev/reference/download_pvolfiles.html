@@ -18,7 +18,7 @@ NEXRAD Level II archive data."><meta property="og:image" content="https://adriaa
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bioRad</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.8.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -82,7 +82,8 @@ NEXRAD Level II archive data."><meta property="og:image" content="https://adriaa
 <span>  <span class="va">radar</span>,</span>
 <span>  directory <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  bucket <span class="op">=</span> <span class="st">"noaa-nexrad-level2"</span></span>
+<span>  bucket <span class="op">=</span> <span class="st">"noaa-nexrad-level2"</span>,</span>
+<span>  directory_tree <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,6 +117,11 @@ downloaded files of the same names.</p></dd>
 
 <dt id="arg-bucket">bucket<a class="anchor" aria-label="anchor" href="#arg-bucket"></a></dt>
 <dd><p>character. Bucket name to use.</p></dd>
+
+
+<dt id="arg-directory-tree">directory_tree<a class="anchor" aria-label="anchor" href="#arg-directory-tree"></a></dt>
+<dd><p>logical. Whether to create the yyyy/mm/dd/radar
+directory structure. TRUE by default.</p></dd>
 
 </dl></div>
     <div id="value">
