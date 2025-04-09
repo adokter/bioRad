@@ -1,3 +1,7 @@
+# bioRad 0.9.0.9000
+
+* new argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
+
 # bioRad 0.9.0
 ## new features
 
