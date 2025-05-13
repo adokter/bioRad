@@ -39,6 +39,9 @@ Download and unzip a selection of vertical profile (\code{vp}) files from the
 \href{https://aloftdata.eu/}{ENRAM data repository}, where
 these are stored as monthly zips per radar.
 }
+\note{
+\code{download_vpfiles()} will be deprecated in a future version. See \code{getRad::get_vpts()} instead.
+}
 \examples{
 \donttest{
 # Download (and overwrite) data from radars "bejab" and "bewid".

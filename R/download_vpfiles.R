@@ -4,6 +4,8 @@
 #' [ENRAM data repository](https://aloftdata.eu/), where
 #' these are stored as monthly zips per radar.
 #'
+#' @note `download_vpfiles()` will be deprecated in a future version. See `getRad::get_vpts()` instead.
+#'
 #' @param date_min Character. Start date of file selection, in `YYYY-MM-DD`
 #'   format. Days will be ignored.
 #' @param date_max Character. End date of file selection, in `YYYY-MM-DD`
@@ -38,6 +40,9 @@
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
+  warning("`download_vpfiles()` will be deprecated in a future version. See `getRad::get_vpts()` instead.",
+          call. = FALSE)
+
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
 

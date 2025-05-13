@@ -1,6 +1,8 @@
 #' List aloft urls for time series of vertical profiles (`vpts`) of radar
 #' stations
 #'
+#' @note 'list_vpts_aloft()' will be deprecated in a future version. See getRad::get_vpts() and getRad::aloft_data_coverage() instead.
+#'
 #' @param date_min Character, the first date to return urls for. In the shape of
 #'   YYYY-MM-DD.
 #' @param date_max Character, the last date to return urls for. In the shape of
@@ -26,6 +28,9 @@ list_vpts_aloft <- function(date_min = NULL,
                             format = "csv", # also hdf5
                             source = "baltrad", # also ecog-04003
                             show_warnings = TRUE) {
+  warning("`list_vpts_aloft()` will be deprecated in a future version. See `getRad::get_vpts()` and `getRad::aloft_data_coverage()` instead.",
+          call. = FALSE)
+
   # Check if aws.s3 is installed
   # NOTE added because aws.s3 is schedueled to be moved to Suggests
 

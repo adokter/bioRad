@@ -38,6 +38,9 @@ A character vector of aloft urls
 List aloft urls for time series of vertical profiles (\code{vpts}) of radar
 stations
 }
+\note{
+'list_vpts_aloft()' will be deprecated in a future version. See getRad::get_vpts() and getRad::aloft_data_coverage() instead.
+}
 \examples{
 \donttest{
 if (requireNamespace("aws.s3", quietly = TRUE)) {
