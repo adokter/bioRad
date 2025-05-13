@@ -1,4 +1,5 @@
 test_that("list_vpts_aloft() returns error for unknown source", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_error(
@@ -14,6 +15,7 @@ test_that("list_vpts_aloft() returns error for unknown source", {
 })
 
 test_that("list_vpts_aloft() returns error for invalid format", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_error(
@@ -29,6 +31,7 @@ test_that("list_vpts_aloft() returns error for invalid format", {
 })
 
 test_that("list_vpts_aloft() returns error if radar doesn't exist", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_error(
@@ -43,6 +46,7 @@ test_that("list_vpts_aloft() returns error if radar doesn't exist", {
 })
 
 test_that("list_vpts_aloft() returns a character vector", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_type(
@@ -56,6 +60,7 @@ test_that("list_vpts_aloft() returns a character vector", {
 })
 
 test_that("list_vpts_aloft() returns no warning when all dates are specified", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_no_warning(
@@ -68,6 +73,7 @@ test_that("list_vpts_aloft() returns no warning when all dates are specified", {
 })
 
 test_that("list_vpts_aloft() works without specifying dates", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   # just date_min
@@ -113,6 +119,7 @@ test_that("list_vpts_aloft() returns all data when no dates are provided", {
 
 
 test_that("list_vpts_aloft() warns if data was found for subset of radars or if not all dates were found", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_warning(
@@ -134,6 +141,7 @@ test_that("list_vpts_aloft() warns if data was found for subset of radars or if 
 })
 
 test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_equal(
@@ -156,6 +164,7 @@ test_that("list_vpts_aloft() warns and returns emtpy vector on no data found",{
 })
 
 test_that("list_vpts_aloft() silences warnings with show_warnings argument", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_no_aws.s3()
   skip_if_offline()
   expect_no_warning(

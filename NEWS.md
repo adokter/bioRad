@@ -1,5 +1,7 @@
 # bioRad 0.9.1.9000
 
+* functions `download_vpts()`, `list_vpts_aloft()` will be deprecated, see `getRad::get_vpts()` instead (#715).
+
 * new argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
 
 # bioRad 0.9.1

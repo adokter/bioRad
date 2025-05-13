@@ -40,8 +40,8 @@
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
-  warning("`download_vpfiles()` will be deprecated in a future version. See `getRad::get_vpts()` instead.",
-          call. = FALSE)
+
+lifecycle::deprecate_warn("2025", "download_vpfiles()", "getRad::get_vpts()")
 
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))

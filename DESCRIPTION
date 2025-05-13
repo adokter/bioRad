@@ -36,6 +36,7 @@ Imports:
     glue,
     graphics,
     jsonlite,
+    lifecycle,
     lubridate,
     lutz,
     methods,
@@ -52,7 +53,8 @@ Imports:
     tidyselect,
     utils,
     viridis,
-    viridisLite
+    viridisLite,
+    withr
 Suggests:
     aws.s3,
     ggspatial,
