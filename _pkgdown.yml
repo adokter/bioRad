@@ -2,8 +2,12 @@ url: http://adriaandokter.com/bioRad/
 template:
   bootstrap: 5
 
+navbar:
+  bg: dark
+
 development:
   mode: auto
+
 home:
   links:
     - text: Browse latest development docs
