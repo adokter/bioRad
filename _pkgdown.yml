@@ -1,137 +1,127 @@
-url: https://adriaandokter.com/bioRad
-
+url: http://adriaandokter.com/bioRad/
 template:
-  params:
-    bootswatch: yeti
-    docsearch:
-      api_key: 482e77c49caf113078e572738762cf40
-      index_name: biorad
+  bootstrap: 5
+
+navbar:
+  bg: dark
 
 development:
   mode: auto
 
-authors:
-  Adriaan M. Dokter:
-    href: "http://adriaandokter.com"
-  Peter Desmet:
-    href: "https://twitter.com/peterdesmet"
-  Stijn Van Hoey:
-    href: "https://twitter.com/SVanHoey"
-
 home:
   links:
-    - text: Browse latest development docs
+    - text: Browse latest development version
       href: "https://adriaandokter.com/bioRad/dev/"
 
 reference:
-  - title: "Reading radar data"
-    desc: "Functions to read polar volume (pvol) data."
-    contents:
-      - download_pvolfiles
-      - is.pvolfile
-      - get_iris_raw_task
-      - get_odim_object_type
-      - nexrad_to_odim
-      - read_pvolfile
-      - write_pvolfile
-      - summary.pvol # is.pvol
-  - title: "Inspecting radar scans"
-    desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
-    contents:
-      - get_elevation_angles
-      - get_scan
-      - summary.scan # is.scan
-      - example_scan
-      - plot.scan
-      - get_param
-      - summary.param # is.param
-  - title: "Manipulating radar scans"
-    desc: "Functions to manipulate radar images (scan, param, ppi) and to identify precipitation."
-    contents:
-      - integrate_to_ppi
-      - calculate_param
-      - apply_mistnet
-      - tidyverse
-      - Math.scan
-  - title: "Plotting radar scans"
-    desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
-    contents:
-      - project_as_ppi
-      - integrate_to_ppi # Repeated
-      - scan_to_raster
-      - scan_to_spatial
-      - summary.ppi # is.ppi
-      - plot.ppi
-      - map
-      - download_basemap
-      - composite_ppi
-      - "`[.ppi`"
-  - title: "Creating vertical profiles of biological targets"
-    desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets."
-    contents:
-      - calculate_vp
-      - nexrad_to_odim # Repeated
-  - title: "Reading vertical profile data"
-    desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
-    contents:
-      - download_vpfiles
-      - select_vpfiles
-      - is.vpfile
-      - read_vpfiles
-      - read_cajun
-      - summary.vp # is.vp
-      - example_vp
-      - plot.vp
-      - as.data.frame.vp
-      - list_vpts_aloft
-  - title: "Manipulating vertical profile data"
-    desc: "Functions to combine vertical profiles (vp) into time series (vpts) and to post-process, read, inspect and plot these."
-    contents:
-      - c.vp
-      - bind_into_vpts
-      - read_vpts
-      - filter_vpts
-      - filter_precip
-      - clean_mixture
-      - summary.vpts # is.vpts
-      - example_vpts
-      - plot.vpts
-      - regularize_vpts
-      - as.data.frame.vp
-      - as.vp
-      - as.vpts
-      - "`[.vpts`"
-      - get_quantity
-  - title: "Integrating vertical profiles"
-    desc: "Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi)."
-    contents:
-      - integrate_profile
-      - plot.vpi
-      - summary.vpi # is.vpi
-  - title: "Accessing vertical profile metadata"
-    desc: "Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi)."
-    contents:
-      - rcs
-      - "`rcs<-`"
-      - sd_vvp_threshold
-      - "`sd_vvp_threshold<-`"
-      - check_night
-      - doy_noy
-      - attribute_table
-  - title: "Radar beam geometry"
-    desc: "Functions relating the radar beam shape to range, distance and height."
-    contents:
-      - beam_height
-      - beam_width
-      - beam_range
-      - beam_distance
-      - beam_profile
-      - beam_profile_overlap
-  - title: "Other functions"
-    desc: "Other useful functions."
-    contents:
-      - dbz_to_eta
-      - eta_to_dbz
-      - nyquist_velocity
-      - sunrise_sunset
-      - convert_legacy
+- title: "Reading radar data"
+  desc: "Functions to read polar volume (pvol) data."
+  contents:
+  - download_pvolfiles
+  - is.pvolfile
+  - get_iris_raw_task
+  - get_odim_object_type
+  - nexrad_to_odim
+  - read_pvolfile
+  - write_pvolfile
+  - summary.pvol # is.pvol
+- title: "Inspecting radar scans"
+  desc: "Functions to inspect and plot a polar scan (scan) from a polar volume (pvol)."
+  contents:
+  - get_elevation_angles
+  - get_scan
+  - summary.scan # is.scan
+  - example_scan
+  - plot.scan
+  - get_param
+  - summary.param # is.param
+- title: "Manipulating radar scans"
+  desc: "Functions to manipulate radar images (scan, param, ppi) and to identify precipitation."
+  contents:
+  - integrate_to_ppi
+  - calculate_param
+  - apply_mistnet
+  - tidyverse
+  - Math.scan
+- title: "Plotting radar scans"
+  desc: "Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi)."
+  contents:
+  - project_as_ppi
+  - integrate_to_ppi # Repeated
+  - scan_to_raster
+  - scan_to_spatial
+  - summary.ppi # is.ppi
+  - plot.ppi
+  - map
+  - download_basemap
+  - composite_ppi
+  - "`[.ppi`"
+- title: "Creating vertical profiles of biological targets"
+  desc: "Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets."
+  contents:
+  - calculate_vp
+  - nexrad_to_odim # Repeated
+- title: "Reading vertical profile data"
+  desc: "Functions to download, read, inspect and plot vertical profile (vp) data."
+  contents:
+  - download_vpfiles
+  - select_vpfiles
+  - is.vpfile
+  - read_vpfiles
+  - read_cajun
+  - summary.vp # is.vp
+  - example_vp
+  - plot.vp
+  - as.data.frame.vp
+  - list_vpts_aloft
+- title: "Manipulating vertical profile data"
+  desc: "Functions to combine vertical profiles (vp) into time series (vpts) and to post-process, read, inspect and plot these."
+  contents:
+  - c.vp
+  - bind_into_vpts
+  - read_vpts
+  - filter_vpts
+  - filter_precip
+  - clean_mixture
+  - summary.vpts # is.vpts
+  - example_vpts
+  - plot.vpts
+  - regularize_vpts
+  - as.data.frame.vp
+  - as.vp
+  - as.vpts
+  - "`[.vpts`"
+  - get_quantity
+- title: "Integrating vertical profiles"
+  desc: "Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi)."
+  contents:
+  - integrate_profile
+  - plot.vpi
+  - summary.vpi # is.vpi
+- title: "Accessing vertical profile metadata"
+  desc: "Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi)."
+  contents:
+  - rcs
+  - "`rcs<-`"
+  - sd_vvp_threshold
+  - "`sd_vvp_threshold<-`"
+  - check_night
+  - doy_noy
+  - attribute_table
+- title: "Radar beam geometry"
+  desc: "Functions relating the radar beam shape to range, distance and height."
+  contents:
+  - beam_height
+  - beam_width
+  - beam_range
+  - beam_distance
+  - beam_profile
+  - beam_profile_overlap
+- title: "Other functions"
+  desc: "Other useful functions."
+  contents:
+  - dbz_to_eta
+  - eta_to_dbz
+  - nyquist_velocity
+  - sunrise_sunset
+  - convert_legacy

@@ -1,25 +1,28 @@
-# bioRad 0.9.1.9000
+# bioRad (development version)
+
+* New argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
+
+* Use default Bootstrap 5 styling for pkgdown website.
 
 * Functions `download_vpfiles()` and `list_vpts_aloft()` have been superseded in favour of `getRad::get_vpts()` (#715).
 
-* new argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
-
 # bioRad 0.9.1
 
-* new argument `cachedir` in `map()` to set the location of the cache used by dependency package `ggspatial` (#708)
+* New argument `cachedir` in `map()` to set the location of the cache used by dependency package `ggspatial` (#708).
 
 # bioRad 0.9.0
-## new features
 
-* new function `as.vp()` to convert data.frame to vertical profile object (#699)
+## New features
 
-* new function `clean_mixture()` for partitioning bird and insect mixtures (#700)
+* New function `as.vp()` to convert data.frame to vertical profile object (#699).
 
-* new function `filter_precip()` for posthoc removal of precipitation in vp and vpts objects (#701)
+* New function `clean_mixture()` for partitioning bird and insect mixtures (#700).
+
+* New function `filter_precip()` for posthoc removal of precipitation in vp and vpts objects (#701).
 
 * New argument `zoomin` for function `bioRad::map()` to increase basemap resolution (#689).
 
-* Added Citation File Format (cff) metadata to package (#680)
+* Added Citation File Format (cff) metadata to package (#680).
 
 ## bugfixes
 
