@@ -35,8 +35,10 @@ stations for which no data was found.}
 A character vector of aloft urls
 }
 \description{
-List aloft urls for time series of vertical profiles (\code{vpts}) of radar
-stations
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function has been superseded by \code{\link[getRad:get_vpts]{getRad::get_vpts()}} and
+\code{\link[getRad:aloft_data_coverage]{getRad::aloft_data_coverage()}}.
 }
 \examples{
 \donttest{
