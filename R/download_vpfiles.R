@@ -1,8 +1,13 @@
 #' Download vertical profile (`vp`) files from the ENRAM data repository
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function has been superseded by [getRad::get_vpts()].
+#'
 #' Download and unzip a selection of vertical profile (`vp`) files from the
-#' [ENRAM data repository](https://aloftdata.eu/), where
-#' these are stored as monthly zips per radar.
+#' [ENRAM data repository](https://aloftdata.eu/), where these are stored as
+#' monthly zips per radar.
 #'
 #' @param date_min Character. Start date of file selection, in `YYYY-MM-DD`
 #'   format. Days will be ignored.
@@ -38,6 +43,8 @@
 #' }
 download_vpfiles <- function(date_min, date_max, radars, directory = ".",
                              overwrite = FALSE) {
+  lifecycle::deprecate_warn("2025", "download_vpfiles()", "getRad::get_vpts()")
+
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
 

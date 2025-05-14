@@ -1,4 +1,5 @@
 test_that("download_vpfiles() returns error on incorrect parameters", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   # Define default for testing
   date_min <- "2016-10-01"
   date_max <- "2016-11-30"
