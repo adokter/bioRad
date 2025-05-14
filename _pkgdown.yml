@@ -1,11 +1,6 @@
-url: https://adriaandokter.com/bioRad
-
+url: http://adriaandokter.com/bioRad/
 template:
-  params:
-    bootswatch: yeti
-    docsearch:
-      api_key: 482e77c49caf113078e572738762cf40
-      index_name: biorad
+  bootstrap: 5
 
 development:
   mode: auto
