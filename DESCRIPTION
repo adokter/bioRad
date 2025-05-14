@@ -53,8 +53,7 @@ Imports:
     tidyselect,
     utils,
     viridis,
-    viridisLite,
-    withr
+    viridisLite
 Suggests:
     aws.s3,
     ggspatial,
@@ -64,7 +63,8 @@ Suggests:
     rosm,
     testthat (>= 3.0.0),
     vdiffr,
-    vol2birdR (>= 1.0.9)
+    vol2birdR (>= 1.0.9),
+    withr
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr
