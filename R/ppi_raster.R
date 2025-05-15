@@ -27,7 +27,7 @@ setClass(
   }
 )
 
-#' Construct a ppiRaster from a bioRad PPI
+#' Construct a ppiRaster from a ppi
 #'
 #' @param ppi A list of class 'ppi' as returned by bioRad::project_as_ppi()
 #' @return An object of class ppiRaster

@@ -26,7 +26,7 @@ ppi_to_ppiRaster(ppi)
 
 \item{param}{Character. Layer name to plot (default first layer)}
 
-\item{zlim}{Numeric\link{2}. Value range (default full data range)}
+\item{zlim}{Numeric\link{2}. Value range (default infra-parameter limits)}
 
 \item{xlim, ylim}{Numeric\link{2}. Spatial extents (default raster extent)}
 
