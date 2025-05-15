@@ -6,7 +6,7 @@
 \title{Convert a vertical profile (\code{vp}) or time series of vertical profiles
 (\code{vpts}) to a data frame}
 \usage{
-\method{as.data.frame}{vp}(
+as.data.frame.vp(
   x,
   row.names = NULL,
   optional = FALSE,
@@ -18,7 +18,7 @@
   ...
 )
 
-\method{as.data.frame}{vpts}(
+as.data.frame.vpts(
   x,
   row.names = NULL,
   optional = FALSE,
