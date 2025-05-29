@@ -1,10 +1,16 @@
 # bioRad (development version)
 
+## New features
+
 * New argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
 
 * Use default Bootstrap 5 styling for pkgdown website.
 
 * Functions `download_vpfiles()` and `list_vpts_aloft()` have been superseded in favour of `getRad::get_vpts()` (#715).
+
+## Bugfixes
+
+* Fix in `project_as_ppi()` for a bug introduced in bioRad 0.8.0 that produced incorrect projections of scans with a nonzero range or azimuth offsets. These offsets are stored as `astart` and `rstart` metadata in ODIM H5 (#721).
 
 # bioRad 0.9.1
 
@@ -24,7 +30,7 @@
 
 * Added Citation File Format (cff) metadata to package (#680).
 
-## bugfixes
+## Bugfixes
 
 * Corrected units specified in plot label for quantity VIR (#674).
 
@@ -48,7 +54,7 @@
 
 # bioRad 0.8.1
 
-## bugfixes
+## Bugfixes
 
 * dbz_all field in VPTS CSV files is now correctly mapped to DBZH field (#661).
 
