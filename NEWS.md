@@ -12,6 +12,8 @@
 
 * Fix in `project_as_ppi()` for a bug introduced in bioRad 0.8.0 that produced incorrect projections of scans with a nonzero range or azimuth offsets. These offsets are stored as `astart` and `rstart` metadata in ODIM H5 (#721).
 
+* Improve verbosity flags (`verbose`, `warnings`) in `calculate_vp()` for compatibility with new vol2birdR release (#718).
+
 # bioRad 0.9.1
 
 * New argument `cachedir` in `map()` to set the location of the cache used by dependency package `ggspatial` (#708).
