@@ -381,7 +381,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   vol2bird_warnings <-
     function(file, config, vpfile, pvolfile_out, verbose, warnings) {
       if (verbose) {
-        vol2birdR::vol2bird(file=file, config=config, vpfile=vpfile, pvolfile_out=pvolfile_out, verbose=warnings)
+        if (warnings){
+          vol2birdR::vol2bird(file=file, config=config, vpfile=vpfile, pvolfile_out=pvolfile_out, verbose=TRUE)
+        }
+        else{
+          suppressMessages(vol2birdR::vol2bird(file=file, config=config, vpfile=vpfile, pvolfile_out=pvolfile_out, verbose=TRUE))
+        }
       }
       else {
         # write out to tempfile to prevent printing to console
@@ -389,7 +394,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
         utils::capture.output(vol2birdR::vol2bird(file=file, config=config, vpfile=vpfile, pvolfile_out=pvolfile_out, verbose=warnings), file = tmpfile)
         unlink(tmpfile)
       }
-
     }
 
   vol2bird_warnings(
