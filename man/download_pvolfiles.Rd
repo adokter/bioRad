@@ -44,6 +44,7 @@ Download a selection of polar volume (\code{pvol}) files from the
 \href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data}.
 }
 \examples{
+\donttest{
 # create temporary directory
 if (requireNamespace("aws.s3", quietly = TRUE)) {
 temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
@@ -57,5 +58,6 @@ download_pvolfiles(
 )
 # Clean up
 unlink(temp_dir, recursive = TRUE)
+}
 }
 }

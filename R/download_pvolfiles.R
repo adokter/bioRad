@@ -22,6 +22,7 @@
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status.
 #' @examples
+#' \donttest{
 #' # create temporary directory
 #' if (requireNamespace("aws.s3", quietly = TRUE)) {
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
@@ -35,6 +36,7 @@
 #' )
 #' # Clean up
 #' unlink(temp_dir, recursive = TRUE)
+#' }
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
@@ -97,6 +99,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         assertthat::assert_that(aws.s3::bucket_exists(bucket = bucket),
           msg = paste0("The bucket ", bucket, "does not exist")
         )
+        stop(paste0("Could not connect to s3 bucket ", bucket, "."))
       }
     )
 
