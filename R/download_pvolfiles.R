@@ -99,6 +99,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         assertthat::assert_that(aws.s3::bucket_exists(bucket = bucket),
           msg = paste0("The bucket ", bucket, "does not exist")
         )
+        stop(paste0("Could not connect to s3 bucket ", bucket, "."))
       }
     )
 
