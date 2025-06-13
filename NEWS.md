@@ -14,6 +14,8 @@
 
 * Improve verbosity flags (`verbose`, `warnings`) in `calculate_vp()` for compatibility with new vol2birdR release (#718).
 
+* Improve error message of `download_pvolfiles()` when remote server is briefly not reachable (#726)
+
 # bioRad 0.9.1
 
 * New argument `cachedir` in `map()` to set the location of the cache used by dependency package `ggspatial` (#708).
