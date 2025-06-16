@@ -24,7 +24,18 @@
 #' @param lat Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
 #'
-#' @return A `ppi` object.
+#' @return A `ppi` object with the following parameters:
+#' * `VIR`: the vertically integrated reflectivity in cm^2/km^2 
+#' * `VID`: the vertically integrated density in 1/km^2
+#' * `R`: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
+#'   Equal to `eta_sum`/`eta_sum_expected`.
+#' * `overlap`: the distribution overlap between the vertical profile `vp` and 
+#'    the vertical radiation profile for the set of radar sweeps in `pvol`,
+#'    as calculated with [beam_profile_overlap].
+#' * `eta_sum`: the sum of observed linear reflectivities over elevation angles.
+#'   See Kranstauber 2020 for details.
+#' * `eta_sum_expected`: the sum of expected linear reflectivities over elevation angles
+#'   based on the input vertical profile `vp`. See Kranstauber 2020 for details.
 #'
 #' @export
 #'
@@ -66,7 +77,7 @@
 #'
 #' Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
 #'
-#'#' @seealso
+#' @seealso
 #' * [summary.ppi()]
 #' * [beam_profile()]
 #' * [beam_range()]

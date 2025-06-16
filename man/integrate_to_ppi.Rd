@@ -80,7 +80,20 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 \item{rp}{Numeric. Earth polar radius, in km.}
 }
 \value{
-A \code{ppi} object.
+A \code{ppi} object with the following parameters:
+\itemize{
+\item \code{VIR}: the vertically integrated reflectivity in cm^2/km^2
+\item \code{VID}: the vertically integrated density in 1/km^2
+\item \code{R}: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
+Equal to \code{eta_sum}/\code{eta_sum_expected}.
+\item \code{overlap}: the distribution overlap between the vertical profile \code{vp} and
+the vertical radiation profile for the set of radar sweeps in \code{pvol},
+as calculated with \link{beam_profile_overlap}.
+\item \code{eta_sum}: the sum of observed linear reflectivities over elevation angles.
+See Kranstauber 2020 for details.
+\item \code{eta_sum_expected}: the sum of expected linear reflectivities over elevation angles
+based on the input vertical profile \code{vp}. See Kranstauber 2020 for details.
+}
 }
 \description{
 Estimates a spatial image of vertically integrated density (\code{vid}) based on
@@ -117,16 +130,6 @@ profile, weighted by the vertical radiation profile.
 \item the observed eta at each pixel \eqn{\eta_{observed}}, which is converted
 form \code{DBZH} using function \link{dbz_to_eta}, with \code{DBZH} the reflectivity
 factor measured at the pixel's distance from the radar.
-\item The vertical radiation profile for each ground surface pixel for that
-particular scan, using \code{\link[=beam_profile]{beam_profile()}}.
-\item The reflectivity expected for each ground surface pixel
-(\eqn{\eta_{expected}}), given the vertical profile (of biological
-scatterers) and the part of the profile radiated by the beam. This
-\eqn{\eta_{expected}} is simply the average of (linear) \code{eta} in the profile,
-weighted by the vertical radiation profile.
-\item The observed \code{eta} at each pixel \eqn{\eta_{observed}},
-which is converted form \code{DBZH} using \code{\link[=dbz_to_eta]{dbz_to_eta()}}, with \code{DBZH} the
-reflectivity factor measured at the pixel's distance from the radar.
 }
 
 If one of \code{lat} or \code{lon} is missing, the extent of the \code{ppi} is taken equal
@@ -144,14 +147,6 @@ factor \code{R}, multiplied by the \code{vir} calculated for the profile.
 }
 
 Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
-
-#' @seealso
-\itemize{
-\item \code{\link[=summary.ppi]{summary.ppi()}}
-\item \code{\link[=beam_profile]{beam_profile()}}
-\item \code{\link[=beam_range]{beam_range()}}
-\item \code{\link[=integrate_profile]{integrate_profile()}}
-}
 }
 \examples{
 \donttest{
@@ -227,5 +222,13 @@ Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.
 \doi{10.1109/TGRS.2009.2014463}
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=summary.ppi]{summary.ppi()}}
+\item \code{\link[=beam_profile]{beam_profile()}}
+\item \code{\link[=beam_range]{beam_range()}}
+\item \code{\link[=integrate_profile]{integrate_profile()}}
 }
 }
