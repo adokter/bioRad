@@ -52,17 +52,6 @@
 #'   form `DBZH` using function [dbz_to_eta], with `DBZH` the reflectivity
 #'   factor measured at the pixel's distance from the radar.
 #'
-#' * The vertical radiation profile for each ground surface pixel for that
-#' particular scan, using [beam_profile()].
-#' * The reflectivity expected for each ground surface pixel
-#' (\eqn{\eta_{expected}}), given the vertical profile (of biological
-#' scatterers) and the part of the profile radiated by the beam. This
-#' \eqn{\eta_{expected}} is simply the average of (linear) `eta` in the profile,
-#' weighted by the vertical radiation profile.
-#' * The observed `eta` at each pixel \eqn{\eta_{observed}},
-#' which is converted form `DBZH` using [dbz_to_eta()], with `DBZH` the
-#' reflectivity factor measured at the pixel's distance from the radar.
-#'
 #' If one of `lat` or `lon` is missing, the extent of the `ppi` is taken equal
 #' to the extent of the data in the first scan of the polar volume.
 #'
