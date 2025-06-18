@@ -1,4 +1,4 @@
-# bioRad (development version)
+# bioRad 0.10.0
 
 ## New features
 

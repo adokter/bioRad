@@ -24,7 +24,18 @@
 #' @param lat Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
 #'
-#' @return A `ppi` object.
+#' @return A `ppi` object with the following parameters:
+#' * `VIR`: the vertically integrated reflectivity in cm^2/km^2 
+#' * `VID`: the vertically integrated density in 1/km^2
+#' * `R`: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
+#'   Equal to `eta_sum`/`eta_sum_expected`.
+#' * `overlap`: the distribution overlap between the vertical profile `vp` and 
+#'    the vertical radiation profile for the set of radar sweeps in `pvol`,
+#'    as calculated with [beam_profile_overlap].
+#' * `eta_sum`: the sum of observed linear reflectivities over elevation angles.
+#'   See Kranstauber 2020 for details.
+#' * `eta_sum_expected`: the sum of expected linear reflectivities over elevation angles
+#'   based on the input vertical profile `vp`. See Kranstauber 2020 for details.
 #'
 #' @export
 #'
@@ -52,17 +63,6 @@
 #'   form `DBZH` using function [dbz_to_eta], with `DBZH` the reflectivity
 #'   factor measured at the pixel's distance from the radar.
 #'
-#' * The vertical radiation profile for each ground surface pixel for that
-#' particular scan, using [beam_profile()].
-#' * The reflectivity expected for each ground surface pixel
-#' (\eqn{\eta_{expected}}), given the vertical profile (of biological
-#' scatterers) and the part of the profile radiated by the beam. This
-#' \eqn{\eta_{expected}} is simply the average of (linear) `eta` in the profile,
-#' weighted by the vertical radiation profile.
-#' * The observed `eta` at each pixel \eqn{\eta_{observed}},
-#' which is converted form `DBZH` using [dbz_to_eta()], with `DBZH` the
-#' reflectivity factor measured at the pixel's distance from the radar.
-#'
 #' If one of `lat` or `lon` is missing, the extent of the `ppi` is taken equal
 #' to the extent of the data in the first scan of the polar volume.
 #'
@@ -77,7 +77,7 @@
 #'
 #' Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
 #'
-#'#' @seealso
+#' @seealso
 #' * [summary.ppi()]
 #' * [beam_profile()]
 #' * [beam_range()]

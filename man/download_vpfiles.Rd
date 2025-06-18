@@ -37,7 +37,7 @@ a 404 error for files that are not available.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
-This function has been superseded by \code{\link[getRad:get_vpts]{getRad::get_vpts()}}.
+This function has been superseded by \code{getRad::get_vpts()}.
 
 Download and unzip a selection of vertical profile (\code{vp}) files from the
 \href{https://aloftdata.eu/}{ENRAM data repository}, where these are stored as
