@@ -21,7 +21,7 @@ Kranstauber et al. (2020)."><meta property="og:image" content="http://adriaandok
 
     <a class="navbar-brand me-2" href="../index.html">bioRad</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -185,8 +185,18 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></d
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>ppi</code> object.</p>
-    </div>
+    <p>A <code>ppi</code> object with the following parameters:</p><ul><li><p><code>VIR</code>: the vertically integrated reflectivity in cm^2/km^2</p></li>
+<li><p><code>VID</code>: the vertically integrated density in 1/km^2</p></li>
+<li><p><code>R</code>: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
+Equal to <code>eta_sum</code>/<code>eta_sum_expected</code>.</p></li>
+<li><p><code>overlap</code>: the distribution overlap between the vertical profile <code>vp</code> and
+the vertical radiation profile for the set of radar sweeps in <code>pvol</code>,
+as calculated with <a href="beam_profile_overlap.html">beam_profile_overlap</a>.</p></li>
+<li><p><code>eta_sum</code>: the sum of observed linear reflectivities over elevation angles.
+See Kranstauber 2020 for details.</p></li>
+<li><p><code>eta_sum_expected</code>: the sum of expected linear reflectivities over elevation angles
+based on the input vertical profile <code>vp</code>. See Kranstauber 2020 for details.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function requires:</p><ul><li><p>A polar volume, containing one or multiple scans (<code>pvol</code>).</p></li>
@@ -206,16 +216,6 @@ profile, weighted by the vertical radiation profile.</p></li>
 <li><p>the observed eta at each pixel \(\eta_{observed}\), which is converted
 form <code>DBZH</code> using function <a href="dbz_to_eta.html">dbz_to_eta</a>, with <code>DBZH</code> the reflectivity
 factor measured at the pixel's distance from the radar.</p></li>
-<li><p>The vertical radiation profile for each ground surface pixel for that
-particular scan, using <code><a href="beam_profile.html">beam_profile()</a></code>.</p></li>
-<li><p>The reflectivity expected for each ground surface pixel
-(\(\eta_{expected}\)), given the vertical profile (of biological
-scatterers) and the part of the profile radiated by the beam. This
-\(\eta_{expected}\) is simply the average of (linear) <code>eta</code> in the profile,
-weighted by the vertical radiation profile.</p></li>
-<li><p>The observed <code>eta</code> at each pixel \(\eta_{observed}\),
-which is converted form <code>DBZH</code> using <code><a href="dbz_to_eta.html">dbz_to_eta()</a></code>, with <code>DBZH</code> the
-reflectivity factor measured at the pixel's distance from the radar.</p></li>
 </ul><p>If one of <code>lat</code> or <code>lon</code> is missing, the extent of the <code>ppi</code> is taken equal
 to the extent of the data in the first scan of the polar volume.</p>
 <p>To arrive at the final PPI image, the function calculates</p><ul><li><p>the vertically integrated density (<code>vid</code>) and vertically integrated
@@ -226,11 +226,7 @@ factor image (<code>R</code>), multiplied by the <code>vid</code> calculated for
 <li><p>the spatial range-corrected PPI for <code>VIR</code>, defined as the adjustment
 factor <code>R</code>, multiplied by the <code>vir</code> calculated for the profile.</p></li>
 </ul><p>Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.</p>
-<p>#' @seealso</p><ul><li><p><code><a href="summary.ppi.html">summary.ppi()</a></code></p></li>
-<li><p><code><a href="beam_profile.html">beam_profile()</a></code></p></li>
-<li><p><code><a href="beam_range.html">beam_range()</a></code></p></li>
-<li><p><code><a href="integrate_profile.html">integrate_profile()</a></code></p></li>
-</ul></div>
+    </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
 
@@ -251,6 +247,15 @@ stopover using weather surveillance radar. IEEE Transactions on Geoscience
 and Remote Sensing 47: 2741-2751.
 <a href="https://doi.org/10.1109/TGRS.2009.2014463" class="external-link">doi:10.1109/TGRS.2009.2014463</a></p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index">
+<ul><li><p><code><a href="summary.ppi.html">summary.ppi()</a></code></p></li>
+<li><p><code><a href="beam_profile.html">beam_profile()</a></code></p></li>
+<li><p><code><a href="beam_range.html">beam_range()</a></code></p></li>
+<li><p><code><a href="integrate_profile.html">integrate_profile()</a></code></p></li>
+</ul></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bioRad</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,15 +38,18 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="biorad-development-version">bioRad (development version)<a class="anchor" aria-label="anchor" href="#biorad-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.0.9000" id="biorad-01009000-development-version">bioRad 0.10.0.9000 (development version)<a class="anchor" aria-label="anchor" href="#biorad-01009000-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.0" id="biorad-0100">bioRad 0.10.0<a class="anchor" aria-label="anchor" href="#biorad-0100"></a></h2><p class="text-muted">CRAN release: 2025-06-16</p>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-10-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-10-0"></a></h3>
 <ul><li><p>New argument <code>directory_tree</code> in function <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> for ommitting local directory tree (<a href="https://github.com/adokter/bioRad/issues/710" class="external-link">#710</a>).</p></li>
 <li><p>Use default Bootstrap 5 styling for pkgdown website.</p></li>
 <li><p>Functions <code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/list_vpts_aloft.html">list_vpts_aloft()</a></code> have been superseded in favour of <code>getRad::get_vpts()</code> (<a href="https://github.com/adokter/bioRad/issues/715" class="external-link">#715</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bugfixes-development-version">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-development-version"></a></h3>
+<h3 id="bugfixes-0-10-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-10-0"></a></h3>
 <ul><li><p>Fix in <code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> for a bug introduced in bioRad 0.8.0 that produced incorrect projections of scans with a nonzero range or azimuth offsets. These offsets are stored as <code>astart</code> and <code>rstart</code> metadata in ODIM H5 (<a href="https://github.com/adokter/bioRad/issues/721" class="external-link">#721</a>).</p></li>
 <li><p>Improve verbosity flags (<code>verbose</code>, <code>warnings</code>) in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> for compatibility with new vol2birdR release (<a href="https://github.com/adokter/bioRad/issues/718" class="external-link">#718</a>).</p></li>
 <li><p>Improve error message of <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> when remote server is briefly not reachable (<a href="https://github.com/adokter/bioRad/issues/726" class="external-link">#726</a>)</p></li>
