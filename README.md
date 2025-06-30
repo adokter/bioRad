@@ -63,7 +63,7 @@ packages of bioRad:
 |:---|:---|
 | **OS X (using Homebrew)** | `brew install hdf5 proj gsl` |
 | **Debian-based systems (including Ubuntu)** | `sudo apt-get install libhdf5-dev libproj-dev gsl-bin libgsl-dev libcurl4-openssl-dev libssl-dev libgdal-dev` |
-| **Systems supporting yum and RPMs** | `sudo yum install hdf5-devel proj-devel gsl gsl-devel libcurl4-openssl-dev libssl-dev libgdal-dev` |
+| **Systems supporting yum and RPMs** | `sudo yum install hdf5-devel proj-devel gsl gsl-devel libcurl-devel openssl-devel gdal gdal-devel` |
 
 <br>
 
