@@ -93,7 +93,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
     # Get bucket matching the request
     tryCatch(
       {
-        bucket_df <- aws.s3::get_bucket_df(bucket = bucket, prefix = prefix)
+        bucket_df <- s3_get_bucket_df(bucket = bucket, prefix = prefix)
       },
       error = function(cond) {
         assertthat::assert_that(aws.s3::bucket_exists(bucket = bucket),
@@ -108,7 +108,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
       # Check if date is correct
       prefix_tmp <- paste(gsub("-", "/", dates[i_d]), sep = "/")
       msg <- assertthat::validate_that(assertthat::not_empty(
-        aws.s3::get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1)
+        s3_get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1)
       ),
       msg = paste0(
         "No data availble on the ", dates[i_d],
@@ -120,7 +120,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         next
       }
       msg <- assertthat::validate_that(assertthat::not_empty(
-        aws.s3::get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
+        s3_get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
       ),
       msg = paste0(
         "No data available for ", radar, " on the ", dates[i_d],
