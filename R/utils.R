@@ -271,3 +271,124 @@ guess_file_type <- function(file_path, n_lines = 5) {
     return("txt")
   }
 }
+
+#' @keywords internal
+#' @noRd
+.s3_base <- function(bucket) sprintf("https://%s.s3.amazonaws.com", bucket)
+
+#' @keywords internal
+#' @noRd
+.s3_strip_endpoint <- function(bucket) sub("^s3://", "", bucket %||% "")
+
+#' @keywords internal
+#' @noRd
+.s3_endpoint <- function(bucket, region = NULL) {
+  bucket <- .s3_strip_endpoint(bucket)
+  if (is.null(region) || !nzchar(region)) sprintf("https://%s.s3.amazonaws.com", bucket)
+  else sprintf("https://%s.s3.%s.amazonaws.com", bucket, region)
+}
+
+#' @keywords internal
+#' @noRd
+s3_bucket_exists <- function(bucket) {
+  httr2::request(.s3_endpoint(bucket)) |>
+    httr2::req_url_query(location = "") |>
+    httr2::req_error(is_error = function(resp) FALSE) |>
+    httr2::req_perform() |>
+    httr2::resp_status() |>
+    {\(s) s >= 200 && s < 400}()
+}
+
+# aws.s3::get_bucket_df() replacement
+# Returns data.frame(Key, LastModified, Size, ETag, StorageClass)
+#' @keywords internal
+#' @noRd
+s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
+                             max = NULL, max_keys = 1000) {
+
+  if (!is.null(max)) max_keys <- max
+  if (!is.finite(max_keys) || max_keys > 1000) max_keys <- 1000
+  if (max_keys < 1) max_keys <- 1
+
+  token <- NULL
+  out <- list()
+
+  repeat {
+    req <- httr2::request(.s3_endpoint(bucket)) |>
+      httr2::req_url_query(`list-type` = 2, prefix = prefix, `max-keys` = max_keys)
+    if (!is.null(delimiter)) req <- req |> httr2::req_url_query(delimiter = delimiter)
+    if (!is.null(token))     req <- req |> httr2::req_url_query(`continuation-token` = token)
+
+    resp <- req |>
+      httr2::req_retry(max_tries = 5) |>
+      httr2::req_error(is_error = function(resp) FALSE) |>
+      httr2::req_perform()
+
+    status <- httr2::resp_status(resp)
+    if (status < 200 || status >= 300) {
+      stop(sprintf("S3 list error: HTTP %s\n%s",
+                   status, substr(httr2::resp_body_string(resp), 1, 500)))
+    }
+
+    x <- xml2::read_xml(httr2::resp_body_string(resp))
+
+    # namespace-agnostic selection avoids "Undefined namespace prefix"
+    nodes <- xml2::xml_find_all(x, ".//*[local-name()='Contents']")
+    if (length(nodes)) {
+      out[[length(out) + 1]] <- data.frame(
+        Key          = xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='Key']")),
+        LastModified = as.POSIXct(
+          xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='LastModified']")),
+          tz = "UTC"
+        ),
+        Size         = as.numeric(
+          xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='Size']"))
+        ),
+        ETag         = xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='ETag']")),
+        StorageClass = xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='StorageClass']")),
+        check.names = FALSE
+      )
+    }
+
+    is_truncated <- identical(
+      tolower(xml2::xml_text(xml2::xml_find_first(x, ".//*[local-name()='IsTruncated']"))),
+      "true"
+    )
+    if (!is_truncated) break
+
+    token <- xml2::xml_text(xml2::xml_find_first(x, ".//*[local-name()='NextContinuationToken']"))
+    if (!nzchar(token)) break
+  }
+
+  if (length(out)) do.call(rbind, out) else
+    data.frame(Key=character(), LastModified=as.POSIXct(character()),
+               Size=double(), ETag=character(), StorageClass=character(),
+               check.names = FALSE)
+}
+
+# aws.s3::save_object() replacement
+#' @keywords internal
+#' @noRd
+s3_save_object <- function(object, bucket, file, overwrite = FALSE) {
+  if (missing(object)) stop("Missing 'object' (key)")
+  if (missing(bucket)) stop("Missing 'bucket'")
+  if (missing(file))   stop("Missing 'file' path")
+
+  if (file.exists(file) && !overwrite) return(invisible(file))
+
+  url <- paste0(.s3_endpoint(bucket), "/", utils::URLencode(object, reserved = TRUE))
+  resp <- httr2::request(url) |>
+    httr2::req_retry(max_tries = 5) |>
+    httr2::req_error(is_error = function(resp) FALSE) |>
+    httr2::req_perform()
+
+  status <- httr2::resp_status(resp)
+  if (status < 200 || status >= 300) {
+    stop(sprintf("S3 GET error %s for %s\n%s",
+                 status, object, substr(httr2::resp_body_string(resp), 1, 400)))
+  }
+
+  dir.create(dirname(file), recursive = TRUE, showWarnings = FALSE)
+  writeBin(httr2::resp_body_raw(resp), file)
+  invisible(file)
+}
