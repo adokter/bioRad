@@ -298,6 +298,22 @@ s3_bucket_exists <- function(bucket) {
     httr2::resp_status() |>
     {\(s) s >= 200 && s < 400}()
 }
+  
+#' @keywords internal
+#' @noRd
+s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10) {
+  resp <- httr2::request(.s3_endpoint(bucket, region)) |>
+    httr2::req_url_query(`list-type` = 2, prefix = prefix, `max-keys` = 1) |>
+    httr2::req_timeout(timeout_s) |>
+    httr2::req_error(is_error = function(resp) FALSE) |>
+    httr2::req_perform()
+
+  status <- httr2::resp_status(resp)
+  if (status < 200L || status >= 300L) return(FALSE)
+
+  x <- xml2::read_xml(httr2::resp_body_string(resp))
+  length(xml2::xml_find_all(x, ".//*[local-name()='Contents']/*[local-name()='Key']")) > 0
+}
 
 # aws.s3::get_bucket_df() replacement
 # Returns data.frame(Key, LastModified, Size, ETag, StorageClass)
