@@ -11,8 +11,7 @@
 #' @param radar character (vector). 4-letter radar code(s) (e.g. "KAMA")
 #' @param directory character. Path to local directory where files should be
 #'   downloaded
-#' @param overwrite logical. TRUE for re-downloading and overwriting previously
-#'   downloaded files of the same names.
+#' @param region character. AWS region used for S3 requests
 #' @param bucket character. Bucket name to use.
 #' @param directory_tree logical. Whether to create the yyyy/mm/dd/radar
 #' directory structure. TRUE by default.

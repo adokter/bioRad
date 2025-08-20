@@ -8,7 +8,6 @@
 
 * Package utils updated with helper funcitons replacing `aws.s3` functions
 
-
 # bioRad 0.10.0
 
 ## New features

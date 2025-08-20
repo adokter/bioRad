@@ -27,13 +27,12 @@ provided, it will be assumed to be UTC.}
 \item{directory}{character. Path to local directory where files should be
 downloaded}
 
-\item{overwrite}{logical. TRUE for re-downloading and overwriting previously
-downloaded files of the same names.}
-
 \item{bucket}{character. Bucket name to use.}
 
 \item{directory_tree}{logical. Whether to create the yyyy/mm/dd/radar
 directory structure. TRUE by default.}
+
+\item{region}{character. AWS region used for S3 requests}
 }
 \value{
 \code{NULL}. The function's primary effect is to download selected polar volume
