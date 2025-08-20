@@ -11,7 +11,8 @@ download_pvolfiles(
   directory = ".",
   overwrite = FALSE,
   bucket = "noaa-nexrad-level2",
-  directory_tree = TRUE
+  directory_tree = TRUE,
+  region = "us-east-1"
 )
 }
 \arguments{
