@@ -27,6 +27,8 @@ provided, it will be assumed to be UTC.}
 \item{directory}{character. Path to local directory where files should be
 downloaded}
 
+\item{overwrite}{logical. TRUE to re-download and overwrite existing files}
+
 \item{bucket}{character. Bucket name to use.}
 
 \item{directory_tree}{logical. Whether to create the yyyy/mm/dd/radar
@@ -46,7 +48,6 @@ Download a selection of polar volume (\code{pvol}) files from the
 \examples{
 \donttest{
 # create temporary directory
-if (requireNamespace("aws.s3", quietly = TRUE)) {
 temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 dir.create(temp_dir)
 download_pvolfiles(
@@ -58,6 +59,5 @@ download_pvolfiles(
 )
 # Clean up
 unlink(temp_dir, recursive = TRUE)
-}
 }
 }

@@ -42,7 +42,6 @@ This function has been superseded by \code{getRad::get_vpts()} and
 }
 \examples{
 \donttest{
-if (requireNamespace("aws.s3", quietly = TRUE)) {
 list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
-}}
+}
 }

@@ -11,6 +11,7 @@
 #' @param radar character (vector). 4-letter radar code(s) (e.g. "KAMA")
 #' @param directory character. Path to local directory where files should be
 #'   downloaded
+#' @param overwrite logical. TRUE to re-download and overwrite existing files
 #' @param region character. AWS region used for S3 requests
 #' @param bucket character. Bucket name to use.
 #' @param directory_tree logical. Whether to create the yyyy/mm/dd/radar
@@ -23,7 +24,6 @@
 #' @examples
 #' \donttest{
 #' # create temporary directory
-#' if (requireNamespace("aws.s3", quietly = TRUE)) {
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 #' dir.create(temp_dir)
 #' download_pvolfiles(
@@ -36,11 +36,9 @@
 #' # Clean up
 #' unlink(temp_dir, recursive = TRUE)
 #' }
-#' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
                                bucket = "noaa-nexrad-level2", directory_tree = TRUE, region = "us-east-1") {
-  rlang::check_installed('aws.s3','to download pvolfiles.')
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
 
@@ -95,7 +93,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         bucket_df <- s3_get_bucket_df(bucket = bucket, prefix = prefix, region = region)
       },
       error = function(cond) {
-        assertthat::assert_that(aws.s3::bucket_exists(bucket = bucket),
+        assertthat::assert_that(s3_bucket_exists(bucket = bucket),
           msg = paste0("The bucket ", bucket, "does not exist")
         )
         stop(paste0("Could not connect to s3 bucket ", bucket, "."))

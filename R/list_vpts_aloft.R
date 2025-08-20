@@ -23,9 +23,8 @@
 #'
 #' @examples
 #' \donttest{
-#' if (requireNamespace("aws.s3", quietly = TRUE)) {
 #' list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
-#' }}
+#' }
 list_vpts_aloft <- function(date_min = NULL,
                             date_max = NULL,
                             radars = NULL,
@@ -34,12 +33,6 @@ list_vpts_aloft <- function(date_min = NULL,
                             show_warnings = TRUE) {
   lifecycle::deprecate_warn("2025", "list_vpts_aloft()", "getRad::get_vpts()")
 
-  # Check if aws.s3 is installed
-  # NOTE added because aws.s3 is schedueled to be moved to Suggests
-
-  rlang::check_installed("aws.s3",
-    reason = "to connect to the aloft bucket on Amazon Web Services"
-  )
 
   # check arguments against vocabulary --------------------------------------
   # Check source
