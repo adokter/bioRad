@@ -191,11 +191,10 @@ download_pvolfiles <- function(date_min, date_max, radar,
         local_file = paste(directory, basename(bucket_df$Key[row]), sep = "/")
       }
       # Save file
-      aws.s3::save_object(
+      s3_save_object(
         object = bucket_df$Key[row],
         bucket = bucket,
-        file = local_file,
-        overwite = overwrite
+        file = local_file
       )
       utils::setTxtProgressBar(pb, row)
     }

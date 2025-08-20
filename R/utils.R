@@ -298,7 +298,7 @@ s3_bucket_exists <- function(bucket) {
     httr2::resp_status() |>
     {\(s) s >= 200 && s < 400}()
 }
-  
+
 #' @keywords internal
 #' @noRd
 s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10) {
@@ -385,14 +385,15 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 # aws.s3::save_object() replacement
 #' @keywords internal
 #' @noRd
-s3_save_object <- function(object, bucket, file, overwrite = FALSE) {
+s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL) {
   if (missing(object)) stop("Missing 'object' (key)")
   if (missing(bucket)) stop("Missing 'bucket'")
   if (missing(file))   stop("Missing 'file' path")
 
   if (file.exists(file) && !overwrite) return(invisible(file))
 
-  url <- paste0(.s3_endpoint(bucket), "/", utils::URLencode(object, reserved = TRUE))
+  url <- paste0(.s3_endpoint(bucket, region), "/", utils::URLencode(object, reserved = TRUE))
+
   resp <- httr2::request(url) |>
     httr2::req_retry(max_tries = 5) |>
     httr2::req_error(is_error = function(resp) FALSE) |>

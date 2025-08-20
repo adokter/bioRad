@@ -1,4 +1,13 @@
-# bioRad 0.10.0.9000 (development version)
+# bioRad 0.10.1.9000 (development version)
+
+# bioRad 0.10.1
+
+## Bugfixes
+
+* Functions depending on `aws.s3` package modified 
+
+* Package utils updated with helper funcitons replacing `aws.s3` functions
+
 
 # bioRad 0.10.0
 
