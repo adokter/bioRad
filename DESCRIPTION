@@ -57,7 +57,6 @@ Imports:
     viridisLite,
     xml2
 Suggests:
-    aws.s3,
     ggspatial,
     knitr,
     prettymapr,
