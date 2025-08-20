@@ -3,7 +3,7 @@
 #' @description
 #' `r lifecycle::badge("superseded")`
 #'
-#' This function has been superseded by `getRad::get_vpts()`.
+#' This function has been superseded by [getRad::get_vpts()].
 #'
 #' Download and unzip a selection of vertical profile (`vp`) files from the
 #' [ENRAM data repository](https://aloftdata.eu/), where these are stored as
