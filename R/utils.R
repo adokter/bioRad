@@ -304,7 +304,7 @@ s3_bucket_exists <- function(bucket) {
 #' @keywords internal
 #' @noRd
 s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
-                             max = NULL, max_keys = 1000) {
+                             max = NULL, max_keys = 1000, region = NULL) {
 
   if (!is.null(max)) max_keys <- max
   if (!is.finite(max_keys) || max_keys > 1000) max_keys <- 1000
@@ -314,7 +314,7 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
   out <- list()
 
   repeat {
-    req <- httr2::request(.s3_endpoint(bucket)) |>
+    req <- httr2::request(.s3_endpoint(bucket, region)) |>
       httr2::req_url_query(`list-type` = 2, prefix = prefix, `max-keys` = max_keys)
     if (!is.null(delimiter)) req <- req |> httr2::req_url_query(delimiter = delimiter)
     if (!is.null(token))     req <- req |> httr2::req_url_query(`continuation-token` = token)
