@@ -133,18 +133,6 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "aws.s3",
-      "name": "aws.s3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=aws.s3"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "ggspatial",
       "name": "ggspatial",
       "provider": {
@@ -572,7 +560,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "9973.707KB",
+  "fileSize": "9972.308KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
