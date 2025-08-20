@@ -35,6 +35,7 @@ Imports:
     ggplot2,
     glue,
     graphics,
+    httr2,
     jsonlite,
     lifecycle,
     lubridate,
@@ -53,7 +54,8 @@ Imports:
     tidyselect,
     utils,
     viridis,
-    viridisLite
+    viridisLite,
+    xml2
 Suggests:
     aws.s3,
     ggspatial,
