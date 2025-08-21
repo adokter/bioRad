@@ -19,9 +19,8 @@ package.
 an introduction to bioRad's main functionalities.
 \item \href{https://adriaandokter.com/bioRad/reference/index.html}{Function reference}
 : an overview of all bioRad functions.
+\item See also the \link[getRad]{getRad-package} for accessing and downloading radar data.
 }
-
-See also package \link[getRad:getRad-package]{getRad::getRad-package} for accessing and downloading radar data.
 }
 \seealso{
 Useful links:

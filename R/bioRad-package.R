@@ -7,8 +7,7 @@
 #' an introduction to bioRad's main functionalities.
 #' * [Function reference](https://adriaandokter.com/bioRad/reference/index.html)
 #' : an overview of all bioRad functions.
-#'
-#' See also package [getRad::getRad-package] for accessing and downloading radar data.
+#' * See also the \link[getRad]{getRad-package} for accessing and downloading radar data.
 #' @keywords internal
 #' @importFrom dplyr %>% .data
 "_PACKAGE"
