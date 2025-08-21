@@ -22,13 +22,9 @@ an introduction to bioRad's main functionalities.
 }
 }
 \seealso{
-Useful links:
 \itemize{
-  \item \url{https://github.com/adokter/bioRad/}
-  \item \url{https://adriaandokter.com/bioRad/}
-  \item Report bugs at \url{https://github.com/adokter/bioRad/issues}
+\item package \link[getRad:getRad-package]{getRad::getRad-package} for accessing radar data
 }
-
 }
 \author{
 \strong{Maintainer}: Adriaan M. Dokter \email{biorad@cornell.edu} (\href{https://orcid.org/0000-0001-6573-066X}{ORCID})

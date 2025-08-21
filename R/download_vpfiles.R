@@ -29,6 +29,7 @@
 #' * [read_vpts()]
 #' * [select_vpfiles()]
 #' * [read_vpfiles()]
+#' * [getRad::get_vpts()]
 #'
 #' @examples
 #' \donttest{

@@ -10,7 +10,8 @@
 #'
 #' @keywords internal
 #' @importFrom dplyr %>% .data
-#'
+#' @seealso
+#' * package [getRad::getRad-package] for accessing radar data
 "_PACKAGE"
 
 ## usethis namespace: start

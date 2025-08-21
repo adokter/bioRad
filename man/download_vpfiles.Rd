@@ -60,5 +60,6 @@ download_vpfiles(
 \item \code{\link[=read_vpts]{read_vpts()}}
 \item \code{\link[=select_vpfiles]{select_vpfiles()}}
 \item \code{\link[=read_vpfiles]{read_vpfiles()}}
+\item \code{\link[getRad:get_vpts]{getRad::get_vpts()}}
 }
 }

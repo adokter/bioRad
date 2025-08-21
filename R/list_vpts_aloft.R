@@ -5,7 +5,7 @@
 #' `r lifecycle::badge("superseded")`
 #'
 #' This function has been superseded by [getRad::get_vpts()] and
-#' [getRad::aloft_data_coverage()].
+#' [getRad::get_vpts_coverage()].
 #'
 #' @param date_min Character, the first date to return urls for. In the shape of
 #'   YYYY-MM-DD.
