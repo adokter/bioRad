@@ -259,6 +259,13 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 }
 
+# ---- HTTP status -------------------------------------------------------
+#   2xx = success
+#   3xx = redirect. For bucket existence via the global endpoint 3xx is accepted
+#         (S3 may 301 to the regional endpoint), but for LIST/GET 2xx is required
+#         because 3xx usually signals a wrong endpoint/region.
+#   4xx/5xx = failure (after httr2 retry logic).
+
 #' @description Removes s3:// prefix from bucket string
 #' @param bucket Character. Bucket name or URL-like string (e.g., "s3://my-bucket")
 #' @return Character string (bucket name)
@@ -322,7 +329,7 @@ s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_
 #'   (note: this returns only object `Contents`, not `CommonPrefixes`).
 #' @param max Integer or Inf. **Total** cap on objects returned across pages. Use `Inf` for no cap.
 #' @param max_keys Integer. **Per-request page size** passed to S3 as `max-keys`
-#'   (range 1–1000; S3 defaults to 1000 if omitted). Controls objects per page, not total.
+#'   (range 1–1000; S3 defaults to 1000 if omitted). Controls objects per page, not total objects returned.
 #' @param region Character or NULL. AWS region for the bucket endpoint.
 #' @param max_tries Integer. Max retries for the HTTP request (default 5).
 #' @return Data frame with columns: `Key`, `LastModified` (POSIXct UTC), `Size`, `ETag`, `StorageClass`.
