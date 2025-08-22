@@ -298,51 +298,67 @@ s3_bucket_exists <- function(bucket) {
 
 
 #' @description Checks if prefix exists in bucket by verifying ListObjectsV2 request is successfully answered (2xx)
+#' @param max_tries Integer. Max retries for the HTTP request (default 5).
 #' @return logical (TRUE/FALSE)
 #' @keywords internal
 #' @noRd
-s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10) {
+s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_tries = 5) {
   resp <- httr2::request(.s3_endpoint(bucket, region)) |>
     httr2::req_url_query(`list-type` = 2, prefix = prefix, `max-keys` = 1) |>
     httr2::req_timeout(timeout_s) |>
+    httr2::req_retry(max_tries = max_tries) |>
     httr2::req_error(is_error = function(resp) FALSE) |>
     httr2::req_perform()
-
   status <- httr2::resp_status(resp)
-  if (status < 200L || status >= 300L) return(FALSE) #request to list objects in the bucket succeeded
-
+  if (status < 200L || status >= 300L) return(FALSE)
   x <- xml2::read_xml(httr2::resp_body_string(resp))
   length(xml2::xml_find_all(x, ".//*[local-name()='Contents']/*[local-name()='Key']")) > 0
 }
 
-#' @description List bucket contents. Requires a successful S3 ListObjectsV2 response. Replaces aws.s3::get_bucket_df()
-#' @param bucket Character. Bucket name (may include "s3://")
-#' @param prefix Character. Key prefix to filter (default: "")
+#' @description List bucket contents via ListObjectsV2 (handles pagination).
+#' @param bucket Character. Bucket name (may include "s3://").
+#' @param prefix Character. Key prefix to filter (default: "").
 #' @param delimiter Character or NULL. If set (e.g., "/"), groups keys by common prefixes
-#' @param max Integer or NULL. Convenience cap on total keys returned; if set, overrides `max_keys`
-#' @param max_keys Integer. Max keys per request (1–1000). Default 1000.
+#'   (note: this returns only object `Contents`, not `CommonPrefixes`).
+#' @param max Integer or Inf. **Total** cap on objects returned across pages. Use `Inf` for no cap.
+#' @param max_keys Integer. **Per-request page size** passed to S3 as `max-keys`
+#'   (range 1–1000; S3 defaults to 1000 if omitted). Controls objects per page, not total.
 #' @param region Character or NULL. AWS region for the bucket endpoint.
-#' @return Data frame with columns: Key, LastModified, Size, ETag, StorageClass
+#' @param max_tries Integer. Max retries for the HTTP request (default 5).
+#' @return Data frame with columns: `Key`, `LastModified` (POSIXct UTC), `Size`, `ETag`, `StorageClass`.
 #' @keywords internal
 #' @noRd
 s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
-                             max = NULL, max_keys = 1000, region = NULL) {
+                             max = Inf, max_keys = 1000, region = NULL,
+                             max_tries = 5) {
 
-  if (!is.null(max)) max_keys <- max
-  if (!is.finite(max_keys) || max_keys > 1000) max_keys <- 1000
-  if (max_keys < 1) max_keys <- 1
+  # Clamp per-page size to S3's 1..1000 rule
+  max_keys <- as.integer(max_keys)
+  if (!is.finite(max_keys) || max_keys > 1000L) max_keys <- 1000L
+  if (max_keys < 1L) max_keys <- 1L
+
+  # Total cap across pages
+  remaining <- if (is.finite(max)) as.integer(max) else Inf
+  if (is.finite(remaining) && remaining < 1L) {
+    return(data.frame(Key=character(), LastModified=as.POSIXct(character()),
+                      Size=double(), ETag=character(), StorageClass=character(),
+                      check.names = FALSE))
+  }
 
   token <- NULL
   out <- list()
 
   repeat {
+    # Don’t over-fetch on the final page when a total cap is set
+    this_page <- if (is.finite(remaining)) min(max_keys, remaining) else max_keys
+
     req <- httr2::request(.s3_endpoint(bucket, region)) |>
-      httr2::req_url_query(`list-type` = 2, prefix = prefix, `max-keys` = max_keys)
+      httr2::req_url_query(`list-type` = 2, prefix = prefix, `max-keys` = this_page)
     if (!is.null(delimiter)) req <- req |> httr2::req_url_query(delimiter = delimiter)
     if (!is.null(token))     req <- req |> httr2::req_url_query(`continuation-token` = token)
 
     resp <- req |>
-      httr2::req_retry(max_tries = 5) |>
+      httr2::req_retry(max_tries = max_tries) |>
       httr2::req_error(is_error = function(resp) FALSE) |>
       httr2::req_perform()
 
@@ -353,11 +369,9 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
     }
 
     x <- xml2::read_xml(httr2::resp_body_string(resp))
-
-    # namespace-agnostic selection avoids "Undefined namespace prefix"
     nodes <- xml2::xml_find_all(x, ".//*[local-name()='Contents']")
     if (length(nodes)) {
-      out[[length(out) + 1]] <- data.frame(
+      page_df <- data.frame(
         Key          = xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='Key']")),
         LastModified = as.POSIXct(
           xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='LastModified']")),
@@ -370,6 +384,11 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
         StorageClass = xml2::xml_text(xml2::xml_find_all(nodes, "*[local-name()='StorageClass']")),
         check.names = FALSE
       )
+      out[[length(out) + 1L]] <- page_df
+      if (is.finite(remaining)) {
+        remaining <- remaining - nrow(page_df)
+        if (remaining <= 0L) break
+      }
     }
 
     is_truncated <- identical(
@@ -382,37 +401,35 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
     if (!nzchar(token)) break
   }
 
-  if (length(out)) do.call(rbind, out) else
+  if (length(out)) {
+    res <- do.call(rbind, out)
+    if (is.finite(max) && nrow(res) > max) res <- res[seq_len(max), , drop = FALSE]
+    res
+  } else {
     data.frame(Key=character(), LastModified=as.POSIXct(character()),
                Size=double(), ETag=character(), StorageClass=character(),
                check.names = FALSE)
+  }
 }
 
 
 #' @description download S3 object to file. # aws.s3::save_object() replacement
+#' @param max_tries Integer. Max retries for the HTTP request (default 5).
 #' @return character string (file path, invisibly)
 #' @keywords internal
 #' @noRd
-s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL) {
-  if (missing(object)) stop("Missing 'object' (key)")
-  if (missing(bucket)) stop("Missing 'bucket'")
-  if (missing(file))   stop("Missing 'file' path")
-
+s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL, max_tries = 5) {
   if (file.exists(file) && !overwrite) return(invisible(file))
-
   url <- paste0(.s3_endpoint(bucket, region), "/", utils::URLencode(object, reserved = TRUE))
-
   resp <- httr2::request(url) |>
-    httr2::req_retry(max_tries = 5) |>
+    httr2::req_retry(max_tries = max_tries) |>
     httr2::req_error(is_error = function(resp) FALSE) |>
     httr2::req_perform()
-
   status <- httr2::resp_status(resp)
   if (status < 200 || status >= 300) {
     stop(sprintf("S3 GET error %s for %s\n%s",
                  status, object, substr(httr2::resp_body_string(resp), 1, 400)))
   }
-
   dir.create(dirname(file), recursive = TRUE, showWarnings = FALSE)
   writeBin(httr2::resp_body_raw(resp), file)
   invisible(file)
