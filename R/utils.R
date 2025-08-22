@@ -333,9 +333,19 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
                              max_tries = 5) {
 
   # Clamp per-page size to S3's 1..1000 rule
+  max_keys_in <- max_keys
   max_keys <- as.integer(max_keys)
-  if (!is.finite(max_keys) || max_keys > 1000L) max_keys <- 1000L
-  if (max_keys < 1L) max_keys <- 1L
+  if (is.na(max_keys) || !is.finite(max_keys)) max_keys <- 1000L
+  if (max_keys > 1000L) {
+    warning("S3 'max-keys' has a hard limit of 1000; ",
+            "clamping 'max_keys' from ", max_keys_in, " to 1000. ",
+            "Use 'max' to cap the total across pages.")
+    max_keys <- 1000L
+  }
+  if (max_keys < 1L) {
+    warning("'max_keys' must be >= 1; clamping to 1.")
+    max_keys <- 1L
+  }
 
   # Total cap across pages
   remaining <- if (is.finite(max)) as.integer(max) else Inf
