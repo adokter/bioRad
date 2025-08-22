@@ -93,6 +93,7 @@ test_that("list_vpts_aloft() works without specifying dates", {
 })
 
 test_that("list_vpts_aloft() returns all data when no dates are provided", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   skip_if_offline()
   expect_gt(
     length(

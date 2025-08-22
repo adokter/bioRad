@@ -110,7 +110,8 @@ list_vpts_aloft <- function(date_min = NULL,
       s3_get_bucket_df(
         bucket = "s3://aloftdata",
         prefix = glue::glue("{source}/monthly"),
-        max = 1000
+        max = Inf,
+        region = "eu-west-1"
       ) %>%
       dplyr::mutate(
         radar = vapply(.data$Key, FUN = function(radar_key) {

@@ -435,6 +435,20 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 #' @keywords internal
 #' @noRd
 s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL, max_tries = 5) {
+
+  assertthat::assert_that(is.string(object) && nzchar(object),
+              msg = "'object' must be a non-empty character string (S3 key)")
+   assertthat::assert_that(is.string(bucket) && nzchar(bucket),
+              msg = "'bucket' must be a non-empty character string (may include 's3://')")
+   assertthat::assert_that(is.string(file) && nzchar(file),
+              msg = "'file' must be a non-empty destination path (character string)")
+   assertthat::assert_that(is.flag(overwrite),
+              msg = "'overwrite' must be a single TRUE/FALSE value")
+   assertthat::assert_that(is.null(region) || (is.string(region) && nzchar(region)),
+              msg = "'region' must be NULL or a non-empty AWS region string like 'eu-west-1'")
+   assertthat::assert_that(is.count(max_tries),
+              msg = "'max_tries' must be a positive integer")
+
   if (file.exists(file) && !overwrite) return(invisible(file))
   url <- paste0(.s3_endpoint(bucket, region), "/", utils::URLencode(object, reserved = TRUE))
   resp <- httr2::request(url) |>
