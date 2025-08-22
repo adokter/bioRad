@@ -122,33 +122,6 @@ download_pvolfiles <- function(date_min, date_max, radar,
         next
       }
 
-      # msg <- assertthat::validate_that(assertthat::not_empty(
-      #   s3_get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1, region = region)
-      # ),
-      # msg = paste0(
-      #   "No data availble on the ", dates[i_d],
-      #   ". Please check data availability for this date."
-      # )
-      # )
-      # if(msg != TRUE){
-      #   warning(msg)
-      #   next
-      # }
-      # msg <- assertthat::validate_that(assertthat::not_empty(
-      #   s3_get_bucket_df(bucket = bucket, prefix = prefix, max = 1, region = region)
-      # ),
-      # msg = paste0(
-      #   "No data available for ", radar, " on the ", dates[i_d],
-      #   ". Check radar code and data availability on",
-      #   " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
-      # )
-      # )
-      # if(msg != TRUE){
-      #   warning(msg)
-      #   next
-      # }
-    }
-
     # filter bucket with exact date
     isWithin <- sapply(bucket_df$Key, function(x) {
       dd <- as.POSIXct(substring(x, 21, 35),
