@@ -49,3 +49,29 @@ test_that("S3: s3_save_object downloads a small object and respects overwrite", 
   s3_save_object(object = key, bucket = "noaa-nexrad-level2", file = tmp, overwrite = FALSE)
   expect_identical(file.size(tmp), size1)
 })
+
+test_that("s3_get_bucket_df warns and clamps when max_keys > 1000", {
+  expect_warning(
+    {
+      df <- bioRad:::s3_get_bucket_df(bucket = "s3://ignored",
+                                      max_keys = 5000,
+                                      max = 0) 
+      expect_s3_class(df, "data.frame")
+      expect_identical(nrow(df), 0L)
+    },
+    "hard limit of 1000"
+  )
+})
+
+test_that("s3_get_bucket_df warns and clamps when max_keys < 1", {
+  expect_warning(
+    {
+      df <- bioRad:::s3_get_bucket_df(bucket = "s3://ignored",
+                                      max_keys = 0,
+                                      max = 0)
+      expect_s3_class(df, "data.frame")
+      expect_identical(nrow(df), 0L)
+    },
+    "must be >= 1"
+  )
+})

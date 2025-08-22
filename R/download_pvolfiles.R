@@ -2,11 +2,7 @@
 #'
 #' Download a selection of polar volume (`pvol`) files from the
 #' [NEXRAD Level II archive
-#'  data](https://registry.opendata.aws/noaa-nexrad/) to disk.
-#'
-#' See also [getRad::get_pvol()] for loading polar volumes files directly
-#' as a `pvol` object. This function also provides access to
-#' some European radars.
+#'  data](https://registry.opendata.aws/noaa-nexrad/).
 #'
 #' @param date_min POSIXct. Start date of file selection. If no timezone are
 #' provided, it will be assumed to be UTC.
@@ -25,8 +21,6 @@
 #' @return `NULL`. The function's primary effect is to download selected polar volume
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status.
-#' @seealso
-#' * [getRad::get_pvol()]
 #' @examples
 #' \donttest{
 #' # create temporary directory
@@ -127,6 +121,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
         ))
         next
       }
+    }
 
     # filter bucket with exact date
     isWithin <- sapply(bucket_df$Key, function(x) {

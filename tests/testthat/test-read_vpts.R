@@ -202,7 +202,7 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day 
 
   # Loop over the prefixes
   for (prefix in prefixes) {
-    message("Starting download for prefix:", prefix)  te
+    message("Starting download for prefix:", prefix)
 
     # Get the files for the current prefix
     h5_files <- bioRad:::s3_get_bucket_df(
