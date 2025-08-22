@@ -37,8 +37,8 @@ A character vector of aloft urls
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
 
-This function has been superseded by \code{getRad::get_vpts()} and
-\code{getRad::aloft_data_coverage()}.
+This function has been superseded by \code{\link[getRad:get_vpts]{getRad::get_vpts()}} and
+\code{\link[getRad:get_vpts_coverage]{getRad::get_vpts_coverage()}}.
 }
 \examples{
 \donttest{
