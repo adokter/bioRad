@@ -260,12 +260,15 @@ guess_file_type <- function(file_path, n_lines = 5) {
 }
 
 #' @description Removes s3:// prefix from bucket string
+#' @param bucket Character. Bucket name or URL-like string (e.g., "s3://my-bucket")
 #' @return Character string (bucket name)
 #' @keywords nternal
 #' @noRd
 .s3_strip_endpoint <- function(bucket) sub("^s3://", "", bucket %||% "")
 
 #' @description Builds S3 HTTPS endpoint URL
+#' @param bucket Character. Bucket name
+#' @param region Character or NULL. AWS region (e.g., "us-east-1"). If NULL/empty, uses global endpoint
 #' @return Character string (URL)
 #' @keywords internal
 #' @noRd
@@ -277,6 +280,10 @@ guess_file_type <- function(file_path, n_lines = 5) {
 
 
 #' @description Checks if bucket exists and returns no error codes
+#' @param bucket Character. Bucket name (may include "s3://")
+#' @param prefix Character. Key prefix to check (e.g., "1998/01/20/KABR/")
+#' @param region Character or NULL. AWS region for the bucket
+#' @param timeout_s Numeric. Request timeout in seconds
 #' @return logical (TRUE/FALSE)
 #' @keywords internal
 #' @noRd
@@ -309,6 +316,12 @@ s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10) {
 }
 
 #' @description List bucket contents. Requires a successful S3 ListObjectsV2 response. Replaces aws.s3::get_bucket_df()
+#' @param bucket Character. Bucket name (may include "s3://")
+#' @param prefix Character. Key prefix to filter (default: "")
+#' @param delimiter Character or NULL. If set (e.g., "/"), groups keys by common prefixes
+#' @param max Integer or NULL. Convenience cap on total keys returned; if set, overrides `max_keys`
+#' @param max_keys Integer. Max keys per request (1–1000). Default 1000.
+#' @param region Character or NULL. AWS region for the bucket endpoint.
 #' @return Data frame with columns: Key, LastModified, Size, ETag, StorageClass
 #' @keywords internal
 #' @noRd
