@@ -436,15 +436,15 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 #' @noRd
 s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL, max_tries = 5) {
 
-  assertthat::assert_that(is.string(object) && nzchar(object),
+  assertthat::assert_that(assertthat::is.string(object) && nzchar(object),
               msg = "'object' must be a non-empty character string (S3 key)")
-   assertthat::assert_that(is.string(bucket) && nzchar(bucket),
+   assertthat::assert_that(assertthat::is.string(bucket) && nzchar(bucket),
               msg = "'bucket' must be a non-empty character string (may include 's3://')")
-   assertthat::assert_that(is.string(file) && nzchar(file),
+   assertthat::assert_that(assertthat::is.string(file) && nzchar(file),
               msg = "'file' must be a non-empty destination path (character string)")
    assertthat::assert_that(is.flag(overwrite),
               msg = "'overwrite' must be a single TRUE/FALSE value")
-   assertthat::assert_that(is.null(region) || (is.string(region) && nzchar(region)),
+   assertthat::assert_that(is.null(region) || (assertthat::is.string(region) && nzchar(region)),
               msg = "'region' must be NULL or a non-empty AWS region string like 'eu-west-1'")
    assertthat::assert_that(is.count(max_tries),
               msg = "'max_tries' must be a positive integer")
@@ -456,10 +456,14 @@ s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NUL
     httr2::req_error(is_error = function(resp) FALSE) |>
     httr2::req_perform()
   status <- httr2::resp_status(resp)
-  if (status < 200 || status >= 300) {
-    stop(sprintf("S3 GET error %s for %s\n%s",
-                 status, object, substr(httr2::resp_body_string(resp), 1, 400)))
-  }
+status <- httr2::resp_status(resp)
+assertthat::assert_that(
+  status >= 200 && status < 300,
+  msg = sprintf(
+    "S3 GET error %s for %s\n%s",
+    status, object, substr(httr2::resp_body_string(resp), 1, 400)
+  )
+)
   dir.create(dirname(file), recursive = TRUE, showWarnings = FALSE)
   writeBin(httr2::resp_body_raw(resp), file)
   invisible(file)
