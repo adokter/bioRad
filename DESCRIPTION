@@ -26,7 +26,7 @@ URL: https://github.com/adokter/bioRad/, https://adriaandokter.com/bioRad/
 BugReports: https://github.com/adokter/bioRad/issues
 biocViews:
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.1.0)
 Imports:
     assertthat,
     curl,
