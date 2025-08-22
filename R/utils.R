@@ -423,8 +423,14 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 }
 
 
-#' @description download S3 object to file. # aws.s3::save_object() replacement
-#' @param max_tries Integer. Max retries for the HTTP request (default 5).
+#' @description download S3 object to local file. # aws.s3::save_object() replacement
+#' @param object Character. Object key (path inside the bucket), e.g. `"baltrad/monthly/bejab_202305.zip"`.
+#' @param bucket Character. Bucket name (may include `"s3://"`; trailing slashes ignored).
+#' @param file Character. Destination file path on disk.
+#' @param overwrite Logical. If `FALSE` and `file` exists, the download is skipped.
+#' @param region Character or NULL. AWS region for the endpoint (e.g., `"eu-west-1"`). If `NULL`,
+#'   the global endpoint is used (S3 may redirect as needed).
+#' @param max_tries Integer. Max automatic retries for the HTTP request (default `5`).
 #' @return character string (file path, invisibly)
 #' @keywords internal
 #' @noRd
