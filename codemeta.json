@@ -133,6 +133,18 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "getRad",
+      "name": "getRad",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=getRad"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "ggspatial",
       "name": "ggspatial",
       "provider": {
@@ -560,7 +572,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "9976.648KB",
+  "fileSize": "9978.741KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
