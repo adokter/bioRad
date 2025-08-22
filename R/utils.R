@@ -259,14 +259,14 @@ guess_file_type <- function(file_path, n_lines = 5) {
   }
 }
 
-#' @keywords internal
-#' @noRd
-.s3_base <- function(bucket) sprintf("https://%s.s3.amazonaws.com", bucket)
-
-#' @keywords internal
+#' @description Removes s3:// prefix from bucket string
+#' @return Character string (bucket name)
+#' @keywords nternal
 #' @noRd
 .s3_strip_endpoint <- function(bucket) sub("^s3://", "", bucket %||% "")
 
+#' @description Builds S3 HTTPS endpoint URL
+#' @return Character string (URL)
 #' @keywords internal
 #' @noRd
 .s3_endpoint <- function(bucket, region = NULL) {
@@ -275,6 +275,9 @@ guess_file_type <- function(file_path, n_lines = 5) {
   else sprintf("https://%s.s3.%s.amazonaws.com", bucket, region)
 }
 
+
+#' @description Checks if bucket exists and returns no error codes
+#' @return logical (TRUE/FALSE)
 #' @keywords internal
 #' @noRd
 s3_bucket_exists <- function(bucket) {
@@ -283,9 +286,12 @@ s3_bucket_exists <- function(bucket) {
     httr2::req_error(is_error = function(resp) FALSE) |>
     httr2::req_perform() |>
     httr2::resp_status() |>
-    {\(s) s >= 200 && s < 400}()
+    {\(s) s >= 200 && s < 400}()  #2xx codes indicate success and 3xx codes indicate redirect
 }
 
+
+#' @description Checks if prefix exists in bucket by verifying ListObjectsV2 request is successfully answered (2xx)
+#' @return logical (TRUE/FALSE)
 #' @keywords internal
 #' @noRd
 s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10) {
@@ -296,14 +302,14 @@ s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10) {
     httr2::req_perform()
 
   status <- httr2::resp_status(resp)
-  if (status < 200L || status >= 300L) return(FALSE)
+  if (status < 200L || status >= 300L) return(FALSE) #request to list objects in the bucket succeeded
 
   x <- xml2::read_xml(httr2::resp_body_string(resp))
   length(xml2::xml_find_all(x, ".//*[local-name()='Contents']/*[local-name()='Key']")) > 0
 }
 
-# aws.s3::get_bucket_df() replacement
-# Returns data.frame(Key, LastModified, Size, ETag, StorageClass)
+#' @description List bucket contents. Requires a successful S3 ListObjectsV2 response. Replaces aws.s3::get_bucket_df()
+#' @return Data frame with columns: Key, LastModified, Size, ETag, StorageClass
 #' @keywords internal
 #' @noRd
 s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
@@ -369,7 +375,9 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
                check.names = FALSE)
 }
 
-# aws.s3::save_object() replacement
+
+#' @description download S3 object to file. # aws.s3::save_object() replacement
+#' @return character string (file path, invisibly)
 #' @keywords internal
 #' @noRd
 s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL) {

@@ -6,7 +6,7 @@
 
 * Functions depending on `aws.s3` package modified 
 
-* Package utils updated with helper funcitons replacing `aws.s3` functions
+* `utils.R` updated with helper functions replacing `aws.s3` functions
 
 * Removed `aws.s3` as a dependency
 
