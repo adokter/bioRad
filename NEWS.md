@@ -1,4 +1,16 @@
-# bioRad 0.10.0.9000 (development version)
+# bioRad 0.10.1.9000 (development version)
+
+# bioRad 0.10.1
+
+## Bugfixes
+
+* Functions depending on `aws.s3` package modified 
+
+* `utils.R` updated with helper functions replacing `aws.s3` functions
+
+* Removed `aws.s3` as a dependency
+
+* Package now depends on R (>= 4.1.0) 
 
 # bioRad 0.10.0
 
