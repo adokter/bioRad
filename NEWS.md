@@ -10,6 +10,8 @@
 
 * Removed `aws.s3` as a dependency
 
+* Package now depends on R (>= 4.1.0) 
+
 # bioRad 0.10.0
 
 ## New features
