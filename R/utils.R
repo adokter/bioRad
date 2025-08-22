@@ -373,10 +373,14 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
       httr2::req_perform()
 
     status <- httr2::resp_status(resp)
-    if (status < 200 || status >= 300) {
-      stop(sprintf("S3 list error: HTTP %s\n%s",
-                   status, substr(httr2::resp_body_string(resp), 1, 500)))
-    }
+    assertthat::assert_that(
+      status >= 200 && status < 300,
+      msg = sprintf(
+        "S3 list error: HTTP %s\n%s",
+        status,
+        substr(httr2::resp_body_string(resp), 1, 500)
+      )
+    )
 
     x <- xml2::read_xml(httr2::resp_body_string(resp))
     nodes <- xml2::xml_find_all(x, ".//*[local-name()='Contents']")
@@ -442,11 +446,11 @@ s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NUL
               msg = "'bucket' must be a non-empty character string (may include 's3://')")
    assertthat::assert_that(assertthat::is.string(file) && nzchar(file),
               msg = "'file' must be a non-empty destination path (character string)")
-   assertthat::assert_that(is.flag(overwrite),
+   assertthat::assert_that(assertthat::is.flag(overwrite),
               msg = "'overwrite' must be a single TRUE/FALSE value")
    assertthat::assert_that(is.null(region) || (assertthat::is.string(region) && nzchar(region)),
               msg = "'region' must be NULL or a non-empty AWS region string like 'eu-west-1'")
-   assertthat::assert_that(is.count(max_tries),
+   assertthat::assert_that(assertthat::is.count(max_tries),
               msg = "'max_tries' must be a positive integer")
 
   if (file.exists(file) && !overwrite) return(invisible(file))
