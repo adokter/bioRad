@@ -1,6 +1,6 @@
 # bioRad 0.10.0.9000 (development version)
 
-* speed up `integrate_to_ppi()` when using aeqd projection grid
+* Speeds up `integrate_to_ppi()` when using standard aeqd projection grid (#734).
 
 # bioRad 0.10.0
 
