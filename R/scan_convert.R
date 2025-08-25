@@ -178,8 +178,14 @@ scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param
       r <- raster::raster(ncols = nx, nrows = ny, ext = raster::extent(c(xlim, ylim)), crs = crs, res = res)
     }
   }
-  # convert raster coordinates to local Cartesian CRS
-  crds <- sp::coordinates(sp::spTransform(raster::rasterToPoints(r, spatial = TRUE), localCrs))
+
+  if(sf::st_crs(r) == sf::st_crs(localCrs)){
+    crds <- sp::coordinates(r)
+  } else{
+    # if raster has different crs than the aeqd projection of a standard scan, convert raster coordinates to local Cartesian CRS
+    crds <- sp::coordinates(sp::spTransform(raster::rasterToPoints(r, spatial = TRUE), localCrs))
+  }
+
   # convert raster coordinates to polar indices
   polar_coords <- cartesian_to_polar(crds, elev = scan$geo$elangle, k = k, lat = lat, re = re, rp = rp)
   index <- polar_to_index(polar_coords, rangebin = rscale, azimbin = ascale, rangestart = rstart, azimstart = astart)
