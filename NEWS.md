@@ -12,6 +12,8 @@
 
 * Package now depends on R (>= 4.1.0) 
 
+* Speeds up `integrate_to_ppi()` when using standard aeqd projection grid (#734).
+
 # bioRad 0.10.0
 
 ## New features
