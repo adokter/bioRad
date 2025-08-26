@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.11.0",
+  "version": "0.10.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -131,6 +131,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "getRad",
+      "name": "getRad",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=getRad"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "ggspatial",
@@ -560,7 +572,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4970.732KB",
+  "fileSize": "4970.637KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
