@@ -1,5 +1,4 @@
-
-test_that("S3: bucket & prefix existence", {
+test_that("S3 bucket & prefix exist", {
   skip_if_offline()
   withr::local_options(timeout = 15)
 
@@ -11,7 +10,7 @@ test_that("S3: bucket & prefix existence", {
   expect_false(s3_prefix_exists(bucket, "bucket/that/does/not/exist/"))
 })
 
-test_that("S3: s3_get_bucket_df parses an S3 listing", {
+test_that("s3_get_bucket_df parses an S3 listing", {
   skip_if_offline()
   withr::local_options(timeout = 20)
 
@@ -30,7 +29,7 @@ test_that("S3: s3_get_bucket_df parses an S3 listing", {
   expect_true(all(startsWith(df$Key, "1998/01/20/KABR/")))
 })
 
-test_that("S3: s3_save_object downloads a small object and respects overwrite", {
+test_that("s3_save_object downloads an object and respects overwrite", {
   skip_if_offline()
   withr::local_options(timeout = 30)
 
@@ -55,7 +54,7 @@ test_that("s3_get_bucket_df warns and clamps when max_keys > 1000", {
     {
       df <- bioRad:::s3_get_bucket_df(bucket = "s3://ignored",
                                       max_keys = 5000,
-                                      max = 0) 
+                                      max = 0)
       expect_s3_class(df, "data.frame")
       expect_identical(nrow(df), 0L)
     },
