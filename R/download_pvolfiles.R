@@ -4,10 +4,6 @@
 #' [NEXRAD Level II archive
 #'  data](https://registry.opendata.aws/noaa-nexrad/).
 #'
-#' See [getRad::get_pvol()] for loading polar volumes files directly
-#' as a `pvol` object. This function also provides access to
-#' some European radars.
-#'
 #' @param date_min POSIXct. Start date of file selection. If no timezone are
 #' provided, it will be assumed to be UTC.
 #' @param date_max POSIXct. End date of file selection.If no timezone are
@@ -26,7 +22,9 @@
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status.
 #' @seealso
-#' * [getRad::get_pvol()]
+#' [getRad::get_pvol()] for loading polar volumes files directly
+#' as a `pvol` object. This function also provides access to
+#' some European radars.
 #' @examples
 #' \donttest{
 #' # create temporary directory
