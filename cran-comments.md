@@ -1,4 +1,4 @@
-## bioRad 0.10.1 
-* Added helper functions substituting `aws.s3` functions
-* Removed `aws.s3` as a dependency
-* Updated R version dependency (>= 4.1.0)
+## bioRad 0.11.0 
+* Removed dependency `aws.s3` which triggered previous CRAN check faults.
+* added helper functions substituting `aws.s3` functions
+* speed increasements `integrate_to_ppi()`

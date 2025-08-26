@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/adokter/bioRad/",
   "issueTracker": "https://github.com/adokter/bioRad/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.0 (2025-04-11)",
+  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -131,18 +131,6 @@
     }
   ],
   "softwareSuggestions": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "getRad",
-      "name": "getRad",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=getRad"
-    },
     {
       "@type": "SoftwareApplication",
       "identifier": "ggspatial",
@@ -572,7 +560,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "9979.167KB",
+  "fileSize": "NAKB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -655,7 +643,7 @@
       }
     }
   ],
-  "releaseNotes": "https://github.com/adokter/bioRad/blob/main/NEWS.md",
+  "releaseNotes": "https://github.com/adokter/bioRad/blob/master/NEWS.md",
   "readme": "https://github.com/adokter/bioRad/blob/master/README.md",
   "contIntegration": ["https://github.com/adokter/bioRad/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/adokter/bioRad"],
   "developmentStatus": "https://www.repostatus.org/#active",
