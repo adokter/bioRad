@@ -85,7 +85,7 @@ test_that("read_vpts() returns on error on inferred mixed extensions", {
 test_that("read_vpts() can read local vp hdf5 files", {
   # Test for one file
   {
-    result <- read_vpts_hdf5(h5_files[1])
+    result <- bioRad:::read_vpts_hdf5(h5_files[1])
 
     expect_true(
       length(result$datetime) == 1,
@@ -97,7 +97,7 @@ test_that("read_vpts() can read local vp hdf5 files", {
 
   # Test for multiple files
   {
-    result <- read_vpts_hdf5(h5_files[1:2])
+    result <- bioRad:::read_vpts_hdf5(h5_files[1:2])
 
     expect_true(
       length(result$datetime) == 2,
@@ -192,7 +192,6 @@ test_that("check ability to convert a vpts object into a data.frame, and then ca
 
 test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day of data", {
   skip_if_offline()
-  skip_if_no_aws.s3()
 
   # clear directories
   file.remove(list.files(h5_dir, full.names = TRUE))
@@ -206,18 +205,17 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day 
     message("Starting download for prefix:", prefix)
 
     # Get the files for the current prefix
-    h5_files <- aws.s3::get_bucket_df(
-      bucket = "s3://aloftdata/",
-      prefix = prefix,
-      region = "eu-west-1"
+    h5_files <- bioRad:::s3_get_bucket_df(
+      bucket = "s3://aloftdata",
+      prefix = prefix
     )
 
     # Download the files to the temporary directory
     sapply(h5_files$Key, function(file_name) {
-      aws.s3::save_object(
+      bioRad:::s3_save_object(
         file = paste0(h5_dir, "/", basename(file_name)),
         object = file_name,
-        bucket = "s3://aloftdata/",
+        bucket = "s3://aloftdata",
         region = "eu-west-1"
       )
     })
