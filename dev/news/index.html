@@ -38,16 +38,27 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.10.0.9000" id="biorad-01009000-development-version">bioRad 0.10.0.9000 (development version)<a class="anchor" aria-label="anchor" href="#biorad-01009000-development-version"></a></h2>
-<ul><li>Speeds up <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> when using standard aeqd projection grid (<a href="https://github.com/adokter/bioRad/issues/734" class="external-link">#734</a>).</li>
+<h2 class="pkg-version" data-toc-text="0.11.0.9000" id="biorad-01109000-development-version">bioRad 0.11.0.9000 (development version)<a class="anchor" aria-label="anchor" href="#biorad-01109000-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.11.0" id="biorad-0110">bioRad 0.11.0<a class="anchor" aria-label="anchor" href="#biorad-0110"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-11-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-11-0"></a></h3>
+<ul><li>Faster <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> when using standard aeqd projection grid (<a href="https://github.com/adokter/bioRad/issues/734" class="external-link">#734</a>).</li>
 </ul></div>
+<div class="section level3">
+<h3 id="bugfixes-0-11-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-11-0"></a></h3>
+<ul><li><p>Removed <code>aws.s3</code> as a dependency, functions depending on <code>aws.s3</code> now using <code>httr2</code>. New hidden helper functions in <code>utils.R</code> replacing <code>aws.s3</code> functionality (<a href="https://github.com/adokter/bioRad/issues/732" class="external-link">#732</a>).</p></li>
+<li><p>Package now depends on R (&gt;= 4.1.0) for <code>httr2</code> compatibility.</p></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.0" id="biorad-0100">bioRad 0.10.0<a class="anchor" aria-label="anchor" href="#biorad-0100"></a></h2><p class="text-muted">CRAN release: 2025-06-16</p>
 <div class="section level3">
 <h3 id="new-features-0-10-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-10-0"></a></h3>
 <ul><li><p>New argument <code>directory_tree</code> in function <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> for ommitting local directory tree (<a href="https://github.com/adokter/bioRad/issues/710" class="external-link">#710</a>).</p></li>
 <li><p>Use default Bootstrap 5 styling for pkgdown website.</p></li>
-<li><p>Functions <code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/list_vpts_aloft.html">list_vpts_aloft()</a></code> have been superseded in favour of <code>getRad::get_vpts()</code> (<a href="https://github.com/adokter/bioRad/issues/715" class="external-link">#715</a>).</p></li>
+<li><p>Functions <code><a href="../reference/download_vpfiles.html">download_vpfiles()</a></code> and <code><a href="../reference/list_vpts_aloft.html">list_vpts_aloft()</a></code> have been superseded in favour of <code><a href="https://aloftdata.github.io/getRad/reference/get_vpts.html" class="external-link">getRad::get_vpts()</a></code> (<a href="https://github.com/adokter/bioRad/issues/715" class="external-link">#715</a>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bugfixes-0-10-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-10-0"></a></h3>
