@@ -46,7 +46,7 @@
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
-                               bucket = "noaa-nexrad-level2", directory_tree = TRUE) {
+                               bucket = "unidata-nexrad-level2", directory_tree = TRUE) {
   rlang::check_installed('aws.s3','to download pvolfiles.')
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
@@ -131,7 +131,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
       msg = paste0(
         "No data available for ", radar, " on the ", dates[i_d],
         ". Check radar code and data availability on",
-        " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+        " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
       )
       )
       if(msg != TRUE){
@@ -158,7 +158,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
       msg = paste0(
         "No data available for ", radar, " on the ", dates[i_d],
         "within the selected datetime range. Check radar code and data availability on",
-        " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+        " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
       ))
     if(msg != TRUE){
       warning(msg)

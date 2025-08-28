@@ -2,6 +2,8 @@
 
 * Speeds up `integrate_to_ppi()` when using standard aeqd projection grid (#734).
 
+* NEXRAD data is now downloaded from `unidata-nexrad-level2` bucket (#735).
+
 # bioRad 0.10.0
 
 ## New features
