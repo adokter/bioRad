@@ -1,6 +1,4 @@
-# bioRad 0.11.0.9000 (development version)
-
-# bioRad 0.11.0
+# bioRad 0.10.0.9000 (development version)
 
 ## New features
 * Faster `integrate_to_ppi()` when using standard aeqd projection grid (#734).
@@ -10,6 +8,8 @@
 * Removed `aws.s3` as a dependency, functions depending on `aws.s3` now using `httr2`. New hidden helper functions in `utils.R` replacing `aws.s3` functionality (#732).
 
 * Package now depends on R (>= 4.1.0) for `httr2` compatibility.
+
+* NEXRAD data is now downloaded from `unidata-nexrad-level2` bucket (#735).
 
 # bioRad 0.10.0
 

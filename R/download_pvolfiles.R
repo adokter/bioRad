@@ -42,7 +42,7 @@
 #' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
-                               bucket = "noaa-nexrad-level2", directory_tree = TRUE, region = "us-east-1") {
+                               bucket = "unidata-nexrad-level2", directory_tree = TRUE, region = "us-east-1") {
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
 
@@ -116,12 +116,11 @@ download_pvolfiles <- function(date_min, date_max, radar,
         ))
         next
       }
-
       if (!s3_prefix_exists(bucket, prefix, region)) {
         warning(paste0(
           "No data available for ", radar, " on the ", dates[i_d],
           ". Check radar code and data availability on",
-          " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+          " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
         ))
         next
       }
@@ -145,7 +144,7 @@ download_pvolfiles <- function(date_min, date_max, radar,
       msg = paste0(
         "No data available for ", radar, " on the ", dates[i_d],
         "within the selected datetime range. Check radar code and data availability on",
-        " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+        " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
       ))
     if(msg != TRUE){
       warning(msg)

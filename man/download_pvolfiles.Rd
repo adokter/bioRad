@@ -10,7 +10,7 @@ download_pvolfiles(
   radar,
   directory = ".",
   overwrite = FALSE,
-  bucket = "noaa-nexrad-level2",
+  bucket = "unidata-nexrad-level2",
   directory_tree = TRUE,
   region = "us-east-1"
 )
