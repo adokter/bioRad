@@ -124,7 +124,7 @@ test_that("Check radar code for download_pvolfiles() ", {
     regexp = paste0(
       "No data available for ABCD on the 2016-10-02. Check radar",
       " code and data availability on",
-      " https://noaa-nexrad-level2.s3.amazonaws.com/index.html"
+      " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
     ),
     fixed = TRUE
   )
