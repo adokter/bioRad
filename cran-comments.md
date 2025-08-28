@@ -1,3 +1,4 @@
-## bioRad 0.10.0 
-* improve error messaging of `download_pvolfiles()`
-* move example `download_pvolfiles()` to donttest block to prevent rare warnings on CRAN when remote server is unavailable.
+## bioRad 0.11.0 
+* Removed dependency `aws.s3` which triggered previous CRAN check faults.
+* added helper functions substituting `aws.s3` functions
+* speed increasements `integrate_to_ppi()`

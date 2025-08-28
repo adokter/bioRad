@@ -4,8 +4,8 @@
 #' @description
 #' `r lifecycle::badge("superseded")`
 #'
-#' This function has been superseded by [getRad::get_vpts()] and
-#' [getRad::get_vpts_coverage()].
+#' This function has been superseded by `getRad::get_vpts()` and
+#' `getRad::get_vpts_coverage()`.
 #'
 #' @param date_min Character, the first date to return urls for. In the shape of
 #'   YYYY-MM-DD.
@@ -23,9 +23,8 @@
 #'
 #' @examples
 #' \donttest{
-#' if (requireNamespace("aws.s3", quietly = TRUE)) {
 #' list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
-#' }}
+#' }
 list_vpts_aloft <- function(date_min = NULL,
                             date_max = NULL,
                             radars = NULL,
@@ -34,12 +33,6 @@ list_vpts_aloft <- function(date_min = NULL,
                             show_warnings = TRUE) {
   lifecycle::deprecate_warn("2025", "list_vpts_aloft()", "getRad::get_vpts()")
 
-  # Check if aws.s3 is installed
-  # NOTE added because aws.s3 is schedueled to be moved to Suggests
-
-  rlang::check_installed("aws.s3",
-    reason = "to connect to the aloft bucket on Amazon Web Services"
-  )
 
   # check arguments against vocabulary --------------------------------------
   # Check source
@@ -113,12 +106,12 @@ list_vpts_aloft <- function(date_min = NULL,
     # This function uses the zipped monthly files, which are faster to download
     months <- format(seq(start_date, end_date, by = "months"), "%Y%m")
 
-    found_vpts_aloft <-
-      aws.s3::get_bucket_df(
+    found_vpts_aloft <-  
+      s3_get_bucket_df(
         bucket = "s3://aloftdata",
         prefix = glue::glue("{source}/monthly"),
-        region = "eu-west-1",
-        max = Inf
+        max = Inf,
+        region = "eu-west-1"
       ) %>%
       dplyr::mutate(
         radar = vapply(.data$Key, FUN = function(radar_key) {

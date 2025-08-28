@@ -2,11 +2,7 @@
 #'
 #' Download a selection of polar volume (`pvol`) files from the
 #' [NEXRAD Level II archive
-#'  data](https://registry.opendata.aws/noaa-nexrad/) to disk.
-#'
-#' See also [getRad::get_pvol()] for loading polar volumes files directly
-#' as a `pvol` object. This function also provides access to
-#' some European radars.
+#'  data](https://registry.opendata.aws/noaa-nexrad/).
 #'
 #' @param date_min POSIXct. Start date of file selection. If no timezone are
 #' provided, it will be assumed to be UTC.
@@ -15,8 +11,8 @@
 #' @param radar character (vector). 4-letter radar code(s) (e.g. "KAMA")
 #' @param directory character. Path to local directory where files should be
 #'   downloaded
-#' @param overwrite logical. TRUE for re-downloading and overwriting previously
-#'   downloaded files of the same names.
+#' @param overwrite logical. TRUE to re-download and overwrite existing files
+#' @param region character. AWS region used for S3 requests
 #' @param bucket character. Bucket name to use.
 #' @param directory_tree logical. Whether to create the yyyy/mm/dd/radar
 #' directory structure. TRUE by default.
@@ -26,11 +22,12 @@
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status.
 #' @seealso
-#' * [getRad::get_pvol()]
+#' [getRad::get_pvol()] for loading polar volumes files directly
+#' as a `pvol` object. This function also provides access to
+#' some European radars.
 #' @examples
 #' \donttest{
 #' # create temporary directory
-#' if (requireNamespace("aws.s3", quietly = TRUE)) {
 #' temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 #' dir.create(temp_dir)
 #' download_pvolfiles(
@@ -43,11 +40,9 @@
 #' # Clean up
 #' unlink(temp_dir, recursive = TRUE)
 #' }
-#' }
 download_pvolfiles <- function(date_min, date_max, radar,
                                directory = ".", overwrite = FALSE,
-                               bucket = "unidata-nexrad-level2", directory_tree = TRUE) {
-  rlang::check_installed('aws.s3','to download pvolfiles.')
+                               bucket = "unidata-nexrad-level2", directory_tree = TRUE, region = "us-east-1") {
   # Ensure directory exists
   assertthat::assert_that(assertthat::is.dir(directory))
 
@@ -99,10 +94,10 @@ download_pvolfiles <- function(date_min, date_max, radar,
     # Get bucket matching the request
     tryCatch(
       {
-        bucket_df <- aws.s3::get_bucket_df(bucket = bucket, prefix = prefix)
+        bucket_df <- s3_get_bucket_df(bucket = bucket, prefix = prefix, region = region)
       },
       error = function(cond) {
-        assertthat::assert_that(aws.s3::bucket_exists(bucket = bucket),
+        assertthat::assert_that(s3_bucket_exists(bucket = bucket),
           msg = paste0("The bucket ", bucket, "does not exist")
         )
         stop(paste0("Could not connect to s3 bucket ", bucket, "."))
@@ -113,29 +108,20 @@ download_pvolfiles <- function(date_min, date_max, radar,
     if (nrow(bucket_df) == 0) {
       # Check if date is correct
       prefix_tmp <- paste(gsub("-", "/", dates[i_d]), sep = "/")
-      msg <- assertthat::validate_that(assertthat::not_empty(
-        aws.s3::get_bucket_df(bucket = bucket, prefix = prefix_tmp, max = 1)
-      ),
-      msg = paste0(
-        "No data availble on the ", dates[i_d],
-        ". Please check data availability for this date."
-      )
-      )
-      if(msg != TRUE){
-        warning(msg)
+
+      if (!s3_prefix_exists(bucket, prefix_tmp, region)) {
+        warning(paste0(
+          "No data availble on the ", dates[i_d],
+          ". Please check data availability for this date."
+        ))
         next
       }
-      msg <- assertthat::validate_that(assertthat::not_empty(
-        aws.s3::get_bucket_df(bucket = bucket, prefix = prefix, max = 1)
-      ),
-      msg = paste0(
-        "No data available for ", radar, " on the ", dates[i_d],
-        ". Check radar code and data availability on",
-        " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
-      )
-      )
-      if(msg != TRUE){
-        warning(msg)
+      if (!s3_prefix_exists(bucket, prefix, region)) {
+        warning(paste0(
+          "No data available for ", radar, " on the ", dates[i_d],
+          ". Check radar code and data availability on",
+          " https://unidata-nexrad-level2.s3.amazonaws.com/index.html"
+        ))
         next
       }
     }
@@ -179,11 +165,10 @@ download_pvolfiles <- function(date_min, date_max, radar,
         local_file = paste(directory, basename(bucket_df$Key[row]), sep = "/")
       }
       # Save file
-      aws.s3::save_object(
+      s3_save_object(
         object = bucket_df$Key[row],
         bucket = bucket,
-        file = local_file,
-        overwite = overwrite
+        file = local_file
       )
       utils::setTxtProgressBar(pb, row)
     }

@@ -11,7 +11,8 @@ download_pvolfiles(
   directory = ".",
   overwrite = FALSE,
   bucket = "unidata-nexrad-level2",
-  directory_tree = TRUE
+  directory_tree = TRUE,
+  region = "us-east-1"
 )
 }
 \arguments{
@@ -26,13 +27,14 @@ provided, it will be assumed to be UTC.}
 \item{directory}{character. Path to local directory where files should be
 downloaded}
 
-\item{overwrite}{logical. TRUE for re-downloading and overwriting previously
-downloaded files of the same names.}
+\item{overwrite}{logical. TRUE to re-download and overwrite existing files}
 
 \item{bucket}{character. Bucket name to use.}
 
 \item{directory_tree}{logical. Whether to create the yyyy/mm/dd/radar
 directory structure. TRUE by default.}
+
+\item{region}{character. AWS region used for S3 requests}
 }
 \value{
 \code{NULL}. The function's primary effect is to download selected polar volume
@@ -41,17 +43,11 @@ a message and a progress bar in the console indicating the download status.
 }
 \description{
 Download a selection of polar volume (\code{pvol}) files from the
-\href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data} to disk.
-}
-\details{
-See also \code{\link[getRad:get_pvol]{getRad::get_pvol()}} for loading polar volumes files directly
-as a \code{pvol} object. This function also provides access to
-some European radars.
+\href{https://registry.opendata.aws/noaa-nexrad/}{NEXRAD Level II archive data}.
 }
 \examples{
 \donttest{
 # create temporary directory
-if (requireNamespace("aws.s3", quietly = TRUE)) {
 temp_dir <- paste0(tempdir(),"/bioRad_tmp_files")
 dir.create(temp_dir)
 download_pvolfiles(
@@ -65,9 +61,8 @@ download_pvolfiles(
 unlink(temp_dir, recursive = TRUE)
 }
 }
-}
 \seealso{
-\itemize{
-\item \code{\link[getRad:get_pvol]{getRad::get_pvol()}}
-}
+\code{\link[getRad:get_pvol]{getRad::get_pvol()}} for loading polar volumes files directly
+as a \code{pvol} object. This function also provides access to
+some European radars.
 }
