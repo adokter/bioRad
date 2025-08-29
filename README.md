@@ -89,7 +89,7 @@ Then load the package with:
 ``` r
 library(bioRad)
 #> Welcome to bioRad version 0.10.0.9000
-#> using vol2birdR version 1.1.1 (MistNet installed)
+#> using vol2birdR version 1.1.1.9000 (MistNet installed)
 ```
 
 ### (optional) Enable MistNet
@@ -114,7 +114,7 @@ bioRad can read weather radar data (= polar volumes) in the
 format and formats supported by the [RSL
 library](https://trmm-fc.gsfc.nasa.gov/trmm_gv/software/rsl/), such as
 NEXRAD data. NEXRAD data (US) are [available as open
-data](https://www.ncdc.noaa.gov/nexradinv/) and on
+data](https://www.ncei.noaa.gov/nexradinv/) and on
 [AWS](https://registry.opendata.aws/noaa-nexrad/).
 
 Here we read an example polar volume data file with `read_pvolfile()`,

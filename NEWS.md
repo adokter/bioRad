@@ -1,11 +1,15 @@
-# bioRad 0.10.0.9000 (development version)
+# bioRad 0.11.0.9000 (development version)
+
+# bioRad 0.11.0
 
 ## New features
 * Faster `integrate_to_ppi()` when using standard aeqd projection grid (#734).
 
+* Cross references to new `getRad` package for downloading EU and US polar volume data (#729).
+
 ## Bugfixes
 
-* Removed `aws.s3` as a dependency, functions depending on `aws.s3` now using `httr2`. New hidden helper functions in `utils.R` replacing `aws.s3` functionality (#732).
+* Removed `aws.s3` as a dependency, functions depending on `aws.s3` now using `httr2`. New hidden helper functions in `utils.R` replacing `aws.s3` functionality (#731, #732).
 
 * Package now depends on R (>= 4.1.0) for `httr2` compatibility.
 
