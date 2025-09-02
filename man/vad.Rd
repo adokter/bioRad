@@ -37,12 +37,12 @@ If only one value is provided next to a \code{vp} then the height bin intersecti
 \item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for a \code{DBZH} less then 20 and a \code{RHOHV} less then 0.95.
 Alternative filters could be used to highlight specific effects.}
 
-\item{point_geom}{The geom to visualize the range gates, the default is \code{\link[=geom_points]{geom_points()}}, in some cases this suffers from over plotting.
-Alternatives that avoid over plotting could be \code{\link[=geom_bin2d]{geom_bin2d()}} or \code{\link[ggpointdensity:geom_pointdensity]{ggpointdensity::geom_pointdensity()}}.}
+\item{point_geom}{The geom to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}, in some cases this suffers from over plotting.
+Alternatives that avoid over plotting could be \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin2d()}} or \code{\link[ggpointdensity:geom_pointdensity]{ggpointdensity::geom_pointdensity()}}.}
 
 \item{point_geom_args}{Additional arguments to the \code{point_geom} function. For example, controlling the point size or alpha.}
 
-\item{annotate}{A \code{\link[=glue]{glue()}} string that is used to annotate the plot with additional properties of the height bin of the \code{vp}.
+\item{annotate}{A \code{\link[glue:glue]{glue::glue()}} string that is used to annotate the plot with additional properties of the height bin of the \code{vp}.
 The string is evaluated using the columns from \code{as.data.frame(vp)}.
 Use \code{NULL} if no annotation is desired.}
 
@@ -51,7 +51,7 @@ Use \code{NULL} if no annotation is desired.}
 \item{vp_color}{The color used for the \code{vp} annotations and line.}
 }
 \value{
-A \link{ggplot} object. Additional elements can be added using regular function in the \code{ggplot2} package.
+A \link[ggplot2:ggplot]{ggplot2::ggplot} object. Additional elements can be added using regular function in the \code{ggplot2} package.
 }
 \description{
 A velocity azimuth display plot visualized the radial velocity (\code{VRAD}) as a function of the azimuth from the radar.
