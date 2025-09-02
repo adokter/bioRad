@@ -16,7 +16,9 @@ vad(x, ...)
   range_gate_filter = DBZH < 20 & RHOHV < 0.95,
   point_geom = ggplot2::geom_point,
   point_geom_args = list(),
-  annotate = "{round(ff,1)} m/s, {round(dd)}°"
+  annotate = "{round(ff,1)} m/s, {round(dd)}°",
+  annotation_size = 4,
+  vp_color = "red"
 )
 }
 \arguments{
@@ -38,25 +40,40 @@ Alternative filters could be used to highlight specific effects.}
 \item{point_geom}{The geom to visualize the range gates, the default is \code{\link[=geom_points]{geom_points()}}, in some cases this suffers from over plotting.
 Alternatives that avoid over plotting could be \code{\link[=geom_bin2d]{geom_bin2d()}} or \code{\link[ggpointdensity:geom_pointdensity]{ggpointdensity::geom_pointdensity()}}.}
 
-\item{point_geom_args}{Additional arguments to the \code{point_geom} function. For example controling the point size or alpha.}
+\item{point_geom_args}{Additional arguments to the \code{point_geom} function. For example, controlling the point size or alpha.}
 
-\item{annotate}{A \code{\link[=glue]{glue()}} string that is used to annotate the plot with additional properties of the height bin of the vp. Use \code{NULL} if no annotation is desired.}
+\item{annotate}{A \code{\link[=glue]{glue()}} string that is used to annotate the plot with additional properties of the height bin of the \code{vp}.
+The string is evaluated using the columns from \code{as.data.frame(vp)}.
+Use \code{NULL} if no annotation is desired.}
+
+\item{annotation_size}{The text size used for the annotation.}
+
+\item{vp_color}{The color used for the \code{vp} annotations and line.}
+}
+\value{
+A \link{ggplot} object. Additional elements can be added using regular function in the \code{ggplot2} package.
 }
 \description{
-Create a velocity azimuth display (VAD) plot
+A velocity azimuth display plot visualized the radial velocity (\code{VRAD}) as a function of the azimuth from the radar.
+Among others it can be used to asses the fit of the movement speeds in a vertical profile.
+For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as deviations from the sine function.
 }
 \examples{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
-vp <- calculate_vp(pvolfile)
+# VAD plots can be created for polar volumes alone
 vad(example_pvol,
   range = c(5000, 30000), height = c(200, 400)
 )
+# It is also possible to plot one height or more height bins from a `vp`.
+# Many visual aspects can be controlled through the function arguments
+# or through adding `ggplot`
+vp <- calculate_vp(pvolfile)
 vad(example_pvol,
   vp = vp,
   height = 400,
   point_geom_args=list(ggplot2::aes(color=ZDR))
-) +ggplot2::scale_color_gradient2()
+) + ggplot2::scale_color_gradient2()
 vad(example_pvol,
   vp = vp, height=c(400,1200),
   point_geom=ggplot2::geom_bin2d,
