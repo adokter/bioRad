@@ -1,5 +1,7 @@
 # bioRad 0.11.0.9000 (development version)
 
+* Add the `vad()` function to create a velocity azimuth display plots. 
+
 # bioRad 0.11.0
 
 ## New features
