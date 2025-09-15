@@ -3,7 +3,7 @@
 \name{vad}
 \alias{vad}
 \alias{vad.pvol}
-\title{Create a velocity azimuth display (VAD) plot}
+\title{Create a Velocity Azimuth Display (VAD) plot}
 \usage{
 vad(x, ...)
 
@@ -14,8 +14,8 @@ vad(x, ...)
   range = NULL,
   height = NULL,
   range_gate_filter = DBZH < 20 & RHOHV < 0.95,
-  point_geom = ggplot2::geom_point,
-  point_geom_args = list(),
+  plotting_geom = ggplot2::geom_point,
+  plotting_geom_args = list(),
   annotate = "{round(ff,1)} m/s, {round(dd)}°",
   annotation_size = 4,
   vp_color = "red"
@@ -37,12 +37,12 @@ If only one value is provided next to a \code{vp} then the height bin intersecti
 \item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for a \code{DBZH} less then 20 and a \code{RHOHV} less then 0.95.
 Alternative filters could be used to highlight specific effects.}
 
-\item{point_geom}{The geom to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}, in some cases this suffers from over plotting.
+\item{plotting_geom}{The geom function to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}, in some cases this suffers from over plotting.
 Alternatives that avoid over plotting could be \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin2d()}} or \code{\link[ggpointdensity:geom_pointdensity]{ggpointdensity::geom_pointdensity()}}.}
 
-\item{point_geom_args}{Additional arguments to the \code{point_geom} function. For example, controlling the point size or alpha.}
+\item{plotting_geom_args}{A list with additional arguments to the \code{plotting_geom} function. For example, controlling the point size or alpha.}
 
-\item{annotate}{A \code{\link[glue:glue]{glue::glue()}} string that is used to annotate the plot with additional properties of the height bin of the \code{vp}.
+\item{annotate}{A \link[glue:glue]{glue} string that is used to annotate the plot with additional properties of the height bin of the \code{vp}.
 The string is evaluated using the columns from \code{as.data.frame(vp)}.
 Use \code{NULL} if no annotation is desired.}
 
@@ -51,12 +51,19 @@ Use \code{NULL} if no annotation is desired.}
 \item{vp_color}{The color used for the \code{vp} annotations and line.}
 }
 \value{
-A \link[ggplot2:ggplot]{ggplot2::ggplot} object. Additional elements can be added using regular function in the \code{ggplot2} package.
+A \link[ggplot2:ggplot]{ggplot2::ggplot} object.
 }
 \description{
 A velocity azimuth display plot visualized the radial velocity (\code{VRAD}) as a function of the azimuth from the radar.
 Among others it can be used to asses the fit of the movement speeds in a vertical profile.
-For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as deviations from the sine function.
+For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as
+deviations from the sine function.
+}
+\details{
+As a \link[ggplot2:ggplot]{ggplot2::ggplot} object  us returned additional elements can be added using regular function in
+the \code{ggplot2} package. Labels could, for example, be modified using \code{\link[ggplot2:labs]{ggplot2::labs()}} or \code{\link[ggplot2:labs]{ggplot2::ggtitle()}}.
+Using \code{\link[ggplot2:theme]{ggplot2::theme()}} the visual appearance can easily be modified. To do this the regular \link[ggplot2:gg-add]{+}
+syntax can be used. In the examples this is demonstrated using scale.
 }
 \examples{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -72,11 +79,11 @@ vp <- calculate_vp(pvolfile)
 vad(example_pvol,
   vp = vp,
   height = 400,
-  point_geom_args=list(ggplot2::aes(color=ZDR))
+  plotting_geom_args=list(ggplot2::aes(color=ZDR))
 ) + ggplot2::scale_color_gradient2()
 vad(example_pvol,
   vp = vp, height=c(400,1200),
-  point_geom=ggplot2::geom_bin2d,
+  plotting_geom=ggplot2::geom_bin2d,
   annotate="sdvvp: {round(sd_vvp,2)} [m/s]",
 ) + ggplot2::scale_fill_viridis_c()
 }

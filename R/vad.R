@@ -1,11 +1,12 @@
 globalVariables(c("DBZH","VRADH","RHOHV"))
 NULL
 
-#' Create a velocity azimuth display (VAD) plot
+#' Create a Velocity Azimuth Display (VAD) plot
 #'
 #' A velocity azimuth display plot visualized the radial velocity (`VRAD`) as a function of the azimuth from the radar.
 #' Among others it can be used to asses the fit of the movement speeds in a vertical profile.
-#' For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as deviations from the sine function.
+#' For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as
+#' deviations from the sine function.
 #'
 #' @param x A polar volume from which range gates are extracted.
 #' @param ... Currently not used.
@@ -16,16 +17,21 @@ NULL
 #'      If only one value is provided next to a `vp` then the height bin intersection with this elevation is plotted.
 #' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for a `DBZH` less then 20 and a `RHOHV` less then 0.95.
 #'      Alternative filters could be used to highlight specific effects.
-#' @param point_geom The geom to visualize the range gates, the default is [ggplot2::geom_point()], in some cases this suffers from over plotting.
+#' @param plotting_geom The geom function to visualize the range gates, the default is [ggplot2::geom_point()], in some cases this suffers from over plotting.
 #'      Alternatives that avoid over plotting could be [ggplot2::geom_bin2d()] or [ggpointdensity::geom_pointdensity()].
-#' @param point_geom_args Additional arguments to the `point_geom` function. For example, controlling the point size or alpha.
-#' @param annotate A [glue::glue()] string that is used to annotate the plot with additional properties of the height bin of the `vp`.
+#' @param plotting_geom_args A list with additional arguments to the `plotting_geom` function. For example, controlling the point size or alpha.
+#' @param annotate A [glue][glue::glue()] string that is used to annotate the plot with additional properties of the height bin of the `vp`.
 #'      The string is evaluated using the columns from `as.data.frame(vp)`.
 #'      Use `NULL` if no annotation is desired.
 #' @param vp_color The color used for the `vp` annotations and line.
 #' @param annotation_size The text size used for the annotation.
 #'
-#' @returns A [ggplot2::ggplot] object. Additional elements can be added using regular function in the `ggplot2` package.
+#' @returns A [ggplot2::ggplot] object.
+#'
+#' @details  As a [ggplot2::ggplot] object  us returned additional elements can be added using regular function in
+#'      the `ggplot2` package. Labels could, for example, be modified using [ggplot2::labs()] or [ggplot2::ggtitle()].
+#'      Using [ggplot2::theme()] the visual appearance can easily be modified. To do this the regular [+][ggplot2::+.gg]
+#'      syntax can be used. In the examples this is demonstrated using scale.
 #'
 #' @export
 #' @examples
@@ -42,11 +48,11 @@ NULL
 #' vad(example_pvol,
 #'   vp = vp,
 #'   height = 400,
-#'   point_geom_args=list(ggplot2::aes(color=ZDR))
+#'   plotting_geom_args=list(ggplot2::aes(color=ZDR))
 #' ) + ggplot2::scale_color_gradient2()
 #' vad(example_pvol,
 #'   vp = vp, height=c(400,1200),
-#'   point_geom=ggplot2::geom_bin2d,
+#'   plotting_geom=ggplot2::geom_bin2d,
 #'   annotate="sdvvp: {round(sd_vvp,2)} [m/s]",
 #' ) + ggplot2::scale_fill_viridis_c()
 vad <- function(x, ...) {
@@ -56,8 +62,8 @@ vad <- function(x, ...) {
 #' @export
 vad.pvol <- function(x, vp = NULL,..., range = NULL, height = NULL,
                      range_gate_filter = DBZH < 20 & RHOHV < .95,
-                     point_geom=ggplot2::geom_point,
-                     point_geom_args=list(),
+                     plotting_geom=ggplot2::geom_point,
+                     plotting_geom_args=list(),
                      annotate="{round(ff,1)} m/s, {round(dd)}\u00B0",
                      annotation_size=4,
                      vp_color="red"){
@@ -167,7 +173,7 @@ vad.pvol <- function(x, vp = NULL,..., range = NULL, height = NULL,
     annotate_geom<-list()
   }
   plt <- ggplot2::ggplot(data, ggplot2::aes(x = .data$azim, y = VRADH)) +
-    do.call(point_geom, point_geom_args) +
+    do.call(plotting_geom, plotting_geom_args) +
     ggplot2::scale_x_continuous(breaks = (0:4) * 90, minor_breaks = (0:12) * 30) +
     ggplot2::ylab("Radial velocity [m/s]") +
     ggplot2::xlab("Azimuth [\u00B0]")+
