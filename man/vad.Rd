@@ -15,7 +15,10 @@ vad(x, ...)
   range_max = NULL,
   alt_min = NULL,
   alt_max = NULL,
-  range_gate_filter = DBZH < 20 & RHOHV < 0.95,
+  range_gate_filter = dplyr::if_all(utils::head(dplyr::matches(c("^DBZ$", "^DBZH$",
+    "^DBZV$", "^TH$", "^TV$")), 1), function(dbz) dbz_to_eta(dbz,
+    !!x$attributes$how$wavelength) < 36000) & dplyr::if_any(dplyr::matches("RHOHV"),
+    function(rhohv) rhohv < 0.95),
   plotting_geom = ggplot2::geom_point,
   plotting_geom_args = list(),
   annotate = "{round(ff,1)} m/s, {round(dd)}°",
@@ -36,7 +39,9 @@ If a \code{vp} is provided the range is taken from the \code{vp} and the argumen
 \item{alt_min, alt_max}{The altitude range to filter the range gates by.
 If only \code{alt_min} value is provided next to a \code{vp} then the height bin intersection with this altitude is plotted.}
 
-\item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for a \code{DBZH} less then 20 and a \code{RHOHV} less then 0.95.
+\item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for a eta (reflectivity)
+value less then 36000 (the vol2bird default) and a \code{RHOHV} less then 0.95.
+The function selects the first reflectivity factor quantity from \code{DBZ}, \code{DBZH}, \code{DBZV}, \code{TH} or \code{TV} that is present.
 Alternative filters could be used to highlight specific effects.}
 
 \item{plotting_geom}{The geom function to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}, in some cases this suffers from over plotting.
@@ -44,8 +49,8 @@ Alternatives that avoid over plotting could be \code{\link[ggplot2:geom_bin_2d]{
 
 \item{plotting_geom_args}{A list with additional arguments to the \code{plotting_geom} function. For example, controlling the point size or alpha.}
 
-\item{annotate}{A \link[glue:glue]{glue} string that is used to annotate the plot with additional properties of the height bin of the \code{vp}.
-The string is evaluated using the columns from \code{as.data.frame(vp)}.
+\item{annotate}{A \link[glue:glue]{glue} formating string that is used to annotate the plot with additional properties of the height bin from the \code{vp}.
+The string is evaluated using the columns from \code{as.data.frame(vp)}, any of these columns can thus be used (e.g. \code{ff} or \code{sd_vvp}).
 Use \code{NULL} if no annotation is desired.}
 
 \item{annotation_size}{The text size used for the annotation.}
@@ -66,6 +71,9 @@ As a \link[ggplot2:ggplot]{ggplot2::ggplot} object  us returned additional eleme
 the \code{ggplot2} package. Labels could, for example, be modified using \code{\link[ggplot2:labs]{ggplot2::labs()}} or \code{\link[ggplot2:labs]{ggplot2::ggtitle()}}.
 Using \code{\link[ggplot2:theme]{ggplot2::theme()}} the visual appearance can easily be modified. To do this the regular \link[ggplot2:gg-add]{+}
 syntax can be used. In the examples this is demonstrated using scale.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ As for the radial velocity to plot the first of `VRAD`, `VRADH` or `VRADV` is used.
+}\if{html}{\out{</div>}}
 }
 \examples{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

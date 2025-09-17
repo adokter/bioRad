@@ -1,6 +1,3 @@
-globalVariables(c("DBZH", "RHOHV"))
-NULL
-
 #' Create a Velocity Azimuth Display (VAD) plot
 #'
 #' A velocity azimuth display plot visualized the radial velocity (`VRAD`) as a function of the azimuth from the radar.
@@ -15,13 +12,15 @@ NULL
 #'      If a `vp` is provided the range is taken from the `vp` and the argument `range_min` and `range_max` should not be provided.
 #' @param alt_min,alt_max The altitude range to filter the range gates by.
 #'      If only `alt_min` value is provided next to a `vp` then the height bin intersection with this altitude is plotted.
-#' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for a `DBZH` less then 20 and a `RHOHV` less then 0.95.
+#' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for a eta (reflectivity)
+#'      value less then 36000 (the vol2bird default) and a `RHOHV` less then 0.95.
+#'      The function selects the first reflectivity factor quantity from `DBZ`, `DBZH`, `DBZV`, `TH` or `TV` that is present.
 #'      Alternative filters could be used to highlight specific effects.
 #' @param plotting_geom The geom function to visualize the range gates, the default is [ggplot2::geom_point()], in some cases this suffers from over plotting.
 #'      Alternatives that avoid over plotting could be [ggplot2::geom_bin2d()] or [ggpointdensity::geom_pointdensity()].
 #' @param plotting_geom_args A list with additional arguments to the `plotting_geom` function. For example, controlling the point size or alpha.
-#' @param annotate A [glue][glue::glue()] string that is used to annotate the plot with additional properties of the height bin of the `vp`.
-#'      The string is evaluated using the columns from `as.data.frame(vp)`.
+#' @param annotate A [glue][glue::glue()] formating string that is used to annotate the plot with additional properties of the height bin from the `vp`.
+#'      The string is evaluated using the columns from `as.data.frame(vp)`, any of these columns can thus be used (e.g. `ff` or `sd_vvp`).
 #'      Use `NULL` if no annotation is desired.
 #' @param annotation_color The color used for the `vp` annotations and line.
 #' @param annotation_size The text size used for the annotation.
@@ -32,6 +31,8 @@ NULL
 #'      the `ggplot2` package. Labels could, for example, be modified using [ggplot2::labs()] or [ggplot2::ggtitle()].
 #'      Using [ggplot2::theme()] the visual appearance can easily be modified. To do this the regular [+][ggplot2::+.gg]
 #'      syntax can be used. In the examples this is demonstrated using scale.
+#'
+#'      As for the radial velocity to plot the first of `VRAD`, `VRADH` or `VRADV` is used.
 #'
 #' @export
 #' @examples
@@ -64,8 +65,10 @@ vad <- function(x, ...) {
 vad.pvol <- function(x, vp = NULL, ...,
                      range_min = NULL, range_max = NULL,
                      alt_min = NULL, alt_max = NULL,
-                     range_gate_filter = dbz_to_eta(DBZH, !!x$attributes$how$wavelength )<36000 &
-                                RHOHV < .95,
+                     range_gate_filter =
+                       dplyr::if_all(utils::head(dplyr::matches(c("^DBZ$","^DBZH$","^DBZV$","^TH$","^TV$")),1),
+                                     \(dbz) dbz_to_eta(dbz, !!x$attributes$how$wavelength)<36000)&
+                       dplyr::if_any(dplyr::matches("RHOHV"),  \(rhohv) rhohv <.95),
                      plotting_geom = ggplot2::geom_point,
                      plotting_geom_args = list(),
                      annotate = "{round(ff,1)} m/s, {round(dd)}\u00B0",
@@ -140,7 +143,7 @@ vad.pvol <- function(x, vp = NULL, ...,
     # Filter the plotting data with the height and range, furthermore we omit NA's
     # and apply the range_gate_filter's
   data<-  dplyr::filter(data,
-      !is.na(.data$azim), !is.na(!!sym(vrad_quantity)),
+      !is.na(.data$azim), !is.na(!!rlang::sym(vrad_quantity)),
       .data$range > range_min, .data$range < range_max,
       .data$height < alt_max, .data$height > alt_min,
       !!rlang::enexpr(range_gate_filter)
