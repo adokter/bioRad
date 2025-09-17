@@ -70,7 +70,7 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
   assertthat::assert_that(is.pvol(x))
   # Some of the input variables are checked and modified speficially in the VP context
   if (!is.null(vp)) {
-    assertthat::assert_that(is.vp(x))
+    assertthat::assert_that(is.vp(vp))
     # For vp's we take range from the vp and not the arguments
     assertthat::assert_that(
       is.null(range),
