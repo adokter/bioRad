@@ -1,4 +1,4 @@
-globalVariables(c("DBZH","VRADH","RHOHV"))
+globalVariables(c("DBZH", "VRADH", "RHOHV"))
 NULL
 
 #' Create a Velocity Azimuth Display (VAD) plot
@@ -48,46 +48,50 @@ NULL
 #' vad(example_pvol,
 #'   vp = vp,
 #'   height = 400,
-#'   plotting_geom_args=list(ggplot2::aes(color=ZDR))
+#'   plotting_geom_args = list(ggplot2::aes(color = ZDR))
 #' ) + ggplot2::scale_color_gradient2()
 #' vad(example_pvol,
-#'   vp = vp, height=c(400,1200),
-#'   plotting_geom=ggplot2::geom_bin2d,
-#'   annotate="sdvvp: {round(sd_vvp,2)} [m/s]",
+#'   vp = vp, height = c(400, 1200),
+#'   plotting_geom = ggplot2::geom_bin2d,
+#'   annotate = "sdvvp: {round(sd_vvp,2)} [m/s]",
 #' ) + ggplot2::scale_fill_viridis_c()
 vad <- function(x, ...) {
   UseMethod("vad", x)
 }
 #' @rdname vad
 #' @export
-vad.pvol <- function(x, vp = NULL,..., range = NULL, height = NULL,
+vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
                      range_gate_filter = DBZH < 20 & RHOHV < .95,
-                     plotting_geom=ggplot2::geom_point,
-                     plotting_geom_args=list(),
-                     annotate="{round(ff,1)} m/s, {round(dd)}\u00B0",
-                     annotation_size=4,
-                     vp_color="red"){
+                     plotting_geom = ggplot2::geom_point,
+                     plotting_geom_args = list(),
+                     annotate = "{round(ff,1)} m/s, {round(dd)}\u00B0",
+                     annotation_size = 4,
+                     vp_color = "red") {
   assertthat::assert_that(is.pvol(x))
+  # Some of the input variables are checked and modified speficially in the VP context
   if (!is.null(vp)) {
+    assertthat::assert_that(is.vp(x))
+    # For vp's we take range from the vp and not the arguments
+    assertthat::assert_that(
+      is.null(range),
+      msg = "When specifying a vp the range is taken from there. Thus no range should be provided."
+    )
+    range <- c(vp$attributes$how$minrange, vp$attributes$how$maxrange) * 1000
+    # convert the vp to df with height as we will need it later
     vp_df <- as.data.frame(vp) |> dplyr::mutate(
       height_bin = glue::glue("{height}-{height + vp$attributes$where$interval} [m]"),
       height_bin = factor(.data$height_bin, levels = .data$height_bin)
     )
-
-    assertthat::assert_that(
-      is.null(range),
-      msg = "When specifying a vp the range is taken from there. Thus no range should be provided"
-    )
-    range <- c(vp$attributes$how$minrange, vp$attributes$how$maxrange) * 1000
+    # For one height we take the interval that intersects
     if (length(height) == 1) {
       height <- max(vp$data$height[vp$data$height <= height]) + c(0, vp$attributes$where$interval)
     }
-
+    # if a height profile has been provided we only plot those curves from a vp and thus subset `vp_df`
     if (!is.null(height)) {
-      # if a height profile has been provided we only plot those curves from a vp
       vp_df <- vp_df[(vp_df$height + vp$attributes$where$interval) > min(height) & vp_df$height < max(height), ]
     }
   }
+  # Checking of input variables
   assertthat::assert_that(
     is.null(range) ||
       (is.numeric(range) && length(2))
@@ -103,68 +107,79 @@ vad.pvol <- function(x, vp = NULL,..., range = NULL, height = NULL,
   if (is.null(height)) {
     height <- c(-Inf, Inf)
   }
+  # Convert the polar volume to plotting data by converting the scans to locations
   data <-
-    mapply(SIMPLIFY = F,
+    mapply(
+      SIMPLIFY = F,
       cbind,
-      lapply( lapply(x$scans, scan_to_spatial),
-              as.data.frame
+      lapply(
+        lapply(x$scans, scan_to_spatial),
+        as.data.frame
       ),
+      # We add extra attributes from the scan attributes that can be useful for filtering or highlighting
+      # certain attributes
       split(attribute_table(x) |>
-              dplyr::mutate(scan_nr=1:dplyr::n())|>
+        dplyr::mutate(scan_nr = 1:dplyr::n()) |>
         dplyr::select(-"param"), 1:length(x$scans)), MoreArgs = list(row.names = NULL)
     ) |>
     dplyr::bind_rows() |>
+    # Filter the plotting data with the height and range, furthermore we omit NA's
+    # ann apply the range_gate_filter's
     dplyr::filter(
       !is.na(.data$azim), !is.na(VRADH),
       .data$range > min(!!range), .data$range < max(!!range),
       .data$height < max(!!height), .data$height > min(!!height),
       !!rlang::enexpr(range_gate_filter)
     )
+  # Generate a geom that contains the sine function from the vp
+  vp_geom <- list()
   if (!is.null(vp)) {
     s <- !(is.na(vp_df$ff) | is.na(vp_df$dd))
-    vp_geom <- mapply(SIMPLIFY = F,
-      function(spd, dir,hgt, bin)
-      {ggplot2::geom_function(
-        data = dplyr::bind_cols(data, data.frame(
-          min_bin_height = hgt,
-          max_bin_height = hgt + vp$attributes$where$interval,
-          height_bin = bin
-        )),
-        fun = function(x, v, a) cos((x - a) / 180 * pi) * v,
-        args = list(a = dir, v = spd),
-        color = vp_color
-      )},
-
+    vp_geom <- mapply(
+      SIMPLIFY = F,
+      function(spd, dir, hgt, bin) {
+        ggplot2::geom_function(
+          data = dplyr::bind_cols(data, data.frame(
+            min_bin_height = hgt,
+            max_bin_height = hgt + vp$attributes$where$interval,
+            height_bin = bin
+          )),
+          fun = function(x, v, a) cos((x - a) / 180 * pi) * v,
+          args = list(a = dir, v = spd),
+          color = vp_color
+        )
+      },
       vp_df$ff[s], vp_df$dd[s], vp_df$height[s], vp_df$height_bin[s]
     )
-    if(length(vp_geom)>1){
-      vp_geom<-c(vp_geom, ggplot2::facet_wrap(~.data$height_bin))
+    if (length(vp_geom) > 1) {
+      vp_geom <- c(vp_geom, ggplot2::facet_wrap(~ .data$height_bin))
     }
     int <- findInterval(data$height, c(vp_df$height, max(vp_df$height) + vp$attributes$where$interval))
     int[int == 0] <- NA
     data$height_bin <- vp_df$height_bin[int]
-  } else {
-    vp_geom <- list()
   }
-  if(!is.null(annotate) & is.vp(vp)){
-    df<-data.frame(label=as.character(glue::glue_data(annotate, .x=vp_df)),x=Inf,y=Inf, height_bin=vp_df$height_bin)
-    annotate_geom<-
-     list( ggplot2::geom_label(
-        data=df,
-        ggplot2::aes(x=x,y=y, label = .data$label),
-        vjust = "inward", hjust = "inward", color=vp_color,
-        fill=NA, label.size = 0, size=annotation_size
-    ))
-
-  }else{
-    annotate_geom<-list()
+  # Create the `annotate_geom` for textual annotations of each height interval
+  # The glue string is annotated in the `vp_df` so that all vp attributes are available
+  annotate_geom <- list()
+  if (!is.null(annotate) & is.vp(vp)) {
+    df <- data.frame(label = as.character(glue::glue_data(annotate, .x = vp_df)),
+                     x = Inf, y = Inf, height_bin = vp_df$height_bin)
+    annotate_geom <-
+      list(ggplot2::geom_label(
+        data = df,
+        ggplot2::aes(x = x, y = y, label = .data$label),
+        vjust = "inward", hjust = "inward", color = vp_color,
+        fill = NA, label.size = 0, size = annotation_size
+      ))
   }
+  # Combine everything in one plot
   plt <- ggplot2::ggplot(data, ggplot2::aes(x = .data$azim, y = VRADH)) +
     do.call(plotting_geom, plotting_geom_args) +
     ggplot2::scale_x_continuous(breaks = (0:4) * 90, minor_breaks = (0:12) * 30) +
     ggplot2::ylab("Radial velocity [m/s]") +
-    ggplot2::xlab("Azimuth [\u00B0]")+
-    vp_geom+annotate_geom
+    ggplot2::xlab("Azimuth [\u00B0]") +
+    vp_geom +
+    annotate_geom
 
   return(plt)
 }
