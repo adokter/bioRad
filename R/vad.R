@@ -104,22 +104,24 @@ vad.pvol <- function(x, vp = NULL, ...,
     }
   }
   # Checking of input variables
+  assertthat::assert_that(
+    is.null(range_min) || rlang::is_scalar_vector(range_min),
+    is.null(range_max) || rlang::is_scalar_vector(range_max)
+  )
   range_min <- max(-Inf, range_min)
   range_max <- min(Inf, range_max)
   assertthat::assert_that(
-    is.numeric(range_min) && rlang::is_scalar_vector(range_min)
-  )
-  assertthat::assert_that(
-    is.numeric(range_max) && rlang::is_scalar_vector(range_max)
-  )
+    is.numeric(range_min),
+    is.numeric(range_max),
+    is.null(alt_min) || rlang::is_scalar_vector(alt_min),
+    is.null(alt_max) || rlang::is_scalar_vector(alt_max)
+
+    )
   alt_min <- max(-Inf, alt_min)
   alt_max <- min(Inf, alt_max)
   assertthat::assert_that(
-    is.numeric(alt_min) && rlang::is_scalar_vector(alt_min)
-  )
-  assertthat::assert_that(
-    is.numeric(alt_max) && rlang::is_scalar_vector(alt_max)
-  )
+    is.numeric(alt_min) ,
+    is.numeric(alt_max) )
 
   # Convert the polar volume to plotting data by converting the scans to locations
   data <-
