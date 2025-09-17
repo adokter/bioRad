@@ -11,8 +11,10 @@ vad(x, ...)
   x,
   vp = NULL,
   ...,
-  range = NULL,
-  height = NULL,
+  range_min = NULL,
+  range_max = NULL,
+  alt_min = NULL,
+  alt_max = NULL,
   range_gate_filter = DBZH < 20 & RHOHV < 0.95,
   plotting_geom = ggplot2::geom_point,
   plotting_geom_args = list(),
@@ -28,11 +30,11 @@ vad(x, ...)
 
 \item{vp}{A vertical profile to annotate the VAD plot with the fit in the vertical profile}
 
-\item{range}{The distance range in to filter the range gates with.
-If a \code{vp} is provided the range is taken from there and the argument \code{range} should not be provided.}
+\item{range_min, range_max}{The distance range in to filter the range gates with.
+If a \code{vp} is provided the range is taken from the \code{vp} and the argument \code{range_min} and \code{range_max} should not be provided.}
 
-\item{height}{The height range to filter the range gates by.
-If only one value is provided next to a \code{vp} then the height bin intersection with this elevation is plotted.}
+\item{alt_min, alt_max}{The altitude range to filter the range gates by.
+If only \code{alt_min} value is provided next to a \code{vp} then the height bin intersection with this altitude is plotted.}
 
 \item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for a \code{DBZH} less then 20 and a \code{RHOHV} less then 0.95.
 Alternative filters could be used to highlight specific effects.}
@@ -70,7 +72,8 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
 # VAD plots can be created for polar volumes alone
 vad(example_pvol,
-  range = c(5000, 30000), height = c(200, 400)
+  range_min = 5000, range_max = 30000,
+  alt_min = 200, alt_max = 400
 )
 # It is also possible to plot one height or more height bins from a `vp`.
 # Many visual aspects can be controlled through the function arguments
@@ -78,11 +81,11 @@ vad(example_pvol,
 vp <- calculate_vp(pvolfile)
 vad(example_pvol,
   vp = vp,
-  height = 400,
+  alt_min = 400,
   plotting_geom_args = list(ggplot2::aes(color = ZDR))
 ) + ggplot2::scale_color_gradient2()
 vad(example_pvol,
-  vp = vp, height = c(400, 1200),
+  vp = vp, alt_min = 400, alt_max = 1200,
   plotting_geom = ggplot2::geom_bin2d,
   annotate = "sdvvp: {round(sd_vvp,2)} [m/s]",
 ) + ggplot2::scale_fill_viridis_c()

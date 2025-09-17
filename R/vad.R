@@ -11,10 +11,10 @@ NULL
 #' @param x A polar volume from which range gates are extracted.
 #' @param ... Currently not used.
 #' @param vp A vertical profile to annotate the VAD plot with the fit in the vertical profile
-#' @param range The distance range in to filter the range gates with.
-#'      If a `vp` is provided the range is taken from there and the argument `range` should not be provided.
-#' @param height The height range to filter the range gates by.
-#'      If only one value is provided next to a `vp` then the height bin intersection with this elevation is plotted.
+#' @param range_min,range_max The distance range in to filter the range gates with.
+#'      If a `vp` is provided the range is taken from the `vp` and the argument `range_min` and `range_max` should not be provided.
+#' @param alt_min,alt_max The altitude range to filter the range gates by.
+#'      If only `alt_min` value is provided next to a `vp` then the height bin intersection with this altitude is plotted.
 #' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for a `DBZH` less then 20 and a `RHOHV` less then 0.95.
 #'      Alternative filters could be used to highlight specific effects.
 #' @param plotting_geom The geom function to visualize the range gates, the default is [ggplot2::geom_point()], in some cases this suffers from over plotting.
@@ -39,7 +39,8 @@ NULL
 #' example_pvol <- read_pvolfile(pvolfile)
 #' # VAD plots can be created for polar volumes alone
 #' vad(example_pvol,
-#'   range = c(5000, 30000), height = c(200, 400)
+#'   range_min = 5000, range_max = 30000,
+#'   alt_min = 200, alt_max = 400
 #' )
 #' # It is also possible to plot one height or more height bins from a `vp`.
 #' # Many visual aspects can be controlled through the function arguments
@@ -47,11 +48,11 @@ NULL
 #' vp <- calculate_vp(pvolfile)
 #' vad(example_pvol,
 #'   vp = vp,
-#'   height = 400,
+#'   alt_min = 400,
 #'   plotting_geom_args = list(ggplot2::aes(color = ZDR))
 #' ) + ggplot2::scale_color_gradient2()
 #' vad(example_pvol,
-#'   vp = vp, height = c(400, 1200),
+#'   vp = vp, alt_min = 400, alt_max = 1200,
 #'   plotting_geom = ggplot2::geom_bin2d,
 #'   annotate = "sdvvp: {round(sd_vvp,2)} [m/s]",
 #' ) + ggplot2::scale_fill_viridis_c()
@@ -60,7 +61,9 @@ vad <- function(x, ...) {
 }
 #' @rdname vad
 #' @export
-vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
+vad.pvol <- function(x, vp = NULL, ...,
+                     range_min = NULL, range_max = NULL,
+                     alt_min = NULL, alt_max = NULL,
                      range_gate_filter = DBZH < 20 & RHOHV < .95,
                      plotting_geom = ggplot2::geom_point,
                      plotting_geom_args = list(),
@@ -68,45 +71,52 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
                      annotation_size = 4,
                      annotation_color = "red") {
   assertthat::assert_that(is.pvol(x))
-  # Some of the input variables are checked and modified speficially in the VP context
+  # Some of the input variables are checked and modified specifically in the VP context
   if (!is.null(vp)) {
     assertthat::assert_that(is.vp(vp))
     # For vp's we take range from the vp and not the arguments
     assertthat::assert_that(
-      is.null(range),
+      is.null(range_min) && is.null(range_max),
       msg = "When specifying a vp the range is taken from there. Thus no range should be provided."
     )
-    range <- c(vp$attributes$how$minrange, vp$attributes$how$maxrange) * 1000
+    range_min <- vp$attributes$how$minrange * 1000
+    range_max <- vp$attributes$how$maxrange * 1000
     # convert the vp to df with height as we will need it later
     vp_df <- as.data.frame(vp) |> dplyr::mutate(
       height_bin = glue::glue("{height}-{height + vp$attributes$where$interval} [m]"),
       height_bin = factor(.data$height_bin, levels = .data$height_bin)
     )
     # For one height we take the interval that intersects
-    if (length(height) == 1) {
-      height <- max(vp$data$height[vp$data$height <= height]) + c(0, vp$attributes$where$interval)
+    if (is.numeric(alt_min) && rlang::is_scalar_vector(alt_min) && is.null(alt_max)) {
+      alt_min <- max(vp$data$height[vp$data$height <= alt_min])
+      alt_max <- alt_min + vp$attributes$where$interval
     }
     # if a height profile has been provided we only plot those curves from a vp and thus subset `vp_df`
-    if (!is.null(height)) {
-      vp_df <- vp_df[(vp_df$height + vp$attributes$where$interval) > min(height) & vp_df$height < max(height), ]
+    if (!is.null(alt_min)) {
+      vp_df <- vp_df[(vp_df$height + vp$attributes$where$interval) > alt_min, ]
+    }
+    if (!is.null(alt_max)) {
+      vp_df <- vp_df[vp_df$height < alt_max, ]
     }
   }
   # Checking of input variables
+  range_min <- max(-Inf, range_min)
+  range_max <- min(Inf, range_max)
   assertthat::assert_that(
-    is.null(range) ||
-      (is.numeric(range) && length(2))
+    is.numeric(range_min) && rlang::is_scalar_vector(range_min)
   )
   assertthat::assert_that(
-    is.null(height) ||
-      (is.numeric(height) && length(2)) ||
-      (!is.null(vp) && is.numeric(height))
+    is.numeric(range_max) && rlang::is_scalar_vector(range_max)
   )
-  if (is.null(range)) {
-    range <- c(-Inf, Inf)
-  }
-  if (is.null(height)) {
-    height <- c(-Inf, Inf)
-  }
+  alt_min <- max(-Inf, alt_min)
+  alt_max <- min(Inf, alt_max)
+  assertthat::assert_that(
+    is.numeric(alt_min) && rlang::is_scalar_vector(alt_min)
+  )
+  assertthat::assert_that(
+    is.numeric(alt_max) && rlang::is_scalar_vector(alt_max)
+  )
+
   # Convert the polar volume to plotting data by converting the scans to locations
   data <-
     mapply(
@@ -124,11 +134,11 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
     ) |>
     dplyr::bind_rows() |>
     # Filter the plotting data with the height and range, furthermore we omit NA's
-    # ann apply the range_gate_filter's
+    # and apply the range_gate_filter's
     dplyr::filter(
       !is.na(.data$azim), !is.na(VRADH),
-      .data$range > min(!!range), .data$range < max(!!range),
-      .data$height < max(!!height), .data$height > min(!!height),
+      .data$range > range_min, .data$range < range_max,
+      .data$height < alt_max, .data$height > alt_min,
       !!rlang::enexpr(range_gate_filter)
     )
   # Generate a geom that contains the sine function from the vp
@@ -162,8 +172,10 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
   # The glue string is annotated in the `vp_df` so that all vp attributes are available
   annotate_geom <- list()
   if (!is.null(annotate) & is.vp(vp)) {
-    df <- data.frame(label = as.character(glue::glue_data(annotate, .x = vp_df)),
-                     x = Inf, y = Inf, height_bin = vp_df$height_bin)
+    df <- data.frame(
+      label = as.character(glue::glue_data(annotate, .x = vp_df)),
+      x = Inf, y = Inf, height_bin = vp_df$height_bin
+    )
     annotate_geom <-
       list(ggplot2::geom_label(
         data = df,
