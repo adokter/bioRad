@@ -1,4 +1,4 @@
-globalVariables(c("DBZH", "VRADH", "RHOHV"))
+globalVariables(c("DBZH", "RHOHV"))
 NULL
 
 #' Create a Velocity Azimuth Display (VAD) plot
@@ -64,7 +64,8 @@ vad <- function(x, ...) {
 vad.pvol <- function(x, vp = NULL, ...,
                      range_min = NULL, range_max = NULL,
                      alt_min = NULL, alt_max = NULL,
-                     range_gate_filter = DBZH < 20 & RHOHV < .95,
+                     range_gate_filter = dbz_to_eta(DBZH, !!x$attributes$how$wavelength )<36000 &
+                                RHOHV < .95,
                      plotting_geom = ggplot2::geom_point,
                      plotting_geom_args = list(),
                      annotate = "{round(ff,1)} m/s, {round(dd)}\u00B0",
@@ -132,11 +133,14 @@ vad.pvol <- function(x, vp = NULL, ...,
         dplyr::mutate(scan_nr = 1:dplyr::n()) |>
         dplyr::select(-"param"), 1:length(x$scans)), MoreArgs = list(row.names = NULL)
     ) |>
-    dplyr::bind_rows() |>
+    dplyr::bind_rows()
+
+    vrad_quantity<-c("VRAD","VRADH","VRADV")
+  vrad_quantity<-vrad_quantity[vrad_quantity %in%names(data)][1]
     # Filter the plotting data with the height and range, furthermore we omit NA's
     # and apply the range_gate_filter's
-    dplyr::filter(
-      !is.na(.data$azim), !is.na(VRADH),
+  data<-  dplyr::filter(data,
+      !is.na(.data$azim), !is.na(!!sym(vrad_quantity)),
       .data$range > range_min, .data$range < range_max,
       .data$height < alt_max, .data$height > alt_min,
       !!rlang::enexpr(range_gate_filter)
@@ -184,8 +188,12 @@ vad.pvol <- function(x, vp = NULL, ...,
         fill = NA, label.size = 0, size = annotation_size
       ))
   }
+
+
   # Combine everything in one plot
-  plt <- ggplot2::ggplot(data, ggplot2::aes(x = .data$azim, y = VRADH)) +
+  plt <- ggplot2::ggplot(data,
+                         ggplot2::aes(x = !!rlang::sym("azim"),
+                                      y = !!rlang::sym(vrad_quantity))) +
     do.call(plotting_geom, plotting_geom_args) +
     ggplot2::scale_x_continuous(breaks = (0:4) * 90, minor_breaks = (0:12) * 30) +
     ggplot2::ylab("Radial velocity [m/s]") +
