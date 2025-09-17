@@ -122,19 +122,6 @@ vad.pvol <- function(x, vp = NULL,..., range = NULL, height = NULL,
     )
   if (!is.null(vp)) {
     s <- !(is.na(vp_df$ff) | is.na(vp_df$dd))
-    # vp_geom <- purrr::pmap(
-    #   list(vp_df$ff[s], vp_df$dd[s], vp_df$height[s], vp_df$height_bin[s]),
-    #   ~ ggplot2::geom_function(
-    #     data = dplyr::bind_cols(data, data.frame(
-    #       min_bin_height = ..3,
-    #       max_bin_height = ..3 + vp$attributes$where$interval,
-    #       height_bin = ..4
-    #     )),
-    #     fun = function(x, v, a) cos((x - a) / 180 * pi) * v,
-    #     args = list(a = ..2, v = ..1),
-    #     color = vp_color
-    #   )
-    # )
     vp_geom <- mapply(SIMPLIFY = F,
       function(spd, dir,hgt, bin)
       {ggplot2::geom_function(
