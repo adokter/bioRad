@@ -18,7 +18,7 @@ vad(x, ...)
   plotting_geom_args = list(),
   annotate = "{round(ff,1)} m/s, {round(dd)}°",
   annotation_size = 4,
-  vp_color = "red"
+  annotation_color = "red"
 )
 }
 \arguments{
@@ -48,7 +48,7 @@ Use \code{NULL} if no annotation is desired.}
 
 \item{annotation_size}{The text size used for the annotation.}
 
-\item{vp_color}{The color used for the \code{vp} annotations and line.}
+\item{annotation_color}{The color used for the \code{vp} annotations and line.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2::ggplot} object.
@@ -79,11 +79,11 @@ vp <- calculate_vp(pvolfile)
 vad(example_pvol,
   vp = vp,
   height = 400,
-  plotting_geom_args=list(ggplot2::aes(color=ZDR))
+  plotting_geom_args = list(ggplot2::aes(color = ZDR))
 ) + ggplot2::scale_color_gradient2()
 vad(example_pvol,
-  vp = vp, height=c(400,1200),
-  plotting_geom=ggplot2::geom_bin2d,
-  annotate="sdvvp: {round(sd_vvp,2)} [m/s]",
+  vp = vp, height = c(400, 1200),
+  plotting_geom = ggplot2::geom_bin2d,
+  annotate = "sdvvp: {round(sd_vvp,2)} [m/s]",
 ) + ggplot2::scale_fill_viridis_c()
 }

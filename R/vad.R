@@ -23,7 +23,7 @@ NULL
 #' @param annotate A [glue][glue::glue()] string that is used to annotate the plot with additional properties of the height bin of the `vp`.
 #'      The string is evaluated using the columns from `as.data.frame(vp)`.
 #'      Use `NULL` if no annotation is desired.
-#' @param vp_color The color used for the `vp` annotations and line.
+#' @param annotation_color The color used for the `vp` annotations and line.
 #' @param annotation_size The text size used for the annotation.
 #'
 #' @returns A [ggplot2::ggplot] object.
@@ -66,7 +66,7 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
                      plotting_geom_args = list(),
                      annotate = "{round(ff,1)} m/s, {round(dd)}\u00B0",
                      annotation_size = 4,
-                     vp_color = "red") {
+                     annotation_color = "red") {
   assertthat::assert_that(is.pvol(x))
   # Some of the input variables are checked and modified speficially in the VP context
   if (!is.null(vp)) {
@@ -146,7 +146,7 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
           )),
           fun = function(x, v, a) cos((x - a) / 180 * pi) * v,
           args = list(a = dir, v = spd),
-          color = vp_color
+          color = annotation_color
         )
       },
       vp_df$ff[s], vp_df$dd[s], vp_df$height[s], vp_df$height_bin[s]
@@ -168,7 +168,7 @@ vad.pvol <- function(x, vp = NULL, ..., range = NULL, height = NULL,
       list(ggplot2::geom_label(
         data = df,
         ggplot2::aes(x = x, y = y, label = .data$label),
-        vjust = "inward", hjust = "inward", color = vp_color,
+        vjust = "inward", hjust = "inward", color = annotation_color,
         fill = NA, label.size = 0, size = annotation_size
       ))
   }
