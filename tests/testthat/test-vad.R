@@ -75,10 +75,17 @@ test_that("plot from vad() matches some expectations for scans", {
   expect_equal(plt$mapping, ggplot2::aes(x = azim, y = VRADH), ignore_attr = TRUE)
   expect_length(plt$data$scan_nr|> unique(),1)
 })
-test_that("vad raises cosine correction warnings",{
-expect_warning(vad(pvol, cosine_correction="range_gates"),'There are data that have a relatively low nyquist velocity')
-  expect_warning(vad(pvol,vp, cosine_correction="vp"),'The data to plot is based on multiple elevation angle')
+test_that("vad raises cosine correction warnings and is applied",{
+  expect_warning(plt_rg<-vad(pvol, cosine_correction="range_gates", range_min=5000, range_max=25000),'There are data that have a relatively low nyquist velocity')
+  expect_warning(plt_vp<-vad(pvol,vp, cosine_correction="vp"),'The data to plot is based on multiple elevation angle')
+  expect_equal(plt_rg$data$VRADH, plt_vp$data$VRADH *1/cospi(plt_vp$data$where.elangle/180))
+  expect_identical(plt_vp$layers[[2]]$stat_params$args$v,vp$data$ff[2]* cospi(mean(get_elevation_angles(pvol))/180))
+  expect_identical(plt_vp$layers[[3]]$stat_params$args$a,vp$data$dd[3])
   pvol_tmp<-pvol
   pvol_tmp$scans[[3]]$attributes$where$elangle<-20
-  expect_warning(vad(pvol_tmp),"Data with relativiely large elevation angles are included.")
+  expect_warning(plt_none<-vad(pvol_tmp, vp),"Data with relatively large elevation angles are included.")
+  expect_identical(plt_none$data$VRAD, plt_vp$data$VRADH)
+  expect_s3_class(plt_scn<-vad(scan, vp),'ggplot')
+  expect_equal(plt_scn$data,  plt_none$data |> dplyr::filter(scan_nr==1))
+  expect_identical(plt_scn$layers[[2]]$stat_params$args$v,vp$data$ff[2]* cospi((get_elevation_angles(scan))/180))
 })

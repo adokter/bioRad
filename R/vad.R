@@ -232,7 +232,7 @@ vad.pvol <- function(x, vp = NULL, ...,
     }
   }
   if (cosine_correction == "none" && max(data$where.elangle) > acos(.95) / pi * 180) {
-    warning("Data with relativiely large elevation angles are included. This means larger deviation (above 5%) between the horizontal velocity and radial velocity measured occur. Therefore it is important to consider cosine corrections of the radial velocity")
+    warning("Data with relatively large elevation angles are included. This means larger deviation (above 5%) between the horizontal velocity and radial velocity measured occur. Therefore it is important to consider cosine corrections of the radial velocity")
   }
   # Combine everything in one plot
   plt <- ggplot2::ggplot(
