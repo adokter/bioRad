@@ -3,6 +3,7 @@
 \name{vad}
 \alias{vad}
 \alias{vad.pvol}
+\alias{vad.scan}
 \title{Create a Velocity Azimuth Display (VAD) plot}
 \usage{
 vad(x, ...)
@@ -23,8 +24,11 @@ vad(x, ...)
   plotting_geom_args = list(),
   annotate = "{round(ff,1)} m/s, {round(dd)}°",
   annotation_size = 4,
-  annotation_color = "red"
+  annotation_color = "red",
+  cosine_correction = c("none", "vp", "range_gates")
 )
+
+\method{vad}{scan}(x, vp = NULL, ..., cosine_correction = c("vp", "none", "range_gates"))
 }
 \arguments{
 \item{x}{A polar volume from which range gates are extracted.}
@@ -56,6 +60,10 @@ Use \code{NULL} if no annotation is desired.}
 \item{annotation_size}{The text size used for the annotation.}
 
 \item{annotation_color}{The color used for the \code{vp} annotations and line.}
+
+\item{cosine_correction}{A character option to select what approach should be taken to correct for the fact that the horizontal velocities are measured at an angle (the elevation angle).
+For plotting a single scan with one elevation angle the visualized sine curve is adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
+See details for more information on the specific options.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2::ggplot} object.
@@ -72,12 +80,21 @@ the \code{ggplot2} package. Labels could, for example, be modified using \code{\
 Using \code{\link[ggplot2:theme]{ggplot2::theme()}} the visual appearance can easily be modified. To do this the regular \link[ggplot2:gg-add]{+}
 syntax can be used. In the examples this is demonstrated using scale.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ As for the radial velocity to plot the first of `VRAD`, `VRADH` or `VRADV` is used.
+As for the radial velocity to plot the first of \code{VRAD}, \code{VRADH} or \code{VRADV} is used.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ For these plots no vertical velocity is assumed as aeroecology will predominantly move in the horizontal plane.
+ However as the velocity is measured under an angle (the elevation angle of the radar) the radial velocities are an under estimation of the horizontal velocities.
+ To correct this either visualized sine curve from the horizontal velocities can be adjusted (`cosine_correction="vp"`),
+  however if multiple elevation angles are included no single correction can be applied and a warning is raised.
+ Alternatively the measured radial velocity can be corrected (`cosine_correction=="range_gates"`) the advantage is this can be done on multiple elevation scans in the same plot.
+ But with data that has been nyquist folded this correction can introduce extra errors. Therefore with low nyquist velocities a warning is raised.
 }\if{html}{\out{</div>}}
 }
 \examples{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(pvolfile)
+# VAD plot for a scan
+vad(example_scan)
 # VAD plots can be created for polar volumes alone
 vad(example_pvol,
   range_min = 5000, range_max = 30000,

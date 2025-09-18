@@ -1,6 +1,7 @@
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 vp <- example_vp
+scan<-example_scan
 
 test_that("vad() errors on incorrect parameters", {
   expect_error(vad(vp), "no applicable method for 'vad' applied to an object of class \"vp\"")
@@ -48,7 +49,8 @@ test_that("vad() errors on incorrect parameters", {
 test_that("plot from vad() matches some expectations", {
   expect_s3_class(plt <- vad(pvol,
     alt_min = 400, alt_max = 756,
-    range_min = 6953, range_max = 65344
+    range_min = 6953, range_max = 65344,
+    range_gate_filter= where.elangle<2
   ), "ggplot")
   expect_s3_class(plt$facet, "FacetNull")
   expect_true(all(plt$data$height < 756))
@@ -56,10 +58,27 @@ test_that("plot from vad() matches some expectations", {
   expect_true(all(plt$data$range < 65344))
   expect_true(all(plt$data$range > 6953))
   expect_equal(plt$mapping, ggplot2::aes(x = azim, y = VRADH), ignore_attr = TRUE)
+  expect_length(plt$data$scan_nr|> unique(),sum(get_elevation_angles(pvol)<2))
+
 })
 
 test_that("plot from vad() matches some expectations", {
   expect_s3_class(plt <- vad(calculate_param(pvol, VRAD = VRADH), vp), "ggplot")
   expect_s3_class(plt$facet, "FacetWrap")
   expect_equal(plt$mapping, ggplot2::aes(x = azim, y = VRAD), ignore_attr = TRUE)
+  expect_length(plt$data$scan_nr|> unique(),length(pvol$scans))
+
+})
+
+test_that("plot from vad() matches some expectations for scans", {
+  expect_s3_class(plt <- vad(scan, vp), "ggplot")
+  expect_equal(plt$mapping, ggplot2::aes(x = azim, y = VRADH), ignore_attr = TRUE)
+  expect_length(plt$data$scan_nr|> unique(),1)
+})
+test_that("vad raises cosine correction warnings",{
+expect_warning(vad(pvol, cosine_correction="range_gates"),'There are data that have a relatively low nyquist velocity')
+  expect_warning(vad(pvol,vp, cosine_correction="vp"),'The data to plot is based on multiple elevation angle')
+  pvol_tmp<-pvol
+  pvol_tmp$scans[[3]]$attributes$where$elangle<-20
+  expect_warning(vad(pvol_tmp),"Data with relativiely large elevation angles are included.")
 })
