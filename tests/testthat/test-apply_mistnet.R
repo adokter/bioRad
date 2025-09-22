@@ -1,7 +1,7 @@
 skip_if_offline()
 temp_dir <- tempdir()
 download.file(
-  "https://noaa-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
+  "https://unidata-nexrad-level2.s3.amazonaws.com/2019/10/01/KBGM/KBGM20191001_000542_V06",
   file.path(temp_dir, "KBGM_example"),
   quiet = TRUE
 )

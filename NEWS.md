@@ -1,4 +1,5 @@
 # bioRad 0.11.0.9000 (development version)
+* `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
 
 # bioRad 0.11.0
 
