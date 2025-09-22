@@ -2,7 +2,7 @@ test_that("S3 bucket & prefix exist", {
   skip_if_offline()
   withr::local_options(timeout = 15)
 
-  bucket <- "noaa-nexrad-level2"
+  bucket <- "unidata-nexrad-level2"
   prefix <- "1998/01/20/KABR/"
 
   expect_true(s3_bucket_exists(bucket))
@@ -15,7 +15,7 @@ test_that("s3_get_bucket_df parses an S3 listing", {
   withr::local_options(timeout = 20)
 
   df <- s3_get_bucket_df(
-    bucket = "noaa-nexrad-level2",
+    bucket = "unidata-nexrad-level2",
     prefix = "1998/01/20/KABR/",
     max_keys = 10
   )
@@ -33,19 +33,19 @@ test_that("s3_save_object downloads an object and respects overwrite", {
   skip_if_offline()
   withr::local_options(timeout = 30)
 
-  listing <- s3_get_bucket_df("noaa-nexrad-level2", "1998/01/20/KABR/", max_keys = 1)
+  listing <- s3_get_bucket_df("unidata-nexrad-level2", "1998/01/20/KABR/", max_keys = 1)
   skip_if(nrow(listing) == 0, "No objects returned; historical dataset may have moved.")
 
   key <- listing$Key[[1]]
   tmp <- tempfile(); on.exit(unlink(tmp), add = TRUE)
 
   # first download (live)
-  s3_save_object(object = key, bucket = "noaa-nexrad-level2", file = tmp, overwrite = TRUE)
+  s3_save_object(object = key, bucket = "unidata-nexrad-level2", file = tmp, overwrite = TRUE)
   expect_true(file.exists(tmp))
   size1 <- file.size(tmp); expect_gt(size1, 0)
 
   # second call with overwrite=FALSE should leave file unchanged
-  s3_save_object(object = key, bucket = "noaa-nexrad-level2", file = tmp, overwrite = FALSE)
+  s3_save_object(object = key, bucket = "unidata-nexrad-level2", file = tmp, overwrite = FALSE)
   expect_identical(file.size(tmp), size1)
 })
 
