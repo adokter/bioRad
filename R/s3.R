@@ -34,6 +34,7 @@
 #' @noRd
 s3_bucket_exists <- function(bucket) {
   httr2::request(.s3_endpoint(bucket)) |>
+    httr2::req_method("HEAD") |>
     httr2::req_error(is_error = function(resp) FALSE) |>
     httr2::req_perform() |>
     httr2::resp_status() |>
