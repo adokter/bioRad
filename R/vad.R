@@ -66,8 +66,8 @@
 #' vad(example_pvol,
 #'   vp = vp,
 #'   alt_min = 400,
-#'   plotting_geom_args = list(ggplot2::aes(color = ZDR))
-#' ) + ggplot2::scale_color_gradient2()
+#'   plotting_geom_args = list(ggplot2::aes(color = DBZH))
+#' ) + viridis::scale_color_virids()
 #' vad(example_pvol,
 #'   vp = vp, alt_min = 400, alt_max = 1200,
 #'   plotting_geom = ggplot2::geom_bin2d,
