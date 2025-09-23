@@ -4,7 +4,7 @@
 \alias{vad}
 \alias{vad.pvol}
 \alias{vad.scan}
-\title{Create a Velocity Azimuth Display (VAD) plot}
+\title{Plot a Velocity Azimuth Display (VAD).}
 \usage{
 vad(x, ...)
 
@@ -31,27 +31,28 @@ vad(x, ...)
 \method{vad}{scan}(x, vp = NULL, ..., cosine_correction = c("vp", "none", "range_gates"))
 }
 \arguments{
-\item{x}{A polar volume from which range gates are extracted.}
+\item{x}{An object of class \code{pvol} or \code{scan}}
 
 \item{...}{Currently not used.}
 
-\item{vp}{A vertical profile to annotate the VAD plot with the fit in the vertical profile}
+\item{vp}{An object of class \code{pvol}, typically a vertical profile estimated for the input polar volume specified under \code{x} using \code{bioRad::calculate_vp()}.}
 
-\item{range_min, range_max}{The distance range in to filter the range gates with.
-If a \code{vp} is provided the range is taken from the \code{vp} and the argument \code{range_min} and \code{range_max} should not be provided.}
+\item{range_min, range_max}{Numeric. The minimum and maximum range to include, in m. Values are taken from the \code{vp}
+object if provided.}
 
-\item{alt_min, alt_max}{The altitude range to filter the range gates by.
-If only \code{alt_min} value is provided next to a \code{vp} then the height bin intersection with this altitude is plotted.}
+\item{alt_min, alt_max}{Numeric. The minimum and maximum altitude to include, in m. If only \code{alt_min} value is provided
+next to a \code{vp} then the height bin intersection with this altitude is plotted.}
 
-\item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for a eta (reflectivity)
-value less then 36000 (the vol2bird default) and a \code{RHOHV} less then 0.95.
-The function selects the first reflectivity factor quantity from \code{DBZ}, \code{DBZH}, \code{DBZV}, \code{TH} or \code{TV} that is present.
-Alternative filters could be used to highlight specific effects.}
+\item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for linear reflectivity
+value (\code{eta}) less then 36000 cm^2/km^3 (the default in the profiling algorithm, see \code{etaMax} in \code{vol2bird::vol2bird_config()})
+and a correlation coefficient (\code{RHOHV}) < 0.95. The function selects the first reflectivity factor quantity
+from \code{DBZ}, \code{DBZH}, \code{DBZV}, \code{TH} or \code{TV} that is present. Alternative filters could be used to highlight specific effects.}
 
-\item{plotting_geom}{The geom function to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}, in some cases this suffers from over plotting.
-Alternatives that avoid over plotting could be \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin2d()}} or \code{\link[ggpointdensity:geom_pointdensity]{ggpointdensity::geom_pointdensity()}}.}
+\item{plotting_geom}{The geom function to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}. In cases
+with many data points plots may become cluttered, in which cases alternatives like \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin2d()}} or
+\code{\link[ggpointdensity:geom_pointdensity]{ggpointdensity::geom_pointdensity()}} may be preferred.}
 
-\item{plotting_geom_args}{A list with additional arguments to the \code{plotting_geom} function. For example, controlling the point size or alpha.}
+\item{plotting_geom_args}{A list with additional arguments to the \code{plotting_geom} function. For example, controlling the point size or transparancy alpha.}
 
 \item{annotate}{A \link[glue:glue]{glue} formating string that is used to annotate the plot with additional properties of the height bin from the \code{vp}.
 The string is evaluated using the columns from \code{as.data.frame(vp)}, any of these columns can thus be used (e.g. \code{ff} or \code{sd_vvp}).
@@ -61,34 +62,37 @@ Use \code{NULL} if no annotation is desired.}
 
 \item{annotation_color}{The color used for the \code{vp} annotations and line.}
 
-\item{cosine_correction}{A character option to select what approach should be taken to correct for the fact that the horizontal velocities are measured at an angle (the elevation angle).
-For plotting a single scan with one elevation angle the visualized sine curve is adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
+\item{cosine_correction}{A character option to select what approach should be taken to correct for the fact
+that the horizontal velocities are measured at an angle (the elevation angle).
+For plotting a single scan with one elevation angle the visualized sine curve is
+adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
 See details for more information on the specific options.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2::ggplot} object.
 }
 \description{
-A velocity azimuth display plot visualized the radial velocity (\code{VRAD}) as a function of the azimuth from the radar.
-Among others it can be used to asses the fit of the movement speeds in a vertical profile.
-For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as
-deviations from the sine function.
+A Velocity Azimuth Display visualizes the radial velocity (typically \code{VRADH}) as a function of the beam azimuth.
+These plots are useful to assess the quality of radial velocity data (including velocity folding),
+and for visually inspecting the quality of the velocity fit of a vertical profile estimate.
 }
 \details{
-As a \link[ggplot2:ggplot]{ggplot2::ggplot} object  us returned additional elements can be added using regular function in
-the \code{ggplot2} package. Labels could, for example, be modified using \code{\link[ggplot2:labs]{ggplot2::labs()}} or \code{\link[ggplot2:labs]{ggplot2::ggtitle()}}.
-Using \code{\link[ggplot2:theme]{ggplot2::theme()}} the visual appearance can easily be modified. To do this the regular \link[ggplot2:gg-add]{+}
-syntax can be used. In the examples this is demonstrated using scale.
+Poor velocity fits in vertical profiles can arise in cases where the movement is not well described by a unidirectional
+velocity model, or for data with strong velocity folding (i.e. a low Nyquist velocity).
+
+The returned \link[ggplot2:ggplot]{ggplot2::ggplot} can be styled with additional elements available in the \code{ggplot2} package.
+For example, labels and titles can be modified using \code{\link[ggplot2:labs]{ggplot2::labs()}} or \code{\link[ggplot2:labs]{ggplot2::ggtitle()}}.
+Using \code{\link[ggplot2:theme]{ggplot2::theme()}} the visual appearance can easily be modified. Use the regular \link[ggplot2:gg-add]{+}
+syntax to make modifications (e.g. see the examples for changing the plotting color gradients).
 
 As for the radial velocity to plot the first of \code{VRAD}, \code{VRADH} or \code{VRADV} is used.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ For these plots no vertical velocity is assumed as aeroecology will predominantly move in the horizontal plane.
- However as the velocity is measured under an angle (the elevation angle of the radar) the radial velocities are an under estimation of the horizontal velocities.
- To correct this either visualized sine curve from the horizontal velocities can be adjusted (`cosine_correction="vp"`),
-  however if multiple elevation angles are included no single correction can be applied and a warning is raised.
- Alternatively the measured radial velocity can be corrected (`cosine_correction=="range_gates"`) the advantage is this can be done on multiple elevation scans in the same plot.
- But with data that has been nyquist folded this correction can introduce extra errors. Therefore with low nyquist velocities a warning is raised.
-}\if{html}{\out{</div>}}
+For these plots no vertical velocity is assumed as aeroecology will predominantly move in the horizontal plane.
+However as the velocity is measured under an angle (the elevation angle of the radar) the radial velocities are an under estimation of the horizontal velocities.
+To correct this either visualized sine curve from the horizontal velocities can be adjusted (\code{cosine_correction="vp"}),
+however if multiple elevation angles are included no single correction can be applied and a warning is raised.
+Alternatively the measured radial velocity can be corrected (\code{cosine_correction=="range_gates"}) the advantage is this can be done on multiple elevation scans in the same plot.
+But with data that has been nyquist folded this correction can introduce extra errors. Therefore with low nyquist velocities a warning is raised.
 }
 \examples{
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

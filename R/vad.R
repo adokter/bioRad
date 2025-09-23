@@ -1,39 +1,43 @@
-#' Create a Velocity Azimuth Display (VAD) plot
+#' Plot a Velocity Azimuth Display (VAD).
 #'
-#' A velocity azimuth display plot visualized the radial velocity (`VRAD`) as a function of the azimuth from the radar.
-#' Among others it can be used to asses the fit of the movement speeds in a vertical profile.
-#' For example, when the movement is not uniform but rather in multiple directions or rotating this will be visible as
-#' deviations from the sine function.
+#' A Velocity Azimuth Display visualizes the radial velocity (typically `VRADH`) as a function of the beam azimuth.
+#' These plots are useful to assess the quality of radial velocity data (including velocity folding),
+#' and for visually inspecting the quality of the velocity fit of a vertical profile estimate.
 #'
-#' @param x A polar volume from which range gates are extracted.
+#' Poor velocity fits in vertical profiles can arise in cases where the movement is not well described by a unidirectional
+#' velocity model, or for data with strong velocity folding (i.e. a low Nyquist velocity).
+#' @param x An object of class `pvol` or `scan`
+#' @param vp An object of class `pvol`, typically a vertical profile estimated for the input polar volume specified under `x` using `bioRad::calculate_vp()`.
 #' @param ... Currently not used.
-#' @param vp A vertical profile to annotate the VAD plot with the fit in the vertical profile
-#' @param range_min,range_max The distance range in to filter the range gates with.
-#'      If a `vp` is provided the range is taken from the `vp` and the argument `range_min` and `range_max` should not be provided.
-#' @param alt_min,alt_max The altitude range to filter the range gates by.
-#'      If only `alt_min` value is provided next to a `vp` then the height bin intersection with this altitude is plotted.
-#' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for a eta (reflectivity)
-#'      value less then 36000 (the vol2bird default) and a `RHOHV` less then 0.95.
-#'      The function selects the first reflectivity factor quantity from `DBZ`, `DBZH`, `DBZV`, `TH` or `TV` that is present.
-#'      Alternative filters could be used to highlight specific effects.
-#' @param plotting_geom The geom function to visualize the range gates, the default is [ggplot2::geom_point()], in some cases this suffers from over plotting.
-#'      Alternatives that avoid over plotting could be [ggplot2::geom_bin2d()] or [ggpointdensity::geom_pointdensity()].
-#' @param plotting_geom_args A list with additional arguments to the `plotting_geom` function. For example, controlling the point size or alpha.
+#' @param range_min,range_max Numeric. The minimum and maximum range to include, in m. Values are taken from the `vp`
+#' object if provided.
+#' @param alt_min,alt_max Numeric. The minimum and maximum altitude to include, in m. If only `alt_min` value is provided
+#' next to a `vp` then the height bin intersection with this altitude is plotted.
+#' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for linear reflectivity
+#' value (`eta`) less then 36000 cm^2/km^3 (the default in the profiling algorithm, see `etaMax` in `vol2bird::vol2bird_config()`)
+#'  and a correlation coefficient (`RHOHV`) < 0.95. The function selects the first reflectivity factor quantity
+#'   from `DBZ`, `DBZH`, `DBZV`, `TH` or `TV` that is present. Alternative filters could be used to highlight specific effects.
+#' @param plotting_geom The geom function to visualize the range gates, the default is [ggplot2::geom_point()]. In cases
+#' with many data points plots may become cluttered, in which cases alternatives like [ggplot2::geom_bin2d()] or
+#'  [ggpointdensity::geom_pointdensity()] may be preferred.
+#' @param plotting_geom_args A list with additional arguments to the `plotting_geom` function. For example, controlling the point size or transparancy alpha.
 #' @param annotate A [glue][glue::glue()] formating string that is used to annotate the plot with additional properties of the height bin from the `vp`.
-#'      The string is evaluated using the columns from `as.data.frame(vp)`, any of these columns can thus be used (e.g. `ff` or `sd_vvp`).
-#'      Use `NULL` if no annotation is desired.
+#' The string is evaluated using the columns from `as.data.frame(vp)`, any of these columns can thus be used (e.g. `ff` or `sd_vvp`).
+#' Use `NULL` if no annotation is desired.
 #' @param annotation_color The color used for the `vp` annotations and line.
 #' @param annotation_size The text size used for the annotation.
-#' @param cosine_correction A character option to select what approach should be taken to correct for the fact that the horizontal velocities are measured at an angle (the elevation angle).
-#'      For plotting a single scan with one elevation angle the visualized sine curve is adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
-#'      See details for more information on the specific options.
+#' @param cosine_correction A character option to select what approach should be taken to correct for the fact
+#' that the horizontal velocities are measured at an angle (the elevation angle).
+#' For plotting a single scan with one elevation angle the visualized sine curve is
+#' adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
+#' See details for more information on the specific options.
 #'
 #' @returns A [ggplot2::ggplot] object.
 #'
-#' @details  As a [ggplot2::ggplot] object  us returned additional elements can be added using regular function in
-#'      the `ggplot2` package. Labels could, for example, be modified using [ggplot2::labs()] or [ggplot2::ggtitle()].
-#'      Using [ggplot2::theme()] the visual appearance can easily be modified. To do this the regular [+][ggplot2::+.gg]
-#'      syntax can be used. In the examples this is demonstrated using scale.
+#' @details The returned [ggplot2::ggplot] can be styled with additional elements available in the `ggplot2` package.
+#' For example, labels and titles can be modified using [ggplot2::labs()] or [ggplot2::ggtitle()].
+#' Using [ggplot2::theme()] the visual appearance can easily be modified. Use the regular [+][ggplot2::+.gg]
+#' syntax to make modifications (e.g. see the examples for changing the plotting color gradients).
 #'
 #' As for the radial velocity to plot the first of `VRAD`, `VRADH` or `VRADV` is used.
 #'
