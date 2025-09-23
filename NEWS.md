@@ -1,6 +1,8 @@
 # bioRad 0.11.0.9000 (development version)
 * `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
 
+* Add the `vad()` function to create a velocity azimuth display plots. 
+
 # bioRad 0.11.0
 
 ## New features
