@@ -11,8 +11,9 @@
 #' @param ... Currently not used.
 #' @param range_min,range_max Numeric. The minimum and maximum range to include, in m. Values are taken from the `vp`
 #' object if provided.
-#' @param alt_min,alt_max Numeric. The minimum and maximum altitude to include, in m. If only `alt_min` value is provided
-#' next to a `vp` then the height bin intersection with this altitude is plotted.
+#' @param alt_min,alt_max Numeric. The minimum and maximum altitude to include, in m. Separate panels will be plot for each
+#' altitude layer of the profile `vp`. If only `alt_min` is provided
+#' data for height bin containing the provided altitude is plotted.
 #' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for linear reflectivity
 #' value (`eta`) less then 36000 cm^2/km^3 (the default in the profiling algorithm, see `etaMax` in `vol2bird::vol2bird_config()`)
 #'  and a correlation coefficient (`RHOHV`) < 0.95. The function selects the first reflectivity factor quantity
