@@ -165,7 +165,7 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
     ), sd = beam_width_internal(
       range = range, beam_angle =
         beam_angle
-    ) / (2 * sqrt(2 * log(2)))
+    ) * cos(elev * pi/180) / (2 * sqrt(2 * log(2)))
   )
 }
 
