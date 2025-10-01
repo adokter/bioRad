@@ -531,6 +531,11 @@ test_that("beam_profile_overlap() returns error on incorrect parameters", {
   )
 })
 
+test_that("beam_width() one-way and two-way beam widths are correctly proportional", {
+  expect_equal(beam_width(100000, 1, path="two_way"), beam_width(100000, 1/sqrt(2), path="one_way"))
+})
+
+
 test_that("beam_width() returns error on incorrect parameters", {
   range <- seq(0, 100000, 100)
   expect_error(
@@ -539,9 +544,23 @@ test_that("beam_width() returns error on incorrect parameters", {
     fixed = TRUE
   )
   expect_error(
+    beam_width(range, path="nonsense"),
+    regexp = "`path` must be one of \"two_way\" or \"one_way\"",
+    fixed = TRUE
+  )
+  expect_error(
     beam_width(range,
                beam_angle = "a")
   )
+})
+
+test_that("beam_distance() returns expected values", {
+  expect_equal(beam_distance(100000, 5), 99495.125492)
+  expect_equal(beam_distance(100000 * 2:3, 5), c(198721.311636, 297648.555804))
+  expect_equal(beam_distance(100000, 2:3), c(99885.897399, 99785.935245))
+  expect_equal(beam_distance(100000 * c(NA, 2:3), 5), c(NA, 198721.311636, 297648.555804))
+  expect_equal(beam_distance(100000, c(2:3, NA)), c(99885.897399, 99785.935245, NA))
+  expect_equal(beam_distance(100000 * 1:2, c(2, 5)), c(99885.897399, 198721.311636))
 })
 
 

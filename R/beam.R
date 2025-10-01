@@ -108,6 +108,7 @@ earth_radius <- function(a, b, lat) {
 beam_width <- function(range, beam_angle = 1, path = "two_way") {
   assertthat::assert_that(is.numeric(range))
   assertthat::assert_that(assertthat::is.number(beam_angle))
+  path <- rlang::arg_match(path,c("two_way","one_way"))
 
   # two-way beam pattern equals the one-way beam pattern squared, i.e. narrower by factor 1/sqrt(2)
   effective_beam_angle <- ifelse(path=="two_way", beam_angle/sqrt(2), beam_angle)
@@ -237,7 +238,7 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #'   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
 #' )
 beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
-                         k = 4 / 3, lat = 35, re = 6378, rp = 6357, path = "two-way") {
+                         k = 4 / 3, lat = 35, re = 6378, rp = 6357, path = "two_way") {
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(distance))
   assertthat::assert_that(is.numeric(elev))
