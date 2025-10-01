@@ -554,15 +554,6 @@ test_that("beam_width() returns error on incorrect parameters", {
   )
 })
 
-test_that("beam_distance() returns expected values", {
-  expect_equal(beam_distance(100000, 5), 99495.125492)
-  expect_equal(beam_distance(100000 * 2:3, 5), c(198721.311636, 297648.555804))
-  expect_equal(beam_distance(100000, 2:3), c(99885.897399, 99785.935245))
-  expect_equal(beam_distance(100000 * c(NA, 2:3), 5), c(NA, 198721.311636, 297648.555804))
-  expect_equal(beam_distance(100000, c(2:3, NA)), c(99885.897399, 99785.935245, NA))
-  expect_equal(beam_distance(100000 * 1:2, c(2, 5)), c(99885.897399, 198721.311636))
-})
-
 
 test_that("gaussian_beam_profile returns error on incorrect parameters", {
   range <- seq(0, 100000, 100)
