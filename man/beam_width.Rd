@@ -4,19 +4,30 @@
 \alias{beam_width}
 \title{Calculate radar beam width}
 \usage{
-beam_width(range, beam_angle = 1)
+beam_width(range, beam_angle = 1, path = "two_way")
 }
 \arguments{
 \item{range}{Numeric. Range, i.e. distance from the radar antenna, in m.}
 
-\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe.}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically speciefied as
+the angle between the half-power (-3 dB) points of the main lobe for the one-way
+antenna pattern.}
+
+\item{path}{Character. One of \code{two_way} (default) or \code{one_way} for specifying the
+effective beam width for the radar's antenna pattern as it transmits a signal (\code{one_way}),
+or as it transmits and receives a signal (\code{two_way}).}
 }
 \value{
 numeric. Beam width in m, typically the full width at half maximum (FWHM).
 }
 \description{
 Calculates the width of a radar beam as a function of range and beam angle.
+}
+\details{
+The two-way beam is effectively narrower than the one-way beam because
+the power distribution is squared in the two-way path (transmit and receive).
+Using the normal approximation for the beam power profile, this means the two-way
+beam width equals the one-way beam width divided by \code{sqrt(2)}.
 }
 \examples{
 #' # Beam width in meters at 10 km range:
@@ -25,8 +36,11 @@ beam_width(10000)
 # Define ranges from 0 to 1000000 m (100 km), in steps of 100 m:
 range <- seq(0, 100000, 100)
 
-# Plot the beam width as a function of range:
-plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
+# Plot the two-way beam width as a function of range:
+plot(range, beam_width(range), ylab = "two-way beam width [m]", xlab = "range [m]")
+
+#' # Plot the one-way beam width as a function of range:
+plot(range, beam_width(range), ylab = "one-way beam width [m]", xlab = "range [m]")
 }
 \seealso{
 Other beam_functions: 

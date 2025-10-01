@@ -13,7 +13,8 @@ beam_profile(
   k = 4/3,
   lat = 35,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  path = "two-way"
 )
 }
 \arguments{
@@ -26,8 +27,9 @@ beam_profile(
 
 \item{antenna}{Numeric. Height of the centre of the radar antenna, in m.}
 
-\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe.}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically speciefied as
+the angle between the half-power (-3 dB) points of the main lobe for the one-way
+antenna pattern.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
@@ -36,6 +38,10 @@ angle between the half-power (-3 dB) points of the main lobe.}
 \item{re}{Numeric. Earth equatorial radius, in km.}
 
 \item{rp}{Numeric. Earth polar radius, in km.}
+
+\item{path}{Character. One of \code{two_way} (default) or \code{one_way} for specifying the
+effective beam width for the radar's antenna pattern as it transmits a signal (\code{one_way}),
+or as it transmits and receives a signal (\code{two_way}).}
 }
 \value{
 Numeric vector. Normalized radiated energy at each of the specified
