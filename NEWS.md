@@ -1,6 +1,9 @@
 # bioRad 0.11.0.9000 (development version)
 * `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
 
+* `beam_width()` and related functions now xplicitly specify the one-way and
+two-way beam width of the antenna pattern. The default is changed to two-way (formerly one-way) (#744).
+
 # bioRad 0.11.0
 
 ## New features
