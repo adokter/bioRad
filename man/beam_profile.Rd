@@ -14,7 +14,7 @@ beam_profile(
   lat = 35,
   re = 6378,
   rp = 6357,
-  path = "two-way"
+  path = "two_way"
 )
 }
 \arguments{
