@@ -77,8 +77,17 @@ earth_radius <- function(a, b, lat) {
 #' Calculates the width of a radar beam as a function of range and beam angle.
 #'
 #' @param range Numeric. Range, i.e. distance from the radar antenna, in m.
-#' @param beam_angle Numeric. Beam opening angle in degrees, typically the
-#'   angle between the half-power (-3 dB) points of the main lobe.
+#' @param beam_angle Numeric. Beam opening angle in degrees, typically speciefied as
+#' the angle between the half-power (-3 dB) points of the main lobe for the one-way
+#' antenna pattern.
+#' @param path Character. One of `two_way` (default) or `one_way` for specifying the
+#' effective beam width for the radar's antenna pattern as it transmits a signal (`one_way`),
+#' or as it transmits and receives a signal (`two_way`).
+#'
+#' @details The two-way beam is effectively narrower than the one-way beam because
+#' the power distribution is squared in the two-way path (transmit and receive).
+#' Using the normal approximation for the beam power profile, this means the two-way
+#' beam width equals the one-way beam width divided by `sqrt(2)`.
 #'
 #' @return numeric. Beam width in m, typically the full width at half maximum (FWHM).
 #'
@@ -91,12 +100,20 @@ earth_radius <- function(a, b, lat) {
 #' # Define ranges from 0 to 1000000 m (100 km), in steps of 100 m:
 #' range <- seq(0, 100000, 100)
 #'
-#' # Plot the beam width as a function of range:
-#' plot(range, beam_width(range), ylab = "beam width [m]", xlab = "range [m]")
-beam_width <- function(range, beam_angle = 1) {
+#' # Plot the two-way beam width as a function of range:
+#' plot(range, beam_width(range), ylab = "two-way beam width [m]", xlab = "range [m]")
+#'
+#' #' # Plot the one-way beam width as a function of range:
+#' plot(range, beam_width(range), ylab = "one-way beam width [m]", xlab = "range [m]")
+beam_width <- function(range, beam_angle = 1, path = "two_way") {
   assertthat::assert_that(is.numeric(range))
   assertthat::assert_that(assertthat::is.number(beam_angle))
-  beam_width_internal(range = range, beam_angle = beam_angle)
+  path <- rlang::arg_match(path,c("two_way","one_way"))
+
+  # two-way beam pattern equals the one-way beam pattern squared, i.e. narrower by factor 1/sqrt(2)
+  effective_beam_angle <- ifelse(path=="two_way", beam_angle/sqrt(2), beam_angle)
+
+  beam_width_internal(range = range, beam_angle = effective_beam_angle)
 }
 
 beam_width_internal <- function(range, beam_angle = 1) {
@@ -123,7 +140,7 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #' @keywords internal
 gaussian_beam_profile <- function(height, range, elev, antenna = 0,
                                   beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
-                                  rp = 6357) {
+                                  rp = 6357, path = "two_way") {
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(range))
   assertthat::assert_that(all(range >= 0),
@@ -147,9 +164,14 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(!is.infinite(re),
                           msg = "re can't be infinite.")
+  path <- rlang::arg_match(path,c("two_way","one_way"))
+
+  # two-way beam pattern equals the one-way beam pattern squared, i.e. narrower by factor 1/sqrt(2)
+  effective_beam_angle <- ifelse(path=="two_way", beam_angle/sqrt(2), beam_angle)
+
   gaussian_beam_profile_internal(
     height = height, range = range, elev = elev, antenna = antenna,
-    beam_angle = beam_angle, k = k, lat = lat, re = re,
+    beam_angle = effective_beam_angle, k = k, lat = lat, re = re,
     rp = rp
   )
 }
@@ -165,7 +187,7 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
     ), sd = beam_width_internal(
       range = range, beam_angle =
         beam_angle
-    ) / (2 * sqrt(2 * log(2)))
+    ) * cos(elev * pi/180) / (2 * sqrt(2 * log(2)))
   )
 }
 
@@ -216,7 +238,7 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #'   ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km"
 #' )
 beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
-                         k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
+                         k = 4 / 3, lat = 35, re = 6378, rp = 6357, path = "two_way") {
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(distance))
   assertthat::assert_that(is.numeric(elev))
@@ -228,13 +250,17 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(sum(c(length(height), length(distance))>1)<2,
               msg='`height` and `distance` not have an unequal length when more then one. ')
+  path <- rlang::arg_match(path,c("two_way","one_way"))
+
+  # two-way beam pattern equals the one-way beam pattern squared, i.e. narrower by factor 1/sqrt(2)
+  effective_beam_angle <- ifelse(path=="two_way", beam_angle/sqrt(2), beam_angle)
 
   # calculate radiation pattern
   rowSums(
     do.call(cbind, lapply(elev, function(x) {
       gaussian_beam_profile_internal(height, beam_range(distance, x, k = k, lat = lat, re = re, rp = rp),
         x,
-        antenna = antenna, beam_angle = beam_angle, lat = lat, k = k, re = re,
+        antenna = antenna, beam_angle = effective_beam_angle, lat = lat, k = k, re = re,
         rp = rp
       )
     }))
