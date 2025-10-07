@@ -25,6 +25,7 @@ vad(x, ...)
   annotate = "{round(ff,1)} m/s, {round(dd)}°",
   annotation_size = 4,
   annotation_color = "red",
+  velocity_quantity = c("VRAD", "VRADH", "VRADV"),
   cosine_correction = c("none", "vp", "range_gates")
 )
 
@@ -40,8 +41,9 @@ vad(x, ...)
 \item{range_min, range_max}{Numeric. The minimum and maximum range to include, in m. Values are taken from the \code{vp}
 object if provided.}
 
-\item{alt_min, alt_max}{Numeric. The minimum and maximum altitude to include, in m. If only \code{alt_min} value is provided
-next to a \code{vp} then the height bin intersection with this altitude is plotted.}
+\item{alt_min, alt_max}{Numeric. The minimum and maximum altitude to include, in m. Separate panels will be plot for each
+altitude layer of the profile \code{vp}. If only \code{alt_min} is provided
+data for height bin containing the provided altitude is plotted.}
 
 \item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for linear reflectivity
 value (\code{eta}) less then 36000 cm^2/km^3 (the default in the profiling algorithm, see \code{etaMax} in \code{vol2bird::vol2bird_config()})
@@ -62,10 +64,12 @@ Use \code{NULL} if no annotation is desired.}
 
 \item{annotation_color}{The color used for the \code{vp} annotations and line.}
 
+\item{velocity_quantity}{The velocity quantity used for plotting. If a vector the first present in the polar volume is used.}
+
 \item{cosine_correction}{A character option to select what approach should be taken to correct for the fact
 that the horizontal velocities are measured at an angle (the elevation angle).
 For plotting a single scan with one elevation angle the visualized sine curve is
-adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
+adjusted by default for multiple scans multiple scans in a polar volume no correction is applied unless explicitly selected.
 See details for more information on the specific options.}
 }
 \value{
@@ -111,8 +115,8 @@ vp <- calculate_vp(pvolfile)
 vad(example_pvol,
   vp = vp,
   alt_min = 400,
-  plotting_geom_args = list(ggplot2::aes(color = ZDR))
-) + ggplot2::scale_color_gradient2()
+  plotting_geom_args = list(ggplot2::aes(color = DBZH))
+) + viridis::scale_color_virids()
 vad(example_pvol,
   vp = vp, alt_min = 400, alt_max = 1200,
   plotting_geom = ggplot2::geom_bin2d,

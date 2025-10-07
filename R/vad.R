@@ -30,8 +30,9 @@
 #' @param cosine_correction A character option to select what approach should be taken to correct for the fact
 #' that the horizontal velocities are measured at an angle (the elevation angle).
 #' For plotting a single scan with one elevation angle the visualized sine curve is
-#' adjusted by default for multiple scans multiple scans in a polar volume no correction is aplied unless explicitly selected.
+#' adjusted by default for multiple scans multiple scans in a polar volume no correction is applied unless explicitly selected.
 #' See details for more information on the specific options.
+#' @param velocity_quantity The velocity quantity used for plotting. If a vector the first present in the polar volume is used.
 #'
 #' @returns A [ggplot2::ggplot] object.
 #'
@@ -79,21 +80,30 @@ vad <- function(x, ...) {
 }
 #' @rdname vad
 #' @export
-vad.pvol <- function(x, vp = NULL, ...,
-                     range_min = NULL, range_max = NULL,
-                     alt_min = NULL, alt_max = NULL,
-                     range_gate_filter =
-                       dplyr::if_all(
-                         utils::head(dplyr::matches(c("^DBZ$", "^DBZH$", "^DBZV$", "^TH$", "^TV$")), 1),
-                         \(dbz) dbz_to_eta(dbz, !!x$attributes$how$wavelength) < 36000
-                       ) &
-                         dplyr::if_any(dplyr::matches("RHOHV"), \(rhohv) rhohv < .95),
-                     plotting_geom = ggplot2::geom_point,
-                     plotting_geom_args = list(),
-                     annotate = "{round(ff,1)} m/s, {round(dd)}\u00B0",
-                     annotation_size = 4,
-                     annotation_color = "red",
-                     cosine_correction = c("none", "vp", "range_gates")) {
+vad.pvol <- function(
+  x,
+  vp = NULL,
+  ...,
+  range_min = NULL,
+  range_max = NULL,
+  alt_min = NULL,
+  alt_max = NULL,
+  range_gate_filter = dplyr::if_all(
+    utils::head(
+      dplyr::matches(c("^DBZ$", "^DBZH$", "^DBZV$", "^TH$", "^TV$")),
+      1
+    ),
+    \(dbz) dbz_to_eta(dbz, !!x$attributes$how$wavelength) < 36000
+  ) &
+    dplyr::if_any(dplyr::matches("RHOHV"), \(rhohv) rhohv < .95),
+  plotting_geom = ggplot2::geom_point,
+  plotting_geom_args = list(),
+  annotate = "{round(ff,1)} m/s, {round(dd)}\u00B0",
+  annotation_size = 4,
+  annotation_color = "red",
+  velocity_quantity = c("VRAD", "VRADH", "VRADV"),
+  cosine_correction = c("none", "vp", "range_gates")
+) {
   assertthat::assert_that(is.pvol(x))
   cosine_correction <- rlang::arg_match(cosine_correction)
   # Some of the input variables are checked and modified specifically in the VP context
@@ -107,12 +117,19 @@ vad.pvol <- function(x, vp = NULL, ...,
     range_min <- vp$attributes$how$minrange * 1000
     range_max <- vp$attributes$how$maxrange * 1000
     # convert the vp to df with height as we will need it later
-    vp_df <- as.data.frame(vp) |> dplyr::mutate(
-      height_bin = glue::glue("{height}-{height + vp$attributes$where$interval} [m]"),
-      height_bin = factor(.data$height_bin, levels = .data$height_bin)
-    )
+    vp_df <- as.data.frame(vp) |>
+      dplyr::mutate(
+        height_bin = glue::glue(
+          "{height}-{height + vp$attributes$where$interval} [m]"
+        ),
+        height_bin = factor(.data$height_bin, levels = .data$height_bin)
+      )
     # For one height we take the interval that intersects
-    if (is.numeric(alt_min) && rlang::is_scalar_vector(alt_min) && is.null(alt_max)) {
+    if (
+      is.numeric(alt_min) &&
+        rlang::is_scalar_vector(alt_min) &&
+        is.null(alt_max)
+    ) {
       alt_min <- max(vp$data$height[vp$data$height <= alt_min])
       alt_max <- alt_min + vp$attributes$where$interval
     }
@@ -155,21 +172,27 @@ vad.pvol <- function(x, vp = NULL, ...,
       ),
       # We add extra attributes from the scan attributes that can be useful for filtering or highlighting
       # certain attributes
-      split(attribute_table(x) |>
-        dplyr::mutate(scan_nr = 1:dplyr::n()) |>
-        dplyr::select(-"param"), 1:length(x$scans)), MoreArgs = list(row.names = NULL)
+      split(
+        attribute_table(x) |>
+          dplyr::mutate(scan_nr = 1:dplyr::n()) |>
+          dplyr::select(-"param"),
+        1:length(x$scans)
+      ),
+      MoreArgs = list(row.names = NULL)
     ) |>
     dplyr::bind_rows()
 
-  vrad_quantity <- c("VRAD", "VRADH", "VRADV")
-  vrad_quantity <- vrad_quantity[vrad_quantity %in% names(data)][1]
+  velocity_quantity <- velocity_quantity[velocity_quantity %in% names(data)][1]
   # Filter the plotting data with the height and range, furthermore we omit NA's
   # and apply the range_gate_filter's
   data <- dplyr::filter(
     data,
-    !is.na(.data$azim), !is.na(!!rlang::sym(vrad_quantity)),
-    .data$range > range_min, .data$range < range_max,
-    .data$height < alt_max, .data$height > alt_min,
+    !is.na(.data$azim),
+    !is.na(!!rlang::sym(velocity_quantity)),
+    .data$range > range_min,
+    .data$range < range_max,
+    .data$height < alt_max,
+    .data$height > alt_min,
     !!rlang::enexpr(range_gate_filter)
   )
 
@@ -177,11 +200,17 @@ vad.pvol <- function(x, vp = NULL, ...,
   vp_geom <- list()
   if (!is.null(vp)) {
     # restrict the vp annotation to only those elevation height bins for which we have data
-    vp_df <- dplyr::filter(vp_df, !(height + vp$attributes$where$interval < min(data$height) | height > max(data$height)))
+    vp_df <- dplyr::filter(
+      vp_df,
+      !(height + vp$attributes$where$interval < min(data$height) |
+        height > max(data$height))
+    )
 
     elangles <- unique(data$where.elangle)
     if (length(elangles) != 1 && cosine_correction == "vp") {
-      warning("The data to plot is based on multiple elevation angles. To correct the `vp` data one elevation angle is needed, it is therefore averaged resulting in a inperfect correction.")
+      warning(
+        "The data to plot is based on multiple elevation angles. To correct the `vp` data one elevation angle is needed, it is therefore averaged resulting in a inperfect correction."
+      )
     }
     mean_elangle_cos <- cospi(mean(elangles) / 180) # TODO should this be a weighted mean?
 
@@ -190,17 +219,21 @@ vad.pvol <- function(x, vp = NULL, ...,
       SIMPLIFY = F,
       function(spd, dir, hgt, bin) {
         ggplot2::geom_function(
-          data = dplyr::bind_cols(data, data.frame(
-            min_bin_height = hgt,
-            max_bin_height = hgt + vp$attributes$where$interval,
-            height_bin = bin
-          )),
+          data = dplyr::bind_cols(
+            data,
+            data.frame(
+              min_bin_height = hgt,
+              max_bin_height = hgt + vp$attributes$where$interval,
+              height_bin = bin
+            )
+          ),
           fun = function(x, v, a) cos((x - a) / 180 * pi) * v,
           args = list(a = dir, v = spd),
           color = annotation_color
         )
       },
-      spd = vp_df$ff[s] * dplyr::if_else(cosine_correction == "vp", mean_elangle_cos, 1),
+      spd = vp_df$ff[s] *
+        dplyr::if_else(cosine_correction == "vp", mean_elangle_cos, 1),
       dir = vp_df$dd[s],
       hgt = vp_df$height[s],
       bin = vp_df$height_bin[s]
@@ -208,7 +241,10 @@ vad.pvol <- function(x, vp = NULL, ...,
     if (length(vp_geom) > 1) {
       vp_geom <- c(vp_geom, ggplot2::facet_wrap(~ .data$height_bin))
     }
-    int <- findInterval(data$height, c(vp_df$height, max(vp_df$height) + vp$attributes$where$interval))
+    int <- findInterval(
+      data$height,
+      c(vp_df$height, max(vp_df$height) + vp$attributes$where$interval)
+    )
     int[int == 0] <- NA
     data$height_bin <- vp_df$height_bin[int]
   }
@@ -218,37 +254,54 @@ vad.pvol <- function(x, vp = NULL, ...,
   if (!is.null(annotate) & is.vp(vp)) {
     df <- data.frame(
       label = as.character(glue::glue_data(annotate, .x = vp_df)),
-      x = Inf, y = Inf, height_bin = vp_df$height_bin
+      x = Inf,
+      y = Inf,
+      height_bin = vp_df$height_bin
     )
     annotate_geom <-
       list(ggplot2::geom_label(
         data = df,
         ggplot2::aes(x = x, y = y, label = .data$label),
-        vjust = "inward", hjust = "inward", color = annotation_color,
-        fill = NA, label.size = 0, size = annotation_size
+        vjust = "inward",
+        hjust = "inward",
+        color = annotation_color,
+        fill = NA,
+        label.size = 0,
+        size = annotation_size
       ))
   }
   ylab_label <- "Radial velocity [m/s]"
   if (cosine_correction == "range_gates") {
-    data[, vrad_quantity] <- data[, vrad_quantity] * (1 / cospi(data$where.elangle / 180))
+    data[, velocity_quantity] <- data[, velocity_quantity] *
+      (1 / cospi(data$where.elangle / 180))
     ylab_label <- "Corrected radial velocity [m/s]"
     if (min(data$how.NI) < 25) {
-      warning("There are data that have a relatively low nyquist velocity (below 25 m/s) meaning nyquist folding is likely to occur. Applying a cosine correction to range gates that are nyquist folded can result in larger deviations then before.")
+      warning(
+        "There are data that have a relatively low nyquist velocity (below 25 m/s) meaning nyquist folding is likely to occur. Applying a cosine correction to range gates that are nyquist folded can result in larger deviations then before."
+      )
     }
   }
-  if (cosine_correction == "none" && max(data$where.elangle) > acos(.95) / pi * 180) {
-    warning("Data with relatively large elevation angles are included. This means larger deviation (above 5%) between the horizontal velocity and radial velocity measured occur. Therefore it is important to consider cosine corrections of the radial velocity")
+  if (
+    cosine_correction == "none" &&
+      max(data$where.elangle) > acos(.95) / pi * 180
+  ) {
+    warning(
+      "Data with relatively large elevation angles are included. This means larger deviation (above 5%) between the horizontal velocity and radial velocity measured occur. Therefore it is important to consider cosine corrections of the radial velocity"
+    )
   }
   # Combine everything in one plot
   plt <- ggplot2::ggplot(
     data,
     ggplot2::aes(
       x = !!rlang::sym("azim"),
-      y = !!rlang::sym(vrad_quantity)
+      y = !!rlang::sym(velocity_quantity)
     )
   ) +
     do.call(plotting_geom, plotting_geom_args) +
-    ggplot2::scale_x_continuous(breaks = (0:4) * 90, minor_breaks = (0:12) * 30) +
+    ggplot2::scale_x_continuous(
+      breaks = (0:4) * 90,
+      minor_breaks = (0:12) * 30
+    ) +
     ggplot2::ylab(ylab_label) +
     ggplot2::xlab("Azimuth [\u00B0]") +
     vp_geom +
@@ -257,8 +310,19 @@ vad.pvol <- function(x, vp = NULL, ...,
 }
 #' @rdname vad
 #' @export
-vad.scan <- function(x, vp = NULL, ..., cosine_correction = c("vp", "none", "range_gates")) {
+vad.scan <- function(
+  x,
+  vp = NULL,
+  ...,
+  cosine_correction = c("vp", "none", "range_gates")
+) {
   # construct a pvol to let `vad.pvol` do the heavy lifting however rely on the "vp" cosine correction at it is good for one elevation angle
-  pv <- structure(list(scans = list(x), attributes = list(how = list(wavelength = x$attributes$how$wavelength))), class = "pvol")
+  pv <- structure(
+    list(
+      scans = list(x),
+      attributes = list(how = list(wavelength = x$attributes$how$wavelength))
+    ),
+    class = "pvol"
+  )
   vad(pv, vp = vp, ..., cosine_correction = cosine_correction)
 }
