@@ -180,6 +180,9 @@ get_zlim <- function(param, zlim) {
   if (param %in% c("eta_sum", "eta_sum_expected")) {
     return(c(0, 2000))
   }
+  if (param %in% c("eta_sum_to_VIR")) {
+    return(c(0, 10))
+  }
   if (param == "overlap") {
     return(c(0, 1))
   }

@@ -22,7 +22,8 @@ integrate_to_ppi(
   antenna,
   beam_angle = 1,
   crs,
-  param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"),
+  param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected",
+    "eta_sum_to_VIR"),
   k = 4/3,
   re = 6378,
   rp = 6357,
@@ -73,7 +74,7 @@ When 'NA' (default), an azimuthal equidistant projection with origin at the rada
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
 \item{param_ppi}{Character (vector). One or multiple of \code{VIR}, \code{VID}, \code{R},
-\code{overlap}, \code{eta_sum} or \code{eta_sum_expected}.}
+\code{overlap}, \code{eta_sum}, \code{eta_sum_expected} or \code{eta_sum_to_VIR}.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
@@ -95,6 +96,9 @@ as calculated with \link{beam_profile_overlap}.
 See Kranstauber 2020 for details.
 \item \code{eta_sum_expected}: the sum of expected linear reflectivities over elevation angles
 based on the input vertical profile \code{vp}. See Kranstauber 2020 for details.
+\item \code{eta_sum_to_VIR}: the multiplicative factor for converting the sum of of observed
+linear reflectivities (\code{eta_sum}) to vertically integrated reflectivity (\code{VIR}).
+Identical to \code{integrate_profile(vp)$vir/eta_sum_expected}. See Kranstauber 2020 for details.
 }
 }
 \description{

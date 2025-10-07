@@ -17,7 +17,7 @@
 #' @param quantity Character. Profile quantity on which to base range
 #'   corrections, either `eta` or `dens`.
 #' @param param_ppi Character (vector). One or multiple of `VIR`, `VID`, `R`,
-#'   `overlap`, `eta_sum` or `eta_sum_expected`.
+#'   `overlap`, `eta_sum`, `eta_sum_expected` or `eta_sum_to_VIR`.
 #' @param param reflectivity Character. Scan parameter on which to base range
 #'   corrections. Typically the same parameter from which animal densities are
 #'   estimated in `vp`. Either `DBZH`, `DBZV`, `DBZ`, `TH`, or `TV`.
@@ -36,6 +36,9 @@
 #'   See Kranstauber 2020 for details.
 #' * `eta_sum_expected`: the sum of expected linear reflectivities over elevation angles
 #'   based on the input vertical profile `vp`. See Kranstauber 2020 for details.
+#' * `eta_sum_to_VIR`: the multiplicative factor for converting the sum of of observed
+#'   linear reflectivities (`eta_sum`) to vertically integrated reflectivity (`VIR`).
+#'   Identical to `integrate_profile(vp)$vir/eta_sum_expected`. See Kranstauber 2020 for details.
 #'
 #' @export
 #'
@@ -154,7 +157,7 @@
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
 #'   \doi{10.1109/TGRS.2009.2014463}
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357, reference="sea") {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected", "eta_sum_to_VIR"), k = 4 / 3, re = 6378, rp = 6357, reference="sea") {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -251,7 +254,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     crs <- NA
   }
 
-  if (FALSE %in% (param_ppi %in% c("VIR", "VID", "eta_sum", "eta_sum_expected", "azim", "range", "R", "overlap"))) stop("unknown param_ppi")
+  if (FALSE %in% (param_ppi %in% c("VIR", "VID", "eta_sum", "eta_sum_expected","eta_sum_to_VIR", "azim", "range", "R", "overlap"))) stop("unknown param_ppi")
   assertthat::assert_that(length(quantity) == 1)
   if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
   allowed_params <- c("DBZH", "DBZV", "DBZ", "TH", "TV")
