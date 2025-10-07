@@ -47,7 +47,7 @@ data for height bin containing the provided altitude is plotted.}
 
 \item{range_gate_filter}{Optional filtering of the range gates. By default range gates are filtered for linear reflectivity
 value (\code{eta}) less then 36000 cm^2/km^3 (the default in the profiling algorithm, see \code{etaMax} in \code{vol2bird::vol2bird_config()})
-and a correlation coefficient (\code{RHOHV}) < 0.95. The function selects the first reflectivity factor quantity
+and a correlation coefficient (\code{RHOHV}) < 0.95. By default function selects the first reflectivity factor quantity
 from \code{DBZ}, \code{DBZH}, \code{DBZV}, \code{TH} or \code{TV} that is present. Alternative filters could be used to highlight specific effects.}
 
 \item{plotting_geom}{The geom function to visualize the range gates, the default is \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}. In cases

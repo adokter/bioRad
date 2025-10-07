@@ -16,7 +16,7 @@
 #' data for height bin containing the provided altitude is plotted.
 #' @param range_gate_filter Optional filtering of the range gates. By default range gates are filtered for linear reflectivity
 #' value (`eta`) less then 36000 cm^2/km^3 (the default in the profiling algorithm, see `etaMax` in `vol2bird::vol2bird_config()`)
-#'  and a correlation coefficient (`RHOHV`) < 0.95. The function selects the first reflectivity factor quantity
+#'  and a correlation coefficient (`RHOHV`) < 0.95. By default function selects the first reflectivity factor quantity
 #'   from `DBZ`, `DBZH`, `DBZV`, `TH` or `TV` that is present. Alternative filters could be used to highlight specific effects.
 #' @param plotting_geom The geom function to visualize the range gates, the default is [ggplot2::geom_point()]. In cases
 #' with many data points plots may become cluttered, in which cases alternatives like [ggplot2::geom_bin2d()] or
@@ -281,9 +281,11 @@ vad.pvol <- function(
       )
     }
   }
+  # Calculate if large (bigger then 5%) under estimations of speed do occur and if so warn about it
+  # (acos(.95) / pi * 180) calculates the elevation angle at which these occur
   if (
     cosine_correction == "none" &&
-      max(data$where.elangle) > acos(.95) / pi * 180
+      max(data$where.elangle) > (acos(.95) / pi * 180)
   ) {
     warning(
       "Data with relatively large elevation angles are included. This means larger deviation (above 5%) between the horizontal velocity and radial velocity measured occur. Therefore it is important to consider cosine corrections of the radial velocity"
