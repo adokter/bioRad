@@ -303,7 +303,11 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       " +units=m",
       sep = ""
     )
-    raster::values(raster) <- 1
+
+    # if reference is ground, keep values, these are the ground heights
+    # note: used to be set to 1.
+    if(reference == "sea") raster::values(raster) <- 0
+
     spdf<-as(sf::as_Spatial(
       sf::st_transform(sf::st_as_sf(as.data.frame(raster::rasterToPoints(raster)), coords=c("x","y"),
                                                           crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
@@ -330,6 +334,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output@data$R <- eta_sum / eta_expected_sum
   output@data$VIR <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vir * eta_sum / eta_expected_sum
   output@data$VID <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vid * eta_sum / eta_expected_sum
+  output@data$eta_sum_to_VIR <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vir / eta_expected_sum
 
   # calculate the overlap between vp and radiated energy
   if ("overlap" %in% param_ppi) {

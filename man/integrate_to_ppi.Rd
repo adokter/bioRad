@@ -25,7 +25,8 @@ integrate_to_ppi(
   param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"),
   k = 4/3,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  reference = "sea"
 )
 }
 \arguments{
