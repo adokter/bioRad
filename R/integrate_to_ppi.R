@@ -25,11 +25,11 @@
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
 #'
 #' @return A `ppi` object with the following parameters:
-#' * `VIR`: the vertically integrated reflectivity in cm^2/km^2 
+#' * `VIR`: the vertically integrated reflectivity in cm^2/km^2
 #' * `VID`: the vertically integrated density in 1/km^2
 #' * `R`: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
 #'   Equal to `eta_sum`/`eta_sum_expected`.
-#' * `overlap`: the distribution overlap between the vertical profile `vp` and 
+#' * `overlap`: the distribution overlap between the vertical profile `vp` and
 #'    the vertical radiation profile for the set of radar sweeps in `pvol`,
 #'    as calculated with [beam_profile_overlap].
 #' * `eta_sum`: the sum of observed linear reflectivities over elevation angles.
@@ -154,7 +154,7 @@
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
 #'   \doi{10.1109/TGRS.2009.2014463}
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357, reference="sea") {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -269,6 +269,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(assertthat::is.number(rp))
 
+  reference <- rlang::arg_match(reference,c("sea","ground"))
+  if(reference == "ground") asserthat::assert_that(!is.na(raster), msg="For estimations referencing to ground level, provide a digital elevation map in units of meters using argument `raster`")
+
   # check that request scan parameter is present in the scans of the polar volume
   param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
   if (FALSE %in% param_present) {
@@ -318,7 +321,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     })
     output <- rasters[[1]]
   }
-  eta_expected_sum <- 
+  eta_expected_sum <-
     rowSums(do.call(cbind, lapply(1:length(rasters), function(i) (rasters[[i]]$eta_expected))), na.rm = TRUE)
   eta_sum <-
     rowSums(do.call(cbind, lapply(1:length(rasters), function(i) (rasters[[i]]$eta))), na.rm = TRUE)

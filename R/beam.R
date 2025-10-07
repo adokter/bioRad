@@ -146,7 +146,7 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
   assertthat::assert_that(all(range >= 0),
                           msg = "range must be positive.")
   assertthat::assert_that(assertthat::is.number(elev))
-  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(is.numeric(antenna))
   assertthat::assert_that(assertthat::is.number(beam_angle))
   assertthat::assert_that(!is.infinite(beam_angle),
                           msg = "beam_angle can't be infinite.")
@@ -246,7 +246,7 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(distance))
   assertthat::assert_that(is.numeric(elev))
-  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(is.numeric(antenna))
   assertthat::assert_that(assertthat::is.number(beam_angle))
   assertthat::assert_that(assertthat::is.number(k))
   assertthat::assert_that(assertthat::is.number(lat))
@@ -416,7 +416,7 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
   if (length(steps) != 1 || !is.numeric(steps)) stop("'step' should be a numeric value")
   if (!(quantity %in% c("dens", "eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
   if (is.null(vp$attributes$where$height) && (missing(antenna) || is.null(antenna))) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
-  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(is.numeric(antenna))
   if (is.null(vp$attributes$where$lat) && (missing(lat) || is.null(lat))) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
   assertthat::assert_that(assertthat::is.number(lat))
   overlap <- sapply(distance, function(x) beam_profile_overlap_help(vp = vp, elev = elev, distance = x, antenna = antenna, zlim = zlim, steps = steps, quantity = quantity, normalize = normalize, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp))
