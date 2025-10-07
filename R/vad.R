@@ -63,13 +63,13 @@
 #' )
 #' # It is also possible to plot one height or more height bins from a `vp`.
 #' # Many visual aspects can be controlled through the function arguments
-#' # or through adding `ggplot`
+#' # or through adding `ggplot2` functions
 #' vp <- calculate_vp(pvolfile)
 #' vad(example_pvol,
 #'   vp = vp,
 #'   alt_min = 400,
 #'   plotting_geom_args = list(ggplot2::aes(color = DBZH))
-#' ) + ggplot2::scale_color_virids_c()
+#' ) + ggplot2::scale_color_viridis_c()
 #' vad(example_pvol,
 #'   vp = vp, alt_min = 400, alt_max = 1200,
 #'   plotting_geom = ggplot2::geom_bin2d,
