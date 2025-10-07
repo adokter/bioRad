@@ -105,6 +105,7 @@ vad.pvol <- function(
   cosine_correction = c("none", "vp", "range_gates")
 ) {
   assertthat::assert_that(is.pvol(x))
+  assertthat::assert_that(is.character(velocity_quantity))
   cosine_correction <- rlang::arg_match(cosine_correction)
   # Some of the input variables are checked and modified specifically in the VP context
   if (!is.null(vp)) {
@@ -183,6 +184,10 @@ vad.pvol <- function(
     dplyr::bind_rows()
 
   velocity_quantity <- velocity_quantity[velocity_quantity %in% names(data)][1]
+  assertthat::assert_that(
+    !is.na(velocity_quantity),
+    msg = "None of the specified velocity quantities could be found in the polar volume data."
+  )
   # Filter the plotting data with the height and range, furthermore we omit NA's
   # and apply the range_gate_filter's
   data <- dplyr::filter(
