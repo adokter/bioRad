@@ -74,8 +74,9 @@ antenna pattern.}
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
-\item{param_ppi}{Character (vector). One or multiple of \code{VIR}, \code{VID}, \code{R},
-\code{overlap}, \code{eta_sum}, \code{eta_sum_expected} or \code{eta_sum_to_VIR}.}
+\item{param_ppi}{Character (vector). Which quantities to include in the
+output. One or multiple of \code{VIR}, \code{VID}, \code{R}, \code{overlap}, \code{eta_sum},
+\code{eta_sum_expected} or \code{eta_sum_to_VIR}. Default includes all.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 

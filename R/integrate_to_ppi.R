@@ -16,8 +16,9 @@
 #' @param vp A `vp` object
 #' @param quantity Character. Profile quantity on which to base range
 #'   corrections, either `eta` or `dens`.
-#' @param param_ppi Character (vector). One or multiple of `VIR`, `VID`, `R`,
-#'   `overlap`, `eta_sum`, `eta_sum_expected` or `eta_sum_to_VIR`.
+#' @param param_ppi Character (vector). Which quantities to include in the
+#' output. One or multiple of `VIR`, `VID`, `R`, `overlap`, `eta_sum`,
+#' `eta_sum_expected` or `eta_sum_to_VIR`. Default includes all.
 #' @param param reflectivity Character. Scan parameter on which to base range
 #'   corrections. Typically the same parameter from which animal densities are
 #'   estimated in `vp`. Either `DBZH`, `DBZV`, `DBZ`, `TH`, or `TV`.
