@@ -47,6 +47,9 @@ antenna pattern.}
 \item{re}{Numeric. Earth equatorial radius, in km.}
 
 \item{rp}{Numeric. Earth polar radius, in km.}
+
+\item{reference}{Character. Either \code{sea} (default) for range correction relative to
+sea level, or \code{ground} for range correction relative to ground level.}
 }
 \value{
 A \code{scan} object.

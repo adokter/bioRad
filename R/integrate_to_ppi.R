@@ -23,6 +23,11 @@
 #'   estimated in `vp`. Either `DBZH`, `DBZV`, `DBZ`, `TH`, or `TV`.
 #' @param lat Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
+#' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
+#' arguments are ignored. When `reference = "ground"` the raster values should contain
+#' the ground height digital elevation in meters.
+#' @param reference Character. Either `sea` (default) for range correction relative to
+#' sea level, or `ground` for range correction relative to ground level.
 #'
 #' @return A `ppi` object with the following parameters:
 #' * `VIR`: the vertically integrated reflectivity in cm^2/km^2

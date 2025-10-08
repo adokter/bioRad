@@ -56,7 +56,8 @@ corrections. Typically the same parameter from which animal densities are
 estimated in \code{vp}. Either \code{DBZH}, \code{DBZV}, \code{DBZ}, \code{TH}, or \code{TV}.}
 
 \item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored.}
+arguments are ignored. When \code{reference = "ground"} the raster values should contain
+the ground height digital elevation in meters.}
 
 \item{lat}{Latitude of the radar, in degrees. If missing taken from \code{pvol}.}
 
@@ -81,6 +82,9 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 \item{re}{Numeric. Earth equatorial radius, in km.}
 
 \item{rp}{Numeric. Earth polar radius, in km.}
+
+\item{reference}{Character. Either \code{sea} (default) for range correction relative to
+sea level, or \code{ground} for range correction relative to ground level.}
 }
 \value{
 A \code{ppi} object with the following parameters:

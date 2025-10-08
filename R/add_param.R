@@ -18,7 +18,7 @@ add_param <- function(x, raster, param) {
 add_param.scan <- function(x, raster, param){
   stopifnot(inherits(x, "scan"))
 
-  extent <- ext(raster)
+  extent <- terra::ext(raster)
   distance_max <- max(sqrt(extent$xmin^2 + extent$ymin^2),sqrt(extent$xmax^2 + extent$ymax^2))
   range_max <- beam_range(distance_max, elev=x$geo$elangle, lat=x$geo$lat)
 
@@ -46,7 +46,7 @@ add_param.pvol <- function(x, raster, param){
   # make sure the raster is in the coordinate system of polar scan parameters
   # this will speed up the data extraction
   localCrs=paste("+proj=aeqd +lat_0=", x$attributes$where$lat," +lon_0=", x$attributes$where$lon, " +units=m", sep = "")
-  if(inherits(raster,"RasterLayer")) raster = rast(raster)
+  if(inherits(raster,"RasterLayer")) raster = terra::rast(raster)
   raster |> terra::project(localCrs) -> raster_local
 
   x$scans=lapply(x$scans, function(x) add_param.scan(x, raster=raster_local, param=param))
