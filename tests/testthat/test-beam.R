@@ -493,19 +493,9 @@ test_that("beam_profile_overlap() returns error on incorrect parameters", {
       example_vp_no_antenna,
       elev = 1:4,
       distance = 1:3,
-      antenna = c(4,2)
-    ),
-    regexp = "antenna is not a number (a length one numeric vector).",
-    fixed = TRUE
-  )
-  expect_error(
-    beam_profile_overlap(
-      example_vp_no_antenna,
-      elev = 1:4,
-      distance = 1:3,
       antenna = "not_a_number"
     ),
-    regexp = "antenna is not a number (a length one numeric vector).",
+    regexp = "antenna is not a numeric or integer vector",
     fixed = TRUE
   )
   example_vp_no_lat <- example_vp
@@ -554,7 +544,6 @@ test_that("beam_width() returns error on incorrect parameters", {
   )
 })
 
-
 test_that("gaussian_beam_profile returns error on incorrect parameters", {
   range <- seq(0, 100000, 100)
   expect_error(
@@ -587,19 +576,19 @@ test_that("gaussian_beam_profile returns error on incorrect parameters", {
     regexp = "elev is not a number (a length one numeric vector).",
     fixed = TRUE
   )
-  expect_error(
+  expect_warning(
     gaussian_beam_profile(3, range, elev = 1.44, antenna = 1:4),
-    regexp = "antenna is not a number (a length one numeric vector).",
+    regexp = "longer object length is not a multiple of shorter object length",
     fixed = TRUE
   )
   expect_error(
     gaussian_beam_profile(3, range, elev = 1.44, antenna = list(1)),
-    regexp = "antenna is not a number (a length one numeric vector).",
+    regexp = "antenna is not a numeric or integer vector",
     fixed = TRUE
   )
   expect_error(
     gaussian_beam_profile(3, range, elev = 1.44, antenna = "a"),
-    regexp = "antenna is not a number (a length one numeric vector).",
+    regexp = "antenna is not a numeric or integer vector",
     fixed = TRUE
   )
   expect_error(
