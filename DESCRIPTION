@@ -50,6 +50,7 @@ Imports:
     stats,
     stringr,
     suntools,
+    terra,
     tidyr,
     tidyselect,
     utils,

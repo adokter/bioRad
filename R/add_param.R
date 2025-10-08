@@ -47,7 +47,7 @@ add_param.pvol <- function(x, raster, param){
   # this will speed up the data extraction
   localCrs=paste("+proj=aeqd +lat_0=", x$attributes$where$lat," +lon_0=", x$attributes$where$lon, " +units=m", sep = "")
   if(inherits(raster,"RasterLayer")) raster = rast(raster)
-  raster |> project(localCrs) -> raster_local
+  raster |> terra::project(localCrs) -> raster_local
 
   x$scans=lapply(x$scans, function(x) add_param.scan(x, raster=raster_local, param=param))
   x
