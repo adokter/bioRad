@@ -273,7 +273,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assertthat::assert_that(assertthat::is.number(rp))
 
   reference <- rlang::arg_match(reference,c("sea","ground"))
-  if(reference == "ground") asserthat::assert_that(!is.na(raster), msg="For estimations referencing to ground level, provide a digital elevation map in units of meters using argument `raster`")
+  if(reference == "ground") assertthat::assert_that(inherits(raster,"RasterLayer"),
+    msg="For estimations relative to ground level (`reference = \"ground\"`),
+    provide a digital elevation map using argument `raster`")
 
   # check that request scan parameter is present in the scans of the polar volume
   param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
@@ -307,16 +309,22 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       sep = ""
     )
 
-    # if reference is ground, keep values, these are the ground heights
-    # note: used to be set to 1.
-    if(reference == "sea") raster::values(raster) <- 0
+    # add ground height level as a scan parameter:
+    if(reference == "ground"){
+      pvol = add_param(pvol, raster, "HGHT")
+    }
+
+    # set NA values to zero (note: used to be set to 1)
+    # required for next statement to work
+    raster::values(raster)[is.na(raster::values(raster))] <- 0
 
     spdf<-as(sf::as_Spatial(
       sf::st_transform(sf::st_as_sf(as.data.frame(raster::rasterToPoints(raster)), coords=c("x","y"),
                                                           crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
+
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
-        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
+        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, reference = reference),
         spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
       )
     })
@@ -324,7 +332,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     output@data <- rasters[[1]]@data
   } else {
     rasters <- lapply(pvol$scans, function(x) {
-      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, reference = reference), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }
@@ -430,7 +438,7 @@ eta_expected <- function(vp,
 add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
                                      param = "DBZH", lat, lon, antenna,
                                      beam_angle = 1, k = 4 / 3, re = 6378,
-                                     rp = 6357) {
+                                     rp = 6357, reference = "sea") {
 
   if (is.null(scan$geo$height) &&
       missing(antenna)) {
@@ -491,11 +499,21 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
 
   # calculate eta from reflectivity factor
   eta <-
-    suppressWarnings(
-      dbz_to_eta(scan$params[[param]],
-                 wavelength = vp$attributes$how$wavelength))
+     suppressWarnings(
+       dbz_to_eta(scan$params[[param]],
+                  wavelength = vp$attributes$how$wavelength))
   attributes(eta)$param <- "eta"
   scan$params$eta <- eta
+
+  # calculate the effective antenna height, relative to ground or sea level:
+  if(reference == "ground"){
+    distance <- rep(distance, nazim)
+    effective_antenna <- antenna - c(scan$params$HGHT)
+  }
+  else{
+    # reference == "sea"
+    effective_antenna <- antenna
+  }
 
   # calculate expected_eta from beam overlap with vertical profile, either based
   # off 'eta' or 'dens' quantity that is, taking into account of thresholding by
@@ -506,15 +524,17 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
       quantity,
       distance,
       scan$geo$elangle,
-      antenna = antenna,
+      antenna = effective_antenna,
       beam_angle = beam_angle,
       k = k,
       lat = lat,
       re = re,
       rp = rp
     )
+
   # since all azimuths are equivalent, replicate nazim times.
-  eta_expected <- matrix(rep(eta_expected, nazim), nrange)
+  if(reference == "sea") eta_expected <- rep(eta_expected, nazim)
+  eta_expected <- matrix(eta_expected, nrange)
   attributes(eta_expected) <- attributes(eta)
   attributes(eta_expected)$param <- "eta_expected"
   scan$params$eta_expected <- eta_expected
@@ -523,7 +543,6 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
   # NA values indicate the pixel was never irradiated, so no reflectivity return expected
   na_idx <- is.na(scan$params[[param]]) & !is.nan(scan$params[[param]])
   scan$params[["eta_expected"]][na_idx] <- 0
-
 
   # return the scan with added scan parameters 'eta' and 'eta_expected'
   scan

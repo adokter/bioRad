@@ -223,7 +223,7 @@ scan_to_spdf <- function(scan, spdf, param, lat, lon, k = 4 / 3, re = 6378, rp =
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
   if (!inherits(spdf, "SpatialPointsDataFrame")) {
-    stop("spdf should be of class spdf")
+    stop("spdf should be of class SpatialPointsDataFrame")
   }
   if (!missing(param)) {
     if (FALSE %in% (param %in% c(names(scan$params), "azim", "range", "distance"))) stop("'param' contains scan parameter not found in scan")

@@ -8,19 +8,19 @@
 \usage{
 add_param(x, raster, param)
 
-\method{add_param}{scan}(scan, raster, param)
+\method{add_param}{scan}(x, raster, param)
 
-\method{add_param}{pvol}(pvol, raster, param)
+\method{add_param}{pvol}(x, raster, param)
 }
 \arguments{
 \item{x}{A \code{pvol} or \code{scan} object.}
 
-\item{raster}{An object of class \code{terra::SpatRaster} or \code{raster::Raster}.}
+\item{raster}{An object of class \code{terra::SpatRaster} or \code{raster::RasterLayer}.}
 
 \item{param}{The name of the added parameter.}
 }
 \value{
-The object with an added parameter, extracting data from the raster
+The object \code{x} with an added parameter, extracting data from the raster
 specified by \code{raster}.
 }
 \description{

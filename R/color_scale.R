@@ -39,9 +39,11 @@ color_scale <- function(param, zlim, na.value = "transparent") {
                           "BACKGROUND",
                           "WEATHER",
                           "BIOLOGY",
-                          "CELL")) {
+                          "CELL",
+                          "HGHT",
+                          "HEIGHT")) {
     colorscale <-
-      viridis::scale_colour_viridis(na.value = na.value, name = param)
+      viridis::scale_colour_viridis(na.value = na.value, name = param, limits = zlim)
   } else {
     colorscale <- ggplot2::scale_colour_gradientn(
       colours = colors_dbz,
@@ -62,8 +64,10 @@ color_scale_fill <- function(param, zlim, na.value = "transparent") {
                           "BACKGROUND",
                           "WEATHER",
                           "BIOLOGY",
-                          "CELL")) {
-    colorscale <- viridis::scale_fill_viridis(na.value = na.value, name = param)
+                          "CELL",
+                          "HGHT",
+                          "HEIGHT")) {
+    colorscale <- viridis::scale_fill_viridis(na.value = na.value, name = param, limits = zlim)
   } else {
     colorscale <-
       color_palette_to_scale_fill(param,
@@ -167,6 +171,9 @@ get_zlim <- function(param, zlim) {
   }
   if (param == "PHIDP") {
     return(c(-200, 200))
+  }
+  if (param %in% c("HGHT","HEIGHT")) {
+    return(c(0, 1000))
   }
   if (param %in% c("vid", "VID")) {
     return(c(0, 200))

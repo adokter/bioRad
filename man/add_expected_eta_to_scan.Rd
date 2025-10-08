@@ -15,7 +15,8 @@ add_expected_eta_to_scan(
   beam_angle = 1,
   k = 4/3,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  reference = "sea"
 )
 }
 \arguments{
