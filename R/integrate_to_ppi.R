@@ -370,7 +370,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
         k = k,
         lat = lat,
         re = re,
-        rp = rp
+        rp = rp,
+        path = "two_way"
       )
     # align our projected pixels with this distance grid:
     overlap_index <-
