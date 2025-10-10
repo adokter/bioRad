@@ -415,7 +415,7 @@ eta_expected <- function(vp,
           elev,
           antenna = antenna,
           beam_angle = beam_angle,
-          k = k, lat = lat, re = re, rp = rp
+          k = k, lat = lat, re = re, rp = rp, path = "two_way"
         )
       }
     ))
