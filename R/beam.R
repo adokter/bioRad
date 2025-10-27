@@ -179,15 +179,19 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
 gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
                                            beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
                                            rp = 6357) {
-  stats::dnorm(
+  sd_beam <- beam_width_internal(
+    range = range, beam_angle =
+      beam_angle
+  ) * cos(elev * pi/180) / (2 * sqrt(2 * log(2)))
+
+  mean_beam <- antenna + beam_height_internal(
+    range = range, elev = elev, k = k,
+    lat = lat, re = re, rp = rp
+  )
+
+  truncnorm::dtruncnorm(
     height,
-    mean = antenna + beam_height_internal(
-      range = range, elev = elev, k = k,
-      lat = lat, re = re, rp = rp
-    ), sd = beam_width_internal(
-      range = range, beam_angle =
-        beam_angle
-    ) * cos(elev * pi/180) / (2 * sqrt(2 * log(2)))
+    mean = mean_beam, sd = sd_beam, a = mean_beam-sqrt(2)*sd_beam, b = mean_beam+sqrt(2)*sd_beam
   )
 }
 
