@@ -10,10 +10,10 @@
 #' the quantity name for the U-component of the wind.
 #' @param v_wind the south to north wind component in m/s.  In the case of `vp` and `vpts` objects
 #' the quantity name for the V-component of the wind.
-#' @param fast the fast component's airspeed in m/s, typically the airspeed of insects.
+#' @param fast the fast component's airspeed in m/s, typically the airspeed of birds.
 #' Either a single number, or (optionally for `vpts`) a numeric vector equal in length to the number of profiles,
 #' or a data column name (see Details).
-#' @param slow the slow component's airspeed in m/s, typically the airspeed of birds.
+#' @param slow the slow component's airspeed in m/s, typically the airspeed of insects.
 #' Either a single number, or (optionally for `vpts`) a numeric vector equal in length to the number of profiles,
 #' or a data column name (see Details).
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
