@@ -2,9 +2,9 @@
 
 ## bioRad 0.11.0.9000 (development version)
 
-- corrections in
+- Bugfix correcting removals of pure insect cases in
   [`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md)
-  documentation ([\#752](https://github.com/adokter/bioRad/issues/752))
+  ([\#753](https://github.com/adokter/bioRad/issues/753)).
 
 - [`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md)
   now accepts NA or NaN input reflectivity values

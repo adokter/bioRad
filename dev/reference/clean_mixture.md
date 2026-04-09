@@ -252,7 +252,7 @@ clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1)
 # drop the fast component (typically birds)
 clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, drop_slow_component=FALSE)
 #> $eta
-#> [1] 100
+#> [1] 0
 #> 
 #> $u
 #> [1] -13
