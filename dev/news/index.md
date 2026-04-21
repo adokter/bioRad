@@ -2,6 +2,10 @@
 
 ## bioRad 0.11.0.9000 (development version)
 
+- Bugfix correcting uninformative error message when integer value
+  columns in vpts data.frame contain `NA` values
+  ([\#755](https://github.com/adokter/bioRad/issues/755)).
+
 - Bugfix correcting removals of pure insect cases in
   [`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md)
   ([\#753](https://github.com/adokter/bioRad/issues/753)).
