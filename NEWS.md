@@ -1,5 +1,7 @@
 # bioRad 0.11.0.9000 (development version)
 
+* Bugfix correcting uninformative error message when integer value columns in vpts data.frame contain `NA` values (#755).
+
 * Bugfix correcting removals of pure insect cases in `clean_mixture()` (#753).
 
 * `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
