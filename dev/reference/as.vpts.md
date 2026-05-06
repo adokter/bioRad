@@ -25,6 +25,7 @@ a bioRad vpts object
 df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
 # convert the data.frame to a vpts object:
 as.vpts(df)
+#> Warning: Validation issues found: Type validation failed for datetime; Type validation failed for vcp
 #>                    Regular time series of vertical profiles (class vpts)
 #> 
 #>            radar:  bewid 

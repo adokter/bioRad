@@ -42,11 +42,11 @@ installation, which are required by dependency package
 additionally, CURL, SSL and GDAL are required by other dependency
 packages of bioRad:
 
-| System                                      | Command                                                                                                       |
-|:--------------------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| **OS X (using Homebrew)**                   | `brew install hdf5 proj gsl`                                                                                  |
+| System | Command |
+|:---|:---|
+| **OS X (using Homebrew)** | `brew install hdf5 proj gsl` |
 | **Debian-based systems (including Ubuntu)** | `sudo apt-get install libhdf5-dev libproj-dev gsl-bin libgsl-dev libcurl4-openssl-dev libssl-dev libgdal-dev` |
-| **Systems supporting yum and RPMs**         | `sudo yum install hdf5-devel proj-devel gsl gsl-devel libcurl-devel openssl-devel gdal gdal-devel`            |
+| **Systems supporting yum and RPMs** | `sudo yum install hdf5-devel proj-devel gsl gsl-devel libcurl-devel openssl-devel gdal gdal-devel` |
 
   
 
@@ -56,6 +56,7 @@ You can install the released version of bioRad from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+
 install.packages("bioRad")
 ```
 
@@ -63,6 +64,7 @@ Alternatively, you can install the latest development version from
 [GitHub](https://github.com/adokter/bioRad) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("adokter/bioRad")
 ```
@@ -70,6 +72,7 @@ devtools::install_github("adokter/bioRad")
 Then load the package with:
 
 ``` r
+
 library(bioRad)
 #> Welcome to bioRad version 0.10.0.9000
 #> using vol2birdR version 1.1.1.9000 (MistNet installed)
@@ -80,6 +83,7 @@ library(bioRad)
 To enable MistNet, the following vol2birdR commands should be executed:
 
 ``` r
+
 vol2birdR::install_mistnet()
 vol2birdR::install_mistnet_model()
 ```
@@ -110,6 +114,7 @@ and plot the *radial velocity* of detected targets with
 [`plot()`](https://rdrr.io/r/graphics/plot.default.html):
 
 ``` r
+
 library(tidyverse) # To pipe %>% the steps below
 system.file("extdata", "volume.h5", package = "bioRad") %>%
   read_pvolfile() %>%
@@ -142,6 +147,7 @@ and plot it with
 [`plot()`](https://rdrr.io/r/graphics/plot.default.html):
 
 ``` r
+
 example_vpts %>%
   regularize_vpts() %>%
   plot()
@@ -158,6 +164,7 @@ quantities. Here we plot the quantity *migration traffic rate* (column
 `mtr`) with [`plot()`](https://rdrr.io/r/graphics/plot.default.html):
 
 ``` r
+
 my_vpi <- integrate_profile(example_vpts)
 
 plot(my_vpi, quantity = "mtr") # mtr = migration traffic rate
@@ -170,6 +177,7 @@ time series, we use the last value of the *cumulative migration traffic*
 (column `mt`):
 
 ``` r
+
 my_vpi %>%
   pull(mt) %>% # Extract column mt as a vector
   last()

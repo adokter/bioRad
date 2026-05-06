@@ -353,6 +353,7 @@ bioRad includes a number of example datasets:
 - `volume.h5`: example hdf5 file containing a polar volume. Read using:
 
   ``` r
+
   pvol_file <- system.file("extdata", "volume.h5", package = "bioRad")
   read_pvolfile(pvol_file)
   ```
@@ -363,6 +364,7 @@ bioRad includes a number of example datasets:
   Read using:
 
   ``` r
+
   vp_file <- system.file("extdata", "profile.h5", package = "bioRad")
   read_vpfiles(vp_file)
   ```
@@ -372,6 +374,7 @@ bioRad includes a number of example datasets:
   piped to a text file (and zipped). Read using:
 
   ``` r
+
   vpts_file <- utils::unzip(system.file("extdata", "vpts.txt.zip", package = "bioRad"))
   read_vpts(vpts_file, radar = "KBGM", wavelength = "S")
   ```

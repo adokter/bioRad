@@ -5,6 +5,7 @@
 Load bioRad
 
 ``` r
+
 options("sp_evolution_status" = 2L)
 library(bioRad)
 ```
@@ -27,6 +28,7 @@ The beam height is changing as a result of earth’s curvature, and beam
 refraction:
 
 ``` r
+
 # define a range grid from 0 to 200 km:
 my_range <- seq(0, 200000, 1000)
 # plot the beam height for each range, for a 0.5 degree elevation beam:
@@ -38,6 +40,7 @@ plot(my_range, beam_height(my_range, elev = .5), xlab = "range [m]", ylab = "bea
 The beam width also broadens with range:
 
 ``` r
+
 # plot the beam width, for a beam opening angle of 1 degree (typical for most weather radars):
 plot(my_range, beam_width(my_range, beam_angle = 1), xlab = "range [m]", ylab = "beam width [m]")
 ```
@@ -51,6 +54,7 @@ radiation profile for a 0.5 and 2 degree beam elevation at 50 km from
 the radar (the height axis runs from ground level straight up):
 
 ``` r
+
 # plot the beam profile, for a 0.5 degree elevation beam at 50 km distance from the radar:
 plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000, xlab = "normalized radiated energy", ylab = "height [m]", main = "beam elevation: 0.5 deg, distance=50km")
 ```
@@ -58,6 +62,7 @@ plot(beam_profile(height = 0:4000, 50000, 0.5), 0:4000, xlab = "normalized radia
 ![](range_correction_files/figure-html/unnamed-chunk-4-1.png)
 
 ``` r
+
 # plot the beam profile, for a 2 degree elevation beam at 50 km distance from the radar:
 plot(beam_profile(height = 0:4000, 50000, 2), 0:4000, xlab = "normalized radiated energy", ylab = "height [m]", main = "beam elevation: 2 deg, distance=50km")
 ```
@@ -68,6 +73,7 @@ We can also calculate the normalized radiation profile for the two beams
 combined:
 
 ``` r
+
 # plot the combined beam profile for a 0.5 and 2.0 degree elevation beam at 50 km distance from the radar:
 plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000, xlab = "normalized radiated energy", ylab = "height [m]", main = "beam elevations: 0.5,2 deg, distance=50km")
 ```
@@ -80,6 +86,7 @@ Let us now assume we have calculated a vertical profile (of birds) for a
 certain polar volume file. Let’s load an example
 
 ``` r
+
 # let's load an example polar volume:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 example_pvol <- read_pvolfile(file = pvolfile)
@@ -100,6 +107,7 @@ Let’s plot the vertical profile, for the quantity eta (the linear
 reflectivity):
 
 ``` r
+
 plot(example_vp, quantity = "eta")
 ```
 
@@ -110,6 +118,7 @@ reflectivity factor of 5 dBZ amounts to the following eta at a radar
 wavelength of 5.3 cm:
 
 ``` r
+
 dbz_to_eta(5, wavelength = 5.3)
 ```
 
@@ -135,20 +144,20 @@ For each scan within the polar volume we:
 
 - calculate for each ground surface pixel the vertical radiation profile
   at that pixel for that particular scan, following above paragraph 2.
-- calculate the reflectivity we expect at that pixel ($eta_{expected}$),
-  given the vertical profile (of birds) and the part of the profile
-  radiated by the beam. This $eta_{expected}$ is simply the average of
-  (linear) eta in the profile (as plotted in paragraph 3 above),
-  weighted by the vertical radiation profile (as plotted in paragraph
-  2).
+- calculate the reflectivity we expect at that pixel
+  ($`eta_{expected}`$), given the vertical profile (of birds) and the
+  part of the profile radiated by the beam. This $`eta_{expected}`$ is
+  simply the average of (linear) eta in the profile (as plotted in
+  paragraph 3 above), weighted by the vertical radiation profile (as
+  plotted in paragraph 2).
 - we also calculated the observed eta at this pixel, which is simply
   given by `dbz_to_eta(DBZH)` (see paragraph 3), with DBZH the
   reflectivity factor measured at the pixel’s distance from the radar.
 
 For each pixel on the ground, we thus end up with a set of
-$eta_{expected}$ and a set of $eta_{observed}$. From those we can
+$`eta_{expected}`$ and a set of $`eta_{observed}`$. From those we can
 calculate a correction factor at that pixel, as
-$R = \sum{eta_{observed}}/\sum{eta_{expected}}$, with the sum running
+$`R=\sum{eta_{observed}}/\sum{eta_{expected}}`$, with the sum running
 over scans.
 
 To arrive at the final PPI image:
@@ -166,6 +175,7 @@ To arrive at the final PPI image:
 Let’s first make a PPI plot of the lowest uncorrected scan:
 
 ``` r
+
 # extract the first scan from the polar volume:
 my_scan <- example_pvol$scans[[1]]
 # project it as a PPI on the ground:
@@ -179,6 +189,7 @@ plot(my_ppi)
 Now let’s calculate the range-corrected PPI
 
 ``` r
+
 # let's use a 500 metre spatial grid (res), and restrict to 100x100 km area
 my_corrected_ppi <- integrate_to_ppi(example_pvol, example_vp, res = 500, xlim = c(-100000, 100000), ylim = c(-100000, 100000))
 my_corrected_ppi
@@ -193,6 +204,7 @@ The range corrected PPI has four parameters: VIR, VID, R, overlap. Let’s
 plot the adjustment factor R:
 
 ``` r
+
 # plot the adjustment factor R:
 plot(my_corrected_ppi, param = "R")
 ```
@@ -202,6 +214,7 @@ plot(my_corrected_ppi, param = "R")
 Let’s also plot the vertically integrated reflectivity:
 
 ``` r
+
 plot(my_corrected_ppi, param = "VIR")
 ```
 
@@ -210,6 +223,7 @@ plot(my_corrected_ppi, param = "VIR")
 Or plot the vertically integrated density on a map:
 
 ``` r
+
 bm <- "osm"
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))){
    map(my_corrected_ppi, map=bm, param = "VIR", alpha = .5)
@@ -241,6 +255,7 @@ We can calculate overlap between emitted radiation and the biological
 profile as follows:
 
 ``` r
+
 # calculate overlap between vertical profile of birds
 # and the vertical radiation profile emitted by the radar:
 bpo <- beam_profile_overlap(example_vp, get_elevation_angles(example_pvol), seq(0, 100000, 1000), quantity = "eta")
@@ -269,6 +284,7 @@ The range-corrected PPI also contains a field `overlap`, which contains
 the same metric but then calculated on the grid of the PPI:
 
 ``` r
+
 plot(my_corrected_ppi, param = "overlap")
 ```
 

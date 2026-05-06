@@ -2,6 +2,22 @@
 
 ## bioRad 0.11.0.9000 (development version)
 
+- Bugfix for
+  [`as.vpts()`](http://adriaandokter.com/bioRad/dev/reference/as.vpts.md)
+  fixing uninformative error message in the case of NA values in the
+  `source_file` column of a vpts data.frame
+  ([\#759](https://github.com/adokter/bioRad/issues/759)).
+
+- New additional arguments `alt_min` and `filter_all_heights` in
+  [`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md)
+  for precip filtering at high altitudes only
+  ([\#755](https://github.com/adokter/bioRad/issues/755)).
+
+- Bugfix for
+  [`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md)
+  not being applied to `vp` objects
+  ([\#755](https://github.com/adokter/bioRad/issues/755)).
+
 - Bugfix correcting uninformative error message when integer value
   columns in vpts data.frame contain `NA` values
   ([\#755](https://github.com/adokter/bioRad/issues/755)).

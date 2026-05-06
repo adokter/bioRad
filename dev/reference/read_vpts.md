@@ -42,6 +42,8 @@ read_vpts(files, data_frame = FALSE, ...)
 ## read a vertical profile time series in VPTS CSV format:
 vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
 read_vpts(vptsfile)
+#> Warning: Validation issues found: Type validation failed for vcp
+#> Warning: Validation issues found: Type validation failed for vcp
 #>                    Regular time series of vertical profiles (class vpts)
 #> 
 #>            radar:  bewid 

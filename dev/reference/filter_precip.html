@@ -59,7 +59,9 @@ Applied to vertical profiles ('vp') or time series of vertical profiles ('vpts')
 <span>    <span class="fl">7</span>, <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  range <span class="op">=</span> <span class="fl">2500</span>,</span>
 <span>  alt_max <span class="op">=</span> <span class="fl">3000</span>,</span>
-<span>  drop <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  alt_min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  filter_all_heights <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +89,16 @@ Defaults to 7 dBZ for C-band radars and 20 dBZ for S-band radars.</p></dd>
 
 <dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
 <dd><p>When <code>TRUE</code> the profile is removed from the</p></dd>
+
+
+<dt id="arg-alt-min">alt_min<a class="anchor" aria-label="anchor" href="#arg-alt-min"></a></dt>
+<dd><p>Minimum altitude above ground level to consider in m.</p></dd>
+
+
+<dt id="arg-filter-all-heights">filter_all_heights<a class="anchor" aria-label="anchor" href="#arg-filter-all-heights"></a></dt>
+<dd><p>When <code>TRUE</code> and a precipitation event is detected,
+the entire altitude profile will be filtered. When <code>FALSE</code>, only the altitude
+layers between <code>alt_min</code> and <code>alt_max</code> will be filtered.</p></dd>
 
 </dl></div>
     <div class="section level2">

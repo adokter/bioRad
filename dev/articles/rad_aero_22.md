@@ -9,6 +9,7 @@ Execute each of the code examples provided below in
 [RStudio](https://posit.co/), and try to complete the exercises.
 
 ``` r
+
 # make sure you start with a fresh R session
 # load the bioRad package
 library(bioRad)
@@ -21,6 +22,7 @@ reference](https://adriaandokter.com/bioRad/dev/reference/index.html)
 online, as well as in manual pages within R:
 
 ``` r
+
 # bring up the package general help page:
 ?bioRad
 ```
@@ -29,6 +31,7 @@ Start by making a new directory on your local machine that you will use
 for this practical:
 
 ``` r
+
 # make a new local directory on your machine for this practical
 # replace the string below with the path of that directory:
 HOME <- "your/personal/working/directory/"
@@ -54,6 +57,7 @@ Your R session is now properly set up.
 ### The structure of polar volumes
 
 ``` r
+
 # Let's first download the NEXRAD polar volume files for the KHGX radar (Houston)
 # for a 15 minute period in 2017:
 download_pvolfiles(date_min=as.POSIXct("2017-05-04 01:25:00"), date_max=as.POSIXct("2017-05-04 01:40:00"), radar="KHGX", directory="./data_pvol")
@@ -74,6 +78,7 @@ function for the nomenclature of various available quantities).
 ### Plotting radar scans
 
 ``` r
+
 # let's extract the scan collected at 1.5 degree elevation from our polar volume:
 my_scan <- get_scan(my_pvol, 0.5)
 # print some information about this scan:
@@ -87,6 +92,7 @@ position indicator), which is a projection of the scan on a Cartesian
 (X,Y) or (lat,lon) grid:
 
 ``` r
+
 # before we can plot the scan, we need to project it on a Cartesian grid,
 # i.e. we need to make a Plan Position Indicator (PPI)
 my_ppi <- project_as_ppi(my_scan)
@@ -114,6 +120,7 @@ scatterers birds or insects? Why?
 ### Overlaying radar scans on maps
 
 ``` r
+
 # It is often informative to plot radar data on a base layer.
 # First choose a base layer from the list of rosm::osm.types()
 basemap = "osm"
@@ -128,9 +135,10 @@ map(my_ppi, map = basemap, param = "DBZH", zlim = c(-20, 40))
 Screening precipitation based on correlation coefficient is arguably the
 most simple and established approach for screening out weather in cases
 where dual-polarization data is available. It is based on removing data
-above a certain $\rho_{/HV}$ thresholds, most commonly 0.95.
+above a certain $`\rho_{/HV}`$ thresholds, most commonly 0.95.
 
 ``` r
+
 # Screen out the reflectivity areas with RHOHV < 0.95
 my_ppi_clean <- calculate_param(my_ppi, DBZH = ifelse(RHOHV > 0.95, NA, DBZH))
 # plot the original and cleaned up reflectivity:
@@ -146,6 +154,7 @@ available (specifically, the three basic quantities radial velocity
 VRADH, reflectivity DBZH, and spectrum width WRADH).
 
 ``` r
+
 # apply the MistNet model to the polar volume file and load it as a polar volume (pvol):
 my_pvol <- apply_mistnet(my_pvolfiles[1])
 # mistnet will add additional parameters to the
@@ -159,17 +168,22 @@ my_scan
 ### using depolarization ratio
 
 Another quantity that has been proposed for distinguishing weather and
-biology is the depolarization ratio ($D_{r}$), which is defined as
+biology is the depolarization ratio ($`D_r`$), which is defined as
 
-$$D_{r} = \frac{Z_{DR} + 1 - 2\sqrt{Z_{DR}}\ \rho_{HV}}{Z_{DR} + 1 + 2\sqrt{Z_{DR}}\ \rho_{HV}}$$
+``` math
+D_r=\frac{Z_{DR}+ 1 -2 \sqrt{Z_{DR}} \ \rho_{HV}}{Z_{DR}+ 1 +2 \sqrt{Z_{DR}} \ \rho_{HV}}
+```
 First we add the depolarization ratio (DR) as a parameter. We’ll express
 DR on a dB scale by transforming:
-$$DR = 10\log_{10}\left( D_{r} \right)$$ (see *Kilambi et al. 2018, A
-Simple and Effective Method for Separating Meteorological from
-Nonmeteorological Targets Using Dual-Polarization Data* for more
-information)
+``` math
+DR=10\log_{10}(D_r) 
+```
+(see *Kilambi et al. 2018, A Simple and Effective Method for Separating
+Meteorological from Nonmeteorological Targets Using Dual-Polarization
+Data* for more information)
 
 ``` r
+
 # let's add depolarization ratio (DR) as a parameter (following Kilambi 2018):
 my_ppi <- calculate_param(my_ppi, DR = 10 * log10((1+ ZDR - 2 * (ZDR^0.5) * RHOHV) /
   (1 + ZDR+ 2 * (ZDR^0.5) * RHOHV)))
@@ -180,6 +194,7 @@ value to screen out precipitation. It has a good (potentially even
 better) ability to distinguish weather and biology:
 
 ``` r
+
   # plot the depolarization ratio, using a viridis color palette:
 map(my_ppi, map = basemap, param = "DR", zlim=c(-25,-5), palette = viridis::viridis(100))
 ```
@@ -194,6 +209,7 @@ equal 1 for the additional fringe, and 2 for the originally segmented
 precipitation area by MistNet.
 
 ``` r
+
 # as before, project the scan as a ppi:
 my_ppi <- project_as_ppi(my_scan)
 # plot the probability for the WEATHER class
@@ -228,6 +244,7 @@ pre-processed vertical profiles for the Brownsville radar in Texas
 ### Loading processed vertical profiles
 
 ``` r
+
 # Usually we would load processed vertical profiles (vp files) by:
 # my_vplist <- read_vpfiles("./your/directory/with/processed/profiles/goes/here")
 # my_vplist contains after running the command a list of vertical profile (vp) objects
@@ -245,6 +262,7 @@ vertical profiles, i.e. a single profile from the list of vp objects you
 have just loaded.
 
 ``` r
+
 # let's extract a profile from the list, in this example the 41st profile:
 my_vp <- my_vplist[[41]]
 # print some info for this profile to the console
@@ -284,6 +302,7 @@ reasons, for weather radar ornithologists reflectivity `eta` is the more
 conventional unit.
 
 ``` r
+
 # let's plot the vertical profile, in terms of bird density
 plot(my_vp, quantity = "dens")
 # print the currently assumed radar cross section (RCS) per bird:
@@ -297,6 +316,7 @@ large, what will be the effect on the bird density profile?
 The assumed radar cross section can be changed as follows:
 
 ``` r
+
 # let's change the RCS to 110 cm^2
 rcs(my_vp) <- 110
 ```
@@ -311,6 +331,7 @@ into a time series, e.g. the vertical profiles obtained from a single
 radar over a full day.
 
 ``` r
+
 # convert the list of vertical profiles into a time series:
 my_vpts <- bind_into_vpts(my_vplist)
 # time series objects can be subsetted, just as you may be used to with vectors
@@ -329,6 +350,7 @@ plot(my_vpts)
 Let’s make a plot for a subselection of the time series:
 
 ``` r
+
 # filter our vpts for night time
 my_vpts_night <- filter_vpts(my_vpts, night=TRUE)
 # plot this smaller time series:
@@ -359,8 +381,8 @@ can do that:
   *surface* density as opposed to a *volume* densities you have been
   plotting in the previous exercises: this number gives you how many
   migrants are aloft per square kilometer earth’s surface (unit
-  individuals/km$^{2}$), obtained by a vertical integration of the
-  volume densities (unit individuals/km$^{3}$).
+  individuals/km$`^{2}`$), obtained by a vertical integration of the
+  volume densities (unit individuals/km$`^{3}`$).
 - Note that the VID quantity doesn’t depend on the speed of the
   migrants. A common measure that reflects both the density and speed of
   the migration is migration traffic rate (MTR). This is flux measure
@@ -373,6 +395,7 @@ We will be using bioRad’s
 function to calculate these quantities:
 
 ``` r
+
 # Let's continue with the vpts object created in the previous example.
 # The vertically integrated quantities are calculated as follows:
 my_vpi <- integrate_profile(my_vpts)
@@ -395,7 +418,7 @@ ground is 200 birds per cubic kilometer, and from 1-1.5 km 100 birds per
 cubic kilometer. Above 1500 meter there are no birds.
 
 **Exercise 9:** What is in this case the bird’s vertically integrated
-density (VID)? Give your answer in units birds/km$^{2}$.
+density (VID)? Give your answer in units birds/km$`^2`$.
 
 **Exercise 10:** Let’s assume that in the lower layer birds fly at 50
 km/hour, and in the upper layer at 100 km/hour. What is in this case the
@@ -412,6 +435,7 @@ bird. If you are unwilling/unable to specify RCS, alternatively you can
 use two closely related quantities that make no assumptions RCS:
 
 ``` r
+
 # instead of vertically integrated density (VID), you can use vertically integrated reflectivity (VIR):
 plot(my_vpi, quantity = "vir")
 # instead of migration traffic rate (MTR), you can use the reflectivity traffic rate (RTR):
@@ -444,6 +468,7 @@ and precipitation. Precipitation often has higher reflectivities than
 birds, and also extends to much higher altitudes.
 
 ``` r
+
 # load a time series for the KBGM radar in Binghamton, NY
 my_vpts <- readRDS("data_vpts/KBGM20170527-20170602.rds")
 # print the loaded vpts time series for this radar:
@@ -469,6 +494,7 @@ First, let’s examine the beam shape of the lowest elevation scan of the
 radar, which is typically around 0.5 degrees.
 
 ``` r
+
 # define ranges from 0 to 2500000 meter (250 km), in steps of 100 m:
 range <- seq(0, 250000, 100)
 
@@ -486,6 +512,7 @@ profile:
 ### Processing a polar volume into a profile
 
 ``` r
+
 # download a polar volume for the KBRO radar in Brownsville, TX
 download_pvolfiles(date_min=as.POSIXct("2017-05-14 05:50:00"), date_max=as.POSIXct("2017-05-14 06:00:00"), radar="KBRO", directory="./data_pvol")
 # Load all the polar volume filenames downloaded so far for the KBRO radar:
@@ -518,6 +545,7 @@ paragraph:
 ### Range bias correction and vertical integration on a map
 
 ``` r
+
 # We will use the piping operator %>% of magrittr package to
 # execute multiple operations in one statement:
 library(magrittr)
@@ -568,6 +596,7 @@ First we download more files, and prepare an output directory for
 storing the processed profiles:
 
 ``` r
+
 # First we download more data, for a total of one additional hour for the same radar:
 download_pvolfiles(date_min=as.POSIXct("2017-05-04 01:40:00"), date_max=as.POSIXct("2017-05-04 02:40:00"), radar="KHGX", directory="./data_pvol")
 # We will process all the polar volume files downloaded so far:
@@ -591,6 +620,7 @@ keep going after errors with specific files
 Having generated the profiles, we can read them into R:
 
 ``` r
+
 # we assume outputdir contains the path to the directory with processed profiles
 my_vpfiles <- list.files(outputdir, full.names = TRUE, pattern="KHGX")
 # print them
@@ -603,6 +633,7 @@ You can now continue with visualizing and post-processing as we did
 earlier:
 
 ``` r
+
 # make a time series of profiles:
 my_vpts <- bind_into_vpts(my_vplist)
 # plot them between 0 - 3 km altitude:
@@ -627,6 +658,7 @@ we can make a single call to a single file. We will disable MistNet, as
 this deep-learning model does not parallelize well on a cpu machine.
 
 ``` r
+
 process_file <- function(file_in){
   # construct output filename from input filename
   file_out <- paste(outputdir, "/", basename(file_in), "_vp.h5", sep = "")
@@ -649,6 +681,7 @@ Next, we use [`mclapply()`](https://rdrr.io/r/parallel/mclapply.html) to
 do the parallel processing for all files:
 
 ``` r
+
 # load the parallel library
 library(parallel)
 # detect how many cores we can use. We will keep 2 cores for other tasks and use the rest for processing.

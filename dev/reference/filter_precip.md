@@ -15,7 +15,9 @@ filter_precip(
     7, 20),
   range = 2500,
   alt_max = 3000,
-  drop = FALSE
+  drop = FALSE,
+  alt_min = 0,
+  filter_all_heights = TRUE
 )
 ```
 
@@ -42,6 +44,16 @@ filter_precip(
 - drop:
 
   When `TRUE` the profile is removed from the
+
+- alt_min:
+
+  Minimum altitude above ground level to consider in m.
+
+- filter_all_heights:
+
+  When `TRUE` and a precipitation event is detected, the entire altitude
+  profile will be filtered. When `FALSE`, only the altitude layers
+  between `alt_min` and `alt_max` will be filtered.
 
 ## Value
 
