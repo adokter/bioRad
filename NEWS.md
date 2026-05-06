@@ -1,5 +1,7 @@
 # bioRad 0.11.0.9000 (development version)
 
+* Bugfix for `as.vpts()` fixing uninformative error message in the case of NA values in the `source_file` column of a vpts data.frame (#759).
+
 * New additional arguments `alt_min` and `filter_all_heights` in `filter_precip()` for precip filtering at high altitudes only (#755).
 
 * Bugfix for `filter_precip()` not being applied to `vp` objects (#755).
