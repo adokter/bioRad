@@ -10,7 +10,9 @@ filter_precip(
     7, 20),
   range = 2500,
   alt_max = 3000,
-  drop = FALSE
+  drop = FALSE,
+  alt_min = 0,
+  filter_all_heights = TRUE
 )
 }
 \arguments{
@@ -25,6 +27,12 @@ Defaults to 7 dBZ for C-band radars and 20 dBZ for S-band radars.}
 \item{alt_max}{Maximum altitude above ground level to consider in m.}
 
 \item{drop}{When \code{TRUE} the profile is removed from the}
+
+\item{alt_min}{Minimum altitude above ground level to consider in m.}
+
+\item{filter_all_heights}{When \code{TRUE} and a precipitation event is detected,
+the entire altitude profile will be filtered. When \code{FALSE}, only the altitude
+layers between \code{alt_min} and \code{alt_max} will be filtered.}
 }
 \value{
 A \code{vpts} object or a \code{vp} object, depending on input \code{x}.
