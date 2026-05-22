@@ -325,7 +325,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assertthat::assert_that(assertthat::is.number(nyquist_min))
   assertthat::assert_that(
-    nyquist_min > 0,
+    nyquist_min >= 0,
     msg = "`nyquist_min` must be a positive number."
   )
   assertthat::assert_that(
