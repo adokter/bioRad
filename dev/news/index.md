@@ -2,6 +2,10 @@
 
 ## bioRad 0.11.0.9000 (development version)
 
+- Changed lower bound of allowed values for `nyquist_min` argument of
+  [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md)
+  to zero ([\#761](https://github.com/adokter/bioRad/issues/761)).
+
 - Bugfix for
   [`as.vpts()`](http://adriaandokter.com/bioRad/dev/reference/as.vpts.md)
   fixing uninformative error message in the case of NA values in the
