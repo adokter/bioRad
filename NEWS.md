@@ -1,5 +1,7 @@
 # bioRad 0.11.0.9000 (development version)
 
+* Changed lower bound of allowed values for `nyquist_min` argument of `calculate_vp()` to zero (#761).
+
 * Bugfix for `as.vpts()` fixing uninformative error message in the case of NA values in the `source_file` column of a vpts data.frame (#759).
 
 * New additional arguments `alt_min` and `filter_all_heights` in `filter_precip()` for precip filtering at high altitudes only (#755).
