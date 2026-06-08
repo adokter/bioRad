@@ -25,9 +25,6 @@ results.}
 \item{verbose}{Logical. When \code{TRUE}, vol2bird \code{stdout} is piped to the R
 console.}
 
-\item{mount}{Character. Directory path of the mount point for the Docker
-container (deprecated).}
-
 \item{load}{Logical. When \code{TRUE}, returns a \code{pvol} object.}
 
 \item{mistnet_elevations}{Numeric vector of length 5. Elevation angles to

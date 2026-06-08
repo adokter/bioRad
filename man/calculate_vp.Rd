@@ -11,7 +11,6 @@ calculate_vp(
   autoconf = FALSE,
   verbose = FALSE,
   warnings = TRUE,
-  mount,
   sd_vvp_threshold,
   rcs = 11,
   dual_pol = TRUE,
@@ -29,9 +28,9 @@ calculate_vp(
   nyquist_min = if (dealias) 5 else 25,
   nyquist_max_dealias = 25,
   dbz_quantity = "DBZH",
+  eta_max = 36000,
   mistnet = FALSE,
   mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-  local_install,
   local_mistnet
 )
 }
@@ -60,9 +59,6 @@ console.}
 
 \item{warnings}{Logical. When \code{TRUE}, vol2bird warnings are piped to the R
 console.}
-
-\item{mount}{Character. Directory path of the mount point for the Docker
-container (deprecated).}
 
 \item{sd_vvp_threshold}{Numeric. Lower threshold for the radial velocity
 standard deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals
@@ -114,15 +110,16 @@ than this value, dealiasing is suppressed. Default 25 m/s.}
 \item{dbz_quantity}{Name of the available reflectivity factor to use if not
 \code{DBZH} (e.g. \code{DBZV}, \code{TH}, \code{TV}).}
 
+\item{eta_max}{Maximum reflectivity in cm^2/km^3 for single gates containing birds.
+Default 3600 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+Gates with reflectivities above this threshold will be discarded prior to profile estimation.}
+
 \item{mistnet}{Logical. Whether to use the MistNet segmentation model.}
 
 \item{mistnet_elevations}{Numeric vector of length 5. Elevation angles to
 feed to the MistNet segmentation model, which expects exactly 5 elevation
 scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 angles may compromise segmentation results.}
-
-\item{local_install}{Character. Path to local vol2bird installation (e.g.
-\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh}). (deprecated)}
 
 \item{local_mistnet}{Character. Path to local MistNet segmentation model in
 PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}).}

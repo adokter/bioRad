@@ -25,8 +25,6 @@
 #'   console.
 #' @param warnings Logical. When `TRUE`, vol2bird warnings are piped to the R
 #'   console.
-#' @param mount Character. Directory path of the mount point for the Docker
-#'   container (deprecated).
 #' @param sd_vvp_threshold Numeric. Lower threshold for the radial velocity
 #'   standard deviation (profile quantity `sd_vvp`) in m/s. Biological signals
 #'   with `sd_vvp < sd_vvp_threshold` are set to zero. Defaults to 2 m/s for
@@ -60,13 +58,14 @@
 #'   velocities (below 25 m/s).
 #' @param dbz_quantity Name of the available reflectivity factor to use if not
 #'   `DBZH` (e.g. `DBZV`, `TH`, `TV`).
+#' @param eta_max Maximum reflectivity in cm^2/km^3 for single gates containing birds.
+#' Default 3600 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+#' Gates with reflectivities above this threshold will be discarded prior to profile estimation.
 #' @param mistnet Logical. Whether to use the MistNet segmentation model.
 #' @param mistnet_elevations Numeric vector of length 5. Elevation angles to
 #'   feed to the MistNet segmentation model, which expects exactly 5 elevation
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
-#' @param local_install Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh`). (deprecated)
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
 #'
@@ -202,31 +201,32 @@
 #'
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
-                         mount, sd_vvp_threshold,
+                         sd_vvp_threshold,
                          rcs = 11, dual_pol = TRUE, rho_hv = 0.95, single_pol = TRUE,
                          elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
                          nyquist_max_dealias = 25,
-                         dbz_quantity = "DBZH", mistnet = FALSE,
+                         dbz_quantity = "DBZH", eta_max = 36000,
+                         mistnet = FALSE,
                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-                         local_install, local_mistnet) {
+                         local_mistnet) {
   if (inherits(file, "pvol")) {
     tmp_pvol_file <- tempfile(fileext = ".h5")
     write_pvolfile(file, file = tmp_pvol_file)
     withCallingHandlers(res <- calculate_vp(tmp_pvol_file,
       vpfile = vpfile, pvolfile_out = pvolfile_out,
       autoconf = autoconf, verbose = verbose, warnings = warnings,
-      mount = mount, sd_vvp_threshold = sd_vvp_threshold,
+      sd_vvp_threshold = sd_vvp_threshold,
       rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol = single_pol,
       elev_min = elev_min, elev_max = elev_max, azim_min = azim_min, azim_max = azim_max,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
       h_layer = h_layer, dealias = dealias,
       nyquist_min = nyquist_min, nyquist_max_dealias = nyquist_max_dealias,
-      dbz_quantity = dbz_quantity, mistnet = mistnet,
+      dbz_quantity = dbz_quantity, eta_max = eta_max, mistnet = mistnet,
       mistnet_elevations = mistnet_elevations,
-      local_install = local_install, local_mistnet = local_mistnet
+      local_mistnet = local_mistnet
     ), error = function(e) {
       file.remove(tmp_pvol_file)
       e
@@ -265,12 +265,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
-  }
-  if (!missing(mount)) {
-    warning("mount argument is deprecated")
-  }
-  if (!missing(local_install)) {
-    warning("local_install argument is deprecated")
   }
 
   assertthat::assert_that(is.numeric(mistnet_elevations))
@@ -349,6 +343,11 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"),
     msg = "`dbz_quantity` must be either `DBZ`, `DBZH`, `DBZV`, `TH` or `TV`."
   )
+  assertthat::assert_that(assertthat::is.number(eta_max))
+  assertthat::assert_that(
+    eta_max > 0,
+    msg = "`eta_max` must be a positive number."
+  )
   assertthat::assert_that(assertthat::is.flag(mistnet))
   assertthat::assert_that(
     !(mistnet && !vol2birdR::mistnet_exists() && missing(local_mistnet)),
@@ -379,6 +378,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$minNyquist <- nyquist_min
     config$maxNyquistDealias <- nyquist_max_dealias
     config$dbzType <- dbz_quantity
+    config$etaMax <- eta_max
     config$dualPol <- dual_pol
     config$singlePol <- single_pol
     config$dealiasVrad <- dealias
@@ -391,6 +391,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$mistNetElevs <- mistnet_elevations
     config$useMistNet <- mistnet
     if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
+    config$etaMax <- eta_max
   }
 
   # run vol2bird
