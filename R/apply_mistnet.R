@@ -128,11 +128,11 @@
 #' }
 #' }
 apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
-                          mount = dirname(file), load = TRUE,
+                          load = TRUE,
                           mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
                           local_install, local_mistnet) {
   tryCatch(
-    apply_mistnet_body(file, pvolfile_out, verbose, mount, load,
+    apply_mistnet_body(file, pvolfile_out, verbose, load,
                        mistnet_elevations, local_install, local_mistnet),
     error = function(err) {
       rhdf5::h5closeAll()
@@ -142,7 +142,7 @@ apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
 }
 
 apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
-                          mount = dirname(file), load = TRUE,
+                          load = TRUE,
                           mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
                           local_install, local_mistnet) {
 
