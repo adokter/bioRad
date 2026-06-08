@@ -53,6 +53,8 @@
 #'   in m.
 #' @param nyquist_min Numeric. Minimum Nyquist velocity of scans to include, in
 #'   m/s.
+#' @param nyquist_max_dealias Numeric. When all scans have nyquist velocity higher
+#' than this value, dealiasing is suppressed. Default 25 m/s.
 #' @param dealias Logical. Whether to dealias radial velocities. This should
 #'   typically be done when the scans in the polar volume have low Nyquist
 #'   velocities (below 25 m/s).
@@ -139,6 +141,15 @@
 #'
 #' Dealiasing uses the torus mapping method by Haase et al. (2004).
 #'
+#' Use parameter `nyquist_min` to discard specific elevation scans with very low
+#' Nyquist velocity (by default smaller than 5 m/s). The Haase et al. algorithm
+#' is known to not provide accurate estimates for heavily folded velocity data, therefore
+#' these elevation scans are best removed entirely.
+#'
+#' Use parameter `nyquist_max_dealias` to suppress dealiasing for polar volumes for
+#' which all scans already have a high Nyquist velocity. This prevents dealiasing
+#' when the data does not require it.
+#'
 #' ## Local installation
 #'
 #' You may point parameter `local_mistnet` to a local download of the MistNet segmentation model in
@@ -197,6 +208,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          range_min = 5000, range_max = 35000, n_layer = 20,
                          h_layer = 200, dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
+                         nyquist_max_dealias = 25,
                          dbz_quantity = "DBZH", mistnet = FALSE,
                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
                          local_install, local_mistnet) {
@@ -211,7 +223,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       elev_min = elev_min, elev_max = elev_max, azim_min = azim_min, azim_max = azim_max,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
       h_layer = h_layer, dealias = dealias,
-      nyquist_min = nyquist_min,
+      nyquist_min = nyquist_min, nyquist_max_dealias = nyquist_max_dealias,
       dbz_quantity = dbz_quantity, mistnet = mistnet,
       mistnet_elevations = mistnet_elevations,
       local_install = local_install, local_mistnet = local_mistnet
@@ -325,8 +337,13 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   )
   assertthat::assert_that(assertthat::is.number(nyquist_min))
   assertthat::assert_that(
-    nyquist_min > 0,
+    nyquist_min >= 0,
     msg = "`nyquist_min` must be a positive number."
+  )
+  assertthat::assert_that(assertthat::is.number(nyquist_max_dealias))
+  assertthat::assert_that(
+    nyquist_max_dealias >= 0,
+    msg = "`nyquist_max_dealias` must be a positive number."
   )
   assertthat::assert_that(
     dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"),
@@ -360,6 +377,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$nLayers <- n_layer
     config$layerThickness <- h_layer
     config$minNyquist <- nyquist_min
+    config$maxNyquistDealias <- nyquist_max_dealias
     config$dbzType <- dbz_quantity
     config$dualPol <- dual_pol
     config$singlePol <- single_pol

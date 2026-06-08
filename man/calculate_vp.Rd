@@ -27,6 +27,7 @@ calculate_vp(
   h_layer = 200,
   dealias = TRUE,
   nyquist_min = if (dealias) 5 else 25,
+  nyquist_max_dealias = 25,
   dbz_quantity = "DBZH",
   mistnet = FALSE,
   mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
@@ -106,6 +107,9 @@ velocities (below 25 m/s).}
 
 \item{nyquist_min}{Numeric. Minimum Nyquist velocity of scans to include, in
 m/s.}
+
+\item{nyquist_max_dealias}{Numeric. When all scans have nyquist velocity higher
+than this value, dealiasing is suppressed. Default 25 m/s.}
 
 \item{dbz_quantity}{Name of the available reflectivity factor to use if not
 \code{DBZH} (e.g. \code{DBZV}, \code{TH}, \code{TV}).}
@@ -204,6 +208,15 @@ patterns smaller than the beam width cannot be resolved.
 \subsection{dealias}{
 
 Dealiasing uses the torus mapping method by Haase et al. (2004).
+
+Use parameter \code{nyquist_min} to discard specific elevation scans with very low
+Nyquist velocity (by default smaller than 5 m/s). The Haase et al. algorithm
+is known to not provide accurate estimates for heavily folded velocity data, therefore
+these elevation scans are best removed entirely.
+
+Use parameter \code{nyquist_max_dealias} to suppress dealiasing for polar volumes for
+which all scans already have a high Nyquist velocity. This prevents dealiasing
+when the data does not require it.
 }
 
 \subsection{Local installation}{
