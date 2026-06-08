@@ -52,11 +52,11 @@ clean_mixture(x, ...)
 
 \item{...}{\code{eta}, \code{u}, \code{v}, \code{u_wind}, \code{v_wind} arguments, taken from object for \code{vp} or \code{vpts} class.}
 
-\item{slow}{the slow component's airspeed in m/s, typically the airspeed of birds.
+\item{slow}{the slow component's airspeed in m/s, typically the airspeed of insects.
 Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
 or a data column name (see Details).}
 
-\item{fast}{the fast component's airspeed in m/s, typically the airspeed of insects.
+\item{fast}{the fast component's airspeed in m/s, typically the airspeed of birds.
 Either a single number, or (optionally for \code{vpts}) a numeric vector equal in length to the number of profiles,
 or a data column name (see Details).}
 

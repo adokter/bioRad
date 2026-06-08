@@ -10,10 +10,10 @@
 #' the quantity name for the U-component of the wind.
 #' @param v_wind the south to north wind component in m/s.  In the case of `vp` and `vpts` objects
 #' the quantity name for the V-component of the wind.
-#' @param fast the fast component's airspeed in m/s, typically the airspeed of insects.
+#' @param fast the fast component's airspeed in m/s, typically the airspeed of birds.
 #' Either a single number, or (optionally for `vpts`) a numeric vector equal in length to the number of profiles,
 #' or a data column name (see Details).
-#' @param slow the slow component's airspeed in m/s, typically the airspeed of birds.
+#' @param slow the slow component's airspeed in m/s, typically the airspeed of insects.
 #' Either a single number, or (optionally for `vpts`) a numeric vector equal in length to the number of profiles,
 #' or a data column name (see Details).
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
@@ -172,11 +172,13 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
   if(drop_slow_component){
     # fast component airspeed, typically birds:
     eta_corr[idx]=((1-f)*x)[idx]
+    eta_corr[idx_f_one]=0
     air_u[idx]=(((u-u_wind)-(slow/wind_speed)*u_wind*f)/(1-f))[idx]
     air_v[idx]=(((v-v_wind)-(slow/wind_speed)*v_wind*f)/(1-f))[idx]
   } else{
     # slow component airspeed, typically insects:
     eta_corr[idx]=(f*x)[idx]
+    eta_corr[idx_f_zero]=0
     air_u[idx]=slow*cos(wind_direction)[idx]
     air_v[idx]=slow*sin(wind_direction)[idx]
   }

@@ -52,8 +52,9 @@ altitude distribution.}
 \item{normalize}{Logical. If \code{TRUE}, normalize the radiation coverage pattern
 over the altitude range specified by \code{zlim}.}
 
-\item{beam_angle}{Numeric. Beam opening angle in degrees, typically the
-angle between the half-power (-3 dB) points of the main lobe.}
+\item{beam_angle}{Numeric. Beam opening angle in degrees, typically speciefied as
+the angle between the half-power (-3 dB) points of the main lobe for the one-way
+antenna pattern.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
