@@ -172,11 +172,13 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
   if(drop_slow_component){
     # fast component airspeed, typically birds:
     eta_corr[idx]=((1-f)*x)[idx]
+    eta_corr[idx_f_one]=0
     air_u[idx]=(((u-u_wind)-(slow/wind_speed)*u_wind*f)/(1-f))[idx]
     air_v[idx]=(((v-v_wind)-(slow/wind_speed)*v_wind*f)/(1-f))[idx]
   } else{
     # slow component airspeed, typically insects:
     eta_corr[idx]=(f*x)[idx]
+    eta_corr[idx_f_zero]=0
     air_u[idx]=slow*cos(wind_direction)[idx]
     air_v[idx]=slow*sin(wind_direction)[idx]
   }

@@ -46,12 +46,15 @@ validate_vpts <- function(df) {
 
             field_data <- df[[field]]
             # Validate type
-            type_valid <- switch(as.character(field_schema$type), string = is.character(field_data),
-                number = is.numeric(field_data), integer = is.integer(field_data) ||
-                  (is.numeric(field_data) && all(field_data == floor(field_data))),
-                datetime = inherits(field_data, "POSIXct") || inherits(field_data,
-                  "POSIXt"), boolean = is.logical(field_data), stop("Unsupported type specified in schema for field: ",
-                  field))
+            type_valid <- switch(as.character(field_schema$type),
+                                 string = is.character(field_data),
+                                 number = is.numeric(field_data),
+                                 integer = is.integer(field_data) || (is.numeric(field_data) && all(field_data == floor(field_data), na.rm=TRUE)),
+                                 datetime = inherits(field_data, "POSIXct") || inherits(field_data, "POSIXt"),
+                                 boolean = is.logical(field_data),
+                                 stop("Unsupported type specified in schema for field: ",field)
+                                 )
+
             if (!type_valid) {
                 issues <- c(issues, glue::glue("Type validation failed for {field}"))
             }
@@ -73,8 +76,7 @@ validate_vpts <- function(df) {
                   field_schema$constraints$maximum, na.rm = TRUE)) {
                   return(glue::glue("Maximum value constraint violated for {field}"))
                 c}
-                if (!is.na(field_schema$constraints$pattern) && any(!stringr::str_detect(field_schema$constraints$pattern,
-                  field_data))) {
+                if (!is.na(field_schema$constraints$pattern) && any(!stringr::str_detect(field_data, field_schema$constraints$pattern), na.rm = TRUE)) {
                   return(glue::glue("Pattern constraint violated for {field}"))
                 }
             }

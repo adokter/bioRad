@@ -12,6 +12,10 @@
 #' `DBZH` > `dbz` at which the filter is triggered in m.
 #' @param alt_max Maximum altitude above ground level to consider in m.
 #' @param drop When `TRUE` the profile is removed from the
+#' @param alt_min Minimum altitude above ground level to consider in m.
+#' @param filter_all_heights When `TRUE` and a precipitation event is detected,
+#' the entire altitude profile will be filtered. When `FALSE`, only the altitude
+#' layers between `alt_min` and `alt_max` will be filtered.
 #' @return A `vpts` object or a `vp` object, depending on input `x`.
 #'
 #' @export
@@ -69,37 +73,52 @@
 #' plot(regularize_vpts(example_vpts), quantity='dens')
 #' # filter can also be applied to single vp objects:
 #' filter_precip(example_vp)
-filter_precip <- function(x, dbz=ifelse(x$attributes$how$wavelength<7 || is.null(x$attributes$how$wavelength),7,20), range=2500, alt_max=3000, drop=FALSE){
+filter_precip <- function(x, dbz=ifelse(x$attributes$how$wavelength<7 || is.null(x$attributes$how$wavelength),7,20), range=2500, alt_max=3000, drop=FALSE, alt_min=0, filter_all_heights=TRUE){
   assertthat::assert_that(is.vp(x) | is.vpts(x))
   assertthat::assert_that(assertthat::is.number(dbz))
   assertthat::assert_that(assertthat::is.number(range))
   assertthat::assert_that(assertthat::is.number(alt_max))
   assertthat::assert_that(alt_max>0)
-  assertthat::assert_that(assertthat::is.flag(drop))
+  assertthat::assert_that(alt_min>=0)
+  assertthat::assert_that(alt_min<alt_max)
+  assertthat::assert_that(alt_max-alt_min>=range)
+  assertthat::is.flag(drop)
+  assertthat::is.flag(filter_all_heights)
   assertthat::assert_that(range<=alt_max)
   assertthat::assert_that(!(drop & is.vp(x)), msg='parameter `drop` should be `TRUE` for objects of class `vp`')
   if(dbz<7) warning("dbz value too low for typical precipitation")
   height_index_max <- ((x$attributes$where$height + alt_max) %/% x$attributes$where$interval)
   height_index_max <- min(x$attributes$where$levels,height_index_max)
+  height_index_min <- ((x$attributes$where$height + alt_min) %/% x$attributes$where$interval)
+  height_index_min <- min(x$attributes$where$levels,height_index_min)
+
   if(is.vpts(x)){
-    height_range <- colSums(x$data$DBZH[1:height_index_max,]>dbz,na.rm=T)*x$attributes$where$interval
+    height_range <- colSums(x$data$DBZH[height_index_min:height_index_max,]>dbz,na.rm=T)*x$attributes$where$interval
   } else{
-    height_range <- sum(x$data$DBZH[1:height_index_max]>dbz,na.rm=T)*x$attributes$where$interval
+    height_range <- sum(x$data$DBZH[height_index_min:height_index_max]>dbz,na.rm=T)*x$attributes$where$interval
   }
 
   index <- which(height_range > range)
+
+  # determine which altitude bins to update
+  if(filter_all_heights){
+    index_heights = 1:x$attributes$where$levels
+  } else {
+    index_heights = height_index_min:height_index_max
+  }
+
   if(length(index)==0) return(x)
   # if remove, drop the profiles
   if(drop) return(x[-index])
   # otherwise set the density field to zero, but keep the profile
   if(is.vpts(x)){
-    x$data$dens[,index] <- 0
-    x$data$eta[,index] <- 0
-    x$data$dbz[,index] <- -Inf
+    x$data$dens[index_heights,index] <- 0
+    x$data$eta[index_heights,index] <- 0
+    x$data$dbz[index_heights,index] <- -Inf
   } else{
-    x$data$dens[index] <- 0
-    x$data$eta[index] <- 0
-    x$data$dbz[index] <- -Inf
+    x$data$dens[index_heights] <- 0
+    x$data$eta[index_heights] <- 0
+    x$data$dbz[index_heights] <- -Inf
   }
 
   x
