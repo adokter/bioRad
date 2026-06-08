@@ -1,4 +1,6 @@
 # bioRad 0.11.0.9000 (development version)
+* Bugfix parsing `azim_min`, `azim_max` and `elev_max` arguments for pvol objects (#762).
+
 * `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
 
 * `beam_width()` and related functions have a new argument `path` for outputting either the one-way or
