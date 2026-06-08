@@ -227,12 +227,13 @@ when the data does not require it.
 \subsection{height reference}{
 
 Profiles are calculated by default for height bins defined relative to mean sea level.
-Alternatively, height bins may be defined relative to the antenna height by setting
-\code{height_reference} to \code{antenna}. Profiles may also be calculated relative to the height
-of the ground level terrain. This is useful especially for stopover studies focused on
-altitude distributions shortly after take-off at sunset. To make a profile relative to
-ground height requires adding information from a digital elevation map
-for each gate in the input polar volume, which be accomplished easily with function
+Alternatively, height bins may be defined relative to the radar antenna height by setting
+\code{height_reference} to \code{antenna}. This places the bottom of the lowest altitude bin at the
+radar antenna height. Profiles may also be calculated relative to the height
+of the ground level terrain. This is especiallyuseful for stopover studies focused on
+altitude distributions during peak exodus shortly after sunset. Estimating a profile
+relative to ground height requires adding information from a digital elevation map
+to each pixel of the input polar volume, which is accomplished easily with function
 \code{add_param()}. Ground heights should be stored in units of meters relative to mean sea level.
 Parameter \code{ground_height_param} should point to the scan parameter name
 containing the digital elevation information.
