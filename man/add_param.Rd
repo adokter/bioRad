@@ -4,7 +4,7 @@
 \alias{add_param}
 \alias{add_param.scan}
 \alias{add_param.pvol}
-\title{Add scan parameter from a georeferenced raster}
+\title{Add scan parameter from a georeferenced raster.}
 \usage{
 add_param(x, raster, param)
 
@@ -24,5 +24,9 @@ The object \code{x} with an added parameter, extracting data from the raster
 specified by \code{raster}.
 }
 \description{
-Add scan parameter from a georeferenced raster
+This function adds data from a georeferenced raster file (either in \code{terra::spatraster}
+or \code{raster::RasterLayer} format) to a single \code{scan} or to all scans in a \code{pvol} object.
+This is specifically useful for adding digital elevation information to these objects
+when creating vertical profiles relative to ground level, which requires information for
+each range gate on the topographic ground level height.
 }

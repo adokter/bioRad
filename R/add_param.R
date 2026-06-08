@@ -1,5 +1,10 @@
-#' Add scan parameter from a georeferenced raster
+#' Add scan parameter from a georeferenced raster.
 #'
+#' This function adds data from a georeferenced raster file (either in `terra::spatraster`
+#' or `raster::RasterLayer` format) to a single `scan` or to all scans in a `pvol` object.
+#' This is specifically useful for adding digital elevation information to these objects
+#' when creating vertical profiles relative to ground level, which requires information for
+#' each range gate on the topographic ground level height.
 #' @param x A `pvol` or `scan` object.
 #' @param raster  An object of class `terra::SpatRaster` or `raster::RasterLayer`.
 #' @param param The name of the added parameter.
