@@ -24,6 +24,8 @@ calculate_vp(
   range_max = 35000,
   n_layer = 20,
   h_layer = 200,
+  height_reference = "sea",
+  ground_height_param = "HGHT",
   dealias = TRUE,
   nyquist_min = if (dealias) 5 else 25,
   nyquist_max_dealias = 25,
@@ -96,6 +98,12 @@ profile.}
 
 \item{h_layer}{Numeric. Width of altitude layers to use in generated profile,
 in m.}
+
+\item{height_reference}{Character. One of \code{sea}, \code{antenna} or \code{ground} for
+specifying the reference height for the profile altitude bins. Default \code{sea} level.}
+
+\item{ground_height_param}{Character. The scan parameter name of the polar volume
+containing ground height information. Default \code{HGHT}.}
 
 \item{dealias}{Logical. Whether to dealias radial velocities. This should
 typically be done when the scans in the polar volume have low Nyquist
@@ -214,6 +222,20 @@ these elevation scans are best removed entirely.
 Use parameter \code{nyquist_max_dealias} to suppress dealiasing for polar volumes for
 which all scans already have a high Nyquist velocity. This prevents dealiasing
 when the data does not require it.
+}
+
+\subsection{height reference}{
+
+Profiles are calculated by default for height bins defined relative to mean sea level.
+Alternatively, height bins may be defined relative to the antenna height by setting
+\code{height_reference} to \code{antenna}. Profiles may also be calculated relative to the height
+of the ground level terrain. This is useful especially for stopover studies focused on
+altitude distributions shortly after take-off at sunset. To make a profile relative to
+ground height requires adding information from a digital elevation map
+for each gate in the input polar volume, which be accomplished easily with function
+\code{add_param()}. Ground heights should be stored in units of meters relative to mean sea level.
+Parameter \code{ground_height_param} should point to the scan parameter name
+containing the digital elevation information.
 }
 
 \subsection{Local installation}{

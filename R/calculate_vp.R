@@ -49,6 +49,10 @@
 #'   profile.
 #' @param h_layer Numeric. Width of altitude layers to use in generated profile,
 #'   in m.
+#' @param height_reference Character. One of `sea`, `antenna` or `ground` for
+#' specifying the reference height for the profile altitude bins. Default `sea` level.
+#' @param ground_height_param Character. The scan parameter name of the polar volume
+#' containing ground height information. Default `HGHT`.
 #' @param nyquist_min Numeric. Minimum Nyquist velocity of scans to include, in
 #'   m/s.
 #' @param nyquist_max_dealias Numeric. When all scans have nyquist velocity higher
@@ -149,6 +153,19 @@
 #' which all scans already have a high Nyquist velocity. This prevents dealiasing
 #' when the data does not require it.
 #'
+#' ## height reference
+#'
+#' Profiles are calculated by default for height bins defined relative to mean sea level.
+#' Alternatively, height bins may be defined relative to the antenna height by setting
+#' `height_reference` to `antenna`. Profiles may also be calculated relative to the height
+#' of the ground level terrain. This is useful especially for stopover studies focused on
+#' altitude distributions shortly after take-off at sunset. To make a profile relative to
+#' ground height requires adding information from a digital elevation map
+#' for each gate in the input polar volume, which be accomplished easily with function
+#' `add_param()`. Ground heights should be stored in units of meters relative to mean sea level.
+#' Parameter `ground_height_param` should point to the scan parameter name
+#' containing the digital elevation information.
+#'
 #' ## Local installation
 #'
 #' You may point parameter `local_mistnet` to a local download of the MistNet segmentation model in
@@ -205,7 +222,10 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          rcs = 11, dual_pol = TRUE, rho_hv = 0.95, single_pol = TRUE,
                          elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20,
-                         h_layer = 200, dealias = TRUE,
+                         h_layer = 200,
+                         height_reference = "sea",
+                         ground_height_param = "HGHT",
+                         dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
                          nyquist_max_dealias = 25,
                          dbz_quantity = "DBZH", eta_max = 36000,
@@ -222,7 +242,9 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol = single_pol,
       elev_min = elev_min, elev_max = elev_max, azim_min = azim_min, azim_max = azim_max,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
-      h_layer = h_layer, dealias = dealias,
+      h_layer = h_layer,
+      height_reference = height_reference, ground_height_param = ground_height_param,
+      dealias = dealias,
       nyquist_min = nyquist_min, nyquist_max_dealias = nyquist_max_dealias,
       dbz_quantity = dbz_quantity, eta_max = eta_max, mistnet = mistnet,
       mistnet_elevations = mistnet_elevations,
@@ -329,6 +351,15 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     h_layer > 0,
     msg = "`h_layer` must be a positive number."
   )
+  assertthat::assert_that(
+    height_reference %in% c("sea", "ground", "antenna"),
+    msg = "`height_reference` must be either `sea`, `ground`, or `antenna`."
+  )
+  assertthat::assert_that(
+    is.character(ground_height_param),
+    length(ground_height_param)==1,
+    msg = "`ground_height_param` must be a single character string."
+  )
   assertthat::assert_that(assertthat::is.number(nyquist_min))
   assertthat::assert_that(
     nyquist_min >= 0,
@@ -375,6 +406,8 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$rangeMax <- range_max
     config$nLayers <- n_layer
     config$layerThickness <- h_layer
+    config$heightReference <- height_reference
+    config$groundHeightParam <- ground_height_param
     config$minNyquist <- nyquist_min
     config$maxNyquistDealias <- nyquist_max_dealias
     config$dbzType <- dbz_quantity
