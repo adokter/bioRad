@@ -180,7 +180,7 @@
 #' # Calculate the profile
 #' if (requireNamespace("vol2birdR", quietly = TRUE)) {
 #' vp <- calculate_vp(pvolfile)
-#' 
+#'
 #' # Get summary info
 #' vp
 #'
@@ -208,7 +208,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
       autoconf = autoconf, verbose = verbose, warnings = warnings,
       mount = mount, sd_vvp_threshold = sd_vvp_threshold,
       rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol = single_pol,
-      elev_min = elev_min, elev_max = 90, azim_min = 0, azim_max = 360,
+      elev_min = elev_min, elev_max = elev_max, azim_min = azim_min, azim_max = azim_max,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
       h_layer = h_layer, dealias = dealias,
       nyquist_min = nyquist_min,
