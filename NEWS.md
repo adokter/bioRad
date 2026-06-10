@@ -1,4 +1,9 @@
 # bioRad 0.11.0.9000 (development version)
+
+* `integrate_to_ppi()` now supports range correction with profiles referenced to ground level. (#748)
+
+* New output field `eta_sum_to_VIR` in `integrate_to_ppi()` (#748).
+
 * Bugfix parsing `azim_min`, `azim_max` and `elev_max` arguments for pvol objects (#762).
 
 * Changed lower bound of allowed values for `nyquist_min` argument of `calculate_vp()` to zero (#761).
