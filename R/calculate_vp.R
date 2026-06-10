@@ -238,7 +238,7 @@
 #' example_pvol <- add_param(example_pvol, data_dem, "HGHT")
 #'
 #' # calculate a profile relative to ground level:
-#' vp_ground <- calculate_vp(pvolfile, height_reference="ground", ground_height_param="HGHT")
+#' vp_ground <- calculate_vp(example_pvol, height_reference="ground", ground_height_param="HGHT")
 #'
 #' }
 #' }
