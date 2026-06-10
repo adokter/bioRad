@@ -42,7 +42,7 @@ When 'NA' (default), an azimuthal equidistant projection with origin at the rada
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
 \item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored. When \code{reference = "ground"} the raster values should contain
+arguments are ignored. When \code{height_reference = "ground"} the raster values should contain
 the ground height digital elevation in meters.}
 
 \item{method}{Character (vector). Compositing method(s), either \code{mean},

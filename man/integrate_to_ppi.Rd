@@ -27,7 +27,7 @@ integrate_to_ppi(
   k = 4/3,
   re = 6378,
   rp = 6357,
-  reference = "sea"
+  height_reference = "sea"
 )
 }
 \arguments{
@@ -56,7 +56,7 @@ corrections. Typically the same parameter from which animal densities are
 estimated in \code{vp}. Either \code{DBZH}, \code{DBZV}, \code{DBZ}, \code{TH}, or \code{TV}.}
 
 \item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored. When \code{reference = "ground"} the raster values should contain
+arguments are ignored. When \code{height_reference = "ground"} the raster values should contain
 the ground height digital elevation in meters.}
 
 \item{lat}{Latitude of the radar, in degrees. If missing taken from \code{pvol}.}
@@ -84,7 +84,7 @@ output. One or multiple of \code{VIR}, \code{VID}, \code{R}, \code{overlap}, \co
 
 \item{rp}{Numeric. Earth polar radius, in km.}
 
-\item{reference}{Character. Either \code{sea} (default) for range correction relative to
+\item{height_reference}{Character. Either \code{sea} (default) for range correction relative to
 sea level, or \code{ground} for range correction relative to ground level.}
 }
 \value{
@@ -187,7 +187,6 @@ plot(ppi, param = "VID", zlim = c(0, 200))
 # Download a basemap and map the ppi
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 map(ppi)
-}
 
 # The ppi can also be projected on a user-defined raster, as follows:
 
@@ -210,6 +209,36 @@ ppi <- integrate_to_ppi(
   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 )
 plot(ppi, param = "VID", zlim = c(0, 200))
+
+# To calculate a range-corrected map using assumptions of a constant altitude
+# profile maintained relative to ground height:
+if(requireNamespace("elevatr", quietly = TRUE)){
+# download digital elevation information:
+pvol |>
+  # extract lowest scan
+  get_scan(.5) |>
+  # convert to raster object
+  scan_to_raster(param="DBZH") |>
+  # convert to terra raster class
+  terra::rast() |>
+  # download digital elevation data (increase z for higher resolutions)
+  elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
+# set digital elevations for open water to mean sea level (0)
+data_dem[data_dem<0]=0
+# set an informative name for the DEM information
+names(data_dem) <- "HGHT"
+
+# add the DEM information as a scan parameter to the polar volume:
+pvol_ground <- add_param(pvol, data_dem, "HGHT")
+
+# calculate profile relative to ground level:
+vp_ground <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference="ground")
+
+# range correction relative to ground level:
+ppi_ground <- integrate_to_ppi(pvol_ground, vp_ground, height_reference="ground", raster=data_dem)
+
+}
+}
 }
 }
 \references{

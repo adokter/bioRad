@@ -25,9 +25,9 @@
 #' @param lat Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-#' arguments are ignored. When `reference = "ground"` the raster values should contain
+#' arguments are ignored. When `height_reference = "ground"` the raster values should contain
 #' the ground height digital elevation in meters.
-#' @param reference Character. Either `sea` (default) for range correction relative to
+#' @param height_reference Character. Either `sea` (default) for range correction relative to
 #' sea level, or `ground` for range correction relative to ground level.
 #'
 #' @return A `ppi` object with the following parameters:
@@ -130,7 +130,6 @@
 #' # Download a basemap and map the ppi
 #' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' map(ppi)
-#' }
 #'
 #' # The ppi can also be projected on a user-defined raster, as follows:
 #'
@@ -153,6 +152,36 @@
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(ppi, param = "VID", zlim = c(0, 200))
+#'
+#' # To calculate a range-corrected map assuming a constant altitude
+#' # profile maintained relative to ground height:
+#' if(requireNamespace("elevatr", quietly = TRUE)){
+#' # First download digital elevation information:
+#' pvol |>
+#'   # extract lowest scan
+#'   get_scan(.5) |>
+#'   # convert to raster object
+#'   scan_to_raster(param="DBZH") |>
+#'   # convert to terra raster class
+#'   terra::rast() |>
+#'   # download digital elevation data (increase z for higher resolutions)
+#'   elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
+#' # set digital elevations for open water to mean sea level (0)
+#' data_dem[data_dem<0]=0
+#' # set an informative name for the DEM information
+#' names(data_dem) <- "HGHT"
+#'
+#' # add the DEM information as a scan parameter to the polar volume:
+#' pvol_ground <- add_param(pvol, data_dem, "HGHT")
+#'
+#' # calculate profile relative to ground level:
+#' vp_ground <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference="ground")
+#'
+#' # apply range correction relative to ground level:
+#' ppi_ground <- integrate_to_ppi(pvol_ground, vp_ground, height_reference="ground", raster=data_dem)
+#'
+#' }
+#' }
 #' }
 #' @references
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
@@ -163,7 +192,7 @@
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
 #'   \doi{10.1109/TGRS.2009.2014463}
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected", "eta_sum_to_VIR"), k = 4 / 3, re = 6378, rp = 6357, reference="sea") {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected", "eta_sum_to_VIR"), k = 4 / 3, re = 6378, rp = 6357, height_reference="sea") {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -278,9 +307,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(assertthat::is.number(rp))
 
-  reference <- rlang::arg_match(reference,c("sea","ground"))
-  if(reference == "ground") assertthat::assert_that(inherits(raster,"RasterLayer"),
-    msg="For estimations relative to ground level (`reference = \"ground\"`),
+  height_reference <- rlang::arg_match(height_reference,c("sea","ground"))
+  if(height_reference == "ground") assertthat::assert_that(inherits(raster,"RasterLayer"),
+    msg="For estimations relative to ground level (`height_reference = \"ground\"`),
     provide a digital elevation map using argument `raster`")
 
   # check that request scan parameter is present in the scans of the polar volume
@@ -316,7 +345,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     )
 
     # add ground height level as a scan parameter:
-    if(reference == "ground"){
+    if(height_reference == "ground"){
       pvol = add_param(pvol, raster, "HGHT")
     }
 
@@ -330,7 +359,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
 
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
-        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, reference = reference),
+        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference),
         spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
       )
     })
@@ -338,7 +367,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     output@data <- rasters[[1]]@data
   } else {
     rasters <- lapply(pvol$scans, function(x) {
-      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, reference = reference), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }
@@ -445,7 +474,7 @@ eta_expected <- function(vp,
 add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
                                      param = "DBZH", lat, lon, antenna,
                                      beam_angle = 1, k = 4 / 3, re = 6378,
-                                     rp = 6357, reference = "sea") {
+                                     rp = 6357, height_reference = "sea") {
 
   if (is.null(scan$geo$height) &&
       missing(antenna)) {
@@ -513,12 +542,12 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
   scan$params$eta <- eta
 
   # calculate the effective antenna height, relative to ground or sea level:
-  if(reference == "ground"){
+  if(height_reference == "ground"){
     distance <- rep(distance, nazim)
     effective_antenna <- antenna - c(scan$params$HGHT)
   }
   else{
-    # reference == "sea"
+    # height_reference == "sea"
     effective_antenna <- antenna
   }
 
@@ -540,7 +569,7 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
     )
 
   # since all azimuths are equivalent, replicate nazim times.
-  if(reference == "sea") eta_expected <- rep(eta_expected, nazim)
+  if(height_reference == "sea") eta_expected <- rep(eta_expected, nazim)
   eta_expected <- matrix(eta_expected, nrange)
   attributes(eta_expected) <- attributes(eta)
   attributes(eta_expected)$param <- "eta_expected"
