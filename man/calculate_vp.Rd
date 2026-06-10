@@ -261,6 +261,35 @@ vp <- calculate_vp(pvolfile)
 # Get summary info
 vp
 
+# By default profiles are calculated for bins defined relative to sea level
+# To calculate a profile relative to ground level:
+\donttest{
+if(requireNamespace("elevatr", quietly = TRUE)){
+
+# Download digital elevation model (DEM) information:
+example_pvol |>
+  # extract lowest scan
+  get_scan(.5) |>
+  # convert to raster object
+  scan_to_raster(param="DBZH") |>
+  # convert to terra raster class
+  terra::rast() |>
+  # download digital elevation data (increase z for higher resolutions)
+  elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
+# set digital elevations for open water to mean sea level (0)
+data_dem[data_dem<0]=0
+# set an informative name for the DEM information
+names(data_dem) <- "HGHT"
+
+# add the DEM information as a scan parameter to the polar volume:
+example_pvol <- add_param(example_pvol, data_dem, "HGHT")
+
+# calculate a profile relative to ground level:
+vp_ground <- calculate_vp(pvolfile, height_reference="ground", ground_height_param="HGHT")
+
+}
+}
+
 # Clean up
 file.remove(pvolfile)
 
@@ -292,5 +321,7 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 \itemize{
 \item \code{\link[=summary.pvol]{summary.pvol()}}
 \item \code{\link[=summary.vp]{summary.vp()}}
+\item \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
+\item \code{\link[=add_param]{add_param()}}
 }
 }

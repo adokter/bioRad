@@ -58,6 +58,7 @@ Imports:
     viridisLite,
     xml2
 Suggests:
+    elevatr,
     getRad,
     ggspatial,
     knitr,
