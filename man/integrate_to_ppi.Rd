@@ -210,10 +210,10 @@ ppi <- integrate_to_ppi(
 )
 plot(ppi, param = "VID", zlim = c(0, 200))
 
-# To calculate a range-corrected map using assumptions of a constant altitude
+# To calculate a range-corrected map assuming a constant altitude
 # profile maintained relative to ground height:
 if(requireNamespace("elevatr", quietly = TRUE)){
-# download digital elevation information:
+# First download digital elevation information:
 pvol |>
   # extract lowest scan
   get_scan(.5) |>
@@ -234,7 +234,7 @@ pvol_ground <- add_param(pvol, data_dem, "HGHT")
 # calculate profile relative to ground level:
 vp_ground <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference="ground")
 
-# range correction relative to ground level:
+# apply range correction relative to ground level:
 ppi_ground <- integrate_to_ppi(pvol_ground, vp_ground, height_reference="ground", raster=data_dem)
 
 }
