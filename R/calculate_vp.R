@@ -257,7 +257,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     file.remove(tmp_pvol_file)
     return(res)
   }
-  rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."))
+  rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."), version = min_package_version("vol2birdR"))
   # check input arguments
   assertthat::assert_that(
     is.character(file),

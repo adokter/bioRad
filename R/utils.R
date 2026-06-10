@@ -258,3 +258,55 @@ guess_file_type <- function(file_path, n_lines = 5) {
     return("txt")
   }
 }
+
+#' Identify minimum required package version of dependencies.
+#'
+#' Identify the minimum required package version of dependencies
+#' listed in Suggests or Imports of the DESCRIPTION file.
+#'
+#' @param pkg A character string with a package name.
+#'
+#' @return A character string with the numeric version. When
+#' no version is specified or the package is not listed in Suggests
+#' or Depends a value `NULL` is returned.
+#' @keywords internal
+#'
+min_package_version <- function(pkg) {
+
+  assertthat::assert_that(is.character(pkg), length(pkg)==1)
+
+  # 1. Read the "Suggests" field from your package's DESCRIPTION file
+  # (Replace "yourPackageName" with your actual package name)
+  suggests_field <- packageDescription("bioRad", fields = "Suggests")
+  imports_field <- packageDescription("bioRad", fields = "Imports")
+
+  if (is.na(suggests_field) & is.na(imports_field)) {
+    warning("No dependencies found in DESCRIPTION.")
+  }
+
+  combined_field <- paste0(ifelse(is.na(imports_field),"",paste0(imports_field,",\n")), ifelse(is.na(suggests_field),"",suggests_field))
+
+  # 2. Split the comma-separated dependencies
+  deps <- unlist(strsplit(combined_field, ","))
+
+  # 3. Locate the specific package string
+  pkg_string <- deps[grep(pkg, deps)]
+
+  if (length(pkg_string) == 0) {
+    warning("Package `", pkg, "` is not listed in Imports or Suggests.")
+    return(NULL)
+  }
+
+  # 4. Extract the version number inside the parentheses (e.g., ">= 1.2.3")
+  version_match <- regmatches(pkg_string, regexec("\\(([^)]+)\\)", pkg_string))[[1]]
+
+  if (length(version_match) < 2) {
+    warning("Package `", pkg, "` has no minimum version specified.")
+    return(NULL) # No minimum version was specified in the DESCRIPTION file
+  }
+
+  # Clean up extra spaces and operators (like ">= ") to get just the version string
+  clean_version <- gsub("[>=< ]", "", version_match[2])
+  return(clean_version)
+}
+

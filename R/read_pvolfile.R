@@ -127,7 +127,7 @@ read_pvolfile_body <- function(file, param = c(
     }
   } else {
     pvol_tmp <- tempfile()
-    rlang::check_installed("vol2birdR", format_reason_vol2bird("to read `NEXRAD` files."))
+    rlang::check_installed("vol2birdR", format_reason_vol2bird("to read `NEXRAD` files."), version = min_package_version("vol2birdR"))
     config <- vol2birdR::vol2bird_config()
     vol2birdR::rsl2odim(file = file, config = config, pvolfile_out = pvol_tmp, verbose = verbose)
 
