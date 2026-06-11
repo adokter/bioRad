@@ -213,30 +213,29 @@ plot(ppi, param = "VID", zlim = c(0, 200))
 # To calculate a range-corrected map assuming a constant altitude
 # profile maintained relative to ground height:
 if(requireNamespace("elevatr", quietly = TRUE)){
-# First download digital elevation information:
+
+# define a radar-centred grid (azimuthal equidistant, radar at the centre):
 pvol |>
-  # extract lowest scan
   get_scan(.5) |>
-  # convert to raster object
-  scan_to_raster(param="DBZH") |>
-  # convert to terra raster class
-  terra::rast() |>
-  # download digital elevation data (increase z for higher resolutions)
-  elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
-# set digital elevations for open water to mean sea level (0)
-data_dem[data_dem<0]=0
-# set an informative name for the DEM information
+  scan_to_raster(param = "DBZH") |>
+  terra::rast() -> radar_grid
+
+# download elevation data and resample onto that grid. `expand`
+# over-requests so the full grid is covered;
+data_dem <- terra::project(
+  terra::rast(elevatr::get_elev_raster(radar_grid, z = 5, expand = 100000)), radar_grid)
+# set heights below sea level to zero.
+data_dem[data_dem < 0] <- 0
+# add an informative name
 names(data_dem) <- "HGHT"
 
-# add the DEM information as a scan parameter to the polar volume:
+# add DEM data to the polar volume:
 pvol_ground <- add_param(pvol, data_dem, "HGHT")
-
-# calculate profile relative to ground level:
-vp_ground <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference="ground")
-
-# apply range correction relative to ground level:
-ppi_ground <- integrate_to_ppi(pvol_ground, vp_ground, height_reference="ground", raster=data_dem)
-
+# compute a profile relative to ground:
+vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
+# apply the range correction:
+ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
+                                raster = raster::raster(data_dem))
 }
 }
 }

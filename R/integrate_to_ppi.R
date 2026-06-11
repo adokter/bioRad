@@ -156,30 +156,29 @@
 #' # To calculate a range-corrected map assuming a constant altitude
 #' # profile maintained relative to ground height:
 #' if(requireNamespace("elevatr", quietly = TRUE)){
-#' # First download digital elevation information:
+#'
+#' # define a radar-centred grid (azimuthal equidistant, radar at the centre):
 #' pvol |>
-#'   # extract lowest scan
 #'   get_scan(.5) |>
-#'   # convert to raster object
-#'   scan_to_raster(param="DBZH") |>
-#'   # convert to terra raster class
-#'   terra::rast() |>
-#'   # download digital elevation data (increase z for higher resolutions)
-#'   elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
-#' # set digital elevations for open water to mean sea level (0)
-#' data_dem[data_dem<0]=0
-#' # set an informative name for the DEM information
+#'   scan_to_raster(param = "DBZH") |>
+#'   terra::rast() -> radar_grid
+#'
+#' # download elevation data and resample onto that grid. `expand`
+#' # over-requests so the full grid is covered;
+#' data_dem <- terra::project(
+#'   terra::rast(elevatr::get_elev_raster(radar_grid, z = 5, expand = 100000)), radar_grid)
+#' # set heights below sea level to zero.
+#' data_dem[data_dem < 0] <- 0
+#' # add an informative name
 #' names(data_dem) <- "HGHT"
 #'
-#' # add the DEM information as a scan parameter to the polar volume:
+#' # add DEM data to the polar volume:
 #' pvol_ground <- add_param(pvol, data_dem, "HGHT")
-#'
-#' # calculate profile relative to ground level:
-#' vp_ground <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference="ground")
-#'
-#' # apply range correction relative to ground level:
-#' ppi_ground <- integrate_to_ppi(pvol_ground, vp_ground, height_reference="ground", raster=data_dem)
-#'
+#' # compute a profile relative to ground:
+#' vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
+#' # apply the range correction:
+#' ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
+#'                                 raster = raster::raster(data_dem))
 #' }
 #' }
 #' }
@@ -307,10 +306,15 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(assertthat::is.number(rp))
 
-  height_reference <- rlang::arg_match(height_reference,c("sea","ground"))
-  if(height_reference == "ground") assertthat::assert_that(inherits(raster,"RasterLayer"),
+  height_reference <- rlang::arg_match(height_reference,c("sea","antenna", "ground"))
+  if(height_reference == "ground"){
+    assertthat::assert_that(inherits(raster,"RasterLayer"),
     msg="For estimations relative to ground level (`height_reference = \"ground\"`),
     provide a digital elevation map using argument `raster`")
+  }
+
+  # make sure height reference of vp matches requested height_reference
+  assertthat::assert_that(height_reference == determine_height_reference(vp),msg = paste0("Height reference of `vp` (", determine_height_reference(vp), ") does not match `height_reference` (", height_reference,")."))
 
   # check that request scan parameter is present in the scans of the polar volume
   param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
@@ -427,6 +431,16 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output_ppi
 }
 
+# Helper function to extract height reference from metadata or data
+determine_height_reference <- function(vp){
+  height_ref <- vp$attributes$how$height_reference
+  if(is.null(height_ref)){
+    height_ref <- vp$data$height_reference[1]
+  }
+  if(is.null(height_ref)) height_ref <- "sea"
+  return(height_ref)
+}
+
 # Helper function to calculate expected eta, vectorizing over range
 eta_expected <- function(vp,
                          quantity,
@@ -541,12 +555,14 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
   attributes(eta)$param <- "eta"
   scan$params$eta <- eta
 
-  # calculate the effective antenna height, relative to ground or sea level:
+  # calculate the effective antenna height, relative to ground, sea or antenna level:
   if(height_reference == "ground"){
     distance <- rep(distance, nazim)
     effective_antenna <- antenna - c(scan$params$HGHT)
   }
-  else{
+  else if(height_reference == "antenna"){
+    effective_antenna <- 0
+  } else{
     # height_reference == "sea"
     effective_antenna <- antenna
   }
