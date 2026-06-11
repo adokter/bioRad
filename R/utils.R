@@ -277,8 +277,8 @@ min_package_version <- function(pkg) {
 
   # 1. Read the "Suggests" field from your package's DESCRIPTION file
   # (Replace "yourPackageName" with your actual package name)
-  suggests_field <- packageDescription("bioRad", fields = "Suggests")
-  imports_field <- packageDescription("bioRad", fields = "Imports")
+  suggests_field <- utils::packageDescription("bioRad", fields = "Suggests")
+  imports_field <- utils::packageDescription("bioRad", fields = "Imports")
 
   if (is.na(suggests_field) & is.na(imports_field)) {
     warning("No dependencies found in DESCRIPTION.")
