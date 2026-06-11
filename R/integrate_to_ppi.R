@@ -311,7 +311,9 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   }
 
   # make sure height reference of vp matches requested height_reference
-  assertthat::assert_that(height_reference == determine_height_reference(vp),msg = paste0("Height reference of `vp` (", determine_height_reference(vp), ") does not match `height_reference` (", height_reference,")."))
+  if((height_reference != determine_height_reference(vp)){
+      warning(paste0("Height reference of `vp` (", determine_height_reference(vp), ") does not match `height_reference` (", height_reference,"), results may be unreliable."))
+  }
 
   # check that request scan parameter is present in the scans of the polar volume
   param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
