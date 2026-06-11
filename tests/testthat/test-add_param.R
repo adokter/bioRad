@@ -2,24 +2,25 @@
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 
-# Build a raster matching the topology of the lowest scan and fill it with
-# synthetic data. scan_to_raster() returns a raster in the radar's local
-# azimuthal-equidistant projection
-make_synthetic_raster <- function(scan) {
-  template <- scan_to_raster(scan, nx = 50, ny = 50, param = "DBZH")
-  r <- raster::raster(template)
+# Build a terra SpatRaster matching the topology of the lowest scan and fill it
+# with synthetic data. scan_to_raster() returns a raster-package object in the
+# radar's local azimuthal-equidistant projection, which we bridge to terra.
+make_synthetic_spatraster <- function(scan) {
+  r <- terra::rast(scan_to_raster(scan, nx = 50, ny = 50, param = "DBZH"))
   # synthetic, fully populated values so extraction within the extent is non-NA
-  raster::values(r) <- seq_len(raster::ncell(r))
+  terra::values(r) <- seq_len(terra::ncell(r))
   names(r) <- "synthetic"
   r
 }
 
 lowest_scan <- get_scan(pvol, 0.5)
-# Both raster classes are tested as input: an in-memory RasterLayer and a terra
-# SpatRaster. add_param() must accept either, and the two cover both branches of
+# Both raster classes are tested as input: a terra SpatRaster and a raster-package
+# RasterLayer. add_param() must accept either, and the two cover both branches of
 # the RasterLayer-to-SpatRaster conversion in add_param.scan()/add_param.pvol().
-synthetic_raster <- make_synthetic_raster(lowest_scan)
-synthetic_spatraster <- terra::rast(synthetic_raster)
+synthetic_spatraster <- make_synthetic_spatraster(lowest_scan)
+# RasterLayer derived from the SpatRaster, kept only to exercise add_param()'s
+# documented RasterLayer support (no terra equivalent for that input class).
+synthetic_raster <- raster::raster(synthetic_spatraster)
 
 test_that("add_param() requires its arguments", {
   # `param` has no default and must be supplied
