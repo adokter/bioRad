@@ -42,8 +42,8 @@
 #'   See Kranstauber 2020 for details.
 #' * `eta_sum_expected`: the sum of expected linear reflectivities over elevation angles
 #'   based on the input vertical profile `vp`. See Kranstauber 2020 for details.
-#' * `eta_sum_to_VIR`: the multiplicative factor for converting the sum of of observed
-#'   linear reflectivities (`eta_sum`) to vertically integrated reflectivity (`VIR`).
+#' * `eta_sum_to_VIR`: the multiplicative factor for converting the sum of expected
+#'   linear reflectivities (`eta_sum_expected`) to vertically integrated reflectivity (`VIR`).
 #'   Identical to `integrate_profile(vp)$vir/eta_sum_expected`. See Kranstauber 2020 for details.
 #'
 #' @export
@@ -130,9 +130,6 @@
 #' # Download a basemap and map the ppi
 #' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' map(ppi)
-#'
-#' # The ppi can also be projected on a user-defined raster, as follows:
-#'
 #' # First define the raster
 #' template_raster <- raster::raster(
 #'   raster::extent(12, 13, 56, 57),

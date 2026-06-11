@@ -101,8 +101,8 @@ as calculated with \link{beam_profile_overlap}.
 See Kranstauber 2020 for details.
 \item \code{eta_sum_expected}: the sum of expected linear reflectivities over elevation angles
 based on the input vertical profile \code{vp}. See Kranstauber 2020 for details.
-\item \code{eta_sum_to_VIR}: the multiplicative factor for converting the sum of of observed
-linear reflectivities (\code{eta_sum}) to vertically integrated reflectivity (\code{VIR}).
+\item \code{eta_sum_to_VIR}: the multiplicative factor for converting the sum of expected
+linear reflectivities (\code{eta_sum_expected}) to vertically integrated reflectivity (\code{VIR}).
 Identical to \code{integrate_profile(vp)$vir/eta_sum_expected}. See Kranstauber 2020 for details.
 }
 }
@@ -187,9 +187,6 @@ plot(ppi, param = "VID", zlim = c(0, 200))
 # Download a basemap and map the ppi
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 map(ppi)
-
-# The ppi can also be projected on a user-defined raster, as follows:
-
 # First define the raster
 template_raster <- raster::raster(
   raster::extent(12, 13, 56, 57),
