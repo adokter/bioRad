@@ -219,6 +219,8 @@
 #' \donttest{
 #' if(requireNamespace("elevatr", quietly = TRUE)){
 #'
+#' example_pvol <- read_pvolfile(pvolfile)
+#'
 #' # Download digital elevation model (DEM) information:
 #' example_pvol |>
 #'   # extract lowest scan
