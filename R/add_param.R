@@ -63,6 +63,10 @@ add_param <- function(x, raster, param) {
 add_param.scan <- function(x, raster, param){
   stopifnot(inherits(x, "scan"))
 
+  # raster::raster() drops the values of an in-memory RasterLayer; converting to
+  # a terra SpatRaster first ensures the values are retained during extraction.
+  if (inherits(raster, "RasterLayer")) raster <- terra::rast(raster)
+
   extent <- terra::ext(raster)
   distance_max <- max(sqrt(extent$xmin^2 + extent$ymin^2),sqrt(extent$xmax^2 + extent$ymax^2))
   range_max <- beam_range(distance_max, elev=x$geo$elangle, lat=x$geo$lat)
