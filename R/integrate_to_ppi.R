@@ -311,7 +311,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   }
 
   # make sure height reference of vp matches requested height_reference
-  if((height_reference != determine_height_reference(vp)){
+  if(height_reference != determine_height_reference(vp)){
       warning(paste0("Height reference of `vp` (", determine_height_reference(vp), ") does not match `height_reference` (", height_reference,"), results may be unreliable."))
   }
 
@@ -584,7 +584,7 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
     )
 
   # since all azimuths are equivalent, replicate nazim times.
-  if(height_reference == "sea") eta_expected <- rep(eta_expected, nazim)
+  if(height_reference == "sea" || height_reference == "antenna") eta_expected <- rep(eta_expected, nazim)
   eta_expected <- matrix(eta_expected, nrange)
   attributes(eta_expected) <- attributes(eta)
   attributes(eta_expected)$param <- "eta_expected"
