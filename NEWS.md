@@ -15,11 +15,11 @@
 * `beam_width()` and related functions have a new argument `path` for outputting either the one-way or
 two-way beam width of the antenna pattern. The default is changed to two-way (formerly one-way) (#744).
 
-* Expose `eta_max parameter`  as a user option in `calculate_vp()`, to set maximum bird reflectivity (maps to option `etaMax` in `vol2birdR::vol2bird_config()`) (#763)
+* Expose `eta_max`  as a user option in `calculate_vp()`, to set maximum bird reflectivity (maps to option `etaMax` in `vol2birdR::vol2bird_config()`) (#763)
 
 * Expose `max_nyquist_dealias` parameter to set maximum Nyquist velocity above which to suppress dealiasing (maps to option `maxNyquistDealias` in `vol2birdR::vol2bird_config()`) (#684).
 
-* `raster` argument of `integrate_to_ppi()`, `project_as_ppi()` and `scan_convert` now accepts terra:SpatRaster (8f8458a) 
+* `raster` argument of `integrate_to_ppi()`, `project_as_ppi()` and `scan_convert` now accepts `terra:SpatRaster` class (8f8458a) 
 
 ## Bugfixes
 
@@ -37,6 +37,7 @@ two-way beam width of the antenna pattern. The default is changed to two-way (fo
 
 * `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
 
+* Fix typo in documentation `clean_mixture()` swapping birds and insects (bd7e89d).
 
 # bioRad 0.11.0
 
