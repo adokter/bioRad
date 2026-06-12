@@ -63,7 +63,7 @@
 #' @param dbz_quantity Name of the available reflectivity factor to use if not
 #'   `DBZH` (e.g. `DBZV`, `TH`, `TV`).
 #' @param eta_max Maximum reflectivity in cm^2/km^3 for single gates containing birds.
-#' Default 3600 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+#' Default 36000 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
 #' Gates with reflectivities above this threshold will be discarded prior to profile estimation.
 #' @param mistnet Logical. Whether to use the MistNet segmentation model.
 #' @param mistnet_elevations Numeric vector of length 5. Elevation angles to

@@ -63,8 +63,8 @@ install.packages("bioRad")
 Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
 
 ```{r eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("adokter/bioRad")
+# install.packages("pak")
+pak::pak("adokter/bioRad")
 ```
 
 Then load the package with:

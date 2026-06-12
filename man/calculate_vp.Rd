@@ -119,7 +119,7 @@ than this value, dealiasing is suppressed. Default 25 m/s.}
 \code{DBZH} (e.g. \code{DBZV}, \code{TH}, \code{TV}).}
 
 \item{eta_max}{Maximum reflectivity in cm^2/km^3 for single gates containing birds.
-Default 3600 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+Default 36000 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
 Gates with reflectivities above this threshold will be discarded prior to profile estimation.}
 
 \item{mistnet}{Logical. Whether to use the MistNet segmentation model.}
