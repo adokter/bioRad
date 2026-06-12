@@ -212,7 +212,7 @@ plot(ppi, param = "VID", zlim = c(0, 200))
 # profile maintained relative to ground height:
 if(requireNamespace("elevatr", quietly = TRUE)){
 
-# define a radar-centred grid (azimuthal equidistant, radar at the centre):
+# define a radar-centred grid (azimuthal equidistant, radar at the center):
 pvol |>
   get_scan(.5) |>
   scan_to_raster(param = "DBZH") |>
@@ -231,7 +231,7 @@ names(data_dem) <- "HGHT"
 pvol_ground <- add_param(pvol, data_dem, "HGHT")
 # compute a profile relative to ground:
 vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
-# apply the range correction (a terra SpatRaster can be passed directly):
+# apply the range correction:
 ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
                                 raster = data_dem)
 }
