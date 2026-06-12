@@ -31,7 +31,6 @@ when creating vertical profiles relative to ground level, which requires informa
 each range gate on the topographic ground level height.
 }
 \examples{
-library(bioRad)
 # locate example volume file:
 pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 

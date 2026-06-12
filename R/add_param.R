@@ -15,7 +15,6 @@
 #' @export
 #'
 #' @examples
-#' library(bioRad)
 #' # locate example volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 #'

@@ -57,14 +57,14 @@ For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5 libraries nee
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
-install.packages("bioRad")
+install.packages("bioRad", dependencies=TRUE)
 ```
 
 Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
 
 ```{r eval = FALSE}
 # install.packages("pak")
-pak::pak("adokter/bioRad")
+pak::pak("adokter/bioRad", dependencies = TRUE)
 ```
 
 Then load the package with:

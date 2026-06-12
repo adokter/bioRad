@@ -1,3 +1,23 @@
+#' Check for NaN values in data frames
+#'
+#' S3 method for \code{\link[base]{is.nan}} that works with data frames.
+#' Identifies cells with \code{NaN} (not a number) in a data frame, extending
+#' the base function which only works on vectors.
+#'
+#' @param x A data.frame object
+#' @return A logical matrix of the same dimensions as \code{x}, with \code{TRUE} 
+#'   for cells containing \code{NaN} and \code{FALSE} otherwise
+#' @exportS3Method base::is.nan
+#' @examples
+#' df <- data.frame(
+#'   a = c(1, 2, NaN),
+#'   b = c(NaN, 5, 6)
+#' )
+#' is.nan(df)
+is.nan.data.frame <- function(x) {
+  do.call(cbind, lapply(x, is.nan))
+}
+
 #' Identify `NaN` in a dataframe
 #'
 #' Identify cells with `NaN` (not a number) in a data frame. Improves on the

@@ -45,7 +45,7 @@ integrate_to_ppi(
 
 \item{zlim}{Numeric vector of length two. Altitude range, in m}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:res]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{quantity}{Character. Profile quantity on which to base range

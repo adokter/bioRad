@@ -80,16 +80,15 @@ Alternatively, you can install the latest development version from
 [GitHub](https://github.com/adokter/bioRad) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("adokter/bioRad")
+# install.packages("pak")
+pak::pak("adokter/bioRad", dependencies = TRUE)
 ```
 
 Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.10.0.9000
-#> using vol2birdR version 1.1.1.9000 (MistNet installed)
+#> Welcome to bioRad version 0.11.0.9000
 ```
 
 ### (optional) Enable MistNet
@@ -131,7 +130,7 @@ system.file("extdata", "volume.h5", package = "bioRad") %>%
   plot(param = "VRADH") # VRADH = radial velocity in m/s
 ```
 
-<img src="man/figures/README-plot_ppi-1.png" width="100%" />
+<img src="man/figures/README-plot_ppi-1.png" alt="" width="100%" />
 
 *Radial velocities towards the radar are negative, while radial
 velocities away from the radar are positive, so in this plot there is
@@ -154,7 +153,7 @@ example_vpts %>%
   plot()
 ```
 
-<img src="man/figures/README-plot_vpts-1.png" width="100%" />
+<img src="man/figures/README-plot_vpts-1.png" alt="" width="100%" />
 
 *The gray bars in the plot indicate gaps in the data.*
 
@@ -169,7 +168,7 @@ my_vpi <- integrate_profile(example_vpts)
 plot(my_vpi, quantity = "mtr") # mtr = migration traffic rate
 ```
 
-<img src="man/figures/README-plot_vpi-1.png" width="100%" />
+<img src="man/figures/README-plot_vpi-1.png" alt="" width="100%" />
 
 To know the total number of birds passing over the radar during the full
 time series, we use the last value of the *cumulative migration traffic*
