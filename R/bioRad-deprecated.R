@@ -36,7 +36,7 @@ update_docker <- function(...) {
 #' @return an object of class \link{numeric_version}
 vol2bird_version <- function(...) {
   .Deprecated("vol2birdR::vol2bird_version")
-  rlang::check_installed('vol2birdR',format_reason_vol2bird("to run `vol2bird_version`."))
+  rlang::check_installed('vol2birdR',format_reason_vol2bird("to run `vol2bird_version`."), version = min_package_version("vol2birdR"))
   warning("vol2bird_version has been moved to package vol2birdR")
   vol2birdR::vol2bird_version()
 }

@@ -16,26 +16,36 @@
 #' @param vp A `vp` object
 #' @param quantity Character. Profile quantity on which to base range
 #'   corrections, either `eta` or `dens`.
-#' @param param_ppi Character (vector). One or multiple of `VIR`, `VID`, `R`,
-#'   `overlap`, `eta_sum` or `eta_sum_expected`.
+#' @param param_ppi Character (vector). Which quantities to include in the
+#' output. One or multiple of `VIR`, `VID`, `R`, `overlap`, `eta_sum`,
+#' `eta_sum_expected` or `eta_sum_to_VIR`. Default includes all.
 #' @param param reflectivity Character. Scan parameter on which to base range
 #'   corrections. Typically the same parameter from which animal densities are
 #'   estimated in `vp`. Either `DBZH`, `DBZV`, `DBZ`, `TH`, or `TV`.
 #' @param lat Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
+#' @param raster (optional) `raster::RasterLayer` or `terra::SpatRaster` with a CRS. When specified
+#' this raster topology is used for the output, and nx, ny, res arguments are ignored.
+#' When `height_reference = "ground"` the raster values should contain
+#' the ground height digital elevation in meters.
+#' @param height_reference Character. Either `sea` (default) for range correction relative to
+#' sea level, or `ground` for range correction relative to ground level.
 #'
 #' @return A `ppi` object with the following parameters:
-#' * `VIR`: the vertically integrated reflectivity in cm^2/km^2 
+#' * `VIR`: the vertically integrated reflectivity in cm^2/km^2
 #' * `VID`: the vertically integrated density in 1/km^2
 #' * `R`: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
 #'   Equal to `eta_sum`/`eta_sum_expected`.
-#' * `overlap`: the distribution overlap between the vertical profile `vp` and 
+#' * `overlap`: the distribution overlap between the vertical profile `vp` and
 #'    the vertical radiation profile for the set of radar sweeps in `pvol`,
 #'    as calculated with [beam_profile_overlap].
 #' * `eta_sum`: the sum of observed linear reflectivities over elevation angles.
 #'   See Kranstauber 2020 for details.
 #' * `eta_sum_expected`: the sum of expected linear reflectivities over elevation angles
 #'   based on the input vertical profile `vp`. See Kranstauber 2020 for details.
+#' * `eta_sum_to_VIR`: the multiplicative factor for converting the sum of expected
+#'   linear reflectivities (`eta_sum_expected`) to vertically integrated reflectivity (`VIR`).
+#'   Identical to `integrate_profile(vp)$vir/eta_sum_expected`. See Kranstauber 2020 for details.
 #'
 #' @export
 #'
@@ -121,10 +131,6 @@
 #' # Download a basemap and map the ppi
 #' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' map(ppi)
-#' }
-#'
-#' # The ppi can also be projected on a user-defined raster, as follows:
-#'
 #' # First define the raster
 #' template_raster <- raster::raster(
 #'   raster::extent(12, 13, 56, 57),
@@ -144,6 +150,35 @@
 #'   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 #' )
 #' plot(ppi, param = "VID", zlim = c(0, 200))
+#'
+#' # To calculate a range-corrected map assuming a constant altitude
+#' # profile maintained relative to ground height:
+#' if(requireNamespace("elevatr", quietly = TRUE)){
+#'
+#' # define a radar-centred grid (azimuthal equidistant, radar at the center):
+#' pvol |>
+#'   get_scan(.5) |>
+#'   scan_to_raster(param = "DBZH") |>
+#'   terra::rast() -> radar_grid
+#'
+#' # download elevation data and resample onto that grid. `expand`
+#' # over-requests so the full grid is covered;
+#' data_dem <- terra::project(
+#'   terra::rast(elevatr::get_elev_raster(radar_grid, z = 5, expand = 100000)), radar_grid)
+#' # set heights below sea level to zero.
+#' data_dem[data_dem < 0] <- 0
+#' # add an informative name
+#' names(data_dem) <- "HGHT"
+#'
+#' # add DEM data to the polar volume:
+#' pvol_ground <- add_param(pvol, data_dem, "HGHT")
+#' # compute a profile relative to ground:
+#' vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
+#' # apply the range correction:
+#' ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
+#'                                 raster = data_dem)
+#' }
+#' }
 #' }
 #' @references
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
@@ -154,7 +189,7 @@
 #'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
 #'   and Remote Sensing 47: 2741-2751.
 #'   \doi{10.1109/TGRS.2009.2014463}
-integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"), k = 4 / 3, re = 6378, rp = 6357) {
+integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected", "eta_sum_to_VIR"), k = 4 / 3, re = 6378, rp = 6357, height_reference="sea") {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
   if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
@@ -222,6 +257,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   } else {
     res <- NA
   }
+  # accept a terra SpatRaster by converting it to a raster::RasterLayer
+  if (inherits(raster, "SpatRaster")) raster <- raster::raster(raster)
   if (!assertthat::are_equal(raster, NA)) {
     assertthat::assert_that(inherits(raster, "RasterLayer"))
   }
@@ -251,7 +288,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     crs <- NA
   }
 
-  if (FALSE %in% (param_ppi %in% c("VIR", "VID", "eta_sum", "eta_sum_expected", "azim", "range", "R", "overlap"))) stop("unknown param_ppi")
+  if (FALSE %in% (param_ppi %in% c("VIR", "VID", "eta_sum", "eta_sum_expected","eta_sum_to_VIR", "azim", "range", "R", "overlap"))) stop("unknown param_ppi")
   assertthat::assert_that(length(quantity) == 1)
   if (!(quantity %in% c("eta", "dens"))) stop(paste("quantity '", quantity, "' not one of 'eta' or 'dens'", sep = ""))
   allowed_params <- c("DBZH", "DBZV", "DBZ", "TH", "TV")
@@ -268,6 +305,18 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   assertthat::assert_that(assertthat::is.number(k))
   assertthat::assert_that(assertthat::is.number(re))
   assertthat::assert_that(assertthat::is.number(rp))
+
+  height_reference <- rlang::arg_match(height_reference,c("sea","antenna", "ground"))
+  if(height_reference == "ground"){
+    assertthat::assert_that(inherits(raster,"RasterLayer"),
+    msg="For estimations relative to ground level (`height_reference = \"ground\"`),
+    provide a digital elevation map using argument `raster`")
+  }
+
+  # make sure height reference of vp matches requested height_reference
+  if(height_reference != determine_height_reference(vp)){
+      warning(paste0("Height reference of `vp` (", determine_height_reference(vp), ") does not match `height_reference` (", height_reference,"), results may be unreliable."))
+  }
 
   # check that request scan parameter is present in the scans of the polar volume
   param_present <- sapply(pvol$scans, function(x) param %in% names(x$params))
@@ -300,13 +349,23 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
       " +units=m",
       sep = ""
     )
-    raster::values(raster) <- 1
+
+    # add ground height level as a scan parameter:
+    if(height_reference == "ground"){
+      pvol = add_param(pvol, raster, "HGHT")
+    }
+
+    # set NA values to zero (note: used to be set to 1)
+    # required for next statement to work
+    raster::values(raster)[is.na(raster::values(raster))] <- 0
+
     spdf<-as(sf::as_Spatial(
       sf::st_transform(sf::st_as_sf(as.data.frame(raster::rasterToPoints(raster)), coords=c("x","y"),
                                                           crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
+
     rasters <- lapply(pvol$scans, function(x) {
       scan_to_spdf(
-        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp),
+        add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference),
         spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
       )
     })
@@ -314,11 +373,11 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     output@data <- rasters[[1]]@data
   } else {
     rasters <- lapply(pvol$scans, function(x) {
-      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }
-  eta_expected_sum <- 
+  eta_expected_sum <-
     rowSums(do.call(cbind, lapply(1:length(rasters), function(i) (rasters[[i]]$eta_expected))), na.rm = TRUE)
   eta_sum <-
     rowSums(do.call(cbind, lapply(1:length(rasters), function(i) (rasters[[i]]$eta))), na.rm = TRUE)
@@ -327,6 +386,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output@data$R <- eta_sum / eta_expected_sum
   output@data$VIR <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vir * eta_sum / eta_expected_sum
   output@data$VID <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vid * eta_sum / eta_expected_sum
+  output@data$eta_sum_to_VIR <- integrate_profile(vp, alt_min=zlim[1], alt_max=zlim[2])$vir / eta_expected_sum
 
   # calculate the overlap between vp and radiated energy
   if ("overlap" %in% param_ppi) {
@@ -345,7 +405,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
         k = k,
         lat = lat,
         re = re,
-        rp = rp
+        rp = rp,
+        path = "two_way"
       )
     # align our projected pixels with this distance grid:
     overlap_index <-
@@ -372,6 +433,16 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output_ppi
 }
 
+# Helper function to extract height reference from metadata or data
+determine_height_reference <- function(vp){
+  height_ref <- vp$attributes$how$height_reference
+  if(is.null(height_ref)){
+    height_ref <- vp$data$height_reference[1]
+  }
+  if(is.null(height_ref)) height_ref <- "sea"
+  return(height_ref)
+}
+
 # Helper function to calculate expected eta, vectorizing over range
 eta_expected <- function(vp,
                          quantity,
@@ -390,7 +461,7 @@ eta_expected <- function(vp,
           elev,
           antenna = antenna,
           beam_angle = beam_angle,
-          k = k, lat = lat, re = re, rp = rp
+          k = k, lat = lat, re = re, rp = rp, path = "two_way"
         )
       }
     ))
@@ -419,7 +490,7 @@ eta_expected <- function(vp,
 add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
                                      param = "DBZH", lat, lon, antenna,
                                      beam_angle = 1, k = 4 / 3, re = 6378,
-                                     rp = 6357) {
+                                     rp = 6357, height_reference = "sea") {
 
   if (is.null(scan$geo$height) &&
       missing(antenna)) {
@@ -480,11 +551,23 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
 
   # calculate eta from reflectivity factor
   eta <-
-    suppressWarnings(
-      dbz_to_eta(scan$params[[param]],
-                 wavelength = vp$attributes$how$wavelength))
+     suppressWarnings(
+       dbz_to_eta(scan$params[[param]],
+                  wavelength = vp$attributes$how$wavelength))
   attributes(eta)$param <- "eta"
   scan$params$eta <- eta
+
+  # calculate the effective antenna height, relative to ground, sea or antenna level:
+  if(height_reference == "ground"){
+    distance <- rep(distance, nazim)
+    effective_antenna <- antenna - c(scan$params$HGHT)
+  }
+  else if(height_reference == "antenna"){
+    effective_antenna <- 0
+  } else{
+    # height_reference == "sea"
+    effective_antenna <- antenna
+  }
 
   # calculate expected_eta from beam overlap with vertical profile, either based
   # off 'eta' or 'dens' quantity that is, taking into account of thresholding by
@@ -495,15 +578,17 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
       quantity,
       distance,
       scan$geo$elangle,
-      antenna = antenna,
+      antenna = effective_antenna,
       beam_angle = beam_angle,
       k = k,
       lat = lat,
       re = re,
       rp = rp
     )
+
   # since all azimuths are equivalent, replicate nazim times.
-  eta_expected <- matrix(rep(eta_expected, nazim), nrange)
+  if(height_reference == "sea" || height_reference == "antenna") eta_expected <- rep(eta_expected, nazim)
+  eta_expected <- matrix(eta_expected, nrange)
   attributes(eta_expected) <- attributes(eta)
   attributes(eta_expected)$param <- "eta_expected"
   scan$params$eta_expected <- eta_expected
@@ -512,7 +597,6 @@ add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
   # NA values indicate the pixel was never irradiated, so no reflectivity return expected
   na_idx <- is.na(scan$params[[param]]) & !is.nan(scan$params[[param]])
   scan$params[["eta_expected"]][na_idx] <- 0
-
 
   # return the scan with added scan parameters 'eta' and 'eta_expected'
   scan

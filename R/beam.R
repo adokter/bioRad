@@ -146,7 +146,7 @@ gaussian_beam_profile <- function(height, range, elev, antenna = 0,
   assertthat::assert_that(all(range >= 0),
                           msg = "range must be positive.")
   assertthat::assert_that(assertthat::is.number(elev))
-  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(is.numeric(antenna))
   assertthat::assert_that(assertthat::is.number(beam_angle))
   assertthat::assert_that(!is.infinite(beam_angle),
                           msg = "beam_angle can't be infinite.")
@@ -242,7 +242,7 @@ beam_profile <- function(height, distance, elev, antenna = 0, beam_angle = 1,
   assertthat::assert_that(is.numeric(height))
   assertthat::assert_that(is.numeric(distance))
   assertthat::assert_that(is.numeric(elev))
-  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(is.numeric(antenna))
   assertthat::assert_that(assertthat::is.number(beam_angle))
   assertthat::assert_that(assertthat::is.number(k))
   assertthat::assert_that(assertthat::is.number(lat))
@@ -399,7 +399,7 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
                                  noise_floor = -Inf, noise_floor_ref_range = 1,
                                  steps = 500, quantity = "dens", normalize = TRUE,
                                  beam_angle = 1, k = 4 / 3, lat, re = 6378,
-                                 rp = 6357) {
+                                 rp = 6357, path = "two_way") {
   # min_detectable_eta <- dbz_to_eta(NEZH,vp$attributes$how$wavelength)*(range/1000)^2
 
   if (!is.numeric(elev)) stop("'elev' must be a number or numeric vector with the beam elevation(s)")
@@ -411,11 +411,16 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
   if (is.na(zlim[1]) | is.na(zlim[2]) | zlim[1] > zlim[2]) stop("'zlim' should be a vector with two numeric values for upper and lower bound")
   if (length(steps) != 1 || !is.numeric(steps)) stop("'step' should be a numeric value")
   if (!(quantity %in% c("dens", "eta"))) stop("'quantity' should be one of 'dens' or 'eta'")
+  path <- rlang::arg_match(path,c("two_way","one_way"))
   if (is.null(vp$attributes$where$height) && (missing(antenna) || is.null(antenna))) stop("antenna height cannot be found in polar volume, specify antenna height using 'antenna' argument")
-  assertthat::assert_that(assertthat::is.number(antenna))
+  assertthat::assert_that(is.numeric(antenna))
   if (is.null(vp$attributes$where$lat) && (missing(lat) || is.null(lat))) stop("radar latitude cannot be found in polar volume, specify using 'lat' argument")
   assertthat::assert_that(assertthat::is.number(lat))
-  overlap <- sapply(distance, function(x) beam_profile_overlap_help(vp = vp, elev = elev, distance = x, antenna = antenna, zlim = zlim, steps = steps, quantity = quantity, normalize = normalize, beam_angle = beam_angle, k = k, lat = lat, re = re, rp = rp))
+
+  # two-way beam pattern equals the one-way beam pattern squared, i.e. narrower by factor 1/sqrt(2)
+  effective_beam_angle <- ifelse(path=="two_way", beam_angle/sqrt(2), beam_angle)
+
+  overlap <- sapply(distance, function(x) beam_profile_overlap_help(vp = vp, elev = elev, distance = x, antenna = antenna, zlim = zlim, steps = steps, quantity = quantity, normalize = normalize, beam_angle = effective_beam_angle, k = k, lat = lat, re = re, rp = rp))
   data.frame(distance = distance, overlap = overlap)
 }
 

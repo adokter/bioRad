@@ -41,7 +41,7 @@ noy(x, ..., method = "fast")
 \method{noy}{pvol}(x, ..., method = "fast")
 }
 \arguments{
-\item{x}{A \code{pvol}, \code{vp}, \code{vpts}, or \code{vpi} object, or a \link[base:as.POSIXlt]{base::as.POSIXct}
+\item{x}{A \code{pvol}, \code{vp}, \code{vpts}, or \code{vpi} object, or a \link[base:as.POSIXct]{base::as.POSIXct}
 datetime.}
 
 \item{...}{Optional lat, lon arguments.}

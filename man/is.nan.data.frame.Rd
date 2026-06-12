@@ -2,20 +2,36 @@
 % Please edit documentation in R/utils.R
 \name{is.nan.data.frame}
 \alias{is.nan.data.frame}
-\title{Identify \code{NaN} in a dataframe}
+\title{Check for NaN values in data frames}
 \usage{
+\method{is.nan}{data.frame}(x)
+
 \method{is.nan}{data.frame}(x)
 }
 \arguments{
 \item{x}{A \code{data.frame} object.}
 }
 \value{
+A logical matrix of the same dimensions as \code{x}, with \code{TRUE}
+for cells containing \code{NaN} and \code{FALSE} otherwise
+
 A matrix of the same dimension as \code{x}, with \code{TRUE}/\code{FALSE} values for
 whether each cell in the original data frame is a number or not.
 }
 \description{
+S3 method for \code{\link[base]{is.nan}} that works with data frames.
+Identifies cells with \code{NaN} (not a number) in a data frame, extending
+the base function which only works on vectors.
+
 Identify cells with \code{NaN} (not a number) in a data frame. Improves on the
-default\code{\link[base:is.finite]{base::is.nan()}} function, which only works on vectors, by allowing
+default\code{\link[base:is.nan]{base::is.nan()}} function, which only works on vectors, by allowing
 data frames as input.
+}
+\examples{
+df <- data.frame(
+  a = c(1, 2, NaN),
+  b = c(NaN, 5, 6)
+)
+is.nan(df)
 }
 \keyword{internal}

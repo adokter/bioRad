@@ -95,6 +95,15 @@ test_that("scan_to_raster() raster argument produces expected raster output", {
   expect_equal(b, scan_to_raster(example_scan, raster = raster::raster(b)))
 })
 
+test_that("scan_to_raster() accepts a terra SpatRaster as raster argument", {
+  template <- raster::raster(scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1))
+  # a terra SpatRaster template must produce the same output as the equivalent RasterLayer
+  expect_equal(
+    scan_to_raster(example_scan, raster = terra::rast(template)),
+    scan_to_raster(example_scan, raster = template)
+  )
+})
+
 test_that("scan_to_spdf() returns error error on incorrect parameters",{
   expect_error(scan_to_spdf("a"),
                regexp = "'scan' should be an object of class scan",

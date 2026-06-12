@@ -393,3 +393,125 @@ test_that("check if other projection gives same result", {
     raster::values(my_raster)[!is.na(raster::values(my_raster))]
   )
 })
+
+# Build a synthetic digital elevation model (DEM) on the radar grid. The example
+# in integrate_to_ppi() downloads a real DEM via elevatr; for the tests we
+# substitute a synthetic raster so they run offline. scan_to_raster() returns a
+# raster in the radar's local azimuthal-equidistant projection.
+#
+# With `height = NULL` (default) the DEM holds a deterministic, varied
+# topography ranging from -50 m (below sea level) to 1000 m, for a more
+# realistic ground-reference test. Pass a single `height` for a flat DEM.
+make_dem <- function(pvol, height = NULL) {
+  dem <- terra::rast(scan_to_raster(get_scan(pvol, 0.5), nx = 50, ny = 50, param = "DBZH"))
+  n <- terra::ncell(dem)
+  if (is.null(height)) {
+    # deterministic varied topography between -50 m and 1000 m
+    elevation <- seq(-50, 1000, length.out = n)
+  } else {
+    elevation <- rep(height, n)
+  }
+  terra::values(dem) <- elevation
+  names(dem) <- "HGHT"
+  dem
+}
+
+test_that("integrate_to_ppi() validates the height_reference argument", {
+  data(example_vp)
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile)
+
+  # an unknown value is rejected by rlang::arg_match()
+  expect_error(
+    integrate_to_ppi(example_pvol, example_vp, height_reference = "not_a_reference"),
+    regexp = "height_reference"
+  )
+  # "ground" requires a digital elevation raster to be supplied
+  expect_error(
+    integrate_to_ppi(example_pvol, example_vp, height_reference = "ground"),
+    regexp = "provide a digital elevation map",
+    fixed = TRUE
+  )
+})
+
+test_that("integrate_to_ppi() warns when the vp height reference does not match", {
+  data(example_vp)
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile)
+
+  # flag the profile as sea-referenced so it explicitly mismatches "antenna"
+  vp_sea <- example_vp
+  vp_sea$attributes$how$height_reference <- "sea"
+
+  expect_warning(
+    integrate_to_ppi(example_pvol, vp_sea, nx = 50, ny = 50, height_reference = "antenna"),
+    regexp = "Height reference of `vp`",
+    fixed = TRUE
+  )
+})
+
+test_that("integrate_to_ppi() computes an antenna-referenced ppi", {
+  data(example_vp)
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile)
+
+  # flag the profile as antenna-referenced to avoid a mismatch warning
+  vp_antenna <- example_vp
+  vp_antenna$attributes$how$height_reference <- "antenna"
+
+  ppi_antenna <- integrate_to_ppi(
+    example_pvol, vp_antenna,
+    nx = 50, ny = 50, height_reference = "antenna"
+  )
+  expect_s3_class(ppi_antenna, "ppi")
+  expect_true(all(c("VIR", "VID", "R") %in% names(ppi_antenna$data)))
+})
+
+test_that("integrate_to_ppi() computes a ground-referenced ppi", {
+  data(example_vp)
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile)
+
+  # varied synthetic topography (-50 m to 1000 m), supplied as a terra SpatRaster
+  dem <- make_dem(example_pvol)
+  expect_s4_class(dem, "SpatRaster")
+
+  # flag the profile as ground-referenced to avoid a mismatch warning
+  vp_ground <- example_vp
+  vp_ground$attributes$how$height_reference <- "ground"
+
+  ppi_ground <- integrate_to_ppi(
+    example_pvol, vp_ground,
+    height_reference = "ground", raster = dem
+  )
+  expect_s3_class(ppi_ground, "ppi")
+  expect_true(all(c("VIR", "VID", "R") %in% names(ppi_ground$data)))
+  # the varied DEM should yield finite (computed) values, not an all-NA result
+  expect_true(any(is.finite(ppi_ground$data@data$VIR)))
+})
+
+test_that("ground reference with a flat sea-level DEM equals the sea reference", {
+  data(example_vp)
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile)
+
+  # a flat DEM at sea level (0 m) makes the effective antenna height identical
+  # to the sea-level case, so both references must yield the same result.
+  dem <- make_dem(example_pvol, height = 0)
+
+  vp_ground <- example_vp
+  vp_ground$attributes$how$height_reference <- "ground"
+
+  ppi_ground <- integrate_to_ppi(
+    example_pvol, vp_ground,
+    height_reference = "ground", raster = dem
+  )
+  ppi_sea <- integrate_to_ppi(example_pvol, example_vp, raster = dem)
+
+  # ppi$data is an sp SpatialGridDataFrame; read the VIR column directly so the
+  # comparison needs neither the raster nor terra package.
+  vals_ground <- ppi_ground$data@data$VIR
+  vals_sea <- ppi_sea$data@data$VIR
+  finite <- is.finite(vals_sea)
+  expect_equal(vals_ground[finite], vals_sea[finite])
+})

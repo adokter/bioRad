@@ -26,7 +26,7 @@ check_night(x, ..., elev = -0.268, offset = 0)
 }
 \arguments{
 \item{x}{A \code{pvol}, \code{vp}, \code{vpts}, \code{vpi} object, a POSIXct date or a string
-interpretable by \code{\link[base:as.POSIXlt]{base::as.POSIXct()}}.}
+interpretable by \code{\link[base:as.POSIXct]{base::as.POSIXct()}}.}
 
 \item{...}{Optional lat, lon arguments.}
 

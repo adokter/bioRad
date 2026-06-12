@@ -25,8 +25,6 @@
 #'   console.
 #' @param warnings Logical. When `TRUE`, vol2bird warnings are piped to the R
 #'   console.
-#' @param mount Character. Directory path of the mount point for the Docker
-#'   container (deprecated).
 #' @param sd_vvp_threshold Numeric. Lower threshold for the radial velocity
 #'   standard deviation (profile quantity `sd_vvp`) in m/s. Biological signals
 #'   with `sd_vvp < sd_vvp_threshold` are set to zero. Defaults to 2 m/s for
@@ -51,20 +49,27 @@
 #'   profile.
 #' @param h_layer Numeric. Width of altitude layers to use in generated profile,
 #'   in m.
+#' @param height_reference Character. One of `sea`, `antenna` or `ground` for
+#' specifying the reference height for the profile altitude bins. Default `sea` level.
+#' @param ground_height_param Character. The scan parameter name of the polar volume
+#' containing ground height information. Default `HGHT`.
 #' @param nyquist_min Numeric. Minimum Nyquist velocity of scans to include, in
 #'   m/s.
+#' @param nyquist_max_dealias Numeric. When all scans have nyquist velocity higher
+#' than this value, dealiasing is suppressed. Default 25 m/s.
 #' @param dealias Logical. Whether to dealias radial velocities. This should
 #'   typically be done when the scans in the polar volume have low Nyquist
 #'   velocities (below 25 m/s).
 #' @param dbz_quantity Name of the available reflectivity factor to use if not
 #'   `DBZH` (e.g. `DBZV`, `TH`, `TV`).
+#' @param eta_max Maximum reflectivity in cm^2/km^3 for single gates containing birds.
+#' Default 36000 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+#' Gates with reflectivities above this threshold will be discarded prior to profile estimation.
 #' @param mistnet Logical. Whether to use the MistNet segmentation model.
 #' @param mistnet_elevations Numeric vector of length 5. Elevation angles to
 #'   feed to the MistNet segmentation model, which expects exactly 5 elevation
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
-#' @param local_install Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh`). (deprecated)
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
 #'
@@ -139,6 +144,29 @@
 #'
 #' Dealiasing uses the torus mapping method by Haase et al. (2004).
 #'
+#' Use parameter `nyquist_min` to discard specific elevation scans with very low
+#' Nyquist velocity (by default smaller than 5 m/s). The Haase et al. algorithm
+#' is known to not provide accurate estimates for heavily folded velocity data, therefore
+#' these elevation scans are best removed entirely.
+#'
+#' Use parameter `nyquist_max_dealias` to suppress dealiasing for polar volumes for
+#' which all scans already have a high Nyquist velocity. This prevents dealiasing
+#' when the data does not require it.
+#'
+#' ## height reference
+#'
+#' Profiles are calculated by default for height bins defined relative to mean sea level.
+#' Alternatively, height bins may be defined relative to the radar antenna height by setting
+#' `height_reference` to `antenna`. This places the bottom of the lowest altitude bin at the
+#' radar antenna height. Profiles may also be calculated relative to the height
+#' of the ground level terrain. This is especiallyuseful for stopover studies focused on
+#' altitude distributions during peak exodus shortly after sunset. Estimating a profile
+#' relative to ground height requires adding information from a digital elevation map
+#' to each pixel of the input polar volume, which is accomplished easily with function
+#' `add_param()`. Ground heights should be stored in units of meters relative to mean sea level.
+#' Parameter `ground_height_param` should point to the scan parameter name
+#' containing the digital elevation information.
+#'
 #' ## Local installation
 #'
 #' You may point parameter `local_mistnet` to a local download of the MistNet segmentation model in
@@ -148,6 +176,8 @@
 #' @seealso
 #' * [summary.pvol()]
 #' * [summary.vp()]
+#' * [integrate_to_ppi()]
+#' * [add_param()]
 #'
 #' @references
 #' Dokter et al. (2011) is the main reference for the profiling algorithm
@@ -180,9 +210,40 @@
 #' # Calculate the profile
 #' if (requireNamespace("vol2birdR", quietly = TRUE)) {
 #' vp <- calculate_vp(pvolfile)
-#' 
+#'
 #' # Get summary info
 #' vp
+#'
+#' # By default profiles are calculated for bins defined relative to sea level
+#' # To calculate a profile relative to ground level:
+#' \donttest{
+#' if(requireNamespace("elevatr", quietly = TRUE)){
+#'
+#' example_pvol <- read_pvolfile(pvolfile)
+#'
+#' # Download digital elevation model (DEM) information:
+#' example_pvol |>
+#'   # extract lowest scan
+#'   get_scan(.5) |>
+#'   # convert to raster object
+#'   scan_to_raster(param="DBZH") |>
+#'   # convert to terra raster class
+#'   terra::rast() |>
+#'   # download digital elevation data (increase z for higher resolutions)
+#'   elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
+#' # set digital elevations for open water to mean sea level (0)
+#' data_dem[data_dem<0]=0
+#' # set an informative name for the DEM information
+#' names(data_dem) <- "HGHT"
+#'
+#' # add the DEM information as a scan parameter to the polar volume:
+#' example_pvol <- add_param(example_pvol, data_dem, "HGHT")
+#'
+#' # calculate a profile relative to ground level:
+#' vp_ground <- calculate_vp(example_pvol, height_reference="ground", ground_height_param="HGHT")
+#'
+#' }
+#' }
 #'
 #' # Clean up
 #' file.remove(pvolfile)
@@ -191,30 +252,37 @@
 #'
 calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
                          autoconf = FALSE, verbose = FALSE, warnings = TRUE,
-                         mount, sd_vvp_threshold,
+                         sd_vvp_threshold,
                          rcs = 11, dual_pol = TRUE, rho_hv = 0.95, single_pol = TRUE,
                          elev_min = 0, elev_max = 90, azim_min = 0, azim_max = 360,
                          range_min = 5000, range_max = 35000, n_layer = 20,
-                         h_layer = 200, dealias = TRUE,
+                         h_layer = 200,
+                         height_reference = "sea",
+                         ground_height_param = "HGHT",
+                         dealias = TRUE,
                          nyquist_min = if (dealias) 5 else 25,
-                         dbz_quantity = "DBZH", mistnet = FALSE,
+                         nyquist_max_dealias = 25,
+                         dbz_quantity = "DBZH", eta_max = 36000,
+                         mistnet = FALSE,
                          mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-                         local_install, local_mistnet) {
+                         local_mistnet) {
   if (inherits(file, "pvol")) {
     tmp_pvol_file <- tempfile(fileext = ".h5")
     write_pvolfile(file, file = tmp_pvol_file)
     withCallingHandlers(res <- calculate_vp(tmp_pvol_file,
       vpfile = vpfile, pvolfile_out = pvolfile_out,
       autoconf = autoconf, verbose = verbose, warnings = warnings,
-      mount = mount, sd_vvp_threshold = sd_vvp_threshold,
+      sd_vvp_threshold = sd_vvp_threshold,
       rcs = rcs, dual_pol = dual_pol, rho_hv = rho_hv, single_pol = single_pol,
-      elev_min = elev_min, elev_max = 90, azim_min = 0, azim_max = 360,
+      elev_min = elev_min, elev_max = elev_max, azim_min = azim_min, azim_max = azim_max,
       range_min = range_min, range_max = range_max, n_layer = n_layer,
-      h_layer = h_layer, dealias = dealias,
-      nyquist_min = nyquist_min,
-      dbz_quantity = dbz_quantity, mistnet = mistnet,
+      h_layer = h_layer,
+      height_reference = height_reference, ground_height_param = ground_height_param,
+      dealias = dealias,
+      nyquist_min = nyquist_min, nyquist_max_dealias = nyquist_max_dealias,
+      dbz_quantity = dbz_quantity, eta_max = eta_max, mistnet = mistnet,
       mistnet_elevations = mistnet_elevations,
-      local_install = local_install, local_mistnet = local_mistnet
+      local_mistnet = local_mistnet
     ), error = function(e) {
       file.remove(tmp_pvol_file)
       e
@@ -222,7 +290,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     file.remove(tmp_pvol_file)
     return(res)
   }
-  rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."))
+  rlang::check_installed("vol2birdR", format_reason_vol2bird("to run `calculate_vp`."), version = min_package_version("vol2birdR"))
   # check input arguments
   assertthat::assert_that(
     is.character(file),
@@ -253,12 +321,6 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
   }
   if (!is.logical(dealias)) {
     stop("`dealias` must be a logical value.")
-  }
-  if (!missing(mount)) {
-    warning("mount argument is deprecated")
-  }
-  if (!missing(local_install)) {
-    warning("local_install argument is deprecated")
   }
 
   assertthat::assert_that(is.numeric(mistnet_elevations))
@@ -323,14 +385,33 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     h_layer > 0,
     msg = "`h_layer` must be a positive number."
   )
+  assertthat::assert_that(
+    height_reference %in% c("sea", "ground", "antenna"),
+    msg = "`height_reference` must be either `sea`, `ground`, or `antenna`."
+  )
+  assertthat::assert_that(
+    is.character(ground_height_param),
+    length(ground_height_param)==1,
+    msg = "`ground_height_param` must be a single character string."
+  )
   assertthat::assert_that(assertthat::is.number(nyquist_min))
   assertthat::assert_that(
     nyquist_min >= 0,
     msg = "`nyquist_min` must be a positive number."
   )
+  assertthat::assert_that(assertthat::is.number(nyquist_max_dealias))
+  assertthat::assert_that(
+    nyquist_max_dealias >= 0,
+    msg = "`nyquist_max_dealias` must be a positive number."
+  )
   assertthat::assert_that(
     dbz_quantity %in% c("DBZ", "DBZH", "DBZV", "TH", "TV"),
     msg = "`dbz_quantity` must be either `DBZ`, `DBZH`, `DBZV`, `TH` or `TV`."
+  )
+  assertthat::assert_that(assertthat::is.number(eta_max))
+  assertthat::assert_that(
+    eta_max > 0,
+    msg = "`eta_max` must be a positive number."
   )
   assertthat::assert_that(assertthat::is.flag(mistnet))
   assertthat::assert_that(
@@ -359,8 +440,12 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$rangeMax <- range_max
     config$nLayers <- n_layer
     config$layerThickness <- h_layer
+    config$heightReference <- height_reference
+    config$groundHeightParam <- ground_height_param
     config$minNyquist <- nyquist_min
+    config$maxNyquistDealias <- nyquist_max_dealias
     config$dbzType <- dbz_quantity
+    config$etaMax <- eta_max
     config$dualPol <- dual_pol
     config$singlePol <- single_pol
     config$dealiasVrad <- dealias
@@ -373,6 +458,7 @@ calculate_vp <- function(file, vpfile = "", pvolfile_out = "",
     config$mistNetElevs <- mistnet_elevations
     config$useMistNet <- mistnet
     if (!missing(local_mistnet) & mistnet) config$mistNetPath <- local_mistnet
+    config$etaMax <- eta_max
   }
 
   # run vol2bird

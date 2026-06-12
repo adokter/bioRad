@@ -36,6 +36,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Adriaan M. Dokter \email{biorad@cornell.edu} (\href{https://orcid.org/0000-0001-6573-066X}{ORCID})
   \item Peter Desmet \email{peter.desmet@inbo.be} (\href{https://orcid.org/0000-0002-8442-8025}{ORCID})
   \item Bart Kranstauber \email{b.kranstauber@uva.nl} (\href{https://orcid.org/0000-0001-8303-780X}{ORCID})
   \item Cecilia Nilsson \email{cecilia.nilsson709@gmail.com} (\href{https://orcid.org/0000-0001-8957-4411}{ORCID})

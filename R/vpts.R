@@ -195,7 +195,7 @@ dim.vpts <- function(x) {
   return(x)
 }
 
-#' Helper function to convert a vpts[1] to a vp object
+#' Helper function to convert a `vpts[1]` to a `vp` object
 #'
 #' @noRd
 vpts_to_vp <- function(x) {

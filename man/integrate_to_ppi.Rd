@@ -22,10 +22,12 @@ integrate_to_ppi(
   antenna,
   beam_angle = 1,
   crs,
-  param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"),
+  param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected",
+    "eta_sum_to_VIR"),
   k = 4/3,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  height_reference = "sea"
 )
 }
 \arguments{
@@ -43,7 +45,7 @@ integrate_to_ppi(
 
 \item{zlim}{Numeric vector of length two. Altitude range, in m}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:res]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{quantity}{Character. Profile quantity on which to base range
@@ -53,8 +55,10 @@ corrections, either \code{eta} or \code{dens}.}
 corrections. Typically the same parameter from which animal densities are
 estimated in \code{vp}. Either \code{DBZH}, \code{DBZV}, \code{DBZ}, \code{TH}, or \code{TV}.}
 
-\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored.}
+\item{raster}{(optional) \code{raster::RasterLayer} or \code{terra::SpatRaster} with a CRS. When specified
+this raster topology is used for the output, and nx, ny, res arguments are ignored.
+When \code{height_reference = "ground"} the raster values should contain
+the ground height digital elevation in meters.}
 
 \item{lat}{Latitude of the radar, in degrees. If missing taken from \code{pvol}.}
 
@@ -71,14 +75,18 @@ antenna pattern.}
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
-\item{param_ppi}{Character (vector). One or multiple of \code{VIR}, \code{VID}, \code{R},
-\code{overlap}, \code{eta_sum} or \code{eta_sum_expected}.}
+\item{param_ppi}{Character (vector). Which quantities to include in the
+output. One or multiple of \code{VIR}, \code{VID}, \code{R}, \code{overlap}, \code{eta_sum},
+\code{eta_sum_expected} or \code{eta_sum_to_VIR}. Default includes all.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 
 \item{re}{Numeric. Earth equatorial radius, in km.}
 
 \item{rp}{Numeric. Earth polar radius, in km.}
+
+\item{height_reference}{Character. Either \code{sea} (default) for range correction relative to
+sea level, or \code{ground} for range correction relative to ground level.}
 }
 \value{
 A \code{ppi} object with the following parameters:
@@ -94,6 +102,9 @@ as calculated with \link{beam_profile_overlap}.
 See Kranstauber 2020 for details.
 \item \code{eta_sum_expected}: the sum of expected linear reflectivities over elevation angles
 based on the input vertical profile \code{vp}. See Kranstauber 2020 for details.
+\item \code{eta_sum_to_VIR}: the multiplicative factor for converting the sum of expected
+linear reflectivities (\code{eta_sum_expected}) to vertically integrated reflectivity (\code{VIR}).
+Identical to \code{integrate_profile(vp)$vir/eta_sum_expected}. See Kranstauber 2020 for details.
 }
 }
 \description{
@@ -177,10 +188,6 @@ plot(ppi, param = "VID", zlim = c(0, 200))
 # Download a basemap and map the ppi
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 map(ppi)
-}
-
-# The ppi can also be projected on a user-defined raster, as follows:
-
 # First define the raster
 template_raster <- raster::raster(
   raster::extent(12, 13, 56, 57),
@@ -200,6 +207,35 @@ ppi <- integrate_to_ppi(
   xlim = c(-50000, 50000), ylim = c(-50000, 50000)
 )
 plot(ppi, param = "VID", zlim = c(0, 200))
+
+# To calculate a range-corrected map assuming a constant altitude
+# profile maintained relative to ground height:
+if(requireNamespace("elevatr", quietly = TRUE)){
+
+# define a radar-centred grid (azimuthal equidistant, radar at the center):
+pvol |>
+  get_scan(.5) |>
+  scan_to_raster(param = "DBZH") |>
+  terra::rast() -> radar_grid
+
+# download elevation data and resample onto that grid. `expand`
+# over-requests so the full grid is covered;
+data_dem <- terra::project(
+  terra::rast(elevatr::get_elev_raster(radar_grid, z = 5, expand = 100000)), radar_grid)
+# set heights below sea level to zero.
+data_dem[data_dem < 0] <- 0
+# add an informative name
+names(data_dem) <- "HGHT"
+
+# add DEM data to the polar volume:
+pvol_ground <- add_param(pvol, data_dem, "HGHT")
+# compute a profile relative to ground:
+vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
+# apply the range correction:
+ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
+                                raster = data_dem)
+}
+}
 }
 }
 \references{

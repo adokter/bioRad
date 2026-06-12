@@ -32,14 +32,14 @@ scan_to_raster(
 
 \item{ylim}{y (latitude) range}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:res]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{param}{scan parameters to include. If \code{NA} include all scan parameters. Reducing the number
 of scan parameters speeds up evaluation.}
 
-\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored.}
+\item{raster}{(optional) \code{raster::RasterLayer} or \code{terra::SpatRaster} with a CRS. When specified
+this raster topology is used for the output, and nx, ny, res arguments are ignored.}
 
 \item{lat}{Geodetic latitude of the radar in degrees. If missing taken from \code{scan}.}
 
@@ -73,8 +73,8 @@ scan_to_raster(example_scan)
 # crop the scan and project at a resolution of 0.1 degree:
 scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
 
-# using a template raster
-template_raster <- raster::raster(raster::extent(12, 13, 56, 58), crs = sp::CRS("+proj=longlat"))
+# using a template raster (a terra SpatRaster can be passed directly):
+template_raster <- terra::rast(terra::ext(12, 13, 56, 58), crs = "epsg:4326")
 scan_to_raster(example_scan, raster = template_raster)
 }
 }

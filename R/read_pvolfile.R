@@ -65,10 +65,7 @@
 #'
 #' # print summary info for the new object:
 #' scan
-read_pvolfile <- function(file, param = c(
-                            "DBZH", "DBZ", "VRADH", "VRAD", "WRADH", "WRAD", "TH", "T", "RHOHV",
-                            "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
-                          ),
+read_pvolfile <- function(file, param = 'all',
                           sort = TRUE, lat, lon, height, elev_min = 0,
                           elev_max = 90, verbose = TRUE,
                           mount = dirname(file), local_install) {
@@ -91,10 +88,7 @@ read_pvolfile <- function(file, param = c(
 
 # this is the actual function read_pvolfile, without error handling that checks
 # for open HDF5 files
-read_pvolfile_body <- function(file, param = c(
-                                 "DBZH", "DBZ", "VRADH", "VRAD", "TH", "T", "RHOHV",
-                                 "ZDR", "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"
-                               ),
+read_pvolfile_body <- function(file, param = 'all',
                                sort = TRUE, lat, lon, height, elev_min = 0,
                                elev_max = 90, verbose = TRUE,
                                mount = dirname(file), local_install) {
@@ -127,7 +121,7 @@ read_pvolfile_body <- function(file, param = c(
     }
   } else {
     pvol_tmp <- tempfile()
-    rlang::check_installed("vol2birdR", format_reason_vol2bird("to read `NEXRAD` files."))
+    rlang::check_installed("vol2birdR", format_reason_vol2bird("to read `NEXRAD` files."), version = min_package_version("vol2birdR"))
     config <- vol2birdR::vol2bird_config()
     vol2birdR::rsl2odim(file = file, config = config, pvolfile_out = pvol_tmp, verbose = verbose)
 

@@ -11,7 +11,6 @@ calculate_vp(
   autoconf = FALSE,
   verbose = FALSE,
   warnings = TRUE,
-  mount,
   sd_vvp_threshold,
   rcs = 11,
   dual_pol = TRUE,
@@ -25,12 +24,15 @@ calculate_vp(
   range_max = 35000,
   n_layer = 20,
   h_layer = 200,
+  height_reference = "sea",
+  ground_height_param = "HGHT",
   dealias = TRUE,
   nyquist_min = if (dealias) 5 else 25,
+  nyquist_max_dealias = 25,
   dbz_quantity = "DBZH",
+  eta_max = 36000,
   mistnet = FALSE,
   mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-  local_install,
   local_mistnet
 )
 }
@@ -59,9 +61,6 @@ console.}
 
 \item{warnings}{Logical. When \code{TRUE}, vol2bird warnings are piped to the R
 console.}
-
-\item{mount}{Character. Directory path of the mount point for the Docker
-container (deprecated).}
 
 \item{sd_vvp_threshold}{Numeric. Lower threshold for the radial velocity
 standard deviation (profile quantity \code{sd_vvp}) in m/s. Biological signals
@@ -100,6 +99,12 @@ profile.}
 \item{h_layer}{Numeric. Width of altitude layers to use in generated profile,
 in m.}
 
+\item{height_reference}{Character. One of \code{sea}, \code{antenna} or \code{ground} for
+specifying the reference height for the profile altitude bins. Default \code{sea} level.}
+
+\item{ground_height_param}{Character. The scan parameter name of the polar volume
+containing ground height information. Default \code{HGHT}.}
+
 \item{dealias}{Logical. Whether to dealias radial velocities. This should
 typically be done when the scans in the polar volume have low Nyquist
 velocities (below 25 m/s).}
@@ -107,8 +112,15 @@ velocities (below 25 m/s).}
 \item{nyquist_min}{Numeric. Minimum Nyquist velocity of scans to include, in
 m/s.}
 
+\item{nyquist_max_dealias}{Numeric. When all scans have nyquist velocity higher
+than this value, dealiasing is suppressed. Default 25 m/s.}
+
 \item{dbz_quantity}{Name of the available reflectivity factor to use if not
 \code{DBZH} (e.g. \code{DBZV}, \code{TH}, \code{TV}).}
+
+\item{eta_max}{Maximum reflectivity in cm^2/km^3 for single gates containing birds.
+Default 36000 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+Gates with reflectivities above this threshold will be discarded prior to profile estimation.}
 
 \item{mistnet}{Logical. Whether to use the MistNet segmentation model.}
 
@@ -116,9 +128,6 @@ m/s.}
 feed to the MistNet segmentation model, which expects exactly 5 elevation
 scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 angles may compromise segmentation results.}
-
-\item{local_install}{Character. Path to local vol2bird installation (e.g.
-\code{your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh}). (deprecated)}
 
 \item{local_mistnet}{Character. Path to local MistNet segmentation model in
 PyTorch format (e.g. \verb{/your/path/mistnet_nexrad.pt}).}
@@ -204,6 +213,30 @@ patterns smaller than the beam width cannot be resolved.
 \subsection{dealias}{
 
 Dealiasing uses the torus mapping method by Haase et al. (2004).
+
+Use parameter \code{nyquist_min} to discard specific elevation scans with very low
+Nyquist velocity (by default smaller than 5 m/s). The Haase et al. algorithm
+is known to not provide accurate estimates for heavily folded velocity data, therefore
+these elevation scans are best removed entirely.
+
+Use parameter \code{nyquist_max_dealias} to suppress dealiasing for polar volumes for
+which all scans already have a high Nyquist velocity. This prevents dealiasing
+when the data does not require it.
+}
+
+\subsection{height reference}{
+
+Profiles are calculated by default for height bins defined relative to mean sea level.
+Alternatively, height bins may be defined relative to the radar antenna height by setting
+\code{height_reference} to \code{antenna}. This places the bottom of the lowest altitude bin at the
+radar antenna height. Profiles may also be calculated relative to the height
+of the ground level terrain. This is especiallyuseful for stopover studies focused on
+altitude distributions during peak exodus shortly after sunset. Estimating a profile
+relative to ground height requires adding information from a digital elevation map
+to each pixel of the input polar volume, which is accomplished easily with function
+\code{add_param()}. Ground heights should be stored in units of meters relative to mean sea level.
+Parameter \code{ground_height_param} should point to the scan parameter name
+containing the digital elevation information.
 }
 
 \subsection{Local installation}{
@@ -227,6 +260,37 @@ vp <- calculate_vp(pvolfile)
 
 # Get summary info
 vp
+
+# By default profiles are calculated for bins defined relative to sea level
+# To calculate a profile relative to ground level:
+\donttest{
+if(requireNamespace("elevatr", quietly = TRUE)){
+
+example_pvol <- read_pvolfile(pvolfile)
+
+# Download digital elevation model (DEM) information:
+example_pvol |>
+  # extract lowest scan
+  get_scan(.5) |>
+  # convert to raster object
+  scan_to_raster(param="DBZH") |>
+  # convert to terra raster class
+  terra::rast() |>
+  # download digital elevation data (increase z for higher resolutions)
+  elevatr::get_elev_raster(z = 5, clip = "bbox") -> data_dem
+# set digital elevations for open water to mean sea level (0)
+data_dem[data_dem<0]=0
+# set an informative name for the DEM information
+names(data_dem) <- "HGHT"
+
+# add the DEM information as a scan parameter to the polar volume:
+example_pvol <- add_param(example_pvol, data_dem, "HGHT")
+
+# calculate a profile relative to ground level:
+vp_ground <- calculate_vp(example_pvol, height_reference="ground", ground_height_param="HGHT")
+
+}
+}
 
 # Clean up
 file.remove(pvolfile)
@@ -259,5 +323,7 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 \itemize{
 \item \code{\link[=summary.pvol]{summary.pvol()}}
 \item \code{\link[=summary.vp]{summary.vp()}}
+\item \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
+\item \code{\link[=add_param]{add_param()}}
 }
 }

@@ -40,6 +40,7 @@ reference:
   contents:
   - integrate_to_ppi
   - calculate_param
+  - add_param
   - apply_mistnet
   - tidyverse
   - Math.scan

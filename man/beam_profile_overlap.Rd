@@ -20,7 +20,8 @@ beam_profile_overlap(
   k = 4/3,
   lat,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  path = "two_way"
 )
 }
 \arguments{
@@ -63,6 +64,10 @@ antenna pattern.}
 \item{re}{Numeric. Earth equatorial radius, in km.}
 
 \item{rp}{Numeric. Earth polar radius, in km.}
+
+\item{path}{Character. One of \code{two_way} (default) or \code{one_way} for specifying the
+effective beam width for the radar's antenna pattern as it transmits a signal (\code{one_way}),
+or as it transmits and receives a signal (\code{two_way}).}
 }
 \value{
 A data.frame with columns \code{distance} and \code{overlap}.
@@ -130,12 +135,12 @@ plot(bpo)
 \item \code{\link[=beam_profile]{beam_profile()}}
 }
 
-Other beam_functions: 
-\code{\link{beam_distance}()},
-\code{\link{beam_height}()},
-\code{\link{beam_profile}()},
-\code{\link{beam_range}()},
-\code{\link{beam_width}()},
-\code{\link{gaussian_beam_profile}()}
+Other beam_functions:
+\code{\link[=beam_distance]{beam_distance()}},
+\code{\link[=beam_height]{beam_height()}},
+\code{\link[=beam_profile]{beam_profile()}},
+\code{\link[=beam_range]{beam_range()}},
+\code{\link[=beam_width]{beam_width()}},
+\code{\link[=gaussian_beam_profile]{gaussian_beam_profile()}}
 }
 \concept{beam_functions}

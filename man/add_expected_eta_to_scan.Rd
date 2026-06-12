@@ -15,7 +15,8 @@ add_expected_eta_to_scan(
   beam_angle = 1,
   k = 4/3,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  height_reference = "sea"
 )
 }
 \arguments{
@@ -46,6 +47,9 @@ antenna pattern.}
 \item{re}{Numeric. Earth equatorial radius, in km.}
 
 \item{rp}{Numeric. Earth polar radius, in km.}
+
+\item{height_reference}{Character. Either \code{sea} (default) for range correction relative to
+sea level, or \code{ground} for range correction relative to ground level.}
 }
 \value{
 A \code{scan} object.

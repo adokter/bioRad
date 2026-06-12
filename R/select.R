@@ -18,7 +18,7 @@
 #' select(get_scan(example_pvol, 2.5), VRADH:ZDR)
 #' }
 # generalizations for the dplyr verb `select` to `scan` and `pvol` objects
-#' @keywords internal
+#' @exportS3Method dplyr::select
 select.scan <- function(.data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("package dplyr required, please install it first") # nocov
@@ -35,7 +35,7 @@ select.scan <- function(.data, ...) {
   .data
 }
 
-#' @keywords internal
+#' @exportS3Method dplyr::select
 select.pvol <- function(.data, ...) {
   .data$scans <- lapply(.data$scans, select.scan, ...)
   .data

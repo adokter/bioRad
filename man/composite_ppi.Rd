@@ -34,15 +34,17 @@ To composite all available scan parameters use \code{all} (default).}
 
 \item{ylim}{y (latitude) range}
 
-\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:resolution]{res}).
+\item{res}{numeric vector of length 1 or 2 to set the resolution of the raster (see \link[raster:res]{res}).
 If this argument is used, arguments \code{nx} and \code{ny} are ignored. Unit is identical to \code{xlim} and \code{ylim}.}
 
 \item{crs}{character or object of class CRS. PROJ.4 type description of a Coordinate Reference System (map projection).
 When 'NA' (default), an azimuthal equidistant projection with origin at the radar location is used.
 To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 
-\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored.}
+\item{raster}{(optional) \code{raster::RasterLayer} or \code{terra::SpatRaster} with a CRS. When specified
+this raster topology is used for the output, and nx, ny, res arguments are ignored.
+When \code{height_reference = "ground"} the raster values should contain
+the ground height digital elevation in meters.}
 
 \item{method}{Character (vector). Compositing method(s), either \code{mean},
 \code{min}, \code{max} or \code{idw}. To apply different methods for each of the
