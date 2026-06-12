@@ -7,7 +7,8 @@ can be used to select parameters.
 ## Usage
 
 ``` r
-select.scan(.data, ...)
+# S3 method for class 'scan'
+select(.data, ...)
 ```
 
 ## Arguments

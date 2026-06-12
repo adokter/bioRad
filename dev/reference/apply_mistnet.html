@@ -51,7 +51,6 @@ loads the resultant segmentation as a polar volume (<code>pvol</code>) object.</
 <span>  <span class="va">file</span>,</span>
 <span>  <span class="va">pvolfile_out</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  mount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
 <span>  load <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mistnet_elevations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span><span class="op">)</span>,</span>
 <span>  <span class="va">local_install</span>,</span>
@@ -76,11 +75,6 @@ results.</p></dd>
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Logical. When <code>TRUE</code>, vol2bird <code>stdout</code> is piped to the R
 console.</p></dd>
-
-
-<dt id="arg-mount">mount<a class="anchor" aria-label="anchor" href="#arg-mount"></a></dt>
-<dd><p>Character. Directory path of the mount point for the Docker
-container (deprecated).</p></dd>
 
 
 <dt id="arg-load">load<a class="anchor" aria-label="anchor" href="#arg-load"></a></dt>

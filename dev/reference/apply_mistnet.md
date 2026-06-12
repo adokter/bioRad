@@ -10,7 +10,6 @@ apply_mistnet(
   file,
   pvolfile_out,
   verbose = FALSE,
-  mount = dirname(file),
   load = TRUE,
   mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
   local_install,
@@ -32,11 +31,6 @@ apply_mistnet(
 - verbose:
 
   Logical. When `TRUE`, vol2bird `stdout` is piped to the R console.
-
-- mount:
-
-  Character. Directory path of the mount point for the Docker container
-  (deprecated).
 
 - load:
 

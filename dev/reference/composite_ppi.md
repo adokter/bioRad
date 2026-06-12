@@ -53,8 +53,10 @@ composite_ppi(
 - res:
 
   numeric vector of length 1 or 2 to set the resolution of the raster
-  (see res). If this argument is used, arguments `nx` and `ny` are
-  ignored. Unit is identical to `xlim` and `ylim`.
+  (see
+  [res](https://rspatial.github.io/terra/reference/dimensions.html)). If
+  this argument is used, arguments `nx` and `ny` are ignored. Unit is
+  identical to `xlim` and `ylim`.
 
 - crs:
 
@@ -66,8 +68,12 @@ composite_ppi(
 
 - raster:
 
-  (optional) RasterLayer with a CRS. When specified this raster topology
-  is used for the output, and nx, ny, res arguments are ignored.
+  (optional) `raster::RasterLayer` or
+  [`terra::SpatRaster`](https://rspatial.github.io/terra/reference/SpatRaster-class.html)
+  with a CRS. When specified this raster topology is used for the
+  output, and nx, ny, res arguments are ignored. When
+  `height_reference = "ground"` the raster values should contain the
+  ground height digital elevation in meters.
 
 - method:
 
@@ -161,9 +167,6 @@ if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = 
 map(composite)
 }
 #> Zoom: 8
-#> Fetching 4 missing tiles
-#>   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
-#> ...complete!
 
 # }
 ```

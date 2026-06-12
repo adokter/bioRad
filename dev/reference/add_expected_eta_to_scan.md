@@ -16,7 +16,8 @@ add_expected_eta_to_scan(
   beam_angle = 1,
   k = 4/3,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  height_reference = "sea"
 )
 ```
 
@@ -71,6 +72,11 @@ add_expected_eta_to_scan(
 - rp:
 
   Numeric. Earth polar radius, in km.
+
+- height_reference:
+
+  Character. Either `sea` (default) for range correction relative to sea
+  level, or `ground` for range correction relative to ground level.
 
 ## Value
 

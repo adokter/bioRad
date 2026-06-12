@@ -65,7 +65,8 @@ elevation angles as given by <a href="beam_profile.html">beam_profile</a>.</p>
 <span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
 <span>  <span class="va">lat</span>,</span>
 <span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
-<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span>,</span>
+<span>  path <span class="op">=</span> <span class="st">"two_way"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -141,6 +142,12 @@ antenna pattern.</p></dd>
 
 <dt id="arg-rp">rp<a class="anchor" aria-label="anchor" href="#arg-rp"></a></dt>
 <dd><p>Numeric. Earth polar radius, in km.</p></dd>
+
+
+<dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
+<dd><p>Character. One of <code>two_way</code> (default) or <code>one_way</code> for specifying the
+effective beam width for the radar's antenna pattern as it transmits a signal (<code>one_way</code>),
+or as it transmits and receives a signal (<code>two_way</code>).</p></dd>
 
 </dl></div>
     <div class="section level2">

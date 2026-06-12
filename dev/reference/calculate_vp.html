@@ -63,7 +63,6 @@ volume (<code>pvol</code>) file using the algorithm
 <span>  autoconf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  warnings <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  <span class="va">mount</span>,</span>
 <span>  <span class="va">sd_vvp_threshold</span>,</span>
 <span>  rcs <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  dual_pol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -77,12 +76,15 @@ volume (<code>pvol</code>) file using the algorithm
 <span>  range_max <span class="op">=</span> <span class="fl">35000</span>,</span>
 <span>  n_layer <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  h_layer <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  height_reference <span class="op">=</span> <span class="st">"sea"</span>,</span>
+<span>  ground_height_param <span class="op">=</span> <span class="st">"HGHT"</span>,</span>
 <span>  dealias <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  nyquist_min <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">dealias</span><span class="op">)</span> <span class="fl">5</span> <span class="kw">else</span> <span class="fl">25</span>,</span>
+<span>  nyquist_max_dealias <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>  dbz_quantity <span class="op">=</span> <span class="st">"DBZH"</span>,</span>
+<span>  eta_max <span class="op">=</span> <span class="fl">36000</span>,</span>
 <span>  mistnet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  mistnet_elevations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span><span class="op">)</span>,</span>
-<span>  <span class="va">local_install</span>,</span>
 <span>  <span class="va">local_mistnet</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -126,11 +128,6 @@ console.</p></dd>
 <dt id="arg-warnings">warnings<a class="anchor" aria-label="anchor" href="#arg-warnings"></a></dt>
 <dd><p>Logical. When <code>TRUE</code>, vol2bird warnings are piped to the R
 console.</p></dd>
-
-
-<dt id="arg-mount">mount<a class="anchor" aria-label="anchor" href="#arg-mount"></a></dt>
-<dd><p>Character. Directory path of the mount point for the Docker
-container (deprecated).</p></dd>
 
 
 <dt id="arg-sd-vvp-threshold">sd_vvp_threshold<a class="anchor" aria-label="anchor" href="#arg-sd-vvp-threshold"></a></dt>
@@ -196,6 +193,16 @@ profile.</p></dd>
 in m.</p></dd>
 
 
+<dt id="arg-height-reference">height_reference<a class="anchor" aria-label="anchor" href="#arg-height-reference"></a></dt>
+<dd><p>Character. One of <code>sea</code>, <code>antenna</code> or <code>ground</code> for
+specifying the reference height for the profile altitude bins. Default <code>sea</code> level.</p></dd>
+
+
+<dt id="arg-ground-height-param">ground_height_param<a class="anchor" aria-label="anchor" href="#arg-ground-height-param"></a></dt>
+<dd><p>Character. The scan parameter name of the polar volume
+containing ground height information. Default <code>HGHT</code>.</p></dd>
+
+
 <dt id="arg-dealias">dealias<a class="anchor" aria-label="anchor" href="#arg-dealias"></a></dt>
 <dd><p>Logical. Whether to dealias radial velocities. This should
 typically be done when the scans in the polar volume have low Nyquist
@@ -207,9 +214,20 @@ velocities (below 25 m/s).</p></dd>
 m/s.</p></dd>
 
 
+<dt id="arg-nyquist-max-dealias">nyquist_max_dealias<a class="anchor" aria-label="anchor" href="#arg-nyquist-max-dealias"></a></dt>
+<dd><p>Numeric. When all scans have nyquist velocity higher
+than this value, dealiasing is suppressed. Default 25 m/s.</p></dd>
+
+
 <dt id="arg-dbz-quantity">dbz_quantity<a class="anchor" aria-label="anchor" href="#arg-dbz-quantity"></a></dt>
 <dd><p>Name of the available reflectivity factor to use if not
 <code>DBZH</code> (e.g. <code>DBZV</code>, <code>TH</code>, <code>TV</code>).</p></dd>
+
+
+<dt id="arg-eta-max">eta_max<a class="anchor" aria-label="anchor" href="#arg-eta-max"></a></dt>
+<dd><p>Maximum reflectivity in cm^2/km^3 for single gates containing birds.
+Default 36000 cm^2/km^3, corresponding to approximately 20 dBZ at C-band and 32 dBZ at S-band.
+Gates with reflectivities above this threshold will be discarded prior to profile estimation.</p></dd>
 
 
 <dt id="arg-mistnet">mistnet<a class="anchor" aria-label="anchor" href="#arg-mistnet"></a></dt>
@@ -221,11 +239,6 @@ m/s.</p></dd>
 feed to the MistNet segmentation model, which expects exactly 5 elevation
 scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 angles may compromise segmentation results.</p></dd>
-
-
-<dt id="arg-local-install">local_install<a class="anchor" aria-label="anchor" href="#arg-local-install"></a></dt>
-<dd><p>Character. Path to local vol2bird installation (e.g.
-<code>your/vol2bird_install_directory/vol2bird/bin/vol2bird.sh</code>). (deprecated)</p></dd>
 
 
 <dt id="arg-local-mistnet">local_mistnet<a class="anchor" aria-label="anchor" href="#arg-local-mistnet"></a></dt>
@@ -326,6 +339,30 @@ patterns smaller than the beam width cannot be resolved.</p>
 
 
 <p>Dealiasing uses the torus mapping method by Haase et al. (2004).</p>
+<p>Use parameter <code>nyquist_min</code> to discard specific elevation scans with very low
+Nyquist velocity (by default smaller than 5 m/s). The Haase et al. algorithm
+is known to not provide accurate estimates for heavily folded velocity data, therefore
+these elevation scans are best removed entirely.</p>
+<p>Use parameter <code>nyquist_max_dealias</code> to suppress dealiasing for polar volumes for
+which all scans already have a high Nyquist velocity. This prevents dealiasing
+when the data does not require it.</p>
+</div>
+
+<div class="section">
+<h3 id="height-reference">height reference<a class="anchor" aria-label="anchor" href="#height-reference"></a></h3>
+
+
+<p>Profiles are calculated by default for height bins defined relative to mean sea level.
+Alternatively, height bins may be defined relative to the radar antenna height by setting
+<code>height_reference</code> to <code>antenna</code>. This places the bottom of the lowest altitude bin at the
+radar antenna height. Profiles may also be calculated relative to the height
+of the ground level terrain. This is especiallyuseful for stopover studies focused on
+altitude distributions during peak exodus shortly after sunset. Estimating a profile
+relative to ground height requires adding information from a digital elevation map
+to each pixel of the input polar volume, which is accomplished easily with function
+<code><a href="add_param.html">add_param()</a></code>. Ground heights should be stored in units of meters relative to mean sea level.
+Parameter <code>ground_height_param</code> should point to the scan parameter name
+containing the digital elevation information.</p>
 </div>
 
 <div class="section">
@@ -362,6 +399,8 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
     <div class="dont-index">
 <ul><li><p><code><a href="summary.pvol.html">summary.pvol()</a></code></p></li>
 <li><p><code><a href="summary.vp.html">summary.vp()</a></code></p></li>
+<li><p><code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code></p></li>
+<li><p><code><a href="add_param.html">add_param()</a></code></p></li>
 </ul></div>
     </div>
 
@@ -382,10 +421,46 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 <span class="r-in"><span><span class="co"># Get summary info</span></span></span>
 <span class="r-in"><span><span class="va">vp</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># By default profiles are calculated for bins defined relative to sea level</span></span></span>
+<span class="r-in"><span><span class="co"># To calculate a profile relative to ground level:</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"elevatr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Download digital elevation model (DEM) information:</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="co"># extract lowest scan</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">.5</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="co"># convert to raster object</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="scan_to_raster.html">scan_to_raster</a></span><span class="op">(</span>param<span class="op">=</span><span class="st">"DBZH"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="co"># convert to terra raster class</span></span></span>
+<span class="r-in"><span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="co"># download digital elevation data (increase z for higher resolutions)</span></span></span>
+<span class="r-in"><span>  <span class="fu">elevatr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/elevatr/man/get_elev_raster.html" class="external-link">get_elev_raster</a></span><span class="op">(</span>z <span class="op">=</span> <span class="fl">5</span>, clip <span class="op">=</span> <span class="st">"bbox"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">data_dem</span></span></span>
+<span class="r-in"><span><span class="co"># set digital elevations for open water to mean sea level (0)</span></span></span>
+<span class="r-in"><span><span class="va">data_dem</span><span class="op">[</span><span class="va">data_dem</span><span class="op">&lt;</span><span class="fl">0</span><span class="op">]</span><span class="op">=</span><span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="co"># set an informative name for the DEM information</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data_dem</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"HGHT"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add the DEM information as a scan parameter to the polar volume:</span></span></span>
+<span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_param.html">add_param</a></span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">data_dem</span>, <span class="st">"HGHT"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># calculate a profile relative to ground level:</span></span></span>
+<span class="r-in"><span><span class="va">vp_ground</span> <span class="op">&lt;-</span> <span class="fu">calculate_vp</span><span class="op">(</span><span class="va">example_pvol</span>, height_reference<span class="op">=</span><span class="st">"ground"</span>, ground_height_param<span class="op">=</span><span class="st">"HGHT"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Clean up</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running vol2birdSetUp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Warning: radial velocities will be dealiased...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Mosaicing &amp; Projecting</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Clipping DEM to bbox</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: Elevation units are in meters.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running vol2birdSetUp</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Warning: radial velocities will be dealiased...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>

@@ -102,10 +102,13 @@ precipitation.
 - [`calculate_param()`](http://adriaandokter.com/bioRad/dev/reference/calculate_param.md)
   : Calculate a new scan parameter
 
+- [`add_param()`](http://adriaandokter.com/bioRad/dev/reference/add_param.md)
+  : Add scan parameter from a georeferenced raster.
+
 - [`apply_mistnet()`](http://adriaandokter.com/bioRad/dev/reference/apply_mistnet.md)
   : Apply MistNet segmentation to a polar volume
 
-- [`select.scan()`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
+- [`select(`*`<scan>`*`)`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
   : Tidyverse methods for bioRad objects
 
 - [`Math(`*`<scan>`*`)`](http://adriaandokter.com/bioRad/dev/reference/Ops.md)

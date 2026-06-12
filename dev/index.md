@@ -65,8 +65,8 @@ Alternatively, you can install the latest development version from
 
 ``` r
 
-# install.packages("devtools")
-devtools::install_github("adokter/bioRad")
+# install.packages("pak")
+pak::pak("adokter/bioRad", dependencies = TRUE)
 ```
 
 Then load the package with:
@@ -74,8 +74,7 @@ Then load the package with:
 ``` r
 
 library(bioRad)
-#> Welcome to bioRad version 0.10.0.9000
-#> using vol2birdR version 1.1.1.9000 (MistNet installed)
+#> Welcome to bioRad version 0.11.0.9000
 ```
 
 ### (optional) Enable MistNet

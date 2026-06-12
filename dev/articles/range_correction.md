@@ -12,7 +12,7 @@ library(bioRad)
 
     ## Welcome to bioRad version 0.11.0.9000
 
-    ## using vol2birdR version 1.2.1 (MistNet not installed)
+    ## using vol2birdR version 1.3.0 (MistNet not installed)
 
 ## 2 Beam propagation
 
@@ -197,7 +197,7 @@ my_corrected_ppi
 
     ##                Plan position indicator (class ppi)
     ## 
-    ##   parameters:  VIR VID R overlap eta_sum eta_sum_expected 
+    ##   parameters:  VIR VID R overlap eta_sum eta_sum_expected eta_sum_to_VIR 
     ##         dims:  400 x 400 pixels
 
 The range corrected PPI has four parameters: VIR, VID, R, overlap. Let’s

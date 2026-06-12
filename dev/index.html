@@ -123,13 +123,12 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"adokter/bioRad"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Welcome to bioRad version 0.10.0.9000</span></span>
-<span><span class="co">#&gt; using vol2birdR version 1.1.1.9000 (MistNet installed)</span></span></code></pre></div>
+<span><span class="co">#&gt; Welcome to bioRad version 0.11.0.9000</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="optional-enable-mistnet">(optional) Enable MistNet<a class="anchor" aria-label="anchor" href="#optional-enable-mistnet"></a>
@@ -156,7 +155,7 @@
 <span>  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_ppi-1.png" width="100%"></p>
+<p><img src="reference/figures/README-plot_ppi-1.png" alt="" width="100%"></p>
 <p><em>Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.</em></p>
 </div>
 <div class="section level3">
@@ -168,14 +167,14 @@
 <code class="sourceCode R"><span><span class="va">example_vpts</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_vpts-1.png" width="100%"></p>
+<p><img src="reference/figures/README-plot_vpts-1.png" alt="" width="100%"></p>
 <p><em>The gray bars in the plot indicate gaps in the data.</em></p>
 <p>The altitudes in the profile can be integrated with <code><a href="reference/integrate_profile.html">integrate_profile()</a></code> resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity <em>migration traffic rate</em> (column <code>mtr</code>) with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mtr"</span><span class="op">)</span> <span class="co"># mtr = migration traffic rate</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_vpi-1.png" width="100%"></p>
+<p><img src="reference/figures/README-plot_vpi-1.png" alt="" width="100%"></p>
 <p>To know the total number of birds passing over the radar during the full time series, we use the last value of the <em>cumulative migration traffic</em> (column <code>mt</code>):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">%&gt;%</span></span>

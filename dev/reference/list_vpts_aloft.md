@@ -61,6 +61,16 @@ A character vector of aloft urls
 list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
 #> Warning: `list_vpts_aloft()` was deprecated in bioRad 2025.
 #> ℹ Please use `getRad::get_vpts()` instead.
+#> Registered S3 methods overwritten by 'readr':
+#>   method                    from 
+#>   as.data.frame.spec_tbl_df vroom
+#>   as_tibble.spec_tbl_df     vroom
+#>   format.col_spec           vroom
+#>   print.col_spec            vroom
+#>   print.collector           vroom
+#>   print.date_names          vroom
+#>   print.locale              vroom
+#>   str.col_spec              vroom
 #> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201810.csv.gz
 #> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201811.csv.gz
 #> https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/monthly/bejab/2018/bejab_vpts_201812.csv.gz

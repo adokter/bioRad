@@ -23,7 +23,8 @@ beam_profile_overlap(
   k = 4/3,
   lat,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  path = "two_way"
 )
 ```
 
@@ -98,6 +99,13 @@ beam_profile_overlap(
 - rp:
 
   Numeric. Earth polar radius, in km.
+
+- path:
+
+  Character. One of `two_way` (default) or `one_way` for specifying the
+  effective beam width for the radar's antenna pattern as it transmits a
+  signal (`one_way`), or as it transmits and receives a signal
+  (`two_way`).
 
 ## Value
 

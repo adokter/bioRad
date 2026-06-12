@@ -2,6 +2,62 @@
 
 ## bioRad 0.11.0.9000 (development version)
 
+### New features
+
+- [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md)
+  now supports profile estimation with height bins defined relative to
+  ground level and antenna level
+  ([\#686](https://github.com/adokter/bioRad/issues/686)).
+
+- [`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md)
+  now supports range correction with profiles referenced to ground
+  level, accounting for local topography
+  ([\#747](https://github.com/adokter/bioRad/issues/747),
+  [\#748](https://github.com/adokter/bioRad/issues/748)).
+
+- New function
+  [`add_param()`](http://adriaandokter.com/bioRad/dev/reference/add_param.md)
+  for mapping raster data onto `scan` and `pvol` object
+  ([\#767](https://github.com/adokter/bioRad/issues/767)).
+
+- New output field `eta_sum_to_VIR` in
+  [`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md)
+  ([\#748](https://github.com/adokter/bioRad/issues/748)).
+
+- New additional arguments `alt_min` and `filter_all_heights` in
+  [`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md)
+  for precip filtering at high altitudes only
+  ([\#754](https://github.com/adokter/bioRad/issues/754),
+  [\#755](https://github.com/adokter/bioRad/issues/755)).
+
+- [`beam_width()`](http://adriaandokter.com/bioRad/dev/reference/beam_width.md)
+  and related functions have a new argument `path` for outputting either
+  the one-way or two-way beam width of the antenna pattern. The default
+  is changed to two-way (formerly one-way)
+  ([\#744](https://github.com/adokter/bioRad/issues/744)).
+
+- Expose `eta_max parameter` as a user option in
+  [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md),
+  to set maximum bird reflectivity (maps to option `etaMax` in
+  [`vol2birdR::vol2bird_config()`](https://rdrr.io/pkg/vol2birdR/man/vol2bird_config.html))
+  ([\#763](https://github.com/adokter/bioRad/issues/763))
+
+- Expose `max_nyquist_dealias` parameter to set maximum Nyquist velocity
+  above which to suppress dealiasing (maps to option `maxNyquistDealias`
+  in
+  [`vol2birdR::vol2bird_config()`](https://rdrr.io/pkg/vol2birdR/man/vol2bird_config.html))
+  ([\#684](https://github.com/adokter/bioRad/issues/684)).
+
+- `raster` argument of
+  [`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md),
+  [`project_as_ppi()`](http://adriaandokter.com/bioRad/dev/reference/project_as_ppi.md)
+  and `scan_convert` now accepts terra:SpatRaster (8f8458a)
+
+### Bugfixes
+
+- Bugfix parsing `azim_min`, `azim_max` and `elev_max` arguments for
+  pvol objects ([\#762](https://github.com/adokter/bioRad/issues/762)).
+
 - Changed lower bound of allowed values for `nyquist_min` argument of
   [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md)
   to zero ([\#761](https://github.com/adokter/bioRad/issues/761)).
@@ -11,11 +67,6 @@
   fixing uninformative error message in the case of NA values in the
   `source_file` column of a vpts data.frame
   ([\#759](https://github.com/adokter/bioRad/issues/759)).
-
-- New additional arguments `alt_min` and `filter_all_heights` in
-  [`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md)
-  for precip filtering at high altitudes only
-  ([\#755](https://github.com/adokter/bioRad/issues/755)).
 
 - Bugfix for
   [`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md)
@@ -33,12 +84,6 @@
 - [`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md)
   now accepts NA or NaN input reflectivity values
   ([\#741](https://github.com/adokter/bioRad/issues/741)).
-
-- [`beam_width()`](http://adriaandokter.com/bioRad/dev/reference/beam_width.md)
-  and related functions have a new argument `path` for outputting either
-  the one-way or two-way beam width of the antenna pattern. The default
-  is changed to two-way (formerly one-way)
-  ([\#744](https://github.com/adokter/bioRad/issues/744)).
 
 ## bioRad 0.11.0
 

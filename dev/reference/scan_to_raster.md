@@ -48,8 +48,10 @@ scan_to_raster(
 - res:
 
   numeric vector of length 1 or 2 to set the resolution of the raster
-  (see res). If this argument is used, arguments `nx` and `ny` are
-  ignored. Unit is identical to `xlim` and `ylim`.
+  (see
+  [res](https://rspatial.github.io/terra/reference/dimensions.html)). If
+  this argument is used, arguments `nx` and `ny` are ignored. Unit is
+  identical to `xlim` and `ylim`.
 
 - param:
 
@@ -58,8 +60,10 @@ scan_to_raster(
 
 - raster:
 
-  (optional) RasterLayer with a CRS. When specified this raster topology
-  is used for the output, and nx, ny, res arguments are ignored.
+  (optional) `raster::RasterLayer` or
+  [`terra::SpatRaster`](https://rspatial.github.io/terra/reference/SpatRaster-class.html)
+  with a CRS. When specified this raster topology is used for the
+  output, and nx, ny, res arguments are ignored.
 
 - lat:
 
@@ -134,8 +138,8 @@ scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
 #> max values :           NA,    0.3760777,    0.9951000,    0.6588239,  -27.5294080 
 #> 
 
-# using a template raster
-template_raster <- raster::raster(raster::extent(12, 13, 56, 58), crs = sp::CRS("+proj=longlat"))
+# using a template raster (a terra SpatRaster can be passed directly):
+template_raster <- terra::rast(terra::ext(12, 13, 56, 58), crs = "epsg:4326")
 scan_to_raster(example_scan, raster = template_raster)
 #> class      : RasterBrick 
 #> dimensions : 10, 10, 100, 5  (nrow, ncol, ncell, nlayers)

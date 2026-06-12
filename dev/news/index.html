@@ -39,15 +39,29 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.0.9000" id="biorad-01109000-development-version">bioRad 0.11.0.9000 (development version)<a class="anchor" aria-label="anchor" href="#biorad-01109000-development-version"></a></h2>
-<ul><li><p>Changed lower bound of allowed values for <code>nyquist_min</code> argument of <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> to zero (<a href="https://github.com/adokter/bioRad/issues/761" class="external-link">#761</a>).</p></li>
+<div class="section level3">
+<h3 id="new-features-0-11-0-9000">New features<a class="anchor" aria-label="anchor" href="#new-features-0-11-0-9000"></a></h3>
+<ul><li><p><code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> now supports profile estimation with height bins defined relative to ground level and antenna level (<a href="https://github.com/adokter/bioRad/issues/686" class="external-link">#686</a>).</p></li>
+<li><p><code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> now supports range correction with profiles referenced to ground level, accounting for local topography (<a href="https://github.com/adokter/bioRad/issues/747" class="external-link">#747</a>, <a href="https://github.com/adokter/bioRad/issues/748" class="external-link">#748</a>).</p></li>
+<li><p>New function <code><a href="../reference/add_param.html">add_param()</a></code> for mapping raster data onto <code>scan</code> and <code>pvol</code> object (<a href="https://github.com/adokter/bioRad/issues/767" class="external-link">#767</a>).</p></li>
+<li><p>New output field <code>eta_sum_to_VIR</code> in <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code> (<a href="https://github.com/adokter/bioRad/issues/748" class="external-link">#748</a>).</p></li>
+<li><p>New additional arguments <code>alt_min</code> and <code>filter_all_heights</code> in <code><a href="../reference/filter_precip.html">filter_precip()</a></code> for precip filtering at high altitudes only (<a href="https://github.com/adokter/bioRad/issues/754" class="external-link">#754</a>, <a href="https://github.com/adokter/bioRad/issues/755" class="external-link">#755</a>).</p></li>
+<li><p><code><a href="../reference/beam_width.html">beam_width()</a></code> and related functions have a new argument <code>path</code> for outputting either the one-way or two-way beam width of the antenna pattern. The default is changed to two-way (formerly one-way) (<a href="https://github.com/adokter/bioRad/issues/744" class="external-link">#744</a>).</p></li>
+<li><p>Expose <code>eta_max parameter</code> as a user option in <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code>, to set maximum bird reflectivity (maps to option <code>etaMax</code> in <code><a href="https://rdrr.io/pkg/vol2birdR/man/vol2bird_config.html" class="external-link">vol2birdR::vol2bird_config()</a></code>) (<a href="https://github.com/adokter/bioRad/issues/763" class="external-link">#763</a>)</p></li>
+<li><p>Expose <code>max_nyquist_dealias</code> parameter to set maximum Nyquist velocity above which to suppress dealiasing (maps to option <code>maxNyquistDealias</code> in <code><a href="https://rdrr.io/pkg/vol2birdR/man/vol2bird_config.html" class="external-link">vol2birdR::vol2bird_config()</a></code>) (<a href="https://github.com/adokter/bioRad/issues/684" class="external-link">#684</a>).</p></li>
+<li><p><code>raster</code> argument of <code><a href="../reference/integrate_to_ppi.html">integrate_to_ppi()</a></code>, <code><a href="../reference/project_as_ppi.html">project_as_ppi()</a></code> and <code>scan_convert</code> now accepts terra:SpatRaster (8f8458a)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-0-11-0-9000">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-11-0-9000"></a></h3>
+<ul><li><p>Bugfix parsing <code>azim_min</code>, <code>azim_max</code> and <code>elev_max</code> arguments for pvol objects (<a href="https://github.com/adokter/bioRad/issues/762" class="external-link">#762</a>).</p></li>
+<li><p>Changed lower bound of allowed values for <code>nyquist_min</code> argument of <code><a href="../reference/calculate_vp.html">calculate_vp()</a></code> to zero (<a href="https://github.com/adokter/bioRad/issues/761" class="external-link">#761</a>).</p></li>
 <li><p>Bugfix for <code><a href="../reference/as.vpts.html">as.vpts()</a></code> fixing uninformative error message in the case of NA values in the <code>source_file</code> column of a vpts data.frame (<a href="https://github.com/adokter/bioRad/issues/759" class="external-link">#759</a>).</p></li>
-<li><p>New additional arguments <code>alt_min</code> and <code>filter_all_heights</code> in <code><a href="../reference/filter_precip.html">filter_precip()</a></code> for precip filtering at high altitudes only (<a href="https://github.com/adokter/bioRad/issues/755" class="external-link">#755</a>).</p></li>
 <li><p>Bugfix for <code><a href="../reference/filter_precip.html">filter_precip()</a></code> not being applied to <code>vp</code> objects (<a href="https://github.com/adokter/bioRad/issues/755" class="external-link">#755</a>).</p></li>
 <li><p>Bugfix correcting uninformative error message when integer value columns in vpts data.frame contain <code>NA</code> values (<a href="https://github.com/adokter/bioRad/issues/755" class="external-link">#755</a>).</p></li>
 <li><p>Bugfix correcting removals of pure insect cases in <code><a href="../reference/clean_mixture.html">clean_mixture()</a></code> (<a href="https://github.com/adokter/bioRad/issues/753" class="external-link">#753</a>).</p></li>
 <li><p><code><a href="../reference/eta_to_dbz.html">eta_to_dbz()</a></code> now accepts NA or NaN input reflectivity values (<a href="https://github.com/adokter/bioRad/issues/741" class="external-link">#741</a>).</p></li>
-<li><p><code><a href="../reference/beam_width.html">beam_width()</a></code> and related functions have a new argument <code>path</code> for outputting either the one-way or two-way beam width of the antenna pattern. The default is changed to two-way (formerly one-way) (<a href="https://github.com/adokter/bioRad/issues/744" class="external-link">#744</a>).</p></li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.11.0" id="biorad-0110">bioRad 0.11.0<a class="anchor" aria-label="anchor" href="#biorad-0110"></a></h2><p class="text-muted">CRAN release: 2025-08-29</p>
 <div class="section level3">

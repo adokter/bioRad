@@ -43,6 +43,9 @@ Useful links:
 
 Authors:
 
+- Adriaan M. Dokter <biorad@cornell.edu>
+  ([ORCID](https://orcid.org/0000-0001-6573-066X))
+
 - Peter Desmet <peter.desmet@inbo.be>
   ([ORCID](https://orcid.org/0000-0002-8442-8025))
 

@@ -29,10 +29,12 @@ integrate_to_ppi(
   antenna,
   beam_angle = 1,
   crs,
-  param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected"),
+  param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected",
+    "eta_sum_to_VIR"),
   k = 4/3,
   re = 6378,
-  rp = 6357
+  rp = 6357,
+  height_reference = "sea"
 )
 ```
 
@@ -69,8 +71,10 @@ integrate_to_ppi(
 - res:
 
   numeric vector of length 1 or 2 to set the resolution of the raster
-  (see res). If this argument is used, arguments `nx` and `ny` are
-  ignored. Unit is identical to `xlim` and `ylim`.
+  (see
+  [res](https://rspatial.github.io/terra/reference/dimensions.html)). If
+  this argument is used, arguments `nx` and `ny` are ignored. Unit is
+  identical to `xlim` and `ylim`.
 
 - quantity:
 
@@ -85,8 +89,12 @@ integrate_to_ppi(
 
 - raster:
 
-  (optional) RasterLayer with a CRS. When specified this raster topology
-  is used for the output, and nx, ny, res arguments are ignored.
+  (optional) `raster::RasterLayer` or
+  [`terra::SpatRaster`](https://rspatial.github.io/terra/reference/SpatRaster-class.html)
+  with a CRS. When specified this raster topology is used for the
+  output, and nx, ny, res arguments are ignored. When
+  `height_reference = "ground"` the raster values should contain the
+  ground height digital elevation in meters.
 
 - lat:
 
@@ -117,8 +125,9 @@ integrate_to_ppi(
 
 - param_ppi:
 
-  Character (vector). One or multiple of `VIR`, `VID`, `R`, `overlap`,
-  `eta_sum` or `eta_sum_expected`.
+  Character (vector). Which quantities to include in the output. One or
+  multiple of `VIR`, `VID`, `R`, `overlap`, `eta_sum`,
+  `eta_sum_expected` or `eta_sum_to_VIR`. Default includes all.
 
 - k:
 
@@ -131,6 +140,11 @@ integrate_to_ppi(
 - rp:
 
   Numeric. Earth polar radius, in km.
+
+- height_reference:
+
+  Character. Either `sea` (default) for range correction relative to sea
+  level, or `ground` for range correction relative to ground level.
 
 ## Value
 
@@ -154,6 +168,12 @@ A `ppi` object with the following parameters:
 - `eta_sum_expected`: the sum of expected linear reflectivities over
   elevation angles based on the input vertical profile `vp`. See
   Kranstauber 2020 for details.
+
+- `eta_sum_to_VIR`: the multiplicative factor for converting the sum of
+  expected linear reflectivities (`eta_sum_expected`) to vertically
+  integrated reflectivity (`VIR`). Identical to
+  `integrate_profile(vp)$vir/eta_sum_expected`. See Kranstauber 2020 for
+  details.
 
 ## Details
 
@@ -275,15 +295,6 @@ plot(ppi, param = "VID", zlim = c(0, 200))
 # Download a basemap and map the ppi
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 map(ppi)
-}
-#> Zoom: 5
-#> Fetching 4 missing tiles
-#>   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
-#> ...complete!
-
-
-# The ppi can also be projected on a user-defined raster, as follows:
-
 # First define the raster
 template_raster <- raster::raster(
   raster::extent(12, 13, 56, 57),
@@ -295,16 +306,6 @@ ppi <- integrate_to_ppi(pvol, example_vp, raster = template_raster)
 
 # Extract the raster data from the ppi object
 raster::brick(ppi$data)
-#> class      : RasterBrick 
-#> dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)
-#> resolution : 0.1, 0.1  (x, y)
-#> extent     : 12, 13, 56, 57  (xmin, xmax, ymin, ymax)
-#> crs        : +proj=longlat +datum=WGS84 +no_defs 
-#> source     : memory
-#> names      :          VIR,          VID,            R,      overlap,      eta_sum, eta_sum_expected 
-#> min values :    0.0000000,    0.0000000,    0.0000000,    0.2971991,    0.0000000,      360.6353523 
-#> max values : 60992.648153,  5522.463635,    61.991172,     0.908399, 69557.116197,      3177.809540 
-#> 
 
 # Calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,
 # cropping the area up to 50000 meter from the radar
@@ -314,5 +315,37 @@ ppi <- integrate_to_ppi(
 )
 plot(ppi, param = "VID", zlim = c(0, 200))
 
+# To calculate a range-corrected map assuming a constant altitude
+# profile maintained relative to ground height:
+if(requireNamespace("elevatr", quietly = TRUE)){
+
+# define a radar-centred grid (azimuthal equidistant, radar at the center):
+pvol |>
+  get_scan(.5) |>
+  scan_to_raster(param = "DBZH") |>
+  terra::rast() -> radar_grid
+
+# download elevation data and resample onto that grid. `expand`
+# over-requests so the full grid is covered;
+data_dem <- terra::project(
+  terra::rast(elevatr::get_elev_raster(radar_grid, z = 5, expand = 100000)), radar_grid)
+# set heights below sea level to zero.
+data_dem[data_dem < 0] <- 0
+# add an informative name
+names(data_dem) <- "HGHT"
+
+# add DEM data to the polar volume:
+pvol_ground <- add_param(pvol, data_dem, "HGHT")
+# compute a profile relative to ground:
+vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
+# apply the range correction:
+ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
+                                raster = data_dem)
+}
+}
+#> Mosaicing & Projecting
+#> Note: Elevation units are in meters.
+#> Running vol2birdSetUp
+#> Warning: radial velocities will be dealiased...
 # }
 ```

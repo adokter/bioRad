@@ -75,9 +75,10 @@ project_as_ppi(
 
 - raster:
 
-  (optional) RasterLayer with a CRS. When specified this raster topology
-  is used for the output, and `grid_size`, `range_max`, `xlim`, `ylim`
-  are ignored.
+  (optional) `raster::RasterLayer` or
+  [`terra::SpatRaster`](https://rspatial.github.io/terra/reference/SpatRaster-class.html)
+  with a CRS. When specified this raster topology is used for the
+  output, and `grid_size`, `range_max`, `xlim`, `ylim` are ignored.
 
 - k:
 

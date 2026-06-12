@@ -82,10 +82,12 @@ Kranstauber et al. (2020).</p>
 <span>  <span class="va">antenna</span>,</span>
 <span>  beam_angle <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="va">crs</span>,</span>
-<span>  param_ppi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"VIR"</span>, <span class="st">"VID"</span>, <span class="st">"R"</span>, <span class="st">"overlap"</span>, <span class="st">"eta_sum"</span>, <span class="st">"eta_sum_expected"</span><span class="op">)</span>,</span>
+<span>  param_ppi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"VIR"</span>, <span class="st">"VID"</span>, <span class="st">"R"</span>, <span class="st">"overlap"</span>, <span class="st">"eta_sum"</span>, <span class="st">"eta_sum_expected"</span>,</span>
+<span>    <span class="st">"eta_sum_to_VIR"</span><span class="op">)</span>,</span>
 <span>  k <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>,</span>
 <span>  re <span class="op">=</span> <span class="fl">6378</span>,</span>
-<span>  rp <span class="op">=</span> <span class="fl">6357</span></span>
+<span>  rp <span class="op">=</span> <span class="fl">6357</span>,</span>
+<span>  height_reference <span class="op">=</span> <span class="st">"sea"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -122,7 +124,7 @@ Kranstauber et al. (2020).</p>
 
 
 <dt id="arg-res">res<a class="anchor" aria-label="anchor" href="#arg-res"></a></dt>
-<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see res).
+<dd><p>numeric vector of length 1 or 2 to set the resolution of the raster (see <a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">res</a>).
 If this argument is used, arguments <code>nx</code> and <code>ny</code> are ignored. Unit is identical to <code>xlim</code> and <code>ylim</code>.</p></dd>
 
 
@@ -138,8 +140,10 @@ estimated in <code>vp</code>. Either <code>DBZH</code>, <code>DBZV</code>, <code
 
 
 <dt id="arg-raster">raster<a class="anchor" aria-label="anchor" href="#arg-raster"></a></dt>
-<dd><p>(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored.</p></dd>
+<dd><p>(optional) <code>raster::RasterLayer</code> or <code><a href="https://rspatial.github.io/terra/reference/SpatRaster-class.html" class="external-link">terra::SpatRaster</a></code> with a CRS. When specified
+this raster topology is used for the output, and nx, ny, res arguments are ignored.
+When <code>height_reference = "ground"</code> the raster values should contain
+the ground height digital elevation in meters.</p></dd>
 
 
 <dt id="arg-lat">lat<a class="anchor" aria-label="anchor" href="#arg-lat"></a></dt>
@@ -168,8 +172,9 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></d
 
 
 <dt id="arg-param-ppi">param_ppi<a class="anchor" aria-label="anchor" href="#arg-param-ppi"></a></dt>
-<dd><p>Character (vector). One or multiple of <code>VIR</code>, <code>VID</code>, <code>R</code>,
-<code>overlap</code>, <code>eta_sum</code> or <code>eta_sum_expected</code>.</p></dd>
+<dd><p>Character (vector). Which quantities to include in the
+output. One or multiple of <code>VIR</code>, <code>VID</code>, <code>R</code>, <code>overlap</code>, <code>eta_sum</code>,
+<code>eta_sum_expected</code> or <code>eta_sum_to_VIR</code>. Default includes all.</p></dd>
 
 
 <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
@@ -182,6 +187,11 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"</p></d
 
 <dt id="arg-rp">rp<a class="anchor" aria-label="anchor" href="#arg-rp"></a></dt>
 <dd><p>Numeric. Earth polar radius, in km.</p></dd>
+
+
+<dt id="arg-height-reference">height_reference<a class="anchor" aria-label="anchor" href="#arg-height-reference"></a></dt>
+<dd><p>Character. Either <code>sea</code> (default) for range correction relative to
+sea level, or <code>ground</code> for range correction relative to ground level.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -197,6 +207,9 @@ as calculated with <a href="beam_profile_overlap.html">beam_profile_overlap</a>.
 See Kranstauber 2020 for details.</p></li>
 <li><p><code>eta_sum_expected</code>: the sum of expected linear reflectivities over elevation angles
 based on the input vertical profile <code>vp</code>. See Kranstauber 2020 for details.</p></li>
+<li><p><code>eta_sum_to_VIR</code>: the multiplicative factor for converting the sum of expected
+linear reflectivities (<code>eta_sum_expected</code>) to vertically integrated reflectivity (<code>VIR</code>).
+Identical to <code>integrate_profile(vp)$vir/eta_sum_expected</code>. See Kranstauber 2020 for details.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -289,15 +302,6 @@ and Remote Sensing 47: 2741-2751.
 <span class="r-in"><span><span class="co"># Download a basemap and map the ppi</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ggspatial"</span>,<span class="st">"prettymapr"</span>, <span class="st">"rosm"</span><span class="op">)</span>, <span class="va">requireNamespace</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="map.html">map</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Zoom: 5</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Fetching 4 missing tiles</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ...complete!</span>
-<span class="r-plt img"><img src="integrate_to_ppi-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># The ppi can also be projected on a user-defined raster, as follows:</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># First define the raster</span></span></span>
 <span class="r-in"><span><span class="va">template_raster</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">56</span>, <span class="fl">57</span><span class="op">)</span>,</span></span>
@@ -309,16 +313,6 @@ and Remote Sensing 47: 2741-2751.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract the raster data from the ppi object</span></span></span>
 <span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/brick.html" class="external-link">brick</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class      : RasterBrick </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> extent     : 12, 13, 56, 57  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> crs        : +proj=longlat +datum=WGS84 +no_defs </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> source     : memory</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> names      :          VIR,          VID,            R,      overlap,      eta_sum, eta_sum_expected </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> min values :    0.0000000,    0.0000000,    0.0000000,    0.2971991,    0.0000000,      360.6353523 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max values : 60992.648153,  5522.463635,    61.991172,     0.908399, 69557.116197,      3177.809540 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the range-corrected ppi on an even finer 500m x 500m pixel raster,</span></span></span>
 <span class="r-in"><span><span class="co"># cropping the area up to 50000 meter from the radar</span></span></span>
@@ -327,7 +321,39 @@ and Remote Sensing 47: 2741-2751.
 <span class="r-in"><span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50000</span>, <span class="fl">50000</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50000</span>, <span class="fl">50000</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppi</span>, param <span class="op">=</span> <span class="st">"VID"</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="integrate_to_ppi-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># To calculate a range-corrected map assuming a constant altitude</span></span></span>
+<span class="r-in"><span><span class="co"># profile maintained relative to ground height:</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"elevatr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># define a radar-centred grid (azimuthal equidistant, radar at the center):</span></span></span>
+<span class="r-in"><span><span class="va">pvol</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">.5</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="scan_to_raster.html">scan_to_raster</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"DBZH"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">radar_grid</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># download elevation data and resample onto that grid. `expand`</span></span></span>
+<span class="r-in"><span><span class="co"># over-requests so the full grid is covered;</span></span></span>
+<span class="r-in"><span><span class="va">data_dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html" class="external-link">project</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu">elevatr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/elevatr/man/get_elev_raster.html" class="external-link">get_elev_raster</a></span><span class="op">(</span><span class="va">radar_grid</span>, z <span class="op">=</span> <span class="fl">5</span>, expand <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span><span class="op">)</span>, <span class="va">radar_grid</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># set heights below sea level to zero.</span></span></span>
+<span class="r-in"><span><span class="va">data_dem</span><span class="op">[</span><span class="va">data_dem</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="co"># add an informative name</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data_dem</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"HGHT"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add DEM data to the polar volume:</span></span></span>
+<span class="r-in"><span><span class="va">pvol_ground</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_param.html">add_param</a></span><span class="op">(</span><span class="va">pvol</span>, <span class="va">data_dem</span>, <span class="st">"HGHT"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># compute a profile relative to ground:</span></span></span>
+<span class="r-in"><span><span class="va">vp_ground</span>   <span class="op">&lt;-</span> <span class="fu"><a href="calculate_vp.html">calculate_vp</a></span><span class="op">(</span><span class="va">pvol_ground</span>, n_layer <span class="op">=</span> <span class="fl">60</span>, h_layer <span class="op">=</span> <span class="fl">50</span>, height_reference <span class="op">=</span> <span class="st">"ground"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># apply the range correction:</span></span></span>
+<span class="r-in"><span><span class="va">ppi_ground</span>  <span class="op">&lt;-</span> <span class="fu">integrate_to_ppi</span><span class="op">(</span><span class="va">pvol_ground</span>, <span class="va">vp_ground</span>, height_reference <span class="op">=</span> <span class="st">"ground"</span>,</span></span>
+<span class="r-in"><span>                                raster <span class="op">=</span> <span class="va">data_dem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Mosaicing &amp; Projecting</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: Elevation units are in meters.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running vol2birdSetUp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Warning: radial velocities will be dealiased...</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
