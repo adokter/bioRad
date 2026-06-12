@@ -9,8 +9,8 @@
 #' @param ylim The range of latitudes to include.
 #' @param xlim The range of longitudes to include.
 #' @param project Whether to vertically project onto earth's surface.
-#' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
-#' and `grid_size`, `range_max`, `xlim`, `ylim` are ignored.
+#' @param raster (optional) `raster::RasterLayer` or `terra::SpatRaster` with a CRS. When specified
+#' this raster topology is used for the output, and `grid_size`, `range_max`, `xlim`, `ylim` are ignored.
 #' @inheritParams beam_height
 #'
 #' @return An object of class '[ppi][summary.ppi]'.
@@ -86,6 +86,9 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
                                 project = TRUE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
   stopifnot(inherits(x, "scan"))
+
+  # accept a terra SpatRaster by converting it to a raster::RasterLayer
+  if (inherits(raster, "SpatRaster")) raster <- raster::raster(raster)
 
   if (!assertthat::are_equal(raster, NA)) {
     assertthat::assert_that(inherits(raster, "RasterLayer"))

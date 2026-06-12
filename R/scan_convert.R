@@ -70,8 +70,8 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"
 #' @param res numeric vector of length 1 or 2 to set the resolution of the raster (see [res][raster::res]).
 #' If this argument is used, arguments `nx` and `ny` are ignored. Unit is identical to `xlim` and `ylim`.
-#' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-#' arguments are ignored.
+#' @param raster (optional) `raster::RasterLayer` or `terra::SpatRaster` with a CRS. When specified
+#' this raster topology is used for the output, and nx, ny, res arguments are ignored.
 #' @return a RasterBrick
 #' @details uses [scan_to_spatial] to georeference the scan's pixels. If multiple scan pixels fall within
 #' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
@@ -84,13 +84,15 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' # crop the scan and project at a resolution of 0.1 degree:
 #' scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
 #'
-#' # using a template raster
-#' template_raster <- raster::raster(raster::extent(12, 13, 56, 58), crs = sp::CRS("+proj=longlat"))
+#' # using a template raster (a terra SpatRaster can be passed directly):
+#' template_raster <- terra::rast(terra::ext(12, 13, 56, 58), crs = "epsg:4326")
 #' scan_to_raster(example_scan, raster = template_raster)
 #' }
 scan_to_raster <- function(scan, nx = 100, ny = 100, xlim, ylim, res = NA, param, raster = NA, lat, lon, crs = NA, k = 4 / 3, re = 6378, rp = 6357) {
   if (!is.scan(scan)) stop("'scan' should be an object of class scan")
   if (get_elevation_angles(scan) == 90) stop("georeferencing of 90 degree birdbath scan not supported")
+  # accept a terra SpatRaster by converting it to a raster::RasterLayer
+  if (inherits(raster, "SpatRaster")) raster <- raster::raster(raster)
   if (!assertthat::is.number(nx) && missing(res)) stop("'nx' should be an integer")
   if (!assertthat::is.number(ny) && missing(res)) stop("'ny' should be an integer")
   if (!missing(xlim)) {

@@ -24,8 +24,9 @@
 #'   estimated in `vp`. Either `DBZH`, `DBZV`, `DBZ`, `TH`, or `TV`.
 #' @param lat Latitude of the radar, in degrees. If missing taken from `pvol`.
 #' @param lon Latitude of the radar, in degrees. If missing taken from `pvol`.
-#' @param raster (optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-#' arguments are ignored. When `height_reference = "ground"` the raster values should contain
+#' @param raster (optional) `raster::RasterLayer` or `terra::SpatRaster` with a CRS. When specified
+#' this raster topology is used for the output, and nx, ny, res arguments are ignored.
+#' When `height_reference = "ground"` the raster values should contain
 #' the ground height digital elevation in meters.
 #' @param height_reference Character. Either `sea` (default) for range correction relative to
 #' sea level, or `ground` for range correction relative to ground level.
@@ -173,9 +174,9 @@
 #' pvol_ground <- add_param(pvol, data_dem, "HGHT")
 #' # compute a profile relative to ground:
 #' vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
-#' # apply the range correction:
+#' # apply the range correction (a terra SpatRaster can be passed directly):
 #' ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
-#'                                 raster = raster::raster(data_dem))
+#'                                 raster = data_dem)
 #' }
 #' }
 #' }
@@ -256,6 +257,8 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   } else {
     res <- NA
   }
+  # accept a terra SpatRaster by converting it to a raster::RasterLayer
+  if (inherits(raster, "SpatRaster")) raster <- raster::raster(raster)
   if (!assertthat::are_equal(raster, NA)) {
     assertthat::assert_that(inherits(raster, "RasterLayer"))
   }

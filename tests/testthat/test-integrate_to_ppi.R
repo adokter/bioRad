@@ -413,9 +413,7 @@ make_dem <- function(pvol, height = NULL) {
   }
   terra::values(dem) <- elevation
   names(dem) <- "HGHT"
-  # integrate_to_ppi() currently requires a RasterLayer for its `raster`
-  # argument, so bridge back to the raster package only at this boundary.
-  raster::raster(dem)
+  dem
 }
 
 test_that("integrate_to_ppi() validates the height_reference argument", {
@@ -474,8 +472,9 @@ test_that("integrate_to_ppi() computes a ground-referenced ppi", {
   pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
   example_pvol <- read_pvolfile(pvolfile)
 
-  # varied synthetic topography (-50 m to 1000 m)
+  # varied synthetic topography (-50 m to 1000 m), supplied as a terra SpatRaster
   dem <- make_dem(example_pvol)
+  expect_s4_class(dem, "SpatRaster")
 
   # flag the profile as ground-referenced to avoid a mismatch warning
   vp_ground <- example_vp

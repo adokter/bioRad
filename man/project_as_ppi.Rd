@@ -59,8 +59,8 @@ project_as_ppi(
 
 \item{xlim}{The range of longitudes to include.}
 
-\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output,
-and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
+\item{raster}{(optional) \code{raster::RasterLayer} or \code{terra::SpatRaster} with a CRS. When specified
+this raster topology is used for the output, and \code{grid_size}, \code{range_max}, \code{xlim}, \code{ylim} are ignored.}
 
 \item{k}{Numeric. Standard refraction coefficient.}
 

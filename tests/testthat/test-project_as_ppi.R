@@ -39,6 +39,17 @@ test_that("project_as_ppi works", {
 })
 
 
+test_that("project_as_ppi() accepts a terra SpatRaster as raster argument", {
+  data("example_scan")
+  b <- project_as_ppi(example_scan, 500, 10000, project = FALSE)
+  template <- raster::raster(b$data)
+  # a terra SpatRaster template must produce the same ppi as the equivalent RasterLayer
+  ppi_spat <- project_as_ppi(example_scan, raster = terra::rast(template), project = FALSE)
+  ppi_rast <- project_as_ppi(example_scan, raster = template, project = FALSE)
+  expect_s3_class(ppi_spat, "ppi")
+  expect_equal(ppi_spat$data, ppi_rast$data, ignore_attr = TRUE)
+})
+
 test_that("project_as_ppi works from different projection", {
   data("example_scan")
   expect_s3_class(b <- project_as_ppi(example_scan, 3000, 5000, project = F), "ppi")

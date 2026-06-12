@@ -55,8 +55,9 @@ corrections, either \code{eta} or \code{dens}.}
 corrections. Typically the same parameter from which animal densities are
 estimated in \code{vp}. Either \code{DBZH}, \code{DBZV}, \code{DBZ}, \code{TH}, or \code{TV}.}
 
-\item{raster}{(optional) RasterLayer with a CRS. When specified this raster topology is used for the output, and nx, ny, res
-arguments are ignored. When \code{height_reference = "ground"} the raster values should contain
+\item{raster}{(optional) \code{raster::RasterLayer} or \code{terra::SpatRaster} with a CRS. When specified
+this raster topology is used for the output, and nx, ny, res arguments are ignored.
+When \code{height_reference = "ground"} the raster values should contain
 the ground height digital elevation in meters.}
 
 \item{lat}{Latitude of the radar, in degrees. If missing taken from \code{pvol}.}
@@ -230,9 +231,9 @@ names(data_dem) <- "HGHT"
 pvol_ground <- add_param(pvol, data_dem, "HGHT")
 # compute a profile relative to ground:
 vp_ground   <- calculate_vp(pvol_ground, n_layer = 60, h_layer = 50, height_reference = "ground")
-# apply the range correction:
+# apply the range correction (a terra SpatRaster can be passed directly):
 ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "ground",
-                                raster = raster::raster(data_dem))
+                                raster = data_dem)
 }
 }
 }

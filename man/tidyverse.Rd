@@ -5,7 +5,7 @@
 \alias{select.scan}
 \title{Tidyverse methods for bioRad objects}
 \usage{
-select.scan(.data, ...)
+\method{select}{scan}(.data, ...)
 }
 \arguments{
 \item{.data}{data object of class \code{scan} or \code{pvol}}
@@ -29,4 +29,3 @@ get_scan(pvol_selected, 1.5)
 select(get_scan(example_pvol, 2.5), VRADH:ZDR)
 }
 }
-\keyword{internal}
