@@ -73,7 +73,7 @@ You can install the released version of bioRad from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("bioRad")
+install.packages("bioRad", dependencies=TRUE)
 ```
 
 Alternatively, you can install the latest development version from
@@ -88,7 +88,8 @@ Then load the package with:
 
 ``` r
 library(bioRad)
-#> Welcome to bioRad version 0.11.0.9000
+#> Welcome to bioRad version 0.10.0
+#> using vol2birdR version 1.3.0 (MistNet installed)
 ```
 
 ### (optional) Enable MistNet

@@ -58,7 +58,7 @@ two-way beam width of the antenna pattern. The default is changed to two-way (fo
 
 ## New features
 
-* New argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
+* New argument `directory_tree` in function `download_pvolfiles()` for omitting local directory tree (#710).
 
 * Use default Bootstrap 5 styling for pkgdown website.
 
@@ -225,7 +225,7 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 # bioRad 0.6.1
 
-Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).
+Rebuilds the documentation using roxygen2 for compatibility with HTML5 (a CRAN requirement).
 
 # bioRad 0.6.0
 
@@ -273,7 +273,7 @@ Introduces a number of new functions and parameters and includes bugfixes. All i
 
 * `read_vpts()` bugfix for missing height attribute (#409).
 
-* `regularize_vpts()`'s `fill` parameter now allows to specify a time interval over which to perform nearest neighbour interpolation to fill gaps of missing profile data. (#475) + bugfix for `max_interval` parameter (#480, #484, #475).
+* `regularize_vpts()`'s `fill` parameter now allows to specify a time interval over which to perform nearest neighbor interpolation to fill gaps of missing profile data. (#475) + bugfix for `max_interval` parameter (#480, #484, #475).
 
 * `scan_to_spatial()` now creates points for cell centers (#430).
 
