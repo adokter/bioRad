@@ -19,6 +19,8 @@ two-way beam width of the antenna pattern. The default is changed to two-way (fo
 
 * Expose `max_nyquist_dealias` parameter to set maximum Nyquist velocity above which to suppress dealiasing (maps to option `maxNyquistDealias` in `vol2birdR::vol2bird_config()`) (#684).
 
+* `raster` argument of `integrate_to_ppi()`, `project_as_ppi()` and `scan_convert` now accepts terra:SpatRaster (8f8458a) 
+
 ## Bugfixes
 
 * Bugfix parsing `azim_min`, `azim_max` and `elev_max` arguments for pvol objects (#762).
