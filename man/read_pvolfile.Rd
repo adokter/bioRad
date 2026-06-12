@@ -6,8 +6,7 @@
 \usage{
 read_pvolfile(
   file,
-  param = c("DBZH", "DBZ", "VRADH", "VRAD", "WRADH", "WRAD", "TH", "T", "RHOHV", "ZDR",
-    "PHIDP", "CELL", "BIOLOGY", "WEATHER", "BACKGROUND"),
+  param = "all",
   sort = TRUE,
   lat,
   lon,
