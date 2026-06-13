@@ -57,7 +57,8 @@ When building locally on OS X or Linux, the GNU Scientific Library (GSL), PROJ a
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
-install.packages("bioRad", dependencies=TRUE)
+# install.packages("pak")
+pak::pak("bioRad", dependencies=TRUE)
 ```
 
 Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:
