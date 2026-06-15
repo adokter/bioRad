@@ -1,6 +1,13 @@
 # Changelog
 
-## bioRad 0.11.0.9000 (development version)
+## bioRad 0.12.0.9000
+
+- [`apply_mistnet()`](http://adriaandokter.com/bioRad/dev/reference/apply_mistnet.md)
+  now accepts `pvol` objects in addition to pvolfiles.
+
+## bioRad 0.12.0
+
+CRAN release: 2026-06-13
 
 ### New features
 
@@ -36,7 +43,7 @@
   is changed to two-way (formerly one-way)
   ([\#744](https://github.com/adokter/bioRad/issues/744)).
 
-- Expose `eta_max parameter` as a user option in
+- Expose `eta_max` as a user option in
   [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md),
   to set maximum bird reflectivity (maps to option `etaMax` in
   [`vol2birdR::vol2bird_config()`](https://rdrr.io/pkg/vol2birdR/man/vol2bird_config.html))
@@ -51,7 +58,7 @@
 - `raster` argument of
   [`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md),
   [`project_as_ppi()`](http://adriaandokter.com/bioRad/dev/reference/project_as_ppi.md)
-  and `scan_convert` now accepts terra:SpatRaster (8f8458a)
+  and `scan_convert` now accepts `terra:SpatRaster` class (8f8458a)
 
 ### Bugfixes
 
@@ -84,6 +91,10 @@
 - [`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md)
   now accepts NA or NaN input reflectivity values
   ([\#741](https://github.com/adokter/bioRad/issues/741)).
+
+- Fix typo in documentation
+  [`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md)
+  swapping birds and insects (bd7e89d).
 
 ## bioRad 0.11.0
 
@@ -121,7 +132,7 @@ CRAN release: 2025-06-16
 
 - New argument `directory_tree` in function
   [`download_pvolfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_pvolfiles.md)
-  for ommitting local directory tree
+  for omitting local directory tree
   ([\#710](https://github.com/adokter/bioRad/issues/710)).
 
 - Use default Bootstrap 5 styling for pkgdown website.
@@ -484,8 +495,8 @@ same, but several functions will run considerable faster.
 
 CRAN release: 2022-08-30
 
-Rebuilds the documentation using roxygen2 for compability with HTML5 (a
-CRAN requirement).
+Rebuilds the documentation using roxygen2 for compatibility with HTML5
+(a CRAN requirement).
 
 ## bioRad 0.6.0
 
@@ -627,10 +638,9 @@ bugfixes. All issues included in this release can be found
 
 - [`regularize_vpts()`](http://adriaandokter.com/bioRad/dev/reference/regularize_vpts.md)’s
   `fill` parameter now allows to specify a time interval over which to
-  perform nearest neighbour interpolation to fill gaps of missing
-  profile data.
-  ([\#475](https://github.com/adokter/bioRad/issues/475)) + bugfix for
-  `max_interval` parameter
+  perform nearest neighbor interpolation to fill gaps of missing profile
+  data. ([\#475](https://github.com/adokter/bioRad/issues/475)) + bugfix
+  for `max_interval` parameter
   ([\#480](https://github.com/adokter/bioRad/issues/480),
   [\#484](https://github.com/adokter/bioRad/issues/484),
   [\#475](https://github.com/adokter/bioRad/issues/475)).

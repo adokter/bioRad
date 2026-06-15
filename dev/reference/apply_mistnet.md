@@ -12,7 +12,6 @@ apply_mistnet(
   verbose = FALSE,
   load = TRUE,
   mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-  local_install,
   local_mistnet
 )
 ```
@@ -21,7 +20,8 @@ apply_mistnet(
 
 - file:
 
-  Character. Path to a polar volume (`pvol`) file.
+  Character. Path to a polar volume (`pvol`) file, or a single `pvol`
+  object.
 
 - pvolfile_out:
 
@@ -42,12 +42,6 @@ apply_mistnet(
   segmentation model, which expects exactly 5 elevation scans at 0.5,
   1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation angles
   may compromise segmentation results.
-
-- local_install:
-
-  (deprecated) Character. Path to local vol2bird installation (e.g.
-  `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use
-  instead of the Docker container.
 
 - local_mistnet:
 

@@ -9,7 +9,7 @@ loads the resultant segmentation as a polar volume (pvol) object."><meta propert
 
     <a class="navbar-brand me-2" href="../index.html">bioRad</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.11.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.12.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,6 @@ loads the resultant segmentation as a polar volume (<code>pvol</code>) object.</
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  load <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mistnet_elevations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">4.5</span><span class="op">)</span>,</span>
-<span>  <span class="va">local_install</span>,</span>
 <span>  <span class="va">local_mistnet</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -63,7 +62,7 @@ loads the resultant segmentation as a polar volume (<code>pvol</code>) object.</
 
 
 <dl><dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
-<dd><p>Character. Path to a polar volume (<code>pvol</code>) file.</p></dd>
+<dd><p>Character. Path to a polar volume (<code>pvol</code>) file, or a single <code>pvol</code> object.</p></dd>
 
 
 <dt id="arg-pvolfile-out">pvolfile_out<a class="anchor" aria-label="anchor" href="#arg-pvolfile-out"></a></dt>
@@ -86,12 +85,6 @@ console.</p></dd>
 feed to the MistNet segmentation model, which expects exactly 5 elevation
 scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 angles may compromise segmentation results.</p></dd>
-
-
-<dt id="arg-local-install">local_install<a class="anchor" aria-label="anchor" href="#arg-local-install"></a></dt>
-<dd><p>(deprecated) Character. Path to local vol2bird installation (e.g.
-<code>your/vol2bird_install_directory/vol2bird/bin/vol2bird</code>) to use instead of
-the Docker container.</p></dd>
 
 
 <dt id="arg-local-mistnet">local_mistnet<a class="anchor" aria-label="anchor" href="#arg-local-mistnet"></a></dt>

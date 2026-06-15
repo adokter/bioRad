@@ -578,8 +578,7 @@ parameters that are either linear or logarithmic in bird density).
 
 The names of the radars in the networks can be found here:
 
-- US: [NEXRAD
-  network](https://www.roc.noaa.gov/branches/program-branch/site-id-database/site-id-location-maps.php)
+- US: NEXRAD network
 - Europe: [OPERA
   database](http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.md)
 

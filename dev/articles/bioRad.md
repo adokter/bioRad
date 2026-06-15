@@ -138,8 +138,8 @@ using the function
 [ggplot2](https://ggplot2.tidyverse.org/) ([Wickham
 2016](https://doi.org/10.1007/978-0-387-98141-3)) and
 [ggmap](https://github.com/dkahle/ggmap) ([Kahle and Wickham
-2013](https://journal.r-project.org/archive/2013/RJ-2013-014/index.html))
-R libraries.
+2013](https://journal.r-project.org/articles/RJ-2013-014/index.html)) R
+libraries.
 
 ### Step 2: processing volumes into vertical profiles
 

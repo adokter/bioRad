@@ -10,7 +10,7 @@ options("sp_evolution_status" = 2L)
 library(bioRad)
 ```
 
-    ## Welcome to bioRad version 0.11.0.9000
+    ## Welcome to bioRad version 0.12.0.9000
 
     ## using vol2birdR version 1.3.0 (MistNet not installed)
 

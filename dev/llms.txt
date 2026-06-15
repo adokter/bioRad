@@ -33,11 +33,11 @@ Documentation for the latest development version can be found
 
 ## Installation
 
-### Install system libraries
+### Install system libraries (Linux or when building locally)
 
-For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5
-libraries need to be installed as system libraries prior to
-installation, which are required by dependency package
+When building locally on OS X or Linux, the GNU Scientific Library
+(GSL), PROJ and HDF5 libraries need to be installed as system libraries
+prior to installation, which are required by dependency package
 **[vol2birdR](https://adriaandokter.com/vol2birdR/)**. On linux,
 additionally, CURL, SSL and GDAL are required by other dependency
 packages of bioRad:
@@ -57,7 +57,8 @@ You can install the released version of bioRad from
 
 ``` r
 
-install.packages("bioRad")
+# install.packages("pak")
+pak::pak("bioRad", dependencies=TRUE)
 ```
 
 Alternatively, you can install the latest development version from
@@ -74,7 +75,8 @@ Then load the package with:
 ``` r
 
 library(bioRad)
-#> Welcome to bioRad version 0.11.0.9000
+#> Welcome to bioRad version 0.12.0
+#> using vol2birdR version 1.3.0 (MistNet installed)
 ```
 
 ### (optional) Enable MistNet
