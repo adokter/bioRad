@@ -3,7 +3,7 @@
 #' Applies the MistNet segmentation model to a polar volume file on disk and
 #'   loads the resultant segmentation as a polar volume (`pvol`) object.
 #'
-#' @param file Character. Path to a polar volume (`pvol`) file.
+#' @param file Character. Path to a polar volume (`pvol`) file, or a single `pvol` object.
 #' @param pvolfile_out Character. (optional) File name. When provided, writes a
 #'   polar volume (`pvol`) file to disk that includes the Mistnet segmentation
 #'   results.
@@ -12,9 +12,6 @@
 #'   feed to the MistNet segmentation model, which expects exactly 5 elevation
 #'   scans at 0.5, 1.5, 2.5, 3.5 and 4.5 degrees. Specifying different elevation
 #'   angles may compromise segmentation results.
-#' @param local_install (deprecated) Character. Path to local vol2bird installation (e.g.
-#'   `your/vol2bird_install_directory/vol2bird/bin/vol2bird`) to use instead of
-#'   the Docker container.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use.
 #'
@@ -130,10 +127,26 @@
 apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
                           load = TRUE,
                           mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-                          local_install, local_mistnet) {
+                          local_mistnet) {
+
+  if (inherits(file, "pvol")) {
+    tmp_pvol_file <- tempfile(fileext = ".h5")
+    write_pvolfile(file, file = tmp_pvol_file)
+    withCallingHandlers(res <- apply_mistnet(file = tmp_pvol_file,
+                                            pvolfile_out = pvolfile_out, verbose = verbose,
+                                            load = load, mistnet_elevations = mistnet_elevations,
+                                            local_mistnet = local_mistnet
+    ), error = function(e) {
+      file.remove(tmp_pvol_file)
+      e
+    })
+    file.remove(tmp_pvol_file)
+    return(res)
+  }
+
   tryCatch(
     apply_mistnet_body(file, pvolfile_out, verbose, load,
-                       mistnet_elevations, local_install, local_mistnet),
+                       mistnet_elevations, local_mistnet),
     error = function(err) {
       rhdf5::h5closeAll()
       stop(err)
@@ -144,7 +157,7 @@ apply_mistnet <- function(file, pvolfile_out, verbose = FALSE,
 apply_mistnet_body <- function(file, pvolfile_out, verbose = FALSE,
                           load = TRUE,
                           mistnet_elevations = c(0.5, 1.5, 2.5, 3.5, 4.5),
-                          local_install, local_mistnet) {
+                          local_mistnet) {
 
   assertthat::assert_that(file.exists(file))
 
