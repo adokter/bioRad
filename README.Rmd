@@ -42,8 +42,8 @@ Documentation for the latest development version can be found [here](https://adr
 
 ## Installation
 
-### Install system libraries
-For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5 libraries need to be installed as system libraries prior to installation, which are required by dependency package **[vol2birdR](https://adriaandokter.com/vol2birdR/)**. On linux, additionally, CURL, SSL and GDAL are required by other dependency packages of bioRad:
+### Install system libraries (Linux or when building locally)
+When building locally on OS X or Linux, the GNU Scientific Library (GSL), PROJ and HDF5 libraries need to be installed as system libraries prior to installation, which are required by dependency package **[vol2birdR](https://adriaandokter.com/vol2birdR/)**. On linux, additionally, CURL, SSL and GDAL are required by other dependency packages of bioRad:
 
 | System                                    | Command
 |:------------------------------------------|:---------------------------------------------|
@@ -57,7 +57,8 @@ For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5 libraries nee
 You can install the released version of bioRad from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r eval = FALSE}
-install.packages("bioRad", dependencies=TRUE)
+# install.packages("pak")
+pak::pak("bioRad", dependencies=TRUE)
 ```
 
 Alternatively, you can install the latest development version from [GitHub](https://github.com/adokter/bioRad) with:

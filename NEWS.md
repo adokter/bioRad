@@ -15,11 +15,11 @@
 * `beam_width()` and related functions have a new argument `path` for outputting either the one-way or
 two-way beam width of the antenna pattern. The default is changed to two-way (formerly one-way) (#744).
 
-* Expose `eta_max parameter`  as a user option in `calculate_vp()`, to set maximum bird reflectivity (maps to option `etaMax` in `vol2birdR::vol2bird_config()`) (#763)
+* Expose `eta_max`  as a user option in `calculate_vp()`, to set maximum bird reflectivity (maps to option `etaMax` in `vol2birdR::vol2bird_config()`) (#763)
 
 * Expose `max_nyquist_dealias` parameter to set maximum Nyquist velocity above which to suppress dealiasing (maps to option `maxNyquistDealias` in `vol2birdR::vol2bird_config()`) (#684).
 
-* `raster` argument of `integrate_to_ppi()`, `project_as_ppi()` and `scan_convert` now accepts terra:SpatRaster (8f8458a) 
+* `raster` argument of `integrate_to_ppi()`, `project_as_ppi()` and `scan_convert` now accepts `terra:SpatRaster` class (8f8458a) 
 
 ## Bugfixes
 
@@ -37,6 +37,7 @@ two-way beam width of the antenna pattern. The default is changed to two-way (fo
 
 * `eta_to_dbz()` now accepts NA or NaN input reflectivity values (#741).
 
+* Fix typo in documentation `clean_mixture()` swapping birds and insects (bd7e89d).
 
 # bioRad 0.11.0
 
@@ -57,7 +58,7 @@ two-way beam width of the antenna pattern. The default is changed to two-way (fo
 
 ## New features
 
-* New argument `directory_tree` in function `download_pvolfiles()` for ommitting local directory tree (#710).
+* New argument `directory_tree` in function `download_pvolfiles()` for omitting local directory tree (#710).
 
 * Use default Bootstrap 5 styling for pkgdown website.
 
@@ -224,7 +225,7 @@ bioRad 0.7 includes a major backend overhaul that deprecates the use of Docker. 
 
 # bioRad 0.6.1
 
-Rebuilds the documentation using roxygen2 for compability with HTML5 (a CRAN requirement).
+Rebuilds the documentation using roxygen2 for compatibility with HTML5 (a CRAN requirement).
 
 # bioRad 0.6.0
 
@@ -272,7 +273,7 @@ Introduces a number of new functions and parameters and includes bugfixes. All i
 
 * `read_vpts()` bugfix for missing height attribute (#409).
 
-* `regularize_vpts()`'s `fill` parameter now allows to specify a time interval over which to perform nearest neighbour interpolation to fill gaps of missing profile data. (#475) + bugfix for `max_interval` parameter (#480, #484, #475).
+* `regularize_vpts()`'s `fill` parameter now allows to specify a time interval over which to perform nearest neighbor interpolation to fill gaps of missing profile data. (#475) + bugfix for `max_interval` parameter (#480, #484, #475).
 
 * `scan_to_spatial()` now creates points for cell centers (#430).
 

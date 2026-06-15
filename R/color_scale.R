@@ -92,7 +92,9 @@ color_palette <- function(param, n_color, alpha) {
     "BACKGROUND",
     "WEATHER",
     "BIOLOGY",
-    "CELL"
+    "CELL",
+    "HGHT",
+    "HEIGHT"
   )) {
     cols <- viridisLite::viridis(n = n_color, alpha = alpha)
   } else {

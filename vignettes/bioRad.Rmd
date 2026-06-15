@@ -29,7 +29,7 @@ In the top navigation, see [**Reference**](https://adriaandokter.com/bioRad/refe
 [haase_2004]: https://doi.org/10.1175/1520-0426(2004)021%3C1566:DODRVU%3E2.0.CO;2
 [holleman_2005]: https://doi.org/10.1175/JTECH1781.1
 [huuskonen_2014]: https://doi.org/10.1175/BAMS-D-12-00216.1
-[kahle_2013]: https://journal.r-project.org/archive/2013/RJ-2013-014/index.html
+[kahle_2013]: https://journal.r-project.org/articles/RJ-2013-014/index.html
 [michelson_2014]: http://eumetnet.eu/wp-content/uploads/2017/01/OPERA_hdf_description_2014.pdf
 [ryzhkov_1998]: https://doi.org/10.1175/1520-0450(1998)037%3C1228:DBRASW%3E2.0.CO;2
 [stepanian_2016]: https://doi.org/10.1002/ecs2.1539
