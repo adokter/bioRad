@@ -1,3 +1,7 @@
+# bioRad 0.12.0.9000
+
+* `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles.
+
 # bioRad 0.12.0 
 
 ## New features
