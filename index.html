@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Biological Analysis and Visualization of Weather Radar Data • bioRad</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Biological Analysis and Visualization of Weather Radar Data">
 <meta name="description" content='Extract, visualize and summarize aerial movements of birds and insects from weather radar data. See Dokter, A. M. et al. (2018) "bioRad: biological analysis and visualization of weather radar data" &lt;doi:10.1111/ecog.04028&gt; for a software paper describing package and methodologies.'>
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">bioRad</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.12.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,28 +85,28 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="section level3">
-<h3 id="install-system-libraries">Install system libraries<a class="anchor" aria-label="anchor" href="#install-system-libraries"></a>
+<h3 id="install-system-libraries-linux-or-when-building-locally">Install system libraries (Linux or when building locally)<a class="anchor" aria-label="anchor" href="#install-system-libraries-linux-or-when-building-locally"></a>
 </h3>
-<p>For OS X and Linux the GNU Scientific Library (GSL), PROJ and HDF5 libraries need to be installed as system libraries prior to installation, which are required by dependency package <strong><a href="https://adriaandokter.com/vol2birdR/" class="external-link">vol2birdR</a></strong>. On linux, additionally, CURL, SSL and GDAL are required by other dependency packages of bioRad:</p>
+<p>When building locally on OS X or Linux, the GNU Scientific Library (GSL), PROJ and HDF5 libraries need to be installed as system libraries prior to installation, which are required by dependency package <strong><a href="https://adriaandokter.com/vol2birdR/" class="external-link">vol2birdR</a></strong>. On linux, additionally, CURL, SSL and GDAL are required by other dependency packages of bioRad:</p>
 <table class="table">
 <colgroup>
 <col width="50%">
 <col width="50%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th align="left">System</th>
 <th align="left">Command</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left"><strong>OS X (using Homebrew)</strong></td>
 <td align="left"><code>brew install hdf5 proj gsl</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><strong>Debian-based systems (including Ubuntu)</strong></td>
 <td align="left"><code>sudo apt-get install libhdf5-dev libproj-dev gsl-bin libgsl-dev libcurl4-openssl-dev libssl-dev libgdal-dev</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><strong>Systems supporting yum and RPMs</strong></td>
 <td align="left"><code>sudo yum install hdf5-devel proj-devel gsl gsl-devel libcurl-devel openssl-devel gdal gdal-devel</code></td>
 </tr>
@@ -119,16 +119,17 @@
 </h3>
 <p>You can install the released version of bioRad from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bioRad"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"bioRad"</span>, dependencies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, you can install the latest development version from <a href="https://github.com/adokter/bioRad" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"adokter/bioRad"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"adokter/bioRad"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Then load the package with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adokter/bioRad/" class="external-link">bioRad</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Welcome to bioRad version 0.10.0.9000</span></span>
-<span><span class="co">#&gt; using vol2birdR version 1.1.1.9000 (MistNet installed)</span></span></code></pre></div>
+<span><span class="co">#&gt; Welcome to bioRad version 0.12.0</span></span>
+<span><span class="co">#&gt; using vol2birdR version 1.3.0 (MistNet installed)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="optional-enable-mistnet">(optional) Enable MistNet<a class="anchor" aria-label="anchor" href="#optional-enable-mistnet"></a>
@@ -155,7 +156,7 @@
 <span>  <span class="fu"><a href="reference/get_scan.html">get_scan</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="reference/project_as_ppi.html">project_as_ppi</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>param <span class="op">=</span> <span class="st">"VRADH"</span><span class="op">)</span> <span class="co"># VRADH = radial velocity in m/s</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_ppi-1.png" width="100%"></p>
+<p><img src="reference/figures/README-plot_ppi-1.png" alt="" width="100%"></p>
 <p><em>Radial velocities towards the radar are negative, while radial velocities away from the radar are positive, so in this plot there is movement from the top right to the bottom left.</em></p>
 </div>
 <div class="section level3">
@@ -167,14 +168,14 @@
 <code class="sourceCode R"><span><span class="va">example_vpts</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="reference/regularize_vpts.html">regularize_vpts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_vpts-1.png" width="100%"></p>
+<p><img src="reference/figures/README-plot_vpts-1.png" alt="" width="100%"></p>
 <p><em>The gray bars in the plot indicate gaps in the data.</em></p>
 <p>The altitudes in the profile can be integrated with <code><a href="reference/integrate_profile.html">integrate_profile()</a></code> resulting in a dataframe with rows for datetimes and columns for quantities. Here we plot the quantity <em>migration traffic rate</em> (column <code>mtr</code>) with <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/integrate_profile.html">integrate_profile</a></span><span class="op">(</span><span class="va">example_vpts</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">my_vpi</span>, quantity <span class="op">=</span> <span class="st">"mtr"</span><span class="op">)</span> <span class="co"># mtr = migration traffic rate</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_vpi-1.png" width="100%"></p>
+<p><img src="reference/figures/README-plot_vpi-1.png" alt="" width="100%"></p>
 <p>To know the total number of birds passing over the radar during the full time series, we use the last value of the <em>cumulative migration traffic</em> (column <code>mt</code>):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_vpi</span> <span class="op">%&gt;%</span></span>
@@ -253,7 +254,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

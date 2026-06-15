@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Introductory exercises with bioRad • bioRad</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introductory exercises with bioRad">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bioRad</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.12.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -221,7 +221,7 @@ which is defined as</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>r</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>Z</mi><mrow><mi>D</mi><mi>R</mi></mrow></msub><mo>+</mo><mn>1</mn><mo>−</mo><mn>2</mn><msqrt><msub><mi>Z</mi><mrow><mi>D</mi><mi>R</mi></mrow></msub></msqrt><mspace width="0.222em"></mspace><msub><mi>ρ</mi><mrow><mi>H</mi><mi>V</mi></mrow></msub></mrow><mrow><msub><mi>Z</mi><mrow><mi>D</mi><mi>R</mi></mrow></msub><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><msqrt><msub><mi>Z</mi><mrow><mi>D</mi><mi>R</mi></mrow></msub></msqrt><mspace width="0.222em"></mspace><msub><mi>ρ</mi><mrow><mi>H</mi><mi>V</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">D_r=\frac{Z_{DR}+ 1 -2 \sqrt{Z_{DR}} \ \rho_{HV}}{Z_{DR}+ 1 +2 \sqrt{Z_{DR}} \ \rho_{HV}}</annotation></semantics></math>
 First we add the depolarization ratio (DR) as a parameter. We’ll express
 DR on a dB scale by transforming:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>R</mi><mo>=</mo><mn>10</mn><msub><mo>log</mo><mn>10</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>D</mi><mi>r</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">DR=10\log_{10}(D_r) </annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>R</mi><mo>=</mo><mn>10</mn><msub><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mn>10</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>D</mi><mi>r</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">DR=10\log_{10}(D_r) </annotation></semantics></math>
 (see <em>Kilambi et al. 2018, A Simple and Effective Method for
 Separating Meteorological from Nonmeteorological Targets Using
 Dual-Polarization Data</em> for more information)</p>
@@ -566,8 +566,8 @@ openly available for most countries. Use function
 </ul>
 <p>The names of the radars in the networks can be found here:</p>
 <ul>
-<li>US: <a href="https://www.roc.noaa.gov/branches/program-branch/site-id-database/site-id-location-maps.php" class="external-link">NEXRAD
-network</a>
+<li>US: NEXRAD network
+<!-- https://www.roc.noaa.gov/branches/program-branch/site-id-database/site-id-location-maps.php -->
 </li>
 <li>Europe: <a href="http://eumetnet.eu/wp-content/themes/aeron-child/observations-programme/current-activities/opera/database/OPERA_Database/index.html" class="external-link">OPERA
 database</a>
@@ -703,7 +703,7 @@ formats:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

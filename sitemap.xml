@@ -12,6 +12,7 @@
 <url><loc>http://adriaandokter.com/bioRad/news/index.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/Ops.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/add_expected_eta_to_scan.html</loc></url>
+<url><loc>http://adriaandokter.com/bioRad/reference/add_param.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/apply_mistnet.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/as.data.frame.vp.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/as.vp.html</loc></url>
@@ -62,6 +63,7 @@
 <url><loc>http://adriaandokter.com/bioRad/reference/list_vpts_aloft.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/map.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/match_filenames.html</loc></url>
+<url><loc>http://adriaandokter.com/bioRad/reference/min_package_version.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/nexrad_to_odim.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/nyquist_velocity.html</loc></url>
 <url><loc>http://adriaandokter.com/bioRad/reference/plot.ppi.html</loc></url>
