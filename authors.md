@@ -42,7 +42,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/adokter/bioRad/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/adokter/bioRad/blob/0.12.0/inst/CITATION)
 
 Dokter AM, Desmet P, Spaaks JH, Van Hoey S, Veen L, Verlinden L, Nilsson
 C, Haase G, Leijnse H, Farnsworth A, Bouten W, Shamoun-Baranes S (2019)
