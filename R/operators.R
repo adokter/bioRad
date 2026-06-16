@@ -61,6 +61,14 @@
 #' @rdname Ops
 #' @export
 `Ops.param` <- function(e1, e2) {
+  if (missing(e2)) {
+    # unary operator (e.g. `!`, unary `-` or `+`), as used internally by
+    # base `ifelse()` via `which(!test)`. Apply the operator to the
+    # underlying values and retain the `param` structure and attributes.
+    m <- do.call(.Generic, list(c(e1)))
+    e1[] <- m
+    return(e1)
+  }
   if (is.param(e1) & is.param(e2)) {
     g1 <- attr(e1, "geo")
     g2 <- attr(e2, "geo")

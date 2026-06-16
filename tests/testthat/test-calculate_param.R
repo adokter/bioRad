@@ -37,6 +37,32 @@ test_that("calculate_param() adds the calculated parameter", {
   )
   expect_equal(ppi_calc$data$DBZH * 2, ppi_calc$data$new_param)
 })
+test_that("calculate_param() works with base ifelse on scan and pvol", {
+  data(example_scan)
+  # base `ifelse()` triggers a unary `!` on a `param` internally; this used
+  # to fail with 'argument "e2" is missing, with no default' for scan/pvol.
+  expect_no_error(
+    scan_res <- calculate_param(example_scan, DBZH = ifelse(RHOHV > 0.95, NA, DBZH))
+  )
+  expect_no_error(
+    pvol_res <- calculate_param(example_pvol, DBZH = ifelse(RHOHV > 0.95, NA, DBZH))
+  )
+  # result matches the documented dplyr::if_else workaround
+  skip_if_not_installed("dplyr")
+  scan_ref <- calculate_param(example_scan, DBZH = dplyr::if_else(c(RHOHV) > 0.95, NA, c(DBZH)))
+  expect_equal(
+    matrix(get_param(scan_res, "DBZH")),
+    matrix(get_param(scan_ref, "DBZH"))
+  )
+  # scan path and pvol path agree for the same elevation
+  expect_equal(
+    matrix(get_param(get_scan(pvol_res, 0.5), "DBZH")),
+    matrix(get_param(calculate_param(get_scan(example_pvol, 0.5),
+      DBZH = ifelse(RHOHV > 0.95, NA, DBZH)
+    ), "DBZH"))
+  )
+})
+
 test_that("calculate_param() works with if_else", {
   skip_if_not_installed('dplyr')
   require(dplyr)
