@@ -10,6 +10,24 @@ test_that("param operators", {
   expect_equal(matrix(example_param) * 1:480, matrix(1:480 * example_param))
 })
 
+test_that("unary param operators", {
+  data(example_scan)
+  example_param <- get_param(example_scan, "VRADH")
+  # unary `-` and `+` dispatch to Ops.param with `e2` missing
+  expect_visible(-example_param)
+  expect_true(is.param(-example_param))
+  expect_equal(-example_param, example_param * -1)
+  expect_equal(+example_param, example_param)
+  # unary `!` is used internally by base `ifelse()` via `which(!test)`.
+  # base `ifelse()` sets the test to logical storage before negating it, so
+  # mirror that here to test the operator on a genuinely logical `param`.
+  logical_param <- example_param > 0
+  storage.mode(logical_param) <- "logical"
+  expect_visible(!logical_param)
+  expect_true(is.param(!logical_param))
+  expect_equal(c(!logical_param), !c(logical_param))
+})
+
 test_that("param and scan errors", {
   data("example_scan")
   p1<-get_param(example_scan,'VRADH')
