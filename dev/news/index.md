@@ -5,6 +5,11 @@
 - [`apply_mistnet()`](http://adriaandokter.com/bioRad/dev/reference/apply_mistnet.md)
   now accepts `pvol` objects in addition to pvolfiles.
 
+- bugfix
+  [`calculate_param()`](http://adriaandokter.com/bioRad/dev/reference/calculate_param.md)
+  when using `ifelse`
+  ([\#770](https://github.com/adokter/bioRad/issues/770)).
+
 ## bioRad 0.12.0
 
 CRAN release: 2026-06-13
