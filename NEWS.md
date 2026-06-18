@@ -2,6 +2,8 @@
 
 * `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles.
 
+* bugfix `calculate_param()` when using `ifelse` (#770).
+
 # bioRad 0.12.0 
 
 ## New features
