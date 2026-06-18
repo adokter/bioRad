@@ -31,6 +31,8 @@ two-way beam width of the antenna pattern. The default is changed to two-way (fo
 
 * Bugfix parsing `azim_min`, `azim_max` and `elev_max` arguments for pvol objects (#762).
 
+* Add the `vad()` function to create a velocity azimuth display plots.
+
 * Changed lower bound of allowed values for `nyquist_min` argument of `calculate_vp()` to zero (#761).
 
 * Bugfix for `as.vpts()` fixing uninformative error message in the case of NA values in the `source_file` column of a vpts data.frame (#759).
