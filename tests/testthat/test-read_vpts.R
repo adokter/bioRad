@@ -21,9 +21,15 @@ h5_dir <- file.path(temp_dir, "h5")
 csv_dir <- file.path(temp_dir, "csv")
 other_dir <- file.path(temp_dir, "other")
 
-if (!dir.exists(h5_dir)) dir.create(h5_dir)
-if (!dir.exists(csv_dir)) dir.create(csv_dir)
-if (!dir.exists(other_dir)) dir.create(other_dir)
+if (!dir.exists(h5_dir)) {
+  dir.create(h5_dir)
+}
+if (!dir.exists(csv_dir)) {
+  dir.create(csv_dir)
+}
+if (!dir.exists(other_dir)) {
+  dir.create(other_dir)
+}
 
 sapply(urls, function(url) download_test_file(url, temp_dir, h5_dir, csv_dir))
 
@@ -39,7 +45,14 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
   vptsfile <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 
   expect_warning(
-    read_vpts(file = vptsfile, radar = "KGBM", lat = 12, lon = 34, height = 1000, wavelength = "S"),
+    read_vpts(
+      file = vptsfile,
+      radar = "KGBM",
+      lat = 12,
+      lon = 34,
+      height = 1000,
+      wavelength = "S"
+    ),
     "read_stdout"
   )
 
@@ -48,19 +61,47 @@ test_that("read_vpts correctly throws deprecation warning and reroutes to read_s
   file.copy(from = vptsfile, to = no_ext_file)
 
   expect_warning(
-    read_vpts(file = no_ext_file, radar = "KBGM", lat = 12, lon = 34, height = 1000, wavelength = "S"),
+    read_vpts(
+      file = no_ext_file,
+      radar = "KBGM",
+      lat = 12,
+      lon = 34,
+      height = 1000,
+      wavelength = "S"
+    ),
     "read_stdout"
   )
 
   expect_warning(
-    read_vpts(file = vptsfile, radar = "KBGM", lat = 12, lon = 34, height = 1000, wavelength = "S"),
+    read_vpts(
+      file = vptsfile,
+      radar = "KBGM",
+      lat = 12,
+      lon = 34,
+      height = 1000,
+      wavelength = "S"
+    ),
     "read_stdout"
   )
 
   # Test if outputs from both functions are equal but suppress warnings in tests
   suppressWarnings(expect_equal(
-    read_vpts(files = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000),
-    read_stdout(file = vptsfile, radar = "radar", lat = 12, lon = 34, height = 1000, wavelength = "C", sep = "")
+    read_vpts(
+      files = vptsfile,
+      radar = "radar",
+      lat = 12,
+      lon = 34,
+      height = 1000
+    ),
+    read_stdout(
+      file = vptsfile,
+      radar = "radar",
+      lat = 12,
+      lon = 34,
+      height = 1000,
+      wavelength = "C",
+      sep = ""
+    )
   ))
 })
 
@@ -74,7 +115,10 @@ test_that("read_vpts() returns error on explicit mixed extensions", {
 test_that("read_vpts() returns on error on inferred mixed extensions", {
   # test an h5 file with a csv extension
   example_h5 <- h5_files[1]
-  new_filename <- paste0(tools::file_path_sans_ext(basename(example_h5)), ".csv")
+  new_filename <- paste0(
+    tools::file_path_sans_ext(basename(example_h5)),
+    ".csv"
+  )
   new_filepath <- file.path(other_dir, new_filename)
   file.copy(example_h5, new_filepath)
 
@@ -124,7 +168,6 @@ test_that("read_vpts() returns error on multiple radars in vp hdf5 files", {
 })
 
 test_that("read_vpts() can read remote (gzipped) VPTS CSV files", {
-  testthat::skip("Ignoring test until readr can read remote gzipped files (FIXME)")
   skip_if_offline()
 
   gz_urls <- urls[grepl("\\.gz$", urls)]
@@ -170,9 +213,9 @@ test_that("read_vpts() returns error on multiple radars in VPTS CSV files", {
 
 test_that("VPTS CSV column dbz_all is renamed to DBZH", {
   vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
-  expect_in("dbz_all",names(read.csv(vptsfile)))
+  expect_in("dbz_all", names(read.csv(vptsfile)))
   my_vpts <- read_vpts(vptsfile)
-  expect_in("DBZH",names(example_vpts$data))
+  expect_in("DBZH", names(example_vpts$data))
 })
 
 test_that("gap column is logical", {
@@ -184,7 +227,7 @@ test_that("gap column is logical", {
 test_that("check ability to convert a vpts object into a data.frame, and then cast it back into a vpts", {
   vptsfile <- system.file("extdata", "example_vpts.csv", package = "bioRad")
   my_vpts <- read_vpts(vptsfile)
-  res <- as.vpts(as.data.frame(my_vpts, suntime=FALSE))
+  res <- as.vpts(as.data.frame(my_vpts, suntime = FALSE))
   expect_true(is.vpts(res))
 })
 
@@ -227,7 +270,9 @@ test_that("read_vpts() returns equal summaries from h5 and csv files from 1 day 
 
   # VPTS CSV
 
-  urls <- c("https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv")
+  urls <- c(
+    "https://aloftdata.s3-eu-west-1.amazonaws.com/baltrad/daily/bewid/2023/bewid_vpts_20230414.csv"
+  )
 
   # Use lapply to download each file to a temporary location
   csv_files <- lapply(urls, function(url) {
