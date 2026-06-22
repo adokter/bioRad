@@ -4,6 +4,8 @@
 
 * bugfix `calculate_param()` when using `ifelse` (#770).
 
+* Improve axis labels for `map()` and provide option not to plot the radar (#773).
+
 # bioRad 0.12.0 
 
 ## New features
