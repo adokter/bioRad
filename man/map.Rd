@@ -30,7 +30,7 @@ map(x, ...)
 
 \item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{map}{Basemap to use, one of \code{\link[rosm:osm.types]{rosm::osm.types()}}}
+\item{map}{Basemap to use, one of \code{\link[rosm:deprecated]{rosm::osm.types()}}}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}

@@ -24,7 +24,7 @@ Identifies cells with \code{NaN} (not a number) in a data frame, extending
 the base function which only works on vectors.
 
 Identify cells with \code{NaN} (not a number) in a data frame. Improves on the
-default\code{\link[base:is.nan]{base::is.nan()}} function, which only works on vectors, by allowing
+default\code{\link[base:is.finite]{base::is.nan()}} function, which only works on vectors, by allowing
 data frames as input.
 }
 \examples{

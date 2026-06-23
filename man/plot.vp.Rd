@@ -42,7 +42,7 @@ respectively.
 \item{line.lwd}{Deprecated argument, use line_lwd instead.}
 
 \item{...}{Additional arguments to be passed to the low level
-\link[graphics:plot]{plot} plotting function.}
+\link[graphics:plot.default]{plot} plotting function.}
 }
 \value{
 No return value, side effect is a plot.

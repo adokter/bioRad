@@ -85,12 +85,12 @@ plot(beam_profile(height = 0:4000, 50000, c(0.5, 2)), 0:4000,
 )
 }
 \seealso{
-Other beam_functions:
-\code{\link[=beam_distance]{beam_distance()}},
-\code{\link[=beam_height]{beam_height()}},
-\code{\link[=beam_profile_overlap]{beam_profile_overlap()}},
-\code{\link[=beam_range]{beam_range()}},
-\code{\link[=beam_width]{beam_width()}},
-\code{\link[=gaussian_beam_profile]{gaussian_beam_profile()}}
+Other beam_functions: 
+\code{\link{beam_distance}()},
+\code{\link{beam_height}()},
+\code{\link{beam_profile_overlap}()},
+\code{\link{beam_range}()},
+\code{\link{beam_width}()},
+\code{\link{gaussian_beam_profile}()}
 }
 \concept{beam_functions}
