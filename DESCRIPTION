@@ -52,7 +52,6 @@ Imports:
     suntools,
     terra,
     tidyr,
-    tidyselect,
     utils,
     viridis,
     viridisLite,
@@ -67,6 +66,7 @@ Suggests:
     rosm,
     testthat (>= 3.0.0),
     vdiffr,
+    tidyselect,
     vol2birdR (>= 1.3.0),
     withr
 LazyData: true
