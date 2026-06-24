@@ -33,9 +33,9 @@
 #' @param barbs.dens Deprecated argument, use barbs_dens_min instead.
 #' @param legend.ticks Deprecated argument, use legend_ticks instead.
 #' @returns No return value, side effect is a plot.
-#' 
-#' @method plot vpts
 #'
+#' @method plot vpts
+#' @family vpts functions
 #' @export
 #'
 #' @details Aerial abundances can be visualized in four related quantities, as specified

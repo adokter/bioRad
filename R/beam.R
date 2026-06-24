@@ -12,11 +12,8 @@
 #' @param rp Numeric. Earth polar radius, in km.
 #'
 #' @returns numeric. Beam height in m.
-#'
+#' @family beam functions
 #' @export
-#'
-#' @seealso
-#' * [beam_width()]
 #'
 #' @details
 #' To account for refraction of the beam towards the earth's surface, an
@@ -29,7 +26,6 @@
 #' latitude only a small correction. Using default values assumes an average
 #' earth's radius of 6371 km.
 #'
-#' @family beam_functions
 #' @examples
 #' # Beam height in meters at 10 km range for a 1 degree elevation beam:
 #' beam_height(10000, 1)
@@ -90,9 +86,8 @@ earth_radius <- function(a, b, lat) {
 #' beam width equals the one-way beam width divided by `sqrt(2)`.
 #'
 #' @return numeric. Beam width in m, typically the full width at half maximum (FWHM).
-#'
+#' @family beam functions
 #' @export
-#' @family beam_functions
 #' @examples
 #' #' # Beam width in meters at 10 km range:
 #' beam_width(10000)
@@ -205,7 +200,7 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #' @return Numeric vector. Normalized radiated energy at each of the specified
 #'   heights.
 #'
-#' @family beam_functions
+#' @family beam functions
 #' @export
 #'
 #' @details Beam profile is calculated using [beam_height] and
@@ -337,14 +332,8 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @param lat Numeric. Radar latitude. Defaults to latitude in `vp`.
 #'
 #' @return A data.frame with columns `distance` and `overlap`.
-#'
+#' @family beam functions
 #' @export
-#' @family beam_functions
-#'
-#' @seealso
-#' * [beam_height()]
-#' * [beam_width()]
-#' * [beam_profile()]
 #'
 #' @details
 #' Overlap is calculated as the [Bhattacharyya
@@ -433,12 +422,9 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #'
 #' @return Beam distance (down range), in m.
 #'
-#' @seealso
-#' * [beam_height()]
-#'
+#' @family beam functions
 #' @export
 #'
-#' @family beam_functions
 #' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # Down range of the 5 degree elevation beam at a slant range of 100 km:
@@ -459,10 +445,9 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #'   (down range), in m.
 #'
 #' @return Beam range (slant range), in m.
-#'
+#' @family beam functions
 #' @export
 #'
-#' @family beam_functions
 #' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # Slant range of the 5 degree elevation beam at a down range of 100 km

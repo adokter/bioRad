@@ -19,7 +19,7 @@
 #'
 #' @return When `load` is `TRUE`, a polar volume (`pvol`) object with the
 #'   Mistnet segmentation results. When `load` is `FALSE`, `TRUE` on success.
-#'
+#' @family manipulate scan functions
 #' @export
 #'
 #' @details
@@ -65,10 +65,6 @@
 #' scans at that spatial location > 0.45.
 #'
 #' MistNet may run more slowly on Windows than on Linux or Mac OS X.
-#'
-#' @seealso
-#' * [check_docker()]
-#' * [calculate_vp()]
 #'
 #' @references
 #' Please cite this publication when using MistNet:

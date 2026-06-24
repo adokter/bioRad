@@ -25,7 +25,7 @@ globalVariables(c("x","y","closest"))
 #' @param keep_datetime Logical, when `TRUE` keep original radar acquisition timestamps.
 #'
 #' @return An object of class `vpts` with regular time steps.
-#'
+#' @family manipulate profile functions
 #' @export
 #'
 #' @details Irregular time series of profiles are typically aligned on a

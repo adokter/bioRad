@@ -8,11 +8,8 @@
 #' @param x A `pvol`, `scan` or `param` object.
 #'
 #' @return The elevation angle(s) in degrees.
-#'
+#' @family polar accessor functions
 #' @export
-#'
-#' @seealso
-#' * [get_scan()]
 #'
 #' @examples
 #' # Locate and read the polar volume example file

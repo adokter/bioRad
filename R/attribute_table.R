@@ -10,6 +10,7 @@
 #' It is important to note that attributes of the full polar volume can contain additional information on processing that is not included in the resulting table.
 #' This function only tabulates attributes of the scans.
 #'
+#' @family profile metadata functions
 #' @export
 #' @returns A data.frame with the attributes of the scan(s)
 #' @examples

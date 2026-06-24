@@ -7,7 +7,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vpi
-#'
+#' @family integrate profile functions
 #' @export
 #'
 #' @details
@@ -31,9 +31,6 @@
 #' * `v`: Ground speed component south to north in m/s.
 #' * `height`: Mean flight height (height weighted by eta) in m above sea level.
 #' @return For [summary.vpi()]: prints summary of the `vpi` object.
-#' @seealso
-#' * [integrate_profile()]
-#' * [plot.vpi()]
 #'
 #' @examples
 #' # Load the example vertical profile time series and integrate to a vpi
@@ -62,7 +59,7 @@ summary.vpi <- function(object, ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.vpi
-#'
+#' @family integrate profile functions
 #' @export
 is.vpi <- function(x) {
   inherits(x, "vpi")

@@ -7,11 +7,8 @@
 #'   C-band (5.3 cm), `S` for S-band (10.6 cm) or in cm.
 #'
 #' @return A `vp` object.
-#'
+#' @family read profile functions
 #' @export
-#'
-#' @seealso
-#' * [summary.vp()]
 read_cajun <- function(file, rcs = 11, wavelength = "S") {
   # input checks
   if (!file.exists(file)) {

@@ -24,6 +24,7 @@
 #' (either datetime or geographic location missing). For `vpts` a
 #' vector of `TRUE`/`FALSE` values is returned.
 #'
+#' @family profile metadata functions
 #' @export
 #'
 #' @details

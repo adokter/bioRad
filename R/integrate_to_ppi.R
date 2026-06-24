@@ -46,7 +46,7 @@
 #' * `eta_sum_to_VIR`: the multiplicative factor for converting the sum of expected
 #'   linear reflectivities (`eta_sum_expected`) to vertically integrated reflectivity (`VIR`).
 #'   Identical to `integrate_profile(vp)$vir/eta_sum_expected`. See Kranstauber 2020 for details.
-#'
+#' @family ppi calculation functions
 #' @export
 #'
 #' @details
@@ -86,12 +86,6 @@
 #'   factor `R`, multiplied by the `vir` calculated for the profile.
 #'
 #' Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
-#'
-#' @seealso
-#' * [summary.ppi()]
-#' * [beam_profile()]
-#' * [beam_range()]
-#' * [integrate_profile()]
 #'
 #' @references
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes

@@ -14,6 +14,7 @@
 #'   scan parameters.
 #'
 #' @return An object of the same class as `x`, either a `pvol` or `scan`.
+#' @family manipulate scan functions
 #' @export
 #'
 #' @details
@@ -25,9 +26,6 @@
 #' One example is the `dplyr::if_else` function. A workaround is
 #' calling the `c()` function on a parameter to convert it to a vector
 #' (e.g. `c(DBZH)`, see examples).
-#'
-#' @seealso
-#' * [get_param()]
 #'
 #' @references
 #' * Kilambi A, Fabry F, Meunier V (2018) A simple and effective method for

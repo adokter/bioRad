@@ -19,6 +19,7 @@
 #'   stations for which no data was found.
 #'
 #' @return A character vector of aloft urls
+#' @family read profile functions
 #' @export
 #'
 #' @examples
@@ -106,7 +107,7 @@ list_vpts_aloft <- function(date_min = NULL,
     # This function uses the zipped monthly files, which are faster to download
     months <- format(seq(start_date, end_date, by = "months"), "%Y%m")
 
-    found_vpts_aloft <-  
+    found_vpts_aloft <-
       s3_get_bucket_df(
         bucket = "s3://aloftdata",
         prefix = glue::glue("{source}/monthly"),

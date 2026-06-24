@@ -28,14 +28,14 @@
 NULL
 
 #' @rdname doy_noy
-#'
+#' @family profile metadata functions
 #' @export
 doy <- function(x, ..., method = "fast") {
   UseMethod("doy", x)
 }
 
 #' @rdname doy_noy
-#'
+#' @family profile metadata functions
 #' @export
 noy <- function(x, ..., method = "fast") {
   UseMethod("noy", x)

@@ -10,7 +10,7 @@
 #'   operating in dual-PRF mode, in Hz.
 #'
 #' @return Nyquist velocity, in m/s.
-#'
+#' @family conversion functions
 #' @export
 #'
 #' @examples

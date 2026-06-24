@@ -11,13 +11,14 @@
 #'
 #' # load the file:
 #' example_pvol <- read_pvolfile(pvolfile)
-#' pvol_selected<-select(example_pvol, DBZH, ZDR) 
+#' pvol_selected<-select(example_pvol, DBZH, ZDR)
 #' # Only selected parameters are retained in the pvol
 #' get_scan(pvol_selected, 1.5)
 #' # Also a series of parameters in a scan can be selected
 #' select(get_scan(example_pvol, 2.5), VRADH:ZDR)
 #' }
 # generalizations for the dplyr verb `select` to `scan` and `pvol` objects
+#' @family scan functions
 #' @exportS3Method dplyr::select
 select.scan <- function(.data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
@@ -35,6 +36,7 @@ select.scan <- function(.data, ...) {
   .data
 }
 
+#' @family pvol functions
 #' @exportS3Method dplyr::select
 select.pvol <- function(.data, ...) {
   .data$scans <- lapply(.data$scans, select.scan, ...)

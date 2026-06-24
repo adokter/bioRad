@@ -21,13 +21,10 @@
 #'   moment of sunrise. See [check_night()] for details.
 #'
 #' @return A `vpts` object, or a `vp` object when `nearest` is specified.
-#'
+#' @family manipulate profile functions
 #' @export
 #' @details Returns profiles for which min <= timestamp profile < max. Selection for night and day
 #' occurs by [check_night].
-#' @seealso
-#' * [summary.vpts()]
-#' * [check_night()]
 #'
 #' @examples
 #' # Select profiles later than 02 Sep 2016

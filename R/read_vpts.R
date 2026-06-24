@@ -9,7 +9,7 @@
 #' @param data_frame When `FALSE` (default) output a `vpts` object, when `TRUE` output a data.frame
 #' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
 #' @return `vpts` object.
-#' @family read functions
+#' @family read profile functions
 #' @export
 #' @examples
 #' ## read a vertical profile time series in VPTS CSV format:
@@ -95,7 +95,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   data <- readr::read_csv(files, show_col_types = FALSE)
   #,
   #col_types = readr::cols(
-  #   .default = readr::col_guess(),  
+  #   .default = readr::col_guess(),
   #   `...1` = readr::col_skip()      # Skip unnamed columns
   #  ))
   #)

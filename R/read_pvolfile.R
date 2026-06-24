@@ -25,7 +25,7 @@
 #'
 #' @return An object of class [pvol][summary.pvol], which is a list
 #' containing polar scans, i.e. objects of class `scan`
-#'
+#' @family read pvol functions
 #' @export
 #'
 #' @details
@@ -53,7 +53,7 @@
 #'
 #' # load the file:
 #' example_pvol <- read_pvolfile(pvolfile)
-#' 
+#'
 #' # print summary info for the loaded polar volume:
 #' example_pvol
 #'

@@ -7,13 +7,8 @@
 #' @param x A `vp`, list of `vp` or `vpts` object.
 #'
 #' @return The `sd_vvp` threshold in m/s.
-#'
+#' @family profile metadata functions
 #' @export
-#'
-#' @seealso
-#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
-#' threshold of an object.
-#' * [rcs()]
 #'
 #' @examples
 #' # Get the sd_vvp threshold for a vp
@@ -65,12 +60,8 @@ sd_vvp_threshold.vpts <- function(x) {
 #' @param value Numeric. The `sd_vvp` threshold value to assign in m/s.
 #'
 #' @return The input object with updated density `x$data$dens` and `sd_vvp_thresh` attribute.
-#'
+#' @family profile metadata functions
 #' @export
-#'
-#' @seealso
-#' * [sd_vvp_threshold()] for getting the `sd_vvp` threshold of an object.
-#' * [`rcs()<-`][rcs<-]
 #'
 #' @examples
 #' # Set the sd_vvp threshold for a vp

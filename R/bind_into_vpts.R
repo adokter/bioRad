@@ -9,17 +9,13 @@
 #'
 #' @return A `vpts` for a single radar or a list of `vpts` for multiple radars.
 #'   Input `vp` are sorted on datetime in the output `vpts`.
-#'
+#' @family manipulate profile functions
 #' @export
 #'
 #' @details
 #'   `bind_into_vpts()` currently requires profiles to have aligning altitude
 #' layers that are of equal width. Profiles are allowed to differ in the number
 #' of altitude layers, i.e. the maximum altitude.
-#'
-#' @seealso
-#' * [summary.vp()]
-#' * [summary.vpts()]
 #'
 #' @examples
 #' # Split the example vpts into two separate time series, one containing

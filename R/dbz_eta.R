@@ -7,11 +7,8 @@
 #' @param K Numeric. Norm of the complex refractive index of water.
 #'
 #' @return Reflectivity, in cm^2/km^3.
-#'
+#' @family conversion functions
 #' @export
-#'
-#' @seealso
-#' * [eta_to_dbz()]
 #'
 #' @examples
 #' # Calculate eta for a 7 dBZ reflectivity factor at C-band:
@@ -40,7 +37,7 @@ dbz_to_eta <- function(dbz, wavelength, K = sqrt(0.93)) {
 #' @param K Numeric. Norm of the complex refractive index of water.
 #'
 #' @return Reflectivity factor, in dBZ.
-#'
+#' @family conversion functions
 #' @export
 #' @examples
 #' # Calculate dBZ for a 10000 cm^2/km^3 eta reflectivity at C-band

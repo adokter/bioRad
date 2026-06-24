@@ -75,7 +75,7 @@
 #'
 #' @return A vertical profile object of class `vp`. When defined, output files
 #'   `vpfile` and `pvolfile_out` are saved to disk.
-#'
+#' @family calculate profile functions
 #' @export
 #'
 #' @details
@@ -172,12 +172,6 @@
 #' You may point parameter `local_mistnet` to a local download of the MistNet segmentation model in
 #' PyTorch format, e.g. `/your/path/mistnet_nexrad.pt`. The MistNet model can
 #' be downloaded at <https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt>.
-#'
-#' @seealso
-#' * [summary.pvol()]
-#' * [summary.vp()]
-#' * [integrate_to_ppi()]
-#' * [add_param()]
 #'
 #' @references
 #' Dokter et al. (2011) is the main reference for the profiling algorithm

@@ -153,6 +153,7 @@
 #' ground speed directions vary with altitude.
 #'
 #' }
+#' @family integrate profile functions
 #' @export
 #'
 #' @examples

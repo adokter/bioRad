@@ -5,12 +5,8 @@
 #' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
 #'
 #' @return The radar cross section in cm^2.
-#'
+#' @family profile metadata functions
 #' @export
-#'
-#' @seealso
-#' * [`rcs()<-`][rcs<-] for setting the radar cross section of an object.
-#' * [sd_vvp_threshold()]
 #'
 #' @examples
 #' # Get the radar cross section for a vp
@@ -72,12 +68,8 @@ rcs.vpi <- function(x) {
 #' @param value Numeric. The radar cross section value to assign in cm^2.
 #'
 #' @return The input object with updated density `x$data$dens` and updated radar cross section attribute.
-#'
+#' @family profile metadata functions
 #' @export
-#'
-#' @seealso
-#' * [rcs()] for getting the radar cross section of an object.
-#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-]
 #'
 #' @examples
 #' # Set the radar cross section for a vp

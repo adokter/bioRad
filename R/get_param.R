@@ -7,11 +7,8 @@
 #'   [summary.param()] for commonly available parameters.
 #'
 #' @return A `param` object.
-#'
+#' @family polar accessor functions
 #' @export
-#'
-#' @seealso
-#' * [summary.param()]
 #'
 #' @examples
 #' # Get summary info for a scan (including parameters)

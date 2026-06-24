@@ -8,7 +8,7 @@
 #' infers data type from the R object data type, at the cost of (heavily) inflated file sizes.
 #'
 #' @return 0 on success. A `pvol` object will be written to file in ODIM H5 format.
-#'
+#' @family read pvol functions
 #' @export
 #'
 #' @examples

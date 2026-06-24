@@ -6,7 +6,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary param
-#'
+#' @family param functions
 #' @export
 #'
 #' @details
@@ -26,9 +26,6 @@
 #' * `PHIDP`: Differential phase in degrees.
 #' * `ZDR`: (Logged) differential reflectivity in dB.
 #'
-#' @seealso
-#' * [get_param()]
-#'
 #' @examples
 #' # Extract the DBZH parameter from a scan
 #' param <- get_param(example_scan, "DBZH")
@@ -45,7 +42,7 @@ summary.param <- function(object, ...) {
 #' Print summary for an object of class `param`
 #'
 #' @noRd
-#'
+#' @family param functions
 #' @export
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
@@ -62,7 +59,7 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.param
-#'
+#' @family param functions
 #' @export
 is.param <- function(x) {
   inherits(x, "param")
