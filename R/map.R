@@ -24,8 +24,9 @@
 #' @param cachedir Character. Maps to [ggspatial::annotation_map_tile()], defaults to
 #' `tools::R_user_dir("bioRad")`
 #' @param ... Arguments passed to [ggplot2::ggplot()].
-#' @importFrom methods as
-#' @return A ggplot object
+#' @returns A ggplot object
+#' @family ppi functions
+#' @export
 #' @details
 #' Available scan parameters for mapping can by printed to screen by
 #' `summary(x)`. Commonly available parameters are:
@@ -40,9 +41,6 @@
 #' The scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
-#' @family ppi functions
-#' @export
-#'
 #' @examples
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
@@ -265,4 +263,3 @@ map.ppi <- function(x, map="cartolight", param, alpha = 0.7, xlim, ylim, zlim = 
 
   mymap
 }
-

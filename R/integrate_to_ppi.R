@@ -30,8 +30,7 @@
 #' the ground height digital elevation in meters.
 #' @param height_reference Character. Either `sea` (default) for range correction relative to
 #' sea level, or `ground` for range correction relative to ground level.
-#'
-#' @return A `ppi` object with the following parameters:
+#' @returns A `ppi` object with the following parameters:
 #' * `VIR`: the vertically integrated reflectivity in cm^2/km^2
 #' * `VID`: the vertically integrated density in 1/km^2
 #' * `R`: the spatial adjustment factor (unitless). See Kranstauber 2020 for details.
@@ -48,7 +47,6 @@
 #'   Identical to `integrate_profile(vp)$vir/eta_sum_expected`. See Kranstauber 2020 for details.
 #' @family ppi calculation functions
 #' @export
-#'
 #' @details
 #' The function requires:
 #'
@@ -86,17 +84,14 @@
 #'   factor `R`, multiplied by the `vir` calculated for the profile.
 #'
 #' Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
-#'
 #' @references
 #' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
-#' J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird Movements
-#' Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-#' \doi{https://doi.org/10.3390/rs12040635}
+#'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
+#'   Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
+#'   635. \doi{10.3390/rs12040635}
 #' * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
-#' stopover using weather surveillance radar. IEEE Transactions on Geoscience
-#' and Remote Sensing 47: 2741-2751.
-#' \doi{https://doi.org/10.1109/TGRS.2009.2014463}
-#'
+#'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
+#'   and Remote Sensing 47: 2741-2751. \doi{10.1109/TGRS.2009.2014463}
 #' @examples
 #' \donttest{
 #' # Locate and read the polar volume example file
@@ -174,15 +169,6 @@
 #' }
 #' }
 #' }
-#' @references
-#' * Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
-#'   J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
-#'   Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
-#'   635. \doi{10.3390/rs12040635}
-#' * Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
-#'   stopover using weather surveillance radar. IEEE Transactions on Geoscience
-#'   and Remote Sensing 47: 2741-2751.
-#'   \doi{10.1109/TGRS.2009.2014463}
 integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(0, 4000), res, quantity = "eta", param = "DBZH", raster = NA, lat, lon, antenna, beam_angle = 1, crs, param_ppi = c("VIR", "VID", "R", "overlap", "eta_sum", "eta_sum_expected", "eta_sum_to_VIR"), k = 4 / 3, re = 6378, rp = 6357, height_reference="sea") {
   if (!is.pvol(pvol)) stop("'pvol' should be an object of class pvol")
   if (!is.vp(vp)) stop("'vp' should be an object of class vp")
@@ -353,7 +339,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     # required for next statement to work
     raster::values(raster)[is.na(raster::values(raster))] <- 0
 
-    spdf<-as(sf::as_Spatial(
+    spdf <- methods::as(sf::as_Spatial(
       sf::st_transform(sf::st_as_sf(as.data.frame(raster::rasterToPoints(raster)), coords=c("x","y"),
                                                           crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
 
@@ -477,10 +463,8 @@ eta_expected <- function(vp,
 #'
 #' @inheritParams integrate_to_ppi
 #' @inheritParams scan_to_raster
-#' @return A `scan` object.
-#'
+#' @returns A `scan` object.
 #' @keywords internal
-#'
 add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
                                      param = "DBZH", lat, lon, antenna,
                                      beam_angle = 1, k = 4 / 3, re = 6378,

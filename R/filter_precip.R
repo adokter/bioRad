@@ -16,7 +16,7 @@
 #' @param filter_all_heights When `TRUE` and a precipitation event is detected,
 #' the entire altitude profile will be filtered. When `FALSE`, only the altitude
 #' layers between `alt_min` and `alt_max` will be filtered.
-#' @return A `vpts` object or a `vp` object, depending on input `x`.
+#' @returns A `vpts` object or a `vp` object, depending on input `x`.
 #' @family manipulate profile functions
 #' @export
 #' @details
@@ -52,7 +52,6 @@
 #' Note that at S-band wavelengths bird migration occurs much more frequently in the reflectivity
 #' regime for precipitation than at C-band. Therefore, at C-band lower settings for parameter `dbz`
 #' are appropriate than at S-band.
-#'
 #' @examples
 #' # rain periods are visible in quantity DBZH as dark vertical lines
 #' # extending above 3 km height:

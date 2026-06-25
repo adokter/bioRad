@@ -22,12 +22,10 @@
 #' for the Docker container.
 #' @param local_install (deprecated) String with path to local vol2bird installation,
 #' to use local installation instead of Docker container
-#'
-#' @return An object of class [pvol][summary.pvol], which is a list
+#' @returns An object of class [pvol][summary.pvol], which is a list
 #' containing polar scans, i.e. objects of class `scan`
 #' @family read pvol functions
 #' @export
-#'
 #' @details
 #' Scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
@@ -43,7 +41,6 @@
 #'    factor
 #' * `PHIDP`: Differential phase (degrees)
 #' * `ZDR`: (Logged) differential reflectivity (dB)
-#'
 #' @examples
 #' # locate example volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -226,7 +223,6 @@ read_pvolfile_body <- function(file, param = 'all',
       }
     }
   }
-
 
   # write height, lat, lon attributes (update with potential user-defined values)
   attribs.where$height <- vol.height

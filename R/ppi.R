@@ -4,11 +4,9 @@
 #'
 #' @param object A `ppi` object.
 #' @param ... Additional arguments affecting the summary produced.
-#'
 #' @method summary ppi
 #' @family ppi functions
 #' @export
-#'
 #' @details
 #' A plan position indicator is a projection of radar data onto the earth's
 #' surface, generated from a single scan (`scan`) with [project_as_ppi()], a
@@ -25,7 +23,6 @@
 #'   * `merged`: Logical. Flag to indicate if a plan position indicator is a
 #'   composite of multiple scans. `TRUE` if generated with [integrate_to_ppi()]
 #'   or [composite_ppi()].
-#'
 #' @examples
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)
@@ -59,12 +56,10 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Check if an object is of class `ppi`
 #'
-#' @param x A `ppi` object.
-#'
-#' @return For [is.ppi()]: `TRUE` for an object of class `ppi`, otherwise
-#'   `FALSE`.
-#'
 #' @rdname summary.ppi
+#' @param x A `ppi` object.
+#' @returns For [is.ppi()]: `TRUE` for an object of class `ppi`, otherwise
+#'   `FALSE`.
 #' @family ppi functions
 #' @export
 is.ppi <- function(x) {
@@ -73,10 +68,9 @@ is.ppi <- function(x) {
 
 #' Get dimensions for an object of class `ppi`
 #'
-#' @return For [dim.ppi()]: number of parameters (`param`), x and y pixels in a
-#'   plan position indicator (`ppi`).
-#'
 #' @rdname summary.ppi
+#' @returns For [dim.ppi()]: number of parameters (`param`), x and y pixels in a
+#'   plan position indicator (`ppi`).
 #' @family ppi functions
 #' @export
 dim.ppi <- function(x) {
@@ -92,11 +86,9 @@ dim.ppi <- function(x) {
 #' @param x A `ppi` object.
 #' @param i Integer. Index/indices specifying which parameters (`param`) or
 #'   derived quantities to extract.
-#'
-#' @return A `ppi` object containing a subset of parameters (`param`).
+#' @returns A `ppi` object containing a subset of parameters (`param`).
 #' @family ppi functions
 #' @export
-#'
 #' @examples
 #' # Project a scan as a ppi
 #' ppi <- project_as_ppi(example_scan)

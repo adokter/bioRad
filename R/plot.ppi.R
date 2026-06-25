@@ -14,10 +14,8 @@
 #' @param ... Arguments passed to low level [ggplot][ggplot2::ggplot] function.
 #' @returns No return value, side effect is a plot.
 #' @method plot ppi
-#'
 #' @family ppi functions
 #' @export
-#'
 #' @details
 #' Available scan parameters for plotting can by printed to screen
 #' by `summary(x)`. Commonly available parameters are:
@@ -32,7 +30,6 @@
 #' The scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
-#'
 #' @examples
 #' \donttest{
 #' # load an example scan:

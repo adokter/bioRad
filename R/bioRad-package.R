@@ -1,3 +1,4 @@
+#' @keywords internal
 #' @details
 #' To get started, see:
 #'
@@ -8,11 +9,10 @@
 #' * [Function reference](https://adriaandokter.com/bioRad/reference/index.html)
 #' : an overview of all bioRad functions.
 #' * See also the \link[getRad]{getRad-package} for accessing and downloading radar data.
-#' @keywords internal
-#' @importFrom dplyr %>% .data
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @importFrom dplyr %>% .data
 #' @importFrom lifecycle deprecated
 ## usethis namespace: end
 NULL

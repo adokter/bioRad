@@ -5,11 +5,9 @@
 #' volume file (see [nexrad_to_odim()]).
 #'
 #' @param file Character. Path of the file to check.
-#'
-#' @return `TRUE` for a polar volume file in readable format, otherwise `FALSE`.
+#' @returns `TRUE` for a polar volume file in readable format, otherwise `FALSE`.
 #' @family read pvol functions
 #' @export
-#'
 #' @examples
 #' # Locate the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -34,14 +32,11 @@ is.pvolfile <- function(file) {
 #' specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf),
 #' Table 2 for a full list of existing ODIM file object types.
 #'
-#'
 #' @param file Character. Path of the file to check.
-#'
-#' @return Character. `PVOL` for polar volume, `VP` for vertical profile,
+#' @returns Character. `PVOL` for polar volume, `VP` for vertical profile,
 #'   otherwise `NA`.
 #' @family pvol metadata functions
 #' @export
-#'
 #' @examples
 #' # Locate the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

@@ -4,11 +4,10 @@
 #'
 #' @param object A `scan` object.
 #' @param ... Additional arguments affecting the summary produced.
-#'
+#' @returns For [summary.scan()]: prints a summary of the `scan` object
 #' @method summary scan
 #' @family scan functions
 #' @export
-#'
 #' @details
 #' A scan (or sweep) is made by the radar at a certain elevation angle. The
 #' resulting parameter data (`param`) are organized along radar range (bins) and
@@ -29,9 +28,6 @@
 #'   rays equals full circle).
 #'   * `rstart`: The range where the first range gate starts in meters (note ODIM stores it as kilometers)
 #'   * `astart`: The start of the first ray.
-#'
-#'
-#' @return For [summary.scan()]: prints a summary of the `scan` object
 #' @examples
 #' # Check if an object is of class scan
 #' is.scan(example_scan)
@@ -66,12 +62,10 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Check if an object is of class `scan`
 #'
-#' @param x A `scan` object.
-#'
-#' @return For [is.scan()]: `TRUE` for an object of class `scan`, otherwise
-#'   `FALSE`.
-#'
 #' @rdname summary.scan
+#' @param x A `scan` object.
+#' @returns For [is.scan()]: `TRUE` for an object of class `scan`, otherwise
+#'   `FALSE`.
 #' @family scan functions
 #' @export
 is.scan <- function(x) {
@@ -80,10 +74,9 @@ is.scan <- function(x) {
 
 #' Get dimensions for an object of class `scan`
 #'
-#' @return For [dim.scan()]: number of parameters (`param`), bins and rays in a
-#'   scan (`scan`).
-#'
 #' @rdname summary.scan
+#' @returns For [dim.scan()]: number of parameters (`param`), bins and rays in a
+#'   scan (`scan`).
 #' @family scan functions
 #' @export
 dim.scan <- function(x) {

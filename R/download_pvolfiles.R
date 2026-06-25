@@ -16,12 +16,11 @@
 #' @param bucket character. Bucket name to use.
 #' @param directory_tree logical. Whether to create the yyyy/mm/dd/radar
 #' directory structure. TRUE by default.
-#' @family read pvol functions
-#' @export
-#' @return `NULL`. The function's primary effect is to download selected polar volume
+#' @returns `NULL`. The function's primary effect is to download selected polar volume
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status.
-#'
+#' @family read pvol functions
+#' @seealso
 #' @examples
 #' \donttest{
 #' # create temporary directory

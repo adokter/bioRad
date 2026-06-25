@@ -52,8 +52,9 @@ at a given distance from the radar. \code{antenna} and \code{height} should be g
 reference to the same reference plane (e.g. ground level or sea level).
 }
 \details{
-Beam profile is calculated using \link{beam_height} and \link{beam_width}. \code{height} and
-\code{antenna} should be given in reference to the same reference plane (e.g. ground level or sea level)
+Beam profile is calculated using \link{beam_height} and \link{beam_width}.
+\code{height} and \code{antenna} should be given in reference to the same reference
+plane (e.g. ground level or sea level)
 }
 \concept{beam_functions}
 \keyword{internal}

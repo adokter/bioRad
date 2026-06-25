@@ -1,9 +1,12 @@
 #' Tidyverse methods for bioRad objects
 #'
 #' Tidyverse methods for bioRad objects, currently only select is implemented. When \code{dplyr} or \code{tidyverse} is loaded the \code{select} method can be used to select parameters.
+#'
+#' @name tidyverse
 #' @param .data data object of class \code{scan} or \code{pvol}
 #' @param ... other arguments
-#' @name tidyverse
+#' @family scan functions
+#' @exportS3Method dplyr::select
 #' @examples
 #' if (require(dplyr, quietly = TRUE)) {
 #' # locate example volume file:
@@ -18,8 +21,6 @@
 #' select(get_scan(example_pvol, 2.5), VRADH:ZDR)
 #' }
 # generalizations for the dplyr verb `select` to `scan` and `pvol` objects
-#' @family scan functions
-#' @exportS3Method dplyr::select
 select.scan <- function(.data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("package dplyr required, please install it first") # nocov

@@ -20,7 +20,6 @@
 #' @method plot vp
 #' @family vp functions
 #' @export
-#'
 #' @examples
 #' # load example vp object:
 #' data(example_vp)

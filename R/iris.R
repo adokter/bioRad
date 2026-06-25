@@ -6,8 +6,7 @@
 #' @param file Character. Path to a polar volume file in IRIS RAW format.
 #' @param header_size Integer. Number of header bytes to search.
 #' @param task Character (vector). Task names to search for in the file header.
-#'
-#' @return Specified `task` names found in the header or `NA` if none of the
+#' @returns Specified `task` names found in the header or `NA` if none of the
 #'   task names were found.
 #' @family pvol metadata functions
 #' @export

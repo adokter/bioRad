@@ -12,11 +12,9 @@
 #' @param x A `pvol` or `scan` object.
 #' @param ... An expression defining the new scan parameter in terms of existing
 #'   scan parameters.
-#'
-#' @return An object of the same class as `x`, either a `pvol` or `scan`.
+#' @returns An object of the same class as `x`, either a `pvol` or `scan`.
 #' @family manipulate scan functions
 #' @export
-#'
 #' @details
 #' For the expression to work it is important that the operation can be
 #' vectorized. For example the `base` `ifelse` function is not vectorized,
@@ -26,13 +24,11 @@
 #' One example is the `dplyr::if_else` function. A workaround is
 #' calling the `c()` function on a parameter to convert it to a vector
 #' (e.g. `c(DBZH)`, see examples).
-#'
 #' @references
 #' * Kilambi A, Fabry F, Meunier V (2018) A simple and effective method for
 #' separating meteorological from nonmeteorological targets using
 #' dual-polarization data. Journal of Atmospheric and Oceanic Technology 35, pp.
 #' 1415–1424. \doi{10.1175/JTECH-D-17-0175.1}
-#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")

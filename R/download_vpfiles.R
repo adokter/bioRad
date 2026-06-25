@@ -19,13 +19,12 @@
 #'   downloaded and unzipped.
 #' @param overwrite Logical. When `TRUE`, re-download and overwrite previously
 #'   downloaded files of the same names.
-#' @return `NULL`. The function's primary effect is to download selected vertical profiles
+#' @returns `NULL`. The function's primary effect is to download selected vertical profiles
 #' files from ENRAM data repository to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status. Message will show
 #' a 404 error for files that are not available.
 #' @family read profile functions
 #' @export
-#'
 #' @examples
 #' \donttest{
 #' # Download (and overwrite) data from radars "bejab" and "bewid".

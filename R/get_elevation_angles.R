@@ -6,11 +6,9 @@
 #' (`param`).
 #'
 #' @param x A `pvol`, `scan` or `param` object.
-#'
-#' @return The elevation angle(s) in degrees.
+#' @returns The elevation angle(s) in degrees.
 #' @family polar accessor functions
 #' @export
-#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -29,7 +27,6 @@ get_elevation_angles <- function(x) {
 }
 
 #' @rdname get_elevation_angles
-#'
 #' @export
 get_elevation_angles.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))
@@ -37,7 +34,6 @@ get_elevation_angles.pvol <- function(x) {
 }
 
 #' @rdname get_elevation_angles
-#'
 #' @export
 get_elevation_angles.scan <- function(x) {
   stopifnot(inherits(x, "scan"))
@@ -45,7 +41,6 @@ get_elevation_angles.scan <- function(x) {
 }
 
 #' @rdname get_elevation_angles
-#'
 #' @export
 get_elevation_angles.param <- function(x) {
   stopifnot(inherits(x, "param"))

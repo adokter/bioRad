@@ -17,7 +17,6 @@
 #' @returns No return value, side effect is a plot.
 #' @method plot scan
 #' @family scan functions
-#'
 #' @export
 #' @details
 #' Available scan parameters for plotting can by printed to screen
@@ -33,7 +32,6 @@
 #' The scan parameters are named according to the OPERA data information
 #' model (ODIM), see Table 16 in the
 #' [ODIM specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
-#'
 #' @examples
 #' # Plot reflectivity
 #' plot(example_scan, param = "DBZH")

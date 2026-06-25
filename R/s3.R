@@ -1,6 +1,6 @@
 #' @description Removes s3:// prefix from bucket string
 #' @param bucket Character. Bucket name or URL-like string (e.g., "s3://my-bucket")
-#' @return Character string (bucket name)
+#' @returns Character string (bucket name)
 #' @keywords nternal
 #' @noRd
 .s3_strip_endpoint <- function(bucket) sub("^s3://", "", bucket %||% "")
@@ -8,7 +8,7 @@
 #' @description Builds S3 HTTPS endpoint URL
 #' @param bucket Character. Bucket name
 #' @param region Character or NULL. AWS region (e.g., "us-east-1"). If NULL/empty, uses global endpoint
-#' @return Character string (URL)
+#' @returns Character string (URL)
 #' @keywords internal
 #' @noRd
 .s3_endpoint <- function(bucket, region = NULL) {
@@ -29,7 +29,7 @@
 #' @param prefix Character. Key prefix to check (e.g., "1998/01/20/KABR/")
 #' @param region Character or NULL. AWS region for the bucket
 #' @param timeout_s Numeric. Request timeout in seconds
-#' @return logical (TRUE/FALSE)
+#' @returns logical (TRUE/FALSE)
 #' @keywords internal
 #' @noRd
 s3_bucket_exists <- function(bucket) {
@@ -41,10 +41,9 @@ s3_bucket_exists <- function(bucket) {
     {\(s) s >= 200 && s < 400}()  #2xx codes indicate success and 3xx codes indicate redirect
 }
 
-
 #' @description Checks if prefix exists in bucket by verifying ListObjectsV2 request is successfully answered (2xx)
 #' @param max_tries Integer. Max retries for the HTTP request (default 5).
-#' @return logical (TRUE/FALSE)
+#' @returns logical (TRUE/FALSE)
 #' @keywords internal
 #' @noRd
 s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_tries = 5) {
@@ -70,7 +69,7 @@ s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_
 #'   (range 1–1000; S3 defaults to 1000 if omitted). Controls objects per page, not total objects returned.
 #' @param region Character or NULL. AWS region for the bucket endpoint.
 #' @param max_tries Integer. Max retries for the HTTP request (default 5).
-#' @return Data frame with columns: `Key`, `LastModified` (POSIXct UTC), `Size`, `ETag`, `StorageClass`.
+#' @returns Data frame with columns: `Key`, `LastModified` (POSIXct UTC), `Size`, `ETag`, `StorageClass`.
 #' @keywords internal
 #' @noRd
 s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
@@ -180,7 +179,7 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 #' @param region Character or NULL. AWS region for the endpoint (e.g., `"eu-west-1"`). If `NULL`,
 #'   the global endpoint is used (S3 may redirect as needed).
 #' @param max_tries Integer. Max automatic retries for the HTTP request (default `5`).
-#' @return character string (file path, invisibly)
+#' @returns character string (file path, invisibly)
 #' @keywords internal
 #' @noRd
 s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL, max_tries = 5) {

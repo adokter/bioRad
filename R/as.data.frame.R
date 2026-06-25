@@ -23,21 +23,18 @@
 #' @param elev Numeric. Sun elevation in degrees, used for
 #'   [sunrise()]/[sunset()] calculations.
 #' @param ... Additional arguments to be passed to or from methods.
-#'
-#' @return A `data.frame` object, containing radar, datetime and height as rows
+#' @returns A `data.frame` object, containing radar, datetime and height as rows
 #'   and all profile quantities as columns, complemented with some oft-used
 #'   additional information (columns `lat`, `lon`, `height_antenna`, `day`,
 #'   `sunrise`, `sunset`).
 #' @family data frame functions
 #' @export
-#'
 #' @details
 #' Note that only the `dens` quantity is thresholded for radial velocity
 #' standard deviation by [sd_vvp_threshold()]. This is different from the
 #' default [plot.vp()], [plot.vpts()] and [get_quantity()] functions, where
 #' quantities `eta`, `dbz`, `ff`, `u`, `v`, `w`, `dd` are all thresholded by
 #' [sd_vvp_threshold()].
-#'
 #' @examples
 #' # Convert vp object to a data.frame
 #' vp_df <- as.data.frame(example_vp)
@@ -127,7 +124,6 @@ as.data.frame.vp <- function(x, row.names = NULL, optional = FALSE, geo = TRUE,
 }
 
 #' @rdname as.data.frame.vp
-#'
 #' @export
 as.data.frame.vpts <- function(x, row.names = NULL, optional = FALSE,
                                geo = TRUE, suntime = TRUE, lat = NULL,

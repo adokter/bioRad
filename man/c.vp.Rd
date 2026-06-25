@@ -19,7 +19,6 @@ Concatenates vertical profiles (\code{vp}) into a list of vertical profiles
 \examples{
 # concatenate vp objects into a list:
 c(example_vp, example_vp)
-
 }
 \seealso{
 \code{\link[=bind_into_vpts]{bind_into_vpts()}}

@@ -13,7 +13,6 @@
 #'   profile, in seconds. Traffic rates are set to zero at times `t` for which
 #'   no profiles can be found within the period `t - interval_max/2` to `t +
 #'   interval_max/2`. Ignored for single profiles of class `vp`.
-#'
 #' @param x A `vp` or `vpts` object.
 #' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
 #' minimum altitude to the height of the antenna.
@@ -28,10 +27,10 @@
 #' @param height_quantile For default `NA` the calculated height equals
 #' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
 #' quantile of the height distribution.
-#'
-#' @return an object of class `vpi`, a data frame with vertically
+#' @returns an object of class `vpi`, a data frame with vertically
 #' integrated profile quantities
-#'
+#' @family integrate profile functions
+#' @export
 #' @details
 #' \subsection{Available quantities}{
 #' The function generates a specially classed data frame with the following
@@ -153,9 +152,6 @@
 #' ground speed directions vary with altitude.
 #'
 #' }
-#' @family integrate profile functions
-#' @export
-#'
 #' @examples
 #' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
@@ -185,7 +181,6 @@ integrate_profile <- function(x, alt_min, alt_max,
 }
 
 #' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
-#'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                                  interval_max = 3600, interval_replace = NA, height_quantile = NA) {
@@ -314,7 +309,6 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
 
 #' @describeIn integrate_profile Vertically integrate a list of vertical
 #'   profiles (`vp`).
-#'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,
@@ -346,7 +340,6 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 
 #' @describeIn integrate_profile Vertically integrate a time series of
 #' vertical profiles (`vpts`).
-#'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,

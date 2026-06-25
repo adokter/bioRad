@@ -10,11 +10,9 @@
 #' @param lat Numeric. Geodetic latitude of the radar, in degrees.
 #' @param re Numeric. Earth equatorial radius, in km.
 #' @param rp Numeric. Earth polar radius, in km.
-#'
 #' @returns numeric. Beam height in m.
 #' @family beam functions
 #' @export
-#'
 #' @details
 #' To account for refraction of the beam towards the earth's surface, an
 #' effective earth's radius of `k` * (true radius) is assumed, with `k` = 4/3.
@@ -25,7 +23,6 @@
 #' large, making oblateness of the earth and the dependence of earth radius with
 #' latitude only a small correction. Using default values assumes an average
 #' earth's radius of 6371 km.
-#'
 #' @examples
 #' # Beam height in meters at 10 km range for a 1 degree elevation beam:
 #' beam_height(10000, 1)
@@ -79,15 +76,13 @@ earth_radius <- function(a, b, lat) {
 #' @param path Character. One of `two_way` (default) or `one_way` for specifying the
 #' effective beam width for the radar's antenna pattern as it transmits a signal (`one_way`),
 #' or as it transmits and receives a signal (`two_way`).
-#'
+#' @returns numeric. Beam width in m, typically the full width at half maximum (FWHM).
+#' @family beam functions
+#' @export
 #' @details The two-way beam is effectively narrower than the one-way beam because
 #' the power distribution is squared in the two-way path (transmit and receive).
 #' Using the normal approximation for the beam power profile, this means the two-way
 #' beam width equals the one-way beam width divided by `sqrt(2)`.
-#'
-#' @return numeric. Beam width in m, typically the full width at half maximum (FWHM).
-#' @family beam functions
-#' @export
 #' @examples
 #' #' # Beam width in meters at 10 km range:
 #' beam_width(10000)
@@ -125,14 +120,12 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #' @inheritParams beam_width
 #' @param antenna Numeric. Height of the centre of the radar antenna, in m.
 #' @param height Numeric. Height in m.
-#'
+#' @returns numeric.
 #' @family beam_functions
-#' @return numeric.
-#'
-#' @details Beam profile is calculated using [beam_height] and [beam_width]. `height` and
-#' `antenna` should be given in reference to the same reference plane (e.g. ground level or sea level)
-#'
 #' @keywords internal
+#' @details Beam profile is calculated using [beam_height] and [beam_width].
+#' `height` and `antenna` should be given in reference to the same reference
+#' plane (e.g. ground level or sea level)
 gaussian_beam_profile <- function(height, range, elev, antenna = 0,
                                   beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
                                   rp = 6357, path = "two_way") {
@@ -196,13 +189,10 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #' @inheritParams gaussian_beam_profile
 #' @inheritParams beam_range
 #' @param elev Numeric vector. Beam elevation(s), in degrees.
-#'
-#' @return Numeric vector. Normalized radiated energy at each of the specified
+#' @returns Numeric vector. Normalized radiated energy at each of the specified
 #'   heights.
-#'
 #' @family beam functions
 #' @export
-#'
 #' @details Beam profile is calculated using [beam_height] and
 #'   [beam_width]. Returns a beam profile as a function of height relative
 #'   to ground level.
@@ -210,7 +200,6 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #'   Returns the normalized altitudinal pattern of radiated energy as a function
 #'   of altitude at a given distance from the radar, assuming the beams are
 #'   emitted at antenna level.
-#'
 #' @examples
 #' # Plot the beam profile, for a 0.5 degree elevation beam at 50 km distance
 #' # from the radar:
@@ -330,11 +319,9 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' @param normalize Logical. If `TRUE`, normalize the radiation coverage pattern
 #'   over the altitude range specified by `zlim`.
 #' @param lat Numeric. Radar latitude. Defaults to latitude in `vp`.
-#'
-#' @return A data.frame with columns `distance` and `overlap`.
+#' @returns A data.frame with columns `distance` and `overlap`.
 #' @family beam functions
 #' @export
-#'
 #' @details
 #' Overlap is calculated as the [Bhattacharyya
 #' coefficient](https://en.wikipedia.org/wiki/Bhattacharyya_distance) (i.e.
@@ -363,7 +350,6 @@ beam_profile_overlap_help <- function(vp, elev, distance, antenna = 0,
 #' Need to evaluate beam by beam the returned signal relative to a uniform beam
 #' filling of at least `NEZH + LOG` If returned signal is lower, the gate is
 #' below noise level.
-#'
 #' @examples
 #' # Read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -419,12 +405,9 @@ beam_profile_overlap <- function(vp, elev, distance, antenna, zlim = c(0, 4000),
 #' for a given beam elevation and slant range.
 #'
 #' @inheritParams beam_height
-#'
-#' @return Beam distance (down range), in m.
-#'
+#' @returns Beam distance (down range), in m.
 #' @family beam functions
 #' @export
-#'
 #' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # Down range of the 5 degree elevation beam at a slant range of 100 km:
@@ -443,11 +426,9 @@ beam_distance <- function(range, elev, k = 4 / 3, lat = 35, re = 6378, rp = 6357
 #' @inheritParams beam_height
 #' @param distance Numeric. Distance from the radar as measured along sea level
 #'   (down range), in m.
-#'
-#' @return Beam range (slant range), in m.
+#' @returns Beam range (slant range), in m.
 #' @family beam functions
 #' @export
-#'
 #' @details depends on [beam_height] to calculate beam height.
 #' @examples
 #' # Slant range of the 5 degree elevation beam at a down range of 100 km

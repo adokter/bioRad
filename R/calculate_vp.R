@@ -72,12 +72,10 @@
 #'   angles may compromise segmentation results.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
-#'
-#' @return A vertical profile object of class `vp`. When defined, output files
+#' @returns A vertical profile object of class `vp`. When defined, output files
 #'   `vpfile` and `pvolfile_out` are saved to disk.
 #' @family calculate profile functions
 #' @export
-#'
 #' @details
 #' ## Typical use
 #'
@@ -172,7 +170,6 @@
 #' You may point parameter `local_mistnet` to a local download of the MistNet segmentation model in
 #' PyTorch format, e.g. `/your/path/mistnet_nexrad.pt`. The MistNet model can
 #' be downloaded at <https://s3.amazonaws.com/mistnet/mistnet_nexrad.pt>.
-#'
 #' @references
 #' Dokter et al. (2011) is the main reference for the profiling algorithm
 #' (vol2bird) underlying this function. When using the `mistnet` option, please
@@ -192,7 +189,6 @@
 #' Measuring historical bird migration in the US using archived weather radar
 #' data and convolutional neural networks. Methods in Ecology and Evolution 10
 #' (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
-#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' pvolfile_source <- system.file("extdata", "volume.h5", package = "bioRad")

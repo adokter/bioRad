@@ -5,11 +5,10 @@
 #'
 #' @param object A `vp` object.
 #' @param ... Additional arguments affecting the summary produced.
-#'
+#' @returns For [summary.vp()]: prints summary of the `vp` object.
 #' @method summary vp
 #' @family vp functions
 #' @export
-#'
 #' @details
 #' A vertical profile of biological targets contains a collection of quantities,
 #' organized in different (typically equally spaced) altitude layers (height
@@ -56,9 +55,6 @@
 #' close range data only (within 35 km), it is typically safe to assume aerial
 #' densities (`dens`) and reflectivities (`eta`) are in fact zero in case of
 #' undetects.
-#'
-#' @return For [summary.vp()]: prints summary of the `vp` object.
-#'
 #' @examples
 #' # Check if an object is of class vp
 #' is.vp(example_vp)
@@ -74,9 +70,9 @@ summary.vp <- function(object, ...) {
 
 #' Print summary for an object of class `vp`
 #'
-#' @noRd
 #' @family vp functions
 #' @export
+#' @noRd
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
   if (is.null(x$data[["height"]])) {
@@ -96,12 +92,10 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Check if an object is of class `vp`
 #'
-#' @param x A `vp` object.
-#'
-#' @return For [is.vp()]: `TRUE` for an object of class `vp`, otherwise
-#'   `FALSE`.
-#'
 #' @rdname summary.vp
+#' @param x A `vp` object.
+#' @returns For [is.vp()]: `TRUE` for an object of class `vp`, otherwise
+#'   `FALSE`.
 #' @family vp functions
 #' @export
 is.vp <- function(x) {
@@ -110,10 +104,9 @@ is.vp <- function(x) {
 
 #' Get dimensions for an object of class `vp`
 #'
-#' @return For [dim.vp()]: number of heights and quantities in a vertical
-#'   profile (`vp`).
-#'
 #' @rdname summary.vp
+#' @returns For [dim.vp()]: number of heights and quantities in a vertical
+#'   profile (`vp`).
 #' @family vp functions
 #' @export
 dim.vp <- function(x) {
@@ -127,16 +120,13 @@ dim.vp <- function(x) {
 #' (`c(vp, vp, vp)`) and warns if they are not from a single radar.
 #'
 #' @param ... `vp` objects.
-#'
-#' @return A list of `vp` objects.
+#' @returns A list of `vp` objects.
 #' @family vp functions
+#' @seealso [bind_into_vpts()]
 #' @export
-#'
 #' @examples
 #' # concatenate vp objects into a list:
 #' c(example_vp, example_vp)
-#'
-#' @seealso [bind_into_vpts()]
 c.vp <- function(...) {
   vp_list <- list(...)
   is_vp <- sapply(vp_list, function(x) methods::is(x, "vp"))

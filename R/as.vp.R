@@ -2,13 +2,13 @@
 #'
 #' @param data a dataframe created from a VPTS CSV file
 #' @returns a bioRad vp object
+#' @family data frame functions
+#' @export
 #' @examples
 #' # load vp data as a data.frame:
 #' df <- as.data.frame(example_vp)
 #' # convert the data.frame to a vp object:
 #' as.vp(df)
-#' @family data frame functions
-#' @export
 as.vp <- function(data) {
   assertthat::assert_that(inherits(data,"data.frame"))
 

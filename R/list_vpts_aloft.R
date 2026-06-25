@@ -17,11 +17,9 @@
 #' @param source Character, either `baltrad` or `ecog-04003`
 #' @param show_warnings Logical, whether to print warnings for dates or radar
 #'   stations for which no data was found.
-#'
-#' @return A character vector of aloft urls
+#' @returns A character vector of aloft urls
 #' @family read profile functions
 #' @export
-#'
 #' @examples
 #' \donttest{
 #' list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')

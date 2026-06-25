@@ -4,15 +4,11 @@
 #' the current bioRad version. Conversion includes renaming `HGHT` to `height`.
 #'
 #' @param x A `vp` or `vpts` object.
-#'
-#' @return An updated object of the same class as the input.
-#'
+#' @returns An updated object of the same class as the input.
 #' @export
-#'
 #' @seealso
 #' * [summary.vp()]
 #' * [summary.vpts()]
-#'
 #' @examples
 #' # Convert a vp object
 #' vp <- convert_legacy(example_vp)
@@ -24,7 +20,6 @@ convert_legacy <- function(x) {
 }
 
 #' @rdname convert_legacy
-#'
 #' @export
 convert_legacy.vp <- function(x) {
   assertthat::assert_that(inherits(x, "vp"))
@@ -33,7 +28,6 @@ convert_legacy.vp <- function(x) {
 }
 
 #' @rdname convert_legacy
-#'
 #' @export
 convert_legacy.vpts <- function(x) {
   assertthat::assert_that(inherits(x, "vpts"))

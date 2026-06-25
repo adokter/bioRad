@@ -5,11 +5,9 @@
 #' (VVP).
 #'
 #' @param x A `vp`, list of `vp` or `vpts` object.
-#'
-#' @return The `sd_vvp` threshold in m/s.
+#' @returns The `sd_vvp` threshold in m/s.
 #' @family profile metadata functions
 #' @export
-#'
 #' @examples
 #' # Get the sd_vvp threshold for a vp
 #' sd_vvp_threshold(example_vp)
@@ -21,7 +19,6 @@ sd_vvp_threshold <- function(x) {
 }
 
 #' @rdname sd_vvp_threshold
-#'
 #' @export
 sd_vvp_threshold.vp <- function(x) {
   stopifnot(inherits(x, "vp"))
@@ -29,7 +26,6 @@ sd_vvp_threshold.vp <- function(x) {
 }
 
 #' @rdname sd_vvp_threshold
-#'
 #' @export
 sd_vvp_threshold.list <- function(x) {
   vptest <- sapply(x, function(y) methods::is(y, "vp"))
@@ -41,7 +37,6 @@ sd_vvp_threshold.list <- function(x) {
 }
 
 #' @rdname sd_vvp_threshold
-#'
 #' @export
 sd_vvp_threshold.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
@@ -58,11 +53,9 @@ sd_vvp_threshold.vpts <- function(x) {
 #'
 #' @inheritParams sd_vvp_threshold
 #' @param value Numeric. The `sd_vvp` threshold value to assign in m/s.
-#'
-#' @return The input object with updated density `x$data$dens` and `sd_vvp_thresh` attribute.
+#' @returns The input object with updated density `x$data$dens` and `sd_vvp_thresh` attribute.
 #' @family profile metadata functions
 #' @export
-#'
 #' @examples
 #' # Set the sd_vvp threshold for a vp
 #' vp <- example_vp
@@ -76,7 +69,6 @@ sd_vvp_threshold.vpts <- function(x) {
 }
 
 #' @rdname sd_vvp_threshold-set
-#'
 #' @export
 `sd_vvp_threshold<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
@@ -96,7 +88,6 @@ sd_vvp_threshold.vpts <- function(x) {
 }
 
 #' @rdname sd_vvp_threshold-set
-#'
 #' @export
 `sd_vvp_threshold<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) methods::is(y, "vp"))
@@ -109,7 +100,6 @@ sd_vvp_threshold.vpts <- function(x) {
 }
 
 #' @rdname sd_vvp_threshold-set
-#'
 #' @export
 `sd_vvp_threshold<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))

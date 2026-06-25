@@ -2,6 +2,8 @@
 #'
 #' Partition mixtures of birds and insects using assumptions on their respective airspeeds,
 #' following the approach by Shi et al. (2025).
+#'
+#' @name clean_mixture
 #' @param x a `vp` or `vpts` object, or a mixture animal density or linear reflectivity eta in cm\eqn{^2}/km\eqn{^3}.
 #' @param ... `eta`, `u`, `v`, `u_wind`, `v_wind` arguments, taken from object for `vp` or `vpts` class.
 #' @param u the mixture's ground speed u component (west to east) in m/s.
@@ -22,7 +24,7 @@
 #' and wind speed are set to NA when `TRUE`, or returned unaltered when `FALSE` (default).
 #' @param keep_mixture When `TRUE` store original mixture reflectivity and speeds as
 #' renamed quantities with `mixture_` prefix
-#' @return a named list with cleaned densities and speeds.
+#' @returns a named list with cleaned densities and speeds.
 #' Output differs depending on whether the fast component is retained
 #' (`drop_slow_component`=`TRUE`, default) or the slow component (`drop_slow_component`=`FALSE`, default). Output quantities include:
 #'   * `eta`: cleaned reflectivity in cm^2/km^3.
@@ -40,36 +42,6 @@
 #' quantities listed above will be added.
 #' @family manipulate profile functions
 #' @export
-#' @name clean_mixture
-#' @examples
-#' # convert profile object to data.frame
-#' df <- as.data.frame(example_vp, suntime=FALSE)
-#' # add wind u and v component wind data
-#' # (here a NW wind identical at all altitudes)
-#' df$u_wind=3
-#' df$v_wind=-3
-#' # convert back to vp object
-#' my_vp <- as.vp(df)
-#' # partition the mixture:
-#' my_vp_clean <- clean_mixture(my_vp)
-#'
-#' # drop the slow component (typically insects)
-#' clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1)
-#' # drop the fast component (typically birds)
-#' clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, drop_slow_component=FALSE)
-#' # keep the original mixture reflectivity and speed components
-#' clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, keep_mixture=TRUE)
-#' # keep reflectivity unaltered when one of the speed components is not a number:
-#' clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1)["eta"]
-#' # set reflectivity to NaN when one of the speed components is not a number:
-#' clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
-#' @references
-#' * Shi X, Drucker J, Chapman JW, Sanchez Herrera M, Dokter AM
-#' Analysis of mixtures of birds and insects in weather radar data.
-#' Ornithological Applications. 2025 (in press) \doi{10.1093/ornithapp/duaf020}.
-#' * Nussbaumer R, Schmid B, Bauer S, Liechti F.
-#' A Gaussian mixture model to separate birds and insects in
-#' single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989 \doi{10.3390/rs13101989}.
 #' @details
 #' For a detail description of the methodology see Shi et al. (2025).
 #' Most commonly the fast component refers to migrating birds, while
@@ -79,7 +51,6 @@
 #' all reflectivity is assigned to the fast component. Similarly, for mixture
 #' airspeeds below the airspeed of the slow component, all reflectivity
 #' will be assigned to the slow component.
-#'
 #'
 #' ## How to use this function?
 #' 1. To apply this function to `vp` or `vpts` data altitudinal wind data
@@ -106,17 +77,44 @@
 #' identical to the wind direction, and the magnitude of the ground speed will be equal
 #' to the wind speed plus the value of `slow`, due to the underlying assumption
 #' of wind following by the slow component.
+#' @references
+#' * Shi X, Drucker J, Chapman JW, Sanchez Herrera M, Dokter AM
+#' Analysis of mixtures of birds and insects in weather radar data.
+#' Ornithological Applications. 2025 (in press) \doi{10.1093/ornithapp/duaf020}.
+#' * Nussbaumer R, Schmid B, Bauer S, Liechti F.
+#' A Gaussian mixture model to separate birds and insects in
+#' single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989 \doi{10.3390/rs13101989}.
+#' @examples
+#' # convert profile object to data.frame
+#' df <- as.data.frame(example_vp, suntime=FALSE)
+#' # add wind u and v component wind data
+#' # (here a NW wind identical at all altitudes)
+#' df$u_wind=3
+#' df$v_wind=-3
+#' # convert back to vp object
+#' my_vp <- as.vp(df)
+#' # partition the mixture:
+#' my_vp_clean <- clean_mixture(my_vp)
+#'
+#' # drop the slow component (typically insects)
+#' clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1)
+#' # drop the fast component (typically birds)
+#' clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, drop_slow_component=FALSE)
+#' # keep the original mixture reflectivity and speed components
+#' clean_mixture(100,u=-13,v=13,u_wind=-7,v_wind=6, fast=8, slow=1, keep_mixture=TRUE)
+#' # keep reflectivity unaltered when one of the speed components is not a number:
+#' clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1)["eta"]
+#' # set reflectivity to NaN when one of the speed components is not a number:
+#' clean_mixture(100,u=-13,v=13,u_wind=NaN,v_wind=6, fast=8, slow=1, drop_missing=TRUE)["eta"]
 NULL
 
 #' @rdname clean_mixture
-#'
 #' @export
 clean_mixture <- function(x, ...){
   UseMethod("clean_mixture", x)
 }
 
 #' @rdname clean_mixture
-#'
 #' @export
 clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, u_wind, v_wind, u, v, ...){
   # verify input
@@ -206,7 +204,6 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
 }
 
 #' @rdname clean_mixture
-#'
 #' @export
 clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, u_wind="u_wind", v_wind="v_wind", ...){
   assertthat::assert_that(inherits(x,"vpts") | inherits(x,"vp"))
@@ -290,7 +287,6 @@ clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE
 }
 
 #' @rdname clean_mixture
-#'
 #' @export
 clean_mixture.vp <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, u_wind="u_wind", v_wind="v_wind"){
   assertthat::assert_that(inherits(x,"vp"))

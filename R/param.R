@@ -4,11 +4,9 @@
 #'
 #' @param object A `param` object.
 #' @param ... Additional arguments affecting the summary produced.
-#'
 #' @method summary param
 #' @family param functions
 #' @export
-#'
 #' @details
 #' A parameter is a quantity/variable measured by the radar during a scan (or
 #' sweep). These are organized along radar range (bins) and azimuth (rays). Scan
@@ -25,7 +23,6 @@
 #' vertically and horizontally polarized reflectivity factor.
 #' * `PHIDP`: Differential phase in degrees.
 #' * `ZDR`: (Logged) differential reflectivity in dB.
-#'
 #' @examples
 #' # Extract the DBZH parameter from a scan
 #' param <- get_param(example_scan, "DBZH")
@@ -41,9 +38,9 @@ summary.param <- function(object, ...) {
 
 #' Print summary for an object of class `param`
 #'
-#' @noRd
 #' @family param functions
 #' @export
+#' @noRd
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
   cat("               Polar scan parameter (class param)\n\n")
@@ -53,12 +50,11 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Check if an object is of class `param`
 #'
+#' @rdname summary.param
 #' @param x A `param` object.
 #'
-#' @return For [is.param()]: `TRUE` for an object of class `param`, otherwise
+#' @returns For [is.param()]: `TRUE` for an object of class `param`, otherwise
 #'   `FALSE`.
-#'
-#' @rdname summary.param
 #' @family param functions
 #' @export
 is.param <- function(x) {

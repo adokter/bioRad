@@ -6,17 +6,14 @@
 #'
 #' @param x A `vp`, `vpts` object or a vector of these.
 #' @param ... A `vp`, `vpts` object or a vector of these.
-#'
-#' @return A `vpts` for a single radar or a list of `vpts` for multiple radars.
+#' @returns A `vpts` for a single radar or a list of `vpts` for multiple radars.
 #'   Input `vp` are sorted on datetime in the output `vpts`.
 #' @family manipulate profile functions
 #' @export
-#'
 #' @details
 #'   `bind_into_vpts()` currently requires profiles to have aligning altitude
 #' layers that are of equal width. Profiles are allowed to differ in the number
 #' of altitude layers, i.e. the maximum altitude.
-#'
 #' @examples
 #' # Split the example vpts into two separate time series, one containing
 #' # profile 1-10 and a second containing profile 11-20
@@ -43,7 +40,6 @@ bind_into_vpts <- function(x, ...) UseMethod("bind_into_vpts", x)
 #' @describeIn bind_into_vpts Bind multiple `vp` into a `vpts`.
 #' If `vp` for multiple radars are provided, a list is returned containing
 #' a `vpts` for each radar.
-#'
 #' @export
 bind_into_vpts.vp <- function(...) {
   vps <- list(...)
@@ -57,7 +53,6 @@ bind_into_vpts.vp <- function(...) {
 #' @describeIn bind_into_vpts Bind multiple `vp` objects into a
 #' `vpts`. If data for multiple radars is provided, a list is returned
 #' containing a `vpts` for each radar.
-#'
 #' @export
 bind_into_vpts.list <- function(x, ...) {
   vptest <- sapply(x, function(y) methods::is(y, "vp"))
@@ -69,10 +64,8 @@ bind_into_vpts.list <- function(x, ...) {
 
 #' @describeIn bind_into_vpts Bind multiple `vpts` into a single
 #' `vpts`. Requires the input `vpts` to be from the same radar.
-#'
 #' @param attributes_from Integer. Which `vpts` to copy attributes from
 #'   (default: first).
-#'
 #' @export
 bind_into_vpts.vpts <- function(..., attributes_from = 1) {
   vptss <- list(...)
@@ -143,14 +136,11 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' to [read_vpfiles].
 #' @param radar optional string containing the radar identifier to generate
 #' time series for.
-#'
-#' @return an object of class [vpts][summary.vpts] when `list`
+#' @returns an object of class [vpts][summary.vpts] when `list`
 #' contains profiles of a single radar. A list of objects of class
 #' [vpts][summary.vpts] in case when `list` contains profiles of
 #' multiple radars, containing [vpts][summary.vpts] objects for each radar.
-#'
 #' @keywords internal
-#'
 #' @examples
 #' vpfile1 <- system.file("extdata", "profile.h5", package = "bioRad")
 #' vpfile2 <- vpfile1

@@ -11,12 +11,10 @@
 #'   `bejab`) of radars to include in file selection.
 #' @param directory character. Path to local directory where files should be
 #'   looked for.
-#'
-#' @return Character vector of file paths that comply to the given date and
+#' @returns Character vector of file paths that comply to the given date and
 #'   radar range.
 #' @family read profile functions
 #' @export
-#'
 #' @examples
 #' select_vpfiles(
 #'   date_min = "2016-10-03",
