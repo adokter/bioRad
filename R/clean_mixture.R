@@ -38,6 +38,7 @@
 #'
 #' For `vp` and `vpts` objects the quantities `eta`,`u`,`v` will be updated, and other
 #' quantities listed above will be added.
+#' @family manipulate profile functions
 #' @export
 #' @name clean_mixture
 #' @examples

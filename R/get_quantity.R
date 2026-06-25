@@ -33,11 +33,6 @@
 #' attributes.
 #' @returns the value of a specific profile quantity specified in `quantity`.
 #'
-#' @seealso
-#' * [summary.vp()]
-#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
-#' threshold of an object.
-#'
 #' @examples
 #' # Extract the animal density (dens) quantity from a vp object
 #' get_quantity(example_vp, "dens")
@@ -45,6 +40,7 @@
 #' # Extract the horizontal ground speed (ff) quantity from a vpts object and show the
 #' # first two datetimes
 #' get_quantity(example_vpts, "ff")[,1:2]
+#' @family profile accessor functions
 #' @export
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)

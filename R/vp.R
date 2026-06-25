@@ -7,7 +7,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vp
-#'
+#' @family vp functions
 #' @export
 #'
 #' @details
@@ -57,15 +57,6 @@
 #' densities (`dens`) and reflectivities (`eta`) are in fact zero in case of
 #' undetects.
 #'
-#' @seealso
-#' * [calculate_vp()]
-#' * [read_vpfiles()]
-#' * [`example_vp`]
-#' * [get_quantity()]
-#' * [plot.vp()]
-#' * [as.data.frame.vp()]
-#' * [bind_into_vpts()]
-#'
 #' @return For [summary.vp()]: prints summary of the `vp` object.
 #'
 #' @examples
@@ -84,7 +75,7 @@ summary.vp <- function(object, ...) {
 #' Print summary for an object of class `vp`
 #'
 #' @noRd
-#'
+#' @family vp functions
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
@@ -111,7 +102,7 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.vp
-#'
+#' @family vp functions
 #' @export
 is.vp <- function(x) {
   inherits(x, "vp")
@@ -123,7 +114,7 @@ is.vp <- function(x) {
 #'   profile (`vp`).
 #'
 #' @rdname summary.vp
-#'
+#' @family vp functions
 #' @export
 dim.vp <- function(x) {
   stopifnot(inherits(x, "vp"))
@@ -138,7 +129,7 @@ dim.vp <- function(x) {
 #' @param ... `vp` objects.
 #'
 #' @return A list of `vp` objects.
-#'
+#' @family vp functions
 #' @export
 #'
 #' @examples

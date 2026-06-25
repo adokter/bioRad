@@ -6,7 +6,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary scan
-#'
+#' @family scan functions
 #' @export
 #'
 #' @details
@@ -30,11 +30,6 @@
 #'   * `rstart`: The range where the first range gate starts in meters (note ODIM stores it as kilometers)
 #'   * `astart`: The start of the first ray.
 #'
-#' @seealso
-#' * [get_scan()]
-#' * [`example_scan`]
-#' * [plot.scan()]
-#' * [get_param()]
 #'
 #' @return For [summary.scan()]: prints a summary of the `scan` object
 #' @examples
@@ -56,7 +51,7 @@ summary.scan <- function(object, ...) {
 #' Print summary for an object of class `scan`
 #'
 #' @noRd
-#'
+#' @family scan functions
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "scan"))
@@ -77,7 +72,7 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.scan
-#'
+#' @family scan functions
 #' @export
 is.scan <- function(x) {
   inherits(x, "scan")
@@ -89,7 +84,7 @@ is.scan <- function(x) {
 #'   scan (`scan`).
 #'
 #' @rdname summary.scan
-#'
+#' @family scan functions
 #' @export
 dim.scan <- function(x) {
   stopifnot(inherits(x, "scan"))

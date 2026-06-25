@@ -31,7 +31,7 @@
 #' @param nightshade Deprecated argument, use night_shade instead.
 #' @returns No return value, side effect is a plot.
 #' @method plot vpi
-#'
+#' @family integrate profile functions
 #' @export
 #'
 #' @details

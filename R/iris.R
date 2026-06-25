@@ -9,7 +9,7 @@
 #'
 #' @return Specified `task` names found in the header or `NA` if none of the
 #'   task names were found.
-#'
+#' @family pvol metadata functions
 #' @export
 get_iris_raw_task <- function(file, header_size=50, task=c("WIND","SURVEILLANCE","VOL_A","VOL_B")){
   assertthat::assert_that(file.exists(file))

@@ -28,11 +28,8 @@
 #'   and all profile quantities as columns, complemented with some oft-used
 #'   additional information (columns `lat`, `lon`, `height_antenna`, `day`,
 #'   `sunrise`, `sunset`).
-#'
+#' @family data frame functions
 #' @export
-#'
-#' @seealso
-#' * [summary.vpts()]
 #'
 #' @details
 #' Note that only the `dens` quantity is thresholded for radial velocity

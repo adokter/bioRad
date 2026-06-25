@@ -13,7 +13,7 @@
 #' @keywords internal
 #' @return An object inheriting from class `vpts`, see
 #' [`vpts()`][summary.vpts] for details.
-#'
+#' @noRd
 #' @export
 #'
 #' @examples

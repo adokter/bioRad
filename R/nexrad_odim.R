@@ -15,18 +15,18 @@
 #' @inheritParams calculate_vp
 #'
 #' @return `TRUE` on success
-#'
+#' @family pvol convert functions
 #' @export
 #' @examples
 #' \donttest{
 #' # download a NEXRAD file, save as KBGM_example
 #' path = file.path(tempdir(), "KBGM_example")
-#' 
+#'
 #' download.file(paste0("https://unidata-nexrad-level2.s3.amazonaws.com/",
 #'   "2019/10/01/KBGM/KBGM20191001_000542_V06"), path, method="libcurl", mode="wb")
 #'
 #' # convert to ODIM format
-#' 
+#'
 #' new_path = file.path(tempdir(), "KBGM_example.h5")
 #'
 #' if (requireNamespace("vol2birdR", quietly = TRUE)) {

@@ -6,7 +6,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary ppi
-#'
+#' @family ppi functions
 #' @export
 #'
 #' @details
@@ -25,14 +25,6 @@
 #'   * `merged`: Logical. Flag to indicate if a plan position indicator is a
 #'   composite of multiple scans. `TRUE` if generated with [integrate_to_ppi()]
 #'   or [composite_ppi()].
-#'
-#' @seealso
-#' * [project_as_ppi()]
-#' * [integrate_to_ppi()]
-#' * [plot.ppi()]
-#' * [map()]
-#' * [composite_ppi()]
-#' * \code{\link[=[.ppi]{[ppi()}}
 #'
 #' @examples
 #' # Project a scan as a ppi
@@ -53,7 +45,7 @@ summary.ppi <- function(object, ...) {
 #' Print summary for an object of class `ppi`
 #'
 #' @noRd
-#'
+#' @family ppi functions
 #' @export
 print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "ppi"))
@@ -73,7 +65,7 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.ppi
-#'
+#' @family ppi functions
 #' @export
 is.ppi <- function(x) {
   inherits(x, "ppi")
@@ -85,7 +77,7 @@ is.ppi <- function(x) {
 #'   plan position indicator (`ppi`).
 #'
 #' @rdname summary.ppi
-#'
+#' @family ppi functions
 #' @export
 dim.ppi <- function(x) {
   stopifnot(inherits(x, "ppi"))
@@ -102,7 +94,7 @@ dim.ppi <- function(x) {
 #'   derived quantities to extract.
 #'
 #' @return A `ppi` object containing a subset of parameters (`param`).
-#'
+#' @family ppi functions
 #' @export
 #'
 #' @examples

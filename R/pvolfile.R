@@ -7,13 +7,8 @@
 #' @param file Character. Path of the file to check.
 #'
 #' @return `TRUE` for a polar volume file in readable format, otherwise `FALSE`.
-#'
+#' @family read pvol functions
 #' @export
-#'
-#' @seealso
-#' * [read_pvolfile()]
-#' * [get_odim_object_type()]
-#' * [is.pvol()]
 #'
 #' @examples
 #' # Locate the polar volume example file
@@ -44,12 +39,8 @@ is.pvolfile <- function(file) {
 #'
 #' @return Character. `PVOL` for polar volume, `VP` for vertical profile,
 #'   otherwise `NA`.
-#'
+#' @family pvol metadata functions
 #' @export
-#'
-#' @seealso
-#' * [is.pvolfile()]
-#' * [is.vpfile()]
 #'
 #' @examples
 #' # Locate the polar volume example file

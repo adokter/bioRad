@@ -7,6 +7,7 @@
 #' df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
 #' # convert the data.frame to a vpts object:
 #' as.vpts(df)
+#' @family data frame functions
 #' @export
 as.vpts <- function(data) {
   assertthat::assert_that(inherits(data,"data.frame"))

@@ -10,15 +10,11 @@
 #' all scans equally close to the requested elevation (`TRUE`).
 #'
 #' @return A `scan` object when `all` equals `FALSE` (default), or a list of `scan` objects if `all` equals `TRUE`
-#'
+#' @family polar accessor functions`
 #' @export
 #'
 #' @details In cases where `elev` is exactly in between two
 #' scan elevation angles, the lower elevation angle scan is returned.
-#'
-#' @seealso
-#' * [summary.scan()]
-#' * [get_elevation_angles()]
 #'
 #' @examples
 #' # Locate and read the polar volume example file

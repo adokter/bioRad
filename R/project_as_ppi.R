@@ -14,7 +14,7 @@
 #' @inheritParams beam_height
 #'
 #' @return An object of class '[ppi][summary.ppi]'.
-#'
+#' @family ppi calculation functions
 #' @export
 #'
 #' @details The returned PPI is in Azimuthal Equidistant Projection.

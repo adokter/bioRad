@@ -11,7 +11,7 @@
 #'
 #' @return The object `x` with an added parameter, extracting data from the raster
 #' specified by `raster`.
-#'
+#' @family manipulate scan functions
 #' @export
 #'
 #' @examples

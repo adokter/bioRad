@@ -69,7 +69,7 @@
 NULL
 
 #' @rdname sunrise_sunset
-#'
+#' @family suncalc functions
 #' @export
 sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
@@ -81,7 +81,7 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 }
 
 #' @rdname sunrise_sunset
-#'
+#' @family suncalc functions
 #' @export
 sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)

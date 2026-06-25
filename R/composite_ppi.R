@@ -20,7 +20,7 @@
 #'   pixel.
 #'
 #' @return A `ppi` object.
-#'
+#' @family ppi calculation functions
 #' @export
 #'
 #' @details

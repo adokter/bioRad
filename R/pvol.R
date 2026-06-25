@@ -6,7 +6,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary pvol
-#'
+#' @family pvol functions
 #' @export
 #'
 #' @details
@@ -22,11 +22,6 @@
 #'   * `lat`: Latitude of the radar in decimal degrees.
 #'   * `lon`: Longitude of the radar in decimal degrees.
 #'   * `height`: Height of the radar antenna in meters above sea level.
-#'
-#' @seealso
-#' * [read_pvolfile()]
-#' * [get_elevation_angles()]
-#' * [get_scan()]
 #'
 #' @examples
 #' # Locate and read the polar volume example file
@@ -51,7 +46,7 @@ summary.pvol <- function(object, ...) {
 #' Print summary for an object of class `pvol`
 #'
 #' @noRd
-#'
+#' @family pvol functions
 #' @export
 print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "pvol"))
@@ -70,7 +65,7 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.pvol
-#'
+#' @family pvol functions
 #' @export
 is.pvol <- function(x) {
   inherits(x, "pvol")
@@ -82,7 +77,7 @@ is.pvol <- function(x) {
 #'   (`pvol`).
 #'
 #' @rdname summary.pvol
-#'
+#' @family pvol functions
 #' @export
 dim.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))

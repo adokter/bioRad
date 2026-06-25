@@ -7,13 +7,8 @@
 #'
 #' @return `TRUE` for a vertical profile file in readable format, otherwise
 #'   `FALSE`.
-#'
+#' @family read profile functions
 #' @export
-#'
-#' @seealso
-#' * [read_vpfiles()]
-#' * [get_odim_object_type()]
-#' * [is.vp()]
 #'
 #' @examples
 #' # Locate the vertical profile example file

@@ -16,6 +16,7 @@
 #' @param ... Arguments passed to [ggplot2::ggplot()].
 #' @returns No return value, side effect is a plot.
 #' @method plot scan
+#' @family scan functions
 #'
 #' @export
 #' @details

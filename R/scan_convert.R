@@ -7,6 +7,7 @@
 #' @param lat Geodetic latitude of the radar in degrees. If missing taken from `scan`.
 #' @param lon Geodetic longitude of the radar in degrees. If missing taken from `scan`.
 #' @return a SpatialPointsDataFrame
+#' @family raster functions
 #' @export
 #' @details Beam altitude accounts for the curvature of the earth, using [beam_height].
 #' Distance from the radar over the earth's surface is calculated using [beam_distance].
@@ -75,6 +76,7 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' @return a RasterBrick
 #' @details uses [scan_to_spatial] to georeference the scan's pixels. If multiple scan pixels fall within
 #' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
+#' @family raster functions
 #' @export
 #' @examples
 #' \donttest{

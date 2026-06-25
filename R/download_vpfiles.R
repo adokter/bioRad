@@ -23,13 +23,8 @@
 #' files from ENRAM data repository to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status. Message will show
 #' a 404 error for files that are not available.
+#' @family read profile functions
 #' @export
-#'
-#' @seealso
-#' * [read_vpts()]
-#' * [select_vpfiles()]
-#' * [read_vpfiles()]
-#' * [getRad::get_vpts()]
 #'
 #' @examples
 #' \donttest{

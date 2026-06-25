@@ -18,11 +18,8 @@
 #'
 #' When a `pvol` is multiplied by a list, in which case arguments are taken from the list per scan.
 #' this requires the list to have the same length as the number of scans.
-#'
+#' @family operator functions
 #' @export
-#'
-#' @seealso
-#' * [calculate_param()]
 #'
 #' @examples
 #' # Locate and read the polar volume example file
@@ -44,7 +41,7 @@
   x$params <- lapply(x$params, .Generic, ...)
   x
 }
-
+#' @family operator functions
 #' @export
 #' @rdname Ops
 `Math.pvol` <- function(x, ...) {
@@ -59,6 +56,7 @@
 }
 
 #' @rdname Ops
+#' @family operator functions
 #' @export
 `Ops.param` <- function(e1, e2) {
   if (missing(e2)) {
@@ -89,6 +87,7 @@
   }
 }
 
+#' @family operator functions
 #' @export
 #' @rdname Ops
 
@@ -131,6 +130,7 @@
 
 
 #' @rdname Ops
+#' @family operator functions
 #' @export
 `Ops.pvol` <- function(e1, e2) {
   if (is.pvol(e1) & is.pvol(e2)) {

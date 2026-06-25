@@ -7,7 +7,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #'
 #' @method summary vpts
-#'
+#' @family vpts functions
 #' @export
 #'
 #' @details
@@ -41,16 +41,6 @@
 #' * `0`: Maps to `0` in the ODIM convention: denote areas where the quantity
 #' has a measured value of zero (radiated and value zero detected or inferred).
 #'
-#' @seealso
-#' * [bind_into_vpts()]
-#' * [read_vpts()]
-#' * [filter_vpts()]
-#' * [regularize_vpts()]
-#' * [`example_vpts`]
-#' * [get_quantity()]
-#' * [plot.vp()]
-#' * [as.data.frame.vpts()]
-#' * \code{\link[=[.vpts]{[vpts()}}
 #' @returns For [summary.vpts()]: prints the summary of the`vpts` object.
 #' @examples
 #' # Check if an object is of class vpts
@@ -69,6 +59,7 @@ summary.vpts <- function(object, ...) {
 #' @param digits The number of significant digits to use when printing. Defaults to `max(3L, getOption("digits") - 3L)`.
 #' @rdname summary.vpts
 #' @returns For [print.vpts()]: prints the summary of the `vpts` object.
+#' @family vpts functions
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
@@ -118,7 +109,7 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'   `FALSE`.
 #'
 #' @rdname summary.vpts
-#'
+#' @family vpts functions
 #' @export
 is.vpts <- function(x) {
   inherits(x, "vpts")
@@ -130,7 +121,7 @@ is.vpts <- function(x) {
 #'   time series of vertical profiles (`vpts`).
 #'
 #' @rdname summary.vpts
-#'
+#' @family vpts functions
 #' @export
 dim.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
@@ -164,6 +155,7 @@ dim.vpts <- function(x) {
 #'
 #' # Subset vpts to remove the first 10 profiles
 #' example_vpts[-1:-10] # A vpts object with 10 less profiles
+#' @family vpts functions
 #' @export
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))

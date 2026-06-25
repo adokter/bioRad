@@ -15,6 +15,7 @@
 #' @returns No return value, side effect is a plot.
 #' @method plot ppi
 #'
+#' @family ppi functions
 #' @export
 #'
 #' @details
