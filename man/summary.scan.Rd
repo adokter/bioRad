@@ -2,11 +2,14 @@
 % Please edit documentation in R/scan.R
 \name{summary.scan}
 \alias{summary.scan}
+\alias{print.scan}
 \alias{is.scan}
 \alias{dim.scan}
 \title{Inspect a scan (\code{scan})}
 \usage{
 \method{summary}{scan}(object, ...)
+
+\method{print}{scan}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.scan(x)
 
@@ -18,6 +21,9 @@ is.scan(x)
 \item{...}{Additional arguments affecting the summary produced.}
 
 \item{x}{A \code{scan} object.}
+
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=summary.scan]{summary.scan()}}: prints a summary of the \code{scan} object

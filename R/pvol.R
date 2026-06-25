@@ -42,8 +42,8 @@ summary.pvol <- function(object, ...) {
 
 #' Print summary for an object of class `pvol`
 #'
-#' @noRd
-#' @family pvol functions
+#' @rdname summary.pvol
+#' @inheritParams base::print
 #' @export
 print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "pvol"))
@@ -60,7 +60,6 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @param x A `pvol` object.
 #' @returns For [is.pvol()]: `TRUE` for an object of class `pvol`, otherwise
 #'   `FALSE`.
-#' @family pvol functions
 #' @export
 is.pvol <- function(x) {
   inherits(x, "pvol")
@@ -71,7 +70,6 @@ is.pvol <- function(x) {
 #' @rdname summary.pvol
 #' @returns For [dim.pvol()]: number of scans (`scan`) in a polar volume
 #'   (`pvol`).
-#' @family pvol functions
 #' @export
 dim.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))

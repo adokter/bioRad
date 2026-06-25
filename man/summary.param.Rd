@@ -2,10 +2,13 @@
 % Please edit documentation in R/param.R
 \name{summary.param}
 \alias{summary.param}
+\alias{print.param}
 \alias{is.param}
 \title{Inspect a parameter (\code{param})}
 \usage{
 \method{summary}{param}(object, ...)
+
+\method{print}{param}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.param(x)
 }
@@ -15,6 +18,9 @@ is.param(x)
 \item{...}{Additional arguments affecting the summary produced.}
 
 \item{x}{A \code{param} object.}
+
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=is.param]{is.param()}}: \code{TRUE} for an object of class \code{param}, otherwise

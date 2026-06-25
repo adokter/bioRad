@@ -2,11 +2,14 @@
 % Please edit documentation in R/pvol.R
 \name{summary.pvol}
 \alias{summary.pvol}
+\alias{print.pvol}
 \alias{is.pvol}
 \alias{dim.pvol}
 \title{Inspect a polar volume (\code{pvol})}
 \usage{
 \method{summary}{pvol}(object, ...)
+
+\method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.pvol(x)
 
@@ -18,6 +21,9 @@ is.pvol(x)
 \item{...}{Additional arguments affecting the summary produced.}
 
 \item{x}{A \code{pvol} object.}
+
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise

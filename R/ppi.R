@@ -41,7 +41,8 @@ summary.ppi <- function(object, ...) {
 
 #' Print summary for an object of class `ppi`
 #'
-#' @noRd
+#' @rdname summary.ppi
+#' @inheritParams base::print
 #' @family ppi functions
 #' @export
 print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {

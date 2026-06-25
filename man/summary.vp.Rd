@@ -2,11 +2,14 @@
 % Please edit documentation in R/vp.R
 \name{summary.vp}
 \alias{summary.vp}
+\alias{print.vp}
 \alias{is.vp}
 \alias{dim.vp}
 \title{Inspect a vertical profile (\code{vp})}
 \usage{
 \method{summary}{vp}(object, ...)
+
+\method{print}{vp}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.vp(x)
 
@@ -18,6 +21,9 @@ is.vp(x)
 \item{...}{Additional arguments affecting the summary produced.}
 
 \item{x}{A \code{vp} object.}
+
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=summary.vp]{summary.vp()}}: prints summary of the \code{vp} object.

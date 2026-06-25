@@ -46,7 +46,8 @@ summary.scan <- function(object, ...) {
 
 #' Print summary for an object of class `scan`
 #'
-#' @noRd
+#' @rdname summary.scan
+#' @inheritParams base::print
 #' @family scan functions
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {

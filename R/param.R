@@ -38,9 +38,10 @@ summary.param <- function(object, ...) {
 
 #' Print summary for an object of class `param`
 #'
+#' @rdname summary.param
+#' @inheritParams base::print
 #' @family param functions
 #' @export
-#' @noRd
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
   cat("               Polar scan parameter (class param)\n\n")

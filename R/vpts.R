@@ -55,7 +55,7 @@ summary.vpts <- function(object, ...) {
 #' Print summary for an object of class `vpts`
 #'
 #' @rdname summary.vpts
-#' @param digits The number of significant digits to use when printing. Defaults to `max(3L, getOption("digits") - 3L)`.
+#' @inheritParams base::print
 #' @returns For [print.vpts()]: prints the summary of the `vpts` object.
 #' @family vpts functions
 #' @export

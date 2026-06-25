@@ -70,9 +70,10 @@ summary.vp <- function(object, ...) {
 
 #' Print summary for an object of class `vp`
 #'
+#' @rdname summary.vp
+#' @inheritParams base::print
 #' @family vp functions
 #' @export
-#' @noRd
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
   if (is.null(x$data[["height"]])) {
