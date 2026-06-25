@@ -25,9 +25,9 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 is.pvolfile(pvolfile)
 }
 \seealso{
-\itemize{
-\item \code{\link[=read_pvolfile]{read_pvolfile()}}
-\item \code{\link[=get_odim_object_type]{get_odim_object_type()}}
-\item \code{\link[=is.pvol]{is.pvol()}}
+Other read pvol functions:
+\code{\link[=download_pvolfiles]{download_pvolfiles()}},
+\code{\link[=read_pvolfile]{read_pvolfile()}},
+\code{\link[=write_pvolfile]{write_pvolfile()}}
 }
-}
+\concept{read pvol functions}

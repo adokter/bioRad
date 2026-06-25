@@ -88,3 +88,11 @@ tsRegular <- regularize_vpts(ts, interval = 600, fill = 3600)
 # data gaps are smaller as a result of nearest neighbor interpolation:
 plot(tsRegular)
 }
+\seealso{
+Other manipulate profile functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}}
+}
+\concept{manipulate profile functions}

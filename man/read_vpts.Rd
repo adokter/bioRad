@@ -36,4 +36,13 @@ read_vpts(vpfile)
 stdout_file <- system.file("extdata", "example_vpts.txt", package = "bioRad")
 read_vpts(stdout_file, radar = "KBGM", wavelength = "S")
 }
-\concept{read functions}
+\seealso{
+Other read profile functions:
+\code{\link[=download_vpfiles]{download_vpfiles()}},
+\code{\link[=is.vpfile]{is.vpfile()}},
+\code{\link[=list_vpts_aloft]{list_vpts_aloft()}},
+\code{\link[=read_cajun]{read_cajun()}},
+\code{\link[=read_vpfiles]{read_vpfiles()}},
+\code{\link[=select_vpfiles]{select_vpfiles()}}
+}
+\concept{read profile functions}

@@ -30,3 +30,9 @@ nyquist_velocity(5.3, 2000)
 # 1500 Hz PRFs
 nyquist_velocity(5.3, 2000, 1500)
 }
+\seealso{
+Other conversion functions:
+\code{\link[=dbz_to_eta]{dbz_to_eta()}},
+\code{\link[=eta_to_dbz]{eta_to_dbz()}}
+}
+\concept{conversion functions}

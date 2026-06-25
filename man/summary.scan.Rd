@@ -70,10 +70,9 @@ dim(example_scan)
 example_scan$params
 }
 \seealso{
-\itemize{
-\item \code{\link[=get_scan]{get_scan()}}
-\item \code{\link{example_scan}}
-\item \code{\link[=plot.scan]{plot.scan()}}
-\item \code{\link[=get_param]{get_param()}}
+Other scan functions:
+\code{\link{example_scan}},
+\code{\link[=plot.scan]{plot.scan()}},
+\code{\link{tidyverse}}
 }
-}
+\concept{scan functions}

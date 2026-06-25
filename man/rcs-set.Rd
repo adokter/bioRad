@@ -45,8 +45,12 @@ vpi <- integrate_profile(example_vpts)
 rcs(vpi) <- 11
 }
 \seealso{
-\itemize{
-\item \code{\link[=rcs]{rcs()}} for getting the radar cross section of an object.
-\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}}
+Other profile metadata functions:
+\code{\link[=attribute_table]{attribute_table()}},
+\code{\link[=check_night]{check_night()}},
+\code{\link{doy_noy}},
+\code{\link[=rcs]{rcs()}},
+\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}},
+\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
-}
+\concept{profile metadata functions}

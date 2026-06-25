@@ -43,12 +43,11 @@ plot(range, beam_width(range), ylab = "two-way beam width [m]", xlab = "range [m
 plot(range, beam_width(range), ylab = "one-way beam width [m]", xlab = "range [m]")
 }
 \seealso{
-Other beam_functions:
+Other beam functions:
 \code{\link[=beam_distance]{beam_distance()}},
 \code{\link[=beam_height]{beam_height()}},
 \code{\link[=beam_profile]{beam_profile()}},
 \code{\link[=beam_profile_overlap]{beam_profile_overlap()}},
-\code{\link[=beam_range]{beam_range()}},
-\code{\link[=gaussian_beam_profile]{gaussian_beam_profile()}}
+\code{\link[=beam_range]{beam_range()}}
 }
-\concept{beam_functions}
+\concept{beam functions}

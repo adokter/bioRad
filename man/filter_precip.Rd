@@ -95,8 +95,10 @@ plot(regularize_vpts(example_vpts), quantity='dens')
 filter_precip(example_vp)
 }
 \seealso{
-\itemize{
-\item \link{eta_to_dbz}
-\item \link{dbz_to_eta}
+Other manipulate profile functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}}
 }
-}
+\concept{manipulate profile functions}

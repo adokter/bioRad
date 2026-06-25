@@ -156,3 +156,9 @@ plot(ts_regular[1:1000], quantity="v")
 # plot speed profile with more legend ticks,
 plot(ts_regular[1:1000], quantity="ff", legend_ticks=seq(0,20,2), zlim=c(0,20))
 }
+\seealso{
+Other vpts functions:
+\code{\link{example_vpts}},
+\code{\link[=summary.vpts]{summary.vpts()}}
+}
+\concept{vpts functions}

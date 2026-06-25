@@ -86,3 +86,4 @@ sunrise("2016-11-01", 100, 45)
 sunrise("2016-11-01", 102, 45)
 
 }
+\concept{suncalc functions}

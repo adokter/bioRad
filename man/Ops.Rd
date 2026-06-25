@@ -55,8 +55,4 @@ scan2 <- example_scan + 1
 # NB: requires identical scan parameter names and order!
 (scan1 + scan2)/2
 }
-\seealso{
-\itemize{
-\item \code{\link[=calculate_param]{calculate_param()}}
-}
-}
+\concept{operator functions}

@@ -64,10 +64,4 @@ dim(pvol)
 # Get summary info for the scans in the polar volume
 pvol$scans
 }
-\seealso{
-\itemize{
-\item \code{\link[=read_pvolfile]{read_pvolfile()}}
-\item \code{\link[=get_elevation_angles]{get_elevation_angles()}}
-\item \code{\link[=get_scan]{get_scan()}}
-}
-}
+\concept{pvol functions}

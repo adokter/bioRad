@@ -98,13 +98,9 @@ example_vp # Same as summary(example_vp) or print(example_vp)
 dim(example_vp)
 }
 \seealso{
-\itemize{
-\item \code{\link[=calculate_vp]{calculate_vp()}}
-\item \code{\link[=read_vpfiles]{read_vpfiles()}}
-\item \code{\link{example_vp}}
-\item \code{\link[=get_quantity]{get_quantity()}}
-\item \code{\link[=plot.vp]{plot.vp()}}
-\item \code{\link[=as.data.frame.vp]{as.data.frame.vp()}}
-\item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
+Other vp functions:
+\code{\link[=c.vp]{c.vp()}},
+\code{\link{example_vp}},
+\code{\link[=plot.vp]{plot.vp()}}
 }
-}
+\concept{vp functions}

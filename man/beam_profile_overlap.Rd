@@ -129,18 +129,11 @@ bpo <- beam_profile_overlap(
 plot(bpo)
 }
 \seealso{
-\itemize{
-\item \code{\link[=beam_height]{beam_height()}}
-\item \code{\link[=beam_width]{beam_width()}}
-\item \code{\link[=beam_profile]{beam_profile()}}
-}
-
-Other beam_functions:
+Other beam functions:
 \code{\link[=beam_distance]{beam_distance()}},
 \code{\link[=beam_height]{beam_height()}},
 \code{\link[=beam_profile]{beam_profile()}},
 \code{\link[=beam_range]{beam_range()}},
-\code{\link[=beam_width]{beam_width()}},
-\code{\link[=gaussian_beam_profile]{gaussian_beam_profile()}}
+\code{\link[=beam_width]{beam_width()}}
 }
-\concept{beam_functions}
+\concept{beam functions}

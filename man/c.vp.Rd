@@ -23,4 +23,10 @@ c(example_vp, example_vp)
 }
 \seealso{
 \code{\link[=bind_into_vpts]{bind_into_vpts()}}
+
+Other vp functions:
+\code{\link{example_vp}},
+\code{\link[=plot.vp]{plot.vp()}},
+\code{\link[=summary.vp]{summary.vp()}}
 }
+\concept{vp functions}

@@ -319,11 +319,4 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
 }
 }
-\seealso{
-\itemize{
-\item \code{\link[=summary.pvol]{summary.pvol()}}
-\item \code{\link[=summary.vp]{summary.vp()}}
-\item \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
-\item \code{\link[=add_param]{add_param()}}
-}
-}
+\concept{calculate profile functions}

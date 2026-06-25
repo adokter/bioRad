@@ -24,8 +24,10 @@ data(example_scan)
 example_scan
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.scan]{summary.scan()}}
+Other scan functions:
+\code{\link[=plot.scan]{plot.scan()}},
+\code{\link[=summary.scan]{summary.scan()}},
+\code{\link{tidyverse}}
 }
-}
+\concept{scan functions}
 \keyword{datasets}

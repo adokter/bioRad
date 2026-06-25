@@ -67,3 +67,10 @@ plot(example_vp, quantity = "ff")
 # all scatterers (including precipitation):
 plot(example_vp, quantity = "DBZH")
 }
+\seealso{
+Other vp functions:
+\code{\link[=c.vp]{c.vp()}},
+\code{\link{example_vp}},
+\code{\link[=summary.vp]{summary.vp()}}
+}
+\concept{vp functions}

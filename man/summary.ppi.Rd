@@ -64,12 +64,9 @@ ppi # Same as summary(ppi) or print(ppi)
 dim(ppi)
 }
 \seealso{
-\itemize{
-\item \code{\link[=project_as_ppi]{project_as_ppi()}}
-\item \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
-\item \code{\link[=plot.ppi]{plot.ppi()}}
-\item \code{\link[=map]{map()}}
-\item \code{\link[=composite_ppi]{composite_ppi()}}
-\item \code{\link[=[.ppi]{[ppi()}}
+Other ppi functions:
+\code{\link[=[.ppi]{[.ppi()}},
+\code{\link[=map]{map()}},
+\code{\link[=plot.ppi]{plot.ppi()}}
 }
-}
+\concept{ppi functions}

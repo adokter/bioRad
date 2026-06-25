@@ -110,15 +110,8 @@ example_vpts[20:100] # A vpts object with 81 profiles
 example_vpts[-1:-10] # A vpts object with 10 less profiles
 }
 \seealso{
-\itemize{
-\item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
-\item \code{\link[=read_vpts]{read_vpts()}}
-\item \code{\link[=filter_vpts]{filter_vpts()}}
-\item \code{\link[=regularize_vpts]{regularize_vpts()}}
-\item \code{\link{example_vpts}}
-\item \code{\link[=get_quantity]{get_quantity()}}
-\item \code{\link[=plot.vp]{plot.vp()}}
-\item \code{\link[=as.data.frame.vpts]{as.data.frame.vpts()}}
-\item \code{\link[=[.vpts]{[vpts()}}
+Other vpts functions:
+\code{\link{example_vpts}},
+\code{\link[=plot.vpts]{plot.vpts()}}
 }
-}
+\concept{vpts functions}

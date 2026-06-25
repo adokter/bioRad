@@ -36,3 +36,8 @@ data(example_scan)
 # convert to a SpatialPointsDataFrame:
 scan_to_spatial(example_scan)
 }
+\seealso{
+Other raster functions:
+\code{\link[=scan_to_raster]{scan_to_raster()}}
+}
+\concept{raster functions}

@@ -21,3 +21,9 @@ df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
 # convert the data.frame to a vpts object:
 as.vpts(df)
 }
+\seealso{
+Other data frame functions:
+\code{\link[=as.data.frame.vp]{as.data.frame.vp()}},
+\code{\link[=as.vp]{as.vp()}}
+}
+\concept{data frame functions}

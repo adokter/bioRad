@@ -60,8 +60,8 @@ is.vpi(vpi)
 summary(vpi)
 }
 \seealso{
-\itemize{
-\item \code{\link[=integrate_profile]{integrate_profile()}}
-\item \code{\link[=plot.vpi]{plot.vpi()}}
+Other integrate profile functions:
+\code{\link[=integrate_profile]{integrate_profile()}},
+\code{\link[=plot.vpi]{plot.vpi()}}
 }
-}
+\concept{integrate profile functions}

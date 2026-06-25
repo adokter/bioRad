@@ -42,7 +42,7 @@ scan <- example_pvol$scans[[1]]
 get_elevation_angles(scan)
 }
 \seealso{
-\itemize{
-\item \code{\link[=get_scan]{get_scan()}}
+Other polar accessor functions:
+\code{\link[=get_param]{get_param()}}
 }
-}
+\concept{polar accessor functions}

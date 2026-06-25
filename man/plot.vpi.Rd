@@ -101,3 +101,9 @@ plot(vpi)
 # plot the vertically integrated densities, without night shading:
 plot(vpi, quantity = "vid", night_shade = FALSE)
 }
+\seealso{
+Other integrate profile functions:
+\code{\link[=integrate_profile]{integrate_profile()}},
+\code{\link[=summary.vpi]{summary.vpi()}}
+}
+\concept{integrate profile functions}

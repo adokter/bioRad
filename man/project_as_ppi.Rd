@@ -115,3 +115,9 @@ ppi
 # plot the ppi:
 plot(ppi)
 }
+\seealso{
+Other ppi calculation functions:
+\code{\link[=composite_ppi]{composite_ppi()}},
+\code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
+}
+\concept{ppi calculation functions}

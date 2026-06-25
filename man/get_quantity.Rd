@@ -72,10 +72,4 @@ get_quantity(example_vp, "dens")
 # first two datetimes
 get_quantity(example_vpts, "ff")[,1:2]
 }
-\seealso{
-\itemize{
-\item \code{\link[=summary.vp]{summary.vp()}}
-\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}} for setting the \code{sd_vvp}
-threshold of an object.
-}
-}
+\concept{profile accessor functions}

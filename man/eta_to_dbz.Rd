@@ -31,3 +31,9 @@ eta_to_dbz(10000, 10)
 eta_to_dbz(1000 * 11, 5) # C-band
 eta_to_dbz(1000 * 11, 10) # S-band
 }
+\seealso{
+Other conversion functions:
+\code{\link[=dbz_to_eta]{dbz_to_eta()}},
+\code{\link[=nyquist_velocity]{nyquist_velocity()}}
+}
+\concept{conversion functions}

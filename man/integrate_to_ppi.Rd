@@ -262,10 +262,8 @@ and Remote Sensing 47: 2741-2751.
 }
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.ppi]{summary.ppi()}}
-\item \code{\link[=beam_profile]{beam_profile()}}
-\item \code{\link[=beam_range]{beam_range()}}
-\item \code{\link[=integrate_profile]{integrate_profile()}}
+Other ppi calculation functions:
+\code{\link[=composite_ppi]{composite_ppi()}},
+\code{\link[=project_as_ppi]{project_as_ppi()}}
 }
-}
+\concept{ppi calculation functions}

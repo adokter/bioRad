@@ -78,3 +78,8 @@ template_raster <- terra::rast(terra::ext(12, 13, 56, 58), crs = "epsg:4326")
 scan_to_raster(example_scan, raster = template_raster)
 }
 }
+\seealso{
+Other raster functions:
+\code{\link[=scan_to_spatial]{scan_to_spatial()}}
+}
+\concept{raster functions}

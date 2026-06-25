@@ -64,8 +64,10 @@ filter_vpts(example_vpts, night = TRUE, offset = c(3, -2)*3600)
 
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vpts]{summary.vpts()}}
-\item \code{\link[=check_night]{check_night()}}
+Other manipulate profile functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}}
 }
-}
+\concept{manipulate profile functions}

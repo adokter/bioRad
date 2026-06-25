@@ -100,7 +100,8 @@ vpts_df <- as.data.frame(example_vpts, suntime = FALSE)
 vpts_df <- as.data.frame(example_vpts, lat = 50, lon = 4)
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vpts]{summary.vpts()}}
+Other data frame functions:
+\code{\link[=as.vp]{as.vp()}},
+\code{\link[=as.vpts]{as.vpts()}}
 }
-}
+\concept{data frame functions}

@@ -74,8 +74,10 @@ vp2
 bind_into_vpts(vp1, vp2)
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vp]{summary.vp()}}
-\item \code{\link[=summary.vpts]{summary.vpts()}}
+Other manipulate profile functions:
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}}
 }
-}
+\concept{manipulate profile functions}

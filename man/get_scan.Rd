@@ -46,9 +46,4 @@ scan
 scan_list <- get_scan(pvol, 3)
 scan_list
 }
-\seealso{
-\itemize{
-\item \code{\link[=summary.scan]{summary.scan()}}
-\item \code{\link[=get_elevation_angles]{get_elevation_angles()}}
-}
-}
+\concept{polar accessor functions`}
