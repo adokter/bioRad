@@ -1,11 +1,13 @@
-#' @description Removes s3:// prefix from bucket string
+#' Remove s3:// prefix from bucket string
+#'
 #' @param bucket Character. Bucket name or URL-like string (e.g., "s3://my-bucket")
 #' @returns Character string (bucket name)
 #' @keywords nternal
 #' @noRd
 .s3_strip_endpoint <- function(bucket) sub("^s3://", "", bucket %||% "")
 
-#' @description Builds S3 HTTPS endpoint URL
+#' Build S3 HTTPS endpoint URL
+#'
 #' @param bucket Character. Bucket name
 #' @param region Character or NULL. AWS region (e.g., "us-east-1"). If NULL/empty, uses global endpoint
 #' @returns Character string (URL)
@@ -24,7 +26,8 @@
 #         because 3xx usually signals a wrong endpoint/region.
 #   4xx/5xx = failure (after httr2 retry logic).
 
-#' @description Checks if bucket exists and returns no error codes
+#' Check if bucket exists and returns no error codes
+#'
 #' @param bucket Character. Bucket name (may include "s3://")
 #' @param prefix Character. Key prefix to check (e.g., "1998/01/20/KABR/")
 #' @param region Character or NULL. AWS region for the bucket
@@ -41,7 +44,8 @@ s3_bucket_exists <- function(bucket) {
     {\(s) s >= 200 && s < 400}()  #2xx codes indicate success and 3xx codes indicate redirect
 }
 
-#' @description Checks if prefix exists in bucket by verifying ListObjectsV2 request is successfully answered (2xx)
+#' Check if prefix exists in bucket by verifying ListObjectsV2 request is successfully answered (2xx)
+#'
 #' @param max_tries Integer. Max retries for the HTTP request (default 5).
 #' @returns logical (TRUE/FALSE)
 #' @keywords internal
@@ -59,7 +63,8 @@ s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_
   length(xml2::xml_find_all(x, ".//*[local-name()='Contents']/*[local-name()='Key']")) > 0
 }
 
-#' @description List bucket contents via ListObjectsV2 (handles pagination).
+#' List bucket contents via ListObjectsV2 (handles pagination)
+#'
 #' @param bucket Character. Bucket name (may include "s3://").
 #' @param prefix Character. Key prefix to filter (default: "").
 #' @param delimiter Character or NULL. If set (e.g., "/"), groups keys by common prefixes
@@ -171,7 +176,9 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 }
 
 
-#' @description download S3 object to local file. # aws.s3::save_object() replacement
+#' Download S3 object to local file
+#'
+#' aws.s3::save_object() replacement.
 #' @param object Character. Object key (path inside the bucket), e.g. `"baltrad/monthly/bejab_202305.zip"`.
 #' @param bucket Character. Bucket name (may include `"s3://"`; trailing slashes ignored).
 #' @param file Character. Destination file path on disk.
