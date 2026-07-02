@@ -119,7 +119,6 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #' @inheritParams beam_height
 #' @inheritParams beam_width
 #' @returns numeric.
-#' @family beam_functions
 #' @noRd
 #' @details Beam profile is calculated using [beam_height] and [beam_width].
 #'   `height` and `antenna` should be given in reference to the same reference

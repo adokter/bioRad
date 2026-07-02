@@ -15,6 +15,7 @@
 #'   (default) or `accurate`. See [lutz::tz_lookup_coords]].
 #' @param ... Optional lat, lon arguments.
 #' @returns integer representing the ordinal day of year or night of year.
+#' @family profile metadata functions
 #' @examples
 #' # Get day of year of a vp object
 #' noy(example_vp)
@@ -27,14 +28,12 @@
 NULL
 
 #' @rdname doy_noy
-#' @family profile metadata functions
 #' @export
 doy <- function(x, ..., method = "fast") {
   UseMethod("doy", x)
 }
 
 #' @rdname doy_noy
-#' @family profile metadata functions
 #' @export
 noy <- function(x, ..., method = "fast") {
   UseMethod("noy", x)

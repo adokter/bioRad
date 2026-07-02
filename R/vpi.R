@@ -54,7 +54,6 @@ summary.vpi <- function(object, ...) {
 #' @param x A `vpi` object.
 #' @returns For [is.vpi()]: `TRUE` for an object of class `vpi`, otherwise
 #'   `FALSE`.
-#' @family integrate profile functions
 #' @export
 is.vpi <- function(x) {
   inherits(x, "vpi")

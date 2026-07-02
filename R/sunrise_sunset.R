@@ -11,6 +11,7 @@
 #'   set by `tz`.
 #' @returns The moment of sunrise or sunset for the date set by `date`and time zone as specified
 #' (by `date` and `tz`) or in UTC if not specified.
+#' @family suncalc functions
 #' @details
 #' The day for which sunrise and sunset are calculated is given by the input date.
 #' Sunrise and sunset are calculated relative to the moment of solar noon for that date,
@@ -66,7 +67,6 @@
 NULL
 
 #' @rdname sunrise_sunset
-#' @family suncalc functions
 #' @export
 sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
@@ -78,7 +78,6 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 }
 
 #' @rdname sunrise_sunset
-#' @family suncalc functions
 #' @export
 sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)

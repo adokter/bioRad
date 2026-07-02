@@ -39,7 +39,6 @@
   x
 }
 
-#' @family operator functions
 #' @rdname operators
 #' @export
 `Math.pvol` <- function(x, ...) {
@@ -53,7 +52,6 @@
   x
 }
 
-#' @family operator functions
 #' @rdname operators
 #' @export
 `Ops.param` <- function(e1, e2) {
@@ -85,7 +83,6 @@
   }
 }
 
-#' @family operator functions
 #' @rdname operators
 #' @export
 `Ops.scan` <- function(e1, e2) {
@@ -125,7 +122,6 @@
   }
 }
 
-#' @family operator functions
 #' @rdname operators
 #' @export
 `Ops.pvol` <- function(e1, e2) {

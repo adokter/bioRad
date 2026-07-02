@@ -57,7 +57,6 @@ summary.vpts <- function(object, ...) {
 #' @rdname summary.vpts
 #' @inheritParams base::print
 #' @returns For [print.vpts()]: prints the summary of the `vpts` object.
-#' @family vpts functions
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vpts"))
@@ -105,7 +104,6 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @param x A `vpts` object.
 #' @returns For [is.vpts()]: `TRUE` for an object of class `vpts`, otherwise
 #'   `FALSE`.
-#' @family vpts functions
 #' @export
 is.vpts <- function(x) {
   inherits(x, "vpts")
@@ -116,7 +114,6 @@ is.vpts <- function(x) {
 #' @rdname summary.vpts
 #' @returns For [dim.vpts()]: number of datetimes, heights and quantities in a
 #'   time series of vertical profiles (`vpts`).
-#' @family vpts functions
 #' @export
 dim.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))

@@ -43,7 +43,6 @@ summary.ppi <- function(object, ...) {
 #'
 #' @rdname summary.ppi
 #' @inheritParams base::print
-#' @family ppi functions
 #' @export
 print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "ppi"))
@@ -61,7 +60,6 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @param x A `ppi` object.
 #' @returns For [is.ppi()]: `TRUE` for an object of class `ppi`, otherwise
 #'   `FALSE`.
-#' @family ppi functions
 #' @export
 is.ppi <- function(x) {
   inherits(x, "ppi")
@@ -72,7 +70,6 @@ is.ppi <- function(x) {
 #' @rdname summary.ppi
 #' @returns For [dim.ppi()]: number of parameters (`param`), x and y pixels in a
 #'   plan position indicator (`ppi`).
-#' @family ppi functions
 #' @export
 dim.ppi <- function(x) {
   stopifnot(inherits(x, "ppi"))

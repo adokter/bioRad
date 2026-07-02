@@ -72,7 +72,6 @@ summary.vp <- function(object, ...) {
 #'
 #' @rdname summary.vp
 #' @inheritParams base::print
-#' @family vp functions
 #' @export
 print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "vp"))
@@ -97,7 +96,6 @@ print.vp <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @param x A `vp` object.
 #' @returns For [is.vp()]: `TRUE` for an object of class `vp`, otherwise
 #'   `FALSE`.
-#' @family vp functions
 #' @export
 is.vp <- function(x) {
   inherits(x, "vp")
@@ -108,7 +106,6 @@ is.vp <- function(x) {
 #' @rdname summary.vp
 #' @returns For [dim.vp()]: number of heights and quantities in a vertical
 #'   profile (`vp`).
-#' @family vp functions
 #' @export
 dim.vp <- function(x) {
   stopifnot(inherits(x, "vp"))
