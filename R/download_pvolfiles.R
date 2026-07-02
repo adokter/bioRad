@@ -21,6 +21,7 @@
 #' a message and a progress bar in the console indicating the download status.
 #' @family read pvol functions
 #' @seealso
+#' @export
 #' @examples
 #' \donttest{
 #' # create temporary directory

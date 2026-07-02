@@ -20,7 +20,6 @@ validate_datetime_format <- function(data, format) {
 #'
 #' @param df The dataframe to validate.
 #' @returns Invisibly returns a list with validation results including messages for any issues found.
-#' @keywords internal
 #' @noRd
 validate_vpts <- function(df) {
     schema <- bioRad::vpts_schema

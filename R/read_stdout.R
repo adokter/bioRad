@@ -12,7 +12,6 @@
 #' @param sep the field separator character, see [utils::read.table]
 #' @returns An object inheriting from class `vpts`, see
 #' [`vpts()`][summary.vpts] for details.
-#' @keywords internal
 #' @noRd
 #' @examples
 #' # locate example file:

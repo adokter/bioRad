@@ -23,7 +23,7 @@ beam_profile(
 \item{distance}{Numeric. Distance from the radar as measured along sea level
 (down range), in m.}
 
-\item{elev}{Numeric vector. Beam elevation(s), in degrees.}
+\item{elev}{Numeric. Beam elevation, in degrees.}
 
 \item{antenna}{Numeric. Height of the centre of the radar antenna, in m.}
 

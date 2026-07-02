@@ -140,7 +140,7 @@ bind_into_vpts.vpts <- function(..., attributes_from = 1) {
 #' contains profiles of a single radar. A list of objects of class
 #' [vpts][summary.vpts] in case when `list` contains profiles of
 #' multiple radars, containing [vpts][summary.vpts] objects for each radar.
-#' @keywords internal
+#' @noRd
 #' @examples
 #' vpfile1 <- system.file("extdata", "profile.h5", package = "bioRad")
 #' vpfile2 <- vpfile1

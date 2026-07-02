@@ -118,14 +118,12 @@ beam_width_internal <- function(range, beam_angle = 1) {
 #'
 #' @inheritParams beam_height
 #' @inheritParams beam_width
-#' @param antenna Numeric. Height of the centre of the radar antenna, in m.
-#' @param height Numeric. Height in m.
 #' @returns numeric.
 #' @family beam_functions
-#' @keywords internal
+#' @noRd
 #' @details Beam profile is calculated using [beam_height] and [beam_width].
-#' `height` and `antenna` should be given in reference to the same reference
-#' plane (e.g. ground level or sea level)
+#'   `height` and `antenna` should be given in reference to the same reference
+#'   plane (e.g. ground level or sea level)
 gaussian_beam_profile <- function(height, range, elev, antenna = 0,
                                   beam_angle = 1, k = 4 / 3, lat = 35, re = 6378,
                                   rp = 6357, path = "two_way") {
@@ -186,9 +184,11 @@ gaussian_beam_profile_internal <- function(height, range, elev, antenna = 0,
 #' (`height`) at a given distance (`distance`) from the radar, assuming the
 #' beams are emitted at antenna level
 #'
-#' @inheritParams gaussian_beam_profile
 #' @inheritParams beam_range
-#' @param elev Numeric vector. Beam elevation(s), in degrees.
+#' @inheritParams beam_height
+#' @inheritParams beam_width
+#' @param height Numeric. Height in m.
+#' @param antenna Numeric. Height of the centre of the radar antenna, in m.
 #' @returns Numeric vector. Normalized radiated energy at each of the specified
 #'   heights.
 #' @family beam functions

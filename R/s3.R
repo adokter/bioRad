@@ -2,7 +2,6 @@
 #'
 #' @param bucket Character. Bucket name or URL-like string (e.g., "s3://my-bucket")
 #' @returns Character string (bucket name)
-#' @keywords nternal
 #' @noRd
 .s3_strip_endpoint <- function(bucket) sub("^s3://", "", bucket %||% "")
 
@@ -11,7 +10,6 @@
 #' @param bucket Character. Bucket name
 #' @param region Character or NULL. AWS region (e.g., "us-east-1"). If NULL/empty, uses global endpoint
 #' @returns Character string (URL)
-#' @keywords internal
 #' @noRd
 .s3_endpoint <- function(bucket, region = NULL) {
   bucket <- .s3_strip_endpoint(bucket)
@@ -33,7 +31,6 @@
 #' @param region Character or NULL. AWS region for the bucket
 #' @param timeout_s Numeric. Request timeout in seconds
 #' @returns logical (TRUE/FALSE)
-#' @keywords internal
 #' @noRd
 s3_bucket_exists <- function(bucket) {
   httr2::request(.s3_endpoint(bucket)) |>
@@ -48,7 +45,6 @@ s3_bucket_exists <- function(bucket) {
 #'
 #' @param max_tries Integer. Max retries for the HTTP request (default 5).
 #' @returns logical (TRUE/FALSE)
-#' @keywords internal
 #' @noRd
 s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_tries = 5) {
   resp <- httr2::request(.s3_endpoint(bucket, region)) |>
@@ -75,7 +71,6 @@ s3_prefix_exists <- function(bucket, prefix, region = NULL, timeout_s = 10, max_
 #' @param region Character or NULL. AWS region for the bucket endpoint.
 #' @param max_tries Integer. Max retries for the HTTP request (default 5).
 #' @returns Data frame with columns: `Key`, `LastModified` (POSIXct UTC), `Size`, `ETag`, `StorageClass`.
-#' @keywords internal
 #' @noRd
 s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
                              max = Inf, max_keys = 1000, region = NULL,
@@ -187,7 +182,6 @@ s3_get_bucket_df <- function(bucket, prefix = "", delimiter = NULL,
 #'   the global endpoint is used (S3 may redirect as needed).
 #' @param max_tries Integer. Max automatic retries for the HTTP request (default `5`).
 #' @returns character string (file path, invisibly)
-#' @keywords internal
 #' @noRd
 s3_save_object <- function(object, bucket, file, overwrite = FALSE, region = NULL, max_tries = 5) {
 

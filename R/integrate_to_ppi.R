@@ -464,7 +464,7 @@ eta_expected <- function(vp,
 #' @inheritParams integrate_to_ppi
 #' @inheritParams scan_to_raster
 #' @returns A `scan` object.
-#' @keywords internal
+#' @noRd
 add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",
                                      param = "DBZH", lat, lon, antenna,
                                      beam_angle = 1, k = 4 / 3, re = 6378,

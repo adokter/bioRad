@@ -8,6 +8,7 @@
 #' @returns A logical matrix of the same dimensions as \code{x}, with \code{TRUE}
 #'   for cells containing \code{NaN} and \code{FALSE} otherwise
 #' @exportS3Method base::is.nan
+#' @noRd
 #' @examples
 #' df <- data.frame(
 #'   a = c(1, 2, NaN),
@@ -37,7 +38,7 @@ is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 #' This helper function allows to skip a test if these dependencies are  not available
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #' @returns Invisibly returns TRUE if dependencies available, otherwise skips the test with a message "map() dependencies (ggspatial, prettymapr, rosm) not installed".
-#' @keywords internal
+#' @noRd
 skip_if_no_mapping <- function() {
   if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))){
      return(invisible(TRUE))
@@ -51,7 +52,7 @@ skip_if_no_mapping <- function() {
 #' This helper function allows to skip a test if tidyselect is not available
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #' @returns Invisibly returns TRUE if tidyselect is available, otherwise skips the test with a message "Package tidyselect not installed".
-#' @keywords internal
+#' @noRd
 skip_if_no_tidyselect <- function() {
   if (requireNamespace("tidyselect", quietly = TRUE)) {
      return(invisible(TRUE))
@@ -65,7 +66,7 @@ skip_if_no_tidyselect <- function() {
 #' This helper function allows to skip a test if MistNet is not available, e.g. when running in CI.
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #' @returns Invisibly returns TRUE if MistNet is available, otherwise skips the test with a message "No MistNet".
-#' @keywords internal
+#' @noRd
 skip_if_no_mistnet <- function() {
   if (requireNamespace("vol2birdR", quietly = TRUE)) {
     if (vol2birdR::mistnet_installed()) {
@@ -82,7 +83,7 @@ skip_if_no_mistnet <- function() {
 #' Inspired by <https://testthat.r-lib.org/articles/skipping.html#helpers>.
 #' @returns Invisibly returns TRUE if vol2birdR is installed, otherwise skips the test with
 #' a message "Package vol2birdR not installed".
-#' @keywords internal
+#' @noRd
 skip_if_no_vol2birdR <- function() {
   if (requireNamespace("vol2birdR", quietly = TRUE)) {
     return(invisible(TRUE))
@@ -96,7 +97,7 @@ skip_if_no_vol2birdR <- function() {
 #'   "bewideu")`.
 #' @returns NULL. Will stop and show error message if at least one of the
 #'   provided radar codes is not exactly 5 characters.
-#' @keywords internal
+#' @noRd
 check_radar_codes <- function(radars) {
   wrong_codes <- radars[nchar(radars) != 5]
   if (length(wrong_codes) > 0) {
@@ -118,7 +119,6 @@ check_radar_codes <- function(radars) {
   }
 }
 
-
 #' Check if character date is in specific format
 #'
 #' @param date character. Character representation of a date, e.g.
@@ -127,7 +127,7 @@ check_radar_codes <- function(radars) {
 #'   `"\%Y-\%m-\%d"`
 #' @returns NULL. Will stop and show error message if date does not have correct
 #'   date format.
-#' @keywords internal
+#' @noRd
 check_date_format <- function(date, format) {
   parsed_date <- as.Date(date, format = format, tz = NULL)
   if (is.na(parsed_date)) {
@@ -142,7 +142,7 @@ check_date_format <- function(date, format) {
 #' @param lat Latitude
 #' @param proj4string An object of class 'CRS', as defined in package `sp`.
 #' @returns An object of class `SpatialPoints`.
-#' @keywords internal
+#' @noRd
 wgs_to_proj <- function(lon, lat, proj4string) {
   xy<-sf::st_as_sf(data.frame(x = lon, y = lat), coords=c('x','y'), crs=4326L)
   res <- sf::st_transform(xy, proj4string)
@@ -161,7 +161,7 @@ wgs_to_proj <- function(lon, lat, proj4string) {
 #' @param y The y-coordinate in the projected system.
 #' @param proj4string An object of class 'CRS', as defined in package `sp`.
 #' @returns An object of class `SpatialPoints`.
-#' @keywords internal
+#' @noRd
 proj_to_wgs <- function(x, y, proj4string) {
   xy <- data.frame(lon = x, lat = y)
   sp::coordinates(xy) <- c("lon", "lat")
@@ -204,7 +204,7 @@ proj_to_wgs <- function(x, y, proj4string) {
 #'   filenames should comply.
 #' @returns character vector. Subset of filenames from the file_list that comply
 #'   to the provided regular expressions in regex_list.
-#' @keywords internal
+#' @noRd
 match_filenames <- function(file_list, regex_list) {
   grep(paste(regex_list, collapse = "|"), file_list, value = TRUE)
 }
@@ -216,7 +216,7 @@ match_filenames <- function(file_list, regex_list) {
 #' @param ... passed on to `regexpr()`
 #' @returns A character vector with matches only, possibly of different length as
 #'   `string`
-#' @keywords internal
+#' @noRd
 extract_string <- function(string, pattern, ...) {
   regmatches(string,
     m = regexpr(
@@ -237,7 +237,6 @@ extract_string <- function(string, pattern, ...) {
 #' @param file_path A character string containing the path to the file
 #' @param n_lines An integer, the number of lines to read for guessing a CSV file
 #' @returns A character string representing the guessed file type ("h5", "gz", "csv", or "txt")
-#' @keywords internal
 #' @noRd
 guess_file_type <- function(file_path, n_lines = 5) {
   # Check if it's an HDF5 or gzip file by looking at the first few bytes
@@ -276,7 +275,7 @@ guess_file_type <- function(file_path, n_lines = 5) {
 #' @returns A character string with the numeric version. When
 #' no version is specified or the package is not listed in Suggests
 #' or Depends a value `NULL` is returned.
-#' @keywords internal
+#' @noRd
 min_package_version <- function(pkg) {
 
   assertthat::assert_that(is.character(pkg), length(pkg)==1)
