@@ -32,7 +32,10 @@
 #' * `attributes`: List of the vertical profile's `what`, `where` and `how`
 #' attributes.
 #' @returns the value of a specific profile quantity specified in `quantity`.
-#' @family profile accessor functions
+#' @family vp functions
+#' @seealso
+#' Use [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
+#' threshold of an object.
 #' @export
 #' @examples
 #' # Extract the animal density (dens) quantity from a vp object

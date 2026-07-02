@@ -70,6 +70,7 @@ plot(example_vp, quantity = "DBZH")
 \seealso{
 Other vp functions:
 \code{\link{example_vp}},
+\code{\link[=get_quantity]{get_quantity()}},
 \code{\link[=summary.vp]{summary.vp()}}
 }
 \concept{vp functions}

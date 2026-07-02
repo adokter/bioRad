@@ -106,6 +106,7 @@ dim(example_vp)
 \seealso{
 Other vp functions:
 \code{\link{example_vp}},
+\code{\link[=get_quantity]{get_quantity()}},
 \code{\link[=plot.vp]{plot.vp()}}
 }
 \concept{vp functions}
