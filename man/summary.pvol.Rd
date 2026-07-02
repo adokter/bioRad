@@ -70,4 +70,9 @@ dim(pvol)
 # Get summary info for the scans in the polar volume
 pvol$scans
 }
+\seealso{
+Other pvol functions:
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
+\code{\link{tidyverse}}
+}
 \concept{pvol functions}

@@ -7,7 +7,9 @@
 #'
 #' @param x A `pvol`, `scan` or `param` object.
 #' @returns The elevation angle(s) in degrees.
-#' @family polar accessor functions
+#' @family pvol functions
+#' @family scan functions
+#' @family param functions
 #' @export
 #' @examples
 #' # Locate and read the polar volume example file

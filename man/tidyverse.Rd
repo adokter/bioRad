@@ -3,6 +3,7 @@
 \name{tidyverse}
 \alias{tidyverse}
 \alias{select.scan}
+\alias{select.pvol}
 \title{Tidyverse methods for bioRad objects}
 \usage{
 \method{select}{scan}(.data, ...)
@@ -38,5 +39,10 @@ Other scan functions:
 \code{\link[=get_scan]{get_scan()}},
 \code{\link[=plot.scan]{plot.scan()}},
 \code{\link[=summary.scan]{summary.scan()}}
+
+Other pvol functions:
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
+\code{\link[=summary.pvol]{summary.pvol()}}
 }
+\concept{pvol functions}
 \concept{scan functions}

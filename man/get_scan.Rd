@@ -49,6 +49,7 @@ scan_list
 \seealso{
 Other scan functions:
 \code{\link{example_scan}},
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
 \code{\link[=plot.scan]{plot.scan()}},
 \code{\link[=summary.scan]{summary.scan()}},
 \code{\link{tidyverse}}

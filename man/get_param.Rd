@@ -30,6 +30,7 @@ param
 }
 \seealso{
 Other param functions:
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
 \code{\link[=summary.param]{summary.param()}}
 }
 \concept{param functions}

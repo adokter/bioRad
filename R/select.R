@@ -6,6 +6,7 @@
 #' @param .data data object of class \code{scan} or \code{pvol}
 #' @param ... other arguments
 #' @family scan functions
+#' @family pvol functions
 #' @exportS3Method dplyr::select
 #' @examples
 #' if (require(dplyr, quietly = TRUE)) {
@@ -37,7 +38,6 @@ select.scan <- function(.data, ...) {
   .data
 }
 
-#' @family pvol functions
 #' @name tidyverse
 #' @exportS3Method dplyr::select
 select.pvol <- function(.data, ...) {
