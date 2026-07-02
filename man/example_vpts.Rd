@@ -25,6 +25,7 @@ example_vpts
 }
 \seealso{
 Other vpts functions:
+\code{\link[=[.vpts]{[.vpts()}},
 \code{\link[=plot.vpts]{plot.vpts()}},
 \code{\link[=summary.vpts]{summary.vpts()}}
 }

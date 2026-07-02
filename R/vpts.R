@@ -130,7 +130,6 @@ dim.vpts <- function(x) {
 #' Select a vertical profile (`vp`) or a time series of vertical profiles
 #' (`vpts`) by index from a `vpts`.
 #'
-#' @rdname summary.vpts
 #' @param x A `vpts` object.
 #' @param i Integer. Index/indices specifying which range of vertical profiles
 #'   to extract.
