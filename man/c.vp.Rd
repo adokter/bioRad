@@ -21,8 +21,6 @@ Concatenates vertical profiles (\code{vp}) into a list of vertical profiles
 c(example_vp, example_vp)
 }
 \seealso{
-\code{\link[=bind_into_vpts]{bind_into_vpts()}}
-
 Other profile manipulation functions:
 \code{\link[=bind_into_vpts]{bind_into_vpts()}},
 \code{\link[=clean_mixture]{clean_mixture()}},

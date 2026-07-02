@@ -7,9 +7,6 @@
 #' @returns An updated object of the same class as the input.
 #' @family conversion functions
 #' @export
-#' @seealso
-#' * [summary.vp()]
-#' * [summary.vpts()]
 #' @examples
 #' # Convert a vp object
 #' vp <- convert_legacy(example_vp)
