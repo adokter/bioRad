@@ -62,6 +62,9 @@ unlink(temp_dir, recursive = TRUE)
 }
 }
 \seealso{
+Use \code{\link[getRad:get_pvol]{getRad::get_pvol()}} to load polar volume data directly from supported
+online sources.
+
 Other read pvol functions:
 \code{\link[=is.pvolfile]{is.pvolfile()}},
 \code{\link[=read_pvolfile]{read_pvolfile()}},

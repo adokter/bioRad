@@ -21,6 +21,8 @@
 #' a message and a progress bar in the console indicating the download status.
 #' @family read pvol functions
 #' @seealso
+#' Use [getRad::get_pvol()] to load polar volume data directly from supported
+#' online sources.
 #' @export
 #' @examples
 #' \donttest{
