@@ -4,17 +4,10 @@
 #' that can be read with bioRad.
 #'
 #' @param file Character. Path of the file to check.
-#'
-#' @return `TRUE` for a vertical profile file in readable format, otherwise
+#' @returns `TRUE` for a vertical profile file in readable format, otherwise
 #'   `FALSE`.
-#'
+#' @family profile read functions
 #' @export
-#'
-#' @seealso
-#' * [read_vpfiles()]
-#' * [get_odim_object_type()]
-#' * [is.vp()]
-#'
 #' @examples
 #' # Locate the vertical profile example file
 #' vpfile <- system.file("extdata", "profile.h5", package = "bioRad")

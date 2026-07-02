@@ -176,3 +176,14 @@ A Gaussian mixture model to separate birds and insects in
 single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989 \doi{10.3390/rs13101989}.
 }
 }
+\seealso{
+Other profile manipulation functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=c.vp]{c.vp()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=rcs<-]{rcs<-()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}},
+\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
+}
+\concept{profile manipulation functions}

@@ -3,6 +3,7 @@
 #'
 #' Make a plan position indicator (ppi)
 #'
+#' @inheritParams beam_height
 #' @param x An object of class `param` or `scan`.
 #' @param grid_size Cartesian grid size in m.
 #' @param range_max Maximum range in m.
@@ -11,14 +12,10 @@
 #' @param project Whether to vertically project onto earth's surface.
 #' @param raster (optional) `raster::RasterLayer` or `terra::SpatRaster` with a CRS. When specified
 #' this raster topology is used for the output, and `grid_size`, `range_max`, `xlim`, `ylim` are ignored.
-#' @inheritParams beam_height
-#'
-#' @return An object of class '[ppi][summary.ppi]'.
-#'
+#' @returns An object of class '[ppi][summary.ppi]'.
+#' @family ppi calculation functions
 #' @export
-#'
 #' @details The returned PPI is in Azimuthal Equidistant Projection.
-#'
 #' @examples
 #' # load a polar scan example object:
 #' data(example_scan)
@@ -55,7 +52,6 @@ project_as_ppi <- function(x, grid_size = 500, range_max = 50000,
 
 
 #' @describeIn project_as_ppi Project as `ppi` for a single scan parameter.
-#'
 #' @export
 project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
                                  project = TRUE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
@@ -81,7 +77,6 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
 
 #' @describeIn project_as_ppi Project multiple `ppi`'s for all scan
 #' parameters in a scan
-#'
 #' @export
 project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
                                 project = TRUE, ylim = NULL, xlim = NULL, raster = NA, k = 4 / 3, re = 6378, rp = 6357) {
@@ -237,9 +232,6 @@ sample_polar <- function(param, grid_size, range_max, project, ylim, xlim, k = 4
   }
   output
 }
-
-
-
 
 cartesian_to_polar <- function(coords, elev = 0, k = 4 / 3, lat = 35, re = 6378, rp = 6357) {
   range <- beam_range(sqrt(coords[, 1]^2 + coords[, 2]^2), elev, k = k, lat = lat, re = re, rp = rp)

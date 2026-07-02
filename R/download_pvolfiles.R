@@ -16,15 +16,14 @@
 #' @param bucket character. Bucket name to use.
 #' @param directory_tree logical. Whether to create the yyyy/mm/dd/radar
 #' directory structure. TRUE by default.
-#'
-#' @export
-#' @return `NULL`. The function's primary effect is to download selected polar volume
+#' @returns `NULL`. The function's primary effect is to download selected polar volume
 #' files from the NEXRAD Level II archive to a specified local directory, and to provide
 #' a message and a progress bar in the console indicating the download status.
+#' @family pvol read functions
 #' @seealso
-#' [getRad::get_pvol()] for loading polar volumes files directly
-#' as a `pvol` object. This function also provides access to
-#' some European radars.
+#' Use [getRad::get_pvol()] to load polar volume data directly from supported
+#' online sources.
+#' @export
 #' @examples
 #' \donttest{
 #' # create temporary directory

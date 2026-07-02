@@ -2,7 +2,7 @@
 % Please edit documentation in R/scan_convert.R
 \name{scan_to_raster}
 \alias{scan_to_raster}
-\title{convert a polar scan into a raster}
+\title{Convert a polar scan into a raster}
 \usage{
 scan_to_raster(
   scan,
@@ -59,7 +59,7 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 a RasterBrick
 }
 \description{
-convert an object of class 'scan' into a raster of class 'RasterBrick'
+Converts an object of class \code{scan} into a raster of class \code{RasterBrick}.
 }
 \details{
 uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
@@ -78,3 +78,8 @@ template_raster <- terra::rast(terra::ext(12, 13, 56, 58), crs = "epsg:4326")
 scan_to_raster(example_scan, raster = template_raster)
 }
 }
+\seealso{
+Other raster functions:
+\code{\link[=scan_to_spatial]{scan_to_spatial()}}
+}
+\concept{raster functions}

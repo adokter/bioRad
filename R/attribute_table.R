@@ -1,17 +1,17 @@
 #' Extract a volume coverage pattern table with all attributes
 #'
-#' @param x Either a pvol or scan for which the table should be created.
-#' @param select A character vector which the column names that should be returned when NULL all attributes are to be returned
-#' @param ... Currently not used
-#'
 #' This function tabulates the attributes of one scan or all scans of a pvol.
 #' Attributes that have a length longer then one are presented as a list column.
 #' By default the function returns a limited set of columns to keep the output clear.
 #' It is important to note that attributes of the full polar volume can contain additional information on processing that is not included in the resulting table.
 #' This function only tabulates attributes of the scans.
 #'
-#' @export
+#' @param x Either a pvol or scan for which the table should be created.
+#' @param select A character vector which the column names that should be returned when NULL all attributes are to be returned
+#' @param ... Currently not used
 #' @returns A data.frame with the attributes of the scan(s)
+#' @family profile metadata functions
+#' @export
 #' @examples
 #' data(example_scan)
 #' attribute_table(example_scan)

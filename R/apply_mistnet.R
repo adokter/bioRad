@@ -3,6 +3,7 @@
 #' Applies the MistNet segmentation model to a polar volume file on disk and
 #'   loads the resultant segmentation as a polar volume (`pvol`) object.
 #'
+#' @inheritParams calculate_vp
 #' @param file Character. Path to a polar volume (`pvol`) file, or a single `pvol` object.
 #' @param pvolfile_out Character. (optional) File name. When provided, writes a
 #'   polar volume (`pvol`) file to disk that includes the Mistnet segmentation
@@ -14,14 +15,10 @@
 #'   angles may compromise segmentation results.
 #' @param local_mistnet Character. Path to local MistNet segmentation model in
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use.
-#'
-#' @inheritParams calculate_vp
-#'
-#' @return When `load` is `TRUE`, a polar volume (`pvol`) object with the
+#' @returns When `load` is `TRUE`, a polar volume (`pvol`) object with the
 #'   Mistnet segmentation results. When `load` is `FALSE`, `TRUE` on success.
-#'
+#' @family scan manipulation functions
 #' @export
-#'
 #' @details
 #' MistNet (Lin et al. 2019) is a deep convolutional neural network that has
 #' been trained using labels derived from S-band dual-polarization data across
@@ -65,11 +62,6 @@
 #' scans at that spatial location > 0.45.
 #'
 #' MistNet may run more slowly on Windows than on Linux or Mac OS X.
-#'
-#' @seealso
-#' * [check_docker()]
-#' * [calculate_vp()]
-#'
 #' @references
 #' Please cite this publication when using MistNet:
 #' * Lin T-Y, Winner K, Bernstein G, Mittal A, Dokter AM, Horton KG, Nilsson C,
@@ -77,7 +69,6 @@
 #' Measuring historical bird migration in the US using archived weather radar
 #' data and convolutional neural networks. Methods in Ecology and Evolution 10
 #' (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
-#'
 #' @examples
 #' \donttest{
 #' # make sure you have installed the MistNet libraries and install if necessary:

@@ -45,3 +45,13 @@ This function has been superseded by \code{getRad::get_vpts()} and
 list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
 }
 }
+\seealso{
+Other profile read functions:
+\code{\link[=download_vpfiles]{download_vpfiles()}},
+\code{\link[=is.vpfile]{is.vpfile()}},
+\code{\link[=read_cajun]{read_cajun()}},
+\code{\link[=read_vpfiles]{read_vpfiles()}},
+\code{\link[=read_vpts]{read_vpts()}},
+\code{\link[=select_vpfiles]{select_vpfiles()}}
+}
+\concept{profile read functions}

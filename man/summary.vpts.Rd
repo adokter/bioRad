@@ -5,7 +5,6 @@
 \alias{print.vpts}
 \alias{is.vpts}
 \alias{dim.vpts}
-\alias{[.vpts}
 \title{Inspect a time series of vertical profiles (\code{vpts})}
 \usage{
 \method{summary}{vpts}(object, ...)
@@ -15,8 +14,6 @@
 is.vpts(x)
 
 \method{dim}{vpts}(x)
-
-\method{[}{vpts}(x, i)
 }
 \arguments{
 \item{object}{A \code{vpts} object.}
@@ -25,10 +22,8 @@ is.vpts(x)
 
 \item{x}{A \code{vpts} object.}
 
-\item{digits}{The number of significant digits to use when printing. Defaults to \code{max(3L, getOption("digits") - 3L)}.}
-
-\item{i}{Integer. Index/indices specifying which range of vertical profiles
-to extract.}
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=summary.vpts]{summary.vpts()}}: prints the summary of the\code{vpts} object.
@@ -40,16 +35,10 @@ For \code{\link[=is.vpts]{is.vpts()}}: \code{TRUE} for an object of class \code{
 
 For \code{\link[=dim.vpts]{dim.vpts()}}: number of datetimes, heights and quantities in a
 time series of vertical profiles (\code{vpts}).
-
-For \verb{[.vpts}: A \code{vpts} object containing a subset of vertical profiles (\code{vp}) or a
-\code{vp} object when subsetting a single vertical profile (\code{vp}).
 }
 \description{
 R base functions for inspecting a time series of vertical profiles (\code{vpts})
 object.
-
-Select a vertical profile (\code{vp}) or a time series of vertical profiles
-(\code{vpts}) by index from a \code{vpts}.
 }
 \details{
 A time series of vertical profiles contains time-ordered vertical profiles
@@ -97,28 +86,11 @@ example_vpts # Same as summary(example_vpts) or print(example_vpts)
 
 # Get dimensions
 dim(example_vpts)
-# The example vpts contains 1934 profiles (i.e. datetimes)
-dim(example_vpts)
-
-# Subset vpts to extract 10th profile
-example_vpts[10] # A vp object
-
-# Subset vpts to extract the 20th to 100th profile
-example_vpts[20:100] # A vpts object with 81 profiles
-
-# Subset vpts to remove the first 10 profiles
-example_vpts[-1:-10] # A vpts object with 10 less profiles
 }
 \seealso{
-\itemize{
-\item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
-\item \code{\link[=read_vpts]{read_vpts()}}
-\item \code{\link[=filter_vpts]{filter_vpts()}}
-\item \code{\link[=regularize_vpts]{regularize_vpts()}}
-\item \code{\link{example_vpts}}
-\item \code{\link[=get_quantity]{get_quantity()}}
-\item \code{\link[=plot.vp]{plot.vp()}}
-\item \code{\link[=as.data.frame.vpts]{as.data.frame.vpts()}}
-\item \code{\link[=[.vpts]{[vpts()}}
+Other vpts functions:
+\code{\link[=[.vpts]{[.vpts()}},
+\code{\link{example_vpts}},
+\code{\link[=plot.vpts]{plot.vpts()}}
 }
-}
+\concept{vpts functions}

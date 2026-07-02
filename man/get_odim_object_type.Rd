@@ -26,8 +26,7 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 get_odim_object_type(pvolfile)
 }
 \seealso{
-\itemize{
-\item \code{\link[=is.pvolfile]{is.pvolfile()}}
-\item \code{\link[=is.vpfile]{is.vpfile()}}
+Other pvol metadata functions:
+\code{\link[=get_iris_raw_task]{get_iris_raw_task()}}
 }
-}
+\concept{pvol metadata functions}

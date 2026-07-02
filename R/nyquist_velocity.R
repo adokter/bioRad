@@ -8,11 +8,9 @@
 #' @param prf1 Numeric. Radar pulse repetition frequency, in Hz.
 #' @param prf2 Numeric. Alternate radar pulse repetition frequency for a radar
 #'   operating in dual-PRF mode, in Hz.
-#'
-#' @return Nyquist velocity, in m/s.
-#'
+#' @returns Nyquist velocity, in m/s.
+#' @family conversion functions
 #' @export
-#'
 #' @examples
 #' # Get Nyquist velocity at C-band (5.3 cm wavelength) and a PRF of 2000 Hz
 #' nyquist_velocity(5.3, 2000)

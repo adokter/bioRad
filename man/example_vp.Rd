@@ -24,8 +24,10 @@ data(example_vp)
 example_vp
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vp]{summary.vp()}}
+Other vp functions:
+\code{\link[=get_quantity]{get_quantity()}},
+\code{\link[=plot.vp]{plot.vp()}},
+\code{\link[=summary.vp]{summary.vp()}}
 }
-}
+\concept{vp functions}
 \keyword{datasets}

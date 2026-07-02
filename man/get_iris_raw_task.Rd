@@ -25,3 +25,8 @@ task names were found.
 Checks what type of \code{task}(s), i.e. polar volume types, are contained in an
 IRIS RAW file.
 }
+\seealso{
+Other pvol metadata functions:
+\code{\link[=get_odim_object_type]{get_odim_object_type()}}
+}
+\concept{pvol metadata functions}

@@ -23,11 +23,9 @@ globalVariables(c("x","y","closest"))
 #' timesteps. When `FALSE`, `fill`  maps to 0, disabling filling.
 #' @param verbose Logical, when `TRUE` prints text to console.
 #' @param keep_datetime Logical, when `TRUE` keep original radar acquisition timestamps.
-#'
-#' @return An object of class `vpts` with regular time steps.
-#'
+#' @returns An object of class `vpts` with regular time steps.
+#' @family profile manipulation functions
 #' @export
-#'
 #' @details Irregular time series of profiles are typically aligned on a
 #' regular time grid with the expected time interval at which a radar provides
 #' data. Alignment is performed using a nearest neighbor interpolation limited to
@@ -46,7 +44,6 @@ globalVariables(c("x","y","closest"))
 #' When `keep_datetime` is `TRUE` the original profile timestamps are kept in
 #' `ts$datetime`. This may lead to duplicate timestamps when regularizing on a timegrid
 #' finer than the interval of available profiles.
-#'
 #' @examples
 #' # start form example vpts object:
 #' data(example_vpts)

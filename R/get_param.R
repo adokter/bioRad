@@ -5,14 +5,9 @@
 #' @param x A `scan` object.
 #' @param param Character. A scan parameter, such as `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
-#'
-#' @return A `param` object.
-#'
+#' @returns A `param` object.
+#' @family param functions
 #' @export
-#'
-#' @seealso
-#' * [summary.param()]
-#'
 #' @examples
 #' # Get summary info for a scan (including parameters)
 #' example_scan

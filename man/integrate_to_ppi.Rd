@@ -241,31 +241,17 @@ ppi_ground  <- integrate_to_ppi(pvol_ground, vp_ground, height_reference = "grou
 \references{
 \itemize{
 \item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
-J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird Movements
-Estimated from a Weather Radar Network. Remote Sensing 12 (4), 635.
-\doi{https://doi.org/10.3390/rs12040635}
-\item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
-stopover using weather surveillance radar. IEEE Transactions on Geoscience
-and Remote Sensing 47: 2741-2751.
-\doi{https://doi.org/10.1109/TGRS.2009.2014463}
-}
-
-\itemize{
-\item Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L, Shamoun-Baranes
 J, Dokter AM (2020) High-Resolution Spatial Distribution of Bird
 Movements Estimated from a Weather Radar Network. Remote Sensing 12 (4),
 635. \doi{10.3390/rs12040635}
 \item Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
 stopover using weather surveillance radar. IEEE Transactions on Geoscience
-and Remote Sensing 47: 2741-2751.
-\doi{10.1109/TGRS.2009.2014463}
+and Remote Sensing 47: 2741-2751. \doi{10.1109/TGRS.2009.2014463}
 }
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.ppi]{summary.ppi()}}
-\item \code{\link[=beam_profile]{beam_profile()}}
-\item \code{\link[=beam_range]{beam_range()}}
-\item \code{\link[=integrate_profile]{integrate_profile()}}
+Other ppi calculation functions:
+\code{\link[=composite_ppi]{composite_ppi()}},
+\code{\link[=project_as_ppi]{project_as_ppi()}}
 }
-}
+\concept{ppi calculation functions}

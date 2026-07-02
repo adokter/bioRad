@@ -69,3 +69,9 @@ example_pvol |>
 }
 }
 }
+\seealso{
+Other scan manipulation functions:
+\code{\link[=apply_mistnet]{apply_mistnet()}},
+\code{\link[=calculate_param]{calculate_param()}}
+}
+\concept{scan manipulation functions}

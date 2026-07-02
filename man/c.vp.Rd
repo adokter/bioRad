@@ -19,8 +19,15 @@ Concatenates vertical profiles (\code{vp}) into a list of vertical profiles
 \examples{
 # concatenate vp objects into a list:
 c(example_vp, example_vp)
-
 }
 \seealso{
-\code{\link[=bind_into_vpts]{bind_into_vpts()}}
+Other profile manipulation functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=rcs<-]{rcs<-()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}},
+\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
+\concept{profile manipulation functions}

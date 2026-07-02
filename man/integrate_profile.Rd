@@ -236,3 +236,9 @@ integrate_profile(example_vp, height_quantile=.5)
 # calculate the 90\% percentile of the flight altitude distribution
 integrate_profile(example_vpts, height_quantile=.9)
 }
+\seealso{
+Other integrated profile functions:
+\code{\link[=plot.vpi]{plot.vpi()}},
+\code{\link[=summary.vpi]{summary.vpi()}}
+}
+\concept{integrated profile functions}

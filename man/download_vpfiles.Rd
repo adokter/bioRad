@@ -56,10 +56,12 @@ download_vpfiles(
 }
 }
 \seealso{
-\itemize{
-\item \code{\link[=read_vpts]{read_vpts()}}
-\item \code{\link[=select_vpfiles]{select_vpfiles()}}
-\item \code{\link[=read_vpfiles]{read_vpfiles()}}
-\item \code{\link[getRad:get_vpts]{getRad::get_vpts()}}
+Other profile read functions:
+\code{\link[=is.vpfile]{is.vpfile()}},
+\code{\link[=list_vpts_aloft]{list_vpts_aloft()}},
+\code{\link[=read_cajun]{read_cajun()}},
+\code{\link[=read_vpfiles]{read_vpfiles()}},
+\code{\link[=read_vpts]{read_vpts()}},
+\code{\link[=select_vpfiles]{select_vpfiles()}}
 }
-}
+\concept{profile read functions}

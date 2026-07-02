@@ -1,13 +1,13 @@
 #' Mathematical and arithmetic operations on param's, scan's and pvol's
 #'
+#' @rdname operators
 #' @param x object of class `scan`, or `pvol`
 #' @param ... objects passed on to the Math functions
 #' @param e1 object of class `param`, `scan`, `pvol` or a number
 #' @param e2 object of class `param`, `scan`, `pvol` or a number
-#'
-#' @return an object of the input class
-#'
-#' @rdname Ops
+#' @returns an object of the input class
+#' @family operator functions
+#' @export
 #' @details
 #' Use caution when applying these manipulations, as there are no
 #' consistency checks if the operations lead to interpretable outcomes.
@@ -18,12 +18,6 @@
 #'
 #' When a `pvol` is multiplied by a list, in which case arguments are taken from the list per scan.
 #' this requires the list to have the same length as the number of scans.
-#'
-#' @export
-#'
-#' @seealso
-#' * [calculate_param()]
-#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' scan1 <- example_scan
@@ -45,8 +39,8 @@
   x
 }
 
+#' @rdname operators
 #' @export
-#' @rdname Ops
 `Math.pvol` <- function(x, ...) {
   if (.Generic %in% c(
     "lgamma", "gamma", "digamma", "trigamma",
@@ -58,7 +52,7 @@
   x
 }
 
-#' @rdname Ops
+#' @rdname operators
 #' @export
 `Ops.param` <- function(e1, e2) {
   if (missing(e2)) {
@@ -89,9 +83,8 @@
   }
 }
 
+#' @rdname operators
 #' @export
-#' @rdname Ops
-
 `Ops.scan` <- function(e1, e2) {
   if (is.scan(e1) & is.scan(e2)) {
     l1 <- length(e1$params)
@@ -129,8 +122,7 @@
   }
 }
 
-
-#' @rdname Ops
+#' @rdname operators
 #' @export
 `Ops.pvol` <- function(e1, e2) {
   if (is.pvol(e1) & is.pvol(e2)) {

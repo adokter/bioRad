@@ -24,8 +24,12 @@ data(example_scan)
 example_scan
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.scan]{summary.scan()}}
+Other scan functions:
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
+\code{\link[=get_scan]{get_scan()}},
+\code{\link[=plot.scan]{plot.scan()}},
+\code{\link[=summary.scan]{summary.scan()}},
+\code{\link{tidyverse}}
 }
-}
+\concept{scan functions}
 \keyword{datasets}

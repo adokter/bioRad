@@ -25,9 +25,12 @@ vpfile <- system.file("extdata", "profile.h5", package = "bioRad")
 is.vpfile(vpfile)
 }
 \seealso{
-\itemize{
-\item \code{\link[=read_vpfiles]{read_vpfiles()}}
-\item \code{\link[=get_odim_object_type]{get_odim_object_type()}}
-\item \code{\link[=is.vp]{is.vp()}}
+Other profile read functions:
+\code{\link[=download_vpfiles]{download_vpfiles()}},
+\code{\link[=list_vpts_aloft]{list_vpts_aloft()}},
+\code{\link[=read_cajun]{read_cajun()}},
+\code{\link[=read_vpfiles]{read_vpfiles()}},
+\code{\link[=read_vpts]{read_vpts()}},
+\code{\link[=select_vpfiles]{select_vpfiles()}}
 }
-}
+\concept{profile read functions}

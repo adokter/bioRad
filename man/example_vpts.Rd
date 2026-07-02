@@ -24,8 +24,10 @@ data(example_vpts)
 example_vpts
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vpts]{summary.vpts()}}
+Other vpts functions:
+\code{\link[=[.vpts]{[.vpts()}},
+\code{\link[=plot.vpts]{plot.vpts()}},
+\code{\link[=summary.vpts]{summary.vpts()}}
 }
-}
+\concept{vpts functions}
 \keyword{datasets}

@@ -84,5 +84,5 @@ sunset(lubridate::as_datetime("2016-06-06",tz="America/Chicago"), -98, 45, force
 # Also beware of jumps in sunrise and sunset date with longitude:
 sunrise("2016-11-01", 100, 45)
 sunrise("2016-11-01", 102, 45)
-
 }
+\concept{suncalc functions}

@@ -70,3 +70,12 @@ plot(example_scan, param = "DBZH", zlim = c(-10, 10)) +
   viridis::scale_fill_viridis(name = "dBZ")
 }
 }
+\seealso{
+Other scan functions:
+\code{\link{example_scan}},
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
+\code{\link[=get_scan]{get_scan()}},
+\code{\link[=summary.scan]{summary.scan()}},
+\code{\link{tidyverse}}
+}
+\concept{scan functions}
