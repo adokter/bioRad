@@ -38,6 +38,7 @@ select.scan <- function(.data, ...) {
 }
 
 #' @family pvol functions
+#' @name tidyverse
 #' @exportS3Method dplyr::select
 select.pvol <- function(.data, ...) {
   .data$scans <- lapply(.data$scans, select.scan, ...)

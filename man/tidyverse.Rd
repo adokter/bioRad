@@ -6,6 +6,8 @@
 \title{Tidyverse methods for bioRad objects}
 \usage{
 \method{select}{scan}(.data, ...)
+
+\method{select}{pvol}(.data, ...)
 }
 \arguments{
 \item{.data}{data object of class \code{scan} or \code{pvol}}
@@ -32,6 +34,7 @@ select(get_scan(example_pvol, 2.5), VRADH:ZDR)
 \seealso{
 Other scan functions:
 \code{\link{example_scan}},
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
 \code{\link[=get_scan]{get_scan()}},
 \code{\link[=plot.scan]{plot.scan()}},
 \code{\link[=summary.scan]{summary.scan()}}
