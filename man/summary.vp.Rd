@@ -105,7 +105,6 @@ dim(example_vp)
 }
 \seealso{
 Other vp functions:
-\code{\link[=c.vp]{c.vp()}},
 \code{\link{example_vp}},
 \code{\link[=plot.vp]{plot.vp()}}
 }

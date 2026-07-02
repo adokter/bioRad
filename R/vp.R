@@ -122,7 +122,7 @@ dim.vp <- function(x) {
 #'
 #' @param ... `vp` objects.
 #' @returns A list of `vp` objects.
-#' @family vp functions
+#' @family manipulate profile functions
 #' @seealso [bind_into_vpts()]
 #' @export
 #' @examples

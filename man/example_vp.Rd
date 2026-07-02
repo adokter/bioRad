@@ -25,7 +25,6 @@ example_vp
 }
 \seealso{
 Other vp functions:
-\code{\link[=c.vp]{c.vp()}},
 \code{\link[=plot.vp]{plot.vp()}},
 \code{\link[=summary.vp]{summary.vp()}}
 }

@@ -97,6 +97,7 @@ filter_precip(example_vp)
 \seealso{
 Other manipulate profile functions:
 \code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=c.vp]{c.vp()}},
 \code{\link[=clean_mixture]{clean_mixture()}},
 \code{\link[=filter_vpts]{filter_vpts()}},
 \code{\link[=regularize_vpts]{regularize_vpts()}}

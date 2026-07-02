@@ -23,9 +23,11 @@ c(example_vp, example_vp)
 \seealso{
 \code{\link[=bind_into_vpts]{bind_into_vpts()}}
 
-Other vp functions:
-\code{\link{example_vp}},
-\code{\link[=plot.vp]{plot.vp()}},
-\code{\link[=summary.vp]{summary.vp()}}
+Other manipulate profile functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}}
 }
-\concept{vp functions}
+\concept{manipulate profile functions}
