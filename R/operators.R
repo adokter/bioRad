@@ -1,6 +1,6 @@
 #' Mathematical and arithmetic operations on param's, scan's and pvol's
 #'
-#' @rdname Ops
+#' @rdname operators
 #' @param x object of class `scan`, or `pvol`
 #' @param ... objects passed on to the Math functions
 #' @param e1 object of class `param`, `scan`, `pvol` or a number
@@ -39,8 +39,8 @@
   x
 }
 
-#' @rdname Ops
 #' @family operator functions
+#' @rdname operators
 #' @export
 `Math.pvol` <- function(x, ...) {
   if (.Generic %in% c(
@@ -53,8 +53,8 @@
   x
 }
 
-#' @rdname Ops
 #' @family operator functions
+#' @rdname operators
 #' @export
 `Ops.param` <- function(e1, e2) {
   if (missing(e2)) {
@@ -85,8 +85,8 @@
   }
 }
 
-#' @rdname Ops
 #' @family operator functions
+#' @rdname operators
 #' @export
 `Ops.scan` <- function(e1, e2) {
   if (is.scan(e1) & is.scan(e2)) {
@@ -125,8 +125,8 @@
   }
 }
 
-#' @rdname Ops
 #' @family operator functions
+#' @rdname operators
 #' @export
 `Ops.pvol` <- function(e1, e2) {
   if (is.pvol(e1) & is.pvol(e2)) {
