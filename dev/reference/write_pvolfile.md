@@ -33,6 +33,13 @@ write_pvolfile(pvol, file, overwrite = FALSE, infer_dtype = FALSE)
 
 0 on success. A `pvol` object will be written to file in ODIM H5 format.
 
+## See also
+
+Other pvol read functions:
+[`download_pvolfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_pvolfiles.md),
+[`is.pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/is.pvolfile.md),
+[`read_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/read_pvolfile.md)
+
 ## Examples
 
 ``` r

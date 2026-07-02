@@ -8,6 +8,9 @@ R base functions for inspecting a scan (`scan`) object.
 # S3 method for class 'scan'
 summary(object, ...)
 
+# S3 method for class 'scan'
+print(x, digits = max(3L, getOption("digits") - 3L), ...)
+
 is.scan(x)
 
 # S3 method for class 'scan'
@@ -27,6 +30,11 @@ dim(x)
 - x:
 
   A `scan` object.
+
+- digits:
+
+  minimal number of *significant* digits, see
+  [`print.default`](https://rdrr.io/r/base/print.default.html).
 
 ## Value
 
@@ -77,13 +85,12 @@ resulting parameter data (`param`) are organized along radar range
 
 ## See also
 
-- [`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md)
-
-- [`example_scan`](http://adriaandokter.com/bioRad/dev/reference/example_scan.md)
-
-- [`plot.scan()`](http://adriaandokter.com/bioRad/dev/reference/plot.scan.md)
-
-- [`get_param()`](http://adriaandokter.com/bioRad/dev/reference/get_param.md)
+Other scan functions:
+[`example_scan`](http://adriaandokter.com/bioRad/dev/reference/example_scan.md),
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md),
+[`plot.scan()`](http://adriaandokter.com/bioRad/dev/reference/plot.scan.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
 
 ## Examples
 

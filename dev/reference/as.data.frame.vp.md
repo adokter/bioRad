@@ -111,7 +111,9 @@ all thresholded by
 
 ## See also
 
-- [`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
+Other profile conversion functions:
+[`as.vp()`](http://adriaandokter.com/bioRad/dev/reference/as.vp.md),
+[`as.vpts()`](http://adriaandokter.com/bioRad/dev/reference/as.vpts.md)
 
 ## Examples
 

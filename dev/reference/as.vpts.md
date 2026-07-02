@@ -18,6 +18,12 @@ as.vpts(data)
 
 a bioRad vpts object
 
+## See also
+
+Other profile conversion functions:
+[`as.data.frame.vp()`](http://adriaandokter.com/bioRad/dev/reference/as.data.frame.vp.md),
+[`as.vp()`](http://adriaandokter.com/bioRad/dev/reference/as.vp.md)
+
 ## Examples
 
 ``` r

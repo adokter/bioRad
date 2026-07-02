@@ -26,7 +26,9 @@ A `param` object.
 
 ## See also
 
-- [`summary.param()`](http://adriaandokter.com/bioRad/dev/reference/summary.param.md)
+Other param functions:
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`summary.param()`](http://adriaandokter.com/bioRad/dev/reference/summary.param.md)
 
 ## Examples
 

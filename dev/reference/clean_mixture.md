@@ -208,6 +208,17 @@ the slow component.
   data. Remote Sensing. 2021 May 19;13(10):1989
   [doi:10.3390/rs13101989](https://doi.org/10.3390/rs13101989) .
 
+## See also
+
+Other profile manipulation functions:
+[`bind_into_vpts()`](http://adriaandokter.com/bioRad/dev/reference/bind_into_vpts.md),
+[`c.vp()`](http://adriaandokter.com/bioRad/dev/reference/c.vp.md),
+[`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md),
+[`filter_vpts()`](http://adriaandokter.com/bioRad/dev/reference/filter_vpts.md),
+[`rcs<-()`](http://adriaandokter.com/bioRad/dev/reference/rcs-set.md),
+[`regularize_vpts()`](http://adriaandokter.com/bioRad/dev/reference/regularize_vpts.md),
+[`sd_vvp_threshold<-()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
+
 ## Examples
 
 ``` r

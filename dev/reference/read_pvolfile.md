@@ -103,6 +103,13 @@ Commonly available parameters are:
 
 - `ZDR`: (Logged) differential reflectivity (dB)
 
+## See also
+
+Other pvol read functions:
+[`download_pvolfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_pvolfiles.md),
+[`is.pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/is.pvolfile.md),
+[`write_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/write_pvolfile.md)
+
 ## Examples
 
 ``` r

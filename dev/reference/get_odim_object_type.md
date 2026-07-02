@@ -24,9 +24,8 @@ Character. `PVOL` for polar volume, `VP` for vertical profile, otherwise
 
 ## See also
 
-- [`is.pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/is.pvolfile.md)
-
-- [`is.vpfile()`](http://adriaandokter.com/bioRad/dev/reference/is.vpfile.md)
+Other pvol metadata functions:
+[`get_iris_raw_task()`](http://adriaandokter.com/bioRad/dev/reference/get_iris_raw_task.md)
 
 ## Examples
 

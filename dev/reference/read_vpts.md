@@ -36,6 +36,16 @@ read_vpts(files, data_frame = FALSE, ...)
 
 `vpts` object.
 
+## See also
+
+Other profile read functions:
+[`download_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_vpfiles.md),
+[`is.vpfile()`](http://adriaandokter.com/bioRad/dev/reference/is.vpfile.md),
+[`list_vpts_aloft()`](http://adriaandokter.com/bioRad/dev/reference/list_vpts_aloft.md),
+[`read_cajun()`](http://adriaandokter.com/bioRad/dev/reference/read_cajun.md),
+[`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md),
+[`select_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/select_vpfiles.md)
+
 ## Examples
 
 ``` r

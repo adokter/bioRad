@@ -134,7 +134,10 @@ Available scan parameters for mapping can by printed to screen by
 
 ## See also
 
-- [`project_as_ppi()`](http://adriaandokter.com/bioRad/dev/reference/project_as_ppi.md)
+Other ppi functions:
+[`[.ppi()`](http://adriaandokter.com/bioRad/dev/reference/sub-.ppi.md),
+[`plot.ppi()`](http://adriaandokter.com/bioRad/dev/reference/plot.ppi.md),
+[`summary.ppi()`](http://adriaandokter.com/bioRad/dev/reference/summary.ppi.md)
 
 ## Examples
 

@@ -37,9 +37,12 @@ the lower elevation angle scan is returned.
 
 ## See also
 
-- [`summary.scan()`](http://adriaandokter.com/bioRad/dev/reference/summary.scan.md)
-
-- [`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md)
+Other scan functions:
+[`example_scan`](http://adriaandokter.com/bioRad/dev/reference/example_scan.md),
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`plot.scan()`](http://adriaandokter.com/bioRad/dev/reference/plot.scan.md),
+[`summary.scan()`](http://adriaandokter.com/bioRad/dev/reference/summary.scan.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
 
 ## Examples
 

@@ -430,9 +430,7 @@ same, but several functions will run considerable faster.
   then be used to bulk download data using any number of external tools
   ([\#553](https://github.com/adokter/bioRad/issues/553)).
 
-- New function
-  [`read_stdout()`](http://adriaandokter.com/bioRad/dev/reference/read_stdout.md)
-  replaces previous functionality of
+- New function `read_stdout()` replaces previous functionality of
   [`read_vpts()`](http://adriaandokter.com/bioRad/dev/reference/read_vpts.md)
   to read vol2bird stdout format. It also has a new `sep` argument
   ([\#536](https://github.com/adokter/bioRad/issues/536)) to support
@@ -542,9 +540,9 @@ bugfixes. All issues included in this release can be found
   [\#487](https://github.com/adokter/bioRad/issues/487))
 
 - New functions
-  [`Math.pvol()`](http://adriaandokter.com/bioRad/dev/reference/Ops.md),
-  [`Math.scan()`](http://adriaandokter.com/bioRad/dev/reference/Ops.md),
-  [`Ops.pvol()`](http://adriaandokter.com/bioRad/dev/reference/Ops.md),[`Ops.scan()`](http://adriaandokter.com/bioRad/dev/reference/Ops.md),[`Ops.param()`](http://adriaandokter.com/bioRad/dev/reference/Ops.md):
+  [`Math.pvol()`](http://adriaandokter.com/bioRad/dev/reference/operators.md),
+  [`Math.scan()`](http://adriaandokter.com/bioRad/dev/reference/operators.md),
+  [`Ops.pvol()`](http://adriaandokter.com/bioRad/dev/reference/operators.md),[`Ops.scan()`](http://adriaandokter.com/bioRad/dev/reference/operators.md),[`Ops.param()`](http://adriaandokter.com/bioRad/dev/reference/operators.md):
   standard mathematical operations for `param`, `scan` and `pvol`
   objects.
 

@@ -1,6 +1,12 @@
 # Extract a volume coverage pattern table with all attributes
 
-Extract a volume coverage pattern table with all attributes
+This function tabulates the attributes of one scan or all scans of a
+pvol. Attributes that have a length longer then one are presented as a
+list column. By default the function returns a limited set of columns to
+keep the output clear. It is important to note that attributes of the
+full polar volume can contain additional information on processing that
+is not included in the resulting table. This function only tabulates
+attributes of the scans.
 
 ## Usage
 
@@ -28,17 +34,17 @@ attribute_table(
 
   Currently not used
 
-  This function tabulates the attributes of one scan or all scans of a
-  pvol. Attributes that have a length longer then one are presented as a
-  list column. By default the function returns a limited set of columns
-  to keep the output clear. It is important to note that attributes of
-  the full polar volume can contain additional information on processing
-  that is not included in the resulting table. This function only
-  tabulates attributes of the scans.
-
 ## Value
 
 A data.frame with the attributes of the scan(s)
+
+## See also
+
+Other profile metadata functions:
+[`check_night()`](http://adriaandokter.com/bioRad/dev/reference/check_night.md),
+[`doy_noy`](http://adriaandokter.com/bioRad/dev/reference/doy_noy.md),
+[`rcs()`](http://adriaandokter.com/bioRad/dev/reference/rcs.md),
+[`sd_vvp_threshold()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold.md)
 
 ## Examples
 

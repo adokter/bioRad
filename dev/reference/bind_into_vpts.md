@@ -59,9 +59,14 @@ number of altitude layers, i.e. the maximum altitude.
 
 ## See also
 
-- [`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
-
-- [`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
+Other profile manipulation functions:
+[`c.vp()`](http://adriaandokter.com/bioRad/dev/reference/c.vp.md),
+[`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md),
+[`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md),
+[`filter_vpts()`](http://adriaandokter.com/bioRad/dev/reference/filter_vpts.md),
+[`rcs<-()`](http://adriaandokter.com/bioRad/dev/reference/rcs-set.md),
+[`regularize_vpts()`](http://adriaandokter.com/bioRad/dev/reference/regularize_vpts.md),
+[`sd_vvp_threshold<-()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
 
 ## Examples
 

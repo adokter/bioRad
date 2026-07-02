@@ -21,7 +21,12 @@ weather radar.
 
 ## See also
 
-- [`summary.scan()`](http://adriaandokter.com/bioRad/dev/reference/summary.scan.md)
+Other scan functions:
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md),
+[`plot.scan()`](http://adriaandokter.com/bioRad/dev/reference/plot.scan.md),
+[`summary.scan()`](http://adriaandokter.com/bioRad/dev/reference/summary.scan.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
 
 ## Examples
 

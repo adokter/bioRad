@@ -73,6 +73,14 @@ noy(x, ..., method = "fast")
 
 integer representing the ordinal day of year or night of year.
 
+## See also
+
+Other profile metadata functions:
+[`attribute_table()`](http://adriaandokter.com/bioRad/dev/reference/attribute_table.md),
+[`check_night()`](http://adriaandokter.com/bioRad/dev/reference/check_night.md),
+[`rcs()`](http://adriaandokter.com/bioRad/dev/reference/rcs.md),
+[`sd_vvp_threshold()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold.md)
+
 ## Examples
 
 ``` r

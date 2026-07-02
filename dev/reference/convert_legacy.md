@@ -28,9 +28,10 @@ An updated object of the same class as the input.
 
 ## See also
 
-- [`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
-
-- [`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
+Other conversion functions:
+[`dbz_to_eta()`](http://adriaandokter.com/bioRad/dev/reference/dbz_to_eta.md),
+[`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md),
+[`nyquist_velocity()`](http://adriaandokter.com/bioRad/dev/reference/nyquist_velocity.md)
 
 ## Examples
 

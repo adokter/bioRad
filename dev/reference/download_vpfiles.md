@@ -58,13 +58,13 @@ that are not available.
 
 ## See also
 
-- [`read_vpts()`](http://adriaandokter.com/bioRad/dev/reference/read_vpts.md)
-
-- [`select_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/select_vpfiles.md)
-
-- [`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md)
-
-- [`getRad::get_vpts()`](https://aloftdata.github.io/getRad/reference/get_vpts.html)
+Other profile read functions:
+[`is.vpfile()`](http://adriaandokter.com/bioRad/dev/reference/is.vpfile.md),
+[`list_vpts_aloft()`](http://adriaandokter.com/bioRad/dev/reference/list_vpts_aloft.md),
+[`read_cajun()`](http://adriaandokter.com/bioRad/dev/reference/read_cajun.md),
+[`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md),
+[`read_vpts()`](http://adriaandokter.com/bioRad/dev/reference/read_vpts.md),
+[`select_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/select_vpfiles.md)
 
 ## Examples
 

@@ -179,6 +179,13 @@ Quantities `u` and `v` cannot be plotted on a logarithmic scale, because
 these quantities assume negative values. For quantities `DBZH` and `dbz`
 `log=TRUE` is ignored, because these quantities are already logarithmic.
 
+## See also
+
+Other vpts functions:
+[`[.vpts()`](http://adriaandokter.com/bioRad/dev/reference/sub-.vpts.md),
+[`example_vpts`](http://adriaandokter.com/bioRad/dev/reference/example_vpts.md),
+[`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
+
 ## Examples
 
 ``` r

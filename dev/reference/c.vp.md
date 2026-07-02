@@ -22,7 +22,14 @@ A list of `vp` objects.
 
 ## See also
 
-[`bind_into_vpts()`](http://adriaandokter.com/bioRad/dev/reference/bind_into_vpts.md)
+Other profile manipulation functions:
+[`bind_into_vpts()`](http://adriaandokter.com/bioRad/dev/reference/bind_into_vpts.md),
+[`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md),
+[`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md),
+[`filter_vpts()`](http://adriaandokter.com/bioRad/dev/reference/filter_vpts.md),
+[`rcs<-()`](http://adriaandokter.com/bioRad/dev/reference/rcs-set.md),
+[`regularize_vpts()`](http://adriaandokter.com/bioRad/dev/reference/regularize_vpts.md),
+[`sd_vvp_threshold<-()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
 
 ## Examples
 

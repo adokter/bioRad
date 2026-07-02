@@ -84,6 +84,13 @@ Available scan parameters for plotting can by printed to screen by
   16 in the [ODIM
   specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 
+## See also
+
+Other ppi functions:
+[`[.ppi()`](http://adriaandokter.com/bioRad/dev/reference/sub-.ppi.md),
+[`map()`](http://adriaandokter.com/bioRad/dev/reference/map.md),
+[`summary.ppi()`](http://adriaandokter.com/bioRad/dev/reference/summary.ppi.md)
+
 ## Examples
 
 ``` r

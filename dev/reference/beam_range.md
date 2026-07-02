@@ -48,13 +48,12 @@ to calculate beam height.
 
 ## See also
 
-Other beam_functions:
+Other beam functions:
 [`beam_distance()`](http://adriaandokter.com/bioRad/dev/reference/beam_distance.md),
 [`beam_height()`](http://adriaandokter.com/bioRad/dev/reference/beam_height.md),
 [`beam_profile()`](http://adriaandokter.com/bioRad/dev/reference/beam_profile.md),
 [`beam_profile_overlap()`](http://adriaandokter.com/bioRad/dev/reference/beam_profile_overlap.md),
-[`beam_width()`](http://adriaandokter.com/bioRad/dev/reference/beam_width.md),
-[`gaussian_beam_profile()`](http://adriaandokter.com/bioRad/dev/reference/gaussian_beam_profile.md)
+[`beam_width()`](http://adriaandokter.com/bioRad/dev/reference/beam_width.md)
 
 ## Examples
 

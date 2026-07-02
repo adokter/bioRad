@@ -32,10 +32,11 @@ The radar cross section in cm^2.
 
 ## See also
 
-- [`rcs()<-`](http://adriaandokter.com/bioRad/dev/reference/rcs-set.md)
-  for setting the radar cross section of an object.
-
-- [`sd_vvp_threshold()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold.md)
+Other profile metadata functions:
+[`attribute_table()`](http://adriaandokter.com/bioRad/dev/reference/attribute_table.md),
+[`check_night()`](http://adriaandokter.com/bioRad/dev/reference/check_night.md),
+[`doy_noy`](http://adriaandokter.com/bioRad/dev/reference/doy_noy.md),
+[`sd_vvp_threshold()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold.md)
 
 ## Examples
 

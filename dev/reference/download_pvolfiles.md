@@ -64,9 +64,14 @@ indicating the download status.
 
 ## See also
 
+Use
 [`getRad::get_pvol()`](https://aloftdata.github.io/getRad/reference/get_pvol.html)
-for loading polar volumes files directly as a `pvol` object. This
-function also provides access to some European radars.
+to load polar volume data directly from supported online sources.
+
+Other pvol read functions:
+[`is.pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/is.pvolfile.md),
+[`read_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/read_pvolfile.md),
+[`write_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/write_pvolfile.md)
 
 ## Examples
 

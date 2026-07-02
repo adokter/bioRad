@@ -20,7 +20,10 @@ An example object of type `vp` which represents a vertical profile.
 
 ## See also
 
-- [`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
+Other vp functions:
+[`get_quantity()`](http://adriaandokter.com/bioRad/dev/reference/get_quantity.md),
+[`plot.vp()`](http://adriaandokter.com/bioRad/dev/reference/plot.vp.md),
+[`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
 
 ## Examples
 

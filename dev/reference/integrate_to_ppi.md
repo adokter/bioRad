@@ -240,28 +240,11 @@ Scans at 90 degree beam elevation (e.g. birdbath scans) are ignored.
   Geoscience and Remote Sensing 47: 2741-2751.
   [doi:10.1109/TGRS.2009.2014463](https://doi.org/10.1109/TGRS.2009.2014463)
 
-&nbsp;
-
-- Kranstauber B, Bouten W, Leijnse H, Wijers B, Verlinden L,
-  Shamoun-Baranes J, Dokter AM (2020) High-Resolution Spatial
-  Distribution of Bird Movements Estimated from a Weather Radar Network.
-  Remote Sensing 12 (4), 635.
-  [doi:10.3390/rs12040635](https://doi.org/10.3390/rs12040635)
-
-- Buler JJ & Diehl RH (2009) Quantifying bird density during migratory
-  stopover using weather surveillance radar. IEEE Transactions on
-  Geoscience and Remote Sensing 47: 2741-2751.
-  [doi:10.1109/TGRS.2009.2014463](https://doi.org/10.1109/TGRS.2009.2014463)
-
 ## See also
 
-- [`summary.ppi()`](http://adriaandokter.com/bioRad/dev/reference/summary.ppi.md)
-
-- [`beam_profile()`](http://adriaandokter.com/bioRad/dev/reference/beam_profile.md)
-
-- [`beam_range()`](http://adriaandokter.com/bioRad/dev/reference/beam_range.md)
-
-- [`integrate_profile()`](http://adriaandokter.com/bioRad/dev/reference/integrate_profile.md)
+Other ppi calculation functions:
+[`composite_ppi()`](http://adriaandokter.com/bioRad/dev/reference/composite_ppi.md),
+[`project_as_ppi()`](http://adriaandokter.com/bioRad/dev/reference/project_as_ppi.md)
 
 ## Examples
 

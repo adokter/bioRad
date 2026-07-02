@@ -86,10 +86,14 @@ the selected quantity.
 
 ## See also
 
-- [`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
+Use
+[`sd_vvp_threshold()<-`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
+for setting the `sd_vvp` threshold of an object.
 
-- [`sd_vvp_threshold()<-`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
-  for setting the `sd_vvp` threshold of an object.
+Other vp functions:
+[`example_vp`](http://adriaandokter.com/bioRad/dev/reference/example_vp.md),
+[`plot.vp()`](http://adriaandokter.com/bioRad/dev/reference/plot.vp.md),
+[`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
 
 ## Examples
 

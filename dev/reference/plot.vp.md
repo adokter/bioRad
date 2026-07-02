@@ -72,6 +72,13 @@ plot(
 
 No return value, side effect is a plot.
 
+## See also
+
+Other vp functions:
+[`example_vp`](http://adriaandokter.com/bioRad/dev/reference/example_vp.md),
+[`get_quantity()`](http://adriaandokter.com/bioRad/dev/reference/get_quantity.md),
+[`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
+
 ## Examples
 
 ``` r

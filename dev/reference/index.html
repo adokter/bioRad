@@ -39,7 +39,7 @@
     <div class="section level2">
       <h2 id="reading-radar-data">Reading radar data<a class="anchor" aria-label="anchor" href="#reading-radar-data"></a></h2>
 
-      <div class="section-desc"><p>Functions to read polar volume (pvol) data.</p></div>
+      <div class="section-desc"><p>Functions to read polar volume (<code>pvol</code>) data.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -59,6 +59,20 @@
 
         </dt>
         <dd>Check if a file is a polar volume (<code>pvol</code>)</dd>
+
+        <dt>
+
+          <code><a href="read_pvolfile.html">read_pvolfile()</a></code>
+
+        </dt>
+        <dd>Read a polar volume (<code>pvol</code>) from file</dd>
+
+        <dt>
+
+          <code><a href="write_pvolfile.html">write_pvolfile()</a></code>
+
+        </dt>
+        <dd>Write a polar volume (<code>pvol</code>) object to ODIM HDF5 file</dd>
 
         <dt>
 
@@ -83,28 +97,28 @@
 
         <dt>
 
-          <code><a href="read_pvolfile.html">read_pvolfile()</a></code>
+          <code><a href="get_elevation_angles.html">get_elevation_angles()</a></code>
 
         </dt>
-        <dd>Read a polar volume (<code>pvol</code>) from file</dd>
+        <dd>Get elevation angles of a polar volume (<code>pvol</code>), scan (<code>scan</code>) or parameter (<code>param</code>)</dd>
 
         <dt>
 
-          <code><a href="write_pvolfile.html">write_pvolfile()</a></code>
-
-        </dt>
-        <dd>Write a polar volume (<code>pvol</code>) object to ODIM HDF5 file</dd>
-
-        <dt>
-
-          <code><a href="summary.pvol.html">summary(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="summary.pvol.html">is.pvol()</a></code> <code><a href="summary.pvol.html">dim(<i>&lt;pvol&gt;</i>)</a></code>
+          <code><a href="summary.pvol.html">summary(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="summary.pvol.html">print(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="summary.pvol.html">is.pvol()</a></code> <code><a href="summary.pvol.html">dim(<i>&lt;pvol&gt;</i>)</a></code>
 
         </dt>
         <dd>Inspect a polar volume (<code>pvol</code>)</dd>
+
+        <dt>
+
+          <code><a href="tidyverse.html">select(<i>&lt;scan&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;pvol&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Tidyverse methods for bioRad objects</dd>
       </dl></div><div class="section level2">
       <h2 id="inspecting-radar-scans">Inspecting radar scans<a class="anchor" aria-label="anchor" href="#inspecting-radar-scans"></a></h2>
 
-      <div class="section-desc"><p>Functions to inspect and plot a polar scan (scan) from a polar volume (pvol).</p></div>
+      <div class="section-desc"><p>Functions to inspect and plot a polar scan (<code>scan</code>) from a polar volume (<code>pvol</code>).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -112,6 +126,13 @@
 
 
       <dl><dt>
+
+          <code><a href="example_scan.html">example_scan</a></code>
+
+        </dt>
+        <dd>Scan (<code>scan</code>) example</dd>
+
+        <dt>
 
           <code><a href="get_elevation_angles.html">get_elevation_angles()</a></code>
 
@@ -127,24 +148,24 @@
 
         <dt>
 
-          <code><a href="summary.scan.html">summary(<i>&lt;scan&gt;</i>)</a></code> <code><a href="summary.scan.html">is.scan()</a></code> <code><a href="summary.scan.html">dim(<i>&lt;scan&gt;</i>)</a></code>
+          <code><a href="plot.scan.html">plot(<i>&lt;scan&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Plot a scan (<code>scan</code>) in polar coordinates</dd>
+
+        <dt>
+
+          <code><a href="summary.scan.html">summary(<i>&lt;scan&gt;</i>)</a></code> <code><a href="summary.scan.html">print(<i>&lt;scan&gt;</i>)</a></code> <code><a href="summary.scan.html">is.scan()</a></code> <code><a href="summary.scan.html">dim(<i>&lt;scan&gt;</i>)</a></code>
 
         </dt>
         <dd>Inspect a scan (<code>scan</code>)</dd>
 
         <dt>
 
-          <code><a href="example_scan.html">example_scan</a></code>
+          <code><a href="tidyverse.html">select(<i>&lt;scan&gt;</i>)</a></code> <code><a href="tidyverse.html">select(<i>&lt;pvol&gt;</i>)</a></code>
 
         </dt>
-        <dd>Scan (<code>scan</code>) example</dd>
-
-        <dt>
-
-          <code><a href="plot.scan.html">plot(<i>&lt;scan&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Plot a scan (<code>scan</code>) in polar coordinates</dd>
+        <dd>Tidyverse methods for bioRad objects</dd>
 
         <dt>
 
@@ -155,14 +176,14 @@
 
         <dt>
 
-          <code><a href="summary.param.html">summary(<i>&lt;param&gt;</i>)</a></code> <code><a href="summary.param.html">is.param()</a></code>
+          <code><a href="summary.param.html">summary(<i>&lt;param&gt;</i>)</a></code> <code><a href="summary.param.html">print(<i>&lt;param&gt;</i>)</a></code> <code><a href="summary.param.html">is.param()</a></code>
 
         </dt>
         <dd>Inspect a parameter (<code>param</code>)</dd>
       </dl></div><div class="section level2">
       <h2 id="manipulating-radar-scans">Manipulating radar scans<a class="anchor" aria-label="anchor" href="#manipulating-radar-scans"></a></h2>
 
-      <div class="section-desc"><p>Functions to manipulate radar images (scan, param, ppi) and to identify precipitation.</p></div>
+      <div class="section-desc"><p>Functions to manipulate radar images (<code>scan</code>, <code>param</code>, <code>ppi</code>) and to identify precipitation.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -170,20 +191,6 @@
 
 
       <dl><dt>
-
-          <code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code>
-
-        </dt>
-        <dd>Calculate a plan position indicator (<code>ppi</code>) of vertically integrated density adjusted for range effects</dd>
-
-        <dt>
-
-          <code><a href="calculate_param.html">calculate_param()</a></code>
-
-        </dt>
-        <dd>Calculate a new scan parameter</dd>
-
-        <dt>
 
           <code><a href="add_param.html">add_param()</a></code>
 
@@ -199,21 +206,21 @@
 
         <dt>
 
-          <code><a href="tidyverse.html">select(<i>&lt;scan&gt;</i>)</a></code>
+          <code><a href="calculate_param.html">calculate_param()</a></code>
 
         </dt>
-        <dd>Tidyverse methods for bioRad objects</dd>
+        <dd>Calculate a new scan parameter</dd>
 
         <dt>
 
-          <code><a href="Ops.html">Math(<i>&lt;scan&gt;</i>)</a></code> <code><a href="Ops.html">Math(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="Ops.html">Ops(<i>&lt;param&gt;</i>)</a></code> <code><a href="Ops.html">Ops(<i>&lt;scan&gt;</i>)</a></code> <code><a href="Ops.html">Ops(<i>&lt;pvol&gt;</i>)</a></code>
+          <code><a href="operators.html">Math(<i>&lt;scan&gt;</i>)</a></code> <code><a href="operators.html">Math(<i>&lt;pvol&gt;</i>)</a></code> <code><a href="operators.html">Ops(<i>&lt;param&gt;</i>)</a></code> <code><a href="operators.html">Ops(<i>&lt;scan&gt;</i>)</a></code> <code><a href="operators.html">Ops(<i>&lt;pvol&gt;</i>)</a></code>
 
         </dt>
         <dd>Mathematical and arithmetic operations on param's, scan's and pvol's</dd>
       </dl></div><div class="section level2">
       <h2 id="plotting-radar-scans">Plotting radar scans<a class="anchor" aria-label="anchor" href="#plotting-radar-scans"></a></h2>
 
-      <div class="section-desc"><p>Functions to plot a polar volume (pvol), scan (scan) or parameter (param) on a grid or basemap as a plan position indicator (ppi).</p></div>
+      <div class="section-desc"><p>Functions to plot a polar volume (<code>pvol</code>), scan (<code>scan</code>) or parameter (<code>param</code>) on a grid or basemap as a plan position indicator (<code>ppi</code>).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -229,38 +236,17 @@
 
         <dt>
 
+          <code><a href="composite_ppi.html">composite_ppi()</a></code>
+
+        </dt>
+        <dd>Create a composite of multiple plan position indicators (<code>ppi</code>)</dd>
+
+        <dt>
+
           <code><a href="integrate_to_ppi.html">integrate_to_ppi()</a></code>
 
         </dt>
         <dd>Calculate a plan position indicator (<code>ppi</code>) of vertically integrated density adjusted for range effects</dd>
-
-        <dt>
-
-          <code><a href="scan_to_raster.html">scan_to_raster()</a></code>
-
-        </dt>
-        <dd>convert a polar scan into a raster</dd>
-
-        <dt>
-
-          <code><a href="scan_to_spatial.html">scan_to_spatial()</a></code>
-
-        </dt>
-        <dd>convert a polar scan into a spatial object.</dd>
-
-        <dt>
-
-          <code><a href="summary.ppi.html">summary(<i>&lt;ppi&gt;</i>)</a></code> <code><a href="summary.ppi.html">is.ppi()</a></code> <code><a href="summary.ppi.html">dim(<i>&lt;ppi&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Inspect a plan position indicator (<code>ppi</code>)</dd>
-
-        <dt>
-
-          <code><a href="plot.ppi.html">plot(<i>&lt;ppi&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Plot a plan position indicator (<code>ppi</code>)</dd>
 
         <dt>
 
@@ -271,17 +257,10 @@
 
         <dt>
 
-          <code><a href="bioRad-deprecated.html">check_docker()</a></code> <code><a href="bioRad-deprecated.html">update_docker()</a></code> <code><a href="bioRad-deprecated.html">vol2bird_version()</a></code> <code><a href="bioRad-deprecated.html">download_basemap()</a></code>
+          <code><a href="plot.ppi.html">plot(<i>&lt;ppi&gt;</i>)</a></code>
 
         </dt>
-        <dd>Deprecated bioRad functions and data</dd>
-
-        <dt>
-
-          <code><a href="composite_ppi.html">composite_ppi()</a></code>
-
-        </dt>
-        <dd>Create a composite of multiple plan position indicators (<code>ppi</code>)</dd>
+        <dd>Plot a plan position indicator (<code>ppi</code>)</dd>
 
         <dt>
 
@@ -289,10 +268,31 @@
 
         </dt>
         <dd>Subset a plan position indicator (<code>ppi</code>)</dd>
+
+        <dt>
+
+          <code><a href="summary.ppi.html">summary(<i>&lt;ppi&gt;</i>)</a></code> <code><a href="summary.ppi.html">print(<i>&lt;ppi&gt;</i>)</a></code> <code><a href="summary.ppi.html">is.ppi()</a></code> <code><a href="summary.ppi.html">dim(<i>&lt;ppi&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Inspect a plan position indicator (<code>ppi</code>)</dd>
+
+        <dt>
+
+          <code><a href="scan_to_raster.html">scan_to_raster()</a></code>
+
+        </dt>
+        <dd>Convert a polar scan into a raster</dd>
+
+        <dt>
+
+          <code><a href="scan_to_spatial.html">scan_to_spatial()</a></code>
+
+        </dt>
+        <dd>Convert a polar scan into a spatial object.</dd>
       </dl></div><div class="section level2">
       <h2 id="creating-vertical-profiles-of-biological-targets">Creating vertical profiles of biological targets<a class="anchor" aria-label="anchor" href="#creating-vertical-profiles-of-biological-targets"></a></h2>
 
-      <div class="section-desc"><p>Functions to process weather radar data (pvol) into vertical profiles (vp) of biological targets.</p></div>
+      <div class="section-desc"><p>Functions to process weather radar data (<code>pvol</code>) into vertical profiles (<code>vp</code>) of biological targets.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -305,17 +305,10 @@
 
         </dt>
         <dd>Calculate a vertical profile (<code>vp</code>) from a polar volume (<code>pvol</code>) file</dd>
-
-        <dt>
-
-          <code><a href="nexrad_to_odim.html">nexrad_to_odim()</a></code>
-
-        </dt>
-        <dd>Convert a NEXRAD polar volume file to an ODIM polar volume file</dd>
       </dl></div><div class="section level2">
       <h2 id="reading-vertical-profile-data">Reading vertical profile data<a class="anchor" aria-label="anchor" href="#reading-vertical-profile-data"></a></h2>
 
-      <div class="section-desc"><p>Functions to download, read, inspect and plot vertical profile (vp) data.</p></div>
+      <div class="section-desc"><p>Functions to download, read, inspect and plot vertical profile (<code>vp</code>) data.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -331,13 +324,6 @@
 
         <dt>
 
-          <code><a href="select_vpfiles.html">select_vpfiles()</a></code>
-
-        </dt>
-        <dd>Select vertical profile (<code>vp</code>) files from computer</dd>
-
-        <dt>
-
           <code><a href="is.vpfile.html">is.vpfile()</a></code>
 
         </dt>
@@ -345,10 +331,10 @@
 
         <dt>
 
-          <code><a href="read_vpfiles.html">read_vpfiles()</a></code>
-
+          <code><a href="list_vpts_aloft.html">list_vpts_aloft()</a></code>
+          <span class="badge lifecycle lifecycle-superseded">superseded</span>
         </dt>
-        <dd>Read a vertical profile (<code>vp</code>) or a list of vertical profiles (<code>vp</code>) from files</dd>
+        <dd>List aloft urls for time series of vertical profiles (<code>vpts</code>) of radar stations</dd>
 
         <dt>
 
@@ -359,61 +345,10 @@
 
         <dt>
 
-          <code><a href="summary.vp.html">summary(<i>&lt;vp&gt;</i>)</a></code> <code><a href="summary.vp.html">is.vp()</a></code> <code><a href="summary.vp.html">dim(<i>&lt;vp&gt;</i>)</a></code>
+          <code><a href="read_vpfiles.html">read_vpfiles()</a></code>
 
         </dt>
-        <dd>Inspect a vertical profile (<code>vp</code>)</dd>
-
-        <dt>
-
-          <code><a href="example_vp.html">example_vp</a></code>
-
-        </dt>
-        <dd>Vertical profile (<code>vp</code>) example</dd>
-
-        <dt>
-
-          <code><a href="plot.vp.html">plot(<i>&lt;vp&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Plot a vertical profile (<code>vp</code>)</dd>
-
-        <dt>
-
-          <code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vp&gt;</i>)</a></code> <code><a href="as.data.frame.vp.html">as.data.frame(<i>&lt;vpts&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Convert a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>) to a data frame</dd>
-
-        <dt>
-
-          <code><a href="list_vpts_aloft.html">list_vpts_aloft()</a></code>
-          <span class="badge lifecycle lifecycle-superseded">superseded</span>
-        </dt>
-        <dd>List aloft urls for time series of vertical profiles (<code>vpts</code>) of radar stations</dd>
-      </dl></div><div class="section level2">
-      <h2 id="manipulating-vertical-profile-data">Manipulating vertical profile data<a class="anchor" aria-label="anchor" href="#manipulating-vertical-profile-data"></a></h2>
-
-      <div class="section-desc"><p>Functions to combine vertical profiles (vp) into time series (vpts) and to post-process, read, inspect and plot these.</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="c.vp.html">c(<i>&lt;vp&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Concatenate vertical profiles (<code>vp</code>) into a list of vertical profiles</dd>
-
-        <dt>
-
-          <code><a href="bind_into_vpts.html">bind_into_vpts()</a></code>
-
-        </dt>
-        <dd>Bind vertical profiles (<code>vp</code>) into time series (<code>vpts</code>)</dd>
+        <dd>Read a vertical profile (<code>vp</code>) or a list of vertical profiles (<code>vp</code>) from files</dd>
 
         <dt>
 
@@ -424,31 +359,47 @@
 
         <dt>
 
-          <code><a href="filter_vpts.html">filter_vpts()</a></code>
+          <code><a href="select_vpfiles.html">select_vpfiles()</a></code>
 
         </dt>
-        <dd>Filter a time series of vertical profiles ('vpts').</dd>
+        <dd>Select vertical profile (<code>vp</code>) files from computer</dd>
+      </dl></div><div class="section level2">
+      <h2 id="inspecting-vertical-profile-data">Inspecting vertical profile data<a class="anchor" aria-label="anchor" href="#inspecting-vertical-profile-data"></a></h2>
+
+      <div class="section-desc"><p>Functions to inspect and plot a vertical profiles (<code>vp</code>) and time series (<code>vpts</code>).</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="example_vp.html">example_vp</a></code>
+
+        </dt>
+        <dd>Vertical profile (<code>vp</code>) example</dd>
 
         <dt>
 
-          <code><a href="filter_precip.html">filter_precip()</a></code>
+          <code><a href="get_quantity.html">get_quantity()</a></code>
 
         </dt>
-        <dd>Posthoc precipitation filter</dd>
+        <dd>Get a quantity from a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>)</dd>
 
         <dt>
 
-          <code><a href="clean_mixture.html">clean_mixture()</a></code>
+          <code><a href="plot.vp.html">plot(<i>&lt;vp&gt;</i>)</a></code>
 
         </dt>
-        <dd>Partition mixtures of animals using assumptions on airspeeds.</dd>
+        <dd>Plot a vertical profile (<code>vp</code>)</dd>
 
         <dt>
 
-          <code><a href="summary.vpts.html">summary(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">print(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">is.vpts()</a></code> <code><a href="summary.vpts.html">dim(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">`[`(<i>&lt;vpts&gt;</i>)</a></code>
+          <code><a href="summary.vp.html">summary(<i>&lt;vp&gt;</i>)</a></code> <code><a href="summary.vp.html">print(<i>&lt;vp&gt;</i>)</a></code> <code><a href="summary.vp.html">is.vp()</a></code> <code><a href="summary.vp.html">dim(<i>&lt;vp&gt;</i>)</a></code>
 
         </dt>
-        <dd>Inspect a time series of vertical profiles (<code>vpts</code>)</dd>
+        <dd>Inspect a vertical profile (<code>vp</code>)</dd>
 
         <dt>
 
@@ -466,10 +417,82 @@
 
         <dt>
 
+          <code><a href="sub-.vpts.html">`[`(<i>&lt;vpts&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Subset a time series of vertical profiles (<code>vpts</code>)</dd>
+
+        <dt>
+
+          <code><a href="summary.vpts.html">summary(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">print(<i>&lt;vpts&gt;</i>)</a></code> <code><a href="summary.vpts.html">is.vpts()</a></code> <code><a href="summary.vpts.html">dim(<i>&lt;vpts&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Inspect a time series of vertical profiles (<code>vpts</code>)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="manipulating-vertical-profile-data">Manipulating vertical profile data<a class="anchor" aria-label="anchor" href="#manipulating-vertical-profile-data"></a></h2>
+
+      <div class="section-desc"><p>Functions to combine vertical profiles (<code>vp</code>) into time series (<code>vpts</code>) and to post-process these.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="bind_into_vpts.html">bind_into_vpts()</a></code>
+
+        </dt>
+        <dd>Bind vertical profiles (<code>vp</code>) into time series (<code>vpts</code>)</dd>
+
+        <dt>
+
+          <code><a href="c.vp.html">c(<i>&lt;vp&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Concatenate vertical profiles (<code>vp</code>) into a list of vertical profiles</dd>
+
+        <dt>
+
+          <code><a href="clean_mixture.html">clean_mixture()</a></code>
+
+        </dt>
+        <dd>Partition mixtures of animals using assumptions on airspeeds.</dd>
+
+        <dt>
+
+          <code><a href="filter_precip.html">filter_precip()</a></code>
+
+        </dt>
+        <dd>Posthoc precipitation filter</dd>
+
+        <dt>
+
+          <code><a href="filter_vpts.html">filter_vpts()</a></code>
+
+        </dt>
+        <dd>Filter a time series of vertical profiles ('vpts').</dd>
+
+        <dt>
+
+          <code><a href="rcs-set.html">`rcs&lt;-`()</a></code>
+
+        </dt>
+        <dd>Set radar cross section</dd>
+
+        <dt>
+
           <code><a href="regularize_vpts.html">regularize_vpts()</a></code>
 
         </dt>
         <dd>Regularize a time series of vertical profiles (<code>vpts</code>) on a regular time grid</dd>
+
+        <dt>
+
+          <code><a href="sd_vvp_threshold-set.html">`sd_vvp_threshold&lt;-`()</a></code>
+
+        </dt>
+        <dd>Set threshold of the radial velocity standard deviation</dd>
 
         <dt>
 
@@ -491,17 +514,10 @@
 
         </dt>
         <dd>Convert a dataframe into a vpts object</dd>
-
-        <dt>
-
-          <code><a href="get_quantity.html">get_quantity()</a></code>
-
-        </dt>
-        <dd>Get a quantity from a vertical profile (<code>vp</code>) or time series of vertical profiles (<code>vpts</code>)</dd>
       </dl></div><div class="section level2">
       <h2 id="integrating-vertical-profiles">Integrating vertical profiles<a class="anchor" aria-label="anchor" href="#integrating-vertical-profiles"></a></h2>
 
-      <div class="section-desc"><p>Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (vp or vpts) into an integrated profile (vpi).</p></div>
+      <div class="section-desc"><p>Functions to calculate e.g. the migration traffic rate (MTR) by vertically integrating profiles (<code>vp</code> or <code>vpts</code>) into an integrated profile (<code>vpi</code>).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -531,7 +547,7 @@
       </dl></div><div class="section level2">
       <h2 id="accessing-vertical-profile-metadata">Accessing vertical profile metadata<a class="anchor" aria-label="anchor" href="#accessing-vertical-profile-metadata"></a></h2>
 
-      <div class="section-desc"><p>Functions to access metadata of vertical profiles (vp), time series (vpts) or integrated profiles (vpi).</p></div>
+      <div class="section-desc"><p>Functions to access metadata of vertical profiles (<code>vp</code>), time series (<code>vpts</code>) or integrated profiles (<code>vpi</code>).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -540,31 +556,10 @@
 
       <dl><dt>
 
-          <code><a href="rcs.html">rcs()</a></code>
+          <code><a href="attribute_table.html">attribute_table()</a></code>
 
         </dt>
-        <dd>Get radar cross section</dd>
-
-        <dt>
-
-          <code><a href="rcs-set.html">`rcs&lt;-`()</a></code>
-
-        </dt>
-        <dd>Set radar cross section</dd>
-
-        <dt>
-
-          <code><a href="sd_vvp_threshold.html">sd_vvp_threshold()</a></code>
-
-        </dt>
-        <dd>Get threshold of the radial velocity standard deviation</dd>
-
-        <dt>
-
-          <code><a href="sd_vvp_threshold-set.html">`sd_vvp_threshold&lt;-`()</a></code>
-
-        </dt>
-        <dd>Set threshold of the radial velocity standard deviation</dd>
+        <dd>Extract a volume coverage pattern table with all attributes</dd>
 
         <dt>
 
@@ -582,10 +577,17 @@
 
         <dt>
 
-          <code><a href="attribute_table.html">attribute_table()</a></code>
+          <code><a href="rcs.html">rcs()</a></code>
 
         </dt>
-        <dd>Extract a volume coverage pattern table with all attributes</dd>
+        <dd>Get radar cross section</dd>
+
+        <dt>
+
+          <code><a href="sd_vvp_threshold.html">sd_vvp_threshold()</a></code>
+
+        </dt>
+        <dd>Get threshold of the radial velocity standard deviation</dd>
       </dl></div><div class="section level2">
       <h2 id="radar-beam-geometry">Radar beam geometry<a class="anchor" aria-label="anchor" href="#radar-beam-geometry"></a></h2>
 
@@ -598,31 +600,17 @@
 
       <dl><dt>
 
-          <code><a href="beam_height.html">beam_height()</a></code>
-
-        </dt>
-        <dd>Calculate radar beam height</dd>
-
-        <dt>
-
-          <code><a href="beam_width.html">beam_width()</a></code>
-
-        </dt>
-        <dd>Calculate radar beam width</dd>
-
-        <dt>
-
-          <code><a href="beam_range.html">beam_range()</a></code>
-
-        </dt>
-        <dd>Calculate radar beam range</dd>
-
-        <dt>
-
           <code><a href="beam_distance.html">beam_distance()</a></code>
 
         </dt>
         <dd>Calculate radar beam distance</dd>
+
+        <dt>
+
+          <code><a href="beam_height.html">beam_height()</a></code>
+
+        </dt>
+        <dd>Calculate radar beam height</dd>
 
         <dt>
 
@@ -637,6 +625,20 @@
 
         </dt>
         <dd>Calculate overlap between a vertical profile ('vp') and the vertical radiation profile emitted by the radar</dd>
+
+        <dt>
+
+          <code><a href="beam_range.html">beam_range()</a></code>
+
+        </dt>
+        <dd>Calculate radar beam range</dd>
+
+        <dt>
+
+          <code><a href="beam_width.html">beam_width()</a></code>
+
+        </dt>
+        <dd>Calculate radar beam width</dd>
       </dl></div><div class="section level2">
       <h2 id="other-functions">Other functions<a class="anchor" aria-label="anchor" href="#other-functions"></a></h2>
 
@@ -648,6 +650,13 @@
 
 
       <dl><dt>
+
+          <code><a href="convert_legacy.html">convert_legacy()</a></code>
+
+        </dt>
+        <dd>Convert legacy bioRad objects</dd>
+
+        <dt>
 
           <code><a href="dbz_to_eta.html">dbz_to_eta()</a></code>
 
@@ -674,13 +683,6 @@
 
         </dt>
         <dd>Calculate sunrise or sunset for a time and place</dd>
-
-        <dt>
-
-          <code><a href="convert_legacy.html">convert_legacy()</a></code>
-
-        </dt>
-        <dd>Convert legacy bioRad objects</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

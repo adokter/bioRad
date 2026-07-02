@@ -23,11 +23,10 @@ is.pvolfile(file)
 
 ## See also
 
-- [`read_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/read_pvolfile.md)
-
-- [`get_odim_object_type()`](http://adriaandokter.com/bioRad/dev/reference/get_odim_object_type.md)
-
-- [`is.pvol()`](http://adriaandokter.com/bioRad/dev/reference/summary.pvol.md)
+Other pvol read functions:
+[`download_pvolfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_pvolfiles.md),
+[`read_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/read_pvolfile.md),
+[`write_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/write_pvolfile.md)
 
 ## Examples
 

@@ -75,7 +75,9 @@ convert it to a vector (e.g. `c(DBZH)`, see examples).
 
 ## See also
 
-- [`get_param()`](http://adriaandokter.com/bioRad/dev/reference/get_param.md)
+Other scan manipulation functions:
+[`add_param()`](http://adriaandokter.com/bioRad/dev/reference/add_param.md),
+[`apply_mistnet()`](http://adriaandokter.com/bioRad/dev/reference/apply_mistnet.md)
 
 ## Examples
 

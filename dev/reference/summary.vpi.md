@@ -71,9 +71,9 @@ with the following quantities:
 
 ## See also
 
-- [`integrate_profile()`](http://adriaandokter.com/bioRad/dev/reference/integrate_profile.md)
-
-- [`plot.vpi()`](http://adriaandokter.com/bioRad/dev/reference/plot.vpi.md)
+Other integrated profile functions:
+[`integrate_profile()`](http://adriaandokter.com/bioRad/dev/reference/integrate_profile.md),
+[`plot.vpi()`](http://adriaandokter.com/bioRad/dev/reference/plot.vpi.md)
 
 ## Examples
 

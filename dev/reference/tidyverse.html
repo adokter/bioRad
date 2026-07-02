@@ -45,6 +45,9 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'scan'</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'pvol'</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">.data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -60,6 +63,18 @@
 <dd><p>other arguments</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other scan functions:
+<code><a href="example_scan.html">example_scan</a></code>,
+<code><a href="get_elevation_angles.html">get_elevation_angles()</a></code>,
+<code><a href="get_scan.html">get_scan()</a></code>,
+<code><a href="plot.scan.html">plot.scan()</a></code>,
+<code><a href="summary.scan.html">summary.scan()</a></code></p>
+<p>Other pvol functions:
+<code><a href="get_elevation_angles.html">get_elevation_angles()</a></code>,
+<code><a href="summary.pvol.html">summary.pvol()</a></code></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -69,7 +84,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load the file:</span></span></span>
 <span class="r-in"><span><span class="va">example_pvol</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pvolfile.html">read_pvolfile</a></span><span class="op">(</span><span class="va">pvolfile</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pvol_selected</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">DBZH</span>, <span class="va">ZDR</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">pvol_selected</span><span class="op">&lt;-</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">example_pvol</span>, <span class="va">DBZH</span>, <span class="va">ZDR</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Only selected parameters are retained in the pvol</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_scan.html">get_scan</a></span><span class="op">(</span><span class="va">pvol_selected</span>, <span class="fl">1.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Also a series of parameters in a scan can be selected</span></span></span>

@@ -66,9 +66,14 @@ for night and day occurs by
 
 ## See also
 
-- [`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
-
-- [`check_night()`](http://adriaandokter.com/bioRad/dev/reference/check_night.md)
+Other profile manipulation functions:
+[`bind_into_vpts()`](http://adriaandokter.com/bioRad/dev/reference/bind_into_vpts.md),
+[`c.vp()`](http://adriaandokter.com/bioRad/dev/reference/c.vp.md),
+[`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md),
+[`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md),
+[`rcs<-()`](http://adriaandokter.com/bioRad/dev/reference/rcs-set.md),
+[`regularize_vpts()`](http://adriaandokter.com/bioRad/dev/reference/regularize_vpts.md),
+[`sd_vvp_threshold<-()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
 
 ## Examples
 

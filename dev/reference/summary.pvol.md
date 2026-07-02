@@ -8,6 +8,9 @@ R base functions for inspecting a polar volume (`pvol`) object.
 # S3 method for class 'pvol'
 summary(object, ...)
 
+# S3 method for class 'pvol'
+print(x, digits = max(3L, getOption("digits") - 3L), ...)
+
 is.pvol(x)
 
 # S3 method for class 'pvol'
@@ -27,6 +30,11 @@ dim(x)
 - x:
 
   A `pvol` object.
+
+- digits:
+
+  minimal number of *significant* digits, see
+  [`print.default`](https://rdrr.io/r/base/print.default.html).
 
 ## Value
 
@@ -60,11 +68,9 @@ list containing:
 
 ## See also
 
-- [`read_pvolfile()`](http://adriaandokter.com/bioRad/dev/reference/read_pvolfile.md)
-
-- [`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md)
-
-- [`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md)
+Other pvol functions:
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
 
 ## Examples
 

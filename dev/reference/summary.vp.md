@@ -9,6 +9,9 @@ R base functions for inspecting a vertical profile of biological targets
 # S3 method for class 'vp'
 summary(object, ...)
 
+# S3 method for class 'vp'
+print(x, digits = max(3L, getOption("digits") - 3L), ...)
+
 is.vp(x)
 
 # S3 method for class 'vp'
@@ -28,6 +31,11 @@ dim(x)
 - x:
 
   A `vp` object.
+
+- digits:
+
+  minimal number of *significant* digits, see
+  [`print.default`](https://rdrr.io/r/base/print.default.html).
 
 ## Value
 
@@ -116,19 +124,10 @@ fact zero in case of undetects.
 
 ## See also
 
-- [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md)
-
-- [`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md)
-
-- [`example_vp`](http://adriaandokter.com/bioRad/dev/reference/example_vp.md)
-
-- [`get_quantity()`](http://adriaandokter.com/bioRad/dev/reference/get_quantity.md)
-
-- [`plot.vp()`](http://adriaandokter.com/bioRad/dev/reference/plot.vp.md)
-
-- [`as.data.frame.vp()`](http://adriaandokter.com/bioRad/dev/reference/as.data.frame.vp.md)
-
-- [`bind_into_vpts()`](http://adriaandokter.com/bioRad/dev/reference/bind_into_vpts.md)
+Other vp functions:
+[`example_vp`](http://adriaandokter.com/bioRad/dev/reference/example_vp.md),
+[`get_quantity()`](http://adriaandokter.com/bioRad/dev/reference/get_quantity.md),
+[`plot.vp()`](http://adriaandokter.com/bioRad/dev/reference/plot.vp.md)
 
 ## Examples
 

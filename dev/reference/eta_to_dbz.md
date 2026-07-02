@@ -26,6 +26,13 @@ eta_to_dbz(eta, wavelength, K = sqrt(0.93))
 
 Reflectivity factor, in dBZ.
 
+## See also
+
+Other conversion functions:
+[`convert_legacy()`](http://adriaandokter.com/bioRad/dev/reference/convert_legacy.md),
+[`dbz_to_eta()`](http://adriaandokter.com/bioRad/dev/reference/dbz_to_eta.md),
+[`nyquist_velocity()`](http://adriaandokter.com/bioRad/dev/reference/nyquist_velocity.md)
+
 ## Examples
 
 ``` r

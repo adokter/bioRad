@@ -147,6 +147,12 @@ composite `ppi` is set to the mean (lat, lon) location.
 
 This function is a prototype and under active development
 
+## See also
+
+Other ppi calculation functions:
+[`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md),
+[`project_as_ppi()`](http://adriaandokter.com/bioRad/dev/reference/project_as_ppi.md)
+
 ## Examples
 
 ``` r

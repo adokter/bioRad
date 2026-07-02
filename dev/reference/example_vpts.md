@@ -21,7 +21,10 @@ vertical profiles.
 
 ## See also
 
-- [`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
+Other vpts functions:
+[`[.vpts()`](http://adriaandokter.com/bioRad/dev/reference/sub-.vpts.md),
+[`plot.vpts()`](http://adriaandokter.com/bioRad/dev/reference/plot.vpts.md),
+[`summary.vpts()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpts.md)
 
 ## Examples
 

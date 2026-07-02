@@ -8,6 +8,9 @@ R base functions for inspecting a parameter (`param`) object.
 # S3 method for class 'param'
 summary(object, ...)
 
+# S3 method for class 'param'
+print(x, digits = max(3L, getOption("digits") - 3L), ...)
+
 is.param(x)
 ```
 
@@ -24,6 +27,11 @@ is.param(x)
 - x:
 
   A `param` object.
+
+- digits:
+
+  minimal number of *significant* digits, see
+  [`print.default`](https://rdrr.io/r/base/print.default.html).
 
 ## Value
 
@@ -57,7 +65,9 @@ Commonly available parameters are:
 
 ## See also
 
-- [`get_param()`](http://adriaandokter.com/bioRad/dev/reference/get_param.md)
+Other param functions:
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`get_param()`](http://adriaandokter.com/bioRad/dev/reference/get_param.md)
 
 ## Examples
 

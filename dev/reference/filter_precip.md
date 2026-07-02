@@ -104,9 +104,14 @@ than at S-band.
 
 ## See also
 
-- [eta_to_dbz](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md)
-
-- [dbz_to_eta](http://adriaandokter.com/bioRad/dev/reference/dbz_to_eta.md)
+Other profile manipulation functions:
+[`bind_into_vpts()`](http://adriaandokter.com/bioRad/dev/reference/bind_into_vpts.md),
+[`c.vp()`](http://adriaandokter.com/bioRad/dev/reference/c.vp.md),
+[`clean_mixture()`](http://adriaandokter.com/bioRad/dev/reference/clean_mixture.md),
+[`filter_vpts()`](http://adriaandokter.com/bioRad/dev/reference/filter_vpts.md),
+[`rcs<-()`](http://adriaandokter.com/bioRad/dev/reference/rcs-set.md),
+[`regularize_vpts()`](http://adriaandokter.com/bioRad/dev/reference/regularize_vpts.md),
+[`sd_vvp_threshold<-()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
 
 ## Examples
 

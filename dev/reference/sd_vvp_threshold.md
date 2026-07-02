@@ -31,10 +31,11 @@ The `sd_vvp` threshold in m/s.
 
 ## See also
 
-- [`sd_vvp_threshold()<-`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold-set.md)
-  for setting the `sd_vvp` threshold of an object.
-
-- [`rcs()`](http://adriaandokter.com/bioRad/dev/reference/rcs.md)
+Other profile metadata functions:
+[`attribute_table()`](http://adriaandokter.com/bioRad/dev/reference/attribute_table.md),
+[`check_night()`](http://adriaandokter.com/bioRad/dev/reference/check_night.md),
+[`doy_noy`](http://adriaandokter.com/bioRad/dev/reference/doy_noy.md),
+[`rcs()`](http://adriaandokter.com/bioRad/dev/reference/rcs.md)
 
 ## Examples
 

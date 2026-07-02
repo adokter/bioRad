@@ -28,7 +28,10 @@ Reflectivity, in cm^2/km^3.
 
 ## See also
 
-- [`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md)
+Other conversion functions:
+[`convert_legacy()`](http://adriaandokter.com/bioRad/dev/reference/convert_legacy.md),
+[`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md),
+[`nyquist_velocity()`](http://adriaandokter.com/bioRad/dev/reference/nyquist_velocity.md)
 
 ## Examples
 

@@ -30,4 +30,10 @@ A `vp` object.
 
 ## See also
 
-- [`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
+Other profile read functions:
+[`download_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_vpfiles.md),
+[`is.vpfile()`](http://adriaandokter.com/bioRad/dev/reference/is.vpfile.md),
+[`list_vpts_aloft()`](http://adriaandokter.com/bioRad/dev/reference/list_vpts_aloft.md),
+[`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md),
+[`read_vpts()`](http://adriaandokter.com/bioRad/dev/reference/read_vpts.md),
+[`select_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/select_vpfiles.md)

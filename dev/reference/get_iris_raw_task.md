@@ -31,3 +31,8 @@ get_iris_raw_task(
 
 Specified `task` names found in the header or `NA` if none of the task
 names were found.
+
+## See also
+
+Other pvol metadata functions:
+[`get_odim_object_type()`](http://adriaandokter.com/bioRad/dev/reference/get_odim_object_type.md)

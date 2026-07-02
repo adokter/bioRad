@@ -108,6 +108,12 @@ The returned PPI is in Azimuthal Equidistant Projection.
 - `project_as_ppi(scan)`: Project multiple `ppi`'s for all scan
   parameters in a scan
 
+## See also
+
+Other ppi calculation functions:
+[`composite_ppi()`](http://adriaandokter.com/bioRad/dev/reference/composite_ppi.md),
+[`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md)
+
 ## Examples
 
 ``` r

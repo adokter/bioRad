@@ -327,16 +327,6 @@ please also cite Haase et al. (2004).
   in Ecology and Evolution 10 (11), pp. 1908-22.
   [doi:10.1111/2041-210X.13280](https://doi.org/10.1111/2041-210X.13280)
 
-## See also
-
-- [`summary.pvol()`](http://adriaandokter.com/bioRad/dev/reference/summary.pvol.md)
-
-- [`summary.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
-
-- [`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md)
-
-- [`add_param()`](http://adriaandokter.com/bioRad/dev/reference/add_param.md)
-
 ## Examples
 
 ``` r

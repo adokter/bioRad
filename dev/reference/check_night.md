@@ -91,6 +91,14 @@ temporal offset, for example, `offset = c(600,-900)` will assume
 nighttime starts 600 seconds after sunset (as defined by `elev`) and
 stops 900 seconds before sunrise.
 
+## See also
+
+Other profile metadata functions:
+[`attribute_table()`](http://adriaandokter.com/bioRad/dev/reference/attribute_table.md),
+[`doy_noy`](http://adriaandokter.com/bioRad/dev/reference/doy_noy.md),
+[`rcs()`](http://adriaandokter.com/bioRad/dev/reference/rcs.md),
+[`sd_vvp_threshold()`](http://adriaandokter.com/bioRad/dev/reference/sd_vvp_threshold.md)
+
 ## Examples
 
 ``` r

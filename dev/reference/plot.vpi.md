@@ -138,6 +138,12 @@ as specified by argument `quantity`:
   m above sea level The height-averaged ground speed quantities
   (ff,dd,u,v) and height are weighted averages by reflectivity eta.
 
+## See also
+
+Other integrated profile functions:
+[`integrate_profile()`](http://adriaandokter.com/bioRad/dev/reference/integrate_profile.md),
+[`summary.vpi()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpi.md)
+
 ## Examples
 
 ``` r

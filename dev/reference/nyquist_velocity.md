@@ -29,6 +29,13 @@ nyquist_velocity(wavelength, prf1, prf2)
 
 Nyquist velocity, in m/s.
 
+## See also
+
+Other conversion functions:
+[`convert_legacy()`](http://adriaandokter.com/bioRad/dev/reference/convert_legacy.md),
+[`dbz_to_eta()`](http://adriaandokter.com/bioRad/dev/reference/dbz_to_eta.md),
+[`eta_to_dbz()`](http://adriaandokter.com/bioRad/dev/reference/eta_to_dbz.md)
+
 ## Examples
 
 ``` r

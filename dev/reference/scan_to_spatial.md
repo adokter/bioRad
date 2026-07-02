@@ -1,7 +1,7 @@
-# convert a polar scan into a spatial object.
+# Convert a polar scan into a spatial object.
 
 Georeferences the center of pixels for a scan into a
-SpatialPointsDataFrame object.
+`SpatialPointsDataFrame` object.
 
 ## Usage
 
@@ -47,6 +47,11 @@ Beam altitude accounts for the curvature of the earth, using
 [beam_height](http://adriaandokter.com/bioRad/dev/reference/beam_height.md).
 Distance from the radar over the earth's surface is calculated using
 [beam_distance](http://adriaandokter.com/bioRad/dev/reference/beam_distance.md).
+
+## See also
+
+Other raster functions:
+[`scan_to_raster()`](http://adriaandokter.com/bioRad/dev/reference/scan_to_raster.md)
 
 ## Examples
 

@@ -84,6 +84,15 @@ Available scan parameters for plotting can by printed to screen by
   16 in the [ODIM
   specification](https://github.com/adokter/vol2bird/blob/master/doc/OPERA2014_O4_ODIM_H5-v2.2.pdf).
 
+## See also
+
+Other scan functions:
+[`example_scan`](http://adriaandokter.com/bioRad/dev/reference/example_scan.md),
+[`get_elevation_angles()`](http://adriaandokter.com/bioRad/dev/reference/get_elevation_angles.md),
+[`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md),
+[`summary.scan()`](http://adriaandokter.com/bioRad/dev/reference/summary.scan.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
+
 ## Examples
 
 ``` r

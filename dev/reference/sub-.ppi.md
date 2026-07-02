@@ -25,6 +25,13 @@ x[i]
 
 A `ppi` object containing a subset of parameters (`param`).
 
+## See also
+
+Other ppi functions:
+[`map()`](http://adriaandokter.com/bioRad/dev/reference/map.md),
+[`plot.ppi()`](http://adriaandokter.com/bioRad/dev/reference/plot.ppi.md),
+[`summary.ppi()`](http://adriaandokter.com/bioRad/dev/reference/summary.ppi.md)
+
 ## Examples
 
 ``` r

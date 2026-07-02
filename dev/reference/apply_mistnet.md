@@ -119,9 +119,9 @@ Please cite this publication when using MistNet:
 
 ## See also
 
-- [`check_docker()`](http://adriaandokter.com/bioRad/dev/reference/bioRad-deprecated.md)
-
-- [`calculate_vp()`](http://adriaandokter.com/bioRad/dev/reference/calculate_vp.md)
+Other scan manipulation functions:
+[`add_param()`](http://adriaandokter.com/bioRad/dev/reference/add_param.md),
+[`calculate_param()`](http://adriaandokter.com/bioRad/dev/reference/calculate_param.md)
 
 ## Examples
 

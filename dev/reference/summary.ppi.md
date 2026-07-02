@@ -9,6 +9,9 @@ object.
 # S3 method for class 'ppi'
 summary(object, ...)
 
+# S3 method for class 'ppi'
+print(x, digits = max(3L, getOption("digits") - 3L), ...)
+
 is.ppi(x)
 
 # S3 method for class 'ppi'
@@ -28,6 +31,11 @@ dim(x)
 - x:
 
   A `ppi` object.
+
+- digits:
+
+  minimal number of *significant* digits, see
+  [`print.default`](https://rdrr.io/r/base/print.default.html).
 
 ## Value
 
@@ -74,17 +82,10 @@ A plan position indicator (`ppi`) object is a list containing:
 
 ## See also
 
-- [`project_as_ppi()`](http://adriaandokter.com/bioRad/dev/reference/project_as_ppi.md)
-
-- [`integrate_to_ppi()`](http://adriaandokter.com/bioRad/dev/reference/integrate_to_ppi.md)
-
-- [`plot.ppi()`](http://adriaandokter.com/bioRad/dev/reference/plot.ppi.md)
-
-- [`map()`](http://adriaandokter.com/bioRad/dev/reference/map.md)
-
-- [`composite_ppi()`](http://adriaandokter.com/bioRad/dev/reference/composite_ppi.md)
-
-- [`[ppi()`](http://adriaandokter.com/bioRad/dev/reference/sub-.ppi.md)
+Other ppi functions:
+[`[.ppi()`](http://adriaandokter.com/bioRad/dev/reference/sub-.ppi.md),
+[`map()`](http://adriaandokter.com/bioRad/dev/reference/map.md),
+[`plot.ppi()`](http://adriaandokter.com/bioRad/dev/reference/plot.ppi.md)
 
 ## Examples
 

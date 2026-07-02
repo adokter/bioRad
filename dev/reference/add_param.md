@@ -40,6 +40,12 @@ add_param(x, raster, param)
 The object `x` with an added parameter, extracting data from the raster
 specified by `raster`.
 
+## See also
+
+Other scan manipulation functions:
+[`apply_mistnet()`](http://adriaandokter.com/bioRad/dev/reference/apply_mistnet.md),
+[`calculate_param()`](http://adriaandokter.com/bioRad/dev/reference/calculate_param.md)
+
 ## Examples
 
 ``` r

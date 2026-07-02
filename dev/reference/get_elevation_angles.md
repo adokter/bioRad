@@ -31,7 +31,20 @@ The elevation angle(s) in degrees.
 
 ## See also
 
-- [`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md)
+Other pvol functions:
+[`summary.pvol()`](http://adriaandokter.com/bioRad/dev/reference/summary.pvol.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
+
+Other scan functions:
+[`example_scan`](http://adriaandokter.com/bioRad/dev/reference/example_scan.md),
+[`get_scan()`](http://adriaandokter.com/bioRad/dev/reference/get_scan.md),
+[`plot.scan()`](http://adriaandokter.com/bioRad/dev/reference/plot.scan.md),
+[`summary.scan()`](http://adriaandokter.com/bioRad/dev/reference/summary.scan.md),
+[`tidyverse`](http://adriaandokter.com/bioRad/dev/reference/tidyverse.md)
+
+Other param functions:
+[`get_param()`](http://adriaandokter.com/bioRad/dev/reference/get_param.md),
+[`summary.param()`](http://adriaandokter.com/bioRad/dev/reference/summary.param.md)
 
 ## Examples
 

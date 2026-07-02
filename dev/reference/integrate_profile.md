@@ -250,6 +250,12 @@ altitude.
 - `integrate_profile(vpts)`: Vertically integrate a time series of
   vertical profiles (`vpts`).
 
+## See also
+
+Other integrated profile functions:
+[`plot.vpi()`](http://adriaandokter.com/bioRad/dev/reference/plot.vpi.md),
+[`summary.vpi()`](http://adriaandokter.com/bioRad/dev/reference/summary.vpi.md)
+
 ## Examples
 
 ``` r

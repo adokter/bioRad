@@ -22,11 +22,13 @@ is.vpfile(file)
 
 ## See also
 
-- [`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md)
-
-- [`get_odim_object_type()`](http://adriaandokter.com/bioRad/dev/reference/get_odim_object_type.md)
-
-- [`is.vp()`](http://adriaandokter.com/bioRad/dev/reference/summary.vp.md)
+Other profile read functions:
+[`download_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_vpfiles.md),
+[`list_vpts_aloft()`](http://adriaandokter.com/bioRad/dev/reference/list_vpts_aloft.md),
+[`read_cajun()`](http://adriaandokter.com/bioRad/dev/reference/read_cajun.md),
+[`read_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/read_vpfiles.md),
+[`read_vpts()`](http://adriaandokter.com/bioRad/dev/reference/read_vpts.md),
+[`select_vpfiles()`](http://adriaandokter.com/bioRad/dev/reference/select_vpfiles.md)
 
 ## Examples
 

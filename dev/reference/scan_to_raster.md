@@ -1,6 +1,6 @@
-# convert a polar scan into a raster
+# Convert a polar scan into a raster
 
-convert an object of class 'scan' into a raster of class 'RasterBrick'
+Converts an object of class `scan` into a raster of class `RasterBrick`.
 
 ## Usage
 
@@ -107,6 +107,11 @@ to georeference the scan's pixels. If multiple scan pixels fall within
 the same raster pixel, the last added pixel is given (see
 [rasterize](https://rspatial.github.io/terra/reference/rasterize.html)
 for details).
+
+## See also
+
+Other raster functions:
+[`scan_to_spatial()`](http://adriaandokter.com/bioRad/dev/reference/scan_to_spatial.md)
 
 ## Examples
 
