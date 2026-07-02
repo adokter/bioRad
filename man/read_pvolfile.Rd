@@ -100,9 +100,9 @@ scan <- example_pvol$scans[[1]]
 scan
 }
 \seealso{
-Other read pvol functions:
+Other pvol read functions:
 \code{\link[=download_pvolfiles]{download_pvolfiles()}},
 \code{\link[=is.pvolfile]{is.pvolfile()}},
 \code{\link[=write_pvolfile]{write_pvolfile()}}
 }
-\concept{read pvol functions}
+\concept{pvol read functions}

@@ -20,7 +20,7 @@
 #'   with first element added to moment of sunset and second element added to
 #'   moment of sunrise. See [check_night()] for details.
 #' @returns A `vpts` object, or a `vp` object when `nearest` is specified.
-#' @family manipulate profile functions
+#' @family profile manipulation functions
 #' @export
 #' @details Returns profiles for which min <= timestamp profile < max. Selection for night and day
 #' occurs by [check_night].

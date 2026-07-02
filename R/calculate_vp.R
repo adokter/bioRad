@@ -74,7 +74,7 @@
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`).
 #' @returns A vertical profile object of class `vp`. When defined, output files
 #'   `vpfile` and `pvolfile_out` are saved to disk.
-#' @family calculate profile functions
+#' @family profile calculation functions
 #' @export
 #' @details
 #' ## Typical use

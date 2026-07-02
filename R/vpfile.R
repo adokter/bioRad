@@ -6,7 +6,7 @@
 #' @param file Character. Path of the file to check.
 #' @returns `TRUE` for a vertical profile file in readable format, otherwise
 #'   `FALSE`.
-#' @family read profile functions
+#' @family profile read functions
 #' @export
 #' @examples
 #' # Locate the vertical profile example file

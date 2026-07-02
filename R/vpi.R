@@ -7,7 +7,7 @@
 #' @param ... Additional arguments affecting the summary produced.
 #' @returns For [summary.vpi()]: prints summary of the `vpi` object.
 #' @method summary vpi
-#' @family integrate profile functions
+#' @family integrated profile functions
 #' @export
 #' @details
 #' A integrated profile of biological targets is a specially classed

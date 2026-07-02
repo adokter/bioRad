@@ -10,7 +10,7 @@
 #' @param param The name of the added parameter.
 #' @returns The object `x` with an added parameter, extracting data from the raster
 #' specified by `raster`.
-#' @family manipulate scan functions
+#' @family scan manipulation functions
 #' @export
 #' @examples
 #' # locate example volume file:

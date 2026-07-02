@@ -89,7 +89,7 @@ tsRegular <- regularize_vpts(ts, interval = 600, fill = 3600)
 plot(tsRegular)
 }
 \seealso{
-Other manipulate profile functions:
+Other profile manipulation functions:
 \code{\link[=bind_into_vpts]{bind_into_vpts()}},
 \code{\link[=c.vp]{c.vp()}},
 \code{\link[=clean_mixture]{clean_mixture()}},
@@ -98,4 +98,4 @@ Other manipulate profile functions:
 \code{\link[=rcs<-]{rcs<-()}},
 \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
-\concept{manipulate profile functions}
+\concept{profile manipulation functions}

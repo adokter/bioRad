@@ -6,7 +6,7 @@
 #' @param wavelength Character or numeric. Radar wavelength, either `C` for
 #'   C-band (5.3 cm), `S` for S-band (10.6 cm) or in cm.
 #' @returns A `vp` object.
-#' @family read profile functions
+#' @family profile read functions
 #' @export
 read_cajun <- function(file, rcs = 11, wavelength = "S") {
   # input checks

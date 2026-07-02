@@ -25,9 +25,9 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 is.pvolfile(pvolfile)
 }
 \seealso{
-Other read pvol functions:
+Other pvol read functions:
 \code{\link[=download_pvolfiles]{download_pvolfiles()}},
 \code{\link[=read_pvolfile]{read_pvolfile()}},
 \code{\link[=write_pvolfile]{write_pvolfile()}}
 }
-\concept{read pvol functions}
+\concept{pvol read functions}

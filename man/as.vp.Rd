@@ -22,8 +22,8 @@ df <- as.data.frame(example_vp)
 as.vp(df)
 }
 \seealso{
-Other data frame functions:
+Other profile conversion functions:
 \code{\link[=as.data.frame.vp]{as.data.frame.vp()}},
 \code{\link[=as.vpts]{as.vpts()}}
 }
-\concept{data frame functions}
+\concept{profile conversion functions}

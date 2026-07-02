@@ -30,11 +30,6 @@ vp <- convert_legacy(example_vp)
 vpts <- convert_legacy(example_vpts)
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vp]{summary.vp()}}
-\item \code{\link[=summary.vpts]{summary.vpts()}}
-}
-
 Other conversion functions:
 \code{\link[=dbz_to_eta]{dbz_to_eta()}},
 \code{\link[=eta_to_dbz]{eta_to_dbz()}},

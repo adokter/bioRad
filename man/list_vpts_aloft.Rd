@@ -46,7 +46,7 @@ list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31'
 }
 }
 \seealso{
-Other read profile functions:
+Other profile read functions:
 \code{\link[=download_vpfiles]{download_vpfiles()}},
 \code{\link[=is.vpfile]{is.vpfile()}},
 \code{\link[=read_cajun]{read_cajun()}},
@@ -54,4 +54,4 @@ Other read profile functions:
 \code{\link[=read_vpts]{read_vpts()}},
 \code{\link[=select_vpfiles]{select_vpfiles()}}
 }
-\concept{read profile functions}
+\concept{profile read functions}

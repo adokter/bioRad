@@ -13,7 +13,7 @@
 #' @param ... An expression defining the new scan parameter in terms of existing
 #'   scan parameters.
 #' @returns An object of the same class as `x`, either a `pvol` or `scan`.
-#' @family manipulate scan functions
+#' @family scan manipulation functions
 #' @export
 #' @details
 #' For the expression to work it is important that the operation can be

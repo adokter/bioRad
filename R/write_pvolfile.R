@@ -7,7 +7,7 @@
 #' back into ODIM HDF5 files with data stored in original data types. When TRUE
 #' infers data type from the R object data type, at the cost of (heavily) inflated file sizes.
 #' @returns 0 on success. A `pvol` object will be written to file in ODIM H5 format.
-#' @family read pvol functions
+#' @family pvol read functions
 #' @export
 #' @examples
 #' # locate example volume file:

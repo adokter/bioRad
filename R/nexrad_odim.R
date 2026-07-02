@@ -13,7 +13,7 @@
 #' @param pvolfile_odim Filename for the polar volume in ODIM HDF5 format to be
 #' generated.
 #' @returns `TRUE` on success
-#' @family pvol convert functions
+#' @family pvol conversion functions
 #' @export
 #' @examples
 #' \donttest{

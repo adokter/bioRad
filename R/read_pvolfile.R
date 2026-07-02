@@ -24,7 +24,7 @@
 #' to use local installation instead of Docker container
 #' @returns An object of class [pvol][summary.pvol], which is a list
 #' containing polar scans, i.e. objects of class `scan`
-#' @family read pvol functions
+#' @family pvol read functions
 #' @export
 #' @details
 #' Scan parameters are named according to the OPERA data information

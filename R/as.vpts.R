@@ -2,7 +2,7 @@
 #'
 #' @param data a dataframe created from a VPTS CSV file
 #' @returns a bioRad vpts object
-#' @family data frame functions
+#' @family profile conversion functions
 #' @export
 #' @examples
 #' # locate example file in VPTS CSV format:

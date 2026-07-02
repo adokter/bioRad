@@ -177,7 +177,7 @@ single-polarization weather radar data. Remote Sensing. 2021 May 19;13(10):1989 
 }
 }
 \seealso{
-Other manipulate profile functions:
+Other profile manipulation functions:
 \code{\link[=bind_into_vpts]{bind_into_vpts()}},
 \code{\link[=c.vp]{c.vp()}},
 \code{\link[=filter_precip]{filter_precip()}},
@@ -186,4 +186,4 @@ Other manipulate profile functions:
 \code{\link[=regularize_vpts]{regularize_vpts()}},
 \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
-\concept{manipulate profile functions}
+\concept{profile manipulation functions}

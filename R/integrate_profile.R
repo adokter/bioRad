@@ -29,7 +29,7 @@
 #' quantile of the height distribution.
 #' @returns an object of class `vpi`, a data frame with vertically
 #' integrated profile quantities
-#' @family integrate profile functions
+#' @family integrated profile functions
 #' @export
 #' @details
 #' \subsection{Available quantities}{

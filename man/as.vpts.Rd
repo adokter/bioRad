@@ -22,8 +22,8 @@ df <- read.csv(system.file("extdata", "example_vpts.csv", package = "bioRad"))
 as.vpts(df)
 }
 \seealso{
-Other data frame functions:
+Other profile conversion functions:
 \code{\link[=as.data.frame.vp]{as.data.frame.vp()}},
 \code{\link[=as.vp]{as.vp()}}
 }
-\concept{data frame functions}
+\concept{profile conversion functions}

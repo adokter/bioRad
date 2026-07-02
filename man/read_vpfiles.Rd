@@ -32,7 +32,7 @@ read_vpfiles(vpfile)
 read_vpfiles(c(vpfile, vpfile))
 }
 \seealso{
-Other read profile functions:
+Other profile read functions:
 \code{\link[=download_vpfiles]{download_vpfiles()}},
 \code{\link[=is.vpfile]{is.vpfile()}},
 \code{\link[=list_vpts_aloft]{list_vpts_aloft()}},
@@ -40,4 +40,4 @@ Other read profile functions:
 \code{\link[=read_vpts]{read_vpts()}},
 \code{\link[=select_vpfiles]{select_vpfiles()}}
 }
-\concept{read profile functions}
+\concept{profile read functions}

@@ -102,8 +102,8 @@ plot(vpi)
 plot(vpi, quantity = "vid", night_shade = FALSE)
 }
 \seealso{
-Other integrate profile functions:
+Other integrated profile functions:
 \code{\link[=integrate_profile]{integrate_profile()}},
 \code{\link[=summary.vpi]{summary.vpi()}}
 }
-\concept{integrate profile functions}
+\concept{integrated profile functions}

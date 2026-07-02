@@ -319,4 +319,4 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 (11), pp. 1908-22. \doi{10.1111/2041-210X.13280}
 }
 }
-\concept{calculate profile functions}
+\concept{profile calculation functions}

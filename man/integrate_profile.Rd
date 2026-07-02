@@ -237,8 +237,8 @@ integrate_profile(example_vp, height_quantile=.5)
 integrate_profile(example_vpts, height_quantile=.9)
 }
 \seealso{
-Other integrate profile functions:
+Other integrated profile functions:
 \code{\link[=plot.vpi]{plot.vpi()}},
 \code{\link[=summary.vpi]{summary.vpi()}}
 }
-\concept{integrate profile functions}
+\concept{integrated profile functions}

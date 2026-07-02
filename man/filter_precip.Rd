@@ -95,7 +95,7 @@ plot(regularize_vpts(example_vpts), quantity='dens')
 filter_precip(example_vp)
 }
 \seealso{
-Other manipulate profile functions:
+Other profile manipulation functions:
 \code{\link[=bind_into_vpts]{bind_into_vpts()}},
 \code{\link[=c.vp]{c.vp()}},
 \code{\link[=clean_mixture]{clean_mixture()}},
@@ -104,4 +104,4 @@ Other manipulate profile functions:
 \code{\link[=regularize_vpts]{regularize_vpts()}},
 \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
-\concept{manipulate profile functions}
+\concept{profile manipulation functions}

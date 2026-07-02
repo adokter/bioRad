@@ -40,7 +40,7 @@
 #'
 #' For `vp` and `vpts` objects the quantities `eta`,`u`,`v` will be updated, and other
 #' quantities listed above will be added.
-#' @family manipulate profile functions
+#' @family profile manipulation functions
 #' @export
 #' @details
 #' For a detail description of the methodology see Shi et al. (2025).

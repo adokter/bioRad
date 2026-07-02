@@ -9,7 +9,7 @@
 #' @param data_frame When `FALSE` (default) output a `vpts` object, when `TRUE` output a data.frame
 #' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
 #' @returns `vpts` object.
-#' @family read profile functions
+#' @family profile read functions
 #' @export
 #' @examples
 #' ## read a vertical profile time series in VPTS CSV format:

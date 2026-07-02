@@ -6,7 +6,7 @@
 #'
 #' @param file Character. Path of the file to check.
 #' @returns `TRUE` for a polar volume file in readable format, otherwise `FALSE`.
-#' @family read pvol functions
+#' @family pvol read functions
 #' @export
 #' @examples
 #' # Locate the polar volume example file

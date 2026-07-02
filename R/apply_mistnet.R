@@ -17,7 +17,7 @@
 #'   PyTorch format (e.g. `/your/path/mistnet_nexrad.pt`) to use.
 #' @returns When `load` is `TRUE`, a polar volume (`pvol`) object with the
 #'   Mistnet segmentation results. When `load` is `FALSE`, `TRUE` on success.
-#' @family manipulate scan functions
+#' @family scan manipulation functions
 #' @export
 #' @details
 #' MistNet (Lin et al. 2019) is a deep convolutional neural network that has

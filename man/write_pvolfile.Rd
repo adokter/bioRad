@@ -38,9 +38,9 @@ write_pvolfile(example_pvol, pvolfile_out)
 file.remove(pvolfile_out)
 }
 \seealso{
-Other read pvol functions:
+Other pvol read functions:
 \code{\link[=download_pvolfiles]{download_pvolfiles()}},
 \code{\link[=is.pvolfile]{is.pvolfile()}},
 \code{\link[=read_pvolfile]{read_pvolfile()}}
 }
-\concept{read pvol functions}
+\concept{pvol read functions}

@@ -148,8 +148,8 @@ data and convolutional neural networks. Methods in Ecology and Evolution 10
 }
 }
 \seealso{
-Other manipulate scan functions:
+Other scan manipulation functions:
 \code{\link[=add_param]{add_param()}},
 \code{\link[=calculate_param]{calculate_param()}}
 }
-\concept{manipulate scan functions}
+\concept{scan manipulation functions}

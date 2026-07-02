@@ -13,7 +13,7 @@
 #'   looked for.
 #' @returns Character vector of file paths that comply to the given date and
 #'   radar range.
-#' @family read profile functions
+#' @family profile read functions
 #' @export
 #' @examples
 #' select_vpfiles(

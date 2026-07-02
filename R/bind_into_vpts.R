@@ -8,7 +8,7 @@
 #' @param ... A `vp`, `vpts` object or a vector of these.
 #' @returns A `vpts` for a single radar or a list of `vpts` for multiple radars.
 #'   Input `vp` are sorted on datetime in the output `vpts`.
-#' @family manipulate profile functions
+#' @family profile manipulation functions
 #' @export
 #' @details
 #'   `bind_into_vpts()` currently requires profiles to have aligning altitude

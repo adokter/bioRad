@@ -100,8 +100,8 @@ vpts_df <- as.data.frame(example_vpts, suntime = FALSE)
 vpts_df <- as.data.frame(example_vpts, lat = 50, lon = 4)
 }
 \seealso{
-Other data frame functions:
+Other profile conversion functions:
 \code{\link[=as.vp]{as.vp()}},
 \code{\link[=as.vpts]{as.vpts()}}
 }
-\concept{data frame functions}
+\concept{profile conversion functions}

@@ -18,7 +18,7 @@
 #' @param show_warnings Logical, whether to print warnings for dates or radar
 #'   stations for which no data was found.
 #' @returns A character vector of aloft urls
-#' @family read profile functions
+#' @family profile read functions
 #' @export
 #' @examples
 #' \donttest{

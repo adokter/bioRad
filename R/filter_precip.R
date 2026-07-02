@@ -17,7 +17,7 @@
 #' the entire altitude profile will be filtered. When `FALSE`, only the altitude
 #' layers between `alt_min` and `alt_max` will be filtered.
 #' @returns A `vpts` object or a `vp` object, depending on input `x`.
-#' @family manipulate profile functions
+#' @family profile manipulation functions
 #' @export
 #' @details
 #' During precipitation events usually a high proportion of the altitude
