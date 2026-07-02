@@ -40,7 +40,6 @@ summary.param <- function(object, ...) {
 #'
 #' @rdname summary.param
 #' @inheritParams base::print
-#' @family param functions
 #' @export
 print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "param"))
@@ -56,7 +55,6 @@ print.param <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #'
 #' @returns For [is.param()]: `TRUE` for an object of class `param`, otherwise
 #'   `FALSE`.
-#' @family param functions
 #' @export
 is.param <- function(x) {
   inherits(x, "param")

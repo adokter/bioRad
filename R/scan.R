@@ -48,7 +48,6 @@ summary.scan <- function(object, ...) {
 #'
 #' @rdname summary.scan
 #' @inheritParams base::print
-#' @family scan functions
 #' @export
 print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "scan"))
@@ -67,7 +66,6 @@ print.scan <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 #' @param x A `scan` object.
 #' @returns For [is.scan()]: `TRUE` for an object of class `scan`, otherwise
 #'   `FALSE`.
-#' @family scan functions
 #' @export
 is.scan <- function(x) {
   inherits(x, "scan")
@@ -78,7 +76,6 @@ is.scan <- function(x) {
 #' @rdname summary.scan
 #' @returns For [dim.scan()]: number of parameters (`param`), bins and rays in a
 #'   scan (`scan`).
-#' @family scan functions
 #' @export
 dim.scan <- function(x) {
   stopifnot(inherits(x, "scan"))
