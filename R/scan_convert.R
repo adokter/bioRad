@@ -1,6 +1,7 @@
-#' convert a polar scan into a spatial object.
+#' Convert a polar scan into a spatial object.
 #'
-#' Georeferences the center of  pixels for a scan into a SpatialPointsDataFrame object.
+#' Georeferences the center of  pixels for a scan into a
+#' `SpatialPointsDataFrame` object.
 #'
 #' @inheritParams beam_height
 #' @param scan a scan (sweep) of class scan
@@ -56,9 +57,10 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   sp::SpatialPointsDataFrame(coords = coords, data = data, coords.nrs = c(3, 4), proj4string = proj4string)
 }
 
-#' convert a polar scan into a raster
+#' Convert a polar scan into a raster
 #'
-#' convert an object of class 'scan' into a raster of class 'RasterBrick'
+#' Converts an object of class `scan` into a raster of class `RasterBrick`.
+#'
 #' @inheritParams scan_to_spatial
 #' @param nx number of raster pixels in the x (longitude) dimension
 #' @param ny number of raster pixels in the y (latitude) dimension
