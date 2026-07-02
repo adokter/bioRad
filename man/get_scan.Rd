@@ -46,4 +46,11 @@ scan
 scan_list <- get_scan(pvol, 3)
 scan_list
 }
-\concept{polar accessor functions`}
+\seealso{
+Other scan functions:
+\code{\link{example_scan}},
+\code{\link[=plot.scan]{plot.scan()}},
+\code{\link[=summary.scan]{summary.scan()}},
+\code{\link{tidyverse}}
+}
+\concept{scan functions}

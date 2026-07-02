@@ -57,4 +57,8 @@ is.param(param)
 # Get summary info for this parameter
 param # Same as summary(param) or print(param)
 }
+\seealso{
+Other param functions:
+\code{\link[=get_param]{get_param()}}
+}
 \concept{param functions}

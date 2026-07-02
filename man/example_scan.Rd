@@ -25,6 +25,7 @@ example_scan
 }
 \seealso{
 Other scan functions:
+\code{\link[=get_scan]{get_scan()}},
 \code{\link[=plot.scan]{plot.scan()}},
 \code{\link[=summary.scan]{summary.scan()}},
 \code{\link{tidyverse}}

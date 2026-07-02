@@ -32,6 +32,7 @@ select(get_scan(example_pvol, 2.5), VRADH:ZDR)
 \seealso{
 Other scan functions:
 \code{\link{example_scan}},
+\code{\link[=get_scan]{get_scan()}},
 \code{\link[=plot.scan]{plot.scan()}},
 \code{\link[=summary.scan]{summary.scan()}}
 }

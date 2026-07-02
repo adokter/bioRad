@@ -6,7 +6,7 @@
 #' @param param Character. A scan parameter, such as `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
 #' @returns A `param` object.
-#' @family polar accessor functions
+#' @family param functions
 #' @export
 #' @examples
 #' # Get summary info for a scan (including parameters)

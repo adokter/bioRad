@@ -78,6 +78,7 @@ example_scan$params
 \seealso{
 Other scan functions:
 \code{\link{example_scan}},
+\code{\link[=get_scan]{get_scan()}},
 \code{\link[=plot.scan]{plot.scan()}},
 \code{\link{tidyverse}}
 }
