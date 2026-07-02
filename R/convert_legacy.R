@@ -5,6 +5,7 @@
 #'
 #' @param x A `vp` or `vpts` object.
 #' @returns An updated object of the same class as the input.
+#' @family conversion functions
 #' @export
 #' @seealso
 #' * [summary.vp()]

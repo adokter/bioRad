@@ -33,6 +33,7 @@ dbz_to_eta(7, 10) / 11 # S-band
 }
 \seealso{
 Other conversion functions:
+\code{\link[=convert_legacy]{convert_legacy()}},
 \code{\link[=eta_to_dbz]{eta_to_dbz()}},
 \code{\link[=nyquist_velocity]{nyquist_velocity()}}
 }
