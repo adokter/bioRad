@@ -45,12 +45,13 @@ vpi <- integrate_profile(example_vpts)
 rcs(vpi) <- 11
 }
 \seealso{
-Other profile metadata functions:
-\code{\link[=attribute_table]{attribute_table()}},
-\code{\link[=check_night]{check_night()}},
-\code{\link{doy_noy}},
-\code{\link[=rcs]{rcs()}},
-\code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}},
+Other manipulate profile functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=c.vp]{c.vp()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}},
 \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
-\concept{profile metadata functions}
+\concept{manipulate profile functions}

@@ -69,6 +69,8 @@ Other manipulate profile functions:
 \code{\link[=c.vp]{c.vp()}},
 \code{\link[=clean_mixture]{clean_mixture()}},
 \code{\link[=filter_precip]{filter_precip()}},
-\code{\link[=regularize_vpts]{regularize_vpts()}}
+\code{\link[=rcs<-]{rcs<-()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}},
+\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
 \concept{manipulate profile functions}

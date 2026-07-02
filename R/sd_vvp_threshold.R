@@ -54,7 +54,7 @@ sd_vvp_threshold.vpts <- function(x) {
 #' @inheritParams sd_vvp_threshold
 #' @param value Numeric. The `sd_vvp` threshold value to assign in m/s.
 #' @returns The input object with updated density `x$data$dens` and `sd_vvp_thresh` attribute.
-#' @family profile metadata functions
+#' @family manipulate profile functions
 #' @export
 #' @examples
 #' # Set the sd_vvp threshold for a vp

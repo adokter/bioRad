@@ -38,8 +38,6 @@ Other profile metadata functions:
 \code{\link[=attribute_table]{attribute_table()}},
 \code{\link[=check_night]{check_night()}},
 \code{\link{doy_noy}},
-\code{\link[=rcs]{rcs()}},
-\code{\link[=rcs<-]{rcs<-()}},
-\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
+\code{\link[=rcs]{rcs()}}
 }
 \concept{profile metadata functions}
