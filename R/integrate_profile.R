@@ -395,7 +395,6 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
      s
   }
 
-
   # Vertically Integrated Density in individuals/km^2
   vid <- nan_colSums(get_quantity(x, "dens") * dh)
   # Vertically Integrated Reflectivity in cm^2/km^2
@@ -410,9 +409,9 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   # Migration Traffic Rate in individuals/km/h
   # multiply speeds (ff) by 3.6 to convert m/s to km/h
-  mtr <- nan_colSums(get_quantity(x, "dens") * cosfactor * get_quantity(x, "ff") * 3.6 * dh)
+  mtr <- colSums(get_quantity(x, "dens") * cosfactor * get_quantity(x, "ff") * 3.6 * dh, na.rm = TRUE)
   # Reflectivity Traffic Rate in cm^2/km/h
-  rtr <- nan_colSums(get_quantity(x, "eta") * cosfactor * get_quantity(x, "ff") * 3.6 * dh)
+  rtr <- colSums(get_quantity(x, "eta") * cosfactor * get_quantity(x, "ff") * 3.6 * dh, na.rm = TRUE)
 
   # The following quantites are vertically summed by weighting each altitudinal
   # bin based on their bird density value (dens) and their height.
