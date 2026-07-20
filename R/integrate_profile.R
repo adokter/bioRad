@@ -304,6 +304,7 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
+
   return(output)
 }
 
@@ -396,9 +397,9 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   }
 
   # Vertically Integrated Density in individuals/km^2
-  vid <- nan_colSums(get_quantity(x, "dens") * dh)
+  vid <- colSums(get_quantity(x, "dens") * dh, na.rm = TRUE)
   # Vertically Integrated Reflectivity in cm^2/km^2
-  vir <- nan_colSums(get_quantity(x, "eta") * dh)
+  vir <- colSums(get_quantity(x, "eta") * dh, na.rm = TRUE)
 
   # Projection of migratory direction (alpha) on the flight direction (dd)
   if (is.na(alpha)) {
@@ -421,6 +422,13 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   weight_densdh <- sweep(weight_densdh, 2, colSums(weight_densdh), FUN="/")
   # Find index where no bird are present
   no_bird <- is.na(colSums(weight_densdh))
+
+  # create a separate weighting matrix for speed quantities
+  # we multiple by ff/ff to copy velocity NA values into the weighting matrix
+  weight_ffdh <- weight_densdh * get_quantity(example_vpts,"ff") / get_quantity(example_vpts,"ff")
+  weight_ffdh[is.na(weight_ffdh)] <- 0
+  # Renormalize the weight of each vp by its column sum, to account for introduced NA
+  weight_ffdh <- sweep(weight_ffdh, 2, colSums(weight_ffdh), FUN="/")
 
   if(is.na(height_quantile)){
     # default (no height_quantile specified) is calculating the mean altitude
@@ -451,11 +459,11 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   }
   height[no_bird] <- NA
 
-  u <- nan_colSums( get_quantity(x, "u") * weight_densdh)
+  u <- nan_colSums( get_quantity(x, "u") * weight_ffdh)
   u[no_bird] <- NA
-  v <- nan_colSums( get_quantity(x, "v") * weight_densdh)
+  v <- nan_colSums( get_quantity(x, "v") * weight_ffdh)
   v[no_bird] <- NA
-  ff <- nan_colSums( get_quantity(x, "ff") * weight_densdh)
+  ff <- nan_colSums( get_quantity(x, "ff") * weight_ffdh)
   ff[no_bird] <- NA
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   dd[which(dd<0)]=dd[which(dd<0)]+360
@@ -478,11 +486,11 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- nan_colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_densdh)
-    output$heading <- nan_colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_densdh)
+    output$airspeed <- nan_colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_ffdh)
+    output$heading <- nan_colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_ffdh)
     output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
-    output$airspeed_u <- nan_colSums(airspeed_u * weight_densdh)
-    output$airspeed_v <- nan_colSums(airspeed_v * weight_densdh)
+    output$airspeed_u <- nan_colSums(airspeed_u * weight_ffdh)
+    output$airspeed_v <- nan_colSums(airspeed_v * weight_ffdh)
     output$ff_wind <- nan_colSums(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2) * weight_densdh)
     output$u_wind <- nan_colSums(get_quantity(x,"u_wind") * weight_densdh)
     output$v_wind <- nan_colSums(get_quantity(x,"v_wind") * weight_densdh)
@@ -500,5 +508,6 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
+
   return(output)
 }
