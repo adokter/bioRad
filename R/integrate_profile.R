@@ -425,7 +425,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   # create a separate weighting matrix for speed quantities
   # we multiple by ff/ff to copy velocity NA values into the weighting matrix
-  weight_ffdh <- weight_densdh * get_quantity(example_vpts,"ff") / get_quantity(example_vpts,"ff")
+  weight_ffdh <- weight_densdh * get_quantity(x,"ff") / get_quantity(x,"ff")
   weight_ffdh[is.na(weight_ffdh)] <- 0
   # Renormalize the weight of each vp by its column sum, to account for introduced NA
   weight_ffdh <- sweep(weight_ffdh, 2, colSums(weight_ffdh), FUN="/")
