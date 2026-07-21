@@ -35,16 +35,11 @@ depends on \link{beam_height} to calculate beam height.
 beam_distance(100000, 5)
 }
 \seealso{
-\itemize{
-\item \code{\link[=beam_height]{beam_height()}}
-}
-
-Other beam_functions:
+Other beam functions:
 \code{\link[=beam_height]{beam_height()}},
 \code{\link[=beam_profile]{beam_profile()}},
 \code{\link[=beam_profile_overlap]{beam_profile_overlap()}},
 \code{\link[=beam_range]{beam_range()}},
-\code{\link[=beam_width]{beam_width()}},
-\code{\link[=gaussian_beam_profile]{gaussian_beam_profile()}}
+\code{\link[=beam_width]{beam_width()}}
 }
-\concept{beam_functions}
+\concept{beam functions}

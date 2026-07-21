@@ -21,3 +21,9 @@ df <- as.data.frame(example_vp)
 # convert the data.frame to a vp object:
 as.vp(df)
 }
+\seealso{
+Other profile conversion functions:
+\code{\link[=as.data.frame.vp]{as.data.frame.vp()}},
+\code{\link[=as.vpts]{as.vpts()}}
+}
+\concept{profile conversion functions}

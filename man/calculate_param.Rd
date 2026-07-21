@@ -94,7 +94,8 @@ dual-polarization data. Journal of Atmospheric and Oceanic Technology 35, pp.
 }
 }
 \seealso{
-\itemize{
-\item \code{\link[=get_param]{get_param()}}
+Other scan manipulation functions:
+\code{\link[=add_param]{add_param()}},
+\code{\link[=apply_mistnet]{apply_mistnet()}}
 }
-}
+\concept{scan manipulation functions}

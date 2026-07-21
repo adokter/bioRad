@@ -47,8 +47,11 @@ scan_list <- get_scan(pvol, 3)
 scan_list
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.scan]{summary.scan()}}
-\item \code{\link[=get_elevation_angles]{get_elevation_angles()}}
+Other scan functions:
+\code{\link{example_scan}},
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
+\code{\link[=plot.scan]{plot.scan()}},
+\code{\link[=summary.scan]{summary.scan()}},
+\code{\link{tidyverse}}
 }
-}
+\concept{scan functions}

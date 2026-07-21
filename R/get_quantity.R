@@ -32,12 +32,11 @@
 #' * `attributes`: List of the vertical profile's `what`, `where` and `how`
 #' attributes.
 #' @returns the value of a specific profile quantity specified in `quantity`.
-#'
+#' @family vp functions
 #' @seealso
-#' * [summary.vp()]
-#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
+#' Use [`sd_vvp_threshold()<-`][sd_vvp_threshold<-] for setting the `sd_vvp`
 #' threshold of an object.
-#'
+#' @export
 #' @examples
 #' # Extract the animal density (dens) quantity from a vp object
 #' get_quantity(example_vp, "dens")
@@ -45,17 +44,14 @@
 #' # Extract the horizontal ground speed (ff) quantity from a vpts object and show the
 #' # first two datetimes
 #' get_quantity(example_vpts, "ff")[,1:2]
-#' @export
 get_quantity <- function(x, quantity) {
   UseMethod("get_quantity", x)
 }
 
 #' @rdname get_quantity
-#'
-#' @export
-#'
-#' @return For a `vp` object: a named (height bin) vector with values for the
+#' @returns For a `vp` object: a named (height bin) vector with values for the
 #'   selected quantity.
+#' @export
 get_quantity.vp <- function(x, quantity = "dens") {
   stopifnot(inherits(x, "vp"))
   available <- names(x$data)
@@ -82,11 +78,9 @@ get_quantity.vp <- function(x, quantity = "dens") {
 }
 
 #' @rdname get_quantity
-#'
-#' @export
-#'
-#' @return For a `list` object: a list of named (height bin) vectors with values
+#' @returns For a `list` object: a list of named (height bin) vectors with values
 #'   for the selected quantity.
+#' @export
 get_quantity.list <- function(x, quantity = "dens") {
   vptest <- sapply(x, function(y) methods::is(y, "vp"))
   if (FALSE %in% vptest) {
@@ -96,11 +90,9 @@ get_quantity.list <- function(x, quantity = "dens") {
 }
 
 #' @rdname get_quantity
-#'
-#' @export
-#'
-#' @return For a `vpts` object: a (height bin * datetime) matrix with values for
+#' @returns For a `vpts` object: a (height bin * datetime) matrix with values for
 #'   the selected quantity.
+#' @export
 get_quantity.vpts <- function(x, quantity = "dens") {
   ## this function should checkout both the gap and sd_vvp flags
   stopifnot(inherits(x, "vpts"))

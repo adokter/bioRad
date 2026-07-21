@@ -17,10 +17,9 @@
 #' @param source Character, either `baltrad` or `ecog-04003`
 #' @param show_warnings Logical, whether to print warnings for dates or radar
 #'   stations for which no data was found.
-#'
-#' @return A character vector of aloft urls
+#' @returns A character vector of aloft urls
+#' @family profile read functions
 #' @export
-#'
 #' @examples
 #' \donttest{
 #' list_vpts_aloft(radars = "bejab", date_min='2018-10-01', date_max = '2018-12-31')
@@ -106,7 +105,7 @@ list_vpts_aloft <- function(date_min = NULL,
     # This function uses the zipped monthly files, which are faster to download
     months <- format(seq(start_date, end_date, by = "months"), "%Y%m")
 
-    found_vpts_aloft <-  
+    found_vpts_aloft <-
       s3_get_bucket_df(
         bucket = "s3://aloftdata",
         prefix = glue::glue("{source}/monthly"),

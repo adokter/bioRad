@@ -6,8 +6,8 @@
 #' or night = FALSE to select daytime (sunrise to sunset). Selection for night and day uses
 #' [check_night()].
 #'
-#' @param x A `vpts` object.
 #' @inheritParams check_night
+#' @param x A `vpts` object.
 #' @param min POSIXct date or character. Minimum datetime to be included.
 #' @param max POSIXct date or character. Datetime up to this maximum included.
 #' @param nearest POSIXct date or character. If specified, `min` and `max` are
@@ -19,16 +19,11 @@
 #'   the start and end of nighttime. May also be a numeric vector of length two,
 #'   with first element added to moment of sunset and second element added to
 #'   moment of sunrise. See [check_night()] for details.
-#'
-#' @return A `vpts` object, or a `vp` object when `nearest` is specified.
-#'
+#' @returns A `vpts` object, or a `vp` object when `nearest` is specified.
+#' @family profile manipulation functions
 #' @export
 #' @details Returns profiles for which min <= timestamp profile < max. Selection for night and day
 #' occurs by [check_night].
-#' @seealso
-#' * [summary.vpts()]
-#' * [check_night()]
-#'
 #' @examples
 #' # Select profiles later than 02 Sep 2016
 #'

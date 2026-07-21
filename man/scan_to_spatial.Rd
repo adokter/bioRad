@@ -2,7 +2,7 @@
 % Please edit documentation in R/scan_convert.R
 \name{scan_to_spatial}
 \alias{scan_to_spatial}
-\title{convert a polar scan into a spatial object.}
+\title{Convert a polar scan into a spatial object.}
 \usage{
 scan_to_spatial(scan, lat, lon, k = 4/3, re = 6378, rp = 6357)
 }
@@ -23,7 +23,8 @@ scan_to_spatial(scan, lat, lon, k = 4/3, re = 6378, rp = 6357)
 a SpatialPointsDataFrame
 }
 \description{
-Georeferences the center of  pixels for a scan into a SpatialPointsDataFrame object.
+Georeferences the center of  pixels for a scan into a
+\code{SpatialPointsDataFrame} object.
 }
 \details{
 Beam altitude accounts for the curvature of the earth, using \link{beam_height}.
@@ -36,3 +37,8 @@ data(example_scan)
 # convert to a SpatialPointsDataFrame:
 scan_to_spatial(example_scan)
 }
+\seealso{
+Other raster functions:
+\code{\link[=scan_to_raster]{scan_to_raster()}}
+}
+\concept{raster functions}

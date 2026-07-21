@@ -18,9 +18,8 @@
 #' @param line.lwd Deprecated argument, use line_lwd instead.
 #' @returns No return value, side effect is a plot.
 #' @method plot vp
-#'
+#' @family vp functions
 #' @export
-#'
 #' @examples
 #' # load example vp object:
 #' data(example_vp)

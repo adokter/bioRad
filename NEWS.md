@@ -4,6 +4,8 @@
 
 * bugfix `calculate_param()` when using `ifelse` (#770).
 
+* bugfix `integrate_profile()` for height-integrated speed quantities (`u`,`v`,`ff`) in vpts objects (#782).
+
 # bioRad 0.12.0 
 
 ## New features

@@ -4,11 +4,9 @@
 #'
 #' @param object A `pvol` object.
 #' @param ... Additional arguments affecting the summary produced.
-#'
 #' @method summary pvol
-#'
+#' @family pvol functions
 #' @export
-#'
 #' @details
 #' A polar volume consists of a number of scans (or sweeps) made by the radar at
 #' different elevation angles. A polar volume (`pvol`) object is a list
@@ -22,12 +20,6 @@
 #'   * `lat`: Latitude of the radar in decimal degrees.
 #'   * `lon`: Longitude of the radar in decimal degrees.
 #'   * `height`: Height of the radar antenna in meters above sea level.
-#'
-#' @seealso
-#' * [read_pvolfile()]
-#' * [get_elevation_angles()]
-#' * [get_scan()]
-#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -50,8 +42,8 @@ summary.pvol <- function(object, ...) {
 
 #' Print summary for an object of class `pvol`
 #'
-#' @noRd
-#'
+#' @rdname summary.pvol
+#' @inheritParams base::print
 #' @export
 print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "pvol"))
@@ -64,13 +56,10 @@ print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Check if an object is of class `pvol`
 #'
-#' @param x A `pvol` object.
-#'
-#' @return For [is.pvol()]: `TRUE` for an object of class `pvol`, otherwise
-#'   `FALSE`.
-#'
 #' @rdname summary.pvol
-#'
+#' @param x A `pvol` object.
+#' @returns For [is.pvol()]: `TRUE` for an object of class `pvol`, otherwise
+#'   `FALSE`.
 #' @export
 is.pvol <- function(x) {
   inherits(x, "pvol")
@@ -78,11 +67,9 @@ is.pvol <- function(x) {
 
 #' Get dimensions for an object of class `pvol`
 #'
-#' @return For [dim.pvol()]: number of scans (`scan`) in a polar volume
-#'   (`pvol`).
-#'
 #' @rdname summary.pvol
-#'
+#' @returns For [dim.pvol()]: number of scans (`scan`) in a polar volume
+#'   (`pvol`).
 #' @export
 dim.pvol <- function(x) {
   stopifnot(inherits(x, "pvol"))

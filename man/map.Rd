@@ -123,7 +123,9 @@ map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }
 }
 \seealso{
-\itemize{
-\item \code{\link[=project_as_ppi]{project_as_ppi()}}
+Other ppi functions:
+\code{\link[=[.ppi]{[.ppi()}},
+\code{\link[=plot.ppi]{plot.ppi()}},
+\code{\link[=summary.ppi]{summary.ppi()}}
 }
-}
+\concept{ppi functions}

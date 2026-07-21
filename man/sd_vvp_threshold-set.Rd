@@ -40,8 +40,13 @@ vpts <- example_vpts
 sd_vvp_threshold(vpts) <- 2
 }
 \seealso{
-\itemize{
-\item \code{\link[=sd_vvp_threshold]{sd_vvp_threshold()}} for getting the \code{sd_vvp} threshold of an object.
-\item \code{\link[=rcs<-]{rcs()<-}}
+Other profile manipulation functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=c.vp]{c.vp()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=rcs<-]{rcs<-()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}}
 }
-}
+\concept{profile manipulation functions}

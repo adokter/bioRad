@@ -5,11 +5,10 @@
 #'
 #' @param object A `vpts` object.
 #' @param ... Additional arguments affecting the summary produced.
-#'
+#' @returns For [summary.vpts()]: prints the summary of the`vpts` object.
 #' @method summary vpts
-#'
+#' @family vpts functions
 #' @export
-#'
 #' @details
 #' A time series of vertical profiles contains time-ordered vertical profiles
 #' (`vp)` of a single radar. This time series can be **regular** (`vp` are
@@ -40,18 +39,6 @@
 #' also used when there are too few datapoints to calculate a quantity.
 #' * `0`: Maps to `0` in the ODIM convention: denote areas where the quantity
 #' has a measured value of zero (radiated and value zero detected or inferred).
-#'
-#' @seealso
-#' * [bind_into_vpts()]
-#' * [read_vpts()]
-#' * [filter_vpts()]
-#' * [regularize_vpts()]
-#' * [`example_vpts`]
-#' * [get_quantity()]
-#' * [plot.vp()]
-#' * [as.data.frame.vpts()]
-#' * \code{\link[=[.vpts]{[vpts()}}
-#' @returns For [summary.vpts()]: prints the summary of the`vpts` object.
 #' @examples
 #' # Check if an object is of class vpts
 #' is.vpts(example_vpts)
@@ -66,8 +53,9 @@ summary.vpts <- function(object, ...) {
 }
 
 #' Print summary for an object of class `vpts`
-#' @param digits The number of significant digits to use when printing. Defaults to `max(3L, getOption("digits") - 3L)`.
+#'
 #' @rdname summary.vpts
+#' @inheritParams base::print
 #' @returns For [print.vpts()]: prints the summary of the `vpts` object.
 #' @export
 print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
@@ -112,13 +100,10 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' Check if an object is of class `vpts`
 #'
-#' @param x A `vpts` object.
-#'
-#' @return For [is.vpts()]: `TRUE` for an object of class `vpts`, otherwise
-#'   `FALSE`.
-#'
 #' @rdname summary.vpts
-#'
+#' @param x A `vpts` object.
+#' @returns For [is.vpts()]: `TRUE` for an object of class `vpts`, otherwise
+#'   `FALSE`.
 #' @export
 is.vpts <- function(x) {
   inherits(x, "vpts")
@@ -126,11 +111,9 @@ is.vpts <- function(x) {
 
 #' Get dimensions for an object of class `vpts`
 #'
-#' @return For [dim.vpts()]: number of datetimes, heights and quantities in a
-#'   time series of vertical profiles (`vpts`).
-#'
 #' @rdname summary.vpts
-#'
+#' @returns For [dim.vpts()]: number of datetimes, heights and quantities in a
+#'   time series of vertical profiles (`vpts`).
 #' @export
 dim.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
@@ -147,11 +130,10 @@ dim.vpts <- function(x) {
 #' @param x A `vpts` object.
 #' @param i Integer. Index/indices specifying which range of vertical profiles
 #'   to extract.
-#'
-#' @return For `[.vpts`: A `vpts` object containing a subset of vertical profiles (`vp`) or a
+#' @returns For `[.vpts`: A `vpts` object containing a subset of vertical profiles (`vp`) or a
 #'   `vp` object when subsetting a single vertical profile (`vp`).
-#'
-#' @rdname summary.vpts
+#' @family vpts functions
+#' @export
 #' @examples
 #' # The example vpts contains 1934 profiles (i.e. datetimes)
 #' dim(example_vpts)
@@ -164,7 +146,6 @@ dim.vpts <- function(x) {
 #'
 #' # Subset vpts to remove the first 10 profiles
 #' example_vpts[-1:-10] # A vpts object with 10 less profiles
-#' @export
 `[.vpts` <- function(x, i) {
   stopifnot(inherits(x, "vpts"))
 

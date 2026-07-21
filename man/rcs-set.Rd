@@ -45,8 +45,13 @@ vpi <- integrate_profile(example_vpts)
 rcs(vpi) <- 11
 }
 \seealso{
-\itemize{
-\item \code{\link[=rcs]{rcs()}} for getting the radar cross section of an object.
-\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}}
+Other profile manipulation functions:
+\code{\link[=bind_into_vpts]{bind_into_vpts()}},
+\code{\link[=c.vp]{c.vp()}},
+\code{\link[=clean_mixture]{clean_mixture()}},
+\code{\link[=filter_precip]{filter_precip()}},
+\code{\link[=filter_vpts]{filter_vpts()}},
+\code{\link[=regularize_vpts]{regularize_vpts()}},
+\code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold<-()}}
 }
-}
+\concept{profile manipulation functions}

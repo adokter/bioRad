@@ -19,15 +19,12 @@
 #'   with first element added to moment of sunset and second element added to
 #'   moment of sunrise.
 #' @param ... Optional lat, lon arguments.
-#'
-#' @return `TRUE` when night, `FALSE` when day, `NA` if unknown
+#' @returns `TRUE` when night, `FALSE` when day, `NA` if unknown
 #' (either datetime or geographic location missing). For `vpts` a
 #' vector of `TRUE`/`FALSE` values is returned.
-#'
+#' @family profile metadata functions
 #' @export
-#'
 #' @details
-#'
 #' `check_night()` evaluates to `FALSE` when the sun has a higher
 #' elevation than parameter `elev`, otherwise `TRUE`.
 #'
@@ -43,7 +40,6 @@
 #' offset, for example, `offset = c(600,-900)` will assume nighttime starts 600
 #' seconds after sunset (as defined by `elev`) and stops 900 seconds before
 #' sunrise.
-#'
 #' @examples
 #' # Check if it is night at UTC midnight in the Netherlands on January 1st:
 #' check_night("2016-01-01 00:00", 5, 53)

@@ -6,6 +6,7 @@
 #' on the second night of the year and New Years Eve on Dec 31 occurs on the
 #' first night of the new year.
 #'
+#' @name doy_noy
 #' @param x A `pvol`, `vp`, `vpts`, or `vpi` object, or a [base::as.POSIXct]
 #'   datetime.
 #' @param lon Numeric. Longitude in decimal degrees.
@@ -14,8 +15,7 @@
 #'   (default) or `accurate`. See [lutz::tz_lookup_coords]].
 #' @param ... Optional lat, lon arguments.
 #' @returns integer representing the ordinal day of year or night of year.
-#' @name doy_noy
-#'
+#' @family profile metadata functions
 #' @examples
 #' # Get day of year of a vp object
 #' noy(example_vp)
@@ -28,21 +28,18 @@
 NULL
 
 #' @rdname doy_noy
-#'
 #' @export
 doy <- function(x, ..., method = "fast") {
   UseMethod("doy", x)
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 noy <- function(x, ..., method = "fast") {
   UseMethod("noy", x)
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 doy.default <- function(x, lon, lat, ..., method = "fast") {
   tzone = lutz::tz_lookup_coords(lat, lon, method = method, warn = FALSE)
@@ -50,14 +47,12 @@ doy.default <- function(x, lon, lat, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 noy.default <- function(x, lon, lat, ..., method = "fast") {
   doy.default(x + 12 * 3600, lon, lat, method = method)
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 doy.vp <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "vp"))
@@ -65,7 +60,6 @@ doy.vp <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 noy.vp <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "vp"))
@@ -73,7 +67,6 @@ noy.vp <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 doy.vpts <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "vpts"))
@@ -81,7 +74,6 @@ doy.vpts <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 noy.vpts <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "vpts"))
@@ -89,7 +81,6 @@ noy.vpts <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 doy.vpi <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "vpi"))
@@ -97,7 +88,6 @@ doy.vpi <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 noy.vpi <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "vpi"))
@@ -105,7 +95,6 @@ noy.vpi <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 doy.pvol <- function(x, ..., method = "fast") {
   stopifnot(inherits(x, "pvol"))
@@ -113,7 +102,6 @@ doy.pvol <- function(x, ..., method = "fast") {
 }
 
 #' @rdname doy_noy
-#'
 #' @export
 noy.pvol <- function(x, ...,  method = "fast") {
   stopifnot(inherits(x, "pvol"))
