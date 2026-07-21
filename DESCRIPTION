@@ -42,7 +42,7 @@ Imports:
     lutz,
     methods,
     raster,
-    readr,
+    readr (>= 2.2.0),
     rhdf5,
     rlang,
     sf,
