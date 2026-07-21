@@ -10,6 +10,11 @@
   when using `ifelse`
   ([\#770](https://github.com/adokter/bioRad/issues/770)).
 
+- bugfix
+  [`integrate_profile()`](http://adriaandokter.com/bioRad/dev/reference/integrate_profile.md)
+  for height-integrated speed quantities (`u`,`v`,`ff`) in vpts objects
+  ([\#782](https://github.com/adokter/bioRad/issues/782)).
+
 ## bioRad 0.12.0
 
 CRAN release: 2026-06-13
