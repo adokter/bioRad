@@ -48,7 +48,9 @@ to plot.}
 \item{ratio}{Numeric. Aspect ratio between x and y scale, by default
 \eqn{1/cos(latitude radar * pi/180)}.}
 
-\item{radar_size}{Numeric. Size of the symbol indicating the radar position.}
+\item{radar_size}{Numeric. Size of the symbol indicating the radar position. Use
+\code{NULL} if you do not want to plot the radar point. This might be useful the radar
+is outside the range of data.}
 
 \item{radar_color}{Character. Color of the symbol indicating the radar
 position.}
