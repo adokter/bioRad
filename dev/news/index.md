@@ -10,6 +10,11 @@
   when using `ifelse`
   ([\#770](https://github.com/adokter/bioRad/issues/770)).
 
+- Improve axis labels for
+  [`map()`](http://adriaandokter.com/bioRad/dev/reference/map.md) and
+  provide option not to plot the radar
+  ([\#773](https://github.com/adokter/bioRad/issues/773)).
+
 - bugfix
   [`integrate_profile()`](http://adriaandokter.com/bioRad/dev/reference/integrate_profile.md)
   for height-integrated speed quantities (`u`,`v`,`ff`) in vpts objects

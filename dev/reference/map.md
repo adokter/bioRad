@@ -74,7 +74,9 @@ map(
 
 - radar_size:
 
-  Numeric. Size of the symbol indicating the radar position.
+  Numeric. Size of the symbol indicating the radar position. Use `NULL`
+  if you do not want to plot the radar point. This might be useful the
+  radar is outside the range of data.
 
 - radar_color:
 
