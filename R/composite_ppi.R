@@ -18,11 +18,9 @@
 #' @param coverage Logical. When `TRUE`, adds an additional `coverage` parameter
 #'   to the `ppi` indicating the number of `ppi`s covering a single composite
 #'   pixel.
-#'
-#' @return A `ppi` object.
-#'
+#' @returns A `ppi` object.
+#' @family ppi calculation functions
 #' @export
-#'
 #' @details
 #' The function can combine multiple `ppi`s of different scan elevations of the
 #' same radar or `ppi`s of different radars. The coordinates of the returned
@@ -60,7 +58,6 @@
 #' mean (lat, lon) location.
 #'
 #' This function is a prototype and under active development
-#'
 #' @examples
 #' # Locate and read the polar volume example file
 #' \donttest{

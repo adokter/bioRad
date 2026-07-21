@@ -1,5 +1,6 @@
 #' Calculate sunrise or sunset for a time and place
 #'
+#' @name sunrise_sunset
 #' @param date POSIXct. Date interpretable by [base::as.Date()].
 #' @param lon Numeric. Longitude in decimal degrees.
 #' @param lat Numeric. Latitude in decimal degrees.
@@ -8,10 +9,9 @@
 #'   associated time zone.
 #' @param force_tz Logical. If `TRUE`, the output is converted to the timezone
 #'   set by `tz`.
-#'
-#' @return The moment of sunrise or sunset for the date set by `date`and time zone as specified
+#' @returns The moment of sunrise or sunset for the date set by `date`and time zone as specified
 #' (by `date` and `tz`) or in UTC if not specified.
-#'
+#' @family suncalc functions
 #' @details
 #' The day for which sunrise and sunset are calculated is given by the input date.
 #' Sunrise and sunset are calculated relative to the moment of solar noon for that date,
@@ -64,12 +64,9 @@
 #' # Also beware of jumps in sunrise and sunset date with longitude:
 #' sunrise("2016-11-01", 100, 45)
 #' sunrise("2016-11-01", 102, 45)
-#'
-#' @name sunrise_sunset
 NULL
 
 #' @rdname sunrise_sunset
-#'
 #' @export
 sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
@@ -81,7 +78,6 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 }
 
 #' @rdname sunrise_sunset
-#'
 #' @export
 sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)

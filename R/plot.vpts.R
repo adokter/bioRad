@@ -33,11 +33,9 @@
 #' @param barbs.dens Deprecated argument, use barbs_dens_min instead.
 #' @param legend.ticks Deprecated argument, use legend_ticks instead.
 #' @returns No return value, side effect is a plot.
-#' 
 #' @method plot vpts
-#'
+#' @family vpts functions
 #' @export
-#'
 #' @details Aerial abundances can be visualized in four related quantities, as specified
 #' by argument `quantity`:
 #' * `dens`: the aerial density of individuals. This quantity is dependent on
@@ -72,7 +70,6 @@
 #' Quantities `u` and `v` cannot be plotted on a logarithmic scale, because
 #' these quantities assume negative values.  For quantities `DBZH` and `dbz`
 #' `log=TRUE` is ignored, because these quantities are already logarithmic.
-#'
 #' @examples
 #' # locate example file:
 #' ts <- example_vpts

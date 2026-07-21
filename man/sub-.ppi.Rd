@@ -35,3 +35,10 @@ ppi[1:3]
 # Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)
 ppi[-1:-2]
 }
+\seealso{
+Other ppi functions:
+\code{\link[=map]{map()}},
+\code{\link[=plot.ppi]{plot.ppi()}},
+\code{\link[=summary.ppi]{summary.ppi()}}
+}
+\concept{ppi functions}

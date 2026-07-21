@@ -31,9 +31,8 @@
 #' @param nightshade Deprecated argument, use night_shade instead.
 #' @returns No return value, side effect is a plot.
 #' @method plot vpi
-#'
+#' @family integrated profile functions
 #' @export
-#'
 #' @details
 #' The integrated profiles can be visualized in various related quantities, as specified by
 #' argument `quantity`:

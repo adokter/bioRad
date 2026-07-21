@@ -5,13 +5,9 @@
 #' @param rcs Numeric. Radar cross section per bird in cm^2.
 #' @param wavelength Character or numeric. Radar wavelength, either `C` for
 #'   C-band (5.3 cm), `S` for S-band (10.6 cm) or in cm.
-#'
-#' @return A `vp` object.
-#'
+#' @returns A `vp` object.
+#' @family profile read functions
 #' @export
-#'
-#' @seealso
-#' * [summary.vp()]
 read_cajun <- function(file, rcs = 11, wavelength = "S") {
   # input checks
   if (!file.exists(file)) {

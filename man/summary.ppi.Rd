@@ -2,11 +2,14 @@
 % Please edit documentation in R/ppi.R
 \name{summary.ppi}
 \alias{summary.ppi}
+\alias{print.ppi}
 \alias{is.ppi}
 \alias{dim.ppi}
 \title{Inspect a plan position indicator (\code{ppi})}
 \usage{
 \method{summary}{ppi}(object, ...)
+
+\method{print}{ppi}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.ppi(x)
 
@@ -18,6 +21,9 @@ is.ppi(x)
 \item{...}{Additional arguments affecting the summary produced.}
 
 \item{x}{A \code{ppi} object.}
+
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=is.ppi]{is.ppi()}}: \code{TRUE} for an object of class \code{ppi}, otherwise
@@ -64,12 +70,9 @@ ppi # Same as summary(ppi) or print(ppi)
 dim(ppi)
 }
 \seealso{
-\itemize{
-\item \code{\link[=project_as_ppi]{project_as_ppi()}}
-\item \code{\link[=integrate_to_ppi]{integrate_to_ppi()}}
-\item \code{\link[=plot.ppi]{plot.ppi()}}
-\item \code{\link[=map]{map()}}
-\item \code{\link[=composite_ppi]{composite_ppi()}}
-\item \code{\link[=[.ppi]{[ppi()}}
+Other ppi functions:
+\code{\link[=[.ppi]{[.ppi()}},
+\code{\link[=map]{map()}},
+\code{\link[=plot.ppi]{plot.ppi()}}
 }
-}
+\concept{ppi functions}

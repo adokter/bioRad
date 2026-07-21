@@ -29,7 +29,8 @@ param <- get_param(example_scan, "VRADH")
 param
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.param]{summary.param()}}
+Other param functions:
+\code{\link[=get_elevation_angles]{get_elevation_angles()}},
+\code{\link[=summary.param]{summary.param()}}
 }
-}
+\concept{param functions}

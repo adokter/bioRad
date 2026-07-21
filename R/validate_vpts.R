@@ -19,9 +19,8 @@ validate_datetime_format <- function(data, format) {
 #' Validate dataframe against VPTS schema
 #'
 #' @param df The dataframe to validate.
+#' @returns Invisibly returns a list with validation results including messages for any issues found.
 #' @noRd
-#' @return Invisibly returns a list with validation results including messages for any issues found.
-#' @keywords internal
 validate_vpts <- function(df) {
     schema <- bioRad::vpts_schema
     required_fields <- schema$fields$name[schema$fields$constraints.required ==
@@ -97,4 +96,3 @@ validate_vpts <- function(df) {
 
     invisible(list(valid = TRUE, issues = issues))
 }
-

@@ -8,8 +8,8 @@
 #' @param files Path(s) to one or more files containing vpts data.
 #' @param data_frame When `FALSE` (default) output a `vpts` object, when `TRUE` output a data.frame
 #' @param ... Additional arguments for backward compatibility, passed to `read_stdout`.
-#' @return `vpts` object.
-#' @family read functions
+#' @returns `vpts` object.
+#' @family profile read functions
 #' @export
 #' @examples
 #' ## read a vertical profile time series in VPTS CSV format:
@@ -86,8 +86,7 @@ read_vpts <- function(files, data_frame = FALSE, ...) {
 #'
 #' @inheritParams read_vpts
 #' @param data_frame If `TRUE` returns data as dataframe rather than `vpts` object.
-#' @return `vpts` object.
-#' @keywords internal
+#' @returns `vpts` object.
 #' @noRd
 read_vpts_csv <- function(files, data_frame = FALSE) {
 
@@ -95,7 +94,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
   data <- readr::read_csv(files, show_col_types = FALSE)
   #,
   #col_types = readr::cols(
-  #   .default = readr::col_guess(),  
+  #   .default = readr::col_guess(),
   #   `...1` = readr::col_skip()      # Skip unnamed columns
   #  ))
   #)
@@ -121,7 +120,7 @@ read_vpts_csv <- function(files, data_frame = FALSE) {
 #' Read time series of vertical profiles (`vpts`) from hdf5 file(s)
 #'
 #' @inheritParams read_vpts
-#' @return `vpts` object.
+#' @returns `vpts` object.
 #' @noRd
 read_vpts_hdf5 <- function(files, data_frame = FALSE) {
   vps <- read_vpfiles(files)

@@ -3,15 +3,9 @@
 #' Returns the currently assumed radar cross section of an object in cm^2.
 #'
 #' @param x A `vp`, list of `vp`, `vpts` or `vpi` object.
-#'
-#' @return The radar cross section in cm^2.
-#'
+#' @returns The radar cross section in cm^2.
+#' @family profile metadata functions
 #' @export
-#'
-#' @seealso
-#' * [`rcs()<-`][rcs<-] for setting the radar cross section of an object.
-#' * [sd_vvp_threshold()]
-#'
 #' @examples
 #' # Get the radar cross section for a vp
 #' rcs(example_vp)
@@ -27,7 +21,6 @@ rcs <- function(x) {
 }
 
 #' @rdname rcs
-#'
 #' @export
 rcs.vp <- function(x) {
   stopifnot(inherits(x, "vp"))
@@ -35,7 +28,6 @@ rcs.vp <- function(x) {
 }
 
 #' @rdname rcs
-#'
 #' @export
 rcs.list <- function(x) {
   vptest <- sapply(x, function(y) methods::is(y, "vp"))
@@ -47,7 +39,6 @@ rcs.list <- function(x) {
 }
 
 #' @rdname rcs
-#'
 #' @export
 rcs.vpts <- function(x) {
   stopifnot(inherits(x, "vpts"))
@@ -55,7 +46,6 @@ rcs.vpts <- function(x) {
 }
 
 #' @rdname rcs
-#'
 #' @export
 rcs.vpi <- function(x) {
   stopifnot(inherits(x, "vpi"))
@@ -70,15 +60,9 @@ rcs.vpi <- function(x) {
 #'
 #' @inheritParams rcs
 #' @param value Numeric. The radar cross section value to assign in cm^2.
-#'
-#' @return The input object with updated density `x$data$dens` and updated radar cross section attribute.
-#'
+#' @returns The input object with updated density `x$data$dens` and updated radar cross section attribute.
+#' @family profile manipulation functions
 #' @export
-#'
-#' @seealso
-#' * [rcs()] for getting the radar cross section of an object.
-#' * [`sd_vvp_threshold()<-`][sd_vvp_threshold<-]
-#'
 #' @examples
 #' # Set the radar cross section for a vp
 #' vp <- example_vp
@@ -96,7 +80,6 @@ rcs.vpi <- function(x) {
 }
 
 #' @rdname rcs-set
-#'
 #' @export
 `rcs<-.vp` <- function(x, value) {
   stopifnot(inherits(x, "vp"))
@@ -115,7 +98,6 @@ rcs.vpi <- function(x) {
 }
 
 #' @rdname rcs-set
-#'
 #' @export
 `rcs<-.list` <- function(x, value) {
   vptest <- sapply(x, function(y) methods::is(y, "vp"))
@@ -128,7 +110,6 @@ rcs.vpi <- function(x) {
 }
 
 #' @rdname rcs-set
-#'
 #' @export
 `rcs<-.vpts` <- function(x, value) {
   stopifnot(inherits(x, "vpts"))
@@ -147,7 +128,6 @@ rcs.vpi <- function(x) {
 }
 
 #' @rdname rcs-set
-#'
 #' @export
 `rcs<-.vpi` <- function(x, value) {
   stopifnot(inherits(x, "vpi"))

@@ -13,7 +13,6 @@
 #'   profile, in seconds. Traffic rates are set to zero at times `t` for which
 #'   no profiles can be found within the period `t - interval_max/2` to `t +
 #'   interval_max/2`. Ignored for single profiles of class `vp`.
-#'
 #' @param x A `vp` or `vpts` object.
 #' @param alt_min Minimum altitude in m. `"antenna"` can be used to set the
 #' minimum altitude to the height of the antenna.
@@ -28,10 +27,10 @@
 #' @param height_quantile For default `NA` the calculated height equals
 #' the mean flight altitude. Otherwise a number between 0 and 1 specifying a
 #' quantile of the height distribution.
-#'
-#' @return an object of class `vpi`, a data frame with vertically
+#' @returns an object of class `vpi`, a data frame with vertically
 #' integrated profile quantities
-#'
+#' @family integrated profile functions
+#' @export
 #' @details
 #' \subsection{Available quantities}{
 #' The function generates a specially classed data frame with the following
@@ -153,8 +152,6 @@
 #' ground speed directions vary with altitude.
 #'
 #' }
-#' @export
-#'
 #' @examples
 #' # Calculate migration traffic rates for a single vp
 #' integrate_profile(example_vp)
@@ -184,7 +181,6 @@ integrate_profile <- function(x, alt_min, alt_max,
 }
 
 #' @describeIn integrate_profile Vertically integrate a vertical profile (`vp`).
-#'
 #' @export
 integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
                                  interval_max = 3600, interval_replace = NA, height_quantile = NA) {
@@ -308,12 +304,12 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
+
   return(output)
 }
 
 #' @describeIn integrate_profile Vertically integrate a list of vertical
 #'   profiles (`vp`).
-#'
 #' @export
 integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,
@@ -345,7 +341,6 @@ integrate_profile.list <- function(x, alt_min = 0, alt_max = Inf,
 
 #' @describeIn integrate_profile Vertically integrate a time series of
 #' vertical profiles (`vpts`).
-#'
 #' @export
 integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
                                    alpha = NA, interval_max = 3600,
@@ -392,6 +387,15 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   dh <- pmin(pmin(pmax(x$height+x$attributes$where$interval-alt_min,0),interval),
              pmin(pmax(alt_max-x$height,0),interval)) / 1000
 
+  # helper function that performs a weighted colSum, and that will return
+  # NaN if all elements in a column are either NA or NaN.
+  nan_colSums <- function(x, ...) {
+     s <- colSums(x, na.rm = TRUE, ...)
+     all_na <- colSums(!is.na(x)) == 0
+     s[all_na] <- NaN
+     s
+  }
+
   # Vertically Integrated Density in individuals/km^2
   vid <- colSums(get_quantity(x, "dens") * dh, na.rm = TRUE)
   # Vertically Integrated Reflectivity in cm^2/km^2
@@ -406,11 +410,9 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
 
   # Migration Traffic Rate in individuals/km/h
   # multiply speeds (ff) by 3.6 to convert m/s to km/h
-  mtr <- colSums(get_quantity(x, "dens") * cosfactor * get_quantity(x, "ff")
-             * 3.6  * dh, na.rm = TRUE)
+  mtr <- colSums(get_quantity(x, "dens") * cosfactor * get_quantity(x, "ff") * 3.6 * dh, na.rm = TRUE)
   # Reflectivity Traffic Rate in cm^2/km/h
-  rtr <- colSums(get_quantity(x, "eta") * cosfactor * get_quantity(x, "ff")
-             * 3.6 * dh, na.rm = TRUE)
+  rtr <- colSums(get_quantity(x, "eta") * cosfactor * get_quantity(x, "ff") * 3.6 * dh, na.rm = TRUE)
 
   # The following quantites are vertically summed by weighting each altitudinal
   # bin based on their bird density value (dens) and their height.
@@ -421,9 +423,16 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   # Find index where no bird are present
   no_bird <- is.na(colSums(weight_densdh))
 
+  # create a separate weighting matrix for speed quantities
+  # we multiple by ff/ff to copy velocity NA values into the weighting matrix
+  weight_ffdh <- weight_densdh * get_quantity(x,"ff") / get_quantity(x,"ff")
+  weight_ffdh[is.na(weight_ffdh)] <- 0
+  # Renormalize the weight of each vp by its column sum, to account for introduced NA
+  weight_ffdh <- sweep(weight_ffdh, 2, colSums(weight_ffdh), FUN="/")
+
   if(is.na(height_quantile)){
     # default (no height_quantile specified) is calculating the mean altitude
-    height <- colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh, na.rm = TRUE)
+    height <- nan_colSums( (get_quantity(x, "height") + interval / 2) * weight_densdh)
   }
   else{
     # calculate a quantile of the flight altitude distribution
@@ -448,13 +457,13 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     # 5) store the quantile flight altitude as height
     height <- height_lower+delta_linear_interpolation
   }
-
   height[no_bird] <- NA
-  u <- colSums( get_quantity(x, "u") * weight_densdh, na.rm = TRUE)
+
+  u <- nan_colSums( get_quantity(x, "u") * weight_ffdh)
   u[no_bird] <- NA
-  v <- colSums( get_quantity(x, "v") * weight_densdh, na.rm = TRUE)
+  v <- nan_colSums( get_quantity(x, "v") * weight_ffdh)
   v[no_bird] <- NA
-  ff <- colSums( get_quantity(x, "ff") * weight_densdh, na.rm = TRUE)
+  ff <- nan_colSums( get_quantity(x, "ff") * weight_ffdh)
   ff[no_bird] <- NA
   dd <- (pi / 2 - atan2(v, u)) * 180 / pi
   dd[which(dd<0)]=dd[which(dd<0)]+360
@@ -477,14 +486,14 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   if ("u_wind" %in% names(x$data) & "v_wind" %in% names(x$data)) {
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
-    output$airspeed <- colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_densdh, na.rm = TRUE)
-    output$heading <- colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_densdh, na.rm = TRUE)
+    output$airspeed <- nan_colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_ffdh)
+    output$heading <- nan_colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_ffdh)
     output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
-    output$airspeed_u <- colSums(airspeed_u * weight_densdh, na.rm = TRUE)
-    output$airspeed_v <- colSums(airspeed_v * weight_densdh, na.rm = TRUE)
-    output$ff_wind <- colSums(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2) * weight_densdh, na.rm = TRUE)
-    output$u_wind <- colSums(get_quantity(x,"u_wind") * weight_densdh, na.rm = TRUE)
-    output$v_wind <- colSums(get_quantity(x,"v_wind") * weight_densdh, na.rm = TRUE)
+    output$airspeed_u <- nan_colSums(airspeed_u * weight_ffdh)
+    output$airspeed_v <- nan_colSums(airspeed_v * weight_ffdh)
+    output$ff_wind <- nan_colSums(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2) * weight_densdh)
+    output$u_wind <- nan_colSums(get_quantity(x,"u_wind") * weight_densdh)
+    output$v_wind <- nan_colSums(get_quantity(x,"v_wind") * weight_densdh)
   }
 
   class(output) <- c("vpi", "data.frame")
@@ -499,5 +508,6 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   attributes(output)$rcs <- rcs(x)
   attributes(output)$lat <- x$attributes$where$lat
   attributes(output)$lon <- x$attributes$where$lon
+
   return(output)
 }

@@ -2,11 +2,14 @@
 % Please edit documentation in R/vp.R
 \name{summary.vp}
 \alias{summary.vp}
+\alias{print.vp}
 \alias{is.vp}
 \alias{dim.vp}
 \title{Inspect a vertical profile (\code{vp})}
 \usage{
 \method{summary}{vp}(object, ...)
+
+\method{print}{vp}(x, digits = max(3L, getOption("digits") - 3L), ...)
 
 is.vp(x)
 
@@ -18,6 +21,9 @@ is.vp(x)
 \item{...}{Additional arguments affecting the summary produced.}
 
 \item{x}{A \code{vp} object.}
+
+\item{digits}{minimal number of \emph{significant} digits, see
+    \code{\link[base]{print.default}}.}
 }
 \value{
 For \code{\link[=summary.vp]{summary.vp()}}: prints summary of the \code{vp} object.
@@ -98,13 +104,9 @@ example_vp # Same as summary(example_vp) or print(example_vp)
 dim(example_vp)
 }
 \seealso{
-\itemize{
-\item \code{\link[=calculate_vp]{calculate_vp()}}
-\item \code{\link[=read_vpfiles]{read_vpfiles()}}
-\item \code{\link{example_vp}}
-\item \code{\link[=get_quantity]{get_quantity()}}
-\item \code{\link[=plot.vp]{plot.vp()}}
-\item \code{\link[=as.data.frame.vp]{as.data.frame.vp()}}
-\item \code{\link[=bind_into_vpts]{bind_into_vpts()}}
+Other vp functions:
+\code{\link{example_vp}},
+\code{\link[=get_quantity]{get_quantity()}},
+\code{\link[=plot.vp]{plot.vp()}}
 }
-}
+\concept{vp functions}

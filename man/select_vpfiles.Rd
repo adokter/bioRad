@@ -41,5 +41,12 @@ select_vpfiles(
 )
 }
 \seealso{
-download_vpfiles
+Other profile read functions:
+\code{\link[=download_vpfiles]{download_vpfiles()}},
+\code{\link[=is.vpfile]{is.vpfile()}},
+\code{\link[=list_vpts_aloft]{list_vpts_aloft()}},
+\code{\link[=read_cajun]{read_cajun()}},
+\code{\link[=read_vpfiles]{read_vpfiles()}},
+\code{\link[=read_vpts]{read_vpts()}}
 }
+\concept{profile read functions}

@@ -3,10 +3,8 @@
 #' Example of a [`scan`][summary.scan()] object with name `example_scan`.
 #'
 #' @rdname example_scan
-#' @return An example object of type `scan` which represents a single scan from a weather radar.
-#' @seealso
-#' * [summary.scan()]
-#'
+#' @returns An example object of type `scan` which represents a single scan from a weather radar.
+#' @family scan functions
 #' @examples
 #' # Reload example_scan from package (e.g. in case it was altered)
 #' data(example_scan)
@@ -19,11 +17,9 @@
 #'
 #' Example of a [`vp`][summary.vp()] object with name `example_vp`.
 #'
-#' @rdname example_vp   
-#' @return An example object of type `vp` which represents a vertical profile.
-#' @seealso
-#' * [summary.vp()]
-#'
+#' @rdname example_vp
+#' @returns An example object of type `vp` which represents a vertical profile.
+#' @family vp functions
 #' @examples
 #' # Reload example_vp from package (e.g. in case it was altered)
 #' data(example_vp)
@@ -37,10 +33,8 @@
 #' Example of a [`vpts`][summary.vpts()] object with name `example_vpts`.
 #'
 #' @rdname example_vpts
-#' @return An example object of type `vpts` which represents a time series of vertical profiles.
-#' @seealso
-#' * [summary.vpts()]
-#'
+#' @returns An example object of type `vpts` which represents a time series of vertical profiles.
+#' @family vpts functions
 #' @examples
 #' # Reload example_vpts from package (e.g. in case it was altered)
 #' data(example_vpts)
@@ -76,7 +70,7 @@
 #' A dataset containing the schema definitions for VPTS data validation.
 #' @rdname vpts_schema
 #' @keywords internal
-#' @return A list object containing the data model for the standard VPTS exchange format.
+#' @returns A list object containing the data model for the standard VPTS exchange format.
 #' @examples
 #' # Reload vpts_schema from package (e.g. in case it was altered)
 #' data(vpts_schema)

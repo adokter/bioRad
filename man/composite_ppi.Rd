@@ -128,3 +128,9 @@ map(composite)
 }
 }
 }
+\seealso{
+Other ppi calculation functions:
+\code{\link[=integrate_to_ppi]{integrate_to_ppi()}},
+\code{\link[=project_as_ppi]{project_as_ppi()}}
+}
+\concept{ppi calculation functions}

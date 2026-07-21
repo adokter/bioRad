@@ -6,6 +6,8 @@
 
 * Improve axis labels for `map()` and provide option not to plot the radar (#773).
 
+* bugfix `integrate_profile()` for height-integrated speed quantities (`u`,`v`,`ff`) in vpts objects (#782).
+
 # bioRad 0.12.0 
 
 ## New features

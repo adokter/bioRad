@@ -1,5 +1,6 @@
 #' Convert a NEXRAD polar volume file to an ODIM polar volume file
 #'
+#' @inheritParams calculate_vp
 #' @param pvolfile_nexrad Character (vector). Either a path to a single radar polar volume
 #'   (`pvol`) file containing multiple scans/sweeps, or multiple paths to scan
 #'   files containing a single scan/sweep. Or a single `pvol` object. The file data format should be either 1)
@@ -11,22 +12,19 @@
 #'   IRIS (IRIS RAW) format.
 #' @param pvolfile_odim Filename for the polar volume in ODIM HDF5 format to be
 #' generated.
-#'
-#' @inheritParams calculate_vp
-#'
-#' @return `TRUE` on success
-#'
+#' @returns `TRUE` on success
+#' @family pvol conversion functions
 #' @export
 #' @examples
 #' \donttest{
 #' # download a NEXRAD file, save as KBGM_example
 #' path = file.path(tempdir(), "KBGM_example")
-#' 
+#'
 #' download.file(paste0("https://unidata-nexrad-level2.s3.amazonaws.com/",
 #'   "2019/10/01/KBGM/KBGM20191001_000542_V06"), path, method="libcurl", mode="wb")
 #'
 #' # convert to ODIM format
-#' 
+#'
 #' new_path = file.path(tempdir(), "KBGM_example.h5")
 #'
 #' if (requireNamespace("vol2birdR", quietly = TRUE)) {

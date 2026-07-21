@@ -1,12 +1,14 @@
-#' convert a polar scan into a spatial object.
+#' Convert a polar scan into a spatial object.
 #'
-#' Georeferences the center of  pixels for a scan into a SpatialPointsDataFrame object.
+#' Georeferences the center of  pixels for a scan into a
+#' `SpatialPointsDataFrame` object.
 #'
 #' @inheritParams beam_height
 #' @param scan a scan (sweep) of class scan
 #' @param lat Geodetic latitude of the radar in degrees. If missing taken from `scan`.
 #' @param lon Geodetic longitude of the radar in degrees. If missing taken from `scan`.
-#' @return a SpatialPointsDataFrame
+#' @returns a SpatialPointsDataFrame
+#' @family raster functions
 #' @export
 #' @details Beam altitude accounts for the curvature of the earth, using [beam_height].
 #' Distance from the radar over the earth's surface is calculated using [beam_distance].
@@ -55,9 +57,10 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
   sp::SpatialPointsDataFrame(coords = coords, data = data, coords.nrs = c(3, 4), proj4string = proj4string)
 }
 
-#' convert a polar scan into a raster
+#' Convert a polar scan into a raster
 #'
-#' convert an object of class 'scan' into a raster of class 'RasterBrick'
+#' Converts an object of class `scan` into a raster of class `RasterBrick`.
+#'
 #' @inheritParams scan_to_spatial
 #' @param nx number of raster pixels in the x (longitude) dimension
 #' @param ny number of raster pixels in the y (latitude) dimension
@@ -72,9 +75,10 @@ scan_to_spatial <- function(scan, lat, lon, k = 4 / 3, re = 6378, rp = 6357) {
 #' If this argument is used, arguments `nx` and `ny` are ignored. Unit is identical to `xlim` and `ylim`.
 #' @param raster (optional) `raster::RasterLayer` or `terra::SpatRaster` with a CRS. When specified
 #' this raster topology is used for the output, and nx, ny, res arguments are ignored.
-#' @return a RasterBrick
+#' @returns a RasterBrick
 #' @details uses [scan_to_spatial] to georeference the scan's pixels. If multiple scan pixels fall within
 #' the same raster pixel, the last added pixel is given (see [rasterize][raster::rasterize] for details).
+#' @family raster functions
 #' @export
 #' @examples
 #' \donttest{

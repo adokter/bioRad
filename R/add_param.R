@@ -8,12 +8,10 @@
 #' @param x A `pvol` or `scan` object.
 #' @param raster  An object of class `terra::SpatRaster` or `raster::RasterLayer`.
 #' @param param The name of the added parameter.
-#'
-#' @return The object `x` with an added parameter, extracting data from the raster
+#' @returns The object `x` with an added parameter, extracting data from the raster
 #' specified by `raster`.
-#'
+#' @family scan manipulation functions
 #' @export
-#'
 #' @examples
 #' # locate example volume file:
 #' pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
@@ -57,7 +55,6 @@ add_param <- function(x, raster, param) {
 }
 
 #' @rdname add_param
-#'
 #' @export
 add_param.scan <- function(x, raster, param){
   stopifnot(inherits(x, "scan"))
@@ -88,7 +85,6 @@ add_param.scan <- function(x, raster, param){
 }
 
 #' @rdname add_param
-#'
 #' @export
 add_param.pvol <- function(x, raster, param){
   # make sure the raster is in the coordinate system of polar scan parameters
@@ -100,5 +96,3 @@ add_param.pvol <- function(x, raster, param){
   x$scans=lapply(x$scans, function(x) add_param.scan(x, raster=raster_local, param=param))
   x
 }
-
-

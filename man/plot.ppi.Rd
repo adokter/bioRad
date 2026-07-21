@@ -81,3 +81,10 @@ plot(ppi, param = "DBZH", zlim = c(-10, 10))
 plot(ppi, param = "DBZH", zlim = c(-10, 10)) + viridis::scale_fill_viridis(name = "dBZ")
 }
 }
+\seealso{
+Other ppi functions:
+\code{\link[=[.ppi]{[.ppi()}},
+\code{\link[=map]{map()}},
+\code{\link[=summary.ppi]{summary.ppi()}}
+}
+\concept{ppi functions}

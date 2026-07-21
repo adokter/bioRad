@@ -73,9 +73,12 @@ get_quantity(example_vp, "dens")
 get_quantity(example_vpts, "ff")[,1:2]
 }
 \seealso{
-\itemize{
-\item \code{\link[=summary.vp]{summary.vp()}}
-\item \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}} for setting the \code{sd_vvp}
+Use \code{\link[=sd_vvp_threshold<-]{sd_vvp_threshold()<-}} for setting the \code{sd_vvp}
 threshold of an object.
+
+Other vp functions:
+\code{\link{example_vp}},
+\code{\link[=plot.vp]{plot.vp()}},
+\code{\link[=summary.vp]{summary.vp()}}
 }
-}
+\concept{vp functions}

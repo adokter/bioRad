@@ -90,3 +90,8 @@ test_that("rotating transect by 180 degrees results in sign flip", {
   expect_equal(integrate_profile(example_vpts, alpha=0)$mt,-integrate_profile(example_vpts, alpha=180)$mt)
 })
 
+test_that("vpts and vp height integration are identical", {
+  vpi_vp <- subset(integrate_profile(example_vpts)[1,], select = -c(mt, rt))
+  vpi_vpts <- subset(integrate_profile(example_vpts[1]), select = -c(mt, rt))
+  expect_equal(vpi_vp,vpi_vpts)
+})
