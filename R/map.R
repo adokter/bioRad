@@ -15,8 +15,7 @@
 #' @param ratio Numeric. Aspect ratio between x and y scale, by default
 #' \eqn{1/cos(latitude radar * pi/180)}.
 #' @param radar_size Numeric. Size of the symbol indicating the radar position. Use
-#'   `NULL` if you do not want to plot the radar point. This might be useful the radar
-#'   is outside the range of data.
+#'   `NULL` to omit plotting the radar location.
 #' @param radar_color Character. Color of the symbol indicating the radar
 #'   position.
 #' @param n_color Numeric. Number of colors (>=1) to use in the palette.
