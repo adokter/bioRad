@@ -267,9 +267,9 @@ clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE
   if(sum(presence_test)>0) warning(paste0("Overwriting existing quantities `", paste(quantities[presence_test], collapse="`, `"),"`."))
 
   x$data$airspeed=result$airspeed
-  x$data$heading=result$heading
   x$data$airspeed_u=result$airspeed_u
   x$data$airspeed_v=result$airspeed_v
+  x$data$heading=result$heading
   x$data$f=result$f
   if(keep_mixture){
     x$data$mixture_eta=result$mixture_eta

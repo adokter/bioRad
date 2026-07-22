@@ -49,8 +49,7 @@ to plot.}
 \eqn{1/cos(latitude radar * pi/180)}.}
 
 \item{radar_size}{Numeric. Size of the symbol indicating the radar position. Use
-\code{NULL} if you do not want to plot the radar point. This might be useful the radar
-is outside the range of data.}
+\code{NULL} to omit plotting the radar location.}
 
 \item{radar_color}{Character. Color of the symbol indicating the radar
 position.}

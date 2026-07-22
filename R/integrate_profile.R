@@ -284,10 +284,10 @@ integrate_profile.vp <- function(x, alt_min = 0, alt_max = Inf, alpha = NA,
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- stats::weighted.mean(sqrt(airspeed_u^2 + airspeed_v^2), weight_densdh, na.rm = TRUE)
-    output$heading <- stats::weighted.mean((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi, weight_densdh, na.rm = TRUE)
-    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$airspeed_u <- stats::weighted.mean(airspeed_u, weight_densdh, na.rm = TRUE)
     output$airspeed_v <- stats::weighted.mean(airspeed_v, weight_densdh, na.rm = TRUE)
+    output$heading <- (pi / 2 - atan2(output$airspeed_v, output$airspeed_u)) * 180 / pi
+    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$ff_wind <- stats::weighted.mean(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2), weight_densdh, na.rm = TRUE)
     output$u_wind <- stats::weighted.mean(get_quantity(x,"u_wind"), weight_densdh, na.rm = TRUE)
     output$v_wind <- stats::weighted.mean(get_quantity(x,"v_wind"), weight_densdh, na.rm = TRUE)
@@ -420,7 +420,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   weight_densdh[is.na(weight_densdh)] <- 0
   # Normalize the weight of each vp by its column sum.
   weight_densdh <- sweep(weight_densdh, 2, colSums(weight_densdh), FUN="/")
-  # Find index where no bird are present
+  # Find index where no bird are present - previous line introduces NaN when dividing by zero
   no_bird <- is.na(colSums(weight_densdh))
 
   # create a separate weighting matrix for speed quantities
@@ -487,13 +487,25 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     airspeed_u <- get_quantity(x, "u") - get_quantity(x, "u_wind")
     airspeed_v <- get_quantity(x, "v") - get_quantity(x, "v_wind")
     output$airspeed <- nan_colSums(sqrt(airspeed_u^2 + airspeed_v^2) * weight_ffdh)
-    output$heading <- nan_colSums(((pi / 2 - atan2(airspeed_v, airspeed_u)) * 180 / pi) * weight_ffdh)
-    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$airspeed_u <- nan_colSums(airspeed_u * weight_ffdh)
     output$airspeed_v <- nan_colSums(airspeed_v * weight_ffdh)
+    output$heading <- (pi / 2 - atan2(output$airspeed_v, output$airspeed_u)) * 180 / pi
+    output$heading[which(output$heading<0)]=output$heading[which(output$heading<0)]+360
     output$ff_wind <- nan_colSums(sqrt(get_quantity(x,"u_wind")^2 + get_quantity(x,"v_wind")^2) * weight_densdh)
     output$u_wind <- nan_colSums(get_quantity(x,"u_wind") * weight_densdh)
     output$v_wind <- nan_colSums(get_quantity(x,"v_wind") * weight_densdh)
+  }
+  if("mixture_eta" %in% names(x$data)){
+    output$mixture_vir <- colSums(get_quantity(x, "mixture_eta") * dh, na.rm = TRUE)
+  }
+  quantities <- c("mixture_u", "mixture_v", "mixture_airspeed", "mixture_heading")
+  present <- quantities[quantities %in% names(x$data)]
+  output[present] <- lapply(present, function(q) {
+    nan_colSums(get_quantity(x, q) * weight_ffdh)
+  })
+  if(all(c("f", "mixture_eta") %in% names(x$data))){
+    eta_slow <- colSums(get_quantity(x, "f") * get_quantity(x, "mixture_eta") * dh, na.rm = TRUE)
+    output$f <- eta_slow/output$mixture_vir
   }
 
   class(output) <- c("vpi", "data.frame")
