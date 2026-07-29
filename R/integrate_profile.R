@@ -504,7 +504,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     nan_colSums(get_quantity(x, q) * weight_ffdh)
   })
   if(all(c("f", "mixture_eta") %in% names(x$data))){
-    eta_slow <- colSums(get_quantity(x, "f") * get_quantity(x, "mixture_eta") * dh, na.rm = TRUE)
+    eta_slow <- nan_colSums(get_quantity(x, "f") * get_quantity(x, "mixture_eta") * dh)
     output$f <- eta_slow/output$mixture_vir
   }
 
