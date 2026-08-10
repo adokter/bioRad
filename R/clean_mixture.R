@@ -21,7 +21,7 @@
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
 #' heading for fast component, when FALSE for slow component.
 #' @param drop_missing Values `eta` without an associated ground speed
-#' and wind speed are set to NA when `TRUE`, or returned unaltered when `FALSE` (default).
+#' and wind speed are set to NaN when `TRUE`, or returned unaltered when `FALSE` (default).
 #' @param keep_mixture When `TRUE` store original mixture reflectivity and speeds as
 #' renamed quantities with `mixture_` prefix
 #' @returns a named list with cleaned densities and speeds.
