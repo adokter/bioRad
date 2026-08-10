@@ -1,5 +1,7 @@
 # bioRad 0.12.0.9000
 
+* `clean_mixture()` argument `drop_missing` is now `TRUE` by default (#787).
+
 * `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles.
 
 * bugfix `calculate_param()` when using `ifelse` (#770).
