@@ -56,7 +56,7 @@ skip_if_no_tidyselect <- function() {
 #' @returns Invisibly returns TRUE if MistNet is available, otherwise skips the test with a message "No MistNet".
 #' @noRd
 skip_if_no_mistnet <- function() {
-  if (requireNamespace("vol2birdR", quietly = TRUE)) {
+  if (rlang::is_installed("vol2birdR", version = "1.3.0", compare = ">=")) {
     if (vol2birdR::mistnet_installed()) {
       return(invisible(TRUE))
     }
@@ -73,7 +73,7 @@ skip_if_no_mistnet <- function() {
 #' a message "Package vol2birdR not installed".
 #' @noRd
 skip_if_no_vol2birdR <- function() {
-  if (requireNamespace("vol2birdR", quietly = TRUE)) {
+  if (rlang::is_installed("vol2birdR", version = "1.3.0", compare = ">=")) {
     return(invisible(TRUE))
   }
   testthat::skip("Package vol2birdR not installed")
@@ -123,60 +123,43 @@ check_date_format <- function(date, format) {
   }
 }
 
-#' A wrapper for [sp::spTransform()].
+#' Transform coordinates with `sf`
 #' Converts geographic (WGS84) coordinates to a specified projection
 #'
 #' @param lon Longitude
 #' @param lat Latitude
-#' @param proj4string An object of class 'CRS', as defined in package `sp`.
-#' @returns An object of class `SpatialPoints`.
+#' @param proj4string A coordinate reference system understood by [sf::st_crs()].
+#' @returns An object of class `sf`.
 #' @noRd
 wgs_to_proj <- function(lon, lat, proj4string) {
-  xy<-sf::st_as_sf(data.frame(x = lon, y = lat), coords=c('x','y'), crs=4326L)
-  res <- sf::st_transform(xy, proj4string)
-
-  res <- sf::as_Spatial(res)
-  rownames(res@bbox) <- c("x", "y")
-  colnames(res@coords) <- c("x", "y")
-
-  return(res)
+  xy <- sf::st_as_sf(
+    data.frame(x = lon, y = lat),
+    coords = c("x", "y"),
+    crs = 4326
+  )
+  sf::st_transform(xy, sf::st_crs(proj4string))
 }
 
-#' A wrapper for [sp::spTransform()].
+#' Transform coordinates with `sf`
 #' Converts projected coordinates to geographic (WGS84) coordinates.
 #'
 #' @param x The x-coordinate in the projected system.
 #' @param y The y-coordinate in the projected system.
-#' @param proj4string An object of class 'CRS', as defined in package `sp`.
-#' @returns An object of class `SpatialPoints`.
+#' @param proj4string A coordinate reference system understood by [sf::st_crs()].
+#' @returns An object of class `sf`.
 #' @noRd
 proj_to_wgs <- function(x, y, proj4string) {
-  xy <- data.frame(lon = x, lat = y)
-  sp::coordinates(xy) <- c("lon", "lat")
-  sp::proj4string(xy) <- proj4string
-  res <- NULL
-
-  # Catch error when rgdal is not installed and sp_evolution_status is set to 0
   tryCatch(
     {
-      res <- sp::spTransform(xy, sp::CRS("+proj=longlat +datum=WGS84"))
-
-      # Check if the result is a SpatialPointsDataFrame
-      if (inherits(res, "SpatialPointsDataFrame")) {
-        # If it is, convert it to a SpatialPoints object and correct names
-        rownames(res@bbox) <- c("lon", "lat")
-        colnames(res@coords) <- c("lon", "lat")
-        res <- sp::SpatialPoints(coords = res@coords, proj4string = res@proj4string, bbox = res@bbox)
-      }
-      return(res)
+      xy <- sf::st_as_sf(
+        data.frame(x = x, y = y),
+        coords = c("x", "y"),
+        crs = sf::st_crs(proj4string)
+      )
+      sf::st_transform(xy, 4326)
     },
     error = function(err) {
-      if (grepl("package rgdal is required", err$message)) {
-        err <- simpleError("spTransform failed. Try resetting sp_evolution_status: sp::set_evolution_status(2L)")
-      } else {
-        err <- simpleError("proj_to_wgs() failed")
-      }
-      stop(err)
+      stop("proj_to_wgs() failed", call. = FALSE)
     }
   )
 }

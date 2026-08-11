@@ -467,6 +467,24 @@ test_that("integrate_to_ppi() computes an antenna-referenced ppi", {
   expect_true(all(c("VIR", "VID", "R") %in% names(ppi_antenna$data)))
 })
 
+test_that("integrate_to_ppi() preserves its geographic bounding box", {
+  data(example_vp)
+  pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
+  example_pvol <- read_pvolfile(pvolfile)
+  ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 20, ny = 20)
+  corners <- sp::SpatialPoints(
+    t(ppi$data@bbox),
+    proj4string = sp::CRS(sp::proj4string(ppi$data))
+  )
+  expected <- sp::bbox(sp::spTransform(
+    corners,
+    sp::CRS("+proj=longlat +datum=WGS84")
+  ))
+  rownames(expected) <- c("lon", "lat")
+
+  expect_equal(ppi$geo$bbox, expected, tolerance = 1e-7)
+})
+
 test_that("integrate_to_ppi() computes a ground-referenced ppi", {
   data(example_vp)
   pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
