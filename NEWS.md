@@ -1,12 +1,17 @@
 # bioRad 0.12.0.9000
 
-* `clean_mixture()` argument `drop_missing` is now `TRUE` by default (#787).
+## New features
+* `integrate_profile()` now includes quantities added by `clean_mixture()` (#785).
 
-* `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles.
-
-* bugfix `calculate_param()` when using `ifelse` (#770).
+* `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles (#788).
 
 * Improve axis labels for `map()` and provide option not to plot the radar (#773).
+
+* `clean_mixture()` argument `drop_missing` is now `TRUE` by default (#787).
+
+## Bugfixes
+
+* bugfix `calculate_param()` when using `ifelse` (#770).
 
 * bugfix `integrate_profile()` for height-integrated speed quantities (`u`,`v`,`ff`) in vpts objects (#782).
 
