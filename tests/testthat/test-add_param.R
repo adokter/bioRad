@@ -3,10 +3,10 @@ pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")
 pvol <- read_pvolfile(pvolfile)
 
 # Build a terra SpatRaster matching the topology of the lowest scan and fill it
-# with synthetic data. scan_to_raster() returns a raster-package object in the
+# with synthetic data. scan_to_spatraster() returns a terra object in the
 # radar's local azimuthal-equidistant projection, which we bridge to terra.
 make_synthetic_spatraster <- function(scan) {
-  r <- terra::rast(scan_to_raster(scan, nx = 50, ny = 50, param = "DBZH"))
+  r <- scan_to_spatraster(scan, nx = 50, ny = 50, param = "DBZH")
   # synthetic, fully populated values so extraction within the extent is non-NA
   terra::values(r) <- seq_len(terra::ncell(r))
   names(r) <- "synthetic"

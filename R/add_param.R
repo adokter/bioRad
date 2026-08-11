@@ -27,7 +27,7 @@
 #'   # extract lowest scan
 #'   get_scan(.5) |>
 #'   # convert to raster object
-#'   scan_to_raster(param="DBZH") |>
+#'   scan_to_spatraster(param="DBZH") |>
 #'   # convert to terra raster class
 #'   terra::rast() |>
 #'   # download digital elevation data (increase z for higher resolutions)
@@ -67,7 +67,7 @@ add_param.scan <- function(x, raster, param){
   distance_max <- max(sqrt(extent$xmin^2 + extent$ymin^2),sqrt(extent$xmax^2 + extent$ymax^2))
   range_max <- beam_range(distance_max, elev=x$geo$elangle, lat=x$geo$lat)
 
-  spdf <- scan_to_spatial(x)
+  spdf <- sf::as_Spatial(scan_to_sf(x))
   # do not consider ranges outside the raster
   idx_calc <- spdf$range-x$geo$rscale/2 < range_max
 
