@@ -396,14 +396,14 @@ test_that("check if other projection gives same result", {
 
 # Build a synthetic digital elevation model (DEM) on the radar grid. The example
 # in integrate_to_ppi() downloads a real DEM via elevatr; for the tests we
-# substitute a synthetic raster so they run offline. scan_to_raster() returns a
+# substitute a synthetic raster so they run offline. scan_to_spatraster() returns a
 # raster in the radar's local azimuthal-equidistant projection.
 #
 # With `height = NULL` (default) the DEM holds a deterministic, varied
 # topography ranging from -50 m (below sea level) to 1000 m, for a more
 # realistic ground-reference test. Pass a single `height` for a flat DEM.
 make_dem <- function(pvol, height = NULL) {
-  dem <- terra::rast(scan_to_raster(get_scan(pvol, 0.5), nx = 50, ny = 50, param = "DBZH"))
+  dem <- scan_to_spatraster(get_scan(pvol, 0.5), nx = 50, ny = 50, param = "DBZH")
   n <- terra::ncell(dem)
   if (is.null(height)) {
     # deterministic varied topography between -50 m and 1000 m
