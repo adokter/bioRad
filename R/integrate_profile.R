@@ -507,8 +507,9 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
     eta_slow <- nan_colSums(get_quantity(x, "f") * get_quantity(x, "mixture_eta") * dh)
     # mixture_vir above includes layers without speeds,
     # eta_mixture below excludes layers without speeds:
-    eta_mixture <- colSums(get_quantity(x, "mixture_eta") * !is.na(get_quantity(x, "f")) * dh, na.rm = TRUE)
+    eta_mixture <- colSums(get_quantity(x, "mixture_eta") * (!is.na(get_quantity(x, "ff"))) * dh, na.rm = TRUE)
     output$f <- eta_slow/eta_mixture
+    output$f2 <- eta_slow/output$mixture_vir
   }
 
   class(output) <- c("vpi", "data.frame")
