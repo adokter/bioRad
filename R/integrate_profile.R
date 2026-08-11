@@ -387,7 +387,7 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   dh <- pmin(pmin(pmax(x$height+x$attributes$where$interval-alt_min,0),interval),
              pmin(pmax(alt_max-x$height,0),interval)) / 1000
 
-  # helper function that performs a weighted colSum, and that will return
+  # helper function that performs a standard colSum, but returning
   # NaN if all elements in a column are either NA or NaN.
   nan_colSums <- function(x, ...) {
      s <- colSums(x, na.rm = TRUE, ...)
@@ -505,7 +505,10 @@ integrate_profile.vpts <- function(x, alt_min = 0, alt_max = Inf,
   })
   if(all(c("f", "mixture_eta") %in% names(x$data))){
     eta_slow <- nan_colSums(get_quantity(x, "f") * get_quantity(x, "mixture_eta") * dh)
-    output$f <- eta_slow/output$mixture_vir
+    # mixture_vir above includes layers without speeds,
+    # eta_mixture below excludes layers without speeds:
+    eta_mixture <- colSums(get_quantity(x, "mixture_eta") * !is.na(get_quantity(x, "f")) * dh, na.rm = TRUE)
+    output$f <- eta_slow/eta_mixture
   }
 
   class(output) <- c("vpi", "data.frame")
