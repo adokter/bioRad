@@ -178,36 +178,27 @@ map.ppi <- function(
 
   # extract the scan parameter
   data <- do.call(function(y) x$data[y], list(param))
-  #wgs84 <- sp::CRS("+proj=longlat +datum=WGS84")
-  #epsg3857 <- sp::CRS("+init=epsg:3857") # this is the google mercator projection
-  wgs84 <- sp::CRS(SRS_string = sf::st_crs(4326)$wkt)
-  epsg3857 <- sp::CRS(SRS_string = sf::st_crs(3857)$wkt)
-
-  mybbox <-
-    sp::spTransform(
-      sp::SpatialPoints(t(data@bbox), proj4string = data@proj4string),
-      epsg3857
-    )
-
-  mybbox.wgs <-
-    sp::spTransform(
-      sp::SpatialPoints(t(data@bbox), proj4string = data@proj4string),
-      wgs84
-    )
+  bbox_points <- sf::st_as_sf(
+    data.frame(x = data@bbox[1, ], y = data@bbox[2, ]),
+    coords = c("x", "y"),
+    crs = sf::st_crs(data)
+  )
+  mybbox <- sf::st_coordinates(sf::st_transform(bbox_points, 3857))
+  mybbox.wgs <- sf::st_coordinates(sf::st_transform(bbox_points, 4326))
 
   e <- raster::extent(mybbox.wgs)
   r <- raster::raster(
     raster::extent(mybbox),
     ncol = data@grid@cells.dim[1] * .9,
     nrow = data@grid@cells.dim[2] * .9,
-    crs = sp::CRS(sp::proj4string(mybbox))
+    crs = sf::st_crs(3857)$wkt
   )
 
   # convert to google earth mercator projection
-  data <- as.data.frame(sp::spTransform(
-    methods::as(data, "SpatialPointsDataFrame"),
-    epsg3857
-  ))
+  data <- methods::as(data, "SpatialPointsDataFrame") %>%
+    sf::st_as_sf() %>%
+    sf::st_transform(3857)
+  data <- cbind(sf::st_drop_geometry(data), sf::st_coordinates(data))
 
   # bring z-values within plotting range
   index <- which(data$z < zlim[1])
