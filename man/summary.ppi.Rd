@@ -44,7 +44,7 @@ object is a list containing:
 \itemize{
 \item \code{radar}: Radar identifier.
 \item \code{datetime}: Nominal time of the volume to which the scan belongs in UTC.
-\item \code{data}: A \code{\link[sp:SpatialGridDataFrame]{sp::SpatialGridDataFrame}} containing the georeferenced data.
+\item \code{data}: A \code{\link[terra:SpatRaster-class]{terra::SpatRaster}} containing the georeferenced data.
 See \code{\link[=summary.param]{summary.param()}} for commonly available parameters, such as \code{DBZH}.
 \item \code{geo}: List of the scan's geographic properties (see the \code{geo} element in
 \code{\link[=summary.scan]{summary.scan()}}), with two additional properties:

@@ -30,12 +30,30 @@ test_that("project_as_ppi works", {
   expect_s3_class(bb <- project_as_ppi(example_scan, raster = raster::raster(b$data), project = F), "ppi")
   expect_equal(bb$radar, b$radar, ignore_attr = TRUE)
   expect_equal(bb$datetime, b$datetime, ignore_attr = TRUE)
-  expect_equal(bb$data, remove_bboxlatlon(b$data), ignore_attr = TRUE)
+  expect_true(terra::compareGeom(bb$data, b$data, stopOnError = FALSE))
+  expect_equal(terra::values(bb$data), terra::values(b$data), ignore_attr = TRUE)
   expect_s3_class(b <- project_as_ppi(example_scan, 50, 1000, project = T), "ppi")
   expect_s3_class(bb <- project_as_ppi(example_scan, raster = raster::raster(b$data), project = T), "ppi")
   expect_equal(bb$radar, b$radar, ignore_attr = TRUE)
   expect_equal(bb$datetime, b$datetime, ignore_attr = TRUE)
-  expect_equal(bb$data, remove_bboxlatlon(b$data), ignore_attr = TRUE)
+  expect_true(terra::compareGeom(bb$data, b$data, stopOnError = FALSE))
+  expect_equal(terra::values(bb$data), terra::values(b$data), ignore_attr = TRUE)
+})
+
+test_that("project_as_ppi preserves projected values and geometry", {
+  legacy <- bioRad:::sample_polar(
+    example_scan$params[[1]], 500, 10000, project = FALSE,
+    ylim = NULL, xlim = NULL
+  )
+  ppi <- project_as_ppi(example_scan$params[[1]], 500, 10000, project = FALSE)
+
+  expect_s4_class(ppi$data, "SpatRaster")
+  expect_equal(terra::values(ppi$data)[, 1], legacy@data[, 1])
+  expect_equal(
+    unname(as.vector(terra::ext(ppi$data))),
+    unname(c(legacy@bbox[1, ], legacy@bbox[2, ]))
+  )
+  expect_true(sf::st_crs(ppi$data) == sf::st_crs(legacy))
 })
 
 
@@ -47,13 +65,18 @@ test_that("project_as_ppi() accepts a terra SpatRaster as raster argument", {
   ppi_spat <- project_as_ppi(example_scan, raster = terra::rast(template), project = FALSE)
   ppi_rast <- project_as_ppi(example_scan, raster = template, project = FALSE)
   expect_s3_class(ppi_spat, "ppi")
-  expect_equal(ppi_spat$data, ppi_rast$data, ignore_attr = TRUE)
+  expect_true(terra::compareGeom(ppi_spat$data, ppi_rast$data, stopOnError = FALSE))
+  expect_equal(terra::values(ppi_spat$data), terra::values(ppi_rast$data), ignore_attr = TRUE)
 })
 
 test_that("project_as_ppi works from different projection", {
   data("example_scan")
   expect_s3_class(b <- project_as_ppi(example_scan, 3000, 5000, project = F), "ppi")
-  expect_s4_class(r <- raster::rasterFromXYZ(sp::SpatialPoints(sp::spTransform(as(b$data, "SpatialPoints")[s <- c(1, 11), ], "+proj=longlat"), proj4string= sp::CRS("+proj=longlat")), crs = "+proj=longlat"), "RasterLayer")
+  legacy_grid <- bioRad:::sample_polar(
+    example_scan$params[[1]], 3000, 5000, project = F,
+    ylim = NULL, xlim = NULL
+  )
+  expect_s4_class(r <- raster::rasterFromXYZ(sp::SpatialPoints(sp::spTransform(as(legacy_grid, "SpatialPoints")[s <- c(1, 11), ], "+proj=longlat"), proj4string= sp::CRS("+proj=longlat")), crs = "+proj=longlat"), "RasterLayer")
   expect_s3_class(bb <- project_as_ppi(example_scan, raster = r, project = F), "ppi")
-  expect_equal(b$data@data[s, ], bb$data@data[c(1, 4), ], ignore_attr = TRUE)
+  expect_equal(terra::values(b$data)[s, ], terra::values(bb$data)[c(1, 4), ], ignore_attr = TRUE)
 })

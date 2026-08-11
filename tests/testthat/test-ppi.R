@@ -6,9 +6,7 @@ vp <- example_vp
 # is.ppi() returns TRUE/FALSE and works for every input
 
 test_that("[.ppi returns error on incorrect parameters", {
-  expect_error(ppi["not_numeric"],
-               regexp = "undefined columns selected",
-               fixed = TRUE)
+  expect_error(ppi["not_numeric"])
 })
 
 test_that("summary.ppi() prints metadata to the console", {
@@ -35,4 +33,19 @@ test_that("[.ppi subsets by param", {
   expect_equal(names(ppi[1]$data), c("DBZH"))
   expect_equal(names(ppi[2:4]$data), c("VRADH", "RHOHV", "ZDR"))
   expect_equal(names(ppi[-2:-4]$data), c("DBZH", "PHIDP")) # All except 2 to 4
+})
+
+test_that("ppi methods support terra SpatRaster data", {
+  expect_s4_class(ppi$data, "SpatRaster")
+  expect_output(
+    summary(ppi),
+    paste("dims: ", dim(ppi)[2], "x", dim(ppi)[3], "pixels"),
+    fixed = TRUE
+  )
+  expect_equal(names(ppi[2:4]$data), c("VRADH", "RHOHV", "ZDR"))
+  expect_equal(
+    terra::values(ppi[2:4]$data),
+    terra::values(ppi$data)[, 2:4],
+    ignore_attr = TRUE
+  )
 })

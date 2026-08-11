@@ -35,7 +35,10 @@ test_that("calculate_param() adds the calculated parameter", {
     example_scan_calc$params$DBZH[1:10] * 2,
     example_scan_calc$params$new_param[1:10]
   )
-  expect_equal(ppi_calc$data$DBZH * 2, ppi_calc$data$new_param)
+  expect_equal(
+    unname(terra::values(ppi_calc$data[["DBZH"]]) * 2),
+    unname(terra::values(ppi_calc$data[["new_param"]]))
+  )
 })
 test_that("calculate_param() works with base ifelse on scan and pvol", {
   data(example_scan)

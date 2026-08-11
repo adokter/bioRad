@@ -408,7 +408,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   output_ppi <-
     list(radar = pvol$radar,
          datetime = pvol$datetime,
-         data = output[param_ppi], geo = geo)
+         data = terra::rast(output[param_ppi]), geo = geo)
   class(output_ppi) <- "ppi"
   output_ppi
 }

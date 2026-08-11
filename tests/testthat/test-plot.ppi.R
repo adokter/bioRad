@@ -33,6 +33,5 @@ test_that("plot.ppi() uses param argument", {
 })
 
 test_that("plot.ppi()length does not differ", {
-  expect_equal(length(example.plot$data$VRADH), length(ppi$data$VRADH))
+  expect_equal(length(example.plot$data$VRADH), terra::ncell(ppi$data))
 })
-
