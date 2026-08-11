@@ -75,9 +75,17 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   colorscale <- color_scale_fill(param, zlim, na.value)
   # extract the scan parameter
   y <- NULL # dummy assignment to suppress devtools check warning
-  data <- do.call(function(y) x$data[y], list(param))
+  data <- if (inherits(x$data, "SpatRaster")) {
+    x$data[[param]]
+  } else {
+    do.call(function(y) x$data[y], list(param))
+  }
   # convert to points
-  data <- raster::as.data.frame(raster::raster(data), xy = TRUE)
+  data <- if (inherits(data, "SpatRaster")) {
+    terra::as.data.frame(data, xy = TRUE, na.rm = FALSE)
+  } else {
+    raster::as.data.frame(raster::raster(data), xy = TRUE)
+  }
   # bring z-values within plotting range
   index <- which(data[, 3] < zlim[1])
   if (length(index) > 0) {
@@ -89,10 +97,18 @@ plot.ppi <- function(x, param, xlim, ylim, zlim = c(-20, 20),
   }
   # plot
   if (missing(xlim)) {
-    xlim <- x$data@bbox[1, ]
+    xlim <- if (inherits(x$data, "SpatRaster")) {
+      as.vector(terra::ext(x$data))[1:2]
+    } else {
+      x$data@bbox[1, ]
+    }
   }
   if (missing(ylim)) {
-    ylim <- x$data@bbox[2, ]
+    ylim <- if (inherits(x$data, "SpatRaster")) {
+      as.vector(terra::ext(x$data))[3:4]
+    } else {
+      x$data@bbox[2, ]
+    }
   }
   bbox <- ggplot2::coord_fixed(xlim = xlim, ylim = ylim, ratio = ratio)
   ggplot2::ggplot(data = data, ...) +

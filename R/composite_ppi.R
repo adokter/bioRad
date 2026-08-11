@@ -202,14 +202,18 @@ composite_ppi <-
   # merge
   projs <- sapply(ppis,
     function(x) {
+      source <- methods::as(
+        raster::brick(x$data[[param]]),
+        "SpatialGridDataFrame"
+      )
       sp::over(
         suppressWarnings(
           sp::spTransform(
             spGrid,
-            sp::CRS(sp::proj4string(x$data))
+            sp::CRS(sp::proj4string(source))
           )
         ),
-        x$data[param]
+        source
       )
     }
   )
@@ -279,7 +283,7 @@ composite_ppi <-
     spGrid@data$coverage <- rowSums(cov)
   }
 
-  ppi.out <- list(data = spGrid, geo = list(
+  ppi.out <- list(data = terra::rast(spGrid), geo = list(
     lat = lats.radar, lon = lons.radar,
     elangle = elangles, bbox = bbox,
     merged = TRUE

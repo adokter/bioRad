@@ -101,3 +101,13 @@ test_that("composite_ppi() returns error on incorrect parameters", {
     fixed = TRUE
   )
 })
+
+test_that("composite_ppi() returns terra SpatRaster data", {
+  pvol <- read_pvolfile(system.file("extdata", "volume.h5", package = "bioRad"))
+  ppis <- lapply(pvol$scans[1:2], project_as_ppi)
+  ppi <- composite_ppi(ppis, nx = 20, ny = 20, param = "DBZH")
+
+  expect_s3_class(ppi, "ppi")
+  expect_s4_class(ppi$data, "SpatRaster")
+  expect_equal(names(ppi$data), "DBZH")
+})
