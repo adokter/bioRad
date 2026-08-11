@@ -38,6 +38,34 @@ test_that("project_as_ppi works", {
   expect_equal(bb$data, remove_bboxlatlon(b$data), ignore_attr = TRUE)
 })
 
+test_that("project_as_ppi() preserves its geographic bounding box", {
+  data("example_scan")
+  range_max <- 10000
+  ppi <- project_as_ppi(example_scan, 500, range_max)
+  local_crs <- sp::CRS(paste0(
+    "+proj=aeqd +lat_0=", example_scan$geo$lat,
+    " +lon_0=", example_scan$geo$lon, " +units=m"
+  ))
+  corners <- sp::SpatialPoints(
+    cbind(c(-range_max, range_max), c(-range_max, range_max)),
+    proj4string = local_crs
+  )
+  expected <- sp::bbox(sp::spTransform(
+    corners,
+    sp::CRS("+proj=longlat +datum=WGS84")
+  ))
+  rownames(expected) <- c("lon", "lat")
+
+  expect_equal(ppi$geo$bbox, expected, tolerance = 1e-7)
+
+  limited <- project_as_ppi(
+    example_scan, 500, range_max,
+    xlim = c(12.8, 13), ylim = c(56.3, 56.5)
+  )
+  expect_equal(unname(limited$geo$bbox["lon", ]), c(12.8, 13))
+  expect_equal(unname(limited$geo$bbox["lat", ]), c(56.3, 56.5))
+})
+
 
 test_that("project_as_ppi() accepts a terra SpatRaster as raster argument", {
   data("example_scan")
