@@ -183,9 +183,12 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
   }
 
   if(drop_missing){
-    eta_corr[is.na(f)]=NaN
-    air_u[is.na(f)]=NaN
-    air_v[is.na(f)]=NaN
+    eta_corr[is.na(f)]=NA
+    eta_corr[is.nan(f)]=NaN
+    air_u[is.na(f)]=NA
+    air_u[is.nan(f)]=NaN
+    air_v[is.na(f)]=NA
+    air_v[is.nan(f)]=NaN
   }
 
   # calculate speed and direction
