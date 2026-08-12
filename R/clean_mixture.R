@@ -21,7 +21,7 @@
 #' @param drop_slow_component when TRUE (default) output density, ground speed and
 #' heading for fast component, when FALSE for slow component.
 #' @param drop_missing Values `eta` without an associated ground speed
-#' and wind speed are set to NA when `TRUE`, or returned unaltered when `FALSE` (default).
+#' and wind speed are set to NaN when `TRUE` (default), or returned unaltered when `FALSE`.
 #' @param keep_mixture When `TRUE` store original mixture reflectivity and speeds as
 #' renamed quantities with `mixture_` prefix
 #' @returns a named list with cleaned densities and speeds.
@@ -116,7 +116,7 @@ clean_mixture <- function(x, ...){
 
 #' @rdname clean_mixture
 #' @export
-clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, u_wind, v_wind, u, v, ...){
+clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = TRUE, keep_mixture = FALSE, u_wind, v_wind, u, v, ...){
   # verify input
   assertthat::assert_that(all(x >= 0, na.rm = TRUE))
   assertthat::assert_that(is.numeric(u))
@@ -183,9 +183,12 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
   }
 
   if(drop_missing){
-    eta_corr[is.na(f)]=NaN
-    air_u[is.na(f)]=NaN
-    air_v[is.na(f)]=NaN
+    eta_corr[is.na(f)]=NA
+    eta_corr[is.nan(f)]=NaN
+    air_u[is.na(f)]=NA
+    air_u[is.nan(f)]=NaN
+    air_v[is.na(f)]=NA
+    air_v[is.nan(f)]=NaN
   }
 
   # calculate speed and direction
@@ -205,7 +208,7 @@ clean_mixture.default <- function(x, slow = 1, fast = 8, drop_slow_component = T
 
 #' @rdname clean_mixture
 #' @export
-clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, u_wind="u_wind", v_wind="v_wind", ...){
+clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = TRUE, keep_mixture = FALSE, u_wind="u_wind", v_wind="v_wind", ...){
   assertthat::assert_that(inherits(x,"vpts") | inherits(x,"vp"))
   if(inherits(x,"vpts") | inherits(x,"vp")){
     assertthat::assert_that(is.character(u_wind))
@@ -267,9 +270,9 @@ clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE
   if(sum(presence_test)>0) warning(paste0("Overwriting existing quantities `", paste(quantities[presence_test], collapse="`, `"),"`."))
 
   x$data$airspeed=result$airspeed
-  x$data$heading=result$heading
   x$data$airspeed_u=result$airspeed_u
   x$data$airspeed_v=result$airspeed_v
+  x$data$heading=result$heading
   x$data$f=result$f
   if(keep_mixture){
     x$data$mixture_eta=result$mixture_eta
@@ -288,7 +291,7 @@ clean_mixture.vpts <- function(x, slow = 1, fast = 8, drop_slow_component = TRUE
 
 #' @rdname clean_mixture
 #' @export
-clean_mixture.vp <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = FALSE, keep_mixture = FALSE, u_wind="u_wind", v_wind="v_wind"){
+clean_mixture.vp <- function(x, ..., slow = 1, fast = 8, drop_slow_component = TRUE, drop_missing = TRUE, keep_mixture = FALSE, u_wind="u_wind", v_wind="v_wind"){
   assertthat::assert_that(inherits(x,"vp"))
 
   clean_mixture.vpts(x,slow = slow, fast = fast, drop_slow_component = drop_slow_component,

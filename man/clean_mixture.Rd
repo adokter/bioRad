@@ -14,7 +14,7 @@ clean_mixture(x, ...)
   slow = 1,
   fast = 8,
   drop_slow_component = TRUE,
-  drop_missing = FALSE,
+  drop_missing = TRUE,
   keep_mixture = FALSE,
   u_wind,
   v_wind,
@@ -28,7 +28,7 @@ clean_mixture(x, ...)
   slow = 1,
   fast = 8,
   drop_slow_component = TRUE,
-  drop_missing = FALSE,
+  drop_missing = TRUE,
   keep_mixture = FALSE,
   u_wind = "u_wind",
   v_wind = "v_wind",
@@ -41,7 +41,7 @@ clean_mixture(x, ...)
   slow = 1,
   fast = 8,
   drop_slow_component = TRUE,
-  drop_missing = FALSE,
+  drop_missing = TRUE,
   keep_mixture = FALSE,
   u_wind = "u_wind",
   v_wind = "v_wind"
@@ -64,7 +64,7 @@ or a data column name (see Details).}
 heading for fast component, when FALSE for slow component.}
 
 \item{drop_missing}{Values \code{eta} without an associated ground speed
-and wind speed are set to NA when \code{TRUE}, or returned unaltered when \code{FALSE} (default).}
+and wind speed are set to NaN when \code{TRUE} (default), or returned unaltered when \code{FALSE}.}
 
 \item{keep_mixture}{When \code{TRUE} store original mixture reflectivity and speeds as
 renamed quantities with \code{mixture_} prefix}
