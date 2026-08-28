@@ -4,6 +4,10 @@
 #'
 #' @param object A `pvol` object.
 #' @param ... Additional arguments affecting the summary produced.
+#' @param references Logical indicating whether to print the references for the pvol
+#'   object. If `TRUE` and the object contains references in
+#'   `x$attributes$references`, these will be printed in author-year format.
+#'   Default is `TRUE`.
 #' @method summary pvol
 #' @family pvol functions
 #' @export
@@ -36,22 +40,40 @@
 #'
 #' # Get summary info for the scans in the polar volume
 #' pvol$scans
+#'
+#' # Print with citation (shown by default if the object contains references)
+#' print(pvol)
+#' # To suppress citation printing
+#' print(pvol, citation = FALSE)
 summary.pvol <- function(object, ...) {
-  print.pvol(object)
+  print.pvol(object, ...)
 }
 
 #' Print summary for an object of class `pvol`
 #'
 #' @rdname summary.pvol
 #' @inheritParams base::print
+#' @param citation Logical indicating whether to print the citation for the pvol
+#'   object. If `TRUE` and the object contains references in
+#'   `x$attributes$references`, these will be printed in author-year format.
+#'   Default is `TRUE`.
 #' @export
-print.pvol <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+print.pvol <- function(
+  x,
+  digits = max(3L, getOption("digits") - 3L),
+  references = TRUE,
+  ...
+) {
   stopifnot(inherits(x, "pvol"))
   cat("               Polar volume (class pvol)\n\n")
   cat("     # scans: ", length(x$scans), "\n")
   cat("       radar: ", x$radar, "\n")
   cat("      source: ", x$attributes$what$source, "\n")
-  cat("nominal time: ", as.character(x$datetime), "\n\n")
+  cat("nominal time: ", as.character(x$datetime), "\n")
+
+  if (references) {
+    print_references(x)
+  }
 }
 
 #' Check if an object is of class `pvol`

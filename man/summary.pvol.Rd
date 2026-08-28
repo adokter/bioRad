@@ -9,7 +9,7 @@
 \usage{
 \method{summary}{pvol}(object, ...)
 
-\method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), ...)
+\method{print}{pvol}(x, digits = max(3L, getOption("digits") - 3L), references = TRUE, ...)
 
 is.pvol(x)
 
@@ -24,6 +24,16 @@ is.pvol(x)
 
 \item{digits}{minimal number of \emph{significant} digits, see
     \code{\link[base]{print.default}}.}
+
+\item{references}{Logical indicating whether to print the references for the pvol
+object. If \code{TRUE} and the object contains references in
+\code{x$attributes$references}, these will be printed in author-year format.
+Default is \code{TRUE}.}
+
+\item{citation}{Logical indicating whether to print the citation for the pvol
+object. If \code{TRUE} and the object contains references in
+\code{x$attributes$references}, these will be printed in author-year format.
+Default is \code{TRUE}.}
 }
 \value{
 For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise
@@ -69,6 +79,11 @@ dim(pvol)
 
 # Get summary info for the scans in the polar volume
 pvol$scans
+
+# Print with citation (shown by default if the object contains references)
+print(pvol)
+# To suppress citation printing
+print(pvol, citation = FALSE)
 }
 \seealso{
 Other pvol functions:
