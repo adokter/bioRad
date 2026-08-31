@@ -106,3 +106,27 @@ test_that("summary.vpts passes citation parameter", {
   output <- capture.output(summary(vpts_test, references = FALSE))
   expect_false(any(grepl("references:", output)))
 })
+
+test_that("summary.vpts passes citation parameter", {
+  vpts_test <- add_references_to_vpts(
+    example_vpts
+  )
+  withr::local_options(width = 100L)
+
+  output <- capture.output(print(vpts_test))
+  expect_false(any(grepl("... (use get_bibliography())", output, fixed = T)))
+  expect_lt(max(nchar(output)), 100L)
+  withr::local_options(width = 58L)
+  output <- capture.output(print(vpts_test))
+  expect_true(any(grepl("... (use get_bibliography())", output, fixed = T)))
+  expect_identical(nchar(grep(pattern = "references", value = T, output)), 58L)
+
+  withr::local_options(width = 50L)
+
+  output <- capture.output(print(vpts_test))
+  expect_true(any(grepl(
+    "references:  use get_bibliography()",
+    output,
+    fixed = T
+  )))
+})

@@ -42,8 +42,15 @@ print_references <- function(x, prefix = "      references: ") {
     ref_text <- paste(ref_strings, collapse = "; ")
     # Truncate if too long, respecting getOption("width")
     width <- getOption("width")
-    available_width <- max(10, width - nchar(prefix) - 21) # Reserve space for " (use get_bibliography())"
-    if (nchar(ref_text) > available_width) {
+    available_width <- width - nchar(prefix) - 28 # Reserve space for " (use get_bibliography())"
+    cat(available_width, "\n")
+    if (available_width < 10) {
+      cat(
+        prefix,
+        sep = "",
+        " use get_bibliography()\n"
+      )
+    } else if (nchar(ref_text) > available_width) {
       cat(
         prefix,
         sep = "",
@@ -51,7 +58,7 @@ print_references <- function(x, prefix = "      references: ") {
         "... (use get_bibliography())\n"
       )
     } else {
-      cat(prefix, ref_text, " (use get_bibliography())\n")
+      cat(prefix, ref_text, "(use get_bibliography())\n")
     }
   }
 }
