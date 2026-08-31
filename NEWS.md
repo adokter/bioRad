@@ -8,6 +8,8 @@
 
 * bugfix `integrate_profile()` for height-integrated speed quantities (`u`,`v`,`ff`) in vpts objects (#782).
 
+* Print references when they are included in the `vpts` or `pvol` object. To retrieve use `get_bibliography`.
+
 # bioRad 0.12.0 
 
 ## New features
