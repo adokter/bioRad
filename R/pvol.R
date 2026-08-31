@@ -53,10 +53,6 @@ summary.pvol <- function(object, ...) {
 #'
 #' @rdname summary.pvol
 #' @inheritParams base::print
-#' @param citation Logical indicating whether to print the citation for the pvol
-#'   object. If `TRUE` and the object contains references in
-#'   `x$attributes$references`, these will be printed in author-year format.
-#'   Default is `TRUE`.
 #' @export
 print.pvol <- function(
   x,

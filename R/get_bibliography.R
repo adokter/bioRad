@@ -69,6 +69,7 @@ print_references <- function(x, prefix = "      references: ") {
 #'   BibTeX entries. Returns `NULL` if no references exist or if the object
 #'   doesn't have the expected structure.
 #' @export
+#' @family bibliography functions
 #' @examples
 #' # Get bibliography as R objects (default) from   vpts object
 #' bibliography <- get_bibliography(example_vpts)

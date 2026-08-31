@@ -29,3 +29,4 @@ bibliography <- get_bibliography(example_vpts)
 # Get bibliography as BibTeX from   vpts object
 bibtex_bibliography <- get_bibliography(example_vpts, format = "bibtex")
 }
+\concept{bibliography functions}

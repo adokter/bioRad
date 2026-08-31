@@ -29,11 +29,6 @@ is.pvol(x)
 object. If \code{TRUE} and the object contains references in
 \code{x$attributes$references}, these will be printed in author-year format.
 Default is \code{TRUE}.}
-
-\item{citation}{Logical indicating whether to print the citation for the pvol
-object. If \code{TRUE} and the object contains references in
-\code{x$attributes$references}, these will be printed in author-year format.
-Default is \code{TRUE}.}
 }
 \value{
 For \code{\link[=is.pvol]{is.pvol()}}: \code{TRUE} for an object of class \code{pvol}, otherwise
