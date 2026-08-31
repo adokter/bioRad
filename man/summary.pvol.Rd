@@ -80,10 +80,10 @@ dim(pvol)
 # Get summary info for the scans in the polar volume
 pvol$scans
 
-# Print with citation (shown by default if the object contains references)
+# Print with references (shown by default if the object contains references)
 print(pvol)
-# To suppress citation printing
-print(pvol, citation = FALSE)
+# To suppress references printing
+print(pvol, references = FALSE)
 }
 \seealso{
 Other pvol functions:
