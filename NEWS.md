@@ -1,5 +1,7 @@
 # bioRad 0.12.0.9000
 
+* `filter_precip()` now preserves missing values in `dens`, `eta`, and `dbz` (#758).
+
 * `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles.
 
 * bugfix `calculate_param()` when using `ifelse` (#770).
