@@ -1,5 +1,8 @@
 # bioRad 0.12.0.9000
 
+* `map()` now defaults to OpenStreetMap, which needs no API key. CARTO basemaps
+  require `CARTO_API_KEY` with current mapping dependencies.
+
 * `apply_mistnet()` now accepts `pvol` objects in addition to pvolfiles.
 
 * bugfix `calculate_param()` when using `ifelse` (#770).
