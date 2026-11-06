@@ -9,7 +9,7 @@ map(x, ...)
 
 \method{map}{ppi}(
   x,
-  map = "cartolight",
+  map = "osm",
   param,
   alpha = 0.7,
   xlim,
@@ -30,7 +30,9 @@ map(x, ...)
 
 \item{...}{Arguments passed to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{map}{Basemap to use, one of \code{\link[rosm:osm.types]{rosm::osm.types()}}}
+\item{map}{Basemap to use, one of \code{\link[rosm:osm.types]{rosm::osm.types()}}. Defaults to
+OpenStreetMap (\code{"osm"}), which needs no API key. CARTO basemaps require
+the \code{CARTO_API_KEY} environment variable with current versions of rosm.}
 
 \item{param}{Character. Scan parameter to plot, e.g. \code{DBZH} or \code{VRADH}. See
 \code{\link[=summary.param]{summary.param()}} for commonly available parameters.}
@@ -99,7 +101,7 @@ ppi <- project_as_ppi(example_scan)
 \donttest{
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 # Choose a basemap
-basemap <- rosm::osm.types()[1]
+basemap <- "osm"
 
 # Map the radial velocity of the ppi onto the basemap
 map(ppi, map = basemap, param = "VRADH")
