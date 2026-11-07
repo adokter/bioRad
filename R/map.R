@@ -3,7 +3,9 @@
 #' Plots a plan position indicator (`ppi`) on a base layer
 #'
 #' @param x A `ppi` object.
-#' @param map Basemap to use, one of [rosm::osm.types()]
+#' @param map Basemap to use, one of [rosm::osm.types()]. Defaults to
+#' OpenStreetMap (`"osm"`), which needs no API key. CARTO basemaps require
+#' the `CARTO_API_KEY` environment variable with current versions of rosm.
 #' @param param Character. Scan parameter to plot, e.g. `DBZH` or `VRADH`. See
 #'   [summary.param()] for commonly available parameters.
 #' @param alpha Numeric. Transparency of the data, value between 0 and 1.
@@ -48,7 +50,7 @@
 #' \donttest{
 #' if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 #' # Choose a basemap
-#' basemap <- rosm::osm.types()[1]
+#' basemap <- "osm"
 #'
 #' # Map the radial velocity of the ppi onto the basemap
 #' map(ppi, map = basemap, param = "VRADH")
@@ -80,7 +82,7 @@ map <- function(x, ...) {
 #' @export
 map.ppi <- function(
   x,
-  map = "cartolight",
+  map = "osm",
   param,
   alpha = 0.7,
   xlim,
