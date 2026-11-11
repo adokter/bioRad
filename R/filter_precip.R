@@ -32,7 +32,8 @@
 #' and calculates the altitude range at which `DBZH` is larger than parameter
 #' `dbz`. Whenever this altitude range is larger than parameter `range` (and `drop`
 #' is `FALSE`), the biology is removed by setting profile quantities `dens` and `eta`
-#' to zero and profile quantity `dbz` to `-Inf`. When parameter `drop`
+#' to zero and profile quantity `dbz` to `-Inf`, preserving missing values
+#' (`NA` and `NaN`) in each quantity. When parameter `drop`
 #' is `TRUE`, the profile is removed from the time series altogether.
 #'
 #' This posthoc precipitation filter is likely to remove biological scatterers
@@ -106,14 +107,17 @@ filter_precip <- function(x, dbz=ifelse(x$attributes$how$wavelength<7 || is.null
   # if remove, drop the profiles
   if(drop) return(x[-index])
   # otherwise set the density field to zero, but keep the profile
-  if(is.vpts(x)){
-    x$data$dens[index_heights,index] <- 0
-    x$data$eta[index_heights,index] <- 0
-    x$data$dbz[index_heights,index] <- -Inf
-  } else{
-    x$data$dens[index_heights] <- 0
-    x$data$eta[index_heights] <- 0
-    x$data$dbz[index_heights] <- -Inf
+  replacements <- c(dens = 0, eta = 0, dbz = -Inf)
+  for (quantity in names(replacements)) {
+    if (is.vpts(x)) {
+      values <- x$data[[quantity]][index_heights, index, drop = FALSE]
+      values[!is.na(values)] <- replacements[[quantity]]
+      x$data[[quantity]][index_heights, index] <- values
+    } else {
+      values <- x$data[[quantity]][index_heights]
+      values[!is.na(values)] <- replacements[[quantity]]
+      x$data[[quantity]][index_heights] <- values
+    }
   }
 
   x

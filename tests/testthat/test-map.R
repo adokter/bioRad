@@ -42,3 +42,17 @@ test_that("map() returns error on incorrect parameters", {
     fixed = TRUE
   )
 })
+
+test_that("map renders an OpenStreetMap basemap by default", {
+  skip_if_no_mapping()
+  local_mocked_bindings(rosm_image = function(..., type) {
+    expect_identical(type, "osm")
+    img <- array(1, dim = c(2, 2, 3))
+    attr(img, "bbox") <- matrix(c(1400000, 7500000, 1500000, 7700000), nrow = 2,
+      dimnames = list(c("x", "y"), c("min", "max")))
+    img
+  }, .package = "ggspatial")
+  ppi <- project_as_ppi(example_scan, grid_size = 5000, range_max = 10000)
+  plot <- map(ppi)
+  expect_s3_class(ggplot2::ggplotGrob(plot), "gtable")
+})

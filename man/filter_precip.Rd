@@ -56,7 +56,8 @@ The posthoc precipitation filter examines the total reflectivity factor \code{DB
 and calculates the altitude range at which \code{DBZH} is larger than parameter
 \code{dbz}. Whenever this altitude range is larger than parameter \code{range} (and \code{drop}
 is \code{FALSE}), the biology is removed by setting profile quantities \code{dens} and \code{eta}
-to zero and profile quantity \code{dbz} to \code{-Inf}. When parameter \code{drop}
+to zero and profile quantity \code{dbz} to \code{-Inf}, preserving missing values
+(\code{NA} and \code{NaN}) in each quantity. When parameter \code{drop}
 is \code{TRUE}, the profile is removed from the time series altogether.
 
 This posthoc precipitation filter is likely to remove biological scatterers
