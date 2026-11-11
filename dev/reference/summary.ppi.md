@@ -102,10 +102,10 @@ ppi # Same as summary(ppi) or print(ppi)
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  DBZH VRADH RHOHV ZDR PHIDP 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 
 # Get dimensions
 dim(ppi)
-#> [1]   5 201 201
+#> [1]   5 200 201
 ```

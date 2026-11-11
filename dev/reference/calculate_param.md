@@ -132,6 +132,6 @@ calculate_param(ppi, exp(DBZH))
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  DBZH VRADH RHOHV ZDR PHIDP exp(DBZH) 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 ```

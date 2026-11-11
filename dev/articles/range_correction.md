@@ -12,7 +12,7 @@ library(bioRad)
 
     ## Welcome to bioRad version 0.12.0.9000
 
-    ## using vol2birdR version 1.3.0 (MistNet not installed)
+    ## using vol2birdR version 1.3.2 (MistNet not installed)
 
 ## 2 Beam propagation
 

@@ -90,7 +90,11 @@ download_pvolfiles(
 #> Downloading data from unidata-nexrad-level2 for radar KBRO spanning over 1 days
 #> 
 #> Downloading pvol for 2002/10/01/KBRO/
-#>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+#> 
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
 # Clean up
 unlink(temp_dir, recursive = TRUE)
 # }

@@ -75,8 +75,9 @@ The posthoc precipitation filter examines the total reflectivity factor
 parameter `dbz`. Whenever this altitude range is larger than parameter
 `range` (and `drop` is `FALSE`), the biology is removed by setting
 profile quantities `dens` and `eta` to zero and profile quantity `dbz`
-to `-Inf`. When parameter `drop` is `TRUE`, the profile is removed from
-the time series altogether.
+to `-Inf`, preserving missing values (`NA` and `NaN`) in each quantity.
+When parameter `drop` is `TRUE`, the profile is removed from the time
+series altogether.
 
 This posthoc precipitation filter is likely to remove biological
 scatterers that co-occur with precipitation, for example biological

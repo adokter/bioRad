@@ -10,7 +10,7 @@ map(x, ...)
 # S3 method for class 'ppi'
 map(
   x,
-  map = "cartolight",
+  map = "osm",
   param,
   alpha = 0.7,
   xlim,
@@ -41,7 +41,10 @@ map(
 - map:
 
   Basemap to use, one of
-  [`rosm::osm.types()`](https://rdrr.io/pkg/rosm/man/deprecated.html)
+  [`rosm::osm.types()`](https://rdrr.io/pkg/rosm/man/deprecated.html).
+  Defaults to OpenStreetMap (`"osm"`), which needs no API key. CARTO
+  basemaps require the `CARTO_API_KEY` environment variable with current
+  versions of rosm.
 
 - param:
 
@@ -149,7 +152,7 @@ ppi <- project_as_ppi(example_scan)
 # \donttest{
 if (all(sapply(c("ggspatial","prettymapr", "rosm"), requireNamespace, quietly = TRUE))) {
 # Choose a basemap
-basemap <- rosm::osm.types()[1]
+basemap <- "osm"
 
 # Map the radial velocity of the ppi onto the basemap
 map(ppi, map = basemap, param = "VRADH")
@@ -174,7 +177,17 @@ map(ppi, map = basemap, xlim = c(12.4, 13.2), ylim = c(56, 56.5))
 }
 #> Zoom: 9
 #> Fetching 4 missing tiles
-#>   |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
+#> 
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |======================================================================| 100%
 #> ...complete!
 
 # }

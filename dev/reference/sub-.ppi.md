@@ -43,7 +43,7 @@ ppi
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  DBZH VRADH RHOHV ZDR PHIDP 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 
 # Subset ppi to one containing only the first parameter (DBZH)
@@ -51,7 +51,7 @@ ppi[1]
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  DBZH 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 
 # Subset ppi to one containing the first three parameters (DBZH, VRADH, ZDR)
@@ -59,7 +59,7 @@ ppi[1:3]
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  DBZH VRADH RHOHV 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 
 # Subset ppi to one without the first 2 parameters (ZDR RHOHV PHIDP)
@@ -67,6 +67,6 @@ ppi[-1:-2]
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  RHOHV ZDR PHIDP 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 ```

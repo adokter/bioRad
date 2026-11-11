@@ -2,6 +2,14 @@
 
 ## bioRad 0.12.0.9000
 
+- [`filter_precip()`](http://adriaandokter.com/bioRad/dev/reference/filter_precip.md)
+  now preserves missing values in `dens`, `eta`, and `dbz`
+  ([\#758](https://github.com/adokter/bioRad/issues/758)).
+
+- [`map()`](http://adriaandokter.com/bioRad/dev/reference/map.md) now
+  defaults to OpenStreetMap, which needs no API key. CARTO basemaps
+  require `CARTO_API_KEY` with current mapping dependencies.
+
 - [`apply_mistnet()`](http://adriaandokter.com/bioRad/dev/reference/apply_mistnet.md)
   now accepts `pvol` objects in addition to pvolfiles.
 

@@ -138,7 +138,7 @@ ppi
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  DBZH VRADH RHOHV ZDR PHIDP 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 
 # plot the ppi:
@@ -157,7 +157,7 @@ ppi
 #>                Plan position indicator (class ppi)
 #> 
 #>   parameters:  VRADH 
-#>         dims:  201 x 201 pixels
+#>         dims:  200 x 201 pixels
 #> 
 
 # plot the ppi:
