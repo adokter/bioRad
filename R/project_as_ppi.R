@@ -67,6 +67,7 @@ project_as_ppi.param <- function(x, grid_size = 500, range_max = 50000,
     geo$bbox <- attributes(data)$bboxlatlon
   }
   geo$merged <- FALSE
+  data <- terra::rast(data)
   data <- list(
     radar = attributes(x)$radar, datetime = attributes(x)$datetime,
     data = data, geo = geo
@@ -124,6 +125,7 @@ project_as_ppi.scan <- function(x, grid_size = 500, range_max = 50000,
   if (inherits(data, "SpatialPoints")) {
     data <- sp::SpatialGridDataFrame(methods::as(raster, "SpatialGrid"), data@data)
   }
+  data <- terra::rast(data)
   data <- list(
     radar = x$radar, datetime = x$datetime,
     data = data, geo = geo

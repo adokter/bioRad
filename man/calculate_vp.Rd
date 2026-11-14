@@ -255,7 +255,7 @@ pvolfile <- paste0(tempdir(),"/volume.h5")
 file.copy(pvolfile_source, pvolfile)
 
 # Calculate the profile
-if (requireNamespace("vol2birdR", quietly = TRUE)) {
+if (rlang::is_installed("vol2birdR", version = "1.3.0", compare = ">=")) {
 vp <- calculate_vp(pvolfile)
 
 # Get summary info

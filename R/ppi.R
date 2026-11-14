@@ -15,7 +15,7 @@
 #' object is a list containing:
 #' * `radar`: Radar identifier.
 #' * `datetime`: Nominal time of the volume to which the scan belongs in UTC.
-#' * `data`: A [`sp::SpatialGridDataFrame`] containing the georeferenced data.
+#' * `data`: A [`terra::SpatRaster`] containing the georeferenced data.
 #' See [summary.param()] for commonly available parameters, such as `DBZH`.
 #' * `geo`: List of the scan's geographic properties (see the `geo` element in
 #' [summary.scan()]), with two additional properties:
@@ -48,10 +48,12 @@ print.ppi <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   stopifnot(inherits(x, "ppi"))
   cat("               Plan position indicator (class ppi)\n\n")
   cat("  parameters: ", names(x$data), "\n")
-  cat(
-    "        dims: ", x$data@grid@cells.dim[1], "x",
-    x$data@grid@cells.dim[2], "pixels\n\n"
-  )
+  data_dim <- if (inherits(x$data, "SpatRaster")) {
+    c(terra::ncol(x$data), terra::nrow(x$data))
+  } else {
+    x$data@grid@cells.dim
+  }
+  cat("        dims: ", data_dim[1], "x", data_dim[2], "pixels\n\n")
 }
 
 #' Check if an object is of class `ppi`
@@ -73,6 +75,9 @@ is.ppi <- function(x) {
 #' @export
 dim.ppi <- function(x) {
   stopifnot(inherits(x, "ppi"))
+  if (inherits(x$data, "SpatRaster")) {
+    return(c(terra::nlyr(x$data), terra::ncol(x$data), terra::nrow(x$data)))
+  }
   c(dim(x$data)[2], x$data@grid@cells.dim)
 }
 
@@ -106,7 +111,8 @@ dim.ppi <- function(x) {
   stopifnot(inherits(x, "ppi"))
   my_ppi <- list(
     radar = x$radar, datetime = x$datetime,
-    data = x$data[i], geo = x$geo
+    data = if (inherits(x$data, "SpatRaster")) x$data[[i]] else x$data[i],
+    geo = x$geo
   )
   class(my_ppi) <- "ppi"
   return(my_ppi)

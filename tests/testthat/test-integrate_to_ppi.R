@@ -342,6 +342,7 @@ test_that("integrate_to_ppi() raster argument produces expected output", {
   expect_true(file.exists(pvolfile <- system.file("extdata", "volume.h5", package = "bioRad")))
   expect_s3_class(example_pvol <- read_pvolfile(pvolfile), "pvol")
   expect_s3_class(my_ppi <- integrate_to_ppi(example_pvol, example_vp, nx = 60, ny = 50), "ppi")
+  expect_s4_class(my_ppi$data, "SpatRaster")
   expect_equal(
     raster::raster(integrate_to_ppi(example_pvol, example_vp, raster = raster::raster(my_ppi$data))$data),
     raster::raster(my_ppi$data)
@@ -386,7 +387,8 @@ test_that("check if other projection gives same result", {
     example_vp,
     xlim = c(-10010, 10000), ylim = c(-11010, 10000), res = 510
   ), "ppi")
-  expect_s4_class(my_raster <- raster::rasterFromXYZ(sp::spTransform(methods::as(my_ppi$data, "SpatialPointsDataFrame"), "+proj=longlat")[c(3, 7), ]), "RasterLayer")
+  spatial_ppi <- methods::as(raster::brick(my_ppi$data), "SpatialPointsDataFrame")
+  expect_s4_class(my_raster <- raster::rasterFromXYZ(sp::spTransform(spatial_ppi, "+proj=longlat")[c(3, 7), ]), "RasterLayer")
   expect_silent(sp::proj4string(my_raster) <- "+proj=longlat")
   expect_equal(
     raster::values(raster::raster(integrate_to_ppi(example_pvol, example_vp, raster = my_raster)$data))[!is.na(raster::values(my_raster))],
@@ -487,7 +489,7 @@ test_that("integrate_to_ppi() computes a ground-referenced ppi", {
   expect_s3_class(ppi_ground, "ppi")
   expect_true(all(c("VIR", "VID", "R") %in% names(ppi_ground$data)))
   # the varied DEM should yield finite (computed) values, not an all-NA result
-  expect_true(any(is.finite(ppi_ground$data@data$VIR)))
+  expect_true(any(is.finite(terra::values(ppi_ground$data[["VIR"]]))))
 })
 
 test_that("ground reference with a flat sea-level DEM equals the sea reference", {
@@ -508,10 +510,8 @@ test_that("ground reference with a flat sea-level DEM equals the sea reference",
   )
   ppi_sea <- integrate_to_ppi(example_pvol, example_vp, raster = dem)
 
-  # ppi$data is an sp SpatialGridDataFrame; read the VIR column directly so the
-  # comparison needs neither the raster nor terra package.
-  vals_ground <- ppi_ground$data@data$VIR
-  vals_sea <- ppi_sea$data@data$VIR
+  vals_ground <- terra::values(ppi_ground$data[["VIR"]])
+  vals_sea <- terra::values(ppi_sea$data[["VIR"]])
   finite <- is.finite(vals_sea)
   expect_equal(vals_ground[finite], vals_sea[finite])
 })
