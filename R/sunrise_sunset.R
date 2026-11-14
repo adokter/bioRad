@@ -70,7 +70,7 @@ NULL
 #' @export
 sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
-  locations <- sp::SpatialPoints(locations, proj4string = sp::CRS("+proj=longlat +datum=WGS84"))
+  locations <- sf::st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
   datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
   suntimes <- suntools::crepuscule(locations, datetime, solarDep = -elev, direction = "dawn", POSIXct.out = TRUE)
   if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz=tz)
@@ -81,7 +81,7 @@ sunrise <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE)
 #' @export
 sunset <- function(date, lon, lat, elev = -0.268, tz = "UTC", force_tz = FALSE) {
   locations <- data.frame(lon = lon, lat = lat)
-  locations <- sp::SpatialPoints(locations, proj4string = sp::CRS("+proj=longlat +datum=WGS84"))
+  locations <- sf::st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
   datetime <- as.POSIXct(date, tz = tz) # tz ignored if already set
   suntimes <- suntools::crepuscule(locations, datetime, solarDep = -elev, direction = "dusk", POSIXct.out = TRUE)
   if(force_tz) suntimes$time <- lubridate::as_datetime(suntimes$time, tz=tz)

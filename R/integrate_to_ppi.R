@@ -401,8 +401,15 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   geo$elangle <- get_elevation_angles(pvol)
 
   # convert the bounding box to wgs coordinates
-  # geo$bbox=proj_to_wgs(output@bbox[1,],output@bbox[2,],sp::proj4string(output))@bbox
-  geo$bbox <- proj_to_wgs(output@bbox[1, ], output@bbox[2, ], proj4string = sp::proj4string(output))@bbox
+  bboxlatlon <- proj_to_wgs(
+    output@bbox[1, ], output@bbox[2, ],
+    proj4string = sf::st_crs(output)
+  )
+  geo$bbox <- matrix(
+    sf::st_bbox(bboxlatlon),
+    nrow = 2,
+    dimnames = list(c("lon", "lat"), c("min", "max"))
+  )
   rownames(geo$bbox) <- c("lon", "lat")
   geo$merged <- TRUE
   output_ppi <-
