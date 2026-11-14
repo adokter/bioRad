@@ -2,7 +2,7 @@
 % Please edit documentation in R/scan_convert.R
 \name{scan_to_raster}
 \alias{scan_to_raster}
-\title{Convert a polar scan into a raster}
+\title{Convert a polar scan into a raster (deprecated)}
 \usage{
 scan_to_raster(
   scan,
@@ -59,24 +59,14 @@ To use a WSG84 (lat,lon) projection, use crs="+proj=longlat +datum=WGS84"}
 a RasterBrick
 }
 \description{
-Converts an object of class \code{scan} into a raster of class \code{RasterBrick}.
+This function is deprecated. Use \code{\link[=scan_to_spatraster]{scan_to_spatraster()}} instead.
 }
 \details{
 uses \link{scan_to_spatial} to georeference the scan's pixels. If multiple scan pixels fall within
 the same raster pixel, the last added pixel is given (see \link[raster:rasterize]{rasterize} for details).
 }
 \examples{
-\donttest{
-# default projects full extent on 100x100 pixel raster:
-scan_to_raster(example_scan)
-
-# crop the scan and project at a resolution of 0.1 degree:
-scan_to_raster(example_scan, ylim = c(55, 57), xlim = c(12, 13), res = .1)
-
-# using a template raster (a terra SpatRaster can be passed directly):
-template_raster <- terra::rast(terra::ext(12, 13, 56, 58), crs = "epsg:4326")
-scan_to_raster(example_scan, raster = template_raster)
-}
+\dontrun{scan_to_raster(example_scan)}
 }
 \seealso{
 Other raster functions:

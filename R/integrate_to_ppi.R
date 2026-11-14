@@ -10,7 +10,7 @@
 #' distances from the radar. The methodology is described in detail in
 #' Kranstauber et al. (2020).
 #'
-#' @inheritParams scan_to_raster
+#' @inheritParams scan_to_spatraster
 #' @inheritParams beam_profile_overlap
 #' @param pvol A `pvol` object.
 #' @param vp A `vp` object
@@ -147,7 +147,7 @@
 #' # define a radar-centred grid (azimuthal equidistant, radar at the center):
 #' pvol |>
 #'   get_scan(.5) |>
-#'   scan_to_raster(param = "DBZH") |>
+#'   scan_to_spatraster(param = "DBZH") |>
 #'   terra::rast() -> radar_grid
 #'
 #' # download elevation data and resample onto that grid. `expand`
@@ -313,7 +313,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
   # if extent not fully specified, determine it based off the first scan
   if (assertthat::are_equal(raster, NA)) {
     if (missing(xlim) | missing(ylim)) {
-      spdf <- scan_to_spatial(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp)
+      spdf <- sf::as_Spatial(scan_to_sf(pvol$scans[[1]], k = k, lat = lat, lon = lon, re = re, rp = rp))
       spdf_extent <- raster::extent(spdf)
       # prepare a raster matching the data extent (or user-specified extent)
       if (missing(xlim)) xlim <- c(spdf_extent@xmin, spdf_extent@xmax)
@@ -344,7 +344,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
                                                           crs=sf::st_crs(raster)), sf::st_crs(localCrs))),"SpatialPointsDataFrame")
 
     rasters <- lapply(pvol$scans, function(x) {
-      scan_to_spdf(
+      .scan_to_spdf(
         add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference),
         spdf = spdf, param = c("range", "distance", "eta", "eta_expected"), k = k, re = re, rp = rp
       )
@@ -353,7 +353,7 @@ integrate_to_ppi <- function(pvol, vp, nx = 100, ny = 100, xlim, ylim, zlim = c(
     output@data <- rasters[[1]]@data
   } else {
     rasters <- lapply(pvol$scans, function(x) {
-      methods::as(scan_to_raster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp), "SpatialGridDataFrame")
+      methods::as(raster::brick(scan_to_spatraster(add_expected_eta_to_scan(x, vp, param = param, lat = lat, lon = lon, antenna = antenna, beam_angle = beam_angle, k = k, re = re, rp = rp, height_reference = height_reference), nx = nx, ny = ny, xlim = xlim, ylim = ylim, res = res, param = c("range", "distance", "eta", "eta_expected"), raster = raster, crs = crs, k = k, re = re, rp = rp)), "SpatialGridDataFrame")
     })
     output <- rasters[[1]]
   }
@@ -462,7 +462,7 @@ eta_expected <- function(vp,
 #' Adds expected eta to a scan
 #'
 #' @inheritParams integrate_to_ppi
-#' @inheritParams scan_to_raster
+#' @inheritParams scan_to_spatraster
 #' @returns A `scan` object.
 #' @noRd
 add_expected_eta_to_scan <- function(scan, vp, quantity = "dens",

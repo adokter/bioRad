@@ -198,7 +198,7 @@
 #' file.copy(pvolfile_source, pvolfile)
 #'
 #' # Calculate the profile
-#' if (requireNamespace("vol2birdR", quietly = TRUE)) {
+#' if (rlang::is_installed("vol2birdR", version = "1.3.0", compare = ">=")) {
 #' vp <- calculate_vp(pvolfile)
 #'
 #' # Get summary info
@@ -216,7 +216,7 @@
 #'   # extract lowest scan
 #'   get_scan(.5) |>
 #'   # convert to raster object
-#'   scan_to_raster(param="DBZH") |>
+#'   scan_to_spatraster(param="DBZH") |>
 #'   # convert to terra raster class
 #'   terra::rast() |>
 #'   # download digital elevation data (increase z for higher resolutions)
