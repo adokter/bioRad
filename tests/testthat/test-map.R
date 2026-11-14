@@ -1,3 +1,11 @@
+test_that("map() returns a ggplot", {
+  skip_if_no_mapping()
+  ppi <- project_as_ppi(example_scan)
+  basemap <- rosm::osm.types()[1]
+
+  expect_s3_class(map(ppi, map = basemap), "ggplot")
+})
+
 test_that("map() returns error on incorrect parameters", {
   skip_if_no_mapping()
   skip_if_offline()
