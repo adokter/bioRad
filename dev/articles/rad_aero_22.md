@@ -520,8 +520,8 @@ my_pvolfiles <- list.files("./data_pvol", recursive = TRUE, full.names = TRUE, p
 # we will process the first one into a vp:
 my_pvolfile <- my_pvolfiles[1]
 # calculate the profile, using MistNet to remove precipitation:
-# we calculate 60 layers of 50 meter width, so up to 30*100=3000 m.
-my_vp <- calculate_vp(my_pvolfile, n_layer=60, h_layer=50, sd_vvp_threshold = 1)
+# we calculate 60 layers of 50 meter width, so up to 60*50=3000 m.
+my_vp <- calculate_vp(my_pvolfile, mistnet = TRUE, n_layer=60, h_layer=50, sd_vvp_threshold = 1)
 ```
 
 **Exercise 13:** Plot the bird density in the vertical profile you just
@@ -556,7 +556,7 @@ my_pvolfile %>% read_pvolfile() -> my_pvol
 my_ppi_integrated <- integrate_to_ppi(pvol=my_pvol,vp=my_vp, res=1000)
 ```
 
-**Exercise 14:** Visually compare the PPI for the 1.0 degree sweep and
+**Exercise 14:** Visually compare the PPI for the 1.5 degree sweep and
 the vertically integrated PPI, and explain the difference in spatial
 pattern. (For the clearest comparison, make plots of comparable
 parameters that are either linear or logarithmic in bird density).
@@ -566,8 +566,7 @@ parameters that are either linear or logarithmic in bird density).
 ### Accessing radar data
 
 - US NEXRAD polar volume data can be accessed in the [Amazon
-  cloud](https://s3.amazonaws.com/noaa-nexrad-level2/index.html). Use
-  function
+  cloud](https://registry.opendata.aws/noaa-nexrad/). Use function
   [`download_pvolfiles()`](http://adriaandokter.com/bioRad/dev/reference/download_pvolfiles.md)
   for local downloads
 - European radar data can be accessed at <https://aloftdata.eu>. These

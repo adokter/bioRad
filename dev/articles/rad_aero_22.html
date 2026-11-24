@@ -513,8 +513,8 @@ a profile:</p>
 <span><span class="co"># we will process the first one into a vp:</span></span>
 <span><span class="va">my_pvolfile</span> <span class="op">&lt;-</span> <span class="va">my_pvolfiles</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="co"># calculate the profile, using MistNet to remove precipitation:</span></span>
-<span><span class="co"># we calculate 60 layers of 50 meter width, so up to 30*100=3000 m.</span></span>
-<span><span class="va">my_vp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_vp.html">calculate_vp</a></span><span class="op">(</span><span class="va">my_pvolfile</span>, n_layer<span class="op">=</span><span class="fl">60</span>, h_layer<span class="op">=</span><span class="fl">50</span>, sd_vvp_threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># we calculate 60 layers of 50 meter width, so up to 60*50=3000 m.</span></span>
+<span><span class="va">my_vp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_vp.html">calculate_vp</a></span><span class="op">(</span><span class="va">my_pvolfile</span>, mistnet <span class="op">=</span> <span class="cn">TRUE</span>, n_layer<span class="op">=</span><span class="fl">60</span>, h_layer<span class="op">=</span><span class="fl">50</span>, sd_vvp_threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Exercise 13:</strong> Plot the bird density in the vertical
 profile you just estimated and compare it with the plots above of the
 beam height and width of the lowest radar beam. At which approximate
@@ -542,7 +542,7 @@ paragraph:</p>
 <span><span class="co"># Next, let's calculate a PPI for the 1.5 degree elevation scan</span></span>
 <span><span class="co"># Finally, we calculated the vertically integrated PPI</span></span>
 <span><span class="va">my_ppi_integrated</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integrate_to_ppi.html">integrate_to_ppi</a></span><span class="op">(</span>pvol<span class="op">=</span><span class="va">my_pvol</span>,vp<span class="op">=</span><span class="va">my_vp</span>, res<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Exercise 14:</strong> Visually compare the PPI for the 1.0
+<p><strong>Exercise 14:</strong> Visually compare the PPI for the 1.5
 degree sweep and the vertically integrated PPI, and explain the
 difference in spatial pattern. (For the clearest comparison, make plots
 of comparable parameters that are either linear or logarithmic in bird
@@ -556,9 +556,8 @@ density).</p>
 <h3 id="accessing-radar-data">Accessing radar data<a class="anchor" aria-label="anchor" href="#accessing-radar-data"></a>
 </h3>
 <ul>
-<li>US NEXRAD polar volume data can be accessed in the <a href="https://s3.amazonaws.com/noaa-nexrad-level2/index.html" class="external-link">Amazon
-cloud</a>. Use function <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> for local
-downloads</li>
+<li>US NEXRAD polar volume data can be accessed in the <a href="https://registry.opendata.aws/noaa-nexrad/" class="external-link">Amazon cloud</a>. Use
+function <code><a href="../reference/download_pvolfiles.html">download_pvolfiles()</a></code> for local downloads</li>
 <li>European radar data can be accessed at <a href="https://aloftdata.eu" class="external-link uri">https://aloftdata.eu</a>. These
 are processed vertical profiles, the full polar volume data are not
 openly available for most countries. Use function
