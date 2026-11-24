@@ -158,6 +158,8 @@ export(sunset)
 export(update_docker)
 export(vol2bird_version)
 export(write_pvolfile)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,.data)
+importFrom(dplyr,
+  "%>%",
+  .data
+)
 importFrom(lifecycle,deprecated)
