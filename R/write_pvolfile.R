@@ -99,11 +99,14 @@ write_pvolfile <- function(pvol, file, overwrite = FALSE, infer_dtype = FALSE) {
       group <- paste0("dataset", i, "/data", j, "/what")
       rhdf5::h5createGroup(fid, group)
       gid <- rhdf5::H5Gopen(fid, group)
-      rhdf5::h5writeAttribute(attributes(data)$param, gid, "quantity")
-      rhdf5::h5writeAttribute(conv$gain, gid, "gain")
-      rhdf5::h5writeAttribute(conv$offset, gid, "offset")
-      rhdf5::h5writeAttribute(conv$nodata, gid, "nodata")
-      rhdf5::h5writeAttribute(conv$undetect, gid, "undetect")
+      # variableLengthString = FALSE: ODIM requires fixed-length string
+      # attributes; rhdf5 >= 2.58 defaults to variable-length strings, which
+      # vol2bird's C HDF5 reader cannot parse.
+      rhdf5::h5writeAttribute(attributes(data)$param, gid, "quantity", variableLengthString = FALSE)
+      rhdf5::h5writeAttribute(conv$gain, gid, "gain", variableLengthString = FALSE)
+      rhdf5::h5writeAttribute(conv$offset, gid, "offset", variableLengthString = FALSE)
+      rhdf5::h5writeAttribute(conv$nodata, gid, "nodata", variableLengthString = FALSE)
+      rhdf5::h5writeAttribute(conv$undetect, gid, "undetect", variableLengthString = FALSE)
       rhdf5::H5Gclose(gid)
     }
 
@@ -128,7 +131,7 @@ write_group_attributes <- function(fid, group, attrgroups) {
     attribnames <- names(attrgroup)
 
     for (l in seq_along(attribnames)) {
-      rhdf5::h5writeAttribute(attrgroup[[l]][[1]], gid, attribnames[l])
+      rhdf5::h5writeAttribute(attrgroup[[l]][[1]], gid, attribnames[l], variableLengthString = FALSE)
     }
     rhdf5::H5Gclose(gid)
   }

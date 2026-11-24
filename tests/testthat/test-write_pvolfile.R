@@ -24,6 +24,17 @@ test_that("write_pvolfile() writes a valid pvol", {
   expect_equal(get_odim_object_type(testpath), "PVOL")
 })
 
+test_that("write_pvolfile() output is readable by vol2bird's C reader", {
+  # Regression guard for rhdf5 >= 2.58 defaulting to variable-length string
+  # attributes, which vol2bird's C HDF5 reader cannot parse.
+  skip_if_no_vol2birdR()
+  write_pvolfile(pvol, testpath, overwrite = TRUE)
+  expect_s3_class(
+    calculate_vp(file = testpath, warnings = FALSE),
+    "vp"
+  )
+})
+
 test_that("write_pvolfile() writes data to the same dtype if infer_dtype = FALSE", {
   write_pvolfile(pvol, testpath, overwrite = TRUE, infer_dtype = FALSE)
   pvol_new <- read_pvolfile(testpath)
