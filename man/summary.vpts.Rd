@@ -9,7 +9,7 @@
 \usage{
 \method{summary}{vpts}(object, ...)
 
-\method{print}{vpts}(x, digits = max(3L, getOption("digits") - 3L), ...)
+\method{print}{vpts}(x, digits = max(3L, getOption("digits") - 3L), references = TRUE, ...)
 
 is.vpts(x)
 
@@ -24,6 +24,11 @@ is.vpts(x)
 
 \item{digits}{minimal number of \emph{significant} digits, see
     \code{\link[base]{print.default}}.}
+
+\item{references}{Logical indicating whether to print the references for the vpts
+object. If \code{TRUE} and the object contains references in
+\code{x$attributes$references}, these will be printed in author-year format.
+Default is \code{TRUE}.}
 }
 \value{
 For \code{\link[=summary.vpts]{summary.vpts()}}: prints the summary of the\code{vpts} object.
@@ -86,6 +91,9 @@ example_vpts # Same as summary(example_vpts) or print(example_vpts)
 
 # Get dimensions
 dim(example_vpts)
+
+# To suppress references printing
+print(example_vpts, references = FALSE)
 }
 \seealso{
 Other vpts functions:

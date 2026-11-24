@@ -5,6 +5,10 @@
 #'
 #' @param object A `vpts` object.
 #' @param ... Additional arguments affecting the summary produced.
+#' @param references Logical indicating whether to print the references for the pvol
+#'   object. If `TRUE` and the object contains references in
+#'   `x$attributes$references`, these will be printed in author-year format.
+#'   Default is `TRUE`.
 #' @returns For [summary.vpts()]: prints the summary of the`vpts` object.
 #' @method summary vpts
 #' @family vpts functions
@@ -48,17 +52,25 @@
 #'
 #' # Get dimensions
 #' dim(example_vpts)
+#'
+#' # To suppress references printing
+#' print(example_vpts, references = FALSE)
 summary.vpts <- function(object, ...) {
-  print.vpts(object)
+  print.vpts(object, ...)
 }
 
 #' Print summary for an object of class `vpts`
 #'
 #' @rdname summary.vpts
 #' @inheritParams base::print
+#' @param references Logical indicating whether to print the references for the vpts
+#'   object. If `TRUE` and the object contains references in
+#'   `x$attributes$references`, these will be printed in author-year format.
+#'   Default is `TRUE`.
 #' @returns For [print.vpts()]: prints the summary of the `vpts` object.
 #' @export
-print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
+print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L),
+                       references = TRUE, ...) {
   stopifnot(inherits(x, "vpts"))
   if (is.null(x[["height"]])) {
     warning(glue::glue("`x` is a legacy `vpts` object without a column `height`. ",
@@ -95,6 +107,10 @@ print.vpts <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
     cat("   time step (s): ", stepMin, "\n")
   } else {
     cat("   time step (s): ", "min:", stepMin, "    max: ", stepMax, "\n")
+  }
+
+  if (references) {
+    print_references(x)
   }
 }
 
